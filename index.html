@@ -458,6 +458,30 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
     </table>
   </div>
 
+    <h3>Refinement</h3>
+    <p>Any piece of gear can be refined from +1 up to +10, increasing its power. Refinement uses <strong style="color:#9d9d9d">Scrap</strong>, acquired by dismantling equipment. Refined equipment yields more Scrap when dismantled, creating a recycling loop.</p>
+    <table>
+      <tr><th>Rule</th><th>Detail</th></tr>
+      <tr><td>Currency</td><td>Scrap — gained by dismantling gear</td></tr>
+      <tr><td>Cost scaling</td><td>Higher equipment tier and higher current refinement both increase Scrap cost</td></tr>
+      <tr><td>Success chance</td><td>Decreases at each level — +9 to +10 is extremely rare</td></tr>
+      <tr><td>On failure</td><td>No progress, no destruction — Scrap is consumed but gear is unaffected</td></tr>
+      <tr><td>Dismantling refined gear</td><td>Yields more Scrap than base gear — scales with refinement level</td></tr>
+    </table>
+
+    <h3>Grading up</h3>
+    <p>Gear can be upgraded to the next grade (e.g. Rare → Epic) using <strong style="color:#a855f7">Ichor</strong>. Functions identically to refinement in terms of cost scaling, failure chance, and no-destruction on failure.</p>
+    <table>
+      <tr><th>Rule</th><th>Detail</th></tr>
+      <tr><td>Currency</td><td>Ichor</td></tr>
+      <tr><td>Cost scaling</td><td>Higher current grade increases Ichor cost</td></tr>
+      <tr><td>Success chance</td><td>Decreases at higher grades — upgrading into Primordial and Void is very rare</td></tr>
+      <tr><td>On failure</td><td>No progress, no destruction — Ichor is consumed but grade is unchanged</td></tr>
+    </table>
+    <div class="note note-info"><p><strong>Open decision:</strong> How is Ichor acquired? Possible sources: drops from bosses, dismantling high-grade gear, crafting, or as a rare gathering node reward.</p></div>
+
+  </div>
+
   <!-- ECONOMY -->
   <div id="economy" class="page">
     <h2>Economy & marketplace</h2>
