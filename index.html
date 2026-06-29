@@ -171,9 +171,9 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
       <li>Tabs only exist for leagues the player has an active character in — new accounts start with 1 tab</li>
       <li>Closing the game window pauses all characters</li>
       <li>No offline rewards — open game only</li>
-      <li>All tabs share one executable process and memory budget — performance must be profiled with all 4 active</li>
+      <li>All tabs share one executable process — not a performance concern given the 2D turn-based nature of the game</li>
     </ul>
-    <div class="note note-info"><p><strong>Unity implementation note:</strong> Multiple simultaneous scene simulations in one executable require additive scene loading or a custom simulation layer — not default Unity behaviour. Plan this architecture early.</p></div>
+    <div class="note note-info"><p><strong>Unity implementation note:</strong> Multiple simultaneous scenes use additive scene loading — a well-documented Unity pattern. Straightforward to implement.</p></div>
 
     <h3>Overworld movement</h3>
     <p>Classic top-down grid movement. 4 directions, one tile per step — identical to Generation II Pokémon games (SoulSilver/HeartGold). Unity Tilemap system with orthographic camera.</p>
@@ -421,7 +421,6 @@ Your Backend
       <li><span class="phase-num">14</span><span><strong style="color:#e8e8e6">Steam release</strong> — store page, F2P config, achievements</span></li>
     </ol>
     <h3>Critical risks</h3>
-    <div class="note note-risk"><p><strong>Multi-tab simulation performance</strong> — running 4 simultaneous character simulations in one executable needs early profiling. Architecture decision (additive scenes vs custom sim layer) must be made before any multi-character work begins.</p></div>
     <div class="note note-risk"><p><strong>PvP anti-cheat</strong> — server-authoritative resolution required. Design this before any PvP work begins.</p></div>
     <div class="note note-risk"><p><strong>Art consistency</strong> — lock style-guide prompt before mass generation.</p></div>
     <div class="note note-risk"><p><strong>Death pipeline integrity</strong> — four death paths + two crypt systems + season migration must all be tested exhaustively. HC Seasonal double-migration is highest risk.</p></div>
