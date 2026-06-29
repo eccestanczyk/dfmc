@@ -79,6 +79,7 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
     <button onclick="show('battle',this)">Battle system</button>
     <button onclick="show('leagues',this)">Leagues</button>
     <button onclick="show('metagame',this)">Metagame</button>
+    <button onclick="show('equipment',this)">Equipment</button>
     <button onclick="show('economy',this)">Economy</button>
     <button onclick="show('tech',this)">Tech stack</button>
     <button onclick="show('roadmap',this)">Roadmap</button>
@@ -321,6 +322,82 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
       <tr><td>Item use</td><td>Use Evolution Stone</td></tr>
       <tr><td>Bond/friendship</td><td>High bond + level up</td></tr>
     </table>
+  </div>
+
+  <!-- EQUIPMENT -->
+  <div id="equipment" class="page">
+    <h2>Equipment</h2>
+
+    <h3>Equipment slots</h3>
+    <p>Each character has 8 equipment slots. Weapons and accessories provide useable abilities. Armour slots provide passive bonuses.</p>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Weapons & accessories <span style="font-size:11px;color:#555552;font-weight:400">— grant active abilities</span></div>
+        <div class="card-body" style="margin-top:6px">
+          <table style="margin:0">
+            <tr><td style="color:#e8e8e6;width:120px">Main hand</td><td>Primary weapon — ability slot</td></tr>
+            <tr><td style="color:#e8e8e6">Off hand</td><td>Shield, off-hand weapon, or tome — ability slot</td></tr>
+            <tr><td style="color:#e8e8e6">Accessory 1</td><td>Ring, amulet, etc. — ability slot</td></tr>
+            <tr><td style="color:#e8e8e6">Accessory 2</td><td>Ring, amulet, etc. — ability slot</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Armour <span style="font-size:11px;color:#555552;font-weight:400">— grant passive bonuses</span></div>
+        <div class="card-body" style="margin-top:6px">
+          <table style="margin:0">
+            <tr><td style="color:#e8e8e6;width:120px">Head</td><td>Helmet</td></tr>
+            <tr><td style="color:#e8e8e6">Chest</td><td>Body armour</td></tr>
+            <tr><td style="color:#e8e8e6">Gloves</td><td>Gauntlets</td></tr>
+            <tr><td style="color:#e8e8e6">Feet</td><td>Boots</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <h3>Creature souls</h3>
+    <p>Each piece of gear can have the soul of a creature attached to it, granting special effects or attributes. Every creature has a different effect for each gear slot — the same creature attached to a helmet vs boots produces different bonuses.</p>
+
+    <h3>Equipment grades</h3>
+    <p>Grade determines how many gem, rune, and enchantment slots a piece of gear has. Higher grades allow more modifiers. Equipment is also tiered every 10 character levels.</p>
+    <table>
+      <tr><th>Grade</th><th>Gems</th><th>Runes</th><th>Enchantments</th></tr>
+      <tr><td><span style="color:#888884">Common</span></td><td>1</td><td>—</td><td>—</td></tr>
+      <tr><td><span style="color:#4ade80">Uncommon</span></td><td>1</td><td>1</td><td>—</td></tr>
+      <tr><td><span style="color:#60a5fa">Rare</span></td><td>1</td><td>1</td><td>1</td></tr>
+      <tr><td><span style="color:#a78bfa">Exquisite</span></td><td>2</td><td>1</td><td>1</td></tr>
+      <tr><td><span style="color:#fbbf24">Legendary</span></td><td>2</td><td>2</td><td>1</td></tr>
+      <tr><td><span style="color:#f87171">Divine</span></td><td>2</td><td>2</td><td>2</td></tr>
+      <tr><td><span style="color:#c084fc">Cosmic</span></td><td>3</td><td>2</td><td>2</td></tr>
+      <tr><td><span style="color:#93c5fd">Transcendent</span></td><td>3</td><td>3</td><td>2</td></tr>
+      <tr><td><span style="color:#fcd34d">Supreme</span></td><td>3</td><td>3</td><td>3</td></tr>
+    </table>
+
+    <h3>Modifier slots</h3>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-title">💎 Gems</div>
+        <div class="card-body">Fixed modifiers set at socket time. Cannot be changed without removing the gem. Up to 3 slots at Supreme grade.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">🔷 Runes</div>
+        <div class="card-body">Fixed modifiers set at socket time. Cannot be changed without removing the rune. Up to 3 slots at Supreme grade.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">✨ Enchantments</div>
+        <div class="card-body">Drawn from a randomized pool. Can be rerolled at a resource cost. Up to 3 slots at Supreme grade.</div>
+      </div>
+    </div>
+
+    <h3>Base types & implicit modifiers</h3>
+    <p>Every equipment slot has multiple base types, each with a different implicit modifier that is always present regardless of grade or sockets. Base type defines the foundational identity of the item.</p>
+    <table>
+      <tr><th>Slot</th><th>Base type example</th><th>Implicit modifier</th></tr>
+      <tr><td>Head</td><td>Leather helmet</td><td>Dodge chance</td></tr>
+      <tr><td>Head</td><td>Metal helmet</td><td>Armour</td></tr>
+      <tr><td colspan="3" style="color:#555552;font-size:12px;padding:6px 8px">Full base type table TBD per slot</td></tr>
+    </table>
+    <div class="note note-info"><p><strong>Open decision:</strong> Full list of base types and their implicit modifiers per slot needs to be defined. This drives the crafting and drop table design significantly.</p></div>
   </div>
 
   <!-- ECONOMY -->
