@@ -308,13 +308,47 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
     <h2>Metagame systems</h2>
     <p>These systems run between tower runs and constitute the long-term engagement loop.</p>
     <div class="grid-2">
-      <div class="card"><div class="card-title">🧬 Breeding</div><div class="card-body">Two parent creatures produce offspring. Stat inheritance rules determine base stats. Egg timer before hatch. Breed count per creature may be limited.</div></div>
+      <div class="card"><div class="card-title">🧬 Breeding</div><div class="card-body">Two parent creatures fed Offering produce an egg. Higher grade creatures require more Offering. Higher grade parents significantly increase odds of higher grade eggs. No grade cap on bred eggs.</div></div>
       <div class="card"><div class="card-title">🔧 Crafting</div><div class="card-body">Recipe ScriptableObjects. Inventory check at craft time. Outputs items or equipment. Materials sourced from gathering nodes and farming.</div></div>
-      <div class="card"><div class="card-title">🌱 Farming</div><div class="card-body">Tile-based at player base. Growth timers per crop. Yield feeds crafting inputs. Farm plot count expands via base upgrades.</div></div>
-      <div class="card"><div class="card-title">🏗️ Base upgrading</div><div class="card-body">Building levels unlock features: more farm plots, more breeding slots, larger storage, crafting stations. Resource sink for gathered materials.</div></div>
+      <div class="card"><div class="card-title">🌱 Farming</div><div class="card-body">Tile-based at player base. Growth timers per crop. Yield can be rendered into Offering or used as crafting inputs. Farm plot count expands via base upgrades.</div></div>
+      <div class="card"><div class="card-title">🏗️ Base upgrading</div><div class="card-body">Building levels unlock features: more farm plots, more breeding slots, larger storage, crafting stations, longer incubation capacity. Resource sink for gathered materials.</div></div>
     </div>
+
+    <h3>Creature acquisition</h3>
+    <p>There is no capture mechanic. All creatures come from eggs — either dropped in combat or produced via breeding. Every egg must be incubated at the base before hatching. Egg grade determines the stat range of the hatched creature and becomes the creature's grade.</p>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">🥚 Wild eggs</div>
+        <div class="card-body">Drop from combat encounters. Grade range: <span style="color:#6b6b6b">Worn</span> through <span style="color:#ff8000">Legendary</span> only — no wild eggs above grade 6. Grade determines stat range at hatch.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">🧬 Bred eggs</div>
+        <div class="card-body">Produced at base by two parent creatures fed Offering. No grade cap — can produce up to <span style="color:#a855f7">Void</span>. Higher grade parents significantly increase odds of higher grade output.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">⭐ Starter creatures</div>
+      <div class="card-body">The player's very first creatures are selected from a set of 3 options before any combat. Grade and stats of starters are TBD.</div>
+    </div>
+
+    <h3>Offering</h3>
+    <p>Offering is the unified food resource used to breed creatures. Higher grade creatures require more Offering per breeding attempt. Three sources all render into the same Offering pool:</p>
+    <table>
+      <tr><th>Source</th><th>How it becomes Offering</th></tr>
+      <tr><td>Eggs</td><td>Unwanted eggs can be rendered into Offering at the base</td></tr>
+      <tr><td>Crops</td><td>Farmed crops rendered into Offering at the base</td></tr>
+      <tr><td>Creature meat</td><td>Defeated creatures drop meat, rendered into Offering at the base</td></tr>
+    </table>
+
+    <h3>Incubation</h3>
+    <p>All eggs regardless of source must be incubated at the base for a set time before hatching. Incubation capacity and duration are affected by base upgrades.</p>
+    <div class="note note-info"><p><strong>Open decision:</strong> Does incubation time scale with egg grade (higher = longer wait), or is it a flat timer? Starter creature grade and stats also TBD.</p></div>
+
     <h3>Skill trees</h3>
     <p>Both characters and creatures have PoE-style passive skill trees as graph ScriptableObjects. SP earned on level-up. Nodes unlock adjacent nodes only. Respec always possible at a resource cost.</p>
+
     <h3>Creature evolutions</h3>
     <table>
       <tr><th>Trigger type</th><th>Example</th></tr>
