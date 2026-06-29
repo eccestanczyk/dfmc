@@ -95,7 +95,7 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
       <div class="stat-card"><div class="stat-label">Art style</div><div class="stat-val">Dark fantasy, AI-generated painting</div></div>
     </div>
     <h3>Concept</h3>
-    <p>A creature-collecting roguelite RPG where players climb an ever-ascending tower floor by floor. Each floor is a self-contained map with gathering nodes, random battles, NPC trainers, and a boss. The metagame revolves around breeding, crafting, farming, and base-building between runs.</p>
+    <p>A creature-collecting roguelite RPG where players climb an ever-ascending tower floor by floor. Each floor is a self-contained map with gathering nodes, random battles, Rogue Collectors, and a boss. The metagame revolves around breeding, crafting, farming, and base-building between runs.</p>
     <h3>Game modes</h3>
     <div class="grid-2">
       <div class="card"><div class="card-title"><span class="pill pill-eternal">Eternal</span></div><div class="card-body" style="margin-top:6px">Soft death. Character stays in league, no reset. Houses the Eternal crypt. Receives crypt chests from seasonal migrations.</div></div>
@@ -169,7 +169,7 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
       <li>Background tabs with autoplay disabled are paused/idle</li>
       <li>Background tabs with autoplay enabled continue simulating</li>
       <li>Switching to a tab does not automatically disable autoplay — player must turn it off manually to take control</li>
-      <li>Tabs only exist for leagues the player has an active character in — new accounts start with 1 tab</li>
+      <li>Tabs only exist for leagues the Collector has an active character in — new accounts start with 1 tab</li>
       <li>Closing the game window pauses all characters</li>
       <li>No offline rewards — open game only</li>
       <li>All tabs share one executable process — not a performance concern given the 2D turn-based nature of the game</li>
@@ -179,13 +179,33 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
     <h3>Overworld movement</h3>
     <p>Classic top-down grid movement. 4 directions, one tile per step — identical to Generation II Pokémon games (SoulSilver/HeartGold). Unity Tilemap system with orthographic camera.</p>
     <div class="card"><div class="card-title">Movement rules</div><div class="card-body"><ul style="margin:4px 0 0"><li>Face direction on input even if blocked by collision</li><li>Raycast or collision check ahead before stepping</li><li>Animation states: idle and walk for all 4 directions</li><li>Random encounter triggers on step count + RNG roll</li></ul></div></div>
+    <h3>Map design</h3>
+    <p>Each floor is a handcrafted top-down map in classic Pokémon style. Maps are designed as a <strong style="color:#e8e8e6">circuit</strong> — the Collector walks a loop, and at the end passes through a door or portal (themed per floor) that resets the loop with fresh nodes and new Rogue Collector spawns. The boss is a one-time encounter per floor; once defeated it is gone permanently and the circuit continues as a pure resource loop.</p>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">🔄 Main circuit — autoplay layer</div>
+        <div class="card-body">Fixed node locations, random node contents each loop. Rogue Collectors respawn fresh each loop. Autoplay navigates the circuit indefinitely. Accessible from the start.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">🔍 Secret areas — manual layer</div>
+        <div class="card-body">Hidden behind puzzles or HM tool gates. Contain better loot, rarer nodes, Ichor, higher grade eggs. Autoplay never enters these. Reward Collectors who take the wheel.</div>
+      </div>
+    </div>
+
+    <h3>HM tools</h3>
+    <p>HM tools are items that unlock access to secret areas. They are found inside secret areas themselves — meaning the first secret area on a floor is accessible via puzzle, and its reward unlocks deeper secrets elsewhere. HM tools persist in the Collector's inventory and can be lost on hardcore death like any other item.</p>
+    <div class="note note-info"><p><strong>Open decision:</strong> Do HM tools work across multiple floors (e.g. a grappling hook unlocks cliff areas on all floors), or are they floor-specific?</p></div>
+
     <h3>Floor structure</h3>
     <table>
       <tr><th>Element</th><th>Details</th></tr>
-      <tr><td>Gathering nodes</td><td>Ore, plants, etc. — respawn timer per node, loot table ScriptableObject</td></tr>
+      <tr><td>Gathering nodes</td><td>Fixed locations, contents randomize each loop. Respawn on circuit reset.</td></tr>
       <tr><td>Random battles</td><td>Step-counter trigger, encounter table varies by floor</td></tr>
-      <tr><td>NPC trainers</td><td>Patrol routes, line-of-sight trigger, one-time battle per floor run</td></tr>
-      <tr><td>Boss</td><td>One per floor, gates next floor, fixed spawn</td></tr>
+      <tr><td>Rogue Collectors</td><td>Patrol routes, line-of-sight trigger. Respawn fresh each loop.</td></tr>
+      <tr><td>Secret areas</td><td>Puzzle or HM-gated. Better rewards. Autoplay ignores entirely.</td></tr>
+      <tr><td>Boss</td><td>One-time encounter per floor. After defeat, that area becomes part of the regular circuit.</td></tr>
+      <tr><td>Portal / door</td><td>End of circuit. Theme matches floor. Passing through resets loop with fresh nodes and Rogue Collectors.</td></tr>
     </table>
     <h3>Autoplay</h3>
     <p>Autoplay is disabled by default and must be enabled per character. It can be enabled on any tab including the currently selected one. To take manual control of a character, disable autoplay on that tab.</p>
@@ -244,7 +264,7 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
     </table>
 
     <h3>Crypt chests</h3>
-    <p>A physical chest in the base that the player walks up to and opens. Not an auto-dump into inventory. Two crypts exist:</p>
+    <p>A physical chest in the base that the Collector walks up to and opens. Not an auto-dump into inventory. Two crypts exist:</p>
     <div class="grid-2">
       <div class="card">
         <div class="card-title"><span class="pill pill-eternal">Eternal crypt</span></div>
@@ -459,7 +479,7 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
   </div>
 
     <h3>Refinement</h3>
-    <p>Any piece of gear can be refined from +1 up to +10, increasing its power. Refinement uses <strong style="color:#9d9d9d">Scrap</strong>, acquired by dismantling equipment. Refined equipment yields more Scrap when dismantled, creating a recycling loop. Dismantling also yields <strong style="color:#a855f7">Ichor</strong>, the currency used for grading up.</p>
+    <p>Any piece of gear can be refined from +1 up to +10, increasing its power. Refinement uses <strong style="color:#9d9d9d">Scrap</strong>, acquired by dismantling equipment. Refined equipment yields more Scrap when dismantled, creating a recycling loop.</p>
     <table>
       <tr><th>Rule</th><th>Detail</th></tr>
       <tr><td>Currency</td><td>Scrap — gained by dismantling gear</td></tr>
@@ -478,7 +498,7 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
       <tr><td>Success chance</td><td>Decreases at higher grades — upgrading into Primordial and Void is very rare</td></tr>
       <tr><td>On failure</td><td>No progress, no destruction — Ichor is consumed but grade is unchanged</td></tr>
     </table>
-    <p>Ichor is acquired by dismantling equipment, the same source as Scrap. Both currencies drop from dismantling — Scrap for refinement, Ichor for grading.</p>
+    <div class="note note-info"><p><strong>Open decision:</strong> How is Ichor acquired? Possible sources: drops from bosses, dismantling high-grade gear, crafting, or as a rare gathering node reward.</p></div>
 
   </div>
 
@@ -569,7 +589,7 @@ Your Backend
       <li><span class="phase-num">3</span><span><strong style="color:#e8e8e6">Encounter trigger</strong> — battle scene entry, minimal 1v1 battle, return to overworld</span></li>
       <li><span class="phase-num">4</span><span><strong style="color:#e8e8e6">Full battle system</strong> — expand to 3v3, moves, status effects, animations</span></li>
       <li><span class="phase-num">5</span><span><strong style="color:#e8e8e6">Floor progression</strong> — boss gate, stairs, floor transition, multiple floors</span></li>
-      <li><span class="phase-num">6</span><span><strong style="color:#e8e8e6">Gathering & trainers</strong> — node collection, NPC patrol, one-time battles</span></li>
+      <li><span class="phase-num">6</span><span><strong style="color:#e8e8e6">Gathering & Rogue Collectors</strong> — node collection, NPC patrol, one-time battles</span></li>
       <li><span class="phase-num">7</span><span><strong style="color:#e8e8e6">Autoplay & multi-tab system</strong> — pathfinding, config options, death handler, simultaneous multi-character simulation</span></li>
       <li><span class="phase-num">8</span><span><strong style="color:#e8e8e6">Character & class system</strong> — class XP, character level aggregation, PoE skill trees</span></li>
       <li><span class="phase-num">9</span><span><strong style="color:#e8e8e6">Metagame</strong> — breeding, crafting, farming, base building</span></li>
