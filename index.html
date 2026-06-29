@@ -160,10 +160,14 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
     <h3>Multi-character tab system</h3>
     <p>One game window contains up to 4 tabs — one per active league character. All active characters simulate simultaneously inside a single executable instance. There is no offline progression; being in-game is the only way to advance.</p>
     <div class="grid-2">
-      <div class="card"><div class="card-title">Active tab</div><div class="card-body">The selected tab receives manual player input. The player controls this character directly or can enable autoplay.</div></div>
-      <div class="card"><div class="card-title">Background tabs</div><div class="card-body">All other active tabs continue running on autoplay with their configured autoplay settings. Simulation does not pause.</div></div>
+      <div class="card"><div class="card-title">Manual mode</div><div class="card-body">Default state. Player directly controls the character on the selected tab. Autoplay must be explicitly enabled to hand off control.</div></div>
+      <div class="card"><div class="card-title">Autoplay mode</div><div class="card-body">Must be enabled per character. Any tab can run on autoplay — including the currently selected one. Disable autoplay on the active tab to return to manual control.</div></div>
     </div>
     <ul>
+      <li>Autoplay is off by default — players opt in per character</li>
+      <li>Background tabs with autoplay disabled are paused/idle</li>
+      <li>Background tabs with autoplay enabled continue simulating</li>
+      <li>Switching to a tab does not automatically disable autoplay — player must turn it off manually to take control</li>
       <li>Tabs only exist for leagues the player has an active character in — new accounts start with 1 tab</li>
       <li>Closing the game window pauses all characters</li>
       <li>No offline rewards — open game only</li>
@@ -183,6 +187,7 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
       <tr><td>Boss</td><td>One per floor, gates next floor, fixed spawn</td></tr>
     </table>
     <h3>Autoplay</h3>
+    <p>Autoplay is disabled by default and must be enabled per character. It can be enabled on any tab including the currently selected one. To take manual control of a character, disable autoplay on that tab.</p>
     <div class="grid-3">
       <div class="card"><div class="card-title">AutoHealThreshold</div><div class="card-body">Use healing items when HP drops below %</div></div>
       <div class="card"><div class="card-title">AutoRetreatOnLowHP</div><div class="card-body">Retreat to base when near death</div></div>
