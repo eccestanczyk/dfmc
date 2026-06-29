@@ -359,19 +359,22 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
     <p>Each piece of gear can have the soul of a creature attached to it, granting special effects or attributes. Every creature has a different effect for each gear slot — the same creature attached to a helmet vs boots produces different bonuses.</p>
 
     <h3>Equipment grades</h3>
-    <p>Grade determines how many gem, rune, and enchantment slots a piece of gear has. Higher grades allow more modifiers. Equipment is also tiered every 10 character levels.</p>
+    <p>Grade determines how many gem, rune, and enchantment slots a piece of gear has. Equipment is also tiered every 10 character levels. From Abyssal upward, items have visual effects in addition to their color — effects appear on item icons and names in inventory, equipment UI, and the battle conclusion screen.</p>
+    <p style="font-size:13px;color:#555552;margin-bottom:0.75rem">Items never drop on the ground — all loot is delivered directly to inventory via the battle conclusion screen.</p>
     <table>
-      <tr><th>Grade</th><th>Gems</th><th>Runes</th><th>Enchantments</th></tr>
-      <tr><td><span style="color:#9d9d9d">Common</span></td><td>1</td><td>—</td><td>—</td></tr>
-      <tr><td><span style="color:#1eff00">Uncommon</span></td><td>1</td><td>1</td><td>—</td></tr>
-      <tr><td><span style="color:#0070dd">Rare</span></td><td>1</td><td>1</td><td>1</td></tr>
-      <tr><td><span style="color:#a335ee">Epic</span></td><td>2</td><td>1</td><td>1</td></tr>
-      <tr><td><span style="color:#ff8000">Legendary</span></td><td>2</td><td>2</td><td>1</td></tr>
-      <tr><td><span style="color:#e5393f">Abyssal</span></td><td>2</td><td>2</td><td>2</td></tr>
-      <tr><td><span style="color:#00ffe0">Divine</span></td><td>3</td><td>2</td><td>2</td></tr>
-      <tr><td><span style="color:#ff44cc">Primordial</span></td><td>3</td><td>3</td><td>2</td></tr>
-      <tr><td><span style="color:#ffffff">Void</span></td><td>3</td><td>3</td><td>3</td></tr>
+      <tr><th>Grade</th><th>Gems</th><th>Runes</th><th>Enchantments</th><th>Visual effect</th></tr>
+      <tr><td><span style="color:#6b6b6b">Worn</span></td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><td><span style="color:#9d9d9d">Common</span></td><td>1</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><td><span style="color:#1eff00">Uncommon</span></td><td>1</td><td>1</td><td>—</td><td>—</td></tr>
+      <tr><td><span style="color:#0070dd">Rare</span></td><td>1</td><td>1</td><td>1</td><td>—</td></tr>
+      <tr><td><span style="color:#a335ee">Epic</span></td><td>2</td><td>1</td><td>1</td><td>—</td></tr>
+      <tr><td><span style="color:#ff8000">Legendary</span></td><td>2</td><td>2</td><td>1</td><td>—</td></tr>
+      <tr><td><span style="color:#e5393f">Abyssal</span></td><td>2</td><td>2</td><td>2</td><td>Slow pulse, dim red glow</td></tr>
+      <tr><td><span style="color:#00ffe0">Divine</span></td><td>3</td><td>2</td><td>2</td><td>Soft shimmer, holy light sweep</td></tr>
+      <tr><td><span style="color:#ff44cc">Primordial</span></td><td>3</td><td>3</td><td>2</td><td>Flowing energy, subtle distortion</td></tr>
+      <tr><td><span style="color:#a855f7;text-shadow:0 0 6px #7c3aed">Void</span></td><td>3</td><td>3</td><td>3</td><td>Dark tendrils, particles, chromatic aberration on hover</td></tr>
     </table>
+    <div class="note note-info"><p><strong>Open decision:</strong> Visual effects scope — item name text only, icon border, full icon treatment, or all of the above?</p></div>
 
     <h3>Modifier slots</h3>
     <div class="grid-3">
