@@ -97,10 +97,10 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
     <p>A creature-collecting roguelite RPG where players climb an ever-ascending tower floor by floor. Each floor is a self-contained map with gathering nodes, random battles, NPC trainers, and a boss. The metagame revolves around breeding, crafting, farming, and base-building between runs.</p>
     <h3>Game modes</h3>
     <div class="grid-2">
-      <div class="card"><div class="card-title"><span class="pill pill-eternal">Eternal</span></div><div class="card-body" style="margin-top:6px">Permanent progression. One character per account. Houses the Eternal crypt. Receives items from Hardcore deaths and seasonal migrations.</div></div>
-      <div class="card"><div class="card-title"><span class="pill pill-hc">Hardcore</span></div><div class="card-body" style="margin-top:6px">One character. On death, character is demoted to Eternal. Items, soul gems, and creatures go to the Eternal crypt chest.</div></div>
-      <div class="card"><div class="card-title"><span class="pill pill-season">Seasonal</span></div><div class="card-body" style="margin-top:6px">One character. Timed league. On season end, character and seasonal crypt chest migrate to Eternal.</div></div>
-      <div class="card"><div class="card-title"><span class="pill pill-hcs">HC Seasonal</span></div><div class="card-body" style="margin-top:6px">One character. On death, character demoted to Seasonal regular. Items go to Seasonal crypt. On season end, everything migrates to Hardcore.</div></div>
+      <div class="card"><div class="card-title"><span class="pill pill-eternal">Eternal</span></div><div class="card-body" style="margin-top:6px">Soft death. Character stays in league, no reset. Houses the Eternal crypt. Receives crypt chests from seasonal migrations.</div></div>
+      <div class="card"><div class="card-title"><span class="pill pill-hc">Hardcore</span></div><div class="card-body" style="margin-top:6px">On death, character is wiped to level 1 and stays in Hardcore. All items, creatures, and class XP (as soul gems) go to the Eternal crypt chest.</div></div>
+      <div class="card"><div class="card-title"><span class="pill pill-season">Seasonal</span></div><div class="card-body" style="margin-top:6px">Soft death. Timed league. On season end, character migrates to Eternal. Seasonal crypt chest delivered to Eternal base.</div></div>
+      <div class="card"><div class="card-title"><span class="pill pill-hcs">HC Seasonal</span></div><div class="card-body" style="margin-top:6px">On death, character wiped to level 1 and stays in HC Seasonal. Items, creatures, and class XP go to Seasonal crypt. On season end, HC Seasonal crypt delivered to Hardcore base.</div></div>
     </div>
     <h3>Ladders</h3>
     <ul><li>PvP ladder — ranked 3v3 combat, tracked per season and all-time</li><li>Progress (floor) ladder — highest floor reached, tracked per season and all-time</li></ul>
@@ -111,8 +111,8 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
   <!-- CHARACTERS -->
   <div id="character" class="page">
     <h2>Character system</h2>
-    <h3>One character per league per account</h3>
-    <p>Each account has exactly one character per league. The character is not recreated on death — they are demoted to the league below. Leagues are: HC Seasonal → Seasonal regular → (season end) → Hardcore or Eternal depending on path.</p>
+    <h3>One character per league, always</h3>
+    <p>Every account has a character in every league they have unlocked, starting at level 1. The character slot is permanent — death does not remove or demote the character. On hardcore death, the character is wiped back to level 1 and remains in the same league. Only their items, creatures, and class XP are lost.</p>
 
     <h3>Character level vs class level</h3>
     <p>The character has a <strong style="color:#e8e8e6">character level</strong> — a global level aggregated from XP across all classes. Character level scales base stats (HP, stamina, resistances). Each class has its own <strong style="color:#e8e8e6">class level</strong> tracked separately, unlocking skill tree nodes and class-specific bonuses. Switching classes does not reset others.</p>
@@ -231,15 +231,15 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
   <div id="leagues" class="page">
     <h2>Leagues & death system</h2>
 
-    <div class="note note-info"><p><strong>One character per league per account.</strong> Death does not destroy the character — it demotes them to the league below. Only their items, soul gems, and creatures are separated into the crypt.</p></div>
+    <div class="note note-info"><p><strong>One character per league per account, always.</strong> Every account starts with a level 1 character in every unlocked league. Death never removes or moves the character — it wipes them back to level 1 in place. Only items, creatures, and class XP are lost.</p></div>
 
-    <h3>Death & demotion table</h3>
+    <h3>Death table</h3>
     <table>
-      <tr><th>League</th><th>On death</th><th>Items go to</th><th>Character goes to</th></tr>
-      <tr><td><span class="pill pill-eternal">Eternal</span></td><td>Soft — respawn at base</td><td>—</td><td>Stays in Eternal</td></tr>
-      <tr><td><span class="pill pill-hc">Hardcore</span></td><td>Permanent demotion</td><td>Eternal crypt chest</td><td>Eternal league</td></tr>
-      <tr><td><span class="pill pill-season">Seasonal</span></td><td>Soft — respawn at base</td><td>—</td><td>Stays in Seasonal</td></tr>
-      <tr><td><span class="pill pill-hcs">HC Seasonal</span></td><td>Permanent demotion</td><td>Seasonal crypt chest</td><td>Seasonal regular</td></tr>
+      <tr><th>League</th><th>On death</th><th>Character after death</th><th>Items go to</th></tr>
+      <tr><td><span class="pill pill-eternal">Eternal</span></td><td>Soft — respawn at base</td><td>Unchanged</td><td>—</td></tr>
+      <tr><td><span class="pill pill-hc">Hardcore</span></td><td>Character wiped to level 1</td><td>Stays in Hardcore, level 1</td><td>Eternal crypt chest</td></tr>
+      <tr><td><span class="pill pill-season">Seasonal</span></td><td>Soft — respawn at base</td><td>Unchanged</td><td>—</td></tr>
+      <tr><td><span class="pill pill-hcs">HC Seasonal</span></td><td>Character wiped to level 1</td><td>Stays in HC Seasonal, level 1</td><td>Seasonal crypt chest</td></tr>
     </table>
 
     <h3>Crypt chests</h3>
@@ -276,18 +276,18 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
     <ol class="phase-list">
       <li><span class="phase-num">1</span><span>Character dies in Hardcore league</span></li>
       <li><span class="phase-num">2</span><span>Character flagged: diedOnHardcore = true, deathFloor and timestamp recorded</span></li>
-      <li><span class="phase-num">3</span><span>Soul gems generated — one per class with any XP</span></li>
+      <li><span class="phase-num">3</span><span>All class XP converted to soul gems — one per class with any XP, rank by XP amount</span></li>
       <li><span class="phase-num">4</span><span>All gear, inventory, soul gems, and creatures deposited into Eternal crypt chest</span></li>
-      <li><span class="phase-num">5</span><span>Character demoted to Eternal league with permanent death mark on status sheet</span></li>
+      <li><span class="phase-num">5</span><span>Character reset to level 1, remains in Hardcore league with death mark on status sheet</span></li>
     </ol>
 
     <h3>HC Seasonal death pipeline</h3>
     <ol class="phase-list">
       <li><span class="phase-num">1</span><span>Character dies in HC Seasonal league</span></li>
       <li><span class="phase-num">2</span><span>Character flagged: diedOnHardcore = true, deathFloor and timestamp recorded</span></li>
-      <li><span class="phase-num">3</span><span>Soul gems generated — one per class with any XP</span></li>
+      <li><span class="phase-num">3</span><span>All class XP converted to soul gems — one per class with any XP, rank by XP amount</span></li>
       <li><span class="phase-num">4</span><span>All gear, inventory, soul gems, and creatures deposited into Seasonal crypt chest</span></li>
-      <li><span class="phase-num">5</span><span>Character demoted to Seasonal regular league with death mark</span></li>
+      <li><span class="phase-num">5</span><span>Character reset to level 1, remains in HC Seasonal league with death mark</span></li>
     </ol>
 
     <h3>Death mark data</h3>
@@ -299,7 +299,7 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
   DateTime hardcoreDeathTime;
 }</pre>
 
-    <div class="note note-warn"><p>Test all four death pipelines and the season-end double migration independently. The HC Seasonal → Seasonal regular → Hardcore path is the most likely source of data bugs.</p></div>
+    <div class="note note-warn"><p>Test all four death pipelines and the season-end migration independently. The HC Seasonal crypt → Hardcore base delivery is the most likely source of data bugs.</p></div>
   </div>
 
   <!-- METAGAME -->
@@ -390,7 +390,7 @@ Your Backend
     </div>
     <h3>Save system</h3>
     <ul>
-      <li>One character per league per account — no character creation, only demotion</li>
+      <li>One character per league per account — permanent slot, never removed, reset to level 1 on hardcore death</li>
       <li>Eternal / Hardcore / Seasonal / HC Seasonal are separate league profiles</li>
       <li>Each league has its own crypt chest state</li>
       <li>Character level and all class levels travel with the character on demotion</li>
