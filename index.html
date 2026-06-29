@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tower Crawler — GDD</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,sans-serif;background:#0f0f0f;color:#e8e8e6;min-height:100vh}
+.wrap{max-width:800px;margin:0 auto;padding:2rem 1.5rem}
+.header{border-bottom:0.5px solid #2a2a2a;padding-bottom:1rem;margin-bottom:1.25rem}
+.title{font-size:22px;font-weight:500;letter-spacing:-0.3px}
+.sub{font-size:13px;color:#555552;margin-top:4px}
+.nav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1.5rem}
+.nav button{font-size:12px;padding:4px 10px;border:0.5px solid #2a2a2a;border-radius:6px;background:transparent;color:#888884;cursor:pointer;font-family:inherit;transition:all 0.1s}
+.nav button:hover{background:#1a1a1a;color:#e8e8e6}
+.nav button.active{background:#222;border-color:#333;color:#e8e8e6}
+.page{display:none}.page.active{display:block}
+h2{font-size:18px;font-weight:500;margin:1.5rem 0 0.75rem;color:#e8e8e6;border-bottom:0.5px solid #2a2a2a;padding-bottom:6px}
+h2:first-child{margin-top:0}
+h3{font-size:15px;font-weight:500;margin:1rem 0 0.5rem;color:#e8e8e6}
+p{font-size:14px;line-height:1.7;color:#888884;margin-bottom:0.75rem}
+ul{font-size:14px;color:#888884;padding-left:1.25rem;margin-bottom:0.75rem;line-height:1.85}
+.card{background:#1a1a1a;border:0.5px solid #2a2a2a;border-radius:12px;padding:1rem 1.25rem;margin-bottom:0.75rem}
+.card-title{font-size:13px;font-weight:600;margin-bottom:6px;color:#e8e8e6}
+.card-body{font-size:13px;color:#888884;line-height:1.65}
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:0.75rem}
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:0.75rem}
+.stat-card{background:#1a1a1a;border:0.5px solid #2a2a2a;border-radius:8px;padding:0.75rem 1rem}
+.stat-label{font-size:11px;color:#555552;text-transform:uppercase;letter-spacing:0.5px}
+.stat-val{font-size:14px;font-weight:500;color:#e8e8e6;margin-top:3px}
+.note{border-radius:0 4px 4px 0;padding:0.6rem 0.9rem;margin-bottom:0.75rem;border-left-width:2px;border-left-style:solid}
+.note p{margin:0;font-size:13px;line-height:1.6}
+.note-info{background:#0e1f3d;border-color:#2563eb}.note-info p{color:#93c5fd}
+.note-warn{background:#2d1f00;border-color:#d97706}.note-warn p{color:#fcd34d}
+.note-risk{background:#3f1212;border-color:#dc2626}.note-risk p{color:#fca5a5}
+.note-lore{background:#1a0d2d;border-color:#7c3aed}.note-lore p{color:#c084fc}
+table{width:100%;font-size:13px;border-collapse:collapse;margin-bottom:1rem}
+th{text-align:left;font-size:12px;color:#555552;padding:6px 8px;border-bottom:0.5px solid #2a2a2a;font-weight:500}
+td{padding:7px 8px;color:#888884;vertical-align:top}
+tr:not(:last-child) td{border-bottom:0.5px solid #2a2a2a}
+pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #2a2a2a;border-radius:6px;padding:0.75rem 1rem;margin-bottom:0.75rem;color:#a3a39f;white-space:pre-wrap;line-height:1.65}
+.pill{font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;display:inline-block}
+.pill-hc{background:#3f1212;color:#f87171}
+.pill-eternal{background:#1e1440;color:#a78bfa}
+.pill-season{background:#0e1f3d;color:#60a5fa}
+.pill-hcs{background:#2d1f00;color:#fbbf24}
+.pill-wip{background:#2d1f00;color:#fbbf24}
+.pill-warrior{background:#2d1a00;color:#fb923c}
+.pill-archer{background:#0f2d1a;color:#4ade80}
+.pill-mage{background:#1a0d2d;color:#c084fc}
+.phase-list{list-style:none;padding:0;margin:0}
+.phase-list li{display:flex;gap:10px;align-items:flex-start;padding:8px 0;font-size:13px;color:#888884}
+.phase-list li:not(:last-child){border-bottom:0.5px solid #2a2a2a}
+.phase-num{min-width:22px;height:22px;border-radius:50%;background:#222;border:0.5px solid #333;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#555552;flex-shrink:0}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1rem}
+.tag{font-size:12px;padding:2px 8px;border:0.5px solid #2a2a2a;border-radius:4px;color:#888884;background:#1a1a1a;font-family:monospace}
+.soul-gem{background:#1a1a1a;border:0.5px solid #2a2a2a;border-radius:8px;padding:0.75rem 1rem;display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.gem-rank{width:36px;height:36px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0}
+.gem-name{font-size:13px;font-weight:500;color:#e8e8e6}
+.gem-xp{font-size:11px;color:#555552;margin-top:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <div class="title">Tower Crawler — Game Design Document</div>
+    <div class="sub">Living document · Last updated June 2026 · <span class="pill pill-wip">In Development</span></div>
+  </div>
+
+  <div class="nav">
+    <button class="active" onclick="show('overview',this)">Overview</button>
+    <button onclick="show('character',this)">Characters</button>
+    <button onclick="show('core-loop',this)">Core loop</button>
+    <button onclick="show('battle',this)">Battle system</button>
+    <button onclick="show('leagues',this)">Leagues</button>
+    <button onclick="show('metagame',this)">Metagame</button>
+    <button onclick="show('economy',this)">Economy</button>
+    <button onclick="show('tech',this)">Tech stack</button>
+    <button onclick="show('roadmap',this)">Roadmap</button>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div id="overview" class="page active">
+    <h2>Overview</h2>
+    <div class="grid-2">
+      <div class="stat-card"><div class="stat-label">Genre</div><div class="stat-val">Roguelite RPG / Creature Collector</div></div>
+      <div class="stat-card"><div class="stat-label">Platform</div><div class="stat-val">PC — Steam (F2P)</div></div>
+      <div class="stat-card"><div class="stat-label">Engine</div><div class="stat-val">Unity 6.5 Personal</div></div>
+      <div class="stat-card"><div class="stat-label">Art style</div><div class="stat-val">Dark fantasy, AI-generated painting</div></div>
+    </div>
+    <h3>Concept</h3>
+    <p>A creature-collecting roguelite RPG where players climb an ever-ascending tower floor by floor. Each floor is a self-contained map with gathering nodes, random battles, NPC trainers, and a boss. The metagame revolves around breeding, crafting, farming, and base-building between runs.</p>
+    <h3>Game modes</h3>
+    <div class="grid-2">
+      <div class="card"><div class="card-title"><span class="pill pill-eternal">Eternal</span></div><div class="card-body" style="margin-top:6px">Permanent progression. Dead hardcore characters arrive here with a death mark. Houses the crypt.</div></div>
+      <div class="card"><div class="card-title"><span class="pill pill-hc">Hardcore</span></div><div class="card-body" style="margin-top:6px">Death is permanent. Character flagged and migrated to Eternal. Gear, soul gems, and creatures deposited in the crypt.</div></div>
+      <div class="card"><div class="card-title"><span class="pill pill-season">Seasonal</span></div><div class="card-body" style="margin-top:6px">Timed league with a separate ladder. At season end, all characters migrate to Eternal.</div></div>
+      <div class="card"><div class="card-title"><span class="pill pill-hcs">Hardcore Seasonal</span></div><div class="card-body" style="margin-top:6px">Death sends character to Seasonal regular (not Eternal, no crypt). Both hardcore and seasonal rules apply.</div></div>
+    </div>
+    <h3>Ladders</h3>
+    <ul><li>PvP ladder — ranked 3v3 combat, tracked per season and all-time</li><li>Progress (floor) ladder — highest floor reached, tracked per season and all-time</li></ul>
+    <h3>Art pipeline</h3>
+    <p>Dark fantasy realistic painting style generated with AI tools (ChatGPT/DALL-E or Midjourney). A locked style-guide prompt must be established before mass generation begins. Flow: Generate → Upscale → Background removal → Import to Unity via Addressables.</p>
+  </div>
+
+  <!-- CHARACTERS -->
+  <div id="character" class="page">
+    <h2>Character system</h2>
+    <h3>Character level vs class level</h3>
+    <p>Every account has one character with a <strong style="color:#e8e8e6">character level</strong> — a global level aggregated from XP across all classes. Character level scales base stats (HP, stamina, resistances). Each class has its own <strong style="color:#e8e8e6">class level</strong> tracked separately, unlocking skill tree nodes and class-specific bonuses. Switching classes does not reset others.</p>
+    <div class="card"><div class="card-title">XP & level model</div><pre style="margin:8px 0 0">Character
+├── characterLevel   → sum of all class XP → scales base stats
+├── Warrior
+│   ├── classLevel   → unlocks warrior skill tree nodes
+│   └── classXP
+├── Archer
+│   ├── classLevel
+│   └── classXP
+└── Mage
+    ├── classLevel
+    └── classXP</pre></div>
+    <h3>Starting classes</h3>
+    <div class="grid-3">
+      <div class="card"><div class="card-title"><span class="pill pill-warrior">Warrior</span></div><div class="card-body" style="margin-top:6px">Melee frontliner. High HP and physical defense. Skill tree: weapon mastery, stances, passive tankiness.<br><br><span style="font-size:12px;color:#555552">Specializations TBD</span></div></div>
+      <div class="card"><div class="card-title"><span class="pill pill-archer">Archer</span></div><div class="card-body" style="margin-top:6px">Ranged attacker. High mobility and crit potential. Skill tree: bow types, traps, pet synergies.<br><br><span style="font-size:12px;color:#555552">Specializations TBD</span></div></div>
+      <div class="card"><div class="card-title"><span class="pill pill-mage">Mage</span></div><div class="card-body" style="margin-top:6px">Spellcaster. High damage ceiling with resource management. Skill tree: elemental schools, utility.<br><br><span style="font-size:12px;color:#555552">Specializations TBD</span></div></div>
+    </div>
+    <h3>Skill tree</h3>
+    <p>Each class has a Path of Exile–style passive skill tree — a large interconnected graph of nodes. Players spend skill points (earned on class level-up) to unlock adjacent nodes only.</p>
+    <ul>
+      <li>Node types: stat (flat bonus), modifier (% bonus), keystone (build-defining passive)</li>
+      <li>Must path from starting node outward — no jumping to isolated nodes</li>
+      <li>Respec costs resources but is always possible</li>
+      <li>Class specializations gate deeper sub-trees inaccessible without specialising</li>
+    </ul>
+    <h3>Hardcore death — crypt system</h3>
+    <div class="note note-lore"><p>When a hardcore character dies, their soul fractures. Each class they trained echoes forward as a Soul Gem, left in the crypt for future inheritors.</p></div>
+    <div class="note note-info"><p><strong>Crypt is Eternal-only.</strong> Only Hardcore (eternal) deaths trigger the crypt. Hardcore Seasonal deaths go to Seasonal regular — no crypt deposit, no soul gems.</p></div>
+    <p>On an Eternal-bound hardcore death, the following are sent to the <strong style="color:#e8e8e6">crypt chest in the base's graveyard</strong>:</p>
+    <table>
+      <tr><th>Item type</th><th>Details</th></tr>
+      <tr><td>Soul Gems</td><td>One per class the character had any XP in. Rank scales with XP. Consuming grants that XP to a living character's matching class.</td></tr>
+      <tr><td>Equipped gear</td><td>All gear worn at time of death.</td></tr>
+      <tr><td>Inventory items</td><td>Everything in the character's inventory.</td></tr>
+      <tr><td>Dead hardcore creatures</td><td>All tamed creatures that died in hardcore on that account.</td></tr>
+    </table>
+    <h3>Soul gem ranks</h3>
+    <div class="soul-gem"><div class="gem-rank" style="background:#2d1f00;border:0.5px solid #fbbf2460;color:#fbbf24">S</div><div><div class="gem-name">Soul of the Mage <span style="color:#fbbf24">S</span></div><div class="gem-xp">Grants 999,999 Mage XP on consume</div></div></div>
+    <div class="soul-gem"><div class="gem-rank" style="background:#1a1a1a;border:0.5px solid #88888460;color:#888884">E</div><div><div class="gem-name">Soul of the Archer <span style="color:#888884">E</span></div><div class="gem-xp">Grants 250 Archer XP on consume</div></div></div>
+    <div class="soul-gem"><div class="gem-rank" style="background:#1a1a1a;border:0.5px solid #55555260;color:#555552">F</div><div><div class="gem-name">Soul of the Warrior <span style="color:#555552">F</span></div><div class="gem-xp">Grants 100 Warrior XP on consume</div></div></div>
+    <div class="note note-info" style="margin-top:12px"><p>Item description shows exact XP granted on consume. Rank thresholds (F through S) are TBD — to be balanced during development.</p></div>
+    <h3>Crypt chest rules</h3>
+    <ul>
+      <li>Account-wide and persistent — never resets</li>
+      <li>Accumulates items from all deceased eternal-bound hardcore characters</li>
+      <li>Creatures in the crypt retain stats, moves, and death mark — can be revived into Eternal</li>
+      <li>Soul gems are consumable — once used, gone</li>
+      <li>Gear is immediately usable by living characters</li>
+    </ul>
+  </div>
+
+  <!-- CORE LOOP -->
+  <div id="core-loop" class="page">
+    <h2>Core loop</h2>
+    <h3>Overworld movement</h3>
+    <p>Classic top-down grid movement. 4 directions, one tile per step — identical to Generation II Pokémon games (SoulSilver/HeartGold). Unity Tilemap system with orthographic camera.</p>
+    <div class="card"><div class="card-title">Movement rules</div><div class="card-body"><ul style="margin:4px 0 0"><li>Face direction on input even if blocked by collision</li><li>Raycast or collision check ahead before stepping</li><li>Animation states: idle and walk for all 4 directions</li><li>Random encounter triggers on step count + RNG roll</li></ul></div></div>
+    <h3>Floor structure</h3>
+    <table>
+      <tr><th>Element</th><th>Details</th></tr>
+      <tr><td>Gathering nodes</td><td>Ore, plants, etc. — respawn timer per node, loot table ScriptableObject</td></tr>
+      <tr><td>Random battles</td><td>Step-counter trigger, encounter table varies by floor</td></tr>
+      <tr><td>NPC trainers</td><td>Patrol routes, line-of-sight trigger, one-time battle per floor run</td></tr>
+      <tr><td>Boss</td><td>One per floor, gates next floor, fixed spawn</td></tr>
+    </table>
+    <h3>Autoplay</h3>
+    <div class="grid-3">
+      <div class="card"><div class="card-title">AutoHealThreshold</div><div class="card-body">Use healing items when HP drops below %</div></div>
+      <div class="card"><div class="card-title">AutoRetreatOnLowHP</div><div class="card-body">Retreat to base when near death</div></div>
+      <div class="card"><div class="card-title">AutoCollectNodes</div><div class="card-body">Automatically gather nodes on path</div></div>
+    </div>
+    <div class="note note-risk"><p><strong>On death during autoplay:</strong> autoplay is cleared, player is sent to base, stage is locked until team is manually healed and stage is reselected.</p></div>
+    <h3>Healing</h3>
+    <p>Healing items can be used between fights on a floor (manually or on auto). Not usable mid-battle.</p>
+  </div>
+
+  <!-- BATTLE -->
+  <div id="battle" class="page">
+    <h2>Battle system</h2>
+    <h3>Party composition</h3>
+    <table>
+      <tr><th>Side</th><th>PvE</th><th>PvP</th></tr>
+      <tr><td>Player</td><td>1 avatar + 2 creatures</td><td>1 avatar + 2 creatures</td></tr>
+      <tr><td>Enemy</td><td>1 to N enemies (varies per encounter)</td><td>1 avatar + 2 creatures</td></tr>
+    </table>
+    <h3>PvP format</h3>
+    <ul><li>3v3: 1 avatar + 2 creatures per side</li><li>Best of 3 — no sideboarding between games</li><li>Team locked at match start</li><li>Results post to PvP ladder</li></ul>
+    <h3>Architecture</h3>
+    <pre>BattleManager (state machine)
+├── PlayerSide: [Avatar] [Creature1] [Creature2]
+├── EnemySide: [1–N enemies] (PvE) / [Avatar + 2] (PvP)
+├── TurnManager
+├── ActionQueue
+├── AnimationController
+└── BattleResultHandler</pre>
+    <h3>Turn structure</h3>
+    <p>Speed stat determines order within a turn. Status effects queued (poison, stun, burn, etc.) and resolve after move resolution.</p>
+    <div class="note note-info"><p><strong>Open decision:</strong> Simultaneous or sequential turns? Define before battle system implementation begins.</p></div>
+    <h3>PvP sync</h3>
+    <p>Both players submit actions simultaneously. Server resolves outcomes. Unity Relay for connection. Never resolved client-side.</p>
+    <div class="note note-risk"><p><strong>Anti-cheat:</strong> Server-authoritative or server-verified only for PvP.</p></div>
+    <h3>Creatures & characters</h3>
+    <ul><li>Characters level up and spend skill points on a PoE-style tree per class</li><li>Creatures level up, spend skill points, and have evolution chains</li><li>Evolutions triggered by level, item, or bond — swap CreatureData ScriptableObject, preserve stat history</li></ul>
+  </div>
+
+  <!-- LEAGUES -->
+  <div id="leagues" class="page">
+    <h2>Leagues & death system</h2>
+    <h3>Death destination by league</h3>
+    <table>
+      <tr><th>League</th><th>On death</th><th>Crypt</th><th>Ladder</th></tr>
+      <tr><td><span class="pill pill-eternal">Eternal</span></td><td>Soft — respawn at base</td><td>No</td><td>All-time floor</td></tr>
+      <tr><td><span class="pill pill-hc">Hardcore</span></td><td>Permanent → migrates to Eternal + crypt deposit</td><td>Yes</td><td>All-time floor</td></tr>
+      <tr><td><span class="pill pill-season">Seasonal</span></td><td>Soft — respawn at base</td><td>No</td><td>Season floor + PvP</td></tr>
+      <tr><td><span class="pill pill-hcs">HC Seasonal</span></td><td>Permanent → migrates to Seasonal regular</td><td>No</td><td>Season floor + PvP</td></tr>
+    </table>
+    <div class="note note-info"><p>The crypt is triggered <strong>only</strong> by Hardcore (eternal) deaths. Hardcore Seasonal deaths migrate to the current Seasonal regular league — no crypt, no soul gems, gear stays with the character.</p></div>
+    <h3>Hardcore (eternal) death pipeline</h3>
+    <ol class="phase-list">
+      <li><span class="phase-num">1</span><span>Character dies in Hardcore league</span></li>
+      <li><span class="phase-num">2</span><span>Character flagged: diedOnHardcore = true, deathFloor and timestamp recorded</span></li>
+      <li><span class="phase-num">3</span><span>Soul Gems generated — one per class with any XP, rank determined by XP amount</span></li>
+      <li><span class="phase-num">4</span><span>Equipped gear, inventory, and all account's dead hardcore creatures deposited in crypt chest</span></li>
+      <li><span class="phase-num">5</span><span>Character migrated to Eternal league with permanent death mark on status sheet</span></li>
+      <li><span class="phase-num">6</span><span>Crypt chest accessible to all living characters on the account</span></li>
+    </ol>
+    <h3>Hardcore Seasonal death pipeline</h3>
+    <ol class="phase-list">
+      <li><span class="phase-num">1</span><span>Character dies in Hardcore Seasonal league</span></li>
+      <li><span class="phase-num">2</span><span>Character flagged: diedOnHardcore = true, deathFloor and timestamp recorded</span></li>
+      <li><span class="phase-num">3</span><span>Character migrated to current Seasonal regular league with death mark</span></li>
+      <li><span class="phase-num">4</span><span>Gear and inventory stay with the character — no crypt deposit, no soul gems</span></li>
+      <li><span class="phase-num">5</span><span>At season end, character migrates from Seasonal regular to Eternal as normal</span></li>
+    </ol>
+    <h3>Death mark data</h3>
+    <pre>CharacterSaveData {
+  bool   diedOnHardcore;
+  string hardcoreDeathFloor;
+  string hardcoreLeague;     // "HC" | "HCS"
+  string hardcoreSeasonId;   // null if not seasonal
+  DateTime hardcoreDeathTime;
+}</pre>
+    <h3>Season lifecycle</h3>
+    <ol class="phase-list">
+      <li><span class="phase-num">1</span><span>Season start date set in Unity RemoteConfig</span></li>
+      <li><span class="phase-num">2</span><span>Players create fresh characters in Seasonal or HC Seasonal</span></li>
+      <li><span class="phase-num">3</span><span>Ladder tracks floor progress and PvP rank</span></li>
+      <li><span class="phase-num">4</span><span>Season ends → all surviving seasonal characters migrate to Eternal with season badge</span></li>
+      <li><span class="phase-num">5</span><span>HC Seasonal dead characters (already in Seasonal regular) also migrate to Eternal</span></li>
+      <li><span class="phase-num">6</span><span>Seasonal ladder archived, new season begins</span></li>
+    </ol>
+    <div class="note note-warn"><p>Test all four death pipelines independently. The HC Seasonal → Seasonal regular → Eternal double-migration path is the most likely source of data bugs.</p></div>
+  </div>
+
+  <!-- METAGAME -->
+  <div id="metagame" class="page">
+    <h2>Metagame systems</h2>
+    <p>These systems run between tower runs and constitute the long-term engagement loop.</p>
+    <div class="grid-2">
+      <div class="card"><div class="card-title">🧬 Breeding</div><div class="card-body">Two parent creatures produce offspring. Stat inheritance rules determine base stats. Egg timer before hatch. Breed count per creature may be limited.</div></div>
+      <div class="card"><div class="card-title">🔧 Crafting</div><div class="card-body">Recipe ScriptableObjects. Inventory check at craft time. Outputs items or equipment. Materials sourced from gathering nodes and farming.</div></div>
+      <div class="card"><div class="card-title">🌱 Farming</div><div class="card-body">Tile-based at player base. Growth timers per crop. Yield feeds crafting inputs. Farm plot count expands via base upgrades.</div></div>
+      <div class="card"><div class="card-title">🏗️ Base upgrading</div><div class="card-body">Building levels unlock features: more farm plots, more breeding slots, larger storage, crafting stations. Resource sink for gathered materials.</div></div>
+    </div>
+    <h3>Skill trees</h3>
+    <p>Both characters and creatures have PoE-style passive skill trees as graph ScriptableObjects. SP earned on level-up. Nodes unlock adjacent nodes only. Respec always possible at a resource cost.</p>
+    <h3>Creature evolutions</h3>
+    <table>
+      <tr><th>Trigger type</th><th>Example</th></tr>
+      <tr><td>Level threshold</td><td>Evolve at level 20</td></tr>
+      <tr><td>Item use</td><td>Use Evolution Stone</td></tr>
+      <tr><td>Bond/friendship</td><td>High bond + level up</td></tr>
+    </table>
+  </div>
+
+  <!-- ECONOMY -->
+  <div id="economy" class="page">
+    <h2>Economy & marketplace</h2>
+    <h3>Monetization model</h3>
+    <ul><li>Free to play on Steam</li><li>Microtransactions via Steam / Unity Economy</li><li>Battle pass per season</li><li>Steam takes 5% market fee + configurable game fee (up to ~10%)</li></ul>
+    <div class="note note-info"><p>Cosmetics-only monetization is safer for player reception and avoids regulatory issues in certain markets. Decide scope early.</p></div>
+    <h3>Steam marketplace integration</h3>
+    <p>Tradeable items and creatures are Steam Inventory items. Ownership lives on Steam; gameplay data lives on the backend keyed to instance IDs.</p>
+    <div class="card"><div class="card-title">Ownership model</div><pre style="margin:8px 0 0">SteamInventory
+└── Owns CreatureToken #ItemDef_042, InstanceID 8837623
+
+Your Backend
+└── CreatureInstance_8837623 {
+      level, moves, stats,
+      diedOnHardcore, breedCount
+    }</pre></div>
+    <h3>Item grant flow (server-side only)</h3>
+    <ol class="phase-list">
+      <li><span class="phase-num">1</span><span>Player completes breed/craft action</span></li>
+      <li><span class="phase-num">2</span><span>Client sends request to cloud function (AWS Lambda / PlayFab CloudScript)</span></li>
+      <li><span class="phase-num">3</span><span>Server validates action is legitimate</span></li>
+      <li><span class="phase-num">4</span><span>Server calls Steam GenerateItem API with publisher key</span></li>
+      <li><span class="phase-num">5</span><span>Steam issues item to player inventory</span></li>
+      <li><span class="phase-num">6</span><span>Confirmation returned to client</span></li>
+    </ol>
+    <div class="note note-risk"><p>Never grant Steam inventory items from the client. Server-side only with publisher key validation.</p></div>
+    <h3>Tradeable vs non-tradeable</h3>
+    <table>
+      <tr><th>Tradeable</th><th>Not tradeable</th></tr>
+      <tr><td>Creatures (with flags)</td><td>Ladder progress / rank</td></tr>
+      <tr><td>Crafting materials</td><td>Character / class levels or skill points</td></tr>
+      <tr><td>Cosmetic items</td><td>Base upgrades</td></tr>
+      <tr><td>Equipment</td><td>Account-bound starter items</td></tr>
+      <tr><td>Soul Gems (TBD)</td><td>Hardcore death mark status</td></tr>
+    </table>
+  </div>
+
+  <!-- TECH -->
+  <div id="tech" class="page">
+    <h2>Tech stack</h2>
+    <h3>Unity packages</h3>
+    <table>
+      <tr><th>Package</th><th>Purpose</th></tr>
+      <tr><td>Input System</td><td>All player input — abstracted for future mobile port</td></tr>
+      <tr><td>Cinemachine</td><td>Camera management</td></tr>
+      <tr><td>TextMeshPro</td><td>All in-game text</td></tr>
+      <tr><td>Addressables</td><td>Async AI art asset loading — critical for volume</td></tr>
+      <tr><td>Newtonsoft JSON</td><td>Data serialization</td></tr>
+      <tr><td>Netcode for GameObjects</td><td>PvP battle sync</td></tr>
+      <tr><td>A* Pathfinding Project</td><td>Autoplay pathfinding on tilemap</td></tr>
+      <tr><td>Unity Localization</td><td>Future-proofing for multiple languages</td></tr>
+    </table>
+    <h3>Backend services</h3>
+    <table>
+      <tr><th>Service</th><th>Purpose</th></tr>
+      <tr><td>Unity Gaming Services</td><td>Auth, cloud save, leaderboards, economy, remote config</td></tr>
+      <tr><td>Unity Relay + Lobby</td><td>PvP matchmaking and connection</td></tr>
+      <tr><td>Steamworks.NET</td><td>Steam integration, achievements, inventory, market</td></tr>
+      <tr><td>Steam Inventory Service</td><td>Tradeable item ownership (ItemDefs)</td></tr>
+      <tr><td>Cloud function (Lambda/PlayFab)</td><td>Server-side item grants, trade validation</td></tr>
+    </table>
+    <h3>ScriptableObject data types</h3>
+    <div class="tags">
+      <span class="tag">CharacterData</span><span class="tag">ClassData</span><span class="tag">SkillTreeGraph</span><span class="tag">SkillNode</span><span class="tag">SoulGemData</span><span class="tag">CreatureData</span><span class="tag">MoveData</span><span class="tag">ItemData</span><span class="tag">FloorData</span><span class="tag">RecipeData</span><span class="tag">SeasonData</span><span class="tag">EncounterTable</span><span class="tag">EvolutionChain</span><span class="tag">LootTable</span><span class="tag">BuildingData</span>
+    </div>
+    <h3>Save system</h3>
+    <ul>
+      <li>Eternal / Hardcore / Seasonal / HC Seasonal are separate save profiles</li>
+      <li>Character level and all class levels saved per character</li>
+      <li>Crypt chest is account-wide, Eternal-only, never resets</li>
+      <li>HC Seasonal dead characters tracked in Seasonal regular until season end</li>
+      <li>Ladder and trade data: cloud save (anti-cheat)</li>
+      <li>Hardcore death flag persists permanently and cannot be removed</li>
+    </ul>
+  </div>
+
+  <!-- ROADMAP -->
+  <div id="roadmap" class="page">
+    <h2>Build roadmap</h2>
+    <p>Recommended build order — each phase should be playable before moving to the next.</p>
+    <ol class="phase-list">
+      <li><span class="phase-num">1</span><span><strong style="color:#e8e8e6">Data architecture</strong> — all ScriptableObjects and save system skeleton</span></li>
+      <li><span class="phase-num">2</span><span><strong style="color:#e8e8e6">Single-floor overworld</strong> — grid movement, collision, camera, tilemaps</span></li>
+      <li><span class="phase-num">3</span><span><strong style="color:#e8e8e6">Encounter trigger</strong> — battle scene entry, minimal 1v1 battle, return to overworld</span></li>
+      <li><span class="phase-num">4</span><span><strong style="color:#e8e8e6">Full battle system</strong> — expand to 3v3, moves, status effects, animations</span></li>
+      <li><span class="phase-num">5</span><span><strong style="color:#e8e8e6">Floor progression</strong> — boss gate, stairs, floor transition, multiple floors</span></li>
+      <li><span class="phase-num">6</span><span><strong style="color:#e8e8e6">Gathering & trainers</strong> — node collection, NPC patrol, one-time battles</span></li>
+      <li><span class="phase-num">7</span><span><strong style="color:#e8e8e6">Autoplay</strong> — pathfinding, config options, death handler</span></li>
+      <li><span class="phase-num">8</span><span><strong style="color:#e8e8e6">Character & class system</strong> — class XP, character level aggregation, PoE skill trees</span></li>
+      <li><span class="phase-num">9</span><span><strong style="color:#e8e8e6">Metagame</strong> — breeding, crafting, farming, base building</span></li>
+      <li><span class="phase-num">10</span><span><strong style="color:#e8e8e6">Leagues & death pipelines</strong> — all four death paths, crypt chest, soul gem generation</span></li>
+      <li><span class="phase-num">11</span><span><strong style="color:#e8e8e6">PvP & ladders</strong> — matchmaking, relay, leaderboards</span></li>
+      <li><span class="phase-num">12</span><span><strong style="color:#e8e8e6">Steam integration</strong> — Steamworks.NET, inventory, marketplace</span></li>
+      <li><span class="phase-num">13</span><span><strong style="color:#e8e8e6">Monetization</strong> — economy service, battle pass, item grants</span></li>
+      <li><span class="phase-num">14</span><span><strong style="color:#e8e8e6">Steam release</strong> — store page, F2P config, achievements</span></li>
+    </ol>
+    <h3>Critical risks</h3>
+    <div class="note note-risk"><p><strong>PvP anti-cheat</strong> — server-authoritative resolution required. Design this before any PvP work begins.</p></div>
+    <div class="note note-risk"><p><strong>Art consistency</strong> — lock style-guide prompt before mass generation.</p></div>
+    <div class="note note-risk"><p><strong>Death pipeline integrity</strong> — four separate death paths must be tested exhaustively. HC Seasonal double-migration is highest risk.</p></div>
+    <div class="note note-warn"><p><strong>Seasonal migration</strong> — plan the full data pipeline before launch.</p></div>
+    <div class="note note-warn"><p><strong>Trade duplication exploits</strong> — implement transfer lock before marketplace goes live.</p></div>
+    <h3>Open decisions</h3>
+    <ul>
+      <li>Simultaneous vs sequential turn structure in battle</li>
+      <li>Cosmetics-only vs convenience items in shop</li>
+      <li>Breed count limit per creature</li>
+      <li>Which AI art tool to standardize on</li>
+      <li>Whether death-marked creatures are tradeable on the marketplace</li>
+      <li>Soul Gem XP thresholds for each rank (F through S)</li>
+      <li>Whether Soul Gems are tradeable on the Steam marketplace</li>
+      <li>Class specialization names and tree structures for all three classes</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+function show(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
