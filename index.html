@@ -49,7 +49,7 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
 .pill-warrior{background:#2d1a00;color:#fb923c}
 .pill-archer{background:#0f2d1a;color:#4ade80}
 .pill-mage{background:#1a0d2d;color:#c084fc}
-.phase-list{list-style:none;padding:0;margin:0}
+.phase-list{list-style:none;padding:0;margin:0 0 1rem}
 .phase-list li{display:flex;gap:10px;align-items:flex-start;padding:8px 0;font-size:13px;color:#888884}
 .phase-list li:not(:last-child){border-bottom:0.5px solid #2a2a2a}
 .phase-num{min-width:22px;height:22px;border-radius:50%;background:#222;border:0.5px solid #333;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#555552;flex-shrink:0}
@@ -59,6 +59,10 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
 .gem-rank{width:36px;height:36px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0}
 .gem-name{font-size:13px;font-weight:500;color:#e8e8e6}
 .gem-xp{font-size:11px;color:#555552;margin-top:2px}
+.flow-box{background:#1a1a1a;border:0.5px solid #2a2a2a;border-radius:8px;padding:0.75rem 1rem;margin-bottom:6px}
+.flow-box-title{font-size:12px;font-weight:600;margin-bottom:4px}
+.flow-box-body{font-size:12px;color:#888884;line-height:1.6}
+.arrow{text-align:center;color:#555552;font-size:12px;margin:2px 0}
 </style>
 </head>
 <body>
@@ -93,10 +97,10 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
     <p>A creature-collecting roguelite RPG where players climb an ever-ascending tower floor by floor. Each floor is a self-contained map with gathering nodes, random battles, NPC trainers, and a boss. The metagame revolves around breeding, crafting, farming, and base-building between runs.</p>
     <h3>Game modes</h3>
     <div class="grid-2">
-      <div class="card"><div class="card-title"><span class="pill pill-eternal">Eternal</span></div><div class="card-body" style="margin-top:6px">Permanent progression. Dead hardcore characters arrive here with a death mark. Houses the crypt.</div></div>
-      <div class="card"><div class="card-title"><span class="pill pill-hc">Hardcore</span></div><div class="card-body" style="margin-top:6px">Death is permanent. Character flagged and migrated to Eternal. Gear, soul gems, and creatures deposited in the crypt.</div></div>
-      <div class="card"><div class="card-title"><span class="pill pill-season">Seasonal</span></div><div class="card-body" style="margin-top:6px">Timed league with a separate ladder. At season end, all characters migrate to Eternal.</div></div>
-      <div class="card"><div class="card-title"><span class="pill pill-hcs">Hardcore Seasonal</span></div><div class="card-body" style="margin-top:6px">Death sends character to Seasonal regular (not Eternal, no crypt). Both hardcore and seasonal rules apply.</div></div>
+      <div class="card"><div class="card-title"><span class="pill pill-eternal">Eternal</span></div><div class="card-body" style="margin-top:6px">Permanent progression. One character per account. Houses the Eternal crypt. Receives items from Hardcore deaths and seasonal migrations.</div></div>
+      <div class="card"><div class="card-title"><span class="pill pill-hc">Hardcore</span></div><div class="card-body" style="margin-top:6px">One character. On death, character is demoted to Eternal. Items, soul gems, and creatures go to the Eternal crypt chest.</div></div>
+      <div class="card"><div class="card-title"><span class="pill pill-season">Seasonal</span></div><div class="card-body" style="margin-top:6px">One character. Timed league. On season end, character and seasonal crypt chest migrate to Eternal.</div></div>
+      <div class="card"><div class="card-title"><span class="pill pill-hcs">HC Seasonal</span></div><div class="card-body" style="margin-top:6px">One character. On death, character demoted to Seasonal regular. Items go to Seasonal crypt. On season end, everything migrates to Hardcore.</div></div>
     </div>
     <h3>Ladders</h3>
     <ul><li>PvP ladder — ranked 3v3 combat, tracked per season and all-time</li><li>Progress (floor) ladder — highest floor reached, tracked per season and all-time</li></ul>
@@ -107,8 +111,11 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
   <!-- CHARACTERS -->
   <div id="character" class="page">
     <h2>Character system</h2>
+    <h3>One character per league per account</h3>
+    <p>Each account has exactly one character per league. The character is not recreated on death — they are demoted to the league below. Leagues are: HC Seasonal → Seasonal regular → (season end) → Hardcore or Eternal depending on path.</p>
+
     <h3>Character level vs class level</h3>
-    <p>Every account has one character with a <strong style="color:#e8e8e6">character level</strong> — a global level aggregated from XP across all classes. Character level scales base stats (HP, stamina, resistances). Each class has its own <strong style="color:#e8e8e6">class level</strong> tracked separately, unlocking skill tree nodes and class-specific bonuses. Switching classes does not reset others.</p>
+    <p>The character has a <strong style="color:#e8e8e6">character level</strong> — a global level aggregated from XP across all classes. Character level scales base stats (HP, stamina, resistances). Each class has its own <strong style="color:#e8e8e6">class level</strong> tracked separately, unlocking skill tree nodes and class-specific bonuses. Switching classes does not reset others.</p>
     <div class="card"><div class="card-title">XP & level model</div><pre style="margin:8px 0 0">Character
 ├── characterLevel   → sum of all class XP → scales base stats
 ├── Warrior
@@ -120,12 +127,14 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
 └── Mage
     ├── classLevel
     └── classXP</pre></div>
+
     <h3>Starting classes</h3>
     <div class="grid-3">
       <div class="card"><div class="card-title"><span class="pill pill-warrior">Warrior</span></div><div class="card-body" style="margin-top:6px">Melee frontliner. High HP and physical defense. Skill tree: weapon mastery, stances, passive tankiness.<br><br><span style="font-size:12px;color:#555552">Specializations TBD</span></div></div>
       <div class="card"><div class="card-title"><span class="pill pill-archer">Archer</span></div><div class="card-body" style="margin-top:6px">Ranged attacker. High mobility and crit potential. Skill tree: bow types, traps, pet synergies.<br><br><span style="font-size:12px;color:#555552">Specializations TBD</span></div></div>
       <div class="card"><div class="card-title"><span class="pill pill-mage">Mage</span></div><div class="card-body" style="margin-top:6px">Spellcaster. High damage ceiling with resource management. Skill tree: elemental schools, utility.<br><br><span style="font-size:12px;color:#555552">Specializations TBD</span></div></div>
     </div>
+
     <h3>Skill tree</h3>
     <p>Each class has a Path of Exile–style passive skill tree — a large interconnected graph of nodes. Players spend skill points (earned on class level-up) to unlock adjacent nodes only.</p>
     <ul>
@@ -134,30 +143,14 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
       <li>Respec costs resources but is always possible</li>
       <li>Class specializations gate deeper sub-trees inaccessible without specialising</li>
     </ul>
-    <h3>Hardcore death — crypt system</h3>
-    <div class="note note-lore"><p>When a hardcore character dies, their soul fractures. Each class they trained echoes forward as a Soul Gem, left in the crypt for future inheritors.</p></div>
-    <div class="note note-info"><p><strong>Crypt is Eternal-only.</strong> Only Hardcore (eternal) deaths trigger the crypt. Hardcore Seasonal deaths go to Seasonal regular — no crypt deposit, no soul gems.</p></div>
-    <p>On an Eternal-bound hardcore death, the following are sent to the <strong style="color:#e8e8e6">crypt chest in the base's graveyard</strong>:</p>
-    <table>
-      <tr><th>Item type</th><th>Details</th></tr>
-      <tr><td>Soul Gems</td><td>One per class the character had any XP in. Rank scales with XP. Consuming grants that XP to a living character's matching class.</td></tr>
-      <tr><td>Equipped gear</td><td>All gear worn at time of death.</td></tr>
-      <tr><td>Inventory items</td><td>Everything in the character's inventory.</td></tr>
-      <tr><td>Dead hardcore creatures</td><td>All tamed creatures that died in hardcore on that account.</td></tr>
-    </table>
-    <h3>Soul gem ranks</h3>
+
+    <h3>Soul gems</h3>
+    <div class="note note-lore"><p>When a hardcore character is demoted, their soul fractures. Each class they trained echoes forward as a Soul Gem, deposited in the crypt for the surviving character to reclaim.</p></div>
+    <p>One Soul Gem is generated per class the character had any XP in. Rank scales with XP amount. Consuming a gem grants that XP to the character's matching class.</p>
     <div class="soul-gem"><div class="gem-rank" style="background:#2d1f00;border:0.5px solid #fbbf2460;color:#fbbf24">S</div><div><div class="gem-name">Soul of the Mage <span style="color:#fbbf24">S</span></div><div class="gem-xp">Grants 999,999 Mage XP on consume</div></div></div>
     <div class="soul-gem"><div class="gem-rank" style="background:#1a1a1a;border:0.5px solid #88888460;color:#888884">E</div><div><div class="gem-name">Soul of the Archer <span style="color:#888884">E</span></div><div class="gem-xp">Grants 250 Archer XP on consume</div></div></div>
     <div class="soul-gem"><div class="gem-rank" style="background:#1a1a1a;border:0.5px solid #55555260;color:#555552">F</div><div><div class="gem-name">Soul of the Warrior <span style="color:#555552">F</span></div><div class="gem-xp">Grants 100 Warrior XP on consume</div></div></div>
-    <div class="note note-info" style="margin-top:12px"><p>Item description shows exact XP granted on consume. Rank thresholds (F through S) are TBD — to be balanced during development.</p></div>
-    <h3>Crypt chest rules</h3>
-    <ul>
-      <li>Account-wide and persistent — never resets</li>
-      <li>Accumulates items from all deceased eternal-bound hardcore characters</li>
-      <li>Creatures in the crypt retain stats, moves, and death mark — can be revived into Eternal</li>
-      <li>Soul gems are consumable — once used, gone</li>
-      <li>Gear is immediately usable by living characters</li>
-    </ul>
+    <div class="note note-info" style="margin-top:12px"><p>Rank thresholds (F through S) are TBD — to be balanced during development. Item description shows exact XP granted on consume.</p></div>
   </div>
 
   <!-- CORE LOOP -->
@@ -217,50 +210,76 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
   <!-- LEAGUES -->
   <div id="leagues" class="page">
     <h2>Leagues & death system</h2>
-    <h3>Death destination by league</h3>
+
+    <div class="note note-info"><p><strong>One character per league per account.</strong> Death does not destroy the character — it demotes them to the league below. Only their items, soul gems, and creatures are separated into the crypt.</p></div>
+
+    <h3>Death & demotion table</h3>
     <table>
-      <tr><th>League</th><th>On death</th><th>Crypt</th><th>Ladder</th></tr>
-      <tr><td><span class="pill pill-eternal">Eternal</span></td><td>Soft — respawn at base</td><td>No</td><td>All-time floor</td></tr>
-      <tr><td><span class="pill pill-hc">Hardcore</span></td><td>Permanent → migrates to Eternal + crypt deposit</td><td>Yes</td><td>All-time floor</td></tr>
-      <tr><td><span class="pill pill-season">Seasonal</span></td><td>Soft — respawn at base</td><td>No</td><td>Season floor + PvP</td></tr>
-      <tr><td><span class="pill pill-hcs">HC Seasonal</span></td><td>Permanent → migrates to Seasonal regular</td><td>No</td><td>Season floor + PvP</td></tr>
+      <tr><th>League</th><th>On death</th><th>Items go to</th><th>Character goes to</th></tr>
+      <tr><td><span class="pill pill-eternal">Eternal</span></td><td>Soft — respawn at base</td><td>—</td><td>Stays in Eternal</td></tr>
+      <tr><td><span class="pill pill-hc">Hardcore</span></td><td>Permanent demotion</td><td>Eternal crypt chest</td><td>Eternal league</td></tr>
+      <tr><td><span class="pill pill-season">Seasonal</span></td><td>Soft — respawn at base</td><td>—</td><td>Stays in Seasonal</td></tr>
+      <tr><td><span class="pill pill-hcs">HC Seasonal</span></td><td>Permanent demotion</td><td>Seasonal crypt chest</td><td>Seasonal regular</td></tr>
     </table>
-    <div class="note note-info"><p>The crypt is triggered <strong>only</strong> by Hardcore (eternal) deaths. Hardcore Seasonal deaths migrate to the current Seasonal regular league — no crypt, no soul gems, gear stays with the character.</p></div>
-    <h3>Hardcore (eternal) death pipeline</h3>
+
+    <h3>Crypt chests</h3>
+    <p>A physical chest in the base that the player walks up to and opens. Not an auto-dump into inventory. Two crypts exist:</p>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title"><span class="pill pill-eternal">Eternal crypt</span></div>
+        <div class="card-body" style="margin-top:6px">Located in the Eternal base. Receives items from Hardcore deaths. Also receives the Seasonal crypt chest contents at season end.</div>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="pill pill-season">Seasonal crypt</span></div>
+        <div class="card-body" style="margin-top:6px">Located in the Seasonal base. Receives items from HC Seasonal deaths. At season end, contents are delivered as a chest to the Hardcore base.</div>
+      </div>
+    </div>
+
+    <h3>What goes into the crypt on death</h3>
+    <ul>
+      <li>All equipped gear at time of death</li>
+      <li>All inventory items</li>
+      <li>Soul gems (one per class with any XP, rank determined by XP amount)</li>
+      <li>All tamed creatures — creatures are treated as items for this purpose</li>
+    </ul>
+
+    <h3>Season end migration</h3>
+    <div class="flow-box"><div class="flow-box-title" style="color:#60a5fa">Seasonal regular character</div><div class="flow-box-body">Migrates to Eternal league with season badge</div></div>
+    <div class="arrow">↓</div>
+    <div class="flow-box"><div class="flow-box-title" style="color:#a78bfa">Eternal league</div><div class="flow-box-body">Character arrives. Seasonal crypt chest delivered to Eternal base as an openable chest.</div></div>
+    <div style="height:16px"></div>
+    <div class="flow-box"><div class="flow-box-title" style="color:#fbbf24">HC Seasonal regular character (previously demoted)</div><div class="flow-box-body">Migrates to Hardcore league with season badge</div></div>
+    <div class="arrow">↓</div>
+    <div class="flow-box"><div class="flow-box-title" style="color:#f87171">Hardcore league</div><div class="flow-box-body">Character arrives. HC Seasonal crypt chest delivered to Hardcore base as an openable chest.</div></div>
+
+    <h3>Hardcore death pipeline</h3>
     <ol class="phase-list">
       <li><span class="phase-num">1</span><span>Character dies in Hardcore league</span></li>
       <li><span class="phase-num">2</span><span>Character flagged: diedOnHardcore = true, deathFloor and timestamp recorded</span></li>
-      <li><span class="phase-num">3</span><span>Soul Gems generated — one per class with any XP, rank determined by XP amount</span></li>
-      <li><span class="phase-num">4</span><span>Equipped gear, inventory, and all account's dead hardcore creatures deposited in crypt chest</span></li>
-      <li><span class="phase-num">5</span><span>Character migrated to Eternal league with permanent death mark on status sheet</span></li>
-      <li><span class="phase-num">6</span><span>Crypt chest accessible to all living characters on the account</span></li>
+      <li><span class="phase-num">3</span><span>Soul gems generated — one per class with any XP</span></li>
+      <li><span class="phase-num">4</span><span>All gear, inventory, soul gems, and creatures deposited into Eternal crypt chest</span></li>
+      <li><span class="phase-num">5</span><span>Character demoted to Eternal league with permanent death mark on status sheet</span></li>
     </ol>
-    <h3>Hardcore Seasonal death pipeline</h3>
+
+    <h3>HC Seasonal death pipeline</h3>
     <ol class="phase-list">
-      <li><span class="phase-num">1</span><span>Character dies in Hardcore Seasonal league</span></li>
+      <li><span class="phase-num">1</span><span>Character dies in HC Seasonal league</span></li>
       <li><span class="phase-num">2</span><span>Character flagged: diedOnHardcore = true, deathFloor and timestamp recorded</span></li>
-      <li><span class="phase-num">3</span><span>Character migrated to current Seasonal regular league with death mark</span></li>
-      <li><span class="phase-num">4</span><span>Gear and inventory stay with the character — no crypt deposit, no soul gems</span></li>
-      <li><span class="phase-num">5</span><span>At season end, character migrates from Seasonal regular to Eternal as normal</span></li>
+      <li><span class="phase-num">3</span><span>Soul gems generated — one per class with any XP</span></li>
+      <li><span class="phase-num">4</span><span>All gear, inventory, soul gems, and creatures deposited into Seasonal crypt chest</span></li>
+      <li><span class="phase-num">5</span><span>Character demoted to Seasonal regular league with death mark</span></li>
     </ol>
+
     <h3>Death mark data</h3>
     <pre>CharacterSaveData {
-  bool   diedOnHardcore;
-  string hardcoreDeathFloor;
-  string hardcoreLeague;     // "HC" | "HCS"
-  string hardcoreSeasonId;   // null if not seasonal
+  bool     diedOnHardcore;
+  string   hardcoreDeathFloor;
+  string   hardcoreLeague;     // "HC" | "HCS"
+  string   hardcoreSeasonId;   // null if not seasonal
   DateTime hardcoreDeathTime;
 }</pre>
-    <h3>Season lifecycle</h3>
-    <ol class="phase-list">
-      <li><span class="phase-num">1</span><span>Season start date set in Unity RemoteConfig</span></li>
-      <li><span class="phase-num">2</span><span>Players create fresh characters in Seasonal or HC Seasonal</span></li>
-      <li><span class="phase-num">3</span><span>Ladder tracks floor progress and PvP rank</span></li>
-      <li><span class="phase-num">4</span><span>Season ends → all surviving seasonal characters migrate to Eternal with season badge</span></li>
-      <li><span class="phase-num">5</span><span>HC Seasonal dead characters (already in Seasonal regular) also migrate to Eternal</span></li>
-      <li><span class="phase-num">6</span><span>Seasonal ladder archived, new season begins</span></li>
-    </ol>
-    <div class="note note-warn"><p>Test all four death pipelines independently. The HC Seasonal → Seasonal regular → Eternal double-migration path is the most likely source of data bugs.</p></div>
+
+    <div class="note note-warn"><p>Test all four death pipelines and the season-end double migration independently. The HC Seasonal → Seasonal regular → Hardcore path is the most likely source of data bugs.</p></div>
   </div>
 
   <!-- METAGAME -->
@@ -347,14 +366,14 @@ Your Backend
     </table>
     <h3>ScriptableObject data types</h3>
     <div class="tags">
-      <span class="tag">CharacterData</span><span class="tag">ClassData</span><span class="tag">SkillTreeGraph</span><span class="tag">SkillNode</span><span class="tag">SoulGemData</span><span class="tag">CreatureData</span><span class="tag">MoveData</span><span class="tag">ItemData</span><span class="tag">FloorData</span><span class="tag">RecipeData</span><span class="tag">SeasonData</span><span class="tag">EncounterTable</span><span class="tag">EvolutionChain</span><span class="tag">LootTable</span><span class="tag">BuildingData</span>
+      <span class="tag">CharacterData</span><span class="tag">ClassData</span><span class="tag">SkillTreeGraph</span><span class="tag">SkillNode</span><span class="tag">SoulGemData</span><span class="tag">CreatureData</span><span class="tag">MoveData</span><span class="tag">ItemData</span><span class="tag">FloorData</span><span class="tag">RecipeData</span><span class="tag">SeasonData</span><span class="tag">EncounterTable</span><span class="tag">EvolutionChain</span><span class="tag">LootTable</span><span class="tag">BuildingData</span><span class="tag">CryptChestData</span>
     </div>
     <h3>Save system</h3>
     <ul>
-      <li>Eternal / Hardcore / Seasonal / HC Seasonal are separate save profiles</li>
-      <li>Character level and all class levels saved per character</li>
-      <li>Crypt chest is account-wide, Eternal-only, never resets</li>
-      <li>HC Seasonal dead characters tracked in Seasonal regular until season end</li>
+      <li>One character per league per account — no character creation, only demotion</li>
+      <li>Eternal / Hardcore / Seasonal / HC Seasonal are separate league profiles</li>
+      <li>Each league has its own crypt chest state</li>
+      <li>Character level and all class levels travel with the character on demotion</li>
       <li>Ladder and trade data: cloud save (anti-cheat)</li>
       <li>Hardcore death flag persists permanently and cannot be removed</li>
     </ul>
@@ -374,7 +393,7 @@ Your Backend
       <li><span class="phase-num">7</span><span><strong style="color:#e8e8e6">Autoplay</strong> — pathfinding, config options, death handler</span></li>
       <li><span class="phase-num">8</span><span><strong style="color:#e8e8e6">Character & class system</strong> — class XP, character level aggregation, PoE skill trees</span></li>
       <li><span class="phase-num">9</span><span><strong style="color:#e8e8e6">Metagame</strong> — breeding, crafting, farming, base building</span></li>
-      <li><span class="phase-num">10</span><span><strong style="color:#e8e8e6">Leagues & death pipelines</strong> — all four death paths, crypt chest, soul gem generation</span></li>
+      <li><span class="phase-num">10</span><span><strong style="color:#e8e8e6">Leagues & death pipelines</strong> — all four death paths, both crypts, soul gem generation, season migration</span></li>
       <li><span class="phase-num">11</span><span><strong style="color:#e8e8e6">PvP & ladders</strong> — matchmaking, relay, leaderboards</span></li>
       <li><span class="phase-num">12</span><span><strong style="color:#e8e8e6">Steam integration</strong> — Steamworks.NET, inventory, marketplace</span></li>
       <li><span class="phase-num">13</span><span><strong style="color:#e8e8e6">Monetization</strong> — economy service, battle pass, item grants</span></li>
@@ -383,8 +402,8 @@ Your Backend
     <h3>Critical risks</h3>
     <div class="note note-risk"><p><strong>PvP anti-cheat</strong> — server-authoritative resolution required. Design this before any PvP work begins.</p></div>
     <div class="note note-risk"><p><strong>Art consistency</strong> — lock style-guide prompt before mass generation.</p></div>
-    <div class="note note-risk"><p><strong>Death pipeline integrity</strong> — four separate death paths must be tested exhaustively. HC Seasonal double-migration is highest risk.</p></div>
-    <div class="note note-warn"><p><strong>Seasonal migration</strong> — plan the full data pipeline before launch.</p></div>
+    <div class="note note-risk"><p><strong>Death pipeline integrity</strong> — four death paths + two crypt systems + season migration must all be tested exhaustively. HC Seasonal double-migration is highest risk.</p></div>
+    <div class="note note-warn"><p><strong>Seasonal migration</strong> — crypt chest delivery mechanism must be rock solid before launch.</p></div>
     <div class="note note-warn"><p><strong>Trade duplication exploits</strong> — implement transfer lock before marketplace goes live.</p></div>
     <h3>Open decisions</h3>
     <ul>
