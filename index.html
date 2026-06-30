@@ -180,7 +180,23 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
     <p>Classic top-down grid movement. 4 directions, one tile per step — identical to Generation II Pokémon games (SoulSilver/HeartGold). Unity Tilemap system with orthographic camera.</p>
     <div class="card"><div class="card-title">Movement rules</div><div class="card-body"><ul style="margin:4px 0 0"><li>Face direction on input even if blocked by collision</li><li>Raycast or collision check ahead before stepping</li><li>Animation states: idle and walk for all 4 directions</li><li>Random encounter triggers on step count + RNG roll</li></ul></div></div>
     <h3>Map design</h3>
-    <p>Maps are small and simple — a tall grass field, a cave floor, or a fishing zone, depending on floor theme. No elaborate handcrafted circuits or secret areas. The Collector walks around triggering random battles until the win condition is met.</p>
+    <p>Maps are small and simple — depending on floor theme, the Collector triggers battles one of three ways. No elaborate handcrafted circuits or secret areas. The Collector engages with the floor's encounter method until the win condition is met.</p>
+
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-title">🌿 Outdoors</div>
+        <div class="card-body">Battles trigger only while standing on tall grass tiles. Autoplay finds a grass patch and walks around within it, avoiding walls.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">🕳️ Cave</div>
+        <div class="card-body">Battles can trigger anywhere on the floor. Autoplay walks around the full map continuously, avoiding walls.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">🎣 Fishing</div>
+        <div class="card-body">Battles trigger by fishing at a water tile, not by walking. Autoplay parks adjacent to water and repeatedly fishes in place.</div>
+      </div>
+    </div>
+    <div class="note note-info"><p>Each floor's encounter type is fixed by its theme. The win condition (10 battles), boss key drop, and chest system apply identically across all three types — only the trigger method and autoplay behavior differ.</p></div>
 
     <div class="grid-2">
       <div class="card">
@@ -202,7 +218,7 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
     <h3>Floor structure</h3>
     <table>
       <tr><th>Element</th><th>Details</th></tr>
-      <tr><td>Random battles</td><td>Step-counter trigger, encounter table varies by floor. Counts toward the 10-battle win condition.</td></tr>
+      <tr><td>Battle trigger</td><td>Type-dependent: tall grass (Outdoors), anywhere (Cave), or fishing at water (Fishing). Counts toward the 10-battle win condition.</td></tr>
       <tr><td>Chests</td><td>Manual-only, one-time per chest. Tracked as x/x on map selector.</td></tr>
       <tr><td>Boss (every 5th floor)</td><td>Requires consuming a Key. One-time encounter, gates the next set of floors.</td></tr>
       <tr><td>Portal / door</td><td>Opens after 10 battles won. Leads to the next floor.</td></tr>
@@ -215,7 +231,7 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
     <div class="grid-3">
       <div class="card"><div class="card-title">AutoHealThreshold</div><div class="card-body">Use healing items when HP drops below %</div></div>
       <div class="card"><div class="card-title">AutoRetreatOnLowHP</div><div class="card-body">Retreat to base when near death</div></div>
-      <div class="card"><div class="card-title">AutoFight</div><div class="card-body">Automatically walk and trigger battles toward the 10-win threshold</div></div>
+      <div class="card"><div class="card-title">AutoFight</div><div class="card-body">Behavior depends on floor type: paces within grass patch (Outdoors), roams the full map (Cave), or parks by water and fishes repeatedly (Fishing) — toward the 10-win threshold</div></div>
     </div>
     <div class="note note-risk"><p><strong>On death during autoplay:</strong> autoplay is cleared, player is sent to base, stage is locked until team is manually healed and stage is reselected.</p></div>
     <h3>Healing</h3>
