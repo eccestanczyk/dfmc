@@ -580,6 +580,20 @@ Your Backend
       <li>Hardcore death flag persists permanently and cannot be removed</li>
       <li>No offline progression — all simulation requires the game to be open</li>
     </ul>
+
+    <h3>Player logging system</h3>
+    <p>Two separate logs give players a transparent record of what happened, both implemented after core gameplay systems (battle, leveling, items) are in place — building the export pipeline against placeholder data would mean redoing it once real systems exist.</p>
+    <table>
+      <tr><th>Log type</th><th>Contents</th></tr>
+      <tr><td>Event log</td><td>High-level player events: died, entered battle, completed battle (with XP and items acquired), acquired boss key, progressed to next floor</td></tr>
+      <tr><td>Battle log</td><td>Detailed per-battle record of every move and result, scoped to a single battle</td></tr>
+    </table>
+    <ul>
+      <li>Both logs are downloadable as plain text files</li>
+      <li>PC: saved to a standard local file location, directly accessible to the player</li>
+      <li>Mobile: exposed via a native share/download UI since mobile platforms can't expose a raw file path the way PC can</li>
+      <li>Implementation deferred until battle system, leveling, and item systems exist — logging hooks should be added naturally as those systems are built, not retrofitted</li>
+    </ul>
   </div>
 
   <!-- ROADMAP -->
@@ -597,11 +611,12 @@ Your Backend
       <li><span class="phase-num">8</span><span><strong style="color:#e8e8e6">Autoplay & multi-tab system</strong> — pathfinding, config options, death handler, simultaneous multi-character simulation</span></li>
       <li><span class="phase-num">9</span><span><strong style="color:#e8e8e6">Character & class system</strong> — class XP, character level aggregation, PoE skill trees</span></li>
       <li><span class="phase-num">10</span><span><strong style="color:#e8e8e6">Metagame</strong> — breeding, crafting, farming, base building</span></li>
-      <li><span class="phase-num">11</span><span><strong style="color:#e8e8e6">Leagues & death pipelines</strong> — all four death paths, both crypts, soul gem generation, season migration</span></li>
-      <li><span class="phase-num">12</span><span><strong style="color:#e8e8e6">PvP & ladders</strong> — matchmaking, relay, leaderboards</span></li>
-      <li><span class="phase-num">13</span><span><strong style="color:#e8e8e6">Steam integration</strong> — Steamworks.NET, inventory, marketplace</span></li>
-      <li><span class="phase-num">14</span><span><strong style="color:#e8e8e6">Monetization</strong> — economy service, battle pass, item grants</span></li>
-      <li><span class="phase-num">15</span><span><strong style="color:#e8e8e6">Steam release</strong> — store page, F2P config, achievements</span></li>
+      <li><span class="phase-num">11</span><span><strong style="color:#e8e8e6">Player logging system</strong> — event log and battle log, hooked into existing battle/leveling/item systems, file export for PC and mobile share UI</span></li>
+      <li><span class="phase-num">12</span><span><strong style="color:#e8e8e6">Leagues & death pipelines</strong> — all four death paths, both crypts, soul gem generation, season migration</span></li>
+      <li><span class="phase-num">13</span><span><strong style="color:#e8e8e6">PvP & ladders</strong> — matchmaking, relay, leaderboards</span></li>
+      <li><span class="phase-num">14</span><span><strong style="color:#e8e8e6">Steam integration</strong> — Steamworks.NET, inventory, marketplace</span></li>
+      <li><span class="phase-num">15</span><span><strong style="color:#e8e8e6">Monetization</strong> — economy service, battle pass, item grants</span></li>
+      <li><span class="phase-num">16</span><span><strong style="color:#e8e8e6">Steam release</strong> — store page, F2P config, achievements</span></li>
     </ol>
     <h3>Critical risks</h3>
     <div class="note note-risk"><p><strong>PvP anti-cheat</strong> — server-authoritative resolution required. Design this before any PvP work begins.</p></div>
