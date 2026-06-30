@@ -95,7 +95,7 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
       <div class="stat-card"><div class="stat-label">Art style</div><div class="stat-val">Dark fantasy, AI-generated painting</div></div>
     </div>
     <h3>Concept</h3>
-    <p>A creature-collecting roguelite RPG where players climb an ever-ascending tower floor by floor. Each floor is a self-contained map with gathering nodes, random battles, Rogue Collectors, and a boss. The metagame revolves around breeding, crafting, farming, and base-building between runs.</p>
+    <p>A creature-collecting roguelite RPG where players climb an ever-ascending tower floor by floor. Each floor is a self-contained map with gathering nodes, random battles, and a boss. The metagame revolves around breeding, crafting, farming, and base-building between runs.</p>
     <h3>Game modes</h3>
     <div class="grid-2">
       <div class="card"><div class="card-title"><span class="pill pill-eternal">Eternal</span></div><div class="card-body" style="margin-top:6px">Soft death. Character stays in league, no reset. Houses the Eternal crypt. Receives crypt chests from seasonal migrations.</div></div>
@@ -180,12 +180,12 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
     <p>Classic top-down grid movement. 4 directions, one tile per step — identical to Generation II Pokémon games (SoulSilver/HeartGold). Unity Tilemap system with orthographic camera.</p>
     <div class="card"><div class="card-title">Movement rules</div><div class="card-body"><ul style="margin:4px 0 0"><li>Face direction on input even if blocked by collision</li><li>Raycast or collision check ahead before stepping</li><li>Animation states: idle and walk for all 4 directions</li><li>Random encounter triggers on step count + RNG roll</li></ul></div></div>
     <h3>Map design</h3>
-    <p>Each floor is a handcrafted top-down map in classic Pokémon style. Maps are designed as a <strong style="color:#e8e8e6">circuit</strong> — the Collector walks a loop, and at the end passes through a door or portal (themed per floor) that resets the loop with fresh nodes and new Rogue Collector spawns. The boss is a one-time encounter per floor; once defeated it is gone permanently and the circuit continues as a pure resource loop.</p>
+    <p>Each floor is a handcrafted top-down map in classic Pokémon style. Maps are designed as a <strong style="color:#e8e8e6">circuit</strong> — the Collector walks a loop, and at the end passes through a door or portal (themed per floor) that resets the loop with fresh nodes. The boss is a one-time encounter per floor; once defeated it is gone permanently and the circuit continues as a pure resource loop.</p>
 
     <div class="grid-2">
       <div class="card">
         <div class="card-title">🔄 Main circuit — autoplay layer</div>
-        <div class="card-body">Fixed node locations, random node contents each loop. Rogue Collectors respawn fresh each loop. Autoplay navigates the circuit indefinitely. Accessible from the start.</div>
+        <div class="card-body">Fixed node locations, random node contents each loop. Autoplay navigates the circuit indefinitely. Accessible from the start.</div>
       </div>
       <div class="card">
         <div class="card-title">🔍 Secret areas — manual layer</div>
@@ -208,10 +208,9 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
       <tr><th>Element</th><th>Details</th></tr>
       <tr><td>Gathering nodes</td><td>Fixed locations, contents randomize each loop. Respawn on circuit reset.</td></tr>
       <tr><td>Random battles</td><td>Step-counter trigger, encounter table varies by floor</td></tr>
-      <tr><td>Rogue Collectors</td><td>Patrol routes, line-of-sight trigger. Respawn fresh each loop.</td></tr>
       <tr><td>Secret areas</td><td>Puzzle or HM-gated. Better rewards. Autoplay ignores entirely.</td></tr>
       <tr><td>Boss</td><td>One-time encounter per floor. After defeat, that area becomes part of the regular circuit.</td></tr>
-      <tr><td>Portal / door</td><td>End of circuit. Theme matches floor. Passing through resets loop with fresh nodes and Rogue Collectors.</td></tr>
+      <tr><td>Portal / door</td><td>End of circuit. Theme matches floor. Passing through resets loop with fresh nodes.</td></tr>
     </table>
     <h3>Autoplay</h3>
     <p>Autoplay is disabled by default and must be enabled per character. It can be enabled on any tab including the currently selected one. To take manual control of a character, disable autoplay on that tab.</p>
@@ -595,7 +594,7 @@ Your Backend
       <li><span class="phase-num">3</span><span><strong style="color:#e8e8e6">Encounter trigger</strong> — battle scene entry, minimal 1v1 battle, return to overworld</span></li>
       <li><span class="phase-num">4</span><span><strong style="color:#e8e8e6">Full battle system</strong> — expand to 3v3, moves, status effects, animations</span></li>
       <li><span class="phase-num">5</span><span><strong style="color:#e8e8e6">Floor progression</strong> — boss gate, stairs, floor transition, multiple floors</span></li>
-      <li><span class="phase-num">6</span><span><strong style="color:#e8e8e6">Gathering & Rogue Collectors</strong> — node collection, NPC patrol, one-time battles</span></li>
+      <li><span class="phase-num">6</span><span><strong style="color:#e8e8e6">Gathering nodes</strong> — node collection, harvest interaction, depletion state</span></li>
       <li><span class="phase-num">7</span><span><strong style="color:#e8e8e6">Autoplay & multi-tab system</strong> — pathfinding, config options, death handler, simultaneous multi-character simulation</span></li>
       <li><span class="phase-num">8</span><span><strong style="color:#e8e8e6">Character & class system</strong> — class XP, character level aggregation, PoE skill trees</span></li>
       <li><span class="phase-num">9</span><span><strong style="color:#e8e8e6">Metagame</strong> — breeding, crafting, farming, base building</span></li>
@@ -611,6 +610,9 @@ Your Backend
     <div class="note note-risk"><p><strong>Death pipeline integrity</strong> — four death paths + two crypt systems + season migration must all be tested exhaustively. HC Seasonal double-migration is highest risk.</p></div>
     <div class="note note-warn"><p><strong>Seasonal migration</strong> — crypt chest delivery mechanism must be rock solid before launch.</p></div>
     <div class="note note-warn"><p><strong>Trade duplication exploits</strong> — implement transfer lock before marketplace goes live.</p></div>
+    <h3>Future features (cut from current scope)</h3>
+    <div class="note note-info"><p><strong>Rogue Collectors</strong> — hostile NPC trainer encounters with patrol routes and line-of-sight triggers, originally part of floor structure. Removed from active scope to keep early development focused. May be reintroduced post-launch or in a content update.</p></div>
+
     <h3>Open decisions</h3>
     <ul>
       <li>Simultaneous vs sequential turn structure in battle</li>
