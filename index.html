@@ -95,7 +95,7 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
       <div class="stat-card"><div class="stat-label">Art style</div><div class="stat-val">Dark fantasy, AI-generated painting</div></div>
     </div>
     <h3>Concept</h3>
-    <p>A creature-collecting roguelite RPG where players climb an ever-ascending tower floor by floor. Each floor is a self-contained map with gathering nodes, random battles, and a boss. The metagame revolves around breeding, crafting, farming, and base-building between runs.</p>
+    <p>A creature-collecting roguelite RPG where players climb an ever-ascending tower floor by floor. Each floor is a simple map where the Collector triggers battles until a win threshold opens the portal to the next floor, with manual chests scattered throughout. The metagame revolves around breeding, crafting, farming, and base-building between runs.</p>
     <h3>Game modes</h3>
     <div class="grid-2">
       <div class="card"><div class="card-title"><span class="pill pill-eternal">Eternal</span></div><div class="card-body" style="margin-top:6px">Soft death. Character stays in league, no reset. Houses the Eternal crypt. Receives crypt chests from seasonal migrations.</div></div>
@@ -180,44 +180,42 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
     <p>Classic top-down grid movement. 4 directions, one tile per step — identical to Generation II Pokémon games (SoulSilver/HeartGold). Unity Tilemap system with orthographic camera.</p>
     <div class="card"><div class="card-title">Movement rules</div><div class="card-body"><ul style="margin:4px 0 0"><li>Face direction on input even if blocked by collision</li><li>Raycast or collision check ahead before stepping</li><li>Animation states: idle and walk for all 4 directions</li><li>Random encounter triggers on step count + RNG roll</li></ul></div></div>
     <h3>Map design</h3>
-    <p>Each floor is a handcrafted top-down map in classic Pokémon style. Maps are designed as a <strong style="color:#e8e8e6">circuit</strong> — the Collector walks a loop, and at the end passes through a door or portal (themed per floor) that resets the loop with fresh nodes. The boss is a one-time encounter per floor; once defeated it is gone permanently and the circuit continues as a pure resource loop.</p>
+    <p>Maps are small and simple — a tall grass field, a cave floor, or a fishing zone, depending on floor theme. No elaborate handcrafted circuits or secret areas. The Collector walks around triggering random battles until the win condition is met.</p>
 
     <div class="grid-2">
       <div class="card">
-        <div class="card-title">🔄 Main circuit — autoplay layer</div>
-        <div class="card-body">Fixed node locations, random node contents each loop. Autoplay navigates the circuit indefinitely. Accessible from the start.</div>
+        <div class="card-title">🏆 Win condition</div>
+        <div class="card-body">Win 10 battles on a floor to open the portal to the next floor. Battles won is tracked per floor visit.</div>
       </div>
       <div class="card">
-        <div class="card-title">🔍 Secret areas — manual layer</div>
-        <div class="card-body">Hidden behind puzzles or HM tool gates. Contain better loot, rarer nodes, Ichor, higher grade eggs. Autoplay never enters these. Reward Collectors who take the wheel.</div>
+        <div class="card-title">👑 Boss floors</div>
+        <div class="card-body">Every 5th floor is a boss room. Entry requires consuming a Key, which has a chance to drop from any battle across the previous 4 floors.</div>
       </div>
     </div>
 
-    <h3>HM tools</h3>
-    <p>HM tools are items that unlock access to secret areas across all floors — a single tool may open secrets on multiple different floors. They are found inside secret areas, meaning the first secret area on a floor is accessible via puzzle, and its reward unlocks deeper secrets elsewhere.</p>
-    <table>
-      <tr><th>Rule</th><th>Detail</th></tr>
-      <tr><td>Scope</td><td>Cross-floor — one HM tool can unlock secret areas across multiple floors</td></tr>
-      <tr><td>League-bound</td><td>HM tools do not transfer between leagues and are not sent to the crypt on death</td></tr>
-      <tr><td>Persist through death</td><td>Hardcore death does not remove HM tools — the Collector keeps them and only needs to discover each one once per league</td></tr>
-      <tr><td>One-time discovery</td><td>Each HM tool is found once per league and permanently unlocks its associated secret areas for that league's Collector</td></tr>
-    </table>
+    <h3>Boss key</h3>
+    <p>A single Key is required to enter a boss floor, accessible via the portal or directly through the map selector. Any battle won on the 4 floors preceding a boss has a chance to drop that floor's Key. The Key is consumed on boss entry.</p>
+
+    <h3>Chests</h3>
+    <p>Chests are scattered around each map as manual-only, one-time pickups — autoplay does not collect them. Each chest can only be opened once per floor visit cycle. The map selector displays chest collection progress per floor as <strong style="color:#e8e8e6">x/x collected</strong>.</p>
 
     <h3>Floor structure</h3>
     <table>
       <tr><th>Element</th><th>Details</th></tr>
-      <tr><td>Gathering nodes</td><td>Fixed locations, contents randomize each loop. Respawn on circuit reset.</td></tr>
-      <tr><td>Random battles</td><td>Step-counter trigger, encounter table varies by floor</td></tr>
-      <tr><td>Secret areas</td><td>Puzzle or HM-gated. Better rewards. Autoplay ignores entirely.</td></tr>
-      <tr><td>Boss</td><td>One-time encounter per floor. After defeat, that area becomes part of the regular circuit.</td></tr>
-      <tr><td>Portal / door</td><td>End of circuit. Theme matches floor. Passing through resets loop with fresh nodes.</td></tr>
+      <tr><td>Random battles</td><td>Step-counter trigger, encounter table varies by floor. Counts toward the 10-battle win condition.</td></tr>
+      <tr><td>Chests</td><td>Manual-only, one-time per chest. Tracked as x/x on map selector.</td></tr>
+      <tr><td>Boss (every 5th floor)</td><td>Requires consuming a Key. One-time encounter, gates the next set of floors.</td></tr>
+      <tr><td>Portal / door</td><td>Opens after 10 battles won. Leads to the next floor.</td></tr>
     </table>
+
+    <div class="note note-info"><p>All equipment and crafting materials now come exclusively from battle rewards and chests — there is no resource gathering layer. Gathering nodes have been removed from active scope; see Roadmap for details.</p></div>
+
     <h3>Autoplay</h3>
     <p>Autoplay is disabled by default and must be enabled per character. It can be enabled on any tab including the currently selected one. To take manual control of a character, disable autoplay on that tab.</p>
     <div class="grid-3">
       <div class="card"><div class="card-title">AutoHealThreshold</div><div class="card-body">Use healing items when HP drops below %</div></div>
       <div class="card"><div class="card-title">AutoRetreatOnLowHP</div><div class="card-body">Retreat to base when near death</div></div>
-      <div class="card"><div class="card-title">AutoCollectNodes</div><div class="card-body">Automatically gather nodes on path</div></div>
+      <div class="card"><div class="card-title">AutoFight</div><div class="card-body">Automatically walk and trigger battles toward the 10-win threshold</div></div>
     </div>
     <div class="note note-risk"><p><strong>On death during autoplay:</strong> autoplay is cleared, player is sent to base, stage is locked until team is manually healed and stage is reselected.</p></div>
     <h3>Healing</h3>
@@ -334,7 +332,7 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
     <p>These systems run between tower runs and constitute the long-term engagement loop.</p>
     <div class="grid-2">
       <div class="card"><div class="card-title">🧬 Breeding</div><div class="card-body">Two parent creatures fed Gruel produce an egg. Higher grade creatures require more Gruel. Higher grade parents significantly increase odds of higher grade eggs. No grade cap on bred eggs.</div></div>
-      <div class="card"><div class="card-title">🔧 Crafting</div><div class="card-body">Recipe ScriptableObjects. Inventory check at craft time. Outputs items or equipment. Materials sourced from gathering nodes and farming.</div></div>
+      <div class="card"><div class="card-title">🔧 Crafting</div><div class="card-body">Recipe ScriptableObjects. Inventory check at craft time. Outputs items or equipment. Materials sourced from battle rewards, chests, and farming.</div></div>
       <div class="card"><div class="card-title">🌱 Farming</div><div class="card-body">Tile-based at player base. Growth timers per crop. Yield can be rendered into Gruel or used as crafting inputs. Farm plot count expands via base upgrades.</div></div>
       <div class="card"><div class="card-title">🏗️ Base upgrading</div><div class="card-body">Building levels unlock features: more farm plots, more breeding slots, larger storage, crafting stations, longer incubation capacity. Resource sink for gathered materials.</div></div>
     </div>
@@ -503,7 +501,7 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
       <tr><td>Success chance</td><td>Decreases at higher grades — upgrading into Primordial and Void is very rare</td></tr>
       <tr><td>On failure</td><td>No progress, no destruction — Ichor is consumed but grade is unchanged</td></tr>
     </table>
-    <div class="note note-info"><p><strong>Open decision:</strong> How is Ichor acquired? Possible sources: drops from bosses, dismantling high-grade gear, crafting, or as a rare gathering node reward.</p></div>
+    <div class="note note-info"><p><strong>Open decision:</strong> How is Ichor acquired? Possible sources: drops from bosses, dismantling high-grade gear, crafting, or rare battle/chest drops.</p></div>
 
   </div>
 
@@ -594,15 +592,16 @@ Your Backend
       <li><span class="phase-num">3</span><span><strong style="color:#e8e8e6">Encounter trigger</strong> — battle scene entry, minimal 1v1 battle, return to overworld</span></li>
       <li><span class="phase-num">4</span><span><strong style="color:#e8e8e6">Full battle system</strong> — expand to 3v3, moves, status effects, animations</span></li>
       <li><span class="phase-num">5</span><span><strong style="color:#e8e8e6">Floor progression</strong> — boss gate, stairs, floor transition, multiple floors</span></li>
-      <li><span class="phase-num">6</span><span><strong style="color:#e8e8e6">Gathering nodes</strong> — node collection, harvest interaction, depletion state</span></li>
-      <li><span class="phase-num">7</span><span><strong style="color:#e8e8e6">Autoplay & multi-tab system</strong> — pathfinding, config options, death handler, simultaneous multi-character simulation</span></li>
-      <li><span class="phase-num">8</span><span><strong style="color:#e8e8e6">Character & class system</strong> — class XP, character level aggregation, PoE skill trees</span></li>
-      <li><span class="phase-num">9</span><span><strong style="color:#e8e8e6">Metagame</strong> — breeding, crafting, farming, base building</span></li>
-      <li><span class="phase-num">10</span><span><strong style="color:#e8e8e6">Leagues & death pipelines</strong> — all four death paths, both crypts, soul gem generation, season migration</span></li>
-      <li><span class="phase-num">11</span><span><strong style="color:#e8e8e6">PvP & ladders</strong> — matchmaking, relay, leaderboards</span></li>
-      <li><span class="phase-num">12</span><span><strong style="color:#e8e8e6">Steam integration</strong> — Steamworks.NET, inventory, marketplace</span></li>
-      <li><span class="phase-num">13</span><span><strong style="color:#e8e8e6">Monetization</strong> — economy service, battle pass, item grants</span></li>
-      <li><span class="phase-num">14</span><span><strong style="color:#e8e8e6">Steam release</strong> — store page, F2P config, achievements</span></li>
+      <li><span class="phase-num">6</span><span><strong style="color:#e8e8e6">Floor win condition & chests</strong> — battle win counter, portal unlock, manual one-time chests, chest tracking on map selector</span></li>
+      <li><span class="phase-num">7</span><span><strong style="color:#e8e8e6">Boss key & boss floors</strong> — key drop chance on pre-boss floors, key consumption, boss floor access via portal or map selector</span></li>
+      <li><span class="phase-num">8</span><span><strong style="color:#e8e8e6">Autoplay & multi-tab system</strong> — pathfinding, config options, death handler, simultaneous multi-character simulation</span></li>
+      <li><span class="phase-num">9</span><span><strong style="color:#e8e8e6">Character & class system</strong> — class XP, character level aggregation, PoE skill trees</span></li>
+      <li><span class="phase-num">10</span><span><strong style="color:#e8e8e6">Metagame</strong> — breeding, crafting, farming, base building</span></li>
+      <li><span class="phase-num">11</span><span><strong style="color:#e8e8e6">Leagues & death pipelines</strong> — all four death paths, both crypts, soul gem generation, season migration</span></li>
+      <li><span class="phase-num">12</span><span><strong style="color:#e8e8e6">PvP & ladders</strong> — matchmaking, relay, leaderboards</span></li>
+      <li><span class="phase-num">13</span><span><strong style="color:#e8e8e6">Steam integration</strong> — Steamworks.NET, inventory, marketplace</span></li>
+      <li><span class="phase-num">14</span><span><strong style="color:#e8e8e6">Monetization</strong> — economy service, battle pass, item grants</span></li>
+      <li><span class="phase-num">15</span><span><strong style="color:#e8e8e6">Steam release</strong> — store page, F2P config, achievements</span></li>
     </ol>
     <h3>Critical risks</h3>
     <div class="note note-risk"><p><strong>PvP anti-cheat</strong> — server-authoritative resolution required. Design this before any PvP work begins.</p></div>
@@ -612,6 +611,7 @@ Your Backend
     <div class="note note-warn"><p><strong>Trade duplication exploits</strong> — implement transfer lock before marketplace goes live.</p></div>
     <h3>Future features (cut from current scope)</h3>
     <div class="note note-info"><p><strong>Rogue Collectors</strong> — hostile NPC trainer encounters with patrol routes and line-of-sight triggers, originally part of floor structure. Removed from active scope to keep early development focused. May be reintroduced post-launch or in a content update.</p></div>
+    <div class="note note-info"><p><strong>Gathering nodes & secret areas</strong> — the original handcrafted circuit map design with resource nodes, HM-gated secret areas, and a node-farming layer has been replaced by the simpler battle-win-threshold map design. All equipment and crafting materials now come from battle rewards and chests only. May be reconsidered as a future map variant or content layer.</p></div>
 
     <h3>Open decisions</h3>
     <ul>
@@ -623,6 +623,9 @@ Your Backend
       <li>Soul Gem XP thresholds for each rank (F through S)</li>
       <li>Whether Soul Gems are tradeable on the Steam marketplace</li>
       <li>Class specialization names and tree structures for all three classes</li>
+      <li>Number of chests per floor (the "x" in the x/x chest tracker)</li>
+      <li>Key drop rate per battle on pre-boss floors</li>
+      <li>Whether chest contents reset along with the 10-battle win counter on floor re-entry, or remain collected permanently</li>
     </ul>
   </div>
 </div>
