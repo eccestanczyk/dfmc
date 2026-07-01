@@ -60,7 +60,7 @@
           <th>Slot</th><th>Crude</th><th>Tier 2</th><th>Tier 3</th><th>Tier 4</th><th>Max</th>
         </tr>
       </table>
-      <p class="pending-note" style="margin-top:10px;">Slot names confirmed. Soul tier names (Crude through Max) still pending — column headers below are placeholders until those are provided.</p>
+      <p class="pending-note" style="margin-top:10px;">Placeholder slot names and soul tier names shown — waiting on the real 8-slot list and Crude→Max tier names to replace these.</p>
     </div>
   </section>
 
@@ -89,7 +89,7 @@
 
 <script>
 const CREATURES_URL = "https://raw.githubusercontent.com/eccestanczyk/dfmc/main/codex/creatures.csv";
-const EQUIPMENT_SLOTS = ["Main Hand","Off Hand","Accessory 1","Accessory 2","Head","Chest","Feet","Gloves"];
+const PLACEHOLDER_SLOTS = ["Slot 1","Slot 2","Slot 3","Slot 4","Slot 5","Slot 6","Slot 7","Slot 8"];
 
 function parseCSV(text) {
   const rows = [];
@@ -155,7 +155,7 @@ async function applyChromaKeyAll() {
 
 function buildEquipTable() {
   const table = document.getElementById('equip-table');
-  EQUIPMENT_SLOTS.forEach(slot => {
+  PLACEHOLDER_SLOTS.forEach(slot => {
     const row = document.createElement('tr');
     row.innerHTML = `<td class="filled">${slot}</td>` + '<td>—</td>'.repeat(5);
     table.appendChild(row);
