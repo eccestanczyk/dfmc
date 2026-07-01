@@ -810,7 +810,18 @@ Your Backend
     </table>
     <p style="font-size:13px;color:#555552">No slash-compound type names (e.g. never "Undead/Spectral") — always two clean single types via Type_Primary/Type_Secondary instead.</p>
 
+    <h3>Creature level bands (max level 100, for now)</h3>
+    <p>A creature's floor is its level. Which evolutionary stage can appear is gated <strong style="color:#e8e8e6">globally by floor number</strong>, not by zone — zones are still fixed 10-floor thematic/environment blocks, but stage eligibility ignores zone boundaries entirely.</p>
+    <table>
+      <tr><th>Band</th><th>Floors</th><th>Stage</th></tr>
+      <tr><td>Infant</td><td>1–33</td><td>Stage 1 only — fast-paced section</td></tr>
+      <tr><td>Evolved</td><td>34–66</td><td>Stage 2 only</td></tr>
+      <tr><td>Final</td><td>67–100</td><td>Stage 3 only</td></tr>
+    </table>
+    <p style="font-size:13px;color:#555552">All 42 creature lines are full 3-stage — no exceptions. Rarity (C/UC/R/SR/SSR) is a fixed property of the <em>line</em>, independent of stage, since every creature on a given floor is necessarily the same stage. 42 lines split: 13 Common, 13 Uncommon, 8 Rare, 4 Super Rare, 4 Super Super Rare.</p>
+
     <h3>Per-floor creature encounter rarity (C / UC / R / SR / SSR)</h3>
+    <p><strong>Superseded note below</strong> — kept for context, but rarity is now per-line (see level bands above), not per-stage.</p>
     <p>Not the same scale as equipment/egg Grade above. Every floor has exactly 10 encounter slots: 3 Common, 3 Uncommon, 2 Rare, 1 Super Rare, 1 Super Super Rare. Data lives in <code>codex/floor_creature_rarity.csv</code>. A line's strongest evolution is typically SSR on a zone's earliest floors, shifting down to SR by that zone's later floors.</p>
 
     <h3>Creature grading design principle</h3>
