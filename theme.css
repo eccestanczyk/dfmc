@@ -6,21 +6,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap');
 
 :root {
-  --parchment: #e8dcc4;
-  --parchment-dark: #d9c8a0;
-  --parchment-shadow: #b8a578;
-  --parchment-deep: #cbb98d;
-  --ink: #2b2016;
-  --ink-faded: #5c4d38;
-  --ink-rule: #6b5a3e;
-  --blood: #6b1420;
-  --blood-bright: #9c1f1f;
-  --gold-leaf: #96721f;
-  --wax-common: #7d7566;
+  --parchment: #1a140e;
+  --parchment-dark: #120d09;
+  --parchment-shadow: #0d0a06;
+  --parchment-deep: #241b12;
+  --ink: #d9c8a0;
+  --ink-faded: #8c7a5c;
+  --ink-rule: #4a3a24;
+  --blood: #8a1f24;
+  --blood-bright: #c22e2e;
+  --gold-leaf: #b8923f;
+  --wax-common: #6b6355;
   --wax-uncommon: #3f6b3a;
-  --wax-rare: #2f4f7a;
-  --wax-sr: #5c2f6b;
-  --wax-ssr: #96721f;
+  --wax-rare: #3a5a8a;
+  --wax-sr: #6b3a7a;
+  --wax-ssr: #b8923f;
 }
 
 * { box-sizing: border-box; }
@@ -32,10 +32,10 @@ body {
   color: var(--ink);
   background-color: var(--parchment);
   background-image:
-    radial-gradient(ellipse 700px 500px at 10% 0%, rgba(184,165,120,0.55), transparent 60%),
-    radial-gradient(ellipse 600px 500px at 95% 20%, rgba(107,20,32,0.06), transparent 55%),
-    radial-gradient(ellipse 500px 400px at 30% 90%, rgba(184,165,120,0.4), transparent 60%),
-    radial-gradient(ellipse 800px 600px at 70% 60%, rgba(203,185,141,0.35), transparent 65%);
+    radial-gradient(ellipse 700px 500px at 10% 0%, rgba(184,146,63,0.07), transparent 60%),
+    radial-gradient(ellipse 600px 500px at 95% 20%, rgba(138,31,36,0.1), transparent 55%),
+    radial-gradient(ellipse 500px 400px at 30% 90%, rgba(184,146,63,0.05), transparent 60%),
+    radial-gradient(ellipse 900px 700px at 50% 50%, rgba(0,0,0,0.4), transparent 70%);
   min-height: 100vh;
 }
 
