@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TYPE CODEX</title>
+<link rel="stylesheet" href="theme.css">
+</head>
+<body>
+
+<div class="topbar">
+  <a class="index-btn" href="floor-codex.html">← INDEX</a>
+  <h1 id="topbar-title">TYPE CODEX</h1>
+  <div style="width:90px;"></div>
+</div>
+
+<div id="status">LOADING...</div>
+<main id="main" style="display:none;">
+  <div class="type-hero">
+    <h2 id="type-name"></h2>
+    <p id="type-count"></p>
+  </div>
+
+  <section>
+    <h3>Creatures of This Type</h3>
+    <div class="type-grid" id="type-grid"></div>
+  </section>
+
+  <section>
+    <h3>Moves That Interact With This Type</h3>
+    <div class="section-body">
+      <div class="pending-note">Move design has not started yet — no move data exists to show type advantages or disadvantages against this type.</div>
+    </div>
+  </section>
+</main>
+
+<script>
+const CREATURES_URL = "https://raw.githubusercontent.com/eccestanczyk/dfmc/main/codex/creatures.csv";
+
+function parseCSV(text) {
+  const rows = [];
+  let row = [], field = '', inQuotes = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i], next = text[i+1];
+    if (inQuotes) {
+      if (c === '"' && next === '"') { field += '"'; i++; }
+      else if (c === '"') { inQuotes = false; }
+      else { field += c; }
+    } else {
+      if (c === '"') inQuotes = true;
+      else if (c === ',') { row.push(field); field = ''; }
+      else if (c === '\r') {}
+      else if (c === '\n') { row.push(field); rows.push(row); row = []; field = ''; }
+      else { field += c; }
+    }
+  }
+  if (field.length || row.length) { row.push(field); rows.push(row); }
+  const header = rows.shift();
+  return rows.filter(r => r.length > 1 || r[0]).map(r => {
+    const obj = {};
+    header.forEach((h, idx) => obj[h] = r[idx] ?? '');
+    return obj;
+  });
+}
+function escapeHtml(str) {
+  if (!str) return '';
+  return str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+function chromaKeyToDataURL(url) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () => {
+      try {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.naturalWidth; canvas.height = img.naturalHeight;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const data = imageData.data;
+        for (let i = 0; i < data.length; i += 4) {
+          const r = data[i], g = data[i+1], b = data[i+2];
+          const greenness = g - Math.max(r, b);
+          if (g > 100 && greenness > 30) {
+            const alpha = Math.max(0, 255 - greenness * 3.2);
+            data[i+3] = Math.min(data[i+3], alpha);
+          }
+        }
+        ctx.putImageData(imageData, 0, 0);
+        resolve(canvas.toDataURL('image/png'));
+      } catch (e) { resolve(url); }
+    };
+    img.onerror = () => resolve(url);
+    img.src = url;
+  });
+}
+async function applyChromaKeyAll() {
+  const imgs = document.querySelectorAll('img.chroma[data-src]');
+  await Promise.all(Array.from(imgs).map(async (img) => { img.src = await chromaKeyToDataURL(img.dataset.src); }));
+}
+
+async function load() {
+  const params = new URLSearchParams(window.location.search);
+  const type = params.get('type');
+  if (!type) { document.getElementById('status').textContent = 'NO TYPE SPECIFIED'; return; }
+
+  try {
+    const text = await fetch(CREATURES_URL).then(r => r.text());
+    const creatures = parseCSV(text);
+    const matches = creatures.filter(c => c.Type_Primary === type || c.Type_Secondary === type);
+
+    document.title = type + ' — TYPE CODEX';
+    document.getElementById('topbar-title').textContent = type.toUpperCase();
+    document.getElementById('type-name').textContent = type;
+    document.getElementById('type-count').textContent = matches.length + ' creature' + (matches.length === 1 ? '' : 's') + ' bear this type';
+
+    document.getElementById('type-grid').innerHTML = matches.length
+      ? matches.map(c => `
+          <a class="type-card" href="creature.html?id=${escapeHtml(c.ID)}">
+            ${c.Image_Path ? `<img class="chroma" data-src="${escapeHtml(c.Image_Path)}" alt="">` : `<div class="no-img">NO IMAGE</div>`}
+            <div class="tc-name">${escapeHtml(c.Name)}</div>
+            <div class="tc-sub">Stage ${escapeHtml(c.Stage)} — ${escapeHtml(c.Rarity)}</div>
+          </a>
+        `).join('')
+      : `<div class="pending-note">No creatures currently carry this type.</div>`;
+
+    document.getElementById('status').style.display = 'none';
+    document.getElementById('main').style.display = 'block';
+    applyChromaKeyAll();
+  } catch (err) {
+    document.getElementById('status').textContent = 'LOAD FAILED: ' + err.message;
+  }
+}
+load();
+</script>
+</body>
+</html>
