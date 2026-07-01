@@ -789,7 +789,28 @@ Your Backend
   <!-- GLOSSARY -->
   <div id="glossary" class="page">
     <h2>Glossary</h2>
-    <p>Canonical terms and naming, kept here specifically to stop naming drift across sessions and files. Codex/CSV work lives in the <code>codex/</code> folder of this repo; this page is the source of truth for what everything is actually called.</p>
+    <p>Canonical terms and naming, kept here specifically to stop naming drift across sessions and files. This page is the source of truth for what everything is called and where the data lives — <strong style="color:#ede0c4">a new session picking up design or coding work should read the relevant file below rather than re-deriving anything.</strong></p>
+
+    <h3>Repositories &amp; data files — start here</h3>
+    <table>
+      <tr><th>Location</th><th>What it holds</th></tr>
+      <tr><td><code>eccestanczyk/dfmc</code></td><td>This GDD (<code>index.html</code> at the GitHub&nbsp;Pages root), the codex data CSVs under <code>codex/</code>, and the live codex site pages.</td></tr>
+      <tr><td><code>eccestanczyk/dfmc-game</code></td><td>The Unity 6.5 project. Runtime game-data CSVs live in <code>Assets/Data/</code>, imported into ScriptableObjects.</td></tr>
+    </table>
+    <p style="font-size:13px;color:#c2ae8b">Live GDD: <code>eccestanczyk.github.io/dfmc/</code> &middot; Live codex index: <code>eccestanczyk.github.io/dfmc/floor-codex.html</code></p>
+
+    <h3>Codex data — the creature roster &amp; encounter tables</h3>
+    <p>These CSVs are the source of truth for creatures and where they appear. The codex site reads them live from the <code>main</code> branch, so updating a CSV updates the site — no page edits needed.</p>
+    <table>
+      <tr><th>File</th><th>Rows</th><th>Contents</th></tr>
+      <tr><td><code>codex/creatures.csv</code></td><td>300<br>(100 lines &times; 3 stages)</td><td>Full creature roster, one row per evolution stage. Columns: <code>ID, Line_ID, Stage, Name, Type_Primary, Type_Secondary, Background_Key, Rarity, Floor_Found, Encounter_Type, Evolves_From, Evolves_To, Grade_Offense, Grade_Defense, Grade_Utility, Grade_Speed, Description, Image_Prompt, Image_Path, Home_Zone</code>. IDs run <code>DFMC-001</code>…<code>DFMC-300</code>, assigned per line then stage (line&nbsp;k &rarr; <code>3k-2 / 3k-1 / 3k</code>).</td></tr>
+      <tr><td><code>codex/floors.csv</code></td><td>100</td><td>The 100 floors. Columns: <code>Floor, Zone, Encounter_Type, Is_Boss, Boss_Name, Primary_Type, Tier, Visual_Theme, Description, Cover_Image_Path</code>.</td></tr>
+      <tr><td><code>codex/floor_creature_rarity.csv</code></td><td>1000<br>(100 floors &times; 10 slots)</td><td>The encounter table. Each floor's 10 tier-slots (3C/3UC/2R/1SR/1SSR) mapped to a <code>Creature_ID</code>. Columns: <code>Floor, Creature_ID, Rarity_Tier</code>. Stage-banded (see level bands below). <strong style="color:#ede0c4">Regenerate this whenever <code>creatures.csv</code> IDs change</strong> — the index joins the two by ID.</td></tr>
+      <tr><td><code>codex/encounter_weights.csv</code></td><td>—</td><td>Per-floor odds of an encounter rolling into each tier; SSR/SR odds scale up over the run (see "Encounter weights" below).</td></tr>
+      <tr><td><code>codex/maptypes.csv</code></td><td>—</td><td>Tileset / map-restyle definitions for floor-art generation.</td></tr>
+    </table>
+    <p style="font-size:13px;color:#c2ae8b">Codex pages: <code>floor-codex.html</code> is the zone/floor index (joins floors &rarr; floor_creature_rarity &rarr; creatures by ID) &middot; <code>creature.html?id=DFMC-XXX</code> a single creature &middot; <code>floor.html?num=N</code> and <code>type.html?type=X</code> the floor and type views.</p>
+    <p style="font-size:13px;color:#c2ae8b">GitHub API edit workflow: <code>GET</code> the file's current SHA, then <code>PUT</code> base64-encoded content <em>with</em> that SHA (omitting it fails). Build CSVs with a real CSV writer, never hand-rolled strings, and validate every row's column count before pushing.</p>
 
     <h3>Grade scale (Worn → Void)</h3>
     <p>One shared 10-tier scale used for <strong style="color:#ede0c4">equipment grade</strong>, <strong style="color:#ede0c4">egg grade</strong>, and by extension the grade of any creature hatched from an egg of that grade. Not the same thing as encounter rarity (see below).</p>
@@ -872,7 +893,7 @@ Your Backend
       <tr><td>Evolved</td><td>34–66</td><td>Stage 2 only</td></tr>
       <tr><td>Final</td><td>67–100</td><td>Stage 3 only</td></tr>
     </table>
-    <p style="font-size:13px;color:#c2ae8b">All 42 creature lines are full 3-stage — no exceptions. Rarity (C/UC/R/SR/SSR) is a fixed property of the <em>line</em>, independent of stage, since every creature on a given floor is necessarily the same stage. 42 lines split: 13 Common, 13 Uncommon, 8 Rare, 4 Super Rare, 4 Super Super Rare.</p>
+    <p style="font-size:13px;color:#c2ae8b">All 100 creature lines are full 3-stage — no exceptions. Rarity (C/UC/R/SR/SSR) is a fixed property of the <em>line</em>, independent of stage, since every creature on a given floor is necessarily the same stage. 100 lines split: 28 Common, 27 Uncommon, 21 Rare, 14 Super Rare, 10 Super Super Rare.</p>
 
     <h3>Encounter weights — SSR/SR odds scale up over the run</h3>
     <p>Two separate tables work together. <code>codex/floor_creature_rarity.csv</code> says which species are eligible in each tier on a given floor (always 3C/3UC/2R/1SR/1SSR — fixed). <code>codex/encounter_weights.csv</code> says the actual odds of an encounter rolling into each tier on that floor — and those odds move as the run progresses, so flagship lines are technically always "on the table" but genuinely hard to actually meet early on.</p>
@@ -891,11 +912,15 @@ Your Backend
     <h3>Creature grading design principle</h3>
     <p>Each creature line has one fixed set of 4 identity grades — <strong>Offense / Defense / Utility / Speed</strong>, scale 1–10 — that stays constant across every evolution stage in that line. Evolution scales actual battle stats later; it does not change the identity shape.</p>
 
+    <h3>Creature naming</h3>
+    <p style="font-size:13px;color:#c2ae8b">Every creature line name is a <strong style="color:#ede0c4">single word</strong> — no multi-word names, no "The ___". Dark-fantasy tone, frequently a modified myth or religious reference. <code>Line_ID</code> in the CSV is the uppercase line name. All three stages currently share that one name (differentiated by the <code>Stage</code> column); a proposed refinement — Stage 3 keeps the full name while Stages 1–2 are shortened forms of it — is under consideration, not yet applied.</p>
+
     <h3>Image generation conventions</h3>
     <ul>
       <li>Default background: solid chroma green (0,255,0). Use magenta (255,0,255) instead for Fungal/Flora/Insect-typed creatures, since those legitimately render green.</li>
       <li>3-stage workflow: design stage 2 first as the core concept, then generate stage 1 and stage 3 as new images using stage 2 as a visual reference — never as an "edit" of stage 2.</li>
       <li>No repeated core motifs between different creature lines. If a theme must repeat, it needs an added twist unique to that creature.</li>
+      <li>Each creature's Stage-2 prompt is stored in the <code>Image_Prompt</code> column of <code>codex/creatures.csv</code>; Stage 1/3 rows store the reference-image instruction. Art is not yet generated — <code>Image_Path</code> is empty and pages show "NO IMAGE YET".</li>
     </ul>
   </div>
 </div>
