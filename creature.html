@@ -171,7 +171,7 @@ async function load() {
   const id = params.get('id');
   if (!id) { document.getElementById('status').textContent = 'NO CREATURE ID SPECIFIED'; return; }
   try {
-    const text = await fetch(CREATURES_URL).then(r => r.text());
+    const text = await fetch(CREATURES_URL + '?t=' + Date.now()).then(r => r.text());
     const creatures = parseCSV(text);
     creatures.sort((a,b) => a.ID.localeCompare(b.ID));
 
