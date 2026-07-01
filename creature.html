@@ -5,6 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CREATURE CODEX</title>
 <link rel="stylesheet" href="theme.css">
+<style>
+  .art-pending-banner {
+    background: rgba(192,57,43,0.2);
+    border: 1px solid #c0392b;
+    color: #e74c3c;
+    padding: 8px 14px;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-align: center;
+    margin-top: 10px;
+    border-radius: 4px;
+  }
+</style>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
@@ -197,6 +210,12 @@ async function load() {
     document.getElementById('hero-img-slot').innerHTML = c.Image_Path
       ? `<img class="chroma" data-src="${escapeHtml(c.Image_Path)}" alt="${escapeHtml(c.Name)}">`
       : `<div class="no-img">NO IMAGE YET</div>`;
+
+    // Art approval status banner
+    if (c.Art_Status === 'pending') {
+      document.getElementById('hero-img-slot').insertAdjacentHTML('afterend',
+        '<div class="art-pending-banner">⚠ ART PENDING APPROVAL</div>');
+    }
 
     const floors = (c.Floor_Found || '').split(';').map(s => s.trim()).filter(Boolean);
     document.getElementById('c-floors').innerHTML = floors.length
