@@ -820,6 +820,16 @@ Your Backend
     </table>
     <p style="font-size:13px;color:#555552">All 42 creature lines are full 3-stage — no exceptions. Rarity (C/UC/R/SR/SSR) is a fixed property of the <em>line</em>, independent of stage, since every creature on a given floor is necessarily the same stage. 42 lines split: 13 Common, 13 Uncommon, 8 Rare, 4 Super Rare, 4 Super Super Rare.</p>
 
+    <h3>Encounter weights — SSR/SR odds scale up over the run</h3>
+    <p>Two separate tables work together. <code>codex/floor_creature_rarity.csv</code> says which species are eligible in each tier on a given floor (always 3C/3UC/2R/1SR/1SSR — fixed). <code>codex/encounter_weights.csv</code> says the actual odds of an encounter rolling into each tier on that floor — and those odds move as the run progresses, so flagship lines are technically always "on the table" but genuinely hard to actually meet early on.</p>
+    <table>
+      <tr><th>Floor</th><th>Common</th><th>Uncommon</th><th>Rare</th><th>Super Rare</th><th>Super Super Rare</th></tr>
+      <tr><td>1</td><td>50%</td><td>30%</td><td>15%</td><td>4%</td><td>1%</td></tr>
+      <tr><td>50</td><td>32.7%</td><td>27.5%</td><td>22.4%</td><td>10.9%</td><td>6.4%</td></tr>
+      <tr><td>100</td><td>15%</td><td>25%</td><td>30%</td><td>18%</td><td>12%</td></tr>
+    </table>
+    <p style="font-size:13px;color:#555552">Linear scaling floor 1→100 between those endpoints, every floor's row sums to exactly 100%.</p>
+
     <h3>Per-floor creature encounter rarity (C / UC / R / SR / SSR)</h3>
     <p><strong>Superseded note below</strong> — kept for context, but rarity is now per-line (see level bands above), not per-stage.</p>
     <p>Not the same scale as equipment/egg Grade above. Every floor has exactly 10 encounter slots: 3 Common, 3 Uncommon, 2 Rare, 1 Super Rare, 1 Super Super Rare. Data lives in <code>codex/floor_creature_rarity.csv</code>. A line's strongest evolution is typically SSR on a zone's earliest floors, shifting down to SR by that zone's later floors.</p>
