@@ -227,7 +227,7 @@ async function load() {
     document.getElementById('c-types').innerHTML = typesHtml;
 
     document.getElementById('creature-img-wrap').innerHTML = c.Image_Path
-      ? `<img data-src="${escapeHtml(c.Image_Path)}" alt="${escapeHtml(c.Name)}">`
+      ? `<img src="${escapeHtml(c.Image_Path)}" alt="${escapeHtml(c.Name)}">`
       : `<div class="no-img">NO IMAGE YET</div>`;
 
     // Zone gradient background on the image wrapper
@@ -255,7 +255,7 @@ async function load() {
     let evoHtml = '';
     lineMembers.forEach((m, i) => {
       const isCurrent = m.ID === c.ID;
-      const imgHtml = m.Image_Path ? `<img class="chroma" data-src="${escapeHtml(m.Image_Path)}" alt="">` : `<div class="no-img-sm">?</div>`;
+      const imgHtml = m.Image_Path ? `<img src="${escapeHtml(m.Image_Path)}" alt="">` : `<div class="no-img-sm">?</div>`;
       evoHtml += isCurrent
         ? `<div class="evo-node current">${imgHtml}<span>${escapeHtml(m.Name)}</span></div>`
         : `<a class="evo-node linkable" href="creature.html?id=${escapeHtml(m.ID)}">${imgHtml}<span>${escapeHtml(m.Name)}</span></a>`;
