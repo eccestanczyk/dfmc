@@ -5,64 +5,118 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tower Crawler — GDD</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:system-ui,-apple-system,sans-serif;background:#0f0f0f;color:#e8e8e6;min-height:100vh}
-.wrap{max-width:800px;margin:0 auto;padding:2rem 1.5rem}
-.header{border-bottom:0.5px solid #2a2a2a;padding-bottom:1rem;margin-bottom:1.25rem}
-.title{font-size:22px;font-weight:500;letter-spacing:-0.3px}
-.sub{font-size:13px;color:#555552;margin-top:4px}
-.nav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1.5rem}
-.nav button{font-size:12px;padding:4px 10px;border:0.5px solid #2a2a2a;border-radius:6px;background:transparent;color:#888884;cursor:pointer;font-family:inherit;transition:all 0.1s}
-.nav button:hover{background:#1a1a1a;color:#e8e8e6}
-.nav button.active{background:#222;border-color:#333;color:#e8e8e6}
-.page{display:none}.page.active{display:block}
-h2{font-size:18px;font-weight:500;margin:1.5rem 0 0.75rem;color:#e8e8e6;border-bottom:0.5px solid #2a2a2a;padding-bottom:6px}
-h2:first-child{margin-top:0}
-h3{font-size:15px;font-weight:500;margin:1rem 0 0.5rem;color:#e8e8e6}
-p{font-size:14px;line-height:1.7;color:#888884;margin-bottom:0.75rem}
-ul{font-size:14px;color:#888884;padding-left:1.25rem;margin-bottom:0.75rem;line-height:1.85}
-.card{background:#1a1a1a;border:0.5px solid #2a2a2a;border-radius:12px;padding:1rem 1.25rem;margin-bottom:0.75rem}
-.card-title{font-size:13px;font-weight:600;margin-bottom:6px;color:#e8e8e6}
-.card-body{font-size:13px;color:#888884;line-height:1.65}
-.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:0.75rem}
-.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:0.75rem}
-.stat-card{background:#1a1a1a;border:0.5px solid #2a2a2a;border-radius:8px;padding:0.75rem 1rem}
-.stat-label{font-size:11px;color:#555552;text-transform:uppercase;letter-spacing:0.5px}
-.stat-val{font-size:14px;font-weight:500;color:#e8e8e6;margin-top:3px}
-.note{border-radius:0 4px 4px 0;padding:0.6rem 0.9rem;margin-bottom:0.75rem;border-left-width:2px;border-left-style:solid}
-.note p{margin:0;font-size:13px;line-height:1.6}
-.note-info{background:#0e1f3d;border-color:#2563eb}.note-info p{color:#93c5fd}
-.note-warn{background:#2d1f00;border-color:#d97706}.note-warn p{color:#fcd34d}
-.note-risk{background:#3f1212;border-color:#dc2626}.note-risk p{color:#fca5a5}
-.note-lore{background:#1a0d2d;border-color:#7c3aed}.note-lore p{color:#c084fc}
-table{width:100%;font-size:13px;border-collapse:collapse;margin-bottom:1rem}
-th{text-align:left;font-size:12px;color:#555552;padding:6px 8px;border-bottom:0.5px solid #2a2a2a;font-weight:500}
-td{padding:7px 8px;color:#888884;vertical-align:top}
-tr:not(:last-child) td{border-bottom:0.5px solid #2a2a2a}
-pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #2a2a2a;border-radius:6px;padding:0.75rem 1rem;margin-bottom:0.75rem;color:#a3a39f;white-space:pre-wrap;line-height:1.65}
-.pill{font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;display:inline-block}
-.pill-hc{background:#3f1212;color:#f87171}
-.pill-eternal{background:#1e1440;color:#a78bfa}
-.pill-season{background:#0e1f3d;color:#60a5fa}
-.pill-hcs{background:#2d1f00;color:#fbbf24}
-.pill-wip{background:#2d1f00;color:#fbbf24}
-.pill-warrior{background:#2d1a00;color:#fb923c}
-.pill-archer{background:#0f2d1a;color:#4ade80}
-.pill-mage{background:#1a0d2d;color:#c084fc}
-.phase-list{list-style:none;padding:0;margin:0 0 1rem}
-.phase-list li{display:flex;gap:10px;align-items:flex-start;padding:8px 0;font-size:13px;color:#888884}
-.phase-list li:not(:last-child){border-bottom:0.5px solid #2a2a2a}
-.phase-num{min-width:22px;height:22px;border-radius:50%;background:#222;border:0.5px solid #333;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#555552;flex-shrink:0}
-.tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1rem}
-.tag{font-size:12px;padding:2px 8px;border:0.5px solid #2a2a2a;border-radius:4px;color:#888884;background:#1a1a1a;font-family:monospace}
-.soul-gem{background:#1a1a1a;border:0.5px solid #2a2a2a;border-radius:8px;padding:0.75rem 1rem;display:flex;align-items:center;gap:10px;margin-bottom:8px}
-.gem-rank{width:36px;height:36px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0}
-.gem-name{font-size:13px;font-weight:500;color:#e8e8e6}
-.gem-xp{font-size:11px;color:#555552;margin-top:2px}
-.flow-box{background:#1a1a1a;border:0.5px solid #2a2a2a;border-radius:8px;padding:0.75rem 1rem;margin-bottom:6px}
-.flow-box-title{font-size:12px;font-weight:600;margin-bottom:4px}
-.flow-box-body{font-size:12px;color:#888884;line-height:1.6}
-.arrow{text-align:center;color:#555552;font-size:12px;margin:2px 0}
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cinzel+Decorative:wght@700;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
+
+:root{
+  --bg:#14100b; --bg-deep:#0d0a06;
+  --surface:#1e1710; --surface-2:#271e15; --surface-3:#31261a;
+  --ink:#ede0c4; --ink-dim:#c2ae8b; --ink-faint:#9c8963;
+  --blood:#7c1519; --blood-mid:#a3282a; --blood-bright:#dd5646; --blood-glow:#ef6b57;
+  --gold:#cfa650; --gold-bright:#e6c66d; --gold-dim:#8a6d2f;
+  --rule:#5c462c; --rule-faint:#3a2c1a;
+}
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+
+body{
+  font-family:'EB Garamond', Georgia, serif;
+  color:var(--ink);
+  background-color:var(--bg);
+  background-image:
+    radial-gradient(ellipse 60% 45% at 14% -6%, rgba(207,166,80,0.06), transparent 60%),
+    radial-gradient(ellipse 55% 45% at 93% 10%, rgba(124,21,25,0.16), transparent 55%),
+    radial-gradient(ellipse 52% 42% at 80% 90%, rgba(124,21,25,0.09), transparent 60%),
+    radial-gradient(ellipse 42% 36% at 28% 96%, rgba(207,166,80,0.05), transparent 62%),
+    radial-gradient(circle at 50% 38%, rgba(0,0,0,0) 42%, rgba(0,0,0,0.58) 100%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  background-repeat:no-repeat,no-repeat,no-repeat,no-repeat,no-repeat,repeat;
+  background-attachment:fixed,fixed,fixed,fixed,fixed,fixed;
+  min-height:100vh;
+}
+
+.wrap{ max-width:840px; margin:0 auto; padding:2.5rem 1.5rem 4rem; }
+
+.header{ border-bottom:2px solid var(--rule); box-shadow:0 2px 0 rgba(124,21,25,0.3); padding-bottom:1.1rem; margin-bottom:1.5rem; }
+.title{ font-family:'Cinzel Decorative', serif; font-weight:900; font-size:27px; letter-spacing:0.03em; color:var(--gold-bright); text-shadow:0 1px 0 #000, 0 0 16px rgba(124,21,25,0.55); }
+.sub{ font-size:15px; color:var(--ink-dim); margin-top:6px; font-style:italic; }
+
+.nav{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:1.75rem; }
+.nav button{
+  font-family:'Cinzel', serif; font-size:11px; letter-spacing:0.06em; text-transform:uppercase;
+  padding:6px 12px; border:1px solid var(--rule); background:var(--surface-2); color:var(--gold);
+  cursor:pointer; transition:all 0.14s ease;
+}
+.nav button:hover{ background:var(--surface-3); color:var(--gold-bright); border-color:var(--gold-dim); }
+.nav button.active{ background:var(--blood); border-color:var(--blood-bright); color:var(--ink); box-shadow:0 0 12px rgba(221,86,70,0.35); }
+
+.page{ display:none; } .page.active{ display:block; }
+
+h2{
+  font-family:'Cinzel', serif; font-size:20px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;
+  margin:2rem 0 1rem; color:var(--gold-bright); padding-bottom:8px; text-shadow:0 1px 2px rgba(0,0,0,0.5);
+  border-bottom:1px solid var(--rule);
+  background-image:linear-gradient(90deg, var(--gold-dim), transparent 55%);
+  background-repeat:no-repeat; background-position:bottom left; background-size:100% 2px;
+}
+h2:first-child{ margin-top:0; }
+h3{ font-family:'Cinzel', serif; font-size:15px; font-weight:600; letter-spacing:0.04em; margin:1.4rem 0 0.6rem; color:var(--gold); }
+
+p{ font-size:16px; line-height:1.75; color:var(--ink); margin-bottom:0.85rem; }
+ul{ font-size:16px; color:var(--ink); padding-left:1.3rem; margin-bottom:0.85rem; line-height:1.85; }
+li::marker{ color:var(--blood-bright); }
+
+.card{ background:var(--surface); border:1px solid var(--rule); padding:1rem 1.25rem; margin-bottom:0.85rem; box-shadow:inset 0 1px 0 rgba(207,166,80,0.06), 0 4px 12px rgba(0,0,0,0.35); }
+.card-title{ font-family:'Cinzel', serif; font-size:14px; font-weight:600; letter-spacing:0.03em; margin-bottom:7px; color:var(--gold-bright); }
+.card-body{ font-size:15px; color:var(--ink-dim); line-height:1.7; }
+
+.grid-2{ display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:10px; margin-bottom:0.85rem; }
+.grid-3{ display:grid; grid-template-columns:repeat(auto-fit, minmax(140px,1fr)); gap:10px; margin-bottom:0.85rem; }
+
+.stat-card{ background:var(--surface-2); border:1px solid var(--rule); padding:0.8rem 1rem; }
+.stat-label{ font-family:'Cinzel', serif; font-size:10px; color:var(--gold); text-transform:uppercase; letter-spacing:0.1em; }
+.stat-val{ font-size:16px; font-weight:600; color:var(--ink); margin-top:4px; }
+
+.note{ padding:0.7rem 1rem; margin-bottom:0.85rem; border-left-width:3px; border-left-style:solid; box-shadow:0 3px 10px rgba(0,0,0,0.3); }
+.note p{ margin:0; font-size:15px; line-height:1.65; }
+.note-info{ background:#12202f; border-color:#4f7fae; } .note-info p{ color:#a9c8e6; }
+.note-warn{ background:#241a05; border-color:var(--gold-dim); } .note-warn p{ color:var(--gold-bright); }
+.note-risk{ background:#2c0f10; border-color:var(--blood-bright); } .note-risk p{ color:#f0ac9f; }
+.note-lore{ background:#1c1030; border-color:#8a5fac; } .note-lore p{ color:#cbabe4; }
+
+table{ width:100%; font-size:15px; border-collapse:collapse; margin-bottom:1.1rem; }
+th{ font-family:'Cinzel', serif; text-align:left; font-size:11px; color:var(--gold); padding:8px 10px; border-bottom:1px solid var(--rule); font-weight:600; text-transform:uppercase; letter-spacing:0.06em; }
+td{ padding:8px 10px; color:var(--ink-dim); vertical-align:top; }
+tr:not(:last-child) td{ border-bottom:1px solid var(--rule-faint); }
+
+pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surface-2); border:1px solid var(--rule); padding:0.85rem 1rem; margin-bottom:0.85rem; color:var(--ink-dim); white-space:pre-wrap; line-height:1.7; }
+
+.pill{ font-family:'Cinzel', serif; font-size:10px; font-weight:600; letter-spacing:0.04em; padding:3px 9px; display:inline-block; text-transform:uppercase; border:1px solid rgba(0,0,0,0.35); }
+.pill-hc{ background:#3a1214; color:#f0ac9f; }
+.pill-eternal{ background:#1e1440; color:#bda6e8; }
+.pill-season{ background:#12202f; color:#a9c8e6; }
+.pill-hcs{ background:#241a05; color:var(--gold-bright); }
+.pill-wip{ background:#241a05; color:var(--gold-bright); }
+.pill-warrior{ background:#2a1605; color:#e89a52; }
+.pill-archer{ background:#12210f; color:#86c377; }
+.pill-mage{ background:#1c1030; color:#cbabe4; }
+
+.phase-list{ list-style:none; padding:0; margin:0 0 1.1rem; }
+.phase-list li{ display:flex; gap:12px; align-items:flex-start; padding:9px 0; font-size:15px; color:var(--ink-dim); }
+.phase-list li:not(:last-child){ border-bottom:1px solid var(--rule-faint); }
+.phase-num{ min-width:24px; height:24px; border-radius:50%; background:var(--surface-3); border:1px solid var(--gold-dim); display:flex; align-items:center; justify-content:center; font-family:'Cinzel', serif; font-size:11px; font-weight:700; color:var(--gold); flex-shrink:0; box-shadow:inset 0 0 8px rgba(0,0,0,0.4); }
+
+.tags{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:1.1rem; }
+.tag{ font-family:'Courier New', monospace; font-size:12px; padding:3px 9px; border:1px solid var(--rule); color:var(--ink-dim); background:var(--surface-2); }
+
+.soul-gem{ background:var(--surface); border:1px solid var(--rule); padding:0.8rem 1rem; display:flex; align-items:center; gap:12px; margin-bottom:8px; box-shadow:0 3px 10px rgba(0,0,0,0.28); }
+.gem-rank{ width:36px; height:36px; display:flex; align-items:center; justify-content:center; font-family:'Cinzel', serif; font-size:14px; font-weight:700; flex-shrink:0; border:1px solid rgba(0,0,0,0.4); box-shadow:inset 0 -2px 4px rgba(0,0,0,0.4), inset 0 2px 3px rgba(255,255,255,0.12); }
+.gem-name{ font-size:15px; font-weight:600; color:var(--ink); }
+.gem-xp{ font-size:13px; color:var(--ink-dim); margin-top:3px; font-style:italic; }
+
+.flow-box{ background:var(--surface); border:1px solid var(--rule); padding:0.8rem 1rem; margin-bottom:6px; box-shadow:0 3px 10px rgba(0,0,0,0.25); }
+.flow-box-title{ font-family:'Cinzel', serif; font-size:13px; font-weight:600; letter-spacing:0.03em; margin-bottom:5px; color:var(--gold-bright); }
+.flow-box-body{ font-size:14px; color:var(--ink-dim); line-height:1.65; }
+.arrow{ text-align:center; color:var(--blood-bright); font-size:16px; margin:3px 0; }
 </style>
 </head>
 <body>
@@ -118,7 +172,7 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
     <p>Every account has a character in every league they have unlocked, starting at level 1. The character slot is permanent — death does not remove or demote the character. On hardcore death, the character is wiped back to level 1 and remains in the same league. Only their items, creatures, and class XP are lost.</p>
 
     <h3>Character level vs class level</h3>
-    <p>The character has a <strong style="color:#e8e8e6">character level</strong> — a global level aggregated from XP across all classes. Character level scales base stats (HP, stamina, resistances). Each class has its own <strong style="color:#e8e8e6">class level</strong> tracked separately, unlocking skill tree nodes and class-specific bonuses. Switching classes does not reset others.</p>
+    <p>The character has a <strong style="color:#ede0c4">character level</strong> — a global level aggregated from XP across all classes. Character level scales base stats (HP, stamina, resistances). Each class has its own <strong style="color:#ede0c4">class level</strong> tracked separately, unlocking skill tree nodes and class-specific bonuses. Switching classes does not reset others.</p>
     <div class="card"><div class="card-title">XP & level model</div><pre style="margin:8px 0 0">Character
 ├── characterLevel   → sum of all class XP → scales base stats
 ├── Warrior
@@ -133,9 +187,9 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
 
     <h3>Starting classes</h3>
     <div class="grid-3">
-      <div class="card"><div class="card-title"><span class="pill pill-warrior">Warrior</span></div><div class="card-body" style="margin-top:6px">Melee frontliner. High HP and physical defense. Skill tree: weapon mastery, stances, passive tankiness.<br><br><span style="font-size:12px;color:#555552">Specializations TBD</span></div></div>
-      <div class="card"><div class="card-title"><span class="pill pill-archer">Archer</span></div><div class="card-body" style="margin-top:6px">Ranged attacker. High mobility and crit potential. Skill tree: bow types, traps, pet synergies.<br><br><span style="font-size:12px;color:#555552">Specializations TBD</span></div></div>
-      <div class="card"><div class="card-title"><span class="pill pill-mage">Mage</span></div><div class="card-body" style="margin-top:6px">Spellcaster. High damage ceiling with resource management. Skill tree: elemental schools, utility.<br><br><span style="font-size:12px;color:#555552">Specializations TBD</span></div></div>
+      <div class="card"><div class="card-title"><span class="pill pill-warrior">Warrior</span></div><div class="card-body" style="margin-top:6px">Melee frontliner. High HP and physical defense. Skill tree: weapon mastery, stances, passive tankiness.<br><br><span style="font-size:12px;color:#c2ae8b">Specializations TBD</span></div></div>
+      <div class="card"><div class="card-title"><span class="pill pill-archer">Archer</span></div><div class="card-body" style="margin-top:6px">Ranged attacker. High mobility and crit potential. Skill tree: bow types, traps, pet synergies.<br><br><span style="font-size:12px;color:#c2ae8b">Specializations TBD</span></div></div>
+      <div class="card"><div class="card-title"><span class="pill pill-mage">Mage</span></div><div class="card-body" style="margin-top:6px">Spellcaster. High damage ceiling with resource management. Skill tree: elemental schools, utility.<br><br><span style="font-size:12px;color:#c2ae8b">Specializations TBD</span></div></div>
     </div>
 
     <h3>Skill tree</h3>
@@ -151,8 +205,8 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
     <div class="note note-lore"><p>When a hardcore character is demoted, their soul fractures. Each class they trained echoes forward as a Soul Gem, deposited in the crypt for the surviving character to reclaim.</p></div>
     <p>One Soul Gem is generated per class the character had any XP in. Rank scales with XP amount. Consuming a gem grants that XP to the character's matching class.</p>
     <div class="soul-gem"><div class="gem-rank" style="background:#2d1f00;border:0.5px solid #fbbf2460;color:#fbbf24">S</div><div><div class="gem-name">Soul of the Mage <span style="color:#fbbf24">S</span></div><div class="gem-xp">Grants 999,999 Mage XP on consume</div></div></div>
-    <div class="soul-gem"><div class="gem-rank" style="background:#1a1a1a;border:0.5px solid #88888460;color:#888884">E</div><div><div class="gem-name">Soul of the Archer <span style="color:#888884">E</span></div><div class="gem-xp">Grants 250 Archer XP on consume</div></div></div>
-    <div class="soul-gem"><div class="gem-rank" style="background:#1a1a1a;border:0.5px solid #55555260;color:#555552">F</div><div><div class="gem-name">Soul of the Warrior <span style="color:#555552">F</span></div><div class="gem-xp">Grants 100 Warrior XP on consume</div></div></div>
+    <div class="soul-gem"><div class="gem-rank" style="background:#1a1a1a;border:0.5px solid #c2ae8b60;color:#c2ae8b">E</div><div><div class="gem-name">Soul of the Archer <span style="color:#c2ae8b">E</span></div><div class="gem-xp">Grants 250 Archer XP on consume</div></div></div>
+    <div class="soul-gem"><div class="gem-rank" style="background:#1a1a1a;border:0.5px solid #c2ae8b60;color:#c2ae8b">F</div><div><div class="gem-name">Soul of the Warrior <span style="color:#c2ae8b">F</span></div><div class="gem-xp">Grants 100 Warrior XP on consume</div></div></div>
     <div class="note note-info" style="margin-top:12px"><p>Rank thresholds (F through S) are TBD — to be balanced during development. Item description shows exact XP granted on consume.</p></div>
   </div>
 
@@ -215,7 +269,7 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
     <p>A single Key is required to enter a boss floor, accessible via the portal or directly through the map selector. Any battle won on the 4 floors preceding a boss has a chance to drop that floor's Key. The Key is consumed on boss entry.</p>
 
     <h3>Chests</h3>
-    <p>Chests are scattered around each map as manual-only, one-time pickups — autoplay does not collect them. Each chest can only be opened once per floor visit cycle. The map selector displays chest collection progress per floor as <strong style="color:#e8e8e6">x/x collected</strong>.</p>
+    <p>Chests are scattered around each map as manual-only, one-time pickups — autoplay does not collect them. Each chest can only be opened once per floor visit cycle. The map selector displays chest collection progress per floor as <strong style="color:#ede0c4">x/x collected</strong>.</p>
 
     <h3>Floor structure</h3>
     <table>
@@ -361,7 +415,7 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
     <div class="grid-2">
       <div class="card">
         <div class="card-title">🥚 Wild eggs</div>
-        <div class="card-body">Drop from combat encounters. Grade range: <span style="color:#6b6b6b">Worn</span> through <span style="color:#ff8000">Legendary</span> only — no wild eggs above grade 6. Grade determines stat range at hatch.</div>
+        <div class="card-body">Drop from combat encounters. Grade range: <span style="color:#c2ae8b">Worn</span> through <span style="color:#ff8000">Legendary</span> only — no wild eggs above grade 6. Grade determines stat range at hatch.</div>
       </div>
       <div class="card">
         <div class="card-title">🧬 Bred eggs</div>
@@ -407,8 +461,8 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
     <p>Any egg has a small chance to hatch as a Mutant — a creature with an alternate color scheme caused by a rare pigmentation mutation. Mutant status is purely cosmetic: it grants a medal on the creature sheet and changes the creature's color palette, but has no effect on stats or gameplay. Chance scales with egg grade. Completing the Codex adds a permanent +0.1% bonus to all mutant hatch chances.</p>
     <table>
       <tr><th>Egg grade</th><th>Mutant chance</th></tr>
-      <tr><td><span style="color:#6b6b6b">Worn</span></td><td>0.01%</td></tr>
-      <tr><td><span style="color:#9d9d9d">Common</span></td><td>0.02%</td></tr>
+      <tr><td><span style="color:#c2ae8b">Worn</span></td><td>0.01%</td></tr>
+      <tr><td><span style="color:#c2ae8b">Common</span></td><td>0.02%</td></tr>
       <tr><td><span style="color:#1eff00">Uncommon</span></td><td>0.03%</td></tr>
       <tr><td><span style="color:#0070dd">Rare</span></td><td>0.04%</td></tr>
       <tr><td><span style="color:#a335ee">Epic</span></td><td>0.05%</td></tr>
@@ -480,24 +534,24 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
     <p>Each character has 8 equipment slots. Weapons and accessories provide useable abilities. Armour slots provide passive bonuses.</p>
     <div class="grid-2">
       <div class="card">
-        <div class="card-title">Weapons & accessories <span style="font-size:11px;color:#555552;font-weight:400">— grant active abilities</span></div>
+        <div class="card-title">Weapons & accessories <span style="font-size:11px;color:#c2ae8b;font-weight:400">— grant active abilities</span></div>
         <div class="card-body" style="margin-top:6px">
           <table style="margin:0">
-            <tr><td style="color:#e8e8e6;width:120px">Main hand</td><td>Primary weapon — ability slot</td></tr>
-            <tr><td style="color:#e8e8e6">Off hand</td><td>Shield, off-hand weapon, or tome — ability slot</td></tr>
-            <tr><td style="color:#e8e8e6">Accessory 1</td><td>Ring, amulet, etc. — ability slot</td></tr>
-            <tr><td style="color:#e8e8e6">Accessory 2</td><td>Ring, amulet, etc. — ability slot</td></tr>
+            <tr><td style="color:#ede0c4;width:120px">Main hand</td><td>Primary weapon — ability slot</td></tr>
+            <tr><td style="color:#ede0c4">Off hand</td><td>Shield, off-hand weapon, or tome — ability slot</td></tr>
+            <tr><td style="color:#ede0c4">Accessory 1</td><td>Ring, amulet, etc. — ability slot</td></tr>
+            <tr><td style="color:#ede0c4">Accessory 2</td><td>Ring, amulet, etc. — ability slot</td></tr>
           </table>
         </div>
       </div>
       <div class="card">
-        <div class="card-title">Armour <span style="font-size:11px;color:#555552;font-weight:400">— grant passive bonuses</span></div>
+        <div class="card-title">Armour <span style="font-size:11px;color:#c2ae8b;font-weight:400">— grant passive bonuses</span></div>
         <div class="card-body" style="margin-top:6px">
           <table style="margin:0">
-            <tr><td style="color:#e8e8e6;width:120px">Head</td><td>Helmet</td></tr>
-            <tr><td style="color:#e8e8e6">Chest</td><td>Body armour</td></tr>
-            <tr><td style="color:#e8e8e6">Gloves</td><td>Gauntlets</td></tr>
-            <tr><td style="color:#e8e8e6">Feet</td><td>Boots</td></tr>
+            <tr><td style="color:#ede0c4;width:120px">Head</td><td>Helmet</td></tr>
+            <tr><td style="color:#ede0c4">Chest</td><td>Body armour</td></tr>
+            <tr><td style="color:#ede0c4">Gloves</td><td>Gauntlets</td></tr>
+            <tr><td style="color:#ede0c4">Feet</td><td>Boots</td></tr>
           </table>
         </div>
       </div>
@@ -508,11 +562,11 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
 
     <h3>Equipment grades</h3>
     <p>Grade determines how many gem, rune, and enchantment slots a piece of gear has. Equipment is also tiered every 10 character levels. From Abyssal upward, items have visual effects in addition to their color — effects appear on item icons and names in inventory, equipment UI, and the battle conclusion screen.</p>
-    <p style="font-size:13px;color:#555552;margin-bottom:0.75rem">Items never drop on the ground — all loot is delivered directly to inventory via the battle conclusion screen.</p>
+    <p style="font-size:13px;color:#c2ae8b;margin-bottom:0.75rem">Items never drop on the ground — all loot is delivered directly to inventory via the battle conclusion screen.</p>
     <table>
       <tr><th>Grade</th><th>Gems</th><th>Runes</th><th>Enchantments</th><th>Visual effect</th></tr>
-      <tr><td><span style="color:#6b6b6b">Worn</span></td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-      <tr><td><span style="color:#9d9d9d">Common</span></td><td>1</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><td><span style="color:#c2ae8b">Worn</span></td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><td><span style="color:#c2ae8b">Common</span></td><td>1</td><td>—</td><td>—</td><td>—</td></tr>
       <tr><td><span style="color:#1eff00">Uncommon</span></td><td>1</td><td>1</td><td>—</td><td>—</td></tr>
       <tr><td><span style="color:#0070dd">Rare</span></td><td>1</td><td>1</td><td>1</td><td>—</td></tr>
       <tr><td><span style="color:#a335ee">Epic</span></td><td>2</td><td>1</td><td>1</td><td>—</td></tr>
@@ -546,12 +600,12 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
       <tr><th>Slot</th><th>Base type example</th><th>Implicit modifier</th></tr>
       <tr><td>Head</td><td>Leather helmet</td><td>Dodge chance</td></tr>
       <tr><td>Head</td><td>Metal helmet</td><td>Armour</td></tr>
-      <tr><td colspan="3" style="color:#555552;font-size:12px;padding:6px 8px">Full base type table TBD per slot</td></tr>
+      <tr><td colspan="3" style="color:#c2ae8b;font-size:12px;padding:6px 8px">Full base type table TBD per slot</td></tr>
     </table>
     <div class="note note-info"><p><strong>Open decision:</strong> Full list of base types and their implicit modifiers per slot needs to be defined. This drives the crafting and drop table design significantly.</p></div>
 
     <h3>Creature equipment — Tags</h3>
-    <p>Creatures have 2 equipment slots that accept <strong style="color:#e8e8e6">Tags</strong>. Tags follow the same grade system and gem/rune/enchantment slot rules as all other equipment, with one exception: Tags cannot be equipped with creature souls.</p>
+    <p>Creatures have 2 equipment slots that accept <strong style="color:#ede0c4">Tags</strong>. Tags follow the same grade system and gem/rune/enchantment slot rules as all other equipment, with one exception: Tags cannot be equipped with creature souls.</p>
     <div class="grid-2">
       <div class="card"><div class="card-title">Tag slot 1 &amp; 2</div><div class="card-body">Tags can have implicit modifiers (from base type), gems, runes, and enchantments according to their grade. No soul attachment.</div></div>
       <div class="card"><div class="card-title">No soul attachment</div><div class="card-body">Unlike character gear, Tags cannot have a creature soul socketed. All other modifier rules are identical to character equipment.</div></div>
@@ -568,7 +622,7 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
   </div>
 
     <h3>Refinement</h3>
-    <p>Any piece of gear can be refined from +1 up to +10, increasing its power. Refinement uses <strong style="color:#9d9d9d">Scrap</strong>, acquired by dismantling equipment. Refined equipment yields more Scrap when dismantled, creating a recycling loop.</p>
+    <p>Any piece of gear can be refined from +1 up to +10, increasing its power. Refinement uses <strong style="color:#c2ae8b">Scrap</strong>, acquired by dismantling equipment. Refined equipment yields more Scrap when dismantled, creating a recycling loop.</p>
     <table>
       <tr><th>Rule</th><th>Detail</th></tr>
       <tr><td>Currency</td><td>Scrap — gained by dismantling gear</td></tr>
@@ -687,23 +741,23 @@ Your Backend
     <h2>Build roadmap</h2>
     <p>Recommended build order — each phase should be playable before moving to the next.</p>
     <ol class="phase-list">
-      <li><span class="phase-num">1</span><span><strong style="color:#e8e8e6">Data architecture</strong> — all ScriptableObjects and save system skeleton</span></li>
-      <li><span class="phase-num">2</span><span><strong style="color:#e8e8e6">Single-floor overworld</strong> — grid movement, collision, camera, tilemaps</span></li>
-      <li><span class="phase-num">3</span><span><strong style="color:#e8e8e6">Encounter trigger</strong> — battle scene entry, minimal 1v1 battle, return to overworld</span></li>
-      <li><span class="phase-num">4</span><span><strong style="color:#e8e8e6">Full battle system</strong> — expand to 3v3, moves, status effects, animations</span></li>
-      <li><span class="phase-num">5</span><span><strong style="color:#e8e8e6">Floor progression</strong> — boss gate, stairs, floor transition, multiple floors</span></li>
-      <li><span class="phase-num">6</span><span><strong style="color:#e8e8e6">Floor win condition & chests</strong> — battle win counter, portal unlock, manual one-time chests, chest tracking on map selector</span></li>
-      <li><span class="phase-num">7</span><span><strong style="color:#e8e8e6">Boss key & boss floors</strong> — key drop chance on pre-boss floors, key consumption, boss floor access via portal or map selector</span></li>
-      <li><span class="phase-num">8</span><span><strong style="color:#e8e8e6">Autoplay & multi-tab system</strong> — pathfinding, config options, death handler, simultaneous multi-character simulation</span></li>
-      <li><span class="phase-num">9</span><span><strong style="color:#e8e8e6">Character & class system</strong> — class XP, character level aggregation, PoE skill trees</span></li>
-      <li><span class="phase-num">10</span><span><strong style="color:#e8e8e6">Codex</strong> — creature catalogue, seen/acquired states, stat ranges, move lists, evolution chains</span></li>
-      <li><span class="phase-num">11</span><span><strong style="color:#e8e8e6">Metagame UI</strong> — breeding, crafting, farming, hatchery — all as in-game UI panels accessible during PvE</span></li>
-      <li><span class="phase-num">12</span><span><strong style="color:#e8e8e6">Player logging system</strong> — event log and battle log, hooked into existing battle/leveling/item systems, file export for PC and mobile share UI</span></li>
-      <li><span class="phase-num">13</span><span><strong style="color:#e8e8e6">Leagues & death pipelines</strong> — all four death paths, both crypts, soul gem generation, season migration</span></li>
-      <li><span class="phase-num">14</span><span><strong style="color:#e8e8e6">PvP & ladders</strong> — matchmaking, relay, leaderboards</span></li>
-      <li><span class="phase-num">15</span><span><strong style="color:#e8e8e6">Steam integration</strong> — Steamworks.NET, inventory, marketplace</span></li>
-      <li><span class="phase-num">16</span><span><strong style="color:#e8e8e6">Monetization</strong> — economy service, battle pass, item grants</span></li>
-      <li><span class="phase-num">17</span><span><strong style="color:#e8e8e6">Steam release</strong> — store page, F2P config, achievements</span></li>
+      <li><span class="phase-num">1</span><span><strong style="color:#ede0c4">Data architecture</strong> — all ScriptableObjects and save system skeleton</span></li>
+      <li><span class="phase-num">2</span><span><strong style="color:#ede0c4">Single-floor overworld</strong> — grid movement, collision, camera, tilemaps</span></li>
+      <li><span class="phase-num">3</span><span><strong style="color:#ede0c4">Encounter trigger</strong> — battle scene entry, minimal 1v1 battle, return to overworld</span></li>
+      <li><span class="phase-num">4</span><span><strong style="color:#ede0c4">Full battle system</strong> — expand to 3v3, moves, status effects, animations</span></li>
+      <li><span class="phase-num">5</span><span><strong style="color:#ede0c4">Floor progression</strong> — boss gate, stairs, floor transition, multiple floors</span></li>
+      <li><span class="phase-num">6</span><span><strong style="color:#ede0c4">Floor win condition & chests</strong> — battle win counter, portal unlock, manual one-time chests, chest tracking on map selector</span></li>
+      <li><span class="phase-num">7</span><span><strong style="color:#ede0c4">Boss key & boss floors</strong> — key drop chance on pre-boss floors, key consumption, boss floor access via portal or map selector</span></li>
+      <li><span class="phase-num">8</span><span><strong style="color:#ede0c4">Autoplay & multi-tab system</strong> — pathfinding, config options, death handler, simultaneous multi-character simulation</span></li>
+      <li><span class="phase-num">9</span><span><strong style="color:#ede0c4">Character & class system</strong> — class XP, character level aggregation, PoE skill trees</span></li>
+      <li><span class="phase-num">10</span><span><strong style="color:#ede0c4">Codex</strong> — creature catalogue, seen/acquired states, stat ranges, move lists, evolution chains</span></li>
+      <li><span class="phase-num">11</span><span><strong style="color:#ede0c4">Metagame UI</strong> — breeding, crafting, farming, hatchery — all as in-game UI panels accessible during PvE</span></li>
+      <li><span class="phase-num">12</span><span><strong style="color:#ede0c4">Player logging system</strong> — event log and battle log, hooked into existing battle/leveling/item systems, file export for PC and mobile share UI</span></li>
+      <li><span class="phase-num">13</span><span><strong style="color:#ede0c4">Leagues & death pipelines</strong> — all four death paths, both crypts, soul gem generation, season migration</span></li>
+      <li><span class="phase-num">14</span><span><strong style="color:#ede0c4">PvP & ladders</strong> — matchmaking, relay, leaderboards</span></li>
+      <li><span class="phase-num">15</span><span><strong style="color:#ede0c4">Steam integration</strong> — Steamworks.NET, inventory, marketplace</span></li>
+      <li><span class="phase-num">16</span><span><strong style="color:#ede0c4">Monetization</strong> — economy service, battle pass, item grants</span></li>
+      <li><span class="phase-num">17</span><span><strong style="color:#ede0c4">Steam release</strong> — store page, F2P config, achievements</span></li>
     </ol>
     <h3>Critical risks</h3>
     <div class="note note-risk"><p><strong>PvP anti-cheat</strong> — server-authoritative resolution required. Design this before any PvP work begins.</p></div>
@@ -738,11 +792,11 @@ Your Backend
     <p>Canonical terms and naming, kept here specifically to stop naming drift across sessions and files. Codex/CSV work lives in the <code>codex/</code> folder of this repo; this page is the source of truth for what everything is actually called.</p>
 
     <h3>Grade scale (Worn → Void)</h3>
-    <p>One shared 10-tier scale used for <strong style="color:#e8e8e6">equipment grade</strong>, <strong style="color:#e8e8e6">egg grade</strong>, and by extension the grade of any creature hatched from an egg of that grade. Not the same thing as encounter rarity (see below).</p>
+    <p>One shared 10-tier scale used for <strong style="color:#ede0c4">equipment grade</strong>, <strong style="color:#ede0c4">egg grade</strong>, and by extension the grade of any creature hatched from an egg of that grade. Not the same thing as encounter rarity (see below).</p>
     <table>
       <tr><th>#</th><th>Grade</th></tr>
-      <tr><td>1</td><td><span style="color:#6b6b6b">Worn</span></td></tr>
-      <tr><td>2</td><td><span style="color:#9d9d9d">Common</span></td></tr>
+      <tr><td>1</td><td><span style="color:#c2ae8b">Worn</span></td></tr>
+      <tr><td>2</td><td><span style="color:#c2ae8b">Common</span></td></tr>
       <tr><td>3</td><td><span style="color:#1eff00">Uncommon</span></td></tr>
       <tr><td>4</td><td><span style="color:#0070dd">Rare</span></td></tr>
       <tr><td>5</td><td><span style="color:#a335ee">Epic</span></td></tr>
@@ -765,18 +819,18 @@ Your Backend
       <tr><td>Gloves</td><td>Armour — passive</td></tr>
       <tr><td>Feet</td><td>Armour — passive</td></tr>
     </table>
-    <p style="font-size:13px;color:#555552">Creatures separately have 2 <strong style="color:#e8e8e6">Tag</strong> slots (equipment attached to the creature itself, not the character). Tags follow the same grade/socket rules but cannot hold a creature soul.</p>
+    <p style="font-size:13px;color:#c2ae8b">Creatures separately have 2 <strong style="color:#ede0c4">Tag</strong> slots (equipment attached to the creature itself, not the character). Tags follow the same grade/socket rules but cannot hold a creature soul.</p>
 
     <h3>Currencies</h3>
     <table>
       <tr><th>Name</th><th>Use</th></tr>
-      <tr><td><span style="color:#9d9d9d">Scrap</span></td><td>Refinement (+1 to +10 on gear)</td></tr>
+      <tr><td><span style="color:#c2ae8b">Scrap</span></td><td>Refinement (+1 to +10 on gear)</td></tr>
       <tr><td><span style="color:#a855f7">Ichor</span></td><td>Grading up equipment/eggs to the next grade tier</td></tr>
       <tr><td>Gruel</td><td>Unified breeding food resource</td></tr>
     </table>
 
     <h3>Mutant variants — not "Shiny"</h3>
-    <p>The alt-color rare cosmetic variant is called a <strong style="color:#e8e8e6">Mutant</strong> in this project, not "Shiny" (that's Pokémon's term — easy to slip into by habit, don't).</p>
+    <p>The alt-color rare cosmetic variant is called a <strong style="color:#ede0c4">Mutant</strong> in this project, not "Shiny" (that's Pokémon's term — easy to slip into by habit, don't).</p>
 
     <h3>Leagues (4)</h3>
     <p>Eternal, Hardcore, Seasonal, HC Seasonal.</p>
@@ -798,7 +852,7 @@ Your Backend
       <tr><td>81–90</td><td>Gemstone Cave</td><td>Spectral, Vampiric</td></tr>
       <tr><td>91–100</td><td>Flaming Hellscape</td><td>Construct</td></tr>
     </table>
-    <p style="font-size:13px;color:#555552">Only floor 1 is guaranteed Outdoors, and only floors 1–3 (Grasslands) are guaranteed one of each encounter type — that rule applies to the very first zone only. Every other zone just needs all three encounter types represented somewhere across its 10 floors. Boss floor is always the 10th floor of each zone (not the 5th).</p>
+    <p style="font-size:13px;color:#c2ae8b">Only floor 1 is guaranteed Outdoors, and only floors 1–3 (Grasslands) are guaranteed one of each encounter type — that rule applies to the very first zone only. Every other zone just needs all three encounter types represented somewhere across its 10 floors. Boss floor is always the 10th floor of each zone (not the 5th).</p>
 
     <h3>Creature types</h3>
     <table>
@@ -808,17 +862,17 @@ Your Backend
       <tr><td>Postgame-only primary (3)</td><td>Demon, Celestial, Eldritch</td></tr>
       <tr><td>Floating secondary (9)</td><td>Flora, Undead, Void, Aberration, Chimera, Horror, Dragon (rare-only), Parasite, Ooze</td></tr>
     </table>
-    <p style="font-size:13px;color:#555552">No slash-compound type names (e.g. never "Undead/Spectral") — always two clean single types via Type_Primary/Type_Secondary instead.</p>
+    <p style="font-size:13px;color:#c2ae8b">No slash-compound type names (e.g. never "Undead/Spectral") — always two clean single types via Type_Primary/Type_Secondary instead.</p>
 
     <h3>Creature level bands (max level 100, for now)</h3>
-    <p>A creature's floor is its level. Which evolutionary stage can appear is gated <strong style="color:#e8e8e6">globally by floor number</strong>, not by zone — zones are still fixed 10-floor thematic/environment blocks, but stage eligibility ignores zone boundaries entirely.</p>
+    <p>A creature's floor is its level. Which evolutionary stage can appear is gated <strong style="color:#ede0c4">globally by floor number</strong>, not by zone — zones are still fixed 10-floor thematic/environment blocks, but stage eligibility ignores zone boundaries entirely.</p>
     <table>
       <tr><th>Band</th><th>Floors</th><th>Stage</th></tr>
       <tr><td>Infant</td><td>1–33</td><td>Stage 1 only — fast-paced section</td></tr>
       <tr><td>Evolved</td><td>34–66</td><td>Stage 2 only</td></tr>
       <tr><td>Final</td><td>67–100</td><td>Stage 3 only</td></tr>
     </table>
-    <p style="font-size:13px;color:#555552">All 42 creature lines are full 3-stage — no exceptions. Rarity (C/UC/R/SR/SSR) is a fixed property of the <em>line</em>, independent of stage, since every creature on a given floor is necessarily the same stage. 42 lines split: 13 Common, 13 Uncommon, 8 Rare, 4 Super Rare, 4 Super Super Rare.</p>
+    <p style="font-size:13px;color:#c2ae8b">All 42 creature lines are full 3-stage — no exceptions. Rarity (C/UC/R/SR/SSR) is a fixed property of the <em>line</em>, independent of stage, since every creature on a given floor is necessarily the same stage. 42 lines split: 13 Common, 13 Uncommon, 8 Rare, 4 Super Rare, 4 Super Super Rare.</p>
 
     <h3>Encounter weights — SSR/SR odds scale up over the run</h3>
     <p>Two separate tables work together. <code>codex/floor_creature_rarity.csv</code> says which species are eligible in each tier on a given floor (always 3C/3UC/2R/1SR/1SSR — fixed). <code>codex/encounter_weights.csv</code> says the actual odds of an encounter rolling into each tier on that floor — and those odds move as the run progresses, so flagship lines are technically always "on the table" but genuinely hard to actually meet early on.</p>
@@ -828,7 +882,7 @@ Your Backend
       <tr><td>50</td><td>32.7%</td><td>27.5%</td><td>22.4%</td><td>10.9%</td><td>6.4%</td></tr>
       <tr><td>100</td><td>15%</td><td>25%</td><td>30%</td><td>18%</td><td>12%</td></tr>
     </table>
-    <p style="font-size:13px;color:#555552">Linear scaling floor 1→100 between those endpoints, every floor's row sums to exactly 100%.</p>
+    <p style="font-size:13px;color:#c2ae8b">Linear scaling floor 1→100 between those endpoints, every floor's row sums to exactly 100%.</p>
 
     <h3>Per-floor creature encounter rarity (C / UC / R / SR / SSR)</h3>
     <p><strong>Superseded note below</strong> — kept for context, but rarity is now per-line (see level bands above), not per-stage.</p>
