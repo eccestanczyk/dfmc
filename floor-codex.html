@@ -164,7 +164,10 @@ async function load() {
           ? `<div class="cover-row"><img class="cover-image" src="${escapeHtml(f.Cover_Image_Path)}" alt=""></div>`
           : `<div class="cover-row"><div class="cover-placeholder"></div></div>`;
 
-        if (found.length) {
+        if (isBoss) {
+          const bn = (f.Boss_Name && f.Boss_Name !== 'TBD') ? ' — ' + escapeHtml(f.Boss_Name) : '';
+          html += `<div style="grid-column:1 / -1; margin-top:8px; padding-top:12px; border-top:1px solid var(--rule-faint); color:var(--blood-glow); font-size:13px; letter-spacing:0.04em;">\u2620 ZONE BOSS${bn}<span style="display:block; margin-top:4px; color:var(--ink-faint); font-style:italic; letter-spacing:0.02em;">Boss team — character + 2 creatures, 4 in reserve. No wild encounters on boss floors.</span></div>`;
+        } else if (found.length) {
           html += `<div class="creature-list">`;
           found.forEach(c => {
             html += `<a class="creature-tag" href="creature.html?id=${escapeHtml(c.ID)}">`;
