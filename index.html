@@ -84,6 +84,7 @@ pre{font-family:monospace;font-size:12px;background:#1a1a1a;border:0.5px solid #
     <button onclick="show('economy',this)">Economy</button>
     <button onclick="show('tech',this)">Tech stack</button>
     <button onclick="show('roadmap',this)">Roadmap</button>
+    <button onclick="show('glossary',this)">Glossary</button>
   </div>
 
   <!-- OVERVIEW -->
@@ -728,6 +729,98 @@ Your Backend
       <li>Number of chests per floor (the "x" in the x/x chest tracker)</li>
       <li>Key drop rate per battle on pre-boss floors</li>
       <li>Whether chest contents reset along with the 10-battle win counter on floor re-entry, or remain collected permanently</li>
+    </ul>
+  </div>
+
+  <!-- GLOSSARY -->
+  <div id="glossary" class="page">
+    <h2>Glossary</h2>
+    <p>Canonical terms and naming, kept here specifically to stop naming drift across sessions and files. Codex/CSV work lives in the <code>codex/</code> folder of this repo; this page is the source of truth for what everything is actually called.</p>
+
+    <h3>Grade scale (Worn → Void)</h3>
+    <p>One shared 10-tier scale used for <strong style="color:#e8e8e6">equipment grade</strong>, <strong style="color:#e8e8e6">egg grade</strong>, and by extension the grade of any creature hatched from an egg of that grade. Not the same thing as encounter rarity (see below).</p>
+    <table>
+      <tr><th>#</th><th>Grade</th></tr>
+      <tr><td>1</td><td><span style="color:#6b6b6b">Worn</span></td></tr>
+      <tr><td>2</td><td><span style="color:#9d9d9d">Common</span></td></tr>
+      <tr><td>3</td><td><span style="color:#1eff00">Uncommon</span></td></tr>
+      <tr><td>4</td><td><span style="color:#0070dd">Rare</span></td></tr>
+      <tr><td>5</td><td><span style="color:#a335ee">Epic</span></td></tr>
+      <tr><td>6</td><td><span style="color:#ff8000">Legendary</span></td></tr>
+      <tr><td>7</td><td><span style="color:#e5393f">Abyssal</span></td></tr>
+      <tr><td>8</td><td><span style="color:#00ffe0">Divine</span></td></tr>
+      <tr><td>9</td><td><span style="color:#ff44cc">Primordial</span></td></tr>
+      <tr><td>10</td><td><span style="color:#a855f7;text-shadow:0 0 6px #7c3aed">Void</span></td></tr>
+    </table>
+
+    <h3>Equipment slots (8, character gear)</h3>
+    <table>
+      <tr><th>Slot</th><th>Category</th></tr>
+      <tr><td>Main Hand</td><td>Weapon — ability slot</td></tr>
+      <tr><td>Off Hand</td><td>Weapon — ability slot</td></tr>
+      <tr><td>Accessory 1</td><td>Weapon — ability slot</td></tr>
+      <tr><td>Accessory 2</td><td>Weapon — ability slot</td></tr>
+      <tr><td>Head</td><td>Armour — passive</td></tr>
+      <tr><td>Chest</td><td>Armour — passive</td></tr>
+      <tr><td>Gloves</td><td>Armour — passive</td></tr>
+      <tr><td>Feet</td><td>Armour — passive</td></tr>
+    </table>
+    <p style="font-size:13px;color:#555552">Creatures separately have 2 <strong style="color:#e8e8e6">Tag</strong> slots (equipment attached to the creature itself, not the character). Tags follow the same grade/socket rules but cannot hold a creature soul.</p>
+
+    <h3>Currencies</h3>
+    <table>
+      <tr><th>Name</th><th>Use</th></tr>
+      <tr><td><span style="color:#9d9d9d">Scrap</span></td><td>Refinement (+1 to +10 on gear)</td></tr>
+      <tr><td><span style="color:#a855f7">Ichor</span></td><td>Grading up equipment/eggs to the next grade tier</td></tr>
+      <tr><td>Gruel</td><td>Unified breeding food resource</td></tr>
+    </table>
+
+    <h3>Mutant variants — not "Shiny"</h3>
+    <p>The alt-color rare cosmetic variant is called a <strong style="color:#e8e8e6">Mutant</strong> in this project, not "Shiny" (that's Pokémon's term — easy to slip into by habit, don't).</p>
+
+    <h3>Leagues (4)</h3>
+    <p>Eternal, Hardcore, Seasonal, HC Seasonal.</p>
+
+    <h3>Encounter types (3)</h3>
+    <p>Outdoors (tall grass only), Cave (anywhere), Fishing (interact-based).</p>
+
+    <h3>Zones — 100-floor codex (10 zones × 10 floors)</h3>
+    <table>
+      <tr><th>Floors</th><th>Zone</th><th>Primary type(s)</th></tr>
+      <tr><td>1–10</td><td>Grasslands</td><td>Beast</td></tr>
+      <tr><td>11–20</td><td>Tidal Shallows</td><td>Aquatic</td></tr>
+      <tr><td>21–30</td><td>Desert Plains</td><td>Reptile, Serpent</td></tr>
+      <tr><td>31–40</td><td>Swarm Thicket</td><td>Insect</td></tr>
+      <tr><td>41–50</td><td>The Crag</td><td>Arthropod</td></tr>
+      <tr><td>51–60</td><td>Storm Peaks</td><td>Avian</td></tr>
+      <tr><td>61–70</td><td>Sunken Bog</td><td>Amphibian</td></tr>
+      <tr><td>71–80</td><td>Underwater Cave</td><td>Fungal, Mollusk</td></tr>
+      <tr><td>81–90</td><td>Gemstone Cave</td><td>Spectral, Vampiric</td></tr>
+      <tr><td>91–100</td><td>Flaming Hellscape</td><td>Construct</td></tr>
+    </table>
+    <p style="font-size:13px;color:#555552">Only floor 1 is guaranteed Outdoors, and only floors 1–3 (Grasslands) are guaranteed one of each encounter type — that rule applies to the very first zone only. Every other zone just needs all three encounter types represented somewhere across its 10 floors. Boss floor is always the 10th floor of each zone (not the 5th).</p>
+
+    <h3>Creature types</h3>
+    <table>
+      <tr><th>Category</th><th>Types</th></tr>
+      <tr><td>Zone-anchored primary (13)</td><td>Aquatic, Reptile, Beast, Insect, Arthropod, Avian, Amphibian, Fungal, Spectral, Construct, Serpent, Vampiric, Mollusk</td></tr>
+      <tr><td>Recurring primary, not zone-locked (2)</td><td>Elemental, Fey</td></tr>
+      <tr><td>Postgame-only primary (3)</td><td>Demon, Celestial, Eldritch</td></tr>
+      <tr><td>Floating secondary (9)</td><td>Flora, Undead, Void, Aberration, Chimera, Horror, Dragon (rare-only), Parasite, Ooze</td></tr>
+    </table>
+    <p style="font-size:13px;color:#555552">No slash-compound type names (e.g. never "Undead/Spectral") — always two clean single types via Type_Primary/Type_Secondary instead.</p>
+
+    <h3>Per-floor creature encounter rarity (C / UC / R / SR / SSR)</h3>
+    <p>Not the same scale as equipment/egg Grade above. Every floor has exactly 10 encounter slots: 3 Common, 3 Uncommon, 2 Rare, 1 Super Rare, 1 Super Super Rare. Data lives in <code>codex/floor_creature_rarity.csv</code>. A line's strongest evolution is typically SSR on a zone's earliest floors, shifting down to SR by that zone's later floors.</p>
+
+    <h3>Creature grading design principle</h3>
+    <p>Each creature line has one fixed set of 4 identity grades — <strong>Offense / Defense / Utility / Speed</strong>, scale 1–10 — that stays constant across every evolution stage in that line. Evolution scales actual battle stats later; it does not change the identity shape.</p>
+
+    <h3>Image generation conventions</h3>
+    <ul>
+      <li>Default background: solid chroma green (0,255,0). Use magenta (255,0,255) instead for Fungal/Flora/Insect-typed creatures, since those legitimately render green.</li>
+      <li>3-stage workflow: design stage 2 first as the core concept, then generate stage 1 and stage 3 as new images using stage 2 as a visual reference — never as an "edit" of stage 2.</li>
+      <li>No repeated core motifs between different creature lines. If a theme must repeat, it needs an added twist unique to that creature.</li>
     </ul>
   </div>
 </div>
