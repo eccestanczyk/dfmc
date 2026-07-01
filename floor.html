@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FLOOR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ground: #0c0b09; --panel: #16140f; --panel-alt: #1c1912;
+    --border: #3a3222; --border-bright: #6b5a34;
+    --text: #c9c0aa; --text-dim: #6e6650;
+    --gold: #a9873f; --blood: #7a2a1f; --blood-bright: #a83c2a;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--ground); color: var(--text); font-family: 'JetBrains Mono', monospace; font-size: 13px; }
+
+  .topbar { border-bottom: 2px solid var(--border-bright); background: var(--panel); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10; }
+  .topbar a.index-btn { font-size: 11px; letter-spacing: 0.08em; color: var(--gold); border: 1px solid var(--border-bright); padding: 6px 12px; text-decoration: none; text-transform: uppercase; }
+  .topbar a.index-btn:hover { background: var(--border); }
+  .topbar h1 { font-family: 'Cinzel', serif; font-weight: 800; font-size: 16px; letter-spacing: 0.15em; color: var(--gold); margin: 0; }
+  .nav-arrows { display: flex; gap: 8px; }
+  .nav-arrows a { color: var(--text); border: 1px solid var(--border-bright); padding: 6px 12px; text-decoration: none; font-size: 14px; }
+  .nav-arrows a:hover { background: var(--border); color: var(--gold); }
+  .nav-arrows a.disabled { opacity: 0.25; pointer-events: none; }
+
+  #status { padding: 60px 24px; text-align: center; color: var(--text-dim); }
+  main { max-width: 800px; margin: 0 auto; padding: 30px 20px 100px; display: none; }
+
+  .hero { background: var(--panel); border: 1px solid var(--border); padding: 24px; }
+  .hero.boss { border-color: rgba(168,60,42,0.5); background: linear-gradient(135deg, rgba(122,42,31,0.1), var(--panel)); }
+  .f-num-badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace; font-weight: 800; font-size: 26px;
+    color: var(--ground); background: var(--text-dim);
+    width: 56px; height: 56px; border-radius: 3px; margin-bottom: 14px;
+  }
+  .hero.boss .f-num-badge { background: var(--blood); color: #f4e9d8; }
+  .hero h2 { font-family: 'Cinzel', serif; font-size: 28px; margin: 6px 0; color: var(--text); }
+  .boss-tag { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blood-bright); border: 1px solid rgba(194,75,52,0.4); padding: 2px 8px; border-radius: 2px; margin-left: 10px; vertical-align: middle; }
+  .meta-line { font-size: 11px; color: var(--text-dim); letter-spacing: 0.04em; margin-bottom: 4px; }
+  .meta-line b { color: var(--text); font-weight: 500; }
+  .cover-image { width: 100%; max-height: 220px; object-fit: cover; margin-top: 14px; border: 1px solid var(--border); }
+  .cover-placeholder { height: 6px; margin-top: 14px; background: repeating-linear-gradient(90deg, var(--border) 0 6px, transparent 6px 12px); opacity: 0.4; }
+
+  section { margin-top: 26px; border: 1px solid var(--border); background: var(--panel); }
+  section h3 { font-family: 'Cinzel', serif; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin: 0; padding: 10px 16px; border-bottom: 1px solid var(--border); background: var(--panel-alt); }
+  .section-body { padding: 16px; }
+
+  .creature-row-table { display: grid; grid-template-columns: 40px 1fr auto; gap: 10px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); text-decoration: none; color: inherit; }
+  .creature-row-table:last-child { border-bottom: none; }
+  .creature-row-table:hover .c-name { color: var(--gold); }
+  .creature-row-table img { width: 36px; height: 36px; object-fit: cover; border: 1px solid var(--border-bright); }
+  .creature-row-table .no-img { width: 36px; height: 36px; background: var(--panel-alt); border: 1px dashed var(--border); display: flex; align-items: center; justify-content: center; font-size: 9px; color: var(--text-dim); }
+  .c-name { font-size: 13px; color: var(--text); }
+  .c-sub { font-size: 10px; color: var(--text-dim); }
+
+  .tier-badge { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 2px; letter-spacing: 0.03em; }
+  .tier-C { background: #3a3222; color: #9a9080; }
+  .tier-UC { background: #2f4a2f; color: #8fc98f; }
+  .tier-R { background: #2f3f5c; color: #8fb4e8; }
+  .tier-SR { background: #4a2f5c; color: #c98fe8; }
+  .tier-SSR { background: #5c2f2f; color: var(--gold); border: 1px solid var(--gold); }
+
+  .pending-note { font-size: 11px; color: var(--text-dim); font-style: italic; opacity: 0.7; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="index-btn" href="floor-codex.html">← INDEX</a>
+  <h1 id="topbar-title">FLOOR</h1>
+  <div class="nav-arrows">
+    <a id="prev-arrow" href="#">‹ PREV</a>
+    <a id="next-arrow" href="#">NEXT ›</a>
+  </div>
+</div>
+
+<div id="status">LOADING...</div>
+<main id="main">
+  <div class="hero" id="hero">
+    <div class="f-num-badge" id="f-num"></div>
+    <h2 id="f-name"></h2>
+    <div class="meta-line">ZONE: <b id="f-zone"></b></div>
+    <div class="meta-line">ENCOUNTER: <b id="f-encounter"></b> &nbsp; TYPE: <b id="f-type"></b> &nbsp; TIER: <b id="f-tier"></b></div>
+    <div id="cover-slot"></div>
+  </div>
+
+  <section>
+    <h3>Creatures Found Here</h3>
+    <div class="section-body" id="creatures-body"></div>
+  </section>
+
+  <section>
+    <h3>Treasures</h3>
+    <div class="section-body">
+      <div class="pending-note">No chest/treasure data defined yet for this floor.</div>
+    </div>
+  </section>
+</main>
+
+<script>
+const FLOORS_URL = "https://raw.githubusercontent.com/eccestanczyk/dfmc/main/codex/floors.csv";
+const CREATURES_URL = "https://raw.githubusercontent.com/eccestanczyk/dfmc/main/codex/creatures.csv";
+const RARITY_URL = "https://raw.githubusercontent.com/eccestanczyk/dfmc/main/codex/floor_creature_rarity.csv";
+const TIER_ORDER = { SSR: 0, SR: 1, R: 2, UC: 3, C: 4 };
+
+function parseCSV(text) {
+  const rows = [];
+  let row = [], field = '', inQuotes = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i], next = text[i+1];
+    if (inQuotes) {
+      if (c === '"' && next === '"') { field += '"'; i++; }
+      else if (c === '"') { inQuotes = false; }
+      else { field += c; }
+    } else {
+      if (c === '"') inQuotes = true;
+      else if (c === ',') { row.push(field); field = ''; }
+      else if (c === '\r') {}
+      else if (c === '\n') { row.push(field); rows.push(row); row = []; field = ''; }
+      else { field += c; }
+    }
+  }
+  if (field.length || row.length) { row.push(field); rows.push(row); }
+  const header = rows.shift();
+  return rows.filter(r => r.length > 1 || r[0]).map(r => {
+    const obj = {};
+    header.forEach((h, idx) => obj[h] = r[idx] ?? '');
+    return obj;
+  });
+}
+function escapeHtml(str) {
+  if (!str) return '';
+  return str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+function chromaKeyToDataURL(url) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () => {
+      try {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.naturalWidth; canvas.height = img.naturalHeight;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const data = imageData.data;
+        for (let i = 0; i < data.length; i += 4) {
+          const r = data[i], g = data[i+1], b = data[i+2];
+          const greenness = g - Math.max(r, b);
+          if (g > 100 && greenness > 30) {
+            const alpha = Math.max(0, 255 - greenness * 3.2);
+            data[i+3] = Math.min(data[i+3], alpha);
+          }
+        }
+        ctx.putImageData(imageData, 0, 0);
+        resolve(canvas.toDataURL('image/png'));
+      } catch (e) { resolve(url); }
+    };
+    img.onerror = () => resolve(url);
+    img.src = url;
+  });
+}
+async function applyChromaKeyAll() {
+  const imgs = document.querySelectorAll('img.chroma[data-src]');
+  await Promise.all(Array.from(imgs).map(async (img) => {
+    img.src = await chromaKeyToDataURL(img.dataset.src);
+  }));
+}
+
+async function load() {
+  const params = new URLSearchParams(window.location.search);
+  const num = params.get('num');
+  if (!num) { document.getElementById('status').textContent = 'NO FLOOR NUMBER SPECIFIED'; return; }
+
+  try {
+    const [floorsText, creaturesText, rarityText] = await Promise.all([
+      fetch(FLOORS_URL).then(r => r.text()),
+      fetch(CREATURES_URL).then(r => r.text()),
+      fetch(RARITY_URL).then(r => r.text()),
+    ]);
+    const floors = parseCSV(floorsText).sort((a,b) => parseInt(a.Floor) - parseInt(b.Floor));
+    const creatures = parseCSV(creaturesText);
+    const rarityRows = parseCSV(rarityText);
+
+    const creatureById = {};
+    creatures.forEach(c => creatureById[c.ID] = c);
+
+    const idx = floors.findIndex(f => f.Floor === num);
+    if (idx === -1) { document.getElementById('status').textContent = 'FLOOR NOT FOUND: ' + num; return; }
+    const f = floors[idx];
+    const prev = floors[idx - 1];
+    const next = floors[idx + 1];
+    const isBoss = f.Is_Boss === 'Yes';
+
+    document.title = 'FLOOR ' + f.Floor + ' — ' + f.Visual_Theme;
+    document.getElementById('topbar-title').textContent = 'FLOOR ' + f.Floor;
+    document.getElementById('f-num').textContent = f.Floor;
+    document.getElementById('f-name').innerHTML = escapeHtml(f.Visual_Theme || f.Zone) + (isBoss ? '<span class="boss-tag">Boss Floor</span>' : '');
+    document.getElementById('f-zone').textContent = f.Zone;
+    document.getElementById('f-encounter').textContent = f.Encounter_Type;
+    document.getElementById('f-type').textContent = f.Primary_Type || '—';
+    document.getElementById('f-tier').textContent = f.Tier || '—';
+    if (isBoss) document.getElementById('hero').classList.add('boss');
+
+    document.getElementById('cover-slot').innerHTML = f.Cover_Image_Path
+      ? `<img class="cover-image" src="${escapeHtml(f.Cover_Image_Path)}" alt="">`
+      : `<div class="cover-placeholder"></div>`;
+
+    const here = rarityRows.filter(r => r.Floor === num)
+      .map(r => ({ ...creatureById[r.Creature_ID], tier: r.Rarity_Tier }))
+      .filter(c => c.ID)
+      .sort((a,b) => TIER_ORDER[a.tier] - TIER_ORDER[b.tier]);
+
+    document.getElementById('creatures-body').innerHTML = here.length
+      ? here.map(c => `
+          <a class="creature-row-table" href="creature.html?id=${escapeHtml(c.ID)}">
+            ${c.Image_Path ? `<img class="chroma" data-src="${escapeHtml(c.Image_Path)}" alt="">` : `<div class="no-img">?</div>`}
+            <div><div class="c-name">${escapeHtml(c.Name)}</div><div class="c-sub">${escapeHtml(c.Type_Primary)}${c.Type_Secondary ? ' / ' + escapeHtml(c.Type_Secondary) : ''} — Stage ${escapeHtml(c.Stage)}</div></div>
+            <span class="tier-badge tier-${c.tier}">${c.tier}</span>
+          </a>
+        `).join('')
+      : `<div class="pending-note">No creatures assigned to this floor yet.</div>`;
+
+    if (prev) document.getElementById('prev-arrow').href = `floor.html?num=${prev.Floor}`;
+    else document.getElementById('prev-arrow').classList.add('disabled');
+    if (next) document.getElementById('next-arrow').href = `floor.html?num=${next.Floor}`;
+    else document.getElementById('next-arrow').classList.add('disabled');
+
+    document.getElementById('status').style.display = 'none';
+    document.getElementById('main').style.display = 'block';
+    applyChromaKeyAll();
+  } catch (err) {
+    document.getElementById('status').textContent = 'LOAD FAILED: ' + err.message;
+  }
+}
+load();
+</script>
+</body>
+</html>
