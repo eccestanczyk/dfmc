@@ -215,7 +215,7 @@ async function load() {
       const isCurrent = m.ID === c.ID;
       const imgHtml = m.Image_Path ? `<img class="chroma" data-src="${escapeHtml(m.Image_Path)}" alt="">` : `<div class="no-img-sm">?</div>`;
       evoHtml += isCurrent
-        ? `<div class="evo-node current">${imgHtml}<span>${escapeHtml(m.Name)} (You)</span></div>`
+        ? `<div class="evo-node current">${imgHtml}<span>${escapeHtml(m.Name)}</span></div>`
         : `<a class="evo-node linkable" href="creature.html?id=${escapeHtml(m.ID)}">${imgHtml}<span>${escapeHtml(m.Name)}</span></a>`;
       if (i < lineMembers.length - 1) evoHtml += `<span class="evo-arrow">→</span>`;
     });
