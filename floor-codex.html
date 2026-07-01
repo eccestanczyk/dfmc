@@ -136,29 +136,11 @@ async function load() {
     zones.forEach((zone, zi) => {
       const range = `${zone.floors[0].Floor}–${zone.floors[zone.floors.length-1].Floor}`;
 
-      // unique creatures across this zone's floors, keeping their best (rarest) tier seen, sorted rarest-first
-      const seen = new Map();
-      zone.floors.forEach(f => {
-        (byFloor[f.Floor] || []).forEach(c => {
-          const existing = seen.get(c.ID);
-          if (!existing || TIER_ORDER[c.tier] < TIER_ORDER[existing.tier]) seen.set(c.ID, c);
-        });
-      });
-      const zoneCreatures = Array.from(seen.values()).sort((a,b) => TIER_ORDER[a.tier] - TIER_ORDER[b.tier]);
-
       html += `<div class="zone-block" id="zone-${zi}">`;
       html += `<div class="zone-row" onclick="toggleZone(${zi})">`;
       html += `<span class="zone-chevron">▶</span>`;
       html += `<div class="zone-name-block"><span class="zone-name">${escapeHtml(zone.name)}</span><span class="zone-range">FLOORS ${range}</span></div>`;
-      html += `<div class="zone-thumbs">`;
-      if (zoneCreatures.length) {
-        zoneCreatures.forEach(c => {
-          html += c.Image_Path ? `<img class="chroma" data-src="${escapeHtml(c.Image_Path)}" alt="${escapeHtml(c.Name)}" title="${escapeHtml(c.Name)}">` : `<div class="no-img">?</div>`;
-        });
-      } else {
-        html += `<span style="font-size:10px;color:var(--text-dim);">NO CREATURES YET</span>`;
-      }
-      html += `</div></div>`;
+      html += `</div>`;
 
       html += `<div class="floor-list">`;
       html += `<div class="col-headers"><span>FLR</span><span>NAME</span><span>ENCOUNTER</span><span>TYPE</span><span>TIER</span><span>BOSS</span></div>`;
