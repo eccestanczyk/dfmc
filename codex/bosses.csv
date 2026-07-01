@@ -1,0 +1,11 @@
+Floor,Zone,Boss_Name,Boss_Character,Active_Creature_1,Active_Creature_2,Reserve_1,Reserve_2,Reserve_3,Reserve_4,Difficulty_Index,Notes
+10,Grasslands,The Alpha's Den,TBD,TBD,TBD,TBD,TBD,TBD,TBD,1,Zone boss #1 — scales considerably harder each tier; team design pending
+20,Tidal Shallows,Abyssal Trench Gate,TBD,TBD,TBD,TBD,TBD,TBD,TBD,2,Zone boss #2 — scales considerably harder each tier; team design pending
+30,Desert Plains,The Ossuary Coil,TBD,TBD,TBD,TBD,TBD,TBD,TBD,3,Zone boss #3 — scales considerably harder each tier; team design pending
+40,Swarm Thicket,The Broodmother's Hollow,TBD,TBD,TBD,TBD,TBD,TBD,TBD,4,Zone boss #4 — scales considerably harder each tier; team design pending
+50,The Crag,The Carapace Throne,TBD,TBD,TBD,TBD,TBD,TBD,TBD,5,Zone boss #5 — scales considerably harder each tier; team design pending
+60,Storm Peaks,The Roost of the First Storm,TBD,TBD,TBD,TBD,TBD,TBD,TBD,6,Zone boss #6 — scales considerably harder each tier; team design pending
+70,Sunken Bog,The Bogfather's Pool,TBD,TBD,TBD,TBD,TBD,TBD,TBD,7,Zone boss #7 — scales considerably harder each tier; team design pending
+80,Underwater Cave,The Abyssal Bloom,TBD,TBD,TBD,TBD,TBD,TBD,TBD,8,Zone boss #8 — scales considerably harder each tier; team design pending
+90,Gemstone Cave,The Undying Crypt,TBD,TBD,TBD,TBD,TBD,TBD,TBD,9,Zone boss #9 — scales considerably harder each tier; team design pending
+100,Flaming Hellscape,The Godforge,TBD,TBD,TBD,TBD,TBD,TBD,TBD,10,Zone boss #10 — scales considerably harder each tier; team design pending
