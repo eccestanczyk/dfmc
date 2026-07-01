@@ -814,7 +814,8 @@ Your Backend
       <tr><th>File</th><th>Rows</th><th>Contents</th></tr>
       <tr><td><code>codex/creatures.csv</code></td><td>300<br>(100 lines &times; 3 stages)</td><td>Full creature roster, one row per evolution stage. Columns: <code>ID, Line_ID, Stage, Name, Type_Primary, Type_Secondary, Background_Key, Rarity, Floor_Found, Encounter_Type, Evolves_From, Evolves_To, Grade_Offense, Grade_Defense, Grade_Utility, Grade_Speed, Description, Image_Prompt, Image_Path, Home_Zone</code>. IDs run <code>DFMC-001</code>…<code>DFMC-300</code>, assigned per line then stage (line&nbsp;k &rarr; <code>3k-2 / 3k-1 / 3k</code>).</td></tr>
       <tr><td><code>codex/floors.csv</code></td><td>100</td><td>The 100 floors. Columns: <code>Floor, Zone, Encounter_Type, Is_Boss, Boss_Name, Primary_Type, Tier, Visual_Theme, Description, Cover_Image_Path</code>.</td></tr>
-      <tr><td><code>codex/floor_creature_rarity.csv</code></td><td>1000<br>(100 floors &times; 10 slots)</td><td>The encounter table. Each floor's 10 tier-slots (3C/3UC/2R/1SR/1SSR) mapped to a <code>Creature_ID</code>. Columns: <code>Floor, Creature_ID, Rarity_Tier</code>. Stage-banded (see level bands below). <strong style="color:#ede0c4">Regenerate this whenever <code>creatures.csv</code> IDs change</strong> — the index joins the two by ID.</td></tr>
+      <tr><td><code>codex/floor_creature_rarity.csv</code></td><td>900<br>(90 wild floors &times; 10 slots)</td><td>The wild-encounter table. Each non-boss floor's 10 tier-slots (3C/3UC/2R/1SR/1SSR) mapped to a <code>Creature_ID</code>. Columns: <code>Floor, Creature_ID, Rarity_Tier</code>. Stage-banded (see level bands below). Boss floors (every 10th) carry no rows — those are defined in <code>codex/bosses.csv</code>. <strong style="color:#ede0c4">Regenerate this whenever <code>creatures.csv</code> IDs change</strong> — the index joins the two by ID.</td></tr>
+      <tr><td><code>codex/bosses.csv</code></td><td>10<br>(1 per boss floor)</td><td>Zone-boss definitions, one per boss floor (10, 20, … 100). Columns: <code>Floor, Zone, Boss_Name, Boss_Character, Active_Creature_1, Active_Creature_2, Reserve_1..4, Difficulty_Index, Notes</code>. Team fields are <code>TBD</code> — structure scaffolded, specific teams pending design.</td></tr>
       <tr><td><code>codex/encounter_weights.csv</code></td><td>—</td><td>Per-floor odds of an encounter rolling into each tier; SSR/SR odds scale up over the run (see "Encounter weights" below).</td></tr>
       <tr><td><code>codex/maptypes.csv</code></td><td>—</td><td>Tileset / map-restyle definitions for floor-art generation.</td></tr>
     </table>
@@ -882,7 +883,11 @@ Your Backend
       <tr><td>81–90</td><td>Gemstone Cave</td><td>Spectral, Vampiric</td></tr>
       <tr><td>91–100</td><td>Flaming Hellscape</td><td>Construct</td></tr>
     </table>
-    <p style="font-size:13px;color:#c2ae8b">Only floor 1 is guaranteed Outdoors, and only floors 1–3 (Grasslands) are guaranteed one of each encounter type — that rule applies to the very first zone only. Every other zone just needs all three encounter types represented somewhere across its 10 floors. Boss floor is always the 10th floor of each zone (not the 5th).</p>
+    <p style="font-size:13px;color:#c2ae8b">Only floor 1 is guaranteed Outdoors, and only floors 1–3 (Grasslands) are guaranteed one of each encounter type — that rule applies to the very first zone only. Every other zone just needs all three encounter types represented somewhere across its 10 floors. Boss floor is always the 10th floor of each zone (not the 5th), and boss floors carry no wild encounters.</p>
+
+    <h3>Zone bosses</h3>
+    <p>Every 10th floor (10, 20, … 100) is a zone boss and has <strong style="color:#ede0c4">no wild encounters</strong>. A boss is a full team like the player's — a <strong style="color:#ede0c4">character plus 2 active creatures and 4 in reserve</strong> — not a wild creature. The SSR flagship creatures (Dagon, Ouroboros, Kraken, …) are rare <em>wild</em> encounters on ordinary floors, not the bosses.</p>
+    <p style="font-size:13px;color:#c2ae8b">Bosses scale up considerably each zone: floor 10 is the weakest, floor 100 the hardest of the base tower. Definitions live in <code>codex/bosses.csv</code> (team fields currently <code>TBD</code>). Post-level-100 content — deeper floors with fully-optimized boss teams — is out of scope for now and noted for later.</p>
 
     <h3>Creature types</h3>
     <table>
@@ -916,13 +921,13 @@ Your Backend
 
     <h3>Per-floor creature encounter rarity (C / UC / R / SR / SSR)</h3>
     <p><strong>Superseded note below</strong> — kept for context, but rarity is now per-line (see level bands above), not per-stage.</p>
-    <p>Not the same scale as equipment/egg Grade above. Every floor has exactly 10 encounter slots: 3 Common, 3 Uncommon, 2 Rare, 1 Super Rare, 1 Super Super Rare. Data lives in <code>codex/floor_creature_rarity.csv</code>. A line's strongest evolution is typically SSR on a zone's earliest floors, shifting down to SR by that zone's later floors.</p>
+    <p>Not the same scale as equipment/egg Grade above. Every wild (non-boss) floor has exactly 10 encounter slots: 3 Common, 3 Uncommon, 2 Rare, 1 Super Rare, 1 Super Super Rare. The ten boss floors have none. Data lives in <code>codex/floor_creature_rarity.csv</code>. A line's strongest evolution is typically SSR on a zone's earliest floors, shifting down to SR by that zone's later floors.</p>
 
     <h3>Creature grading design principle</h3>
     <p>Each creature line has one fixed set of 4 identity grades — <strong>Offense / Defense / Utility / Speed</strong>, scale 1–10 — that stays constant across every evolution stage in that line. Evolution scales actual battle stats later; it does not change the identity shape.</p>
 
     <h3>Creature naming</h3>
-    <p style="font-size:13px;color:#c2ae8b">Every creature line name is a <strong style="color:#ede0c4">single word</strong> — no multi-word names, no "The ___". Dark-fantasy tone, frequently a modified myth or religious reference. <code>Line_ID</code> in the CSV is the uppercase line name. All three stages currently share that one name (differentiated by the <code>Stage</code> column); a proposed refinement — Stage 3 keeps the full name while Stages 1–2 are shortened forms of it — is under consideration, not yet applied.</p>
+    <p style="font-size:13px;color:#c2ae8b">Every creature line name is a <strong style="color:#ede0c4">single word</strong> — no multi-word names, no "The ___". Dark-fantasy tone, frequently a modified myth or religious reference. <code>Line_ID</code> in the CSV is the uppercase line name. The three evolution stages now carry <strong style="color:#ede0c4">distinct names</strong>: Stage 3 keeps the line name, while Stages 1 and 2 are real-word <em>precursor</em> names drawn from the final name's own myth, etymology, or life-cycle (e.g. Veliger &rarr; Hafgufa &rarr; Kraken; Eyas &rarr; Haggard &rarr; Roc). Applied across all 100 lines in <code>codex/creatures.csv</code>. <code>Line_ID</code> stays the final name, so evolution links and encounter IDs are unaffected.</p>
 
     <h3>Image generation conventions</h3>
     <ul>
