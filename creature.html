@@ -17,6 +17,24 @@
     margin-top: 10px;
     border-radius: 4px;
   }
+  #hero-img-slot {
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .zone-bg-grasslands     { background: radial-gradient(ellipse at center, #3a4a20 0%, #1a2410 60%, #0d1208 100%); }
+  .zone-bg-tidal-shallows { background: radial-gradient(ellipse at center, #1a3a4a 0%, #0c2030 60%, #060e18 100%); }
+  .zone-bg-desert-plains  { background: radial-gradient(ellipse at center, #4a3a1a 0%, #2a1e0c 60%, #140e06 100%); }
+  .zone-bg-swarm-thicket  { background: radial-gradient(ellipse at center, #3a3a10 0%, #1e1e08 60%, #0e0e04 100%); }
+  .zone-bg-the-crag       { background: radial-gradient(ellipse at center, #3a3530 0%, #201c18 60%, #0e0c0a 100%); }
+  .zone-bg-storm-peaks    { background: radial-gradient(ellipse at center, #2a2a40 0%, #161628 60%, #0a0a14 100%); }
+  .zone-bg-sunken-bog     { background: radial-gradient(ellipse at center, #2a3020 0%, #161a10 60%, #0a0c06 100%); }
+  .zone-bg-underwater-cave{ background: radial-gradient(ellipse at center, #1a2a3a 0%, #0c1620 60%, #060a10 100%); }
+  .zone-bg-gemstone-cave  { background: radial-gradient(ellipse at center, #30203a 0%, #1a1020 60%, #0c0610 100%); }
+  .zone-bg-flaming-hellscape { background: radial-gradient(ellipse at center, #4a1a10 0%, #2a0e08 60%, #140604 100%); }
+  .zone-bg-none           { background: radial-gradient(ellipse at center, #2a2a2a 0%, #141414 60%, #0a0a0a 100%); }
 </style>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
@@ -37,9 +55,9 @@
 <div id="status">LOADING...</div>
 <main id="main" style="display:none;">
   <div class="meta-line" id="id-tag" style="text-align:right;"></div>
-  <div class="hero creature-hero">
-    <div id="hero-img-slot" class="creature-img-wrap"></div>
-    <div class="creature-info">
+  <div class="hero split">
+    <div id="hero-img-slot"></div>
+    <div class="hero-info">
       <h2 id="c-name"></h2>
       <div class="type-tags" id="c-types"></div>
       <div class="meta-line">RARITY: <b id="c-rarity"></b></div>
@@ -210,6 +228,10 @@ async function load() {
     document.getElementById('hero-img-slot').innerHTML = c.Image_Path
       ? `<img class="chroma" data-src="${escapeHtml(c.Image_Path)}" alt="${escapeHtml(c.Name)}">`
       : `<div class="no-img">NO IMAGE YET</div>`;
+
+    // Zone gradient background
+    const zoneSlug = (c.Home_Zone || '').toLowerCase().replace(/\s+/g, '-');
+    document.getElementById('hero-img-slot').className = 'zone-bg-' + (zoneSlug || 'none');
 
     // Art approval status banner
     if (c.Art_Status === 'pending') {
