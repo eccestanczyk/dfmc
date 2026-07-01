@@ -135,6 +135,12 @@
   .creature-tag .no-img { width: 22px; height: 22px; background: var(--panel-alt); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 9px; color: var(--text-dim); }
   .creature-tag .cn { font-size: 11px; color: var(--text); }
   .creature-tag .cs { font-size: 9px; color: var(--text-dim); }
+  .tier-badge { font-size: 8px; font-weight: 700; padding: 1px 4px; border-radius: 2px; letter-spacing: 0.03em; }
+  .tier-C { background: #3a3222; color: #9a9080; }
+  .tier-UC { background: #2f4a2f; color: #8fc98f; }
+  .tier-R { background: #2f3f5c; color: #8fb4e8; }
+  .tier-SR { background: #4a2f5c; color: #c98fe8; }
+  .tier-SSR { background: #5c2f2f; color: var(--gold); border: 1px solid var(--gold); }
 
   .empty-mark { grid-column: 1 / -1; font-size: 10px; color: var(--text-dim); opacity: 0.5; padding-top: 6px; }
 
@@ -157,6 +163,8 @@
 <script>
 const FLOORS_URL = "https://raw.githubusercontent.com/eccestanczyk/dfmc/main/codex/floors.csv";
 const CREATURES_URL = "https://raw.githubusercontent.com/eccestanczyk/dfmc/main/codex/creatures.csv";
+const RARITY_URL = "https://raw.githubusercontent.com/eccestanczyk/dfmc/main/codex/floor_creature_rarity.csv";
+const TIER_ORDER = { SSR: 0, SR: 1, R: 2, UC: 3, C: 4 };
 
 function parseCSV(text) {
   const rows = [];
@@ -231,20 +239,26 @@ async function applyChromaKeyAll() {
 
 async function load() {
   try {
-    const [floorsText, creaturesText] = await Promise.all([
+    const [floorsText, creaturesText, rarityText] = await Promise.all([
       fetch(FLOORS_URL).then(r => r.text()),
       fetch(CREATURES_URL).then(r => r.text()),
+      fetch(RARITY_URL).then(r => r.text()),
     ]);
     const floors = parseCSV(floorsText);
     const creatures = parseCSV(creaturesText);
+    const rarityRows = parseCSV(rarityText);
+
+    const creatureById = {};
+    creatures.forEach(c => creatureById[c.ID] = c);
 
     const byFloor = {};
-    creatures.forEach(c => {
-      (c.Floor_Found || '').split(';').map(s => s.trim()).filter(Boolean).forEach(f => {
-        if (!byFloor[f]) byFloor[f] = [];
-        byFloor[f].push(c);
-      });
+    rarityRows.forEach(row => {
+      const c = creatureById[row.Creature_ID];
+      if (!c) return;
+      if (!byFloor[row.Floor]) byFloor[row.Floor] = [];
+      byFloor[row.Floor].push({ ...c, tier: row.Rarity_Tier });
     });
+    Object.values(byFloor).forEach(list => list.sort((a,b) => TIER_ORDER[a.tier] - TIER_ORDER[b.tier]));
 
     floors.sort((a,b) => parseInt(a.Floor) - parseInt(b.Floor));
     document.getElementById('floor-count').textContent = floors.length + ' / 100';
@@ -266,14 +280,15 @@ async function load() {
     zones.forEach((zone, zi) => {
       const range = `${zone.floors[0].Floor}–${zone.floors[zone.floors.length-1].Floor}`;
 
-      // unique creatures across this zone's floors
-      const seen = new Set();
-      const zoneCreatures = [];
+      // unique creatures across this zone's floors, keeping their best (rarest) tier seen, sorted rarest-first
+      const seen = new Map();
       zone.floors.forEach(f => {
         (byFloor[f.Floor] || []).forEach(c => {
-          if (!seen.has(c.ID)) { seen.add(c.ID); zoneCreatures.push(c); }
+          const existing = seen.get(c.ID);
+          if (!existing || TIER_ORDER[c.tier] < TIER_ORDER[existing.tier]) seen.set(c.ID, c);
         });
       });
+      const zoneCreatures = Array.from(seen.values()).sort((a,b) => TIER_ORDER[a.tier] - TIER_ORDER[b.tier]);
 
       html += `<div class="zone-block" id="zone-${zi}">`;
       html += `<div class="zone-row" onclick="toggleZone(${zi})">`;
@@ -313,6 +328,7 @@ async function load() {
             html += `<a class="creature-tag" href="creature.html?id=${escapeHtml(c.ID)}">`;
             html += c.Image_Path ? `<img class="chroma" data-src="${escapeHtml(c.Image_Path)}" alt="">` : `<div class="no-img">?</div>`;
             html += `<span class="cn">${escapeHtml(c.Name)}</span><span class="cs">S${escapeHtml(c.Stage)}</span>`;
+            html += `<span class="tier-badge tier-${c.tier}">${c.tier}</span>`;
             html += `</a>`;
           });
           html += `</div>`;
