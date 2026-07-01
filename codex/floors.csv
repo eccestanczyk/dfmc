@@ -1,10 +1,10 @@
 Floor,Zone,Encounter_Type,Is_Boss,Boss_Name,Primary_Type,Tier,Visual_Theme,Description
 1,Tidal Shallows,Fishing,No,,Sea Creature,Early,Bright turquoise shallows over a pale sandbar,"Sunlit water barely waist-deep, calm until something pale slides beneath the surface."
 2,Tidal Shallows,Outdoors,No,,Sea Creature,Early,Driftwood-littered dunes at low tide,"A stretch of wet sand and grounded driftwood, stranded sea life still twitching in the shallow pools."
-3,Tidal Shallows,Fishing,No,,Sea Creature,Early,Dense kelp forest swaying in the current,Visibility drops to almost nothing between the kelp fronds; things brush past unseen.
-4,Tidal Shallows,Outdoors,No,,Sea Creature,Early,Tidepool flats cut by narrow channels,"Dozens of shallow pools connected by trickling channels, each one hiding something."
+3,Tidal Shallows,Cave,No,,Sea Creature,Early,Small tidewashed grotto at the cliff base,"A shallow sea cave just above the waterline, damp and narrow, the first sign of deeper caverns to come."
+4,Tidal Shallows,Fishing,No,,Sea Creature,Early,Dense kelp forest swaying in the current,Visibility drops to almost nothing between the kelp fronds; things brush past unseen.
 5,Tidal Shallows,Fishing,Yes,The Sunken Shrine,Sea Creature,Early,Half-submerged ruins guarded by a barbed shape,"An old shrine swallowed by the tide, its altar circled endlessly by a scarred ray."
-6,Tidal Shallows,Cave,No,,Sea Creature,Mid,"Brine-slick sea cave, salt crusting the walls",The tide carved this cave deep into the cliffside; salt crystals glitter where torchlight reaches.
+6,Tidal Shallows,Outdoors,No,,Sea Creature,Mid,Tidepool flats cut by narrow channels,"Dozens of shallow pools connected by trickling channels, each one hiding something."
 7,Tidal Shallows,Fishing,No,,Sea Creature,Mid,Undertow channel with a fast-pulling current,The current here is strong enough to drag careless feet — and stronger things use it to hunt.
 8,Tidal Shallows,Fishing,No,,Sea Creature,Mid,Barnacle-crusted reef breaking the surface,"Jagged reef spires break the waterline, encrusted with barnacles and old wreckage."
 9,Tidal Shallows,Cave,No,,Sea Creature,Mid,Deep current sinkhole descending into dark water,The cave floor drops away into black water with no visible bottom.
