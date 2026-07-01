@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FLOOR CODEX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ground: #0c0b09;
+    --panel: #16140f;
+    --panel-alt: #1c1912;
+    --border: #3a3222;
+    --border-bright: #6b5a34;
+    --text: #c9c0aa;
+    --text-dim: #6e6650;
+    --gold: #a9873f;
+    --blood: #7a2a1f;
+    --blood-bright: #a83c2a;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+  }
+
+  .topbar {
+    border-bottom: 2px solid var(--border-bright);
+    background: var(--panel);
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .topbar h1 {
+    font-family: 'Cinzel', serif;
+    font-weight: 800;
+    font-size: 22px;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    margin: 0;
+  }
+
+  .topbar .count {
+    color: var(--text-dim);
+    font-size: 12px;
+    letter-spacing: 0.05em;
+  }
+
+  #status {
+    padding: 40px 24px;
+    color: var(--text-dim);
+    font-size: 13px;
+    letter-spacing: 0.05em;
+  }
+
+  main {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 20px 80px;
+  }
+
+  .zone-head {
+    display: grid;
+    grid-template-columns: 60px 1fr 100px 100px 90px 60px;
+    gap: 0;
+    padding: 10px 14px;
+    margin-top: 30px;
+    background: var(--panel-alt);
+    border: 1px solid var(--border);
+    border-bottom: 2px solid var(--border-bright);
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .zone-head:first-of-type { margin-top: 0; }
+
+  .col-headers {
+    display: grid;
+    grid-template-columns: 60px 1fr 100px 100px 90px 60px;
+    padding: 6px 14px;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .floor-row {
+    display: grid;
+    grid-template-columns: 60px 1fr 100px 100px 90px 60px;
+    align-items: center;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-top: none;
+    background: var(--panel);
+  }
+  .floor-row:nth-child(even) { background: var(--panel-alt); }
+  .floor-row.boss {
+    background: linear-gradient(90deg, rgba(122,42,31,0.18), var(--panel));
+    border-left: 3px solid var(--blood-bright);
+  }
+
+  .f-num {
+    font-weight: 700;
+    color: var(--text);
+    font-size: 14px;
+  }
+  .floor-row.boss .f-num { color: var(--blood-bright); }
+
+  .f-name {
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .tag {
+    font-size: 10px;
+    padding: 1px 6px;
+    border: 1px solid var(--border-bright);
+    border-radius: 2px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--gold);
+    white-space: nowrap;
+  }
+  .tag.boss-tag { border-color: var(--blood-bright); color: var(--blood-bright); }
+
+  .f-encounter, .f-type, .f-tier {
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.03em;
+  }
+
+  .f-boss-mark {
+    text-align: center;
+    font-size: 14px;
+    color: var(--blood-bright);
+  }
+
+  .cover-row {
+    grid-column: 1 / -1;
+    padding: 8px 0 4px;
+  }
+  .cover-placeholder {
+    height: 4px;
+    background: repeating-linear-gradient(90deg, var(--border) 0 6px, transparent 6px 12px);
+    opacity: 0.4;
+  }
+  .cover-image {
+    width: 100%;
+    max-height: 100px;
+    object-fit: cover;
+    border: 1px solid var(--border);
+  }
+
+  .creature-list {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding-top: 8px;
+    margin-top: 8px;
+    border-top: 1px solid var(--border);
+  }
+
+  .creature-tag {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--ground);
+    border: 1px solid var(--border);
+    padding: 2px 8px 2px 2px;
+  }
+
+  .creature-tag img {
+    width: 22px;
+    height: 22px;
+    object-fit: cover;
+    border: 1px solid var(--border-bright);
+  }
+
+  .creature-tag .no-img {
+    width: 22px;
+    height: 22px;
+    background: var(--panel-alt);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    color: var(--text-dim);
+  }
+
+  .creature-tag .cn {
+    font-size: 11px;
+    color: var(--text);
+    letter-spacing: 0.02em;
+  }
+  .creature-tag .cs {
+    font-size: 9px;
+    color: var(--text-dim);
+  }
+
+  .empty-mark {
+    grid-column: 1 / -1;
+    font-size: 10px;
+    color: var(--text-dim);
+    opacity: 0.5;
+    padding-top: 6px;
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 700px) {
+    .zone-head, .col-headers, .floor-row {
+      grid-template-columns: 40px 1fr 50px;
+    }
+    .f-tier, .f-type { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <h1>FLOOR CODEX</h1>
+  <div class="count" id="floor-count">— / 100</div>
+</div>
+
+<div id="status">LOADING...</div>
+<main id="main" style="display:none;"></main>
+
+<script>
+const FLOORS_URL = "https://raw.githubusercontent.com/eccestanczyk/dfmc/main/codex/floors.csv";
+const CREATURES_URL = "https://raw.githubusercontent.com/eccestanczyk/dfmc/main/codex/creatures.csv";
+
+function parseCSV(text) {
+  const rows = [];
+  let row = [], field = '', inQuotes = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i], next = text[i+1];
+    if (inQuotes) {
+      if (c === '"' && next === '"') { field += '"'; i++; }
+      else if (c === '"') { inQuotes = false; }
+      else { field += c; }
+    } else {
+      if (c === '"') inQuotes = true;
+      else if (c === ',') { row.push(field); field = ''; }
+      else if (c === '\r') { /* skip */ }
+      else if (c === '\n') { row.push(field); rows.push(row); row = []; field = ''; }
+      else { field += c; }
+    }
+  }
+  if (field.length || row.length) { row.push(field); rows.push(row); }
+  const header = rows.shift();
+  return rows.filter(r => r.length > 1 || r[0]).map(r => {
+    const obj = {};
+    header.forEach((h, idx) => obj[h] = r[idx] ?? '');
+    return obj;
+  });
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+async function load() {
+  try {
+    const [floorsText, creaturesText] = await Promise.all([
+      fetch(FLOORS_URL).then(r => r.text()),
+      fetch(CREATURES_URL).then(r => r.text()),
+    ]);
+    const floors = parseCSV(floorsText);
+    const creatures = parseCSV(creaturesText);
+
+    const byFloor = {};
+    creatures.forEach(c => {
+      (c.Floor_Found || '').split(';').map(s => s.trim()).filter(Boolean).forEach(f => {
+        if (!byFloor[f]) byFloor[f] = [];
+        byFloor[f].push(c);
+      });
+    });
+
+    floors.sort((a,b) => parseInt(a.Floor) - parseInt(b.Floor));
+    document.getElementById('floor-count').textContent = floors.length + ' / 100';
+
+    const main = document.getElementById('main');
+    let html = '';
+    let currentZone = null;
+
+    floors.forEach(f => {
+      if (f.Zone !== currentZone) {
+        currentZone = f.Zone;
+        const zoneFloors = floors.filter(x => x.Zone === currentZone);
+        const range = `${zoneFloors[0].Floor}–${zoneFloors[zoneFloors.length-1].Floor}`;
+        html += `<div class="zone-head"><span>#</span><span>${escapeHtml(currentZone)}</span><span>${escapeHtml(zoneFloors[0].Encounter_Type)}</span><span>TYPE</span><span>TIER</span><span>${range}</span></div>`;
+        html += `<div class="col-headers"><span>FLR</span><span>NAME</span><span>ENCOUNTER</span><span>TYPE</span><span>TIER</span><span>BOSS</span></div>`;
+      }
+
+      const isBoss = f.Is_Boss === 'Yes';
+      const found = byFloor[f.Floor] || [];
+
+      html += `<div class="floor-row ${isBoss ? 'boss' : ''}">`;
+      html += `<div class="f-num">${f.Floor}</div>`;
+      html += `<div class="f-name">${escapeHtml(f.Visual_Theme || f.Zone)}</div>`;
+      html += `<div class="f-encounter">${escapeHtml(f.Encounter_Type)}</div>`;
+      html += `<div class="f-type">${escapeHtml(f.Primary_Type || '—')}</div>`;
+      html += `<div class="f-tier">${escapeHtml(f.Tier || '—')}</div>`;
+      html += `<div class="f-boss-mark">${isBoss ? '☠' : '—'}</div>`;
+
+      if (f.Cover_Image_Path) {
+        html += `<div class="cover-row"><img class="cover-image" src="${escapeHtml(f.Cover_Image_Path)}" alt=""></div>`;
+      } else {
+        html += `<div class="cover-row"><div class="cover-placeholder"></div></div>`;
+      }
+
+      if (found.length) {
+        html += `<div class="creature-list">`;
+        found.forEach(c => {
+          html += `<div class="creature-tag">`;
+          html += c.Image_Path ? `<img src="${escapeHtml(c.Image_Path)}" alt="">` : `<div class="no-img">?</div>`;
+          html += `<span class="cn">${escapeHtml(c.Name)}</span><span class="cs">S${escapeHtml(c.Stage)}</span>`;
+          html += `</div>`;
+        });
+        html += `</div>`;
+      } else {
+        html += `<div class="empty-mark">NO CREATURES ASSIGNED</div>`;
+      }
+
+      html += `</div>`;
+    });
+
+    main.innerHTML = html;
+    document.getElementById('status').style.display = 'none';
+    main.style.display = 'block';
+  } catch (err) {
+    document.getElementById('status').textContent = 'LOAD FAILED: ' + err.message;
+  }
+}
+
+load();
+</script>
+
+</body>
+</html>
