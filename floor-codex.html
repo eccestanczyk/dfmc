@@ -169,7 +169,7 @@ async function load() {
           found.forEach(c => {
             html += `<a class="creature-tag" href="creature.html?id=${escapeHtml(c.ID)}">`;
             html += c.Image_Path ? `<img class="chroma" data-src="${escapeHtml(c.Image_Path)}" alt="">` : `<div class="no-img">?</div>`;
-            html += `<span class="cn">${escapeHtml(c.Name)}</span><span class="cs">S${escapeHtml(c.Stage)}</span>`;
+            html += `<span class="cn">${escapeHtml(c.Name)}</span>`;
             html += `<span class="tier-seal tier-${c.tier}">${c.tier}</span>`;
             html += `</a>`;
           });
