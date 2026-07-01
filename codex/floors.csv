@@ -1,101 +1,101 @@
-Floor,Zone,Encounter_Type,Is_Boss,Boss_Name,Primary_Type,Tier,Visual_Theme,Description
-1,Grasslands,Outdoors,No,,Beast,Early,Sunlit Meadow,Tall swaying grass under an open sky — the first steps into the wild.
-2,Grasslands,Cave,No,,Beast,Early,Hollow Burrow,"A shallow den dug into a grassy hillside, animal tracks leading inward."
-3,Grasslands,Fishing,No,,Beast,Early,Meadow Stream,"A shallow, clear stream cutting a lazy path through the grass."
-4,Grasslands,Outdoors,No,,Beast,Early,Rolling Hills,"Gentle green hills rolling toward the horizon, wind bending the grass in waves."
-5,Grasslands,Outdoors,No,,Beast,Early,Windswept Rise,"A low ridge overlooking the meadow, the wind carrying scent for miles."
-6,Grasslands,Outdoors,No,,Beast,Early,Thistle Field,Coarse thistles and wildflowers crowd this uneven stretch of ground.
-7,Grasslands,Fishing,No,,Beast,Early,Grazing Pond,A still pond where herds once drank before the tall grass grew wild.
-8,Grasslands,Cave,No,,Beast,Early,Root Hollow,A den carved beneath a massive fallen tree at the meadow's edge.
-9,Grasslands,Outdoors,No,,Beast,Early,Wildflower Expanse,"Bright wildflowers stretch as far as the eye can see, buzzing quietly with life."
-10,Grasslands,Cave,Yes,The Alpha's Den,Beast,Early,The Alpha's Den,"A deep den at the meadow's edge, marked with the claw-scored territory of something that rules here."
-11,Tidal Shallows,Fishing,No,,Sea Creature,Early,Bright turquoise shallows over a pale sandbar,"Sunlit water barely waist-deep, calm until something pale slides beneath the surface."
-12,Tidal Shallows,Outdoors,No,,Sea Creature,Early,Driftwood-littered dunes at low tide,"A stretch of wet sand and grounded driftwood, stranded sea life still twitching in the shallow pools."
-13,Tidal Shallows,Cave,No,,Sea Creature,Early,Small tidewashed grotto at the cliff base,"A shallow sea cave just above the waterline, damp and narrow, the first sign of deeper caverns to come."
-14,Tidal Shallows,Fishing,No,,Sea Creature,Early,Dense kelp forest swaying in the current,Visibility drops to almost nothing between the kelp fronds; things brush past unseen.
-15,Tidal Shallows,Fishing,No,,Sea Creature,Early,Half-submerged ruins guarded by a barbed shape,"An old shrine swallowed by the tide, its altar circled endlessly by a scarred ray."
-16,Tidal Shallows,Outdoors,No,,Sea Creature,Early,Tidepool flats cut by narrow channels,"Dozens of shallow pools connected by trickling channels, each one hiding something."
-17,Tidal Shallows,Fishing,No,,Sea Creature,Early,Undertow channel with a fast-pulling current,The current here is strong enough to drag careless feet — and stronger things use it to hunt.
-18,Tidal Shallows,Fishing,No,,Sea Creature,Early,Barnacle-crusted reef breaking the surface,"Jagged reef spires break the waterline, encrusted with barnacles and old wreckage."
-19,Tidal Shallows,Cave,No,,Sea Creature,Early,Deep current sinkhole descending into dark water,The cave floor drops away into black water with no visible bottom.
-20,Tidal Shallows,Cave,Yes,Abyssal Trench Gate,Sea Creature,Early,"Flooded trench entrance, key-locked stone door",The zone's final passage — a drowned stone archway that only opens for a bearer of the trench key.
-21,Desert Plains,Outdoors,No,,"Reptile, Serpent",Early,Sunbaked Flats,"Cracked earth stretching to the horizon, heat shimmering above sand-scoured stone."
-22,Desert Plains,Outdoors,No,,"Reptile, Serpent",Early,Bone Dune Ridge,"Dunes littered with bleached bones, the wind carving new shapes hourly."
-23,Desert Plains,Cave,No,,"Reptile, Serpent",Early,Sandworm Burrow,"A collapsed tunnel network beneath the dunes, walls smoothed by something massive passing through."
-24,Desert Plains,Outdoors,No,,"Reptile, Serpent",Early,Cracked Salt Pan,"A dry lakebed of blinding white salt, mirages bending the air."
-25,Desert Plains,Outdoors,No,,"Reptile, Serpent",Early,The Sunspire Coil,"A lone stone spire rising from the sand, wrapped in the coiled shed-skin of something enormous."
-26,Desert Plains,Fishing,No,,"Reptile, Serpent",Early,Hidden Oasis,"A rare pocket of green around a spring-fed pool, the only water for miles."
-27,Desert Plains,Outdoors,No,,"Reptile, Serpent",Early,Windcarved Mesa,Towering rock formations sculpted smooth by centuries of sandstorm.
-28,Desert Plains,Cave,No,,"Reptile, Serpent",Early,Sun-Cracked Grotto,"A shallow cave baked hot even in shadow, its floor littered with molted scales."
-29,Desert Plains,Outdoors,No,,"Reptile, Serpent",Early,Serpent's Crossing,A narrow pass between dunes where tracks converge from every direction.
-30,Desert Plains,Cave,Yes,The Ossuary Coil,"Reptile, Serpent",Early,The Ossuary Coil,A deep burrow chamber lined with the fused bones of a dozen swallowed prey.
-31,Swarm Thicket,Outdoors,No,,Insect,Early,Webbed Undergrowth,"Thick silk strands stretch between every trunk, glistening with dew and worse."
-32,Swarm Thicket,Cave,No,,Insect,Early,Hive Tunnel,"A tunnel lined with wax-like secretion, the buzzing audible before the entrance appears."
-33,Swarm Thicket,Outdoors,No,,Insect,Early,Chitin Clearing,"A clearing carpeted in shed exoskeletons, crunching underfoot."
-34,Swarm Thicket,Cave,No,,Insect,Mid,Larval Chamber,"A humid cavern packed with pale, pulsing egg-sacs stacked to the ceiling."
-35,Swarm Thicket,Outdoors,No,,Insect,Mid,The Queen's Nest,"A massive silk-wrapped structure at the thicket's heart, guarded without pause."
-36,Swarm Thicket,Outdoors,No,,Insect,Mid,Buzzing Meadow,"Tall grass alive with constant motion, the air thick with wings."
-37,Swarm Thicket,Fishing,No,,Insect,Mid,Stagnant Mire Edge,"A still, algae-choked pond at the thicket's border, larvae writhing just beneath the surface."
-38,Swarm Thicket,Cave,No,,Insect,Mid,Silk-Choked Burrow,A narrow tunnel nearly sealed by layers of old webbing.
-39,Swarm Thicket,Outdoors,No,,Insect,Mid,Molting Grounds,A wide clearing littered with discarded shells of every size.
-40,Swarm Thicket,Cave,Yes,The Broodmother's Hollow,Insect,Mid,The Broodmother's Hollow,"A cavern swollen with silk and eggs, the true source of the thicket's swarm."
-41,The Crag,Cave,No,,Arthropod,Mid,Fissure Entrance,"A narrow crack in the cliffside, just wide enough to squeeze through sideways."
-42,The Crag,Outdoors,No,,Arthropod,Mid,Windswept Ledge,"A precarious ledge along the cliff face, loose scree shifting underfoot."
-43,The Crag,Cave,No,,Arthropod,Mid,Silk-Strung Crevice,A tight crevice crossed with thick strands of webbing anchored to bare rock.
-44,The Crag,Cave,No,,Arthropod,Mid,Molt-Littered Hollow,A small cave floor covered in discarded carapace fragments.
-45,The Crag,Cave,No,,Arthropod,Mid,The Widow's Crevasse,A deep vertical crack where something ancient has been shedding skins for decades.
-46,The Crag,Outdoors,No,,Arthropod,Mid,Scree Slope,"A steep, unstable slope of loose stone, every step risking a slide."
-47,The Crag,Fishing,No,,Arthropod,Mid,Cliffside Spring,A thin waterfall feeding a small pool wedged between rock walls.
-48,The Crag,Cave,No,,Arthropod,Mid,Bone-Pit Chamber,A low cavern floor littered with the picked-clean remains of past prey.
-49,The Crag,Cave,No,,Arthropod,Mid,Chitin Gallery,A wide cavern with claw-carved alcoves along every wall.
-50,The Crag,Cave,Yes,The Carapace Throne,Arthropod,Mid,The Carapace Throne,A cathedral-sized cavern dominated by a mound of fused shells and old kills.
-51,Storm Peaks,Outdoors,No,,Avian,Mid,Windbattered Switchback,"A narrow trail clinging to the mountainside, gusts strong enough to stagger."
-52,Storm Peaks,Outdoors,No,,Avian,Mid,Cliffnest Overlook,"Sheer rock face pocked with nests, wings circling constantly overhead."
-53,Storm Peaks,Cave,No,,Avian,Mid,Thunderhollow,"A cave carved by centuries of lightning strikes, scorch marks on every wall."
-54,Storm Peaks,Outdoors,No,,Avian,Mid,Talon Ridge,A jagged ridgeline littered with old kills and dropped feathers.
-55,Storm Peaks,Outdoors,No,,Avian,Mid,The Stormcaller's Aerie,"A massive nest built atop the highest visible peak, lightning crackling above it."
-56,Storm Peaks,Outdoors,No,,Avian,Mid,Frostbitten Summit,"A wind-scoured peak where snow never quite melts, visibility dropping to nothing."
-57,Storm Peaks,Fishing,No,,Avian,Mid,Alpine Tarn,"A still, glacier-fed lake tucked into a hidden basin below the peaks."
-58,Storm Peaks,Cave,No,,Avian,Mid,Echo Cavern,"A resonant cave where every sound returns tenfold, unsettling in the dark."
-59,Storm Peaks,Outdoors,No,,Avian,Mid,Skybridge Crossing,"A narrow natural rock bridge spanning a deep chasm, wind howling below."
-60,Storm Peaks,Outdoors,Yes,The Roost of the First Storm,Avian,Mid,The Roost of the First Storm,A wind-torn summit shrine where the oldest and largest of the peaks' hunters nests.
-61,Sunken Bog,Fishing,No,,Amphibian,Mid,Reedchoked Shallows,"Murky water thick with reeds, ripples betraying movement just below."
-62,Sunken Bog,Outdoors,No,,Amphibian,Mid,Mudflat Crossing,"A wide expanse of sucking mud, footing uncertain with every step."
-63,Sunken Bog,Cave,No,,Amphibian,Mid,Sunken Hollow,"A half-flooded cave carved into the bog's edge, water dripping steadily from above."
-64,Sunken Bog,Fishing,No,,Amphibian,Mid,Croaking Marsh,"A dense marsh alive with constant croaking, impossible to pinpoint its source."
-65,Sunken Bog,Fishing,No,,Amphibian,Mid,The Drowned Shrine,"An overgrown ruin half-submerged in bog water, guarded by something ancient and patient."
-66,Sunken Bog,Cave,No,,Amphibian,Mid,Rootcave Grotto,"A cave formed beneath massive bog-tree roots, damp and close."
-67,Sunken Bog,Outdoors,No,,Amphibian,Late,Willow Hollow,"A cluster of weeping willows draped low over stagnant, still water."
-68,Sunken Bog,Fishing,No,,Amphibian,Late,Sinking Path,"A submerged walkway barely visible beneath murky, algae-thick water."
-69,Sunken Bog,Cave,No,,Amphibian,Late,Mire Tunnel,"A low, water-filled tunnel that floods further with every step deeper."
-70,Sunken Bog,Fishing,Yes,The Bogfather's Pool,Amphibian,Late,The Bogfather's Pool,"A wide, black pool at the bog's deepest point, undisturbed for longer than anyone can say."
-71,Underwater Cave,Outdoors,No,,"Fungal, Mollusk",Late,Cliffside Cave Mouth,"A cave entrance high on a sea cliff, the sound of dripping water echoing from within."
-72,Underwater Cave,Cave,No,,"Fungal, Mollusk",Late,Glowspore Passage,"A tunnel lined with faintly luminous fungus, the only light source this deep."
-73,Underwater Cave,Fishing,No,,"Fungal, Mollusk",Late,Flooded Antechamber,"A partially submerged chamber, cold water rising to the waist."
-74,Underwater Cave,Cave,No,,"Fungal, Mollusk",Late,Mycelium Grotto,"A cavern webbed floor to ceiling in pale fungal threads, pulsing faintly."
-75,Underwater Cave,Cave,No,,"Fungal, Mollusk",Late,The Luminous Deep,"A vast, glowing flooded cavern where something vast drifts just beneath the light."
-76,Underwater Cave,Fishing,No,,"Fungal, Mollusk",Late,Ink-Dark Pool,A still pool so dark it seems to swallow the light entirely.
-77,Underwater Cave,Cave,No,,"Fungal, Mollusk",Late,Spore Chimney,"A vertical shaft coated in fungal growth, spores drifting like slow snow."
-78,Underwater Cave,Fishing,No,,"Fungal, Mollusk",Late,Sunken Passage,A fully flooded tunnel requiring a held breath and steady nerves.
-79,Underwater Cave,Cave,No,,"Fungal, Mollusk",Late,Tendril Hollow,"A cave whose walls seem to shift and pulse, some of it clearly alive."
-80,Underwater Cave,Cave,Yes,The Abyssal Bloom,"Fungal, Mollusk",Late,The Abyssal Bloom,"A massive fungal-mollusk hybrid mass has claimed this cavern as its own, unfurling as you enter."
-81,Gemstone Cave,Outdoors,No,,"Spectral, Vampiric",Late,Crystal Outcrop,"Veins of raw gemstone catch the light at the cave's entrance, unnervingly beautiful."
-82,Gemstone Cave,Cave,No,,"Spectral, Vampiric",Late,Refracted Hollow,"Crystal formations scatter torchlight into a hundred shifting, ghostly shapes."
-83,Gemstone Cave,Cave,No,,"Spectral, Vampiric",Late,Silent Gallery,A wide crystal chamber where sound seems to vanish the moment it's made.
-84,Gemstone Cave,Fishing,No,,"Spectral, Vampiric",Late,Still Reflection Pool,An underground pool so clear and still it mirrors the cave ceiling perfectly.
-85,Gemstone Cave,Cave,No,,"Spectral, Vampiric",Late,The Weeping Crystal Tomb,"An ornate crystal sarcophagus chamber, faint sobbing echoing from no visible source."
-86,Gemstone Cave,Cave,No,,"Spectral, Vampiric",Late,Bloodlit Passage,"Crystal veins here run a deep, unsettling red, casting the tunnel in crimson light."
-87,Gemstone Cave,Fishing,No,,"Spectral, Vampiric",Late,Sunken Reliquary,"A flooded burial chamber, old grave goods glinting beneath the water."
-88,Gemstone Cave,Cave,No,,"Spectral, Vampiric",Late,Whispering Vein,A narrow tunnel where the crystal formations seem to murmur just below hearing.
-89,Gemstone Cave,Cave,No,,"Spectral, Vampiric",Late,Hollow Court,"A grand chamber that was once clearly ceremonial, now cold and abandoned."
-90,Gemstone Cave,Cave,Yes,The Undying Crypt,"Spectral, Vampiric",Late,The Undying Crypt,"The deepest tomb in the cave, sealed for a reason nobody living remembers."
-91,Flaming Hellscape,Outdoors,No,,Construct,Late,Obsidian Flats,"Cracked black glass stretches for miles, heat rippling up from below."
-92,Flaming Hellscape,Cave,No,,Construct,Late,Forge Tunnel,"A tunnel lined with old furnace scaffolding, the metal still warm to the touch."
-93,Flaming Hellscape,Cave,No,,Construct,Late,Slag Hollow,A cavern floor thick with cooled slag and half-melted machinery.
-94,Flaming Hellscape,Fishing,No,,Construct,Late,Magma Vent Pool,"A pool of superheated mineral water, bubbling steadily at the surface."
-95,Flaming Hellscape,Cave,No,,Construct,Late,The Furnace Heart,"The central forge chamber, where the zone's constructs are said to be made."
-96,Flaming Hellscape,Outdoors,No,,Construct,Late,Cinderfall Ridge,A ridge of black rock under a constant drift of falling ash.
-97,Flaming Hellscape,Cave,No,,Construct,Late,Rustbound Gallery,A wide cavern packed with the inert husks of failed constructs.
-98,Flaming Hellscape,Fishing,No,,Construct,Late,Boiling Cistern,An underground reservoir kept at a rolling boil by unknown means.
-99,Flaming Hellscape,Cave,No,,Construct,Late,Emberlit Passage,A narrow tunnel lit only by veins of glowing ember embedded in the rock.
-100,Flaming Hellscape,Cave,Yes,The Godforge,Construct,Late,The Godforge,The tower's deepest known chamber — where its ultimate construct is still being built.
+Floor,Zone,Encounter_Type,Is_Boss,Boss_Name,Primary_Type,Tier,Visual_Theme,Description,Cover_Image_Path
+1,Grasslands,Outdoors,No,,Beast,Early,Sunlit Meadow,Tall swaying grass under an open sky — the first steps into the wild.,
+2,Grasslands,Cave,No,,Beast,Early,Hollow Burrow,"A shallow den dug into a grassy hillside, animal tracks leading inward.",
+3,Grasslands,Fishing,No,,Beast,Early,Meadow Stream,"A shallow, clear stream cutting a lazy path through the grass.",
+4,Grasslands,Outdoors,No,,Beast,Early,Rolling Hills,"Gentle green hills rolling toward the horizon, wind bending the grass in waves.",
+5,Grasslands,Outdoors,No,,Beast,Early,Windswept Rise,"A low ridge overlooking the meadow, the wind carrying scent for miles.",
+6,Grasslands,Outdoors,No,,Beast,Early,Thistle Field,Coarse thistles and wildflowers crowd this uneven stretch of ground.,
+7,Grasslands,Fishing,No,,Beast,Early,Grazing Pond,A still pond where herds once drank before the tall grass grew wild.,
+8,Grasslands,Cave,No,,Beast,Early,Root Hollow,A den carved beneath a massive fallen tree at the meadow's edge.,
+9,Grasslands,Outdoors,No,,Beast,Early,Wildflower Expanse,"Bright wildflowers stretch as far as the eye can see, buzzing quietly with life.",
+10,Grasslands,Cave,Yes,The Alpha's Den,Beast,Early,The Alpha's Den,"A deep den at the meadow's edge, marked with the claw-scored territory of something that rules here.",
+11,Tidal Shallows,Fishing,No,,Sea Creature,Early,Bright turquoise shallows over a pale sandbar,"Sunlit water barely waist-deep, calm until something pale slides beneath the surface.",
+12,Tidal Shallows,Outdoors,No,,Sea Creature,Early,Driftwood-littered dunes at low tide,"A stretch of wet sand and grounded driftwood, stranded sea life still twitching in the shallow pools.",
+13,Tidal Shallows,Cave,No,,Sea Creature,Early,Small tidewashed grotto at the cliff base,"A shallow sea cave just above the waterline, damp and narrow, the first sign of deeper caverns to come.",
+14,Tidal Shallows,Fishing,No,,Sea Creature,Early,Dense kelp forest swaying in the current,Visibility drops to almost nothing between the kelp fronds; things brush past unseen.,
+15,Tidal Shallows,Fishing,No,,Sea Creature,Early,Half-submerged ruins guarded by a barbed shape,"An old shrine swallowed by the tide, its altar circled endlessly by a scarred ray.",
+16,Tidal Shallows,Outdoors,No,,Sea Creature,Early,Tidepool flats cut by narrow channels,"Dozens of shallow pools connected by trickling channels, each one hiding something.",
+17,Tidal Shallows,Fishing,No,,Sea Creature,Early,Undertow channel with a fast-pulling current,The current here is strong enough to drag careless feet — and stronger things use it to hunt.,
+18,Tidal Shallows,Fishing,No,,Sea Creature,Early,Barnacle-crusted reef breaking the surface,"Jagged reef spires break the waterline, encrusted with barnacles and old wreckage.",
+19,Tidal Shallows,Cave,No,,Sea Creature,Early,Deep current sinkhole descending into dark water,The cave floor drops away into black water with no visible bottom.,
+20,Tidal Shallows,Cave,Yes,Abyssal Trench Gate,Sea Creature,Early,"Flooded trench entrance, key-locked stone door",The zone's final passage — a drowned stone archway that only opens for a bearer of the trench key.,
+21,Desert Plains,Outdoors,No,,"Reptile, Serpent",Early,Sunbaked Flats,"Cracked earth stretching to the horizon, heat shimmering above sand-scoured stone.",
+22,Desert Plains,Outdoors,No,,"Reptile, Serpent",Early,Bone Dune Ridge,"Dunes littered with bleached bones, the wind carving new shapes hourly.",
+23,Desert Plains,Cave,No,,"Reptile, Serpent",Early,Sandworm Burrow,"A collapsed tunnel network beneath the dunes, walls smoothed by something massive passing through.",
+24,Desert Plains,Outdoors,No,,"Reptile, Serpent",Early,Cracked Salt Pan,"A dry lakebed of blinding white salt, mirages bending the air.",
+25,Desert Plains,Outdoors,No,,"Reptile, Serpent",Early,The Sunspire Coil,"A lone stone spire rising from the sand, wrapped in the coiled shed-skin of something enormous.",
+26,Desert Plains,Fishing,No,,"Reptile, Serpent",Early,Hidden Oasis,"A rare pocket of green around a spring-fed pool, the only water for miles.",
+27,Desert Plains,Outdoors,No,,"Reptile, Serpent",Early,Windcarved Mesa,Towering rock formations sculpted smooth by centuries of sandstorm.,
+28,Desert Plains,Cave,No,,"Reptile, Serpent",Early,Sun-Cracked Grotto,"A shallow cave baked hot even in shadow, its floor littered with molted scales.",
+29,Desert Plains,Outdoors,No,,"Reptile, Serpent",Early,Serpent's Crossing,A narrow pass between dunes where tracks converge from every direction.,
+30,Desert Plains,Cave,Yes,The Ossuary Coil,"Reptile, Serpent",Early,The Ossuary Coil,A deep burrow chamber lined with the fused bones of a dozen swallowed prey.,
+31,Swarm Thicket,Outdoors,No,,Insect,Early,Webbed Undergrowth,"Thick silk strands stretch between every trunk, glistening with dew and worse.",
+32,Swarm Thicket,Cave,No,,Insect,Early,Hive Tunnel,"A tunnel lined with wax-like secretion, the buzzing audible before the entrance appears.",
+33,Swarm Thicket,Outdoors,No,,Insect,Early,Chitin Clearing,"A clearing carpeted in shed exoskeletons, crunching underfoot.",
+34,Swarm Thicket,Cave,No,,Insect,Mid,Larval Chamber,"A humid cavern packed with pale, pulsing egg-sacs stacked to the ceiling.",
+35,Swarm Thicket,Outdoors,No,,Insect,Mid,The Queen's Nest,"A massive silk-wrapped structure at the thicket's heart, guarded without pause.",
+36,Swarm Thicket,Outdoors,No,,Insect,Mid,Buzzing Meadow,"Tall grass alive with constant motion, the air thick with wings.",
+37,Swarm Thicket,Fishing,No,,Insect,Mid,Stagnant Mire Edge,"A still, algae-choked pond at the thicket's border, larvae writhing just beneath the surface.",
+38,Swarm Thicket,Cave,No,,Insect,Mid,Silk-Choked Burrow,A narrow tunnel nearly sealed by layers of old webbing.,
+39,Swarm Thicket,Outdoors,No,,Insect,Mid,Molting Grounds,A wide clearing littered with discarded shells of every size.,
+40,Swarm Thicket,Cave,Yes,The Broodmother's Hollow,Insect,Mid,The Broodmother's Hollow,"A cavern swollen with silk and eggs, the true source of the thicket's swarm.",
+41,The Crag,Cave,No,,Arthropod,Mid,Fissure Entrance,"A narrow crack in the cliffside, just wide enough to squeeze through sideways.",
+42,The Crag,Outdoors,No,,Arthropod,Mid,Windswept Ledge,"A precarious ledge along the cliff face, loose scree shifting underfoot.",
+43,The Crag,Cave,No,,Arthropod,Mid,Silk-Strung Crevice,A tight crevice crossed with thick strands of webbing anchored to bare rock.,
+44,The Crag,Cave,No,,Arthropod,Mid,Molt-Littered Hollow,A small cave floor covered in discarded carapace fragments.,
+45,The Crag,Cave,No,,Arthropod,Mid,The Widow's Crevasse,A deep vertical crack where something ancient has been shedding skins for decades.,
+46,The Crag,Outdoors,No,,Arthropod,Mid,Scree Slope,"A steep, unstable slope of loose stone, every step risking a slide.",
+47,The Crag,Fishing,No,,Arthropod,Mid,Cliffside Spring,A thin waterfall feeding a small pool wedged between rock walls.,
+48,The Crag,Cave,No,,Arthropod,Mid,Bone-Pit Chamber,A low cavern floor littered with the picked-clean remains of past prey.,
+49,The Crag,Cave,No,,Arthropod,Mid,Chitin Gallery,A wide cavern with claw-carved alcoves along every wall.,
+50,The Crag,Cave,Yes,The Carapace Throne,Arthropod,Mid,The Carapace Throne,A cathedral-sized cavern dominated by a mound of fused shells and old kills.,
+51,Storm Peaks,Outdoors,No,,Avian,Mid,Windbattered Switchback,"A narrow trail clinging to the mountainside, gusts strong enough to stagger.",
+52,Storm Peaks,Outdoors,No,,Avian,Mid,Cliffnest Overlook,"Sheer rock face pocked with nests, wings circling constantly overhead.",
+53,Storm Peaks,Cave,No,,Avian,Mid,Thunderhollow,"A cave carved by centuries of lightning strikes, scorch marks on every wall.",
+54,Storm Peaks,Outdoors,No,,Avian,Mid,Talon Ridge,A jagged ridgeline littered with old kills and dropped feathers.,
+55,Storm Peaks,Outdoors,No,,Avian,Mid,The Stormcaller's Aerie,"A massive nest built atop the highest visible peak, lightning crackling above it.",
+56,Storm Peaks,Outdoors,No,,Avian,Mid,Frostbitten Summit,"A wind-scoured peak where snow never quite melts, visibility dropping to nothing.",
+57,Storm Peaks,Fishing,No,,Avian,Mid,Alpine Tarn,"A still, glacier-fed lake tucked into a hidden basin below the peaks.",
+58,Storm Peaks,Cave,No,,Avian,Mid,Echo Cavern,"A resonant cave where every sound returns tenfold, unsettling in the dark.",
+59,Storm Peaks,Outdoors,No,,Avian,Mid,Skybridge Crossing,"A narrow natural rock bridge spanning a deep chasm, wind howling below.",
+60,Storm Peaks,Outdoors,Yes,The Roost of the First Storm,Avian,Mid,The Roost of the First Storm,A wind-torn summit shrine where the oldest and largest of the peaks' hunters nests.,
+61,Sunken Bog,Fishing,No,,Amphibian,Mid,Reedchoked Shallows,"Murky water thick with reeds, ripples betraying movement just below.",
+62,Sunken Bog,Outdoors,No,,Amphibian,Mid,Mudflat Crossing,"A wide expanse of sucking mud, footing uncertain with every step.",
+63,Sunken Bog,Cave,No,,Amphibian,Mid,Sunken Hollow,"A half-flooded cave carved into the bog's edge, water dripping steadily from above.",
+64,Sunken Bog,Fishing,No,,Amphibian,Mid,Croaking Marsh,"A dense marsh alive with constant croaking, impossible to pinpoint its source.",
+65,Sunken Bog,Fishing,No,,Amphibian,Mid,The Drowned Shrine,"An overgrown ruin half-submerged in bog water, guarded by something ancient and patient.",
+66,Sunken Bog,Cave,No,,Amphibian,Mid,Rootcave Grotto,"A cave formed beneath massive bog-tree roots, damp and close.",
+67,Sunken Bog,Outdoors,No,,Amphibian,Late,Willow Hollow,"A cluster of weeping willows draped low over stagnant, still water.",
+68,Sunken Bog,Fishing,No,,Amphibian,Late,Sinking Path,"A submerged walkway barely visible beneath murky, algae-thick water.",
+69,Sunken Bog,Cave,No,,Amphibian,Late,Mire Tunnel,"A low, water-filled tunnel that floods further with every step deeper.",
+70,Sunken Bog,Fishing,Yes,The Bogfather's Pool,Amphibian,Late,The Bogfather's Pool,"A wide, black pool at the bog's deepest point, undisturbed for longer than anyone can say.",
+71,Underwater Cave,Outdoors,No,,"Fungal, Mollusk",Late,Cliffside Cave Mouth,"A cave entrance high on a sea cliff, the sound of dripping water echoing from within.",
+72,Underwater Cave,Cave,No,,"Fungal, Mollusk",Late,Glowspore Passage,"A tunnel lined with faintly luminous fungus, the only light source this deep.",
+73,Underwater Cave,Fishing,No,,"Fungal, Mollusk",Late,Flooded Antechamber,"A partially submerged chamber, cold water rising to the waist.",
+74,Underwater Cave,Cave,No,,"Fungal, Mollusk",Late,Mycelium Grotto,"A cavern webbed floor to ceiling in pale fungal threads, pulsing faintly.",
+75,Underwater Cave,Cave,No,,"Fungal, Mollusk",Late,The Luminous Deep,"A vast, glowing flooded cavern where something vast drifts just beneath the light.",
+76,Underwater Cave,Fishing,No,,"Fungal, Mollusk",Late,Ink-Dark Pool,A still pool so dark it seems to swallow the light entirely.,
+77,Underwater Cave,Cave,No,,"Fungal, Mollusk",Late,Spore Chimney,"A vertical shaft coated in fungal growth, spores drifting like slow snow.",
+78,Underwater Cave,Fishing,No,,"Fungal, Mollusk",Late,Sunken Passage,A fully flooded tunnel requiring a held breath and steady nerves.,
+79,Underwater Cave,Cave,No,,"Fungal, Mollusk",Late,Tendril Hollow,"A cave whose walls seem to shift and pulse, some of it clearly alive.",
+80,Underwater Cave,Cave,Yes,The Abyssal Bloom,"Fungal, Mollusk",Late,The Abyssal Bloom,"A massive fungal-mollusk hybrid mass has claimed this cavern as its own, unfurling as you enter.",
+81,Gemstone Cave,Outdoors,No,,"Spectral, Vampiric",Late,Crystal Outcrop,"Veins of raw gemstone catch the light at the cave's entrance, unnervingly beautiful.",
+82,Gemstone Cave,Cave,No,,"Spectral, Vampiric",Late,Refracted Hollow,"Crystal formations scatter torchlight into a hundred shifting, ghostly shapes.",
+83,Gemstone Cave,Cave,No,,"Spectral, Vampiric",Late,Silent Gallery,A wide crystal chamber where sound seems to vanish the moment it's made.,
+84,Gemstone Cave,Fishing,No,,"Spectral, Vampiric",Late,Still Reflection Pool,An underground pool so clear and still it mirrors the cave ceiling perfectly.,
+85,Gemstone Cave,Cave,No,,"Spectral, Vampiric",Late,The Weeping Crystal Tomb,"An ornate crystal sarcophagus chamber, faint sobbing echoing from no visible source.",
+86,Gemstone Cave,Cave,No,,"Spectral, Vampiric",Late,Bloodlit Passage,"Crystal veins here run a deep, unsettling red, casting the tunnel in crimson light.",
+87,Gemstone Cave,Fishing,No,,"Spectral, Vampiric",Late,Sunken Reliquary,"A flooded burial chamber, old grave goods glinting beneath the water.",
+88,Gemstone Cave,Cave,No,,"Spectral, Vampiric",Late,Whispering Vein,A narrow tunnel where the crystal formations seem to murmur just below hearing.,
+89,Gemstone Cave,Cave,No,,"Spectral, Vampiric",Late,Hollow Court,"A grand chamber that was once clearly ceremonial, now cold and abandoned.",
+90,Gemstone Cave,Cave,Yes,The Undying Crypt,"Spectral, Vampiric",Late,The Undying Crypt,"The deepest tomb in the cave, sealed for a reason nobody living remembers.",
+91,Flaming Hellscape,Outdoors,No,,Construct,Late,Obsidian Flats,"Cracked black glass stretches for miles, heat rippling up from below.",
+92,Flaming Hellscape,Cave,No,,Construct,Late,Forge Tunnel,"A tunnel lined with old furnace scaffolding, the metal still warm to the touch.",
+93,Flaming Hellscape,Cave,No,,Construct,Late,Slag Hollow,A cavern floor thick with cooled slag and half-melted machinery.,
+94,Flaming Hellscape,Fishing,No,,Construct,Late,Magma Vent Pool,"A pool of superheated mineral water, bubbling steadily at the surface.",
+95,Flaming Hellscape,Cave,No,,Construct,Late,The Furnace Heart,"The central forge chamber, where the zone's constructs are said to be made.",
+96,Flaming Hellscape,Outdoors,No,,Construct,Late,Cinderfall Ridge,A ridge of black rock under a constant drift of falling ash.,
+97,Flaming Hellscape,Cave,No,,Construct,Late,Rustbound Gallery,A wide cavern packed with the inert husks of failed constructs.,
+98,Flaming Hellscape,Fishing,No,,Construct,Late,Boiling Cistern,An underground reservoir kept at a rolling boil by unknown means.,
+99,Flaming Hellscape,Cave,No,,Construct,Late,Emberlit Passage,A narrow tunnel lit only by veins of glowing ember embedded in the rock.,
+100,Flaming Hellscape,Cave,Yes,The Godforge,Construct,Late,The Godforge,The tower's deepest known chamber — where its ultimate construct is still being built.,
