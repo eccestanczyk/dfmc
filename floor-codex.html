@@ -118,7 +118,7 @@ async function load() {
       if (!byFloor[row.Floor]) byFloor[row.Floor] = [];
       byFloor[row.Floor].push({ ...c, tier: row.Rarity_Tier });
     });
-    Object.values(byFloor).forEach(list => list.sort((a,b) => TIER_ORDER[a.tier] - TIER_ORDER[b.tier]));
+    Object.values(byFloor).forEach(list => list.sort((a,b) => TIER_ORDER[b.tier] - TIER_ORDER[a.tier]));
 
     floors.sort((a,b) => parseInt(a.Floor) - parseInt(b.Floor));
     document.getElementById('floor-count').textContent = floors.length + ' / 100';
