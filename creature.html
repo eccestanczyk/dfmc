@@ -236,7 +236,10 @@
     border: 1px solid var(--border-bright);
     color: var(--gold);
     padding: 2px 8px;
+    text-decoration: none;
+    cursor: pointer;
   }
+  .floor-chip:hover { background: var(--border); }
 </style>
 </head>
 <body>
@@ -422,7 +425,7 @@ async function load() {
 
     const floors = (c.Floor_Found || '').split(';').map(s => s.trim()).filter(Boolean);
     document.getElementById('c-floors').innerHTML = floors.length
-      ? floors.map(f => `<span class="floor-chip">FLR ${f}</span>`).join('')
+      ? floors.map(f => `<a class="floor-chip" href="floor.html?num=${f}">FLR ${f}</a>`).join('')
       : `<span class="floor-chip" style="opacity:0.5;">UNASSIGNED — MID/LATE FLOOR PENDING</span>`;
 
     const grades = [
