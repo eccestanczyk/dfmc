@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CREATURE CODEX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ground: #0c0b09;
+    --panel: #16140f;
+    --panel-alt: #1c1912;
+    --border: #3a3222;
+    --border-bright: #6b5a34;
+    --text: #c9c0aa;
+    --text-dim: #6e6650;
+    --gold: #a9873f;
+    --blood: #7a2a1f;
+    --blood-bright: #a83c2a;
+    --moss: #5c6b4a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+  }
+  .topbar {
+    border-bottom: 2px solid var(--border-bright);
+    background: var(--panel);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .topbar a.index-btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--gold);
+    border: 1px solid var(--border-bright);
+    padding: 6px 12px;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+  .topbar a.index-btn:hover { background: var(--border); }
+  .topbar h1 {
+    font-family: 'Cinzel', serif;
+    font-weight: 800;
+    font-size: 16px;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    margin: 0;
+  }
+  .nav-arrows { display: flex; gap: 8px; }
+  .nav-arrows a {
+    color: var(--text);
+    border: 1px solid var(--border-bright);
+    padding: 6px 12px;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  .nav-arrows a:hover { background: var(--border); color: var(--gold); }
+  .nav-arrows a.disabled { opacity: 0.25; pointer-events: none; }
+
+  #status { padding: 60px 24px; text-align: center; color: var(--text-dim); }
+
+  main { max-width: 760px; margin: 0 auto; padding: 30px 20px 100px; display: none; }
+
+  .id-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 24px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 24px;
+    margin-top: 10px;
+  }
+  .hero img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    background: var(--ground);
+    border: 1px solid var(--border-bright);
+  }
+  .hero .no-img {
+    width: 100%;
+    aspect-ratio: 1;
+    background: var(--panel-alt);
+    border: 1px dashed var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-dim);
+    font-size: 11px;
+  }
+  .hero-info h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 30px;
+    margin: 0 0 6px;
+    color: var(--text);
+    letter-spacing: 0.02em;
+  }
+  .type-tags { display: flex; gap: 6px; margin-bottom: 12px; }
+  .type-tag {
+    font-size: 10px;
+    padding: 2px 8px;
+    border: 1px solid var(--moss);
+    color: var(--moss);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .type-tag.secondary { border-color: var(--gold); color: var(--gold); }
+  .meta-line {
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.04em;
+    margin-bottom: 4px;
+  }
+  .meta-line b { color: var(--text); font-weight: 500; }
+
+  section {
+    margin-top: 26px;
+    border: 1px solid var(--border);
+    background: var(--panel);
+  }
+  section h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 0;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--panel-alt);
+  }
+  .section-body { padding: 16px; }
+
+  .grade-row {
+    display: grid;
+    grid-template-columns: 90px 1fr 30px;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-size: 12px;
+  }
+  .grade-bar-bg {
+    height: 8px;
+    background: var(--panel-alt);
+    border: 1px solid var(--border);
+  }
+  .grade-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--blood), var(--gold));
+  }
+
+  .egg-tier-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+  .egg-tier-table th, .egg-tier-table td {
+    text-align: left;
+    padding: 6px 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .egg-tier-table th {
+    color: var(--gold);
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+  }
+  .pending-note {
+    font-size: 11px;
+    color: var(--text-dim);
+    font-style: italic;
+    padding-top: 8px;
+    opacity: 0.7;
+  }
+
+  .evo-line { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .evo-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    color: var(--text);
+    opacity: 0.5;
+  }
+  .evo-node.current { opacity: 1; }
+  .evo-node.linkable { opacity: 0.85; cursor: pointer; }
+  .evo-node.linkable:hover { opacity: 1; }
+  .evo-node img, .evo-node .no-img-sm {
+    width: 56px; height: 56px; object-fit: cover;
+    border: 1px solid var(--border-bright);
+    background: var(--ground);
+  }
+  .evo-node .no-img-sm {
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; color: var(--text-dim); border-style: dashed;
+  }
+  .evo-node span { font-size: 11px; }
+  .evo-arrow { color: var(--text-dim); font-size: 16px; }
+
+  .shiny-box {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  .shiny-placeholder {
+    width: 100px; height: 100px;
+    border: 1px dashed var(--border);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-dim); font-size: 10px; text-align: center;
+  }
+
+  .floor-chip-row { display: flex; flex-wrap: wrap; gap: 6px; }
+  .floor-chip {
+    font-size: 11px;
+    border: 1px solid var(--border-bright);
+    color: var(--gold);
+    padding: 2px 8px;
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="index-btn" href="floor-codex.html">← INDEX</a>
+  <h1 id="topbar-title">CREATURE CODEX</h1>
+  <div class="nav-arrows">
+    <a id="prev-arrow" href="#">‹ PREV</a>
+    <a id="next-arrow" href="#">NEXT ›</a>
+  </div>
+</div>
+
+<div id="status">LOADING...</div>
+<main id="main">
+  <div class="id-tag" id="id-tag"></div>
+  <div class="hero">
+    <div id="hero-img-slot"></div>
+    <div class="hero-info">
+      <h2 id="c-name"></h2>
+      <div class="type-tags" id="c-types"></div>
+      <div class="meta-line">RARITY: <b id="c-rarity"></b></div>
+      <div class="meta-line">STAGE: <b id="c-stage"></b> &nbsp; LINE: <b id="c-line"></b></div>
+      <div class="meta-line">ENCOUNTER: <b id="c-encounter"></b></div>
+      <div class="meta-line" style="margin-top:8px;">FOUND ON FLOORS:</div>
+      <div class="floor-chip-row" id="c-floors"></div>
+    </div>
+  </div>
+
+  <section>
+    <h3>Grades</h3>
+    <div class="section-body" id="grades-body"></div>
+  </section>
+
+  <section>
+    <h3>Stat Range by Egg Tier</h3>
+    <div class="section-body">
+      <table class="egg-tier-table">
+        <tr><th>Egg Tier</th><th>Offense</th><th>Defense</th><th>Utility</th><th>Speed</th></tr>
+        <tr><td>Worn</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>Common</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>Rare</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>Void</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      </table>
+      <div class="pending-note">Egg tier stat scaling not yet defined — grades above represent identity only.</div>
+    </div>
+  </section>
+
+  <section>
+    <h3>Move Progression</h3>
+    <div class="section-body">
+      <div class="pending-note">Move design not yet started for this line.</div>
+    </div>
+  </section>
+
+  <section>
+    <h3>Evolution Line</h3>
+    <div class="section-body">
+      <div class="evo-line" id="evo-line"></div>
+    </div>
+  </section>
+
+  <section>
+    <h3>Abnormal (Shiny) Variant</h3>
+    <div class="section-body shiny-box">
+      <div class="shiny-placeholder">NOT YET<br>GENERATED</div>
+      <div class="pending-note">Shiny variant art pending.</div>
+    </div>
+  </section>
+</main>
+
+<script>
+const CREATURES_URL = "https://raw.githubusercontent.com/eccestanczyk/dfmc/main/codex/creatures.csv";
+
+function parseCSV(text) {
+  const rows = [];
+  let row = [], field = '', inQuotes = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i], next = text[i+1];
+    if (inQuotes) {
+      if (c === '"' && next === '"') { field += '"'; i++; }
+      else if (c === '"') { inQuotes = false; }
+      else { field += c; }
+    } else {
+      if (c === '"') inQuotes = true;
+      else if (c === ',') { row.push(field); field = ''; }
+      else if (c === '\r') {}
+      else if (c === '\n') { row.push(field); rows.push(row); row = []; field = ''; }
+      else { field += c; }
+    }
+  }
+  if (field.length || row.length) { row.push(field); rows.push(row); }
+  const header = rows.shift();
+  return rows.filter(r => r.length > 1 || r[0]).map(r => {
+    const obj = {};
+    header.forEach((h, idx) => obj[h] = r[idx] ?? '');
+    return obj;
+  });
+}
+function escapeHtml(str) {
+  if (!str) return '';
+  return str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+async function load() {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  if (!id) {
+    document.getElementById('status').textContent = 'NO CREATURE ID SPECIFIED';
+    return;
+  }
+  try {
+    const text = await fetch(CREATURES_URL).then(r => r.text());
+    const creatures = parseCSV(text);
+    creatures.sort((a,b) => a.ID.localeCompare(b.ID));
+
+    const idx = creatures.findIndex(c => c.ID === id);
+    if (idx === -1) {
+      document.getElementById('status').textContent = 'CREATURE NOT FOUND: ' + id;
+      return;
+    }
+    const c = creatures[idx];
+    const prev = creatures[idx - 1];
+    const next = creatures[idx + 1];
+
+    document.title = c.Name + ' — CREATURE CODEX';
+    document.getElementById('topbar-title').textContent = c.Name.toUpperCase();
+    document.getElementById('id-tag').textContent = c.ID;
+    document.getElementById('c-name').textContent = c.Name;
+    document.getElementById('c-rarity').textContent = c.Rarity || '—';
+    document.getElementById('c-stage').textContent = c.Stage || '—';
+    document.getElementById('c-line').textContent = c.Line_ID || '—';
+    document.getElementById('c-encounter').textContent = c.Encounter_Type || '—';
+
+    let typesHtml = `<span class="type-tag">${escapeHtml(c.Type_Primary)}</span>`;
+    if (c.Type_Secondary) typesHtml += `<span class="type-tag secondary">${escapeHtml(c.Type_Secondary)}</span>`;
+    document.getElementById('c-types').innerHTML = typesHtml;
+
+    document.getElementById('hero-img-slot').innerHTML = c.Image_Path
+      ? `<img src="${escapeHtml(c.Image_Path)}" alt="${escapeHtml(c.Name)}">`
+      : `<div class="no-img">NO IMAGE YET</div>`;
+
+    const floors = (c.Floor_Found || '').split(';').map(s => s.trim()).filter(Boolean);
+    document.getElementById('c-floors').innerHTML = floors.length
+      ? floors.map(f => `<span class="floor-chip">FLR ${f}</span>`).join('')
+      : `<span class="floor-chip" style="opacity:0.5;">UNASSIGNED — MID/LATE FLOOR PENDING</span>`;
+
+    const grades = [
+      ['OFFENSE', c.Grade_Offense],
+      ['DEFENSE', c.Grade_Defense],
+      ['UTILITY', c.Grade_Utility],
+      ['SPEED', c.Grade_Speed],
+    ];
+    document.getElementById('grades-body').innerHTML = grades.map(([label, val]) => {
+      const v = parseInt(val) || 0;
+      return `<div class="grade-row"><span>${label}</span><div class="grade-bar-bg"><div class="grade-bar-fill" style="width:${v*10}%"></div></div><span>${v}/10</span></div>`;
+    }).join('');
+
+    // Evolution line: find all creatures in the same Line_ID, sorted by stage
+    const lineMembers = creatures.filter(x => x.Line_ID === c.Line_ID).sort((a,b) => parseInt(a.Stage) - parseInt(b.Stage));
+    let evoHtml = '';
+    lineMembers.forEach((m, i) => {
+      const isCurrent = m.ID === c.ID;
+      const imgHtml = m.Image_Path ? `<img src="${escapeHtml(m.Image_Path)}" alt="">` : `<div class="no-img-sm">?</div>`;
+      if (isCurrent) {
+        evoHtml += `<div class="evo-node current">${imgHtml}<span>${escapeHtml(m.Name)} (You)</span></div>`;
+      } else {
+        evoHtml += `<a class="evo-node linkable" href="creature.html?id=${escapeHtml(m.ID)}">${imgHtml}<span>${escapeHtml(m.Name)}</span></a>`;
+      }
+      if (i < lineMembers.length - 1) evoHtml += `<span class="evo-arrow">→</span>`;
+    });
+    document.getElementById('evo-line').innerHTML = evoHtml || '<span style="color:var(--text-dim);font-size:11px;">SINGLE STAGE — NO EVOLUTION LINE</span>';
+
+    // Prev/next nav by codex ID order
+    const prevArrow = document.getElementById('prev-arrow');
+    const nextArrow = document.getElementById('next-arrow');
+    if (prev) { prevArrow.href = `creature.html?id=${prev.ID}`; } else { prevArrow.classList.add('disabled'); }
+    if (next) { nextArrow.href = `creature.html?id=${next.ID}`; } else { nextArrow.classList.add('disabled'); }
+
+    document.getElementById('status').style.display = 'none';
+    document.getElementById('main').style.display = 'block';
+  } catch (err) {
+    document.getElementById('status').textContent = 'LOAD FAILED: ' + err.message;
+  }
+}
+load();
+</script>
+</body>
+</html>
