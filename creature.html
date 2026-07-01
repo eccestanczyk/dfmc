@@ -24,18 +24,38 @@
   .creature-img-wrap {
     border-radius: 8px;
     overflow: hidden;
+    position: relative;
   }
-  .zone-bg-grasslands     { background: radial-gradient(ellipse at center, #3a4a20 0%, #1a2410 60%, #0d1208 100%) !important; }
-  .zone-bg-tidal-shallows { background: radial-gradient(ellipse at center, #1a3a4a 0%, #0c2030 60%, #060e18 100%) !important; }
-  .zone-bg-desert-plains  { background: radial-gradient(ellipse at center, #4a3a1a 0%, #2a1e0c 60%, #140e06 100%) !important; }
-  .zone-bg-swarm-thicket  { background: radial-gradient(ellipse at center, #3a3a10 0%, #1e1e08 60%, #0e0e04 100%) !important; }
-  .zone-bg-the-crag       { background: radial-gradient(ellipse at center, #3a3530 0%, #201c18 60%, #0e0c0a 100%) !important; }
-  .zone-bg-storm-peaks    { background: radial-gradient(ellipse at center, #2a2a40 0%, #161628 60%, #0a0a14 100%) !important; }
-  .zone-bg-sunken-bog     { background: radial-gradient(ellipse at center, #2a3020 0%, #161a10 60%, #0a0c06 100%) !important; }
-  .zone-bg-underwater-cave{ background: radial-gradient(ellipse at center, #1a2a3a 0%, #0c1620 60%, #060a10 100%) !important; }
-  .zone-bg-gemstone-cave  { background: radial-gradient(ellipse at center, #30203a 0%, #1a1020 60%, #0c0610 100%) !important; }
-  .zone-bg-flaming-hellscape { background: radial-gradient(ellipse at center, #4a1a10 0%, #2a0e08 60%, #140604 100%) !important; }
-  .zone-bg-none           { background: radial-gradient(ellipse at center, #2a2a2a 0%, #141414 60%, #0a0a0a 100%) !important; }
+  .creature-img-wrap::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    animation: gradientDrift 8s ease-in-out infinite;
+  }
+  .creature-img-wrap img,
+  .creature-img-wrap .no-img {
+    position: relative;
+    z-index: 1;
+  }
+  @keyframes gradientDrift {
+    0%   { background-position: 30% 30%; }
+    25%  { background-position: 70% 40%; }
+    50%  { background-position: 60% 70%; }
+    75%  { background-position: 35% 55%; }
+    100% { background-position: 30% 30%; }
+  }
+  .zone-bg-grasslands::before     { background: radial-gradient(circle at center, #3a4a20, #1a2410 40%, #0d1208 70%); background-size: 200% 200%; animation-name: gradientDrift; }
+  .zone-bg-tidal-shallows::before { background: radial-gradient(circle at center, #1a3a4a, #0c2030 40%, #060e18 70%); background-size: 200% 200%; animation-name: gradientDrift; }
+  .zone-bg-desert-plains::before  { background: radial-gradient(circle at center, #4a3a1a, #2a1e0c 40%, #140e06 70%); background-size: 200% 200%; animation-name: gradientDrift; }
+  .zone-bg-swarm-thicket::before  { background: radial-gradient(circle at center, #3a3a10, #1e1e08 40%, #0e0e04 70%); background-size: 200% 200%; animation-name: gradientDrift; }
+  .zone-bg-the-crag::before       { background: radial-gradient(circle at center, #3a3530, #201c18 40%, #0e0c0a 70%); background-size: 200% 200%; animation-name: gradientDrift; }
+  .zone-bg-storm-peaks::before    { background: radial-gradient(circle at center, #2a2a40, #161628 40%, #0a0a14 70%); background-size: 200% 200%; animation-name: gradientDrift; }
+  .zone-bg-sunken-bog::before     { background: radial-gradient(circle at center, #2a3020, #161a10 40%, #0a0c06 70%); background-size: 200% 200%; animation-name: gradientDrift; }
+  .zone-bg-underwater-cave::before{ background: radial-gradient(circle at center, #1a2a3a, #0c1620 40%, #060a10 70%); background-size: 200% 200%; animation-name: gradientDrift; }
+  .zone-bg-gemstone-cave::before  { background: radial-gradient(circle at center, #30203a, #1a1020 40%, #0c0610 70%); background-size: 200% 200%; animation-name: gradientDrift; }
+  .zone-bg-flaming-hellscape::before { background: radial-gradient(circle at center, #4a1a10, #2a0e08 40%, #140604 70%); background-size: 200% 200%; animation-name: gradientDrift; }
+  .zone-bg-none::before           { background: radial-gradient(circle at center, #2a2a2a, #141414 40%, #0a0a0a 70%); background-size: 200% 200%; animation-name: gradientDrift; }
 </style>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
