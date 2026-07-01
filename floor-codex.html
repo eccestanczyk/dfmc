@@ -100,9 +100,9 @@ async function applyChromaKeyAll() {
 async function load() {
   try {
     const [floorsText, creaturesText, rarityText] = await Promise.all([
-      fetch(FLOORS_URL).then(r => r.text()),
-      fetch(CREATURES_URL).then(r => r.text()),
-      fetch(RARITY_URL).then(r => r.text()),
+      fetch(FLOORS_URL + '?t=' + Date.now()).then(r => r.text()),
+      fetch(CREATURES_URL + '?t=' + Date.now()).then(r => r.text()),
+      fetch(RARITY_URL + '?t=' + Date.now()).then(r => r.text()),
     ]);
     const floors = parseCSV(floorsText);
     const creatures = parseCSV(creaturesText);
