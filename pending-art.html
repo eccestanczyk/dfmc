@@ -30,7 +30,7 @@ const CSV_URL = "codex/creatures.csv?" + Date.now();
 function escapeHtml(s){return s?s.replace(/&/g,'&amp;').replace(/</g,'&lt;'):'';}
 fetch(CSV_URL).then(r=>r.text()).then(text=>{
   const lines = text.trim().split('\n');
-  const headers = lines[0].split(',');
+  const headers = lines[0].split(',').map(h => h.trim());
   const rows = lines.slice(1).map(line => {
     const vals = []; let inQ=false, cur='';
     for(let i=0;i<line.length;i++){
@@ -39,7 +39,7 @@ fetch(CSV_URL).then(r=>r.text()).then(text=>{
       else{cur+=line[i];}
     }
     vals.push(cur);
-    const obj={};headers.forEach((h,i)=>obj[h.trim()]=vals[i]||'');return obj;
+    const obj={};headers.forEach((h,i)=>obj[h]=((vals[i]||'').trim()));return obj;
   });
   const pending = rows.filter(r => r.Art_Status === 'pending' && r.Image_Path);
   document.getElementById('count').textContent = pending.length + ' creatures awaiting approval';
