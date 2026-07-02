@@ -16,6 +16,9 @@
   .page-header h1 { color: var(--gold); font-family: var(--ff-display); }
   .count { color: var(--fg); opacity: 0.6; font-size: 14px; }
   .back-link { display: inline-block; margin: 10px 20px; padding: 6px 14px; background: var(--bg-card); border: 1px solid var(--rule); border-radius: 4px; color: var(--gold); text-decoration: none; font-size: 13px; }
+  .filter-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aaa; padding: 6px 14px; font-size: 12px; letter-spacing: 0.05em; border-radius: 4px; cursor: pointer; }
+  .filter-btn.active { background: rgba(255,200,50,0.2); border-color: var(--gold); color: var(--gold); }
+  .filter-btn:hover { background: rgba(255,255,255,0.15); }
 </style>
 </head>
 <body>
@@ -23,6 +26,12 @@
 <div class="page-header">
   <h1>⚠ Pending Art Approval</h1>
   <div class="count" id="count"></div>
+  <div class="filters" id="filters" style="display:flex;justify-content:center;gap:8px;margin-top:12px;">
+    <button class="filter-btn active" onclick="filterStage('all',this)">All</button>
+    <button class="filter-btn" onclick="filterStage('1',this)">Stage 1</button>
+    <button class="filter-btn" onclick="filterStage('2',this)">Stage 2</button>
+    <button class="filter-btn" onclick="filterStage('3',this)">Stage 3</button>
+  </div>
 </div>
 <div class="pending-grid" id="grid"></div>
 <script>
@@ -48,12 +57,22 @@ fetch(CSV_URL).then(r=>r.text()).then(text=>{
     const card = document.createElement('a');
     card.className = 'pending-card';
     card.href = 'creature.html?id=' + c.ID;
-    card.innerHTML = '<img src="' + escapeHtml(c.Image_Path) + '" alt="' + escapeHtml(c.Name) + '">'
+    card.dataset.stage = c.Stage;
+    card.innerHTML = '<img src="' + escapeHtml(c.Image_Path) + '?t=' + Date.now() + '" alt="' + escapeHtml(c.Name) + '">'
       + '<div class="info"><div class="name">' + escapeHtml(c.Name) + '</div>'
       + '<div class="meta">' + c.ID + ' · ' + c.Line_ID + ' S' + c.Stage + '</div></div>';
     grid.appendChild(card);
   });
 });
+function filterStage(stage, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.pending-card').forEach(card => {
+    card.style.display = (stage === 'all' || card.dataset.stage === stage) ? '' : 'none';
+  });
+  const visible = document.querySelectorAll('.pending-card[style=""],.pending-card:not([style])').length;
+  document.getElementById('count').textContent = visible + ' creatures shown';
+}
 </script>
 </body>
 </html>
