@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FLOOR CODEX</title>
+<title>FLOOR MAP</title>
 <link rel="stylesheet" href="theme.css">
 <style>
   .creature-tag.art-pending { border: 2px solid #c0392b; background: rgba(192,57,43,0.15); }
@@ -16,8 +16,11 @@
 <body>
 
 <div class="topbar">
-  <h1>FLOOR CODEX</h1>
-  <div class="count" id="floor-count">— / 100</div>
+  <h1>FLOOR MAP</h1>
+  <div style="display:flex;align-items:center;gap:14px;">
+    <div class="count" id="floor-count">— / 100</div>
+    <a class="index-btn" href="hub.html">← HUB</a>
+  </div>
 </div>
 
 <div id="status">LOADING...</div>
