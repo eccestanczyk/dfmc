@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FLOOR MAP</title>
+<title>FLOOR CODEX</title>
 <link rel="stylesheet" href="theme.css">
 <style>
   .creature-tag.art-pending { border: 2px solid #c0392b; background: rgba(192,57,43,0.15); }
@@ -16,11 +16,8 @@
 <body>
 
 <div class="topbar">
-  <h1>FLOOR MAP</h1>
-  <div style="display:flex;align-items:center;gap:14px;">
-    <div class="count" id="floor-count">— / 100</div>
-    <a class="index-btn" href="hub.html">← HUB</a>
-  </div>
+  <h1>FLOOR CODEX</h1>
+  <div class="count" id="floor-count">— / 100</div>
 </div>
 
 <div id="status">LOADING...</div>
@@ -29,6 +26,7 @@
 <script>
 const FLOORS_URL = "https://raw.githubusercontent.com/eccestanczyk/dfmc/main/codex/floors.csv";
 const CREATURES_URL = "https://raw.githubusercontent.com/eccestanczyk/dfmc/main/codex/creatures.csv";
+const IMG_BASE = "https://raw.githubusercontent.com/eccestanczyk/dfmc/main/";
 const RARITY_URL = "https://raw.githubusercontent.com/eccestanczyk/dfmc/main/codex/floor_creature_rarity.csv";
 const TIER_ORDER = { SSR: 0, SR: 1, R: 2, UC: 3, C: 4 };
 
@@ -167,7 +165,7 @@ async function load() {
         html += `<div class="f-boss-mark">${isBoss ? '☠' : '—'}</div>`;
 
         html += f.Cover_Image_Path
-          ? `<div class="cover-row"><img class="cover-image" src="${escapeHtml(f.Cover_Image_Path)}" alt=""></div>`
+          ? `<div class="cover-row"><img class="cover-image" src="${IMG_BASE}${escapeHtml(f.Cover_Image_Path)}" alt=""></div>`
           : `<div class="cover-row"><div class="cover-placeholder"></div></div>`;
 
         if (isBoss) {
@@ -178,7 +176,7 @@ async function load() {
           found.forEach(c => {
             const pendingClass = c.Art_Status === 'pending' ? ' art-pending' : '';
             html += `<a class="creature-tag${pendingClass}" href="creature.html?id=${escapeHtml(c.ID)}">`;
-            html += c.Image_Path ? `<img src="${escapeHtml(c.Image_Path)}" alt="">` : `<div class="no-img">?</div>`;
+            html += c.Image_Path ? `<img src="${IMG_BASE}${escapeHtml(c.Image_Path)}" alt="">` : `<div class="no-img">?</div>`;
             html += `<span class="cn">${escapeHtml(c.Name)}</span>`;
             html += `<span class="tier-seal tier-${c.tier}">${c.tier}</span>`;
             html += `</a>`;
