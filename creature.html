@@ -38,6 +38,10 @@
   .crop-pending-banner.crop-review:hover { background: rgba(52,152,219,0.3); }
   .crop-pending-banner.crop-manual { border-color: #e74c3c; color: #e74c3c; background: rgba(231,76,60,0.15); }
   .crop-pending-banner.crop-manual:hover { background: rgba(231,76,60,0.3); }
+  .compare-tabs { display: flex; gap: 4px; margin-bottom: 8px; position: relative; z-index: 2; }
+  .compare-tab { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #aaa; padding: 6px 14px; font-size: 12px; letter-spacing: 0.05em; border-radius: 4px; cursor: pointer; }
+  .compare-tab.active { background: rgba(255,200,50,0.2); border-color: var(--gold); color: var(--gold); }
+  .compare-tab:hover { background: rgba(255,255,255,0.15); }
   .creature-img-wrap img {
     object-fit: contain !important;
     background: transparent !important;
@@ -267,13 +271,26 @@ async function load() {
     if (c.Type_Secondary) typesHtml += `<a class="type-tag secondary" href="type.html?type=${encodeURIComponent(c.Type_Secondary)}">${escapeHtml(c.Type_Secondary)}</a>`;
     document.getElementById('c-types').innerHTML = typesHtml;
 
-    document.getElementById('creature-img-wrap').innerHTML = c.Image_Path
-      ? `<img src="${escapeHtml(c.Image_Path)}" alt="${escapeHtml(c.Name)}">`
-      : `<div class="no-img">NO IMAGE YET</div>`;
-
     // Zone gradient background on the image wrapper
     const zoneSlug = (c.Home_Zone || '').toLowerCase().replace(/\s+/g, '-');
     document.getElementById('creature-img-wrap').classList.add('zone-bg-' + (zoneSlug || 'none'));
+
+    // Image display with comparison tabs for bg_pending
+    if (c.BG_Status === 'bg_pending') {
+      const origPath = c.Image_Path;
+      const cropPath = c.Image_Path.replace('codex/images/', 'codex/images/cropped/');
+      document.getElementById('creature-img-wrap').innerHTML =
+        '<div class="compare-tabs">' +
+          '<button class="compare-tab active" onclick="switchTab(this,\'orig\')">Original</button>' +
+          '<button class="compare-tab" onclick="switchTab(this,\'crop\')">Cropped</button>' +
+        '</div>' +
+        '<img id="compare-orig" src="' + escapeHtml(origPath) + '" alt="' + escapeHtml(c.Name) + ' original" style="display:block">' +
+        '<img id="compare-crop" src="' + escapeHtml(cropPath) + '" alt="' + escapeHtml(c.Name) + ' cropped" style="display:none">';
+    } else {
+      document.getElementById('creature-img-wrap').innerHTML = c.Image_Path
+        ? '<img src="' + escapeHtml(c.Image_Path) + '" alt="' + escapeHtml(c.Name) + '">'
+        : '<div class="no-img">NO IMAGE YET</div>';
+    }
 
     // Art approval status banner
     if (c.Art_Status === 'pending') {
@@ -329,6 +346,12 @@ async function load() {
   } catch (err) {
     document.getElementById('status').textContent = 'LOAD FAILED: ' + err.message;
   }
+}
+function switchTab(btn, which) {
+  btn.parentElement.querySelectorAll('.compare-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('compare-orig').style.display = which === 'orig' ? 'block' : 'none';
+  document.getElementById('compare-crop').style.display = which === 'crop' ? 'block' : 'none';
 }
 load();
 </script>
