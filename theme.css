@@ -210,6 +210,11 @@ main{ max-width:920px; margin:0 auto; padding:30px 20px 110px; }
 
 .meta-line{ font-size:15px; color:var(--ink-dim); margin-bottom:6px; font-style:italic; }
 .meta-line b{ color:var(--ink); font-weight:600; font-style:normal; }
+.meta-link{
+  color:var(--gold); font-weight:600; font-style:normal; text-decoration:none;
+  border-bottom:1px solid var(--rule-faint); padding-bottom:1px; transition:all 0.14s ease;
+}
+.meta-link:hover{ color:var(--blood-bright); border-color:var(--blood-bright); }
 
 /* ---------- Section blocks ---------- */
 section{ margin-top:24px; }
