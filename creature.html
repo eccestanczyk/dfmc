@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="theme.css">
 <style>
   .art-pending-banner {
+    display: block;
     background: rgba(192,57,43,0.2);
     border: 1px solid #c0392b;
     color: #e74c3c;
@@ -16,7 +17,27 @@
     text-align: center;
     margin-top: 10px;
     border-radius: 4px;
+    text-decoration: none;
   }
+  .art-pending-banner:hover { background: rgba(192,57,43,0.35); }
+  .crop-pending-banner {
+    display: block;
+    background: rgba(230,126,34,0.15);
+    border: 1px solid #e67e22;
+    color: #e67e22;
+    padding: 8px 14px;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-align: center;
+    margin-top: 8px;
+    border-radius: 4px;
+    text-decoration: none;
+  }
+  .crop-pending-banner:hover { background: rgba(230,126,34,0.3); }
+  .crop-pending-banner.crop-review { border-color: #3498db; color: #3498db; background: rgba(52,152,219,0.15); }
+  .crop-pending-banner.crop-review:hover { background: rgba(52,152,219,0.3); }
+  .crop-pending-banner.crop-manual { border-color: #e74c3c; color: #e74c3c; background: rgba(231,76,60,0.15); }
+  .crop-pending-banner.crop-manual:hover { background: rgba(231,76,60,0.3); }
   .creature-img-wrap img {
     object-fit: contain !important;
     background: transparent !important;
@@ -257,7 +278,19 @@ async function load() {
     // Art approval status banner
     if (c.Art_Status === 'pending') {
       document.getElementById('creature-img-wrap').insertAdjacentHTML('afterend',
-        '<div class="art-pending-banner">⚠ ART PENDING APPROVAL</div>');
+        '<a href="pending-art.html" class="art-pending-banner">⚠ ART PENDING APPROVAL</a>');
+    }
+
+    // Background removal status banner
+    if (c.BG_Status === 'has_chroma') {
+      document.getElementById('creature-img-wrap').insertAdjacentHTML('afterend',
+        '<a href="pending-crop.html" class="crop-pending-banner">PENDING CROPPING</a>');
+    } else if (c.BG_Status === 'bg_pending') {
+      document.getElementById('creature-img-wrap').insertAdjacentHTML('afterend',
+        '<a href="pending-crop.html" class="crop-pending-banner crop-review">CROP AWAITING APPROVAL</a>');
+    } else if (c.BG_Status === 'manual') {
+      document.getElementById('creature-img-wrap').insertAdjacentHTML('afterend',
+        '<a href="pending-crop.html" class="crop-pending-banner crop-manual">FLAGGED FOR MANUAL REMOVAL</a>');
     }
 
     const floors = (c.Floor_Found || '').split(';').map(s => s.trim()).filter(Boolean);
