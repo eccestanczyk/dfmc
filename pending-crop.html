@@ -37,7 +37,8 @@
 </div>
 <div class="pending-grid" id="grid"></div>
 <script>
-const CSV_URL = "codex/creatures.csv?" + Date.now();
+const CSV_URL = "https://raw.githubusercontent.com/eccestanczyk/dfmc/main/codex/creatures.csv?" + Date.now();
+const IMG_BASE = "https://raw.githubusercontent.com/eccestanczyk/dfmc/main/";
 function escapeHtml(s){return s?s.replace(/&/g,'&amp;').replace(/</g,'&lt;'):'';}
 fetch(CSV_URL).then(r=>r.text()).then(text=>{
   const lines = text.trim().split('\n');
@@ -60,7 +61,7 @@ fetch(CSV_URL).then(r=>r.text()).then(text=>{
     card.className = 'pending-card ' + (c.BG_Status || '');
     card.href = 'creature.html?id=' + c.ID;
     const statusLabel = c.BG_Status === 'has_chroma' ? 'Needs removal' : c.BG_Status === 'bg_pending' ? 'Awaiting approval' : c.BG_Status === 'manual' ? 'Manual removal' : c.BG_Status;
-    card.innerHTML = '<img src="' + escapeHtml(c.Image_Path) + '" alt="' + escapeHtml(c.Name) + '">'
+    card.innerHTML = '<img src="' + IMG_BASE + escapeHtml(c.Image_Path) + '" alt="' + escapeHtml(c.Name) + '">'
       + '<div class="info"><div class="name">' + escapeHtml(c.Name) + '</div>'
       + '<div class="meta">' + c.ID + ' · ' + statusLabel + '</div></div>';
     grid.appendChild(card);
