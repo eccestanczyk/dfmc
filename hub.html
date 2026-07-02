@@ -52,11 +52,21 @@
 </style>
 </head>
 <body>
-<div class="hub-wrap">
-  <div class="hub-title">
-    <h1>TOWER CRAWLER</h1>
-    <p>Dark-fantasy creature-collecting roguelite</p>
+<div class="topbar">
+  <div class="nav-dropdown">
+  <button class="nav-toggle" onclick="this.parentElement.classList.toggle('open')">☰</button>
+  <div class="nav-menu">
+    <a href="hub.html" class="current">Home</a>
+    <a href="creature-codex.html">Creature Codex</a>
+    <a href="floor-codex.html">Floor Map</a>
+    <a href="reliquary.html">Reliquary</a>
+    <a href="index.html">Game Design Document</a>
   </div>
+</div>
+  <h1 style="font-family:'Cinzel Decorative',serif;font-weight:900;font-size:18px;letter-spacing:0.1em;color:var(--gold-bright);margin:0;">TOWER CRAWLER</h1>
+  <div></div>
+</div>
+<div class="hub-wrap">
   <div class="hub-grid">
     <a class="hub-card" href="floor-codex.html">
       <div class="hub-icon">🗺</div>
@@ -78,5 +88,6 @@
     <a href="index.html">Game Design Document ›</a>
   </div>
 </div>
+<script>document.addEventListener('click',function(e){document.querySelectorAll('.nav-dropdown.open').forEach(function(d){if(!d.contains(e.target))d.classList.remove('open')})});</script>
 </body>
 </html>
