@@ -90,7 +90,7 @@
 <body>
 
 <div class="topbar">
-  <a class="index-btn" href="hub.html">← HUB</a>
+  <a class="index-btn" href="floor-codex.html">← INDEX</a>
   <h1 id="topbar-title">CREATURE CODEX</h1>
   <div class="nav-arrows">
     <a id="prev-arrow" href="#">‹ PREV</a>
@@ -106,20 +106,13 @@
     <div class="creature-info">
       <h2 id="c-name"></h2>
       <div class="type-tags" id="c-types"></div>
-      <div class="meta-line">RARITY: <a id="c-rarity" class="meta-link"></a></div>
-      <div class="meta-line">STAGE: <a id="c-stage" class="meta-link"></a></div>
+      <div class="meta-line">RARITY: <b id="c-rarity"></b></div>
+      <div class="meta-line">STAGE: <b id="c-stage"></b> &nbsp; LINE: <b id="c-line"></b></div>
       <div class="meta-line">ENCOUNTER: <b id="c-encounter"></b></div>
       <div class="meta-line" style="margin-top:10px;">FOUND ON FLOORS:</div>
       <div class="floor-chip-row" id="c-floors"></div>
     </div>
   </div>
-
-  <section>
-    <h3>Evolution Line</h3>
-    <div class="section-body">
-      <div class="evo-line" id="evo-line"></div>
-    </div>
-  </section>
 
   <section>
     <h3>Grades</h3>
@@ -160,6 +153,13 @@
   </section>
 
   <section>
+    <h3>Evolution Line</h3>
+    <div class="section-body">
+      <div class="evo-line" id="evo-line"></div>
+    </div>
+  </section>
+
+  <section>
     <h3>Abnormal (Mutant) Variant</h3>
     <div class="section-body shiny-box">
       <div class="shiny-placeholder">NOT YET<br>GENERATED</div>
@@ -170,6 +170,7 @@
 
 <script>
 const CREATURES_URL = "https://raw.githubusercontent.com/eccestanczyk/dfmc/main/codex/creatures.csv";
+const IMG_BASE = "https://raw.githubusercontent.com/eccestanczyk/dfmc/main/";
 const PLACEHOLDER_SLOTS = ["Slot 1","Slot 2","Slot 3","Slot 4","Slot 5","Slot 6","Slot 7","Slot 8"];
 
 function parseCSV(text) {
@@ -262,12 +263,9 @@ async function load() {
     document.getElementById('topbar-title').textContent = c.Name.toUpperCase();
     document.getElementById('id-tag').textContent = c.ID;
     document.getElementById('c-name').textContent = c.Name;
-    const rarityEl = document.getElementById('c-rarity');
-    rarityEl.textContent = c.Rarity || '—';
-    rarityEl.href = 'creature-codex.html?rarity=' + encodeURIComponent(c.Rarity);
-    const stageEl = document.getElementById('c-stage');
-    stageEl.textContent = 'Stage ' + (c.Stage || '—');
-    stageEl.href = 'creature-codex.html?stage=' + encodeURIComponent(c.Stage);
+    document.getElementById('c-rarity').textContent = c.Rarity || '—';
+    document.getElementById('c-stage').textContent = c.Stage || '—';
+    document.getElementById('c-line').textContent = c.Line_ID || '—';
     document.getElementById('c-encounter').textContent = c.Encounter_Type || '—';
 
     let typesHtml = `<a class="type-tag" href="type.html?type=${encodeURIComponent(c.Type_Primary)}">${escapeHtml(c.Type_Primary)}</a>`;
@@ -288,11 +286,11 @@ async function load() {
           '<button class="compare-tab active" onclick="switchTab(this,\'orig\')">Option A</button>' +
           '<button class="compare-tab" onclick="switchTab(this,\'crop\')">Option B</button>' +
         '</div>' +
-        '<img id="compare-orig" src="' + escapeHtml(origPath) + cacheBust + '" alt="' + escapeHtml(c.Name) + ' original" style="display:block">' +
-        '<img id="compare-crop" src="' + escapeHtml(cropPath) + cacheBust + '" alt="' + escapeHtml(c.Name) + ' cropped" style="display:none">';
+        '<img id="compare-orig" src="' + IMG_BASE + escapeHtml(origPath) + cacheBust + '" alt="' + escapeHtml(c.Name) + ' original" style="display:block">' +
+        '<img id="compare-crop" src="' + IMG_BASE + escapeHtml(cropPath) + cacheBust + '" alt="' + escapeHtml(c.Name) + ' cropped" style="display:none">';
     } else {
       document.getElementById('creature-img-wrap').innerHTML = c.Image_Path
-        ? '<img src="' + escapeHtml(c.Image_Path) + '?t=' + Date.now() + '" alt="' + escapeHtml(c.Name) + '">'
+        ? '<img src="' + IMG_BASE + escapeHtml(c.Image_Path) + '?t=' + Date.now() + '" alt="' + escapeHtml(c.Name) + '">'
         : '<div class="no-img">NO IMAGE YET</div>';
     }
 
@@ -329,7 +327,7 @@ async function load() {
     let evoHtml = '';
     lineMembers.forEach((m, i) => {
       const isCurrent = m.ID === c.ID;
-      const imgHtml = m.Image_Path ? `<img src="${escapeHtml(m.Image_Path)}?t=${Date.now()}" alt="">` : `<div class="no-img-sm">?</div>`;
+      const imgHtml = m.Image_Path ? `<img src="${IMG_BASE}${escapeHtml(m.Image_Path)}?t=${Date.now()}" alt="">` : `<div class="no-img-sm">?</div>`;
       evoHtml += isCurrent
         ? `<div class="evo-node current">${imgHtml}<span>${escapeHtml(m.Name)}</span></div>`
         : `<a class="evo-node linkable" href="creature.html?id=${escapeHtml(m.ID)}">${imgHtml}<span>${escapeHtml(m.Name)}</span></a>`;
