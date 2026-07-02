@@ -1013,6 +1013,7 @@ Your Backend
       <li>Every prompt names an explicit color palette. No two lines in the same zone share a palette.</li>
       <li>Creatures must be in a natural combat-ready stance (this is a turn-based RPG battle system).</li>
       <li>Full body must fit within the frame with generous margin — nothing cropped at edges.</li>
+      <li><strong style="color:#ede0c4">Reframe fix for edge-cropped creatures:</strong> If a creature's anatomy is cut off by the frame edge, regenerate with aggressive center-framing: <code>The creature occupies only the CENTER 70% of the frame, surrounded by clear empty background on all sides — nothing even close to any edge.</code> Do NOT use outpainting/edits to extend — the edits endpoint degrades detail quality across the whole image even when only borders are masked. Always regenerate fresh.</li>
       <li>Prompt boilerplate: <code>In a natural combat-ready stance as if facing an opponent. Full body visible with generous margin on all sides, nothing cropped at edges. Centered, painterly dark-fantasy illustration, dramatic rim lighting with clear mid-key exposure, vivid readable colors, one single cohesive creature, no text, no props, no scenery. No floating or detached parts.</code></li>
       <li>No repeated core motifs between different creature lines.</li>
       <li>Stage-2 prompts stored in <code>Image_Prompt</code> column of <code>codex/creatures.csv</code>.</li>
