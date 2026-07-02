@@ -334,18 +334,21 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
         <div class="card-body">Battles trigger by fishing at a water tile, not by walking. Autoplay parks adjacent to water and repeatedly fishes in place.</div>
       </div>
     </div>
-    <div class="note note-info"><p>Each floor's encounter type is fixed by its theme. The win condition (10 battles), boss key drop, and chest system apply identically across all three types — only the trigger method and autoplay behavior differ.</p></div>
+    <div class="note note-info"><p>Each floor's encounter type is fixed by its theme. The win condition (consecutive win streak scaled by floor depth), boss key drop, and chest system apply identically across all three types — only the trigger method and autoplay behavior differ.</p></div>
 
     <div class="grid-2">
       <div class="card">
         <div class="card-title">🏆 Win condition</div>
-        <div class="card-body">Win 10 battles on a floor to open the portal to the next floor. Battles won is tracked per floor visit.</div>
+        <div class="card-body">Win a streak of consecutive battles on a floor to open the portal. Threshold scales with floor depth: <code>ceil(floor<sup>0.65</sup>)</code> — floor 1 needs 1 win, floor 10 needs ~4, floor 50 needs ~13, floor 100 needs ~20. <strong style="color:#dd5646">Losing a battle resets the streak to zero.</strong> Boss floors always require exactly 1 battle (the boss fight).</div>
       </div>
       <div class="card">
         <div class="card-title">👑 Boss floors</div>
         <div class="card-body">Every 5th floor is a boss room. Entry requires consuming a Key, which has a chance to drop from any battle across the previous 4 floors.</div>
       </div>
     </div>
+
+    <h3>Streak counter</h3>
+    <p>After every battle, a compact rectangle appears mid-screen showing the current streak status as <strong style="color:#ede0c4">X / Y</strong> (battles won / threshold). On a <strong style="color:#4a7a44">win</strong>, X scrolls up to the new count and the text pops in size briefly. On a <strong style="color:#dd5646">loss</strong>, the rectangle visually cracks and X rolls back down through each number to 0. The counter only appears on floors not yet cleared.</p>
 
     <h3>Boss key</h3>
     <p>A single Key is required to enter a boss floor, accessible via the portal or directly through the map selector. Any battle won on the 4 floors preceding a boss has a chance to drop that floor's Key. The Key is consumed on boss entry.</p>
@@ -356,10 +359,10 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     <h3>Floor structure</h3>
     <table>
       <tr><th>Element</th><th>Details</th></tr>
-      <tr><td>Battle trigger</td><td>Type-dependent: tall grass (Outdoors), anywhere (Cave), or fishing at water (Fishing). Counts toward the 10-battle win condition.</td></tr>
+      <tr><td>Battle trigger</td><td>Type-dependent: tall grass (Outdoors), anywhere (Cave), or fishing at water (Fishing). Wins count toward the floor's streak threshold.</td></tr>
       <tr><td>Chests</td><td>Manual-only, one-time per chest. Tracked as x/x on map selector.</td></tr>
       <tr><td>Boss (every 5th floor)</td><td>Requires consuming a Key. One-time encounter, gates the next set of floors.</td></tr>
-      <tr><td>Portal / door</td><td>Opens after 10 battles won. Leads to the next floor.</td></tr>
+      <tr><td>Portal / door</td><td>Opens after the win streak threshold is met. Leads to the next floor.</td></tr>
     </table>
 
     <div class="note note-info"><p>All equipment and crafting materials now come exclusively from battle rewards and chests — there is no resource gathering layer. Gathering nodes have been removed from active scope; see Roadmap for details.</p></div>
@@ -863,7 +866,7 @@ Your Backend
       <li>Class specialization names and tree structures for all three classes</li>
       <li>Number of chests per floor (the "x" in the x/x chest tracker)</li>
       <li>Key drop rate per battle on pre-boss floors</li>
-      <li>Whether chest contents reset along with the 10-battle win counter on floor re-entry, or remain collected permanently</li>
+      <li>Whether chest contents reset along with the win streak on floor re-entry, or remain collected permanently</li>
     </ul>
   </div>
 
