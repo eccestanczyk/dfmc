@@ -282,8 +282,8 @@ async function load() {
       const cropPath = c.Image_Path.replace('codex/images/', 'codex/images/cropped/');
       document.getElementById('creature-img-wrap').innerHTML =
         '<div class="compare-tabs">' +
-          '<button class="compare-tab active" onclick="switchTab(this,\'orig\')">Original</button>' +
-          '<button class="compare-tab" onclick="switchTab(this,\'crop\')">Cropped</button>' +
+          '<button class="compare-tab active" onclick="switchTab(this,\'orig\')">Option A</button>' +
+          '<button class="compare-tab" onclick="switchTab(this,\'crop\')">Option B</button>' +
         '</div>' +
         '<img id="compare-orig" src="' + escapeHtml(origPath) + cacheBust + '" alt="' + escapeHtml(c.Name) + ' original" style="display:block">' +
         '<img id="compare-crop" src="' + escapeHtml(cropPath) + cacheBust + '" alt="' + escapeHtml(c.Name) + ' cropped" style="display:none">';
