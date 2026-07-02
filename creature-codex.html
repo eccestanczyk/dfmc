@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CREATURE CODEX</title>
+<link rel="stylesheet" href="theme.css">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+.filter-bar{
+  background:var(--surface); border:1px solid var(--rule); padding:14px 18px; margin-bottom:18px;
+  box-shadow:inset 0 1px 0 rgba(207,166,80,0.07), 0 4px 12px rgba(0,0,0,0.35);
+}
+.filter-group{ margin-bottom:10px; }
+.filter-group:last-child{ margin-bottom:0; }
+.filter-label{
+  font-family:'Cinzel', serif; font-size:10px; letter-spacing:0.1em; text-transform:uppercase;
+  color:var(--gold); margin-bottom:6px; display:block;
+}
+.filter-btns{ display:flex; flex-wrap:wrap; gap:5px; }
+.filter-btn{
+  font-family:'Cinzel', serif; font-size:11px; font-weight:600; letter-spacing:0.04em;
+  padding:4px 10px; border:1px solid var(--rule); background:var(--surface-2); color:var(--ink-dim);
+  cursor:pointer; text-transform:uppercase; transition:all 0.14s ease; user-select:none;
+}
+.filter-btn:hover{ border-color:var(--gold-dim); color:var(--ink); }
+.filter-btn.active{ background:var(--blood); border-color:var(--blood-bright); color:var(--ink); box-shadow:0 0 8px rgba(221,86,70,0.3); }
+.filter-btn.rarity-C.active{ background:#4a4336; border-color:#6b6352; }
+.filter-btn.rarity-UC.active{ background:#2e5428; border-color:#4a7a44; }
+.filter-btn.rarity-R.active{ background:#274a6e; border-color:#3f6b9a; }
+.filter-btn.rarity-SR.active{ background:#553268; border-color:#7a4a8a; }
+.filter-btn.rarity-SSR.active{ background:#6e5020; border-color:#c99a3c; color:#e6c66d; }
+.count-badge{ font-size:14px; color:var(--ink-dim); font-style:italic; margin-bottom:14px; }
+.codex-grid{
+  display:grid; grid-template-columns:repeat(auto-fill, minmax(160px, 1fr)); gap:12px;
+}
+.codex-card{
+  display:flex; flex-direction:column; text-decoration:none; color:var(--ink);
+  background:var(--surface); border:1px solid var(--rule);
+  box-shadow:inset 0 1px 0 rgba(207,166,80,0.05), 0 4px 10px rgba(0,0,0,0.3);
+  transition:all 0.14s ease; overflow:hidden;
+}
+.codex-card:hover{ border-color:var(--blood-bright); box-shadow:0 0 14px rgba(124,21,25,0.35); transform:translateY(-1px); }
+.codex-card-img{
+  width:100%; aspect-ratio:1; object-fit:cover; background:#1c1610;
+  border-bottom:1px solid var(--rule); display:block;
+}
+.codex-card-noimg{
+  width:100%; aspect-ratio:1; background:#1c1610; border-bottom:1px solid var(--rule);
+  display:flex; align-items:center; justify-content:center;
+  color:var(--ink-faint); font-size:11px; font-style:italic;
+}
+.codex-card-body{ padding:10px 12px 12px; }
+.codex-card-name{
+  font-family:'Cinzel', serif; font-weight:700; font-size:14px; color:var(--ink);
+  margin-bottom:4px; line-height:1.2;
+}
+.codex-card-types{ font-size:12px; color:var(--ink-dim); font-style:italic; margin-bottom:6px; }
+.codex-card-rarity{ display:flex; align-items:center; gap:6px; }
+.codex-card-rarity .tier-seal{ width:22px; height:22px; font-size:8px; }
+.codex-card-rarity span{ font-size:12px; color:var(--ink-dim); }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <h1>CREATURE CODEX</h1>
+  <div style="display:flex;align-items:center;gap:14px;">
+    <span class="count" id="count"></span>
+    <a class="index-btn" href="hub.html">← HUB</a>
+  </div>
+</div>
+<div id="status">LOADING...</div>
+<main id="main" style="display:none; max-width:920px; margin:0 auto; padding:24px 20px 100px;">
+
+  <div class="filter-bar">
+    <div class="filter-group">
+      <span class="filter-label">Rarity</span>
+      <div class="filter-btns" id="rarity-filters"></div>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">Type</span>
+      <div class="filter-btns" id="type-filters"></div>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">Stage</span>
+      <div class="filter-btns" id="stage-filters"></div>
+    </div>
+  </div>
+
+  <div class="count-badge" id="result-count"></div>
+  <div class="codex-grid" id="grid"></div>
+</main>
+
+<script>
+const CREATURES_URL = "https://raw.githubusercontent.com/eccestanczyk/dfmc/main/codex/creatures.csv";
+
+const RARITY_ORDER = ['Common','Uncommon','Rare','Super Rare','Super Super Rare'];
+const RARITY_SHORT = {'Common':'C','Uncommon':'UC','Rare':'R','Super Rare':'SR','Super Super Rare':'SSR'};
+const TIER_CLASS = {'Common':'tier-C','Uncommon':'tier-UC','Rare':'tier-R','Super Rare':'tier-SR','Super Super Rare':'tier-SSR'};
+
+function parseCSV(text) {
+  const lines = text.trim().split('\n');
+  const headers = lines[0].split(',').map(h => h.trim().replace(/\r/g,''));
+  return lines.slice(1).map(line => {
+    const vals = []; let cur = ''; let inQ = false;
+    for (let i = 0; i < line.length; i++) {
+      const ch = line[i];
+      if (ch === '"') { inQ = !inQ; }
+      else if (ch === ',' && !inQ) { vals.push(cur.trim().replace(/\r/g,'')); cur = ''; }
+      else { cur += ch; }
+    }
+    vals.push(cur.trim().replace(/\r/g,''));
+    const obj = {};
+    headers.forEach((h, i) => obj[h] = vals[i] || '');
+    return obj;
+  });
+}
+
+function escapeHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+let allCreatures = [];
+let activeRarity = new Set();
+let activeType = new Set();
+let activeStage = new Set();
+
+function toggleFilter(set, val, btn) {
+  if (set.has(val)) { set.delete(val); btn.classList.remove('active'); }
+  else { set.add(val); btn.classList.add('active'); }
+  renderGrid();
+  syncURL();
+}
+
+function syncURL() {
+  const p = new URLSearchParams();
+  if (activeRarity.size) p.set('rarity', [...activeRarity].join(','));
+  if (activeType.size) p.set('type', [...activeType].join(','));
+  if (activeStage.size) p.set('stage', [...activeStage].join(','));
+  const qs = p.toString();
+  history.replaceState(null, '', qs ? '?' + qs : location.pathname);
+}
+
+function renderGrid() {
+  let filtered = allCreatures;
+  if (activeRarity.size) filtered = filtered.filter(c => activeRarity.has(c.Rarity));
+  if (activeType.size) filtered = filtered.filter(c => activeType.has(c.Type_Primary) || activeType.has(c.Type_Secondary));
+  if (activeStage.size) filtered = filtered.filter(c => activeStage.has(c.Stage));
+
+  document.getElementById('result-count').textContent = `Showing ${filtered.length} of ${allCreatures.length} creatures`;
+
+  const grid = document.getElementById('grid');
+  grid.innerHTML = filtered.map(c => {
+    const short = RARITY_SHORT[c.Rarity] || '?';
+    const cls = TIER_CLASS[c.Rarity] || '';
+    const types = c.Type_Secondary ? `${c.Type_Primary} / ${c.Type_Secondary}` : c.Type_Primary;
+    const img = c.Image_Path
+      ? `<img class="codex-card-img" src="${escapeHtml(c.Image_Path)}?t=${Date.now()}" alt="${escapeHtml(c.Name)}" loading="lazy">`
+      : `<div class="codex-card-noimg">?</div>`;
+    return `<a class="codex-card" href="creature.html?id=${escapeHtml(c.ID)}">
+      ${img}
+      <div class="codex-card-body">
+        <div class="codex-card-name">${escapeHtml(c.Name)}</div>
+        <div class="codex-card-types">${escapeHtml(types)}</div>
+        <div class="codex-card-rarity"><div class="tier-seal ${cls}">${short}</div><span>${escapeHtml(c.Rarity)}</span></div>
+      </div>
+    </a>`;
+  }).join('');
+}
+
+(async function() {
+  try {
+    const text = await fetch(CREATURES_URL + '?t=' + Date.now()).then(r => r.text());
+    allCreatures = parseCSV(text).sort((a,b) => a.ID.localeCompare(b.ID));
+
+    // Build filter buttons
+    const rarityContainer = document.getElementById('rarity-filters');
+    RARITY_ORDER.forEach(r => {
+      const short = RARITY_SHORT[r];
+      const btn = document.createElement('button');
+      btn.className = `filter-btn rarity-${short}`;
+      btn.textContent = r;
+      btn.onclick = () => toggleFilter(activeRarity, r, btn);
+      rarityContainer.appendChild(btn);
+    });
+
+    const types = [...new Set(allCreatures.flatMap(c => [c.Type_Primary, c.Type_Secondary].filter(Boolean)))].sort();
+    const typeContainer = document.getElementById('type-filters');
+    types.forEach(t => {
+      const btn = document.createElement('button');
+      btn.className = 'filter-btn';
+      btn.textContent = t;
+      btn.onclick = () => toggleFilter(activeType, t, btn);
+      typeContainer.appendChild(btn);
+    });
+
+    const stages = [...new Set(allCreatures.map(c => c.Stage))].sort();
+    const stageContainer = document.getElementById('stage-filters');
+    stages.forEach(s => {
+      const btn = document.createElement('button');
+      btn.className = 'filter-btn';
+      btn.textContent = 'Stage ' + s;
+      btn.onclick = () => toggleFilter(activeStage, s, btn);
+      stageContainer.appendChild(btn);
+    });
+
+    // Apply URL params as initial filters
+    const params = new URLSearchParams(location.search);
+    if (params.get('rarity')) {
+      params.get('rarity').split(',').forEach(r => {
+        if (RARITY_ORDER.includes(r)) {
+          activeRarity.add(r);
+          const btn = [...rarityContainer.children].find(b => b.textContent === r);
+          if (btn) btn.classList.add('active');
+        }
+      });
+    }
+    if (params.get('type')) {
+      params.get('type').split(',').forEach(t => {
+        if (types.includes(t)) {
+          activeType.add(t);
+          const btn = [...typeContainer.children].find(b => b.textContent === t);
+          if (btn) btn.classList.add('active');
+        }
+      });
+    }
+    if (params.get('stage')) {
+      params.get('stage').split(',').forEach(s => {
+        if (stages.includes(s)) {
+          activeStage.add(s);
+          const btn = [...stageContainer.children].find(b => b.textContent === 'Stage ' + s);
+          if (btn) btn.classList.add('active');
+        }
+      });
+    }
+
+    document.getElementById('count').textContent = allCreatures.length + ' creatures';
+    document.getElementById('status').style.display = 'none';
+    document.getElementById('main').style.display = 'block';
+    renderGrid();
+  } catch (e) {
+    document.getElementById('status').textContent = 'FAILED TO LOAD: ' + e.message;
+  }
+})();
+</script>
+</body>
+</html>
