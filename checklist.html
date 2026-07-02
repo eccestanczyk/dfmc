@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IMPLEMENTATION CHECKLIST</title>
+<link rel="stylesheet" href="theme.css">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+  .phase { margin-bottom:2rem; }
+  .phase-header {
+    font-family:'Cinzel', serif; font-size:15px; font-weight:600;
+    letter-spacing:0.04em; color:var(--gold-bright);
+    padding:10px 14px; background:var(--surface); border:1px solid var(--rule);
+    display:flex; align-items:center; gap:10px;
+    box-shadow:inset 0 1px 0 rgba(207,166,80,0.06), 0 4px 12px rgba(0,0,0,0.35);
+  }
+  .phase-num {
+    font-family:'Cinzel Decorative', serif; font-weight:900; font-size:13px;
+    color:var(--blood-bright); min-width:28px; text-align:center;
+  }
+  .phase-progress {
+    margin-left:auto; font-family:'EB Garamond', serif; font-size:14px; color:var(--ink-dim);
+  }
+  .phase-bar {
+    height:3px; background:var(--surface-2); margin-top:-1px; border:1px solid var(--rule); border-top:none;
+  }
+  .phase-bar-fill { height:100%; background:var(--blood-bright); transition:width 0.3s; }
+
+  .task-list { list-style:none; padding:0; margin:0; }
+  .task {
+    display:flex; align-items:flex-start; gap:10px;
+    padding:8px 14px 8px 48px; border:1px solid var(--rule-faint); border-top:none;
+    background:var(--bg); font-size:15px; color:var(--ink-dim); line-height:1.6;
+  }
+  .task:last-child { border-bottom:1px solid var(--rule-faint); }
+  .task.done { color:var(--ink-faint); }
+  .task.done .task-text { text-decoration:line-through; text-decoration-color:var(--rule); }
+
+  .check {
+    flex-shrink:0; width:18px; height:18px; margin-top:3px;
+    border:1px solid var(--rule); background:var(--surface-2);
+    display:flex; align-items:center; justify-content:center;
+    font-size:13px; color:var(--blood-bright);
+  }
+  .task.done .check { background:rgba(124,21,25,0.25); border-color:var(--blood); }
+
+  .task-text strong { color:var(--ink); font-weight:500; }
+  .task.done .task-text strong { color:var(--ink-faint); }
+
+  .legend { display:flex; gap:18px; margin-bottom:1.5rem; font-size:13px; color:var(--ink-dim); }
+  .legend span { display:flex; align-items:center; gap:5px; }
+  .legend .dot { width:10px; height:10px; border:1px solid var(--rule); }
+  .legend .dot.done-dot { background:rgba(124,21,25,0.25); border-color:var(--blood); }
+  .legend .dot.todo-dot { background:var(--surface-2); }
+
+  .summary-bar {
+    background:var(--surface); border:1px solid var(--rule); padding:14px 18px;
+    margin-bottom:1.5rem; display:flex; align-items:center; gap:14px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.35);
+  }
+  .summary-bar .label { font-family:'Cinzel', serif; font-size:12px; color:var(--gold); letter-spacing:0.08em; text-transform:uppercase; }
+  .summary-bar .val { font-size:22px; font-weight:600; color:var(--ink); font-family:'Cinzel', serif; }
+  .summary-bar .bar-wrap { flex:1; height:6px; background:var(--surface-2); border:1px solid var(--rule-faint); }
+  .summary-bar .bar-fill { height:100%; background:linear-gradient(90deg, var(--blood), var(--blood-bright)); }
+
+  .updated { font-size:12px; color:var(--ink-faint); margin-top:1rem; text-align:right; font-style:italic; }
+  main { max-width:780px; margin:0 auto; padding:1.5rem 1.2rem 3rem; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <h1>IMPLEMENTATION CHECKLIST</h1>
+  <a class="index-btn" href="index.html">← GDD</a>
+</div>
+
+<main>
+
+<div class="summary-bar" id="summary">
+  <div><div class="label">Progress</div><div class="val" id="total-progress">—</div></div>
+  <div class="bar-wrap"><div class="bar-fill" id="total-bar" style="width:0%"></div></div>
+</div>
+
+<div class="legend">
+  <span><span class="dot done-dot"></span> Done</span>
+  <span><span class="dot todo-dot"></span> To do</span>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PHASE 1 — DATA ARCHITECTURE
+     ═══════════════════════════════════════════ -->
+<div class="phase" data-phase="1">
+  <div class="phase-header">
+    <span class="phase-num">1</span> Data Architecture
+    <span class="phase-progress"></span>
+  </div>
+  <div class="phase-bar"><div class="phase-bar-fill"></div></div>
+  <ul class="task-list">
+    <li class="task done"><span class="check">✦</span><span class="task-text">CSV data files pushed — <strong>Floors, Encounters, Creatures, Moves, CreatureMoves, SoulEffects</strong></span></li>
+    <li class="task done"><span class="check">✦</span><span class="task-text">ScriptableObject classes — <strong>CreatureData, FloorData, MoveData</strong></span></li>
+    <li class="task done"><span class="check">✦</span><span class="task-text"><strong>GameDataImporter</strong> editor script (CSV → ScriptableObject)</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Run importer — generate all SOs from CSVs, verify in Inspector</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Save system skeleton — <strong>CharacterSaveData, CreatureSaveData, InventorySaveData</strong></span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Save/load manager — JSON serialization, per-league save slots</span></li>
+  </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PHASE 2 — SINGLE-FLOOR OVERWORLD
+     ═══════════════════════════════════════════ -->
+<div class="phase" data-phase="2">
+  <div class="phase-header">
+    <span class="phase-num">2</span> Single-Floor Overworld
+    <span class="phase-progress"></span>
+  </div>
+  <div class="phase-bar"><div class="phase-bar-fill"></div></div>
+  <ul class="task-list">
+    <li class="task done"><span class="check">✦</span><span class="task-text">Grid-based <strong>CollectorMovement</strong> with collision detection</span></li>
+    <li class="task done"><span class="check">✦</span><span class="task-text"><strong>CameraFollow</strong> — smooth tracking, centered on Collector</span></li>
+    <li class="task done"><span class="check">✦</span><span class="task-text"><strong>YSort</strong> — sprite Y-order rendering</span></li>
+    <li class="task done"><span class="check">✦</span><span class="task-text"><strong>LevelStart</strong> spawn marker</span></li>
+    <li class="task done"><span class="check">✦</span><span class="task-text">Three floor type scenes — <strong>FloorTest (Cave), OutdoorsTest, FishingTest</strong></span></li>
+    <li class="task done"><span class="check">✦</span><span class="task-text">Collision boundaries per floor type</span></li>
+    <li class="task done"><span class="check">✦</span><span class="task-text">Tall grass Y-sort overlap effect (Outdoors)</span></li>
+  </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PHASE 3 — ENCOUNTER TRIGGER
+     ═══════════════════════════════════════════ -->
+<div class="phase" data-phase="3">
+  <div class="phase-header">
+    <span class="phase-num">3</span> Encounter Trigger
+    <span class="phase-progress"></span>
+  </div>
+  <div class="phase-bar"><div class="phase-bar-fill"></div></div>
+  <ul class="task-list">
+    <li class="task done"><span class="check">✦</span><span class="task-text"><strong>RandomEncounterZone</strong> — step-based encounter chance on ground tiles</span></li>
+    <li class="task done"><span class="check">✦</span><span class="task-text"><strong>SceneTransition</strong> — additive scene loading, preserves floor state</span></li>
+    <li class="task done"><span class="check">✦</span><span class="task-text"><strong>BattleSceneController</strong> — minimal battle scene shell, return to overworld</span></li>
+    <li class="task done"><span class="check">✦</span><span class="task-text">Movement freeze on encounter trigger (snap to tile before transition)</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Wire encounter to creature data — pick creature from floor's encounter table</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Encounter type logic — Cave (anywhere), Outdoors (tall grass), Fishing (interact)</span></li>
+  </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PHASE 4 — FULL BATTLE SYSTEM
+     ═══════════════════════════════════════════ -->
+<div class="phase" data-phase="4">
+  <div class="phase-header">
+    <span class="phase-num">4</span> Full Battle System
+    <span class="phase-progress"></span>
+  </div>
+  <div class="phase-bar"><div class="phase-bar-fill"></div></div>
+  <ul class="task-list">
+    <li class="task"><span class="check"></span><span class="task-text">Battle state machine — <strong>Intro → ActionSelect → Resolution → TurnEnd → Victory/Defeat</strong></span></li>
+    <li class="task"><span class="check"></span><span class="task-text">1v1 battle — single creature each side, move selection, damage calc</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Damage formula — type effectiveness, stats, grade modifiers</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Battle UI — HP bars, move buttons, creature sprites, turn indicator</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Expand to <strong>3v3</strong> — active creature + bench, swap mechanic</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Status effects — poison, stun, burn, etc. with resolution order</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Battle animations — attack, hit, faint, swap</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">XP and leveling — post-battle XP distribution, level-up flow</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Wild creature capture — egg drop chance on battle win</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Loot drops — equipment, materials, Scrap, Ichor, Gruel</span></li>
+  </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PHASE 5 — FLOOR PROGRESSION
+     ═══════════════════════════════════════════ -->
+<div class="phase" data-phase="5">
+  <div class="phase-header">
+    <span class="phase-num">5</span> Floor Progression
+    <span class="phase-progress"></span>
+  </div>
+  <div class="phase-bar"><div class="phase-bar-fill"></div></div>
+  <ul class="task-list">
+    <li class="task"><span class="check"></span><span class="task-text">Floor data loader — read floor config from <strong>FloorData SO</strong>, set encounter table + map type</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Floor transition — portal leads to next floor, load correct scene/tilemap</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Map selector UI — floor list, chest tracker per floor, re-entry</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Zone theming — tilemap palette swap or scene variant per zone (10 zones)</span></li>
+  </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PHASE 6 — WIN CONDITION & CHESTS
+     ═══════════════════════════════════════════ -->
+<div class="phase" data-phase="6">
+  <div class="phase-header">
+    <span class="phase-num">6</span> Win Condition &amp; Chests
+    <span class="phase-progress"></span>
+  </div>
+  <div class="phase-bar"><div class="phase-bar-fill"></div></div>
+  <ul class="task-list">
+    <li class="task done"><span class="check">✦</span><span class="task-text"><strong>FloorProgress</strong> — battle win counter, 10-win threshold</span></li>
+    <li class="task done"><span class="check">✦</span><span class="task-text"><strong>Portal</strong> — spawns after win condition met</span></li>
+    <li class="task done"><span class="check">✦</span><span class="task-text"><strong>Chest</strong> — interactable one-time pickup</span></li>
+    <li class="task done"><span class="check">✦</span><span class="task-text"><strong>FloorChestTracker</strong> — per-floor collection tracking</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Chest loot tables — grade-scaled drops per floor</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Chest UI — loot reveal popup</span></li>
+  </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PHASE 7 — BOSS KEY & BOSS FLOORS
+     ═══════════════════════════════════════════ -->
+<div class="phase" data-phase="7">
+  <div class="phase-header">
+    <span class="phase-num">7</span> Boss Key &amp; Boss Floors
+    <span class="phase-progress"></span>
+  </div>
+  <div class="phase-bar"><div class="phase-bar-fill"></div></div>
+  <ul class="task-list">
+    <li class="task"><span class="check"></span><span class="task-text">Key item — drops from battles on pre-boss floors, consumed on boss entry</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Boss floor scene — no wild encounters, single boss encounter</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Boss battle — character-led team (2 active + 4 reserves), unique AI</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Boss data from <strong>bosses.csv</strong> — floor, team composition, rewards</span></li>
+  </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PHASE 8 — AUTOPLAY & MULTI-TAB
+     ═══════════════════════════════════════════ -->
+<div class="phase" data-phase="8">
+  <div class="phase-header">
+    <span class="phase-num">8</span> Autoplay &amp; Multi-Tab
+    <span class="phase-progress"></span>
+  </div>
+  <div class="phase-bar"><div class="phase-bar-fill"></div></div>
+  <ul class="task-list">
+    <li class="task"><span class="check"></span><span class="task-text">Pathfinding — A* on tilemap grid for auto-movement</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Autoplay config — move priority, heal threshold, flee conditions</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Auto-battle AI — move selection heuristic for player's creatures</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Death handler — autoplay stops on HC death, respawn on softcore</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Multi-tab — 4 simultaneous character simulations via additive scenes</span></li>
+  </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PHASE 9 — CHARACTER & CLASS
+     ═══════════════════════════════════════════ -->
+<div class="phase" data-phase="9">
+  <div class="phase-header">
+    <span class="phase-num">9</span> Character &amp; Class System
+    <span class="phase-progress"></span>
+  </div>
+  <div class="phase-bar"><div class="phase-bar-fill"></div></div>
+  <ul class="task-list">
+    <li class="task"><span class="check"></span><span class="task-text">Character creation — name, class selection, league assignment</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Class XP — Tamer / Breeder / Artificer, leveled independently</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Character level — aggregate of class XP</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Skill tree UI — PoE-style passive tree per class</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Skill point allocation + respec mechanic</span></li>
+  </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PHASE 10 — CODEX
+     ═══════════════════════════════════════════ -->
+<div class="phase" data-phase="10">
+  <div class="phase-header">
+    <span class="phase-num">10</span> In-Game Codex
+    <span class="phase-progress"></span>
+  </div>
+  <div class="phase-bar"><div class="phase-bar-fill"></div></div>
+  <ul class="task-list">
+    <li class="task"><span class="check"></span><span class="task-text">Codex UI — creature catalogue with seen/acquired/mutant states</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Creature detail view — stats, grade axes, move list, evolution chain</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Codex points — track completion %, reward thresholds</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Mutant bonus — +0.1% flat Mutant chance on full codex completion</span></li>
+  </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PHASE 11 — METAGAME UI
+     ═══════════════════════════════════════════ -->
+<div class="phase" data-phase="11">
+  <div class="phase-header">
+    <span class="phase-num">11</span> Metagame UI Panels
+    <span class="phase-progress"></span>
+  </div>
+  <div class="phase-bar"><div class="phase-bar-fill"></div></div>
+  <ul class="task-list">
+    <li class="task"><span class="check"></span><span class="task-text">Breeding panel — pair selection, Gruel cost, egg output, grade inheritance</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Hatchery panel — egg incubation timer, hatch reveal</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Crafting panel — Scrap refinement, Ichor grade upgrade, gem/rune socketing</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Farming panel — Gruel production, resource management</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Crypt panel — league-specific storage, death-marked items</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Lock all metagame panels during PvP</span></li>
+  </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PHASE 12 — EQUIPMENT
+     ═══════════════════════════════════════════ -->
+<div class="phase" data-phase="12">
+  <div class="phase-header">
+    <span class="phase-num">12</span> Equipment System
+    <span class="phase-progress"></span>
+  </div>
+  <div class="phase-bar"><div class="phase-bar-fill"></div></div>
+  <ul class="task-list">
+    <li class="task"><span class="check"></span><span class="task-text">Equipment data — grade (Worn→Void), slots, base stats</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Inventory UI — grid view, equip/unequip, compare tooltip</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Gem/Rune/Enchantment socketing</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Soul attachment — creature soul bound to equipment</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Refinement via Scrap, grade upgrade via Ichor</span></li>
+  </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PHASE 13 — LEAGUES & DEATH
+     ═══════════════════════════════════════════ -->
+<div class="phase" data-phase="13">
+  <div class="phase-header">
+    <span class="phase-num">13</span> Leagues &amp; Death Pipelines
+    <span class="phase-progress"></span>
+  </div>
+  <div class="phase-bar"><div class="phase-bar-fill"></div></div>
+  <ul class="task-list">
+    <li class="task"><span class="check"></span><span class="task-text">League selection — Eternal, Hardcore, Seasonal, HC Seasonal</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Softcore death — respawn, no permanent loss</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Hardcore death — flag character, generate Soul Gems, deposit to crypt, migrate to Eternal</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Season lifecycle — RemoteConfig dates, season end migration, ladder archive</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">HC Seasonal double-migration path</span></li>
+  </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PHASE 14 — PVP
+     ═══════════════════════════════════════════ -->
+<div class="phase" data-phase="14">
+  <div class="phase-header">
+    <span class="phase-num">14</span> PvP &amp; Ladders
+    <span class="phase-progress"></span>
+  </div>
+  <div class="phase-bar"><div class="phase-bar-fill"></div></div>
+  <ul class="task-list">
+    <li class="task"><span class="check"></span><span class="task-text">PvP matchmaking — queue, ELO/rating system</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Unity Relay connection — simultaneous action submission</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Server-authoritative resolution — anti-cheat</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Leaderboards — per-league, per-season</span></li>
+  </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PHASE 15–17 — RELEASE TRACK
+     ═══════════════════════════════════════════ -->
+<div class="phase" data-phase="15">
+  <div class="phase-header">
+    <span class="phase-num">15</span> Steam Integration
+    <span class="phase-progress"></span>
+  </div>
+  <div class="phase-bar"><div class="phase-bar-fill"></div></div>
+  <ul class="task-list">
+    <li class="task"><span class="check"></span><span class="task-text">Steamworks.NET — auth, achievements, cloud saves</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Steam Inventory — item definitions, marketplace listing</span></li>
+  </ul>
+</div>
+
+<div class="phase" data-phase="16">
+  <div class="phase-header">
+    <span class="phase-num">16</span> Monetization
+    <span class="phase-progress"></span>
+  </div>
+  <div class="phase-bar"><div class="phase-bar-fill"></div></div>
+  <ul class="task-list">
+    <li class="task"><span class="check"></span><span class="task-text">Economy service — currency grants, purchase validation</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Battle pass — seasonal progression track</span></li>
+  </ul>
+</div>
+
+<div class="phase" data-phase="17">
+  <div class="phase-header">
+    <span class="phase-num">17</span> Steam Release
+    <span class="phase-progress"></span>
+  </div>
+  <div class="phase-bar"><div class="phase-bar-fill"></div></div>
+  <ul class="task-list">
+    <li class="task"><span class="check"></span><span class="task-text">Store page — capsule art, description, tags, F2P config</span></li>
+    <li class="task"><span class="check"></span><span class="task-text">Achievements — Steam achievement definitions</span></li>
+  </ul>
+</div>
+
+<div class="updated" id="updated"></div>
+
+</main>
+
+<script>
+// Calculate progress per phase and total
+document.addEventListener('DOMContentLoaded', () => {
+  let totalDone = 0, totalAll = 0;
+  document.querySelectorAll('.phase').forEach(phase => {
+    const tasks = phase.querySelectorAll('.task');
+    const done = phase.querySelectorAll('.task.done');
+    const pct = tasks.length ? Math.round((done.length / tasks.length) * 100) : 0;
+    phase.querySelector('.phase-progress').textContent = done.length + ' / ' + tasks.length;
+    phase.querySelector('.phase-bar-fill').style.width = pct + '%';
+    totalDone += done.length;
+    totalAll += tasks.length;
+  });
+  const totalPct = totalAll ? Math.round((totalDone / totalAll) * 100) : 0;
+  document.getElementById('total-progress').textContent = totalDone + ' / ' + totalAll + '  (' + totalPct + '%)';
+  document.getElementById('total-bar').style.width = totalPct + '%';
+  document.getElementById('updated').textContent = 'Last updated: 2 Jul 2026';
+});
+</script>
+</body>
+</html>
