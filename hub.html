@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOWER CRAWLER — CODEX</title>
+<link rel="stylesheet" href="theme.css">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+.hub-wrap{ max-width:860px; margin:0 auto; padding:60px 20px 120px; }
+.hub-title{ text-align:center; margin-bottom:50px; }
+.hub-title h1{
+  font-family:'Cinzel Decorative', serif; font-weight:900; font-size:32px;
+  letter-spacing:0.08em; color:var(--gold-bright);
+  text-shadow:0 2px 0 #000, 0 0 20px rgba(124,21,25,0.5);
+}
+.hub-title p{ font-size:16px; color:var(--ink-dim); font-style:italic; margin-top:8px; }
+.hub-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:20px; }
+.hub-card{
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-decoration:none; color:var(--ink);
+  background:var(--surface); border:1px solid var(--rule);
+  padding:44px 28px 40px; text-align:center;
+  box-shadow:inset 0 1px 0 rgba(207,166,80,0.07), inset 0 0 60px rgba(0,0,0,0.3), 0 6px 18px rgba(0,0,0,0.4);
+  transition:all 0.18s ease; position:relative; overflow:hidden;
+}
+.hub-card::before{
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(135deg, rgba(124,21,25,0.12), transparent 60%);
+  opacity:0; transition:opacity 0.18s ease;
+}
+.hub-card:hover::before{ opacity:1; }
+.hub-card:hover{ border-color:var(--blood-bright); box-shadow:inset 0 0 60px rgba(0,0,0,0.3), 0 8px 28px rgba(124,21,25,0.35); transform:translateY(-2px); }
+.hub-icon{ font-size:42px; margin-bottom:16px; opacity:0.85; }
+.hub-card h2{
+  font-family:'Cinzel Decorative', serif; font-weight:700; font-size:22px;
+  letter-spacing:0.06em; color:var(--gold-bright); margin:0 0 10px;
+  text-shadow:0 1px 2px rgba(0,0,0,0.5);
+}
+.hub-card p{ font-size:14px; color:var(--ink-dim); font-style:italic; line-height:1.5; margin:0; }
+.hub-card:hover h2{ color:var(--blood-bright); }
+.hub-footer{ text-align:center; margin-top:40px; }
+.hub-footer a{
+  font-family:'Cinzel', serif; font-size:12px; letter-spacing:0.08em; text-transform:uppercase;
+  color:var(--gold-dim); text-decoration:none; border-bottom:1px solid var(--rule-faint);
+  padding-bottom:2px; transition:color 0.14s;
+}
+.hub-footer a:hover{ color:var(--gold-bright); border-color:var(--gold); }
+</style>
+</head>
+<body>
+<div class="hub-wrap">
+  <div class="hub-title">
+    <h1>TOWER CRAWLER</h1>
+    <p>Dark-fantasy creature-collecting roguelite</p>
+  </div>
+  <div class="hub-grid">
+    <a class="hub-card" href="floor-codex.html">
+      <div class="hub-icon">🗺</div>
+      <h2>Floor Map</h2>
+      <p>100 floors across 10 zones. Encounters, bosses, and creatures by depth.</p>
+    </a>
+    <a class="hub-card" href="creature-codex.html">
+      <div class="hub-icon">📖</div>
+      <h2>Creature Codex</h2>
+      <p>Every creature in the tower. Filter by rarity, type, and stage.</p>
+    </a>
+    <a class="hub-card" href="reliquary.html">
+      <div class="hub-icon">⚱</div>
+      <h2>Reliquary</h2>
+      <p>Equipment, souls, and artifacts. Coming soon.</p>
+    </a>
+  </div>
+  <div class="hub-footer">
+    <a href="index.html">Game Design Document ›</a>
+  </div>
+</div>
+</body>
+</html>
