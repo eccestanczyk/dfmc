@@ -35,7 +35,8 @@
 </div>
 <div class="pending-grid" id="grid"></div>
 <script>
-const CSV_URL = "codex/creatures.csv?" + Date.now();
+const CSV_URL = "https://raw.githubusercontent.com/eccestanczyk/dfmc/main/codex/creatures.csv?" + Date.now();
+const IMG_BASE = "https://raw.githubusercontent.com/eccestanczyk/dfmc/main/";
 function escapeHtml(s){return s?s.replace(/&/g,'&amp;').replace(/</g,'&lt;'):'';}
 fetch(CSV_URL).then(r=>r.text()).then(text=>{
   const lines = text.trim().split('\n');
@@ -58,7 +59,7 @@ fetch(CSV_URL).then(r=>r.text()).then(text=>{
     card.className = 'pending-card';
     card.href = 'creature.html?id=' + c.ID;
     card.dataset.stage = c.Stage;
-    card.innerHTML = '<img src="' + escapeHtml(c.Image_Path) + '?t=' + Date.now() + '" alt="' + escapeHtml(c.Name) + '">'
+    card.innerHTML = '<img src="' + IMG_BASE + escapeHtml(c.Image_Path) + '?t=' + Date.now() + '" alt="' + escapeHtml(c.Name) + '">'
       + '<div class="info"><div class="name">' + escapeHtml(c.Name) + '</div>'
       + '<div class="meta">' + c.ID + ' · ' + c.Line_ID + ' S' + c.Stage + '</div></div>';
     grid.appendChild(card);
