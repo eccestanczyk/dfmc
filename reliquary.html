@@ -12,12 +12,22 @@
 </head>
 <body>
 <div class="topbar">
+  <div class="nav-dropdown">
+  <button class="nav-toggle" onclick="this.parentElement.classList.toggle('open')">☰</button>
+  <div class="nav-menu">
+    <a href="hub.html">Home</a>
+    <a href="creature-codex.html">Creature Codex</a>
+    <a href="floor-codex.html">Floor Map</a>
+    <a href="reliquary.html" class="current">Reliquary</a>
+    <a href="index.html">Game Design Document</a>
+  </div>
+</div>
   <h1>RELIQUARY</h1>
-  <a class="index-btn" href="hub.html">← HUB</a>
 </div>
 <div style="padding:80px 24px; text-align:center;">
   <p style="font-family:'Cinzel Decorative', serif; font-size:28px; color:var(--gold-bright); margin-bottom:16px;">⚱ THE VAULT IS SEALED ⚱</p>
   <p style="font-size:16px; color:var(--ink-dim); font-style:italic;">Equipment, souls, and artifacts will be catalogued here once the item system is defined.</p>
 </div>
+<script>document.addEventListener('click',function(e){document.querySelectorAll('.nav-dropdown.open').forEach(function(d){if(!d.contains(e.target))d.classList.remove('open')})});</script>
 </body>
 </html>
