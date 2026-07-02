@@ -62,6 +62,9 @@
 .codex-card-rarity{ display:flex; align-items:center; gap:6px; }
 .codex-card-rarity .tier-seal{ width:22px; height:22px; font-size:8px; }
 .codex-card-rarity span{ font-size:12px; color:var(--ink-dim); }
+.flag{ font-size:11px; margin-left:4px; vertical-align:middle; opacity:0.8; cursor:help; }
+.flag-art{ color:#e6c66d; }
+.flag-crop{ color:#dd5646; }
 </style>
 </head>
 <body>
@@ -163,7 +166,7 @@ function renderGrid() {
     return `<a class="codex-card" href="creature.html?id=${escapeHtml(c.ID)}">
       ${img}
       <div class="codex-card-body">
-        <div class="codex-card-name">${escapeHtml(c.Name)}</div>
+        <div class="codex-card-name">${escapeHtml(c.Name)}${c.Art_Status==='pending'?'<span class="flag flag-art" title="Pending art approval">🎨</span>':''}${c.BG_Status==='has_chroma'?'<span class="flag flag-crop" title="Needs cropping">✂</span>':''}</div>
         <div class="codex-card-types">${escapeHtml(types)}</div>
         <div class="codex-card-rarity"><div class="tier-seal ${cls}">${short}</div><span>${escapeHtml(c.Rarity)}</span></div>
       </div>
