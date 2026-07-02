@@ -139,6 +139,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
   <div class="nav">
     <button class="active" onclick="show('overview',this)">Overview</button>
     <button onclick="show('character',this)">Characters</button>
+    <button onclick="show('xp-progression',this)">XP &amp; progression</button>
     <button onclick="show('core-loop',this)">Core loop</button>
     <button onclick="show('battle',this)">Battle system</button>
     <button onclick="show('leagues',this)">Leagues</button>
@@ -226,6 +227,69 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     <div class="soul-gem"><div class="gem-rank" style="background:#1a1a1a;border:0.5px solid #c2ae8b60;color:#c2ae8b">E</div><div><div class="gem-name">Soul of the Archer <span style="color:#c2ae8b">E</span></div><div class="gem-xp">Grants 250 Archer XP on consume</div></div></div>
     <div class="soul-gem"><div class="gem-rank" style="background:#1a1a1a;border:0.5px solid #c2ae8b60;color:#c2ae8b">F</div><div><div class="gem-name">Soul of the Warrior <span style="color:#c2ae8b">F</span></div><div class="gem-xp">Grants 100 Warrior XP on consume</div></div></div>
     <div class="note note-info" style="margin-top:12px"><p>Rank thresholds (F through S) are TBD — to be balanced during development. Item description shows exact XP granted on consume.</p></div>
+  </div>
+
+
+  <!-- XP & PROGRESSION -->
+  <div id="xp-progression" class="page">
+    <h2>XP &amp; progression</h2>
+
+    <h3>XP formulas</h3>
+    <table>
+      <tr><th>Formula</th><th>Expression</th><th>Purpose</th></tr>
+      <tr><td>XP required (level L &rarr; L+1)</td><td><code>10 &times; L<sup>1.65</sup></code></td><td>How much XP to reach the next level</td></tr>
+      <tr><td>XP per kill (creature level C)</td><td><code>10 &times; C</code></td><td>Flat XP from defeating a creature of level C</td></tr>
+      <tr><td>Battles per level</td><td><code>L<sup>0.65</sup></code></td><td>Derived &mdash; fights needed when battling on-level creatures</td></tr>
+    </table>
+
+    <p>Level 1&rarr;2 takes exactly 1 battle. By level 99&rarr;100 the player needs ~20 battles per level. Total time to max level: <strong>~40 hours</strong> at an average of <strong>2 minutes per battle</strong> (~1,200 battles total across 99 level-ups).</p>
+
+    <p>There is <strong>no XP multiplier bonus</strong> for fighting creatures above the player&rsquo;s level. The only incentive to push harder content is the higher flat XP that higher-level creatures naturally grant (a level 40 creature gives 400 XP vs 300 from a level 30 creature). This keeps the system clean and unexploitable.</p>
+
+    <h3>Zone creature level distribution</h3>
+
+    <p>Creatures on each floor spawn within &plusmn;3 levels of the zone&rsquo;s base level, following a symmetric bell distribution. The weighted average XP per kill equals the zone-level XP exactly, preserving the timing math above.</p>
+
+    <table>
+      <tr><th>Offset from zone level</th><th>&minus;3</th><th>&minus;2</th><th>&minus;1</th><th>0</th><th>+1</th><th>+2</th><th>+3</th></tr>
+      <tr><td>Spawn rate</td><td>5%</td><td>10%</td><td>15%</td><td>40%</td><td>15%</td><td>10%</td><td>5%</td></tr>
+    </table>
+
+    <div class="note note-info"><p><strong>Average preservation:</strong> &Sigma;(rate &times; offset) = 0.05(&minus;3) + 0.10(&minus;2) + 0.15(&minus;1) + 0.40(0) + 0.15(+1) + 0.10(+2) + 0.05(+3) = 0. Average XP per kill = 10 &times; zone_level.</p></div>
+
+    <h3>Floor progression estimate</h3>
+
+    <table>
+      <tr><th>Floor</th><th>Levels</th><th>Battles</th><th>Floor time</th><th>Cumulative</th></tr>
+      <tr><td>F1 &mdash; Grasslands</td><td>1&ndash;10</td><td>31</td><td>1.0h</td><td>1.0h</td></tr>
+      <tr><td>F2 &mdash; Tidal Shallows</td><td>11&ndash;20</td><td>60</td><td>2.0h</td><td>3.0h</td></tr>
+      <tr><td>F3 &mdash; Desert Plains</td><td>21&ndash;30</td><td>83</td><td>2.8h</td><td>5.8h</td></tr>
+      <tr><td>F4 &mdash; Swarm Thicket</td><td>31&ndash;40</td><td>103</td><td>3.4h</td><td>9.2h</td></tr>
+      <tr><td>F5 &mdash; The Crag</td><td>41&ndash;50</td><td>121</td><td>4.0h</td><td>13.3h</td></tr>
+      <tr><td>F6 &mdash; Storm Peaks</td><td>51&ndash;60</td><td>137</td><td>4.6h</td><td>17.8h</td></tr>
+      <tr><td>F7 &mdash; Sunken Bog</td><td>61&ndash;70</td><td>151</td><td>5.0h</td><td>22.9h</td></tr>
+      <tr><td>F8 &mdash; Underwater Cave</td><td>71&ndash;80</td><td>168</td><td>5.6h</td><td>28.5h</td></tr>
+      <tr><td>F9 &mdash; Gemstone Cave</td><td>81&ndash;90</td><td>180</td><td>6.0h</td><td>34.5h</td></tr>
+      <tr><td>F10 &mdash; Flaming Hellscape</td><td>91&ndash;100</td><td>175</td><td>5.8h</td><td>40.3h</td></tr>
+    </table>
+
+    <h3>XP reference table</h3>
+
+    <table>
+      <tr><th>Level</th><th>XP required</th><th>XP/kill (on-level)</th><th>Battles (on-level)</th></tr>
+      <tr><td>1</td><td>10</td><td>10</td><td>1</td></tr>
+      <tr><td>5</td><td>146</td><td>50</td><td>3</td></tr>
+      <tr><td>10</td><td>447</td><td>100</td><td>5</td></tr>
+      <tr><td>20</td><td>1,406</td><td>200</td><td>7</td></tr>
+      <tr><td>30</td><td>2,736</td><td>300</td><td>9</td></tr>
+      <tr><td>40</td><td>4,400</td><td>400</td><td>11</td></tr>
+      <tr><td>50</td><td>6,360</td><td>500</td><td>13</td></tr>
+      <tr><td>60</td><td>8,586</td><td>600</td><td>15</td></tr>
+      <tr><td>70</td><td>11,074</td><td>700</td><td>16</td></tr>
+      <tr><td>80</td><td>13,800</td><td>800</td><td>17</td></tr>
+      <tr><td>90</td><td>16,749</td><td>900</td><td>19</td></tr>
+      <tr><td>99</td><td>19,630</td><td>990</td><td>20</td></tr>
+    </table>
   </div>
 
   <!-- CORE LOOP -->
