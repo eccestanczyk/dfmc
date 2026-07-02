@@ -277,6 +277,7 @@ async function load() {
 
     // Image display with comparison tabs for bg_pending
     if (c.BG_Status === 'bg_pending') {
+      const cacheBust = '?t=' + Date.now();
       const origPath = c.Image_Path;
       const cropPath = c.Image_Path.replace('codex/images/', 'codex/images/cropped/');
       document.getElementById('creature-img-wrap').innerHTML =
@@ -284,11 +285,11 @@ async function load() {
           '<button class="compare-tab active" onclick="switchTab(this,\'orig\')">Original</button>' +
           '<button class="compare-tab" onclick="switchTab(this,\'crop\')">Cropped</button>' +
         '</div>' +
-        '<img id="compare-orig" src="' + escapeHtml(origPath) + '" alt="' + escapeHtml(c.Name) + ' original" style="display:block">' +
-        '<img id="compare-crop" src="' + escapeHtml(cropPath) + '" alt="' + escapeHtml(c.Name) + ' cropped" style="display:none">';
+        '<img id="compare-orig" src="' + escapeHtml(origPath) + cacheBust + '" alt="' + escapeHtml(c.Name) + ' original" style="display:block">' +
+        '<img id="compare-crop" src="' + escapeHtml(cropPath) + cacheBust + '" alt="' + escapeHtml(c.Name) + ' cropped" style="display:none">';
     } else {
       document.getElementById('creature-img-wrap').innerHTML = c.Image_Path
-        ? '<img src="' + escapeHtml(c.Image_Path) + '" alt="' + escapeHtml(c.Name) + '">'
+        ? '<img src="' + escapeHtml(c.Image_Path) + '?t=' + Date.now() + '" alt="' + escapeHtml(c.Name) + '">'
         : '<div class="no-img">NO IMAGE YET</div>';
     }
 
@@ -325,7 +326,7 @@ async function load() {
     let evoHtml = '';
     lineMembers.forEach((m, i) => {
       const isCurrent = m.ID === c.ID;
-      const imgHtml = m.Image_Path ? `<img src="${escapeHtml(m.Image_Path)}" alt="">` : `<div class="no-img-sm">?</div>`;
+      const imgHtml = m.Image_Path ? `<img src="${escapeHtml(m.Image_Path)}?t=${Date.now()}" alt="">` : `<div class="no-img-sm">?</div>`;
       evoHtml += isCurrent
         ? `<div class="evo-node current">${imgHtml}<span>${escapeHtml(m.Name)}</span></div>`
         : `<a class="evo-node linkable" href="creature.html?id=${escapeHtml(m.ID)}">${imgHtml}<span>${escapeHtml(m.Name)}</span></a>`;
