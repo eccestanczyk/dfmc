@@ -69,11 +69,20 @@
 </head>
 <body>
 <div class="topbar">
+  <div class="nav-dropdown">
+  <button class="nav-toggle" onclick="this.parentElement.classList.toggle('open')">☰</button>
+  <div class="nav-menu">
+    <a href="hub.html">Home</a>
+    <a href="creature-codex.html" class="current">Creature Codex</a>
+    <a href="floor-codex.html">Floor Map</a>
+    <a href="reliquary.html">Reliquary</a>
+    <a href="index.html">Game Design Document</a>
+  </div>
+</div>
   <h1>CREATURE CODEX</h1>
   <div style="display:flex;align-items:center;gap:14px;">
     <span class="count" id="count"></span>
-    <a class="index-btn" href="hub.html">← HUB</a>
-  </div>
+</div>
 </div>
 <div id="status">LOADING...</div>
 <main id="main" style="display:none; max-width:920px; margin:0 auto; padding:24px 20px 100px;">
@@ -249,5 +258,6 @@ function renderGrid() {
   }
 })();
 </script>
+<script>document.addEventListener('click',function(e){document.querySelectorAll('.nav-dropdown.open').forEach(function(d){if(!d.contains(e.target))d.classList.remove('open')})});</script>
 </body>
 </html>
