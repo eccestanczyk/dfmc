@@ -150,6 +150,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     <button onclick="show('tech',this)">Tech stack</button>
     <button onclick="show('roadmap',this)">Roadmap</button>
     <button onclick="show('glossary',this)">Glossary</button>
+    <button onclick="show('balance',this)">Balance</button>
 <a href="checklist.html" style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;padding:6px 12px;border:1px solid var(--blood);background:var(--surface-2);color:var(--blood-bright);text-decoration:none;display:inline-block;transition:all 0.14s ease;">☑ Checklist</a>
   </div>
 
@@ -1018,6 +1019,57 @@ Your Backend
       <li>Approved art is locked — never regenerate or rewrite prompts for approved creatures without explicit instruction.</li>
     </ul>
   </div>
+
+  <div id="balance" class="page">
+    <h2>Creature Balance</h2>
+    <p>Live data from <code>codex/creatures.csv</code>. Grades are fixed per line across all 3 stages. Speed determines turn order — the most tactically valuable axis.</p>
+
+    <div id="bal-stats" style="margin-bottom:1.4rem"></div>
+
+    <div style="margin-bottom:0.7rem;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <label style="font-family:'Cinzel',serif;font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:0.08em">Filter</label>
+      <select id="bal-zone" style="font-family:'EB Garamond',serif;font-size:14px;background:var(--surface-2);color:var(--ink);border:1px solid var(--rule);padding:4px 8px">
+        <option value="">All Zones</option>
+      </select>
+      <select id="bal-rarity" style="font-family:'EB Garamond',serif;font-size:14px;background:var(--surface-2);color:var(--ink);border:1px solid var(--rule);padding:4px 8px">
+        <option value="">All Rarities</option>
+      </select>
+      <select id="bal-spec" style="font-family:'EB Garamond',serif;font-size:14px;background:var(--surface-2);color:var(--ink);border:1px solid var(--rule);padding:4px 8px">
+        <option value="">All Archetypes</option>
+      </select>
+    </div>
+
+    <div style="overflow-x:auto">
+      <table id="bal-table">
+        <thead><tr>
+          <th style="cursor:pointer" data-sort="name">Creature ▼</th>
+          <th style="cursor:pointer" data-sort="rarity">Rarity</th>
+          <th style="cursor:pointer" data-sort="zone">Zone</th>
+          <th style="cursor:pointer" data-sort="type">Type</th>
+          <th style="cursor:pointer;text-align:center" data-sort="O">Off</th>
+          <th style="cursor:pointer;text-align:center" data-sort="D">Def</th>
+          <th style="cursor:pointer;text-align:center" data-sort="U">Utl</th>
+          <th style="cursor:pointer;text-align:center" data-sort="S">Spd</th>
+          <th style="cursor:pointer;text-align:center" data-sort="sum">Sum</th>
+          <th style="cursor:pointer;text-align:center" data-sort="spread">Spread</th>
+          <th>Archetype</th>
+        </tr></thead>
+        <tbody id="bal-body"></tbody>
+      </table>
+    </div>
+
+    <h3>Grade distribution</h3>
+    <div id="bal-grade-dist" style="margin-bottom:1.1rem"></div>
+
+    <h3>Speed distribution</h3>
+    <div id="bal-speed-dist" style="margin-bottom:1.1rem"></div>
+
+    <h3>Spread by rarity</h3>
+    <div id="bal-spread-rarity" style="margin-bottom:1.1rem"></div>
+
+    <h3>Archetype coverage</h3>
+    <div id="bal-archetypes" style="margin-bottom:1.1rem"></div>
+  </div>
 </div>
 
 <script>
@@ -1026,6 +1078,206 @@ function show(id, btn) {
   document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   btn.classList.add('active');
+  if (id === 'balance' && !window._balLoaded) loadBalance();
+}
+
+async function loadBalance() {
+  window._balLoaded = true;
+  const res = await fetch('codex/creatures.csv?t=' + Date.now());
+  const text = await res.text();
+  const rows = text.trim().split('\n').map(r => {
+    const cols = [];
+    let cur = '', inQ = false;
+    for (let i = 0; i < r.length; i++) {
+      const ch = r[i];
+      if (ch === '"') { inQ = !inQ; }
+      else if (ch === ',' && !inQ) { cols.push(cur.trim()); cur = ''; }
+      else if (ch !== '\r') { cur += ch; }
+    }
+    cols.push(cur.trim());
+    return cols;
+  });
+  const hdr = rows[0];
+  const data = rows.slice(1).map(r => {
+    const o = {};
+    hdr.forEach((h, i) => o[h] = r[i] || '');
+    return o;
+  });
+
+  const stage2 = data.filter(r => r.Stage === '2');
+  const rarOrder = {'Common':0,'Uncommon':1,'Rare':2,'Super Rare':3,'Super Super Rare':4};
+  const rarShort = {'Common':'C','Uncommon':'UC','Rare':'R','Super Rare':'SR','Super Super Rare':'SSR'};
+  const axisNames = {O:'Offense',D:'Defense',U:'Utility',S:'Speed'};
+
+  function grades(r) {
+    return {O:+r.Grade_Offense, D:+r.Grade_Defense, U:+r.Grade_Utility, S:+r.Grade_Speed};
+  }
+  function spread(g) {
+    const s = Object.values(g).sort((a,b)=>b-a);
+    return (s[0]+s[1])/2 - (s[2]+s[3])/2;
+  }
+  function archetype(g) {
+    const sorted = Object.entries(g).sort((a,b)=>b[1]-a[1]);
+    return [sorted[0][0], sorted[1][0]].sort().join('/');
+  }
+  function gradeBar(v, max) {
+    const pct = v / max * 100;
+    const col = v <= 3 ? 'var(--blood-bright)' : v <= 5 ? 'var(--ink-faint)' : v <= 7 ? 'var(--gold)' : 'var(--gold-bright)';
+    return `<div style="display:flex;align-items:center;justify-content:center;gap:4px">
+      <span style="width:16px;text-align:right;font-size:14px;font-weight:600;color:${col}">${v}</span>
+      <div style="width:40px;height:6px;background:var(--surface-3);border-radius:2px;overflow:hidden">
+        <div style="width:${pct}%;height:100%;background:${col};border-radius:2px"></div>
+      </div></div>`;
+  }
+
+  // Populate filters
+  const zones = [...new Set(stage2.map(r => r.Home_Zone))];
+  const zoneEl = document.getElementById('bal-zone');
+  zones.forEach(z => { const o = document.createElement('option'); o.value = z; o.textContent = z; zoneEl.appendChild(o); });
+  const rarities = ['Common','Uncommon','Rare','Super Rare','Super Super Rare'];
+  const rarEl = document.getElementById('bal-rarity');
+  rarities.forEach(r => { const o = document.createElement('option'); o.value = r; o.textContent = r; rarEl.appendChild(o); });
+  const archetypes = [...new Set(stage2.map(r => archetype(grades(r))))].sort();
+  const specEl = document.getElementById('bal-spec');
+  archetypes.forEach(a => { const o = document.createElement('option'); o.value = a; o.textContent = a; specEl.appendChild(o); });
+
+  let sortCol = 'name', sortDir = 1;
+
+  function renderTable() {
+    const zf = zoneEl.value, rf = rarEl.value, sf = specEl.value;
+    let filtered = stage2.filter(r => {
+      if (zf && r.Home_Zone !== zf) return false;
+      if (rf && r.Rarity !== rf) return false;
+      if (sf && archetype(grades(r)) !== sf) return false;
+      return true;
+    });
+
+    filtered.sort((a, b) => {
+      let va, vb;
+      const ga = grades(a), gb = grades(b);
+      switch(sortCol) {
+        case 'name': va = a.Line_ID; vb = b.Line_ID; return sortDir * va.localeCompare(vb);
+        case 'rarity': va = rarOrder[a.Rarity]; vb = rarOrder[b.Rarity]; break;
+        case 'zone': va = a.Home_Zone; vb = b.Home_Zone; return sortDir * va.localeCompare(vb);
+        case 'type': va = a.Type_Primary; vb = b.Type_Primary; return sortDir * va.localeCompare(vb);
+        case 'O': va = ga.O; vb = gb.O; break;
+        case 'D': va = ga.D; vb = gb.D; break;
+        case 'U': va = ga.U; vb = gb.U; break;
+        case 'S': va = ga.S; vb = gb.S; break;
+        case 'sum': va = ga.O+ga.D+ga.U+ga.S; vb = gb.O+gb.D+gb.U+gb.S; break;
+        case 'spread': va = spread(ga); vb = spread(gb); break;
+        default: va = 0; vb = 0;
+      }
+      return sortDir * (va - vb);
+    });
+
+    const tbody = document.getElementById('bal-body');
+    tbody.innerHTML = filtered.map(r => {
+      const g = grades(r);
+      const s = spread(g);
+      const sm = g.O + g.D + g.U + g.S;
+      const arc = archetype(g);
+      const t2 = r.Type_Secondary ? r.Type_Primary + ' / ' + r.Type_Secondary : r.Type_Primary;
+      const rarC = rarShort[r.Rarity] || r.Rarity;
+      const rarCol = {'C':'var(--ink-dim)','UC':'#86c377','R':'#4f9fd4','SR':'#c89bf5','SSR':'var(--gold-bright)'}[rarC] || 'var(--ink-dim)';
+      return `<tr>
+        <td style="font-family:'Cinzel',serif;font-size:13px;font-weight:600;color:var(--ink);white-space:nowrap">
+          <a href="codex/creature.html?id=${r.ID}" style="color:inherit;text-decoration:none;border-bottom:1px solid var(--rule-faint)">${r.Line_ID}</a></td>
+        <td style="color:${rarCol};font-size:13px;font-weight:600">${rarC}</td>
+        <td style="font-size:13px">${r.Home_Zone}</td>
+        <td style="font-size:13px">${t2}</td>
+        <td style="text-align:center">${gradeBar(g.O, 10)}</td>
+        <td style="text-align:center">${gradeBar(g.D, 10)}</td>
+        <td style="text-align:center">${gradeBar(g.U, 10)}</td>
+        <td style="text-align:center">${gradeBar(g.S, 10)}</td>
+        <td style="text-align:center;font-size:14px;color:var(--ink-dim)">${sm}</td>
+        <td style="text-align:center;font-size:14px;font-weight:600;color:${s >= 5 ? 'var(--gold-bright)' : s >= 4 ? 'var(--gold)' : 'var(--ink-dim)'}">${s.toFixed(1)}</td>
+        <td style="font-family:'Cinzel',serif;font-size:11px;color:var(--ink-faint);letter-spacing:0.04em">${arc}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  // Sort on header click
+  document.querySelectorAll('#bal-table th[data-sort]').forEach(th => {
+    th.addEventListener('click', () => {
+      const col = th.dataset.sort;
+      if (sortCol === col) sortDir *= -1; else { sortCol = col; sortDir = 1; }
+      document.querySelectorAll('#bal-table th[data-sort]').forEach(h => {
+        h.textContent = h.textContent.replace(/ [▲▼]/,'');
+      });
+      th.textContent += sortDir === 1 ? ' ▲' : ' ▼';
+      renderTable();
+    });
+  });
+  [zoneEl, rarEl, specEl].forEach(el => el.addEventListener('change', renderTable));
+
+  // Summary stats
+  const allG = stage2.flatMap(r => { const g = grades(r); return [g.O, g.D, g.U, g.S]; });
+  const allSpreads = stage2.map(r => spread(grades(r)));
+  const mean = arr => arr.reduce((a,b) => a+b, 0) / arr.length;
+  document.getElementById('bal-stats').innerHTML = `
+    <div class="grid-3">
+      <div class="stat-card"><div class="stat-label">Creatures</div><div class="stat-val">${stage2.length}</div></div>
+      <div class="stat-card"><div class="stat-label">Mean Grade</div><div class="stat-val">${mean(allG).toFixed(1)}</div></div>
+      <div class="stat-card"><div class="stat-label">Mean Spread</div><div class="stat-val">${mean(allSpreads).toFixed(1)}</div></div>
+      <div class="stat-card"><div class="stat-label">Flat (< 2.0)</div><div class="stat-val">${allSpreads.filter(s => s < 2).length}</div></div>
+      <div class="stat-card"><div class="stat-label">Grade Range</div><div class="stat-val">${Math.min(...allG)} – ${Math.max(...allG)}</div></div>
+      <div class="stat-card"><div class="stat-label">Archetypes</div><div class="stat-val">${archetypes.length}</div></div>
+    </div>`;
+
+  // Grade distribution bar chart
+  function distChart(vals, label, container) {
+    const ct = {};
+    vals.forEach(v => ct[v] = (ct[v]||0) + 1);
+    const maxCt = Math.max(...Object.values(ct));
+    const keys = Object.keys(ct).map(Number).sort((a,b) => a-b);
+    let html = '<div style="display:flex;align-items:flex-end;gap:4px;height:100px;padding:0 4px">';
+    keys.forEach(k => {
+      const pct = ct[k] / maxCt * 100;
+      const col = k <= 3 ? 'var(--blood-bright)' : k <= 5 ? 'var(--ink-faint)' : k <= 7 ? 'var(--gold-dim)' : 'var(--gold-bright)';
+      html += `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px">
+        <span style="font-size:11px;color:var(--ink-dim)">${ct[k]}</span>
+        <div style="width:100%;height:${pct}%;background:${col};border-radius:2px 2px 0 0;min-height:2px"></div>
+        <span style="font-size:11px;color:var(--ink-faint)">${k}</span>
+      </div>`;
+    });
+    html += '</div>';
+    document.getElementById(container).innerHTML = html;
+  }
+  distChart(allG, 'Grade', 'bal-grade-dist');
+  distChart(stage2.map(r => +r.Grade_Speed), 'Speed', 'bal-speed-dist');
+
+  // Spread by rarity
+  const spreadByR = {};
+  rarities.forEach(r => spreadByR[r] = []);
+  stage2.forEach(r => spreadByR[r.Rarity].push(spread(grades(r))));
+  let sprHtml = '<table><tr><th>Rarity</th><th style="text-align:center">n</th><th style="text-align:center">Mean</th><th style="text-align:center">Min</th><th style="text-align:center">Max</th></tr>';
+  rarities.forEach(r => {
+    const v = spreadByR[r];
+    if (v.length) sprHtml += `<tr><td>${r}</td><td style="text-align:center">${v.length}</td><td style="text-align:center">${mean(v).toFixed(1)}</td><td style="text-align:center">${Math.min(...v).toFixed(1)}</td><td style="text-align:center">${Math.max(...v).toFixed(1)}</td></tr>`;
+  });
+  sprHtml += '</table>';
+  document.getElementById('bal-spread-rarity').innerHTML = sprHtml;
+
+  // Archetype coverage
+  const arcCt = {};
+  stage2.forEach(r => { const a = archetype(grades(r)); arcCt[a] = (arcCt[a]||0) + 1; });
+  const arcSorted = Object.entries(arcCt).sort((a,b) => b[1] - a[1]);
+  const arcMax = Math.max(...arcSorted.map(a => a[1]));
+  let arcHtml = '<div style="display:flex;flex-direction:column;gap:4px">';
+  arcSorted.forEach(([a, c]) => {
+    arcHtml += `<div style="display:flex;align-items:center;gap:8px">
+      <span style="font-family:'Cinzel',serif;font-size:12px;color:var(--gold);width:40px;text-align:right">${a}</span>
+      <div style="flex:1;height:14px;background:var(--surface-3);border-radius:2px;overflow:hidden">
+        <div style="width:${c/arcMax*100}%;height:100%;background:var(--gold-dim);border-radius:2px"></div>
+      </div>
+      <span style="font-size:13px;color:var(--ink-dim);width:24px">${c}</span>
+    </div>`;
+  });
+  arcHtml += '</div>';
+  document.getElementById('bal-archetypes').innerHTML = arcHtml;
+
+  renderTable();
 }
 </script>
 </body>
