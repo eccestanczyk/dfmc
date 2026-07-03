@@ -418,6 +418,67 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     <h3>PvP sync</h3>
     <p>Both players submit actions simultaneously. Server resolves outcomes. Unity Relay for connection. Never resolved client-side.</p>
     <div class="note note-risk"><p><strong>Anti-cheat:</strong> Server-authoritative or server-verified only for PvP.</p></div>
+
+    <h3>Combat stat axes</h3>
+    <p>4 axes per creature and character. No Physical/Special split — single damage lane. Grade (1–10) determines base stat value identically across all species: a 6/10 Offense creature always has the same base Attack as any other 6/10 creature at the same level.</p>
+    <table>
+      <tr><th>Axis</th><th>Role</th><th>Scaling</th></tr>
+      <tr><td style="color:#ede0c4">Offense</td><td>Determines damage dealt by attacks</td><td>Scales with level</td></tr>
+      <tr><td style="color:#ede0c4">Defense</td><td>Reduces incoming damage; determines HP pool</td><td>Scales with level</td></tr>
+      <tr><td style="color:#ede0c4">Utility</td><td>Status effect potency & duration, healing/shield power, cooldown reduction</td><td>Scales with level</td></tr>
+      <tr><td style="color:#ede0c4">Speed</td><td>Determines turn order — highest Speed acts first</td><td>Flat — does not scale with level</td></tr>
+    </table>
+
+    <h3>Stat formulas</h3>
+    <p>Base stats are determined entirely by grade + level. Species identity comes from type, moves, and grade distribution (which axes are high vs low), not from stat values.</p>
+    <table>
+      <tr><th>Stat</th><th>Formula</th></tr>
+      <tr><td>Offense / Defense / Utility</td><td><code>BaseStat = (grade × 6 + 2) × level / 100 + grade × 3</code></td></tr>
+      <tr><td>Speed</td><td><code>Speed = grade × 3</code> (flat, no level scaling)</td></tr>
+      <tr><td>HP</td><td><code>HP = (15 + level) × (5 + Defense_Grade) / 2</code></td></tr>
+    </table>
+    <h4>Base stat table at level 100 (no equipment)</h4>
+    <table>
+      <tr><th>Grade</th><th>Off / Def / Utl</th><th>Speed (flat)</th><th>HP (at this Def grade)</th></tr>
+      <tr><td>1</td><td>80</td><td>3</td><td>345</td></tr>
+      <tr><td>2</td><td>110</td><td>6</td><td>403</td></tr>
+      <tr><td>3</td><td>140</td><td>9</td><td>460</td></tr>
+      <tr><td>4</td><td>170</td><td>12</td><td>518</td></tr>
+      <tr><td>5</td><td>200</td><td>15</td><td>575</td></tr>
+      <tr><td>6</td><td>230</td><td>18</td><td>633</td></tr>
+      <tr><td>7</td><td>260</td><td>21</td><td>690</td></tr>
+      <tr><td>8</td><td>290</td><td>24</td><td>748</td></tr>
+      <tr><td>9</td><td>320</td><td>27</td><td>805</td></tr>
+      <tr><td>10</td><td>350</td><td>30</td><td>863</td></tr>
+    </table>
+
+    <h3>Damage formula</h3>
+    <pre>RawDamage = ((2 × Level / 5 + 2) × MovePower × Offense / Defense) / 50 + 2
+
+FinalDamage = RawDamage
+            × TypeMod × STAB × CritMod × Random(0.85–1.0)
+            × (1 + Σ increased%)
+            × Π(more multipliers)</pre>
+    <p>The base formula follows the proven Pokémon/Coromon core. The increased/more split (from Path of Exile) is bolted onto the modifier chain — <strong style="color:#ede0c4">increased</strong> sources add together (diminishing returns within a category), <strong style="color:#ede0c4">more</strong> sources multiply (always valuable). This rewards diversifying modifier sources over stacking one type.</p>
+
+    <h4>Turn count targets</h4>
+    <table>
+      <tr><th>Context</th><th>Target turns</th><th>Design rationale</th></tr>
+      <tr><td>Regular PvE</td><td>3–5</td><td>10 per floor, ~2–3 sec/turn animation. Must feel like mowing through fodder.</td></tr>
+      <tr><td>Boss</td><td>10–15</td><td>Length from reserve bench depth (6 creatures vs player's 3), not higher per-unit durability.</td></tr>
+      <tr><td>PvP</td><td>10–15</td><td>Long enough for sequencing decisions and swap timing. Bo3 finishes in ~2–3 min total.</td></tr>
+    </table>
+
+    <h3>Move system</h3>
+    <p>Creatures have a fixed set of moves tied to their species and theme. Moves are not swappable or customizable.</p>
+    <table>
+      <tr><th>Resource</th><th>Status</th><th>Rationale</th></tr>
+      <tr><td>Cooldowns</td><td style="color:#4ade80">Active</td><td>Each move has a cooldown (0 = always available, 1–4 turns for stronger moves). Creature identity IS its rotation pattern.</td></tr>
+      <tr><td>Stamina / PP</td><td style="color:#e5393f">Rejected</td><td>3–5 turn PvE fights end before resource pressure materializes. Autoplay AI can't meaningfully manage stamina — it either plays conservatively (boring) or burns recklessly (frustrating).</td></tr>
+      <tr><td>Hold (Temtem-style)</td><td style="color:#c2ae8b">Deferred</td><td>Possible future addition: strong moves start on cooldown, preventing alpha-strike metas. Shelved until balance testing reveals need.</td></tr>
+    </table>
+    <p>Healing is deliberately rare across creature movesets. Stall is countered through scarcity rather than resource attrition.</p>
+
     <h3>Creatures & characters</h3>
     <ul><li>Characters level up and spend skill points on a PoE-style tree per class</li><li>Creatures level up, spend skill points, and have evolution chains</li><li>Evolutions triggered by level, item, or bond — swap CreatureData ScriptableObject, preserve stat history</li></ul>
   </div>
@@ -657,7 +718,14 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     </div>
 
     <h3>Creature souls</h3>
-    <p>Each piece of gear can have the soul of a creature attached to it, granting special effects or attributes. Every creature has a different effect for each gear slot — the same creature attached to a helmet vs boots produces different bonuses.</p>
+    <p>Each piece of character gear can have the soul of a creature attached to it, granting special effects. Every creature has a different effect for each gear slot. Souls have one of three scopes:</p>
+    <table>
+      <tr><th>Soul scope</th><th>Effect</th><th>Example</th></tr>
+      <tr><td style="color:#ede0c4">Local</td><td>Buffs only that item's contribution — strongest per-item impact</td><td>Thornback on Main Hand: "This weapon's Offense ×1.20"</td></tr>
+      <tr><td style="color:#ede0c4">Personal</td><td>Buffs the character's total stats — moderate power, affects all actions</td><td>Dusthound on Gloves: "Character +8% crit chance"</td></tr>
+      <tr><td style="color:#ede0c4">Team</td><td>Buffs all allies (character + both creatures) — weaker per target but ×3 entities</td><td>Yggdrasil on Boots: "All allies +6% Defense"</td></tr>
+    </table>
+    <p>Soul scope varies per creature per slot. The same creature's soul can be Local on one slot and Team on another, creating targeted build decisions around which soul goes where.</p>
 
     <h3>Equipment grades</h3>
     <p>Grade determines how many gem, rune, and enchantment slots a piece of gear has. Equipment is also tiered every 10 character levels. From Abyssal upward, items have visual effects in addition to their color — effects appear on item icons and names in inventory, equipment UI, and the battle conclusion screen.</p>
@@ -677,31 +745,72 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     </table>
     <div class="note note-info"><p><strong>Open decision:</strong> Visual effects scope — item name text only, icon border, full icon treatment, or all of the above?</p></div>
 
+    <h3>Modifier scopes</h3>
+    <p>Every modifier in the game has one of three scopes, determining what it affects.</p>
+    <table>
+      <tr><th>Scope</th><th>Affects</th><th>Usage</th></tr>
+      <tr><td style="color:#ede0c4">Local</td><td>Only the item it's on — scales that item's own stat contribution</td><td>Default for all character gear modifiers (gems, runes, enchantments, refinement). A rune's +8% on a weapon only multiplies that weapon's base + gems.</td></tr>
+      <tr><td style="color:#ede0c4">Personal</td><td>The bearer as a whole — the character or the specific creature wearing it</td><td>Skill tree nodes. Creature tag modifiers (tags are the exception — all tag modifiers are Personal, affecting the creature's total stats). Some creature souls.</td></tr>
+      <tr><td style="color:#ede0c4">Team</td><td>All allies (character + both creatures)</td><td>Some creature souls. Some skill tree keystones. Individually weaker per target but multiplied across 3 entities.</td></tr>
+    </table>
+
     <h3>Modifier slots</h3>
     <div class="grid-3">
       <div class="card">
-        <div class="card-title">💎 Gems</div>
-        <div class="card-body">Fixed modifiers set at socket time. Cannot be changed without removing the gem. Up to 3 slots at Supreme grade.</div>
+        <div class="card-title">💎 Gems — flat stats</div>
+        <div class="card-body">Fixed flat modifiers (+X Offense, +X Defense, +X HP). Set at socket time, cannot be changed without removing. On character gear: Local scope. On Tags: Personal scope. Up to 3 slots at Void grade.</div>
       </div>
       <div class="card">
-        <div class="card-title">🔷 Runes</div>
-        <div class="card-body">Fixed modifiers set at socket time. Cannot be changed without removing the rune. Up to 3 slots at Supreme grade.</div>
+        <div class="card-title">🔷 Runes — percentage scaling</div>
+        <div class="card-body">Fixed percentage modifiers (+X% Offense, +X% Defense). Multiply the item's base + gems (Local) or the creature's total (Personal on Tags). Set at socket time. Up to 3 slots at Void grade.</div>
       </div>
       <div class="card">
-        <div class="card-title">✨ Enchantments</div>
-        <div class="card-body">Drawn from a randomized pool. Can be rerolled at a resource cost. Up to 3 slots at Supreme grade.</div>
+        <div class="card-title">✨ Enchantments — random pool</div>
+        <div class="card-body">Drawn from a randomized modifier pool — can be flat, percentage, or unique effects (crit chance, cooldown reduction, status resist). Rerollable at resource cost. Up to 3 slots at Void grade.</div>
       </div>
     </div>
 
+    <h3>Modifier pipeline</h3>
+    <h4>Character gear (Local by default)</h4>
+    <pre>Per item:
+  ItemStat = (BaseImplicit + Σ GemFlats) × (1 + Σ Rune%) × Refinement×
+           + enchantment effects + creature soul effect
+
+Character total:
+  CharStat = Σ all ItemStats
+           × (1 + Σ Personal skill tree increased%)
+           × Π(Personal keystone mores)
+           + Σ Team modifiers from souls</pre>
+
+    <h4>Creature Tags (Personal scope — all modifiers affect creature's total stats)</h4>
+    <pre>CreatureStat = BaseStat(grade, level)
+             + Σ gem flats from both tags
+             × (1 + Σ rune % from both tags)
+             × Tag₁ Refinement× × Tag₂ Refinement×
+             + enchantment effects
+             + Σ Personal modifiers from skill tree creature nodes
+             + Σ Team modifiers from character gear souls</pre>
+
     <h3>Base types & implicit modifiers</h3>
-    <p>Every equipment slot has multiple base types, each with a different implicit modifier that is always present regardless of grade or sockets. Base type defines the foundational identity of the item.</p>
+    <p>Every equipment slot has multiple base types, each with a flat implicit modifier always present regardless of grade or sockets. Base type defines the foundational identity of the item.</p>
     <table>
-      <tr><th>Slot</th><th>Base type example</th><th>Implicit modifier</th></tr>
-      <tr><td>Head</td><td>Leather helmet</td><td>Dodge chance</td></tr>
-      <tr><td>Head</td><td>Metal helmet</td><td>Armour</td></tr>
-      <tr><td colspan="3" style="color:#c2ae8b;font-size:12px;padding:6px 8px">Full base type table TBD per slot</td></tr>
+      <tr><th>Slot</th><th>Implicit type</th><th>Notes</th></tr>
+      <tr><td style="color:#ede0c4">Main Hand / Off Hand</td><td>Flat Offense</td><td>Different weapon base types vary in flat Offense amount and the active ability they grant.</td></tr>
+      <tr><td style="color:#ede0c4">Head / Chest / Gloves / Feet</td><td>Flat Defense</td><td>Different armour materials (cloth, leather, plate) provide different flat Defense amounts.</td></tr>
+      <tr><td style="color:#ede0c4">Accessory 1 & 2</td><td>Varied flat buffs</td><td>Each accessory base type provides a different flat stat — player chooses which stats to prioritize.</td></tr>
     </table>
-    <div class="note note-info"><p><strong>Open decision:</strong> Full list of base types and their implicit modifiers per slot needs to be defined. This drives the crafting and drop table design significantly.</p></div>
+    <h4>Accessory base types</h4>
+    <table>
+      <tr><th>Base type</th><th>Flat buff</th></tr>
+      <tr><td>Signet</td><td>+Offense</td></tr>
+      <tr><td>Ward</td><td>+Defense</td></tr>
+      <tr><td>Totem</td><td>+Utility</td></tr>
+      <tr><td>Talisman</td><td>+Speed</td></tr>
+      <tr><td>Relic</td><td>+HP</td></tr>
+      <tr><td>Fetish</td><td>+Crit Chance</td></tr>
+      <tr><td>Idol</td><td>+Creature Offense (Personal — buffs all owned creatures)</td></tr>
+      <tr><td>Effigy</td><td>+Creature Defense (Personal — buffs all owned creatures)</td></tr>
+    </table>
 
     <h3>Creature equipment — Tags</h3>
     <p>Creatures have 2 equipment slots that accept <strong style="color:#ede0c4">Tags</strong>. Tags follow the same grade system and gem/rune/enchantment slot rules as all other equipment, with one exception: Tags cannot be equipped with creature souls.</p>
