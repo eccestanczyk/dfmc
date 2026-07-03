@@ -89,8 +89,8 @@
 </head>
 <body>
 
-<div class="topbar">
-  <div class="site-nav" style="position:relative;z-index:20;">
+<div class="topbar" style="display:flex;align-items:center;gap:10px;">
+  <div class="site-nav" style="position:relative;z-index:20;flex-shrink:0;">
   <button onclick="var m=this.nextElementSibling;m.style.display=m.style.display==='flex'?'none':'flex'" style="font-family:Cinzel,serif;font-size:18px;background:none;border:1px solid #5c462c;color:#cfa650;padding:5px 10px;cursor:pointer;line-height:1;">☰</button>
   <div class="site-nav-menu" style="display:none;position:absolute;top:100%;left:0;margin-top:6px;min-width:220px;background:#1e1710;border:1px solid #5c462c;box-shadow:0 8px 24px rgba(0,0,0,0.6);flex-direction:column;z-index:30;">
     <a href="hub.html" style="font-family:Cinzel,serif;font-size:13px;font-weight:600;letter-spacing:0.04em;color:#c2ae8b;text-decoration:none;padding:10px 16px;border-bottom:1px solid #3a2c1a;">Home</a>
@@ -100,8 +100,8 @@
     <a href="index.html" style="font-family:Cinzel,serif;font-size:13px;font-weight:600;letter-spacing:0.04em;color:#c2ae8b;text-decoration:none;padding:10px 16px;">Game Design Document</a>
   </div>
 </div>
-<h1 id="topbar-title">CREATURE CODEX</h1>
-  <div class="nav-arrows">
+<h1 id="topbar-title" style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:center;">CREATURE CODEX</h1>
+  <div class="nav-arrows" style="flex-shrink:0;">
     <a id="prev-arrow" href="#">‹ PREV</a>
     <a id="next-arrow" href="#">NEXT ›</a>
   </div>
@@ -386,6 +386,7 @@ load();
     { key: 'generate_option',label: 'Generate new option',      icon: '➕', showWhen: () => true },
     { key: 'generate_crop',  label: 'Generate new crop',        icon: '✂️', showWhen: () => true },
     { key: 'framing_issue',  label: 'Framing issue',            icon: '🖼', showWhen: () => true },
+    { key: 'flip_image',     label: 'Flip image (face left)',   icon: '↔', showWhen: () => true },
   ];
 
   // Show admin UI
@@ -426,7 +427,8 @@ load();
 
     function renderMenu() {
       const current = Backlog.get(id);
-      menu.innerHTML = ACTIONS
+      const currentComment = Backlog.getComment(id);
+      let html = ACTIONS
         .filter(a => a.showWhen(creature))
         .map(a => {
           const checked = current.includes(a.key);
@@ -435,6 +437,14 @@ load();
             '<span>' + a.icon + ' ' + a.label + '</span>' +
           '</label>';
         }).join('');
+
+      // Comment field
+      html += '<div style="padding:10px 14px;border-top:1px solid #5c462c;">' +
+        '<div style="font-family:Cinzel,serif;font-size:10px;letter-spacing:0.08em;color:#cfa650;margin-bottom:5px;text-transform:uppercase;">Comment</div>' +
+        '<textarea id="admin-comment" rows="2" style="width:100%;background:#14100b;border:1px solid #3a2c1a;color:#ede0c4;font-family:EB Garamond,serif;font-size:13px;padding:6px 8px;resize:vertical;" placeholder="Notes for the backlog...">' +
+        (currentComment || '') + '</textarea></div>';
+
+      menu.innerHTML = html;
 
       // Bind checkboxes
       menu.querySelectorAll('input[type=checkbox]').forEach(cb => {
@@ -445,7 +455,17 @@ load();
           if (window._updateBacklogBtn) window._updateBacklogBtn();
         };
       });
+
+      // Bind comment
+      const commentEl = document.getElementById('admin-comment');
+      if (commentEl) {
+        commentEl.onblur = function() {
+          Backlog.setComment(id, creature.Name, this.value.trim());
+          if (window._updateBacklogBtn) window._updateBacklogBtn();
+        };
+      }
     }
+    window._renderAdminMenu = renderMenu;
 
     renderMenu();
   }, 200);
