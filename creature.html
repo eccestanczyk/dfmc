@@ -122,10 +122,11 @@
       </div>
       <div class="type-tags" id="c-types"></div>
       <div class="meta-line">RARITY: <b id="c-rarity"></b></div>
-      <div class="meta-line">STAGE: <b id="c-stage"></b> &nbsp; LINE: <b id="c-line"></b></div>
+      <div class="meta-line">STAGE: <b id="c-stage"></b></div>
       <div class="meta-line">ENCOUNTER: <b id="c-encounter"></b></div>
       <div class="meta-line" style="margin-top:10px;">FOUND ON FLOORS:</div>
       <div class="floor-chip-row" id="c-floors"></div>
+      <div class="evo-line" id="evo-line" style="margin-top:16px;justify-content:center;"></div>
     </div>
   </div>
 
@@ -135,7 +136,7 @@
   </section>
 
   <section>
-    <h3>Stat Range by Egg Tier</h3>
+    <h3>Base Attributes by Egg Grade</h3>
     <div class="section-body">
       <table class="data-table">
         <tr><th>Egg Tier</th><th>Offense</th><th>Defense</th><th>Utility</th><th>Speed</th></tr>
@@ -149,7 +150,7 @@
   </section>
 
   <section>
-    <h3>Equipment Tag Effect</h3>
+    <h3>Soul Equipment Effect</h3>
     <div class="section-body">
       <table class="data-table" id="equip-table">
         <tr>
@@ -164,13 +165,6 @@
     <h3>Move Progression</h3>
     <div class="section-body">
       <div class="pending-note">Move design not yet started for this line.</div>
-    </div>
-  </section>
-
-  <section>
-    <h3>Evolution Line</h3>
-    <div class="section-body">
-      <div class="evo-line" id="evo-line"></div>
     </div>
   </section>
 
@@ -278,7 +272,8 @@ async function load() {
     document.getElementById('topbar-title').textContent = c.Name.toUpperCase();
     document.getElementById('id-tag').textContent = c.ID;
     document.getElementById('c-name').textContent = c.Name;
-    document.getElementById('c-rarity').textContent = c.Rarity || '—';
+    const RARITY_SHORT = {'Common':'C','Uncommon':'UC','Rare':'R','Super Rare':'SR','Super Super Rare':'SSR'};
+    document.getElementById('c-rarity').textContent = RARITY_SHORT[c.Rarity] || c.Rarity || '—';
     document.getElementById('c-stage').textContent = c.Stage || '—';
     document.getElementById('c-line').textContent = c.Line_ID || '—';
     document.getElementById('c-encounter').textContent = c.Encounter_Type || '—';
@@ -471,7 +466,7 @@ load();
             '<img src="' + opt.url + '" style="width:48px;height:48px;object-fit:cover;border:1px solid #3a2c1a;background:#1c1610;">' +
             '<span style="font-family:Cinzel,serif;font-size:13px;font-weight:700;color:#ede0c4;min-width:18px;">'+opt.label+'</span>' +
             '<button data-opt-action="' + approveKey + '" style="font-family:Cinzel,serif;font-size:10px;padding:3px 8px;border:1px solid ' + (isApproved ? '#4a7a44' : '#3a2c1a') + ';background:' + (isApproved ? '#2e5428' : '#14100b') + ';color:' + (isApproved ? '#86c377' : '#c2ae8b') + ';cursor:pointer;">✅ Approve</button>' +
-            (availableOptions.length > 1 ? '<button data-opt-action="' + deleteKey + '" style="font-family:Cinzel,serif;font-size:10px;padding:3px 8px;border:1px solid ' + (isDeleted ? '#7c1519' : '#3a2c1a') + ';background:' + (isDeleted ? '#3a1214' : '#14100b') + ';color:' + (isDeleted ? '#dd5646' : '#c2ae8b') + ';cursor:pointer;">🗑 Delete</button>' : '') +
+            '<button data-opt-action="' + deleteKey + '" style="font-family:Cinzel,serif;font-size:10px;padding:3px 8px;border:1px solid ' + (isDeleted ? '#7c1519' : '#3a2c1a') + ';background:' + (isDeleted ? '#3a1214' : '#14100b') + ';color:' + (isDeleted ? '#dd5646' : '#c2ae8b') + ';cursor:pointer;">🗑 Delete</button>' +
           '</div>';
         });
         html += '</div>';
