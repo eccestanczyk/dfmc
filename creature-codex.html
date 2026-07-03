@@ -199,9 +199,9 @@ function renderGrid() {
     return `<a class="codex-card" href="creature.html?id=${escapeHtml(c.ID)}">
       ${img}
       <div class="codex-card-body">
-        <div class="codex-card-name">${escapeHtml(c.Name)}${c.Art_Status==='pending'?'<span class="flag flag-art" title="Pending art approval">🎨</span>':''}${c.BG_Status==='has_chroma'?'<span class="flag flag-crop" title="Needs cropping">✂</span>':''}</div>
+        <div class="codex-card-name">${escapeHtml(c.Name)}${c.Art_Status==='pending'?'<span class="flag flag-art" title="Pending art approval">🎨</span>':''}${c.BG_Status==='has_chroma'?'<span class="flag flag-crop" title="Needs cropping">✂</span>':''}${c.BG_Status==='bg_pending'?'<span class="flag" title="Crop approval pending" style="color:#60a5fa;">🔍</span>':''}<span class="flag flag-multi" data-id="${c.ID}" style="display:none;color:#a855f7;" title="Has multiple image options">⊕</span></div>
         <div class="codex-card-types">${escapeHtml(types)}</div>
-        <div class="codex-card-rarity"><div class="tier-seal ${cls}">${short}</div><span>${escapeHtml(c.Rarity)}</span></div>
+        <div class="codex-card-rarity"><div class="tier-seal ${cls}">${short}</div><span>${short}</span></div>
       </div>
     </a>`;
   }).join('');
@@ -218,7 +218,7 @@ function renderGrid() {
       const short = RARITY_SHORT[r];
       const btn = document.createElement('button');
       btn.className = `filter-btn rarity-${short}`;
-      btn.textContent = r;
+      btn.textContent = RARITY_SHORT[r] || r;
       btn.onclick = () => toggleFilter(activeRarity, r, btn);
       rarityContainer.appendChild(btn);
     });
@@ -280,6 +280,16 @@ function renderGrid() {
       document.getElementById('admin-filters').style.display = '';
     }
     renderGrid();
+
+    // In admin mode, probe for multi-option creatures
+    if (document.documentElement.classList.contains('admin-mode')) {
+      const IMG_BASE = 'https://raw.githubusercontent.com/eccestanczyk/dfmc/main/codex/images/';
+      allCreatures.forEach(c => {
+        fetch(IMG_BASE + c.ID + '_B.png', { method: 'HEAD' })
+          .then(r => { if (r.ok) { const el = document.querySelector('.flag-multi[data-id="'+c.ID+'"]'); if (el) el.style.display = ''; }})
+          .catch(() => {});
+      });
+    }
   } catch (e) {
     document.getElementById('status').textContent = 'FAILED TO LOAD: ' + e.message;
   }
