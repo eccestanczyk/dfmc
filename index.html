@@ -252,12 +252,22 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     <h3>XP formulas</h3>
     <table>
       <tr><th>Formula</th><th>Expression</th><th>Purpose</th></tr>
-      <tr><td>XP required (level L &rarr; L+1)</td><td><code>10 &times; L<sup>1.65</sup></code></td><td>How much XP to reach the next level</td></tr>
+      <tr><td>XP required, levels 1&ndash;66</td><td><code>10 &times; L<sup>1.75</sup></code></td><td>Gentle journey phase &mdash; the full tower and all Stage 3 content unlock quickly</td></tr>
+      <tr><td>XP required, levels 67&ndash;100</td><td><code>234 &times; L &times; 1.16<sup>(L&minus;67)</sup></code></td><td>Geometric endgame phase &mdash; battles per level grow +16% each level (continuous with phase 1 at L67)</td></tr>
       <tr><td>XP per kill (creature level C)</td><td><code>10 &times; C</code></td><td>Flat XP from defeating a creature of level C</td></tr>
-      <tr><td>Battles per level</td><td><code>L<sup>0.65</sup></code></td><td>Derived &mdash; fights needed when battling on-level creatures</td></tr>
+      <tr><td>Battles per level</td><td><code>L<sup>0.75</sup></code> then <code>23.4 &times; 1.16<sup>(L&minus;67)</sup></code></td><td>Derived &mdash; 23 battles at L67, 613 at L89, ~2,700 for 99&rarr;100</td></tr>
     </table>
 
-    <p>Level 1&rarr;2 takes exactly 1 battle. By level 99&rarr;100 the player needs ~20 battles per level. Total time to max level: <strong>~40 hours</strong> at an average of <strong>2 minutes per battle</strong> (~1,200 battles total across 99 level-ups).</p>
+    <p>The curve is deliberately back-loaded for an autoplay game: <strong>75% of all leveling time sits in levels 90&ndash;100</strong> (50% in the last five levels). Total to max level: <strong>~20,300 battles &asymp; 680&nbsp;h</strong> at 2 minutes per battle. Reaching level 67 &mdash; where Stage&nbsp;3 creatures and final evolutions unlock &mdash; takes only ~885 battles (~30&nbsp;h).</p>
+
+    <h4>Time to milestones by play profile</h4>
+    <table>
+      <tr><th>Milestone</th><th>Battles</th><th>Casual (3&nbsp;h/day)</th><th>Dedicated (12&nbsp;h/day)</th><th>24/7 autoplay</th></tr>
+      <tr><td>Level 67 &mdash; Stage 3 / final evolutions</td><td>~885</td><td>10 days</td><td>2.5 days</td><td>1.2 days</td></tr>
+      <tr><td>Level 90</td><td>~5,180</td><td>~2 months</td><td>14 days</td><td>7 days</td></tr>
+      <tr><td>Level 100</td><td>~20,300</td><td>~7.5 months</td><td>~2 months</td><td>~1 month</td></tr>
+    </table>
+    <div class="note note-info"><p><strong>Hardcore implication:</strong> death wipes to level 1 &mdash; the relevel back to 67 is ~30&nbsp;h of autoplay, but a death at level 95+ costs a dedicated player weeks. High stakes by design.</p></div>
 
     <p>There is <strong>no XP multiplier bonus</strong> for fighting creatures above the player&rsquo;s level. The only incentive to push harder content is the higher flat XP that higher-level creatures naturally grant (a level 40 creature gives 400 XP vs 300 from a level 30 creature). This keeps the system clean and unexploitable.</p>
 
@@ -276,16 +286,16 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
 
     <table>
       <tr><th>Floor</th><th>Levels</th><th>Battles</th><th>Floor time</th><th>Cumulative</th></tr>
-      <tr><td>F1 &mdash; Grasslands</td><td>1&ndash;10</td><td>31</td><td>1.0h</td><td>1.0h</td></tr>
-      <tr><td>F2 &mdash; Tidal Shallows</td><td>11&ndash;20</td><td>60</td><td>2.0h</td><td>3.0h</td></tr>
-      <tr><td>F3 &mdash; Desert Plains</td><td>21&ndash;30</td><td>83</td><td>2.8h</td><td>5.8h</td></tr>
-      <tr><td>F4 &mdash; Swarm Thicket</td><td>31&ndash;40</td><td>103</td><td>3.4h</td><td>9.2h</td></tr>
-      <tr><td>F5 &mdash; The Crag</td><td>41&ndash;50</td><td>121</td><td>4.0h</td><td>13.3h</td></tr>
-      <tr><td>F6 &mdash; Storm Peaks</td><td>51&ndash;60</td><td>137</td><td>4.6h</td><td>17.8h</td></tr>
-      <tr><td>F7 &mdash; Sunken Bog</td><td>61&ndash;70</td><td>151</td><td>5.0h</td><td>22.9h</td></tr>
-      <tr><td>F8 &mdash; Underwater Cave</td><td>71&ndash;80</td><td>168</td><td>5.6h</td><td>28.5h</td></tr>
-      <tr><td>F9 &mdash; Gemstone Cave</td><td>81&ndash;90</td><td>180</td><td>6.0h</td><td>34.5h</td></tr>
-      <tr><td>F10 &mdash; Flaming Hellscape</td><td>91&ndash;100</td><td>175</td><td>5.8h</td><td>40.3h</td></tr>
+      <tr><td>F1 &mdash; Grasslands</td><td>1&ndash;10</td><td>29</td><td>1.0h</td><td>1.0h</td></tr>
+      <tr><td>F2 &mdash; Tidal Shallows</td><td>11&ndash;20</td><td>74</td><td>2.5h</td><td>3.4h</td></tr>
+      <tr><td>F3 &mdash; Desert Plains</td><td>21&ndash;30</td><td>110</td><td>3.7h</td><td>7.1h</td></tr>
+      <tr><td>F4 &mdash; Swarm Thicket</td><td>31&ndash;40</td><td>142</td><td>4.7h</td><td>11.8h</td></tr>
+      <tr><td>F5 &mdash; The Crag</td><td>41&ndash;50</td><td>172</td><td>5.7h</td><td>17.6h</td></tr>
+      <tr><td>F6 &mdash; Storm Peaks</td><td>51&ndash;60</td><td>201</td><td>6.7h</td><td>24.3h</td></tr>
+      <tr><td>F7 &mdash; Sunken Bog</td><td>61&ndash;70</td><td>239</td><td>8.0h</td><td>32.2h</td></tr>
+      <tr><td>F8 &mdash; Underwater Cave</td><td>71&ndash;80</td><td>779</td><td>26.0h</td><td>58.2h</td></tr>
+      <tr><td>F9 &mdash; Gemstone Cave</td><td>81&ndash;90</td><td>3,435</td><td>114.5h</td><td>172.7h</td></tr>
+      <tr><td>F10 &mdash; Flaming Hellscape</td><td>91&ndash;100</td><td>15,155</td><td>505.2h</td><td>677.9h</td></tr>
     </table>
 
     <h3>XP reference table</h3>
@@ -293,17 +303,17 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     <table>
       <tr><th>Level</th><th>XP required</th><th>XP/kill (on-level)</th><th>Battles (on-level)</th></tr>
       <tr><td>1</td><td>10</td><td>10</td><td>1</td></tr>
-      <tr><td>5</td><td>146</td><td>50</td><td>3</td></tr>
-      <tr><td>10</td><td>447</td><td>100</td><td>5</td></tr>
-      <tr><td>20</td><td>1,406</td><td>200</td><td>7</td></tr>
-      <tr><td>30</td><td>2,736</td><td>300</td><td>9</td></tr>
-      <tr><td>40</td><td>4,400</td><td>400</td><td>11</td></tr>
-      <tr><td>50</td><td>6,360</td><td>500</td><td>13</td></tr>
-      <tr><td>60</td><td>8,586</td><td>600</td><td>15</td></tr>
-      <tr><td>70</td><td>11,074</td><td>700</td><td>16</td></tr>
-      <tr><td>80</td><td>13,800</td><td>800</td><td>17</td></tr>
-      <tr><td>90</td><td>16,749</td><td>900</td><td>19</td></tr>
-      <tr><td>99</td><td>19,630</td><td>990</td><td>20</td></tr>
+      <tr><td>10</td><td>562</td><td>100</td><td>6</td></tr>
+      <tr><td>20</td><td>1,889</td><td>200</td><td>9</td></tr>
+      <tr><td>30</td><td>3,857</td><td>300</td><td>13</td></tr>
+      <tr><td>40</td><td>6,382</td><td>400</td><td>16</td></tr>
+      <tr><td>50</td><td>9,410</td><td>500</td><td>19</td></tr>
+      <tr><td>60</td><td>12,902</td><td>600</td><td>22</td></tr>
+      <tr><td>66</td><td>15,283</td><td>660</td><td>23</td></tr>
+      <tr><td>70</td><td>25,202</td><td>700</td><td>36</td></tr>
+      <tr><td>80</td><td>128,635</td><td>800</td><td>161</td></tr>
+      <tr><td>90</td><td>634,152</td><td>900</td><td>711</td></tr>
+      <tr><td>99</td><td>2,676,127</td><td>990</td><td>2,703</td></tr>
     </table>
   </div>
 
@@ -311,23 +321,19 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
   <div id="core-loop" class="page">
     <h2>Core loop</h2>
 
-    <h3>Multi-character tab system</h3>
-    <p>One game window contains up to 4 tabs — one per active league character. All active characters simulate simultaneously inside a single executable instance. There is no offline progression; being in-game is the only way to advance.</p>
+    <h3>Single active character</h3>
+    <p>The game runs <strong>one league character at a time</strong>. Switching leagues switches the active character; only the active character simulates. There is no offline progression; being in-game is the only way to advance. All economy balancing is denominated in battles for this one active character (~30 battles/hour on autoplay).</p>
     <div class="grid-2">
-      <div class="card"><div class="card-title">Manual mode</div><div class="card-body">Default state. Player directly controls the character on the selected tab. Autoplay must be explicitly enabled to hand off control.</div></div>
-      <div class="card"><div class="card-title">Autoplay mode</div><div class="card-body">Must be enabled per character. Any tab can run on autoplay — including the currently selected one. Disable autoplay on the active tab to return to manual control.</div></div>
+      <div class="card"><div class="card-title">Manual mode</div><div class="card-body">Default state. Player directly controls the active character. Autoplay must be explicitly enabled to hand off control.</div></div>
+      <div class="card"><div class="card-title">Autoplay mode</div><div class="card-body">Opt-in. The active character grinds the current floor automatically. Disable to return to manual control.</div></div>
     </div>
     <ul>
-      <li>Autoplay is off by default — players opt in per character</li>
-      <li>Background tabs with autoplay disabled are paused/idle</li>
-      <li>Background tabs with autoplay enabled continue simulating</li>
-      <li>Switching to a tab does not automatically disable autoplay — player must turn it off manually to take control</li>
-      <li>Tabs only exist for leagues the Collector has an active character in — new accounts start with 1 tab</li>
-      <li>Closing the game window pauses all characters</li>
+      <li>Autoplay is off by default — the player opts in</li>
+      <li>Switching leagues pauses the previous character entirely</li>
+      <li>Closing the game window pauses the character</li>
       <li>No offline rewards — open game only</li>
-      <li>All tabs share one executable process — not a performance concern given the 2D turn-based nature of the game</li>
     </ul>
-    <div class="note note-info"><p><strong>Unity implementation note:</strong> Multiple simultaneous scenes use additive scene loading — a well-documented Unity pattern. Straightforward to implement.</p></div>
+    <div class="note note-info"><p>The earlier multi-tab simultaneous-simulation design (up to 4 league tabs at once) is retired — one character farms at a time.</p></div>
 
     <h3>Floor presentation (Simplified Static)</h3>
     <p>There is no player avatar. Each floor is a static painted map (1536&times;1024&nbsp;px, 3:2; parallax background at 1.5&times; for ultrawide; boss floors are 1024&times;1024 arenas). Creatures wander the map autonomously; hovering a creature highlights it by rarity; clicking (tagging) it starts the battle. Grid movement is archived — see Roadmap.</p>
@@ -775,10 +781,26 @@ FinalDamage = RawDamage
         <div class="card-body">Fixed percentage modifiers (+X% Offense, +X% Defense). Multiply the item's base + gems (Local) or the creature's total (Personal on Tags). Set at socket time. Up to 3 slots at Void grade.</div>
       </div>
       <div class="card">
-        <div class="card-title">✨ Enchantments — random pool</div>
-        <div class="card-body">Drawn from a randomized modifier pool — can be flat, percentage, or unique effects (crit chance, crit damage, status resist). Rerollable at resource cost. Up to 3 slots at Void grade.</div>
+        <div class="card-title">📜 Scrolls — random modifier pool</div>
+        <div class="card-body">Socketable items for enchantment slots. On socket, the scroll rolls a random modifier from the pool — flat, percentage, or unique effects (crit chance, crit damage, status resist). Rerollable for Ink. Up to 3 slots at Void grade.</div>
       </div>
     </div>
+
+    <h3>Enhancement items — tiers, grades &amp; materials</h3>
+    <p>Gems, runes, and scrolls are items in their own right: each has a <strong>level tier</strong> (10 named tiers matching the 10 level brackets — e.g. Chip &rarr; Shard &rarr; &hellip; &rarr; Transcendent &rarr; Sublime for gems) and a <strong>grade</strong> (Worn&ndash;Void). An enhancement's tier must be &le; the gear's tier to socket. Full tier ladders and all values live in the <a href="stat-tables.html" style="color:var(--gold-bright)">Stat &amp; Equipment Tables</a>.</p>
+    <table>
+      <tr><th>Family</th><th>Dismantles into</th><th>Material pays for</th></tr>
+      <tr><td>💎 Gems</td><td style="color:#ede0c4">Dust</td><td>Crafting new gems, grading gems up</td></tr>
+      <tr><td>🔷 Runes</td><td style="color:#ede0c4">Essence</td><td>Crafting new runes, grading runes up</td></tr>
+      <tr><td>📜 Scrolls</td><td style="color:#ede0c4">Ink</td><td>Crafting new scrolls, grading scrolls up, rerolling a socketed scroll's modifier (3 &times; tier Ink)</td></tr>
+    </table>
+    <ul>
+      <li>Dismantle yield: <code>tier &times; grade#</code> material (a T10 Rare gem &rarr; 40 Dust)</li>
+      <li>Craft: <code>6 &times; tier</code> material produces a Worn enhancement of chosen type at that tier — the junk-to-on-tier conversion loop</li>
+      <li>Grading up uses the same success ladder as gear (paid in the family material instead of Ichor)</li>
+      <li>Removing a socketed gem or rune <strong>destroys it</strong>; the socket is freed</li>
+      <li>Materials (Dust / Essence / Ink) are freely tradeable commodities; enhancement items follow the grade-5+ trade gate</li>
+    </ul>
 
     <h3>Modifier pipeline</h3>
     <h4>Character gear (Local by default)</h4>
@@ -844,7 +866,8 @@ Character total:
       <tr><th>Rule</th><th>Detail</th></tr>
       <tr><td>Currency</td><td>Scrap — gained by dismantling gear</td></tr>
       <tr><td>Cost scaling</td><td>Higher equipment tier and higher current refinement both increase Scrap cost</td></tr>
-      <tr><td>Success chance</td><td>Decreases at each level — +9 to +10 is extremely rare</td></tr>
+      <tr><td>Success chance</td><td>+1&rarr;+10: 100 / 90 / 80 / 65 / 50 / 35 / 20 / 10 / 3 / <strong>1%</strong> — no pity, pure roll every attempt</td></tr>
+      <tr><td>Attempt cost</td><td><code>3 &times; target level &times; item tier</code> Scrap (T10 +10 attempt = 300 Scrap)</td></tr>
       <tr><td>On failure</td><td>No progress, no destruction — Scrap is consumed but gear is unaffected</td></tr>
       <tr><td>Dismantling refined gear</td><td>Yields more Scrap than base gear — scales with refinement level</td></tr>
     </table>
@@ -855,16 +878,53 @@ Character total:
       <tr><th>Rule</th><th>Detail</th></tr>
       <tr><td>Currency</td><td>Ichor</td></tr>
       <tr><td>Cost scaling</td><td>Higher current grade increases Ichor cost</td></tr>
-      <tr><td>Success chance</td><td>Decreases at higher grades — upgrading into Primordial and Void is very rare</td></tr>
+      <tr><td>Success chance</td><td>Into C/UC/R/E/L/A/D/P/V: 100 / 90 / 70 / 50 / 35 / 20 / 8 / 3 / <strong>0.5%</strong> — no pity, pure roll every attempt</td></tr>
+      <tr><td>Attempt cost</td><td>1 / 1 / 2 / 3 / 5 / 8 / 12 / 18 / 40 Ichor per attempt by target grade</td></tr>
       <tr><td>On failure</td><td>No progress, no destruction — Ichor is consumed but grade is unchanged</td></tr>
     </table>
-    <div class="note note-info"><p><strong>Open decision:</strong> How is Ichor acquired? Possible sources: drops from bosses, dismantling high-grade gear, crafting, or rare battle/chest drops.</p></div>
+    <h4>Ichor sources</h4>
+    <table>
+      <tr><th>Source</th><th>Yield</th></tr>
+      <tr><td>Boss kills</td><td>1&ndash;3 Ichor per kill</td></tr>
+      <tr><td>Dismantling Rare+ gear</td><td>R 1 / E 2 / L 4 / A 8 / D 12 / P 20 / V 32</td></tr>
+      <tr><td>Deep-floor battle drops (floors 61+)</td><td>~2% chance per battle</td></tr>
+      <tr><td>Chests (manual-only)</td><td>Weighted heavily &mdash; the active-play premium currency</td></tr>
+    </table>
+    <h4>Gear combining</h4>
+    <p>3 &times; same-slot, same-grade gear combine into 1 random base of that slot at the next grade — <strong>capped at Epic</strong>. Grade 5 (market entry tier) is deterministically grindable; Legendary and above only come from the Ichor gamble and lucky drops, protecting high-end market value.</p>
 
   </div>
 
   <!-- ECONOMY -->
   <div id="economy" class="page">
     <h2>Economy & marketplace</h2>
+
+    <h3>Acquisition &amp; upgrade economy</h3>
+    <p>All progression currencies flow from battles and chests, denominated in battles (~30/hour on autoplay, single active character). Journey milestones are near-deterministic (thousands of drop rolls); the endgame is gated by pure-RNG success rolls with <strong>no pity system anywhere</strong> — the market is the variance smoother. Full numeric tables in <a href="stat-tables.html" style="color:var(--gold-bright)">Stat &amp; Equipment Tables</a>.</p>
+    <table>
+      <tr><th>Income</th><th>Rate</th></tr>
+      <tr><td>Gear drop</td><td>10% per battle, at-floor tier, grade weights by floor band (Divine+ never drops)</td></tr>
+      <tr><td>Enhancement drop (gem / rune / scroll)</td><td>10% per battle, even family split, grades one band behind gear</td></tr>
+      <tr><td>Scrap</td><td>~150/h endgame (dismantling)</td></tr>
+      <tr><td>Ichor</td><td>~10/h endgame (bosses, Rare+ dismantles, deep-floor drops, chests)</td></tr>
+      <tr><td>Dust / Essence / Ink</td><td>~20/h per family endgame (enhancement dismantles, chests)</td></tr>
+    </table>
+    <h4>Progression milestones (per premises)</h4>
+    <table>
+      <tr><th>Stage</th><th>What the player has</th><th>Effort</th></tr>
+      <tr><td>Level bracket 9/10</td><td>Uncommon+ gear in all 12 slots, key pieces at Rare (first scroll socket), +3 refinement, Uncommon enhancements socketed</td><td>Deterministic — falls out of the leveling journey (~5,200 battles by floor 90)</td></tr>
+      <tr><td>Grade 5 / +5</td><td>Epic key pieces (via combining or ~11 expected Ichor each), +5 (~23 cumulative expected attempts), Rare enhancements (~45 material each)</td><td>A bit of grind — reachable within weeks of hitting 100</td></tr>
+      <tr><td>Legendary&ndash;Divine, +6&ndash;+8</td><td>Market-relevant gear, the trading tier</td><td>Months; where most endgame players live</td></tr>
+      <tr><td>Primordial / Void, +9 / +10</td><td>The chase</td><td>Year-scale per item for dedicated players (see below)</td></tr>
+    </table>
+    <h4>The endgame chase — expected / lucky / unlucky (no pity)</h4>
+    <p>Success gates are geometric distributions: the spread between a lucky (p10) and unlucky (p90) player on a single gate is ~22&times;. Reference points: Ragnarok Online's +9/+10 sits near 10% <em>with permanent item destruction on failure</em>; BDO's PEN is ~3% at 100 failstacks with downgrade/destruction risk. Herumon Tower has no destruction and no downgrade, so raw chances sit lower: <strong>Void 0.5%, +10 refinement 1%</strong>.</p>
+    <table>
+      <tr><th>One item, Worn&rarr;Void grading</th><th>One item, 0&rarr;+10 refinement</th></tr>
+      <tr><td>Expected ~8,800 Ichor &asymp; 880&nbsp;h &middot; p10 ~2,000 &middot; p90 ~19,000 (Void gate alone: 841 / 8,000 / 18,400)</td><td>Expected ~43,700 Scrap &asymp; 290&nbsp;h &middot; +10 gate alone: p10 10, median 69, p90 229 attempts at 300 Scrap each</td></tr>
+    </table>
+    <p>A marquee item taken to Void +10 is ~1,200&nbsp;h expected — a year-scale chase at 3&ndash;4&nbsp;h/day, months even on 24/7 autoplay, with honest odds of doubling that. A full 12-slot Void +10 loadout is a multi-year, market-aggregated pursuit; Void enhancements (expected ~282,000 material each) are mythical trade goods. Casuals buy from the market; grinders and lucky rollers supply it — that variance is what gives grade-5+ items real price discovery.</p>
+
     <h3>Monetization model</h3>
     <ul><li>Free to play on Steam</li><li>Microtransactions via Steam / Unity Economy</li><li>Battle pass per season</li><li>Steam takes 5% market fee + configurable game fee (up to ~10%)</li></ul>
     <div class="note note-info"><p>Cosmetics-only monetization is safer for player reception and avoids regulatory issues in certain markets. Decide scope early.</p></div>
