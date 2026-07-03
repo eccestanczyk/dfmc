@@ -357,7 +357,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
       </div>
       <div class="card">
         <div class="card-title">👑 Boss floors</div>
-        <div class="card-body">Every 5th floor is a boss room. Entry requires consuming a Key, which has a chance to drop from any battle across the previous 4 floors.</div>
+        <div class="card-body">Every 10th floor is a boss room (floors 10, 20, &hellip; 100). Entry requires consuming a Key, which has a chance to drop from any battle across the previous 9 floors. <strong>Guaranteed key:</strong> the first time a player completes floor 9 of any zone (floors 9, 19, 29, &hellip; 99), they are guaranteed a key drop for that zone's boss. This is a one-time reward per zone per character &mdash; subsequent visits use the normal random drop rate.</div>
       </div>
     </div>
 
@@ -365,7 +365,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     <p>After every battle, a compact rectangle appears mid-screen showing the current streak status as <strong style="color:#ede0c4">X / Y</strong> (battles won / threshold). On a <strong style="color:#4a7a44">win</strong>, X scrolls up to the new count and the text pops in size briefly. On a <strong style="color:#dd5646">loss</strong>, the rectangle visually cracks and X rolls back down through each number to 0. The counter only appears on floors not yet cleared.</p>
 
     <h3>Boss key</h3>
-    <p>A single Key is required to enter a boss floor, accessible via the portal or directly through the map selector. Any battle won on the 4 floors preceding a boss has a chance to drop that floor's Key. The Key is consumed on boss entry.</p>
+    <p>A single Key is required to enter a boss floor, accessible via the portal or directly through the map selector. Any battle won on the 9 floors preceding a boss has a chance to drop that zone's Key. <strong>Guaranteed key:</strong> the first time a player completes the 9th floor of a zone (floors 9, 19, 29, &hellip; 99), a key is guaranteed to drop. This is a one-time reward per zone per character. The Key is consumed on boss entry.</p>
 
     <h3>Chests</h3>
     <p>Chests are scattered around each map as manual-only, one-time pickups — autoplay does not collect them. Each chest can only be opened once per floor visit cycle. The map selector displays chest collection progress per floor as <strong style="color:#ede0c4">x/x collected</strong>.</p>
@@ -375,7 +375,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
       <tr><th>Element</th><th>Details</th></tr>
       <tr><td>Battle trigger</td><td>Type-dependent: tall grass (Outdoors), anywhere (Cave), or fishing at water (Fishing). Wins count toward the floor's streak threshold.</td></tr>
       <tr><td>Chests</td><td>Manual-only, one-time per chest. Tracked as x/x on map selector.</td></tr>
-      <tr><td>Boss (every 5th floor)</td><td>Requires consuming a Key. One-time encounter, gates the next set of floors.</td></tr>
+      <tr><td>Boss (every 10th floor)</td><td>Requires consuming a Key. One-time encounter, gates the next zone. First completion of the 9th floor in each zone guarantees a key (one-time only).</td></tr>
       <tr><td>Portal / door</td><td>Opens after the win streak threshold is met. Leads to the next floor.</td></tr>
     </table>
 
