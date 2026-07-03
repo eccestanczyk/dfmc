@@ -25,32 +25,49 @@ const Backlog = {
     return (this.getAll()[id] || {}).actions || [];
   },
 
-  set(id, name, actions) {
+  getComment(id) {
+    return (this.getAll()[id] || {}).comment || '';
+  },
+
+  set(id, name, actions, comment) {
     const all = this.getAll();
-    if (actions.length === 0) { delete all[id]; }
-    else { all[id] = { name, actions, ts: Date.now() }; }
+    if (actions.length === 0 && !comment) { delete all[id]; }
+    else { all[id] = { name, actions, comment: comment || '', ts: Date.now() }; }
     localStorage.setItem(this._key, JSON.stringify(all));
   },
 
   toggle(id, name, action) {
-    const actions = this.get(id);
+    const all = this.getAll();
+    const entry = all[id] || { actions: [], comment: '' };
+    const actions = entry.actions || [];
     const idx = actions.indexOf(action);
     if (idx >= 0) actions.splice(idx, 1);
     else actions.push(action);
-    this.set(id, name, actions);
+    this.set(id, name, actions, entry.comment);
     return actions;
+  },
+
+  setComment(id, name, comment) {
+    const all = this.getAll();
+    const entry = all[id] || { actions: [], comment: '' };
+    this.set(id, name, entry.actions || [], comment);
   },
 
   count() {
     const all = this.getAll();
     let creatures = 0, actions = 0;
     for (const id in all) {
-      if (all[id].actions && all[id].actions.length) {
+      const e = all[id];
+      if ((e.actions && e.actions.length) || e.comment) {
         creatures++;
-        actions += all[id].actions.length;
+        actions += (e.actions || []).length;
       }
     }
     return { creatures, actions };
+  },
+
+  clear() {
+    localStorage.removeItem(this._key);
   },
 
   formatForClipboard() {
@@ -69,14 +86,18 @@ const Backlog = {
       generate_option: 'Generate new option',
       remove_option: 'Remove an option',
       generate_crop: 'Generate new crop',
-      framing_issue: 'Framing issue'
+      framing_issue: 'Framing issue',
+      flip_image: 'Flip image (face left)'
     };
 
     for (const id of ids) {
       const entry = all[id];
-      if (!entry.actions || !entry.actions.length) continue;
-      const labels = entry.actions.map(a => ACTION_LABELS[a] || a);
-      out += `${id} ${entry.name}: ${labels.join(', ')}\n`;
+      if (!(entry.actions && entry.actions.length) && !entry.comment) continue;
+      const labels = (entry.actions || []).map(a => ACTION_LABELS[a] || a);
+      out += `${id} ${entry.name}`;
+      if (labels.length) out += `: ${labels.join(', ')}`;
+      out += '\n';
+      if (entry.comment) out += `  Comment: ${entry.comment}\n`;
     }
     return out.trim();
   },
@@ -87,7 +108,6 @@ const Backlog = {
       await navigator.clipboard.writeText(text);
       return true;
     } catch {
-      // Fallback
       const ta = document.createElement('textarea');
       ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
       document.body.appendChild(ta); ta.select();
@@ -98,44 +118,71 @@ const Backlog = {
   }
 };
 
-/* ---------- Inject copy-backlog button into topbar ---------- */
+/* ---------- Inject backlog buttons into topbar ---------- */
 (function(){
   if (!document.documentElement.classList.contains('admin-mode')) return;
 
   const topbar = document.querySelector('.topbar');
   if (!topbar) return;
 
-  const btn = document.createElement('button');
-  btn.id = 'copy-backlog-btn';
-  btn.style.cssText = 'font-family:Cinzel,serif;font-size:11px;font-weight:600;letter-spacing:0.04em;padding:5px 12px;border:1px solid #5c462c;background:#271e15;color:#cfa650;cursor:pointer;margin-left:auto;text-transform:uppercase;transition:all 0.14s;display:none;';
-  btn.onmouseenter = function(){ this.style.borderColor='#dd5646'; this.style.color='#dd5646'; };
-  btn.onmouseleave = function(){ this.style.borderColor='#5c462c'; this.style.color='#cfa650'; };
+  // Container for backlog buttons
+  const wrap = document.createElement('div');
+  wrap.style.cssText = 'display:flex;gap:6px;align-items:center;flex-shrink:0;';
 
-  function updateBtn() {
+  const btnStyle = 'font-family:Cinzel,serif;font-size:11px;font-weight:600;letter-spacing:0.04em;padding:5px 12px;border:1px solid #5c462c;background:#271e15;color:#cfa650;cursor:pointer;text-transform:uppercase;transition:all 0.14s;white-space:nowrap;';
+
+  // Copy button
+  const copyBtn = document.createElement('button');
+  copyBtn.id = 'copy-backlog-btn';
+  copyBtn.style.cssText = btnStyle + 'display:none;';
+  copyBtn.onmouseenter = function(){ this.style.borderColor='#dd5646'; this.style.color='#dd5646'; };
+  copyBtn.onmouseleave = function(){ this.style.borderColor='#5c462c'; this.style.color='#cfa650'; };
+
+  // Clear button
+  const clearBtn = document.createElement('button');
+  clearBtn.id = 'clear-backlog-btn';
+  clearBtn.textContent = '✕ CLEAR';
+  clearBtn.style.cssText = btnStyle + 'display:none;';
+  clearBtn.onmouseenter = function(){ this.style.borderColor='#dd5646'; this.style.color='#dd5646'; };
+  clearBtn.onmouseleave = function(){ this.style.borderColor='#5c462c'; this.style.color='#cfa650'; };
+
+  function updateBtns() {
     const { creatures, actions } = Backlog.count();
-    if (actions > 0) {
-      btn.textContent = `📋 BACKLOG (${actions})`;
-      btn.style.display = 'block';
+    if (actions > 0 || creatures > 0) {
+      copyBtn.textContent = '📋 BACKLOG (' + (actions || creatures) + ')';
+      copyBtn.style.display = 'block';
+      clearBtn.style.display = 'block';
     } else {
-      btn.style.display = 'none';
+      copyBtn.style.display = 'none';
+      clearBtn.style.display = 'none';
     }
   }
 
-  btn.onclick = async function() {
+  copyBtn.onclick = async function() {
     const ok = await Backlog.copyToClipboard();
     if (ok) {
-      const orig = btn.textContent;
-      btn.textContent = '✓ COPIED';
-      btn.style.color = '#4a7a44';
-      btn.style.borderColor = '#4a7a44';
-      setTimeout(() => { btn.textContent = orig; btn.style.color = '#cfa650'; btn.style.borderColor = '#5c462c'; }, 1500);
+      const orig = copyBtn.textContent;
+      copyBtn.textContent = '✓ COPIED';
+      copyBtn.style.color = '#4a7a44';
+      copyBtn.style.borderColor = '#4a7a44';
+      setTimeout(() => { copyBtn.textContent = orig; copyBtn.style.color = '#cfa650'; copyBtn.style.borderColor = '#5c462c'; }, 1500);
     }
   };
 
-  topbar.appendChild(btn);
-  updateBtn();
+  clearBtn.onclick = function() {
+    if (confirm('Clear entire backlog?')) {
+      Backlog.clear();
+      updateBtns();
+      // Re-render creature dropdown if on creature page
+      if (window._renderAdminMenu) window._renderAdminMenu();
+    }
+  };
 
-  // Listen for backlog changes from creature page
-  window.addEventListener('storage', updateBtn);
-  window._updateBacklogBtn = updateBtn;
+  wrap.appendChild(copyBtn);
+  wrap.appendChild(clearBtn);
+  topbar.appendChild(wrap);
+  updateBtns();
+
+  window.addEventListener('storage', updateBtns);
+  window._updateBacklogBtn = updateBtns;
 })();
