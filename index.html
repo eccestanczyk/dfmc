@@ -381,14 +381,15 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
 
     <div class="note note-info"><p>All equipment and crafting materials now come exclusively from battle rewards and chests — there is no resource gathering layer. Gathering nodes have been removed from active scope; see Roadmap for details.</p></div>
 
+    <h3>Defeat</h3>
+    <p>Losing a battle does not remove the player from the floor. The team remains on the current floor and the win streak resets to zero. There is no forced exit, no floor lock, and no return to floor select.</p>
     <h3>Autoplay</h3>
-    <p>Autoplay is disabled by default and must be enabled per character. It can be enabled on any tab including the currently selected one. To take manual control of a character, disable autoplay on that tab.</p>
-    <div class="grid-3">
-      <div class="card"><div class="card-title">AutoHealThreshold</div><div class="card-body">Use healing items when HP drops below %</div></div>
-      <div class="card"><div class="card-title">AutoRetreatOnLowHP</div><div class="card-body">Stop autoplay and exit to floor select when near death</div></div>
-      <div class="card"><div class="card-title">AutoFight</div><div class="card-body">Behavior depends on floor type: paces within grass patch (Outdoors), roams the full map (Cave), or parks by water and fishes repeatedly (Fishing) — toward the 10-win threshold</div></div>
+    <p>Autoplay is disabled by default and must be enabled per character. A quick toggle sits directly on the gameplay screen; the <strong style="color:#ede0c4">Auto</strong> tab in the options menu holds the full customization. It can be enabled on any tab including the currently selected one. To take manual control of a character, disable autoplay on that tab.</p>
+    <p><strong style="color:#ede0c4">Loop:</strong> every few seconds after exiting a battle, autoplay tags a random creature on the map while the camera gently pans over to it, resolves the battle, then repeats — advancing or descending floors according to the options below.</p>
+    <div class="grid-2">
+      <div class="card"><div class="card-title">Auto advance floors</div><div class="card-body">When the win streak threshold is met and the portal opens, automatically advance to the next floor. Off — keep farming the current floor.</div></div>
+      <div class="card"><div class="card-title">On death</div><div class="card-body">( ) Stay — remain on the current floor and rebuild the streak. ( ) Go down — drop one floor and continue there.</div></div>
     </div>
-    <div class="note note-risk"><p><strong>On death during autoplay:</strong> autoplay is cleared, player is returned to floor select, stage is locked until team is manually healed and stage is reselected.</p></div>
     <h3>Healing</h3>
     <p>Healing items can be used between fights on a floor (manually or on auto). Not usable mid-battle.</p>
   </div>
@@ -431,9 +432,9 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     <h3>Death table</h3>
     <table>
       <tr><th>League</th><th>On death</th><th>Character after death</th><th>Items go to</th></tr>
-      <tr><td><span class="pill pill-eternal">Eternal</span></td><td>Soft — return to floor select</td><td>Unchanged</td><td>—</td></tr>
+      <tr><td><span class="pill pill-eternal">Eternal</span></td><td>Soft — remain on floor, streak resets</td><td>Unchanged</td><td>—</td></tr>
       <tr><td><span class="pill pill-hc">Hardcore</span></td><td>Character wiped to level 1</td><td>Stays in Hardcore, level 1</td><td>Eternal crypt (UI panel)</td></tr>
-      <tr><td><span class="pill pill-season">Seasonal</span></td><td>Soft — return to floor select</td><td>Unchanged</td><td>—</td></tr>
+      <tr><td><span class="pill pill-season">Seasonal</span></td><td>Soft — remain on floor, streak resets</td><td>Unchanged</td><td>—</td></tr>
       <tr><td><span class="pill pill-hcs">HC Seasonal</span></td><td>Character wiped to level 1</td><td>Stays in HC Seasonal, level 1</td><td>Seasonal crypt (UI panel)</td></tr>
     </table>
 
