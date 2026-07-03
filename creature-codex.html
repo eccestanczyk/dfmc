@@ -100,6 +100,13 @@
       <span class="filter-label">Stage</span>
       <div class="filter-btns" id="stage-filters"></div>
     </div>
+    <div class="filter-group" id="admin-filters" style="display:none;">
+      <span class="filter-label">Pipeline</span>
+      <div class="filter-btns">
+        <button class="filter-btn" id="filter-pending-art" onclick="togglePipeline('art',this)">🎨 Pending Art</button>
+        <button class="filter-btn" id="filter-pending-crop" onclick="togglePipeline('crop',this)">✂ Pending Crop</button>
+      </div>
+    </div>
   </div>
 
   <div class="count-badge" id="result-count"></div>
@@ -139,6 +146,19 @@ let allCreatures = [];
 let activeRarity = new Set();
 let activeType = new Set();
 let activeStage = new Set();
+let pipelineFilter = null; // 'art' or 'crop' or null
+
+function togglePipeline(type, btn) {
+  if (pipelineFilter === type) {
+    pipelineFilter = null;
+    btn.classList.remove('active');
+  } else {
+    pipelineFilter = type;
+    document.querySelectorAll('#admin-filters .filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  renderGrid();
+}
 
 function toggleFilter(set, val, btn) {
   if (set.has(val)) { set.delete(val); btn.classList.remove('active'); }
@@ -161,6 +181,8 @@ function renderGrid() {
   if (activeRarity.size) filtered = filtered.filter(c => activeRarity.has(c.Rarity));
   if (activeType.size) filtered = filtered.filter(c => activeType.has(c.Type_Primary) || activeType.has(c.Type_Secondary));
   if (activeStage.size) filtered = filtered.filter(c => activeStage.has(c.Stage));
+  if (pipelineFilter === 'art') filtered = filtered.filter(c => c.Art_Status === 'pending');
+  if (pipelineFilter === 'crop') filtered = filtered.filter(c => c.BG_Status === 'has_chroma');
 
   document.getElementById('result-count').textContent = `Showing ${filtered.length} of ${allCreatures.length} creatures`;
 
@@ -252,6 +274,9 @@ function renderGrid() {
     document.getElementById('count').textContent = allCreatures.length + ' creatures';
     document.getElementById('status').style.display = 'none';
     document.getElementById('main').style.display = 'block';
+    if (document.documentElement.classList.contains('admin-mode')) {
+      document.getElementById('admin-filters').style.display = '';
+    }
     renderGrid();
   } catch (e) {
     document.getElementById('status').textContent = 'FAILED TO LOAD: ' + e.message;
