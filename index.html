@@ -426,7 +426,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
       <tr><th>Axis</th><th>Role</th><th>Scaling</th></tr>
       <tr><td style="color:#ede0c4">Offense</td><td>Determines damage dealt by attacks</td><td>Scales with level</td></tr>
       <tr><td style="color:#ede0c4">Defense</td><td>Reduces incoming damage; determines HP pool</td><td>Scales with level</td></tr>
-      <tr><td style="color:#ede0c4">Utility</td><td>Status effect potency & duration, healing/shield power, cooldown reduction</td><td>Scales with level</td></tr>
+      <tr><td style="color:#ede0c4">Utility</td><td>Status effect potency & duration, healing/shield power</td><td>Scales with level</td></tr>
       <tr><td style="color:#ede0c4">Speed</td><td>Determines turn order — highest Speed acts first</td><td>Flat — does not scale with level</td></tr>
     </table>
 
@@ -435,7 +435,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     <table>
       <tr><th>Stat</th><th>Formula</th></tr>
       <tr><td>Offense / Defense / Utility</td><td><code>BaseStat = (axisGrade × 30 + 50) × (level + 25) / 125</code></td></tr>
-      <tr><td>Speed</td><td><code>Speed = axisGrade × 3</code> (flat, no level scaling, unaffected by quality)</td></tr>
+      <tr><td>Speed</td><td><code>Speed = axisGrade × 3</code> (flat — no level scaling, no quality scaling, no gear sources; only temporary in-battle stat stages can modify turn order)</td></tr>
       <tr><td>HP</td><td><code>HP = (4 × level + 35) × (5 + Defense_Grade) / 11</code></td></tr>
       <tr><td>Quality multiplier</td><td><code>QM = 0.80 + 0.04 × qualityGrade</code> — multiplies Off/Def/Utl/HP, never Speed. Worn ×0.84 → Void ×1.20.</td></tr>
     </table>
@@ -776,7 +776,7 @@ FinalDamage = RawDamage
       </div>
       <div class="card">
         <div class="card-title">✨ Enchantments — random pool</div>
-        <div class="card-body">Drawn from a randomized modifier pool — can be flat, percentage, or unique effects (crit chance, cooldown reduction, status resist). Rerollable at resource cost. Up to 3 slots at Void grade.</div>
+        <div class="card-body">Drawn from a randomized modifier pool — can be flat, percentage, or unique effects (crit chance, crit damage, status resist). Rerollable at resource cost. Up to 3 slots at Void grade.</div>
       </div>
     </div>
 
@@ -815,7 +815,7 @@ Character total:
       <tr><td>Signet</td><td>+Offense</td></tr>
       <tr><td>Ward</td><td>+Defense</td></tr>
       <tr><td>Totem</td><td>+Utility</td></tr>
-      <tr><td>Talisman</td><td>+Speed</td></tr>
+      <tr><td>Talisman</td><td>+Crit Damage</td></tr>
       <tr><td>Relic</td><td>+HP</td></tr>
       <tr><td>Fetish</td><td>+Crit Chance</td></tr>
       <tr><td>Idol</td><td>+Creature Offense (Personal — buffs all owned creatures)</td></tr>
