@@ -275,7 +275,6 @@ async function load() {
     const RARITY_SHORT = {'Common':'C','Uncommon':'UC','Rare':'R','Super Rare':'SR','Super Super Rare':'SSR'};
     document.getElementById('c-rarity').textContent = RARITY_SHORT[c.Rarity] || c.Rarity || '—';
     document.getElementById('c-stage').textContent = c.Stage || '—';
-    document.getElementById('c-line').textContent = c.Line_ID || '—';
     document.getElementById('c-encounter').textContent = c.Encounter_Type || '—';
 
     let typesHtml = `<a class="type-tag" href="type.html?type=${encodeURIComponent(c.Type_Primary)}">${escapeHtml(c.Type_Primary)}</a>`;
