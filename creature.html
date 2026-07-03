@@ -425,6 +425,26 @@ load();
       Art_Status: document.querySelector('.art-pending-banner') ? 'pending' : 'approved',
     };
 
+    // Probe for image options (A = main DFMC-XXX.png, B/C/D/E = DFMC-XXX_B.png etc.)
+    const IMG_BASE = 'https://raw.githubusercontent.com/eccestanczyk/dfmc/main/codex/images/';
+    const OPTION_SUFFIXES = ['', '_B', '_C', '_D', '_E'];
+    const OPTION_LABELS = ['A', 'B', 'C', 'D', 'E'];
+    let availableOptions = [];
+
+    async function probeOptions() {
+      availableOptions = [];
+      for (let i = 0; i < OPTION_SUFFIXES.length; i++) {
+        const url = IMG_BASE + id + OPTION_SUFFIXES[i] + '.png?t=' + Date.now();
+        try {
+          const resp = await fetch(url, { method: 'HEAD' });
+          if (resp.ok) {
+            availableOptions.push({ label: OPTION_LABELS[i], suffix: OPTION_SUFFIXES[i], url: url });
+          }
+        } catch {}
+      }
+      renderMenu();
+    }
+
     function renderMenu() {
       const current = Backlog.get(id);
       const currentComment = Backlog.getComment(id);
@@ -438,19 +458,47 @@ load();
           '</label>';
         }).join('');
 
+      // Image options section
+      if (availableOptions.length > 0) {
+        html += '<div style="padding:10px 14px;border-top:1px solid #5c462c;">' +
+          '<div style="font-family:Cinzel,serif;font-size:10px;letter-spacing:0.08em;color:#cfa650;margin-bottom:8px;text-transform:uppercase;">Image Options (' + availableOptions.length + ')</div>';
+        availableOptions.forEach(opt => {
+          const approveKey = 'approve_option_' + opt.label;
+          const deleteKey = 'delete_option_' + opt.label;
+          const isApproved = current.includes(approveKey);
+          const isDeleted = current.includes(deleteKey);
+          html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">' +
+            '<img src="' + opt.url + '" style="width:48px;height:48px;object-fit:cover;border:1px solid #3a2c1a;background:#1c1610;">' +
+            '<span style="font-family:Cinzel,serif;font-size:13px;font-weight:700;color:#ede0c4;min-width:18px;">'+opt.label+'</span>' +
+            '<button data-opt-action="' + approveKey + '" style="font-family:Cinzel,serif;font-size:10px;padding:3px 8px;border:1px solid ' + (isApproved ? '#4a7a44' : '#3a2c1a') + ';background:' + (isApproved ? '#2e5428' : '#14100b') + ';color:' + (isApproved ? '#86c377' : '#c2ae8b') + ';cursor:pointer;">✅ Approve</button>' +
+            (availableOptions.length > 1 ? '<button data-opt-action="' + deleteKey + '" style="font-family:Cinzel,serif;font-size:10px;padding:3px 8px;border:1px solid ' + (isDeleted ? '#7c1519' : '#3a2c1a') + ';background:' + (isDeleted ? '#3a1214' : '#14100b') + ';color:' + (isDeleted ? '#dd5646' : '#c2ae8b') + ';cursor:pointer;">🗑 Delete</button>' : '') +
+          '</div>';
+        });
+        html += '</div>';
+      }
+
       // Comment field
       html += '<div style="padding:10px 14px;border-top:1px solid #5c462c;">' +
         '<div style="font-family:Cinzel,serif;font-size:10px;letter-spacing:0.08em;color:#cfa650;margin-bottom:5px;text-transform:uppercase;">Comment</div>' +
-        '<textarea id="admin-comment" rows="2" style="width:100%;background:#14100b;border:1px solid #3a2c1a;color:#ede0c4;font-family:EB Garamond,serif;font-size:13px;padding:6px 8px;resize:vertical;" placeholder="Notes for the backlog...">' +
+        '<textarea id="admin-comment" rows="2" style="width:100%;background:#14100b;border:1px solid #3a2c1a;color:#ede0c4;font-family:EB Garamond,serif;font-size:13px;padding:6px 8px;resize:vertical;box-sizing:border-box;" placeholder="Notes for the backlog...">' +
         (currentComment || '') + '</textarea></div>';
 
       menu.innerHTML = html;
 
-      // Bind checkboxes
+      // Bind action checkboxes
       menu.querySelectorAll('input[type=checkbox]').forEach(cb => {
         cb.onchange = function() {
-          const action = this.dataset.action;
-          Backlog.toggle(id, creature.Name, action);
+          Backlog.toggle(id, creature.Name, this.dataset.action);
+          renderMenu();
+          if (window._updateBacklogBtn) window._updateBacklogBtn();
+        };
+      });
+
+      // Bind option approve/delete buttons
+      menu.querySelectorAll('button[data-opt-action]').forEach(btn => {
+        btn.onclick = function(e) {
+          e.stopPropagation();
+          Backlog.toggle(id, creature.Name, this.dataset.optAction);
           renderMenu();
           if (window._updateBacklogBtn) window._updateBacklogBtn();
         };
@@ -467,7 +515,7 @@ load();
     }
     window._renderAdminMenu = renderMenu;
 
-    renderMenu();
+    probeOptions();
   }, 200);
 })();
 </script>
