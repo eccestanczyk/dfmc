@@ -113,7 +113,13 @@
   <div class="creature-hero">
     <div class="creature-img-wrap" id="creature-img-wrap"></div>
     <div class="creature-info">
-      <h2 id="c-name"></h2>
+      <div style="display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;">
+        <h2 id="c-name"></h2>
+        <div id="admin-actions" class="admin-only" style="display:none;position:relative;">
+          <button id="admin-gear" style="font-size:18px;background:none;border:1px solid #5c462c;color:#cfa650;padding:3px 8px;cursor:pointer;line-height:1;" title="Art pipeline actions">⚙</button>
+          <div id="admin-menu" style="display:none;position:absolute;top:100%;right:0;margin-top:6px;min-width:260px;background:#1e1710;border:1px solid #5c462c;box-shadow:0 8px 24px rgba(0,0,0,0.6);z-index:40;text-align:left;"></div>
+        </div>
+      </div>
       <div class="type-tags" id="c-types"></div>
       <div class="meta-line">RARITY: <b id="c-rarity"></b></div>
       <div class="meta-line">STAGE: <b id="c-stage"></b> &nbsp; LINE: <b id="c-line"></b></div>
@@ -368,5 +374,82 @@ load();
 </script>
 
 <script>document.addEventListener("click",function(e){document.querySelectorAll(".site-nav-menu").forEach(function(m){if(!m.parentElement.contains(e.target))m.style.display="none"})});</script>
+<script src="admin.js"></script>
+<script>
+(function(){
+  if (!document.documentElement.classList.contains('admin-mode')) return;
+
+  const ACTIONS = [
+    { key: 'approve_art',    label: 'Approve art',              icon: '✅', showWhen: c => c.Art_Status === 'pending' },
+    { key: 'art_revision',   label: 'Art revision needed',      icon: '🔄', showWhen: c => c.Art_Status === 'approved' },
+    { key: 'regenerate',     label: 'Regenerate & overwrite',   icon: '♻️', showWhen: () => true },
+    { key: 'generate_option',label: 'Generate new option',      icon: '➕', showWhen: () => true },
+    { key: 'generate_crop',  label: 'Generate new crop',        icon: '✂️', showWhen: () => true },
+    { key: 'framing_issue',  label: 'Framing issue',            icon: '🖼', showWhen: () => true },
+  ];
+
+  // Show admin UI
+  const adminEl = document.getElementById('admin-actions');
+  if (adminEl) adminEl.style.display = 'block';
+
+  const gear = document.getElementById('admin-gear');
+  const menu = document.getElementById('admin-menu');
+
+  gear.onclick = function(e) {
+    e.stopPropagation();
+    menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+    menu.style.flexDirection = 'column';
+  };
+  document.addEventListener('click', function(e) {
+    if (!menu.contains(e.target) && e.target !== gear) menu.style.display = 'none';
+  });
+
+  // Wait for creature data to load, then render admin menu
+  const origLoad = window.load;
+  const checkInterval = setInterval(function() {
+    const nameEl = document.getElementById('c-name');
+    if (!nameEl || !nameEl.textContent) return;
+    clearInterval(checkInterval);
+
+    const id = new URLSearchParams(location.search).get('id');
+    if (!id) return;
+
+    // Get creature data from the page
+    const artStatus = document.querySelector('.art-pending-banner') ? 'pending' :
+                      document.querySelector('.crop-pending-banner') ? 'has_art' : 'approved';
+    // More accurate: read from the data
+    const creature = {
+      ID: id,
+      Name: nameEl.textContent,
+      Art_Status: document.querySelector('.art-pending-banner') ? 'pending' : 'approved',
+    };
+
+    function renderMenu() {
+      const current = Backlog.get(id);
+      menu.innerHTML = ACTIONS
+        .filter(a => a.showWhen(creature))
+        .map(a => {
+          const checked = current.includes(a.key);
+          return '<label style="display:flex;align-items:center;gap:8px;padding:9px 14px;border-bottom:1px solid #3a2c1a;cursor:pointer;font-family:Cinzel,serif;font-size:12px;font-weight:600;color:' + (checked ? '#dd5646' : '#c2ae8b') + ';transition:color 0.12s;" onmouseenter="this.style.color=\'#e6c66d\'" onmouseleave="this.style.color=\'' + (checked ? '#dd5646' : '#c2ae8b') + '\'">' +
+            '<input type="checkbox" ' + (checked ? 'checked' : '') + ' data-action="' + a.key + '" style="accent-color:#dd5646;cursor:pointer;">' +
+            '<span>' + a.icon + ' ' + a.label + '</span>' +
+          '</label>';
+        }).join('');
+
+      // Bind checkboxes
+      menu.querySelectorAll('input[type=checkbox]').forEach(cb => {
+        cb.onchange = function() {
+          const action = this.dataset.action;
+          Backlog.toggle(id, creature.Name, action);
+          renderMenu();
+          if (window._updateBacklogBtn) window._updateBacklogBtn();
+        };
+      });
+    }
+
+    renderMenu();
+  }, 200);
+})();
+</script>
 </body>
 </html>
