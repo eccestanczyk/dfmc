@@ -196,7 +196,8 @@ function renderGrid() {
     const img = c.Image_Path
       ? `<img class="codex-card-img" src="${escapeHtml(c.Image_Path)}?t=${Date.now()}" alt="${escapeHtml(c.Name)}" loading="lazy">`
       : `<div class="codex-card-noimg">?</div>`;
-    return `<a class="codex-card" href="creature.html?id=${escapeHtml(c.ID)}">
+    const pipelineStyle = c.Art_Status==='pending' ? 'border-color:#cfa650;box-shadow:0 0 8px rgba(207,166,80,0.3);' : c.BG_Status==='has_chroma' ? 'border-color:#dd5646;box-shadow:0 0 8px rgba(221,86,70,0.3);' : c.BG_Status==='bg_pending' ? 'border-color:#60a5fa;box-shadow:0 0 8px rgba(96,165,250,0.3);' : '';
+    return `<a class="codex-card" href="creature.html?id=${escapeHtml(c.ID)}" style="${pipelineStyle}">
       ${img}
       <div class="codex-card-body">
         <div class="codex-card-name">${escapeHtml(c.Name)}${c.Art_Status==='pending'?'<span class="flag flag-art" title="Pending art approval">🎨</span>':''}${c.BG_Status==='has_chroma'?'<span class="flag flag-crop" title="Needs cropping">✂</span>':''}${c.BG_Status==='bg_pending'?'<span class="flag" title="Crop approval pending" style="color:#60a5fa;">🔍</span>':''}<span class="flag flag-multi" data-id="${c.ID}" style="display:none;color:#a855f7;" title="Has multiple image options">⊕</span></div>
