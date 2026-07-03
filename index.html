@@ -385,10 +385,10 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     <p>Autoplay is disabled by default and must be enabled per character. It can be enabled on any tab including the currently selected one. To take manual control of a character, disable autoplay on that tab.</p>
     <div class="grid-3">
       <div class="card"><div class="card-title">AutoHealThreshold</div><div class="card-body">Use healing items when HP drops below %</div></div>
-      <div class="card"><div class="card-title">AutoRetreatOnLowHP</div><div class="card-body">Retreat to base when near death</div></div>
+      <div class="card"><div class="card-title">AutoRetreatOnLowHP</div><div class="card-body">Stop autoplay and exit to floor select when near death</div></div>
       <div class="card"><div class="card-title">AutoFight</div><div class="card-body">Behavior depends on floor type: paces within grass patch (Outdoors), roams the full map (Cave), or parks by water and fishes repeatedly (Fishing) — toward the 10-win threshold</div></div>
     </div>
-    <div class="note note-risk"><p><strong>On death during autoplay:</strong> autoplay is cleared, player is sent to base, stage is locked until team is manually healed and stage is reselected.</p></div>
+    <div class="note note-risk"><p><strong>On death during autoplay:</strong> autoplay is cleared, player is returned to floor select, stage is locked until team is manually healed and stage is reselected.</p></div>
     <h3>Healing</h3>
     <p>Healing items can be used between fights on a floor (manually or on auto). Not usable mid-battle.</p>
   </div>
@@ -431,10 +431,10 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     <h3>Death table</h3>
     <table>
       <tr><th>League</th><th>On death</th><th>Character after death</th><th>Items go to</th></tr>
-      <tr><td><span class="pill pill-eternal">Eternal</span></td><td>Soft — respawn at base</td><td>Unchanged</td><td>—</td></tr>
-      <tr><td><span class="pill pill-hc">Hardcore</span></td><td>Character wiped to level 1</td><td>Stays in Hardcore, level 1</td><td>Eternal crypt chest</td></tr>
-      <tr><td><span class="pill pill-season">Seasonal</span></td><td>Soft — respawn at base</td><td>Unchanged</td><td>—</td></tr>
-      <tr><td><span class="pill pill-hcs">HC Seasonal</span></td><td>Character wiped to level 1</td><td>Stays in HC Seasonal, level 1</td><td>Seasonal crypt chest</td></tr>
+      <tr><td><span class="pill pill-eternal">Eternal</span></td><td>Soft — return to floor select</td><td>Unchanged</td><td>—</td></tr>
+      <tr><td><span class="pill pill-hc">Hardcore</span></td><td>Character wiped to level 1</td><td>Stays in Hardcore, level 1</td><td>Eternal crypt (UI panel)</td></tr>
+      <tr><td><span class="pill pill-season">Seasonal</span></td><td>Soft — return to floor select</td><td>Unchanged</td><td>—</td></tr>
+      <tr><td><span class="pill pill-hcs">HC Seasonal</span></td><td>Character wiped to level 1</td><td>Stays in HC Seasonal, level 1</td><td>Seasonal crypt (UI panel)</td></tr>
     </table>
 
     <h3>Crypt</h3>
@@ -472,7 +472,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
       <li><span class="phase-num">1</span><span>Character dies in Hardcore league</span></li>
       <li><span class="phase-num">2</span><span>Character flagged: diedOnHardcore = true, deathFloor and timestamp recorded</span></li>
       <li><span class="phase-num">3</span><span>All class XP converted to soul gems — one per class with any XP, rank by XP amount</span></li>
-      <li><span class="phase-num">4</span><span>All gear, inventory, soul gems, and creatures deposited into Eternal crypt chest</span></li>
+      <li><span class="phase-num">4</span><span>All gear, inventory, soul gems, and creatures deposited into the Eternal crypt (UI panel)</span></li>
       <li><span class="phase-num">5</span><span>Character reset to level 1, remains in Hardcore league with death mark on status sheet</span></li>
     </ol>
 
@@ -481,7 +481,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
       <li><span class="phase-num">1</span><span>Character dies in HC Seasonal league</span></li>
       <li><span class="phase-num">2</span><span>Character flagged: diedOnHardcore = true, deathFloor and timestamp recorded</span></li>
       <li><span class="phase-num">3</span><span>All class XP converted to soul gems — one per class with any XP, rank by XP amount</span></li>
-      <li><span class="phase-num">4</span><span>All gear, inventory, soul gems, and creatures deposited into Seasonal crypt chest</span></li>
+      <li><span class="phase-num">4</span><span>All gear, inventory, soul gems, and creatures deposited into the Seasonal crypt (UI panel)</span></li>
       <li><span class="phase-num">5</span><span>Character reset to level 1, remains in HC Seasonal league with death mark</span></li>
     </ol>
 
@@ -494,7 +494,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
   DateTime hardcoreDeathTime;
 }</pre>
 
-    <div class="note note-warn"><p>Test all four death pipelines and the season-end migration independently. The HC Seasonal crypt → Hardcore base delivery is the most likely source of data bugs.</p></div>
+    <div class="note note-warn"><p>Test all four death pipelines and the season-end migration independently. The HC Seasonal crypt → Hardcore league inventory delivery is the most likely source of data bugs.</p></div>
   </div>
 
   <!-- METAGAME -->
@@ -509,7 +509,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     </div>
 
     <h3>Creature acquisition</h3>
-    <p>There is no capture mechanic. All creatures come from eggs — either dropped in combat or produced via breeding. Every egg must be incubated at the base before hatching. Egg grade determines the stat range of the hatched creature and becomes the creature's grade.</p>
+    <p>There is no capture mechanic. All creatures come from eggs — either dropped in combat or produced via breeding. Every egg must be incubated in the Hatchery panel before hatching. Egg grade determines the stat range of the hatched creature and becomes the creature's grade.</p>
 
     <div class="grid-2">
       <div class="card">
@@ -531,9 +531,9 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     <p>Gruel is the unified food resource used to breed creatures. Higher grade creatures require more Gruel per breeding attempt. Three sources all render into the same Gruel pool:</p>
     <table>
       <tr><th>Source</th><th>How it becomes Gruel</th></tr>
-      <tr><td>Eggs</td><td>Unwanted eggs can be rendered into Gruel at the base</td></tr>
-      <tr><td>Crops</td><td>Farmed crops rendered into Gruel at the base</td></tr>
-      <tr><td>Creature meat</td><td>Defeated creatures drop meat, rendered into Gruel at the base</td></tr>
+      <tr><td>Eggs</td><td>Unwanted eggs can be rendered into Gruel via the rendering UI</td></tr>
+      <tr><td>Crops</td><td>Farmed crops rendered into Gruel via the rendering UI</td></tr>
+      <tr><td>Creature meat</td><td>Defeated creatures drop meat, rendered into Gruel via the rendering UI</td></tr>
     </table>
 
     <h3>Incubation & hatchery</h3>
@@ -622,7 +622,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
       <li>The Codex is never wiped on death — it persists permanently and cannot be reset</li>
     </ul>
 
-    <div class="note note-info"><p><strong>Open decision:</strong> Should the Codex be accessible from the base only, or viewable from the floor UI at any time (including during autoplay)? Also: does the Codex track personal best stats of owned creatures, or only the theoretical range?</p></div>
+    <div class="note note-info"><p><strong>Resolved:</strong> The Codex is a UI panel viewable at any time during PvE (including during autoplay), consistent with all metagame systems — no physical base. <strong>Open decision:</strong> does the Codex track personal best stats of owned creatures, or only the theoretical range?</p></div>
   </div>
 
   <!-- EQUIPMENT -->
@@ -892,7 +892,7 @@ Your Backend
     <div class="note note-risk"><p><strong>PvP anti-cheat</strong> — server-authoritative resolution required. Design this before any PvP work begins.</p></div>
     <div class="note note-risk"><p><strong>Art consistency</strong> — lock style-guide prompt before mass generation.</p></div>
     <div class="note note-risk"><p><strong>Death pipeline integrity</strong> — four death paths + two crypt systems + season migration must all be tested exhaustively. HC Seasonal double-migration is highest risk.</p></div>
-    <div class="note note-warn"><p><strong>Seasonal migration</strong> — crypt chest delivery mechanism must be rock solid before launch.</p></div>
+    <div class="note note-warn"><p><strong>Seasonal migration</strong> — crypt delivery mechanism must be rock solid before launch.</p></div>
     <div class="note note-warn"><p><strong>Trade duplication exploits</strong> — implement transfer lock before marketplace goes live.</p></div>
     <h3>Future features (cut from current scope)</h3>
     <div class="note note-info"><p><strong>Rogue Collectors</strong> — hostile NPC trainer encounters with patrol routes and line-of-sight triggers, originally part of floor structure. Removed from active scope to keep early development focused. May be reintroduced post-launch or in a content update.</p></div>
