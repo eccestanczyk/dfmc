@@ -103,8 +103,9 @@
     <div class="filter-group" id="admin-filters" style="display:none;">
       <span class="filter-label">Pipeline</span>
       <div class="filter-btns">
-        <button class="filter-btn" id="filter-pending-art" onclick="togglePipeline('art',this)">🎨 Pending Art</button>
-        <button class="filter-btn" id="filter-pending-crop" onclick="togglePipeline('crop',this)">✂ Pending Crop</button>
+        <button class="filter-btn" id="filter-pending-art" onclick="togglePipeline('art',this)">🎨 Art Approval Pending</button>
+        <button class="filter-btn" id="filter-pending-crop" onclick="togglePipeline('crop',this)">✂ Cropping Pending</button>
+        <button class="filter-btn" id="filter-crop-review" onclick="togglePipeline('crop_review',this)">🔍 Crop Approval Pending</button>
       </div>
     </div>
   </div>
@@ -183,6 +184,7 @@ function renderGrid() {
   if (activeStage.size) filtered = filtered.filter(c => activeStage.has(c.Stage));
   if (pipelineFilter === 'art') filtered = filtered.filter(c => c.Art_Status === 'pending');
   if (pipelineFilter === 'crop') filtered = filtered.filter(c => c.BG_Status === 'has_chroma');
+  if (pipelineFilter === 'crop_review') filtered = filtered.filter(c => c.BG_Status === 'bg_pending');
 
   document.getElementById('result-count').textContent = `Showing ${filtered.length} of ${allCreatures.length} creatures`;
 
