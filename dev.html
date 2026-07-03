@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DFMC — Dev Dashboard</title>
+<link rel="stylesheet" href="theme.css">
+<style>
+  .pending-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; padding: 20px; }
+  .pending-card { background: var(--bg-card); border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; text-decoration: none; color: var(--fg); transition: border-color 0.2s; }
+  .pending-card:hover { border-color: var(--gold); }
+  .pending-card img { width: 100%; aspect-ratio: 1; object-fit: contain; background: #1a1a1a; }
+  .pending-card .info { padding: 8px 10px; font-size: 12px; }
+  .pending-card .name { font-weight: bold; color: var(--gold); }
+  .pending-card .meta { opacity: 0.6; margin-top: 2px; }
+  .page-header { padding: 20px; text-align: center; }
+  .page-header h1 { color: var(--gold); font-family: var(--ff-display); }
+  .count { color: var(--fg); opacity: 0.6; font-size: 14px; margin-top: 6px; }
+  .back-link { display: inline-block; margin: 10px 20px; padding: 6px 14px; background: var(--bg-card); border: 1px solid var(--rule); border-radius: 4px; color: var(--gold); text-decoration: none; font-size: 13px; }
+  .tab-bar { display: flex; justify-content: center; gap: 6px; margin-top: 16px; flex-wrap: wrap; }
+  .tab-btn { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #888; padding: 8px 18px; font-size: 13px; letter-spacing: 0.04em; border-radius: 4px; cursor: pointer; position: relative; }
+  .tab-btn.active { background: rgba(255,200,50,0.15); border-color: var(--gold); color: var(--gold); }
+  .tab-btn:hover { background: rgba(255,255,255,0.12); }
+  .tab-btn .badge { position: absolute; top: -6px; right: -6px; background: var(--gold); color: #000; font-size: 10px; font-weight: bold; padding: 1px 5px; border-radius: 8px; }
+  .stage-filters { display: flex; justify-content: center; gap: 6px; margin-top: 10px; }
+  .stage-btn { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); color: #777; padding: 4px 12px; font-size: 11px; border-radius: 3px; cursor: pointer; }
+  .stage-btn.active { background: rgba(255,200,50,0.12); border-color: var(--gold); color: var(--gold); }
+  .empty-msg { text-align: center; padding: 40px; color: #555; font-size: 14px; }
+</style>
+</head>
+<body>
+<a class="back-link" href="floor-codex.html">← INDEX</a>
+<div class="page-header">
+  <h1>Dev Dashboard</h1>
+  <div class="tab-bar" id="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('art',this)">Art Pending <span class="badge" id="badge-art">0</span></button>
+    <button class="tab-btn" onclick="switchTab('crop',this)">Cropping Pending <span class="badge" id="badge-crop">0</span></button>
+    <button class="tab-btn" onclick="switchTab('approval',this)">Crop Approval <span class="badge" id="badge-approval">0</span></button>
+  </div>
+  <div class="stage-filters" id="stage-filters">
+    <button class="stage-btn active" onclick="filterStage('all',this)">All</button>
+    <button class="stage-btn" onclick="filterStage('1',this)">S1</button>
+    <button class="stage-btn" onclick="filterStage('2',this)">S2</button>
+    <button class="stage-btn" onclick="filterStage('3',this)">S3</button>
+  </div>
+  <div class="count" id="count"></div>
+</div>
+<div class="pending-grid" id="grid"></div>
+<script>
+const CSV_URL = "https://raw.githubusercontent.com/eccestanczyk/dfmc/main/codex/creatures.csv?" + Date.now();
+const IMG_BASE = "https://raw.githubusercontent.com/eccestanczyk/dfmc/main/";
+function escapeHtml(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+let allRows = [];
+let currentTab = 'art';
+let currentStage = 'all';
+
+fetch(CSV_URL).then(r => r.text()).then(text => {
+  const lines = text.trim().split('\n');
+  const headers = lines[0].split(',').map(h => h.trim());
+  allRows = lines.slice(1).map(line => {
+    const vals = []; let inQ = false, cur = '';
+    for (let i = 0; i < line.length; i++) {
+      if (line[i] === '"') inQ = !inQ;
+      else if (line[i] === ',' && !inQ) { vals.push(cur); cur = ''; }
+      else cur += line[i];
+    }
+    vals.push(cur);
+    const obj = {}; headers.forEach((h, i) => obj[h] = ((vals[i] || '').trim())); return obj;
+  });
+
+  // Set badge counts
+  const artCount = allRows.filter(r => r.Art_Status === 'pending' && r.Image_Path).length;
+  const cropCount = allRows.filter(r => r.Art_Status === 'approved' && r.BG_Status === 'has_chroma').length;
+  const approvalCount = allRows.filter(r => r.BG_Status === 'bg_pending').length;
+  document.getElementById('badge-art').textContent = artCount;
+  document.getElementById('badge-crop').textContent = cropCount;
+  document.getElementById('badge-approval').textContent = approvalCount;
+
+  render();
+});
+
+function getFiltered() {
+  let filtered;
+  if (currentTab === 'art') {
+    filtered = allRows.filter(r => r.Art_Status === 'pending' && r.Image_Path);
+  } else if (currentTab === 'crop') {
+    filtered = allRows.filter(r => r.Art_Status === 'approved' && r.BG_Status === 'has_chroma');
+  } else {
+    filtered = allRows.filter(r => r.BG_Status === 'bg_pending');
+  }
+  if (currentStage !== 'all') {
+    filtered = filtered.filter(r => r.Stage === currentStage);
+  }
+  return filtered;
+}
+
+function render() {
+  const filtered = getFiltered();
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  document.getElementById('count').textContent = filtered.length + ' creatures';
+
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div class="empty-msg">None in this category</div>';
+    return;
+  }
+
+  filtered.forEach(c => {
+    const card = document.createElement('a');
+    card.className = 'pending-card';
+    card.href = 'creature.html?id=' + c.ID;
+    const imgSrc = c.Image_Path ? IMG_BASE + escapeHtml(c.Image_Path) + '?t=' + Date.now() : '';
+    card.innerHTML = (imgSrc ? '<img src="' + imgSrc + '" alt="' + escapeHtml(c.Name) + '">' : '<div style="aspect-ratio:1;background:#1a1a1a;display:flex;align-items:center;justify-content:center;color:#555">No image</div>')
+      + '<div class="info"><div class="name">' + escapeHtml(c.Name) + '</div>'
+      + '<div class="meta">' + c.ID + ' · ' + c.Line_ID + ' S' + c.Stage + '</div></div>';
+    grid.appendChild(card);
+  });
+}
+
+function switchTab(tab, btn) {
+  currentTab = tab;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+function filterStage(stage, btn) {
+  currentStage = stage;
+  document.querySelectorAll('.stage-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+</script>
+</body>
+</html>
