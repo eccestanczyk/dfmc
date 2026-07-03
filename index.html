@@ -837,26 +837,57 @@ Your Backend
   <!-- ROADMAP -->
   <div id="roadmap" class="page">
     <h2>Build roadmap</h2>
-    <p>Recommended build order — each phase should be playable before moving to the next.</p>
+
+    <h3>Active: Simplified Static (prototype)</h3>
+    <p>Click-to-battle prototype — no player avatar, no grid movement. The map displays a ground plate with props and creatures wandering around. The player hovers over creatures to see rarity, clicks to battle. Floor progression rules unchanged.</p>
     <ol class="phase-list">
       <li><span class="phase-num">1</span><span><strong style="color:#ede0c4">Data architecture</strong> — all ScriptableObjects and save system skeleton</span></li>
-      <li><span class="phase-num">2</span><span><strong style="color:#ede0c4">Single-floor overworld</strong> — grid movement, collision, camera, tilemaps</span></li>
-      <li><span class="phase-num">3</span><span><strong style="color:#ede0c4">Encounter trigger</strong> — battle scene entry, minimal 1v1 battle, return to overworld</span></li>
-      <li><span class="phase-num">4</span><span><strong style="color:#ede0c4">Full battle system</strong> — expand to 3v3, moves, status effects, animations</span></li>
-      <li><span class="phase-num">5</span><span><strong style="color:#ede0c4">Floor progression</strong> — boss gate, stairs, floor transition, multiple floors</span></li>
-      <li><span class="phase-num">6</span><span><strong style="color:#ede0c4">Floor win condition & chests</strong> — battle win counter, portal unlock, manual one-time chests, chest tracking on map selector</span></li>
-      <li><span class="phase-num">7</span><span><strong style="color:#ede0c4">Boss key & boss floors</strong> — key drop chance on pre-boss floors, key consumption, boss floor access via portal or map selector</span></li>
-      <li><span class="phase-num">8</span><span><strong style="color:#ede0c4">Autoplay & multi-tab system</strong> — pathfinding, config options, death handler, simultaneous multi-character simulation</span></li>
-      <li><span class="phase-num">9</span><span><strong style="color:#ede0c4">Character & class system</strong> — class XP, character level aggregation, PoE skill trees</span></li>
-      <li><span class="phase-num">10</span><span><strong style="color:#ede0c4">Codex</strong> — creature catalogue, seen/acquired states, stat ranges, move lists, evolution chains</span></li>
-      <li><span class="phase-num">11</span><span><strong style="color:#ede0c4">Metagame UI</strong> — breeding, crafting, farming, hatchery — all as in-game UI panels accessible during PvE</span></li>
-      <li><span class="phase-num">12</span><span><strong style="color:#ede0c4">Player logging system</strong> — event log and battle log, hooked into existing battle/leveling/item systems, file export for PC and mobile share UI</span></li>
-      <li><span class="phase-num">13</span><span><strong style="color:#ede0c4">Leagues & death pipelines</strong> — all four death paths, both crypts, soul gem generation, season migration</span></li>
-      <li><span class="phase-num">14</span><span><strong style="color:#ede0c4">PvP & ladders</strong> — matchmaking, relay, leaderboards</span></li>
-      <li><span class="phase-num">15</span><span><strong style="color:#ede0c4">Steam integration</strong> — Steamworks.NET, inventory, marketplace</span></li>
-      <li><span class="phase-num">16</span><span><strong style="color:#ede0c4">Monetization</strong> — economy service, battle pass, item grants</span></li>
-      <li><span class="phase-num">17</span><span><strong style="color:#ede0c4">Steam release</strong> — store page, F2P config, achievements</span></li>
+      <li><span class="phase-num">2</span><span><strong style="color:#ede0c4">Floor renderer</strong> — load ground plate sprite + prop sprites from floor config, Y-sorted SpriteRenderers on a Transparency Sort Axis</span></li>
+      <li><span class="phase-num">3</span><span><strong style="color:#ede0c4">Creature spawning</strong> — spawn N creatures per floor from encounter table with weighted rarity rolls, place at valid positions (not on props/boundary)</span></li>
+      <li><span class="phase-num">4</span><span><strong style="color:#ede0c4">Creature wandering</strong> — random waypoint movement within floor bounds, idle pauses, speed variance per instance</span></li>
+      <li><span class="phase-num">5</span><span><strong style="color:#ede0c4">Creature interaction</strong> — mouse hover highlights creature with rarity color outline (C=grey, UC=green, R=blue, SR=purple, SSR=gold), click initiates battle</span></li>
+      <li><span class="phase-num">6</span><span><strong style="color:#ede0c4">Battle system (minimal)</strong> — 1v1 turn-based battle, creature moves, win/loss result</span></li>
+      <li><span class="phase-num">7</span><span><strong style="color:#ede0c4">Respawn system</strong> — fixed creature cap per floor, defeated creatures removed from map, one respawn per minute at random open position</span></li>
+      <li><span class="phase-num">8</span><span><strong style="color:#ede0c4">Floor progression</strong> — win streak threshold ceil(floor<sup>0.65</sup>), portal sigil activates on threshold met, click portal to advance, loss resets streak</span></li>
+      <li><span class="phase-num">9</span><span><strong style="color:#ede0c4">Multi-floor loop</strong> — floor transitions, floor data loading from CSV, 10 grasslands floors playable end-to-end</span></li>
+      <li><span class="phase-num">10</span><span><strong style="color:#ede0c4">Full battle system</strong> — expand to 3v3 (avatar + 2 creatures), moves, status effects, animations</span></li>
+      <li><span class="phase-num">11</span><span><strong style="color:#ede0c4">Boss floors</strong> — every 10th floor, boss team encounter, key drop from pre-boss floors</span></li>
+      <li><span class="phase-num">12</span><span><strong style="color:#ede0c4">Character & class system</strong> — class XP, character level, PoE skill trees</span></li>
+      <li><span class="phase-num">13</span><span><strong style="color:#ede0c4">Codex</strong> — creature catalogue, seen/acquired states</span></li>
+      <li><span class="phase-num">14</span><span><strong style="color:#ede0c4">Metagame UI</strong> — breeding, crafting, farming, hatchery panels</span></li>
+      <li><span class="phase-num">15</span><span><strong style="color:#ede0c4">Autoplay</strong> — auto-click creatures, auto-battle, configurable thresholds</span></li>
+      <li><span class="phase-num">16</span><span><strong style="color:#ede0c4">Leagues & death pipelines</strong> — all four death paths, crypts, soul gems, season migration</span></li>
+      <li><span class="phase-num">17</span><span><strong style="color:#ede0c4">PvP & ladders</strong> — matchmaking, relay, leaderboards</span></li>
+      <li><span class="phase-num">18</span><span><strong style="color:#ede0c4">Steam integration</strong> — Steamworks.NET, inventory, marketplace</span></li>
+      <li><span class="phase-num">19</span><span><strong style="color:#ede0c4">Monetization</strong> — economy service, battle pass, item grants</span></li>
+      <li><span class="phase-num">20</span><span><strong style="color:#ede0c4">Steam release</strong> — store page, F2P config, achievements</span></li>
     </ol>
+
+    <h3>Archived: Isometric Exploration (original roadmap)</h3>
+    <p>Original roadmap with top-down grid movement, player avatar, tile-based encounters. Archived for potential future use.</p>
+    <details>
+      <summary>View archived roadmap</summary>
+      <ol class="phase-list">
+        <li><span class="phase-num">1</span><span><strong style="color:#ede0c4">Data architecture</strong> — all ScriptableObjects and save system skeleton</span></li>
+        <li><span class="phase-num">2</span><span><strong style="color:#ede0c4">Single-floor overworld</strong> — grid movement, collision, camera, tilemaps</span></li>
+        <li><span class="phase-num">3</span><span><strong style="color:#ede0c4">Encounter trigger</strong> — battle scene entry, minimal 1v1 battle, return to overworld</span></li>
+        <li><span class="phase-num">4</span><span><strong style="color:#ede0c4">Full battle system</strong> — expand to 3v3, moves, status effects, animations</span></li>
+        <li><span class="phase-num">5</span><span><strong style="color:#ede0c4">Floor progression</strong> — boss gate, stairs, floor transition, multiple floors</span></li>
+        <li><span class="phase-num">6</span><span><strong style="color:#ede0c4">Floor win condition & chests</strong> — battle win counter, portal unlock, manual one-time chests, chest tracking on map selector</span></li>
+        <li><span class="phase-num">7</span><span><strong style="color:#ede0c4">Boss key & boss floors</strong> — key drop chance on pre-boss floors, key consumption, boss floor access via portal or map selector</span></li>
+        <li><span class="phase-num">8</span><span><strong style="color:#ede0c4">Autoplay & multi-tab system</strong> — pathfinding, config options, death handler, simultaneous multi-character simulation</span></li>
+        <li><span class="phase-num">9</span><span><strong style="color:#ede0c4">Character & class system</strong> — class XP, character level aggregation, PoE skill trees</span></li>
+        <li><span class="phase-num">10</span><span><strong style="color:#ede0c4">Codex</strong> — creature catalogue, seen/acquired states, stat ranges, move lists, evolution chains</span></li>
+        <li><span class="phase-num">11</span><span><strong style="color:#ede0c4">Metagame UI</strong> — breeding, crafting, farming, hatchery — all as in-game UI panels accessible during PvE</span></li>
+        <li><span class="phase-num">12</span><span><strong style="color:#ede0c4">Player logging system</strong> — event log and battle log, hooked into existing battle/leveling/item systems, file export for PC and mobile share UI</span></li>
+        <li><span class="phase-num">13</span><span><strong style="color:#ede0c4">Leagues & death pipelines</strong> — all four death paths, both crypts, soul gem generation, season migration</span></li>
+        <li><span class="phase-num">14</span><span><strong style="color:#ede0c4">PvP & ladders</strong> — matchmaking, relay, leaderboards</span></li>
+        <li><span class="phase-num">15</span><span><strong style="color:#ede0c4">Steam integration</strong> — Steamworks.NET, inventory, marketplace</span></li>
+        <li><span class="phase-num">16</span><span><strong style="color:#ede0c4">Monetization</strong> — economy service, battle pass, item grants</span></li>
+        <li><span class="phase-num">17</span><span><strong style="color:#ede0c4">Steam release</strong> — store page, F2P config, achievements</span></li>
+      </ol>
+    </details>
+
     <h3>Critical risks</h3>
     <div class="note note-risk"><p><strong>PvP anti-cheat</strong> — server-authoritative resolution required. Design this before any PvP work begins.</p></div>
     <div class="note note-risk"><p><strong>Art consistency</strong> — lock style-guide prompt before mass generation.</p></div>
@@ -867,6 +898,7 @@ Your Backend
     <div class="note note-info"><p><strong>Rogue Collectors</strong> — hostile NPC trainer encounters with patrol routes and line-of-sight triggers, originally part of floor structure. Removed from active scope to keep early development focused. May be reintroduced post-launch or in a content update.</p></div>
     <div class="note note-info"><p><strong>Gathering nodes & secret areas</strong> — the original handcrafted circuit map design with resource nodes, HM-gated secret areas, and a node-farming layer has been replaced by the simpler battle-win-threshold map design. All equipment and crafting materials now come from battle rewards and chests only. May be reconsidered as a future map variant or content layer.</p></div>
     <div class="note note-info"><p><strong>Physical base</strong> — the original design included a physical base the Collector could walk around in, with tile-based farming, craftings stations, a hatchery building, and a crypt chest to interact with. This has been replaced entirely by UI panels accessible during PvE floors. A physical base may be reintroduced in a future content update as an optional social/cosmetic space.</p></div>
+    <div class="note note-info"><p><strong>Isometric Exploration</strong> — the original prototype used top-down Gen II–style grid movement with a player avatar, tile-based encounter triggers (grass/cave/fishing), and autoplay pathfinding. Archived in favor of the Simplified Static approach for faster prototyping. The full grid-movement system can be restored from the archived roadmap above.</p></div>
 
     <h3>Open decisions</h3>
     <ul>
