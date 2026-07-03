@@ -87,7 +87,17 @@ const Backlog = {
       remove_option: 'Remove an option',
       generate_crop: 'Generate new crop',
       framing_issue: 'Framing issue',
-      flip_image: 'Flip image (face left)'
+      flip_image: 'Flip image (face left)',
+      approve_option_A: 'Approve option A',
+      approve_option_B: 'Approve option B',
+      approve_option_C: 'Approve option C',
+      approve_option_D: 'Approve option D',
+      approve_option_E: 'Approve option E',
+      delete_option_A: 'Delete option A',
+      delete_option_B: 'Delete option B',
+      delete_option_C: 'Delete option C',
+      delete_option_D: 'Delete option D',
+      delete_option_E: 'Delete option E'
     };
 
     for (const id of ids) {
