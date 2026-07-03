@@ -328,27 +328,26 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     </ul>
     <div class="note note-info"><p><strong>Unity implementation note:</strong> Multiple simultaneous scenes use additive scene loading — a well-documented Unity pattern. Straightforward to implement.</p></div>
 
-    <h3>Overworld movement</h3>
-    <p>Classic top-down grid movement. 4 directions, one tile per step — identical to Generation II Pokémon games (SoulSilver/HeartGold). Unity Tilemap system with orthographic camera.</p>
-    <div class="card"><div class="card-title">Movement rules</div><div class="card-body"><ul style="margin:4px 0 0"><li>Face direction on input even if blocked by collision</li><li>Raycast or collision check ahead before stepping</li><li>Animation states: idle and walk for all 4 directions</li><li>Random encounter triggers on step count + RNG roll</li></ul></div></div>
+    <h3>Floor presentation (Simplified Static)</h3>
+    <p>There is no player avatar. Each floor is a static painted map (1536&times;1024&nbsp;px, 3:2; parallax background at 1.5&times; for ultrawide; boss floors are 1024&times;1024 arenas). Creatures wander the map autonomously; hovering a creature highlights it by rarity; clicking (tagging) it starts the battle. Grid movement is archived — see Roadmap.</p>
     <h3>Map design</h3>
-    <p>Maps are small and simple — depending on floor theme, the Collector triggers battles one of three ways. No elaborate handcrafted circuits or secret areas. The Collector engages with the floor's encounter method until the win condition is met.</p>
+    <p>Maps are small and simple — no elaborate handcrafted circuits or secret areas. Battles start the same way on every floor: click a wandering creature. Floor themes are <strong style="color:#ede0c4">purely visual</strong> — they change the art, not the mechanics.</p>
 
     <div class="grid-3">
       <div class="card">
         <div class="card-title">🌿 Outdoors</div>
-        <div class="card-body">Battles trigger only while standing on tall grass tiles. Autoplay finds a grass patch and walks around within it, avoiding walls.</div>
+        <div class="card-body">Visual theme only — open-air backdrop, grass and foliage dressing.</div>
       </div>
       <div class="card">
         <div class="card-title">🕳️ Cave</div>
-        <div class="card-body">Battles can trigger anywhere on the floor. Autoplay walks around the full map continuously, avoiding walls.</div>
+        <div class="card-body">Visual theme only — enclosed rock backdrop, darker palette.</div>
       </div>
       <div class="card">
         <div class="card-title">🎣 Fishing</div>
-        <div class="card-body">Battles trigger by fishing at a water tile, not by walking. Autoplay parks adjacent to water and repeatedly fishes in place.</div>
+        <div class="card-body">Visual theme only — waterside backdrop, aquatic dressing.</div>
       </div>
     </div>
-    <div class="note note-info"><p>Each floor's encounter type is fixed by its theme. The win condition (consecutive win streak scaled by floor depth), boss key drop, and chest system apply identically across all three types — only the trigger method and autoplay behavior differ.</p></div>
+    <div class="note note-info"><p>Floor theme is fixed per floor and purely cosmetic. The battle trigger (click a creature), win condition (consecutive win streak scaled by floor depth), boss key drop, and chest system are identical across all three themes.</p></div>
 
     <div class="grid-2">
       <div class="card">
@@ -373,7 +372,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     <h3>Floor structure</h3>
     <table>
       <tr><th>Element</th><th>Details</th></tr>
-      <tr><td>Battle trigger</td><td>Type-dependent: tall grass (Outdoors), anywhere (Cave), or fishing at water (Fishing). Wins count toward the floor's streak threshold.</td></tr>
+      <tr><td>Battle trigger</td><td>Click (tag) a wandering creature on the map — identical on all floor themes. Wins count toward the floor's streak threshold.</td></tr>
       <tr><td>Chests</td><td>Manual-only, one-time per chest. Tracked as x/x on map selector.</td></tr>
       <tr><td>Boss (every 10th floor)</td><td>Requires consuming a Key. One-time encounter, gates the next zone. First completion of the 9th floor in each zone guarantees a key (one-time only).</td></tr>
       <tr><td>Portal / door</td><td>Opens after the win streak threshold is met. Leads to the next floor.</td></tr>
@@ -391,7 +390,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
       <div class="card"><div class="card-title">On death</div><div class="card-body">( ) Stay — remain on the current floor and rebuild the streak. ( ) Go down — drop one floor and continue there.</div></div>
     </div>
     <h3>Healing</h3>
-    <p>Healing items can be used between fights on a floor (manually or on auto). Not usable mid-battle.</p>
+    <p>Healing items have been removed from the game entirely — there are no consumable heals, in or out of battle.</p>
   </div>
 
   <!-- BATTLE -->
@@ -988,8 +987,8 @@ Your Backend
     <h3>Leagues (4)</h3>
     <p>Eternal, Hardcore, Seasonal, HC Seasonal.</p>
 
-    <h3>Encounter types (3)</h3>
-    <p>Outdoors (tall grass only), Cave (anywhere), Fishing (interact-based).</p>
+    <h3>Floor themes (3)</h3>
+    <p>Outdoors, Cave, Fishing — purely visual themes, identical mechanics.</p>
 
     <h3>Zones — 100-floor codex (10 zones × 10 floors)</h3>
     <table>
@@ -1005,7 +1004,7 @@ Your Backend
       <tr><td>81–90</td><td>Gemstone Cave</td><td>Spectral, Vampiric</td></tr>
       <tr><td>91–100</td><td>Flaming Hellscape</td><td>Construct</td></tr>
     </table>
-    <p style="font-size:13px;color:#c2ae8b">Only floor 1 is guaranteed Outdoors, and only floors 1–3 (Grasslands) are guaranteed one of each encounter type — that rule applies to the very first zone only. Every other zone just needs all three encounter types represented somewhere across its 10 floors. Boss floor is always the 10th floor of each zone (not the 5th), and boss floors carry no wild encounters.</p>
+    <p style="font-size:13px;color:#c2ae8b">Only floor 1 is guaranteed Outdoors, and only floors 1–3 (Grasslands) are guaranteed one of each floor theme — that rule applies to the very first zone only. Every other zone just needs all three themes represented somewhere across its 10 floors. Boss floor is always the 10th floor of each zone (not the 5th), and boss floors carry no wild encounters.</p>
 
     <h3>Zone bosses</h3>
     <p>Every 10th floor (10, 20, … 100) is a zone boss and has <strong style="color:#ede0c4">no wild encounters</strong>. A boss is a full team like the player's — a <strong style="color:#ede0c4">character plus 2 active creatures and 4 in reserve</strong> — not a wild creature. The SSR flagship creatures (Dagon, Ouroboros, Kraken, …) are rare <em>wild</em> encounters on ordinary floors, not the bosses.</p>
