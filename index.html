@@ -164,6 +164,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     <button onclick="show('roadmap',this)">Roadmap</button>
     <button onclick="show('glossary',this)">Glossary</button>
     <button onclick="show('balance',this)">Balance</button>
+<a href="stat-tables.html" style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;padding:6px 12px;border:1px solid var(--blood);background:var(--surface-2);color:var(--blood-bright);text-decoration:none;display:inline-block;transition:all 0.14s ease;">№ Stat Tables</a>
 <a href="checklist.html" style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;padding:6px 12px;border:1px solid var(--blood);background:var(--surface-2);color:var(--blood-bright);text-decoration:none;display:inline-block;transition:all 0.14s ease;">☑ Checklist</a>
   </div>
 
@@ -430,26 +431,35 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     </table>
 
     <h3>Stat formulas</h3>
-    <p>Base stats are determined entirely by grade + level. Species identity comes from type, moves, and grade distribution (which axes are high vs low), not from stat values.</p>
+    <p>Base stats are determined entirely by axis grade + level, multiplied by creature quality grade. Species identity comes from type, moves, and grade distribution (which axes are high vs low), not from stat values. Full numerical tables for all equipment and modifier systems live in the <a href="stat-tables.html" style="color:var(--gold-bright)">Stat &amp; Equipment Tables</a> page.</p>
     <table>
       <tr><th>Stat</th><th>Formula</th></tr>
-      <tr><td>Offense / Defense / Utility</td><td><code>BaseStat = (grade × 6 + 2) × level / 100 + grade × 3</code></td></tr>
-      <tr><td>Speed</td><td><code>Speed = grade × 3</code> (flat, no level scaling)</td></tr>
-      <tr><td>HP</td><td><code>HP = (15 + level) × (5 + Defense_Grade) / 2</code></td></tr>
+      <tr><td>Offense / Defense / Utility</td><td><code>BaseStat = (axisGrade × 30 + 50) × (level + 25) / 125</code></td></tr>
+      <tr><td>Speed</td><td><code>Speed = axisGrade × 3</code> (flat, no level scaling, unaffected by quality)</td></tr>
+      <tr><td>HP</td><td><code>HP = (4 × level + 35) × (5 + Defense_Grade) / 11</code></td></tr>
+      <tr><td>Quality multiplier</td><td><code>QM = 0.80 + 0.04 × qualityGrade</code> — multiplies Off/Def/Utl/HP, never Speed. Worn ×0.84 → Void ×1.20.</td></tr>
     </table>
-    <h4>Base stat table at level 100 (no equipment)</h4>
+    <h4>Base stat table at level 100 (no equipment, before quality multiplier)</h4>
     <table>
       <tr><th>Grade</th><th>Off / Def / Utl</th><th>Speed (flat)</th><th>HP (at this Def grade)</th></tr>
-      <tr><td>1</td><td>80</td><td>3</td><td>345</td></tr>
-      <tr><td>2</td><td>110</td><td>6</td><td>403</td></tr>
-      <tr><td>3</td><td>140</td><td>9</td><td>460</td></tr>
-      <tr><td>4</td><td>170</td><td>12</td><td>518</td></tr>
-      <tr><td>5</td><td>200</td><td>15</td><td>575</td></tr>
-      <tr><td>6</td><td>230</td><td>18</td><td>633</td></tr>
-      <tr><td>7</td><td>260</td><td>21</td><td>690</td></tr>
-      <tr><td>8</td><td>290</td><td>24</td><td>748</td></tr>
-      <tr><td>9</td><td>320</td><td>27</td><td>805</td></tr>
-      <tr><td>10</td><td>350</td><td>30</td><td>863</td></tr>
+      <tr><td>1</td><td>80</td><td>3</td><td>237</td></tr>
+      <tr><td>2</td><td>110</td><td>6</td><td>277</td></tr>
+      <tr><td>3</td><td>140</td><td>9</td><td>316</td></tr>
+      <tr><td>4</td><td>170</td><td>12</td><td>356</td></tr>
+      <tr><td>5</td><td>200</td><td>15</td><td>395</td></tr>
+      <tr><td>6</td><td>230</td><td>18</td><td>435</td></tr>
+      <tr><td>7</td><td>260</td><td>21</td><td>475</td></tr>
+      <tr><td>8</td><td>290</td><td>24</td><td>514</td></tr>
+      <tr><td>9</td><td>320</td><td>27</td><td>554</td></tr>
+      <tr><td>10</td><td>350</td><td>30</td><td>593</td></tr>
+    </table>
+    <h4>Move power bands</h4>
+    <table>
+      <tr><th>Band</th><th>Power</th><th>Cooldown</th></tr>
+      <tr><td>Light</td><td>50</td><td>0</td></tr>
+      <tr><td>Standard</td><td>80</td><td>0–1</td></tr>
+      <tr><td>Heavy</td><td>120</td><td>2</td></tr>
+      <tr><td>Nuke</td><td>160</td><td>3–4</td></tr>
     </table>
 
     <h3>Damage formula</h3>
