@@ -90,6 +90,26 @@
 <body>
 
 <div class="topbar" style="display:flex;align-items:center;gap:10px;">
+  <h1 id="topbar-title" style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:center;">CREATURE CODEX</h1>
+  <div class="nav-arrows" style="flex-shrink:0;">
+    <a id="prev-arrow" href="#">‹ PREV</a>
+    <a id="next-arrow" href="#">NEXT ›</a>
+  </div>
+</div>
+
+<div id="status">LOADING...</div>
+<main id="main" style="display:none;">
+  <div class="meta-line" id="id-tag" style="text-align:right;"></div>
+  <div class="hero creature-hero">
+    <div class="creature-img-wrap" id="creature-img-wrap"></div>
+    <div class="creature-info">
+      <div style="display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;">
+        <h2 id="c-name"></h2>
+        <div id="admin-actions" class="admin-only" style="display:none;position:relative;">
+          <button id="admin-gear" style="font-size:18px;background:none;border:1px solid #5c462c;color:#cfa650;padding:3px 8px;cursor:pointer;line-height:1;" title="Art pipeline actions">⚙</button>
+          <div id="admin-menu" style="display:none;position:absolute;top:100%;right:0;margin-top:6px;min-width:260px;background:#1e1710;border:1px solid #5c462c;box-shadow:0 8px 24px rgba(0,0,0,0.6);z-index:40;text-align:left;"></div>
+        </div>
+      </div>
       <div class="type-tags" id="c-types"></div>
       <div class="meta-line">RARITY: <b id="c-rarity"></b></div>
       <div class="meta-line">STAGE: <b id="c-stage"></b></div>
