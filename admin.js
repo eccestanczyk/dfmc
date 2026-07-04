@@ -93,11 +93,17 @@ const Backlog = {
       approve_option_C: 'Approve option C',
       approve_option_D: 'Approve option D',
       approve_option_E: 'Approve option E',
+      approve_option_A_crop: 'Approve cropped A',
+      approve_option_B_crop: 'Approve cropped B',
+      approve_option_C_crop: 'Approve cropped C',
       delete_option_A: 'Delete option A',
       delete_option_B: 'Delete option B',
       delete_option_C: 'Delete option C',
       delete_option_D: 'Delete option D',
-      delete_option_E: 'Delete option E'
+      delete_option_E: 'Delete option E',
+      delete_option_A_crop: 'Delete cropped A',
+      delete_option_B_crop: 'Delete cropped B',
+      delete_option_C_crop: 'Delete cropped C'
     };
 
     for (const id of ids) {
