@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upgrading — Herumon Tower</title>
+<link rel="stylesheet" href="theme.css">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+table{border-collapse:collapse;width:100%;margin:8px 0}
+th{font-family:'Cinzel',serif;font-size:11px;color:var(--gold);border-bottom:1px solid var(--gold);padding:6px 8px;text-align:left}
+td{border-bottom:1px solid var(--rule);padding:5px 8px;color:var(--ink-dim);font-size:13px}
+.note{background:var(--surface-2);border-left:3px solid var(--gold);padding:8px 14px;margin:12px 0;font-size:13px;color:var(--ink-dim)}
+.danger{border-left-color:var(--blood-bright)}
+.pct{text-align:center}
+.hard{color:var(--blood-bright);font-weight:600}
+</style></head><body>
+<div class="topbar">
+  <div class="site-nav" style="position:relative;z-index:20;">
+  <button onclick="var m=this.nextElementSibling;m.style.display=m.style.display==='flex'?'none':'flex'" style="font-family:Cinzel,serif;font-size:18px;background:none;border:1px solid #5c462c;color:#cfa650;padding:5px 10px;cursor:pointer;line-height:1;">☰</button>
+  <div class="site-nav-menu" style="display:none;position:absolute;top:100%;left:0;margin-top:6px;min-width:220px;background:#1e1710;border:1px solid #5c462c;box-shadow:0 8px 24px rgba(0,0,0,0.6);flex-direction:column;z-index:30;">
+    <a href="hub.html" style="font-family:Cinzel,serif;font-size:13px;font-weight:600;letter-spacing:0.04em;color:#c2ae8b;text-decoration:none;padding:10px 16px;border-bottom:1px solid #3a2c1a;">Home</a>
+    <a href="reliquary.html" style="font-family:Cinzel,serif;font-size:13px;font-weight:600;letter-spacing:0.04em;color:#c2ae8b;text-decoration:none;padding:10px 16px;border-bottom:1px solid #3a2c1a;">Reliquary</a>
+    <a href="crafting.html" style="font-family:Cinzel,serif;font-size:13px;font-weight:600;letter-spacing:0.04em;color:#c2ae8b;text-decoration:none;padding:10px 16px;border-bottom:1px solid #3a2c1a;">Crafting</a>
+    <a href="upgrading.html" style="font-family:Cinzel,serif;font-size:13px;font-weight:600;letter-spacing:0.04em;color:#cfa650;text-decoration:none;padding:10px 16px;border-bottom:1px solid #3a2c1a;background:rgba(124,21,25,0.15);">Upgrading</a>
+    <a href="stat-tables.html" style="font-family:Cinzel,serif;font-size:13px;font-weight:600;letter-spacing:0.04em;color:#c2ae8b;text-decoration:none;padding:10px 16px;border-bottom:1px solid #3a2c1a;">Stat Tables</a>
+    <a href="index.html" style="font-family:Cinzel,serif;font-size:13px;font-weight:600;letter-spacing:0.04em;color:#c2ae8b;text-decoration:none;padding:10px 16px;">GDD</a>
+  </div></div>
+  <h1>UPGRADING</h1>
+</div>
+<div style="max-width:900px;margin:0 auto;padding:20px 16px 80px">
+  <p style="color:var(--ink-dim);font-style:italic">No pity. No failstacks. No protection. Every attempt is a pure roll. Failure costs currency only — items are never destroyed or downgraded.</p>
+
+  <h2 style="font-family:'Cinzel',serif;font-size:18px;color:var(--gold);margin:20px 0 8px">Refinement (+1 to +10)</h2>
+  <p style="font-size:14px;color:var(--ink-dim)">A <em>more</em> multiplier. On character gear (Local scope) it multiplies that item's total contribution. On Tags (Personal scope) it multiplies the creature's totals from that tag. Currency: <strong style="color:var(--gold)">Scrap</strong>. Cost per attempt: <code>3 × target level × item tier</code>.</p>
+  <table>
+    <tr><th>Level</th><th class="pct">+1</th><th class="pct">+2</th><th class="pct">+3</th><th class="pct">+4</th><th class="pct">+5</th><th class="pct">+6</th><th class="pct">+7</th><th class="pct">+8</th><th class="pct">+9</th><th class="pct">+10</th></tr>
+    <tr><td>Success</td><td class="pct">100%</td><td class="pct">90%</td><td class="pct">80%</td><td class="pct">65%</td><td class="pct">50%</td><td class="pct">35%</td><td class="pct">20%</td><td class="pct">10%</td><td class="pct hard">3%</td><td class="pct hard">1%</td></tr>
+    <tr><td>Multiplier (gear)</td><td class="pct">×1.03</td><td class="pct">×1.06</td><td class="pct">×1.09</td><td class="pct">×1.12</td><td class="pct">×1.15</td><td class="pct">×1.18</td><td class="pct">×1.21</td><td class="pct">×1.24</td><td class="pct">×1.27</td><td class="pct">×1.30</td></tr>
+    <tr><td>Multiplier (tag)</td><td class="pct">×1.015</td><td class="pct">×1.030</td><td class="pct">×1.045</td><td class="pct">×1.060</td><td class="pct">×1.075</td><td class="pct">×1.090</td><td class="pct">×1.105</td><td class="pct">×1.120</td><td class="pct">×1.135</td><td class="pct">×1.150</td></tr>
+    <tr><td>Cost @T10</td><td class="pct">30</td><td class="pct">60</td><td class="pct">90</td><td class="pct">120</td><td class="pct">150</td><td class="pct">180</td><td class="pct">210</td><td class="pct">240</td><td class="pct">270</td><td class="pct">300</td></tr>
+    <tr><td>Expected attempts</td><td class="pct">1</td><td class="pct">1.1</td><td class="pct">1.3</td><td class="pct">1.5</td><td class="pct">2</td><td class="pct">2.9</td><td class="pct">5</td><td class="pct">10</td><td class="pct">33</td><td class="pct">100</td></tr>
+  </table>
+  <div class="note">Expected 0→+10 at T10: ~158 attempts, ~43,700 Scrap ≈ 290h. The +10 gate: lucky (p10) 10 attempts, median 69, unlucky (p90) 229.</div>
+  <div class="note danger">Anchors: Ragnarok Online +9/+10 ≈ 10% with permanent item destruction. BDO PEN ≈ 3% with downgrade. Herumon Tower's failure costs currency only — no destruction, no downgrade — justifying the lower raw odds.</div>
+
+  <h2 style="font-family:'Cinzel',serif;font-size:18px;color:var(--gold);margin:24px 0 8px">Grading up (Worn → Void)</h2>
+  <p style="font-size:14px;color:var(--ink-dim)">One shared ladder for gear (paid in <strong style="color:var(--gold)">Ichor</strong>) and enhancements (paid in <strong style="color:var(--gold)">Dust / Essence / Ink</strong>). Same success rates, different currencies.</p>
+  <table>
+    <tr><th>Target grade</th><th class="pct">Success</th><th>Gear (Ichor/try)</th><th>Gear cumulative expected</th><th>Enh. (material/try)</th><th>Enh. cumulative expected</th></tr>
+    <tr><td>Common</td><td class="pct">100%</td><td>1</td><td>1</td><td>5</td><td>5</td></tr>
+    <tr><td style="color:#1eff00">Uncommon</td><td class="pct">90%</td><td>1</td><td>2</td><td>10</td><td>16</td></tr>
+    <tr><td style="color:#0070dd">Rare</td><td class="pct">70%</td><td>2</td><td>5</td><td>20</td><td>45</td></tr>
+    <tr><td style="color:#a335ee">Epic</td><td class="pct">50%</td><td>3</td><td>11</td><td>40</td><td>125</td></tr>
+    <tr><td style="color:#ff8000">Legendary</td><td class="pct">35%</td><td>5</td><td>25</td><td>80</td><td>353</td></tr>
+    <tr><td style="color:#e5393f">Abyssal</td><td class="pct">20%</td><td>8</td><td>65</td><td>160</td><td>1,153</td></tr>
+    <tr><td style="color:#00ffe0">Divine</td><td class="pct">8%</td><td>12</td><td>215</td><td>320</td><td>5,153</td></tr>
+    <tr><td style="color:#ff44cc">Primordial</td><td class="pct hard">3%</td><td>18</td><td>815</td><td>640</td><td>26,487</td></tr>
+    <tr><td style="color:#a855f7">Void</td><td class="pct hard">0.5%</td><td>40</td><td>8,815</td><td>1,280</td><td>282,487</td></tr>
+  </table>
+  <div class="note">One item Worn→Void: expected ~8,800 Ichor ≈ 880h. Void gate alone: lucky (p10) ~841 Ichor, expected 8,000, unlucky (p90) ~18,400. No pity anywhere.</div>
+  <div class="note">One Void enhancement: expected ~282,000 material ≈ 14,000h — a mythical, market-aggregated pursuit. The realistic endgame target is Divine (~5,150 material ≈ 260h each).</div>
+
+  <h2 style="font-family:'Cinzel',serif;font-size:18px;color:var(--gold);margin:24px 0 8px">Creature quality grade</h2>
+  <p style="font-size:14px;color:var(--ink-dim)">Inherited from the egg. Multiplies Offense, Defense, Utility, and HP. <strong>Never Speed.</strong></p>
+  <table>
+    <tr><th>Worn</th><th>Common</th><th>Uncommon</th><th>Rare</th><th>Epic</th><th>Legendary</th><th>Abyssal</th><th>Divine</th><th>Primordial</th><th>Void</th></tr>
+    <tr><td>×0.84</td><td>×0.88</td><td>×0.92</td><td>×0.96</td><td>×1.00</td><td>×1.04</td><td>×1.08</td><td>×1.12</td><td>×1.16</td><td>×1.20</td></tr>
+  </table>
+  <p style="font-size:13px;color:var(--ink-faint)">Wild eggs cap at Legendary. Abyssal–Void come from breeding only. Void vs Worn = 43% more stats at identical species, level, and gear.</p>
+</div></body></html>
