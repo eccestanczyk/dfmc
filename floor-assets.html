@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DFMC — Floor Assets</title>
+<link rel="stylesheet" href="theme.css">
+<style>
+  .page-header { padding: 20px; text-align: center; }
+  .page-header h1 { color: var(--gold); font-family: var(--ff-display); }
+  .back-link { display: inline-block; margin: 10px 20px; padding: 6px 14px; background: var(--bg-card); border: 1px solid var(--rule); border-radius: 4px; color: var(--gold); text-decoration: none; font-size: 13px; }
+  .tab-bar { display: flex; justify-content: center; gap: 6px; margin-top: 16px; flex-wrap: wrap; }
+  .tab-btn { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #888; padding: 8px 18px; font-size: 13px; border-radius: 4px; cursor: pointer; position: relative; }
+  .tab-btn.active { background: rgba(255,200,50,0.15); border-color: var(--gold); color: var(--gold); }
+  .tab-btn .badge { position: absolute; top: -6px; right: -6px; background: var(--gold); color: #000; font-size: 10px; font-weight: bold; padding: 1px 5px; border-radius: 8px; }
+  .zone-filters { display: flex; justify-content: center; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+  .zone-btn { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); color: #777; padding: 4px 12px; font-size: 11px; border-radius: 3px; cursor: pointer; }
+  .zone-btn.active { background: rgba(255,200,50,0.12); border-color: var(--gold); color: var(--gold); }
+  .count { color: var(--fg); opacity: 0.6; font-size: 14px; margin-top: 6px; }
+  .asset-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; padding: 20px; }
+  .asset-card { background: var(--bg-card); border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; }
+  .asset-card img { width: 100%; aspect-ratio: auto; object-fit: contain; background: #1a1a1a; max-height: 300px; }
+  .asset-card .info { padding: 8px 10px; font-size: 12px; }
+  .asset-card .name { font-weight: bold; color: var(--gold); }
+  .asset-card .meta { opacity: 0.6; margin-top: 2px; }
+  .status-generated { color: #f0ad4e; }
+  .status-approved { color: #5cb85c; }
+  .status-prompt_ready { color: #888; }
+  .empty-msg { text-align: center; padding: 40px; color: #555; font-size: 14px; }
+  .prop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; padding: 20px; }
+  .prop-card { background: var(--bg-card); border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; }
+  .prop-card img { width: 100%; aspect-ratio: 1; object-fit: contain; background: #1a1a1a; }
+  .prop-card .info { padding: 8px 10px; font-size: 12px; }
+  .prop-card .name { font-weight: bold; color: var(--gold); }
+</style>
+</head>
+<body>
+<a class="back-link" href="floor-codex.html">← INDEX</a>
+<div class="page-header">
+  <h1>Floor Asset Pipeline</h1>
+  <div class="tab-bar" id="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('backgrounds',this)">Backgrounds <span class="badge" id="badge-bg">0</span></button>
+    <button class="tab-btn" onclick="switchTab('props',this)">Props <span class="badge" id="badge-props">0</span></button>
+    <button class="tab-btn" onclick="switchTab('previews',this)">Map Previews <span class="badge" id="badge-prev">0</span></button>
+  </div>
+  <div class="zone-filters" id="zone-filters">
+    <button class="zone-btn active" onclick="filterZone('all',this)">All</button>
+  </div>
+  <div class="count" id="count"></div>
+</div>
+<div id="grid-container"></div>
+<script>
+const IMG_BASE = "https://raw.githubusercontent.com/eccestanczyk/dfmc/main/";
+const CSV_FA = IMG_BASE + "codex/floor_assets.csv?" + Date.now();
+const CSV_PA = IMG_BASE + "codex/prop_assets.csv?" + Date.now();
+
+let floorRows = [], propRows = [], currentTab = 'backgrounds', currentZone = 'all';
+let zones = new Set();
+
+function parseCSV(text) {
+  const lines = text.trim().split('\n');
+  const headers = [];
+  let h = lines[0], inQ = false, cur = '';
+  for (let i = 0; i < h.length; i++) {
+    if (h[i] === '"') inQ = !inQ;
+    else if (h[i] === ',' && !inQ) { headers.push(cur.trim()); cur = ''; }
+    else cur += h[i];
+  }
+  headers.push(cur.trim());
+  return lines.slice(1).map(line => {
+    const vals = []; inQ = false; cur = '';
+    for (let i = 0; i < line.length; i++) {
+      if (line[i] === '"') inQ = !inQ;
+      else if (line[i] === ',' && !inQ) { vals.push(cur.trim()); cur = ''; }
+      else cur += line[i];
+    }
+    vals.push(cur.trim());
+    const obj = {}; headers.forEach((h, i) => obj[h] = (vals[i] || '').trim()); return obj;
+  });
+}
+
+Promise.all([fetch(CSV_FA).then(r => r.text()), fetch(CSV_PA).then(r => r.text())]).then(([fa, pa]) => {
+  floorRows = parseCSV(fa);
+  propRows = parseCSV(pa);
+  floorRows.forEach(r => zones.add(r.Zone));
+  propRows.forEach(r => zones.add(r.Zone));
+
+  // Build zone filters
+  const zf = document.getElementById('zone-filters');
+  [...zones].sort().forEach(z => {
+    const btn = document.createElement('button');
+    btn.className = 'zone-btn'; btn.textContent = z;
+    btn.onclick = () => filterZone(z, btn);
+    zf.appendChild(btn);
+  });
+
+  // Badges
+  document.getElementById('badge-bg').textContent = floorRows.filter(r => r.BG_Status === 'generated').length;
+  document.getElementById('badge-props').textContent = propRows.filter(r => r.Art_Status === 'generated').length;
+  document.getElementById('badge-prev').textContent = floorRows.filter(r => r.Map_Preview_Status === 'generated').length;
+  render();
+});
+
+function render() {
+  const container = document.getElementById('grid-container');
+  container.innerHTML = '';
+
+  if (currentTab === 'backgrounds') {
+    let items = floorRows.filter(r => r.BG_Status && r.BG_Status !== 'prompt_ready');
+    if (currentZone !== 'all') items = items.filter(r => r.Zone === currentZone);
+    document.getElementById('count').textContent = items.length + ' backgrounds';
+    if (!items.length) { container.innerHTML = '<div class="empty-msg">No generated backgrounds yet</div>'; return; }
+    const grid = document.createElement('div'); grid.className = 'asset-grid';
+    items.forEach(r => {
+      const card = document.createElement('div'); card.className = 'asset-card';
+      const imgSrc = r.BG_Path ? IMG_BASE + r.BG_Path + '?t=' + Date.now() : '';
+      card.innerHTML = (imgSrc ? '<img src="' + imgSrc + '" loading="lazy">' : '') +
+        '<div class="info"><div class="name">F' + r.Floor + ' — ' + r.Visual_Theme + '</div>' +
+        '<div class="meta">' + r.Zone + ' · ' + r.Encounter_Type + (r.Is_Boss === 'Yes' ? ' · BOSS' : '') +
+        ' · <span class="status-' + r.BG_Status + '">' + r.BG_Status + '</span></div></div>';
+      grid.appendChild(card);
+    });
+    container.appendChild(grid);
+
+  } else if (currentTab === 'props') {
+    let items = propRows.filter(r => r.Art_Status && r.Art_Status !== 'prompt_ready');
+    if (currentZone !== 'all') items = items.filter(r => r.Zone === currentZone);
+    document.getElementById('count').textContent = items.length + ' props';
+    if (!items.length) { container.innerHTML = '<div class="empty-msg">No generated props yet</div>'; return; }
+    const grid = document.createElement('div'); grid.className = 'prop-grid';
+    items.forEach(r => {
+      const card = document.createElement('div'); card.className = 'prop-card';
+      const imgSrc = r.Image_Path ? IMG_BASE + r.Image_Path + '?t=' + Date.now() : '';
+      card.innerHTML = (imgSrc ? '<img src="' + imgSrc + '" loading="lazy">' : '') +
+        '<div class="info"><div class="name">' + r.Name + '</div>' +
+        '<div class="meta">' + r.Prop_ID + ' · ' + r.Zone +
+        ' · <span class="status-' + r.Art_Status + '">' + r.Art_Status + '</span></div></div>';
+      grid.appendChild(card);
+    });
+    container.appendChild(grid);
+
+  } else if (currentTab === 'previews') {
+    let items = floorRows.filter(r => r.Map_Preview_Status && r.Map_Preview_Status !== 'prompt_ready' && r.Map_Preview_Status !== '');
+    if (currentZone !== 'all') items = items.filter(r => r.Zone === currentZone);
+    document.getElementById('count').textContent = items.length + ' previews';
+    if (!items.length) { container.innerHTML = '<div class="empty-msg">No map previews generated yet. Previews are composites of background + props for approval.</div>'; return; }
+    const grid = document.createElement('div'); grid.className = 'asset-grid';
+    items.forEach(r => {
+      const card = document.createElement('div'); card.className = 'asset-card';
+      const imgSrc = r.Map_Preview_Path ? IMG_BASE + r.Map_Preview_Path + '?t=' + Date.now() : '';
+      card.innerHTML = (imgSrc ? '<img src="' + imgSrc + '" loading="lazy">' : '') +
+        '<div class="info"><div class="name">F' + r.Floor + ' Preview — ' + r.Visual_Theme + '</div>' +
+        '<div class="meta">' + r.Zone + ' · <span class="status-' + r.Map_Preview_Status + '">' + r.Map_Preview_Status + '</span></div></div>';
+      grid.appendChild(card);
+    });
+    container.appendChild(grid);
+  }
+}
+
+function switchTab(tab, btn) {
+  currentTab = tab;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+function filterZone(zone, btn) {
+  currentZone = zone;
+  document.querySelectorAll('.zone-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+</script>
+</body>
+</html>
