@@ -7,42 +7,26 @@
 <link rel="stylesheet" href="theme.css">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>
 .rq-wrap{ max-width:920px; margin:0 auto; padding:24px 20px 100px; }
-.rq-category{
-  border:1px solid var(--rule); background:var(--surface); margin-bottom:12px;
-  box-shadow:inset 0 1px 0 rgba(207,166,80,0.07), inset 0 0 60px rgba(0,0,0,0.3), 0 5px 14px rgba(0,0,0,0.4);
-}
-.rq-header{
-  display:flex; align-items:center; gap:14px; padding:16px 20px; cursor:pointer; user-select:none;
-  border-bottom:1px solid var(--rule);
-  background:linear-gradient(90deg, rgba(124,21,25,0.14), transparent 70%);
-}
+.rq-category{ border:1px solid var(--rule); background:var(--surface); margin-bottom:12px; box-shadow:inset 0 1px 0 rgba(207,166,80,0.07), inset 0 0 60px rgba(0,0,0,0.3), 0 5px 14px rgba(0,0,0,0.4); }
+.rq-header{ display:flex; align-items:center; gap:14px; padding:16px 20px; cursor:pointer; user-select:none; border-bottom:1px solid var(--rule); background:linear-gradient(90deg, rgba(124,21,25,0.14), transparent 70%); }
 .rq-header:hover{ background:linear-gradient(90deg, rgba(124,21,25,0.24), rgba(124,21,25,0.04) 70%); }
 .rq-chevron{ font-size:14px; color:var(--blood-bright); transition:transform 0.15s ease; }
 .rq-category.open .rq-chevron{ transform:rotate(90deg); }
 .rq-icon{ font-size:22px; opacity:0.85; }
-.rq-title{
-  font-family:'Cinzel', serif; font-weight:700; font-size:18px; letter-spacing:0.04em;
-  color:var(--gold-bright); text-transform:uppercase; text-shadow:0 1px 2px rgba(0,0,0,0.5);
-}
+.rq-title{ font-family:'Cinzel',serif; font-weight:700; font-size:18px; letter-spacing:0.04em; color:var(--gold-bright); text-transform:uppercase; }
 .rq-count{ font-size:13px; color:var(--ink-dim); font-style:italic; margin-left:auto; }
 .rq-body{ display:none; padding:18px 20px; }
 .rq-category.open .rq-body{ display:block; }
-.rq-sub{
-  font-family:'Cinzel', serif; font-size:13px; font-weight:600; letter-spacing:0.04em;
-  color:var(--gold); margin:14px 0 8px; text-transform:uppercase;
-}
+.rq-sub{ font-family:'Cinzel',serif; font-size:13px; font-weight:600; letter-spacing:0.04em; color:var(--gold); margin:14px 0 8px; text-transform:uppercase; }
 .rq-sub:first-child{ margin-top:0; }
 .rq-item-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(160px, 1fr)); gap:8px; }
-.rq-item{
-  background:var(--surface-2); border:1px solid var(--rule-faint); padding:10px 12px;
-  font-size:14px; color:var(--ink-dim); font-style:italic;
-}
-.rq-item-name{ font-style:normal; color:var(--ink); font-weight:600; margin-bottom:3px; }
-.rq-item-desc{ font-size:12px; }
+.rq-item{ background:var(--surface-2); border:1px solid var(--rule-faint); padding:10px 12px; text-decoration:none; color:inherit; display:block; transition:border-color 0.14s; }
+.rq-item:hover{ border-color:var(--blood-bright); }
+.rq-item-name{ color:var(--ink); font-weight:600; margin-bottom:3px; }
+.rq-item-desc{ font-size:12px; color:var(--ink-dim); font-style:italic; }
 .rq-note{ font-size:14px; color:var(--ink-faint); font-style:italic; }
 table.rq-table{ width:100%; border-collapse:collapse; font-size:14px; margin-top:8px; }
 table.rq-table th{ font-family:'Cinzel',serif; font-size:11px; color:var(--gold); text-transform:uppercase; letter-spacing:0.06em; text-align:left; padding:7px 10px; border-bottom:1px solid var(--rule); }
@@ -52,126 +36,128 @@ table.rq-table td:first-child{ color:var(--ink); font-weight:600; }
 </head>
 <body>
 <div class="topbar">
+  <h1>RELIQUARY</h1>
+</div>
+
+<div class="rq-wrap">
+
+  <div class="rq-category" onclick="this.classList.toggle('open')">
+    <div class="rq-header">
+      <span class="rq-chevron">▶</span><span class="rq-icon">⚔</span>
+      <span class="rq-title">Weapons</span><span class="rq-count">6 base types</span>
+    </div>
+    <div class="rq-body" onclick="event.stopPropagation()">
+      <div class="rq-sub">Main Hand</div>
+      <div class="rq-item-grid">
+        <a class="rq-item" href="item.html?type=sword"><div class="rq-item-name">Sword</div><div class="rq-item-desc">Offense implicit</div></a>
+        <a class="rq-item" href="item.html?type=axe"><div class="rq-item-name">Axe</div><div class="rq-item-desc">Offense implicit (higher)</div></a>
+        <a class="rq-item" href="item.html?type=staff"><div class="rq-item-name">Staff</div><div class="rq-item-desc">Utility implicit</div></a>
+      </div>
       <div class="rq-sub">Off Hand</div>
       <div class="rq-item-grid">
-        <a class="rq-item" href="item.html?type=shield" style="text-decoration:none;color:inherit;cursor:pointer;transition:border-color 0.14s;" onmouseenter="this.style.borderColor='#dd5646'" onmouseleave="this.style.borderColor='#3a2c1a'"><div class="rq-item-name">Shield</div><div class="rq-item-desc">Defense implicit
-        <a class="rq-item" href="item.html?type=tome" style="text-decoration:none;color:inherit;cursor:pointer;transition:border-color 0.14s;" onmouseenter="this.style.borderColor='#dd5646'" onmouseleave="this.style.borderColor='#3a2c1a'"><div class="rq-item-name">Tome</div><div class="rq-item-desc">Utility implicit
-        <a class="rq-item" href="item.html?type=dagger" style="text-decoration:none;color:inherit;cursor:pointer;transition:border-color 0.14s;" onmouseenter="this.style.borderColor='#dd5646'" onmouseleave="this.style.borderColor='#3a2c1a'"><div class="rq-item-name">Dagger</div><div class="rq-item-desc">Speed implicit
+        <a class="rq-item" href="item.html?type=shield"><div class="rq-item-name">Shield</div><div class="rq-item-desc">Defense implicit</div></a>
+        <a class="rq-item" href="item.html?type=tome"><div class="rq-item-name">Tome</div><div class="rq-item-desc">Utility implicit</div></a>
+        <a class="rq-item" href="item.html?type=dagger"><div class="rq-item-name">Dagger</div><div class="rq-item-desc">Speed implicit</div></a>
       </div>
     </div>
   </div>
 
-  <!-- ARMOUR -->
   <div class="rq-category" onclick="this.classList.toggle('open')">
     <div class="rq-header">
-      <span class="rq-chevron">▶</span>
-      <span class="rq-icon">🛡</span>
-      <span class="rq-title">Armour</span>
-      <span class="rq-count">4 slots · 12 base types</span>
+      <span class="rq-chevron">▶</span><span class="rq-icon">🛡</span>
+      <span class="rq-title">Armour</span><span class="rq-count">4 slots · 12 base types</span>
     </div>
     <div class="rq-body" onclick="event.stopPropagation()">
       <div class="rq-sub">Head</div>
       <div class="rq-item-grid">
-        <a class="rq-item" href="item.html?type=helm" style="text-decoration:none;color:inherit;cursor:pointer;transition:border-color 0.14s;" onmouseenter="this.style.borderColor='#dd5646'" onmouseleave="this.style.borderColor='#3a2c1a'"><div class="rq-item-name">Helm</div><div class="rq-item-desc">Defense
-        <a class="rq-item" href="item.html?type=hood" style="text-decoration:none;color:inherit;cursor:pointer;transition:border-color 0.14s;" onmouseenter="this.style.borderColor='#dd5646'" onmouseleave="this.style.borderColor='#3a2c1a'"><div class="rq-item-name">Hood</div><div class="rq-item-desc">Utility
-        <a class="rq-item" href="item.html?type=circlet" style="text-decoration:none;color:inherit;cursor:pointer;transition:border-color 0.14s;" onmouseenter="this.style.borderColor='#dd5646'" onmouseleave="this.style.borderColor='#3a2c1a'"><div class="rq-item-name">Circlet</div><div class="rq-item-desc">Spee
+        <a class="rq-item" href="item.html?type=helm"><div class="rq-item-name">Helm</div><div class="rq-item-desc">Defense</div></a>
+        <a class="rq-item" href="item.html?type=hood"><div class="rq-item-name">Hood</div><div class="rq-item-desc">Utility</div></a>
+        <a class="rq-item" href="item.html?type=circlet"><div class="rq-item-name">Circlet</div><div class="rq-item-desc">Speed</div></a>
       </div>
       <div class="rq-sub">Chest</div>
       <div class="rq-item-grid">
-        <a class="rq-item" href="item.html?type=plate" style="text-decoration:none;color:inherit;cursor:pointer;transition:border-color 0.14s;" onmouseenter="this.style.borderColor='#dd5646'" onmouseleave="this.style.borderColor='#3a2c1a'"><div class="rq-item-name">Plate</div><div class="rq-item-desc">Defense
-        <a class="rq-item" href="item.html?type=robe" style="text-decoration:none;color:inherit;cursor:pointer;transition:border-color 0.14s;" onmouseenter="this.style.borderColor='#dd5646'" onmouseleave="this.style.borderColor='#3a2c1a'"><div class="rq-item-name">Robe</div><div class="rq-item-desc">Utility
-        <a class="rq-item" href="item.html?type=leather" style="text-decoration:none;color:inherit;cursor:pointer;transition:border-color 0.14s;" onmouseenter="this.style.borderColor='#dd5646'" onmouseleave="this.style.borderColor='#3a2c1a'"><div class="rq-item-name">Leather</div><div class="rq-item-desc">Spee
+        <a class="rq-item" href="item.html?type=plate"><div class="rq-item-name">Plate</div><div class="rq-item-desc">Defense</div></a>
+        <a class="rq-item" href="item.html?type=robe"><div class="rq-item-name">Robe</div><div class="rq-item-desc">Utility</div></a>
+        <a class="rq-item" href="item.html?type=leather"><div class="rq-item-name">Leather</div><div class="rq-item-desc">Speed</div></a>
       </div>
       <div class="rq-sub">Gloves</div>
       <div class="rq-item-grid">
-        <a class="rq-item" href="item.html?type=gauntlets" style="text-decoration:none;color:inherit;cursor:pointer;transition:border-color 0.14s;" onmouseenter="this.style.borderColor='#dd5646'" onmouseleave="this.style.borderColor='#3a2c1a'"><div class="rq-item-name">Gauntlets</div><div class="rq-item-desc">Offense
-        <a class="rq-item" href="item.html?type=wraps" style="text-decoration:none;color:inherit;cursor:pointer;transition:border-color 0.14s;" onmouseenter="this.style.borderColor='#dd5646'" onmouseleave="this.style.borderColor='#3a2c1a'"><div class="rq-item-name">Wraps</div><div class="rq-item-desc">Spee
-        <a class="rq-item" href="item.html?type=gloves" style="text-decoration:none;color:inherit;cursor:pointer;transition:border-color 0.14s;" onmouseenter="this.style.borderColor='#dd5646'" onmouseleave="this.style.borderColor='#3a2c1a'"><div class="rq-item-name">Gloves</div><div class="rq-item-desc">Utility
+        <a class="rq-item" href="item.html?type=gauntlets"><div class="rq-item-name">Gauntlets</div><div class="rq-item-desc">Offense</div></a>
+        <a class="rq-item" href="item.html?type=wraps"><div class="rq-item-name">Wraps</div><div class="rq-item-desc">Speed</div></a>
+        <a class="rq-item" href="item.html?type=gloves"><div class="rq-item-name">Gloves</div><div class="rq-item-desc">Utility</div></a>
       </div>
       <div class="rq-sub">Feet</div>
       <div class="rq-item-grid">
-        <a class="rq-item" href="item.html?type=greaves" style="text-decoration:none;color:inherit;cursor:pointer;transition:border-color 0.14s;" onmouseenter="this.style.borderColor='#dd5646'" onmouseleave="this.style.borderColor='#3a2c1a'"><div class="rq-item-name">Greaves</div><div class="rq-item-desc">Defense
-        <a class="rq-item" href="item.html?type=boots" style="text-decoration:none;color:inherit;cursor:pointer;transition:border-color 0.14s;" onmouseenter="this.style.borderColor='#dd5646'" onmouseleave="this.style.borderColor='#3a2c1a'"><div class="rq-item-name">Boots</div><div class="rq-item-desc">Spee
-        <a class="rq-item" href="item.html?type=sandals" style="text-decoration:none;color:inherit;cursor:pointer;transition:border-color 0.14s;" onmouseenter="this.style.borderColor='#dd5646'" onmouseleave="this.style.borderColor='#3a2c1a'"><div class="rq-item-name">Sandals</div><div class="rq-item-desc">Utility
+        <a class="rq-item" href="item.html?type=greaves"><div class="rq-item-name">Greaves</div><div class="rq-item-desc">Defense</div></a>
+        <a class="rq-item" href="item.html?type=boots"><div class="rq-item-name">Boots</div><div class="rq-item-desc">Speed</div></a>
+        <a class="rq-item" href="item.html?type=sandals"><div class="rq-item-name">Sandals</div><div class="rq-item-desc">Utility</div></a>
       </div>
     </div>
   </div>
 
-  <!-- ACCESSORIES -->
   <div class="rq-category" onclick="this.classList.toggle('open')">
     <div class="rq-header">
-      <span class="rq-chevron">▶</span>
-      <span class="rq-icon">💍</span>
-      <span class="rq-title">Accessories</span>
-      <span class="rq-count">2 slots · 8 base types</span>
+      <span class="rq-chevron">▶</span><span class="rq-icon">💍</span>
+      <span class="rq-title">Accessories</span><span class="rq-count">2 slots · 8 base types</span>
     </div>
     <div class="rq-body" onclick="event.stopPropagation()">
       <div class="rq-item-grid">
-        <a class="rq-item" href="item.html?type=signet" style="text-decoration:none;color:inherit;cursor:pointer;transition:border-color 0.14s;" onmouseenter="this.style.borderColor='#dd5646'" onmouseleave="this.style.borderColor='#3a2c1a'"><div class="rq-item-name">Ring
-        <a class="rq-item" href="item.html?type=ward" style="text-decoration:none;color:inherit;cursor:pointer;transition:border-color 0.14s;" onmouseenter="this.style.borderColor='#dd5646'" onmouseleave="this.style.borderColor='#3a2c1a'"><div class="rq-item-name">Amulet
-        <a class="rq-item" href="item.html?type=talisman" style="text-decoration:none;color:inherit;cursor:pointer;transition:border-color 0.14s;" onmouseenter="this.style.borderColor='#dd5646'" onmouseleave="this.style.borderColor='#3a2c1a'"><div class="rq-item-name">Talisman
-        <a class="rq-item" href="item.html?type=fetish" style="text-decoration:none;color:inherit;cursor:pointer;transition:border-color 0.14s;" onmouseenter="this.style.borderColor='#dd5646'" onmouseleave="this.style.borderColor='#3a2c1a'"><div class="rq-item-name">Brooch
-        <a class="rq-item" href="item.html?type=totem" style="text-decoration:none;color:inherit;cursor:pointer;transition:border-color 0.14s;" onmouseenter="this.style.borderColor='#dd5646'" onmouseleave="this.style.borderColor='#3a2c1a'"><div class="rq-item-name">Charm
-        <a class="rq-item" href="item.html?type=totem" style="text-decoration:none;color:inherit;cursor:pointer;transition:border-color 0.14s;" onmouseenter="this.style.borderColor='#dd5646'" onmouseleave="this.style.borderColor='#3a2c1a'"><div class="rq-item-name">Totem
-        <a class="rq-item" href="item.html?type=relic" style="text-decoration:none;color:inherit;cursor:pointer;transition:border-color 0.14s;" onmouseenter="this.style.borderColor='#dd5646'" onmouseleave="this.style.borderColor='#3a2c1a'"><div class="rq-item-name">Relic
-        <a class="rq-item" href="item.html?type=idol" style="text-decoration:none;color:inherit;cursor:pointer;transition:border-color 0.14s;" onmouseenter="this.style.borderColor='#dd5646'" onmouseleave="this.style.borderColor='#3a2c1a'"><div class="rq-item-name">Idol
+        <a class="rq-item" href="item.html?type=signet"><div class="rq-item-name">Signet</div><div class="rq-item-desc">Offense</div></a>
+        <a class="rq-item" href="item.html?type=ward"><div class="rq-item-name">Ward</div><div class="rq-item-desc">Defense</div></a>
+        <a class="rq-item" href="item.html?type=totem"><div class="rq-item-name">Totem</div><div class="rq-item-desc">Utility</div></a>
+        <a class="rq-item" href="item.html?type=talisman"><div class="rq-item-name">Talisman</div><div class="rq-item-desc">Crit Damage</div></a>
+        <a class="rq-item" href="item.html?type=relic"><div class="rq-item-name">Relic</div><div class="rq-item-desc">HP</div></a>
+        <a class="rq-item" href="item.html?type=fetish"><div class="rq-item-name">Fetish</div><div class="rq-item-desc">Crit Chance</div></a>
+        <a class="rq-item" href="item.html?type=idol"><div class="rq-item-name">Idol</div><div class="rq-item-desc">Creature Offense</div></a>
+        <a class="rq-item" href="item.html?type=effigy"><div class="rq-item-name">Effigy</div><div class="rq-item-desc">Creature Defense</div></a>
       </div>
     </div>
   </div>
 
-  <!-- CREATURE TAGS -->
   <div class="rq-category" onclick="this.classList.toggle('open')">
     <div class="rq-header">
-      <span class="rq-chevron">▶</span>
-      <span class="rq-icon">🏷</span>
-      <span class="rq-title">Creature Tags</span>
-      <span class="rq-count">2 slots · 5 base types · Personal scope</span>
+      <span class="rq-chevron">▶</span><span class="rq-icon">🏷</span>
+      <span class="rq-title">Creature Tags</span><span class="rq-count">2 slots · 5 base types</span>
     </div>
     <div class="rq-body" onclick="event.stopPropagation()">
-      <p class="rq-note">Tags are creature equipment. All modifiers apply at Personal scope (affect creature's total stats). No soul attachment.</p>
+      <p class="rq-note">Personal scope. No soul attachment.</p>
       <div class="rq-item-grid">
-        <a class="rq-item" href="item.html?type=collar" style="text-decoration:none;color:inherit;cursor:pointer;transition:border-color 0.14s;" onmouseenter="this.style.borderColor='#dd5646'" onmouseleave="this.style.borderColor='#3a2c1a'"><div class="rq-item-name">Collar</div><div class="rq-item-desc">Offense
-        <a class="rq-item" href="item.html?type=barding" style="text-decoration:none;color:inherit;cursor:pointer;transition:border-color 0.14s;" onmouseenter="this.style.borderColor='#dd5646'" onmouseleave="this.style.borderColor='#3a2c1a'"><div class="rq-item-name">Barding</div><div class="rq-item-desc">Defense
-        <a class="rq-item" href="item.html?type=sigil" style="text-decoration:none;color:inherit;cursor:pointer;transition:border-color 0.14s;" onmouseenter="this.style.borderColor='#dd5646'" onmouseleave="this.style.borderColor='#3a2c1a'"><div class="rq-item-name">Sigil</div><div class="rq-item-desc">Utility
-        <a class="rq-item" href="item.html?type=anklet" style="text-decoration:none;color:inherit;cursor:pointer;transition:border-color 0.14s;" onmouseenter="this.style.borderColor='#dd5646'" onmouseleave="this.style.borderColor='#3a2c1a'"><div class="rq-item-name">Anklet</div><div class="rq-item-desc">Spee
-        <a class="rq-item" href="item.html?type=brand" style="text-decoration:none;color:inherit;cursor:pointer;transition:border-color 0.14s;" onmouseenter="this.style.borderColor='#dd5646'" onmouseleave="this.style.borderColor='#3a2c1a'"><div class="rq-item-name">Brand</div><div class="rq-item-desc">Hybr
+        <a class="rq-item" href="item.html?type=collar"><div class="rq-item-name">Collar</div><div class="rq-item-desc">Offense</div></a>
+        <a class="rq-item" href="item.html?type=barding"><div class="rq-item-name">Barding</div><div class="rq-item-desc">Defense</div></a>
+        <a class="rq-item" href="item.html?type=sigil"><div class="rq-item-name">Sigil</div><div class="rq-item-desc">Utility</div></a>
+        <a class="rq-item" href="item.html?type=anklet"><div class="rq-item-name">Anklet</div><div class="rq-item-desc">Speed</div></a>
+        <a class="rq-item" href="item.html?type=brand"><div class="rq-item-name">Brand</div><div class="rq-item-desc">Hybrid</div></a>
       </div>
     </div>
   </div>
 
-  <!-- ENHANCEMENTS -->
   <div class="rq-category" onclick="this.classList.toggle('open')">
     <div class="rq-header">
-      <span class="rq-chevron">▶</span>
-      <span class="rq-icon">💎</span>
-      <span class="rq-title">Enhancements</span>
-      <span class="rq-count">Gems · Runes · Scrolls</span>
+      <span class="rq-chevron">▶</span><span class="rq-icon">💎</span>
+      <span class="rq-title">Enhancements</span><span class="rq-count">Gems · Runes · Scrolls</span>
     </div>
     <div class="rq-body" onclick="event.stopPropagation()">
-      <div class="rq-sub">💎 Gems — Flat Stats</div>
-      <p class="rq-note">Fixed flat modifiers (+X Offense, +X Defense, +X HP). Up to 3 slots at Void grade. Dismantles into Dust.</p>
-      <div class="rq-sub">🔷 Runes — Percentage Scaling</div>
-      <p class="rq-note">Percentage modifiers (+X% Offense, +X% Defense). Multiply base + gems. Up to 3 slots at Void. Dismantles into Essence.</p>
-      <div class="rq-sub">📜 Scrolls — Enchantments</div>
-      <p class="rq-note">On socket, rolls a random modifier from pool. Rerollable for Ink. Up to 3 slots at Void. Dismantles into Ink.</p>
-      <div class="rq-sub">Tier Ladder (10 tiers)</div>
+      <div class="rq-sub">Gems — Flat Stats</div>
+      <p class="rq-note">Fixed flat modifiers. Up to 3 slots at Void grade. Dismantles into Dust.</p>
+      <div class="rq-sub">Runes — Percentage Scaling</div>
+      <p class="rq-note">Percentage modifiers. Multiply base + gems. Up to 3 slots at Void. Dismantles into Essence.</p>
+      <div class="rq-sub">Scrolls — Enchantments</div>
+      <p class="rq-note">Random modifier from pool on socket. Rerollable for Ink. Up to 3 slots at Void. Dismantles into Ink.</p>
+      <div class="rq-sub">Tier Ladder</div>
       <p class="rq-note">Chip → Shard → Fragment → Crystal → Prism → Facet → Jewel → Radiant → Transcendent → Sublime</p>
     </div>
   </div>
 
-  <!-- MATERIALS -->
   <div class="rq-category" onclick="this.classList.toggle('open')">
     <div class="rq-header">
-      <span class="rq-chevron">▶</span>
-      <span class="rq-icon">🧱</span>
-      <span class="rq-title">Materials</span>
-      <span class="rq-count">5 families</span>
+      <span class="rq-chevron">▶</span><span class="rq-icon">🧱</span>
+      <span class="rq-title">Materials</span><span class="rq-count">5 families</span>
     </div>
     <div class="rq-body" onclick="event.stopPropagation()">
       <table class="rq-table">
         <tr><th>Material</th><th>Source</th><th>Used For</th></tr>
         <tr><td>Scrap</td><td>Dismantling gear</td><td>Crafting gear, refinement</td></tr>
-        <tr><td>Ichor</td><td>Dismantling Rare+ gear</td><td>Grading up gear (scarce)</td></tr>
+        <tr><td>Ichor</td><td>Dismantling Rare+ gear</td><td>Grading up gear</td></tr>
         <tr><td>Dust</td><td>Dismantling gems</td><td>Crafting & grading gems</td></tr>
         <tr><td>Essence</td><td>Dismantling runes</td><td>Crafting & grading runes</td></tr>
         <tr><td>Ink</td><td>Dismantling scrolls</td><td>Crafting scrolls, rerolling enchantments</td></tr>
@@ -179,17 +165,14 @@ table.rq-table td:first-child{ color:var(--ink); font-weight:600; }
     </div>
   </div>
 
-  <!-- GRADES -->
   <div class="rq-category" onclick="this.classList.toggle('open')">
     <div class="rq-header">
-      <span class="rq-chevron">▶</span>
-      <span class="rq-icon">⬆</span>
-      <span class="rq-title">Equipment Grades</span>
-      <span class="rq-count">10 grades · Worn → Void</span>
+      <span class="rq-chevron">▶</span><span class="rq-icon">⬆</span>
+      <span class="rq-title">Equipment Grades</span><span class="rq-count">Worn → Void</span>
     </div>
     <div class="rq-body" onclick="event.stopPropagation()">
       <table class="rq-table">
-        <tr><th>Grade</th><th>Gem Slots</th><th>Rune Slots</th><th>Enchant Slots</th></tr>
+        <tr><th>Grade</th><th>Gems</th><th>Runes</th><th>Enchants</th></tr>
         <tr><td style="color:#c2ae8b">Worn</td><td>—</td><td>—</td><td>—</td></tr>
         <tr><td style="color:#c2ae8b">Common</td><td>1</td><td>—</td><td>—</td></tr>
         <tr><td style="color:#1eff00">Uncommon</td><td>1</td><td>1</td><td>—</td></tr>
@@ -205,7 +188,8 @@ table.rq-table td:first-child{ color:var(--ink); font-weight:600; }
   </div>
 
 </div>
-<script src="admin.js"></script>
+
 <script src="nav.js"></script>
+<script src="admin.js"></script>
 </body>
 </html>
