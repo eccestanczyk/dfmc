@@ -197,6 +197,22 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
       <li><strong style="color:#ede0c4">Background removal</strong> — Separate pass after art approval. Originals preserved in <code>codex/images/originals/</code>. <code>BG_Status</code> column tracks: <code>has_chroma</code> → <code>bg_pending</code> → <code>bg_approved</code> or <code>manual</code> (flagged for artist).</li>
       <li><strong style="color:#ede0c4">CSV update</strong> — <code>Image_Path</code> and <code>Art_Status</code> set immediately after each generation. Statuses: <code>pending</code> (awaiting approval), <code>approved</code> (art locked, do not regenerate), <code>redo</code> (flagged for regeneration).</li>
     </ol></div>
+
+    <div class="card"><div class="card-title">Floor art pipeline (per floor, 3+ assets)</div>
+    <ol style="font-size:13px;color:#c2ae8b;margin:8px 0 0;padding-left:20px">
+      <li><strong style="color:#ede0c4">Battle background</strong> — Text-to-image, <code>1536×1024</code> (regular floors) or <code>1024×1024</code> (boss arenas). Prompt includes zone visual theme, encounter type, and atmosphere. Transparent background not used — these are full scene paintings. Tracked in <code>codex/floor_assets.csv</code>.</li>
+      <li><strong style="color:#ede0c4">Parallax layer</strong> — One per zone (10 total), <code>2304×1024</code>, seamless horizontal tile. Atmospheric depth layer behind the battle background for ultrawide displays.</li>
+      <li><strong style="color:#ede0c4">Props</strong> — 3–4 per zone, transparent background. Environmental dressing placed on the floor map: standing stones, skull heaps, glowing crystals, etc. Tracked in <code>codex/prop_assets.csv</code>.</li>
+      <li><strong style="color:#ede0c4">Map preview</strong> — Two renders per floor: empty (background + props, no creatures) and populated (with creatures placed). For approval only, not shipped assets. Tracked in <code>floor_assets.csv</code> <code>Map_Preview_Status</code> / <code>Map_Populated_Status</code>.</li>
+    </ol>
+    <p style="font-size:12px;color:#8a7a5e;margin-top:6px">Floor assets live in <code>floors/backgrounds/</code>, <code>floors/parallax/</code>, <code>floors/props/{zone}/</code>, and <code>floors/previews/</code>. The floor sheet (<code>codex/floor_assets.csv</code>) references which assets each floor uses — decoupling floor identity from art allows infinite floor extension later by reusing zone asset pools.</p></div>
+
+    <div class="card"><div class="card-title">Item art pipeline (per base type, 1 image)</div>
+    <ol style="font-size:13px;color:#c2ae8b;margin:8px 0 0;padding-left:20px">
+      <li><strong style="color:#ede0c4">Generation</strong> — Text-to-image, <code>1024×1024</code>, transparent background. Each base type (weapon, armour, accessory, tag, material) gets one icon. Enhancement tiers (Chip → Sublime, Faded → Elder, Tattered → Fated) each get a tier-specific prompt describing the item's visual state at that power level.</li>
+      <li><strong style="color:#ede0c4">Approval</strong> — Same status flow as creatures: <code>prompt_ready</code> → <code>generated</code> → <code>approved</code>. Tracked in <code>codex/items.csv</code> <code>Art_Status</code> column.</li>
+    </ol>
+    <p style="font-size:12px;color:#8a7a5e;margin-top:6px">All 116 items catalogued in <code>codex/items.csv</code> with flavor text and image prompts. Prompt boilerplate: <em>isolated dark-fantasy game item icon, oil-painted style, dramatic rim lighting, rich vivid colors, item centered 70% of frame, three-quarter angle, transparent background.</em></p></div>
   </div>
 
   <!-- CHARACTERS -->
@@ -1130,8 +1146,12 @@ Your Backend
       <tr><td><code>codex/bosses.csv</code></td><td>10<br>(1 per boss floor)</td><td>Zone-boss definitions, one per boss floor (10, 20, … 100). Columns: <code>Floor, Zone, Boss_Name, Boss_Character, Active_Creature_1, Active_Creature_2, Reserve_1..4, Difficulty_Index, Notes</code>. Team fields are <code>TBD</code> — structure scaffolded, specific teams pending design.</td></tr>
       <tr><td><code>codex/encounter_weights.csv</code></td><td>—</td><td>Per-floor odds of an encounter rolling into each tier; SSR/SR odds scale up over the run (see "Encounter weights" below).</td></tr>
       <tr><td><code>codex/maptypes.csv</code></td><td>—</td><td>Tileset / map-restyle definitions for floor-art generation.</td></tr>
+      <tr><td><code>codex/items.csv</code></td><td>116</td><td>Full item catalog — gems (4&times;10 tiers), runes (3&times;10), scrolls (10), weapons (6), armour (12), accessories (8), tags (5), materials (5). Columns: <code>Item_ID, Category, Family, Name, Tier, Level_Req, Effect, Flavor_Text, Image_Prompt, Image_Path, Art_Status</code>.</td></tr>
+      <tr><td><code>codex/item_drops.csv</code></td><td>390</td><td>Zone-weighted item drop table. Each zone lists which base types drop and at what weight (1 = normal, 2 = zone-weighted 2&times;). Feeds the <a href="reliquary.html" style="color:var(--gold-bright)">Reliquary</a>.</td></tr>
+      <tr><td><code>codex/floor_assets.csv</code></td><td>100</td><td>Level design pipeline. Per-floor: battle background prompt/path/status, parallax reference, prop assignments, map preview status (empty + populated). Decoupled from floor identity for infinite floor extension.</td></tr>
+      <tr><td><code>codex/prop_assets.csv</code></td><td>40</td><td>Zone prop catalog — 3&ndash;4 props + 1 anchor prop per zone, with image prompts and art status.</td></tr>
     </table>
-    <p style="font-size:13px;color:#c2ae8b">Codex pages: <code>floor-codex.html</code> is the zone/floor index (joins floors &rarr; floor_creature_rarity &rarr; creatures by ID) &middot; <code>creature.html?id=DFMC-XXX</code> a single creature &middot; <code>floor.html?num=N</code> and <code>type.html?type=X</code> the floor and type views.</p>
+    <p style="font-size:13px;color:#c2ae8b">Codex pages: <code>floor-codex.html</code> is the zone/floor index (joins floors &rarr; floor_creature_rarity &rarr; creatures by ID) &middot; <code>creature.html?id=DFMC-XXX</code> a single creature &middot; <code>floor.html?num=N</code> and <code>type.html?type=X</code> the floor and type views &middot; <code>reliquary.html</code> filterable item catalog with zone drop weights &middot; <code>crafting.html</code> all crafting recipes and costs &middot; <code>upgrading.html</code> refinement and grading success tables &middot; <code>stat-tables.html</code> full numerical tables.</p>
     <p style="font-size:13px;color:#c2ae8b">GitHub API edit workflow: <code>GET</code> the file's current SHA, then <code>PUT</code> base64-encoded content <em>with</em> that SHA (omitting it fails). Build CSVs with a real CSV writer, never hand-rolled strings, and validate every row's column count before pushing.</p>
 
     <h3>Grade scale (Worn → Void)</h3>
