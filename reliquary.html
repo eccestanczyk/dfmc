@@ -1,27 +1,56 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RELIQUARY — Herumon Tower</title>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RELIQUARY</title>
 <link rel="stylesheet" href="theme.css">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>
-.tab-row{display:flex;gap:4px;margin:12px 0;flex-wrap:wrap}
-.tab-row button{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.04em;padding:6px 14px;background:var(--surface-2);color:var(--ink-faint);border:1px solid var(--rule);cursor:pointer}
-.tab-row button.active{color:var(--gold-bright);border-color:var(--gold);background:var(--surface)}
-.zone-section{display:none}.zone-section.active{display:block}
-.item-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin:10px 0}
-.item-card{background:var(--surface-2);border:1px solid var(--rule);padding:10px;font-size:13px}
-.item-card .name{font-family:'Cinzel',serif;font-size:12px;font-weight:600;color:var(--ink)}
-.item-card .effect{color:var(--gold);font-size:11px;margin:2px 0}
-.item-card .flavor{color:var(--ink-faint);font-style:italic;font-size:11px}
-.item-card .img-box{width:80px;height:80px;background:var(--surface);border:1px solid var(--rule);margin:6px auto;display:flex;align-items:center;justify-content:center;color:var(--ink-faint);font-size:10px}
-.item-card .img-box img{max-width:100%;max-height:100%}
-.drop-tbl{font-size:12px}
-.drop-tbl td,.drop-tbl th{padding:4px 8px}
-.wt2{color:var(--gold-bright);font-weight:600}
-select.zone-filter{font-family:'EB Garamond',serif;font-size:14px;background:var(--surface-2);color:var(--ink);border:1px solid var(--rule);padding:4px 8px}
-</style></head><body>
+.rq-wrap{ max-width:920px; margin:0 auto; padding:24px 20px 100px; }
+.rq-category{
+  border:1px solid var(--rule); background:var(--surface); margin-bottom:12px;
+  box-shadow:inset 0 1px 0 rgba(207,166,80,0.07), inset 0 0 60px rgba(0,0,0,0.3), 0 5px 14px rgba(0,0,0,0.4);
+}
+.rq-header{
+  display:flex; align-items:center; gap:14px; padding:16px 20px; cursor:pointer; user-select:none;
+  border-bottom:1px solid var(--rule);
+  background:linear-gradient(90deg, rgba(124,21,25,0.14), transparent 70%);
+}
+.rq-header:hover{ background:linear-gradient(90deg, rgba(124,21,25,0.24), rgba(124,21,25,0.04) 70%); }
+.rq-chevron{ font-size:14px; color:var(--blood-bright); transition:transform 0.15s ease; }
+.rq-category.open .rq-chevron{ transform:rotate(90deg); }
+.rq-icon{ font-size:22px; opacity:0.85; }
+.rq-title{
+  font-family:'Cinzel', serif; font-weight:700; font-size:18px; letter-spacing:0.04em;
+  color:var(--gold-bright); text-transform:uppercase; text-shadow:0 1px 2px rgba(0,0,0,0.5);
+}
+.rq-count{ font-size:13px; color:var(--ink-dim); font-style:italic; margin-left:auto; }
+.rq-body{ display:none; padding:18px 20px; }
+.rq-category.open .rq-body{ display:block; }
+.rq-sub{
+  font-family:'Cinzel', serif; font-size:13px; font-weight:600; letter-spacing:0.04em;
+  color:var(--gold); margin:14px 0 8px; text-transform:uppercase;
+}
+.rq-sub:first-child{ margin-top:0; }
+.rq-item-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(160px, 1fr)); gap:8px; }
+.rq-item{
+  background:var(--surface-2); border:1px solid var(--rule-faint); padding:10px 12px;
+  font-size:14px; color:var(--ink-dim); font-style:italic;
+}
+.rq-item-name{ font-style:normal; color:var(--ink); font-weight:600; margin-bottom:3px; }
+.rq-item-desc{ font-size:12px; }
+.rq-note{ font-size:14px; color:var(--ink-faint); font-style:italic; }
+table.rq-table{ width:100%; border-collapse:collapse; font-size:14px; margin-top:8px; }
+table.rq-table th{ font-family:'Cinzel',serif; font-size:11px; color:var(--gold); text-transform:uppercase; letter-spacing:0.06em; text-align:left; padding:7px 10px; border-bottom:1px solid var(--rule); }
+table.rq-table td{ padding:7px 10px; color:var(--ink-dim); border-bottom:1px solid var(--rule-faint); }
+table.rq-table td:first-child{ color:var(--ink); font-weight:600; }
+</style>
+</head>
+<body>
 <div class="topbar">
   <div class="site-nav" style="position:relative;z-index:20;">
   <button onclick="var m=this.nextElementSibling;m.style.display=m.style.display==='flex'?'none':'flex'" style="font-family:Cinzel,serif;font-size:18px;background:none;border:1px solid #5c462c;color:#cfa650;padding:5px 10px;cursor:pointer;line-height:1;">☰</button>
@@ -30,136 +59,184 @@ select.zone-filter{font-family:'EB Garamond',serif;font-size:14px;background:var
     <a href="creature-codex.html" style="font-family:Cinzel,serif;font-size:13px;font-weight:600;letter-spacing:0.04em;color:#c2ae8b;text-decoration:none;padding:10px 16px;border-bottom:1px solid #3a2c1a;">Creature Codex</a>
     <a href="floor-codex.html" style="font-family:Cinzel,serif;font-size:13px;font-weight:600;letter-spacing:0.04em;color:#c2ae8b;text-decoration:none;padding:10px 16px;border-bottom:1px solid #3a2c1a;">Floor Map</a>
     <a href="reliquary.html" style="font-family:Cinzel,serif;font-size:13px;font-weight:600;letter-spacing:0.04em;color:#cfa650;text-decoration:none;padding:10px 16px;border-bottom:1px solid #3a2c1a;background:rgba(124,21,25,0.15);">Reliquary</a>
-    <a href="crafting.html" style="font-family:Cinzel,serif;font-size:13px;font-weight:600;letter-spacing:0.04em;color:#c2ae8b;text-decoration:none;padding:10px 16px;border-bottom:1px solid #3a2c1a;">Crafting</a>
-    <a href="upgrading.html" style="font-family:Cinzel,serif;font-size:13px;font-weight:600;letter-spacing:0.04em;color:#c2ae8b;text-decoration:none;padding:10px 16px;border-bottom:1px solid #3a2c1a;">Upgrading</a>
     <a href="index.html" style="font-family:Cinzel,serif;font-size:13px;font-weight:600;letter-spacing:0.04em;color:#c2ae8b;text-decoration:none;padding:10px 16px;">Game Design Document</a>
   </div>
 </div>
   <h1>RELIQUARY</h1>
 </div>
-<div style="max-width:1100px;margin:0 auto;padding:20px 16px 80px">
-  <p style="color:var(--ink-dim);font-style:italic;margin-bottom:16px">Every item that can be found in the Tower. Filter by zone to see weighted drop tables — <span class="wt2">★ highlighted</span> items are 2× more likely in that zone.</p>
 
-  <div style="margin-bottom:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-    <label style="font-family:'Cinzel',serif;font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:.08em">Zone</label>
-    <select id="zoneFilter" class="zone-filter"><option value="">All Zones</option></select>
-    <label style="font-family:'Cinzel',serif;font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;margin-left:12px">Category</label>
-    <select id="catFilter" class="zone-filter"><option value="">All</option></select>
+<div class="rq-wrap">
+
+  <!-- WEAPONS -->
+  <div class="rq-category" onclick="this.classList.toggle('open')">
+    <div class="rq-header">
+      <span class="rq-chevron">▶</span>
+      <span class="rq-icon">⚔</span>
+      <span class="rq-title">Weapons</span>
+      <span class="rq-count">6 base types</span>
+    </div>
+    <div class="rq-body" onclick="event.stopPropagation()">
+      <div class="rq-sub">Main Hand</div>
+      <div class="rq-item-grid">
+        <div class="rq-item"><div class="rq-item-name">Sword</div><div class="rq-item-desc">Balanced offense</div></div>
+        <div class="rq-item"><div class="rq-item-name">Axe</div><div class="rq-item-desc">Heavy damage, slower</div></div>
+        <div class="rq-item"><div class="rq-item-name">Staff</div><div class="rq-item-desc">Utility-focused</div></div>
+      </div>
+      <div class="rq-sub">Off Hand</div>
+      <div class="rq-item-grid">
+        <div class="rq-item"><div class="rq-item-name">Shield</div><div class="rq-item-desc">Defense implicit</div></div>
+        <div class="rq-item"><div class="rq-item-name">Tome</div><div class="rq-item-desc">Utility implicit</div></div>
+        <div class="rq-item"><div class="rq-item-name">Dagger</div><div class="rq-item-desc">Speed implicit</div></div>
+      </div>
+    </div>
   </div>
 
-  <div id="dropInfo" style="margin-bottom:12px"></div>
-  <h2 style="font-family:'Cinzel',serif;font-size:16px;color:var(--gold);margin:18px 0 6px">Item Catalog</h2>
-  <div id="itemGrid" class="item-grid"></div>
+  <!-- ARMOUR -->
+  <div class="rq-category" onclick="this.classList.toggle('open')">
+    <div class="rq-header">
+      <span class="rq-chevron">▶</span>
+      <span class="rq-icon">🛡</span>
+      <span class="rq-title">Armour</span>
+      <span class="rq-count">4 slots · 12 base types</span>
+    </div>
+    <div class="rq-body" onclick="event.stopPropagation()">
+      <div class="rq-sub">Head</div>
+      <div class="rq-item-grid">
+        <div class="rq-item"><div class="rq-item-name">Helm</div><div class="rq-item-desc">Defense</div></div>
+        <div class="rq-item"><div class="rq-item-name">Hood</div><div class="rq-item-desc">Utility</div></div>
+        <div class="rq-item"><div class="rq-item-name">Circlet</div><div class="rq-item-desc">Speed</div></div>
+      </div>
+      <div class="rq-sub">Chest</div>
+      <div class="rq-item-grid">
+        <div class="rq-item"><div class="rq-item-name">Plate</div><div class="rq-item-desc">Defense</div></div>
+        <div class="rq-item"><div class="rq-item-name">Robe</div><div class="rq-item-desc">Utility</div></div>
+        <div class="rq-item"><div class="rq-item-name">Leather</div><div class="rq-item-desc">Speed</div></div>
+      </div>
+      <div class="rq-sub">Gloves</div>
+      <div class="rq-item-grid">
+        <div class="rq-item"><div class="rq-item-name">Gauntlets</div><div class="rq-item-desc">Offense</div></div>
+        <div class="rq-item"><div class="rq-item-name">Wraps</div><div class="rq-item-desc">Speed</div></div>
+        <div class="rq-item"><div class="rq-item-name">Gloves</div><div class="rq-item-desc">Utility</div></div>
+      </div>
+      <div class="rq-sub">Feet</div>
+      <div class="rq-item-grid">
+        <div class="rq-item"><div class="rq-item-name">Greaves</div><div class="rq-item-desc">Defense</div></div>
+        <div class="rq-item"><div class="rq-item-name">Boots</div><div class="rq-item-desc">Speed</div></div>
+        <div class="rq-item"><div class="rq-item-name">Sandals</div><div class="rq-item-desc">Utility</div></div>
+      </div>
+    </div>
+  </div>
 
-  <h2 style="font-family:'Cinzel',serif;font-size:16px;color:var(--gold);margin:24px 0 6px">Drop rates by floor band</h2>
-  <table class="drop-tbl">
-    <tr><th>Floors</th><th>Gear drop %</th><th>Enhancement drop %</th><th>Grade weights</th></tr>
-    <tr><td>1–30</td><td>10%</td><td>10%</td><td>W 72 / C 24 / UC 4</td></tr>
-    <tr><td>31–60</td><td>10%</td><td>10%</td><td>W 55 / C 30 / UC 12 / R 2.7 / E 0.3</td></tr>
-    <tr><td>61–90</td><td>10%</td><td>10%</td><td>W 40 / C 32 / UC 20 / R 7 / E 0.95 / L 0.05</td></tr>
-    <tr><td>91–100</td><td>10%</td><td>10%</td><td>W 30 / C 32 / UC 24 / R 11 / E 2.7 / L 0.28 / A 0.02</td></tr>
-  </table>
-  <p style="font-size:13px;color:var(--ink-faint)">Divine, Primordial, and Void never drop — they exist only through grading up (Ichor/materials).</p>
+  <!-- ACCESSORIES -->
+  <div class="rq-category" onclick="this.classList.toggle('open')">
+    <div class="rq-header">
+      <span class="rq-chevron">▶</span>
+      <span class="rq-icon">💍</span>
+      <span class="rq-title">Accessories</span>
+      <span class="rq-count">2 slots · 8 base types</span>
+    </div>
+    <div class="rq-body" onclick="event.stopPropagation()">
+      <div class="rq-item-grid">
+        <div class="rq-item"><div class="rq-item-name">Ring</div></div>
+        <div class="rq-item"><div class="rq-item-name">Amulet</div></div>
+        <div class="rq-item"><div class="rq-item-name">Talisman</div></div>
+        <div class="rq-item"><div class="rq-item-name">Brooch</div></div>
+        <div class="rq-item"><div class="rq-item-name">Charm</div></div>
+        <div class="rq-item"><div class="rq-item-name">Totem</div></div>
+        <div class="rq-item"><div class="rq-item-name">Relic</div></div>
+        <div class="rq-item"><div class="rq-item-name">Idol</div></div>
+      </div>
+    </div>
+  </div>
 
-  <h2 style="font-family:'Cinzel',serif;font-size:16px;color:var(--gold);margin:24px 0 6px">Materials</h2>
-  <div id="matGrid" class="item-grid"></div>
+  <!-- CREATURE TAGS -->
+  <div class="rq-category" onclick="this.classList.toggle('open')">
+    <div class="rq-header">
+      <span class="rq-chevron">▶</span>
+      <span class="rq-icon">🏷</span>
+      <span class="rq-title">Creature Tags</span>
+      <span class="rq-count">2 slots · 5 base types · Personal scope</span>
+    </div>
+    <div class="rq-body" onclick="event.stopPropagation()">
+      <p class="rq-note">Tags are creature equipment. All modifiers apply at Personal scope (affect creature's total stats). No soul attachment.</p>
+      <div class="rq-item-grid">
+        <div class="rq-item"><div class="rq-item-name">Collar</div><div class="rq-item-desc">Offense</div></div>
+        <div class="rq-item"><div class="rq-item-name">Barding</div><div class="rq-item-desc">Defense</div></div>
+        <div class="rq-item"><div class="rq-item-name">Sigil</div><div class="rq-item-desc">Utility</div></div>
+        <div class="rq-item"><div class="rq-item-name">Anklet</div><div class="rq-item-desc">Speed</div></div>
+        <div class="rq-item"><div class="rq-item-name">Brand</div><div class="rq-item-desc">Hybrid</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ENHANCEMENTS -->
+  <div class="rq-category" onclick="this.classList.toggle('open')">
+    <div class="rq-header">
+      <span class="rq-chevron">▶</span>
+      <span class="rq-icon">💎</span>
+      <span class="rq-title">Enhancements</span>
+      <span class="rq-count">Gems · Runes · Scrolls</span>
+    </div>
+    <div class="rq-body" onclick="event.stopPropagation()">
+      <div class="rq-sub">💎 Gems — Flat Stats</div>
+      <p class="rq-note">Fixed flat modifiers (+X Offense, +X Defense, +X HP). Up to 3 slots at Void grade. Dismantles into Dust.</p>
+      <div class="rq-sub">🔷 Runes — Percentage Scaling</div>
+      <p class="rq-note">Percentage modifiers (+X% Offense, +X% Defense). Multiply base + gems. Up to 3 slots at Void. Dismantles into Essence.</p>
+      <div class="rq-sub">📜 Scrolls — Enchantments</div>
+      <p class="rq-note">On socket, rolls a random modifier from pool. Rerollable for Ink. Up to 3 slots at Void. Dismantles into Ink.</p>
+      <div class="rq-sub">Tier Ladder (10 tiers)</div>
+      <p class="rq-note">Chip → Shard → Fragment → Crystal → Prism → Facet → Jewel → Radiant → Transcendent → Sublime</p>
+    </div>
+  </div>
+
+  <!-- MATERIALS -->
+  <div class="rq-category" onclick="this.classList.toggle('open')">
+    <div class="rq-header">
+      <span class="rq-chevron">▶</span>
+      <span class="rq-icon">🧱</span>
+      <span class="rq-title">Materials</span>
+      <span class="rq-count">5 families</span>
+    </div>
+    <div class="rq-body" onclick="event.stopPropagation()">
+      <table class="rq-table">
+        <tr><th>Material</th><th>Source</th><th>Used For</th></tr>
+        <tr><td>Scrap</td><td>Dismantling gear</td><td>Crafting gear, refinement</td></tr>
+        <tr><td>Ichor</td><td>Dismantling Rare+ gear</td><td>Grading up gear (scarce)</td></tr>
+        <tr><td>Dust</td><td>Dismantling gems</td><td>Crafting & grading gems</td></tr>
+        <tr><td>Essence</td><td>Dismantling runes</td><td>Crafting & grading runes</td></tr>
+        <tr><td>Ink</td><td>Dismantling scrolls</td><td>Crafting scrolls, rerolling enchantments</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- GRADES -->
+  <div class="rq-category" onclick="this.classList.toggle('open')">
+    <div class="rq-header">
+      <span class="rq-chevron">▶</span>
+      <span class="rq-icon">⬆</span>
+      <span class="rq-title">Equipment Grades</span>
+      <span class="rq-count">10 grades · Worn → Void</span>
+    </div>
+    <div class="rq-body" onclick="event.stopPropagation()">
+      <table class="rq-table">
+        <tr><th>Grade</th><th>Gem Slots</th><th>Rune Slots</th><th>Enchant Slots</th></tr>
+        <tr><td style="color:#c2ae8b">Worn</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td style="color:#c2ae8b">Common</td><td>1</td><td>—</td><td>—</td></tr>
+        <tr><td style="color:#1eff00">Uncommon</td><td>1</td><td>1</td><td>—</td></tr>
+        <tr><td style="color:#0070dd">Rare</td><td>1</td><td>1</td><td>1</td></tr>
+        <tr><td style="color:#a335ee">Epic</td><td>2</td><td>1</td><td>1</td></tr>
+        <tr><td style="color:#ff8000">Legendary</td><td>2</td><td>2</td><td>1</td></tr>
+        <tr><td style="color:#e5393f">Abyssal</td><td>2</td><td>2</td><td>2</td></tr>
+        <tr><td style="color:#00ffe0">Divine</td><td>3</td><td>2</td><td>2</td></tr>
+        <tr><td style="color:#ff44cc">Primordial</td><td>3</td><td>3</td><td>2</td></tr>
+        <tr><td style="color:#a855f7;text-shadow:0 0 6px #7c3aed">Void</td><td>3</td><td>3</td><td>3</td></tr>
+      </table>
+    </div>
+  </div>
+
 </div>
-<script>
-const IMG_BASE = "https://raw.githubusercontent.com/eccestanczyk/dfmc/main/";
-let items = [], drops = [];
 
-async function load() {
-  const [iRes, dRes] = await Promise.all([
-    fetch('codex/items.csv?t='+Date.now()),
-    fetch('codex/item_drops.csv?t='+Date.now())
-  ]);
-  items = parseCSV(await iRes.text());
-  drops = parseCSV(await dRes.text());
-
-  const zones = [...new Set(drops.map(d=>d.Zone))];
-  const zf = document.getElementById('zoneFilter');
-  zones.forEach(z => { const o = document.createElement('option'); o.value=z; o.textContent=z; zf.appendChild(o); });
-
-  const cats = [...new Set(items.map(i=>i.Category))];
-  const cf = document.getElementById('catFilter');
-  cats.forEach(c => { const o = document.createElement('option'); o.value=c; o.textContent=c; cf.appendChild(o); });
-
-  zf.addEventListener('change', render);
-  cf.addEventListener('change', render);
-  render();
-}
-
-function parseCSV(text) {
-  const lines = text.trim().split('\n');
-  const hdr = splitCSVLine(lines[0]);
-  return lines.slice(1).map(l => {
-    const cols = splitCSVLine(l);
-    const o = {};
-    hdr.forEach((h,i) => o[h.trim()] = (cols[i]||'').trim());
-    return o;
-  });
-}
-function splitCSVLine(line) {
-  const cols=[]; let cur='',inQ=false;
-  for(let i=0;i<line.length;i++){
-    const ch=line[i];
-    if(ch==='"'){inQ=!inQ}
-    else if(ch===','&&!inQ){cols.push(cur);cur=''}
-    else if(ch!=='\r'){cur+=ch}
-  }
-  cols.push(cur); return cols;
-}
-
-function render() {
-  const zone = document.getElementById('zoneFilter').value;
-  const cat = document.getElementById('catFilter').value;
-
-  // Build weighted base set for this zone
-  const zoneDrops = zone ? drops.filter(d=>d.Zone===zone) : drops;
-  const weighted = {};
-  zoneDrops.forEach(d => {
-    const k = d.Item_Base;
-    if(!weighted[k] || parseInt(d.Weight)>parseInt(weighted[k])) weighted[k]=parseInt(d.Weight);
-  });
-
-  let filtered = items.filter(i => i.Category !== 'Material');
-  if(cat) filtered = filtered.filter(i => i.Category === cat);
-
-  const grid = document.getElementById('itemGrid');
-  grid.innerHTML = filtered.map(i => {
-    const base = i.Family || i.Name;
-    const w = weighted[base] || weighted[i.Name] || 1;
-    const star = w >= 2 ? '<span class="wt2"> ★</span>' : '';
-    const img = i.Image_Path
-      ? `<img src="${IMG_BASE}${i.Image_Path}" alt="${i.Name}">`
-      : `<span style="font-size:20px">${i.Category==='Gem'?'💎':i.Category==='Rune'?'🔷':i.Category==='Scroll'?'📜':i.Category==='Weapon'?'⚔️':i.Category==='Armour'?'🛡️':i.Category==='Accessory'?'💍':i.Category==='Tag'?'🏷️':'📦'}</span>`;
-    return `<div class="item-card">
-      <div class="img-box">${img}</div>
-      <div class="name">${i.Name}${star}</div>
-      <div class="effect">${i.Effect}</div>
-      ${i.Tier ? `<div style="font-size:10px;color:var(--ink-faint)">Tier ${i.Tier} · Req Lv${i.Level_Req}</div>` : ''}
-      <div class="flavor">${i.Flavor_Text}</div>
-    </div>`;
-  }).join('');
-
-  // Materials
-  const mats = items.filter(i => i.Category === 'Material');
-  document.getElementById('matGrid').innerHTML = mats.map(i => `<div class="item-card">
-    <div class="img-box"><span style="font-size:20px">🧪</span></div>
-    <div class="name">${i.Name}</div>
-    <div class="effect">${i.Effect}</div>
-    <div class="flavor">${i.Flavor_Text}</div>
-  </div>`).join('');
-
-  // Drop info
-  const info = document.getElementById('dropInfo');
-  if(zone) {
-    const zw = zoneDrops.filter(d=>parseInt(d.Weight)>=2);
-    info.innerHTML = `<div style="background:var(--surface-2);border:1px solid var(--rule);padding:8px 12px;font-size:13px">
-      <strong style="color:var(--gold)">${zone}</strong> · Floors ${zoneDrops[0]?.Floor_Lo}–${zoneDrops[0]?.Floor_Hi}
-      ${zw.length ? `<br><span class="wt2">★ 2× weighted:</span> ${zw.map(d=>d.Item_Base).join(', ')}` : ''}
-    </div>`;
-  } else { info.innerHTML = ''; }
-}
-load();
-</script></body></html>
+<script>document.addEventListener("click",function(e){document.querySelectorAll(".site-nav-menu").forEach(function(m){if(!m.parentElement.contains(e.target))m.style.display="none"})});</script>
+<script src="admin.js"></script>
+</body>
+</html>
