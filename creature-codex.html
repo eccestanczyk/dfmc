@@ -69,6 +69,36 @@
 </head>
 <body>
 <div class="topbar">
+  <h1>CREATURE CODEX</h1>
+  <div style="display:flex;align-items:center;gap:14px;">
+    <span class="count" id="count"></span>
+  </div>
+</div>
+<div id="status">LOADING...</div>
+<main id="main" style="display:none; max-width:920px; margin:0 auto; padding:24px 20px 100px;">
+
+  <div class="filter-bar">
+    <div class="filter-group">
+      <span class="filter-label">Rarity</span>
+      <div class="filter-btns" id="rarity-filters"></div>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">Type</span>
+      <div class="filter-btns" id="type-filters"></div>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">Stage</span>
+      <div class="filter-btns" id="stage-filters"></div>
+    </div>
+    <div class="filter-group" id="admin-filters" style="display:none;">
+      <span class="filter-label">Pipeline</span>
+      <div class="filter-btns">
+        <button class="filter-btn" id="filter-pending-art" onclick="togglePipeline('art',this)">🎨 Art Approval Pending</button>
+        <button class="filter-btn" id="filter-pending-crop" onclick="togglePipeline('crop',this)">✂ Cropping Pending</button>
+        <button class="filter-btn" id="filter-crop-review" onclick="togglePipeline('crop_review',this)">🔍 Crop Approval Pending</button>
+      </div>
+    </div>
+  </div>
 
   <div class="count-badge" id="result-count"></div>
   <div class="codex-grid" id="grid"></div>
