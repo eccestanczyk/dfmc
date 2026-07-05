@@ -183,7 +183,6 @@ function syncURL() {
 }
 
 const IMG_BASE = 'https://raw.githubusercontent.com/eccestanczyk/dfmc/main/';
-const isAdmin = document.documentElement.classList.contains('admin-mode');
 
 const CARD_ACTIONS = [
   { key:'approve_art', label:'Approve art', icon:'✅', show: c => c.Art_Status==='pending' },
@@ -196,6 +195,7 @@ const CARD_ACTIONS = [
 ];
 
 function renderGrid() {
+  const isAdmin = document.documentElement.classList.contains('admin-mode');
   let filtered = allCreatures;
   if (activeRarity.size) filtered = filtered.filter(c => activeRarity.has(c.Rarity));
   if (activeType.size) filtered = filtered.filter(c => activeType.has(c.Type_Primary) || activeType.has(c.Type_Secondary));
@@ -223,7 +223,7 @@ function renderGrid() {
       : `<div class="codex-card-noimg">?</div>`;
 
     const tabsHtml = isAdmin && origSrc ? `<div class="card-tabs" data-id="${c.ID}" data-base="${escapeHtml(IMG_BASE)}codex/images/"></div>` : '';
-    const gearHtml = isAdmin ? `<button class="card-gear" onclick="event.preventDefault();event.stopPropagation();toggleCardMenu(this)" data-id="${c.ID}" data-name="${escapeHtml(c.Name)}" data-art="${c.Art_Status}" data-bg="${c.BG_Status}">⚙</button>` : '';
+    const gearHtml = isAdmin ? `<button class="card-gear" onclick="event.stopPropagation();toggleCardMenu(this)" data-id="${c.ID}" data-name="${escapeHtml(c.Name)}" data-art="${c.Art_Status}" data-bg="${c.BG_Status}">⚙</button>` : '';
 
     return `<div class="codex-card" style="${pipelineStyle};position:relative;cursor:pointer;" onclick="if(!event.target.closest('.card-gear,.card-admin-menu,.card-tab'))location.href='creature.html?id=${escapeHtml(c.ID)}'">
       <div class="card-img-wrap">${imgHtml}${tabsHtml}${gearHtml}</div>
@@ -249,7 +249,7 @@ const SUFFIXES = ['', '_B', '_C', '_D', '_E'];
 const LABELS = ['A', 'B', 'C', 'D', 'E'];
 
 async function probeCardTabs() {
-  if (!isAdmin) return;
+  if (!document.documentElement.classList.contains('admin-mode')) return;
   const tabContainers = document.querySelectorAll('.card-tabs[data-id]');
   const SEQ = ['A','B','C','D','E','F','G','H','I','J'];
   for (const container of tabContainers) {
@@ -271,7 +271,7 @@ async function probeCardTabs() {
 
     if (found.length > 1) {
       container.innerHTML = found.map((f, idx) =>
-        `<button class="card-tab${idx===0?' active':''}" onclick="event.preventDefault();event.stopPropagation();switchCardImg(this,'${f.url}')">${SEQ[idx] || idx}</button>`
+        `<button class="card-tab${idx===0?' active':''}" onclick="event.stopPropagation();switchCardImg(this,'${f.url}')">${SEQ[idx] || idx}</button>`
       ).join('');
     }
   }
