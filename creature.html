@@ -277,7 +277,7 @@ async function load() {
 
     // Image display with comparison tabs for bg_pending
     if (c.BG_Status === 'bg_pending') {
-      const cacheBust = '?t=' + Date.now();
+      const cacheBust = '';
       const origPath = c.Image_Path;
       const cropPath = c.Image_Path.replace('codex/images/', 'codex/images/cropped/');
       const cropCPath = c.Image_Path.replace('codex/images/', 'codex/images/cropped_c/');
@@ -292,7 +292,7 @@ async function load() {
         '<img id="compare-cropc" src="' + IMG_BASE + escapeHtml(cropCPath) + cacheBust + '" alt="' + escapeHtml(c.Name) + ' crop C" style="display:none" onerror="document.getElementById(\'tab-cropc\').style.display=\'none\'">';
     } else {
       document.getElementById('creature-img-wrap').innerHTML = c.Image_Path
-        ? '<img src="' + IMG_BASE + escapeHtml(c.Image_Path) + '?t=' + Date.now() + '" alt="' + escapeHtml(c.Name) + '">'
+        ? '<img src="' + IMG_BASE + escapeHtml(c.Image_Path) + '" alt="' + escapeHtml(c.Name) + '">'
         : '<div class="no-img">NO IMAGE YET</div>';
     }
 
@@ -329,7 +329,7 @@ async function load() {
     let evoHtml = '';
     lineMembers.forEach((m, i) => {
       const isCurrent = m.ID === c.ID;
-      const imgHtml = m.Image_Path ? `<img src="${IMG_BASE}${escapeHtml(m.Image_Path)}?t=${Date.now()}" alt="">` : `<div class="no-img-sm">?</div>`;
+      const imgHtml = m.Image_Path ? `<img src="${IMG_BASE}${escapeHtml(m.Image_Path)}" alt="">` : `<div class="no-img-sm">?</div>`;
       evoHtml += isCurrent
         ? `<div class="evo-node current">${imgHtml}<span>${escapeHtml(m.Name)}</span></div>`
         : `<a class="evo-node linkable" href="creature.html?id=${escapeHtml(m.ID)}">${imgHtml}<span>${escapeHtml(m.Name)}</span></a>`;
@@ -425,7 +425,7 @@ load();
       availableOptions = [];
       for (let i = 0; i < OPTION_SUFFIXES.length; i++) {
         const fname = id + OPTION_SUFFIXES[i] + '.png';
-        const t = '?t=' + Date.now();
+        const t = '';
         // Check main folder
         const mainUrl = IMG_BASE + fname + t;
         try {
