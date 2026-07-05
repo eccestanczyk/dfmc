@@ -225,7 +225,7 @@ function renderGrid() {
     const tabsHtml = isAdmin && origSrc ? `<div class="card-tabs" data-id="${c.ID}" data-base="${escapeHtml(IMG_BASE)}codex/images/"></div>` : '';
     const gearHtml = isAdmin ? `<button class="card-gear" onclick="event.preventDefault();event.stopPropagation();toggleCardMenu(this)" data-id="${c.ID}" data-name="${escapeHtml(c.Name)}" data-art="${c.Art_Status}" data-bg="${c.BG_Status}">⚙</button>` : '';
 
-    return `<div class="codex-card" style="${pipelineStyle};position:relative;cursor:pointer;" onclick="location.href='creature.html?id=${escapeHtml(c.ID)}'">
+    return `<div class="codex-card" style="${pipelineStyle};position:relative;cursor:pointer;" onclick="if(!event.target.closest('.card-gear,.card-admin-menu,.card-tab'))location.href='creature.html?id=${escapeHtml(c.ID)}'">
       <div class="card-img-wrap">${imgHtml}${tabsHtml}${gearHtml}</div>
       <div class="codex-card-body">
         <div class="codex-card-name">${escapeHtml(c.Name)}${c.Art_Status==='pending'?'<span class="flag flag-art" title="Pending art approval">🎨</span>':''}${c.BG_Status==='has_chroma'?'<span class="flag flag-crop" title="Needs cropping">✂</span>':''}${c.BG_Status==='bg_pending'?'<span class="flag" title="Crop approval pending" style="color:#60a5fa;">🔍</span>':''}</div>
@@ -251,29 +251,27 @@ const LABELS = ['A', 'B', 'C', 'D', 'E'];
 async function probeCardTabs() {
   if (!isAdmin) return;
   const tabContainers = document.querySelectorAll('.card-tabs[data-id]');
+  const SEQ = ['A','B','C','D','E','F','G','H','I','J'];
   for (const container of tabContainers) {
     const id = container.dataset.id;
     const base = container.dataset.base;
-    const t = '';  // no cache-bust on image probes
     const found = [];
 
     for (let i = 0; i < SUFFIXES.length; i++) {
       const fname = id + SUFFIXES[i] + '.png';
-      // Check main
       try {
-        const r = await fetch(base + fname + t, { method: 'HEAD' });
-        if (r.ok) found.push({ label: LABELS[i], url: base + fname + t });
+        const r = await fetch(base + fname, { method: 'HEAD' });
+        if (r.ok) found.push({ url: base + fname, src: 'orig' + i });
       } catch {}
-      // Check cropped
       try {
-        const r = await fetch(base + 'cropped/' + fname + t, { method: 'HEAD' });
-        if (r.ok) found.push({ label: LABELS[i] + '✂', url: base + 'cropped/' + fname + t });
+        const r = await fetch(base + 'cropped/' + fname, { method: 'HEAD' });
+        if (r.ok) found.push({ url: base + 'cropped/' + fname, src: 'crop' + i });
       } catch {}
     }
 
     if (found.length > 1) {
       container.innerHTML = found.map((f, idx) =>
-        `<button class="card-tab${idx===0?' active':''}" onclick="event.preventDefault();event.stopPropagation();switchCardImg(this,'${f.url}')">${f.label}</button>`
+        `<button class="card-tab${idx===0?' active':''}" onclick="event.preventDefault();event.stopPropagation();switchCardImg(this,'${f.url}')">${SEQ[idx] || idx}</button>`
       ).join('');
     }
   }
