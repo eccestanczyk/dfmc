@@ -425,8 +425,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
 ├── AnimationController
 └── BattleResultHandler</pre>
     <h3>Turn structure</h3>
-    <p>Speed stat determines order within a turn. Status effects queued (poison, stun, burn, etc.) and resolve after move resolution.</p>
-    <div class="note note-info"><p><strong>Open decision:</strong> Simultaneous or sequential turns? Define before battle system implementation begins.</p></div>
+    <p><strong>Simultaneous selection, sequential resolution.</strong> Both sides select actions blind (double-blind). Once locked, all actions resolve in Speed order &mdash; highest Speed acts first. Status effects queued (poison, stun, burn, etc.) resolve after move resolution. This makes Speed the decisive tactical axis: a faster creature can KO a threat before it acts, even if both sides chose to attack the same target.</p>
     <h3>PvP sync</h3>
     <p>Both players submit actions simultaneously. Server resolves outcomes. Unity Relay for connection. Never resolved client-side.</p>
     <div class="note note-risk"><p><strong>Anti-cheat:</strong> Server-authoritative or server-verified only for PvP.</p></div>
@@ -1098,7 +1097,6 @@ Your Backend
 
     <h3>Open decisions</h3>
     <ul>
-      <li>Simultaneous vs sequential turn structure in battle</li>
       <li>Cosmetics-only vs convenience items in shop</li>
       <li>Breed count limit per creature</li>
       <li>Which AI art tool to standardize on</li>
