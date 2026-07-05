@@ -71,7 +71,8 @@
 .card-tab.active{ background:#7c1519; color:#ede0c4; border-color:#dd5646; }
 .card-gear{ position:absolute; top:4px; right:4px; font-size:14px; background:rgba(20,16,11,0.85); border:1px solid #5c462c; color:#cfa650; padding:2px 5px; cursor:pointer; line-height:1; z-index:2; }
 .card-gear:hover{ border-color:#dd5646; color:#dd5646; }
-.card-admin-menu{ position:absolute; top:100%; right:0; z-index:30; min-width:240px; background:#1e1710; border:1px solid #5c462c; box-shadow:0 8px 24px rgba(0,0,0,0.6); text-align:left; }
+.card-admin-menu{ position:absolute; top:100%; right:0; z-index:9999; min-width:240px; background:#1e1710; border:1px solid #5c462c; box-shadow:0 8px 24px rgba(0,0,0,0.6); text-align:left; }
+.codex-card.menu-open{ z-index:9999; }
 .card-admin-menu label{ display:flex; align-items:center; gap:6px; padding:7px 12px; border-bottom:1px solid #3a2c1a; cursor:pointer; font-family:Cinzel,serif; font-size:11px; font-weight:600; color:#c2ae8b; }
 .card-admin-menu label:hover{ color:#e6c66d; }
 .card-admin-menu label.checked{ color:#dd5646; }
@@ -275,11 +276,18 @@ async function probeCardTabs() {
 }
 
 let openMenu = null;
+function clearOpenMenu() {
+  if (openMenu) {
+    const c = openMenu.closest('.codex-card');
+    if (c) c.classList.remove('menu-open');
+    openMenu.remove(); openMenu = null;
+  }
+}
 function toggleCardMenu(gearBtn) {
   const card = gearBtn.closest('.codex-card');
   let menu = card.querySelector('.card-admin-menu');
-  if (menu) { menu.remove(); openMenu = null; return; }
-  if (openMenu) { openMenu.remove(); openMenu = null; }
+  if (menu) { card.classList.remove('menu-open'); menu.remove(); openMenu = null; return; }
+  clearOpenMenu();
 
   const id = gearBtn.dataset.id;
   const name = gearBtn.dataset.name;
@@ -364,12 +372,13 @@ function toggleCardMenu(gearBtn) {
   }
 
   card.appendChild(menu);
+  card.classList.add('menu-open');
   openMenu = menu;
 }
 
 document.addEventListener('click', function(e) {
   if (openMenu && !openMenu.contains(e.target) && !e.target.closest('.card-gear')) {
-    openMenu.remove(); openMenu = null;
+    clearOpenMenu();
   }
 });
 
