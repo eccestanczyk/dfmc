@@ -177,13 +177,13 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     </div>
     <h3>Ladders</h3>
     <ul><li>PvP ladder — ranked 3v3 combat, tracked per season and all-time</li><li>Progress (floor) ladder — highest floor reached, tracked per season and all-time</li></ul>
-    <h3>Art pipeline</h3>
+    <h3 id="art-pipeline">Art pipeline</h3>
     <p style="font-size:13px;color:#c2ae8b">Dark-fantasy painterly style generated with <code>gpt-image-1</code> via OpenAI API. All creature art follows this pipeline:</p>
     <div class="card"><div class="card-title">Creature art pipeline (per line, 3 images)</div>
     <ol style="font-size:13px;color:#c2ae8b;margin:8px 0 0;padding-left:20px">
       <li><strong style="color:#ede0c4">Stage 2 (core concept)</strong> — Fresh text-to-image generation via <code>/images/generations</code>. Full descriptive prompt with stacked anatomical deviations (4–5 per creature), explicit color palette, combat-ready stance, generous framing margin, transparent or neutral-gray background. Prefer <code>background: "transparent"</code>; fall back to <code>background: "opaque"</code> with solid gray (#808080) or black (#000000) in the prompt if transparency causes edge issues. <strong>Never green or magenta/pink.</strong> Upload raw to codex.</li>
       <li><strong style="color:#ede0c4">Stage 1 (infant) &amp; Stage 3 (final form)</strong> — Stage 2 <em>image</em> sent as visual reference via <code>/images/edits</code>. The prompt is a full descriptive brief for a new creature — <strong>never</strong> framed as "edit this image" or "make a smaller/bigger version" (that drifts/fuses anatomy). The image reference maintains visual lineage; the prompt drives a fresh generation. Same background approach as Stage 2 (transparent or gray/black — never green or magenta).</li>
-      <li><strong style="color:#ede0c4">Background removal</strong> — Separate pass after art approval. Model: rembg with <code>isnet-general-use</code> session (NOT the default u2net — always pass <code>new_session("isnet-general-use")</code>; u2net leaves halos and destroys ethereal creatures). BiRefNet is better still but exceeds container memory — local machine only. Originals preserved in <code>codex/images/originals/</code>. <code>BG_Status</code> column tracks: <code>has_chroma</code> → <code>bg_pending</code> → <code>bg_approved</code> or <code>manual</code> (flagged for artist).</li>
+      <li><strong style="color:#ede0c4">Background removal</strong> — Separate pass after art approval. <strong>Canonical method:</strong> rembg with <code>new_session("isnet-general-use")</code>, plain (no alpha matting — matting erodes fine edges and degrades wispy/spectral creatures). This is the default for all crops. <strong>Fallbacks in order:</strong> (1) if isnet leaves halos or eats detail, regenerate the art natively with <code>background: "transparent"</code> and skip removal entirely; (2) for true failures, run BiRefNet or BRIA RMBG-2.0 locally (both exceed container memory, local-machine only — see Discord batch script). <strong>Never use the rembg default u2net</strong> (2020 model — halos, destroys ethereal creatures). Originals preserved in <code>codex/images/originals/</code>. <code>BG_Status</code> column tracks: <code>has_chroma</code> → <code>bg_pending</code> → <code>bg_approved</code> or <code>manual</code> (flagged for artist).</li>
       <li><strong style="color:#ede0c4">CSV update</strong> — <code>Image_Path</code> and <code>Art_Status</code> set immediately after each generation. Statuses: <code>pending</code> (awaiting approval), <code>approved</code> (art locked, do not regenerate), <code>redo</code> (flagged for regeneration).</li>
     </ol></div>
 
@@ -1250,8 +1250,8 @@ Your Backend
 
     <h3>Image generation conventions</h3>
     <ul>
-      <li>Default background: use <code>background: "transparent"</code> for native transparency. If transparency causes edge artifacts, use solid neutral gray (#808080) or black (#000000) as chroma instead. <strong>Never use green or magenta/pink backgrounds</strong> — they cause persistent fringe contamination that no removal pipeline can fully clean.</li>
-      <li>3-stage workflow: Stage 2 first as core concept (text-to-image), then Stage 1 and 3 as fresh generations using Stage 2 image as visual reference — never as an "edit" instruction.</li>
+      <li><strong style="color:#ede0c4">Background &amp; removal rules:</strong> see the canonical <a href="#art-pipeline" style="color:#d9b96a">Art pipeline</a> section (Overview). In short: generate on transparent or gray/black, never green or magenta; remove with plain isnet-general-use.</li>
+      <li><strong style="color:#ede0c4">3-stage workflow:</strong> see canonical <a href="#art-pipeline" style="color:#d9b96a">Art pipeline</a> section. In short: Stage 2 first (text-to-image), Stages 1 &amp; 3 as fresh generations using Stage 2 as visual reference — never an "edit" instruction.</li>
       <li>Every prompt stacks 4–5 anatomical deviations so the creature reads as its own species, not "real animal + one gimmick."</li>
       <li>Every prompt names an explicit color palette. No two lines in the same zone share a palette.</li>
       <li>Creatures must be in a natural combat-ready stance (this is a turn-based RPG battle system).</li>
