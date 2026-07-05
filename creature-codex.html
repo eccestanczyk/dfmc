@@ -229,7 +229,7 @@ function renderGrid() {
       <div class="codex-card-body">
         <div class="codex-card-name">${escapeHtml(c.Name)}${c.Art_Status==='pending'?'<span class="flag flag-art" title="Pending art approval">🎨</span>':''}${c.BG_Status==='has_chroma'?'<span class="flag flag-crop" title="Needs cropping">✂</span>':''}${c.BG_Status==='bg_pending'?'<span class="flag" title="Crop approval pending" style="color:#60a5fa;">🔍</span>':''}</div>
         <div class="codex-card-types">${escapeHtml(types)}</div>
-        <div class="codex-card-rarity"><div class="tier-seal ${cls}">${short}</div><span>${short}</span></div>
+        <div class="codex-card-rarity"><div class="tier-seal ${cls}">${short}</div></div>
       </div>
     </div>`;
   }).join('');
