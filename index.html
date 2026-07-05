@@ -1323,9 +1323,12 @@ function show(id, btn) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  btn.classList.add('active');
+  if (btn) btn.classList.add('active');
+  else { document.querySelectorAll('.nav button').forEach(b => { if (b.getAttribute('onclick') && b.getAttribute('onclick').includes("'" + id + "'")) b.classList.add('active'); }); }
   if (id === 'balance' && !window._balLoaded) loadBalance();
 }
+// Auto-open tab from ?tab= param
+(function(){ var t = new URLSearchParams(location.search).get('tab'); if (t && document.getElementById(t)) show(t); })();
 
 async function loadBalance() {
   window._balLoaded = true;
