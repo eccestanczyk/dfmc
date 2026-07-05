@@ -296,7 +296,51 @@ function toggleCardMenu(gearBtn) {
     html += `<label class="${checked?'checked':''}" onclick="event.stopPropagation()"><input type="checkbox" ${checked?'checked':''} data-action="${a.key}" data-id="${id}" data-name="${name}" style="accent-color:#dd5646;cursor:pointer;">${a.icon} ${a.label}</label>`;
   });
   html += `<div style="padding:8px 12px;border-top:1px solid #5c462c;" onclick="event.stopPropagation()"><div style="font-family:Cinzel,serif;font-size:9px;letter-spacing:0.08em;color:#cfa650;margin-bottom:4px;text-transform:uppercase;">Comment</div><textarea class="card-comment" rows="2" data-id="${id}" data-name="${name}" placeholder="Notes...">${currentComment}</textarea></div>`;
+  html += `<div class="card-opts" data-id="${id}" data-name="${name}" onclick="event.stopPropagation()"></div>`;
   menu.innerHTML = html;
+
+  // Probe A/B/C image options async, then render approve/delete
+  (async function() {
+    const IB = 'https://raw.githubusercontent.com/eccestanczyk/dfmc/main/codex/images/';
+    const DEFS = [
+      { key:'A', label:'A (chroma)', folder:'' },
+      { key:'B', label:'B (Sylph)', folder:'cropped/' },
+      { key:'C', label:'C (isnet)', folder:'cropped_c/' },
+    ];
+    const opts = [];
+    for (const d of DEFS) {
+      try { const r = await fetch(IB + d.folder + id + '.png', { method:'HEAD' }); if (r.ok) opts.push(d); } catch {}
+    }
+    const box = menu.querySelector('.card-opts');
+    if (!box || opts.length === 0) return;
+    const cur = typeof Backlog !== 'undefined' ? Backlog.get(id) : [];
+    let oh = `<div style="padding:8px 12px;border-top:1px solid #5c462c;"><div style="font-family:Cinzel,serif;font-size:9px;letter-spacing:0.08em;color:#cfa650;margin-bottom:6px;text-transform:uppercase;">Image Options (${opts.length})</div>`;
+    opts.forEach(o => {
+      const ak = 'approve_option_' + o.key, dk = 'delete_option_' + o.key;
+      const ia = cur.includes(ak), idl = cur.includes(dk);
+      oh += `<div style="display:flex;align-items:center;gap:6px;margin-bottom:5px;">
+        <span style="font-family:Cinzel,serif;font-size:11px;font-weight:700;color:#ede0c4;min-width:56px;">${o.label}</span>
+        <button data-ok="${ak}" data-id="${id}" data-name="${name}" style="font-family:Cinzel,serif;font-size:10px;padding:3px 7px;border:1px solid ${ia?'#4a7a44':'#3a2c1a'};background:${ia?'#2e5428':'#14100b'};color:${ia?'#86c377':'#c2ae8b'};cursor:pointer;">✅</button>
+        <button data-ok="${dk}" data-id="${id}" data-name="${name}" style="font-family:Cinzel,serif;font-size:10px;padding:3px 7px;border:1px solid ${idl?'#7c1519':'#3a2c1a'};background:${idl?'#3a1214':'#14100b'};color:${idl?'#dd5646':'#c2ae8b'};cursor:pointer;">🗑</button>
+      </div>`;
+    });
+    oh += '</div>';
+    box.innerHTML = oh;
+    box.querySelectorAll('button[data-ok]').forEach(btn => {
+      btn.onclick = function(e) {
+        e.stopPropagation();
+        if (typeof Backlog !== 'undefined') {
+          Backlog.toggle(this.dataset.id, this.dataset.name, this.dataset.ok);
+          if (window._updateBacklogBtn) window._updateBacklogBtn();
+          const on = Backlog.get(this.dataset.id).includes(this.dataset.ok);
+          const del = this.dataset.ok.startsWith('delete');
+          this.style.borderColor = on ? (del?'#7c1519':'#4a7a44') : '#3a2c1a';
+          this.style.background = on ? (del?'#3a1214':'#2e5428') : '#14100b';
+          this.style.color = on ? (del?'#dd5646':'#86c377') : '#c2ae8b';
+        }
+      };
+    });
+  })();
 
   menu.querySelectorAll('input[type=checkbox]').forEach(cb => {
     cb.onchange = function(e) {
@@ -323,7 +367,11 @@ function toggleCardMenu(gearBtn) {
   openMenu = menu;
 }
 
-document.addEventListener('click', function() { if (openMenu) { openMenu.remove(); openMenu = null; } });
+document.addEventListener('click', function(e) {
+  if (openMenu && !openMenu.contains(e.target) && !e.target.closest('.card-gear')) {
+    openMenu.remove(); openMenu = null;
+  }
+});
 
 (async function() {
   try {
