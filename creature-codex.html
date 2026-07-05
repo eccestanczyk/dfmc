@@ -65,6 +65,17 @@
 .flag{ font-size:11px; margin-left:4px; vertical-align:middle; opacity:0.8; cursor:help; }
 .flag-art{ color:#e6c66d; }
 .flag-crop{ color:#dd5646; }
+.card-img-wrap{ position:relative; }
+.card-tabs{ position:absolute; bottom:4px; left:4px; display:flex; gap:2px; }
+.card-tab{ font-family:Cinzel,serif; font-size:10px; font-weight:700; padding:2px 6px; border:1px solid #5c462c; background:#14100b; color:#c2ae8b; cursor:pointer; }
+.card-tab.active{ background:#7c1519; color:#ede0c4; border-color:#dd5646; }
+.card-gear{ position:absolute; top:4px; right:4px; font-size:14px; background:rgba(20,16,11,0.85); border:1px solid #5c462c; color:#cfa650; padding:2px 5px; cursor:pointer; line-height:1; z-index:2; }
+.card-gear:hover{ border-color:#dd5646; color:#dd5646; }
+.card-admin-menu{ position:absolute; top:100%; right:0; z-index:30; min-width:240px; background:#1e1710; border:1px solid #5c462c; box-shadow:0 8px 24px rgba(0,0,0,0.6); text-align:left; }
+.card-admin-menu label{ display:flex; align-items:center; gap:6px; padding:7px 12px; border-bottom:1px solid #3a2c1a; cursor:pointer; font-family:Cinzel,serif; font-size:11px; font-weight:600; color:#c2ae8b; }
+.card-admin-menu label:hover{ color:#e6c66d; }
+.card-admin-menu label.checked{ color:#dd5646; }
+.card-admin-menu textarea{ width:100%; background:#14100b; border:1px solid #3a2c1a; color:#ede0c4; font-family:'EB Garamond',serif; font-size:12px; padding:5px 7px; resize:vertical; box-sizing:border-box; }
 </style>
 </head>
 <body>
@@ -167,6 +178,19 @@ function syncURL() {
   history.replaceState(null, '', qs ? '?' + qs : location.pathname);
 }
 
+const IMG_BASE = 'https://raw.githubusercontent.com/eccestanczyk/dfmc/main/';
+const isAdmin = document.documentElement.classList.contains('admin-mode');
+
+const CARD_ACTIONS = [
+  { key:'approve_art', label:'Approve art', icon:'✅', show: c => c.Art_Status==='pending' },
+  { key:'art_revision', label:'Art revision', icon:'🔄', show: c => c.Art_Status==='approved' },
+  { key:'regenerate', label:'Regenerate', icon:'♻️', show:()=>true },
+  { key:'generate_option', label:'New option', icon:'➕', show:()=>true },
+  { key:'generate_crop', label:'New crop', icon:'✂️', show:()=>true },
+  { key:'framing_issue', label:'Framing issue', icon:'🖼', show:()=>true },
+  { key:'flip_image', label:'Flip image', icon:'↔', show:()=>true },
+];
+
 function renderGrid() {
   let filtered = allCreatures;
   if (activeRarity.size) filtered = filtered.filter(c => activeRarity.has(c.Rarity));
@@ -179,24 +203,95 @@ function renderGrid() {
   document.getElementById('result-count').textContent = `Showing ${filtered.length} of ${allCreatures.length} creatures`;
 
   const grid = document.getElementById('grid');
+  const short_r = k => RARITY_SHORT[k]||'?';
+  const hasCrop = c => c.BG_Status==='bg_pending'||c.BG_Status==='bg_approved';
+
   grid.innerHTML = filtered.map(c => {
-    const short = RARITY_SHORT[c.Rarity] || '?';
+    const short = short_r(c.Rarity);
     const cls = TIER_CLASS[c.Rarity] || '';
     const types = c.Type_Secondary ? `${c.Type_Primary} / ${c.Type_Secondary}` : c.Type_Primary;
-    const img = c.Image_Path
-      ? `<img class="codex-card-img" src="${escapeHtml(c.Image_Path)}?t=${Date.now()}" alt="${escapeHtml(c.Name)}" loading="lazy">`
-      : `<div class="codex-card-noimg">?</div>`;
+    const origSrc = c.Image_Path ? IMG_BASE + escapeHtml(c.Image_Path) + '?t=' + Date.now() : '';
+    const cropSrc = hasCrop(c) && c.Image_Path ? IMG_BASE + 'codex/images/cropped/' + c.ID + '.png?t=' + Date.now() : '';
     const pipelineStyle = c.Art_Status==='pending' ? 'border-color:#cfa650;box-shadow:0 0 8px rgba(207,166,80,0.3);' : c.BG_Status==='has_chroma' ? 'border-color:#dd5646;box-shadow:0 0 8px rgba(221,86,70,0.3);' : c.BG_Status==='bg_pending' ? 'border-color:#60a5fa;box-shadow:0 0 8px rgba(96,165,250,0.3);' : '';
-    return `<a class="codex-card" href="creature.html?id=${escapeHtml(c.ID)}" style="${pipelineStyle}">
-      ${img}
+
+    const imgHtml = origSrc
+      ? `<img class="codex-card-img" data-orig="${escapeHtml(origSrc)}" data-crop="${escapeHtml(cropSrc)}" src="${escapeHtml(origSrc)}" alt="${escapeHtml(c.Name)}" loading="lazy">`
+      : `<div class="codex-card-noimg">?</div>`;
+
+    const tabsHtml = (isAdmin && cropSrc) ? `<div class="card-tabs"><button class="card-tab active" onclick="event.preventDefault();event.stopPropagation();switchCardImg(this,'orig')">A</button><button class="card-tab" onclick="event.preventDefault();event.stopPropagation();switchCardImg(this,'crop')">B</button></div>` : '';
+    const gearHtml = isAdmin ? `<button class="card-gear" onclick="event.preventDefault();event.stopPropagation();toggleCardMenu(this)" data-id="${c.ID}" data-name="${escapeHtml(c.Name)}" data-art="${c.Art_Status}" data-bg="${c.BG_Status}">⚙</button>` : '';
+
+    return `<div class="codex-card" style="${pipelineStyle};position:relative;" onclick="location.href='creature.html?id=${escapeHtml(c.ID)}'">
+      <div class="card-img-wrap">${imgHtml}${tabsHtml}${gearHtml}</div>
       <div class="codex-card-body">
-        <div class="codex-card-name">${escapeHtml(c.Name)}${c.Art_Status==='pending'?'<span class="flag flag-art" title="Pending art approval">🎨</span>':''}${c.BG_Status==='has_chroma'?'<span class="flag flag-crop" title="Needs cropping">✂</span>':''}${c.BG_Status==='bg_pending'?'<span class="flag" title="Crop approval pending" style="color:#60a5fa;">🔍</span>':''}<span class="flag flag-multi" data-id="${c.ID}" style="display:none;color:#a855f7;" title="Has multiple image options">⊕</span></div>
+        <div class="codex-card-name">${escapeHtml(c.Name)}${c.Art_Status==='pending'?'<span class="flag flag-art" title="Pending art approval">🎨</span>':''}${c.BG_Status==='has_chroma'?'<span class="flag flag-crop" title="Needs cropping">✂</span>':''}${c.BG_Status==='bg_pending'?'<span class="flag" title="Crop approval pending" style="color:#60a5fa;">🔍</span>':''}</div>
         <div class="codex-card-types">${escapeHtml(types)}</div>
         <div class="codex-card-rarity"><div class="tier-seal ${cls}">${short}</div><span>${short}</span></div>
       </div>
-    </a>`;
+    </div>`;
   }).join('');
 }
+
+function switchCardImg(tabBtn, which) {
+  const wrap = tabBtn.closest('.card-img-wrap');
+  const img = wrap.querySelector('.codex-card-img');
+  if (!img) return;
+  const src = which === 'crop' ? img.dataset.crop : img.dataset.orig;
+  if (src) img.src = src;
+  wrap.querySelectorAll('.card-tab').forEach(t => t.classList.remove('active'));
+  tabBtn.classList.add('active');
+}
+
+let openMenu = null;
+function toggleCardMenu(gearBtn) {
+  const card = gearBtn.closest('.codex-card');
+  let menu = card.querySelector('.card-admin-menu');
+  if (menu) { menu.remove(); openMenu = null; return; }
+  if (openMenu) { openMenu.remove(); openMenu = null; }
+
+  const id = gearBtn.dataset.id;
+  const name = gearBtn.dataset.name;
+  const artStatus = gearBtn.dataset.art;
+  const creature = { Art_Status: artStatus };
+  const current = typeof Backlog !== 'undefined' ? Backlog.get(id) : [];
+  const currentComment = typeof Backlog !== 'undefined' ? Backlog.getComment(id) : '';
+
+  menu = document.createElement('div');
+  menu.className = 'card-admin-menu';
+  let html = '';
+  CARD_ACTIONS.filter(a => a.show(creature)).forEach(a => {
+    const checked = current.includes(a.key);
+    html += `<label class="${checked?'checked':''}" onclick="event.stopPropagation()"><input type="checkbox" ${checked?'checked':''} data-action="${a.key}" data-id="${id}" data-name="${name}" style="accent-color:#dd5646;cursor:pointer;">${a.icon} ${a.label}</label>`;
+  });
+  html += `<div style="padding:8px 12px;border-top:1px solid #5c462c;" onclick="event.stopPropagation()"><div style="font-family:Cinzel,serif;font-size:9px;letter-spacing:0.08em;color:#cfa650;margin-bottom:4px;text-transform:uppercase;">Comment</div><textarea class="card-comment" rows="2" data-id="${id}" data-name="${name}" placeholder="Notes...">${currentComment}</textarea></div>`;
+  menu.innerHTML = html;
+
+  menu.querySelectorAll('input[type=checkbox]').forEach(cb => {
+    cb.onchange = function(e) {
+      e.stopPropagation();
+      if (typeof Backlog !== 'undefined') {
+        Backlog.toggle(this.dataset.id, this.dataset.name, this.dataset.action);
+        this.parentElement.classList.toggle('checked', this.checked);
+        if (window._updateBacklogBtn) window._updateBacklogBtn();
+      }
+    };
+  });
+  const ta = menu.querySelector('.card-comment');
+  if (ta) {
+    ta.onblur = function() {
+      if (typeof Backlog !== 'undefined') {
+        Backlog.setComment(this.dataset.id, this.dataset.name, this.value.trim());
+        if (window._updateBacklogBtn) window._updateBacklogBtn();
+      }
+    };
+    ta.onclick = function(e) { e.stopPropagation(); };
+  }
+
+  card.appendChild(menu);
+  openMenu = menu;
+}
+
+document.addEventListener('click', function() { if (openMenu) { openMenu.remove(); openMenu = null; } });
 
 (async function() {
   try {
@@ -271,16 +366,6 @@ function renderGrid() {
       document.getElementById('admin-filters').style.display = '';
     }
     renderGrid();
-
-    // In admin mode, probe for multi-option creatures
-    if (document.documentElement.classList.contains('admin-mode')) {
-      const IMG_BASE = 'https://raw.githubusercontent.com/eccestanczyk/dfmc/main/codex/images/';
-      allCreatures.forEach(c => {
-        fetch(IMG_BASE + c.ID + '_B.png', { method: 'HEAD' })
-          .then(r => { if (r.ok) { const el = document.querySelector('.flag-multi[data-id="'+c.ID+'"]'); if (el) el.style.display = ''; }})
-          .catch(() => {});
-      });
-    }
   } catch (e) {
     document.getElementById('status').textContent = 'FAILED TO LOAD: ' + e.message;
   }
