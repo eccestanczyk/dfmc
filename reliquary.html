@@ -22,7 +22,7 @@
 .rq-category.open .rq-body{ display:block; }
 .rq-sub{ font-family:'Cinzel',serif; font-size:13px; font-weight:600; letter-spacing:0.04em; color:var(--gold); margin:14px 0 8px; text-transform:uppercase; }
 .rq-sub:first-child{ margin-top:0; }
-.rq-item-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(160px, 1fr)); gap:8px; }
+.rq-item-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(180px, 1fr)); gap:8px; }
 .rq-item{ background:var(--surface-2); border:1px solid var(--rule-faint); padding:10px 12px; text-decoration:none; color:inherit; display:block; transition:border-color 0.14s; }
 .rq-item:hover{ border-color:var(--blood-bright); }
 .rq-item-name{ color:var(--ink); font-weight:600; margin-bottom:3px; }
@@ -35,160 +35,99 @@ table.rq-table td:first-child{ color:var(--ink); font-weight:600; }
 </style>
 </head>
 <body>
-<div class="topbar">
-  <h1>RELIQUARY</h1>
-</div>
+<div class="topbar"><h1>RELIQUARY</h1></div>
+<div id="status" style="padding:40px;text-align:center;color:var(--ink-dim);font-style:italic;">LOADING...</div>
+<div class="rq-wrap" id="content" style="display:none;"></div>
 
-<div class="rq-wrap">
+<script>
+const ITEMS_URL = "https://raw.githubusercontent.com/eccestanczyk/dfmc/main/codex/items.csv";
+function parseCSV(text){
+  const lines=text.trim().split('\n');
+  const headers=lines[0].split(',').map(h=>h.trim().replace(/\r/g,''));
+  return lines.slice(1).map(line=>{
+    const vals=[];let cur='';let inQ=false;
+    for(let i=0;i<line.length;i++){const ch=line[i];
+      if(ch==='"')inQ=!inQ;else if(ch===','&&!inQ){vals.push(cur.trim().replace(/\r/g,''));cur='';}else cur+=ch;}
+    vals.push(cur.trim().replace(/\r/g,''));
+    const o={};headers.forEach((h,i)=>o[h]=vals[i]||'');return o;});
+}
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
-  <div class="rq-category" onclick="this.classList.toggle('open')">
-    <div class="rq-header">
-      <span class="rq-chevron">▶</span><span class="rq-icon">⚔</span>
-      <span class="rq-title">Weapons</span><span class="rq-count">6 base types</span>
-    </div>
-    <div class="rq-body" onclick="event.stopPropagation()">
-      <div class="rq-sub">Main Hand</div>
-      <div class="rq-item-grid">
-        <a class="rq-item" href="item.html?type=sword"><div class="rq-item-name">Sword</div><div class="rq-item-desc">Offense implicit</div></a>
-        <a class="rq-item" href="item.html?type=axe"><div class="rq-item-name">Axe</div><div class="rq-item-desc">Offense implicit (higher)</div></a>
-        <a class="rq-item" href="item.html?type=staff"><div class="rq-item-name">Staff</div><div class="rq-item-desc">Utility implicit</div></a>
-      </div>
-      <div class="rq-sub">Off Hand</div>
-      <div class="rq-item-grid">
-        <a class="rq-item" href="item.html?type=shield"><div class="rq-item-name">Shield</div><div class="rq-item-desc">Defense implicit</div></a>
-        <a class="rq-item" href="item.html?type=tome"><div class="rq-item-name">Tome</div><div class="rq-item-desc">Utility implicit</div></a>
-        <a class="rq-item" href="item.html?type=dagger"><div class="rq-item-name">Dagger</div><div class="rq-item-desc">Speed implicit</div></a>
-      </div>
-    </div>
-  </div>
+const CAT_META = {
+  'Weapon':    {icon:'⚔', title:'Weapons',      groupBy:'Slot'},
+  'Armour':    {icon:'🛡', title:'Armour',       groupBy:'Slot'},
+  'Accessory': {icon:'💍', title:'Accessories',  groupBy:null},
+  'Tag':       {icon:'🏷', title:'Creature Tags', groupBy:null},
+  'Gem':       {icon:'💎', title:'Gems',         groupBy:null},
+  'Rune':      {icon:'🔷', title:'Runes',        groupBy:null},
+  'Scroll':    {icon:'📜', title:'Scrolls',      groupBy:null},
+};
+const CAT_ORDER = ['Weapon','Armour','Accessory','Tag','Gem','Rune','Scroll'];
 
-  <div class="rq-category" onclick="this.classList.toggle('open')">
-    <div class="rq-header">
-      <span class="rq-chevron">▶</span><span class="rq-icon">🛡</span>
-      <span class="rq-title">Armour</span><span class="rq-count">4 slots · 12 base types</span>
-    </div>
-    <div class="rq-body" onclick="event.stopPropagation()">
-      <div class="rq-sub">Head</div>
-      <div class="rq-item-grid">
-        <a class="rq-item" href="item.html?type=helm"><div class="rq-item-name">Helm</div><div class="rq-item-desc">Defense</div></a>
-        <a class="rq-item" href="item.html?type=hood"><div class="rq-item-name">Hood</div><div class="rq-item-desc">Utility</div></a>
-        <a class="rq-item" href="item.html?type=circlet"><div class="rq-item-name">Circlet</div><div class="rq-item-desc">Speed</div></a>
-      </div>
-      <div class="rq-sub">Chest</div>
-      <div class="rq-item-grid">
-        <a class="rq-item" href="item.html?type=plate"><div class="rq-item-name">Plate</div><div class="rq-item-desc">Defense</div></a>
-        <a class="rq-item" href="item.html?type=robe"><div class="rq-item-name">Robe</div><div class="rq-item-desc">Utility</div></a>
-        <a class="rq-item" href="item.html?type=leather"><div class="rq-item-name">Leather</div><div class="rq-item-desc">Speed</div></a>
-      </div>
-      <div class="rq-sub">Gloves</div>
-      <div class="rq-item-grid">
-        <a class="rq-item" href="item.html?type=gauntlets"><div class="rq-item-name">Gauntlets</div><div class="rq-item-desc">Offense</div></a>
-        <a class="rq-item" href="item.html?type=wraps"><div class="rq-item-name">Wraps</div><div class="rq-item-desc">Speed</div></a>
-        <a class="rq-item" href="item.html?type=gloves"><div class="rq-item-name">Gloves</div><div class="rq-item-desc">Utility</div></a>
-      </div>
-      <div class="rq-sub">Feet</div>
-      <div class="rq-item-grid">
-        <a class="rq-item" href="item.html?type=greaves"><div class="rq-item-name">Greaves</div><div class="rq-item-desc">Defense</div></a>
-        <a class="rq-item" href="item.html?type=boots"><div class="rq-item-name">Boots</div><div class="rq-item-desc">Speed</div></a>
-        <a class="rq-item" href="item.html?type=sandals"><div class="rq-item-name">Sandals</div><div class="rq-item-desc">Utility</div></a>
-      </div>
-    </div>
-  </div>
+(async function(){
+  let rows;
+  try{ rows = parseCSV(await fetch(ITEMS_URL+'?t='+Date.now()).then(r=>r.text())); }
+  catch(e){ document.getElementById('status').textContent='Failed to load: '+e.message; return; }
 
-  <div class="rq-category" onclick="this.classList.toggle('open')">
-    <div class="rq-header">
-      <span class="rq-chevron">▶</span><span class="rq-icon">💍</span>
-      <span class="rq-title">Accessories</span><span class="rq-count">2 slots · 8 base types</span>
-    </div>
-    <div class="rq-body" onclick="event.stopPropagation()">
-      <div class="rq-item-grid">
-        <a class="rq-item" href="item.html?type=signet"><div class="rq-item-name">Signet</div><div class="rq-item-desc">Offense</div></a>
-        <a class="rq-item" href="item.html?type=ward"><div class="rq-item-name">Ward</div><div class="rq-item-desc">Defense</div></a>
-        <a class="rq-item" href="item.html?type=totem"><div class="rq-item-name">Totem</div><div class="rq-item-desc">Utility</div></a>
-        <a class="rq-item" href="item.html?type=talisman"><div class="rq-item-name">Talisman</div><div class="rq-item-desc">Crit Damage</div></a>
-        <a class="rq-item" href="item.html?type=relic"><div class="rq-item-name">Relic</div><div class="rq-item-desc">HP</div></a>
-        <a class="rq-item" href="item.html?type=fetish"><div class="rq-item-name">Fetish</div><div class="rq-item-desc">Crit Chance</div></a>
-        <a class="rq-item" href="item.html?type=idol"><div class="rq-item-name">Idol</div><div class="rq-item-desc">Creature Offense</div></a>
-        <a class="rq-item" href="item.html?type=effigy"><div class="rq-item-name">Effigy</div><div class="rq-item-desc">Creature Defense</div></a>
-      </div>
-    </div>
-  </div>
+  // Collapse to one entry per Family (base type)
+  const fams = {};
+  rows.forEach(r=>{
+    const f=(r.Family||'').trim();
+    if(!f||r.Category==='Material')return;
+    if(!fams[f]) fams[f]={family:f, category:r.Category.trim(), slot:r.Slot.trim(), effect:r.Effect.trim()};
+  });
 
-  <div class="rq-category" onclick="this.classList.toggle('open')">
-    <div class="rq-header">
-      <span class="rq-chevron">▶</span><span class="rq-icon">🏷</span>
-      <span class="rq-title">Creature Tags</span><span class="rq-count">2 slots · 5 base types</span>
-    </div>
-    <div class="rq-body" onclick="event.stopPropagation()">
-      <p class="rq-note">Personal scope. No soul attachment.</p>
-      <div class="rq-item-grid">
-        <a class="rq-item" href="item.html?type=collar"><div class="rq-item-name">Collar</div><div class="rq-item-desc">Offense</div></a>
-        <a class="rq-item" href="item.html?type=barding"><div class="rq-item-name">Barding</div><div class="rq-item-desc">Defense</div></a>
-        <a class="rq-item" href="item.html?type=sigil"><div class="rq-item-name">Sigil</div><div class="rq-item-desc">Utility</div></a>
-        <a class="rq-item" href="item.html?type=anklet"><div class="rq-item-name">Anklet</div><div class="rq-item-desc">Speed</div></a>
-        <a class="rq-item" href="item.html?type=brand"><div class="rq-item-name">Brand</div><div class="rq-item-desc">Hybrid</div></a>
-      </div>
-    </div>
-  </div>
+  const byCat={};
+  Object.values(fams).forEach(v=>{ (byCat[v.category]=byCat[v.category]||[]).push(v); });
 
-  <div class="rq-category" onclick="this.classList.toggle('open')">
-    <div class="rq-header">
-      <span class="rq-chevron">▶</span><span class="rq-icon">💎</span>
-      <span class="rq-title">Enhancements</span><span class="rq-count">Gems · Runes · Scrolls</span>
-    </div>
-    <div class="rq-body" onclick="event.stopPropagation()">
-      <div class="rq-sub">Gems — Flat Stats</div>
-      <p class="rq-note">Fixed flat modifiers. Up to 3 slots at Void grade. Dismantles into Dust.</p>
-      <div class="rq-sub">Runes — Percentage Scaling</div>
-      <p class="rq-note">Percentage modifiers. Multiply base + gems. Up to 3 slots at Void. Dismantles into Essence.</p>
-      <div class="rq-sub">Scrolls — Enchantments</div>
-      <p class="rq-note">Random modifier from pool on socket. Rerollable for Ink. Up to 3 slots at Void. Dismantles into Ink.</p>
-      <div class="rq-sub">Tier Ladder</div>
-      <p class="rq-note">Chip → Shard → Fragment → Crystal → Prism → Facet → Jewel → Radiant → Transcendent → Sublime</p>
-    </div>
-  </div>
+  let html='';
+  CAT_ORDER.forEach(cat=>{
+    const list=byCat[cat]; if(!list||!list.length) return;
+    const meta=CAT_META[cat];
+    html+=`<div class="rq-category" onclick="this.classList.toggle('open')">
+      <div class="rq-header"><span class="rq-chevron">▶</span><span class="rq-icon">${meta.icon}</span>
+      <span class="rq-title">${meta.title}</span><span class="rq-count">${list.length} base types</span></div>
+      <div class="rq-body" onclick="event.stopPropagation()">`;
+    if(meta.groupBy==='Slot'){
+      const slots={}; list.forEach(v=>{(slots[v.slot]=slots[v.slot]||[]).push(v);});
+      Object.keys(slots).forEach(s=>{
+        html+=`<div class="rq-sub">${esc(s)}</div><div class="rq-item-grid">`;
+        slots[s].forEach(v=>{ html+=itemCard(v); });
+        html+=`</div>`;
+      });
+    } else {
+      html+=`<div class="rq-item-grid">`;
+      list.forEach(v=>{ html+=itemCard(v); });
+      html+=`</div>`;
+    }
+    html+=`</div></div>`;
+  });
 
-  <div class="rq-category" onclick="this.classList.toggle('open')">
-    <div class="rq-header">
-      <span class="rq-chevron">▶</span><span class="rq-icon">🧱</span>
-      <span class="rq-title">Materials</span><span class="rq-count">5 families</span>
-    </div>
-    <div class="rq-body" onclick="event.stopPropagation()">
-      <table class="rq-table">
-        <tr><th>Material</th><th>Source</th><th>Used For</th></tr>
-        <tr><td>Scrap</td><td>Dismantling gear</td><td>Crafting gear, refinement</td></tr>
-        <tr><td>Ichor</td><td>Dismantling Rare+ gear</td><td>Grading up gear</td></tr>
-        <tr><td>Dust</td><td>Dismantling gems</td><td>Crafting & grading gems</td></tr>
-        <tr><td>Essence</td><td>Dismantling runes</td><td>Crafting & grading runes</td></tr>
-        <tr><td>Ink</td><td>Dismantling scrolls</td><td>Crafting scrolls, rerolling enchantments</td></tr>
-      </table>
-    </div>
-  </div>
+  // Materials + grades static reference
+  html+=`<div class="rq-category" onclick="this.classList.toggle('open')">
+    <div class="rq-header"><span class="rq-chevron">▶</span><span class="rq-icon">🧱</span>
+    <span class="rq-title">Materials</span><span class="rq-count">5 families</span></div>
+    <div class="rq-body" onclick="event.stopPropagation()"><table class="rq-table">
+      <tr><th>Material</th><th>Source</th><th>Used For</th></tr>
+      <tr><td>Scrap</td><td>Dismantling gear</td><td>Crafting gear, refinement</td></tr>
+      <tr><td>Ichor</td><td>Dismantling Rare+ gear</td><td>Grading up gear</td></tr>
+      <tr><td>Dust</td><td>Dismantling gems</td><td>Crafting & grading gems</td></tr>
+      <tr><td>Essence</td><td>Dismantling runes</td><td>Crafting & grading runes</td></tr>
+      <tr><td>Ink</td><td>Dismantling scrolls</td><td>Crafting scrolls, rerolling enchantments</td></tr>
+    </table></div></div>`;
 
-  <div class="rq-category" onclick="this.classList.toggle('open')">
-    <div class="rq-header">
-      <span class="rq-chevron">▶</span><span class="rq-icon">⬆</span>
-      <span class="rq-title">Equipment Grades</span><span class="rq-count">Worn → Void</span>
-    </div>
-    <div class="rq-body" onclick="event.stopPropagation()">
-      <table class="rq-table">
-        <tr><th>Grade</th><th>Gems</th><th>Runes</th><th>Enchants</th></tr>
-        <tr><td style="color:#c2ae8b">Worn</td><td>—</td><td>—</td><td>—</td></tr>
-        <tr><td style="color:#c2ae8b">Common</td><td>1</td><td>—</td><td>—</td></tr>
-        <tr><td style="color:#1eff00">Uncommon</td><td>1</td><td>1</td><td>—</td></tr>
-        <tr><td style="color:#0070dd">Rare</td><td>1</td><td>1</td><td>1</td></tr>
-        <tr><td style="color:#a335ee">Epic</td><td>2</td><td>1</td><td>1</td></tr>
-        <tr><td style="color:#ff8000">Legendary</td><td>2</td><td>2</td><td>1</td></tr>
-        <tr><td style="color:#e5393f">Abyssal</td><td>2</td><td>2</td><td>2</td></tr>
-        <tr><td style="color:#00ffe0">Divine</td><td>3</td><td>2</td><td>2</td></tr>
-        <tr><td style="color:#ff44cc">Primordial</td><td>3</td><td>3</td><td>2</td></tr>
-        <tr><td style="color:#a855f7;text-shadow:0 0 6px #7c3aed">Void</td><td>3</td><td>3</td><td>3</td></tr>
-      </table>
-    </div>
-  </div>
+  document.getElementById('content').innerHTML=html;
+  document.getElementById('status').style.display='none';
+  document.getElementById('content').style.display='block';
 
-</div>
-
+  function itemCard(v){
+    const desc = v.effect ? v.effect.split(',')[0] : v.category;
+    return `<a class="rq-item" href="item.html?type=${encodeURIComponent(v.family)}">
+      <div class="rq-item-name">${esc(v.family)}</div>
+      <div class="rq-item-desc">${esc(desc)}</div></a>`;
+  }
+})();
+</script>
 <script src="nav.js"></script>
 <script src="admin.js"></script>
 </body>
