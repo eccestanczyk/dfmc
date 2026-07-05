@@ -58,6 +58,7 @@
   font-family:'Cinzel', serif; font-weight:700; font-size:14px; color:var(--ink);
   margin-bottom:4px; line-height:1.2;
 }
+.card-num{ font-family:'Cinzel', serif; font-weight:600; font-size:12px; color:var(--ink-dim); margin-right:6px; }
 .codex-card-types{ font-size:12px; color:var(--ink-dim); font-style:italic; margin-bottom:6px; }
 .codex-card-rarity{ display:flex; align-items:center; gap:6px; }
 .codex-card-rarity .tier-seal{ width:22px; height:22px; font-size:8px; }
@@ -229,7 +230,7 @@ function renderGrid() {
     return `<div class="codex-card" style="${pipelineStyle};position:relative;cursor:pointer;" onclick="if(!event.target.closest('.card-gear,.card-admin-menu,.card-tab'))location.href='creature.html?id=${escapeHtml(c.ID)}'">
       <div class="card-img-wrap">${imgHtml}${tabsHtml}${gearHtml}</div>
       <div class="codex-card-body">
-        <div class="codex-card-name">${escapeHtml(c.Name)}${c.Art_Status==='pending'?'<span class="flag flag-art" title="Pending art approval">🎨</span>':''}${c.BG_Status==='has_chroma'?'<span class="flag flag-crop" title="Needs cropping">✂</span>':''}${c.BG_Status==='bg_pending'?'<span class="flag" title="Crop approval pending" style="color:#60a5fa;">🔍</span>':''}</div>
+        <div class="codex-card-name"><span class="card-num">${parseInt(c.ID.replace('DFMC-',''),10)}</span>${escapeHtml(c.Name)}${c.Art_Status==='pending'?'<span class="flag flag-art" title="Pending art approval">🎨</span>':''}${c.BG_Status==='has_chroma'?'<span class="flag flag-crop" title="Needs cropping">✂</span>':''}${c.BG_Status==='bg_pending'?'<span class="flag" title="Crop approval pending" style="color:#60a5fa;">🔍</span>':''}</div>
         <div class="codex-card-types">${escapeHtml(types)}</div>
         <div class="codex-card-rarity"><div class="tier-seal ${cls}">${short}</div></div>
       </div>
