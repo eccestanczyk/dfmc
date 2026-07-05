@@ -413,33 +413,25 @@ load();
     };
 
     // Probe for image options:
-    // A  = codex/images/DFMC-XXX.png (original)
-    // A' = codex/images/cropped/DFMC-XXX.png (cropped version of A)
-    // B  = codex/images/DFMC-XXX_B.png, B' = cropped/DFMC-XXX_B.png, etc.
+    // A = original chroma (DFMC-XXX.png)
+    // B = Sylph crop (cropped/DFMC-XXX.png)
+    // C = isnet crop (cropped_c/DFMC-XXX.png)
     const IMG_BASE = 'https://raw.githubusercontent.com/eccestanczyk/dfmc/main/codex/images/';
-    const OPTION_SUFFIXES = ['', '_B', '_C', '_D', '_E'];
-    const OPTION_LABELS = ['A', 'B', 'C', 'D', 'E'];
+    const OPTION_DEFS = [
+      { label: 'A', folder: '',           key: 'A' },
+      { label: 'B', folder: 'cropped/',   key: 'B' },
+      { label: 'C', folder: 'cropped_c/', key: 'C' },
+    ];
     let availableOptions = [];
 
     async function probeOptions() {
       availableOptions = [];
-      for (let i = 0; i < OPTION_SUFFIXES.length; i++) {
-        const fname = id + OPTION_SUFFIXES[i] + '.png';
-        const t = '';
-        // Check main folder
-        const mainUrl = IMG_BASE + fname + t;
+      for (const def of OPTION_DEFS) {
+        const url = IMG_BASE + def.folder + id + '.png';
         try {
-          const resp = await fetch(mainUrl, { method: 'HEAD' });
+          const resp = await fetch(url, { method: 'HEAD' });
           if (resp.ok) {
-            availableOptions.push({ label: OPTION_LABELS[i], suffix: OPTION_SUFFIXES[i], url: mainUrl, type: 'original' });
-          }
-        } catch {}
-        // Check cropped folder
-        const cropUrl = IMG_BASE + 'cropped/' + fname + t;
-        try {
-          const resp = await fetch(cropUrl, { method: 'HEAD' });
-          if (resp.ok) {
-            availableOptions.push({ label: OPTION_LABELS[i] + ' (cropped)', suffix: OPTION_SUFFIXES[i], url: cropUrl, type: 'cropped' });
+            availableOptions.push({ label: def.label, key: def.key, url: url });
           }
         } catch {}
       }
@@ -464,9 +456,8 @@ load();
         html += '<div style="padding:10px 14px;border-top:1px solid #5c462c;">' +
           '<div style="font-family:Cinzel,serif;font-size:10px;letter-spacing:0.08em;color:#cfa650;margin-bottom:8px;text-transform:uppercase;">Image Options (' + availableOptions.length + ')</div>';
         availableOptions.forEach(opt => {
-          const keyLabel = opt.type === 'cropped' ? opt.label.replace(' (cropped)','') + '_crop' : opt.label;
-          const approveKey = 'approve_option_' + keyLabel;
-          const deleteKey = 'delete_option_' + keyLabel;
+          const approveKey = 'approve_option_' + opt.key;
+          const deleteKey = 'delete_option_' + opt.key;
           const isApproved = current.includes(approveKey);
           const isDeleted = current.includes(deleteKey);
           html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">' +
