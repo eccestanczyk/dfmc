@@ -251,27 +251,24 @@ const LABELS = ['A', 'B', 'C', 'D', 'E'];
 async function probeCardTabs() {
   if (!document.documentElement.classList.contains('admin-mode')) return;
   const tabContainers = document.querySelectorAll('.card-tabs[data-id]');
-  const SEQ = ['A','B','C','D','E','F','G','H','I','J'];
+  const DEFS = [
+    { label:'A', folder:'' },
+    { label:'B', folder:'cropped/' },
+    { label:'C', folder:'cropped_c/' },
+  ];
   for (const container of tabContainers) {
     const id = container.dataset.id;
     const base = container.dataset.base;
     const found = [];
-
-    for (let i = 0; i < SUFFIXES.length; i++) {
-      const fname = id + SUFFIXES[i] + '.png';
+    for (const def of DEFS) {
       try {
-        const r = await fetch(base + fname, { method: 'HEAD' });
-        if (r.ok) found.push({ url: base + fname, src: 'orig' + i });
-      } catch {}
-      try {
-        const r = await fetch(base + 'cropped/' + fname, { method: 'HEAD' });
-        if (r.ok) found.push({ url: base + 'cropped/' + fname, src: 'crop' + i });
+        const r = await fetch(base + def.folder + id + '.png', { method: 'HEAD' });
+        if (r.ok) found.push({ url: base + def.folder + id + '.png', label: def.label });
       } catch {}
     }
-
     if (found.length > 1) {
       container.innerHTML = found.map((f, idx) =>
-        `<button class="card-tab${idx===0?' active':''}" onclick="event.stopPropagation();switchCardImg(this,'${f.url}')">${SEQ[idx] || idx}</button>`
+        `<button class="card-tab${idx===0?' active':''}" onclick="event.stopPropagation();switchCardImg(this,'${f.url}')">${f.label}</button>`
       ).join('');
     }
   }
