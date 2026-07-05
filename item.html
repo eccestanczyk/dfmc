@@ -10,40 +10,22 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>
 .item-wrap{ max-width:920px; margin:0 auto; padding:24px 20px 100px; }
-.item-hero{
-  background:var(--surface); border:1px solid var(--rule); padding:28px;
-  box-shadow:inset 0 1px 0 rgba(207,166,80,0.07), 0 6px 18px rgba(0,0,0,0.4);
-  text-align:center; margin-bottom:20px;
-}
+.item-hero{ background:var(--surface); border:1px solid var(--rule); padding:28px; box-shadow:inset 0 1px 0 rgba(207,166,80,0.07), 0 6px 18px rgba(0,0,0,0.4); text-align:center; margin-bottom:20px; }
 .item-hero h2{ font-family:'Cinzel Decorative',serif; font-size:30px; color:var(--gold-bright); margin:0 0 6px; letter-spacing:0.03em; text-shadow:0 2px 4px rgba(0,0,0,0.6); }
 .item-meta{ font-size:14px; color:var(--ink-dim); font-style:italic; }
 .item-meta b{ color:var(--ink); font-style:normal; }
 .item-implicit{ margin-top:12px; padding:10px 16px; background:var(--surface-2); border:1px solid var(--rule-faint); display:inline-block; }
 .item-implicit span{ color:var(--gold); font-family:'Cinzel',serif; font-size:12px; text-transform:uppercase; letter-spacing:0.06em; }
 .item-implicit div{ color:var(--ink); font-size:15px; margin-top:4px; }
-.item-section{
-  background:var(--surface); border:1px solid var(--rule); margin-bottom:14px;
-  box-shadow:inset 0 1px 0 rgba(207,166,80,0.07), 0 5px 14px rgba(0,0,0,0.35);
-}
-.item-section h3{
-  font-family:'Cinzel',serif; font-size:14px; letter-spacing:0.1em; text-transform:uppercase;
-  color:var(--gold-bright); margin:0; padding:12px 18px;
-  border-bottom:1px solid var(--rule);
-  background:linear-gradient(90deg, rgba(124,21,25,0.16), transparent 70%);
-}
+.item-section{ background:var(--surface); border:1px solid var(--rule); margin-bottom:14px; box-shadow:inset 0 1px 0 rgba(207,166,80,0.07), 0 5px 14px rgba(0,0,0,0.35); }
+.item-section h3{ font-family:'Cinzel',serif; font-size:14px; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold-bright); margin:0; padding:12px 18px; border-bottom:1px solid var(--rule); background:linear-gradient(90deg, rgba(124,21,25,0.16), transparent 70%); }
 .item-section-body{ padding:16px 18px; }
 table.item-table{ width:100%; border-collapse:collapse; font-size:14px; }
-table.item-table th{
-  font-family:'Cinzel',serif; font-size:11px; color:var(--gold); text-transform:uppercase;
-  letter-spacing:0.06em; text-align:left; padding:8px 10px; border-bottom:1px solid var(--rule);
-}
+table.item-table th{ font-family:'Cinzel',serif; font-size:11px; color:var(--gold); text-transform:uppercase; letter-spacing:0.06em; text-align:left; padding:8px 10px; border-bottom:1px solid var(--rule); }
 table.item-table td{ padding:8px 10px; color:var(--ink-dim); border-bottom:1px solid var(--rule-faint); }
 table.item-table td:first-child{ color:var(--ink); font-weight:600; }
 .tbd{ color:var(--ink-faint); font-style:italic; }
-.back-link{
-  font-family:'Cinzel',serif; font-size:12px; color:var(--gold); text-decoration:none;
-  letter-spacing:0.06em; text-transform:uppercase; border-bottom:1px solid var(--rule-faint);
-}
+.back-link{ font-family:'Cinzel',serif; font-size:12px; color:var(--gold); text-decoration:none; letter-spacing:0.06em; text-transform:uppercase; border-bottom:1px solid var(--rule-faint); }
 .back-link:hover{ color:var(--blood-bright); border-color:var(--blood-bright); }
 </style>
 </head>
@@ -51,7 +33,6 @@ table.item-table td:first-child{ color:var(--ink); font-weight:600; }
 <div class="topbar" style="display:flex;align-items:center;gap:10px;">
   <h1 id="topbar-title" style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:center;font-family:'Cinzel Decorative',serif;font-weight:900;font-size:18px;letter-spacing:0.08em;color:var(--gold-bright);margin:0;">RELIQUARY</h1>
 </div>
-
 <div class="item-wrap">
   <div style="margin-bottom:16px;"><a class="back-link" href="reliquary.html">← Back to Reliquary</a></div>
   <div id="status" style="padding:40px;text-align:center;color:var(--ink-dim);font-style:italic;">LOADING...</div>
@@ -59,48 +40,22 @@ table.item-table td:first-child{ color:var(--ink); font-weight:600; }
     <div class="item-hero">
       <h2 id="item-name"></h2>
       <div class="item-meta"><b id="item-slot"></b> · <span id="item-category"></span></div>
-      <div class="item-implicit"><span>Implicit Modifier</span><div id="item-implicit-text"></div></div>
+      <div class="item-implicit"><span>Implicit / Effect</span><div id="item-implicit-text"></div></div>
     </div>
-
-    <div class="item-section">
-      <h3>Tier Progression</h3>
-      <div class="item-section-body">
-        <table class="item-table">
-          <thead><tr><th>Tier</th><th>Name</th><th>Level Req</th><th>Craft Cost</th><th>Base Stat</th></tr></thead>
-          <tbody id="tier-table"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="item-section">
-      <h3>Grade Progression</h3>
-      <div class="item-section-body">
-        <table class="item-table">
-          <thead><tr><th>Grade</th><th>Gems</th><th>Runes</th><th>Enchants</th><th>Grade-Up Cost</th><th>Success %</th></tr></thead>
-          <tbody id="grade-table"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="item-section">
-      <h3>Refinement</h3>
-      <div class="item-section-body">
-        <table class="item-table">
-          <thead><tr><th>Level</th><th>Success %</th><th>Attempt Cost</th></tr></thead>
-          <tbody id="refine-table"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="item-section">
-      <h3>Dismantle Yields</h3>
-      <div class="item-section-body" id="dismantle-info"></div>
-    </div>
+    <div class="item-section"><h3>Tier Progression</h3><div class="item-section-body">
+      <table class="item-table"><thead><tr><th>Tier</th><th>Name</th><th>Level Req</th><th>Craft Cost</th></tr></thead><tbody id="tier-table"></tbody></table>
+    </div></div>
+    <div class="item-section"><h3>Grade Progression</h3><div class="item-section-body">
+      <table class="item-table"><thead><tr><th>Grade</th><th>Gems</th><th>Runes</th><th>Enchants</th><th>Grade-Up Cost</th><th>Success %</th></tr></thead><tbody id="grade-table"></tbody></table>
+    </div></div>
+    <div class="item-section" id="refine-section"><h3>Refinement</h3><div class="item-section-body">
+      <table class="item-table"><thead><tr><th>Level</th><th>Success %</th><th>Attempt Cost</th></tr></thead><tbody id="refine-table"></tbody></table>
+    </div></div>
+    <div class="item-section"><h3>Dismantle Yields</h3><div class="item-section-body" id="dismantle-info"></div></div>
   </div>
 </div>
-
 <script>
-const TIERS = ['Chip','Shard','Fragment','Crystal','Prism','Facet','Jewel','Radiant','Transcendent','Sublime'];
+const ITEMS_URL = "https://raw.githubusercontent.com/eccestanczyk/dfmc/main/codex/items.csv";
 const GRADES = [
   {name:'Worn',color:'#c2ae8b',gems:0,runes:0,enchants:0,cost:'—',success:'—'},
   {name:'Common',color:'#c2ae8b',gems:1,runes:0,enchants:0,cost:'1 Ichor',success:'100%'},
@@ -113,100 +68,52 @@ const GRADES = [
   {name:'Primordial',color:'#ff44cc',gems:3,runes:3,enchants:2,cost:'18 Ichor',success:'3%'},
   {name:'Void',color:'#a855f7',gems:3,runes:3,enchants:3,cost:'40 Ichor',success:'0.5%'},
 ];
-const REFINE = [
-  {level:'+1',success:'100%'},{level:'+2',success:'90%'},{level:'+3',success:'80%'},
-  {level:'+4',success:'65%'},{level:'+5',success:'50%'},{level:'+6',success:'35%'},
-  {level:'+7',success:'20%'},{level:'+8',success:'10%'},{level:'+9',success:'3%'},{level:'+10',success:'1%'},
-];
-
-const ITEMS = {
-  'sword':   {name:'Sword',slot:'Main Hand',category:'Weapon',implicit:'+Offense (flat)'},
-  'axe':     {name:'Axe',slot:'Main Hand',category:'Weapon',implicit:'+Offense (flat, higher)'},
-  'staff':   {name:'Staff',slot:'Main Hand',category:'Weapon',implicit:'+Utility (flat)'},
-  'shield':  {name:'Shield',slot:'Off Hand',category:'Weapon',implicit:'+Defense (flat)'},
-  'tome':    {name:'Tome',slot:'Off Hand',category:'Weapon',implicit:'+Utility (flat)'},
-  'dagger':  {name:'Dagger',slot:'Off Hand',category:'Weapon',implicit:'+Speed (flat)'},
-  'helm':    {name:'Helm',slot:'Head',category:'Armour',implicit:'+Defense (flat)'},
-  'hood':    {name:'Hood',slot:'Head',category:'Armour',implicit:'+Utility (flat)'},
-  'circlet': {name:'Circlet',slot:'Head',category:'Armour',implicit:'+Speed (flat)'},
-  'plate':   {name:'Plate',slot:'Chest',category:'Armour',implicit:'+Defense (flat, high)'},
-  'robe':    {name:'Robe',slot:'Chest',category:'Armour',implicit:'+Utility (flat)'},
-  'leather': {name:'Leather',slot:'Chest',category:'Armour',implicit:'+Speed (flat)'},
-  'gauntlets':{name:'Gauntlets',slot:'Gloves',category:'Armour',implicit:'+Offense (flat)'},
-  'wraps':   {name:'Wraps',slot:'Gloves',category:'Armour',implicit:'+Speed (flat)'},
-  'gloves':  {name:'Gloves',slot:'Gloves',category:'Armour',implicit:'+Utility (flat)'},
-  'greaves': {name:'Greaves',slot:'Feet',category:'Armour',implicit:'+Defense (flat)'},
-  'boots':   {name:'Boots',slot:'Feet',category:'Armour',implicit:'+Speed (flat)'},
-  'sandals': {name:'Sandals',slot:'Feet',category:'Armour',implicit:'+Utility (flat)'},
-  'signet':  {name:'Signet',slot:'Accessory',category:'Accessory',implicit:'+Offense'},
-  'ward':    {name:'Ward',slot:'Accessory',category:'Accessory',implicit:'+Defense'},
-  'totem':   {name:'Totem',slot:'Accessory',category:'Accessory',implicit:'+Utility'},
-  'talisman':{name:'Talisman',slot:'Accessory',category:'Accessory',implicit:'+Crit Damage'},
-  'relic':   {name:'Relic',slot:'Accessory',category:'Accessory',implicit:'+HP'},
-  'fetish':  {name:'Fetish',slot:'Accessory',category:'Accessory',implicit:'+Crit Chance'},
-  'idol':    {name:'Idol',slot:'Accessory',category:'Accessory',implicit:'+Creature Offense (Personal)'},
-  'effigy':  {name:'Effigy',slot:'Accessory',category:'Accessory',implicit:'+Creature Defense (Personal)'},
-  'collar':  {name:'Collar',slot:'Tag',category:'Creature Tag',implicit:'+Offense (Personal)'},
-  'barding': {name:'Barding',slot:'Tag',category:'Creature Tag',implicit:'+Defense (Personal)'},
-  'sigil':   {name:'Sigil',slot:'Tag',category:'Creature Tag',implicit:'+Utility (Personal)'},
-  'anklet':  {name:'Anklet',slot:'Tag',category:'Creature Tag',implicit:'+Speed (Personal)'},
-  'brand':   {name:'Brand',slot:'Tag',category:'Creature Tag',implicit:'+Hybrid (Personal)'},
-};
-
-const params = new URLSearchParams(location.search);
-const key = (params.get('type') || '').toLowerCase();
-const item = ITEMS[key];
-
-if (!item) {
-  document.getElementById('status').textContent = 'ITEM NOT FOUND: ' + (key || '(none)');
-} else {
-  document.getElementById('item-name').textContent = item.name;
-  document.getElementById('item-slot').textContent = item.slot;
-  document.getElementById('item-category').textContent = item.category;
-  document.getElementById('item-implicit-text').textContent = item.implicit;
-  document.getElementById('topbar-title').textContent = item.name.toUpperCase();
-
-  // Tier table
-  const tierBody = document.getElementById('tier-table');
-  const isTag = item.category === 'Creature Tag';
-  TIERS.forEach((t, i) => {
-    const tier = i + 1;
-    const lvl = (tier - 1) * 10 || 1;
-    const cost = 25 * tier;
-    tierBody.innerHTML += `<tr>
-      <td>T${tier}</td><td>${t}</td>
-      <td>Lv ${lvl}${isTag ? ' (creature)' : ''}</td>
-      <td>${cost} Scrap</td>
-      <td class="tbd">TBD</td>
-    </tr>`;
-  });
-
-  // Grade table
-  const gradeBody = document.getElementById('grade-table');
-  GRADES.forEach(g => {
-    gradeBody.innerHTML += `<tr>
-      <td style="color:${g.color}">${g.name}</td>
-      <td>${g.gems || '—'}</td><td>${g.runes || '—'}</td><td>${g.enchants || '—'}</td>
-      <td>${g.cost}</td><td>${g.success}</td>
-    </tr>`;
-  });
-
-  // Refinement table
-  const refBody = document.getElementById('refine-table');
-  REFINE.forEach((r, i) => {
-    const lvl = i + 1;
-    const costPer = `${3 * lvl} × tier Scrap`;
-    refBody.innerHTML += `<tr><td>${r.level}</td><td>${r.success}</td><td>${costPer}</td></tr>`;
-  });
-
-  // Dismantle
-  const mat = item.category === 'Creature Tag' ? 'Scrap' : 'Scrap';
-  document.getElementById('dismantle-info').innerHTML =
-    `<p style="font-size:14px;color:var(--ink-dim);">Yields <b style="color:var(--ink)">tier × grade#</b> ${mat}. Rare+ gear also yields Ichor (R:1, E:2, L:4, A:8, D:12, P:20, V:32).</p>`;
-
-  document.getElementById('status').style.display = 'none';
-  document.getElementById('content').style.display = 'block';
+const REFINE = ['100%','90%','80%','65%','50%','35%','20%','10%','3%','1%'];
+function parseCSV(text){
+  const lines=text.trim().split('\n');
+  const headers=lines[0].split(',').map(h=>h.trim().replace(/\r/g,''));
+  return lines.slice(1).map(line=>{
+    const vals=[];let cur='';let inQ=false;
+    for(let i=0;i<line.length;i++){const ch=line[i];
+      if(ch==='"')inQ=!inQ;else if(ch===','&&!inQ){vals.push(cur.trim().replace(/\r/g,''));cur='';}else cur+=ch;}
+    vals.push(cur.trim().replace(/\r/g,''));
+    const o={};headers.forEach((h,i)=>o[h]=vals[i]||'');return o;});
 }
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+(async function(){
+  const key=(new URLSearchParams(location.search).get('type')||'').trim();
+  if(!key){document.getElementById('status').textContent='No item specified';return;}
+  let rows;
+  try{rows=parseCSV(await fetch(ITEMS_URL+'?t='+Date.now()).then(r=>r.text()));}
+  catch(e){document.getElementById('status').textContent='Failed to load: '+e.message;return;}
+  const kl=key.toLowerCase();
+  let fam=rows.filter(r=>(r.Family||'').toLowerCase()===kl);
+  if(!fam.length) fam=rows.filter(r=>(r.Name||'').toLowerCase().split(' ').pop()===kl);
+  if(!fam.length){document.getElementById('status').textContent='Item not found: '+key;return;}
+  fam.sort((a,b)=>(parseInt(a.Tier)||0)-(parseInt(b.Tier)||0));
+  const first=fam[0];
+  const family=first.Family||key, category=first.Category||'', slot=first.Slot||'';
+  const isEnh=slot==='Enhancement';
+  document.getElementById('item-name').textContent=family;
+  document.getElementById('topbar-title').textContent=family.toUpperCase();
+  document.getElementById('item-slot').textContent=slot||category;
+  document.getElementById('item-category').textContent=category;
+  document.getElementById('item-implicit-text').textContent=first.Effect||'—';
+  const tierBody=document.getElementById('tier-table');
+  const craftMat=category==='Gem'?'Dust':category==='Rune'?'Essence':category==='Scroll'?'Ink':'Scrap';
+  const craftMult=(category==='Gem'||category==='Rune'||category==='Scroll')?6:25;
+  fam.forEach(r=>{const t=parseInt(r.Tier)||0;
+    tierBody.innerHTML+=`<tr><td>T${t}</td><td>${esc(r.Name)}</td><td>${r.Level_Req?'Lv '+esc(r.Level_Req):'<span class="tbd">—</span>'}</td><td>${craftMult*t} ${craftMat}</td></tr>`;});
+  const gradeBody=document.getElementById('grade-table');
+  GRADES.forEach(g=>{gradeBody.innerHTML+=`<tr><td style="color:${g.color}">${g.name}</td><td>${g.gems||'—'}</td><td>${g.runes||'—'}</td><td>${g.enchants||'—'}</td><td>${g.cost}</td><td>${g.success}</td></tr>`;});
+  if(isEnh){document.getElementById('refine-section').style.display='none';}
+  else{const refBody=document.getElementById('refine-table');
+    REFINE.forEach((s,i)=>{refBody.innerHTML+=`<tr><td>+${i+1}</td><td>${s}</td><td>3 × target level × tier Scrap</td></tr>`;});}
+  const mat=craftMat;
+  document.getElementById('dismantle-info').innerHTML=`<p style="font-size:14px;color:var(--ink-dim);">Yields <b style="color:var(--ink)">tier × grade#</b> ${mat}.`+(isEnh?'':' Rare+ gear also yields Ichor (R:1, E:2, L:4, A:8, D:12, P:20, V:32).')+`</p>`;
+  document.getElementById('status').style.display='none';
+  document.getElementById('content').style.display='block';
+})();
 </script>
 <script src="nav.js"></script>
 <script src="admin.js"></script>
