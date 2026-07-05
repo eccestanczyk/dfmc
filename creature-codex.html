@@ -214,8 +214,8 @@ function renderGrid() {
     const short = short_r(c.Rarity);
     const cls = TIER_CLASS[c.Rarity] || '';
     const types = c.Type_Secondary ? `${c.Type_Primary} / ${c.Type_Secondary}` : c.Type_Primary;
-    const origSrc = c.Image_Path ? IMG_BASE + escapeHtml(c.Image_Path) + '?t=' + Date.now() : '';
-    const cropSrc = hasCrop(c) && c.Image_Path ? IMG_BASE + 'codex/images/cropped/' + c.ID + '.png?t=' + Date.now() : '';
+    const origSrc = c.Image_Path ? IMG_BASE + escapeHtml(c.Image_Path) : '';
+    const cropSrc = hasCrop(c) && c.Image_Path ? IMG_BASE + 'codex/images/cropped/' + c.ID + '.png' : '';
     const pipelineStyle = c.Art_Status==='pending' ? 'border-color:#cfa650;box-shadow:0 0 8px rgba(207,166,80,0.3);' : c.BG_Status==='has_chroma' ? 'border-color:#dd5646;box-shadow:0 0 8px rgba(221,86,70,0.3);' : c.BG_Status==='bg_pending' ? 'border-color:#60a5fa;box-shadow:0 0 8px rgba(96,165,250,0.3);' : '';
 
     const imgHtml = origSrc
@@ -254,7 +254,7 @@ async function probeCardTabs() {
   for (const container of tabContainers) {
     const id = container.dataset.id;
     const base = container.dataset.base;
-    const t = '?t=' + Date.now();
+    const t = '';  // no cache-bust on image probes
     const found = [];
 
     for (let i = 0; i < SUFFIXES.length; i++) {
