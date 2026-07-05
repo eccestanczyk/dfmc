@@ -88,22 +88,12 @@ const Backlog = {
       generate_crop: 'Generate new crop',
       framing_issue: 'Framing issue',
       flip_image: 'Flip image (face left)',
-      approve_option_A: 'Approve option A',
-      approve_option_B: 'Approve option B',
-      approve_option_C: 'Approve option C',
-      approve_option_D: 'Approve option D',
-      approve_option_E: 'Approve option E',
-      approve_option_A_crop: 'Approve cropped A',
-      approve_option_B_crop: 'Approve cropped B',
-      approve_option_C_crop: 'Approve cropped C',
-      delete_option_A: 'Delete option A',
-      delete_option_B: 'Delete option B',
-      delete_option_C: 'Delete option C',
-      delete_option_D: 'Delete option D',
-      delete_option_E: 'Delete option E',
-      delete_option_A_crop: 'Delete cropped A',
-      delete_option_B_crop: 'Delete cropped B',
-      delete_option_C_crop: 'Delete cropped C'
+      approve_option_A: 'Approve A (original chroma)',
+      approve_option_B: 'Approve B (Sylph crop)',
+      approve_option_C: 'Approve C (isnet crop)',
+      delete_option_A: 'Delete A (original chroma)',
+      delete_option_B: 'Delete B (Sylph crop)',
+      delete_option_C: 'Delete C (isnet crop)'
     };
 
     for (const id of ids) {
