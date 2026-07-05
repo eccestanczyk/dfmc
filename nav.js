@@ -11,6 +11,7 @@
     { href: 'creature-codex.html', label: 'Creature Codex' },
     { href: 'floor-codex.html',    label: 'Floor Map' },
     { href: 'reliquary.html',      label: 'Reliquary' },
+    { href: 'index.html?tab=equipment', label: 'Crafting' },
     { href: 'index.html',          label: 'Game Design Document' },
   ];
 
