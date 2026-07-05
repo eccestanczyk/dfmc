@@ -198,10 +198,10 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
 
     <div class="card"><div class="card-title">Item art pipeline (per base type, 1 image)</div>
     <ol style="font-size:13px;color:#c2ae8b;margin:8px 0 0;padding-left:20px">
-      <li><strong style="color:#ede0c4">Generation</strong> — Text-to-image, <code>1024×1024</code>, transparent background. Each base type (weapon, armour, accessory, tag, material) gets one icon. Enhancement tiers (Chip → Sublime, Faded → Elder, Tattered → Fated) each get a tier-specific prompt describing the item's visual state at that power level.</li>
+      <li><strong style="color:#ede0c4">Generation</strong> — Text-to-image, <code>1024×1024</code>, transparent background. Each base type (weapon, armour, accessory, tag, material) gets one icon. Enhancement tiers (Rough → Sublime, Faded → Elder, Tattered → Fated) each get a tier-specific prompt describing the item's visual state at that power level.</li>
       <li><strong style="color:#ede0c4">Approval</strong> — Same status flow as creatures: <code>prompt_ready</code> → <code>generated</code> → <code>approved</code>. Tracked in <code>codex/items.csv</code> <code>Art_Status</code> column.</li>
     </ol>
-    <p style="font-size:12px;color:#8a7a5e;margin-top:6px">All 116 items catalogued in <code>codex/items.csv</code> with flavor text and image prompts. Prompt boilerplate: <em>isolated dark-fantasy game item icon, oil-painted style, dramatic rim lighting, rich vivid colors, item centered 70% of frame, three-quarter angle, transparent background.</em></p></div>
+    <p style="font-size:12px;color:#8a7a5e;margin-top:6px">All 435 items catalogued in <code>codex/items.csv</code> with flavor text and image prompts. Prompt boilerplate: <em>isolated dark-fantasy game item icon, oil-painted style, dramatic rim lighting, rich vivid colors, item centered 70% of frame, three-quarter angle, transparent background.</em></p></div>
   </div>
 
   <!-- CHARACTERS -->
@@ -287,20 +287,20 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
 
     <div class="note note-info"><p><strong>Average preservation:</strong> &Sigma;(rate &times; offset) = 0.03(&minus;3) + 0.07(&minus;2) + 0.12(&minus;1) + 0.56(0) + 0.12(+1) + 0.07(+2) + 0.03(+3) = 0. Average XP per kill = 10 &times; zone_level.</p></div>
 
-    <h3>Floor progression estimate</h3>
+    <h3>Zone progression estimate</h3>
 
     <table>
-      <tr><th>Floor</th><th>Levels</th><th>Battles</th><th>Floor time</th><th>Cumulative</th></tr>
-      <tr><td>F1 &mdash; Grasslands</td><td>1&ndash;10</td><td>29</td><td>1.0h</td><td>1.0h</td></tr>
-      <tr><td>F2 &mdash; Tidal Shallows</td><td>11&ndash;20</td><td>74</td><td>2.5h</td><td>3.4h</td></tr>
-      <tr><td>F3 &mdash; Desert Plains</td><td>21&ndash;30</td><td>110</td><td>3.7h</td><td>7.1h</td></tr>
-      <tr><td>F4 &mdash; Swarm Thicket</td><td>31&ndash;40</td><td>142</td><td>4.7h</td><td>11.8h</td></tr>
-      <tr><td>F5 &mdash; The Crag</td><td>41&ndash;50</td><td>172</td><td>5.7h</td><td>17.6h</td></tr>
-      <tr><td>F6 &mdash; Storm Peaks</td><td>51&ndash;60</td><td>201</td><td>6.7h</td><td>24.3h</td></tr>
-      <tr><td>F7 &mdash; Sunken Bog</td><td>61&ndash;70</td><td>239</td><td>8.0h</td><td>32.2h</td></tr>
-      <tr><td>F8 &mdash; Underwater Cave</td><td>71&ndash;80</td><td>779</td><td>26.0h</td><td>58.2h</td></tr>
-      <tr><td>F9 &mdash; Gemstone Cave</td><td>81&ndash;90</td><td>3,435</td><td>114.5h</td><td>172.7h</td></tr>
-      <tr><td>F10 &mdash; Flaming Hellscape</td><td>91&ndash;100</td><td>15,155</td><td>505.2h</td><td>677.9h</td></tr>
+      <tr><th>Zone (10 floors each)</th><th>Levels</th><th>Battles</th><th>Zone time</th><th>Cumulative</th></tr>
+      <tr><td>Zone 1 &mdash; Grasslands</td><td>1&ndash;10</td><td>29</td><td>1.0h</td><td>1.0h</td></tr>
+      <tr><td>Zone 2 &mdash; Tidal Shallows</td><td>11&ndash;20</td><td>74</td><td>2.5h</td><td>3.4h</td></tr>
+      <tr><td>Zone 3 &mdash; Desert Plains</td><td>21&ndash;30</td><td>110</td><td>3.7h</td><td>7.1h</td></tr>
+      <tr><td>Zone 4 &mdash; Swarm Thicket</td><td>31&ndash;40</td><td>142</td><td>4.7h</td><td>11.8h</td></tr>
+      <tr><td>Zone 5 &mdash; The Crag</td><td>41&ndash;50</td><td>172</td><td>5.7h</td><td>17.6h</td></tr>
+      <tr><td>Zone 6 &mdash; Storm Peaks</td><td>51&ndash;60</td><td>201</td><td>6.7h</td><td>24.3h</td></tr>
+      <tr><td>Zone 7 &mdash; Sunken Bog</td><td>61&ndash;70</td><td>239</td><td>8.0h</td><td>32.2h</td></tr>
+      <tr><td>Zone 8 &mdash; Underwater Cave</td><td>71&ndash;80</td><td>779</td><td>26.0h</td><td>58.2h</td></tr>
+      <tr><td>Zone 9 &mdash; Gemstone Cave</td><td>81&ndash;90</td><td>3,435</td><td>114.5h</td><td>172.7h</td></tr>
+      <tr><td>Zone 10 &mdash; Flaming Hellscape</td><td>91&ndash;100</td><td>15,155</td><td>505.2h</td><td>677.9h</td></tr>
     </table>
 
     <h3>XP reference table</h3>
@@ -779,11 +779,11 @@ FinalDamage = RawDamage
     <div class="grid-3">
       <div class="card">
         <div class="card-title">💎 Gems — flat stats</div>
-        <div class="card-body">Fixed flat modifiers (+X Offense, +X Defense, +X HP). Set at socket time, cannot be changed without removing. On character gear: Local scope. On Tags: Personal scope. Up to 3 slots at Void grade.</div>
+        <div class="card-body">Fixed flat modifiers. 6 gem types: Garnet (+Offense), Onyx (+Defense), Bloodstone (+HP), Sapphire (+Status Potency), Ruby (+Crit Damage), Topaz (+Move Power). Set at socket time, removal destroys the gem. On character gear: Local scope. On Tags: Personal scope. Up to 3 slots at Void grade.</div>
       </div>
       <div class="card">
         <div class="card-title">🔷 Runes — percentage scaling</div>
-        <div class="card-body">Fixed percentage modifiers (+X% Offense, +X% Defense). Multiply the item's base + gems (Local) or the creature's total (Personal on Tags). Set at socket time. Up to 3 slots at Void grade.</div>
+        <div class="card-body">Fixed percentage modifiers. 5 rune types: Ruin (+% Offense), Aegis (+% Defense), Vitality (+% HP), Precision (+% Crit Chance), Affliction (+% Status Duration). Multiply the item's base + gems (Local) or the creature's total (Personal on Tags). Set at socket time, removal destroys the rune. Up to 3 slots at Void grade.</div>
       </div>
       <div class="card">
         <div class="card-title">📜 Scrolls — random modifier pool</div>
@@ -792,7 +792,7 @@ FinalDamage = RawDamage
     </div>
 
     <h3>Enhancement items — tiers, grades &amp; materials</h3>
-    <p>Gems, runes, and scrolls are items in their own right: each has a <strong>level tier</strong> (10 named tiers matching the 10 level brackets — e.g. Chip &rarr; Shard &rarr; &hellip; &rarr; Transcendent &rarr; Sublime for gems) and a <strong>grade</strong> (Worn&ndash;Void). An enhancement's tier must be &le; the gear's tier to socket. Full tier ladders and all values live in the <a href="stat-tables.html" style="color:var(--gold-bright)">Stat &amp; Equipment Tables</a>.</p>
+    <p>Gems, runes, and scrolls are items in their own right: each has a <strong>level tier</strong> (10 named tiers matching the 10 level brackets — e.g. Rough &rarr; Cut &rarr; &hellip; &rarr; Radiant &rarr; Sublime for gems) and a <strong>grade</strong> (Worn&ndash;Void). An enhancement's tier must be &le; the gear's tier to socket. Full tier ladders and all values live in the <a href="stat-tables.html" style="color:var(--gold-bright)">Stat &amp; Equipment Tables</a>.</p>
     <table>
       <tr><th>Family</th><th>Dismantles into</th><th>Material pays for</th></tr>
       <tr><td>💎 Gems</td><td style="color:#ede0c4">Dust</td><td>Crafting new gems, grading gems up</td></tr>
@@ -841,7 +841,7 @@ Character total:
       <tr><th>Base type</th><th>Flat buff</th></tr>
       <tr><td>Signet</td><td>+Offense</td></tr>
       <tr><td>Ward</td><td>+Defense</td></tr>
-      <tr><td>Totem</td><td>+Utility</td></tr>
+      <tr><td>Totem</td><td>+Status Potency</td></tr>
       <tr><td>Talisman</td><td>+Crit Damage</td></tr>
       <tr><td>Relic</td><td>+HP</td></tr>
       <tr><td>Fetish</td><td>+Crit Chance</td></tr>
@@ -867,7 +867,7 @@ Character total:
 
     <h3>Refinement</h3>
     <h3>Nothing is useless</h3>
-    <p>Every drop has value, however marginal. All gear dismantles into <strong style="color:#c2ae8b">Scrap</strong> (plus Ichor at Rare+), and Scrap crafts the next tier of equipment. All enhancements dismantle into their family material (Dust / Essence / Ink), which crafts and grades the next tier of enhancements. A Worn Chip drop at floor 95 is still Dust in the pipeline.</p>
+    <p>Every drop has value, however marginal. All gear dismantles into <strong style="color:#c2ae8b">Scrap</strong> (plus Ichor at Rare+), and Scrap crafts the next tier of equipment. All enhancements dismantle into their family material (Dust / Essence / Ink), which crafts and grades the next tier of enhancements. A Worn Rough gem drop at floor 95 is still Dust in the pipeline.</p>
 
     <h3>Gear crafting &amp; level requirements</h3>
     <table>
@@ -935,7 +935,7 @@ Character total:
       <tr><td>Primordial / Void, +9 / +10</td><td>The chase</td><td>Year-scale per item for dedicated players (see below)</td></tr>
     </table>
     <h4>The endgame chase — expected / lucky / unlucky (no pity)</h4>
-    <p>Success gates are geometric distributions: the spread between a lucky (p10) and unlucky (p90) player on a single gate is ~22&times;. Reference points: Ragnarok Online's +9/+10 sits near 10% <em>with permanent item destruction on failure</em>; BDO's PEN is ~3% at 100 failstacks with downgrade/destruction risk. Herumon Tower has no destruction and no downgrade, so raw chances sit lower: <strong>Void 0.5%, +10 refinement 1%</strong>.</p>
+    <p>Success gates are geometric distributions: the spread between a lucky (p10) and unlucky (p90) player on a single gate is ~22&times;. Failure costs currency only — no destruction, no downgrade. Raw chances: <strong>Void 0.5%, +10 refinement 1%</strong>.</p>
     <table>
       <tr><th>One item, Worn&rarr;Void grading</th><th>One item, 0&rarr;+10 refinement</th></tr>
       <tr><td>Expected ~8,800 Ichor &asymp; 880&nbsp;h &middot; p10 ~2,000 &middot; p90 ~19,000 (Void gate alone: 841 / 8,000 / 18,400)</td><td>Expected ~43,700 Scrap &asymp; 290&nbsp;h &middot; +10 gate alone: p10 10, median 69, p90 229 attempts at 300 Scrap each</td></tr>
@@ -1135,7 +1135,7 @@ Your Backend
       <tr><td><code>codex/bosses.csv</code></td><td>10<br>(1 per boss floor)</td><td>Zone-boss definitions, one per boss floor (10, 20, … 100). Columns: <code>Floor, Zone, Boss_Name, Boss_Character, Active_Creature_1, Active_Creature_2, Reserve_1..4, Difficulty_Index, Notes</code>. Team fields are <code>TBD</code> — structure scaffolded, specific teams pending design.</td></tr>
       <tr><td><code>codex/encounter_weights.csv</code></td><td>—</td><td>Per-floor odds of an encounter rolling into each tier; SSR/SR odds scale up over the run (see "Encounter weights" below).</td></tr>
       <tr><td><code>codex/maptypes.csv</code></td><td>—</td><td>Tileset / map-restyle definitions for floor-art generation.</td></tr>
-      <tr><td><code>codex/items.csv</code></td><td>116</td><td>Full item catalog — gems (4&times;10 tiers), runes (3&times;10), scrolls (10), weapons (6), armour (12), accessories (8), tags (5), materials (5). Columns: <code>Item_ID, Category, Family, Name, Tier, Level_Req, Effect, Flavor_Text, Image_Prompt, Image_Path, Art_Status</code>.</td></tr>
+      <tr><td><code>codex/items.csv</code></td><td>435</td><td>Full item catalog — gems (6 types &times; 10 tiers: Rough &rarr; Sublime), runes (5&times;10: Faded &rarr; Elder), scrolls (10: Tattered &rarr; Fated), weapons (6 bases &times; 10 tiers), armour (12&times;10), accessories (8&times;10), tags (5&times;10), materials (5). Gear tier ladder: Crude &rarr; Sturdy &rarr; Fine &rarr; Superior &rarr; Ornate &rarr; Masterwork &rarr; Exalted &rarr; Sovereign &rarr; Mythic &rarr; Transcendent. Columns: <code>Item_ID, Category, Family, Name, Tier, Level_Req, Effect, Flavor_Text, Image_Prompt, Image_Path, Art_Status</code>.</td></tr>
       <tr><td><code>codex/item_drops.csv</code></td><td>390</td><td>Zone-weighted item drop table. Each zone lists which base types drop and at what weight (1 = normal, 2 = zone-weighted 2&times;). Feeds the <a href="reliquary.html" style="color:var(--gold-bright)">Reliquary</a>.</td></tr>
       <tr><td><code>codex/floor_assets.csv</code></td><td>100</td><td>Level design pipeline. Per-floor: battle background prompt/path/status, parallax reference, prop assignments, map preview status (empty + populated). Decoupled from floor identity for infinite floor extension.</td></tr>
       <tr><td><code>codex/prop_assets.csv</code></td><td>40</td><td>Zone prop catalog — 3&ndash;4 props + 1 anchor prop per zone, with image prompts and art status.</td></tr>
