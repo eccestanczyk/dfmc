@@ -265,12 +265,12 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
       <tr><td>Battles per level</td><td><code>L<sup>0.75</sup></code> then <code>23.4 &times; 1.16<sup>(L&minus;67)</sup></code></td><td>Derived &mdash; 23 battles at L67, 613 at L89, ~2,700 for 99&rarr;100</td></tr>
     </table>
 
-    <p>The curve is deliberately back-loaded for an autoplay game: <strong>75% of all leveling time sits in levels 90&ndash;100</strong> (50% in the last five levels). Total to max level: <strong>~20,300 battles &asymp; 680&nbsp;h</strong> at 2 minutes per battle. Reaching level 67 &mdash; where Stage&nbsp;3 creatures and final evolutions unlock &mdash; takes only ~885 battles (~30&nbsp;h).</p>
+    <p>The curve is deliberately back-loaded for an autoplay game: <strong>75% of all leveling time sits in levels 90&ndash;100</strong> (50% in the last five levels). Total to max level: <strong>~20,300 battles &asymp; 680&nbsp;h</strong> at 2 minutes per battle. Reaching level 67 &mdash; where wild Stage&nbsp;3 creatures appear &mdash; takes only ~885 battles (~30&nbsp;h). Owned-creature final evolutions land between levels 56&ndash;73 depending on line rarity (see Creature evolutions).</p>
 
     <h4>Time to milestones by play profile</h4>
     <table>
       <tr><th>Milestone</th><th>Battles</th><th>Casual (3&nbsp;h/day)</th><th>Dedicated (12&nbsp;h/day)</th><th>24/7 autoplay</th></tr>
-      <tr><td>Level 67 &mdash; Stage 3 / final evolutions</td><td>~885</td><td>10 days</td><td>2.5 days</td><td>1.2 days</td></tr>
+      <tr><td>Level 67 &mdash; wild Stage 3 band (final evolutions: Lv 56&ndash;73 by rarity)</td><td>~885</td><td>10 days</td><td>2.5 days</td><td>1.2 days</td></tr>
       <tr><td>Level 90</td><td>~5,180</td><td>~2 months</td><td>14 days</td><td>7 days</td></tr>
       <tr><td>Level 100</td><td>~20,300</td><td>~7.5 months</td><td>~2 months</td><td>~1 month</td></tr>
     </table>
@@ -634,10 +634,21 @@ FinalDamage = RawDamage
     <h3>Creature evolutions</h3>
     <table>
       <tr><th>Trigger type</th><th>Example</th></tr>
-      <tr><td>Level threshold</td><td>Evolve at level 20</td></tr>
+      <tr><td>Level threshold</td><td>Evolve at level 27 (per-line, see bands below)</td></tr>
       <tr><td>Item use</td><td>Use Evolution Stone</td></tr>
       <tr><td>Bond/friendship</td><td>High bond + level up</td></tr>
     </table>
+    <h4>Evolution level bands (by rarity)</h4>
+    <p>Evolution levels are <strong style="color:#ede0c4">per-line</strong>, stored in the <code>Evolve_Level</code> column of <code>codex/creatures.csv</code> (set on Stage 1 and Stage 2 rows — the level at which that stage evolves to the next). Levels are spread within a rarity band so the player sees evolutions frequently rather than in two synchronized waves. Commons evolve earliest, SSRs latest. Within each rarity, lines cycle evenly through the band by line number (deterministic).</p>
+    <table>
+      <tr><th>Rarity</th><th>Lines</th><th>S1 &rarr; S2</th><th>S2 &rarr; S3</th></tr>
+      <tr><td>Common</td><td>28</td><td>Lv 24&ndash;30</td><td>Lv 56&ndash;64</td></tr>
+      <tr><td>Uncommon</td><td>26</td><td>Lv 28&ndash;33</td><td>Lv 61&ndash;66</td></tr>
+      <tr><td>Rare</td><td>21</td><td>Lv 32&ndash;36</td><td>Lv 65&ndash;69</td></tr>
+      <tr><td>Super Rare</td><td>14</td><td>Lv 35&ndash;38</td><td>Lv 67&ndash;70</td></tr>
+      <tr><td>Super Super Rare</td><td>11</td><td>Lv 36&ndash;40</td><td>Lv 68&ndash;73</td></tr>
+    </table>
+    <p style="font-size:13px;color:#c2ae8b">Reference point (old scheme): 34 / 67, matching the wild floor stage bands. Wild encounter stage-banding by floor (1&ndash;33 / 34&ndash;66 / 67&ndash;100) is unchanged — these levels govern owned-creature evolution only.</p>
 
     <h3>Mutant variants</h3>
     <p>Any egg has a small chance to hatch as a Mutant — a creature with an alternate color scheme caused by a rare pigmentation mutation. Mutant status is purely cosmetic: it grants a medal on the creature sheet and changes the creature's color palette, but has no effect on stats or gameplay. Chance scales with egg grade. Completing the Codex adds a permanent +0.1% bonus to all mutant hatch chances.</p>
@@ -1129,7 +1140,7 @@ Your Backend
     <p>These CSVs are the source of truth for creatures and where they appear. The codex site reads them live from the <code>main</code> branch, so updating a CSV updates the site — no page edits needed.</p>
     <table>
       <tr><th>File</th><th>Rows</th><th>Contents</th></tr>
-      <tr><td><code>codex/creatures.csv</code></td><td>300<br>(100 lines &times; 3 stages)</td><td>Full creature roster, one row per evolution stage. Columns: <code>ID, Line_ID, Stage, Name, Type_Primary, Type_Secondary, Background_Key, Rarity, Floor_Found, Encounter_Type, Evolves_From, Evolves_To, Grade_Offense, Grade_Defense, Grade_Utility, Grade_Speed, Description, Image_Prompt, Image_Path, Home_Zone</code>. IDs run <code>DFMC-001</code>…<code>DFMC-300</code>, assigned per line then stage (line&nbsp;k &rarr; <code>3k-2 / 3k-1 / 3k</code>).</td></tr>
+      <tr><td><code>codex/creatures.csv</code></td><td>300<br>(100 lines &times; 3 stages)</td><td>Full creature roster, one row per evolution stage. Columns: <code>ID, Line_ID, Stage, Name, Type_Primary, Type_Secondary, Background_Key, Rarity, Floor_Found, Encounter_Type, Evolves_From, Evolves_To, Evolve_Level, Grade_Offense, Grade_Defense, Grade_Utility, Grade_Speed, Description, Image_Prompt, Image_Path, Home_Zone</code>. IDs run <code>DFMC-001</code>…<code>DFMC-300</code>, assigned per line then stage (line&nbsp;k &rarr; <code>3k-2 / 3k-1 / 3k</code>).</td></tr>
       <tr><td><code>codex/floors.csv</code></td><td>100</td><td>The 100 floors. Columns: <code>Floor, Zone, Encounter_Type, Is_Boss, Boss_Name, Primary_Type, Tier, Visual_Theme, Description, Cover_Image_Path</code>.</td></tr>
       <tr><td><code>codex/floor_creature_rarity.csv</code></td><td>900<br>(90 wild floors &times; 10 slots)</td><td>The wild-encounter table. Each non-boss floor's 10 tier-slots (3C/3UC/2R/1SR/1SSR) mapped to a <code>Creature_ID</code>. Columns: <code>Floor, Creature_ID, Rarity_Tier</code>. Stage-banded (see level bands below). Boss floors (every 10th) carry no rows — those are defined in <code>codex/bosses.csv</code>. <strong style="color:#ede0c4">Regenerate this whenever <code>creatures.csv</code> IDs change</strong> — the index joins the two by ID.</td></tr>
       <tr><td><code>codex/bosses.csv</code></td><td>10<br>(1 per boss floor)</td><td>Zone-boss definitions, one per boss floor (10, 20, … 100). Columns: <code>Floor, Zone, Boss_Name, Boss_Character, Active_Creature_1, Active_Creature_2, Reserve_1..4, Difficulty_Index, Notes</code>. Team fields are <code>TBD</code> — structure scaffolded, specific teams pending design.</td></tr>
