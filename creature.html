@@ -342,7 +342,10 @@ async function load() {
       evoHtml += isCurrent
         ? `<div class="evo-node current">${imgHtml}<span>${escapeHtml(m.Name)}</span></div>`
         : `<a class="evo-node linkable" href="creature.html?id=${escapeHtml(m.ID)}">${imgHtml}<span>${escapeHtml(m.Name)}</span></a>`;
-      if (i < lineMembers.length - 1) evoHtml += `<span class="evo-arrow">→</span>`;
+      if (i < lineMembers.length - 1) {
+        const lv = m.Evolve_Level ? `<span style="display:block;font-size:11px;color:var(--ink-dim);">Lv ${escapeHtml(m.Evolve_Level)}</span>` : '';
+        evoHtml += `<span class="evo-arrow" style="text-align:center;">${lv}→</span>`;
+      }
     });
     document.getElementById('evo-line').innerHTML = evoHtml || '<span style="color:var(--ink-faded);font-size:13px;font-style:italic;">Single stage — no evolution line</span>';
 
