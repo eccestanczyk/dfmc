@@ -1,5 +1,5 @@
 /* ============================================================
-   TOWER CRAWLER — Site Navigation (single source of truth)
+   HERUMON TOWER — Site Navigation (single source of truth)
    Include via <script src="nav.js"></script> on every page.
    Expects a <div class="topbar"> to exist — injects the ☰ menu
    as the first child.
