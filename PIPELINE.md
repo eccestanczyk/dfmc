@@ -33,3 +33,10 @@ compliance line for each backlog item before reporting done. No exceptions.
 ## VERIFY (before saying done)
 - Re-pull HEAD git tree (not raw CDN, not Contents API right after write).
 - Print [x]/[ ] for EVERY listed backlog action + Image_Path validity.
+
+## REGENERATE-AND-OVERWRITE = FRESH T2I ONLY (committed per D, this session)
+- "Regenerate and overwrite" ALWAYS means fresh text-to-image via /images/generations from the
+  (revised) prompt. NEVER pass any old/existing image as input to /images/edits for a
+  regenerate-and-overwrite. Old images are never edit-inputs when D says regenerate/overwrite.
+- This differs from S1/S3 "new option based off <S2>" (which DOES use the named S2 as edit ref)
+  and from explicit "based off <ID>" instructions. Only regenerate/overwrite is the t2i-only rule.
