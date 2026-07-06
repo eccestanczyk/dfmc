@@ -284,21 +284,25 @@ async function load() {
 
     if (c.Image_Path) (async function() {
       const origPath = c.Image_Path;
-      const cropPath = origPath.replace('codex/images/', 'codex/images/cropped/');
-      const cropCPath = origPath.replace('codex/images/', 'codex/images/cropped_c/');
-      let hasB = false, hasC = false;
-      try { hasB = (await fetch(IMG_BASE + cropPath, { method:'HEAD' })).ok; } catch {}
-      try { hasC = (await fetch(IMG_BASE + cropCPath, { method:'HEAD' })).ok; } catch {}
-      if (!hasB && !hasC) return;
-      document.getElementById('creature-img-wrap').innerHTML =
-        '<div class="compare-tabs">' +
-          '<button class="compare-tab active" onclick="switchTab(this,\'orig\')">Option A</button>' +
-          (hasB ? '<button class="compare-tab" onclick="switchTab(this,\'crop\')">Option B</button>' : '') +
-          (hasC ? '<button class="compare-tab" id="tab-cropc" onclick="switchTab(this,\'cropc\')">Option C</button>' : '') +
-        '</div>' +
-        '<img id="compare-orig" src="' + IMG_BASE + escapeHtml(origPath) + '" alt="' + escapeHtml(c.Name) + ' original" style="display:block">' +
-        (hasB ? '<img id="compare-crop" src="' + IMG_BASE + escapeHtml(cropPath) + '" alt="' + escapeHtml(c.Name) + ' cropped" style="display:none">' : '') +
-        (hasC ? '<img id="compare-cropc" src="' + IMG_BASE + escapeHtml(cropCPath) + '" alt="' + escapeHtml(c.Name) + ' crop C" style="display:none">' : '');
+      const slotDefs = [
+        { key:'crop',  id:'compare-crop',  folder:'cropped/',   label:'Option B' },
+        { key:'cropc', id:'compare-cropc', folder:'cropped_c/', label:'Option C' },
+        { key:'cropd', id:'compare-cropd', folder:'cropped_d/', label:'Option D' },
+        { key:'crope', id:'compare-crope', folder:'cropped_e/', label:'Option E' },
+      ];
+      const present = [];
+      for (const s of slotDefs) {
+        const path = origPath.replace('codex/images/', 'codex/images/' + s.folder);
+        try { if ((await fetch(IMG_BASE + path, { method:'HEAD' })).ok) present.push(Object.assign({}, s, { path })); } catch {}
+      }
+      if (present.length === 0) return;
+      let tabs = '<button class="compare-tab active" onclick="switchTab(this,\'orig\')">Option A</button>';
+      let imgs = '<img id="compare-orig" src="' + IMG_BASE + escapeHtml(origPath) + '" alt="' + escapeHtml(c.Name) + ' original" style="display:block">';
+      present.forEach(function(s) {
+        tabs += '<button class="compare-tab" onclick="switchTab(this,\'' + s.key + '\')">' + s.label + '</button>';
+        imgs += '<img id="' + s.id + '" src="' + IMG_BASE + escapeHtml(s.path) + '" alt="' + escapeHtml(c.Name) + '" style="display:none">';
+      });
+      document.getElementById('creature-img-wrap').innerHTML = '<div class="compare-tabs">' + tabs + '</div>' + imgs;
     })();
 
     // Art approval status banner
@@ -359,10 +363,10 @@ async function load() {
 function switchTab(btn, which) {
   btn.parentElement.querySelectorAll('.compare-tab').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
-  document.getElementById('compare-orig').style.display = which === 'orig' ? 'block' : 'none';
-  document.getElementById('compare-crop').style.display = which === 'crop' ? 'block' : 'none';
-  const cc = document.getElementById('compare-cropc');
-  if (cc) cc.style.display = which === 'cropc' ? 'block' : 'none';
+  ['orig','crop','cropc','cropd','crope'].forEach(function(k){
+    const el = document.getElementById(k === 'orig' ? 'compare-orig' : 'compare-' + k);
+    if (el) el.style.display = (which === k) ? 'block' : 'none';
+  });
 }
 load();
 </script>
@@ -426,6 +430,8 @@ load();
       { label: 'A', folder: '',           key: 'A' },
       { label: 'B', folder: 'cropped/',   key: 'B' },
       { label: 'C', folder: 'cropped_c/', key: 'C' },
+      { label: 'D', folder: 'cropped_d/', key: 'D' },
+      { label: 'E', folder: 'cropped_e/', key: 'E' },
     ];
     let availableOptions = [];
 
@@ -520,3 +526,4 @@ load();
 <script src="nav.js"></script>
 </body>
 </html>
+
