@@ -1,5 +1,5 @@
 /* ============================================================
-   TOWER CRAWLER — Admin Mode
+   HERUMON TOWER — Admin Mode
    ?admin=1 enables admin UI (sticky via localStorage)
    ?admin=0 disables it
    ============================================================ */
