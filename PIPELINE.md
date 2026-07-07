@@ -1,3 +1,26 @@
+# ⛔ HARD RULE #0 — REGENERATE / OVERWRITE = FRESH TEXT-TO-IMAGE, NO IMAGE INPUT ⛔
+# (Reaffirmed by D multiple times. A prior session VIOLATED this on DFMC-045 by routing a
+#  regenerate through /images/edits. Do not repeat.)
+#
+# When D says "regenerate", "regenerate and overwrite", "regen fresh", "redo from prompt",
+# or any regeneration of an EXISTING creature's OWN stage:
+#   -> ALWAYS /images/generations (text-to-image). NEVER /images/edits.
+#   -> NEVER pass ANY existing image as input, reference, or edit base. Not the old version,
+#      not a sibling stage, nothing. Prompt text only.
+#   -> If the stored Image_Prompt is edit-style ("the very same creature shown in the
+#      reference image", "reference image", "make a X version"), REWRITE it into a fully
+#      self-contained descriptive t2i prompt BEFORE generating, and save the rewrite to CSV.
+#
+# The /images/edits endpoint with an image reference is ONLY for:
+#   - Building a NEW stage (S1 or S3) from an APPROVED S2, i.e. "new s1/s3 based off <S2>".
+#   - An explicit "based off <specific ID>" instruction from D.
+# Regenerating a creature's own art is NEVER one of these. When in doubt: t2i, no image.
+#
+# Self-check before EVERY generation call: "Is this a regenerate/overwrite of an existing
+# creature's own stage? If yes and I am about to call /images/edits or attach any image -> STOP,
+# switch to /images/generations with prompt only."
+#
+
 # DFMC ART PIPELINE — HARD GATES (load first, every batch)
 
 Claude MUST read this file at the start of every art batch and print the per-action
@@ -34,9 +57,3 @@ compliance line for each backlog item before reporting done. No exceptions.
 - Re-pull HEAD git tree (not raw CDN, not Contents API right after write).
 - Print [x]/[ ] for EVERY listed backlog action + Image_Path validity.
 
-## REGENERATE-AND-OVERWRITE = FRESH T2I ONLY (committed per D, this session)
-- "Regenerate and overwrite" ALWAYS means fresh text-to-image via /images/generations from the
-  (revised) prompt. NEVER pass any old/existing image as input to /images/edits for a
-  regenerate-and-overwrite. Old images are never edit-inputs when D says regenerate/overwrite.
-- This differs from S1/S3 "new option based off <S2>" (which DOES use the named S2 as edit ref)
-  and from explicit "based off <ID>" instructions. Only regenerate/overwrite is the t2i-only rule.
