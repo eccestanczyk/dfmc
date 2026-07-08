@@ -162,7 +162,7 @@ async function load() {
       ? here.map(c => `
           <a class="creature-row-table" href="creature.html?id=${escapeHtml(c.ID)}">
             ${c.Image_Path ? `<img class="chroma" data-src="${escapeHtml(c.Image_Path)}" alt="">` : `<div class="no-img">?</div>`}
-            <div><div class="c-name">${escapeHtml(c.Name)}</div><div class="c-sub">${escapeHtml(c.Type_Primary)}${c.Type_Secondary ? ' / ' + escapeHtml(c.Type_Secondary) : ''} — Stage ${escapeHtml(c.Stage)}</div></div>
+            <div><div class="c-name">${escapeHtml(c.Name)}</div><div class="c-sub">${[c.Type_Primary, c.Type_Secondary, c.Type_Tertiary].filter(Boolean).map(escapeHtml).join(' / ')} — Stage ${escapeHtml(c.Stage)}</div></div>
             <span class="tier-seal tier-${c.tier}">${c.tier}</span>
           </a>
         `).join('')

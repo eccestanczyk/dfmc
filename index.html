@@ -1129,7 +1129,7 @@ Your Backend
     <p>These CSVs are the source of truth for creatures and where they appear. The codex site reads them live from the <code>main</code> branch, so updating a CSV updates the site — no page edits needed.</p>
     <table>
       <tr><th>File</th><th>Rows</th><th>Contents</th></tr>
-      <tr><td><code>codex/creatures.csv</code></td><td>300<br>(100 lines &times; 3 stages)</td><td>Full creature roster, one row per evolution stage. Columns: <code>ID, Line_ID, Stage, Name, Type_Primary, Type_Secondary, Background_Key, Rarity, Floor_Found, Encounter_Type, Evolves_From, Evolves_To, Grade_Offense, Grade_Defense, Grade_Utility, Grade_Speed, Description, Image_Prompt, Image_Path, Home_Zone</code>. IDs run <code>DFMC-001</code>…<code>DFMC-300</code>, assigned per line then stage (line&nbsp;k &rarr; <code>3k-2 / 3k-1 / 3k</code>).</td></tr>
+      <tr><td><code>codex/creatures.csv</code></td><td>300<br>(100 lines &times; 3 stages)</td><td>Full creature roster, one row per evolution stage. Columns: <code>ID, Line_ID, Stage, Name, Type_Primary, Type_Secondary, Type_Tertiary, Background_Key, Rarity, Floor_Found, Encounter_Type, Evolves_From, Evolves_To, Grade_Offense, Grade_Defense, Grade_Utility, Grade_Speed, Description, Image_Prompt, Image_Path, Home_Zone</code>. IDs run <code>DFMC-001</code>…<code>DFMC-300</code>, assigned per line then stage (line&nbsp;k &rarr; <code>3k-2 / 3k-1 / 3k</code>).</td></tr>
       <tr><td><code>codex/floors.csv</code></td><td>100</td><td>The 100 floors. Columns: <code>Floor, Zone, Encounter_Type, Is_Boss, Boss_Name, Primary_Type, Tier, Visual_Theme, Description, Cover_Image_Path</code>.</td></tr>
       <tr><td><code>codex/floor_creature_rarity.csv</code></td><td>900<br>(90 wild floors &times; 10 slots)</td><td>The wild-encounter table. Each non-boss floor's 10 tier-slots (3C/3UC/2R/1SR/1SSR) mapped to a <code>Creature_ID</code>. Columns: <code>Floor, Creature_ID, Rarity_Tier</code>. Stage per slot computed <strong style="color:#ede0c4">per line</strong> from each line's <code>Evolve_Level</code> (mixed stages per floor — see level bands below). Boss floors (every 10th) carry no rows — those are defined in <code>codex/bosses.csv</code>. <strong style="color:#ede0c4">Regenerate this whenever <code>creatures.csv</code> IDs change</strong> — the index joins the two by ID.</td></tr>
       <tr><td><code>codex/bosses.csv</code></td><td>10<br>(1 per boss floor)</td><td>Zone-boss definitions, one per boss floor (10, 20, … 100). Columns: <code>Floor, Zone, Boss_Name, Boss_Character, Active_Creature_1, Active_Creature_2, Reserve_1..4, Difficulty_Index, Notes</code>. Team fields are <code>TBD</code> — structure scaffolded, specific teams pending design.</td></tr>
@@ -1218,7 +1218,7 @@ Your Backend
       <tr><td>Postgame-only primary (3)</td><td>Demon, Celestial, Eldritch</td></tr>
       <tr><td>Floating secondary (9)</td><td>Flora, Undead, Void, Aberration, Chimera, Horror, Dragon (rare-only), Parasite, Ooze</td></tr>
     </table>
-    <p style="font-size:13px;color:#c2ae8b">No slash-compound type names (e.g. never "Undead/Spectral") — always two clean single types via Type_Primary/Type_Secondary instead.</p>
+    <p style="font-size:13px;color:#c2ae8b">Types live in <code>Type_Primary</code>/<code>Type_Secondary</code>, plus <code>Type_Tertiary</code> for the rare 3-type line (e.g. VEINMOLD = Fungal/Parasite/Construct). No slash-compound names inside a single field.</p>
 
     <h3>Creature level bands (max level 100, for now)</h3>
     <p>A creature's floor is its level. Which evolutionary stage appears in the wild is gated <strong style="color:#ede0c4">per line by that line's own evolution levels</strong> (<code>Evolve_Level</code> in <code>codex/creatures.csv</code>) — a line shows its Stage&nbsp;1 form on floors below its S1&rarr;S2 level, Stage&nbsp;2 between its two evolution levels, and Stage&nbsp;3 at or above its S2&rarr;S3 level. Because evolution levels are spread by rarity, floors now carry <strong style="color:#ede0c4">mixed stages</strong>: a Common line can already be Stage&nbsp;3 on a floor where an SSR line is still Stage&nbsp;2. The old fixed 33/66 cutoffs below are the <em>reference midpoint</em> only; actual wild stage per slot is computed from each line's evolution levels and baked into <code>codex/floor_creature_rarity.csv</code> (regenerate whenever <code>Evolve_Level</code> changes).</p>
@@ -1426,7 +1426,7 @@ async function loadBalance() {
       const s = spread(g);
       const sm = g.O + g.D + g.U + g.S;
       const arc = archetype(g);
-      const t2 = r.Type_Secondary ? r.Type_Primary + ' / ' + r.Type_Secondary : r.Type_Primary;
+      const t2 = [r.Type_Primary, r.Type_Secondary, r.Type_Tertiary].filter(Boolean).join(' / ');
       const rarC = rarShort[r.Rarity] || r.Rarity;
       const rarCol = {'C':'var(--ink-dim)','UC':'#86c377','R':'#4f9fd4','SR':'#c89bf5','SSR':'var(--gold-bright)'}[rarC] || 'var(--ink-dim)';
       return `<tr>

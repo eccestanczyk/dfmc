@@ -110,7 +110,7 @@ async function load() {
   try {
     const text = await fetch(CREATURES_URL + '?t=' + Date.now()).then(r => r.text());
     const creatures = parseCSV(text);
-    const matches = creatures.filter(c => c.Type_Primary === type || c.Type_Secondary === type);
+    const matches = creatures.filter(c => c.Type_Primary === type || c.Type_Secondary === type || c.Type_Tertiary === type);
 
     document.title = type + ' — TYPE CODEX';
     document.getElementById('topbar-title').textContent = type.toUpperCase();
