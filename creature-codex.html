@@ -192,6 +192,7 @@ const CARD_ACTIONS = [
   { key:'regenerate', label:'Regenerate', icon:'♻️', show:()=>true },
   { key:'generate_option', label:'New option', icon:'➕', show:()=>true },
   { key:'generate_crop', label:'New crop', icon:'✂️', show:()=>true },
+  { key:'crop_approved', label:'Cropping approved', icon:'☑️', show: c => c.BG_Status==='bg_pending' },
   { key:'framing_issue', label:'Framing issue', icon:'🖼', show:()=>true },
   { key:'flip_image', label:'Flip image', icon:'↔', show:()=>true },
 ];
@@ -210,7 +211,7 @@ function renderGrid() {
 
   const grid = document.getElementById('grid');
   const short_r = k => RARITY_SHORT[k]||'?';
-  const hasCrop = c => c.BG_Status==='bg_pending'||c.BG_Status==='bg_approved';
+  const hasCrop = c => c.BG_Status==='bg_pending'||c.BG_Status==='bg_approved'||c.BG_Status==='crop_approved';
 
   grid.innerHTML = filtered.map(c => {
     const short = short_r(c.Rarity);
@@ -224,7 +225,7 @@ function renderGrid() {
       ? `<img class="codex-card-img" src="${escapeHtml(origSrc)}" alt="${escapeHtml(c.Name)}" loading="lazy">`
       : `<div class="codex-card-noimg">?</div>`;
 
-    const tabsHtml = isAdmin && origSrc ? `<div class="card-tabs" data-id="${c.ID}" data-base="${escapeHtml(IMG_BASE)}codex/images/"></div>` : '';
+    const tabsHtml = origSrc ? `<div class="card-tabs" data-id="${c.ID}" data-base="${escapeHtml(IMG_BASE)}codex/images/"></div>` : '';
     const gearHtml = isAdmin ? `<button class="card-gear" onclick="event.stopPropagation();toggleCardMenu(this)" data-id="${c.ID}" data-name="${escapeHtml(c.Name)}" data-art="${c.Art_Status}" data-bg="${c.BG_Status}">⚙</button>` : '';
 
     return `<div class="codex-card" style="${pipelineStyle};position:relative;cursor:pointer;" onclick="if(!event.target.closest('.card-gear,.card-admin-menu,.card-tab'))location.href='creature.html?id=${escapeHtml(c.ID)}'">
@@ -251,12 +252,13 @@ const SUFFIXES = ['', '_B', '_C', '_D', '_E'];
 const LABELS = ['A', 'B', 'C', 'D', 'E'];
 
 async function probeCardTabs() {
-  if (!document.documentElement.classList.contains('admin-mode')) return;
   const tabContainers = document.querySelectorAll('.card-tabs[data-id]');
   const DEFS = [
     { label:'A', folder:'' },
     { label:'B', folder:'cropped/' },
     { label:'C', folder:'cropped_c/' },
+    { label:'D', folder:'cropped_d/' },
+    { label:'E', folder:'cropped_e/' },
   ];
   for (const container of tabContainers) {
     const id = container.dataset.id;
