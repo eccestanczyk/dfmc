@@ -184,7 +184,7 @@ function syncURL() {
   history.replaceState(null, '', qs ? '?' + qs : location.pathname);
 }
 
-const IMG_BASE = 'https://raw.githubusercontent.com/eccestanczyk/dfmc/main/';
+const IMG_BASE = 'https://cdn.jsdelivr.net/gh/eccestanczyk/dfmc@main/';
 
 const CARD_ACTIONS = [
   { key:'approve_art', label:'Approve art', icon:'✅', show: c => c.Art_Status==='pending' },
@@ -317,7 +317,7 @@ function toggleCardMenu(gearBtn) {
 
   // Probe A/B/C image options async, then render approve/delete
   (async function() {
-    const IB = 'https://raw.githubusercontent.com/eccestanczyk/dfmc/main/codex/images/';
+    const IB = 'https://cdn.jsdelivr.net/gh/eccestanczyk/dfmc@main/codex/images/';
     const DEFS = [
       { key:'A', label:'A (chroma)', folder:'' },
       { key:'B', label:'B (Sylph)', folder:'cropped/' },
