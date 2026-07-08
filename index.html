@@ -226,12 +226,35 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     ├── classLevel
     └── classXP</pre></div>
 
-    <h3>Starting classes</h3>
+    <h3>Classes</h3>
+    <p>Six classes, each a <strong>linear evolution line</strong> of three stages — the class evolves cosmetically and grows in stats at the same evolution breakpoints as creatures. There is no branching specialization; a Warrior is always a Warrior, just stronger and re-skinned. Characters use three stat axes only: <strong>Offense, Defense, Speed</strong> (Utility is a creature-only measure — a character can wield any ability regardless of stats). Speed is capped at 10 like all axes and has no gear sources.</p>
+    <p>Stat sums scale by stage, matching creature grade tiers spread across three axes: <strong>Stage 1 ≈ 12 (Common-tier), Stage 2 ≈ 16 (Rare-tier), Stage 3 ≈ 20 (SSR-tier)</strong>. Every axis value stays ≤ 10.</p>
+
+    <h4>Starter classes <span style="font-size:12px;color:#8a7a5e">(free)</span></h4>
     <div class="grid-3">
-      <div class="card"><div class="card-title"><span class="pill pill-warrior">Warrior</span></div><div class="card-body" style="margin-top:6px">Melee frontliner. High HP and physical defense. Skill tree: weapon mastery, stances, passive tankiness.<br><br><span style="font-size:12px;color:#c2ae8b">Specializations TBD</span></div></div>
-      <div class="card"><div class="card-title"><span class="pill pill-archer">Archer</span></div><div class="card-body" style="margin-top:6px">Ranged attacker. High mobility and crit potential. Skill tree: bow types, traps, pet synergies.<br><br><span style="font-size:12px;color:#c2ae8b">Specializations TBD</span></div></div>
-      <div class="card"><div class="card-title"><span class="pill pill-mage">Mage</span></div><div class="card-body" style="margin-top:6px">Spellcaster. High damage ceiling with resource management. Skill tree: elemental schools, utility.<br><br><span style="font-size:12px;color:#c2ae8b">Specializations TBD</span></div></div>
+      <div class="card"><div class="card-title"><span class="pill pill-warrior">Warrior → Knight → Paladin</span></div><div class="card-body" style="margin-top:6px">High Defense, moderate Offense, low Speed. The armored frontliner — soaks the alpha strike, acts late.<br><br><span style="font-size:12px;color:#c2ae8b">Stage 3: Off 6 · Def 10 · Spd 4</span></div></div>
+      <div class="card"><div class="card-title"><span class="pill pill-mage">Mage → Sorcerer → Archon</span></div><div class="card-body" style="margin-top:6px">Highest Offense, lowest Defense, moderate Speed. The glass cannon — the game's top damage ceiling, pays with fragility.<br><br><span style="font-size:12px;color:#c2ae8b">Stage 3: Off 10 · Def 2 · Spd 8</span></div></div>
+      <div class="card"><div class="card-title"><span class="pill pill-archer">Archer → Ranger → Hawkeye</span></div><div class="card-body" style="margin-top:6px">High Offense, low Defense, high Speed. The fast ranged striker — wins initiative, hits hard, folds under pressure.<br><br><span style="font-size:12px;color:#c2ae8b">Stage 3: Off 8 · Def 3 · Spd 9</span></div></div>
     </div>
+
+    <h4>DLC-locked classes</h4>
+    <div class="grid-3">
+      <div class="card"><div class="card-title"><span class="pill pill-warrior">Brute → Warlord → Titan</span></div><div class="card-body" style="margin-top:6px">High Offense, high Defense, lowest Speed. The heavy bruiser — hits and survives, but always moves last.<br><br><span style="font-size:12px;color:#c2ae8b">Stage 3: Off 9 · Def 8 · Spd 3</span></div></div>
+      <div class="card"><div class="card-title"><span class="pill pill-archer">Assassin → Stalker → Nightblade</span></div><div class="card-body" style="margin-top:6px">High Offense, lowest Defense, highest Speed. The pure glass-cannon striker — faster and squishier than the Mage.<br><br><span style="font-size:12px;color:#c2ae8b">Stage 3: Off 9 · Def 2 · Spd 9</span></div></div>
+      <div class="card"><div class="card-title"><span class="pill pill-mage">Professor → Sage → Prophet</span></div><div class="card-body" style="margin-top:6px">High Defense, high Speed, low Offense. The tanky-fast controller — survives and acts early, but does not hit hard. The scholar who sees it coming.<br><br><span style="font-size:12px;color:#c2ae8b">Stage 3: Off 3 · Def 8 · Spd 9</span></div></div>
+    </div>
+
+    <h4>Stat progression by stage</h4>
+    <table>
+      <tr><th>Class line</th><th>Stage 1 (O/D/S)</th><th>Stage 2 (O/D/S)</th><th>Stage 3 (O/D/S)</th><th>Access</th></tr>
+      <tr><td>Warrior → Knight → Paladin</td><td>4 / 6 / 2</td><td>5 / 8 / 3</td><td>6 / 10 / 4</td><td>Free</td></tr>
+      <tr><td>Mage → Sorcerer → Archon</td><td>6 / 1 / 5</td><td>8 / 2 / 6</td><td>10 / 2 / 8</td><td>Free</td></tr>
+      <tr><td>Archer → Ranger → Hawkeye</td><td>5 / 2 / 5</td><td>7 / 2 / 7</td><td>8 / 3 / 9</td><td>Free</td></tr>
+      <tr><td>Brute → Warlord → Titan</td><td>5 / 5 / 2</td><td>7 / 7 / 2</td><td>9 / 8 / 3</td><td>DLC</td></tr>
+      <tr><td>Assassin → Stalker → Nightblade</td><td>6 / 1 / 5</td><td>7 / 2 / 7</td><td>9 / 2 / 9</td><td>DLC</td></tr>
+      <tr><td>Professor → Sage → Prophet</td><td>2 / 5 / 5</td><td>2 / 7 / 7</td><td>3 / 8 / 9</td><td>DLC</td></tr>
+    </table>
+    <div class="note note-info"><p>Additional class lines (pure-wall, balanced-duelist, speed-specialist, etc.) are reserved as possible future content.</p></div>
 
     <h3>Skill tree</h3>
     <p>Each class has a Path of Exile–style passive skill tree — a large interconnected graph of nodes. Players spend skill points (earned on class level-up) to unlock adjacent nodes only.</p>
@@ -1105,7 +1128,7 @@ Your Backend
       <li>Whether death-marked creatures are tradeable on the marketplace</li>
       <li>Soul Gem XP thresholds for each rank (F through S)</li>
       <li>Whether Soul Gems are tradeable on the Steam marketplace</li>
-      <li>Class specialization names and tree structures for all three classes</li>
+      <li>Skill tree node graphs for all six class lines</li>
       <li>Number of chests per floor (the "x" in the x/x chest tracker)</li>
       <li>Key drop rate per battle on pre-boss floors</li>
       <li>Whether chest contents reset along with the win streak on floor re-entry, or remain collected permanently</li>
