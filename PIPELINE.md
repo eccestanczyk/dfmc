@@ -40,7 +40,7 @@
 #   Construct: a body assembled from inert material — stone, iron or bound components — with visible joints and seams, no organic softness
 #   Dragon: heavy overlapping scales, membranous draconic wings, curved horns and a reptilian sneer
 #   Elemental: its body made of and wreathed in raw element — flame, stone, water or storm — with glowing elemental energy at the seams
-#   Fey: an eerie ethereal glow, delicate uncanny features, drifting motes of faint fairy-light
+#   Fey: iridescent enchanted glamour-markings that shimmer like heat-haze/mirage, adornments of living flowers, petals or a bright hypnotic lure-light, an uncanny too-flawless beguiling beauty built to deceive the eye — NEVER ghostly, translucent, vaporous or spectral (that is the Spectral type)
 #   Flora: living plant matter — bark, vines, leaves, blossoms or roots — growing as part of its body
 #   Fungal: clustered mushroom caps, spreading spores, mottled fungal growth and mycelial threads
 #   Insect: a chitinous insectoid body, compound eyes, thin multi-jointed legs and buzzing wings
