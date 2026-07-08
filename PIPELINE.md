@@ -28,7 +28,10 @@
 # Insert the motif clause right after the core anatomy description, before the bg/framing
 #  boilerplate, phrased as: 'As a <Primary>[/<Secondary>] creature it also shows <motif>,
 #  <motif2>.' Blend naturally; don't contradict the creature's own description.
-# Motif lexicon (Type -> visual cue) committed below; rebuild from here each session:
+# CANONICAL SOURCE OF TRUTH: codex/type_glossary.json  (per-type {definition, motifs}), GDD-visible at
+#   type-glossary.html and on each type.html page. LOAD MOTIFS FROM THAT JSON each session.
+# The list below MIRRORS the JSON's motifs; if they ever diverge, the JSON wins. Edit BOTH when changing a type.
+# Motif lexicon (Type -> visual cue):
 #
 #   Amphibian: moist glistening amphibian skin, webbed digits, a soft translucent throat sac
 #   Aquatic: waterlogged fins and gill-slits, dripping brine, a bioluminescent deep-sea sheen

@@ -22,6 +22,7 @@
   <div class="type-hero">
     <h2 id="type-name"></h2>
     <p id="type-count"></p>
+    <div id="type-glossary" style="max-width:640px;margin:10px auto 0;text-align:left;"></div>
   </div>
 
   <section>
@@ -116,6 +117,15 @@ async function load() {
     document.getElementById('topbar-title').textContent = type.toUpperCase();
     document.getElementById('type-name').textContent = type;
     document.getElementById('type-count').textContent = matches.length + ' creature' + (matches.length === 1 ? '' : 's') + ' bear this type';
+
+    try {
+      const gloss = await fetch("https://raw.githubusercontent.com/eccestanczyk/dfmc/main/codex/type_glossary.json?t=" + Date.now()).then(r => r.json());
+      const g = gloss[type];
+      if (g) document.getElementById('type-glossary').innerHTML =
+        `<p style="color:#e8d9b8;font-size:14px;line-height:1.5;">${escapeHtml(g.definition)}</p>`
+        + `<div style="font-size:11px;color:#8a7550;text-transform:uppercase;letter-spacing:1px;margin-top:6px;">Prompt motif</div>`
+        + `<div style="color:#b9a988;font-size:13px;font-style:italic;line-height:1.5;">${escapeHtml(g.motifs)}</div>`;
+    } catch (e) {}
 
     document.getElementById('type-grid').innerHTML = matches.length
       ? matches.map(c => `

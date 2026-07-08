@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TYPE GLOSSARY — HERUMON TOWER</title>
+<link rel="stylesheet" href="theme.css">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+  #tg-search{width:100%;max-width:420px;margin:0 auto 18px;display:block;background:#1e1710;border:1px solid #5c462c;color:#e8d9b8;font-family:Cinzel,serif;font-size:14px;padding:9px 12px;box-sizing:border-box;}
+  #tg-search::placeholder{color:#8a7550;}
+  .tg-list{display:flex;flex-direction:column;gap:12px;max-width:820px;margin:0 auto;padding:0 12px 40px;}
+  .tg-card{background:#1a140d;border:1px solid #5c462c;border-left:3px solid #cfa650;padding:14px 16px;}
+  .tg-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:6px;}
+  .tg-name{font-family:Cinzel,serif;font-size:19px;color:#cfa650;letter-spacing:.5px;text-decoration:none;}
+  .tg-name:hover{text-decoration:underline;}
+  .tg-count{font-size:12px;color:#8a7550;}
+  .tg-def{color:#e8d9b8;font-size:14px;line-height:1.5;margin:0 0 8px;}
+  .tg-motif-label{font-size:11px;color:#8a7550;text-transform:uppercase;letter-spacing:1px;}
+  .tg-motif{color:#b9a988;font-size:13px;line-height:1.5;font-style:italic;margin-top:2px;}
+  .tg-note{max-width:820px;margin:0 auto 16px;padding:0 12px;color:#8a7550;font-size:12px;}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <h1 id="topbar-title">TYPE GLOSSARY</h1>
+  <div style="width:90px;"></div>
+</div>
+<div id="status">LOADING...</div>
+<main id="main" style="display:none;">
+  <p class="tg-note">Canonical definition + prompt-motif for every creature type. Source: <code>codex/type_glossary.json</code>. Motifs are injected into art prompts per type (Rule&nbsp;#0.5).</p>
+  <input id="tg-search" type="text" placeholder="filter types…" oninput="renderList()">
+  <div class="tg-list" id="tg-list"></div>
+</main>
+<script>
+const GLOSSARY_URL="https://raw.githubusercontent.com/eccestanczyk/dfmc/main/codex/type_glossary.json";
+const CREATURES_URL="https://raw.githubusercontent.com/eccestanczyk/dfmc/main/codex/creatures.csv";
+let GLOSS={}, COUNTS={};
+function esc(s){return (s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+function renderList(){
+  const q=(document.getElementById('tg-search').value||'').toLowerCase();
+  const rows=Object.keys(GLOSS).sort().filter(t=>!q||t.toLowerCase().includes(q)||(GLOSS[t].definition||'').toLowerCase().includes(q));
+  document.getElementById('tg-list').innerHTML=rows.map(t=>`
+    <div class="tg-card">
+      <div class="tg-head">
+        <a class="tg-name" href="type.html?type=${encodeURIComponent(t)}">${esc(t)}</a>
+        <span class="tg-count">${COUNTS[t]||0} creature${(COUNTS[t]===1)?'':'s'}</span>
+      </div>
+      <p class="tg-def">${esc(GLOSS[t].definition)}</p>
+      <div class="tg-motif-label">Prompt motif</div>
+      <div class="tg-motif">${esc(GLOSS[t].motifs)}</div>
+    </div>`).join('') || '<div class="tg-note">No types match.</div>';
+}
+async function load(){
+  try{
+    GLOSS=await fetch(GLOSSARY_URL+'?t='+Date.now()).then(r=>r.json());
+    try{
+      const txt=await fetch(CREATURES_URL+'?t='+Date.now()).then(r=>r.text());
+      txt.split('\n').slice(1).forEach(line=>{
+        const cols=line.split(',');
+        [cols[4],cols[5],cols[6]].filter(Boolean).forEach(t=>{t=t.trim(); if(t) COUNTS[t]=(COUNTS[t]||0)+1;});
+      });
+    }catch(e){}
+    document.getElementById('status').style.display='none';
+    document.getElementById('main').style.display='block';
+    renderList();
+  }catch(err){ document.getElementById('status').textContent='LOAD FAILED: '+err.message; }
+}
+load();
+</script>
+<script src="admin.js"></script>
+<script src="nav.js"></script>
+</body>
+</html>

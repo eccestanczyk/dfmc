@@ -1,0 +1,110 @@
+{
+  "Aberration": {
+    "definition": "An earthly creature warped into impossible anatomy — too many eyes and mouths, non-euclidean asymmetry.",
+    "motifs": "impossible non-euclidean anatomy, too many eyes or mouths in wrong places, a maddening asymmetry"
+  },
+  "Amphibian": {
+    "definition": "Frogs, toads, newts and salamanders — moist-skinned creatures at home in both water and on land.",
+    "motifs": "moist glistening amphibian skin, webbed digits, a soft translucent throat sac"
+  },
+  "Aquatic": {
+    "definition": "Fish and sea-life of brine and deep water; creatures whose element is the ocean.",
+    "motifs": "waterlogged fins and gill-slits, dripping brine, a bioluminescent deep-sea sheen"
+  },
+  "Arthropod": {
+    "definition": "Hard-shelled, many-legged invertebrates — crabs, scorpions, crustaceans; heavier and more armoured than Insect.",
+    "motifs": "a hard segmented chitinous exoskeleton, jointed armored legs, twitching antennae"
+  },
+  "Avian": {
+    "definition": "Birds and winged fowl — feathered, beaked and taloned.",
+    "motifs": "layered feathers, a hooked beak, taloned bird feet, folded or spread wings"
+  },
+  "Beast": {
+    "definition": "Ordinary flesh-and-blood animals — mammals and predators with no supernatural nature; the mundane baseline.",
+    "motifs": "thick fur or hide, a fanged predatory muzzle, clawed paws and a feral posture"
+  },
+  "Celestial": {
+    "definition": "Holy, divine or angelic beings radiant with blessed light.",
+    "motifs": "a faint halo of pale holy light, gilded radiant markings, an otherworldly divine glow"
+  },
+  "Chimera": {
+    "definition": "A single creature fused from the mismatched parts of several different animals.",
+    "motifs": "mismatched body parts fused from several different animals, an unnatural hybrid silhouette"
+  },
+  "Construct": {
+    "definition": "A non-living thing assembled from inert material — stone, iron, bound parts — and animated; never organic.",
+    "motifs": "a body assembled from inert material — stone, iron or bound components — with visible joints and seams, no organic softness"
+  },
+  "Demon": {
+    "definition": "An infernal fiend of hellfire, horns and cruelty — a creature of damnation.",
+    "motifs": "infernal blackened flesh, jagged horns, burning ember eyes and a cruel predatory malice"
+  },
+  "Dragon": {
+    "definition": "Great scaled draconic reptiles with wings, horns and hoard-beast majesty; grander than a mere Reptile.",
+    "motifs": "heavy overlapping scales, membranous draconic wings, curved horns and a reptilian sneer"
+  },
+  "Eldritch": {
+    "definition": "A cosmic-horror entity from beyond reality — alien, unknowable and mind-breaking; not of this world, unlike an Aberration's earthly mutation.",
+    "motifs": "cosmic-horror features that should not exist — extra eyes, writhing appendages, an alien wrongness"
+  },
+  "Elemental": {
+    "definition": "A being made of and wreathed in raw element — flame, stone, water, storm — living element, not a machine.",
+    "motifs": "its body made of and wreathed in raw element — flame, stone, water or storm — with glowing elemental energy at the seams"
+  },
+  "Fey": {
+    "definition": "A fae enchanter of glamour, illusion and luring — nature-spirit trickery worn on a living body; NOT a ghost (that is Spectral).",
+    "motifs": "iridescent enchanted glamour-markings that shimmer like heat-haze, adornments of living flowers, petals or a bright hypnotic lure-light, and an uncanny too-flawless beguiling beauty built to deceive the eye"
+  },
+  "Flora": {
+    "definition": "Living, animate plant matter — bark, vine, leaf, root and blossom.",
+    "motifs": "living plant matter — bark, vines, leaves, blossoms or roots — growing as part of its body"
+  },
+  "Fungal": {
+    "definition": "Mushroom, mold and spore organisms — caps, mycelium and drifting spores.",
+    "motifs": "clustered mushroom caps, spreading spores, mottled fungal growth and mycelial threads"
+  },
+  "Horror": {
+    "definition": "Nightmarish flesh built to disturb — exposed sinew, wrong proportions and body-horror dread of mundane origin.",
+    "motifs": "nightmarish disturbing features, exposed sinew and wrong proportions built to unsettle"
+  },
+  "Insect": {
+    "definition": "Six-legged bugs — chitin, compound eyes, antennae and buzzing wings; smaller and lighter than Arthropod.",
+    "motifs": "a chitinous insectoid body, compound eyes, thin multi-jointed legs and buzzing wings"
+  },
+  "Mollusk": {
+    "definition": "Soft, boneless bodies — tentacles, coiling shells and slick mucous; squid, snails and nautilus.",
+    "motifs": "a soft boneless slick body, coiling tentacles or a spiral shell, a glistening mucous sheen"
+  },
+  "Ooze": {
+    "definition": "A formless semi-liquid blob — gelatinous, dripping, with no skeleton or fixed shape.",
+    "motifs": "a semi-liquid amorphous body that sags and drips, translucent gelatinous mass, no fixed skeleton"
+  },
+  "Parasite": {
+    "definition": "An organism that infests and feeds on hosts — burrowing growths that cling to and control other creatures.",
+    "motifs": "parasitic growths and burrowing organisms erupting from or clinging to its body"
+  },
+  "Reptile": {
+    "definition": "Cold-blooded scaled animals — lizards, crocodilians, turtles; mundane, unlike a Dragon's majesty or a Serpent's limbless coil.",
+    "motifs": "dry pebbled scales, cold slit-pupil eyes, clawed reptilian limbs"
+  },
+  "Serpent": {
+    "definition": "Limbless snakes — long, coiling, scaled bodies that glide and constrict.",
+    "motifs": "a long limbless coiling serpentine body, overlapping belly scales, a flicking forked tongue"
+  },
+  "Spectral": {
+    "definition": "The dead as pure spirit — ghosts, wraiths and incorporeal souls; translucent and dissolving, unlike Undead's rotting flesh.",
+    "motifs": "a translucent semi-transparent ghostly body, edges dissolving into vapor, a cold spectral glow"
+  },
+  "Undead": {
+    "definition": "Reanimated dead flesh and bone — corpses, skeletons and rot; corporeal, unlike incorporeal Spectral.",
+    "motifs": "decayed rotting flesh over exposed bone, sunken hollow eye-sockets, a desiccated grave-touched look"
+  },
+  "Vampiric": {
+    "definition": "Blood-draining predators — pale, gaunt, fanged and hungry for blood.",
+    "motifs": "gaunt pale predatory features, prominent fangs, blood-red accents"
+  },
+  "Void": {
+    "definition": "A being of light-swallowing nothingness — pure black unmaking, the wrongness that eats existence.",
+    "motifs": "a body of light-swallowing pure black void, an unstable outline edged in faint violet, wrongness that eats the surrounding light"
+  }
+}

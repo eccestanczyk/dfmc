@@ -9,6 +9,7 @@
   const LINKS = [
     { href: 'hub.html',            label: 'Home' },
     { href: 'creature-codex.html', label: 'Creature Codex' },
+    { href: 'type-glossary.html',  label: 'Type Glossary' },
     { href: 'floor-codex.html',    label: 'Floor Map' },
     { href: 'reliquary.html',      label: 'Reliquary' },
     { href: 'index.html?tab=equipment', label: 'Crafting' },
