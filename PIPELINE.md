@@ -65,12 +65,13 @@
 #  primary and (if present) secondary type via motifs? If not -> add them before sending.'
 #
 
-# ⛔ HARD RULE — CLAUDE NEVER MAKES CROPS. EVER. ⛔
-# Claude must NEVER perform background removal itself: no local rembg, no remove.bg API,
-#  no PIL/alpha cutting, no despill-as-crop. Cropping is done ONLY by D / the proper codex
-#  "Cropping approved" process. On any 'generate new crop' / 'approve art' / 'new crop' item,
-#  Claude does the generation/commit/CSV+slot+BG_Status bookkeeping ONLY and marks the crop as
-#  awaiting the proper process. If Claude is about to call rembg/remove.bg/alpha-cut -> STOP.
+# ⛔ HARD RULE — CROPS = remove.bg API ONLY, NEVER rembg ⛔
+# When D requests a crop ('generate new crop' / 'approve art' / 'new crop'), Claude PERFORMS it,
+#  but EXCLUSIVELY via the remove.bg API (X-Api-Key provided). Claude must NEVER use local rembg
+#  or PIL/alpha cutting for crops — rembg is BANNED (low-res/inferior output; it caused the
+#  low-res-crop incident). If remove.bg fails or is out of credits -> FLAG it and STOP; do NOT
+#  fall back to rembg. Self-check before any crop: 'Am I about to call rembg or cut alpha? -> STOP,
+#  use remove.bg API instead.'
 #
 # DFMC ART PIPELINE — HARD GATES (load first, every batch)
 
