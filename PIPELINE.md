@@ -21,6 +21,47 @@
 # switch to /images/generations with prompt only."
 #
 
+# ⛔ HARD RULE #0.5 — EVERY PROMPT MUST ENCODE CREATURE TYPE ⛔
+# (Per D: prompts had stopped including creature types. Type_Primary and Type_Secondary
+#  from creatures.csv MUST be expressed in EVERY generation/edit prompt, as concrete
+#  VISUAL MOTIFS — not the bare type word (image model renders bare words poorly).
+# Insert the motif clause right after the core anatomy description, before the bg/framing
+#  boilerplate, phrased as: 'As a <Primary>[/<Secondary>] creature it also shows <motif>,
+#  <motif2>.' Blend naturally; don't contradict the creature's own description.
+# Motif lexicon (Type -> visual cue) committed below; rebuild from here each session:
+#
+#   Amphibian: moist glistening amphibian skin, webbed digits, a soft translucent throat sac
+#   Aquatic: waterlogged fins and gill-slits, dripping brine, a bioluminescent deep-sea sheen
+#   Arthropod: a hard segmented chitinous exoskeleton, jointed armored legs, twitching antennae
+#   Avian: layered feathers, a hooked beak, taloned bird feet, folded or spread wings
+#   Beast: thick fur or hide, a fanged predatory muzzle, clawed paws and a feral posture
+#   Celestial: a faint halo of pale holy light, gilded radiant markings, an otherworldly divine glow
+#   Chimera: mismatched body parts fused from several different animals, an unnatural hybrid silhouette
+#   Construct: a body assembled from inert material — stone, iron or bound components — with visible joints and seams, no organic softness
+#   Dragon: heavy overlapping scales, membranous draconic wings, curved horns and a reptilian sneer
+#   Elemental: its body made of and wreathed in raw element — flame, stone, water or storm — with glowing elemental energy at the seams
+#   Fey: an eerie ethereal glow, delicate uncanny features, drifting motes of faint fairy-light
+#   Flora: living plant matter — bark, vines, leaves, blossoms or roots — growing as part of its body
+#   Fungal: clustered mushroom caps, spreading spores, mottled fungal growth and mycelial threads
+#   Insect: a chitinous insectoid body, compound eyes, thin multi-jointed legs and buzzing wings
+#   Mollusk: a soft boneless slick body, coiling tentacles or a spiral shell, a glistening mucous sheen
+#   Ooze: a semi-liquid amorphous body that sags and drips, translucent gelatinous mass, no fixed skeleton
+#   Reptile: dry pebbled scales, cold slit-pupil eyes, clawed reptilian limbs
+#   Serpent: a long limbless coiling serpentine body, overlapping belly scales, a flicking forked tongue
+#   Spectral: a translucent semi-transparent ghostly body, edges dissolving into vapor, a cold spectral glow
+#   Undead: decayed rotting flesh over exposed bone, sunken hollow eye-sockets, a desiccated grave-touched look
+#   Vampiric: gaunt pale predatory features, prominent fangs, blood-red accents
+#   Void: a body of light-swallowing pure black void, an unstable outline edged in faint violet, wrongness that eats the surrounding light
+#   Aberration: impossible non-euclidean anatomy, too many eyes or mouths in wrong places, a maddening asymmetry
+#   Demon: infernal blackened flesh, jagged horns, burning ember eyes and a cruel predatory malice
+#   Eldritch: cosmic-horror features that should not exist — extra eyes, writhing appendages, an alien wrongness
+#   Horror: nightmarish disturbing features, exposed sinew and wrong proportions built to unsettle
+#   Parasite: parasitic growths and burrowing organisms erupting from or clinging to its body
+#
+# Self-check before EVERY generation call: 'Does this prompt visually encode BOTH the
+#  primary and (if present) secondary type via motifs? If not -> add them before sending.'
+#
+
 # DFMC ART PIPELINE — HARD GATES (load first, every batch)
 
 Claude MUST read this file at the start of every art batch and print the per-action
