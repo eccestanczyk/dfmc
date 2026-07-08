@@ -164,14 +164,14 @@ function togglePipeline(type, btn) {
     btn.classList.add('active');
   }
   renderGrid();
-  clearTimeout(_probeTimer); _probeTimer = setTimeout(probeCardTabs, 100);
+  
 }
 
 function toggleFilter(set, val, btn) {
   if (set.has(val)) { set.delete(val); btn.classList.remove('active'); }
   else { set.add(val); btn.classList.add('active'); }
   renderGrid();
-  clearTimeout(_probeTimer); _probeTimer = setTimeout(probeCardTabs, 100);
+  
   syncURL();
 }
 
@@ -225,7 +225,12 @@ function renderGrid() {
       ? `<img class="codex-card-img" src="${escapeHtml(origSrc)}" alt="${escapeHtml(c.Name)}" loading="lazy">`
       : `<div class="codex-card-noimg">?</div>`;
 
-    const tabsHtml = origSrc ? `<div class="card-tabs" data-id="${c.ID}" data-base="${escapeHtml(IMG_BASE)}codex/images/"></div>` : '';
+    const slotFolders={A:'',B:'cropped/',C:'cropped_c/',D:'cropped_d/',E:'cropped_e/'};
+    const slots=(c.Option_Slots||'A').split('');
+    const tabsHtml = (origSrc && slots.length>1) ? '<div class="card-tabs">'+slots.map((s,idx)=>{
+      const url=IMG_BASE+'codex/images/'+slotFolders[s]+c.ID+'.png';
+      return `<button class="card-tab${idx===0?' active':''}" onclick="event.stopPropagation();switchCardImg(this,'${url}')">${s}</button>`;
+    }).join('')+'</div>' : '';
     const gearHtml = isAdmin ? `<button class="card-gear" onclick="event.stopPropagation();toggleCardMenu(this)" data-id="${c.ID}" data-name="${escapeHtml(c.Name)}" data-art="${c.Art_Status}" data-bg="${c.BG_Status}">⚙</button>` : '';
 
     return `<div class="codex-card" style="${pipelineStyle};position:relative;cursor:pointer;" onclick="if(!event.target.closest('.card-gear,.card-admin-menu,.card-tab'))location.href='creature.html?id=${escapeHtml(c.ID)}'">
@@ -458,7 +463,6 @@ document.addEventListener('click', function(e) {
       document.getElementById('admin-filters').style.display = '';
     }
     renderGrid();
-    probeCardTabs();
   } catch (e) {
     document.getElementById('status').textContent = 'FAILED TO LOAD: ' + e.message;
   }
