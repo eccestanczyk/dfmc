@@ -129,31 +129,7 @@
     <div class="section-body" id="grades-body"></div>
   </section>
 
-  <section>
-    <h3>Base Attributes by Egg Grade</h3>
-    <div class="section-body">
-      <table class="data-table">
-        <tr><th>Egg Tier</th><th>Offense</th><th>Defense</th><th>Utility</th><th>Speed</th></tr>
-        <tr><td>Worn</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-        <tr><td>Common</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-        <tr><td>Rare</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-        <tr><td>Void</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-      </table>
-      <p class="pending-note" style="margin-top:10px;">Egg tier stat scaling not yet defined — grades above represent identity only.</p>
-    </div>
-  </section>
 
-  <section>
-    <h3>Soul Equipment Effect</h3>
-    <div class="section-body">
-      <table class="data-table" id="equip-table">
-        <tr>
-          <th>Slot</th><th>Crude</th><th>Tier 2</th><th>Tier 3</th><th>Tier 4</th><th>Max</th>
-        </tr>
-      </table>
-      <p class="pending-note" style="margin-top:10px;">Placeholder slot names and soul tier names shown — waiting on the real 8-slot list and Crude→Max tier names to replace these.</p>
-    </div>
-  </section>
 
   <section>
     <h3>Move Progression</h3>
@@ -174,7 +150,7 @@
 <script>
 const CREATURES_URL = "codex/creatures.csv";
 const IMG_BASE = "https://cdn.jsdelivr.net/gh/eccestanczyk/dfmc@main/";
-const PLACEHOLDER_SLOTS = ["Slot 1","Slot 2","Slot 3","Slot 4","Slot 5","Slot 6","Slot 7","Slot 8"];
+const SLOT_NAMES = {"1":"Main Hand","2":"Off Hand","3":"1st Accessory","4":"2nd Accessory"};
 
 function parseCSV(text) {
   const rows = [];
@@ -236,15 +212,6 @@ function chromaKeyToDataURL(url) {
 async function applyChromaKeyAll() {
   const imgs = document.querySelectorAll('img.chroma[data-src]');
   await Promise.all(Array.from(imgs).map(async (img) => { img.src = await chromaKeyToDataURL(img.dataset.src); }));
-}
-
-function buildEquipTable() {
-  const table = document.getElementById('equip-table');
-  PLACEHOLDER_SLOTS.forEach(slot => {
-    const row = document.createElement('tr');
-    row.innerHTML = `<td class="filled">${slot}</td>` + '<td>—</td>'.repeat(5);
-    table.appendChild(row);
-  });
 }
 
 async function load() {
@@ -361,7 +328,6 @@ async function load() {
 
     renderMoves(c);
 
-    buildEquipTable();
 
     document.getElementById('status').style.display = 'none';
     document.getElementById('main').style.display = 'block';
@@ -379,11 +345,12 @@ async function renderMoves(c) {
     if (!mine.length) { document.getElementById('moves-panel').innerHTML = '<span style="color:var(--ink-faded);font-size:13px;font-style:italic;">No moves catalogued yet.</span>'; return; }
     document.getElementById('moves-panel').innerHTML = mine.map(m => {
       const pw = m['Power_S' + stage], fx = m['Effect_S' + stage];
+      const mName = m['Name_S' + stage] || m.Name;
       const pwLabel = pw === '0' ? 'STATUS' : 'PWR ' + pw;
       return `<div style="background:var(--surface-2);border:1px solid var(--rule);padding:10px 12px;">
         <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px;">
-          <span style="font-family:'Cinzel',serif;font-weight:600;font-size:13px;color:var(--gold);">${escapeHtml(m.Name)}</span>
-          <span style="font-size:11px;color:var(--ink-faint);">${pwLabel} · CD ${escapeHtml(m.Cooldown)} · slot ${escapeHtml(m.Slot)}</span>
+          <span style="font-family:'Cinzel',serif;font-weight:600;font-size:13px;color:var(--gold);">${escapeHtml(mName)}</span>
+          <span style="font-size:11px;color:var(--ink-faint);">${pwLabel} · CD ${escapeHtml(m.Cooldown)} · ${escapeHtml(SLOT_NAMES[m.Slot] || 'slot '+m.Slot)}</span>
         </div>
         <div style="font-size:12px;color:var(--ink);margin-top:4px;">${escapeHtml(fx)}</div>
         ${m.Synergy !== '-' ? `<div style="font-size:11px;color:#7fd4a0;margin-top:3px;">Synergy: ${escapeHtml(m.Synergy)}</div>` : ''}
@@ -395,18 +362,18 @@ async function renderMoves(c) {
     // Soul Joker reflection: equipping this creature's soul grants its moves to the character
     const soulRows = mine.map(m => {
       const pw = m['Power_S' + stage];
+      const mName = m['Name_S' + stage] || m.Name;
       return `<tr>
-        <td style="text-align:center;font-family:'Cinzel',serif;color:var(--gold);">${escapeHtml(m.Slot)}</td>
-        <td style="font-weight:600;">${escapeHtml(m.Name)}</td>
+        <td style="font-family:'Cinzel',serif;color:var(--gold);">${escapeHtml(SLOT_NAMES[m.Slot] || m.Slot)}</td>
+        <td style="font-weight:600;">${escapeHtml(mName)}</td>
         <td style="text-align:center;">${pw === '0' ? 'Status' : pw}</td>
         <td style="text-align:center;">${escapeHtml(m.Cooldown)}</td>
         <td style="font-size:11px;color:var(--ink-faint);">${m.Synergy !== '-' ? 'Synergy kept' : '—'}${m.Anti !== '-' ? (m.Synergy !== '-' ? ' · ' : '') + 'Anti kept' : (m.Synergy === '-' ? '' : '')}</td>
       </tr>`;
     }).join('');
     document.getElementById('soul-panel').innerHTML = `
-      <p style="font-size:12px;color:var(--ink-faint);margin:0 0 8px;">Socket ${escapeHtml(c.Name)}'s soul into a character weapon/accessory ability slot to grant that slot's move to the character. Character casts use the <b>character's Offense</b> and gain <b>no STAB</b>; Synergy and Anti clauses still apply. While its soul is equipped, ${escapeHtml(c.Name)} <b>cannot be summoned</b> to the battle party. Max 4 souls; no duplicate creatures.</p>
       <table style="width:100%;font-size:12px;">
-        <tr><th style="width:44px;">Slot</th><th>Granted move</th><th style="width:60px;">Power</th><th style="width:44px;">CD</th><th style="width:110px;">Clauses</th></tr>
+        <tr><th style="width:104px;">Ability slot</th><th>Granted move</th><th style="width:60px;">Power</th><th style="width:44px;">CD</th><th style="width:110px;">Clauses</th></tr>
         ${soulRows}
       </table>
       <p style="font-size:11px;color:var(--ink-faint);margin-top:6px;">Values shown at this creature's current stage (soul strength follows the equipped creature's stage). Full effect text in the MOVES panel above.</p>`;
