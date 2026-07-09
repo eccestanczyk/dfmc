@@ -1,0 +1,401 @@
+Soul_ID,Line_ID,Gear_Slot,Scope,Rarity,Effect_S3
+S-THORNBACK-HEAD,THORNBACK,Head,Personal,Common,+5% Defense while above 50% HP (the plate holds).
+S-THORNBACK-CHEST,THORNBACK,Chest,Local,Common,This armour's Defense ×1.12.
+S-THORNBACK-GLOVES,THORNBACK,Gloves,Personal,Common,Attackers that hit you take 4% of their damage back (quills).
+S-THORNBACK-FEET,THORNBACK,Feet,Team,Common,Allies take -3% damage while at full HP (dig in behind the boar).
+S-DUSTHOUND-HEAD,DUSTHOUND,Head,Personal,Common,+4% crit chance (a hunter's eye through the dust).
+S-DUSTHOUND-CHEST,DUSTHOUND,Chest,Personal,Common,+5% Offense on the first turn of battle.
+S-DUSTHOUND-GLOVES,DUSTHOUND,Gloves,Local,Common,This item's Offense contribution ×1.12.
+S-DUSTHOUND-FEET,DUSTHOUND,Feet,Team,Common,Allies' debuffs on enemies last +1 turn on the first turn (opening harry).
+S-BARROWMOLE-HEAD,BARROWMOLE,Head,Personal,Common,Debuffs on you expire 10% sooner (shake off the soil).
+S-BARROWMOLE-CHEST,BARROWMOLE,Chest,Local,Common,This armour's Defense ×1.12.
+S-BARROWMOLE-GLOVES,BARROWMOLE,Gloves,Personal,Common,+5% Defense (spade-callused guard).
+S-BARROWMOLE-FEET,BARROWMOLE,Feet,Team,Common,Allies +4% Defense (everyone stands on packed earth).
+S-BRAMBLEFAWN-HEAD,BRAMBLEFAWN,Head,Team,Common,Allies' healing received +4% (thorn-crown blessing).
+S-BRAMBLEFAWN-CHEST,BRAMBLEFAWN,Chest,Personal,Common,+5% HP (green vigor).
+S-BRAMBLEFAWN-GLOVES,BRAMBLEFAWN,Gloves,Personal,Common,Your damage-over-time effects deal +6% (thorns dig deeper).
+S-BRAMBLEFAWN-FEET,BRAMBLEFAWN,Feet,Local,Common,This item's Defense contribution ×1.12.
+S-WRAITH-HEAD,WRAITH,Head,Personal,Uncommon,+6% Offense vs targets with reduced Speed stages (run down the fleeing).
+S-WRAITH-CHEST,WRAITH,Chest,Personal,Uncommon,+6% HP (half-here already).
+S-WRAITH-GLOVES,WRAITH,Gloves,Local,Uncommon,This item's Offense contribution ×1.14.
+S-WRAITH-FEET,WRAITH,Feet,Team,Uncommon,Allies deal +5% on the first turn (the chase begins at full gallop).
+S-GOLGOTH-HEAD,GOLGOTH,Head,Personal,Uncommon,+6% Defense (stone does not flinch).
+S-GOLGOTH-CHEST,GOLGOTH,Chest,Local,Uncommon,This armour's Defense ×1.14.
+S-GOLGOTH-GLOVES,GOLGOTH,Gloves,Personal,Uncommon,+6% Offense while below 50% HP (cornered rockslide).
+S-GOLGOTH-FEET,GOLGOTH,Feet,Team,Uncommon,Allies take -4% damage from damage-over-time (grit seals wounds).
+S-WYCHROOT-HEAD,WYCHROOT,Head,Personal,Uncommon,Healing you receive +10% (old roots drink deep).
+S-WYCHROOT-CHEST,WYCHROOT,Chest,Local,Uncommon,This armour's Defense ×1.14.
+S-WYCHROOT-GLOVES,WYCHROOT,Gloves,Personal,Uncommon,Your damage-over-time effects deal +7% (sap-rot spreads).
+S-WYCHROOT-FEET,WYCHROOT,Feet,Team,Uncommon,Allies +5% Defense (rooted footing).
+S-GARROTE-HEAD,GARROTE,Head,Personal,Rare,+7% Offense vs targets below 40% HP (finish the hanging).
+S-GARROTE-CHEST,GARROTE,Chest,Personal,Rare,+7% HP (knots hold the frame together).
+S-GARROTE-GLOVES,GARROTE,Gloves,Local,Rare,This item's Offense contribution ×1.16.
+S-GARROTE-FEET,GARROTE,Feet,Team,Rare,Allies deal +4% vs targets with reduced Offense (prey already choking).
+S-GALLOWSBIRD-HEAD,GALLOWSBIRD,Head,Personal,Rare,+6% crit chance vs targets below 50% HP (the omen was right).
+S-GALLOWSBIRD-CHEST,GALLOWSBIRD,Chest,Personal,Rare,+7% HP (already half gone).
+S-GALLOWSBIRD-GLOVES,GALLOWSBIRD,Gloves,Personal,Rare,Your debuffs last +1 turn (the knell lingers).
+S-GALLOWSBIRD-FEET,GALLOWSBIRD,Feet,Team,Rare,Allies deal +6% vs targets below 50% HP (circle the dying).
+S-HERNE-HEAD,HERNE,Head,Team,Super Rare,Allies' healing received +7% (the lord provides).
+S-HERNE-CHEST,HERNE,Chest,Personal,Super Rare,+8% HP (ancient heartwood).
+S-HERNE-GLOVES,HERNE,Gloves,Personal,Super Rare,Your buffs on allies last +1 turn (sovereign word).
+S-HERNE-FEET,HERNE,Feet,Local,Super Rare,This item's Defense contribution ×1.18.
+S-TIDECRAWLER-HEAD,TIDECRAWLER,Head,Personal,Common,+5% Defense while you have a Defense buff (hunker in the shell).
+S-TIDECRAWLER-CHEST,TIDECRAWLER,Chest,Local,Common,This armour's Defense ×1.12.
+S-TIDECRAWLER-GLOVES,TIDECRAWLER,Gloves,Personal,Common,Attackers that hit you take 4% of their damage back (barnacle rasp).
+S-TIDECRAWLER-FEET,TIDECRAWLER,Feet,Team,Common,Allies +4% Defense on the first turn (tide holds the line).
+S-SALTJAW-HEAD,SALTJAW,Head,Personal,Common,+5% Offense vs targets with a damage-over-time effect (salt in the wound).
+S-SALTJAW-CHEST,SALTJAW,Chest,Personal,Common,"+5% HP (mostly muscle, all jaw)."
+S-SALTJAW-GLOVES,SALTJAW,Gloves,Local,Common,This item's Offense contribution ×1.12.
+S-SALTJAW-FEET,SALTJAW,Feet,Team,Common,Allies' bleed effects deal +4% (chum in the water).
+S-BRINEFROG-HEAD,BRINEFROG,Head,Personal,Common,Your status debuffs are +6% more potent (stinging brine).
+S-BRINEFROG-CHEST,BRINEFROG,Chest,Local,Common,This armour's Defense ×1.12.
+S-BRINEFROG-GLOVES,BRINEFROG,Gloves,Personal,Common,+5% Defense (rubbery hide).
+S-BRINEFROG-FEET,BRINEFROG,Feet,Team,Common,Enemy Offense debuffs from allies last +1 turn (the weeping spreads).
+S-CRESTMANTIS-HEAD,CRESTMANTIS,Head,Personal,Uncommon,+5% crit chance (strike-timing instinct).
+S-CRESTMANTIS-CHEST,CRESTMANTIS,Chest,Personal,Uncommon,+6% Offense while above 70% HP (coiled and ready).
+S-CRESTMANTIS-GLOVES,CRESTMANTIS,Gloves,Local,Uncommon,This item's Offense contribution ×1.14.
+S-CRESTMANTIS-FEET,CRESTMANTIS,Feet,Team,Uncommon,Allies' first hit each battle deals +5% (the snap sets the tempo).
+S-RUSALKA-HEAD,RUSALKA,Head,Team,Uncommon,Allies' healing received +5% (the water remembers mercy).
+S-RUSALKA-CHEST,RUSALKA,Chest,Personal,Uncommon,+6% HP (shaped from the river).
+S-RUSALKA-GLOVES,RUSALKA,Gloves,Personal,Uncommon,Your heals restore +10% more (drowning in reverse).
+S-RUSALKA-FEET,RUSALKA,Feet,Local,Uncommon,This item's Defense contribution ×1.14.
+S-BULWARK-HEAD,BULWARK,Head,Personal,Rare,+7% Defense while below 50% HP (retreat inward).
+S-BULWARK-CHEST,BULWARK,Chest,Local,Rare,This armour's Defense ×1.16.
+S-BULWARK-GLOVES,BULWARK,Gloves,Personal,Rare,Attackers that hit you take 5% of their damage back (fortress spikes).
+S-BULWARK-FEET,BULWARK,Feet,Team,Rare,Allies take -4% damage (shelter behind the shell).
+S-NETHEREEL-HEAD,NETHEREEL,Head,Personal,Rare,+7% Offense on the first turn (strike from outside reality).
+S-NETHEREEL-CHEST,NETHEREEL,Chest,Personal,Rare,+7% HP (partly elsewhere).
+S-NETHEREEL-GLOVES,NETHEREEL,Gloves,Local,Rare,This item's Offense contribution ×1.16.
+S-NETHEREEL-FEET,NETHEREEL,Feet,Team,Rare,Allies deal +4% vs Spectral and Void targets (it knows the frequency).
+S-CORALHYDRA-HEAD,CORALHYDRA,Head,Personal,Super Rare,+7% Offense while above 70% HP (all heads accounted for).
+S-CORALHYDRA-CHEST,CORALHYDRA,Chest,Local,Super Rare,This armour's Defense ×1.18.
+S-CORALHYDRA-GLOVES,CORALHYDRA,Gloves,Personal,Super Rare,Your multi-hit moves deal +8% (many mouths).
+S-CORALHYDRA-FEET,CORALHYDRA,Feet,Team,Super Rare,Allies +5% Defense (living reef cover).
+S-DAGON-HEAD,DAGON,Head,Team,Super Super Rare,Allies deal +6% vs debuffed targets (the court exploits weakness).
+S-DAGON-CHEST,DAGON,Chest,Personal,Super Super Rare,+9% HP (drowned and risen).
+S-DAGON-GLOVES,DAGON,Gloves,Local,Super Super Rare,This item's Offense contribution ×1.20.
+S-DAGON-FEET,DAGON,Feet,Team,Super Super Rare,Allies' debuffs last +1 turn (the sea does not forget).
+S-VOIDSIPHON-HEAD,VOIDSIPHON,Head,Personal,Uncommon,Enemy Offense debuffs you apply are +7% more potent (deeper ink).
+S-VOIDSIPHON-CHEST,VOIDSIPHON,Chest,Local,Uncommon,This armour's Defense ×1.14.
+S-VOIDSIPHON-GLOVES,VOIDSIPHON,Gloves,Personal,Uncommon,+6% Defense (wrapped in swallowing black).
+S-VOIDSIPHON-FEET,VOIDSIPHON,Feet,Team,Uncommon,Allies take -4% damage on the first turn (blink away from the alpha).
+S-DUSKSCALE-HEAD,DUSKSCALE,Head,Personal,Uncommon,+6% Defense (dusk-dulled outline).
+S-DUSKSCALE-CHEST,DUSKSCALE,Chest,Local,Uncommon,This armour's Defense ×1.14.
+S-DUSKSCALE-GLOVES,DUSKSCALE,Gloves,Personal,Uncommon,+6% Offense at or above 70% HP (basking strength).
+S-DUSKSCALE-FEET,DUSKSCALE,Feet,Team,Uncommon,"Allies take -4% damage on the first turn (colours shift, aim slips)."
+S-SANDSKITTER-HEAD,SANDSKITTER,Head,Personal,Common,Your Defense debuffs are +6% more potent (the wail unravels).
+S-SANDSKITTER-CHEST,SANDSKITTER,Chest,Personal,Common,+5% HP (already past dying).
+S-SANDSKITTER-GLOVES,SANDSKITTER,Gloves,Personal,Common,+4% crit chance vs debuffed targets (hear the seam split).
+S-SANDSKITTER-FEET,SANDSKITTER,Feet,Team,Common,Allies deal +4% vs targets with reduced Defense (follow the omen).
+S-DUNECOIL-HEAD,DUNECOIL,Head,Personal,Common,+5% Offense on the first turn (ambush opener).
+S-DUNECOIL-CHEST,DUNECOIL,Chest,Local,Common,This armour's Defense ×1.12.
+S-DUNECOIL-GLOVES,DUNECOIL,Gloves,Personal,Common,Your damage-over-time effects deal +6% (venom and grit).
+S-DUNECOIL-FEET,DUNECOIL,Feet,Team,Common,Allies' first hit each battle deals +4% (strike from below).
+S-FATA-HEAD,FATA,Head,Personal,Common,+5% Offense while untouched this battle (the mirage holds).
+S-FATA-CHEST,FATA,Chest,Personal,Common,+5% HP (harder to hit what half-exists).
+S-FATA-GLOVES,FATA,Gloves,Local,Common,This item's Offense contribution ×1.12.
+S-FATA-FEET,FATA,Feet,Team,Common,Allies take -3% damage on the first turn (heat-haze cover).
+S-SIMOOM-HEAD,SIMOOM,Head,Personal,Uncommon,Debuffs on you expire 12% sooner (crumble and reform).
+S-SIMOOM-CHEST,SIMOOM,Chest,Local,Uncommon,This armour's Defense ×1.14.
+S-SIMOOM-GLOVES,SIMOOM,Gloves,Personal,Uncommon,"+6% Defense (packed sand yields, then returns)."
+S-SIMOOM-FEET,SIMOOM,Feet,Team,Uncommon,Allies take -4% damage from damage-over-time (ash smothers embers).
+S-ECHIDNA-HEAD,ECHIDNA,Head,Personal,Uncommon,Your damage-over-time effects deal +7% (mother's venom runs richer).
+S-ECHIDNA-CHEST,ECHIDNA,Chest,Personal,Uncommon,+6% HP (matriarch's endurance).
+S-ECHIDNA-GLOVES,ECHIDNA,Gloves,Local,Uncommon,This item's Offense contribution ×1.14.
+S-ECHIDNA-FEET,ECHIDNA,Feet,Team,Uncommon,Allies' damage-over-time effects deal +5% (the brood shares fangs).
+S-EMBERCLAW-HEAD,EMBERCLAW,Head,Personal,Rare,+6% Offense vs targets with a damage-over-time effect (press the burn).
+S-EMBERCLAW-CHEST,EMBERCLAW,Chest,Local,Rare,This armour's Defense ×1.16.
+S-EMBERCLAW-GLOVES,EMBERCLAW,Gloves,Personal,Rare,Your damage-over-time effects deal +8% (killing heat).
+S-EMBERCLAW-FEET,EMBERCLAW,Feet,Team,Rare,Allies' burn-type effects deal +6% (the ground itself smoulders).
+S-ZARATAN-HEAD,ZARATAN,Head,Personal,Rare,+7% Defense (ages of patience).
+S-ZARATAN-CHEST,ZARATAN,Chest,Local,Rare,This armour's Defense ×1.16.
+S-ZARATAN-GLOVES,ZARATAN,Gloves,Personal,Rare,Attackers that hit you take 5% of their damage back (ruin-edged shell).
+S-ZARATAN-FEET,ZARATAN,Feet,Team,Rare,Allies +6% Defense while you are above 50% HP (shelter of the world-turtle).
+S-MARID-HEAD,MARID,Head,Personal,Super Rare,+7% Offense on the first turn (the storm arrives first).
+S-MARID-CHEST,MARID,Chest,Personal,Super Rare,+8% HP (wind cannot be pinned).
+S-MARID-GLOVES,MARID,Gloves,Local,Super Rare,This item's Offense contribution ×1.18.
+S-MARID-FEET,MARID,Feet,Team,Super Rare,Allies' Offense debuffs on enemies are +6% more potent (sand in every eye).
+S-OUROBOROS-HEAD,OUROBOROS,Head,Personal,Super Super Rare,Debuffs on you expire 15% sooner (the cycle sheds all things).
+S-OUROBOROS-CHEST,OUROBOROS,Chest,Personal,Super Super Rare,+9% HP (no beginning to wound).
+S-OUROBOROS-GLOVES,OUROBOROS,Gloves,Local,Super Super Rare,This item's Offense contribution ×1.20.
+S-OUROBOROS-FEET,OUROBOROS,Feet,Team,Super Super Rare,"Allies' damage-over-time effects last +1 turn (what ends, begins)."
+S-GLOOMGRUB-HEAD,GLOOMGRUB,Head,Personal,Common,Your Defense debuffs are +6% more potent (acid finds the seams).
+S-GLOOMGRUB-CHEST,GLOOMGRUB,Chest,Local,Common,This armour's Defense ×1.12.
+S-GLOOMGRUB-GLOVES,GLOOMGRUB,Gloves,Personal,Common,+5% Defense (rubbery larval fat).
+S-GLOOMGRUB-FEET,GLOOMGRUB,Feet,Team,Common,Allies deal +4% vs targets with reduced Defense (eat where it's soft).
+S-THORNHUSK-HEAD,THORNHUSK,Head,Personal,Common,+5% Defense while you have not attacked this turn (perfect stillness).
+S-THORNHUSK-CHEST,THORNHUSK,Chest,Local,Common,This armour's Defense ×1.12.
+S-THORNHUSK-GLOVES,THORNHUSK,Gloves,Personal,Common,Attackers that hit you take 4% of their damage back (thorned shell).
+S-THORNHUSK-FEET,THORNHUSK,Feet,Team,Common,Allies +4% Defense (branch-cover camouflage).
+S-SPOREFLY-HEAD,SPOREFLY,Head,Personal,Common,Your damage-over-time effects deal +6% (spores take hold).
+S-SPOREFLY-CHEST,SPOREFLY,Chest,Personal,Common,+5% HP (light and hard to swat).
+S-SPOREFLY-GLOVES,SPOREFLY,Gloves,Personal,Common,Your damage-over-time effects last +1 turn (reinfection).
+S-SPOREFLY-FEET,SPOREFLY,Feet,Team,Common,Fungal allies deal +6% (carrier's gift).
+S-ARACHNE-HEAD,ARACHNE,Head,Personal,Uncommon,+5% crit chance vs targets with reduced Speed stages (wrapped prey).
+S-ARACHNE-CHEST,ARACHNE,Chest,Local,Uncommon,This armour's Defense ×1.14.
+S-ARACHNE-GLOVES,ARACHNE,Gloves,Personal,Uncommon,Your damage-over-time effects deal +7% (widow's kiss).
+S-ARACHNE-FEET,ARACHNE,Feet,Team,Uncommon,Allies deal +5% vs targets with reduced Speed stages (the web holds them).
+S-CARNIFORA-HEAD,CARNIFORA,Head,Personal,Uncommon,Healing you receive +10% (photosynthetic reserve).
+S-CARNIFORA-CHEST,CARNIFORA,Chest,Local,Uncommon,This armour's Defense ×1.14.
+S-CARNIFORA-GLOVES,CARNIFORA,Gloves,Personal,Uncommon,Your attacks that heal you restore +10% more (digest on contact).
+S-CARNIFORA-FEET,CARNIFORA,Feet,Team,Uncommon,Allies +5% Defense (thicket cover).
+S-PLAGUECARRIER-HEAD,PLAGUECARRIER,Head,Personal,Uncommon,Your damage-over-time effects are +7% more potent (the colony thrives).
+S-PLAGUECARRIER-CHEST,PLAGUECARRIER,Chest,Personal,Uncommon,+6% HP (the shell is load-bearing).
+S-PLAGUECARRIER-GLOVES,PLAGUECARRIER,Gloves,Local,Uncommon,This item's Offense contribution ×1.14.
+S-PLAGUECARRIER-FEET,PLAGUECARRIER,Feet,Team,Uncommon,Allies' damage-over-time effects deal +5% (parasites jump hosts).
+S-DEVOUT-HEAD,DEVOUT,Head,Personal,Rare,+6% crit chance on the first turn (the answered opening prayer).
+S-DEVOUT-CHEST,DEVOUT,Chest,Personal,Rare,+6% HP (grace carries).
+S-DEVOUT-GLOVES,DEVOUT,Gloves,Local,Rare,This item's Offense contribution ×1.16.
+S-DEVOUT-FEET,DEVOUT,Feet,Team,Rare,Allies take -4% damage on the first turn (a shared blink of absence).
+S-LOCUST-HEAD,LOCUST,Head,Personal,Rare,+6% Offense while any ally is an Insect (the swarm-mind extends).
+S-LOCUST-CHEST,LOCUST,Chest,Personal,Rare,+6% HP (one of endless bodies).
+S-LOCUST-GLOVES,LOCUST,Gloves,Local,Rare,This item's Offense contribution ×1.16.
+S-LOCUST-FEET,LOCUST,Feet,Team,Rare,Insect allies deal +6% (the swarm coordinates).
+S-VESPERA-HEAD,VESPERA,Head,Team,Super Rare,Insect allies' damage-over-time effects deal +7% (the queen's brood festers).
+S-VESPERA-CHEST,VESPERA,Chest,Personal,Super Rare,"+8% HP (crowned and rotting, still standing)."
+S-VESPERA-GLOVES,VESPERA,Gloves,Local,Super Rare,This item's Offense contribution ×1.18.
+S-VESPERA-FEET,VESPERA,Feet,Team,Super Rare,Allies' debuffs last +1 turn (spores settle in).
+S-YGGDRASIL-HEAD,YGGDRASIL,Head,Team,Super Super Rare,Allies' healing received +8% (the deep roots provide).
+S-YGGDRASIL-CHEST,YGGDRASIL,Chest,Local,Super Super Rare,This armour's Defense ×1.20.
+S-YGGDRASIL-GLOVES,YGGDRASIL,Gloves,Personal,Super Super Rare,+10% Defense (heartwood of the world).
+S-YGGDRASIL-FEET,YGGDRASIL,Feet,Team,Super Super Rare,Allies +7% Defense (stand among the roots).
+S-CLIFFPINCER-HEAD,CLIFFPINCER,Head,Personal,Common,+5% Defense (patience of stone).
+S-CLIFFPINCER-CHEST,CLIFFPINCER,Chest,Local,Common,This armour's Defense ×1.12.
+S-CLIFFPINCER-GLOVES,CLIFFPINCER,Gloves,Personal,Common,+5% Offense vs targets that acted before you this turn (drop on movers).
+S-CLIFFPINCER-FEET,CLIFFPINCER,Feet,Team,Common,Allies +4% Defense (cling to the wall).
+S-CRUSHMAUL-HEAD,CRUSHMAUL,Head,Personal,Common,+5% Defense while you have a Defense buff (locked sphere).
+S-CRUSHMAUL-CHEST,CRUSHMAUL,Chest,Local,Common,This armour's Defense ×1.12.
+S-CRUSHMAUL-GLOVES,CRUSHMAUL,Gloves,Personal,Common,Attackers that hit you take 4% of their damage back (spiked shell).
+S-CRUSHMAUL-FEET,CRUSHMAUL,Feet,Team,Common,Allies take -3% damage from multi-hit moves (roll through the volley).
+S-SLAGWORM-HEAD,SLAGWORM,Head,Personal,Common,Your Defense debuffs are +6% more potent (dissolve the plating).
+S-SLAGWORM-CHEST,SLAGWORM,Chest,Local,Common,This armour's Defense ×1.12.
+S-SLAGWORM-GLOVES,SLAGWORM,Gloves,Personal,Common,+5% Defense (nothing sticks to slag).
+S-SLAGWORM-FEET,SLAGWORM,Feet,Team,Common,Allies deal +4% vs targets with reduced Defense (follow the melt).
+S-RIDGEDRAKE-HEAD,RIDGEDRAKE,Head,Personal,Super Super Rare,+7% Offense at or above 70% HP (unruffled wings).
+S-RIDGEDRAKE-CHEST,RIDGEDRAKE,Chest,Local,Super Super Rare,This armour's Defense ×1.18.
+S-RIDGEDRAKE-GLOVES,RIDGEDRAKE,Gloves,Personal,Super Super Rare,Your damage-over-time effects deal +8% (superheated breath).
+S-RIDGEDRAKE-FEET,RIDGEDRAKE,Feet,Team,Super Super Rare,Allies' burn-type effects deal +6% (thermals feed the fire).
+S-STONECALLER-HEAD,STONECALLER,Head,Personal,Uncommon,+6% Defense (imperious calm).
+S-STONECALLER-CHEST,STONECALLER,Chest,Local,Uncommon,This armour's Defense ×1.14.
+S-STONECALLER-GLOVES,STONECALLER,Gloves,Personal,Uncommon,Your Speed-stage debuffs last +1 turn (petrifying decree).
+S-STONECALLER-FEET,STONECALLER,Feet,Team,Uncommon,Construct and Arthropod allies +6% Defense (the court in session).
+S-SANGLEECH-HEAD,SANGLEECH,Head,Personal,Uncommon,Your attacks that heal you restore +12% more (richer veins).
+S-SANGLEECH-CHEST,SANGLEECH,Chest,Personal,Uncommon,+6% HP (engorged reserve).
+S-SANGLEECH-GLOVES,SANGLEECH,Gloves,Local,Uncommon,This item's Offense contribution ×1.14.
+S-SANGLEECH-FEET,SANGLEECH,Feet,Team,Uncommon,Allies' attacks that heal them restore +6% more (the monarch's tithe).
+S-CRAGGERNAUT-HEAD,CRAGGERNAUT,Head,Personal,Rare,+6% Defense (the colony agrees to hold).
+S-CRAGGERNAUT-CHEST,CRAGGERNAUT,Chest,Local,Rare,This armour's Defense ×1.16.
+S-CRAGGERNAUT-GLOVES,CRAGGERNAUT,Gloves,Personal,Rare,Your multi-hit moves deal +8% (many claws).
+S-CRAGGERNAUT-FEET,CRAGGERNAUT,Feet,Team,Rare,Allies +5% Defense (fused ranks).
+S-VOIDSHELL-HEAD,VOIDSHELL,Head,Personal,Rare,Enemy Offense debuffs you apply are +7% more potent (dimmed further).
+S-VOIDSHELL-CHEST,VOIDSHELL,Chest,Local,Rare,This armour's Defense ×1.16.
+S-VOIDSHELL-GLOVES,VOIDSHELL,Gloves,Personal,Rare,+6% Defense (light-eating plate).
+S-VOIDSHELL-FEET,VOIDSHELL,Feet,Team,Rare,Allies take -4% damage from Spectral and Fey enemies (their glow dies here).
+S-TALOS-HEAD,TALOS,Head,Personal,Super Rare,+7% Defense (iron patience of centuries).
+S-TALOS-CHEST,TALOS,Chest,Local,Super Rare,This armour's Defense ×1.18.
+S-TALOS-GLOVES,TALOS,Gloves,Personal,Super Rare,Attackers that hit you take 5% of their damage back (ore-bound edges).
+S-TALOS-FEET,TALOS,Feet,Team,Super Rare,Allies take -5% damage while you are above 50% HP (stand behind the titan).
+S-MAGMACRAWLER-HEAD,MAGMACRAWLER,Head,Personal,Super Super Rare,+8% Offense vs targets with a damage-over-time effect (heat compounds).
+S-MAGMACRAWLER-CHEST,MAGMACRAWLER,Chest,Local,Super Super Rare,This armour's Defense ×1.20.
+S-MAGMACRAWLER-GLOVES,MAGMACRAWLER,Gloves,Personal,Super Super Rare,Your damage-over-time effects deal +10% (magma runs hotter).
+S-MAGMACRAWLER-FEET,MAGMACRAWLER,Feet,Team,Super Super Rare,Allies' burn-type effects last +1 turn (the ground stays molten).
+S-GUSTWING-HEAD,GUSTWING,Head,Personal,Common,+4% crit chance on the first turn (opening shear).
+S-GUSTWING-CHEST,GUSTWING,Chest,Personal,Common,+5% HP (wiry endurance).
+S-GUSTWING-GLOVES,GUSTWING,Gloves,Local,Common,This item's Offense contribution ×1.12.
+S-GUSTWING-FEET,GUSTWING,Feet,Team,Common,Allies' first hit each battle deals +4% (ride the tailwind).
+S-STORMCROW-HEAD,STORMCROW,Head,Personal,Common,Your status debuffs are +6% more potent (the charge lingers).
+S-STORMCROW-CHEST,STORMCROW,Chest,Personal,Common,+5% HP (weathered every storm).
+S-STORMCROW-GLOVES,STORMCROW,Gloves,Personal,Common,+5% Offense vs targets you have debuffed (strike the marked).
+S-STORMCROW-FEET,STORMCROW,Feet,Team,Common,Elemental allies deal +5% (the tempest gathers).
+S-THUNDERMOTH-HEAD,THUNDERMOTH,Head,Personal,Common,Enemy Offense debuffs you apply are +6% more potent (deeper scramble).
+S-THUNDERMOTH-CHEST,THUNDERMOTH,Chest,Local,Common,This armour's Defense ×1.12.
+S-THUNDERMOTH-GLOVES,THUNDERMOTH,Gloves,Personal,Common,+5% Defense (field distortion).
+S-THUNDERMOTH-FEET,THUNDERMOTH,Feet,Team,Common,Allies take -3% damage from Construct enemies (their workings stutter).
+S-ROC-HEAD,ROC,Head,Personal,Uncommon,+6% Offense on the first turn (the stoop decides it).
+S-ROC-CHEST,ROC,Chest,Personal,Uncommon,+6% HP (mountain-bred).
+S-ROC-GLOVES,ROC,Gloves,Local,Uncommon,This item's Offense contribution ×1.14.
+S-ROC-FEET,ROC,Feet,Team,Uncommon,Allies' first hit each battle deals +5% (attack from altitude).
+S-GALEHOWL-HEAD,GALEHOWL,Head,Personal,Uncommon,Your Speed-stage debuffs last +1 turn (the spin persists).
+S-GALEHOWL-CHEST,GALEHOWL,Chest,Personal,Uncommon,+6% HP (wind-fed lungs).
+S-GALEHOWL-GLOVES,GALEHOWL,Gloves,Personal,Uncommon,+5% Offense vs targets with reduced Speed stages (caught in the funnel).
+S-GALEHOWL-FEET,GALEHOWL,Feet,Team,Uncommon,Avian allies take -5% damage (eye of the storm).
+S-VOLTMANTLE-HEAD,VOLTMANTLE,Head,Personal,Rare,+5% crit chance on the first turn (charged opener).
+S-VOLTMANTLE-CHEST,VOLTMANTLE,Chest,Local,Rare,This armour's Defense ×1.16.
+S-VOLTMANTLE-GLOVES,VOLTMANTLE,Gloves,Personal,Rare,+7% Offense on the first turn (full charge delivery).
+S-VOLTMANTLE-FEET,VOLTMANTLE,Feet,Team,Rare,Allies' first hit each battle deals +5% (share the current).
+S-COUATL-HEAD,COUATL,Head,Personal,Rare,+6% Offense while untouched this battle (unseen in cloud).
+S-COUATL-CHEST,COUATL,Chest,Personal,Rare,+7% HP (sky-fed serenity).
+S-COUATL-GLOVES,COUATL,Gloves,Local,Rare,This item's Offense contribution ×1.16.
+S-COUATL-FEET,COUATL,Feet,Team,Rare,Allies take -4% damage on the first turn (cloud cover).
+S-TYPHON-HEAD,TYPHON,Head,Personal,Super Rare,+7% Defense (the storm has no centre to strike).
+S-TYPHON-CHEST,TYPHON,Chest,Local,Super Rare,This armour's Defense ×1.18.
+S-TYPHON-GLOVES,TYPHON,Gloves,Personal,Super Rare,Your multi-hit moves deal +9% (a hundred heads).
+S-TYPHON-FEET,TYPHON,Feet,Team,Super Rare,Allies' Offense and Defense debuffs on enemies are +5% more potent (pressure drops).
+S-ANZU-HEAD,ANZU,Head,Personal,Super Rare,+7% Offense on the first turn (the wind that was first).
+S-ANZU-CHEST,ANZU,Chest,Personal,Super Rare,+8% HP (unbroken since the beginning).
+S-ANZU-GLOVES,ANZU,Gloves,Personal,Super Rare,Your Speed-stage effects (buffs and debuffs) last +1 turn (tempo authority).
+S-ANZU-FEET,ANZU,Feet,Team,Super Rare,Allies deal +6% on the first turn (borrowed gale).
+S-STORMFATHER-HEAD,STORMFATHER,Head,Personal,Super Super Rare,+8% Offense vs targets with reduced Speed stages (lightning finds the slow).
+S-STORMFATHER-CHEST,STORMFATHER,Chest,Local,Super Super Rare,This armour's Defense ×1.20.
+S-STORMFATHER-GLOVES,STORMFATHER,Gloves,Local,Super Super Rare,This item's Offense contribution ×1.20.
+S-STORMFATHER-FEET,STORMFATHER,Feet,Team,Super Super Rare,Elemental and Dragon allies deal +7% (children of the storm).
+S-BOGHOPPER-HEAD,BOGHOPPER,Head,Personal,Common,+5% Defense while you have a Defense buff (fully inflated).
+S-BOGHOPPER-CHEST,BOGHOPPER,Chest,Local,Common,This armour's Defense ×1.12.
+S-BOGHOPPER-GLOVES,BOGHOPPER,Gloves,Personal,Common,+5% Offense the turn after gaining a Defense buff (stored spring).
+S-BOGHOPPER-FEET,BOGHOPPER,Feet,Team,Common,Allies take -3% damage from damage-over-time (bog-slick coats).
+S-MIRENEWT-HEAD,MIRENEWT,Head,Personal,Common,Enemy Offense debuffs you apply are +6% more potent (stronger visions).
+S-MIRENEWT-CHEST,MIRENEWT,Chest,Personal,Common,+5% HP (slips out of harm).
+S-MIRENEWT-GLOVES,MIRENEWT,Gloves,Personal,Common,Debuffs on you expire 10% sooner (shed the skin).
+S-MIRENEWT-FEET,MIRENEWT,Feet,Team,Common,Allies' Offense debuffs on enemies last +1 turn (the fever spreads).
+S-ROTFLY-HEAD,ROTFLY,Head,Personal,Common,Your damage-over-time effects deal +6% (eggs in every wound).
+S-ROTFLY-CHEST,ROTFLY,Chest,Personal,Common,+5% HP (bred in worse).
+S-ROTFLY-GLOVES,ROTFLY,Gloves,Local,Common,This item's Offense contribution ×1.12.
+S-ROTFLY-FEET,ROTFLY,Feet,Team,Common,Undead allies deal +5% (the plague reanimates).
+S-LICHFROG-HEAD,LICHFROG,Head,Team,Uncommon,Allies' healing received +6% (bog benediction).
+S-LICHFROG-CHEST,LICHFROG,Chest,Local,Uncommon,This armour's Defense ×1.14.
+S-LICHFROG-GLOVES,LICHFROG,Gloves,Personal,Uncommon,Your heals restore +10% more (stitchflesh craft).
+S-LICHFROG-FEET,LICHFROG,Feet,Team,Uncommon,Undead and Amphibian allies +5% Defense (the mire keeps its own).
+S-WISPMAW-HEAD,WISPMAW,Head,Personal,Uncommon,Your Speed-stage debuffs are +7% more potent (a brighter lure).
+S-WISPMAW-CHEST,WISPMAW,Chest,Personal,Uncommon,+6% HP (patient anglerflesh).
+S-WISPMAW-GLOVES,WISPMAW,Gloves,Personal,Uncommon,+6% Offense vs targets with reduced Speed stages (transfixed prey).
+S-WISPMAW-FEET,WISPMAW,Feet,Team,Uncommon,Allies deal +5% vs targets with reduced Speed stages (feed at the lantern).
+S-GRENDEL-HEAD,GRENDEL,Head,Personal,Uncommon,+6% Defense (parasites take the hit first).
+S-GRENDEL-CHEST,GRENDEL,Chest,Local,Uncommon,This armour's Defense ×1.14.
+S-GRENDEL-GLOVES,GRENDEL,Gloves,Personal,Uncommon,+6% Offense while below 50% HP (the bog's temper).
+S-GRENDEL-FEET,GRENDEL,Feet,Team,Uncommon,Allies' first attack each battle deals +5% (rise from the mire).
+S-DRAUGR-HEAD,DRAUGR,Head,Personal,Rare,+6% Defense (half of you is elsewhere).
+S-DRAUGR-CHEST,DRAUGR,Chest,Local,Rare,This armour's Defense ×1.16.
+S-DRAUGR-GLOVES,DRAUGR,Gloves,Personal,Rare,Enemy Offense debuffs you apply are +6% more potent (the water's weight).
+S-DRAUGR-FEET,DRAUGR,Feet,Team,Rare,Allies take -4% damage from Beast enemies (the living hesitate here).
+S-GALLOWVINE-HEAD,GALLOWVINE,Head,Personal,Rare,Your Speed-stage debuffs last +1 turn (vines keep their grip).
+S-GALLOWVINE-CHEST,GALLOWVINE,Chest,Local,Rare,This armour's Defense ×1.16.
+S-GALLOWVINE-GLOVES,GALLOWVINE,Gloves,Personal,Rare,+6% Offense vs targets with reduced Speed stages (harvest the held).
+S-GALLOWVINE-FEET,GALLOWVINE,Feet,Team,Rare,Undead allies deal +6% (puppets pull in time).
+S-MIREMOTHER-HEAD,MIREMOTHER,Head,Team,Super Rare,Allies' healing received +7% (mother's milk).
+S-MIREMOTHER-CHEST,MIREMOTHER,Chest,Local,Super Rare,This armour's Defense ×1.18.
+S-MIREMOTHER-GLOVES,MIREMOTHER,Gloves,Personal,Super Rare,Your heals restore +12% more (an old mother's portions).
+S-MIREMOTHER-FEET,MIREMOTHER,Feet,Team,Super Rare,Amphibian and Horror allies +6% Defense (what lies beneath watches).
+S-CENOTAPH-HEAD,CENOTAPH,Head,Personal,Super Super Rare,+8% Offense vs targets with no active buffs (nothing between you).
+S-CENOTAPH-CHEST,CENOTAPH,Chest,Local,Super Super Rare,This armour's Defense ×1.18.
+S-CENOTAPH-GLOVES,CENOTAPH,Gloves,Personal,Super Super Rare,Your buff-removal effects also deal 5% of target max HP (unwriting stings).
+S-CENOTAPH-FEET,CENOTAPH,Feet,Team,Super Super Rare,Allies take -5% damage while the enemy has no active buffs (the absence spreads).
+S-GLOOMCAP-HEAD,GLOOMCAP,Head,Personal,Common,Enemy debuffs you apply are +6% more potent (thicker spores).
+S-GLOOMCAP-CHEST,GLOOMCAP,Chest,Local,Common,This armour's Defense ×1.12.
+S-GLOOMCAP-GLOVES,GLOOMCAP,Gloves,Personal,Common,+5% Defense (springy cap-flesh).
+S-GLOOMCAP-FEET,GLOOMCAP,Feet,Team,Common,Fungal allies +5% Defense (share the canopy).
+S-INKMANTLE-HEAD,INKMANTLE,Head,Personal,Common,Enemy buffs expire 1 turn sooner when you debuff them (lethean touch).
+S-INKMANTLE-CHEST,INKMANTLE,Chest,Local,Common,This armour's Defense ×1.14.
+S-INKMANTLE-GLOVES,INKMANTLE,Gloves,Personal,Common,+5% Defense (slick mantle).
+S-INKMANTLE-FEET,INKMANTLE,Feet,Team,Common,Allies' Offense debuffs on enemies are +5% more potent (the ink spreads).
+S-VEINMOLD-HEAD,VEINMOLD,Head,Personal,Uncommon,Your Offense debuffs are +7% more potent (deeper threading).
+S-VEINMOLD-CHEST,VEINMOLD,Chest,Personal,Uncommon,+6% HP (distributed body).
+S-VEINMOLD-GLOVES,VEINMOLD,Gloves,Personal,Uncommon,Your damage-over-time effects deal +7% (the mold eats inward).
+S-VEINMOLD-FEET,VEINMOLD,Feet,Team,Uncommon,Fungal allies deal +6% (one network).
+S-SIBYL-HEAD,SIBYL,Head,Personal,Uncommon,The first hit against you each battle deals -10% (foreseen).
+S-SIBYL-CHEST,SIBYL,Chest,Local,Uncommon,This armour's Defense ×1.14.
+S-SIBYL-GLOVES,SIBYL,Gloves,Personal,Uncommon,+6% Defense (armored in prophecy).
+S-SIBYL-FEET,SIBYL,Feet,Team,Uncommon,Allies take -4% damage on the first turn (warned in advance).
+S-VERTIGO-HEAD,VERTIGO,Head,Personal,Uncommon,+6% crit chance vs targets with reduced Offense (they can't track you).
+S-VERTIGO-CHEST,VERTIGO,Chest,Personal,Uncommon,+6% HP (too many joints to break).
+S-VERTIGO-GLOVES,VERTIGO,Gloves,Local,Uncommon,This item's Offense contribution ×1.14.
+S-VERTIGO-FEET,VERTIGO,Feet,Team,Uncommon,Allies deal +5% vs targets with reduced Offense (attack the disoriented).
+S-LAMPYRE-HEAD,LAMPYRE,Head,Personal,Rare,+6% Offense while untouched this battle (they aim at the trail).
+S-LAMPYRE-CHEST,LAMPYRE,Chest,Personal,Rare,+6% HP (never where the light is).
+S-LAMPYRE-GLOVES,LAMPYRE,Gloves,Local,Rare,This item's Offense contribution ×1.16.
+S-LAMPYRE-FEET,LAMPYRE,Feet,Team,Rare,Allies take -4% damage on the first turn (follow the false light).
+S-SPOREWHALE-HEAD,SPOREWHALE,Head,Personal,Rare,Debuffs on you expire 12% sooner (filtered out).
+S-SPOREWHALE-CHEST,SPOREWHALE,Chest,Local,Rare,This armour's Defense ×1.16.
+S-SPOREWHALE-GLOVES,SPOREWHALE,Gloves,Personal,Rare,+7% Defense (fathoms of fungal mass).
+S-SPOREWHALE-FEET,SPOREWHALE,Feet,Team,Rare,Allies' debuffs expire 10% sooner (the whale filters the water).
+S-RIFTANGLER-HEAD,RIFTANGLER,Head,Personal,Rare,+7% Offense vs targets with reduced Speed stages (drawn to the hole).
+S-RIFTANGLER-CHEST,RIFTANGLER,Chest,Personal,Rare,+7% HP (part of it is elsewhere).
+S-RIFTANGLER-GLOVES,RIFTANGLER,Gloves,Local,Rare,This item's Offense contribution ×1.16.
+S-RIFTANGLER-FEET,RIFTANGLER,Feet,Team,Rare,Allies deal +5% vs targets with reduced Speed stages (herd them to the lure).
+S-MYCELIUM-HEAD,MYCELIUM,Head,Team,Super Rare,Allies' healing received +7% (the network provides).
+S-MYCELIUM-CHEST,MYCELIUM,Chest,Local,Super Rare,This armour's Defense ×1.18.
+S-MYCELIUM-GLOVES,MYCELIUM,Gloves,Personal,Super Rare,Your heals restore +12% more (nutrients rerouted).
+S-MYCELIUM-FEET,MYCELIUM,Feet,Team,Super Rare,Fungal allies +7% Defense and deal +5% (we are everywhere).
+S-KRAKEN-HEAD,KRAKEN,Head,Personal,Super Super Rare,+8% Offense vs debuffed targets (the deep exploits weakness).
+S-KRAKEN-CHEST,KRAKEN,Chest,Local,Super Super Rare,This armour's Defense ×1.20.
+S-KRAKEN-GLOVES,KRAKEN,Gloves,Personal,Super Super Rare,Your multi-hit and grip moves deal +10% (eightfold strength).
+S-KRAKEN-FEET,KRAKEN,Feet,Team,Super Super Rare,Allies +6% Defense (the cave itself shelters you).
+S-CRYSTALWRAITH-HEAD,CRYSTALWRAITH,Head,Personal,Common,+4% crit chance (facet-edge focus).
+S-CRYSTALWRAITH-CHEST,CRYSTALWRAITH,Chest,Personal,Common,+5% HP (grief holds its shape).
+S-CRYSTALWRAITH-GLOVES,CRYSTALWRAITH,Gloves,Personal,Common,Your bleed effects deal +6% (glass splinters travel).
+S-CRYSTALWRAITH-FEET,CRYSTALWRAITH,Feet,Team,Common,Allies take -3% damage from multi-hit moves (the prism orbit intercepts).
+S-ASHBAT-HEAD,ASHBAT,Head,Personal,Common,Your attacks that heal you restore +10% more (drink deeper).
+S-ASHBAT-CHEST,ASHBAT,Chest,Personal,Common,+5% HP (grey reserve).
+S-ASHBAT-GLOVES,ASHBAT,Gloves,Local,Common,This item's Offense contribution ×1.12.
+S-ASHBAT-FEET,ASHBAT,Feet,Team,Common,Enemy healing received -5% while any ally is Vampiric (the grey wake settles).
+S-GEMBORN-HEAD,GEMBORN,Head,Personal,Uncommon,+6% Defense (the core is elsewhere in the body).
+S-GEMBORN-CHEST,GEMBORN,Chest,Local,Uncommon,This armour's Defense ×1.14.
+S-GEMBORN-GLOVES,GEMBORN,Gloves,Personal,Uncommon,Attackers that hit you take 4% of their damage back (facet glare).
+S-GEMBORN-FEET,GEMBORN,Feet,Team,Uncommon,Construct allies +5% Defense (hardlight lattice).
+S-BLOODCARVER-HEAD,BLOODCARVER,Head,Personal,Uncommon,+6% crit chance vs targets with a bleed effect (read the arterial map).
+S-BLOODCARVER-CHEST,BLOODCARVER,Chest,Personal,Uncommon,+6% HP (surgical self-maintenance).
+S-BLOODCARVER-GLOVES,BLOODCARVER,Gloves,Local,Uncommon,This item's Offense contribution ×1.14.
+S-BLOODCARVER-FEET,BLOODCARVER,Feet,Team,Uncommon,Allies' bleed effects deal +5% (cuts placed for others to widen).
+S-SHATTERSPECTER-HEAD,SHATTERSPECTER,Head,Personal,Rare,+6% Defense (strikes pass between the pieces).
+S-SHATTERSPECTER-CHEST,SHATTERSPECTER,Chest,Local,Rare,This armour's Defense ×1.16.
+S-SHATTERSPECTER-GLOVES,SHATTERSPECTER,Gloves,Personal,Rare,Your multi-hit moves deal +8% (each fragment strikes).
+S-SHATTERSPECTER-FEET,SHATTERSPECTER,Feet,Team,Rare,"Allies take -4% damage from multi-hit moves (come apart, let it pass)."
+S-VOIDHOUND-HEAD,VOIDHOUND,Head,Personal,Rare,+7% Offense vs targets below 50% HP (the scent strengthens).
+S-VOIDHOUND-CHEST,VOIDHOUND,Chest,Personal,Rare,+6% HP (fed on endings).
+S-VOIDHOUND-GLOVES,VOIDHOUND,Gloves,Local,Rare,This item's Offense contribution ×1.16.
+S-VOIDHOUND-FEET,VOIDHOUND,Feet,Team,Rare,Allies deal +5% vs targets below 50% HP (the pack closes).
+S-DOPPELGANGER-HEAD,DOPPELGANGER,Head,Personal,Rare,+6% Offense vs targets with any active buff (copy their confidence).
+S-DOPPELGANGER-CHEST,DOPPELGANGER,Chest,Personal,Rare,+6% HP (which one did you wound?).
+S-DOPPELGANGER-GLOVES,DOPPELGANGER,Gloves,Personal,Rare,"Your buff-steal and buff-removal effects also grant you +5% Offense, 1t (taken and worn)."
+S-DOPPELGANGER-FEET,DOPPELGANGER,Feet,Team,Rare,Allies deal +4% vs buffed targets (the reflection knows the stance).
+S-NOSFERATU-HEAD,NOSFERATU,Head,Personal,Super Rare,Your attacks that heal you restore +12% more (noble vintage).
+S-NOSFERATU-CHEST,NOSFERATU,Chest,Local,Super Rare,This armour's Defense ×1.18.
+S-NOSFERATU-GLOVES,NOSFERATU,Gloves,Local,Super Rare,This item's Offense contribution ×1.18.
+S-NOSFERATU-FEET,NOSFERATU,Feet,Team,Super Rare,Vampiric allies' attacks that heal them restore +7% more (the household feeds).
+S-PHYLACTERY-HEAD,PHYLACTERY,Head,Personal,Super Rare,+7% Defense (the soul is not in the body you strike).
+S-PHYLACTERY-CHEST,PHYLACTERY,Chest,Local,Super Rare,This armour's Defense ×1.18.
+S-PHYLACTERY-GLOVES,PHYLACTERY,Gloves,Personal,Super Rare,Your debuffs last +1 turn (leaden curses linger).
+S-PHYLACTERY-FEET,PHYLACTERY,Feet,Team,Super Rare,The first ally to drop below 25% HP each battle takes -8% damage for 2t (borrowed anchoring).
+S-SPECULUM-HEAD,SPECULUM,Head,Personal,Super Super Rare,Enemy Offense debuffs you apply are +8% more potent (doubt reflected deeper).
+S-SPECULUM-CHEST,SPECULUM,Chest,Personal,Super Super Rare,"+8% HP (nothing to strike, something remains)."
+S-SPECULUM-GLOVES,SPECULUM,Gloves,Personal,Super Super Rare,Your buff-copy and buff-steal effects last +1 turn (kept behind the glass).
+S-SPECULUM-FEET,SPECULUM,Feet,Team,Super Super Rare,Allies take -5% damage from Spectral and Horror enemies (they fear their reflection).
+S-CINDERSHARD-HEAD,CINDERSHARD,Head,Personal,Common,+5% Defense (replicate the broken plate).
+S-CINDERSHARD-CHEST,CINDERSHARD,Chest,Local,Common,This armour's Defense ×1.12.
+S-CINDERSHARD-GLOVES,CINDERSHARD,Gloves,Personal,Common,Attackers that hit you take 4% of their damage back (glass calving).
+S-CINDERSHARD-FEET,CINDERSHARD,Feet,Team,Common,Allies' bleed effects deal +4% (obsidian slivers everywhere).
+S-ASHWALKER-HEAD,ASHWALKER,Head,Personal,Common,Debuffs on you expire 10% sooner (residual purpose reasserts).
+S-ASHWALKER-CHEST,ASHWALKER,Chest,Local,Common,This armour's Defense ×1.12.
+S-ASHWALKER-GLOVES,ASHWALKER,Gloves,Personal,Common,+5% Defense (ash packs the cracks).
+S-ASHWALKER-FEET,ASHWALKER,Feet,Team,Common,Allies take -3% damage from damage-over-time (walk through the choking cloud unharmed).
+S-MOLOCH-HEAD,MOLOCH,Head,Personal,Uncommon,+6% Defense (idol stillness).
+S-MOLOCH-CHEST,MOLOCH,Chest,Local,Uncommon,This armour's Defense ×1.14.
+S-MOLOCH-GLOVES,MOLOCH,Gloves,Personal,Uncommon,Attackers that hit you take 5% of their damage back (touch the furnace).
+S-MOLOCH-FEET,MOLOCH,Feet,Team,Uncommon,Construct allies +5% Defense (gathered at the idol).
+S-BLAZEWYRM-HEAD,BLAZEWYRM,Head,Personal,Uncommon,Your burn-type effects are +7% more potent (living fire).
+S-BLAZEWYRM-CHEST,BLAZEWYRM,Chest,Personal,Uncommon,+5% HP (fire needs no flesh).
+S-BLAZEWYRM-GLOVES,BLAZEWYRM,Gloves,Local,Uncommon,This item's Offense contribution ×1.14.
+S-BLAZEWYRM-FEET,BLAZEWYRM,Feet,Team,Uncommon,Allies' burn-type effects deal +5% (the ground still scorches).
+S-INFERNOCHIMERA-HEAD,INFERNOCHIMERA,Head,Personal,Rare,+6% Offense while you have a damage-over-time on the enemy (three hungers agree).
+S-INFERNOCHIMERA-CHEST,INFERNOCHIMERA,Chest,Local,Rare,This armour's Defense ×1.16.
+S-INFERNOCHIMERA-GLOVES,INFERNOCHIMERA,Gloves,Personal,Rare,Your multi-hit moves deal +8% (three heads strike).
+S-INFERNOCHIMERA-FEET,INFERNOCHIMERA,Feet,Team,Rare,Allies' damage-over-time effects deal +5% (fires overlap).
+S-FERRODRAKE-HEAD,FERRODRAKE,Head,Personal,Super Rare,+7% Defense (foundry patience).
+S-FERRODRAKE-CHEST,FERRODRAKE,Chest,Local,Super Rare,This armour's Defense ×1.18.
+S-FERRODRAKE-GLOVES,FERRODRAKE,Gloves,Personal,Super Rare,Attackers that hit you take 5% of their damage back (molten rivets).
+S-FERRODRAKE-FEET,FERRODRAKE,Feet,Team,Super Rare,Construct allies +6% Defense (forge-kin plating).
+S-IGNIFER-HEAD,IGNIFER,Head,Personal,Super Rare,+7% Offense while below 50% HP (containment slipping).
+S-IGNIFER-CHEST,IGNIFER,Chest,Personal,Super Rare,+7% HP (the storm sustains itself).
+S-IGNIFER-GLOVES,IGNIFER,Gloves,Local,Super Rare,This item's Offense contribution ×1.18.
+S-IGNIFER-FEET,IGNIFER,Feet,Team,Super Rare,Allies' burn-type effects last +1 turn (the firestorm feeds them).
+S-VIGIL-HEAD,VIGIL,Head,Personal,Super Rare,+7% Defense while you did not attack last turn (standing order).
+S-VIGIL-CHEST,VIGIL,Chest,Local,Super Rare,This armour's Defense ×1.18.
+S-VIGIL-GLOVES,VIGIL,Gloves,Personal,Super Rare,+7% Offense the turn after an ally was damaged (contingency response).
+S-VIGIL-FEET,VIGIL,Feet,Team,Super Rare,Allies take -5% damage while you are above 50% HP (protocol shield extends).
+S-PYRIEL-HEAD,PYRIEL,Head,Personal,Super Super Rare,Your damage-over-time effects are +10% more potent (the first flame).
+S-PYRIEL-CHEST,PYRIEL,Chest,Personal,Super Super Rare,+9% HP (a principle cannot be snuffed).
+S-PYRIEL-GLOVES,PYRIEL,Gloves,Local,Super Super Rare,This item's Offense contribution ×1.20.
+S-PYRIEL-FEET,PYRIEL,Feet,Team,Super Super Rare,Elemental and Demon allies deal +7% (anointed in fire).
+S-DEMIURGE-HEAD,DEMIURGE,Head,Personal,Super Super Rare,+8% Offense vs debuffed targets (exploit the design flaw).
+S-DEMIURGE-CHEST,DEMIURGE,Chest,Local,Super Super Rare,This armour's Defense ×1.20.
+S-DEMIURGE-GLOVES,DEMIURGE,Gloves,Personal,Super Super Rare,Your debuffs are +10% more potent (the maker knows the weak points).
+S-DEMIURGE-FEET,DEMIURGE,Feet,Team,Super Super Rare,Allies' debuffs on enemies are +6% more potent (annotated schematics shared).
