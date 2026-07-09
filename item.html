@@ -49,6 +49,11 @@ table.item-table td:first-child{ color:var(--ink); font-weight:600; }
       <table class="item-table"><thead><tr><th>Grade</th><th>Gems</th><th>Runes</th><th>Enchants</th><th>Grade-Up Cost</th><th>Success %</th></tr></thead><tbody id="grade-table"></tbody></table>
     </div></div>
     <div class="item-section" id="refine-section"><h3>Refinement</h3><div class="item-section-body">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;font-size:13px;color:var(--ink-dim);">
+        <span>Item tier:</span>
+        <select id="refine-tier" style="background:#1c1610;color:var(--ink);border:1px solid var(--rule);border-radius:3px;padding:3px 8px;font-family:inherit;font-size:13px;"></select>
+        <span style="color:var(--ink-faint);">Attempt cost = 3 × level × tier Scrap</span>
+      </div>
       <table class="item-table"><thead><tr><th>Level</th><th>Success %</th><th>Attempt Cost</th></tr></thead><tbody id="refine-table"></tbody></table>
     </div></div>
     <div class="item-section"><h3>Dismantle Yields</h3><div class="item-section-body" id="dismantle-info"></div></div>
@@ -107,8 +112,22 @@ function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replac
   const gradeBody=document.getElementById('grade-table');
   GRADES.forEach(g=>{gradeBody.innerHTML+=`<tr><td style="color:${g.color}">${g.name}</td><td>${g.gems||'—'}</td><td>${g.runes||'—'}</td><td>${g.enchants||'—'}</td><td>${g.cost}</td><td>${g.success}</td></tr>`;});
   if(isEnh){document.getElementById('refine-section').style.display='none';}
-  else{const refBody=document.getElementById('refine-table');
-    REFINE.forEach((s,i)=>{refBody.innerHTML+=`<tr><td>+${i+1}</td><td>${s}</td><td>3 × target level × tier Scrap</td></tr>`;});}
+  else{
+    const refBody=document.getElementById('refine-table');
+    const sel=document.getElementById('refine-tier');
+    const tiers=fam.map(r=>parseInt(r.Tier)||0).filter(Boolean).sort((a,b)=>a-b);
+    const tierOpts=tiers.length?tiers:[1,2,3,4,5,6,7,8,9,10];
+    sel.innerHTML=tierOpts.map(t=>`<option value="${t}">T${t}</option>`).join('');
+    function renderRefine(tier){
+      refBody.innerHTML=REFINE.map((s,i)=>{
+        const cost=3*(i+1)*tier;
+        return `<tr><td>+${i+1}</td><td>${s}</td><td>${cost.toLocaleString()} Scrap</td></tr>`;
+      }).join('');
+    }
+    sel.value=String(tierOpts[0]);
+    sel.addEventListener('change',()=>renderRefine(parseInt(sel.value)||1));
+    renderRefine(tierOpts[0]);
+  }
   const mat=craftMat;
   document.getElementById('dismantle-info').innerHTML=`<p style="font-size:14px;color:var(--ink-dim);">Yields <b style="color:var(--ink)">tier × grade#</b> ${mat}.`+(isEnh?'':' Rare+ gear also yields Ichor (R:1, E:2, L:4, A:8, D:12, P:20, V:32).')+`</p>`;
   document.getElementById('status').style.display='none';
