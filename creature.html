@@ -117,6 +117,8 @@
       <div class="meta-line" style="margin-top:10px;">FOUND ON FLOORS:</div>
       <div class="floor-chip-row" id="c-floors"></div>
       <div class="evo-line" id="evo-line" style="margin-top:16px;justify-content:center;"></div>
+      <h2 style="font-family:'Cinzel',serif;font-size:15px;color:var(--gold);margin:22px 0 6px;">MOVES</h2>
+      <div id="moves-panel" style="display:grid;gap:8px;"></div>
     </div>
   </div>
 
@@ -355,6 +357,8 @@ async function load() {
     if (prev) prevArrow.href = `creature.html?id=${prev.ID}`; else prevArrow.classList.add('disabled');
     if (next) nextArrow.href = `creature.html?id=${next.ID}`; else nextArrow.classList.add('disabled');
 
+    renderMoves(c);
+
     buildEquipTable();
 
     document.getElementById('status').style.display = 'none';
@@ -363,6 +367,29 @@ async function load() {
   } catch (err) {
     document.getElementById('status').textContent = 'LOAD FAILED: ' + err.message;
   }
+}
+async function renderMoves(c) {
+  try {
+    const res = await fetch('codex/moves.csv?t=' + Date.now());
+    const rows = parseCSV(await res.text());
+    const stage = parseInt(c.Stage) || 3;
+    const mine = rows.filter(m => m.Line_ID === c.Line_ID).sort((a,b) => parseInt(a.Slot)-parseInt(b.Slot));
+    if (!mine.length) { document.getElementById('moves-panel').innerHTML = '<span style="color:var(--ink-faded);font-size:13px;font-style:italic;">No moves catalogued yet.</span>'; return; }
+    document.getElementById('moves-panel').innerHTML = mine.map(m => {
+      const pw = m['Power_S' + stage], fx = m['Effect_S' + stage];
+      const pwLabel = pw === '0' ? 'STATUS' : 'PWR ' + pw;
+      return `<div style="background:var(--surface-2);border:1px solid var(--rule);padding:10px 12px;">
+        <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px;">
+          <span style="font-family:'Cinzel',serif;font-weight:600;font-size:13px;color:var(--gold);">${escapeHtml(m.Name)}</span>
+          <span style="font-size:11px;color:var(--ink-faint);">${pwLabel} · CD ${escapeHtml(m.Cooldown)} · slot ${escapeHtml(m.Slot)}</span>
+        </div>
+        <div style="font-size:12px;color:var(--ink);margin-top:4px;">${escapeHtml(fx)}</div>
+        ${m.Synergy !== '-' ? `<div style="font-size:11px;color:#7fd4a0;margin-top:3px;">Synergy: ${escapeHtml(m.Synergy)}</div>` : ''}
+        ${m.Anti !== '-' ? `<div style="font-size:11px;color:#e08080;margin-top:3px;">Anti: ${escapeHtml(m.Anti)}</div>` : ''}
+        <div style="font-size:11px;color:var(--ink-faint);font-style:italic;margin-top:3px;">${escapeHtml(m.VFX_Description)}</div>
+      </div>`;
+    }).join('') + `<a href="moves.html" style="font-size:11px;color:var(--gold);font-family:'Cinzel',serif;">FULL MOVE INDEX →</a>`;
+  } catch (e) { console.warn('moves load failed', e); }
 }
 function switchTab(btn, which) {
   btn.parentElement.querySelectorAll('.compare-tab').forEach(t => t.classList.remove('active'));
