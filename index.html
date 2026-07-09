@@ -696,10 +696,21 @@ FinalDamage = RawDamage
     <h3>Creature evolutions</h3>
     <table>
       <tr><th>Trigger type</th><th>Example</th></tr>
-      <tr><td>Level threshold</td><td>Evolve at level 20</td></tr>
+      <tr><td>Level threshold</td><td>Evolve at level 27 (per-line, see bands below)</td></tr>
       <tr><td>Item use</td><td>Use Evolution Stone</td></tr>
       <tr><td>Bond/friendship</td><td>High bond + level up</td></tr>
     </table>
+    <h4>Evolution level bands (by rarity)</h4>
+    <p>Evolution levels are <strong style="color:#ede0c4">per-line</strong>, stored in the <code>Evolve_Level</code> column of <code>codex/creatures.csv</code> (set on Stage&nbsp;1 and Stage&nbsp;2 rows — the level at which that stage evolves to the next). Levels are spread within a rarity band so the player sees evolutions frequently rather than in two synchronized waves. Commons evolve earliest, SSRs latest. Within each rarity, lines cycle evenly through the band by line number (deterministic).</p>
+    <table>
+      <tr><th>Rarity</th><th>Lines</th><th>S1 &rarr; S2</th><th>S2 &rarr; S3</th></tr>
+      <tr><td>Common</td><td>28</td><td>Lv 24&ndash;30</td><td>Lv 56&ndash;64</td></tr>
+      <tr><td>Uncommon</td><td>26</td><td>Lv 28&ndash;33</td><td>Lv 61&ndash;66</td></tr>
+      <tr><td>Rare</td><td>21</td><td>Lv 32&ndash;36</td><td>Lv 65&ndash;69</td></tr>
+      <tr><td>Super Rare</td><td>14</td><td>Lv 35&ndash;38</td><td>Lv 67&ndash;70</td></tr>
+      <tr><td>Super Super Rare</td><td>11</td><td>Lv 36&ndash;40</td><td>Lv 68&ndash;73</td></tr>
+    </table>
+    <p style="font-size:13px;color:#c2ae8b">Wild encounter stage-banding by floor is computed from these same per-line levels (see the wild-encounter section) — the two systems stay consistent because floor equals level.</p>
 
     <h3>Mutant variants</h3>
     <p>Any egg has a small chance to hatch as a Mutant — a creature with an alternate color scheme caused by a rare pigmentation mutation. Mutant status is purely cosmetic: it grants a medal on the creature sheet and changes the creature's color palette, but has no effect on stats or gameplay. Chance scales with egg grade. Completing the Codex adds a permanent +0.1% bonus to all mutant hatch chances.</p>
