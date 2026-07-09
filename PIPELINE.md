@@ -31,6 +31,7 @@
 # CANONICAL SOURCE OF TRUTH: codex/type_glossary.json  (per-type {definition, motifs}), GDD-visible at
 #   type-glossary.html and on each type.html page. LOAD MOTIFS FROM THAT JSON each session.
 # The list below MIRRORS the JSON's motifs; if they ever diverge, the JSON wins. Edit BOTH when changing a type.
+# HARD RULE: creature images NEVER contain a floor/ground/surface or floor-shadow — the creature is on a plain seamless backdrop, not standing on anything. Bake 'NO FLOOR' into every prompt.
 # Motif lexicon (Type -> visual cue):
 #
 #   Amphibian: moist glistening amphibian skin, webbed digits, a soft translucent throat sac
