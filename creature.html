@@ -410,6 +410,29 @@ async function renderMoves(c) {
         ${soulRows}
       </table>
       <p style="font-size:11px;color:var(--ink-faint);margin-top:6px;">Values shown at this creature's current stage (soul strength follows the equipped creature's stage). Full effect text in the MOVES panel above.</p>`;
+
+    // Armor-slot passives from souls.csv
+    try {
+      const sres = await fetch('codex/souls.csv?t=' + Date.now());
+      const souls = parseCSV(await sres.text()).filter(s => s.Line_ID === c.Line_ID);
+      if (souls.length) {
+        const order = {Head:0, Chest:1, Gloves:2, Feet:3};
+        souls.sort((a,b) => order[a.Gear_Slot] - order[b.Gear_Slot]);
+        const scopeColor = {Local:'#e8c547', Personal:'#7fd4a0', Team:'#8fb8e8'};
+        const stageMult = stage === 1 ? '≈60%' : stage === 2 ? '≈80%' : '100%';
+        const prows = souls.map(s => `<tr>
+          <td style="font-family:'Cinzel',serif;color:var(--gold);">${escapeHtml(s.Gear_Slot)}</td>
+          <td style="text-align:center;"><span style="font-size:10px;padding:1px 8px;border:1px solid ${scopeColor[s.Scope]}55;border-radius:9px;color:${scopeColor[s.Scope]};">${escapeHtml(s.Scope)}</span></td>
+          <td style="font-size:12px;">${escapeHtml(s.Effect_S3)}</td>
+        </tr>`).join('');
+        document.getElementById('soul-panel').insertAdjacentHTML('beforeend', `
+          <h3 style="font-family:'Cinzel',serif;font-size:12px;color:var(--gold);margin:14px 0 4px;">ARMOR-SLOT PASSIVES</h3>
+          <table style="width:100%;font-size:12px;">
+            <tr><th style="width:70px;">Slot</th><th style="width:86px;">Scope</th><th>Passive (Stage 3 values${stage < 3 ? ' — this stage grants ' + stageMult : ''})</th></tr>
+            ${prows}
+          </table>`);
+      }
+    } catch (e) { console.warn('souls load failed', e); }
   } catch (e) { console.warn('moves load failed', e); }
 }
 function switchTab(btn, which) {
