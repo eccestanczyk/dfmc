@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moves — Herumon Tower</title>
+<link rel="stylesheet" href="theme.css">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.filters select,.filters input{background:#161110;border:1px solid #5c462c;color:#d8c9a8;padding:7px 10px;font-family:'EB Garamond',serif;font-size:14px}
+.filters input{flex:1;min-width:160px}
+.mv{background:#161110;border:1px solid #3a2d24;border-radius:8px;padding:12px 14px;margin:10px 0}
+.mv .head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px}
+.mv .name{font-family:'Cinzel',serif;font-weight:600;font-size:15px;color:#e8c547}
+.mv .meta{font-size:12px;color:#8a7a5e}
+.mv .line{font-size:12px;color:#c2ae8b}
+.mv .line a{color:#c2ae8b}
+.badge{display:inline-block;font-size:10px;padding:2px 7px;border:1px solid #5c462c;border-radius:10px;margin-left:6px;color:#c2ae8b}
+.badge.syn{border-color:#2d5a3d;color:#7fd4a0}
+.badge.anti{border-color:#6b2d2d;color:#e08080}
+.fx{font-size:13px;color:#d8c9a8;margin-top:6px}
+.fx b{color:#c2ae8b;font-weight:600}
+.vfx{font-size:12px;color:#8a7a5e;font-style:italic;margin-top:4px}
+.stages{font-size:11px;color:#8a7a5e;margin-top:4px}
+.count{font-size:12px;color:#8a7a5e;margin:8px 0}
+.related{margin-top:36px;padding-top:16px;border-top:1px solid #3a2d24}
+.related h3{font-family:'Cinzel',serif;font-size:14px;color:#e8c547;margin-bottom:8px}
+.related a{font-family:'Cinzel',serif;font-size:11px;padding:6px 14px;background:#161110;border:1px solid #5c462c;color:#cfa650;text-decoration:none;display:inline-block;margin:3px}
+</style></head><body>
+<div class="topbar">
+  <div class="site-nav" style="position:relative;z-index:20;">
+  <button onclick="var m=this.nextElementSibling;m.style.display=m.style.display==='flex'?'none':'flex'" style="font-family:Cinzel,serif;font-size:18px;background:none;border:1px solid #5c462c;color:#cfa650;padding:5px 10px;cursor:pointer;line-height:1;">☰</button>
+  <div class="site-nav-menu" style="display:none;position:absolute;top:100%;left:0;margin-top:6px;min-width:220px;background:#1e1710;border:1px solid #5c462c;box-shadow:0 8px 24px rgba(0,0,0,0.6);flex-direction:column;z-index:30;">
+    <a href="hub.html" style="font-family:Cinzel,serif;font-size:13px;font-weight:600;letter-spacing:0.04em;color:#c2ae8b;text-decoration:none;padding:10px 16px;border-bottom:1px solid #3a2c1a;">Home</a>
+    <a href="creature-codex.html" style="font-family:Cinzel,serif;font-size:13px;font-weight:600;letter-spacing:0.04em;color:#c2ae8b;text-decoration:none;padding:10px 16px;border-bottom:1px solid #3a2c1a;">Creature Codex</a>
+    <a href="floor-codex.html" style="font-family:Cinzel,serif;font-size:13px;font-weight:600;letter-spacing:0.04em;color:#c2ae8b;text-decoration:none;padding:10px 16px;border-bottom:1px solid #3a2c1a;">Floor Map</a>
+    <a href="reliquary.html" style="font-family:Cinzel,serif;font-size:13px;font-weight:600;letter-spacing:0.04em;color:#c2ae8b;text-decoration:none;padding:10px 16px;border-bottom:1px solid #3a2c1a;">Reliquary</a>
+    <a href="moves.html" style="font-family:Cinzel,serif;font-size:13px;font-weight:600;letter-spacing:0.04em;color:#e8c547;text-decoration:none;padding:10px 16px;border-bottom:1px solid #3a2c1a;">Moves</a>
+    <a href="crafting.html" style="font-family:Cinzel,serif;font-size:13px;font-weight:600;letter-spacing:0.04em;color:#c2ae8b;text-decoration:none;padding:10px 16px;border-bottom:1px solid #3a2c1a;">Crafting</a>
+    <a href="upgrading.html" style="font-family:Cinzel,serif;font-size:13px;font-weight:600;letter-spacing:0.04em;color:#c2ae8b;text-decoration:none;padding:10px 16px;border-bottom:1px solid #3a2c1a;">Upgrading</a>
+    <a href="stat-tables.html" style="font-family:Cinzel,serif;font-size:13px;font-weight:600;letter-spacing:0.04em;color:#c2ae8b;text-decoration:none;padding:10px 16px;border-bottom:1px solid #3a2c1a;">Stat Tables</a>
+    <a href="index.html" style="font-family:Cinzel,serif;font-size:13px;font-weight:600;letter-spacing:0.04em;color:#c2ae8b;text-decoration:none;padding:10px 16px;">GDD</a>
+  </div></div>
+  <h1>MOVES</h1>
+</div>
+<div style="max-width:860px;margin:0 auto;padding:16px 16px 80px">
+  <p style="font-size:13px;color:#8a7a5e">400 moves — 100 lines × 4 fixed moves. Powers shown per evolution stage (S1/S2/S3). No type chart: all type interaction lives inside moves as Synergy and Anti clauses. Damage: <code>((2×L/5+2)×Power×Off/Def)/120+2</code>, ×1.5 STAB (creatures), ×crit, ×0.85–1.0.</p>
+  <div class="filters">
+    <input id="q" placeholder="Search name, line, effect, debuff…" oninput="render()">
+    <select id="fband" onchange="render()"><option value="">Any power</option><option value="0">Status (0)</option><option value="50">Light (50)</option><option value="80">Standard (80)</option><option value="120">Heavy (120)</option><option value="160">Nuke (160)</option></select>
+    <select id="fcd" onchange="render()"><option value="">Any CD</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select>
+    <select id="fkind" onchange="render()"><option value="">All moves</option><option value="syn">Has Synergy</option><option value="anti">Has Anti</option><option value="heal">Heals</option></select>
+    <select id="fzone" onchange="render()"><option value="">All zones</option></select>
+  </div>
+  <div class="count" id="count"></div>
+  <div id="list"></div>
+  <div class="related">
+    <h3>Related</h3>
+    <a href="creature-codex.html">Creature Codex</a>
+    <a href="stat-tables.html">Stat Tables</a>
+    <a href="index.html">GDD — Battle System</a>
+  </div>
+</div>
+<script>
+let MOVES=[], LINES={};
+function parseCSV(t){const ls=t.trim().split(/\r?\n/),h=spl(ls[0]);return ls.slice(1).map(l=>{const c=spl(l),o={};h.forEach((k,i)=>o[k.trim()]=(c[i]||'').trim());return o})}
+function spl(l){const c=[];let s='',q=false;for(let i=0;i<l.length;i++){const ch=l[i];if(ch==='"'){if(q&&l[i+1]==='"'){s+='"';i++}else q=!q}else if(ch===','&&!q){c.push(s);s=''}else s+=ch}c.push(s);return c}
+async function load(){
+  const [mres, cres] = await Promise.all([
+    fetch('codex/moves.csv?t='+Date.now()),
+    fetch('codex/creatures.csv?t='+Date.now())
+  ]);
+  MOVES = parseCSV(await mres.text());
+  const creatures = parseCSV(await cres.text());
+  creatures.filter(r=>r.Stage==='3').forEach(r=>{LINES[r.Line_ID]={name:r.Name,zone:r.Home_Zone,types:(r.Type_Primary+(r.Type_Secondary&&r.Type_Secondary!=='-'?'/'+r.Type_Secondary:''))}});
+  // stage 2 names for display
+  creatures.filter(r=>r.Stage==='2').forEach(r=>{if(LINES[r.Line_ID])LINES[r.Line_ID].s2=r.Name});
+  const zones=[...new Set(Object.values(LINES).map(l=>l.zone))];
+  const zs=document.getElementById('fzone');
+  zones.forEach(z=>{const o=document.createElement('option');o.textContent=z;zs.appendChild(o)});
+  render();
+}
+function render(){
+  const q=document.getElementById('q').value.toLowerCase();
+  const band=document.getElementById('fband').value;
+  const cd=document.getElementById('fcd').value;
+  const kind=document.getElementById('fkind').value;
+  const zone=document.getElementById('fzone').value;
+  const out=MOVES.filter(m=>{
+    const li=LINES[m.Line_ID]||{};
+    if(band!==''&&m.Power_S3!==band)return false;
+    if(cd!==''&&m.Cooldown!==cd)return false;
+    if(zone&&li.zone!==zone)return false;
+    if(kind==='syn'&&m.Synergy==='-')return false;
+    if(kind==='anti'&&m.Anti==='-')return false;
+    if(kind==='heal'&&!/heal/i.test(m.Effect_S3))return false;
+    if(q){const hay=(m.Name+' '+m.Line_ID+' '+(li.name||'')+' '+m.Effect_S3+' '+m.Synergy+' '+m.Anti).toLowerCase();if(!hay.includes(q))return false}
+    return true;
+  });
+  document.getElementById('count').textContent=out.length+' / '+MOVES.length+' moves';
+  document.getElementById('list').innerHTML=out.map(m=>{
+    const li=LINES[m.Line_ID]||{};
+    const pw = m.Power_S3==='0' ? 'Status' : m.Power_S3;
+    return `<div class="mv">
+      <div class="head">
+        <span><span class="name">${m.Name}</span>
+          ${m.Synergy!=='-'?'<span class="badge syn">Synergy</span>':''}
+          ${m.Anti!=='-'?'<span class="badge anti">Anti</span>':''}
+        </span>
+        <span class="meta">${m.Move_ID} · Power ${pw} · CD ${m.Cooldown}</span>
+      </div>
+      <div class="line"><a href="creature.html?line=${m.Line_ID}">${li.name||m.Line_ID}</a> · ${li.types||''} · ${li.zone||''} · slot ${m.Slot}</div>
+      <div class="fx"><b>S3:</b> ${m.Effect_S3}</div>
+      ${m.Effect_S1!==m.Effect_S3?`<div class="fx"><b>S1:</b> ${m.Effect_S1}</div>`:''}
+      ${m.Synergy!=='-'?`<div class="fx"><b>Synergy:</b> ${m.Synergy}</div>`:''}
+      ${m.Anti!=='-'?`<div class="fx"><b>Anti:</b> ${m.Anti}</div>`:''}
+      <div class="stages">Power by stage: ${m.Power_S1} / ${m.Power_S2} / ${m.Power_S3}</div>
+      <div class="vfx">${m.VFX_Description}</div>
+    </div>`;
+  }).join('');
+}
+load();
+</script></body></html>
