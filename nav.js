@@ -67,5 +67,18 @@
     const old = topbar.querySelector('.site-nav');
     if (old) old.remove();
     topbar.insertBefore(buildNav(), topbar.firstChild);
+    // Site logo (single source of truth) — beside the menu, links home
+    if (!topbar.querySelector('.site-logo')) {
+      const logoLink = document.createElement('a');
+      logoLink.href = 'hub.html';
+      logoLink.className = 'site-logo';
+      logoLink.style.cssText = 'display:flex;align-items:center;margin-left:18px;text-decoration:none;';
+      const logoImg = document.createElement('img');
+      logoImg.src = 'assets/logo.png';
+      logoImg.alt = 'Herumon Tower';
+      logoImg.style.cssText = 'height:34px;width:auto;display:block;';
+      logoLink.appendChild(logoImg);
+      topbar.appendChild(logoLink);
+    }
   }
 })();
