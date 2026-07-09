@@ -39,7 +39,7 @@ Character HP:       12 × level + 100          Character Offense: level + 10
 Character Defense:  level + 10                Character Utility: 0.8 × level + 8
 Character Speed:    15 (flat, no gear or tree sources — only in-battle stat stages)
 
-Damage:  RawDamage   = ((2 × Level / 5 + 2) × MovePower × Offense / Defense) / 50 + 2
+Damage:  RawDamage   = ((2 × Level / 5 + 2) × MovePower × Offense / Defense) / 120 + 2
          FinalDamage = RawDamage × STAB × CritMod × Random(0.85–1.0) × (1 + Σ increased%) × Π(more)
          Characters have no creature type → no STAB (creatures: ×1.5 on own-type moves).</pre>
 <div class="note">The earlier Battle System formula <code>(g×6+2)×L/100+g×3</code> was inconsistent with its own level-100 table; the revised base-stat formula above reproduces the committed table exactly (grade×30+50 at level 100) and keeps grade ratios level-invariant. HP was re-curved linear-in-level so turns-to-kill stays constant while leveling.</div>
