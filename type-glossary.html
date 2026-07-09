@@ -36,8 +36,8 @@
   <div class="tg-list" id="tg-list"></div>
 </main>
 <script>
-const GLOSSARY_URL="https://raw.githubusercontent.com/eccestanczyk/dfmc/main/codex/type_glossary.json";
-const CREATURES_URL="https://raw.githubusercontent.com/eccestanczyk/dfmc/main/codex/creatures.csv";
+const GLOSSARY_URL="codex/type_glossary.json";
+const CREATURES_URL="codex/creatures.csv";
 let GLOSS={}, COUNTS={};
 function esc(s){return (s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
 function renderList(){
