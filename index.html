@@ -498,12 +498,42 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     </table>
 
     <h3>Damage formula</h3>
-    <pre>RawDamage = ((2 × Level / 5 + 2) × MovePower × Offense / Defense) / 50 + 2
+    <pre>RawDamage = ((2 × Level / 5 + 2) × MovePower × Offense / Defense) / 120 + 2
 
 FinalDamage = RawDamage
             × TypeMod × STAB × CritMod × Random(0.85–1.0)
             × (1 + Σ increased%)
             × Π(more multipliers)</pre>
+    <p style="font-size:12px;color:#8a7a5e">Divisor tuned from 50 to 120 (July 2026) so a striker's nuke-rotation vs an equal-level wall lands in the 8–12 turn boss/PvP band and PvE trash dies to ~3 slot-1 hits.</p>
+
+    <h3>Moves</h3>
+    <p>Every creature line has exactly <strong>4 fixed moves</strong> — no move customization (creature customization is Tags/equipment only). Moves persist across the 3 evolution stages, growing stronger: Stage 2 ≈ 80% of Stage 3 power with reduced effect magnitudes; Stage 1 ≈ 60% power with one effect component removed. All 400 moves are catalogued in <code>codex/moves.csv</code> and browsable at <a href="moves.html">moves.html</a>.</p>
+    <table>
+      <tr><th>Budget rule</th><th>Detail</th></tr>
+      <tr><td>Damage-per-turn proxy</td><td><code>DPT = Power / (1 + Cooldown)</code>, anchored at Standard 80 @ CD0 = 80. Heavy 120 @ CD2 = 40, Nuke 160 @ CD3 = 40 — the DPT deficit is the headroom that pays for rider effects.</td></tr>
+      <tr><td>Riders</td><td>120-power carries one named debuff at CD2; 160-power carries a strong debuff or second component at CD3–4; 50-power can carry a strong effect at CD0–1; 0-power status moves carry very strong effects at CD1–4.</td></tr>
+      <tr><td>Named debuffs only</td><td>No generic statuses. Every buff/debuff is named and owned by one move (e.g. <em>Mothervenom</em> belongs to Echidna's Viper Spit). Families: Shred (−Def), Sap (−Off), Mire (−Speed stages), named DoTs, Marks (+damage taken), and rare action-denial.</td></tr>
+      <tr><td>NO TYPE CHART</td><td>There is no global type-effectiveness matrix and never will be. All type interaction lives inside individual moves: <strong>Synergy</strong> clauses (same/specific-type allies empower the move, +20–50% band) and <strong>Anti</strong> clauses (bonus vs specific target types, +30–60% band, thematically justified). Every type appears as both a synergy-giver and an anti-target.</td></tr>
+      <tr><td>Kit shape by stat profile</td><td>Strikers (O8–10): spam → utility-lite → Heavy CD2 → Nuke CD3–4 signature. Walls (D8–10): Def buffs, reflection, chip. Utility (U8–10): strong named debuffs/buffs, the game's few heals (7 healers game-wide), damage held to Light/Standard. Speed (S8–10): first-strike riders and momentum.</td></tr>
+      <tr><td>Speed stages</td><td>In-battle Speed buffs/debuffs are the only thing that modifies turn order. They are temporary stages (±1, ±2), never gear.</td></tr>
+    </table>
+
+    <h3>Character abilities — the Soul Joker system</h3>
+    <p>The player character is a <strong>joker</strong>: it has no innate abilities. Each of up to 4 ability slots mirrors the ability of a creature soul equipped on the character's weapons and accessories. Rules:</p>
+    <ul>
+      <li>Each equipped creature soul grants its corresponding move slot to the character (soul in slot 1 grants that creature's move 1, etc.)</li>
+      <li>Cannot equip 2 souls of the same creature</li>
+      <li>A creature whose soul is equipped <strong>cannot be summoned</strong> to the battle party</li>
+      <li>Character move damage uses the character's Offense; no STAB (STAB is creature-only)</li>
+    </ul>
+
+    <h3>Battle party rules</h3>
+    <ul>
+      <li>In battle: <strong>2 creatures + the character</strong></li>
+      <li>Only 1 of each creature species per party</li>
+      <li>PvP tournaments: +3 creatures on the bench for sideboarding between matches in a Bo3</li>
+    </ul>
+
     <p>The base formula follows the proven Pokémon/Coromon core. The increased/more split (from Path of Exile) is bolted onto the modifier chain — <strong style="color:#ede0c4">increased</strong> sources add together (diminishing returns within a category), <strong style="color:#ede0c4">more</strong> sources multiply (always valuable). This rewards diversifying modifier sources over stacking one type.</p>
 
     <h4>Turn count targets</h4>
@@ -1159,6 +1189,7 @@ Your Backend
       <tr><td><code>codex/encounter_weights.csv</code></td><td>—</td><td>Per-floor odds of an encounter rolling into each tier; SSR/SR odds scale up over the run (see "Encounter weights" below).</td></tr>
       <tr><td><code>codex/maptypes.csv</code></td><td>—</td><td>Tileset / map-restyle definitions for floor-art generation.</td></tr>
       <tr><td><code>codex/items.csv</code></td><td>435</td><td>Full item catalog — gems (6 types &times; 10 tiers: Rough &rarr; Sublime), runes (5&times;10: Faded &rarr; Elder), scrolls (10: Tattered &rarr; Fated), weapons (6 bases &times; 10 tiers), armour (12&times;10), accessories (8&times;10), tags (5&times;10), materials (5). Gear tier ladder: Crude &rarr; Sturdy &rarr; Fine &rarr; Superior &rarr; Ornate &rarr; Masterwork &rarr; Exalted &rarr; Sovereign &rarr; Mythic &rarr; Transcendent. Columns: <code>Item_ID, Category, Family, Name, Tier, Level_Req, Effect, Flavor_Text, Image_Prompt, Image_Path, Art_Status</code>.</td></tr>
+      <tr><td><code>codex/moves.csv</code></td><td>400</td><td>Complete move table — 100 lines &times; 4 moves. Columns: Move_ID (M-{LINE}-{slot}), Line_ID, Slot, Name, Power_S1/S2/S3, Cooldown, Effect_S1/S2/S3, Synergy, Anti, VFX_Description. Powers use bands 0/50/80/120/160 at S3; S2 &asymp; 80%, S1 &asymp; 60%. Browsable at moves.html.</td></tr>
       <tr><td><code>codex/item_drops.csv</code></td><td>390</td><td>Zone-weighted item drop table. Each zone lists which base types drop and at what weight (1 = normal, 2 = zone-weighted 2&times;). Feeds the <a href="reliquary.html" style="color:var(--gold-bright)">Reliquary</a>.</td></tr>
       <tr><td><code>codex/floor_assets.csv</code></td><td>100</td><td>Level design pipeline. Per-floor: battle background prompt/path/status, parallax reference, prop assignments, map preview status (empty + populated). Decoupled from floor identity for infinite floor extension.</td></tr>
       <tr><td><code>codex/prop_assets.csv</code></td><td>40</td><td>Zone prop catalog — 3&ndash;4 props + 1 anchor prop per zone, with image prompts and art status.</td></tr>
