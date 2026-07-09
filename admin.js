@@ -88,6 +88,8 @@ const Backlog = {
       generate_crop: 'Generate new crop',
       framing_issue: 'Framing issue',
       flip_image: 'Flip image (face left)',
+      mark_needs_reimport: 'Flag for reimport (altered since import)',
+      mark_synced: 'Mark imported / synced to game',
       approve_option_A: 'Approve A (original chroma)',
       approve_option_B: 'Approve B (Sylph crop)',
       approve_option_C: 'Approve C (isnet crop)',

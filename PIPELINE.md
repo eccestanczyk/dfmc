@@ -110,3 +110,18 @@ compliance line for each backlog item before reporting done. No exceptions.
 - Re-pull HEAD git tree (not raw CDN, not Contents API right after write).
 - Print [x]/[ ] for EVERY listed backlog action + Image_Path validity.
 
+
+## SYNC / REIMPORT TAGGING (creatures.csv `Sync_Status`)
+Tracks each creature's game-import state so only altered creatures are re-imported.
+Values: `not_imported` (never sent to game — default), `synced` (in game, matches CSV),
+`needs_reimport` (altered since last import).
+
+- **Auto-tag rule (HARD):** whenever the pipeline mutates ANY game-relevant field of a
+  creature whose `Sync_Status == synced` (Name, types, Rarity, grades, Evolve_Level,
+  Description, moves, Image_Path, etc.), flip that row to `needs_reimport` in the SAME commit.
+  Cosmetic-only pipeline bookkeeping (BG_Status, Option_Slots) does NOT trigger a flip.
+- After a batch is imported into the game, set those rows `synced` (admin queues
+  "Mark imported / synced to game"; pipeline applies).
+- Admin codex visual cue: amber `⟳` badge + amber card border on `needs_reimport`.
+  "⟳ Reimport Queue" filter isolates them; "Copy Reimport IDs" exports the list.
+- Reimport handoff: the reimport list = every row with `Sync_Status == needs_reimport`.

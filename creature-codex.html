@@ -109,6 +109,8 @@
         <button class="filter-btn" id="filter-pending-art" onclick="togglePipeline('art',this)">🎨 Art Approval Pending</button>
         <button class="filter-btn" id="filter-pending-crop" onclick="togglePipeline('crop',this)">✂ Cropping Pending</button>
         <button class="filter-btn" id="filter-crop-review" onclick="togglePipeline('crop_review',this)">🔍 Crop Approval Pending</button>
+        <button class="filter-btn" id="filter-reimport" onclick="togglePipeline('reimport',this)">⟳ Reimport Queue</button>
+        <button class="filter-btn" id="copy-reimport" onclick="copyReimportIDs(this)" style="border-color:#c99a3c;color:#e6c66d;">📋 Copy Reimport IDs</button>
       </div>
     </div>
   </div>
@@ -167,6 +169,15 @@ function togglePipeline(type, btn) {
   
 }
 
+function copyReimportIDs(btn) {
+  const ids = (allCreatures || []).filter(c => c.Sync_Status === 'needs_reimport').map(c => c.ID).sort();
+  const text = ids.length
+    ? `REIMPORT QUEUE (${ids.length} creature${ids.length!==1?'s':''} altered since last import)\n` + '—'.repeat(40) + '\n' + ids.join('\n')
+    : 'REIMPORT QUEUE EMPTY — no creatures altered since last import.';
+  const done = () => { const o = btn.textContent; btn.textContent = ids.length ? `✓ COPIED ${ids.length}` : '✓ EMPTY'; setTimeout(()=>btn.textContent=o, 1500); };
+  (navigator.clipboard ? navigator.clipboard.writeText(text).then(done, ()=>done()) : (function(){const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);done();})());
+}
+
 function toggleFilter(set, val, btn) {
   if (set.has(val)) { set.delete(val); btn.classList.remove('active'); }
   else { set.add(val); btn.classList.add('active'); }
@@ -195,6 +206,8 @@ const CARD_ACTIONS = [
   { key:'crop_approved', label:'Cropping approved', icon:'☑️', show: c => c.BG_Status==='bg_pending' },
   { key:'framing_issue', label:'Framing issue', icon:'🖼', show:()=>true },
   { key:'flip_image', label:'Flip image', icon:'↔', show:()=>true },
+  { key:'mark_needs_reimport', label:'Flag for reimport', icon:'⟳', show: c => c.Sync_Status==='synced' },
+  { key:'mark_synced', label:'Mark imported (synced)', icon:'✔', show: c => c.Sync_Status==='needs_reimport' || c.Sync_Status==='not_imported' },
 ];
 
 function renderGrid() {
@@ -206,6 +219,7 @@ function renderGrid() {
   if (pipelineFilter === 'art') filtered = filtered.filter(c => c.Art_Status === 'pending');
   if (pipelineFilter === 'crop') filtered = filtered.filter(c => c.BG_Status === 'has_chroma');
   if (pipelineFilter === 'crop_review') filtered = filtered.filter(c => c.BG_Status === 'bg_pending');
+  if (pipelineFilter === 'reimport') filtered = filtered.filter(c => c.Sync_Status === 'needs_reimport');
 
   document.getElementById('result-count').textContent = `Showing ${filtered.length} of ${allCreatures.length} creatures`;
 
@@ -219,7 +233,7 @@ function renderGrid() {
     const types = [c.Type_Primary, c.Type_Secondary, c.Type_Tertiary].filter(Boolean).join(' / ');
     const origSrc = c.Image_Path ? IMG_BASE + escapeHtml(c.Image_Path) : '';
     const cropSrc = hasCrop(c) && c.Image_Path ? IMG_BASE + 'codex/images/cropped/' + c.ID + '.png' : '';
-    const pipelineStyle = c.Art_Status==='pending' ? 'border-color:#cfa650;box-shadow:0 0 8px rgba(207,166,80,0.3);' : c.BG_Status==='has_chroma' ? 'border-color:#dd5646;box-shadow:0 0 8px rgba(221,86,70,0.3);' : c.BG_Status==='bg_pending' ? 'border-color:#60a5fa;box-shadow:0 0 8px rgba(96,165,250,0.3);' : '';
+    const pipelineStyle = c.Art_Status==='pending' ? 'border-color:#cfa650;box-shadow:0 0 8px rgba(207,166,80,0.3);' : c.BG_Status==='has_chroma' ? 'border-color:#dd5646;box-shadow:0 0 8px rgba(221,86,70,0.3);' : c.BG_Status==='bg_pending' ? 'border-color:#60a5fa;box-shadow:0 0 8px rgba(96,165,250,0.3);' : c.Sync_Status==='needs_reimport' ? 'border-color:#e6a23c;box-shadow:0 0 8px rgba(230,162,60,0.35);' : '';
 
     const imgHtml = origSrc
       ? `<img class="codex-card-img" src="${escapeHtml(origSrc)}" alt="${escapeHtml(c.Name)}" loading="lazy">`
@@ -231,12 +245,12 @@ function renderGrid() {
       const url=IMG_BASE+'codex/images/'+slotFolders[s]+c.ID+'.png';
       return `<button class="card-tab${idx===0?' active':''}" onclick="event.stopPropagation();switchCardImg(this,'${url}')">${s}</button>`;
     }).join('')+'</div>' : '';
-    const gearHtml = isAdmin ? `<button class="card-gear" onclick="event.stopPropagation();toggleCardMenu(this)" data-id="${c.ID}" data-name="${escapeHtml(c.Name)}" data-art="${c.Art_Status}" data-bg="${c.BG_Status}">⚙</button>` : '';
+    const gearHtml = isAdmin ? `<button class="card-gear" onclick="event.stopPropagation();toggleCardMenu(this)" data-id="${c.ID}" data-name="${escapeHtml(c.Name)}" data-art="${c.Art_Status}" data-bg="${c.BG_Status}" data-sync="${c.Sync_Status||'not_imported'}">⚙</button>` : '';
 
     return `<div class="codex-card" style="${pipelineStyle};position:relative;cursor:pointer;" onclick="if(!event.target.closest('.card-gear,.card-admin-menu,.card-tab'))location.href='creature.html?id=${escapeHtml(c.ID)}'">
       <div class="card-img-wrap">${imgHtml}${tabsHtml}${gearHtml}</div>
       <div class="codex-card-body">
-        <div class="codex-card-name"><span class="card-num">${parseInt(c.ID.replace('DFMC-',''),10)}</span>${escapeHtml(c.Name)}${c.Art_Status==='pending'?'<span class="flag flag-art" title="Pending art approval">🎨</span>':''}${c.BG_Status==='has_chroma'?'<span class="flag flag-crop" title="Needs cropping">✂</span>':''}${c.BG_Status==='bg_pending'?'<span class="flag" title="Crop approval pending" style="color:#60a5fa;">🔍</span>':''}</div>
+        <div class="codex-card-name"><span class="card-num">${parseInt(c.ID.replace('DFMC-',''),10)}</span>${escapeHtml(c.Name)}${c.Art_Status==='pending'?'<span class="flag flag-art" title="Pending art approval">🎨</span>':''}${c.BG_Status==='has_chroma'?'<span class="flag flag-crop" title="Needs cropping">✂</span>':''}${c.BG_Status==='bg_pending'?'<span class="flag" title="Crop approval pending" style="color:#60a5fa;">🔍</span>':''}${c.Sync_Status==='needs_reimport'?'<span class="flag" title="Altered since last import — needs reimport" style="color:#e6a23c;">⟳</span>':''}</div>
         <div class="codex-card-types">${escapeHtml(types)}</div>
         <div class="codex-card-rarity"><div class="tier-seal ${cls}">${short}</div></div>
       </div>
@@ -300,7 +314,7 @@ function toggleCardMenu(gearBtn) {
   const id = gearBtn.dataset.id;
   const name = gearBtn.dataset.name;
   const artStatus = gearBtn.dataset.art;
-  const creature = { Art_Status: artStatus };
+  const creature = { Art_Status: artStatus, BG_Status: gearBtn.dataset.bg, Sync_Status: gearBtn.dataset.sync };
   const current = typeof Backlog !== 'undefined' ? Backlog.get(id) : [];
   const currentComment = typeof Backlog !== 'undefined' ? Backlog.getComment(id) : '';
 
