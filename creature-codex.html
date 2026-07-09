@@ -247,7 +247,7 @@ function renderGrid() {
     }).join('')+'</div>' : '';
     const gearHtml = isAdmin ? `<button class="card-gear" onclick="event.stopPropagation();toggleCardMenu(this)" data-id="${c.ID}" data-name="${escapeHtml(c.Name)}" data-art="${c.Art_Status}" data-bg="${c.BG_Status}" data-sync="${c.Sync_Status||'not_imported'}">⚙</button>` : '';
 
-    return `<div class="codex-card" style="${pipelineStyle};position:relative;cursor:pointer;" onclick="if(!event.target.closest('.card-gear,.card-admin-menu,.card-tab'))location.href='creature.html?id=${escapeHtml(c.ID)}'">
+    return `<div class="codex-card" style="${pipelineStyle};position:relative;cursor:pointer;" onclick="if(!event.target.closest('.card-gear,.card-admin-menu,.card-tab')){saveScroll();location.href='creature.html?id=${escapeHtml(c.ID)}';}">
       <div class="card-img-wrap">${imgHtml}${tabsHtml}${gearHtml}</div>
       <div class="codex-card-body">
         <div class="codex-card-name"><span class="card-num">${parseInt(c.ID.replace('DFMC-',''),10)}</span>${escapeHtml(c.Name)}${c.Art_Status==='pending'?'<span class="flag flag-art" title="Pending art approval">🎨</span>':''}${c.BG_Status==='has_chroma'?'<span class="flag flag-crop" title="Needs cropping">✂</span>':''}${c.BG_Status==='bg_pending'?'<span class="flag" title="Crop approval pending" style="color:#60a5fa;">🔍</span>':''}${c.Sync_Status==='needs_reimport'?'<span class="flag" title="Altered since last import — needs reimport" style="color:#e6a23c;">⟳</span>':''}</div>
@@ -404,6 +404,23 @@ document.addEventListener('click', function(e) {
   }
 });
 
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+const SCROLL_KEY = 'dfmc_codex_scroll';
+function saveScroll() {
+  try { sessionStorage.setItem(SCROLL_KEY, String(window.scrollY)); } catch {}
+}
+function restoreScroll() {
+  let y = 0;
+  try { y = parseInt(sessionStorage.getItem(SCROLL_KEY) || '0', 10) || 0; } catch {}
+  if (!y) return;
+  // wait for layout (images may still be sizing) then jump, retry once
+  requestAnimationFrame(() => { window.scrollTo(0, y); requestAnimationFrame(() => window.scrollTo(0, y)); });
+}
+// also persist on scroll so browser back-swipe / bfcache keeps position
+let _scrollT;
+window.addEventListener('scroll', () => { clearTimeout(_scrollT); _scrollT = setTimeout(saveScroll, 120); }, { passive: true });
+window.addEventListener('pagehide', saveScroll);
+
 (async function() {
   try {
     const text = await fetch(CREATURES_URL + '?t=' + Date.now()).then(r => r.text());
@@ -477,6 +494,7 @@ document.addEventListener('click', function(e) {
       document.getElementById('admin-filters').style.display = '';
     }
     renderGrid();
+    restoreScroll();
   } catch (e) {
     document.getElementById('status').textContent = 'FAILED TO LOAD: ' + e.message;
   }
