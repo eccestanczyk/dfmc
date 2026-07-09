@@ -793,14 +793,20 @@ FinalDamage = RawDamage
     </div>
 
     <h3>Creature souls</h3>
-    <p>Each piece of character gear can have the soul of a creature attached to it, granting special effects. Every creature has a different effect for each gear slot. Souls have one of three scopes:</p>
+    <p>Each piece of character gear can have the soul of a creature attached to it. What the soul does depends on the slot class:</p>
+    <table>
+      <tr><th>Slot class</th><th>Slots</th><th>Soul effect</th></tr>
+      <tr><td style="color:#ede0c4">Ability slots</td><td>Main Hand, Off Hand, Accessory 1, Accessory 2</td><td><strong>Move grant (Soul Joker):</strong> the character gains the equipped creature's move for that ability slot (slot 1–4). Character Offense, no STAB; Synergy/Anti clauses apply. See "Character abilities — the Soul Joker system" in Battle System.</td></tr>
+      <tr><td style="color:#ede0c4">Passive slots</td><td>Head, Chest, Gloves, Feet</td><td><strong>Scoped passive:</strong> every creature has a unique passive per armor slot, catalogued in <code>codex/souls.csv</code> (400 passives). Slot flavors: Head = perception/self, Chest = core plate, Gloves = hands/offense craft, Feet = team/positioning.</td></tr>
+    </table>
+    <p>Passive souls have one of three scopes:</p>
     <table>
       <tr><th>Soul scope</th><th>Effect</th><th>Example</th></tr>
-      <tr><td style="color:#ede0c4">Local</td><td>Buffs only that item's contribution — strongest per-item impact</td><td>Thornback on Main Hand: "This weapon's Offense ×1.20"</td></tr>
-      <tr><td style="color:#ede0c4">Personal</td><td>Buffs the character's total stats — moderate power, affects all actions</td><td>Dusthound on Gloves: "Character +8% crit chance"</td></tr>
-      <tr><td style="color:#ede0c4">Team</td><td>Buffs all allies (character + both creatures) — weaker per target but ×3 entities</td><td>Yggdrasil on Boots: "All allies +6% Defense"</td></tr>
+      <tr><td style="color:#ede0c4">Local</td><td>Buffs only that item's contribution — strongest per-item impact (×1.12–×1.20 by rarity)</td><td>Thornback on Chest: "This armour's Defense ×1.12"</td></tr>
+      <tr><td style="color:#ede0c4">Personal</td><td>Buffs the character's totals — moderate power (5–10% band by rarity)</td><td>Dusthound on Head: "+4% crit chance"</td></tr>
+      <tr><td style="color:#ede0c4">Team</td><td>Buffs all allies (character + both creatures) — weaker per target but ×3 entities (4–8% band)</td><td>Yggdrasil on Feet: "All allies +7% Defense"</td></tr>
     </table>
-    <p>Soul scope varies per creature per slot. The same creature's soul can be Local on one slot and Team on another, creating targeted build decisions around which soul goes where.</p>
+    <p>Soul scope varies per creature per slot, creating targeted build decisions around which soul goes where. Passive magnitudes follow the equipped creature's stage like move grants: Stage 1 ≈ 60%, Stage 2 ≈ 80% of the listed Stage-3 values. Speed never appears on any soul passive. A creature whose soul is equipped in <em>any</em> slot cannot be summoned; one soul per creature across all 8 slots.</p>
 
     <h3>Equipment grades</h3>
     <p>Grade determines how many gem, rune, and enchantment slots a piece of gear has. Equipment is also tiered every 10 character levels. From Abyssal upward, items have visual effects in addition to their color — effects appear on item icons and names in inventory, equipment UI, and the battle conclusion screen.</p>
@@ -1190,6 +1196,7 @@ Your Backend
       <tr><td><code>codex/maptypes.csv</code></td><td>—</td><td>Tileset / map-restyle definitions for floor-art generation.</td></tr>
       <tr><td><code>codex/items.csv</code></td><td>435</td><td>Full item catalog — gems (6 types &times; 10 tiers: Rough &rarr; Sublime), runes (5&times;10: Faded &rarr; Elder), scrolls (10: Tattered &rarr; Fated), weapons (6 bases &times; 10 tiers), armour (12&times;10), accessories (8&times;10), tags (5&times;10), materials (5). Gear tier ladder: Crude &rarr; Sturdy &rarr; Fine &rarr; Superior &rarr; Ornate &rarr; Masterwork &rarr; Exalted &rarr; Sovereign &rarr; Mythic &rarr; Transcendent. Columns: <code>Item_ID, Category, Family, Name, Tier, Level_Req, Effect, Flavor_Text, Image_Prompt, Image_Path, Art_Status</code>.</td></tr>
       <tr><td><code>codex/moves.csv</code></td><td>400</td><td>Complete move table — 100 lines &times; 4 moves. Columns: Move_ID (M-{LINE}-{slot}), Line_ID, Slot, Name, Power_S1/S2/S3, Cooldown, Effect_S1/S2/S3, Synergy, Anti, VFX_Description. Powers use bands 0/50/80/120/160 at S3; S2 &asymp; 80%, S1 &asymp; 60%. Browsable at moves.html.</td></tr>
+      <tr><td><code>codex/souls.csv</code></td><td>400</td><td>Soul passive table — 100 lines &times; 4 armor slots (Head/Chest/Gloves/Feet). Columns: Soul_ID (S-{LINE}-{SLOT}), Line_ID, Gear_Slot, Scope (Local/Personal/Team), Rarity, Effect_S3. Magnitudes scale by stage (S1 &asymp; 60%, S2 &asymp; 80%). Ability-slot souls (MH/OH/Acc1/Acc2) grant moves instead — see moves.csv.</td></tr>
       <tr><td><code>codex/item_drops.csv</code></td><td>390</td><td>Zone-weighted item drop table. Each zone lists which base types drop and at what weight (1 = normal, 2 = zone-weighted 2&times;). Feeds the <a href="reliquary.html" style="color:var(--gold-bright)">Reliquary</a>.</td></tr>
       <tr><td><code>codex/floor_assets.csv</code></td><td>100</td><td>Level design pipeline. Per-floor: battle background prompt/path/status, parallax reference, prop assignments, map preview status (empty + populated). Decoupled from floor identity for infinite floor extension.</td></tr>
       <tr><td><code>codex/prop_assets.csv</code></td><td>40</td><td>Zone prop catalog — 3&ndash;4 props + 1 anchor prop per zone, with image prompts and art status.</td></tr>
