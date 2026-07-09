@@ -9,6 +9,26 @@
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+/* Floor page: mini codex-style creature cards */
+.floor-cgrid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(108px, 1fr)); gap:10px; }
+.fc-card{
+  display:flex; flex-direction:column; text-decoration:none; color:var(--ink);
+  background:var(--surface); border:1px solid var(--rule);
+  box-shadow:inset 0 1px 0 rgba(207,166,80,0.05), 0 3px 8px rgba(0,0,0,0.3);
+  transition:all 0.14s ease;
+}
+.fc-card:hover{ border-color:var(--blood-bright); box-shadow:0 0 12px rgba(124,21,25,0.35); transform:translateY(-1px); }
+.fc-card:hover .fc-name{ color:var(--blood-bright); }
+.fc-img{ width:100%; aspect-ratio:1; object-fit:cover; background:#1c1610; border-bottom:1px solid var(--rule); display:block; }
+.fc-noimg{ width:100%; aspect-ratio:1; background:#1c1610; border-bottom:1px solid var(--rule); display:flex; align-items:center; justify-content:center; color:var(--ink-faint); font-size:11px; font-style:italic; }
+.fc-body{ padding:7px 8px 8px; }
+.fc-name{ font-family:'Cinzel', serif; font-weight:700; font-size:12px; color:var(--ink); line-height:1.2; margin-bottom:3px; }
+.fc-num{ font-family:'Cinzel', serif; font-weight:600; font-size:10px; color:var(--ink-dim); margin-right:5px; }
+.fc-types{ font-size:10px; color:var(--ink-dim); font-style:italic; margin-bottom:5px; line-height:1.3; }
+.fc-rarity{ display:flex; align-items:center; }
+.fc-rarity .tier-seal{ width:20px; height:20px; font-size:8px; }
+</style>
 </head>
 <body>
 
@@ -44,6 +64,7 @@
 </main>
 
 <script>
+const IMG_BASE = 'https://raw.githubusercontent.com/eccestanczyk/dfmc/main/';
 const FLOORS_URL = "codex/floors.csv";
 const CREATURES_URL = "codex/creatures.csv";
 const RARITY_URL = "codex/floor_creature_rarity.csv";
@@ -159,13 +180,22 @@ async function load() {
       .sort((a,b) => TIER_ORDER[a.tier] - TIER_ORDER[b.tier]);
 
     document.getElementById('creatures-body').innerHTML = here.length
-      ? here.map(c => `
-          <a class="creature-row-table" href="creature.html?id=${escapeHtml(c.ID)}">
-            ${c.Image_Path ? `<img class="chroma" data-src="${escapeHtml(c.Image_Path)}" alt="">` : `<div class="no-img">?</div>`}
-            <div><div class="c-name">${escapeHtml(c.Name)}</div><div class="c-sub">${[c.Type_Primary, c.Type_Secondary, c.Type_Tertiary].filter(Boolean).map(escapeHtml).join(' / ')} — Stage ${escapeHtml(c.Stage)}</div></div>
-            <span class="tier-seal tier-${c.tier}">${c.tier}</span>
-          </a>
-        `).join('')
+      ? `<div class="floor-cgrid">` + here.map(c => {
+          const num = parseInt((c.ID||'').replace('DFMC-',''), 10) || '';
+          const types = [c.Type_Primary, c.Type_Secondary, c.Type_Tertiary].filter(Boolean).map(escapeHtml).join(' / ');
+          const img = c.Image_Path
+            ? `<img class="fc-img" src="${IMG_BASE}${escapeHtml(c.Image_Path)}" alt="${escapeHtml(c.Name)}" loading="lazy">`
+            : `<div class="fc-noimg">?</div>`;
+          return `
+            <a class="fc-card" href="creature.html?id=${escapeHtml(c.ID)}">
+              ${img}
+              <div class="fc-body">
+                <div class="fc-name"><span class="fc-num">${num}</span>${escapeHtml(c.Name)}</div>
+                <div class="fc-types">${types} — Stage ${escapeHtml(c.Stage)}</div>
+                <div class="fc-rarity"><div class="tier-seal tier-${c.tier}">${c.tier}</div></div>
+              </div>
+            </a>`;
+        }).join('') + `</div>`
       : `<div class="pending-note">No creatures assigned to this floor yet.</div>`;
 
     if (prev) document.getElementById('prev-arrow').href = `floor.html?num=${prev.Floor}`;
