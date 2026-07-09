@@ -94,7 +94,7 @@ function render(){
     if(kind==='syn'&&m.Synergy==='-')return false;
     if(kind==='anti'&&m.Anti==='-')return false;
     if(kind==='heal'&&!/heal/i.test(m.Effect_S3))return false;
-    if(q){const hay=(m.Name+' '+m.Line_ID+' '+(li.name||'')+' '+m.Effect_S3+' '+m.Synergy+' '+m.Anti).toLowerCase();if(!hay.includes(q))return false}
+    if(q){const hay=(m.Name+' '+(m.Name_S1||'')+' '+(m.Name_S3||'')+' '+m.Line_ID+' '+(li.name||'')+' '+m.Effect_S3+' '+m.Synergy+' '+m.Anti).toLowerCase();if(!hay.includes(q))return false}
     return true;
   });
   document.getElementById('count').textContent=out.length+' / '+MOVES.length+' moves';
@@ -103,7 +103,7 @@ function render(){
     const pw = m.Power_S3==='0' ? 'Status' : m.Power_S3;
     return `<div class="mv">
       <div class="head">
-        <span><span class="name">${m.Name}</span>
+        <span><span class="name">${m.Name_S3||m.Name}</span>
           ${m.Synergy!=='-'?'<span class="badge syn">Synergy</span>':''}
           ${m.Anti!=='-'?'<span class="badge anti">Anti</span>':''}
         </span>
@@ -114,6 +114,7 @@ function render(){
       ${m.Effect_S1!==m.Effect_S3?`<div class="fx"><b>S1:</b> ${m.Effect_S1}</div>`:''}
       ${m.Synergy!=='-'?`<div class="fx"><b>Synergy:</b> ${m.Synergy}</div>`:''}
       ${m.Anti!=='-'?`<div class="fx"><b>Anti:</b> ${m.Anti}</div>`:''}
+      ${(m.Name_S1&&(m.Name_S1!==m.Name_S3))?`<div class="stages">Name by stage: ${m.Name_S1} / ${m.Name_S2} / ${m.Name_S3}</div>`:''}
       <div class="stages">Power by stage: ${m.Power_S1} / ${m.Power_S2} / ${m.Power_S3}</div>
       <div class="vfx">${m.VFX_Description}</div>
     </div>`;
