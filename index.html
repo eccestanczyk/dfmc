@@ -288,12 +288,21 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
       <tr><td>Battles per level</td><td><code>L<sup>0.75</sup></code> then <code>23.4 &times; 1.16<sup>(L&minus;67)</sup></code></td><td>Derived &mdash; 23 battles at L67, 613 at L89, ~2,700 for 99&rarr;100</td></tr>
     </table>
 
-    <p>The curve is deliberately back-loaded for an autoplay game: <strong>75% of all leveling time sits in levels 90&ndash;100</strong> (50% in the last five levels). Total to max level: <strong>~20,300 battles &asymp; 680&nbsp;h</strong> at 2 minutes per battle. Reaching level 67 &mdash; where Stage&nbsp;3 creatures and final evolutions unlock &mdash; takes only ~885 battles (~30&nbsp;h).</p>
+    <p>The curve is deliberately back-loaded for an autoplay game: <strong>75% of all leveling time sits in levels 90&ndash;100</strong> (50% in the last five levels). Total to max level: <strong>~20,300 battles &asymp; 680&nbsp;h</strong> at 2 minutes per battle. Reaching level 67 &mdash; where wild Stage&nbsp;3 creatures appear &mdash; takes only ~885 battles (~30&nbsp;h). Owned-creature final evolutions land between levels 56&ndash;73 depending on line rarity (see Creature evolutions).</p>
+
+    <h3>XP distribution &amp; level penalty</h3>
+    <p>End-of-battle XP is awarded to <strong style="color:#ede0c4">every creature in the party and the avatar</strong>, not only the participants. <strong style="color:#ede0c4">Dying in battle does not forfeit XP</strong> — a fainted creature or downed avatar still receives its full share. Each recipient's XP is then scaled by a penalty based on <em>its own</em> level versus the defeated enemy's level (<code>diff = enemyLevel &minus; recipientLevel</code>). The two directions are asymmetric:</p>
+    <table>
+      <tr><th>Direction</th><th>Grace (0% penalty)</th><th>Ramp</th><th>Floor</th></tr>
+      <tr><td>Enemy higher (under-leveled) &mdash; forgiving</td><td><code>diff &le; +10</code></td><td>linear <code>+10 &rarr; +50</code></td><td><code>90%</code> at <code>+50</code></td></tr>
+      <tr><td>Enemy lower (over-leveled) &mdash; strict</td><td><code>diff &ge; &minus;3</code></td><td>linear <code>&minus;3 &rarr; &minus;25</code></td><td><code>90%</code> at <code>&minus;25</code></td></tr>
+    </table>
+    <p style="font-size:13px;color:#c2ae8b">Under-leveling into hard content stays rewarding (push up freely); grinding trivial enemies is quickly gutted &mdash; the over-leveled curve reaches the 90% floor in half the level span of the under-leveled one. Full curve, chart, and live calculator: <a href="other-systems.html" style="color:#cfa650">Other Systems &rsaquo; Level Penalty</a>.</p>
 
     <h4>Time to milestones by play profile</h4>
     <table>
       <tr><th>Milestone</th><th>Battles</th><th>Casual (3&nbsp;h/day)</th><th>Dedicated (12&nbsp;h/day)</th><th>24/7 autoplay</th></tr>
-      <tr><td>Level 67 &mdash; Stage 3 / final evolutions</td><td>~885</td><td>10 days</td><td>2.5 days</td><td>1.2 days</td></tr>
+      <tr><td>Level 67 &mdash; wild Stage 3 band (final evolutions: Lv 56&ndash;73 by rarity)</td><td>~885</td><td>10 days</td><td>2.5 days</td><td>1.2 days</td></tr>
       <tr><td>Level 90</td><td>~5,180</td><td>~2 months</td><td>14 days</td><td>7 days</td></tr>
       <tr><td>Level 100</td><td>~20,300</td><td>~7.5 months</td><td>~2 months</td><td>~1 month</td></tr>
     </table>

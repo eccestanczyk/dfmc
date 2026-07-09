@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Level Penalty — Herumon Tower</title>
+<link rel="stylesheet" href="theme.css">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+.lp-wrap{ max-width:820px; margin:0 auto; padding:24px 18px 90px; }
+.lp-wrap h2{ font-family:'Cinzel',serif; font-size:18px; color:var(--gold); margin:26px 0 8px; }
+.lp-wrap h3{ font-family:'Cinzel',serif; font-size:14px; color:var(--gold-dim); margin:18px 0 6px; }
+.lp-wrap p{ font-size:14px; color:var(--ink-dim); line-height:1.6; margin:6px 0; }
+.lp-wrap code{ background:var(--surface-2); padding:1px 5px; border-radius:3px; color:var(--ink); font-size:13px; }
+.lp-crumb{ font-size:12px; color:var(--ink-faint); margin-bottom:4px; }
+.lp-crumb a{ color:var(--gold-dim); text-decoration:none; }
+.lp-crumb a:hover{ color:var(--gold-bright); }
+.rules{ list-style:none; padding:0; margin:10px 0; }
+.rules li{ position:relative; padding:8px 12px 8px 30px; border-left:2px solid var(--gold-dim); background:var(--surface); margin-bottom:6px; font-size:13.5px; color:var(--ink-dim); line-height:1.5; }
+.rules li::before{ content:'\25B8'; position:absolute; left:11px; top:8px; color:var(--gold); }
+table{ border-collapse:collapse; width:100%; margin:10px 0; }
+th{ font-family:'Cinzel',serif; font-size:11px; color:var(--gold); border-bottom:1px solid var(--gold); padding:6px 8px; text-align:center; }
+td{ border-bottom:1px solid var(--rule); padding:5px 8px; color:var(--ink-dim); font-size:13px; text-align:center; }
+td.lbl{ text-align:left; color:var(--ink); }
+.retain-hi{ color:#86c377; font-weight:600; }
+.retain-mid{ color:#e6c66d; font-weight:600; }
+.retain-lo{ color:#dd5646; font-weight:600; }
+.chart-card{ background:var(--surface); border:1px solid var(--rule); padding:14px; margin:14px 0; }
+.calc{ display:flex; flex-wrap:wrap; align-items:center; gap:14px; background:var(--surface-2); border:1px solid var(--rule); padding:14px 16px; margin:14px 0; }
+.calc label{ font-family:'Cinzel',serif; font-size:12px; color:var(--gold-dim); display:flex; align-items:center; gap:8px; }
+.calc input[type=range]{ accent-color:#dd5646; width:150px; }
+.calc .out{ font-family:'Cinzel',serif; font-size:13px; color:var(--ink); }
+.calc .big{ font-size:22px; color:var(--gold-bright); font-weight:700; }
+.two-col{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+@media(max-width:680px){ .two-col{ grid-template-columns:1fr; } }
+.note{ background:var(--surface-2); border-left:3px solid var(--gold); padding:8px 14px; margin:12px 0; font-size:13px; color:var(--ink-dim); }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <h1 style="font-family:'Cinzel',serif;">LEVEL PENALTY</h1>
+</div>
+
+<div class="lp-wrap">
+  <div class="lp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; Level Penalty</div>
+
+  <p>Every battle awards experience at the end. This page defines <strong style="color:var(--ink)">who</strong> receives it and <strong style="color:var(--ink)">how much</strong> is kept once the level gap between the recipient and the enemy it defeated is applied.</p>
+
+  <h2>Who gets XP</h2>
+  <ul class="rules">
+    <li>XP is awarded to <strong style="color:var(--ink)">every creature in the party and the avatar</strong> &mdash; not only the creatures that fought.</li>
+    <li><strong style="color:var(--ink)">Dying in battle does not forfeit XP.</strong> A fainted creature or a downed avatar still receives its full end-of-battle share.</li>
+    <li>The penalty is computed <strong style="color:var(--ink)">per recipient</strong>, from that recipient's own level versus the defeated enemy's level. A low-level benchwarmer carried through a high-level fight keeps almost all of its XP; an over-leveled veteran farming weak floors keeps very little.</li>
+  </ul>
+
+  <h2>The penalty curve</h2>
+  <p>Let <code>diff = enemyLevel &minus; recipientLevel</code>. Positive means the enemy is higher level (you are under-leveled); negative means the enemy is lower (you are over-leveled). The two directions use different, deliberately asymmetric curves.</p>
+
+  <div class="two-col">
+    <div>
+      <h3 style="color:#86c377;">Enemy higher &mdash; forgiving</h3>
+      <p>No penalty at all up to <code>+10</code>. Past that it ramps linearly, reaching the <code>90%</code> floor at <code>+50</code> and staying there.</p>
+      <p><code>diff &le; 10 &rarr; 0%</code><br>
+         <code>10 &lt; diff &lt; 50 &rarr; 90% &times; (diff&minus;10)/40</code><br>
+         <code>diff &ge; 50 &rarr; 90%</code></p>
+    </div>
+    <div>
+      <h3 style="color:#dd5646;">Enemy lower &mdash; strict</h3>
+      <p>Half the window, twice as steep. Grace only to <code>&minus;3</code>, then a fast ramp hitting <code>90%</code> by <code>&minus;25</code>.</p>
+      <p><code>d = &minus;diff</code><br>
+         <code>d &le; 3 &rarr; 0%</code><br>
+         <code>3 &lt; d &lt; 25 &rarr; 90% &times; (d&minus;3)/22</code><br>
+         <code>d &ge; 25 &rarr; 90%</code></p>
+    </div>
+  </div>
+
+  <div class="chart-card">
+    <canvas id="lpChart" width="760" height="320" style="width:100%;height:auto;display:block;"></canvas>
+  </div>
+
+  <div class="calc">
+    <label>Recipient level <input id="recLvl" type="range" min="1" max="100" value="30"><span class="out" id="recOut">30</span></label>
+    <label>Enemy level <input id="enLvl" type="range" min="1" max="100" value="35"><span class="out" id="enOut">35</span></label>
+    <div style="margin-left:auto;text-align:right;">
+      <div class="out">diff <span id="diffOut">+5</span> &middot; penalty <span id="penOut">0%</span></div>
+      <div class="out">XP retained <span class="big" id="retOut">100%</span></div>
+    </div>
+  </div>
+
+  <h2>Reference table</h2>
+  <div class="two-col">
+    <div>
+      <table id="hiTable">
+        <tr><th>Enemy above you</th><th>Penalty</th><th>XP kept</th></tr>
+      </table>
+    </div>
+    <div>
+      <table id="loTable">
+        <tr><th>Enemy below you</th><th>Penalty</th><th>XP kept</th></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="note">Design intent: under-leveling into hard content stays rewarding (push up freely), while grinding trivial enemies is quickly gutted &mdash; the over-leveled curve reaches the 90% floor in half the level span of the under-leveled one.</div>
+</div>
+
+<script>
+function xpPenalty(diff){
+  if(diff>=0){ if(diff<=10)return 0; if(diff>=50)return 0.9; return 0.9*(diff-10)/40; }
+  var d=-diff; if(d<=3)return 0; if(d>=25)return 0.9; return 0.9*(d-3)/22;
+}
+function retClass(r){ return r>=0.75?'retain-hi':r>=0.4?'retain-mid':'retain-lo'; }
+
+// reference tables
+(function(){
+  var hi=document.getElementById('hiTable'), lo=document.getElementById('loTable');
+  [0,5,10,20,30,40,50,60].forEach(function(d){
+    var p=xpPenalty(d), r=1-p;
+    hi.insertAdjacentHTML('beforeend','<tr><td class="lbl">+'+d+'</td><td>'+Math.round(p*100)+'%</td><td class="'+retClass(r)+'">'+Math.round(r*100)+'%</td></tr>');
+  });
+  [3,5,10,15,20,25,30].forEach(function(d){
+    var p=xpPenalty(-d), r=1-p;
+    lo.insertAdjacentHTML('beforeend','<tr><td class="lbl">&minus;'+d+'</td><td>'+Math.round(p*100)+'%</td><td class="'+retClass(r)+'">'+Math.round(r*100)+'%</td></tr>');
+  });
+})();
+
+// chart: XP retained vs diff, from -40 to +60
+(function(){
+  var cv=document.getElementById('lpChart'), ctx=cv.getContext('2d');
+  var W=cv.width, H=cv.height, ml=44, mr=16, mt=16, mb=34;
+  var x0=-40, x1=60;
+  function px(d){ return ml + (d-x0)/(x1-x0)*(W-ml-mr); }
+  function py(v){ return mt + (1-v)*(H-mt-mb); } // v = retained 0..1
+  ctx.clearRect(0,0,W,H);
+  // grid
+  ctx.strokeStyle='#3a2c1a'; ctx.fillStyle='#8a7a5e'; ctx.font="11px 'Cinzel',serif"; ctx.lineWidth=1;
+  for(var v=0;v<=1.0001;v+=0.25){ var y=py(v); ctx.beginPath(); ctx.moveTo(ml,y); ctx.lineTo(W-mr,y); ctx.stroke(); ctx.fillText(Math.round(v*100)+'%', 6, y+4); }
+  for(var d=x0; d<=x1; d+=10){ var x=px(d); ctx.strokeStyle='#2a2015'; ctx.beginPath(); ctx.moveTo(x,mt); ctx.lineTo(x,H-mb); ctx.stroke(); ctx.fillStyle='#8a7a5e'; ctx.textAlign='center'; ctx.fillText((d>0?'+':'')+d, x, H-mb+16); ctx.textAlign='left'; }
+  // zero line (equal level)
+  var xz=px(0); ctx.strokeStyle='#cfa650'; ctx.setLineDash([4,4]); ctx.beginPath(); ctx.moveTo(xz,mt); ctx.lineTo(xz,H-mb); ctx.stroke(); ctx.setLineDash([]);
+  ctx.fillStyle='#cfa650'; ctx.textAlign='center'; ctx.fillText('same level', xz, mt+12); ctx.textAlign='left';
+  // curve (retained = 1 - penalty)
+  ctx.lineWidth=2.4; ctx.strokeStyle='#dd5646'; ctx.beginPath();
+  for(var i=0;i<=(x1-x0);i++){ var dd=x0+i, yy=py(1-xpPenalty(dd)); if(i===0)ctx.moveTo(px(dd),yy); else ctx.lineTo(px(dd),yy); }
+  ctx.stroke();
+  // axis labels
+  ctx.fillStyle='#c2ae8b'; ctx.font="12px 'Cinzel',serif"; ctx.textAlign='center';
+  ctx.fillText('enemy level relative to you  \u2192', W/2, H-4);
+  ctx.save(); ctx.translate(12,H/2); ctx.rotate(-Math.PI/2); ctx.fillText('XP retained', 0,0); ctx.restore();
+  ctx.textAlign='left';
+  // region hints
+  ctx.fillStyle='rgba(134,195,119,0.55)'; ctx.fillText('under-leveled \u2192 forgiving', xz+10, H-mb-8);
+  ctx.fillStyle='rgba(221,86,70,0.6)'; ctx.textAlign='right'; ctx.fillText('over-leveled \u2192 strict', xz-10, H-mb-8); ctx.textAlign='left';
+})();
+
+// live calculator
+(function(){
+  var rec=document.getElementById('recLvl'), en=document.getElementById('enLvl');
+  function upd(){
+    var r=+rec.value, e=+en.value, diff=e-r, p=xpPenalty(diff), keep=1-p;
+    document.getElementById('recOut').textContent=r;
+    document.getElementById('enOut').textContent=e;
+    document.getElementById('diffOut').textContent=(diff>=0?'+':'')+diff;
+    document.getElementById('penOut').textContent=Math.round(p*100)+'%';
+    var ro=document.getElementById('retOut'); ro.textContent=Math.round(keep*100)+'%';
+    ro.style.color = keep>=0.75?'#86c377':keep>=0.4?'#e6c66d':'#dd5646';
+  }
+  rec.addEventListener('input',upd); en.addEventListener('input',upd); upd();
+})();
+</script>
+<script src="admin.js"></script>
+<script src="nav.js"></script>
+</body>
+</html>

@@ -13,6 +13,7 @@
     { href: 'floor-codex.html',    label: 'Floor Map' },
     { href: 'reliquary.html',      label: 'Reliquary' },
     { href: 'index.html?tab=equipment', label: 'Crafting' },
+    { href: 'other-systems.html',  label: 'Other Systems' },
     { href: 'index.html',          label: 'Game Design Document' },
   ];
 

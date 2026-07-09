@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Other Systems — Herumon Tower</title>
+<link rel="stylesheet" href="theme.css">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+.sys-wrap{ max-width:900px; margin:0 auto; padding:32px 20px 100px; }
+.sys-intro{ font-size:14px; color:var(--ink-dim); font-style:italic; line-height:1.6; margin:0 0 28px; text-align:center; max-width:640px; margin-left:auto; margin-right:auto; }
+.sys-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:14px; }
+.sys-card{
+  display:flex; flex-direction:column; text-decoration:none; color:var(--ink);
+  background:var(--surface); border:1px solid var(--rule);
+  padding:20px 20px 18px; position:relative; overflow:hidden;
+  box-shadow:inset 0 1px 0 rgba(207,166,80,0.06), 0 4px 12px rgba(0,0,0,0.35);
+  transition:all 0.16s ease;
+}
+.sys-card::before{ content:''; position:absolute; inset:0; background:linear-gradient(135deg, rgba(124,21,25,0.10), transparent 60%); opacity:0; transition:opacity 0.16s ease; }
+.sys-card:hover::before{ opacity:1; }
+.sys-card:hover{ border-color:var(--blood-bright); transform:translateY(-2px); box-shadow:0 6px 18px rgba(124,21,25,0.28); }
+.sys-card .ic{ font-size:26px; margin-bottom:8px; opacity:0.85; }
+.sys-card h2{ font-family:'Cinzel',serif; font-weight:700; font-size:16px; letter-spacing:0.03em; color:var(--gold-bright); margin:0 0 6px; }
+.sys-card:hover h2{ color:var(--blood-bright); }
+.sys-card p{ font-size:12.5px; color:var(--ink-dim); font-style:italic; line-height:1.45; margin:0; }
+.sys-card.soon{ opacity:0.5; pointer-events:none; border-style:dashed; }
+.sys-card .tag{ position:absolute; top:10px; right:10px; font-family:'Cinzel',serif; font-size:8px; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold-dim); border:1px solid var(--rule); padding:2px 5px; }
+.sys-section-label{ font-family:'Cinzel',serif; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold-dim); margin:34px 0 12px; padding-bottom:6px; border-bottom:1px solid var(--rule-faint); }
+.sys-section-label:first-of-type{ margin-top:0; }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <h1 style="font-family:'Cinzel',serif;">OTHER SYSTEMS</h1>
+</div>
+
+<div class="sys-wrap">
+  <p class="sys-intro">Mechanics that sit outside the core loop &mdash; how experience, penalties, and progression math actually resolve. Each entry is a self-contained rules page.</p>
+
+  <div class="sys-section-label">Progression</div>
+  <div class="sys-grid">
+    <a class="sys-card" href="system-level-penalty.html">
+      <div class="ic">&#9878;</div>
+      <h2>Level Penalty</h2>
+      <p>How XP scales with the level gap between a recipient and the enemy it defeats. Forgiving when under-leveled, strict when over-leveled.</p>
+    </a>
+    <div class="sys-card soon">
+      <span class="tag">Planned</span>
+      <div class="ic">&#128200;</div>
+      <h2>XP &amp; Leveling Curve</h2>
+      <p>Per-level XP requirements, expected battles, and time-to-level bands.</p>
+    </div>
+    <div class="sys-card soon">
+      <span class="tag">Planned</span>
+      <div class="ic">&#127967;</div>
+      <h2>Win Streak &amp; Floors</h2>
+      <p>Streak thresholds, ceil(floor^0.65) gating, portal unlock, loss reset.</p>
+    </div>
+  </div>
+
+  <div class="sys-section-label">Combat &amp; Meta</div>
+  <div class="sys-grid">
+    <div class="sys-card soon">
+      <span class="tag">Planned</span>
+      <div class="ic">&#128123;</div>
+      <h2>Death &amp; Leagues</h2>
+      <p>The four death pipelines, crypts, soul gems, and season migration.</p>
+    </div>
+    <div class="sys-card soon">
+      <span class="tag">Planned</span>
+      <div class="ic">&#10024;</div>
+      <h2>Mutant Variants</h2>
+      <p>Rare cosmetic roll odds and how variants surface across the roster.</p>
+    </div>
+    <div class="sys-card soon">
+      <span class="tag">Planned</span>
+      <div class="ic">&#9881;</div>
+      <h2>Grade Multiplier</h2>
+      <p>The shared stat multiplier applied by creature grade across all creatures.</p>
+    </div>
+  </div>
+</div>
+
+<script src="admin.js"></script>
+<script src="nav.js"></script>
+</body>
+</html>
