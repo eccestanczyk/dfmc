@@ -39,7 +39,7 @@
 </main>
 
 <script>
-const CREATURES_URL = "https://raw.githubusercontent.com/eccestanczyk/dfmc/main/codex/creatures.csv";
+const CREATURES_URL = "codex/creatures.csv";
 
 function parseCSV(text) {
   const rows = [];
@@ -119,7 +119,7 @@ async function load() {
     document.getElementById('type-count').textContent = matches.length + ' creature' + (matches.length === 1 ? '' : 's') + ' bear this type';
 
     try {
-      const gloss = await fetch("https://raw.githubusercontent.com/eccestanczyk/dfmc/main/codex/type_glossary.json?t=" + Date.now()).then(r => r.json());
+      const gloss = await fetch("codex/type_glossary.json?t=" + Date.now()).then(r => r.json());
       const g = gloss[type];
       if (g) document.getElementById('type-glossary').innerHTML =
         `<p style="color:#e8d9b8;font-size:14px;line-height:1.5;">${escapeHtml(g.definition)}</p>`
