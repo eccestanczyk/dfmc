@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grade Multiplier — Herumon Tower</title>
+<link rel="stylesheet" href="theme.css">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">GRADE MULTIPLIER</h1></div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; Grade Multiplier</div>
+  <p class="sp-lead">Every creature has a quality grade from Worn to Void. Grade applies one shared multiplier to a creature's stats &mdash; identical across every species &mdash; so grade is a clean, universal power axis independent of type or role.</p>
+
+  <h2>The multiplier</h2>
+  <p>Base stats come from axis grade + level. That base is then scaled by the quality multiplier:</p>
+  <p style="text-align:center;font-size:16px;"><code>QM = 0.80 + 0.04 &times; qualityGrade</code></p>
+  <ul class="sp-rules">
+    <li>Applies to <strong>Offense, Defense, Utility, and HP</strong>.</li>
+    <li><strong>Never applies to Speed</strong> &mdash; Speed equals axis grade flat (1&ndash;10), with no quality, level, or gear scaling.</li>
+    <li>Grade is set at hatch (egg grade becomes the creature's grade) and is the same for all species: a Void creature and a Worn creature of the same axis grades differ only by this multiplier.</li>
+  </ul>
+
+  <h2>Full ladder</h2>
+  <table>
+    <tr><th>#</th><th>Grade</th><th>Multiplier</th><th>vs baseline (Epic ×1.00)</th></tr>
+    <tbody id="gBody"></tbody>
+  </table>
+  <div class="sp-chart"><canvas id="gChart" width="760" height="260"></canvas></div>
+  <p style="font-size:13px;color:var(--ink-faint)">Range spans ×0.84 (Worn) to ×1.20 (Void) &mdash; a <strong style="color:var(--ink)">43% spread</strong> from floor to ceiling. Epic (grade&nbsp;5) is the ×1.00 anchor.</p>
+
+  <div class="sp-note">Grade is one of two independent gear/creature power axes. It differs from equipment <a href="item.html">refinement</a> (+1&hellip;+10) and from axis grade (which shapes a creature's stat <em>distribution</em>). Full numerical stat tables live in the <a href="stat-tables.html">Stat &amp; Equipment Tables</a>.</div>
+</div>
+
+<script>
+var GRADES=[['Worn','#c2ae8b'],['Common','#c2ae8b'],['Uncommon','#1eff00'],['Rare','#0070dd'],['Epic','#a335ee'],['Legendary','#ff8000'],['Abyssal','#e5393f'],['Divine','#00ffe0'],['Primordial','#ff44cc'],['Void','#a855f7']];
+function qm(g){ return 0.80+0.04*g; }
+(function(){
+  var body=document.getElementById('gBody');
+  GRADES.forEach(function(gr,i){
+    var g=i+1, m=qm(g), rel=Math.round((m/1.00-1)*100);
+    body.insertAdjacentHTML('beforeend','<tr><td>'+g+'</td><td class="lbl" style="color:'+gr[1]+';font-weight:600;">'+gr[0]+'</td><td>&times;'+m.toFixed(2)+'</td><td>'+(rel>=0?'+':'')+rel+'%</td></tr>');
+  });
+})();
+(function(){
+  var cv=document.getElementById('gChart'), ctx=cv.getContext('2d');
+  var W=cv.width,H=cv.height, ml=44,mr=16,mt=16,mb=40;
+  var minV=0.80,maxV=1.24, n=GRADES.length, bw=(W-ml-mr)/n*0.62, gap=(W-ml-mr)/n;
+  function py(v){ return mt+(1-(v-minV)/(maxV-minV))*(H-mt-mb); }
+  ctx.clearRect(0,0,W,H);
+  ctx.strokeStyle='#3a2c1a'; ctx.fillStyle='#8a7a5e'; ctx.font="11px 'Cinzel',serif";
+  [0.84,0.92,1.00,1.08,1.16,1.20].forEach(function(v){ var y=py(v); ctx.beginPath(); ctx.moveTo(ml,y); ctx.lineTo(W-mr,y); ctx.stroke(); ctx.fillText('\u00D7'+v.toFixed(2),4,y+4); });
+  var y1=py(1.00); ctx.strokeStyle='#cfa650'; ctx.setLineDash([4,4]); ctx.beginPath(); ctx.moveTo(ml,y1); ctx.lineTo(W-mr,y1); ctx.stroke(); ctx.setLineDash([]);
+  GRADES.forEach(function(gr,i){
+    var g=i+1, x=ml+gap*i+ (gap-bw)/2, y=py(qm(g));
+    ctx.fillStyle=gr[1]; ctx.globalAlpha=0.85; ctx.fillRect(x,y,bw,py(minV)-y); ctx.globalAlpha=1;
+    ctx.fillStyle='#8a7a5e'; ctx.font="9px 'Cinzel',serif"; ctx.textAlign='center'; ctx.fillText(gr[0].slice(0,4), x+bw/2, H-mb+14); ctx.textAlign='left';
+  });
+})();
+</script>
+<script src="admin.js"></script>
+<script src="nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Death &amp; Leagues — Herumon Tower</title>
+<link rel="stylesheet" href="theme.css">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">DEATH &amp; LEAGUES</h1></div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; Death &amp; Leagues</div>
+  <p class="sp-lead">Every account holds one character in every unlocked league, each starting at level&nbsp;1. The character slot is permanent &mdash; death never removes or moves it. What death costs depends on the league.</p>
+
+  <h2>The four leagues</h2>
+  <div class="sp-cards">
+    <div class="sp-tile"><h4 style="color:#bda6e8;">Eternal</h4><p>Soft death: stay on the floor, streak resets, character unchanged. Houses the Eternal crypt and receives contents migrated from seasonal leagues.</p></div>
+    <div class="sp-tile"><h4 style="color:#dd5646;">Hardcore</h4><p>On death the character is wiped to level&nbsp;1 and stays in Hardcore. All items, creatures, and class XP (as Soul Gems) go to the Eternal crypt.</p></div>
+    <div class="sp-tile"><h4 style="color:#cfa650;">Seasonal</h4><p>Soft death like Eternal. Timed league; at season end the character migrates to Eternal and the Seasonal crypt is delivered to the Eternal crypt.</p></div>
+    <div class="sp-tile"><h4 style="color:#e0803c;">HC Seasonal</h4><p>On death, wiped to level&nbsp;1 in place; items go to the Seasonal crypt. At season end the HC Seasonal crypt is delivered to the Hardcore crypt.</p></div>
+  </div>
+
+  <h2>Death table</h2>
+  <table>
+    <tr><th>League</th><th>On death</th><th>Character after</th><th>Items go to</th></tr>
+    <tr><td class="lbl" style="color:#bda6e8;">Eternal</td><td>Soft &mdash; streak resets</td><td>Unchanged</td><td>&mdash;</td></tr>
+    <tr><td class="lbl" style="color:#dd5646;">Hardcore</td><td>Wiped to level 1</td><td>Stays, level 1</td><td>Eternal crypt</td></tr>
+    <tr><td class="lbl" style="color:#cfa650;">Seasonal</td><td>Soft &mdash; streak resets</td><td>Unchanged</td><td>&mdash;</td></tr>
+    <tr><td class="lbl" style="color:#e0803c;">HC Seasonal</td><td>Wiped to level 1</td><td>Stays, level 1</td><td>Seasonal crypt</td></tr>
+  </table>
+
+  <h2>Soul Gems</h2>
+  <p>When a hardcore character is wiped, one <strong style="color:var(--ink)">Soul Gem</strong> is generated per class they had any XP in, deposited in the crypt. Rank scales with the XP amount. Consuming a gem grants that XP to the surviving character's matching class &mdash; softening a wipe without erasing the loss.</p>
+
+  <h2>One character at a time</h2>
+  <ul class="sp-rules">
+    <li>The game simulates <strong>one league character at a time</strong>. Switching leagues switches the active character and pauses the previous one entirely.</li>
+    <li>There is no offline progression &mdash; being in-game is the only way to advance. Economy is balanced in battles for this one active character (~30 battles/hour on autoplay).</li>
+    <li>The character slot is permanent in every league; even a hardcore wipe leaves the character in place at level&nbsp;1.</li>
+  </ul>
+
+  <div class="sp-note">Hardcore stakes scale with the leveling curve: a relevel to 67 is ~30&nbsp;h, but a death at level&nbsp;95+ costs weeks. See <a href="system-xp.html">XP &amp; Leveling</a> for the full curve. In-battle defeat (not permadeath) is covered under <a href="system-streak.html">Win Streak &amp; Floors</a>.</div>
+</div>
+<script src="admin.js"></script>
+<script src="nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mutant Variants — Herumon Tower</title>
+<link rel="stylesheet" href="theme.css">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">MUTANT VARIANTS</h1></div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; Mutant Variants</div>
+  <p class="sp-lead">Any egg can hatch as a Mutant &mdash; a creature with an alternate colour scheme from a rare pigmentation mutation. It is <strong style="color:var(--ink)">purely cosmetic</strong>: a medal on the creature sheet and a recoloured palette, with no effect on stats or gameplay.</p>
+
+  <h2>Hatch chance by egg grade</h2>
+  <p>Chance scales with egg grade. Completing the Codex adds a permanent flat <code>+0.1%</code> to every mutant hatch chance.</p>
+  <table>
+    <tr><th>Egg grade</th><th>Base chance</th><th>With Codex bonus</th></tr>
+    <tbody id="mBody"></tbody>
+  </table>
+
+  <h2>How it behaves</h2>
+  <ul class="sp-rules">
+    <li><strong>Cosmetic only</strong> &mdash; grants a medal and a recoloured palette; identical stats, moves, and grade to a normal hatch.</li>
+    <li><strong>Codex completion bonus</strong> &mdash; a permanent +0.1% added to all grades once the Codex is complete, roughly doubling the low end and lifting the ceiling to 0.20%.</li>
+    <li><strong>Fusion carries it forward</strong> &mdash; fusing two creatures combines their XP and keeps the higher grade; the result is a Mutant if <em>either</em> parent was one.</li>
+  </ul>
+
+  <div class="sp-note">Even at the Void ceiling the base rate is 0.10% (1 in 1,000), so Mutants stay a genuine rarity flex. Because fusion passes the trait on, a single Mutant hatch can seed a lineage of recoloured fusions.</div>
+</div>
+
+<script>
+var ROWS=[['Worn','#c2ae8b',0.01],['Common','#c2ae8b',0.02],['Uncommon','#1eff00',0.03],['Rare','#0070dd',0.04],['Epic','#a335ee',0.05],['Legendary','#ff8000',0.06],['Abyssal','#e5393f',0.07],['Divine','#00ffe0',0.08],['Primordial','#ff44cc',0.09],['Void','#a855f7',0.10]];
+(function(){
+  var body=document.getElementById('mBody');
+  ROWS.forEach(function(r){
+    body.insertAdjacentHTML('beforeend','<tr><td class="lbl" style="color:'+r[1]+';font-weight:600;">'+r[0]+'</td><td>'+r[2].toFixed(2)+'%</td><td>'+(r[2]+0.1).toFixed(2)+'%</td></tr>');
+  });
+})();
+</script>
+<script src="admin.js"></script>
+<script src="nav.js"></script>
+</body>
+</html>

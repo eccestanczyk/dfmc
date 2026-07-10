@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XP &amp; Leveling — Herumon Tower</title>
+<link rel="stylesheet" href="theme.css">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">XP &amp; LEVELING</h1></div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; XP &amp; Leveling</div>
+  <p class="sp-lead">Two-phase leveling built for an autoplay climb: a gentle journey to level&nbsp;66 that opens the whole tower fast, then a steep geometric endgame that carries hundreds of hours.</p>
+
+  <h2>Formulas</h2>
+  <table>
+    <tr><th>Quantity</th><th>Expression</th></tr>
+    <tr><td class="lbl">XP required, levels 1&ndash;66</td><td><code>10 &times; L^1.75</code></td></tr>
+    <tr><td class="lbl">XP required, levels 67&ndash;100</td><td><code>234 &times; L &times; 1.16^(L&minus;67)</code></td></tr>
+    <tr><td class="lbl">XP per kill (enemy level C)</td><td><code>10 &times; C</code></td></tr>
+    <tr><td class="lbl">Battles per level</td><td><code>L^0.75</code>, then <code>23.4 &times; 1.16^(L&minus;67)</code></td></tr>
+  </table>
+  <p>The two phases are continuous at level&nbsp;67. XP per kill is flat in the enemy's level, so the battle counts below follow directly from the requirement curve.</p>
+
+  <h2>Battles-per-level curve</h2>
+  <div class="sp-chart"><canvas id="xpChart" width="760" height="330"></canvas></div>
+  <p style="font-size:13px;color:var(--ink-faint)">Log scale. The knee at level&nbsp;67 is where the gentle phase hands off to the +16%-per-level geometric phase.</p>
+
+  <h2>Milestones</h2>
+  <table>
+    <tr><th>Level</th><th>Battles at that level</th><th>Cumulative battles</th><th>Cumulative time*</th></tr>
+    <tbody id="mileBody"></tbody>
+  </table>
+  <p style="font-size:12px;color:var(--ink-faint)">*At ~2&nbsp;minutes per battle on autoplay (~30 battles/hour).</p>
+
+  <div class="sp-note">The curve is deliberately back-loaded: about <strong style="color:var(--ink)">75% of all leveling time sits in levels 90&ndash;100</strong>, and 50% in the last five levels. Total to max: <strong style="color:var(--ink)">~20,300 battles &asymp; 680&nbsp;h</strong>. Reaching level&nbsp;67 &mdash; where wild Stage&nbsp;3 creatures appear &mdash; takes only ~885 battles (~30&nbsp;h).</div>
+
+  <h2>Who receives XP</h2>
+  <ul class="sp-rules">
+    <li>End-of-battle XP goes to <strong>every creature in the party and the avatar</strong>, not only the participants.</li>
+    <li><strong>Dying in battle does not forfeit XP</strong> — a fainted creature or downed avatar still receives its full share.</li>
+    <li>Each recipient's XP is then scaled by the level gap to the defeated enemy. See <a href="system-level-penalty.html">Level Penalty</a> for the full curve.</li>
+  </ul>
+  <div class="sp-note">Hardcore implication: death wipes a character to level&nbsp;1. The relevel to 67 is ~30&nbsp;h of autoplay, but a death at level&nbsp;95+ costs a dedicated player weeks — high stakes by design. See <a href="system-leagues.html">Death &amp; Leagues</a>.</div>
+</div>
+
+<script>
+function battlesAt(L){ return L<=66 ? Math.pow(L,0.75) : 23.4*Math.pow(1.16, L-67); }
+(function(){
+  var body=document.getElementById('mileBody');
+  var cum=0, rows=[], marks={1:1,10:1,25:1,50:1,67:1,80:1,90:1,95:1,99:1,100:1};
+  for(var L=1;L<=100;L++){ cum+=battlesAt(L); if(marks[L]){ rows.push([L, Math.round(battlesAt(L)), Math.round(cum)]); } }
+  rows.forEach(function(r){
+    var hrs=r[2]/30, t = hrs<48? Math.round(hrs)+' h' : Math.round(hrs/24)+' days';
+    body.insertAdjacentHTML('beforeend','<tr><td class="lbl">'+r[0]+'</td><td>'+r[1].toLocaleString()+'</td><td>'+r[2].toLocaleString()+'</td><td>'+t+'</td></tr>');
+  });
+})();
+(function(){
+  var cv=document.getElementById('xpChart'), ctx=cv.getContext('2d');
+  var W=cv.width,H=cv.height, ml=54,mr=16,mt=16,mb=34;
+  var minY=Math.log10(0.8), maxY=Math.log10(3000);
+  function px(L){ return ml+(L-1)/99*(W-ml-mr); }
+  function py(v){ var t=(Math.log10(v)-minY)/(maxY-minY); return mt+(1-t)*(H-mt-mb); }
+  ctx.clearRect(0,0,W,H);
+  ctx.strokeStyle='#3a2c1a'; ctx.fillStyle='#8a7a5e'; ctx.font="11px 'Cinzel',serif";
+  [1,10,100,1000].forEach(function(v){ var y=py(v); ctx.beginPath(); ctx.moveTo(ml,y); ctx.lineTo(W-mr,y); ctx.stroke(); ctx.fillText(v.toLocaleString(),6,y+4); });
+  for(var L=1;L<=100;L+=10){ var x=px(L); ctx.strokeStyle='#2a2015'; ctx.beginPath(); ctx.moveTo(x,mt); ctx.lineTo(x,H-mb); ctx.stroke(); ctx.fillStyle='#8a7a5e'; ctx.textAlign='center'; ctx.fillText(L===1?'1':L, x, H-mb+16); ctx.textAlign='left'; }
+  var x67=px(67); ctx.strokeStyle='#cfa650'; ctx.setLineDash([4,4]); ctx.beginPath(); ctx.moveTo(x67,mt); ctx.lineTo(x67,H-mb); ctx.stroke(); ctx.setLineDash([]);
+  ctx.fillStyle='#cfa650'; ctx.textAlign='center'; ctx.fillText('L67', x67, mt+12); ctx.textAlign='left';
+  ctx.lineWidth=2.4; ctx.strokeStyle='#dd5646'; ctx.beginPath();
+  for(var L=1;L<=100;L++){ var xx=px(L), yy=py(battlesAt(L)); if(L===1)ctx.moveTo(xx,yy); else ctx.lineTo(xx,yy); } ctx.stroke();
+  ctx.fillStyle='#c2ae8b'; ctx.font="12px 'Cinzel',serif"; ctx.textAlign='center';
+  ctx.fillText('character level  \u2192', W/2, H-4);
+  ctx.save(); ctx.translate(14,H/2); ctx.rotate(-Math.PI/2); ctx.fillText('battles per level (log)',0,0); ctx.restore(); ctx.textAlign='left';
+})();
+</script>
+<script src="admin.js"></script>
+<script src="nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Win Streak &amp; Floors — Herumon Tower</title>
+<link rel="stylesheet" href="theme.css">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">WIN STREAK &amp; FLOORS</h1></div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; Win Streak &amp; Floors</div>
+  <p class="sp-lead">The tower is 100 floors &mdash; 10 zones of 10. Each floor is cleared by winning a streak of consecutive battles; a single loss resets the streak to zero. Difficulty pressure comes from that reset, not from resource attrition.</p>
+
+  <h2>Clear condition</h2>
+  <ul class="sp-rules">
+    <li>Win a streak of consecutive battles on a floor to open the portal to the next floor. Threshold: <code>ceil(floor^0.65)</code>.</li>
+    <li><strong>Losing a battle resets the streak to zero.</strong> You are not removed from the floor &mdash; the team stays put and rebuilds. No forced exit, no floor lock, no return to floor-select.</li>
+    <li><strong>Boss floors (every 10th) always require exactly 1 battle</strong> &mdash; the boss fight itself. No wild encounters on boss floors.</li>
+    <li><strong>Full HP is restored after every battle,</strong> win or lose. Healing items were removed entirely; attrition exists only within a single battle.</li>
+  </ul>
+
+  <h2>Threshold by floor</h2>
+  <div class="sp-chart"><canvas id="stChart" width="760" height="300"></canvas></div>
+  <table>
+    <tr><th>Floor</th><th>Wins to clear</th><th>Floor</th><th>Wins to clear</th></tr>
+    <tbody id="stBody"></tbody>
+  </table>
+  <p style="font-size:13px;color:var(--ink-faint)">Boss floors (10, 20, &hellip; 100) override the formula: always 1 battle.</p>
+
+  <h2>Streak counter</h2>
+  <p>After every battle a compact rectangle shows <strong style="color:var(--ink)">X / Y</strong> (wins / threshold). On a win, X scrolls up and the text pops briefly; on a loss, the rectangle cracks and X rolls back down to 0. It only appears on floors not yet cleared.</p>
+
+  <h2>Autoplay behaviour</h2>
+  <div class="sp-cards">
+    <div class="sp-tile"><h4>Auto-advance floors</h4><p>When the threshold is met and the portal opens, advance automatically. Off &rarr; keep farming the current floor. Autoplay never auto-enters boss rooms.</p></div>
+    <div class="sp-tile"><h4>On death</h4><p><strong>Stay</strong> &mdash; remain on the floor and rebuild the streak. <strong>Go down</strong> &mdash; drop one floor and continue there.</p></div>
+  </div>
+
+  <div class="sp-note">Wild creature levels scale with floor (floor&nbsp;&plusmn;3, bell-distributed), and floor equals level &mdash; so the streak threshold and the enemy levels both climb together as you ascend. Which evolutionary stage appears in the wild is governed per line by <a href="system-level-penalty.html">evolution levels</a>, not by floor bands.</div>
+</div>
+
+<script>
+function threshold(f){ return Math.ceil(Math.pow(f,0.65)); }
+(function(){
+  var body=document.getElementById('stBody');
+  var left=[1,10,20,30,40,50], right=[60,70,80,90,99,100];
+  for(var i=0;i<left.length;i++){
+    var a=left[i], b=right[i];
+    var ta=(a%10===0)?'1 (boss)':threshold(a);
+    var tb=(b%10===0)?'1 (boss)':threshold(b);
+    body.insertAdjacentHTML('beforeend','<tr><td class="lbl">'+a+'</td><td>'+ta+'</td><td class="lbl">'+b+'</td><td>'+tb+'</td></tr>');
+  }
+})();
+(function(){
+  var cv=document.getElementById('stChart'), ctx=cv.getContext('2d');
+  var W=cv.width,H=cv.height, ml=44,mr=16,mt=16,mb=34, maxV=22;
+  function px(f){ return ml+(f-1)/99*(W-ml-mr); }
+  function py(v){ return mt+(1-v/maxV)*(H-mt-mb); }
+  ctx.clearRect(0,0,W,H);
+  ctx.strokeStyle='#3a2c1a'; ctx.fillStyle='#8a7a5e'; ctx.font="11px 'Cinzel',serif";
+  for(var v=0;v<=maxV;v+=5){ var y=py(v); ctx.beginPath(); ctx.moveTo(ml,y); ctx.lineTo(W-mr,y); ctx.stroke(); ctx.fillText(v,20,y+4); }
+  for(var f=1;f<=100;f+=10){ var x=px(f); ctx.strokeStyle='#2a2015'; ctx.beginPath(); ctx.moveTo(x,mt); ctx.lineTo(x,H-mb); ctx.stroke(); ctx.fillStyle='#8a7a5e'; ctx.textAlign='center'; ctx.fillText(f===1?'1':f,x,H-mb+16); ctx.textAlign='left'; }
+  ctx.lineWidth=2.4; ctx.strokeStyle='#cfa650'; ctx.beginPath();
+  for(var f=1;f<=100;f++){ var xx=px(f), yy=py(threshold(f)); if(f===1)ctx.moveTo(xx,yy); else ctx.lineTo(xx,yy); } ctx.stroke();
+  // boss markers
+  ctx.fillStyle='#dd5646';
+  for(var f=10;f<=100;f+=10){ var x=px(f),y=py(1); ctx.beginPath(); ctx.arc(x,y,3,0,7); ctx.fill(); }
+  ctx.fillStyle='#c2ae8b'; ctx.font="12px 'Cinzel',serif"; ctx.textAlign='center';
+  ctx.fillText('floor  \u2192', W/2, H-4);
+  ctx.save(); ctx.translate(13,H/2); ctx.rotate(-Math.PI/2); ctx.fillText('wins to clear',0,0); ctx.restore(); ctx.textAlign='left';
+  ctx.fillStyle='#dd5646'; ctx.font="10px 'Cinzel',serif"; ctx.fillText('\u25CF boss floors = 1', ml+8, mt+12);
+})();
+</script>
+<script src="admin.js"></script>
+<script src="nav.js"></script>
+</body>
+</html>
