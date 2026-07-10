@@ -21,7 +21,11 @@
     { href: 'type-glossary.html',  label: 'Type Glossary' },
     { href: 'floor-codex.html',    label: 'Floor Map' },
     { href: 'reliquary.html',      label: 'Reliquary' },
-    { href: 'index.html?tab=equipment', label: 'Crafting' },
+  { href: 'moves.html',          label: 'Moves' },
+  { href: 'classes.html',        label: 'Classes' },
+    { href: 'crafting.html',       label: 'Crafting' },
+  { href: 'upgrading.html',      label: 'Upgrading' },
+  { href: 'stat-tables.html',    label: 'Stat Tables' },
     { href: 'other-systems.html',  label: 'Other Systems' },
     { href: 'index.html',          label: 'Game Design Document' },
   ];
