@@ -398,7 +398,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     <div class="grid-2">
       <div class="card">
         <div class="card-title">🏆 Win condition</div>
-        <div class="card-body">Win a streak of consecutive battles on a floor to open the portal. Threshold scales with floor depth: <code>ceil(floor<sup>0.65</sup>)</code> — floor 1 needs 1 win, floor 10 needs ~4, floor 50 needs ~13, floor 100 needs ~20. <strong style="color:#dd5646">Losing a battle resets the streak to zero.</strong> Boss floors always require exactly 1 battle (the boss fight).</div>
+        <div class="card-body">Win a streak of consecutive battles on a floor to open the portal. Threshold scales with floor depth: <code>ceil(floor<sup>0.65</sup>)</code> — floor 1 needs 1 win, floor 10 needs ~4, floor 50 needs ~13, floor 100 needs ~20. <strong style="color:#dd5646">Losing a battle resets the streak to zero.</strong> There is no fleeing and no forfeit — every battle is do-or-die. Boss floors always require exactly 1 battle (the boss fight).</div>
       </div>
       <div class="card">
         <div class="card-title">👑 Boss floors</div>
@@ -523,7 +523,8 @@ FinalDamage = RawDamage
       <tr><td>Riders</td><td>120-power carries one named debuff at CD2; 160-power carries a strong debuff or second component at CD3–4; 50-power can carry a strong effect at CD0–1; 0-power status moves carry very strong effects at CD1–4.</td></tr>
       <tr><td>Named debuffs only</td><td>No generic statuses. Every buff/debuff is named and owned by one move (e.g. <em>Mothervenom</em> belongs to Echidna's Viper Spit). Families: Shred (−Def), Sap (−Off), Mire (−Speed stages), named DoTs, Marks (+damage taken), and rare action-denial.</td></tr>
       <tr><td>NO TYPE CHART</td><td>There is no global type-effectiveness matrix and never will be. All type interaction lives inside individual moves: <strong>Synergy</strong> clauses — a move is empowered by allied types in one of three ways: (a) an ally of a certain type <em>on the field</em> boosts the move (+20–50% band); (b) the move is stronger when it <em>targets</em> an ally of a certain type (buffs/heals, +20–50% band); or (c) the move <em>gains an added effect</em> when used on an ally of a certain type and <strong>Anti</strong> clauses (bonus vs specific target types, +30–60% band, thematically justified). Every type appears as both a synergy-giver and an anti-target.</td></tr>
-      <tr><td>Kit shape by stat profile</td><td>Strikers (O8–10): spam → utility-lite → Heavy CD2 → Nuke CD3–4 signature. Walls (D8–10): Def buffs, reflection, chip. Utility (U8–10): strong named debuffs/buffs, the game's few heals (7 healers game-wide), damage held to Light/Standard. Speed (S8–10): first-strike riders and momentum.</td></tr>
+      <tr><td>Slot order</td><td><strong>Slot 1 = signature</strong> (the line's strongest damage move), slot 2 = secondary damage, slots 3–4 = support/status where the line has them. Lines with three damage moves place the third at slot 3. On the Soul Joker this puts every creature's signature on the character's Main Hand.</td></tr>
+      <tr><td>Kit shape by stat profile</td><td>Strikers (O8–10): Nuke CD3–4 signature, Heavy CD2, spam fillers. Walls (D8–10): Def buffs, reflection, chip. Utility (U8–10): strong named debuffs/buffs, the game's few heals (7 healers game-wide), damage held to Light/Standard. Speed (S8–10): first-strike riders and momentum.</td></tr>
       <tr><td>Speed stages</td><td>In-battle Speed buffs/debuffs are the only thing that modifies turn order. They are temporary stages (±1, ±2), never gear.</td></tr>
     </table>
 
@@ -541,6 +542,14 @@ FinalDamage = RawDamage
       <li>In battle: <strong>2 creatures + the character</strong></li>
       <li>Only 1 of each creature species per party</li>
       <li>PvP tournaments: +3 creatures on the bench for sideboarding between matches in a Bo3</li>
+    </ul>
+
+    <h3>Auto-mode rules</h3>
+    <ul>
+      <li>Auto-mode can be toggled on and off <strong>mid-battle</strong> — turning it off hands the player the reins from the next turn selection onward; turning it on resumes AI selection.</li>
+      <li>Auto-mode <strong>never auto-advances into a boss room</strong>. Boss floors are manual-entry only.</li>
+      <li>If the current zone's boss is already beaten and the next floor is unlocked, auto-mode advances to that next floor; otherwise it keeps farming the current floor.</li>
+      <li>Once inside a boss room with auto-mode on, the boss fight can be auto-cleared, and auto-repeated for as long as the player has Keys. When the Keys run out, auto-mode returns to the previous floor it was farming.</li>
     </ul>
 
     <p>The base formula follows the proven Pokémon/Coromon core. The increased/more split (from Path of Exile) is bolted onto the modifier chain — <strong style="color:#ede0c4">increased</strong> sources add together (diminishing returns within a category), <strong style="color:#ede0c4">more</strong> sources multiply (always valuable). This rewards diversifying modifier sources over stacking one type.</p>
@@ -1182,7 +1191,7 @@ Your Backend
     <div class="note note-info"><p><strong>Physical base</strong> — the original design included a physical base the Collector could walk around in, with tile-based farming, craftings stations, a hatchery building, and a crypt chest to interact with. This has been replaced entirely by UI panels accessible during PvE floors. A physical base may be reintroduced in a future content update as an optional social/cosmetic space.</p></div>
     <div class="note note-info"><p><strong>Isometric Exploration</strong> — the original prototype used top-down Gen II–style grid movement with a player avatar, tile-based encounter triggers (grass/cave/fishing), and autoplay pathfinding. Archived in favor of the Simplified Static approach for faster prototyping. The full grid-movement system can be restored from the archived roadmap above.</p></div>
 
-    <h3>Open decisions</h3>
+    <h3>Deferred decisions — parked on the roadmap, to be decided later</h3>
     <ul>
       <li>Cosmetics-only vs convenience items in shop</li>
       <li>Breed count limit per creature</li>
@@ -1193,9 +1202,9 @@ Your Backend
       <li>Skill tree node graphs for all six class lines</li>
       <li>Number of chests per floor (the "x" in the x/x chest tracker)</li>
       <li>Key drop rate per battle on pre-boss floors</li>
-      <li>Wild-encounter creature levels per floor — no rule defined yet (proposal: wild level ≈ floor number, ±2 band, so floor 37 spawns L35–39)</li>
       <li>Boss reserve mechanics — bosses field 2 active + 4 reserve, but reserve behavior is undefined (waves on KO? mid-battle swaps?)</li>
       <li>Boss team compositions — all 10 rows in codex/bosses.csv are TBD</li>
+      <li><em>Testing decision (post-playtest):</em> PvP stall behavior in double-defensive comps — options: damage escalation after turn N, hard turn cap with HP% tiebreak, or larger cooldowns on support moves</li>
       <li>Whether chest contents reset along with the win streak on floor re-entry, or remain collected permanently</li>
     </ul>
   </div>
@@ -1297,7 +1306,7 @@ Your Backend
     <p style="font-size:13px;color:#c2ae8b">Only floor 1 is guaranteed Outdoors, and only floors 1–3 (Grasslands) are guaranteed one of each floor theme — that rule applies to the very first zone only. Every other zone just needs all three themes represented somewhere across its 10 floors. Boss floor is always the 10th floor of each zone (not the 5th), and boss floors carry no wild encounters.</p>
 
     <h3>Zone bosses</h3>
-    <p>Every 10th floor (10, 20, … 100) is a zone boss and has <strong style="color:#ede0c4">no wild encounters</strong>. A boss is a full team like the player's — a <strong style="color:#ede0c4">character plus 2 active creatures and 4 in reserve</strong> — not a wild creature. The SSR flagship creatures (Dagon, Ouroboros, Kraken, …) are rare <em>wild</em> encounters on ordinary floors, not the bosses.</p>
+    <p>Every 10th floor (10, 20, … 100) is a zone boss and has <strong style="color:#ede0c4">no wild encounters</strong>. A boss is a full team like the player's — a <strong style="color:#ede0c4">character plus 2 active creatures and 4 in reserve</strong> — not a wild creature. When an active boss creature is KO'd, the next reserve switches in immediately, in fixed order (Reserve_1 → Reserve_4); the fight is one continuous battle against up to 7 entities. The SSR flagship creatures (Dagon, Ouroboros, Kraken, …) are rare <em>wild</em> encounters on ordinary floors, not the bosses.</p>
     <p style="font-size:13px;color:#c2ae8b">Bosses scale up considerably each zone: floor 10 is the weakest, floor 100 the hardest of the base tower. Definitions live in <code>codex/bosses.csv</code> (team fields currently <code>TBD</code>). Post-level-100 content — deeper floors with fully-optimized boss teams — is out of scope for now and noted for later.</p>
 
     <h3>Creature types</h3>
