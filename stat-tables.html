@@ -39,9 +39,9 @@ Character HP:       12 × level + 100          Character Offense: level + 10
 Character Defense:  level + 10                Character Utility: 0.8 × level + 8
 Character Speed:    15 (flat, no gear or tree sources — only in-battle stat stages)
 
-Damage:  RawDamage   = ((2 × Level / 5 + 2) × MovePower × Offense / Defense) / 80 + 2
-         FinalDamage = RawDamage × CritMod × Random(0.85–1.0) × (1 + Σ increased%) × Π(more)
-         No STAB, no TypeMod — moves are untyped; Synergy/Anti clauses apply inside Π(more).</pre>
+Damage:  RawDamage   = ((2 × Level / 5 + 2) × MovePower × Offense / Defense) / 120 + 2
+         FinalDamage = RawDamage × STAB × CritMod × Random(0.85–1.0) × (1 + Σ increased%) × Π(more)
+         Characters have no creature type → no STAB (creatures: ×1.5 on own-type moves).</pre>
 <div class="note">The earlier Battle System formula <code>(g×6+2)×L/100+g×3</code> was inconsistent with its own level-100 table; the revised base-stat formula above reproduces the committed table exactly (grade×30+50 at level 100) and keeps grade ratios level-invariant. HP was re-curved linear-in-level so turns-to-kill stays constant while leveling.</div>
 
 <h3>Move power bands</h3>
@@ -82,14 +82,14 @@ Damage:  RawDamage   = ((2 × Level / 5 + 2) × MovePower × Offense / Defense) 
 <tr><td>Team (all allies)</td><td><code>+(0.5 + 0.55 × grade)%</code> per ally</td><td>+1%</td><td>+3.8%</td><td>+6%</td></tr></table>
 
 <h2>10 — Validation results</h2>
-<p>Per-unit turns-to-kill. Standard rotation for regular play (Power 80); optimized loadouts use heavy-move rotation (avg Power 100) with +20% increased from enchantments. 5% crit, average damage roll. No STAB — divisor 80 applies to creatures and characters alike.</p>
+<p>Per-unit turns-to-kill. Standard rotation for regular play (Power 80); optimized loadouts use heavy-move rotation (avg Power 100) with +20% increased from enchantments. STAB ×1.5 (creatures), 5% crit, average damage roll.</p>
 <div class='scroll'><table>
 <tr><th>Level</th><th>Naked mirror g6</th><th>PvE trash</th><th>Wild retaliation</th><th>Striker→Wall</th><th>Striker→Striker</th><th>Char→Wall</th><th>Striker→Char</th></tr>
 <tr><td>1</td><td>5</td><td>3</td><td>5</td><td>11</td><td>3</td><td>—</td><td>—</td></tr>
 <tr><td>25</td><td>5</td><td>2</td><td>5</td><td>9</td><td>2</td><td>—</td><td>—</td></tr>
-<tr><td>50</td><td>5</td><td>2</td><td>6</td><td>9</td><td>2</td><td>15</td><td>5</td></tr>
-<tr><td>75</td><td>5</td><td>2</td><td>7</td><td>9</td><td>2</td><td>9</td><td>9</td></tr>
-<tr><td>100</td><td>5</td><td>2</td><td>8</td><td>9</td><td>2</td><td>7</td><td>12</td></tr>
+<tr><td>50</td><td>5</td><td>2</td><td>6</td><td>9</td><td>2</td><td>23</td><td>5</td></tr>
+<tr><td>75</td><td>5</td><td>2</td><td>7</td><td>9</td><td>2</td><td>13</td><td>9</td></tr>
+<tr><td>100</td><td>5</td><td>2</td><td>8</td><td>9</td><td>2</td><td>10</td><td>12</td></tr>
 </table></div>
 <table><tr><th>Check</th><th>Target</th><th>Result</th></tr>
 <tr><td>Regular PvE battle</td><td>3–5 turns</td><td>Trash dies in 2 hits; 1–2 unit encounters land 3–5 ✓</td></tr>
@@ -169,4 +169,4 @@ Optimized character (all Void +10, +30% tree):                                  
 <tr><td>One item to Void +10</td><td>~8,800 Ichor + ~43,700 Scrap expected</td><td>years</td><td>~1 year expected, p90 2+</td><td>~4 months expected</td></tr>
 <tr><td>Full 12-slot Void +10 + Void enhancements</td><td>—</td><td colspan="3">multi-year market-aggregate goal; effectively unreachable solo</td></tr></table>
 <div class="note">Every success gate is a geometric distribution — the p10/p90 spread on a single gate is ~22×. There is deliberately no pity, no failstacks, no soft ceiling: unlucky players buy from the market, lucky players sell windfalls, and that variance is the price-discovery engine for grade-5+ trade.</div>
-</div></body></html>
+<script src="nav.js"></script></div></body></html>

@@ -131,6 +131,12 @@
 
 
 
+  <section>
+    <h3>Move Progression</h3>
+    <div class="section-body">
+      <div class="pending-note">Move design not yet started for this line.</div>
+    </div>
+  </section>
 
   <section>
     <h3>Abnormal (Mutant) Variant</h3>
@@ -232,9 +238,10 @@ async function load() {
     document.getElementById('c-stage').textContent = c.Stage || '—';
     document.getElementById('c-encounter').textContent = c.Encounter_Type || '—';
 
-    let typesHtml = `<a class="type-tag" href="type.html?type=${encodeURIComponent(c.Type_Primary)}">${escapeHtml(c.Type_Primary)}</a>`;
-    if (c.Type_Secondary) typesHtml += `<a class="type-tag secondary" href="type.html?type=${encodeURIComponent(c.Type_Secondary)}">${escapeHtml(c.Type_Secondary)}</a>`;
-    if (c.Type_Tertiary) typesHtml += `<a class="type-tag tertiary" href="type.html?type=${encodeURIComponent(c.Type_Tertiary)}">${escapeHtml(c.Type_Tertiary)}</a>`;
+    const tMed = t => `<img class="tt-med" src="assets/types/${encodeURIComponent(t)}.png" alt="">`;
+    let typesHtml = `<a class="type-tag" href="type.html?type=${encodeURIComponent(c.Type_Primary)}">${tMed(c.Type_Primary)}${escapeHtml(c.Type_Primary)}</a>`;
+    if (c.Type_Secondary) typesHtml += `<a class="type-tag secondary" href="type.html?type=${encodeURIComponent(c.Type_Secondary)}">${tMed(c.Type_Secondary)}${escapeHtml(c.Type_Secondary)}</a>`;
+    if (c.Type_Tertiary) typesHtml += `<a class="type-tag tertiary" href="type.html?type=${encodeURIComponent(c.Type_Tertiary)}">${tMed(c.Type_Tertiary)}${escapeHtml(c.Type_Tertiary)}</a>`;
     document.getElementById('c-types').innerHTML = typesHtml;
 
     // Zone gradient background on the image wrapper

@@ -1,0 +1,320 @@
+/* ============================================================
+   HERUMON TOWER — ui.css · dark-fantasy chrome
+   Injected site-wide by nav.js AFTER theme.css / page styles.
+   Assets: assets/ui/* (frame strips, corners, divider, metal,
+   parchment, gem, blood, gargoyle) + assets/types/*.png
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
+
+:root{
+  --bg:#14100b; --bg-deep:#0d0a06;
+  --surface:#1e1710; --surface-2:#271e15; --surface-3:#31261a;
+  --ink:#f0e4c8; --ink-dim:#c6b28e; --ink-faint:#9c8963;
+  --blood:#7c1519; --blood-mid:#a3282a; --blood-bright:#dd5646;
+  --gold:#cfa650; --gold-bright:#e6c66d; --gold-dim:#8a6d2f;
+  --rule:#5c462c; --rule-faint:#3a2c1a;
+}
+
+/* ---------- Base type ---------- */
+body{
+  font-family:'Alegreya','EB Garamond',Georgia,serif;
+  font-size:17.5px; line-height:1.62; color:var(--ink);
+}
+::selection{ background:rgba(124,21,25,.55); color:#fff; }
+:focus-visible{ outline:1px solid var(--gold); outline-offset:2px; }
+
+/* parchment breath + ember floor over the existing bg */
+body::before{
+  content:''; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background:url("ui/parchment.jpg") repeat; background-size:520px;
+  opacity:.055; mix-blend-mode:overlay;
+}
+body::after{
+  content:''; position:fixed; left:50%; bottom:-22vh; width:130vw; height:52vh;
+  transform:translateX(-50%); z-index:-1; pointer-events:none;
+  background:radial-gradient(ellipse at center, rgba(124,21,25,.14), transparent 62%);
+}
+
+/* ---------- Scrollbar ---------- */
+::-webkit-scrollbar{ width:12px; height:12px; }
+::-webkit-scrollbar-track{ background:var(--bg-deep); }
+::-webkit-scrollbar-thumb{
+  background:linear-gradient(180deg,#3a2f20,#241b10);
+  border:1px solid var(--rule); border-radius:0;
+}
+::-webkit-scrollbar-thumb:hover{ border-color:var(--gold-dim); }
+
+/* ---------- Topbar: scratched iron ---------- */
+.topbar{
+  background:linear-gradient(180deg,rgba(0,0,0,.18),rgba(0,0,0,.55)),url("ui/metal.jpg");
+  background-size:auto,cover; background-position:center;
+  border-bottom:1px solid var(--gold-dim);
+  box-shadow:0 1px 0 rgba(0,0,0,.85), 0 2px 0 rgba(124,21,25,.45), 0 10px 26px rgba(0,0,0,.55);
+  padding:9px 20px; min-height:52px;
+  display:flex; align-items:center; gap:14px;
+  position:sticky; top:0; z-index:40; backdrop-filter:blur(2px);
+}
+.topbar h1{
+  font-family:'Cinzel',serif !important; font-weight:700 !important;
+  font-size:14px !important; letter-spacing:.26em !important;
+  color:var(--gold) !important; opacity:.92; margin:0 !important;
+  text-shadow:0 1px 1px #000, 0 0 16px rgba(124,21,25,.5) !important;
+  flex:1; text-align:center;
+}
+.site-logo{ display:flex; align-items:center; text-decoration:none; flex-shrink:0; }
+.site-logo img{ height:30px; width:auto; display:block;
+  filter:drop-shadow(0 2px 4px rgba(0,0,0,.8)); transition:filter .15s ease; }
+.site-logo:hover img{ filter:drop-shadow(0 2px 4px #000) drop-shadow(0 0 10px rgba(207,166,80,.45)); }
+
+/* nav (hamburger + dropdown) — themed via classes set in nav.js */
+.site-nav{ position:relative; z-index:50; flex-shrink:0; }
+.site-nav > button{
+  font-family:'Cinzel',serif; font-size:17px; line-height:1; cursor:pointer;
+  color:var(--gold); padding:6px 11px;
+  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(0,0,0,.4)),url("ui/metal.jpg");
+  background-size:auto,220px; border:1px solid var(--gold-dim);
+  text-shadow:0 1px 1px #000;
+  box-shadow:inset 0 1px 0 rgba(230,198,109,.15), inset 0 -5px 9px rgba(0,0,0,.5), 0 2px 5px rgba(0,0,0,.5);
+}
+.site-nav > button:hover{ color:var(--gold-bright); border-color:var(--gold);
+  box-shadow:inset 0 1px 0 rgba(230,198,109,.2), 0 0 12px rgba(207,166,80,.35); }
+.site-nav-menu{
+  display:none; position:absolute; top:100%; left:0; margin-top:8px; min-width:236px;
+  flex-direction:column; z-index:60;
+  background:linear-gradient(rgba(20,15,9,.94),rgba(20,15,9,.94)),url("ui/parchment.jpg");
+  background-size:auto,420px;
+  border:1px solid var(--gold-dim);
+  box-shadow:0 14px 34px rgba(0,0,0,.75), inset 0 0 30px rgba(0,0,0,.5);
+}
+.site-nav-menu::before{ content:''; display:block; height:3px;
+  background:linear-gradient(90deg,transparent,var(--blood-mid),transparent); }
+.site-nav-menu a{
+  font-family:'Cinzel',serif; font-size:13px; font-weight:600; letter-spacing:.05em;
+  text-decoration:none; padding:11px 16px; color:var(--ink-dim);
+  border-bottom:1px solid var(--rule-faint); transition:all .12s ease;
+}
+.site-nav-menu a:last-child{ border-bottom:none; }
+.site-nav-menu a:hover{ color:var(--gold-bright); background:rgba(124,21,25,.16); padding-left:20px; }
+.site-nav-menu a.current{ color:var(--gold); background:rgba(124,21,25,.2);
+  border-left:3px solid var(--blood-bright); }
+
+/* ---------- Ornate panels (gen'd molding + filigree corners) ---------- */
+section, .zone-block, .hero, .type-hero, .tg-card, .card, .stat-card, .flow-box{
+  position:relative;
+  border:1px solid rgba(92,70,44,.55) !important;
+  background:
+    linear-gradient(180deg, rgba(207,166,80,.05), transparent 46%),
+    linear-gradient(rgba(26,19,12,.9), rgba(26,19,12,.9)),
+    url("ui/parchment.jpg") !important;
+  background-size:auto, auto, 460px !important;
+  box-shadow:0 10px 26px rgba(0,0,0,.5), inset 0 0 70px rgba(0,0,0,.42) !important;
+}
+section::before, .zone-block::before, .hero::before, .type-hero::before,
+.tg-card::before, .card::before, .stat-card::before, .flow-box::before{
+  content:''; position:absolute; inset:-3px; pointer-events:none; z-index:1;
+  background:
+    url("ui/c_tl.png") left top    / 26px 26px no-repeat,
+    url("ui/c_tr.png") right top   / 26px 26px no-repeat,
+    url("ui/c_bl.png") left bottom / 26px 26px no-repeat,
+    url("ui/c_br.png") right bottom/ 26px 26px no-repeat,
+    url("ui/e_t.png")  left 13px top    / 34px 9px  repeat-x,
+    url("ui/e_b.png")  left 13px bottom / 34px 9px  repeat-x,
+    url("ui/e_l.png")  left  top 13px   / 10px 34px repeat-y,
+    url("ui/e_r.png")  right top 13px   / 9px  34px repeat-y;
+  background-clip:border-box;
+  filter:drop-shadow(0 1px 2px rgba(0,0,0,.7));
+}
+/* hub cards & index hover cards get glow, frame stays calm */
+.hub-card:hover, .card:hover{ box-shadow:0 10px 26px rgba(0,0,0,.5),
+  inset 0 0 70px rgba(0,0,0,.42), 0 0 18px rgba(124,21,25,.35) !important; }
+
+/* hub cards: quieter treatment (no ornate corners — keep the grid sleek) */
+.hub-card{
+  border:1px solid var(--rule) !important;
+  background:
+    linear-gradient(180deg, rgba(207,166,80,.05), transparent 50%),
+    linear-gradient(rgba(28,21,13,.92), rgba(28,21,13,.92)),
+    url("ui/parchment.jpg") !important;
+  background-size:auto,auto,420px !important;
+  box-shadow:inset 0 1px 0 rgba(207,166,80,.08), inset 0 0 50px rgba(0,0,0,.35), 0 5px 14px rgba(0,0,0,.4) !important;
+}
+.hub-card:hover{ border-color:var(--blood-bright) !important; transform:translateY(-2px); }
+.hub-icon{
+  font-size:0 !important; line-height:0; width:26px; height:30px; margin-bottom:12px !important;
+  background:url("ui/gem.png") center / contain no-repeat;
+  filter:drop-shadow(0 2px 7px rgba(124,21,25,.6));
+  opacity:1 !important;
+}
+.hub-card:hover .hub-icon{ filter:drop-shadow(0 0 9px rgba(221,86,70,.8)); }
+
+/* ---------- Headings ---------- */
+h2{
+  font-family:'Cinzel',serif !important; font-weight:700 !important;
+  letter-spacing:.08em; text-transform:uppercase;
+  color:var(--gold-bright) !important;
+  text-shadow:0 1px 2px #000, 0 0 18px rgba(124,21,25,.35);
+  border-bottom:none !important; position:relative; z-index:2;
+}
+h2::after{
+  content:''; display:block; height:15px; margin-top:7px;
+  background:url("ui/divider.png") left center / auto 15px no-repeat;
+  filter:drop-shadow(0 1px 2px #000); opacity:.95;
+}
+.type-hero h2::after, .hero h2::after{ background-position:center; }
+h3{
+  font-family:'Cinzel',serif !important; font-weight:600 !important;
+  letter-spacing:.07em; color:var(--gold) !important;
+  text-shadow:0 1px 1px #000; position:relative; z-index:2;
+}
+h3::before{
+  content:''; display:inline-block; width:11px; height:13px; margin-right:9px;
+  vertical-align:-1px; background:url("ui/gem.png") center / contain no-repeat;
+  filter:drop-shadow(0 1px 3px rgba(124,21,25,.7));
+}
+
+/* ---------- Buttons / tabs / pills ---------- */
+.nav button, .index-btn, .nav-arrows a, .type-tag, button.tab, .tab-btn{
+  font-family:'Cinzel',serif !important;
+  color:var(--gold) !important; text-shadow:0 1px 1px #000;
+  background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(0,0,0,.42)),url("ui/metal.jpg") !important;
+  background-size:auto,260px !important;
+  border:1px solid var(--gold-dim) !important;
+  box-shadow:inset 0 1px 0 rgba(230,198,109,.14), inset 0 -6px 12px rgba(0,0,0,.5), 0 2px 6px rgba(0,0,0,.5);
+  transition:all .13s ease; cursor:pointer;
+}
+.nav button:hover, .index-btn:hover, .nav-arrows a:hover, .type-tag:hover{
+  color:var(--gold-bright) !important; border-color:var(--gold) !important;
+  box-shadow:inset 0 1px 0 rgba(230,198,109,.2), 0 0 13px rgba(207,166,80,.35);
+}
+.nav button.active{
+  background:linear-gradient(180deg,#5a0f12,var(--blood) 62%,#3a0a0c) !important;
+  border-color:var(--blood-bright) !important; color:#f6ddd3 !important;
+  box-shadow:inset 0 1px 0 rgba(255,150,130,.25), 0 0 15px rgba(221,86,70,.4);
+}
+.type-tag.secondary{ border-style:dashed !important; }
+
+/* ---------- Lists: gem bullets ---------- */
+main ul, .page ul, section ul, .card ul, .note ul{ list-style:none; padding-left:4px; }
+main ul > li, .page ul > li, section ul > li, .card ul > li, .note ul > li{
+  position:relative; padding-left:23px; margin:5px 0;
+}
+main ul > li::before, .page ul > li::before, section ul > li::before,
+.card ul > li::before, .note ul > li::before{
+  content:''; position:absolute; left:2px; top:.44em;
+  width:11px; height:13px;
+  background:url("ui/gem.png") center / contain no-repeat;
+  filter:drop-shadow(0 1px 2px #000);
+}
+main ul > li::marker, .page ul > li::marker{ content:''; }
+
+/* ---------- Tables ---------- */
+table{ border-collapse:collapse; }
+th{
+  font-family:'Cinzel',serif !important; font-size:11.5px !important;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--gold) !important;
+  text-shadow:0 1px 1px #000;
+  background:linear-gradient(180deg,rgba(0,0,0,.3),rgba(0,0,0,.62)),url("ui/metal.jpg") !important;
+  background-size:auto,300px !important;
+  border:1px solid var(--rule) !important;
+}
+td{ border:1px solid var(--rule-faint) !important; }
+tbody tr:hover td{ background:rgba(124,21,25,.08); }
+
+/* ---------- Notes: parchment slips + blood stain on risk ---------- */
+.note{
+  position:relative; overflow:hidden;
+  background:linear-gradient(rgba(24,18,11,.86),rgba(24,18,11,.86)),url("ui/parchment.jpg") !important;
+  background-size:auto,440px !important;
+  box-shadow:inset 0 0 40px rgba(0,0,0,.4), 0 3px 10px rgba(0,0,0,.4);
+}
+.note-risk::after, .note-warn::after{
+  content:''; position:absolute; right:-26px; top:-30px; width:150px; height:150px;
+  background:url("ui/blood.png") center / contain no-repeat;
+  opacity:.12; pointer-events:none; transform:rotate(14deg);
+}
+
+/* ---------- GDD header (index.html) ---------- */
+.header{ position:relative; }
+.header::before{
+  content:''; position:absolute; right:-14px; top:-26px; width:230px; height:200px;
+  background:url("ui/blood.png") center / contain no-repeat;
+  opacity:.10; pointer-events:none; transform:rotate(-9deg);
+}
+.gdd-logo{ height:66px; width:auto; display:block; margin:0 0 10px;
+  filter:drop-shadow(0 3px 8px rgba(0,0,0,.8)); position:relative; z-index:2; }
+
+/* ---------- Type medallions ---------- */
+.type-chip{
+  position:relative; display:inline-flex; align-items:center; justify-content:center;
+  width:30px; height:30px; flex-shrink:0;
+}
+.type-chip img{ width:28px; height:28px; display:block;
+  filter:drop-shadow(0 1px 3px rgba(0,0,0,.85)); transition:transform .12s ease, filter .12s ease; }
+.type-chip:hover img{ transform:scale(1.16); filter:drop-shadow(0 1px 3px #000) drop-shadow(0 0 9px rgba(207,166,80,.45)); }
+.type-chip .tcn{
+  position:absolute; bottom:calc(100% + 7px); left:50%;
+  transform:translateX(-50%) translateY(3px); opacity:0; pointer-events:none;
+  transition:opacity .13s ease, transform .13s ease;
+  font-family:'Cinzel',serif; font-size:10.5px; font-weight:700; letter-spacing:.09em;
+  text-transform:uppercase; white-space:nowrap;
+  color:var(--gold-bright); text-shadow:0 1px 1px #000;
+  background:linear-gradient(rgba(22,16,10,.97),rgba(22,16,10,.97)),url("ui/parchment.jpg");
+  background-size:auto,300px;
+  border:1px solid var(--gold-dim); padding:4px 10px;
+  box-shadow:0 6px 16px rgba(0,0,0,.8); z-index:80;
+}
+.type-chip:hover .tcn{ opacity:1; transform:translateX(-50%) translateY(0); }
+.codex-card-types{ display:flex; gap:5px; align-items:center; min-height:32px;
+  font-style:normal !important; overflow:visible !important; }
+
+.type-tag .tt-med{ width:19px; height:19px; margin-right:7px; vertical-align:-4px;
+  filter:drop-shadow(0 1px 2px #000); display:inline-block; }
+
+.type-hero{ text-align:center; }
+.type-med-hero{ width:88px; height:88px; display:block; margin:2px auto 10px;
+  filter:drop-shadow(0 5px 14px rgba(0,0,0,.8)); position:relative; z-index:2; }
+
+.tg-med{ width:46px; height:46px; flex-shrink:0; align-self:center;
+  filter:drop-shadow(0 2px 5px rgba(0,0,0,.8)); }
+.tg-head{ align-items:center !important; }
+.tg-card{ display:flex; gap:14px; align-items:flex-start; }
+.tg-card > .tg-body{ flex:1; min-width:0; }
+
+/* ---------- Hub gargoyle sentinels ---------- */
+.hub-gargoyles{
+  display:flex; justify-content:center; align-items:flex-end; gap:30px;
+  margin:4px 0 0; pointer-events:none;
+}
+.hub-gargoyles img{ height:110px; width:auto; opacity:.93;
+  filter:drop-shadow(0 8px 16px rgba(0,0,0,.85)) drop-shadow(0 0 20px rgba(124,21,25,.18)); }
+.hub-gargoyles .flip{ transform:scaleX(-1); }
+.hub-gargoyles .hg-title{
+  font-family:'Cinzel Decorative',serif; font-weight:900; font-size:15px;
+  letter-spacing:.3em; color:var(--gold-dim); align-self:center;
+  text-transform:uppercase; text-shadow:0 1px 2px #000; padding-bottom:34px;
+}
+
+/* ---------- Status / misc ---------- */
+#status{ font-family:'Cinzel',serif; letter-spacing:.3em; color:var(--gold-dim);
+  text-align:center; padding:46px 0; text-transform:uppercase; }
+code, pre{ background:rgba(0,0,0,.35); border:1px solid var(--rule-faint);
+  padding:1px 6px; color:var(--gold-bright); font-size:.92em; }
+pre{ padding:12px 14px; overflow:auto; }
+a{ color:var(--gold); }
+a:hover{ color:var(--gold-bright); }
+img{ image-rendering:auto; }
+
+/* ---------- Creature-codex cards: coherent quiet treatment ---------- */
+.codex-card{
+  overflow:visible !important;
+  border:1px solid var(--rule) !important;
+  background:
+    linear-gradient(180deg, rgba(207,166,80,.04), transparent 52%),
+    linear-gradient(rgba(28,21,13,.92), rgba(28,21,13,.92)),
+    url("ui/parchment.jpg") !important;
+  background-size:auto,auto,420px !important;
+  box-shadow:inset 0 0 40px rgba(0,0,0,.32), 0 4px 12px rgba(0,0,0,.4) !important;
+}
+.codex-card:hover{ border-color:var(--blood-bright) !important;
+  box-shadow:inset 0 0 40px rgba(0,0,0,.32), 0 0 16px rgba(124,21,25,.35) !important; }
+.codex-grid{ overflow:visible !important; }

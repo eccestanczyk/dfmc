@@ -116,6 +116,11 @@ async function load() {
     document.title = type + ' — TYPE CODEX';
     document.getElementById('topbar-title').textContent = type.toUpperCase();
     document.getElementById('type-name').textContent = type;
+    const medEl = document.createElement('img');
+    medEl.className = 'type-med-hero';
+    medEl.src = 'assets/types/' + encodeURIComponent(type) + '.png';
+    medEl.alt = type;
+    document.getElementById('type-name').parentNode.insertBefore(medEl, document.getElementById('type-name'));
     document.getElementById('type-count').textContent = matches.length + ' creature' + (matches.length === 1 ? '' : 's') + ' bear this type';
 
     try {

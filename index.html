@@ -134,7 +134,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
 
 <div class="wrap">
   <div class="header">
-    <div class="title">Herumon Tower — Game Design Document</div>
+    <img class="gdd-logo" src="assets/logo.png" alt="Herumon Tower"><div class="sub" style="font-family:'Cinzel',serif;font-size:12px;letter-spacing:.18em;color:var(--gold-dim);text-transform:uppercase;margin-bottom:4px;">Game Design Document</div>
     <div class="sub">Living document · Last updated June 2026 · <span class="pill pill-wip">In Development</span></div>
   </div>
 
@@ -372,7 +372,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
       <li>Closing the game window pauses the character</li>
       <li>No offline rewards — open game only</li>
     </ul>
-    <div class="note note-info"><p>The earlierharacter farms at a time.</p></div>
+    <div class="note note-info"><p>The earlier multi-tab simultaneous-simulation design (up to 4 league tabs at once) is retired — one character farms at a time.</p></div>
 
     <h3>Floor presentation (Simplified Static)</h3>
     <p>There is no player avatar. Each floor is a static painted map (1536&times;1024&nbsp;px, 3:2; parallax background at 1.5&times; for ultrawide; boss floors are 1024&times;1024 arenas). Creatures wander the map autonomously; hovering a creature highlights it by rarity; clicking (tagging) it starts the battle. Grid movement is archived — see Roadmap.</p>
@@ -398,7 +398,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     <div class="grid-2">
       <div class="card">
         <div class="card-title">🏆 Win condition</div>
-        <div class="card-body">Win a streak of consecutive battles on a floor to open the portal. Threshold scales with floor depth: <code>ceil(floor<sup>0.65</sup>)</code> — floor 1 needs 1 win, floor 10 needs ~4, floor 50 needs ~13, floor 100 needs ~20. <strong style="color:#dd5646">Losing a battle resets the streak to zero.</strong> There is no fleeing — but a player may <strong>concede</strong> at any time, immediately losing the battle with all standard defeat consequences (streak resets to zero, team restored after). Boss floors always require exactly 1 battle (the boss fight).</div>
+        <div class="card-body">Win a streak of consecutive battles on a floor to open the portal. Threshold scales with floor depth: <code>ceil(floor<sup>0.65</sup>)</code> — floor 1 needs 1 win, floor 10 needs ~4, floor 50 needs ~13, floor 100 needs ~20. <strong style="color:#dd5646">Losing a battle resets the streak to zero.</strong> Boss floors always require exactly 1 battle (the boss fight).</div>
       </div>
       <div class="card">
         <div class="card-title">👑 Boss floors</div>
@@ -507,13 +507,13 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     </table>
 
     <h3>Damage formula</h3>
-    <pre>RawDamage = ((2 × Level / 5 + 2) × MovePower × Offense / Defense) / 80 + 2
+    <pre>RawDamage = ((2 × Level / 5 + 2) × MovePower × Offense / Defense) / 120 + 2
 
 FinalDamage = RawDamage
-            × CritMod × Random(0.85–1.0)
+            × TypeMod × STAB × CritMod × Random(0.85–1.0)
             × (1 + Σ increased%)
             × Π(more multipliers)</pre>
-    <p style="font-size:12px;color:#8a7a5e">Divisor tuned to 80 (July 2026) so a striker's nuke-rotation vs an equal-level wall lands in the 8–12 turn boss/PvP band and PvE trash dies to ~3 slot-1 hits. There is no STAB and no TypeMod — moves are untyped and there is no type chart; all type interaction (Synergy/Anti clauses) applies inside the Π(more) chain.</p>
+    <p style="font-size:12px;color:#8a7a5e">Divisor tuned from 50 to 120 (July 2026) so a striker's nuke-rotation vs an equal-level wall lands in the 8–12 turn boss/PvP band and PvE trash dies to ~3 slot-1 hits.</p>
 
     <h3>Moves</h3>
     <p>Every creature line has exactly <strong>4 fixed moves</strong> — no move customization (creature customization is Tags/equipment only). Moves persist across the 3 evolution stages, growing stronger: Stage 2 ≈ 80% of Stage 3 power with reduced effect magnitudes; Stage 1 ≈ 60% power with one effect component removed. All 400 moves are catalogued in <code>codex/moves.csv</code> and browsable at <a href="moves.html">moves.html</a>.</p>
@@ -523,8 +523,7 @@ FinalDamage = RawDamage
       <tr><td>Riders</td><td>120-power carries one named debuff at CD2; 160-power carries a strong debuff or second component at CD3–4; 50-power can carry a strong effect at CD0–1; 0-power status moves carry very strong effects at CD1–4.</td></tr>
       <tr><td>Named debuffs only</td><td>No generic statuses. Every buff/debuff is named and owned by one move (e.g. <em>Mothervenom</em> belongs to Echidna's Viper Spit). Families: Shred (−Def), Sap (−Off), Mire (−Speed stages), named DoTs, Marks (+damage taken), and rare action-denial.</td></tr>
       <tr><td>NO TYPE CHART</td><td>There is no global type-effectiveness matrix and never will be. All type interaction lives inside individual moves: <strong>Synergy</strong> clauses — a move is empowered by allied types in one of three ways: (a) an ally of a certain type <em>on the field</em> boosts the move (+20–50% band); (b) the move is stronger when it <em>targets</em> an ally of a certain type (buffs/heals, +20–50% band); or (c) the move <em>gains an added effect</em> when used on an ally of a certain type and <strong>Anti</strong> clauses (bonus vs specific target types, +30–60% band, thematically justified). Every type appears as both a synergy-giver and an anti-target.</td></tr>
-      <tr><td>Slot order</td><td><strong>Slot 1 = signature</strong> (the line's strongest damage move), slot 2 = secondary damage, slots 3–4 = support/status where the line has them. Lines with three damage moves place the third at slot 3. On the Soul Joker this puts every creature's signature on the character's Main Hand.</td></tr>
-      <tr><td>Kit shape by stat profile</td><td>Strikers (O8–10): Nuke CD3–4 signature, Heavy CD2, spam fillers. Walls (D8–10): Def buffs, reflection, chip. Utility (U8–10): strong named debuffs/buffs, the game's few heals (7 healers game-wide), damage held to Light/Standard. Speed (S8–10): first-strike riders and momentum.</td></tr>
+      <tr><td>Kit shape by stat profile</td><td>Strikers (O8–10): spam → utility-lite → Heavy CD2 → Nuke CD3–4 signature. Walls (D8–10): Def buffs, reflection, chip. Utility (U8–10): strong named debuffs/buffs, the game's few heals (7 healers game-wide), damage held to Light/Standard. Speed (S8–10): first-strike riders and momentum.</td></tr>
       <tr><td>Speed stages</td><td>In-battle Speed buffs/debuffs are the only thing that modifies turn order. They are temporary stages (±1, ±2), never gear.</td></tr>
     </table>
 
@@ -534,7 +533,7 @@ FinalDamage = RawDamage
       <li>Each equipped creature soul grants its corresponding move slot to the character (soul in slot 1 grants that creature's move 1, etc.)</li>
       <li>Cannot equip 2 souls of the same creature</li>
       <li>A creature whose soul is equipped <strong>cannot be summoned</strong> to the battle party</li>
-      <li>Character move damage uses the character's Offense</li>
+      <li>Character move damage uses the character's Offense; no STAB (STAB is creature-only)</li>
     </ul>
 
     <h3>Battle party rules</h3>
@@ -542,14 +541,6 @@ FinalDamage = RawDamage
       <li>In battle: <strong>2 creatures + the character</strong></li>
       <li>Only 1 of each creature species per party</li>
       <li>PvP tournaments: +3 creatures on the bench for sideboarding between matches in a Bo3</li>
-    </ul>
-
-    <h3>Auto-mode rules</h3>
-    <ul>
-      <li>Auto-mode can be toggled on and off <strong>mid-battle</strong> — turning it off hands the player the reins from the next turn selection onward; turning it on resumes AI selection.</li>
-      <li>Auto-mode <strong>never auto-advances into a boss room</strong>. Boss floors are manual-entry only.</li>
-      <li>If the current zone's boss is already beaten and the next floor is unlocked, auto-mode advances to that next floor; otherwise it keeps farming the current floor.</li>
-      <li>Once inside a boss room with auto-mode on, the boss fight can be auto-cleared, and auto-repeated for as long as the player has Keys. When the Keys run out, auto-mode returns to the previous floor it was farming.</li>
     </ul>
 
     <p>The base formula follows the proven Pokémon/Coromon core. The increased/more split (from Path of Exile) is bolted onto the modifier chain — <strong style="color:#ede0c4">increased</strong> sources add together (diminishing returns within a category), <strong style="color:#ede0c4">more</strong> sources multiply (always valuable). This rewards diversifying modifier sources over stacking one type.</p>
@@ -803,8 +794,8 @@ FinalDamage = RawDamage
           <table style="margin:0">
             <tr><td style="color:#ede0c4;width:120px">Main hand</td><td>Primary weapon — ability slot</td></tr>
             <tr><td style="color:#ede0c4">Off hand</td><td>Shield, off-hand weapon, or tome — ability slot</td></tr>
-            <tr><td style="color:#ede0c4">1st Accessory</td><td>Ring, amulet, etc. — ability slot</td></tr>
-            <tr><td style="color:#ede0c4">2nd Accessory</td><td>Ring, amulet, etc. — ability slot</td></tr>
+            <tr><td style="color:#ede0c4">Accessory 1</td><td>Ring, amulet, etc. — ability slot</td></tr>
+            <tr><td style="color:#ede0c4">Accessory 2</td><td>Ring, amulet, etc. — ability slot</td></tr>
           </table>
         </div>
       </div>
@@ -825,13 +816,13 @@ FinalDamage = RawDamage
     <p>Each piece of character gear can have the soul of a creature attached to it. What the soul does depends on the slot class:</p>
     <table>
       <tr><th>Slot class</th><th>Slots</th><th>Soul effect</th></tr>
-      <tr><td style="color:#ede0c4">Ability slots</td><td>Main Hand, Off Hand, 1st Accessory, 2nd Accessory</td><td><strong>Move grant (Soul Joker):</strong> the character gains the equipped creature's move for that ability slot (slot 1–4). Character Offense; Synergy/Anti clauses apply. See "Character abilities — the Soul Joker system" in Battle System.</td></tr>
+      <tr><td style="color:#ede0c4">Ability slots</td><td>Main Hand, Off Hand, Accessory 1, Accessory 2</td><td><strong>Move grant (Soul Joker):</strong> the character gains the equipped creature's move for that ability slot (slot 1–4). Character Offense, no STAB; Synergy/Anti clauses apply. See "Character abilities — the Soul Joker system" in Battle System.</td></tr>
       <tr><td style="color:#ede0c4">Passive slots</td><td>Head, Chest, Gloves, Feet</td><td><strong>Scoped passive:</strong> every creature has a unique passive per armor slot, catalogued in <code>codex/souls.csv</code> (400 passives). Slot flavors: Head = perception/self, Chest = core plate, Gloves = hands/offense craft, Feet = team/positioning.</td></tr>
     </table>
     <p>Passive souls have one of three scopes:</p>
     <table>
       <tr><th>Soul scope</th><th>Effect</th><th>Example</th></tr>
-      <tr><td style="color:#ede0c4">Local</td><td>Buffs only that item's contribution — strongest per-item impact (×1.35–×1.60 by rarity — sized so a Local chest roughly matches a Personal-scope total-stat soul)</td><td>Thornback on Chest: "This armour's Defense ×1.35"</td></tr>
+      <tr><td style="color:#ede0c4">Local</td><td>Buffs only that item's contribution — strongest per-item impact (×1.12–×1.20 by rarity)</td><td>Thornback on Chest: "This armour's Defense ×1.12"</td></tr>
       <tr><td style="color:#ede0c4">Personal</td><td>Buffs the character's totals — moderate power (5–10% band by rarity)</td><td>Dusthound on Head: "+4% crit chance"</td></tr>
       <tr><td style="color:#ede0c4">Team</td><td>Buffs all allies (character + both creatures) — weaker per target but ×3 entities (4–8% band)</td><td>Yggdrasil on Feet: "All allies +7% Defense"</td></tr>
     </table>
@@ -923,7 +914,7 @@ Character total:
       <tr><th>Slot</th><th>Implicit type</th><th>Notes</th></tr>
       <tr><td style="color:#ede0c4">Main Hand / Off Hand</td><td>Flat Offense</td><td>Different weapon base types vary in flat Offense amount and the active ability they grant.</td></tr>
       <tr><td style="color:#ede0c4">Head / Chest / Gloves / Feet</td><td>Flat Defense</td><td>Different armour materials (cloth, leather, plate) provide different flat Defense amounts.</td></tr>
-      <tr><td style="color:#ede0c4">1st & 2nd Accessory</td><td>Varied flat buffs</td><td>Each accessory base type provides a different flat stat — player chooses which stats to prioritize.</td></tr>
+      <tr><td style="color:#ede0c4">Accessory 1 & 2</td><td>Varied flat buffs</td><td>Each accessory base type provides a different flat stat — player chooses which stats to prioritize.</td></tr>
     </table>
     <h4>Accessory base types</h4>
     <table>
@@ -1166,7 +1157,7 @@ Your Backend
         <li><span class="phase-num">5</span><span><strong style="color:#ede0c4">Floor progression</strong> — boss gate, stairs, floor transition, multiple floors</span></li>
         <li><span class="phase-num">6</span><span><strong style="color:#ede0c4">Floor win condition & chests</strong> — battle win counter, portal unlock, manual one-time chests, chest tracking on map selector</span></li>
         <li><span class="phase-num">7</span><span><strong style="color:#ede0c4">Boss key & boss floors</strong> — key drop chance on pre-boss floors, key consumption, boss floor access via portal or map selector</span></li>
-        <li><span class="phase-num">8</span><span><strong style="color:#ede0c4">Autoplay system</strong> — pathfinding, config options, death handler, simultaneous multi-character simulation</span></li>
+        <li><span class="phase-num">8</span><span><strong style="color:#ede0c4">Autoplay & multi-tab system</strong> — pathfinding, config options, death handler, simultaneous multi-character simulation</span></li>
         <li><span class="phase-num">9</span><span><strong style="color:#ede0c4">Character & class system</strong> — class XP, character level aggregation, PoE skill trees</span></li>
         <li><span class="phase-num">10</span><span><strong style="color:#ede0c4">Codex</strong> — creature catalogue, seen/acquired states, stat ranges, move lists, evolution chains</span></li>
         <li><span class="phase-num">11</span><span><strong style="color:#ede0c4">Metagame UI</strong> — breeding, crafting, farming, hatchery — all as in-game UI panels accessible during PvE</span></li>
@@ -1191,20 +1182,17 @@ Your Backend
     <div class="note note-info"><p><strong>Physical base</strong> — the original design included a physical base the Collector could walk around in, with tile-based farming, craftings stations, a hatchery building, and a crypt chest to interact with. This has been replaced entirely by UI panels accessible during PvE floors. A physical base may be reintroduced in a future content update as an optional social/cosmetic space.</p></div>
     <div class="note note-info"><p><strong>Isometric Exploration</strong> — the original prototype used top-down Gen II–style grid movement with a player avatar, tile-based encounter triggers (grass/cave/fishing), and autoplay pathfinding. Archived in favor of the Simplified Static approach for faster prototyping. The full grid-movement system can be restored from the archived roadmap above.</p></div>
 
-    <h3>Deferred decisions — parked on the roadmap, to be decided later</h3>
+    <h3>Open decisions</h3>
     <ul>
       <li>Cosmetics-only vs convenience items in shop</li>
       <li>Breed count limit per creature</li>
-      
+      <li>Which AI art tool to standardize on</li>
       <li>Whether death-marked creatures are tradeable on the marketplace</li>
       <li>Soul Gem XP thresholds for each rank (F through S)</li>
       <li>Whether Soul Gems are tradeable on the Steam marketplace</li>
       <li>Skill tree node graphs for all six class lines</li>
       <li>Number of chests per floor (the "x" in the x/x chest tracker)</li>
       <li>Key drop rate per battle on pre-boss floors</li>
-      <li>Boss reserve mechanics — bosses field 2 active + 4 reserve, but reserve behavior is undefined (waves on KO? mid-battle swaps?)</li>
-      <li>Boss team compositions — all 10 rows in codex/bosses.csv are TBD</li>
-      <li><em>Testing decision (post-playtest):</em> PvP stall behavior in double-defensive comps — options: damage escalation after turn N, hard turn cap with HP% tiebreak, or larger cooldowns on support moves</li>
       <li>Whether chest contents reset along with the win streak on floor re-entry, or remain collected permanently</li>
     </ul>
   </div>
@@ -1263,8 +1251,8 @@ Your Backend
       <tr><th>Slot</th><th>Category</th></tr>
       <tr><td>Main Hand</td><td>Weapon — ability slot</td></tr>
       <tr><td>Off Hand</td><td>Weapon — ability slot</td></tr>
-      <tr><td>1st Accessory</td><td>Weapon — ability slot</td></tr>
-      <tr><td>2nd Accessory</td><td>Weapon — ability slot</td></tr>
+      <tr><td>Accessory 1</td><td>Weapon — ability slot</td></tr>
+      <tr><td>Accessory 2</td><td>Weapon — ability slot</td></tr>
       <tr><td>Head</td><td>Armour — passive</td></tr>
       <tr><td>Chest</td><td>Armour — passive</td></tr>
       <tr><td>Gloves</td><td>Armour — passive</td></tr>
@@ -1306,7 +1294,7 @@ Your Backend
     <p style="font-size:13px;color:#c2ae8b">Only floor 1 is guaranteed Outdoors, and only floors 1–3 (Grasslands) are guaranteed one of each floor theme — that rule applies to the very first zone only. Every other zone just needs all three themes represented somewhere across its 10 floors. Boss floor is always the 10th floor of each zone (not the 5th), and boss floors carry no wild encounters.</p>
 
     <h3>Zone bosses</h3>
-    <p>Every 10th floor (10, 20, … 100) is a zone boss and has <strong style="color:#ede0c4">no wild encounters</strong>. A boss is a full team like the player's — a <strong style="color:#ede0c4">character plus 2 active creatures and 4 in reserve</strong> — not a wild creature. When an active boss creature is KO'd, the next reserve switches in immediately, in fixed order (Reserve_1 → Reserve_4); the fight is one continuous battle against up to 7 entities. The SSR flagship creatures (Dagon, Ouroboros, Kraken, …) are rare <em>wild</em> encounters on ordinary floors, not the bosses.</p>
+    <p>Every 10th floor (10, 20, … 100) is a zone boss and has <strong style="color:#ede0c4">no wild encounters</strong>. A boss is a full team like the player's — a <strong style="color:#ede0c4">character plus 2 active creatures and 4 in reserve</strong> — not a wild creature. The SSR flagship creatures (Dagon, Ouroboros, Kraken, …) are rare <em>wild</em> encounters on ordinary floors, not the bosses.</p>
     <p style="font-size:13px;color:#c2ae8b">Bosses scale up considerably each zone: floor 10 is the weakest, floor 100 the hardest of the base tower. Definitions live in <code>codex/bosses.csv</code> (team fields currently <code>TBD</code>). Post-level-100 content — deeper floors with fully-optimized boss teams — is out of scope for now and noted for later.</p>
 
     <h3>Creature types</h3>

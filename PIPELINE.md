@@ -125,3 +125,10 @@ Values: `not_imported` (never sent to game — default), `synced` (in game, matc
 - Admin codex visual cue: amber `⟳` badge + amber card border on `needs_reimport`.
   "⟳ Reimport Queue" filter isolates them; "Copy Reimport IDs" exports the list.
 - Reimport handoff: the reimport list = every row with `Sync_Status == needs_reimport`.
+
+## Site UI skin (July 2026)
+- Dark-fantasy chrome lives in `assets/ui.css`, injected on EVERY page by `nav.js` (loads after theme.css / page styles; ties win). `nav.js` also auto-creates a `.topbar` on pages lacking one.
+- UI kit assets: `assets/ui/` — frame molding strips (e_t/e_b/e_l/e_r) + filigree corners (c_tl/c_tr/c_bl/c_br), divider.png, metal.jpg, parchment.jpg, gem.png, blood.png, gargoyle.png. Site logo: `assets/logo.png` (banner), `assets/logo_square.png` (reserve).
+- Type medallions: `assets/types/<Type>.png` (27, per-type palettes). Rendered via `.type-chip` (icon + hover name tooltip) in creature-codex, inside `.type-tag` on creature pages, hero-size on type.html, and in the glossary. Type names must stay visible on mouseover wherever a medallion replaces text.
+- Do NOT re-add heavy 9-slice frames; panel frames are the slim strip+corner background system in ui.css (real-estate rule).
+

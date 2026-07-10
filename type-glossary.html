@@ -45,13 +45,16 @@ function renderList(){
   const rows=Object.keys(GLOSS).sort().filter(t=>!q||t.toLowerCase().includes(q)||(GLOSS[t].definition||'').toLowerCase().includes(q));
   document.getElementById('tg-list').innerHTML=rows.map(t=>`
     <div class="tg-card">
-      <div class="tg-head">
-        <a class="tg-name" href="type.html?type=${encodeURIComponent(t)}">${esc(t)}</a>
-        <span class="tg-count">${COUNTS[t]||0} creature${(COUNTS[t]===1)?'':'s'}</span>
+      <img class="tg-med" src="assets/types/${encodeURIComponent(t)}.png" alt="" loading="lazy">
+      <div class="tg-body">
+        <div class="tg-head">
+          <a class="tg-name" href="type.html?type=${encodeURIComponent(t)}">${esc(t)}</a>
+          <span class="tg-count">${COUNTS[t]||0} creature${(COUNTS[t]===1)?'':'s'}</span>
+        </div>
+        <p class="tg-def">${esc(GLOSS[t].definition)}</p>
+        <div class="tg-motif-label">Prompt motif</div>
+        <div class="tg-motif">${esc(GLOSS[t].motifs)}</div>
       </div>
-      <p class="tg-def">${esc(GLOSS[t].definition)}</p>
-      <div class="tg-motif-label">Prompt motif</div>
-      <div class="tg-motif">${esc(GLOSS[t].motifs)}</div>
     </div>`).join('') || '<div class="tg-note">No types match.</div>';
 }
 async function load(){
