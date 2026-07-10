@@ -6,28 +6,35 @@
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
-.line-block{margin:26px 0}
-.line-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:10px}
-.line-title{font-family:'Cinzel',serif;font-size:18px;font-weight:600;color:#e8c547}
+.line-block{margin:22px 0;background:#161110;border:1px solid #3a2d24;border-radius:12px;padding:16px}
+.line-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+.line-title{font-family:'Cinzel',serif;font-size:19px;font-weight:600;color:#e8c547}
 .access{font-size:10px;padding:2px 10px;border:1px solid #5c462c;border-radius:10px;color:#c2ae8b}
 .access.dlc{border-color:#6b2d5a;color:#d78ac0}
-.stages{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-@media(max-width:720px){.stages{grid-template-columns:1fr}}
-.stage-card{background:#161110;border:1px solid #3a2d24;border-radius:10px;padding:12px;text-align:center}
-.stage-card .sname{font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:#d8c9a8}
-.stage-card .slbl{font-size:10px;color:#8a7a5e;letter-spacing:.08em}
-.imgbox{aspect-ratio:1;background:#0d0a08;border:1px solid #3a2d24;margin:8px 0;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.imgbox img{max-width:100%;max-height:100%}
-.pend{color:#8a7a5e;font-size:11px;font-style:italic}
-.stats{font-family:monospace;font-size:12px;color:#c2ae8b}
-.admin-info{font-size:10px;color:#8a7a5e;text-align:left;margin-top:6px;border-top:1px dashed #3a2d24;padding-top:6px;display:none;word-break:break-word}
-.admin .admin-info{display:block}
-.status{font-size:10px;padding:1px 8px;border-radius:9px;border:1px solid}
+.desc{font-size:13px;color:#b8a888;font-style:italic;margin:2px 0 12px;line-height:1.5}
+.line-body{display:grid;grid-template-columns:1fr 220px;gap:18px;align-items:start}
+@media(max-width:760px){.line-body{grid-template-columns:1fr}}
+.stages{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stage-card{text-align:center}
+.slbl{font-size:9px;color:#8a7a5e;letter-spacing:.1em}
+.sname{font-family:'Cinzel',serif;font-size:13px;font-weight:600;color:#d8c9a8;margin:1px 0 5px}
+.imgbox{aspect-ratio:3/4;background:#0d0a08;border:1px solid #3a2d24;border-radius:6px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.imgbox img{width:100%;height:100%;object-fit:contain}
+.pend{color:#8a7a5e;font-size:10px;font-style:italic}
+.stats{font-family:monospace;font-size:11px;color:#c2ae8b;margin-top:5px}
+.status{font-size:9px;padding:1px 7px;border-radius:8px;border:1px solid;margin-top:3px;display:inline-block}
 .status.pending{color:#e0a840;border-color:#e0a84055}
 .status.approved{color:#7fd4a0;border-color:#7fd4a055}
+.radar-wrap{text-align:center}
+.radar-wrap svg{max-width:210px}
+.radar-cap{font-size:10px;color:#8a7a5e;margin-top:2px}
+.admin-info{font-size:9px;color:#8a7a5e;text-align:left;margin-top:5px;border-top:1px dashed #3a2d24;padding-top:4px;display:none;word-break:break-word}
+.admin .admin-info{display:block}
+.opts{display:flex;gap:4px;justify-content:center;margin-top:4px;flex-wrap:wrap}
+.opts .opt{font-size:9px;padding:1px 6px;border:1px solid #5c462c;border-radius:6px;color:#c2ae8b}
 </style></head><body>
 <div class="topbar"><h1>CLASSES</h1></div>
-<div style="max-width:980px;margin:0 auto;padding:16px 16px 80px">
+<div style="max-width:1040px;margin:0 auto;padding:16px 16px 80px">
   <p style="font-size:13px;color:#8a7a5e">Six player classes — linear three-stage evolution at the standard breakpoints. Stat sums S1 ≈ 12 · S2 ≈ 16 · S3 ≈ 20 across Offense / Defense / Speed (max 10 per axis). Art pipeline mirrors the creature codex: raw generations placed for approval, crops after sign-off.</p>
   <div id="grid"></div>
 </div>
@@ -36,29 +43,57 @@
 const IMG_BASE="https://cdn.jsdelivr.net/gh/eccestanczyk/dfmc@main/";
 const ADMIN=new URLSearchParams(location.search).get('admin')==='1';
 if(ADMIN)document.body.classList.add('admin');
+const DESCRIPTIONS={
+  WARRIOR:"The armored frontliner. High Defense and steady Offense at the cost of Speed — soaks the opening blow and answers in kind. Evolves from a battered mercenary into a masterwork knight, then into a legendary gem-forged paladin.",
+  MAGE:"The glass cannon. The game's highest Offense ceiling paired with the lowest Defense — devastating if it acts, fragile if it's caught. Ascends from apprentice to sorcerer to reality-bending archon.",
+  ARCHER:"The fast ranged striker. High Offense and high Speed on a thin defensive frame — wins initiative and hits hard, but folds under pressure. Grows from scout to ranger to peerless hawkeye.",
+  BRUTE:"The heavy bruiser. High Offense and high Defense weighed down by the lowest Speed — hits like a siege engine and survives the counter, but always moves last. From savage to warlord to unstoppable titan. (DLC)",
+  ASSASSIN:"The pure striker. Extreme Offense and Speed on almost no Defense — the fastest, deadliest, most fragile build in the game. From cutthroat to stalker to shadow-nightblade. (DLC)",
+  PROFESSOR:"The tanky controller. High Defense and high Speed with dumped Offense — survives and acts early, controlling the fight without heavy damage. The scholar who sees it coming, from professor to sage to prophet. (DLC)"
+};
 function parseCSV(t){const ls=t.trim().split(/\r?\n/),h=spl(ls[0]);return ls.slice(1).map(l=>{const c=spl(l),o={};h.forEach((k,i)=>o[k.trim()]=(c[i]||'').trim());return o})}
 function spl(l){const c=[];let s='',q=false;for(let i=0;i<l.length;i++){const ch=l[i];if(ch==='"'){if(q&&l[i+1]==='"'){s+='"';i++}else q=!q}else if(ch===','&&!q){c.push(s);s=''}else s+=ch}c.push(s);return c}
+function radar(o,d,sp,color){
+  const size=210,cx=105,cy=98,R=66;
+  const axes=[['OFF',-90,o],['DEF',30,d],['SPD',150,sp]];
+  let rings='';
+  [0.25,0.5,0.75,1].forEach(fr=>{const pts=axes.map(([,a])=>{const r=R*fr,ra=a*Math.PI/180;return `${cx+r*Math.cos(ra)},${cy+r*Math.sin(ra)}`}).join(' ');rings+=`<polygon points="${pts}" fill="none" stroke="#3a2d24" stroke-width="1"/>`});
+  let ax='',lbl='',dp=[];
+  axes.forEach(([n,a,v])=>{const ra=a*Math.PI/180;ax+=`<line x1="${cx}" y1="${cy}" x2="${cx+R*Math.cos(ra)}" y2="${cy+R*Math.sin(ra)}" stroke="#3a2d24" stroke-width="1"/>`;
+    const lx=cx+(R+16)*Math.cos(ra),ly=cy+(R+16)*Math.sin(ra);lbl+=`<text x="${lx}" y="${ly}" fill="#8a7a5e" font-size="10" text-anchor="middle" dominant-baseline="middle">${n}</text>`;
+    const r=R*(v/10);dp.push(`${cx+r*Math.cos(ra)},${cy+r*Math.sin(ra)}`)});
+  const dots=dp.map(p=>`<circle cx="${p.split(',')[0]}" cy="${p.split(',')[1]}" r="3" fill="${color}"/>`).join('');
+  return `<svg viewBox="0 0 ${size} ${size}">${rings}${ax}${lbl}<polygon points="${dp.join(' ')}" fill="${color}55" stroke="${color}" stroke-width="2"/>${dots}</svg>`;
+}
+const COLORS={WARRIOR:'#4f9fd4',MAGE:'#9085e9',ARCHER:'#1baf7a',BRUTE:'#eb6834',ASSASSIN:'#e34948',PROFESSOR:'#5bc0be'};
 async function load(){
   const rows=parseCSV(await (await fetch('codex/classes.csv?t='+Date.now())).text());
-  const lines={};
-  rows.forEach(r=>{(lines[r.Line_ID]=lines[r.Line_ID]||[]).push(r)});
+  const lines={};rows.forEach(r=>{(lines[r.Line_ID]=lines[r.Line_ID]||[]).push(r)});
   document.getElementById('grid').innerHTML=Object.entries(lines).map(([lid,sts])=>{
     sts.sort((a,b)=>+a.Stage-+b.Stage);
     const chain=sts.map(s=>s.Name).join(' → ');
     const acc=sts[0].Access;
+    const s3=sts[2];
+    const color=COLORS[lid]||'#c2ae8b';
     return `<div class="line-block">
       <div class="line-head"><span class="line-title">${chain}</span><span class="access ${acc==='DLC'?'dlc':''}">${acc}</span></div>
-      <div class="stages">${sts.map(s=>{
-        const img=s.Image_Path?`<img src="${IMG_BASE}${s.Image_Path}" loading="lazy">`:`<span class="pend">ART PENDING</span>`;
-        return `<div class="stage-card">
-          <div class="slbl">STAGE ${s.Stage}</div>
-          <div class="sname">${s.Name}</div>
-          <div class="imgbox">${img}</div>
-          <div class="stats">O ${s.Grade_Offense} · D ${s.Grade_Defense} · S ${s.Grade_Speed}</div>
-          <div style="margin-top:6px"><span class="status ${s.Art_Status}">${s.Art_Status.toUpperCase()}</span></div>
-          <div class="admin-info"><b>${s.Class_ID}</b> · slots: ${s.Option_Slots||'—'} · bg: ${s.BG_Status||'—'}<br>${s.Image_Prompt?s.Image_Prompt.slice(0,220)+'…':'no prompt yet'}</div>
-        </div>`;
-      }).join('')}</div>
+      <div class="desc">${DESCRIPTIONS[lid]||''}</div>
+      <div class="line-body">
+        <div class="stages">${sts.map(s=>{
+          const img=s.Image_Path?`<img src="${IMG_BASE}${s.Image_Path}" loading="lazy">`:`<span class="pend">ART PENDING</span>`;
+          const opts=(s.Option_Slots||'').split(';').filter(Boolean);
+          return `<div class="stage-card">
+            <div class="slbl">STAGE ${s.Stage}</div>
+            <div class="sname">${s.Name}</div>
+            <div class="imgbox">${img}</div>
+            <div class="stats">O ${s.Grade_Offense} · D ${s.Grade_Defense} · S ${s.Grade_Speed}</div>
+            <div><span class="status ${s.Art_Status}">${s.Art_Status.toUpperCase()}</span></div>
+            ${ADMIN&&opts.length?`<div class="opts">${opts.map(o=>`<span class="opt">${o}</span>`).join('')}</div>`:''}
+            <div class="admin-info"><b>${s.Class_ID}</b><br>${s.Image_Prompt?s.Image_Prompt.slice(0,160)+'…':'no prompt'}</div>
+          </div>`;
+        }).join('')}</div>
+        <div class="radar-wrap">${radar(+s3.Grade_Offense,+s3.Grade_Defense,+s3.Grade_Speed,color)}<div class="radar-cap">Final form (Stage 3) · sum ${(+s3.Grade_Offense)+(+s3.Grade_Defense)+(+s3.Grade_Speed)}</div></div>
+      </div>
     </div>`;
   }).join('');
 }
