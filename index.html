@@ -196,7 +196,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
       <li><strong style="color:#ede0c4">Props</strong> — 3–4 per zone, transparent background. Environmental dressing placed on the floor map: standing stones, skull heaps, glowing crystals, etc. Tracked in <code>codex/prop_assets.csv</code>.</li>
       <li><strong style="color:#ede0c4">Map preview</strong> — Two renders per floor: empty (background + props, no creatures) and populated (with creatures placed). For approval only, not shipped assets. Tracked in <code>floor_assets.csv</code> <code>Map_Preview_Status</code> / <code>Map_Populated_Status</code>.</li>
     </ol>
-    <p style="font-size:12px;color:#8a7a5e;margin-top:6px">Floor assets live in <code>floors/backgrounds/</code>, <code>floors/parallax/</code>, <code>floors/props/{zone}/</code>, and <code>floors/previews/</code>. The floor sheet (<code>codex/floor_assets.csv</code>) references which assets each floor uses — decoupling floor identity from art allows infinite floor extension later by reusing zone asset pools.</p></div>
+    <p style="font-size:12px;color:#8a7a5e;margin-top:6px">Floor assets live in <code>floors/backgrounds/</code>, <code>floors/parallax/</code>, <code>floors/props/{zone}/</code>. Preview/mockup floor art now lives under <code>_parking/floors/</code>. The floor sheet (<code>codex/floor_assets.csv</code>) references which assets each floor uses — decoupling floor identity from art allows infinite floor extension later by reusing zone asset pools.</p></div>
 
     <div class="card"><div class="card-title">Item art pipeline (per base type, 1 image)</div>
     <ol style="font-size:13px;color:#c2ae8b;margin:8px 0 0;padding-left:20px">
