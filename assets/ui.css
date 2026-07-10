@@ -318,3 +318,19 @@ img{ image-rendering:auto; }
 .codex-card:hover{ border-color:var(--blood-bright) !important;
   box-shadow:inset 0 0 40px rgba(0,0,0,.32), 0 0 16px rgba(124,21,25,.35) !important; }
 .codex-grid{ overflow:visible !important; }
+
+/* ---------- Fix: dividers center under centered card titles ---------- */
+.hub-card h2::after{ background-position:center; }
+
+/* ---------- Hub icons: per-page emblems (gem = fallback) ---------- */
+.hub-icon{ width:36px !important; height:36px !important; }
+.hub-card[href^="creature-codex"] .hub-icon{ background-image:url("ui/icons/bestiary.png"); }
+.hub-card[href^="floor-codex"] .hub-icon{ background-image:url("ui/icons/tower.png"); }
+.hub-card[href^="reliquary"] .hub-icon{ background-image:url("ui/icons/reliquary.png"); }
+.hub-card[href*="tab=equipment"] .hub-icon{ background-image:url("ui/icons/anvil.png"); }
+.hub-card[href="index.html"] .hub-icon{ background-image:url("ui/icons/quill.png"); }
+.hub-card[href*="#balance"] .hub-icon{ background-image:url("ui/icons/scales.png"); }
+.hub-card[href^="checklist"] .hub-icon{ background-image:url("ui/icons/checklist.png"); }
+.hub-card[href^="other-systems"] .hub-icon{ background-image:url("ui/icons/gears.png"); }
+.hub-card[href^="dev.html"] .hub-icon{ background-image:url("ui/icons/eyecog.png"); }
+.hub-card[href*="admin=1"] .hub-icon{ background-image:url("ui/icons/brush.png"); }
