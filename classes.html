@@ -51,8 +51,27 @@ const DESCRIPTIONS={
   ASSASSIN:"The pure striker. Extreme Offense and Speed on almost no Defense — the fastest, deadliest, most fragile build in the game. From cutthroat to stalker to shadow-nightblade. (DLC)",
   PROFESSOR:"The tanky controller. High Defense and high Speed with dumped Offense — survives and acts early, controlling the fight without heavy damage. The scholar who sees it coming, from professor to sage to prophet. (DLC)"
 };
-function parseCSV(t){const ls=t.trim().split(/\r?\n/),h=spl(ls[0]);return ls.slice(1).map(l=>{const c=spl(l),o={};h.forEach((k,i)=>o[k.trim()]=(c[i]||'').trim());return o})}
-function spl(l){const c=[];let s='',q=false;for(let i=0;i<l.length;i++){const ch=l[i];if(ch==='"'){if(q&&l[i+1]==='"'){s+='"';i++}else q=!q}else if(ch===','&&!q){c.push(s);s=''}else s+=ch}c.push(s);return c}
+function parseCSV(t){
+  const rows=[]; let row=[], s='', q=false;
+  t = t.replace(/\r\n/g,'\n').replace(/\r/g,'\n');
+  for(let i=0;i<t.length;i++){
+    const ch=t[i];
+    if(q){
+      if(ch==='"'){ if(t[i+1]==='"'){ s+='"'; i++; } else { q=false; } }
+      else s+=ch;                      // newlines inside quotes are kept
+    } else {
+      if(ch==='"') q=true;
+      else if(ch===','){ row.push(s); s=''; }
+      else if(ch==='\n'){ row.push(s); s=''; rows.push(row); row=[]; }
+      else s+=ch;
+    }
+  }
+  if(s.length||row.length){ row.push(s); rows.push(row); }
+  const nonEmpty=rows.filter(r=>r.some(c=>c.trim()!==''));
+  if(!nonEmpty.length) return [];
+  const h=nonEmpty[0].map(k=>k.trim());
+  return nonEmpty.slice(1).map(c=>{const o={};h.forEach((k,i)=>o[k]=(c[i]||'').trim());return o});
+}
 function radar(o,d,sp,color){
   const size=210,cx=105,cy=98,R=66;
   const axes=[['OFF',-90,o],['DEF',30,d],['SPD',150,sp]];
@@ -73,7 +92,8 @@ async function load(){
     sts.sort((a,b)=>+a.Stage-+b.Stage);
     const chain=sts.map(s=>s.Name).join(' → ');
     const acc=sts[0].Access;
-    const s3=sts[2];
+    const s3=sts[sts.length-1];
+    if(!s3) return '';
     const color=COLORS[lid]||'#c2ae8b';
     return `<div class="line-block">
       <div class="line-head"><span class="line-title">${chain}</span><span class="access ${acc==='DLC'?'dlc':''}">${acc}</span></div>
@@ -97,5 +117,9 @@ async function load(){
     </div>`;
   }).join('');
 }
-load();
+load().catch(e=>{
+  document.getElementById('grid').innerHTML =
+    '<div style="padding:20px;color:#dd5646;font-family:monospace;">FAILED TO LOAD CLASSES: '+e.message+'</div>';
+  console.error(e);
+});
 </script></body></html>

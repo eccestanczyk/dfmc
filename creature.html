@@ -358,7 +358,7 @@ async function renderMoves(c) {
         ${m.Anti !== '-' ? `<div style="font-size:11px;color:#e08080;margin-top:3px;">Anti: ${escapeHtml(m.Anti)}</div>` : ''}
         <div style="font-size:11px;color:var(--ink-faint);font-style:italic;margin-top:3px;">${escapeHtml(m.VFX_Description)}</div>
       </div>`;
-    }).join('') + `<a href="moves.html" style="font-size:11px;color:var(--gold);font-family:'Cinzel',serif;">FULL MOVE INDEX →</a>`;
+    }).join('');
 
     // Soul Joker reflection: equipping this creature's soul grants its moves to the character
     const soulRows = mine.map(m => {
