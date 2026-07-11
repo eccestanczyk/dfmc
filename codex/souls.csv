@@ -15,10 +15,10 @@ S-BRAMBLEFAWN-HEAD,BRAMBLEFAWN,Head,Team,Common,Allies' healing received +4% (th
 S-BRAMBLEFAWN-CHEST,BRAMBLEFAWN,Chest,Personal,Common,+5% HP (green vigor).
 S-BRAMBLEFAWN-GLOVES,BRAMBLEFAWN,Gloves,Personal,Common,Your damage-over-time effects deal +6% (thorns dig deeper).
 S-BRAMBLEFAWN-FEET,BRAMBLEFAWN,Feet,Local,Common,This item's Defense contribution ×1.35.
-S-WRAITH-HEAD,WRAITH,Head,Personal,Uncommon,+6% Offense vs targets with reduced Speed stages (run down the fleeing).
-S-WRAITH-CHEST,WRAITH,Chest,Personal,Uncommon,+6% HP (half-here already).
-S-WRAITH-GLOVES,WRAITH,Gloves,Local,Uncommon,This item's Offense contribution ×1.40.
-S-WRAITH-FEET,WRAITH,Feet,Team,Uncommon,Allies deal +5% on the first turn (the chase begins at full gallop).
+S-NIGHTMARE-HEAD,NIGHTMARE,Head,Personal,Uncommon,+6% Offense vs targets with reduced Speed stages (run down the fleeing).
+S-NIGHTMARE-CHEST,NIGHTMARE,Chest,Personal,Uncommon,+6% HP (half-here already).
+S-NIGHTMARE-GLOVES,NIGHTMARE,Gloves,Local,Uncommon,This item's Offense contribution ×1.40.
+S-NIGHTMARE-FEET,NIGHTMARE,Feet,Team,Uncommon,Allies deal +5% on the first turn (the chase begins at full gallop).
 S-GOLGOTH-HEAD,GOLGOTH,Head,Personal,Uncommon,+6% Defense (stone does not flinch).
 S-GOLGOTH-CHEST,GOLGOTH,Chest,Local,Uncommon,This armour's Defense ×1.40.
 S-GOLGOTH-GLOVES,GOLGOTH,Gloves,Personal,Uncommon,+6% Offense while below 50% HP (cornered rockslide).
