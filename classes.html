@@ -40,7 +40,7 @@
 </div>
 <script src="nav.js"></script>
 <script>
-const IMG_BASE="https://cdn.jsdelivr.net/gh/eccestanczyk/dfmc@main/";
+const IMG_BASE="";  // same-origin (GitHub Pages) — jsDelivr caches stale after purge
 const ADMIN=new URLSearchParams(location.search).get('admin')==='1';
 if(ADMIN)document.body.classList.add('admin');
 const DESCRIPTIONS={
@@ -80,7 +80,7 @@ async function load(){
       <div class="desc">${DESCRIPTIONS[lid]||''}</div>
       <div class="line-body">
         <div class="stages">${sts.map(s=>{
-          const img=s.Image_Path?`<img src="${IMG_BASE}${s.Image_Path}" loading="lazy">`:`<span class="pend">ART PENDING</span>`;
+          const img=s.Image_Path?`<img src="${IMG_BASE}${s.Image_Path}?v=${Date.now()}" loading="lazy">`:`<span class="pend">ART PENDING</span>`;
           const opts=(s.Option_Slots||'').split(';').filter(Boolean);
           return `<div class="stage-card">
             <div class="slbl">STAGE ${s.Stage}</div>
