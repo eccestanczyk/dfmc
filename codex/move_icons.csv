@@ -1,4 +1,5 @@
 Icon_ID,Label,Category,Represents,Move_Count,Image_Path,Original_Path,Status,Revision_Reason
+fx_power,Power,stat,"Move power / damage stat (ink sword, dark blood red)",400,assets/ui/move_icons/fx_power.png,_parking/ui/move-icons/originals/fx_power.raw.png,pending_approval,
 fx_drain,Drain,ailment,HP drain / leech / siphon moves,3,assets/ui/move_icons/fx_drain.png,_parking/ui/move-icons/originals/fx_drain.raw.png,approved,
 fx_bleed,Bleed,ailment,Bleed damage-over-time,7,assets/ui/move_icons/fx_bleed.png,_parking/ui/move-icons/originals/fx_bleed.raw.png,approved,
 fx_poison,Poison,ailment,Poison / venom / toxic DoT,5,assets/ui/move_icons/fx_poison.png,_parking/ui/move-icons/originals/fx_poison.raw.png,approved,
