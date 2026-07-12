@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Move Effect Icons — DFMC Codex</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/ui.css">
+<style>
+  body{background:#14100b;color:#d8c9a8;font-family:'EB Garamond',Georgia,serif;margin:0;}
+  .wrap{max-width:1180px;margin:0 auto;padding:24px 18px 80px;}
+  h1{font-family:Cinzel,serif;color:#cfa650;letter-spacing:.06em;font-size:26px;margin:18px 0 4px;}
+  .sub{color:#9a8a68;font-size:14px;margin-bottom:22px;}
+  .mockup{border:1px solid #4a3a24;background:#1a1a1a;margin:0 0 26px;}
+  .mockup img{width:100%;display:block;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:16px;}
+  .card{background:#1d1710;border:1px solid #4a3a24;padding:12px;display:flex;flex-direction:column;gap:8px;}
+  .imgbox{background:
+     linear-gradient(45deg,#2a2318 25%,transparent 25%,transparent 75%,#2a2318 75%),
+     linear-gradient(45deg,#2a2318 25%,#221c12 25%,#221c12 75%,#2a2318 75%);
+     background-size:24px 24px;background-position:0 0,12px 12px;
+     display:flex;align-items:center;justify-content:center;padding:10px;}
+  .imgbox img{width:128px;height:128px;image-rendering:auto;}
+  .tiny{display:flex;gap:6px;align-items:center;justify-content:center;padding:6px;background:#241d12;border:1px solid #3a2e1c;}
+  .tiny img{width:28px;height:28px;}
+  .tiny span{font-size:11px;color:#8a7a58;}
+  .nm{font-family:Cinzel,serif;color:#e0c88a;font-size:15px;letter-spacing:.04em;}
+  .meta{font-size:12.5px;color:#9a8a68;line-height:1.45;}
+  .meta b{color:#bfa87a;}
+  .status{font-size:11px;text-transform:uppercase;letter-spacing:.08em;padding:2px 8px;border:1px solid;display:inline-block;}
+  .st-pending_approval{color:#d8b45a;border-color:#7a6230;}
+  .st-approved{color:#7cc06a;border-color:#3f6a34;}
+  .st-needs_art_revision{color:#d87a5a;border-color:#7a4530;}
+  select,textarea{width:100%;background:#241d12;color:#d8c9a8;border:1px solid #4a3a24;font-family:inherit;font-size:13px;padding:6px;box-sizing:border-box;}
+  textarea{resize:vertical;min-height:34px;}
+  .bar{position:sticky;top:0;z-index:50;background:#1a140c;border-bottom:1px solid #4a3a24;padding:10px 18px;display:flex;gap:10px;align-items:center;}
+  .bar button{font-family:Cinzel,serif;font-size:11px;font-weight:600;letter-spacing:.04em;padding:6px 14px;border:1px solid #5c462c;background:#271e15;color:#cfa650;cursor:pointer;text-transform:uppercase;}
+  .bar button:hover{background:#332818;}
+  .count{font-size:12px;color:#9a8a68;}
+  a.orig{font-size:11.5px;color:#8a7a58;text-decoration:underline dotted;}
+</style>
+</head>
+<body>
+<div class="bar">
+  <button id="copyBacklog">Copy backlog</button>
+  <button id="clearBacklog">Clear</button>
+  <span class="count" id="count"></span>
+</div>
+<div class="wrap">
+  <h1>Move Effect Icons</h1>
+  <div class="sub">Hand-inked effect &amp; targeting glyphs for move cards — iron-gall ink and dried blood on transparent, designed to sit on parchment. Pick an action per icon, then <b>Copy backlog</b> and paste to Claude.</div>
+
+  <div class="mockup">
+    <img id="mockimg" alt="Icons on parchment mockup — 96px grid and 40px strip">
+  </div>
+
+  <div class="grid" id="grid"></div>
+</div>
+
+<script src="nav.js"></script>
+<script>
+(function(){
+  const CDN='https://cdn.jsdelivr.net/gh/eccestanczyk/dfmc@main/';
+  const RAW='https://raw.githubusercontent.com/eccestanczyk/dfmc/main/';
+  const KEY='dfmc_icon_backlog_v1';
+  document.getElementById('mockimg').src=CDN+'assets/ui/move_icons/mockup.png';
+
+  const ACTIONS={
+    '':'— action —',
+    approve_art:'Approve art',
+    art_revision:'Art revision needed',
+    regenerate:'Regenerate and overwrite',
+    generate_option:'Generate new option'
+  };
+
+  function bl(){ try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){return{}} }
+  function save(b){ localStorage.setItem(KEY,JSON.stringify(b)); renderCount(); }
+  function renderCount(){
+    const b=bl(); let n=0,a=0;
+    for(const k in b){ if((b[k].action)||b[k].comment){n++; if(b[k].action)a++;} }
+    document.getElementById('count').textContent=n?`${n} icon${n>1?'s':''}, ${a} action${a!==1?'s':''} pending`:'backlog empty';
+  }
+
+  function parseCSV(t){
+    const lines=t.trim().split(/\r?\n/); const head=splitLine(lines[0]);
+    return lines.slice(1).map(l=>{const c=splitLine(l);const o={};head.forEach((h,i)=>o[h]=c[i]||'');return o;});
+  }
+  function splitLine(l){
+    const out=[];let cur='',q=false;
+    for(let i=0;i<l.length;i++){const ch=l[i];
+      if(q){ if(ch=='"'&&l[i+1]=='"'){cur+='"';i++;} else if(ch=='"'){q=false;} else cur+=ch; }
+      else{ if(ch=='"')q=true; else if(ch==','){out.push(cur);cur='';} else cur+=ch; }
+    }
+    out.push(cur);return out;
+  }
+
+  fetch(RAW+'codex/move_icons.csv?t='+Date.now()).then(r=>r.text()).then(t=>{
+    const rows=parseCSV(t); const g=document.getElementById('grid'); const b=bl();
+    rows.forEach(r=>{
+      const card=document.createElement('div'); card.className='card';
+      const img=CDN+r.Image_Path;
+      card.innerHTML=`
+        <div class="imgbox"><img loading="lazy" src="${img}" alt="${r.Label}"></div>
+        <div class="tiny"><span>40px:</span><img src="${img}"><span>on parchment ↑</span></div>
+        <div class="nm">${r.Label} <span style="color:#7a6a48;font-size:11px">(${r.Icon_ID})</span></div>
+        <span class="status st-${r.Status}">${r.Status.replace(/_/g,' ')}</span>
+        <div class="meta"><b>${r.Category}</b> — ${r.Represents}<br>Used by <b>${r.Move_Count}</b> move${r.Move_Count!=1?'s':''}
+          · <a class="orig" target="_blank" href="${RAW+r.Original_Path}">original (uncropped)</a></div>`;
+      const sel=document.createElement('select');
+      for(const k in ACTIONS){const o=document.createElement('option');o.value=k;o.textContent=ACTIONS[k];sel.appendChild(o);}
+      const ta=document.createElement('textarea'); ta.placeholder='Comment / art direction…';
+      const e=b[r.Icon_ID]||{}; sel.value=e.action||''; ta.value=e.comment||'';
+      sel.onchange=()=>{const bb=bl(); bb[r.Icon_ID]=bb[r.Icon_ID]||{label:r.Label}; bb[r.Icon_ID].action=sel.value; bb[r.Icon_ID].label=r.Label; save(bb);};
+      ta.oninput=()=>{const bb=bl(); bb[r.Icon_ID]=bb[r.Icon_ID]||{label:r.Label}; bb[r.Icon_ID].comment=ta.value; bb[r.Icon_ID].label=r.Label; save(bb);};
+      card.appendChild(sel); card.appendChild(ta); g.appendChild(card);
+    });
+    renderCount();
+  });
+
+  document.getElementById('copyBacklog').onclick=async()=>{
+    const b=bl(); const ids=Object.keys(b).sort();
+    let out='MOVE ICON BACKLOG\n'+'—'.repeat(30)+'\n', n=0;
+    for(const id of ids){const e=b[id]; if(!e.action&&!e.comment)continue; n++;
+      out+=`${id} ${e.label||''}${e.action?': '+(ACTIONS[e.action]||e.action):''}\n`;
+      if(e.comment)out+=`  Comment: ${e.comment}\n`;}
+    if(!n)out='BACKLOG EMPTY — no pending actions.';
+    try{await navigator.clipboard.writeText(out.trim());}catch(e){
+      const ta=document.createElement('textarea');ta.value=out.trim();document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();}
+    document.getElementById('copyBacklog').textContent='Copied ✓';
+    setTimeout(()=>document.getElementById('copyBacklog').textContent='Copy backlog',1200);
+  };
+  document.getElementById('clearBacklog').onclick=()=>{localStorage.removeItem(KEY);location.reload();};
+  renderCount();
+})();
+</script>
+</body>
+</html>
