@@ -45,6 +45,10 @@ table.item-table td:first-child{ color:var(--ink); font-weight:600; }
     <div class="item-section"><h3>Tier Progression</h3><div class="item-section-body">
       <table class="item-table"><thead><tr><th>Tier</th><th>Name</th><th>Level Req</th><th>Craft Cost</th></tr></thead><tbody id="tier-table"></tbody></table>
     </div></div>
+    <div class="item-section" id="implicit-grid-section"><h3>Implicit Values (Tier × Grade)</h3><div class="item-section-body">
+      <div id="implicit-grid-note" style="font-size:12px;color:var(--ink-dim);margin-bottom:8px"></div>
+      <div style="overflow-x:auto"><table class="item-table"><thead><tr id="implicit-grid-head"></tr></thead><tbody id="implicit-grid-body"></tbody></table></div>
+    </div></div>
     <div class="item-section"><h3>Grade Progression</h3><div class="item-section-body">
       <table class="item-table"><thead><tr><th>Grade</th><th>Gems</th><th>Runes</th><th>Enchants</th><th>Grade-Up Cost</th><th>Success %</th></tr></thead><tbody id="grade-table"></tbody></table>
     </div></div>
@@ -109,6 +113,31 @@ function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replac
   const craftMult=(category==='Gem'||category==='Rune'||category==='Scroll')?6:25;
   fam.forEach(r=>{const t=parseInt(r.Tier)||0;
     tierBody.innerHTML+=`<tr><td>T${t}</td><td>${esc(r.Name)}</td><td>${r.Level_Req?'Lv '+esc(r.Level_Req):'<span class="tbd">—</span>'}</td><td>${craftMult*t} ${craftMat}</td></tr>`;});
+  // Implicit value grid (tier x grade)
+  (function(){
+    const sec=document.getElementById('implicit-grid-section');
+    const GF=g=>1+0.12*(g-1);
+    let coef=null, stat='', pct=false;
+    if(category==='Weapon'){coef=(slot==='Main Hand')?4.5:2.5;stat='flat Attack';}
+    else if(category==='Armour'){coef=2.2;stat='flat Defense';}
+    else if(category==='Accessory'){coef=(family==='Relic')?3.0:2.0;stat=(family==='Relic')?'flat HP':'flat Attack';}
+    else if(category==='Gem'){coef=1.5;stat=(family==='Onyx')?'flat Defense':(family==='Bloodstone')?'flat HP':'flat Attack';}
+    else if(category==='Tag'){coef=3.0;stat=(family==='Carapace')?'Creature Defense':(family==='Heart')?'Creature HP':'Creature Attack';}
+    else if(category==='Rune'){pct=true;stat=(family.indexOf('Aegis')>=0)?'increased % Defense':(family.indexOf('Vitality')>=0)?'increased % HP':'increased % Attack';}
+    else {sec.style.display='none';return;}
+    document.getElementById('implicit-grid-note').textContent=pct
+      ? stat+' — 1.5% + 0.45% × (grade−1) + 0.15% × tier'
+      : stat+' — '+coef+' × tier × GF, GF = 1 + 0.12 × (grade−1)';
+    document.getElementById('implicit-grid-head').innerHTML='<th>Grade \\ Tier</th>'+Array.from({length:10},(_,i)=>'<th>T'+(i+1)+'</th>').join('');
+    const body=document.getElementById('implicit-grid-body');
+    GRADES.forEach((g,gi)=>{
+      let cells='';
+      for(let t=1;t<=10;t++){
+        cells+='<td style="text-align:center">'+(pct?(1.5+0.45*gi+0.15*t).toFixed(1)+'%':Math.round(coef*t*GF(gi+1)))+'</td>';
+      }
+      body.innerHTML+='<tr><td style="color:'+g.color+';white-space:nowrap">'+g.name+'</td>'+cells+'</tr>';
+    });
+  })();
   const gradeBody=document.getElementById('grade-table');
   GRADES.forEach(g=>{gradeBody.innerHTML+=`<tr><td style="color:${g.color}">${g.name}</td><td>${g.gems||'—'}</td><td>${g.runes||'—'}</td><td>${g.enchants||'—'}</td><td>${g.cost}</td><td>${g.success}</td></tr>`;});
   if(isEnh){document.getElementById('refine-section').style.display='none';}
