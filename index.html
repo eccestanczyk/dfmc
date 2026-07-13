@@ -649,7 +649,6 @@ FinalDamage = RawDamage
     <div class="grid-2">
       <div class="card"><div class="card-title">🧬 Breeding</div><div class="card-body">Two parent creatures fed Food produce an egg via UI. Higher grade creatures require more Food. Higher grade parents increase odds of higher grade eggs. No grade cap on bred eggs.</div></div>
       <div class="card"><div class="card-title">🔧 Crafting</div><div class="card-body">Recipe list in UI. Select recipe, confirm materials, receive output. Materials sourced from battle rewards and chests.</div></div>
-      <div class="card"><div class="card-title">🌱 Farming</div><div class="card-body">Timer-based UI system. Plant a crop, return after a set duration to harvest. Yield renders into crafting materials.</div></div>
       <div class="card"><div class="card-title">🥚 Hatchery</div><div class="card-body">Egg incubation managed via UI. Set eggs to incubate, return after the timer. Hatchery level (upgraded via crafting resources) improves grade odds and slot count.</div></div>
     </div>
 
@@ -1141,7 +1140,7 @@ Your Backend
       <li><span class="phase-num">11</span><span><strong style="color:#ede0c4">Boss floors</strong> — every 10th floor, boss team encounter, key drop from pre-boss floors</span></li>
       <li><span class="phase-num">12</span><span><strong style="color:#ede0c4">Character & class system</strong> — class XP, character level, passive skill trees</span></li>
       <li><span class="phase-num">13</span><span><strong style="color:#ede0c4">Codex</strong> — creature catalogue, seen/acquired states</span></li>
-      <li><span class="phase-num">14</span><span><strong style="color:#ede0c4">Metagame UI</strong> — breeding, crafting, farming, hatchery panels</span></li>
+      <li><span class="phase-num">14</span><span><strong style="color:#ede0c4">Metagame UI</strong> — breeding, crafting, hatchery panels</span></li>
       <li><span class="phase-num">15</span><span><strong style="color:#ede0c4">Autoplay</strong> — auto-click creatures, auto-battle, configurable thresholds</span></li>
       <li><span class="phase-num">16</span><span><strong style="color:#ede0c4">Leagues & death pipelines</strong> — all four death paths, crypts, soul gems, season migration</span></li>
       <li><span class="phase-num">17</span><span><strong style="color:#ede0c4">PvP & ladders</strong> — matchmaking, relay, leaderboards</span></li>
@@ -1171,7 +1170,7 @@ Your Backend
         <li><span class="phase-num">8</span><span><strong style="color:#ede0c4">Autoplay & multi-tab system</strong> — pathfinding, config options, death handler, simultaneous multi-character simulation</span></li>
         <li><span class="phase-num">9</span><span><strong style="color:#ede0c4">Character & class system</strong> — class XP, character level aggregation, passive skill trees</span></li>
         <li><span class="phase-num">10</span><span><strong style="color:#ede0c4">Codex</strong> — creature catalogue, seen/acquired states, stat ranges, move lists, evolution chains</span></li>
-        <li><span class="phase-num">11</span><span><strong style="color:#ede0c4">Metagame UI</strong> — breeding, crafting, farming, hatchery — all as in-game UI panels accessible during PvE</span></li>
+        <li><span class="phase-num">11</span><span><strong style="color:#ede0c4">Metagame UI</strong> — breeding, crafting, hatchery — all as in-game UI panels accessible during PvE</span></li>
         <li><span class="phase-num">12</span><span><strong style="color:#ede0c4">Player logging system</strong> — event log and battle log, hooked into existing battle/leveling/item systems, file export for PC and mobile share UI</span></li>
         <li><span class="phase-num">13</span><span><strong style="color:#ede0c4">Leagues & death pipelines</strong> — all four death paths, both crypts, soul gem generation, season migration</span></li>
         <li><span class="phase-num">14</span><span><strong style="color:#ede0c4">PvP & ladders</strong> — matchmaking, relay, leaderboards</span></li>
@@ -1188,6 +1187,7 @@ Your Backend
     <div class="note note-warn"><p><strong>Seasonal migration</strong> — crypt delivery mechanism must be rock solid before launch.</p></div>
     <div class="note note-warn"><p><strong>Trade duplication exploits</strong> — implement transfer lock before marketplace goes live.</p></div>
     <h3>Future features (cut from current scope)</h3>
+    <div class="note note-info"><p><strong>Farming</strong> — a timer-based UI system (plant a crop, return after a duration to harvest, yield rendering into crafting materials) was cut from current scope. Crops are therefore <em>not</em> a source of Food: Food comes only from completing battles and dismantling eggs. May return later.</p></div>
     <div class="note note-info"><p><strong>Rogue Collectors</strong> — hostile NPC trainer encounters with patrol routes and line-of-sight triggers, originally part of floor structure. Removed from active scope to keep early development focused. May be reintroduced post-launch or in a content update.</p></div>
     <div class="note note-info"><p><strong>Gathering nodes & secret areas</strong> — the original handcrafted circuit map design with resource nodes, HM-gated secret areas, and a node-farming layer has been replaced by the simpler battle-win-threshold map design. All equipment and crafting materials now come from battle rewards and chests only. May be reconsidered as a future map variant or content layer.</p></div>
     <div class="note note-info"><p><strong>Physical base</strong> — the original design included a physical base the Collector could walk around in, with tile-based farming, craftings stations, a hatchery building, and a crypt chest to interact with. This has been replaced entirely by UI panels accessible during PvE floors. A physical base may be reintroduced in a future content update as an optional social/cosmetic space.</p></div>
