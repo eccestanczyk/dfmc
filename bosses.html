@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BOSSES</title>
-<link rel="stylesheet" href="theme.css?v=4">
+<link rel="stylesheet" href="theme.css">
 <style>
   .boss-card{ border:1px solid var(--rule); background:var(--panel, rgba(0,0,0,0.25)); margin:0 auto 28px; max-width:1100px; padding:22px; }
   .boss-head{ display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; border-bottom:1px solid var(--rule-faint); padding-bottom:10px; margin-bottom:14px; }
@@ -165,13 +165,9 @@ async function load() {
       html += `<div class="sec-label">KIT &amp; TEAM SYNERGY</div>`;
       html += `<div class="syn-box">${escapeHtml(b.Kit_Synergy)}</div>`;
 
-      html += `<div class="sec-label">BATTLE TEAM \u2014 BOSS + 2 SR ACTIVES, 4 IN RESERVE</div>`;
+      html += `<div class="sec-label">BATTLE TEAM \u2014 BOSS + 2 SR ACTIVES (NO RESERVES)</div>`;
       html += `<span class="role-tag">ACTIVE (SUPER RARE, FROM THIS ZONE'S FLOORS)</span>`;
       html += `<div class="team-row">${creatureTag(byId[b.Active_Creature_1])}${creatureTag(byId[b.Active_Creature_2])}</div>`;
-      html += `<span class="role-tag" style="margin-top:10px;">RESERVE (ZONE NATIVES)</span>`;
-      html += `<div class="team-row">`;
-      [b.Reserve_1, b.Reserve_2, b.Reserve_3, b.Reserve_4].forEach(id => { html += creatureTag(byId[id]); });
-      html += `</div>`;
 
       html += `</div></div></div>`;
     });
