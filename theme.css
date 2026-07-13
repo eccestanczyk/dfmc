@@ -185,13 +185,23 @@ main{ max-width:920px; margin:0 auto; padding:30px 20px 110px; }
 .tier-badge.tier-SSR{ background:var(--wax-ssr); }
 
 /* ---------- Type tags ---------- */
-.type-tags{ display:flex; gap:6px; margin-bottom:12px; }
+.type-tags{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px; }
 .type-tag{
-  font-family:'Cinzel', serif; font-size:12px; font-weight:600; padding:3px 11px;
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:'Cinzel', serif; font-size:12px; font-weight:600; padding:5px 12px;
   border:1px solid var(--rule); color:var(--gold); text-transform:uppercase; letter-spacing:0.06em;
   text-decoration:none; background:var(--surface-2); transition:all 0.14s ease;
 }
+/* ALL type tags share one frame — primary, secondary and tertiary look identical */
+.type-tag, .type-tag.secondary, .type-tag.tertiary{ border-style:solid; }
 .type-tag:hover{ background:var(--blood); color:var(--ink); border-color:var(--blood-bright); }
+/* Type medallion inside a tag */
+.tt-med{ width:34px; height:34px; object-fit:contain; display:block; flex-shrink:0; }
+
+/* Type chip (codex cards) */
+.type-chip{ display:inline-flex; align-items:center; gap:6px; }
+.type-chip img{ width:30px; height:30px; object-fit:contain; display:block; flex-shrink:0; }
+.type-chip .tcn{ font-style:italic; }
 
 /* ---------- Hero (creature / floor detail) ---------- */
 .hero{ padding:26px; }

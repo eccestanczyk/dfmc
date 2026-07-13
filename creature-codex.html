@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CREATURE CODEX</title>
-<link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="theme.css?v=4">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
@@ -38,7 +38,7 @@
   display:grid; grid-template-columns:repeat(3, 1fr); gap:16px;
 }
 @media(max-width:680px){
-  .codex-grid{ grid-template-columns:repeat(2, 1fr); gap:12px; }
+  .codex-grid{ grid-template-columns:repeat(3, 1fr); gap:8px; }
 }
 .codex-card{
   display:flex; flex-direction:column; text-decoration:none; color:var(--ink);
@@ -67,10 +67,13 @@
 .codex-card-rarity .tier-seal{ width:24px; height:24px; font-size:9px; }
 .codex-card-rarity span{ font-size:13px; color:var(--ink-dim); }
 @media(max-width:680px){
-  .codex-card-body{ padding:10px 12px 12px; }
-  .codex-card-name{ font-size:14px; }
-  .card-num{ font-size:12px; }
-  .codex-card-types{ font-size:12px; }
+  .codex-card-body{ padding:6px 7px 8px; }
+  .codex-card-name{ font-size:11px; margin-bottom:3px; }
+  .card-num{ font-size:9px; margin-right:4px; }
+  .codex-card-types{ font-size:9px; margin-bottom:4px; }
+  .codex-card-rarity .tier-seal{ width:18px; height:18px; font-size:7px; }
+  .codex-card-rarity span{ font-size:9px; }
+  .type-chip img{ width:20px; height:20px; }
 }
 .flag{ font-size:11px; margin-left:4px; vertical-align:middle; opacity:0.8; cursor:help; }
 .flag-art{ color:#e6c66d; }
