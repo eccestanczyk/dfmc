@@ -360,7 +360,7 @@ async function renderMoves(c) {
       </div>`;
     }).join('');
 
-    // Soul Joker reflection: equipping this creature's soul grants its moves to the character
+    // Soul equip: equipping this creature's soul grants its moves to the character
     const soulRows = mine.map(m => {
       const pw = m['Power_S' + stage];
       const mName = m['Name_S' + stage] || m.Name;
