@@ -200,10 +200,10 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
 
     <div class="card"><div class="card-title">Item art pipeline (per base type, 1 image)</div>
     <ol style="font-size:13px;color:#c2ae8b;margin:8px 0 0;padding-left:20px">
-      <li><strong style="color:#ede0c4">Generation</strong> — Text-to-image, <code>1024×1024</code>, transparent background. Each base type (weapon, armour, accessory, tag, material) gets one icon. Enhancement tiers (Rough → Sublime, Faded → Elder, Tattered → Fated) each get a tier-specific prompt describing the item's visual state at that power level.</li>
+      <li><strong style="color:#ede0c4">Generation</strong> — Text-to-image, <code>1024×1024</code>, opaque flat mid-gray <code>#808080</code> background, then remove.bg + despill (gpt-image-2 rejects transparent). Every weapon (36), armour piece (40), and accessory tier gets its own icon; enhancement tiers (Rough → Sublime, Faded → Elder, Tattered → Fated) get tier-specific prompts describing the item's visual state at that power level.</li>
       <li><strong style="color:#ede0c4">Approval</strong> — Same status flow as creatures: <code>prompt_ready</code> → <code>generated</code> → <code>approved</code>. Tracked in <code>codex/items.csv</code> <code>Art_Status</code> column.</li>
     </ol>
-    <p style="font-size:12px;color:#8a7a5e;margin-top:6px">All 435 items catalogued in <code>codex/items.csv</code> with flavor text and image prompts. Prompt boilerplate: <em>isolated dark-fantasy game item icon, oil-painted style, dramatic rim lighting, rich vivid colors, item centered 70% of frame, three-quarter angle, transparent background.</em></p></div>
+    <p style="font-size:12px;color:#8a7a5e;margin-top:6px">All 521 items catalogued in <code>codex/items.csv</code> with flavor text and image prompts. Prompt boilerplate: <em>isolated dark-fantasy game item icon, oil-painted style, dramatic rim lighting, rich vivid colors, item centered 70% of frame, three-quarter angle, on a plain flat mid-gray (#808080) seamless background.</em></p></div>
   </div>
 
   <!-- CHARACTERS -->
@@ -232,21 +232,21 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
 
     <h4>Starter classes <span style="font-size:12px;color:#8a7a5e">(free)</span></h4>
     <div class="grid-3">
-      <div class="card"><div class="card-title"><span class="pill pill-warrior">Warrior → Knight → Paladin</span></div><div class="card-body" style="margin-top:6px">High Defense, moderate Attack, low Speed. The armored frontliner — soaks the alpha strike, acts late.<br><br><span style="font-size:12px;color:#c2ae8b">Stage 3: Off 6 · Def 10 · Spd 4</span></div></div>
-      <div class="card"><div class="card-title"><span class="pill pill-mage">Mage → Sorcerer → Archon</span></div><div class="card-body" style="margin-top:6px">Highest Attack, lowest Defense, moderate Speed. The glass cannon — the game's top damage ceiling, pays with fragility.<br><br><span style="font-size:12px;color:#c2ae8b">Stage 3: Off 10 · Def 2 · Spd 8</span></div></div>
-      <div class="card"><div class="card-title"><span class="pill pill-archer">Archer → Ranger → Hawkeye</span></div><div class="card-body" style="margin-top:6px">High Attack, low Defense, high Speed. The fast ranged striker — wins initiative, hits hard, folds under pressure.<br><br><span style="font-size:12px;color:#c2ae8b">Stage 3: Off 8 · Def 3 · Spd 9</span></div></div>
+      <div class="card"><div class="card-title"><span class="pill pill-warrior">Warrior → Knight → Paladin</span></div><div class="card-body" style="margin-top:6px">High Defense, moderate Attack, low Speed. The armored frontliner — soaks the alpha strike, acts late.<br><br><span style="font-size:12px;color:#c2ae8b">Stage 3: Atk 6 · Def 10 · Spd 4</span></div></div>
+      <div class="card"><div class="card-title"><span class="pill pill-mage">Mage → Sorcerer → Archon</span></div><div class="card-body" style="margin-top:6px">Highest Attack, lowest Defense, moderate Speed. The glass cannon — the game's top damage ceiling, pays with fragility.<br><br><span style="font-size:12px;color:#c2ae8b">Stage 3: Atk 10 · Def 2 · Spd 8</span></div></div>
+      <div class="card"><div class="card-title"><span class="pill pill-archer">Archer → Ranger → Hawkeye</span></div><div class="card-body" style="margin-top:6px">High Attack, low Defense, high Speed. The fast ranged striker — wins initiative, hits hard, folds under pressure.<br><br><span style="font-size:12px;color:#c2ae8b">Stage 3: Atk 8 · Def 3 · Spd 9</span></div></div>
     </div>
 
     <h4>DLC-locked classes</h4>
     <div class="grid-3">
-      <div class="card"><div class="card-title"><span class="pill pill-warrior">Brute → Warlord → Titan</span></div><div class="card-body" style="margin-top:6px">High Attack, high Defense, lowest Speed. The heavy bruiser — hits and survives, but always moves last.<br><br><span style="font-size:12px;color:#c2ae8b">Stage 3: Off 9 · Def 8 · Spd 3</span></div></div>
-      <div class="card"><div class="card-title"><span class="pill pill-archer">Assassin → Stalker → Nightblade</span></div><div class="card-body" style="margin-top:6px">High Attack, lowest Defense, highest Speed. The pure glass-cannon striker — faster and squishier than the Mage.<br><br><span style="font-size:12px;color:#c2ae8b">Stage 3: Off 9 · Def 2 · Spd 9</span></div></div>
-      <div class="card"><div class="card-title"><span class="pill pill-mage">Professor → Sage → Prophet</span></div><div class="card-body" style="margin-top:6px">High Defense, high Speed, low Attack. The tanky-fast controller — survives and acts early, but does not hit hard. The scholar who sees it coming.<br><br><span style="font-size:12px;color:#c2ae8b">Stage 3: Off 3 · Def 8 · Spd 9</span></div></div>
+      <div class="card"><div class="card-title"><span class="pill pill-warrior">Brute → Warlord → Titan</span></div><div class="card-body" style="margin-top:6px">High Attack, high Defense, lowest Speed. The heavy bruiser — hits and survives, but always moves last.<br><br><span style="font-size:12px;color:#c2ae8b">Stage 3: Atk 9 · Def 8 · Spd 3</span></div></div>
+      <div class="card"><div class="card-title"><span class="pill pill-archer">Assassin → Stalker → Nightblade</span></div><div class="card-body" style="margin-top:6px">High Attack, lowest Defense, highest Speed. The pure glass-cannon striker — faster and squishier than the Mage.<br><br><span style="font-size:12px;color:#c2ae8b">Stage 3: Atk 9 · Def 2 · Spd 9</span></div></div>
+      <div class="card"><div class="card-title"><span class="pill pill-mage">Professor → Sage → Prophet</span></div><div class="card-body" style="margin-top:6px">High Defense, high Speed, low Attack. The tanky-fast controller — survives and acts early, but does not hit hard. The scholar who sees it coming.<br><br><span style="font-size:12px;color:#c2ae8b">Stage 3: Atk 3 · Def 8 · Spd 9</span></div></div>
     </div>
 
     <h4>Stat progression by stage</h4>
     <table>
-      <tr><th>Class line</th><th>Stage 1 (O/D/S)</th><th>Stage 2 (O/D/S)</th><th>Stage 3 (O/D/S)</th><th>Access</th></tr>
+      <tr><th>Class line</th><th>Stage 1 (A/D/S)</th><th>Stage 2 (A/D/S)</th><th>Stage 3 (A/D/S)</th><th>Access</th></tr>
       <tr><td>Warrior → Knight → Paladin</td><td>4 / 6 / 2</td><td>5 / 8 / 3</td><td>6 / 10 / 4</td><td>Free</td></tr>
       <tr><td>Mage → Sorcerer → Archon</td><td>6 / 1 / 5</td><td>8 / 2 / 6</td><td>10 / 2 / 8</td><td>Free</td></tr>
       <tr><td>Archer → Ranger → Hawkeye</td><td>5 / 2 / 5</td><td>7 / 2 / 7</td><td>8 / 3 / 9</td><td>Free</td></tr>
@@ -254,6 +254,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
       <tr><td>Assassin → Stalker → Nightblade</td><td>6 / 1 / 5</td><td>7 / 2 / 7</td><td>9 / 2 / 9</td><td>DLC</td></tr>
       <tr><td>Professor → Sage → Prophet</td><td>2 / 5 / 5</td><td>2 / 7 / 7</td><td>3 / 8 / 9</td><td>DLC</td></tr>
     </table>
+    <div class="note note-info"><p><strong>Class stats are multipliers, not pools.</strong> A class stage stat feeds <code>AxisMult = (3 &times; stat + 5) / 20</code> and multiplies the summed item stats for that axis — Paladin Def 10 means &times;1.75 on all armour Defense; Mage Def 2 means &times;0.55. The character has no innate stat pool; an unarmed character has no Attack. Same curve as creature axis grades.</p></div>
     <div class="note note-info"><p>Additional class lines (pure-wall, balanced-duelist, speed-specialist, etc.) are reserved as possible future content.</p></div>
 
     <h3>Soul gems</h3>
@@ -466,15 +467,19 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     </table>
 
     <h3>Stat formulas</h3>
-    <p>Base stats are determined entirely by axis grade + level, multiplied by creature quality grade. Species identity comes from type, moves, and grade distribution (which axes are high vs low), not from stat values. Full numerical tables for all equipment and modifier systems live in the <a href="stat-tables.html" style="color:var(--gold-bright)">Stat &amp; Equipment Tables</a> page.</p>
+    <p>Stats are built from two independent parts: a <strong>magnitude pool</strong> (level core + items) and an <strong>innate axis multiplier</strong>. Axis grades and class stage stats are multipliers of the item/level pool — identity scales power, gear provides it. Full numerical tables live in the <a href="stat-tables.html" style="color:var(--gold-bright)">Stat &amp; Equipment Tables</a>.</p>
     <table>
-      <tr><th>Stat</th><th>Formula</th></tr>
-      <tr><td>Attack / Defense / Utility</td><td><code>BaseStat = (axisGrade × 30 + 50) × (level + 25) / 125</code></td></tr>
-      <tr><td>Speed</td><td><code>Speed = axisGrade</code> (flat — equals the axis grade, 1–10; no level scaling, no quality scaling, no gear sources; only temporary in-battle stat stages can modify turn order)</td></tr>
-      <tr><td>HP</td><td><code>HP = (4 × level + 35) × (5 + Defense_Grade) / 11</code></td></tr>
-      <tr><td>Quality multiplier</td><td><code>QM = 0.80 + 0.04 × qualityGrade</code> — multiplies Off/Def/Utl/HP, never Speed. Worn ×0.84 → Void ×1.20.</td></tr>
+      <tr><th>Term</th><th>Formula</th></tr>
+      <tr><td style="color:#ede0c4">Core (creatures)</td><td><code>Core(level) = 1.6 &times; (level + 25)</code> — the grade-5 baseline pool (200 at level 100)</td></tr>
+      <tr><td style="color:#ede0c4">Axis multiplier</td><td><code>AxisMult(g) = (3g + 5) / 20</code> — grade 1 &times;0.40 &middot; grade 5 &times;1.00 &middot; grade 10 &times;1.75. Same curve for creature axis grades and class stage stats.</td></tr>
+      <tr><td style="color:#ede0c4">Creature Atk / Def / Utl</td><td><code>(Core(level) + &Sigma; TagStats) &times; AxisMult(grade) &times; QM</code></td></tr>
+      <tr><td style="color:#ede0c4">Character Atk / Def</td><td><code>&Sigma; ItemStats &times; AxisMult(classStageStat) &times; (1 + &Sigma; increased%) &times; &Pi;(more)</code> — the character has no innate pool; gear is everything, the class multiplies it</td></tr>
+      <tr><td style="color:#ede0c4">Speed</td><td><code>Speed = axisGrade</code> (flat — no level scaling, no quality scaling, no gear sources; only temporary in-battle stat stages modify turn order)</td></tr>
+      <tr><td style="color:#ede0c4">HP</td><td><code>HP = (4 &times; level + 35) &times; (5 + Defense_Grade) / 11 + &Sigma; flat HP items</code> (&times;QM for creatures)</td></tr>
+      <tr><td style="color:#ede0c4">Quality multiplier</td><td><code>QM = 0.80 + 0.04 &times; qualityGrade</code> — multiplies creature Atk/Def/Utl/HP, never Speed. Worn &times;0.84 &rarr; Void &times;1.20. Creatures only.</td></tr>
     </table>
-    <h4>Base stat table at level 100 (no equipment, before quality multiplier)</h4>
+    <p style="font-size:13px;color:#c2ae8b">Naked-creature numbers are identical to the previous flat-base model (<code>Core &times; AxisMult</code> = the old <code>(grade&times;30+50)</code> curve exactly) — all existing creature tuning carries over unchanged. What changed: Tag stats now scale with the creature's axis multiplier, and character stats are a pure product of gear &times; class.</p>
+    <h4>Creature base stats at level 100 (Core &times; AxisMult, no tags, before quality multiplier)</h4>
     <table>
       <tr><th>Grade</th><th>Off / Def / Utl</th><th>Speed (flat)</th><th>HP (at this Def grade)</th></tr>
       <tr><td>1</td><td>80</td><td>1</td><td>237</td></tr>
@@ -498,13 +503,14 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     </table>
 
     <h3>Damage formula</h3>
-    <pre>RawDamage = ((2 × Level / 5 + 2) × MovePower × Attack / Defense) / 120 + 2
+    <pre>RawDamage = ((2 × Level / 5 + 2) × MovePower × Attack / Defense) / 130
+          + 2 + Attack / 50
 
 FinalDamage = RawDamage
-            × TypeMod × STAB × CritMod × Random(0.85–1.0)
+            × Synergy/Anti clause modifiers × Random(0.9–1.1)
             × (1 + Σ increased%)
             × Π(more multipliers)</pre>
-    <p style="font-size:12px;color:#8a7a5e">Divisor tuned from 50 to 120 (July 2026) so a striker's nuke-rotation vs an equal-level wall lands in the 8–12 turn boss/PvP band and PvE trash dies to ~3 slot-1 hits.</p>
+    <p style="font-size:12px;color:#8a7a5e">Divisor retuned 120 &rarr; 130 (July 2026) alongside the symmetric random band 0.9&ndash;1.1 (mean 1.0, was 0.85&ndash;1.0 mean 0.925) — mean damage is unchanged, hits can now roll over 100%. The <code>+ Attack/50</code> overwhelm term makes absolute stat growth matter: negligible early (level 10 &asymp; +1), it prevents fully-optimized mirror walls from stalling ratio-based damage — validated max-vs-max bands: maxed striker vs maxed wall 13 turns, maxed creature mirror 16, PvE trash still melts.</p>
 
     <h3>Moves</h3>
     <p>Every creature line has exactly <strong>4 fixed moves</strong> — no move customization (creature customization is Tags/equipment only). Moves persist across the 3 evolution stages, growing stronger: Stage 2 ≈ 80% of Stage 3 power with reduced effect magnitudes; Stage 1 ≈ 60% power with one effect component removed. All 400 moves are catalogued in <code>codex/moves.csv</code>.</p>
@@ -514,7 +520,7 @@ FinalDamage = RawDamage
       <tr><td>Riders</td><td>120-power carries one named debuff at CD2; 160-power carries a strong debuff or second component at CD3–4; 50-power can carry a strong effect at CD0–1; 0-power status moves carry very strong effects at CD1–4.</td></tr>
       <tr><td>Named debuffs only</td><td>No generic statuses. Every buff/debuff is named and owned by one move (e.g. <em>Mothervenom</em> belongs to Echidna's Viper Spit). Families: Shred (−Def), Sap (−Off), Mire (−Speed stages), named DoTs, Marks (+damage taken), and rare action-denial.</td></tr>
       <tr><td>NO TYPE CHART</td><td>There is no global type-effectiveness matrix and never will be. All type interaction lives inside individual moves: <strong>Synergy</strong> clauses — a move is empowered by allied types in one of three ways: (a) an ally of a certain type <em>on the field</em> boosts the move (+20–50% band); (b) the move is stronger when it <em>targets</em> an ally of a certain type (buffs/heals, +20–50% band); or (c) the move <em>gains an added effect</em> when used on an ally of a certain type and <strong>Anti</strong> clauses (bonus vs specific target types, +30–60% band, thematically justified). Every type appears as both a synergy-giver and an anti-target.</td></tr>
-      <tr><td>Kit shape by stat profile</td><td>Strikers (O8–10): spam → utility-lite → Heavy CD2 → Nuke CD3–4 signature. Walls (D8–10): Def buffs, reflection, chip. Utility (U8–10): strong named debuffs/buffs, the game's few heals (7 healers game-wide), damage held to Light/Standard. Speed (S8–10): first-strike riders and momentum.</td></tr>
+      <tr><td>Kit shape by stat profile</td><td>Strikers (A8–10): spam → utility-lite → Heavy CD2 → Nuke CD3–4 signature. Walls (D8–10): Def buffs, reflection, chip. Utility (U8–10): strong named debuffs/buffs, the game's few heals (7 healers game-wide), damage held to Light/Standard. Speed (S8–10): first-strike riders and momentum.</td></tr>
       <tr><td>Speed stages</td><td>In-battle Speed buffs/debuffs are the only thing that modifies turn order. They are temporary stages (±1, ±2), never gear.</td></tr>
     </table>
 
@@ -857,15 +863,15 @@ FinalDamage = RawDamage
     <div class="grid-3">
       <div class="card">
         <div class="card-title">💎 Gems — flat stats</div>
-        <div class="card-body">Fixed flat modifiers. 6 gem types: Garnet (+Attack), Onyx (+Defense), Bloodstone (+HP), Sapphire (+Status Potency), Ruby (+Crit Damage), Topaz (+Move Power). Set at socket time, removal destroys the gem. On character gear: Local scope. On Tags: Personal scope. Up to 3 slots at Void grade.</div>
+        <div class="card-body">Fixed flat modifiers. 3 gem types: Garnet (+Attack), Onyx (+Defense), Bloodstone (+HP) — 1.5 &times; T &times; GF each. Set at socket time, removal destroys the gem. On character gear: Local scope. On Tags: Personal scope. Up to 3 slots at Void grade.</div>
       </div>
       <div class="card">
         <div class="card-title">🔷 Runes — percentage scaling</div>
-        <div class="card-body">Fixed percentage modifiers. 5 rune types: Ruin (+% Attack), Aegis (+% Defense), Vitality (+% HP), Precision (+% Crit Chance), Affliction (+% Status Duration). Multiply the item's base + gems (Local) or the creature's total (Personal on Tags). Set at socket time, removal destroys the rune. Up to 3 slots at Void grade.</div>
+        <div class="card-body">Fixed percentage modifiers. 3 rune types: Ruin (+% Attack), Aegis (+% Defense), Blight (+% Utility). Runes never roll HP — that guard is what keeps wall builds killable. Multiply the item's base + gems (Local) or the creature's total (Personal on Tags). Set at socket time, removal destroys the rune. Up to 3 slots at Void grade.</div>
       </div>
       <div class="card">
         <div class="card-title">📜 Scrolls — random modifier pool</div>
-        <div class="card-body">Socketable items for enchantment slots. On socket, the scroll rolls a random modifier from the pool — flat, percentage, or unique effects (crit chance, crit damage, status resist). Rerollable for Ink. Up to 3 slots at Void grade.</div>
+        <div class="card-body">Socketable items for enchantment slots. On socket, the scroll rolls a random <strong>Local</strong> modifier: flat Attack / Defense / Utility / HP, or item-local % Attack / Defense / Utility. Enchantment stats are item-local only — no Personal rolls, no crit, no loot modifiers. Rerollable for Ink. Up to 3 slots at Void grade.</div>
       </div>
     </div>
 
@@ -892,8 +898,20 @@ FinalDamage = RawDamage
            + enchantment effects + creature soul effect
 
 Character total:
+  ItemStat = (BaseImplicit + Σ gems)
+           × (1 + Σ rune increased%)
+           × (1 + Σ Local enchant increased%)   // + flat enchants into base band
+           × RefinementMult                      // Local "more"
+           × Local soul effect (armour slots)
+
   CharStat = Σ all ItemStats
-           + Σ Team modifiers from souls</pre>
+           × ClassAxisMult((3 × stageStat + 5) / 20)
+           + Σ Team modifiers from souls
+
+  CreatureStat = (Core(level) + Σ TagStats)
+               × AxisMult × QM
+               × Π(Tag refinement mores)
+               + Σ Team modifiers from character gear souls</pre>
 
     <h4>Creature Tags (Personal scope — all modifiers affect creature's total stats)</h4>
     <pre>CreatureStat = BaseStat(grade, level)
@@ -904,25 +922,39 @@ Character total:
              + Σ Team modifiers from character gear souls</pre>
 
     <h3>Base types & implicit modifiers</h3>
-    <p>Every equipment slot has multiple base types, each with a flat implicit modifier always present regardless of grade or sockets. Base type defines the foundational identity of the item.</p>
+    <p>Every equipment slot carries a flat implicit modifier, always present regardless of grade or sockets. There are no tier-prefix names (Crude &rarr; Transcendent is retired for gear) — each tier is a distinct named piece with its own image.</p>
     <table>
-      <tr><th>Slot</th><th>Implicit type</th><th>Notes</th></tr>
-      <tr><td style="color:#ede0c4">Main Hand / Off Hand</td><td>Flat Attack</td><td>Different weapon base types vary in flat Attack amount and the active ability they grant.</td></tr>
-      <tr><td style="color:#ede0c4">Head / Chest / Gloves / Feet</td><td>Flat Defense</td><td>Different armour materials (cloth, leather, plate) provide different flat Defense amounts.</td></tr>
-      <tr><td style="color:#ede0c4">Accessory 1 & 2</td><td>Varied flat buffs</td><td>Each accessory base type provides a different flat stat — player chooses which stats to prioritize.</td></tr>
+      <tr><th>Slot</th><th>Implicit</th><th>Structure</th></tr>
+      <tr><td style="color:#ede0c4">Main Hand / Off Hand</td><td>Flat Attack (3.5 &times; T &times; GF)</td><td>Class-bound weapons. 3 per hand per class — the weapon's name and image change with the class stage (Level_Req 1 / 30 / 65), matching the class art. 36 weapons total.</td></tr>
+      <tr><td style="color:#ede0c4">Head / Chest / Gloves / Feet</td><td>Flat Defense (2.2 &times; T &times; GF)</td><td>One ladder of 10 distinct named pieces per slot (40 pieces). Defense only — armour identity is visual, not statistical.</td></tr>
+      <tr><td style="color:#ede0c4">Accessory 1 &amp; 2</td><td>One flat stat, Local</td><td>3 base types. Accessories carry Local stats only — no Personal or creature-affecting implicits.</td></tr>
     </table>
-    <h4>Accessory base types</h4>
+    <h4>Class weapons (identity follows class stage)</h4>
     <table>
-      <tr><th>Base type</th><th>Flat buff</th></tr>
-      <tr><td>Signet</td><td>+Attack</td></tr>
-      <tr><td>Ward</td><td>+Defense</td></tr>
-      <tr><td>Totem</td><td>+Status Potency</td></tr>
-      <tr><td>Talisman</td><td>+Crit Damage</td></tr>
-      <tr><td>Relic</td><td>+HP</td></tr>
-      <tr><td>Fetish</td><td>+Crit Chance</td></tr>
-      <tr><td>Idol</td><td>+Creature Attack (Personal — buffs all owned creatures)</td></tr>
-      <tr><td>Effigy</td><td>+Creature Defense (Personal — buffs all owned creatures)</td></tr>
+      <tr><th>Class line</th><th>Main hand — S1 &rarr; S2 &rarr; S3</th><th>Off hand — S1 &rarr; S2 &rarr; S3</th></tr>
+      <tr><td style="color:#ede0c4">Warrior &rarr; Knight &rarr; Paladin</td><td>Arming Sword &rarr; Longsword &rarr; Great Morningstar</td><td>Kite Shield &rarr; Heater Shield &rarr; Tower Shield</td></tr>
+      <tr><td style="color:#ede0c4">Mage &rarr; Sorcerer &rarr; Archon</td><td>Crystal Staff &rarr; Amethyst Staff &rarr; Ruby Warstaff</td><td>Handflame Focus &rarr; Amethyst Shardring &rarr; Magma Orbit</td></tr>
+      <tr><td style="color:#ede0c4">Archer &rarr; Ranger &rarr; Hawkeye</td><td>Ash Shortbow &rarr; Runed Recurve &rarr; Hawkwing Greatbow</td><td>Scout's Quiver &rarr; Silvered Quiver &rarr; Obsidian Quiver</td></tr>
+      <tr><td style="color:#ede0c4">Brute &rarr; Warlord &rarr; Titan</td><td>Nailed Club &rarr; War-Club &rarr; Colossus Axe</td><td>Fist Cords &rarr; Iron Knucklewraps &rarr; Titan Chainwraps</td></tr>
+      <tr><td style="color:#ede0c4">Assassin &rarr; Stalker &rarr; Nightblade</td><td>Iron Dagger &rarr; Blackened Scimitar &rarr; Bladed Gauntlet</td><td>Paired off-hand of the same (dual wield)</td></tr>
+      <tr><td style="color:#ede0c4">Professor &rarr; Sage &rarr; Prophet</td><td>Battered Tome &rarr; Ancient Tome &rarr; Hovering Grimoire</td><td>Cut Quill &rarr; Gilded Quill &rarr; Scribing Quill</td></tr>
     </table>
+    <h4>Armour ladders (T1 &rarr; T10, one distinct piece per tier)</h4>
+    <table>
+      <tr><th>Slot</th><th>Ladder</th></tr>
+      <tr><td style="color:#ede0c4">Head</td><td>Cowl &middot; Hood &middot; Coif &middot; Sallet &middot; Barbute &middot; Helm &middot; Greathelm &middot; Wyrmskull Helm &middot; Sanctified Casque &middot; Voidcrown</td></tr>
+      <tr><td style="color:#ede0c4">Chest</td><td>Padded Jerkin &middot; Leather Jerkin &middot; Brigandine &middot; Scale Hauberk &middot; Chain Hauberk &middot; Cuirass &middot; Warplate &middot; Bloodforged Plate &middot; Sanctified Bulwark &middot; Voidplate</td></tr>
+      <tr><td style="color:#ede0c4">Gloves</td><td>Handwraps &middot; Leather Grips &middot; Studded Grips &middot; Bracers &middot; Chain Mitts &middot; Steel Gauntlets &middot; Wargauntlets &middot; Bloodforged Fists &middot; Sanctified Grasp &middot; Voidclaws</td></tr>
+      <tr><td style="color:#ede0c4">Feet</td><td>Footwraps &middot; Worn Boots &middot; Hobnailed Boots &middot; Riding Boots &middot; Chain Boots &middot; Greaves &middot; Wargreaves &middot; Bloodforged Stride &middot; Sanctified Sabatons &middot; Voidtreads</td></tr>
+    </table>
+    <h4>Accessory base types (Local only)</h4>
+    <table>
+      <tr><th>Base type</th><th>Implicit</th></tr>
+      <tr><td>Signet</td><td>+Attack (2.0 &times; T &times; GF)</td></tr>
+      <tr><td>Ward</td><td>+Defense (2.0 &times; T &times; GF)</td></tr>
+      <tr><td>Relic</td><td>+HP (3.0 &times; T &times; GF)</td></tr>
+    </table>
+    <div class="note note-info"><p>Retired with the crit/status/Personal cull: Totem, Talisman, Fetish, Idol, Effigy. Crit chance and crit damage are removed from the game entirely — on 3&ndash;15-turn double-blind samples they were pure variance with zero counterplay. Character-side stats are exactly three pools: Attack, Defense, HP. Creature buffing from the character lives exclusively in Team-scope souls.</p></div>
 
     <h3>Creature equipment — Tags</h3>
     <p>Creatures have 2 equipment slots that accept <strong style="color:#ede0c4">Tags</strong>. Tags follow the same grade system and gem/rune/enchantment slot rules as all other equipment, with one exception: Tags cannot be equipped with creature souls.</p>
@@ -1216,10 +1248,10 @@ Your Backend
       <tr><td><code>codex/bosses.csv</code></td><td>10<br>(1 per boss floor)</td><td>Zone-boss definitions, one per boss floor (10, 20, … 100). Columns: <code>Floor, Zone, Boss_Name, Boss_Character, Active_Creature_1, Active_Creature_2, Difficulty_Index, Notes, Boss_ID, Boss_Type_Primary, Boss_Type_Secondary, Boss_Level, Boss_Quality_Grade, Grade_Attack, Grade_Defense, Grade_Utility, Grade_Speed, Move_1..4, Kit_Synergy, Description, Image_Prompt, Image_Path, Art_Status, BG_Status</code>. All ten bosses fully designed — humanoid boss characters with movesets borrowed from their zone's creature lines (S3 magnitudes, slot order: signature / secondary damage / support &times;2), 2 SR actives from the zone's floors; bosses carry no reserves. Rendered at <a href="bosses.html" style="color:var(--gold-bright)">bosses.html</a>.</td></tr>
       <tr><td><code>codex/encounter_weights.csv</code></td><td>—</td><td>Per-floor odds of an encounter rolling into each tier; SSR/SR odds scale up over the run (see "Encounter weights" below).</td></tr>
       <tr><td><code>codex/maptypes.csv</code></td><td>—</td><td>Tileset / map-restyle definitions for floor-art generation.</td></tr>
-      <tr><td><code>codex/items.csv</code></td><td>435</td><td>Full item catalog — gems (6 types &times; 10 tiers: Rough &rarr; Sublime), runes (5&times;10: Faded &rarr; Elder), scrolls (10: Tattered &rarr; Fated), weapons (6 bases &times; 10 tiers), armour (12&times;10), accessories (8&times;10), tags (5&times;10), materials (5). Gear tier ladder: Crude &rarr; Sturdy &rarr; Fine &rarr; Superior &rarr; Ornate &rarr; Masterwork &rarr; Exalted &rarr; Sovereign &rarr; Mythic &rarr; Transcendent. Columns: <code>Item_ID, Category, Family, Name, Tier, Level_Req, Effect, Flavor_Text, Image_Prompt, Image_Path, Art_Status</code>.</td></tr>
+      <tr><td><code>codex/items.csv</code></td><td>521</td><td>Full item catalog — gems (3 types &times; 10 tiers: Rough &rarr; Sublime), runes (3&times;10: Faded &rarr; Elder), scrolls (10: Tattered &rarr; Fated), class weapons (6 lines &times; 2 hands &times; 3 stages = 36 named pieces), armour (4 slots &times; 10 named pieces = 40), accessories (3&times;10), tags (4&times;10), materials (5), eggs (300). Gear tier prefixes retired — every weapon and armour tier is a distinct named piece. Columns: <code>Item_ID, Category, Family, Name, Tier, Level_Req, Effect, Flavor_Text, Image_Prompt, Image_Path, Art_Status</code>.</td></tr>
       <tr><td><code>codex/moves.csv</code></td><td>400</td><td>Complete move table — 100 lines &times; 4 moves. Columns: Move_ID (M-{LINE}-{slot}), Line_ID, Slot, Name, Name_S1/S2/S3 (stage-progressive move names), Power_S1/S2/S3, Cooldown, Effect_S1/S2/S3, Synergy, Anti, VFX_Description. Powers use bands 0/50/80/120/160 at S3; S2 &asymp; 80%, S1 &asymp; 60%.</td></tr>
       <tr><td><code>codex/souls.csv</code></td><td>400</td><td>Soul passive table — 100 lines &times; 4 armor slots (Head/Chest/Gloves/Feet). Columns: Soul_ID (S-{LINE}-{SLOT}), Line_ID, Gear_Slot, Scope (Local/Personal/Team), Rarity, Effect_S3. Magnitudes scale by stage (S1 &asymp; 60%, S2 &asymp; 80%). Ability-slot souls (MH/OH/Acc1/Acc2) grant moves instead — see moves.csv.</td></tr>
-      <tr><td><code>codex/item_drops.csv</code></td><td>390</td><td>Zone-weighted item drop table. Each zone lists which base types drop and at what weight (1 = normal, 2 = zone-weighted 2&times;). Feeds the <a href="reliquary.html" style="color:var(--gold-bright)">Reliquary</a>.</td></tr>
+      <tr><td><code>codex/item_drops.csv</code></td><td>240</td><td>Zone-weighted item drop table. Each zone lists which base types drop and at what weight (1 = normal, 2 = zone-weighted 2&times;). Feeds the <a href="reliquary.html" style="color:var(--gold-bright)">Reliquary</a>.</td></tr>
       <tr><td><code>codex/floor_assets.csv</code></td><td>100</td><td>Level design pipeline. Per-floor: battle background prompt/path/status, parallax reference, prop assignments, map preview status (empty + populated). Decoupled from floor identity for infinite floor extension.</td></tr>
       <tr><td><code>codex/prop_assets.csv</code></td><td>40</td><td>Zone prop catalog — 3&ndash;4 props + 1 anchor prop per zone, with image prompts and art status.</td></tr>
     </table>
@@ -1375,7 +1407,7 @@ Your Backend
           <th style="cursor:pointer" data-sort="rarity">Rarity</th>
           <th style="cursor:pointer" data-sort="zone">Zone</th>
           <th style="cursor:pointer" data-sort="type">Type</th>
-          <th style="cursor:pointer;text-align:center" data-sort="O">Off</th>
+          <th style="cursor:pointer;text-align:center" data-sort="O">Atk</th>
           <th style="cursor:pointer;text-align:center" data-sort="D">Def</th>
           <th style="cursor:pointer;text-align:center" data-sort="U">Utl</th>
           <th style="cursor:pointer;text-align:center" data-sort="S">Spd</th>

@@ -3,7 +3,7 @@ S-THORNBACK-HEAD,THORNBACK,Head,Personal,Common,+5% Defense while above 50% HP (
 S-THORNBACK-CHEST,THORNBACK,Chest,Local,Common,This armour's Defense ×1.35.
 S-THORNBACK-GLOVES,THORNBACK,Gloves,Personal,Common,Attackers that hit you take 4% of their damage back (quills).
 S-THORNBACK-FEET,THORNBACK,Feet,Team,Common,Allies take -3% damage while at full HP (dig in behind the boar).
-S-DUSTHOUND-HEAD,DUSTHOUND,Head,Personal,Common,+4% crit chance (a hunter's eye through the dust).
+S-DUSTHOUND-HEAD,DUSTHOUND,Head,Personal,Common,+4% Attack (a hunter's eye through the dust).
 S-DUSTHOUND-CHEST,DUSTHOUND,Chest,Personal,Common,+5% Attack on the first turn of battle.
 S-DUSTHOUND-GLOVES,DUSTHOUND,Gloves,Local,Common,This item's Attack contribution ×1.35.
 S-DUSTHOUND-FEET,DUSTHOUND,Feet,Team,Common,Allies' debuffs on enemies last +1 turn on the first turn (opening harry).
@@ -31,7 +31,7 @@ S-GARROTE-HEAD,GARROTE,Head,Personal,Rare,+7% Attack vs targets below 40% HP (fi
 S-GARROTE-CHEST,GARROTE,Chest,Personal,Rare,+7% HP (knots hold the frame together).
 S-GARROTE-GLOVES,GARROTE,Gloves,Local,Rare,This item's Attack contribution ×1.45.
 S-GARROTE-FEET,GARROTE,Feet,Team,Rare,Allies deal +4% vs targets with reduced Attack (prey already choking).
-S-GALLOWSBIRD-HEAD,GALLOWSBIRD,Head,Personal,Rare,+6% crit chance vs targets below 50% HP (the omen was right).
+S-GALLOWSBIRD-HEAD,GALLOWSBIRD,Head,Personal,Rare,+6% Attack vs targets below 50% HP (the omen was right).
 S-GALLOWSBIRD-CHEST,GALLOWSBIRD,Chest,Personal,Rare,+7% HP (already half gone).
 S-GALLOWSBIRD-GLOVES,GALLOWSBIRD,Gloves,Personal,Rare,Your debuffs last +1 turn (the knell lingers).
 S-GALLOWSBIRD-FEET,GALLOWSBIRD,Feet,Team,Rare,Allies deal +6% vs targets below 50% HP (circle the dying).
@@ -51,7 +51,7 @@ S-BRINEFROG-HEAD,BRINEFROG,Head,Personal,Common,Your status debuffs are +6% more
 S-BRINEFROG-CHEST,BRINEFROG,Chest,Local,Common,This armour's Defense ×1.35.
 S-BRINEFROG-GLOVES,BRINEFROG,Gloves,Personal,Common,+5% Defense (rubbery hide).
 S-BRINEFROG-FEET,BRINEFROG,Feet,Team,Common,Enemy Attack debuffs from allies last +1 turn (the weeping spreads).
-S-CRESTMANTIS-HEAD,CRESTMANTIS,Head,Personal,Uncommon,+5% crit chance (strike-timing instinct).
+S-CRESTMANTIS-HEAD,CRESTMANTIS,Head,Personal,Uncommon,+5% Attack on Heavy and Nuke moves (strike-timing instinct).
 S-CRESTMANTIS-CHEST,CRESTMANTIS,Chest,Personal,Uncommon,+6% Attack while above 70% HP (coiled and ready).
 S-CRESTMANTIS-GLOVES,CRESTMANTIS,Gloves,Local,Uncommon,This item's Attack contribution ×1.40.
 S-CRESTMANTIS-FEET,CRESTMANTIS,Feet,Team,Uncommon,Allies' first hit each battle deals +5% (the snap sets the tempo).
@@ -85,7 +85,7 @@ S-DUSKSCALE-GLOVES,DUSKSCALE,Gloves,Personal,Uncommon,+6% Attack at or above 70%
 S-DUSKSCALE-FEET,DUSKSCALE,Feet,Team,Uncommon,"Allies take -4% damage on the first turn (colours shift, aim slips)."
 S-SANDSKITTER-HEAD,SANDSKITTER,Head,Personal,Common,Your Defense debuffs are +6% more potent (the wail unravels).
 S-SANDSKITTER-CHEST,SANDSKITTER,Chest,Personal,Common,+5% HP (already past dying).
-S-SANDSKITTER-GLOVES,SANDSKITTER,Gloves,Personal,Common,+4% crit chance vs debuffed targets (hear the seam split).
+S-SANDSKITTER-GLOVES,SANDSKITTER,Gloves,Personal,Common,+4% Attack vs debuffed targets (hear the seam split).
 S-SANDSKITTER-FEET,SANDSKITTER,Feet,Team,Common,Allies deal +4% vs targets with reduced Defense (follow the omen).
 S-DUNECOIL-HEAD,DUNECOIL,Head,Personal,Common,+5% Attack on the first turn (ambush opener).
 S-DUNECOIL-CHEST,DUNECOIL,Chest,Local,Common,This armour's Defense ×1.35.
@@ -131,7 +131,7 @@ S-SPOREFLY-HEAD,SPOREFLY,Head,Personal,Common,Your damage-over-time effects deal
 S-SPOREFLY-CHEST,SPOREFLY,Chest,Personal,Common,+5% HP (light and hard to swat).
 S-SPOREFLY-GLOVES,SPOREFLY,Gloves,Personal,Common,Your damage-over-time effects last +1 turn (reinfection).
 S-SPOREFLY-FEET,SPOREFLY,Feet,Team,Common,Fungal allies deal +6% (carrier's gift).
-S-ARACHNE-HEAD,ARACHNE,Head,Personal,Uncommon,+5% crit chance vs targets with reduced Speed stages (wrapped prey).
+S-ARACHNE-HEAD,ARACHNE,Head,Personal,Uncommon,+5% Attack vs targets with reduced Speed stages (wrapped prey).
 S-ARACHNE-CHEST,ARACHNE,Chest,Local,Uncommon,This armour's Defense ×1.40.
 S-ARACHNE-GLOVES,ARACHNE,Gloves,Personal,Uncommon,Your damage-over-time effects deal +7% (widow's kiss).
 S-ARACHNE-FEET,ARACHNE,Feet,Team,Uncommon,Allies deal +5% vs targets with reduced Speed stages (the web holds them).
@@ -143,7 +143,7 @@ S-PLAGUECARRIER-HEAD,PLAGUECARRIER,Head,Personal,Uncommon,Your damage-over-time 
 S-PLAGUECARRIER-CHEST,PLAGUECARRIER,Chest,Personal,Uncommon,+6% HP (the shell is load-bearing).
 S-PLAGUECARRIER-GLOVES,PLAGUECARRIER,Gloves,Local,Uncommon,This item's Attack contribution ×1.40.
 S-PLAGUECARRIER-FEET,PLAGUECARRIER,Feet,Team,Uncommon,Allies' damage-over-time effects deal +5% (parasites jump hosts).
-S-DEVOUT-HEAD,DEVOUT,Head,Personal,Rare,+6% crit chance on the first turn (the answered opening prayer).
+S-DEVOUT-HEAD,DEVOUT,Head,Personal,Rare,+6% Attack on the first turn (the answered opening prayer).
 S-DEVOUT-CHEST,DEVOUT,Chest,Personal,Rare,+6% HP (grace carries).
 S-DEVOUT-GLOVES,DEVOUT,Gloves,Local,Rare,This item's Attack contribution ×1.45.
 S-DEVOUT-FEET,DEVOUT,Feet,Team,Rare,Allies take -4% damage on the first turn (a shared blink of absence).
@@ -199,7 +199,7 @@ S-MAGMACRAWLER-HEAD,MAGMACRAWLER,Head,Personal,Super Super Rare,+8% Attack vs ta
 S-MAGMACRAWLER-CHEST,MAGMACRAWLER,Chest,Local,Super Super Rare,This armour's Defense ×1.60.
 S-MAGMACRAWLER-GLOVES,MAGMACRAWLER,Gloves,Personal,Super Super Rare,Your damage-over-time effects deal +10% (magma runs hotter).
 S-MAGMACRAWLER-FEET,MAGMACRAWLER,Feet,Team,Super Super Rare,Allies' burn-type effects last +1 turn (the ground stays molten).
-S-GUSTWING-HEAD,GUSTWING,Head,Personal,Common,+4% crit chance on the first turn (opening shear).
+S-GUSTWING-HEAD,GUSTWING,Head,Personal,Common,+4% Attack on the first turn (opening shear).
 S-GUSTWING-CHEST,GUSTWING,Chest,Personal,Common,+5% HP (wiry endurance).
 S-GUSTWING-GLOVES,GUSTWING,Gloves,Local,Common,This item's Attack contribution ×1.35.
 S-GUSTWING-FEET,GUSTWING,Feet,Team,Common,Allies' first hit each battle deals +4% (ride the tailwind).
@@ -219,7 +219,7 @@ S-GALEHOWL-HEAD,GALEHOWL,Head,Personal,Uncommon,Your Speed-stage debuffs last +1
 S-GALEHOWL-CHEST,GALEHOWL,Chest,Personal,Uncommon,+6% HP (wind-fed lungs).
 S-GALEHOWL-GLOVES,GALEHOWL,Gloves,Personal,Uncommon,+5% Attack vs targets with reduced Speed stages (caught in the funnel).
 S-GALEHOWL-FEET,GALEHOWL,Feet,Team,Uncommon,Avian allies take -5% damage (eye of the storm).
-S-VOLTMANTLE-HEAD,VOLTMANTLE,Head,Personal,Rare,+5% crit chance on the first turn (charged opener).
+S-VOLTMANTLE-HEAD,VOLTMANTLE,Head,Personal,Rare,+5% Attack on the first turn (charged opener).
 S-VOLTMANTLE-CHEST,VOLTMANTLE,Chest,Local,Rare,This armour's Defense ×1.45.
 S-VOLTMANTLE-GLOVES,VOLTMANTLE,Gloves,Personal,Rare,+7% Attack on the first turn (full charge delivery).
 S-VOLTMANTLE-FEET,VOLTMANTLE,Feet,Team,Rare,Allies' first hit each battle deals +5% (share the current).
@@ -295,7 +295,7 @@ S-SIBYL-HEAD,SIBYL,Head,Personal,Uncommon,The first hit against you each battle 
 S-SIBYL-CHEST,SIBYL,Chest,Local,Uncommon,This armour's Defense ×1.40.
 S-SIBYL-GLOVES,SIBYL,Gloves,Personal,Uncommon,+6% Defense (armored in prophecy).
 S-SIBYL-FEET,SIBYL,Feet,Team,Uncommon,Allies take -4% damage on the first turn (warned in advance).
-S-VERTIGO-HEAD,VERTIGO,Head,Personal,Uncommon,+6% crit chance vs targets with reduced Attack (they can't track you).
+S-VERTIGO-HEAD,VERTIGO,Head,Personal,Uncommon,+6% Attack vs targets with reduced Attack (they can't track you).
 S-VERTIGO-CHEST,VERTIGO,Chest,Personal,Uncommon,+6% HP (too many joints to break).
 S-VERTIGO-GLOVES,VERTIGO,Gloves,Local,Uncommon,This item's Attack contribution ×1.40.
 S-VERTIGO-FEET,VERTIGO,Feet,Team,Uncommon,Allies deal +5% vs targets with reduced Attack (attack the disoriented).
@@ -319,7 +319,7 @@ S-KRAKEN-HEAD,KRAKEN,Head,Personal,Super Super Rare,+8% Attack vs debuffed targe
 S-KRAKEN-CHEST,KRAKEN,Chest,Local,Super Super Rare,This armour's Defense ×1.60.
 S-KRAKEN-GLOVES,KRAKEN,Gloves,Personal,Super Super Rare,Your multi-hit and grip moves deal +10% (eightfold strength).
 S-KRAKEN-FEET,KRAKEN,Feet,Team,Super Super Rare,Allies +6% Defense (the cave itself shelters you).
-S-CRYSTALWRAITH-HEAD,CRYSTALWRAITH,Head,Personal,Common,+4% crit chance (facet-edge focus).
+S-CRYSTALWRAITH-HEAD,CRYSTALWRAITH,Head,Personal,Common,+4% Attack (facet-edge focus).
 S-CRYSTALWRAITH-CHEST,CRYSTALWRAITH,Chest,Personal,Common,+5% HP (grief holds its shape).
 S-CRYSTALWRAITH-GLOVES,CRYSTALWRAITH,Gloves,Personal,Common,Your bleed effects deal +6% (glass splinters travel).
 S-CRYSTALWRAITH-FEET,CRYSTALWRAITH,Feet,Team,Common,Allies take -3% damage from multi-hit moves (the prism orbit intercepts).
@@ -331,7 +331,7 @@ S-GEMBORN-HEAD,GEMBORN,Head,Personal,Uncommon,+6% Defense (the core is elsewhere
 S-GEMBORN-CHEST,GEMBORN,Chest,Local,Uncommon,This armour's Defense ×1.40.
 S-GEMBORN-GLOVES,GEMBORN,Gloves,Personal,Uncommon,Attackers that hit you take 4% of their damage back (facet glare).
 S-GEMBORN-FEET,GEMBORN,Feet,Team,Uncommon,Construct allies +5% Defense (hardlight lattice).
-S-BLOODCARVER-HEAD,BLOODCARVER,Head,Personal,Uncommon,+6% crit chance vs targets with a bleed effect (read the arterial map).
+S-BLOODCARVER-HEAD,BLOODCARVER,Head,Personal,Uncommon,+6% Attack vs targets with a damage-over-time effect (read the arterial map).
 S-BLOODCARVER-CHEST,BLOODCARVER,Chest,Personal,Uncommon,+6% HP (surgical self-maintenance).
 S-BLOODCARVER-GLOVES,BLOODCARVER,Gloves,Local,Uncommon,This item's Attack contribution ×1.40.
 S-BLOODCARVER-FEET,BLOODCARVER,Feet,Team,Uncommon,Allies' bleed effects deal +5% (cuts placed for others to widen).
