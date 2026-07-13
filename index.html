@@ -507,13 +507,13 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     </table>
 
     <h3>Damage formula</h3>
-    <pre>RawDamage = ((2 × Level / 5 + 2) × MovePower × Offense / Defense) / 80 + 2
+    <pre>RawDamage = ((2 × Level / 5 + 2) × MovePower × Offense / Defense) / 120 + 2
 
 FinalDamage = RawDamage
-            × CritMod × Random(0.85–1.0)
+            × TypeMod × STAB × CritMod × Random(0.85–1.0)
             × (1 + Σ increased%)
             × Π(more multipliers)</pre>
-    <p style="font-size:12px;color:#8a7a5e"><strong style="color:#ede0c4">There is no same-type damage bonus and no type-effectiveness multiplier</strong> — there is no type chart in this game (see NO TYPE CHART). Type interaction lives entirely inside each move's Synergy and Anti clauses. The divisor is <strong>80</strong>, chosen so the validated turns-to-kill band is preserved: a striker's nuke rotation vs an equal-level wall lands in the 8–12 turn boss/PvP band and PvE trash dies to ~3 slot-1 hits.</p>
+    <p style="font-size:12px;color:#8a7a5e">Divisor tuned from 50 to 120 (July 2026) so a striker's nuke-rotation vs an equal-level wall lands in the 8–12 turn boss/PvP band and PvE trash dies to ~3 slot-1 hits.</p>
 
     <h3>Moves</h3>
     <p>Every creature line has exactly <strong>4 fixed moves</strong> — no move customization (creature customization is Tags/equipment only). Moves persist across the 3 evolution stages, growing stronger: Stage 2 ≈ 80% of Stage 3 power with reduced effect magnitudes; Stage 1 ≈ 60% power with one effect component removed. All 400 moves are catalogued in <code>codex/moves.csv</code>.</p>
@@ -533,7 +533,7 @@ FinalDamage = RawDamage
       <li>Each equipped creature soul grants its corresponding move slot to the character (soul in slot 1 grants that creature's move 1, etc.)</li>
       <li>Cannot equip 2 souls of the same creature</li>
       <li>A creature whose soul is equipped <strong>cannot be summoned</strong> to the battle party</li>
-      <li>Character move damage uses the character's Offense</li>
+      <li>Character move damage uses the character's Offense; no STAB (STAB is creature-only)</li>
     </ul>
 
     <h3>Battle party rules</h3>
@@ -647,9 +647,9 @@ FinalDamage = RawDamage
     <h2>Metagame systems</h2>
     <p>All metagame systems are accessible as UI panels at any time during PvE floors, including during battles. They are locked during PvP. There is no physical base — everything is menu-driven.</p>
     <div class="grid-2">
-      <div class="card"><div class="card-title">🧬 Breeding</div><div class="card-body">Two parent creatures fed Gruel produce an egg via UI. Higher grade creatures require more Gruel. Higher grade parents increase odds of higher grade eggs. No grade cap on bred eggs.</div></div>
+      <div class="card"><div class="card-title">🧬 Breeding</div><div class="card-body">Two parent creatures fed Food produce an egg via UI. Higher grade creatures require more Food. Higher grade parents increase odds of higher grade eggs. No grade cap on bred eggs.</div></div>
       <div class="card"><div class="card-title">🔧 Crafting</div><div class="card-body">Recipe list in UI. Select recipe, confirm materials, receive output. Materials sourced from battle rewards and chests.</div></div>
-      <div class="card"><div class="card-title">🌱 Farming</div><div class="card-body">Timer-based UI system. Plant a crop, return after a set duration to harvest. Yield renders into Gruel or crafting materials.</div></div>
+      <div class="card"><div class="card-title">🌱 Farming</div><div class="card-body">Timer-based UI system. Plant a crop, return after a set duration to harvest. Yield renders into crafting materials.</div></div>
       <div class="card"><div class="card-title">🥚 Hatchery</div><div class="card-body">Egg incubation managed via UI. Set eggs to incubate, return after the timer. Hatchery level (upgraded via crafting resources) improves grade odds and slot count.</div></div>
     </div>
 
@@ -663,7 +663,7 @@ FinalDamage = RawDamage
       </div>
       <div class="card">
         <div class="card-title">🧬 Bred eggs</div>
-        <div class="card-body">Produced via the Breeding UI panel by selecting two parent creatures and spending Gruel. No grade cap — can produce up to <span style="color:#a855f7">Void</span>. Higher grade parents significantly increase odds of higher grade output. Hatchery level also increases the chance of higher grade eggs independently of parent grade.</div>
+        <div class="card-body">Produced via the Breeding UI panel by selecting two parent creatures and spending Food. No grade cap — can produce up to <span style="color:#a855f7">Void</span>. Higher grade parents significantly increase odds of higher grade output. Hatchery level also increases the chance of higher grade eggs independently of parent grade.</div>
       </div>
     </div>
 
@@ -672,13 +672,12 @@ FinalDamage = RawDamage
       <div class="card-body">The player's very first creatures are selected from a set of 3 options before any combat. Grade and stats of starters are TBD.</div>
     </div>
 
-    <h3>Gruel</h3>
-    <p>Gruel is the unified food resource used to breed creatures. Higher grade creatures require more Gruel per breeding attempt. Three sources all render into the same Gruel pool:</p>
+    <h3>Food</h3>
+    <p><strong style="color:#ede0c4">Food</strong> is the unified metagame currency used to breed creatures. Higher grade creatures require more Food per breeding attempt. Two sources feed the same Food pool:</p>
     <table>
-      <tr><th>Source</th><th>How it becomes Gruel</th></tr>
-      <tr><td>Eggs</td><td>Unwanted eggs can be rendered into Gruel via the rendering UI</td></tr>
-      <tr><td>Crops</td><td>Farmed crops rendered into Gruel via the rendering UI</td></tr>
-      <tr><td>Creature meat</td><td>Defeated creatures drop meat, rendered into Gruel via the rendering UI</td></tr>
+      <tr><th>Source</th><th>How it yields Food</th></tr>
+      <tr><td>Completing battles</td><td>Every battle completed awards Food</td></tr>
+      <tr><td>Dismantling eggs</td><td>Unwanted eggs are dismantled into Food</td></tr>
     </table>
 
     <h3>Incubation & hatchery</h3>
@@ -816,7 +815,7 @@ FinalDamage = RawDamage
     <p>Each piece of character gear can have the soul of a creature attached to it. What the soul does depends on the slot class:</p>
     <table>
       <tr><th>Slot class</th><th>Slots</th><th>Soul effect</th></tr>
-      <tr><td style="color:#ede0c4">Ability slots</td><td>Main Hand, Off Hand, Accessory 1, Accessory 2</td><td><strong>Move grant:</strong> the character gains the equipped creature's move for that ability slot (slot 1–4). Uses the character's Offense; Synergy/Anti clauses apply. See "Character abilities — soul-granted moves" in Battle System.</td></tr>
+      <tr><td style="color:#ede0c4">Ability slots</td><td>Main Hand, Off Hand, Accessory 1, Accessory 2</td><td><strong>Move grant:</strong> the character gains the equipped creature's move for that ability slot (slot 1–4). Character Offense, no STAB; Synergy/Anti clauses apply. See "Character abilities — soul-granted moves" in Battle System.</td></tr>
       <tr><td style="color:#ede0c4">Passive slots</td><td>Head, Chest, Gloves, Feet</td><td><strong>Scoped passive:</strong> every creature has a unique passive per armor slot, catalogued in <code>codex/souls.csv</code> (400 passives). Slot flavors: Head = perception/self, Chest = core plate, Gloves = hands/offense craft, Feet = team/positioning.</td></tr>
     </table>
     <p>Passive souls have one of three scopes:</p>
@@ -833,7 +832,7 @@ FinalDamage = RawDamage
     <table>
       <tr><th>Rule</th><th>Detail</th></tr>
       <tr><td style="color:#ede0c4">Multiplier</td><td><code>SoulMult = 1 + 0.05 &times; (grade# &minus; 1)</code> — Worn &times;1.00 &rarr; Void &times;1.45. Stacks multiplicatively with stage scaling (S1 60% / S2 80% / S3 100%).</td></tr>
-      <tr><td style="color:#ede0c4">Currency</td><td><strong>All five sink currencies per attempt</strong> — Scrap + Ichor + Dust + Essence + Ink in one bundle. Each resource's weight is set by its endgame income rate, so every resource costs the same farm time (Scrap 150/h &rarr; heaviest count; Ichor 10/h &rarr; lightest count). Gruel is excluded (breeding-only economy).</td></tr>
+      <tr><td style="color:#ede0c4">Currency</td><td><strong>All five sink currencies per attempt</strong> — Scrap + Ichor + Dust + Essence + Ink in one bundle. Each resource's weight is set by its endgame income rate, so every resource costs the same farm time (Scrap 150/h &rarr; heaviest count; Ichor 10/h &rarr; lightest count). Food is excluded (breeding-only economy).</td></tr>
       <tr><td style="color:#ede0c4">Attempt cost</td><td><code>mult &times; (15 Scrap + 1 Ichor + 2 Dust + 2 Essence + 2 Ink)</code>, where <code>mult</code> is the gear-grading cost ladder 1 / 1 / 2 / 3 / 5 / 8 / 12 / 18 / 40 by target grade. A Void attempt = 600 Scrap + 40 Ichor + 80 Dust + 80 Essence + 80 Ink.</td></tr>
       <tr><td style="color:#ede0c4">Success chance</td><td>Shared grading ladder: 100 / 90 / 70 / 50 / 35 / 20 / 8 / 3 / <strong>0.5%</strong> into Void — no pity, pure roll every attempt.</td></tr>
       <tr><td style="color:#ede0c4">On failure</td><td>Bundle consumed, soul grade unchanged — no destruction, no downgrade.</td></tr>
@@ -1277,7 +1276,7 @@ Your Backend
       <tr><th>Name</th><th>Use</th></tr>
       <tr><td><span style="color:#c2ae8b">Scrap</span></td><td>Refinement (+1 to +10 on gear)</td></tr>
       <tr><td><span style="color:#a855f7">Ichor</span></td><td>Grading up equipment/eggs to the next grade tier</td></tr>
-      <tr><td>Gruel</td><td>Unified breeding food resource</td></tr>
+      <tr><td>Food</td><td>Unified breeding currency — from completing battles and dismantling eggs</td></tr>
     </table>
 
     <h3>Mutant variants — not "Shiny"</h3>
