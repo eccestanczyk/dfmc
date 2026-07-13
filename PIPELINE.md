@@ -132,3 +132,13 @@ Values: `not_imported` (never sent to game — default), `synced` (in game, matc
 - Type medallions: `assets/types/<Type>.png` (27, per-type palettes). Rendered via `.type-chip` (icon + hover name tooltip) in creature-codex, inside `.type-tag` on creature pages, hero-size on type.html, and in the glossary. Type names must stay visible on mouseover wherever a medallion replaces text.
 - Do NOT re-add heavy 9-slice frames; panel frames are the slim strip+corner background system in ui.css (real-estate rule).
 
+## Clobber protocol (July 2026) — concurrent sessions
+Multiple Claude sessions write this repo simultaneously. These rules prevent sessions destroying each other's work:
+1. **Row-level CSV writes only.** Never rewrite a whole codex CSV from a stale read — it silently reverts every row another session changed since your fetch. Use the rebase-loop pattern (`tools/ghlib.py: csv_update`): fetch CSV at commit time, apply your row patches onto the fresh copy, commit with parent = that exact HEAD, and on 422 non-fast-forward refetch and reapply.
+2. **Ref races are normal.** All commits go through Git Data API with `force:false`; on 422, rebase-retry (rebuild tree off new HEAD, blobs are reusable). Never force-push.
+3. **Slot ops are file+CSV atomic.** Deleting a slot file requires reshuffling higher slots down (no gaps like A,E) AND updating `Option_Slots` in the SAME commit. Adding an option updates `Option_Slots` in the same commit.
+4. **Verify after every batch:** assert `Option_Slots` matches actual tree files (A=main, B=cropped/, C=cropped_c/, D=cropped_d/, E=cropped_e/) for every touched ID, and re-read your own rows from HEAD after commit.
+5. **Recovery:** clobbered files/prompts are recoverable — `GET /contents/{path}?ref=<pre-clobber sha>` then blob fetch. Originals also live in `codex/images/originals/`.
+6. **No secrets in the repo.** `tools/ghlib.py` reads tokens from env (`GH_TOKEN`, `REMOVEBG_KEY`) — GitHub push protection blocks credential literals, and rightly so.
+Reference implementation: `tools/ghlib.py`.
+
