@@ -15,3 +15,5 @@ fx_def_down,Defense Down,debuff,Sunder / target defense lowered,38,assets/ui/mov
 fx_spd_up,Speed Up,buff,Speed raise / haste,14,assets/ui/move_icons/fx_spd_up.png,_parking/ui/move-icons/originals/fx_spd_up.raw.png,approved,
 fx_spd_down,Speed Down,debuff,Slow / target speed lowered,28,assets/ui/move_icons/fx_spd_down.png,_parking/ui/move-icons/originals/fx_spd_down.raw.png,approved,
 fx_target_aoe,AOE,targeting,AOE move — three beast silhouettes (multi-figure convention). Single-target moves show NO targeting icon.,400,assets/ui/move_icons/fx_target_aoe.png,_parking/ui/move-icons/originals/fx_target_aoe.raw.png,approved,
+fx_captured_rune,Captured,codex_status,Codex status — creature captured (rune-carved checkmark),-,assets/ui/move_icons/fx_captured_rune.png,_parking/ui/move-icons/originals/fx_captured_rune.raw.png,pending_approval,
+fx_seen_eye,Seen,codex_status,Codex status — creature seen but not captured (open eye),-,assets/ui/move_icons/fx_seen_eye.png,_parking/ui/move-icons/originals/fx_seen_eye.raw.png,pending_approval,
