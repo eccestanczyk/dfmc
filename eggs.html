@@ -21,8 +21,9 @@
 .hatch-table th,.hatch-table td{padding:7px 9px;text-align:center;border:1px solid var(--rule-faint);}
 .hatch-table thead th{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.05em;background:var(--surface-2);}
 .hatch-table td.egg-g,.hatch-table th.egg-g{text-align:left;font-family:'Cinzel',serif;font-weight:600;letter-spacing:.04em;background:var(--surface-2);white-space:nowrap;}
-.hatch-table td.same{background:rgba(207,166,80,0.12);font-weight:700;color:var(--gold-bright);}
+.hatch-table td.same{font-weight:700;outline:1px solid var(--gold);outline-offset:-1px;}
 .hatch-table td.zero{color:var(--ink-faint);opacity:.45;}
+.hatch-table tbody tr:hover td{filter:brightness(1.4);}
 .mech p{max-width:72ch;}
 </style>
 </head>
@@ -87,20 +88,27 @@ async function loadHatch(){
   const txt=await fetch('codex/egg_hatch_weights.csv?t='+Date.now()).then(r=>r.text());
   const lines=txt.trim().split('\n'); const head=lines[0].split(',');
   const creatures=head.slice(1);
+  const gi=Object.fromEntries(creatures.map((g,i)=>[g,i]));
+  // log-scaled alpha: 0.1% -> faint, ~85% -> strong
+  const alpha=v=>0.08+0.55*Math.log10(v/0.1)/Math.log10(850);
   let html='<table class="hatch-table"><thead><tr><th class="egg-g">Egg Grade ↓ / Creature Grade →</th>';
   for(const g of creatures) html+=`<th style="color:${GRADE_COLORS[g]||'inherit'}">${g}</th>`;
   html+='</tr></thead><tbody>';
   for(const ln of lines.slice(1)){
-    const c=ln.split(','); const egg=c[0];
+    const c=ln.split(','); const egg=c[0]; const er=gi[egg];
     html+=`<tr><td class="egg-g" style="color:${GRADE_COLORS[egg]||'inherit'}">${egg}</td>`;
     creatures.forEach((g,i)=>{
-      const v=c[i+1];
-      const cls=(g===egg?'same':(v==='0'?'zero':''));
-      html+=`<td class="${cls}">${v==='0'?'—':v+'%'}</td>`;
+      const v=parseFloat(c[i+1]);
+      if(!v){html+='<td class="zero">—</td>';return;}
+      const a=alpha(v);
+      const rgb=i===er?'207,166,80':(i<er?'124,21,25':'124,58,237'); // same=gold, below=blood, above=violet
+      const big=v>=10;
+      html+=`<td class="${i===er?'same':''}" style="background:rgba(${rgb},${a.toFixed(2)});color:${big?'#f5ecd7':'var(--ink-dim)'};${big?'font-weight:700;':''}">${c[i+1]}%</td>`;
     });
     html+='</tr>';
   }
   html+='</tbody></table>';
+  html+='<p style="font-size:12px;color:var(--ink-faint);margin-top:8px">Cell shading scales with probability (log scale). <span style="color:#e5393f">Red</span> = below egg grade · <span style="color:#cfa650">Gold</span> = same grade · <span style="color:#a855f7">Violet</span> = above egg grade (max +4). Hover a row to highlight.</p>';
   document.getElementById('hatch-wrap').innerHTML=html;
 }
 loadEggs(); loadHatch();
