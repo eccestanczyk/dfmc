@@ -130,10 +130,13 @@ function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replac
       : stat+' — '+coef+' × tier × GF, GF = 1 + 0.12 × (grade−1)';
     document.getElementById('implicit-grid-head').innerHTML='<th>Grade \\ Tier</th>'+Array.from({length:10},(_,i)=>'<th>T'+(i+1)+'</th>').join('');
     const body=document.getElementById('implicit-grid-body');
+    // strictly increasing per +1 tier and +1 grade (half-up rounding, then lift by >=1 vs left/upper neighbour)
+    let M=null;
+    if(!pct){M=[];for(let g=1;g<=10;g++){M[g]=[];for(let t=1;t<=10;t++){let v=Math.floor(coef*t*GF(g)+0.5);if(t>1)v=Math.max(v,M[g][t-1]+1);if(g>1)v=Math.max(v,M[g-1][t]+1);M[g][t]=v;}}}
     GRADES.forEach((g,gi)=>{
       let cells='';
       for(let t=1;t<=10;t++){
-        cells+='<td style="text-align:center">'+(pct?(1.5+0.45*gi+0.15*t).toFixed(1)+'%':Math.round(coef*t*GF(gi+1)))+'</td>';
+        cells+='<td style="text-align:center">'+(pct?(1.5+0.45*gi+0.15*t).toFixed(1)+'%':M[gi+1][t])+'</td>';
       }
       body.innerHTML+='<tr><td style="color:'+g.color+';white-space:nowrap">'+g.name+'</td>'+cells+'</tr>';
     });
