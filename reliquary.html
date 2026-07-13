@@ -11,18 +11,18 @@
 <style>
 .rq-wrap{ max-width:920px; margin:0 auto; padding:24px 20px 100px; }
 .rq-category{ border:1px solid var(--rule); background:var(--surface); margin-bottom:12px; box-shadow:inset 0 1px 0 rgba(207,166,80,0.07), inset 0 0 60px rgba(0,0,0,0.3), 0 5px 14px rgba(0,0,0,0.4); }
-.rq-header{ display:flex; align-items:center; gap:14px; padding:16px 20px; cursor:pointer; user-select:none; border-bottom:1px solid var(--rule); background:linear-gradient(90deg, rgba(124,21,25,0.14), transparent 70%); }
-.rq-header:hover{ background:linear-gradient(90deg, rgba(124,21,25,0.24), rgba(124,21,25,0.04) 70%); }
-.rq-chevron{ font-size:14px; color:var(--blood-bright); transition:transform 0.15s ease; }
-.rq-category.open .rq-chevron{ transform:rotate(90deg); }
+.rq-header{ display:flex; align-items:center; gap:14px; padding:16px 20px; user-select:none; border-bottom:1px solid var(--rule); background:linear-gradient(90deg, rgba(124,21,25,0.14), transparent 70%); }
 .rq-icon{ font-size:22px; opacity:0.85; }
 .rq-title{ font-family:'Cinzel',serif; font-weight:700; font-size:18px; letter-spacing:0.04em; color:var(--gold-bright); text-transform:uppercase; }
 .rq-count{ font-size:13px; color:var(--ink-dim); font-style:italic; margin-left:auto; }
-.rq-body{ display:none; padding:18px 20px; }
-.rq-category.open .rq-body{ display:block; }
+.rq-body{ display:block; padding:18px 20px; }
 .rq-sub{ font-family:'Cinzel',serif; font-size:13px; font-weight:600; letter-spacing:0.04em; color:var(--gold); margin:14px 0 8px; text-transform:uppercase; }
 .rq-sub:first-child{ margin-top:0; }
 .rq-item-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(180px, 1fr)); gap:8px; }
+.rq-grid-3{ grid-template-columns:repeat(3, 1fr); }
+.rq-grid-2{ grid-template-columns:repeat(2, 1fr); }
+.rq-item.with-img{ text-align:center; padding:14px 12px 12px; }
+.rq-item.with-img img{ width:100%; max-width:150px; aspect-ratio:3/4; object-fit:contain; display:block; margin:0 auto 8px; filter:drop-shadow(0 5px 10px rgba(0,0,0,0.7)); }
 .rq-item{ background:var(--surface-2); border:1px solid var(--rule-faint); padding:10px 12px; text-decoration:none; color:inherit; display:block; transition:border-color 0.14s; }
 .rq-item:hover{ border-color:var(--blood-bright); }
 .rq-item-name{ color:var(--ink); font-weight:600; margin-bottom:3px; }
@@ -40,7 +40,8 @@ table.rq-table td:first-child{ color:var(--ink); font-weight:600; }
 <div class="rq-wrap" id="content" style="display:none;"></div>
 
 <script>
-const ITEMS_URL = "https://raw.githubusercontent.com/eccestanczyk/dfmc/main/codex/items.csv";
+const IMG_BASE = "https://raw.githubusercontent.com/eccestanczyk/dfmc/main/";
+const ITEMS_URL = IMG_BASE + "codex/items.csv";
 function parseCSV(text){
   const lines=text.trim().split('\n');
   const headers=lines[0].split(',').map(h=>h.trim().replace(/\r/g,''));
@@ -54,8 +55,8 @@ function parseCSV(text){
 function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
 const CAT_META = {
-  'Weapon':    {icon:'⚔', title:'Weapons',      groupBy:null},
-  'Armour':    {icon:'🛡', title:'Armour',       groupBy:'Slot'},
+  'Weapon':    {icon:'⚔', title:'Weapons',      groupBy:null, grid:'rq-grid-3', img:f=>IMG_BASE+'codex/images/classes/CLS-'+f.toUpperCase()+'-1.png'},
+  'Armour':    {icon:'🛡', title:'Armour',       groupBy:null, grid:'rq-grid-2'},
   'Accessory': {icon:'💍', title:'Accessories',  groupBy:null},
   'Tag':       {icon:'🏷', title:'Creature Tags', groupBy:null},
   'Gem':       {icon:'💎', title:'Gems',         groupBy:null},
@@ -84,10 +85,10 @@ const CAT_ORDER = ['Weapon','Armour','Accessory','Tag','Gem','Rune','Scroll'];
   CAT_ORDER.forEach(cat=>{
     const list=byCat[cat]; if(!list||!list.length) return;
     const meta=CAT_META[cat];
-    html+=`<div class="rq-category" onclick="this.classList.toggle('open')">
-      <div class="rq-header"><span class="rq-chevron">▶</span><span class="rq-icon">${meta.icon}</span>
+    html+=`<div class="rq-category">
+      <div class="rq-header"><span class="rq-icon">${meta.icon}</span>
       <span class="rq-title">${meta.title}</span><span class="rq-count">${list.length} base types</span></div>
-      <div class="rq-body" onclick="event.stopPropagation()">`;
+      <div class="rq-body">`;
     if(meta.groupBy==='Slot'){
       const slots={}; list.forEach(v=>{(slots[v.slot]=slots[v.slot]||[]).push(v);});
       Object.keys(slots).forEach(s=>{
@@ -96,18 +97,18 @@ const CAT_ORDER = ['Weapon','Armour','Accessory','Tag','Gem','Rune','Scroll'];
         html+=`</div>`;
       });
     } else {
-      html+=`<div class="rq-item-grid">`;
-      list.forEach(v=>{ html+=itemCard(v); });
+      html+=`<div class="rq-item-grid ${meta.grid||''}">`;
+      list.forEach(v=>{ html+=itemCard(v, meta); });
       html+=`</div>`;
     }
     html+=`</div></div>`;
   });
 
   // Materials + grades static reference
-  html+=`<div class="rq-category" onclick="this.classList.toggle('open')">
-    <div class="rq-header"><span class="rq-chevron">▶</span><span class="rq-icon">🧱</span>
+  html+=`<div class="rq-category">
+    <div class="rq-header"><span class="rq-icon">🧱</span>
     <span class="rq-title">Materials</span><span class="rq-count">5 families</span></div>
-    <div class="rq-body" onclick="event.stopPropagation()"><table class="rq-table">
+    <div class="rq-body"><table class="rq-table">
       <tr><th>Material</th><th>Source</th><th>Used For</th></tr>
       <tr><td>Scrap</td><td>Dismantling gear</td><td>Crafting gear, refinement</td></tr>
       <tr><td>Ichor</td><td>Dismantling Rare+ gear</td><td>Grading up gear</td></tr>
@@ -120,10 +121,11 @@ const CAT_ORDER = ['Weapon','Armour','Accessory','Tag','Gem','Rune','Scroll'];
   document.getElementById('status').style.display='none';
   document.getElementById('content').style.display='block';
 
-  function itemCard(v){
+  function itemCard(v, meta){
     const desc = v.effect ? v.effect.split(',')[0] : v.category;
-    return `<a class="rq-item" href="item.html?type=${encodeURIComponent(v.family)}">
-      <div class="rq-item-name">${esc(v.family)}</div>
+    const img = (meta && meta.img) ? `<img src="${meta.img(v.family)}" alt="${esc(v.family)}" loading="lazy">` : '';
+    return `<a class="rq-item${img?' with-img':''}" href="item.html?type=${encodeURIComponent(v.family)}">
+      ${img}<div class="rq-item-name">${esc(v.family)}</div>
       <div class="rq-item-desc">${esc(desc)}</div></a>`;
   }
 })();
