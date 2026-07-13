@@ -30,7 +30,7 @@
 .fc-rarity .tier-seal{ width:20px; height:20px; font-size:8px; }
 
 /* Floor map: ground plate with creatures placed on it */
-.floor-map{ position:relative; width:100%; aspect-ratio:3/2; background:#0d0a07 center/cover no-repeat; border:1px solid var(--rule); box-shadow:inset 0 0 60px rgba(0,0,0,0.55), 0 6px 18px rgba(0,0,0,0.4); overflow:hidden; }
+.floor-map{ position:relative; isolation:isolate; width:100%; aspect-ratio:3/2; background:#0d0a07 center/cover no-repeat; border:1px solid var(--rule); box-shadow:inset 0 0 60px rgba(0,0,0,0.55), 0 6px 18px rgba(0,0,0,0.4); overflow:hidden; }
 .fm-creature{ position:absolute; transform:translate(-50%,-90%); text-decoration:none; display:block; }
 .fm-creature .fm-imgwrap{ position:relative; display:block; }
 .fm-creature img.fm-img{ width:100%; display:block; filter:drop-shadow(0 7px 9px rgba(0,0,0,0.7)); transition:filter .15s ease, transform .15s ease; }
@@ -197,8 +197,6 @@ async function load() {
 
     const cbody = document.getElementById('creatures-body');
     const plateUrl = IMG_BASE + 'floors/ground_plates/floor_' + String(num).padStart(3,'0') + '.png';
-
-    function hash(s){ let h=0; for(let i=0;i<s.length;i++){ h=(h*31 + s.charCodeAt(i))>>>0; } return h; }
     function renderGrid(){
       cbody.innerHTML = here.length
         ? `<div class="floor-cgrid">` + here.map(c => {
@@ -220,28 +218,24 @@ async function load() {
         : `<div class="pending-note">No creatures assigned to this floor yet.</div>`;
     }
     function renderMap(){
-      // deterministic scatter: jittered cell grid, cells shuffled by floor-seeded LCG
-      const n = here.length;
-      const cols = Math.ceil(Math.sqrt(n * 1.5)), rowsN = Math.ceil(n / cols);
-      const cells = Array.from({length: cols * rowsN}, (_, i) => i);
-      let seed = parseInt(num, 10) * 2654435761 >>> 0;
-      const rnd = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
-      for (let i = cells.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [cells[i], cells[j]] = [cells[j], cells[i]]; }
-      const x0 = 9, x1 = 91, y0 = 34, y1 = 94;
-      const sprites = here.map((c, i) => {
-        const cell = cells[i];
-        const cx = cell % cols, cy = Math.floor(cell / cols);
-        const h = hash(c.ID + ':' + num);
-        const jx = ((h & 0xff) / 255 - 0.5) * 0.55, jy = (((h >> 8) & 0xff) / 255 - 0.5) * 0.55;
-        const x = x0 + (x1 - x0) * ((cx + 0.5 + jx) / cols);
-        const y = y0 + (y1 - y0) * ((cy + 0.5 + jy) / rowsN);
-        const w = 11 + (y - y0) / (y1 - y0) * 5; // nearer = larger (plate is isometric)
+      // neat grid, ordered by rarity (SSR first), left-to-right top-to-bottom
+      const list = here.slice().sort((a,b) => (TIER_ORDER[a.tier] - TIER_ORDER[b.tier]) || a.ID.localeCompare(b.ID));
+      const n = list.length;
+      const cols = Math.min(5, n), rowsN = Math.ceil(n / cols);
+      const x0 = 10, x1 = 90, y0 = 38, y1 = 92;
+      const w = 14;
+      const sprites = list.map((c, i) => {
+        const cx = i % cols, cy = Math.floor(i / cols);
+        const rowCount = (cy === rowsN - 1) ? (n - cy * cols) : cols; // center a short last row
+        const rx = i - cy * cols;
+        const x = x0 + (x1 - x0) * ((rx + 0.5) / rowCount);
+        const y = rowsN === 1 ? (y0 + y1) / 2 : y0 + (y1 - y0) * (cy / (rowsN - 1));
         const img = c.Image_Path
           ? `<img class="fm-img" src="${IMG_BASE}${escapeHtml(c.Image_Path)}" alt="${escapeHtml(c.Name)}" loading="lazy">`
           : `<div class="fc-noimg" style="width:100%;aspect-ratio:1;">?</div>`;
         return `
           <a class="fm-creature fm-${c.tier}" href="creature.html?id=${escapeHtml(c.ID)}"
-             style="left:${x.toFixed(2)}%;top:${y.toFixed(2)}%;width:${w.toFixed(2)}%;z-index:${Math.round(y)};"
+             style="left:${x.toFixed(2)}%;top:${y.toFixed(2)}%;width:${w}%;z-index:${cy + 1};"
              title="${escapeHtml(c.Name)} — ${c.tier}">
             <span class="fm-name">${escapeHtml(c.Name)}</span>
             <span class="fm-imgwrap">${img}<span class="tier-seal tier-${c.tier}">${c.tier}</span></span>
