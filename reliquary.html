@@ -122,7 +122,9 @@ const CAT_ORDER = ['Weapon','Armour','Accessory','Tag','Gem','Rune','Scroll'];
   document.getElementById('content').style.display='block';
 
   function itemCard(v, meta){
-    const desc = v.effect ? v.effect.split(',')[0] : v.category;
+    let desc = v.effect ? v.effect.split(',')[0] : v.category;
+    desc = desc.split('(')[0].replace(/^\+/,'').replace(/^Creature\s+/i,'').replace(/^flat\s+/i,'').trim();
+    if(!desc) desc = v.category;
     const img = (meta && meta.img) ? `<img src="${meta.img(v.family)}" alt="${esc(v.family)}" loading="lazy">` : '';
     return `<a class="rq-item${img?' with-img':''}" href="item.html?type=${encodeURIComponent(v.family)}">
       ${img}<div class="rq-item-name">${esc(v.family)}</div>
