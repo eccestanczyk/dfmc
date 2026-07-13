@@ -1,0 +1,11 @@
+Egg_Grade,Worn,Common,Uncommon,Rare,Epic,Legendary,Abyssal,Divine,Primordial,Void
+Worn,85,12,3,0,0,0,0,0,0,0
+Common,15,70,12,3,0,0,0,0,0,0
+Uncommon,0,15,70,12,3,0,0,0,0,0
+Rare,0,0,15,70,12,3,0,0,0,0
+Epic,0,0,0,15,70,12,3,0,0,0
+Legendary,0,0,0,0,15,70,12,3,0,0
+Abyssal,0,0,0,0,0,15,70,12,3,0
+Divine,0,0,0,0,0,0,15,70,12,3
+Primordial,0,0,0,0,0,0,0,15,70,15
+Void,0,0,0,0,0,0,0,0,15,85
