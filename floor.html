@@ -196,7 +196,7 @@ async function load() {
       .sort((a,b) => TIER_ORDER[a.tier] - TIER_ORDER[b.tier]);
 
     const cbody = document.getElementById('creatures-body');
-    const plateUrl = IMG_BASE + 'floors/ground_plates/floor_' + String(num).padStart(3,'0') + '.png';
+    const plateUrl = IMG_BASE + 'floors/ground_plates/floor_' + String(num).padStart(3,'0') + '.webp';
     function renderGrid(){
       cbody.innerHTML = here.length
         ? `<div class="floor-cgrid">` + here.map(c => {

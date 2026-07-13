@@ -132,7 +132,7 @@ function tagListHTML(found, mode){
 
 // Ground-plate map: deterministic scatter identical to floor.html
 function floorMapHTML(floorNum, found){
-  const plateUrl = IMG_BASE + 'floors/ground_plates/floor_' + String(floorNum).padStart(3,'0') + '.png';
+  const plateUrl = IMG_BASE + 'floors/ground_plates/floor_' + String(floorNum).padStart(3,'0') + '.webp';
   // neat grid, ordered by rarity (SSR first), left-to-right top-to-bottom
   const list = found.slice().sort((a,b) => (TIER_ORDER[a.tier] - TIER_ORDER[b.tier]) || a.ID.localeCompare(b.ID));
   const n = list.length;
