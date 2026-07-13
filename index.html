@@ -828,6 +828,18 @@ FinalDamage = RawDamage
     </table>
     <p>Soul scope varies per creature per slot, creating targeted build decisions around which soul goes where. Passive magnitudes follow the equipped creature's stage like move grants: Stage 1 ≈ 60%, Stage 2 ≈ 80% of the listed Stage-3 values. Speed never appears on any soul passive. A creature whose soul is equipped in <em>any</em> slot cannot be summoned; one soul per creature across all 8 slots.</p>
 
+    <h4>Soul grading — the final resource sink</h4>
+    <p>Every creature's soul has its own <strong>soul grade</strong> on the shared Worn&ndash;Void ladder, independent of the creature's quality grade. All souls start at Worn. Soul grade is a permanent property of the creature — it is <strong>retained through evolution</strong> (Stage 1 &rarr; 2 &rarr; 3) and persists whether the soul is equipped or not. Grading a soul multiplies its output: the passive magnitude on armour slots, or the granted move's power on ability slots.</p>
+    <table>
+      <tr><th>Rule</th><th>Detail</th></tr>
+      <tr><td style="color:#ede0c4">Multiplier</td><td><code>SoulMult = 1 + 0.05 &times; (grade# &minus; 1)</code> — Worn &times;1.00 &rarr; Void &times;1.45. Stacks multiplicatively with stage scaling (S1 60% / S2 80% / S3 100%).</td></tr>
+      <tr><td style="color:#ede0c4">Currency</td><td><strong>All five sink currencies per attempt</strong> — Scrap + Ichor + Dust + Essence + Ink in one bundle. Each resource's weight is set by its endgame income rate, so every resource costs the same farm time (Scrap 150/h &rarr; heaviest count; Ichor 10/h &rarr; lightest count). Gruel is excluded (breeding-only economy).</td></tr>
+      <tr><td style="color:#ede0c4">Attempt cost</td><td><code>mult &times; (15 Scrap + 1 Ichor + 2 Dust + 2 Essence + 2 Ink)</code>, where <code>mult</code> is the gear-grading cost ladder 1 / 1 / 2 / 3 / 5 / 8 / 12 / 18 / 40 by target grade. A Void attempt = 600 Scrap + 40 Ichor + 80 Dust + 80 Essence + 80 Ink.</td></tr>
+      <tr><td style="color:#ede0c4">Success chance</td><td>Shared grading ladder: 100 / 90 / 70 / 50 / 35 / 20 / 8 / 3 / <strong>0.5%</strong> into Void — no pity, pure roll every attempt.</td></tr>
+      <tr><td style="color:#ede0c4">On failure</td><td>Bundle consumed, soul grade unchanged — no destruction, no downgrade.</td></tr>
+    </table>
+    <p style="font-size:13px;color:#c2ae8b">One soul Worn&rarr;Void: expected ~132,000 Scrap + ~8,800 Ichor + ~17,600 each of Dust/Essence/Ink ≈ 880 h of <em>every</em> income stream at once. Because the bundle draws on the same currencies as refinement, gear grading, and enhancement crafting simultaneously, soul grading only becomes rational once those pipelines are saturated — the deliberate terminal sink. A full 8-slot Void soul loadout is a ~7,000 h, multi-year pursuit. Full table on the <a href="upgrading.html" style="color:var(--gold-bright)">Upgrading</a> page.</p>
+
     <h3>Equipment grades</h3>
     <p>Grade determines how many gem, rune, and enchantment slots a piece of gear has. Equipment is also tiered every 10 character levels. From Abyssal upward, items have visual effects in addition to their color — effects appear on item icons and names in inventory, equipment UI, and the battle conclusion screen.</p>
     <p style="font-size:13px;color:#c2ae8b;margin-bottom:0.75rem">Items never drop on the ground — all loot is delivered directly to inventory via the battle conclusion screen.</p>
