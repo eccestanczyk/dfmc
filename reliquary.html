@@ -54,7 +54,7 @@ function parseCSV(text){
 function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
 const CAT_META = {
-  'Weapon':    {icon:'⚔', title:'Weapons',      groupBy:'Slot'},
+  'Weapon':    {icon:'⚔', title:'Weapons',      groupBy:null},
   'Armour':    {icon:'🛡', title:'Armour',       groupBy:'Slot'},
   'Accessory': {icon:'💍', title:'Accessories',  groupBy:null},
   'Tag':       {icon:'🏷', title:'Creature Tags', groupBy:null},
