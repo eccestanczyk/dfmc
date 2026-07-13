@@ -6,6 +6,19 @@
    ============================================================ */
 
 (function(){
+  // ---- always-fresh content ----
+  // GitHub Pages serves everything with `cache-control: max-age=600` and gives
+  // us no way to change that, so the browser happily shows a 10-minute-stale
+  // codex. This service worker is network-first, so edits appear on reload.
+  // `updateViaCache:'none'` keeps sw.js itself out of the HTTP cache.
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' })
+        .then(function(reg){ reg.update(); })
+        .catch(function(){ /* non-fatal: site works without it */ });
+    });
+  }
+
   // ---- inject site-wide chrome stylesheet (idempotent) ----
   if (!document.querySelector('link[data-ht-ui]')) {
     const l = document.createElement('link');
