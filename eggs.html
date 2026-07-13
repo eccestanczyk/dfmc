@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EGGS — Herumon Tower</title>
+<link rel="icon" href="favicon.svg">
+<link rel="stylesheet" href="theme.css">
+<style>
+.egg-wrap{max-width:1100px;margin:0 auto;padding:24px 20px 60px;}
+.egg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:16px;margin-top:18px;}
+.egg-card{display:flex;flex-direction:column;align-items:center;padding:18px 12px 14px;text-align:center;}
+.egg-card img.egg{width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 6px 14px rgba(0,0,0,.7));transition:transform .15s ease;}
+.egg-card:hover img.egg{transform:scale(1.07);}
+.egg-name{font-family:'Cinzel',serif;font-weight:700;font-size:14px;letter-spacing:.06em;color:var(--gold-bright);margin-top:10px;text-transform:uppercase;}
+.egg-type{margin-top:6px;}
+.grade-table{width:100%;border-collapse:collapse;margin-top:14px;font-size:15px;}
+.grade-table th,.grade-table td{padding:8px 12px;text-align:center;}
+.grade-table td:first-child,.grade-table th:first-child{text-align:left;font-family:'Cinzel',serif;letter-spacing:.04em;}
+.tunable{font-style:italic;color:var(--ink-faint);font-size:13px;margin-top:8px;}
+.mech p{max-width:72ch;}
+</style>
+</head>
+<body>
+<div class="topbar"><h1>EGGS</h1></div>
+<div class="egg-wrap">
+
+<section class="mech">
+  <h2>Hatching Mechanics</h2>
+  <p>Eggs are consumable items that hatch into creatures. Every egg is bound to a <strong>creature type</strong> —
+  its shell shows which — and hatching one always produces a creature whose <em>first type</em> matches the egg.
+  A Beast Egg hatches a Beast; a Void Egg hatches something worse.</p>
+  <p>Every egg also drops at a <strong>grade</strong>, using the same five grades as creatures:
+  Common, Uncommon, Rare, Super Rare, and Super Super Rare. The egg's grade does not fix the hatchling's grade —
+  instead, <strong>each grade of egg has a chance to spawn a creature of each grade</strong>.
+  Higher-grade eggs simply weight the roll toward higher-grade creatures.</p>
+
+  <h3>Hatch Odds by Egg Grade</h3>
+  <table class="grade-table">
+    <thead><tr><th>Egg Grade</th><th>Common</th><th>Uncommon</th><th>Rare</th><th>Super Rare</th><th>SSR</th></tr></thead>
+    <tbody>
+      <tr><td>Common Egg</td><td>60%</td><td>25%</td><td>10%</td><td>4%</td><td>1%</td></tr>
+      <tr><td>Uncommon Egg</td><td>40%</td><td>30%</td><td>18%</td><td>9%</td><td>3%</td></tr>
+      <tr><td>Rare Egg</td><td>22%</td><td>28%</td><td>28%</td><td>15%</td><td>7%</td></tr>
+      <tr><td>Super Rare Egg</td><td>10%</td><td>20%</td><td>30%</td><td>26%</td><td>14%</td></tr>
+      <tr><td>SSR Egg</td><td>4%</td><td>12%</td><td>24%</td><td>32%</td><td>28%</td></tr>
+    </tbody>
+  </table>
+  <div class="tunable">Placeholder odds for tuning — each row sums to 100%. The invariant: at every step up in egg
+  grade, the distribution shifts strictly toward higher creature grades.</div>
+</section>
+
+<section>
+  <h2>Egg Types</h2>
+  <p>One egg per first-type currently in the tower. Hover a medallion for the type name.</p>
+  <div class="egg-grid" id="egg-grid"><div id="status">LOADING…</div></div>
+</section>
+
+</div>
+<script>
+const IMG_BASE='https://raw.githubusercontent.com/eccestanczyk/dfmc/main/';
+async function load(){
+  const txt=await fetch('codex/eggs.csv?t='+Date.now()).then(r=>r.text());
+  const lines=txt.trim().split('\n'); const head=lines[0].split(',');
+  const grid=document.getElementById('egg-grid'); grid.innerHTML='';
+  for(const ln of lines.slice(1)){
+    const c=ln.split(','); const o={}; head.forEach((h,i)=>o[h]=c[i]);
+    const card=document.createElement('div'); card.className='egg-card';
+    card.innerHTML=`<img class="egg" src="${IMG_BASE}${o.Image_Path}" alt="${o.Name}" loading="lazy">
+      <div class="egg-name">${o.Name}</div>
+      <span class="type-chip egg-type" title="${o.Type}">
+        <img src="assets/types/${o.Type}.png" alt="${o.Type}"><span class="tcn">${o.Type}</span>
+      </span>`;
+    grid.appendChild(card);
+  }
+}
+load();
+</script>
+<script src="nav.js"></script>
+</body>
+</html>
