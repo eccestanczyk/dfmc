@@ -107,19 +107,48 @@ function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replac
   document.getElementById('topbar-title').textContent=family.toUpperCase();
   document.getElementById('item-slot').textContent=slot||category;
   document.getElementById('item-category').textContent=category;
-  document.getElementById('item-implicit-text').textContent=first.Effect||'—';
+  if(category==='Weapon'){
+    const mh=fam.find(r=>r.Slot==='Main Hand'), oh=fam.find(r=>r.Slot==='Off Hand');
+    document.getElementById('item-implicit-text').innerHTML=(mh?'<b>MH:</b> '+esc(mh.Effect):'')+(oh?'<br><b>OH:</b> '+esc(oh.Effect):'');
+  } else {
+    document.getElementById('item-implicit-text').textContent=first.Effect||'—';
+  }
   const tierBody=document.getElementById('tier-table');
   const craftMat=category==='Gem'?'Dust':category==='Rune'?'Essence':category==='Scroll'?'Ink':'Scrap';
   const craftMult=(category==='Gem'||category==='Rune'||category==='Scroll')?6:25;
-  fam.forEach(r=>{const t=parseInt(r.Tier)||0;
-    tierBody.innerHTML+=`<tr><td>T${t}</td><td>${esc(r.Name)}</td><td>${r.Level_Req?'Lv '+esc(r.Level_Req):'<span class="tbd">—</span>'}</td><td>${craftMult*t} ${craftMat}</td></tr>`;});
+  const slotGroups=(category==='Weapon')
+    ? ['Main Hand','Off Hand'].map(sl=>({label:sl,rows:fam.filter(r=>r.Slot===sl)})).filter(g=>g.rows.length)
+    : [{label:null,rows:fam}];
+  slotGroups.forEach(g=>{
+    if(g.label) tierBody.innerHTML+=`<tr><td colspan="4" style="color:var(--gold);font-family:Cinzel,serif;font-size:12px;letter-spacing:1px;padding-top:10px">${g.label.toUpperCase()}</td></tr>`;
+    g.rows.forEach(r=>{const t=parseInt(r.Tier)||0;
+      tierBody.innerHTML+=`<tr><td>T${t}</td><td>${esc(r.Name)}</td><td>${r.Level_Req?'Lv '+esc(r.Level_Req):'<span class="tbd">—</span>'}</td><td>${craftMult*t} ${craftMat}</td></tr>`;});
+  });
   // Implicit value grid (tier x grade)
   (function(){
     const sec=document.getElementById('implicit-grid-section');
     const GF=g=>1+0.12*(g-1);
+    const DEF_OH={'Warrior':1,'Professor':1};
+    function liftedM(c){const M=[];for(let g=1;g<=10;g++){M[g]=[];for(let t=1;t<=10;t++){let v=Math.floor(c*t*GF(g)+0.5);if(t>1)v=Math.max(v,M[g][t-1]+1);if(g>1)v=Math.max(v,M[g-1][t]+1);M[g][t]=v;}}return M;}
+    function renderGrid(M,pctMode){
+      let html='<tr><th>Grade \\ Tier</th>'+Array.from({length:10},(_,i)=>'<th>T'+(i+1)+'</th>').join('')+'</tr>';
+      GRADES.forEach((g,gi)=>{let cells='';
+        for(let t=1;t<=10;t++){cells+='<td style="text-align:center">'+(pctMode?(1.5+0.45*gi+0.15*t).toFixed(1)+'%':M[gi+1][t])+'</td>';}
+        html+='<tr><td style="color:'+g.color+';white-space:nowrap">'+g.name+'</td>'+cells+'</tr>';});
+      return html;
+    }
+    if(category==='Weapon'){
+      const ohDef=!!DEF_OH[family];
+      const noteTxt='Main Hand: flat Attack — 5.5 × tier × GF. Off Hand: '+(ohDef?'flat Defense — 2.2 × tier × GF (defensive off hand)':'flat Attack — 1.5 × tier × GF')+'. Half-up, strictly increasing per tier and per grade.';
+      const wrap=document.getElementById('implicit-grid-body').parentElement.parentElement.parentElement;
+      wrap.innerHTML='<div style="font-size:12px;color:var(--ink-dim);margin-bottom:8px">'+noteTxt+'</div><h4 style="color:var(--gold);font-family:Cinzel,serif;font-size:12px;letter-spacing:1px">MAIN HAND — FLAT ATTACK</h4>'
+        +'<div style="overflow-x:auto;margin-bottom:12px"><table class="item-table">'+renderGrid(liftedM(5.5),false)+'</table></div>'
+        +'<h4 style="color:var(--gold);font-family:Cinzel,serif;font-size:12px;letter-spacing:1px">OFF HAND — '+(ohDef?'FLAT DEFENSE':'FLAT ATTACK')+'</h4>'
+        +'<div style="overflow-x:auto"><table class="item-table">'+renderGrid(liftedM(ohDef?2.2:1.5),false)+'</table></div>';
+      return;
+    }
     let coef=null, stat='', pct=false;
-    if(category==='Weapon'){coef=(slot==='Main Hand')?4.5:2.5;stat='flat Attack';}
-    else if(category==='Armour'){coef=2.2;stat='flat Defense';}
+    if(category==='Armour'){coef=2.2;stat='flat Defense';}
     else if(category==='Accessory'){coef=(family==='Relic')?3.0:2.0;stat=(family==='Relic')?'flat HP':'flat Attack';}
     else if(category==='Gem'){coef=1.5;stat=(family==='Onyx')?'flat Defense':(family==='Bloodstone')?'flat HP':'flat Attack';}
     else if(category==='Tag'){coef=3.0;stat=(family==='Carapace')?'Creature Defense':(family==='Heart')?'Creature HP':'Creature Attack';}
@@ -128,18 +157,9 @@ function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replac
     document.getElementById('implicit-grid-note').textContent=pct
       ? stat+' — 1.5% + 0.45% × (grade−1) + 0.15% × tier'
       : stat+' — '+coef+' × tier × GF, GF = 1 + 0.12 × (grade−1)';
-    document.getElementById('implicit-grid-head').innerHTML='<th>Grade \\ Tier</th>'+Array.from({length:10},(_,i)=>'<th>T'+(i+1)+'</th>').join('');
-    const body=document.getElementById('implicit-grid-body');
     // strictly increasing per +1 tier and +1 grade (half-up rounding, then lift by >=1 vs left/upper neighbour)
-    let M=null;
-    if(!pct){M=[];for(let g=1;g<=10;g++){M[g]=[];for(let t=1;t<=10;t++){let v=Math.floor(coef*t*GF(g)+0.5);if(t>1)v=Math.max(v,M[g][t-1]+1);if(g>1)v=Math.max(v,M[g-1][t]+1);M[g][t]=v;}}}
-    GRADES.forEach((g,gi)=>{
-      let cells='';
-      for(let t=1;t<=10;t++){
-        cells+='<td style="text-align:center">'+(pct?(1.5+0.45*gi+0.15*t).toFixed(1)+'%':M[gi+1][t])+'</td>';
-      }
-      body.innerHTML+='<tr><td style="color:'+g.color+';white-space:nowrap">'+g.name+'</td>'+cells+'</tr>';
-    });
+    const M=pct?null:liftedM(coef);
+    document.getElementById('implicit-grid-head').parentElement.parentElement.innerHTML=renderGrid(M,pct);
   })();
   const gradeBody=document.getElementById('grade-table');
   GRADES.forEach(g=>{gradeBody.innerHTML+=`<tr><td style="color:${g.color}">${g.name}</td><td>${g.gems||'—'}</td><td>${g.runes||'—'}</td><td>${g.enchants||'—'}</td><td>${g.cost}</td><td>${g.success}</td></tr>`;});
