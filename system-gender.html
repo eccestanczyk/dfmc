@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gender — Herumon Tower</title>
+<link rel="stylesheet" href="theme.css?v=4">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+.gsign{font-size:22px;font-weight:700;vertical-align:middle;}
+.gm{color:#4a9edd;}
+.gf{color:#d95d8c;}
+.gname{font-family:'Cinzel',serif;font-weight:700;letter-spacing:.04em;color:var(--gold-bright);}
+</style>
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">GENDER</h1></div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; Gender</div>
+  <p class="sp-lead">Every creature has a gender, rolled at the moment it hatches. The roll is a flat <strong style="color:var(--ink)">50/50</strong> &mdash; male and female are equally likely for every creature, every egg, every grade.</p>
+
+  <h2>The roll</h2>
+  <ul class="sp-rules">
+    <li><strong>Fixed 50/50</strong> &mdash; gender is decided on hatch and is never re-rolled.</li>
+    <li><strong>Unweighted</strong> &mdash; egg grade, egg type, creature grade, and creature line have no effect on the odds.</li>
+    <li><strong>Permanent</strong> &mdash; gender does not change on level-up or evolution; a creature carries the same gender across all three stages of its line.</li>
+  </ul>
+
+  <h2>Display</h2>
+  <p>Gender is shown as a sign immediately after the creature's name, everywhere the name appears &mdash; party list, battle UI, creature sheet, and reliquary.</p>
+  <table>
+    <tr><th>Gender</th><th>Sign</th><th>Example</th></tr>
+    <tbody>
+      <tr><td class="lbl">Male</td><td><span class="gsign gm">&#9794;</span></td><td><span class="gname">Thornback</span> <span class="gsign gm">&#9794;</span></td></tr>
+      <tr><td class="lbl">Female</td><td><span class="gsign gf">&#9792;</span></td><td><span class="gname">Thornback</span> <span class="gsign gf">&#9792;</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="sp-note">Signs are <code>&amp;#9794;</code> (&#9794;) and <code>&amp;#9792;</code> (&#9792;). Gender has no effect on stats, moves, grade, or any combat calculation &mdash; it is a breeding-side and identification trait only.</div>
+</div>
+
+<script src="admin.js"></script>
+<script src="nav.js"></script>
+</body>
+</html>
