@@ -18,3 +18,5 @@ fx_target_aoe,AOE,targeting,AOE move — three beast silhouettes (multi-figure c
 fx_captured_rune,Captured,codex_status,Codex status — creature captured (rune-carved checkmark),-,assets/ui/move_icons/fx_captured_rune.png,_parking/ui/move-icons/originals/fx_captured_rune.raw.png,pending_approval,
 fx_seen_eye,Seen,codex_status,Codex status — creature seen but not captured (open eye),-,assets/ui/move_icons/fx_seen_eye.png,_parking/ui/move-icons/originals/fx_seen_eye.raw.png,pending_approval,
 fx_captured_mutant,Mutant Captured,codex_status,"Codex status — mutant variant captured (double-stroke rune check, violet→teal off-palette; shape-distinct for colorblind readability)",-,assets/ui/move_icons/fx_captured_mutant.png,(derived from fx_captured_rune — no generation),pending_approval,
+fx_male,Male,creature_meta,"Creature sex — male (Mars symbol, dark blue)",-,assets/ui/move_icons/fx_male.png,_parking/ui/move-icons/originals/fx_male.raw.png,pending_approval,
+fx_female,Female,creature_meta,"Creature sex — female (Venus symbol, dark pink)",-,assets/ui/move_icons/fx_female.png,_parking/ui/move-icons/originals/fx_female.raw.png,pending_approval,
