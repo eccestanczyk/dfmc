@@ -257,7 +257,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     <div class="note note-info"><p>Additional class lines (pure-wall, balanced-duelist, speed-specialist, etc.) are reserved as possible future content.</p></div>
 
     <h3>Skill tree</h3>
-    <p>Each class has a Path of Exile–style passive skill tree — a large interconnected graph of nodes. Players spend skill points (earned on class level-up) to unlock adjacent nodes only.</p>
+    <p>Each class has a passive skill tree — a large interconnected graph of nodes. Players spend skill points (earned on class level-up) to unlock adjacent nodes only.</p>
     <ul>
       <li>Node types: stat (flat bonus), modifier (% bonus), keystone (build-defining passive)</li>
       <li>Must path from starting node outward — no jumping to isolated nodes</li>
@@ -543,7 +543,7 @@ FinalDamage = RawDamage
       <li>PvP tournaments: +3 creatures on the bench for sideboarding between matches in a Bo3</li>
     </ul>
 
-    <p>The base formula follows the proven Pokémon/Coromon core. The increased/more split (from Path of Exile) is bolted onto the modifier chain — <strong style="color:#ede0c4">increased</strong> sources add together (diminishing returns within a category), <strong style="color:#ede0c4">more</strong> sources multiply (always valuable). This rewards diversifying modifier sources over stacking one type.</p>
+    <p>The base formula follows the proven creature-battler core. The increased/more split is bolted onto the modifier chain — <strong style="color:#ede0c4">increased</strong> sources add together (diminishing returns within a category), <strong style="color:#ede0c4">more</strong> sources multiply (always valuable). This rewards diversifying modifier sources over stacking one type.</p>
 
     <h4>Turn count targets</h4>
     <table>
@@ -559,12 +559,12 @@ FinalDamage = RawDamage
       <tr><th>Resource</th><th>Status</th><th>Rationale</th></tr>
       <tr><td>Cooldowns</td><td style="color:#4ade80">Active</td><td>Each move has a cooldown (0 = always available, 1–4 turns for stronger moves). Creature identity IS its rotation pattern.</td></tr>
       <tr><td>Stamina / PP</td><td style="color:#e5393f">Rejected</td><td>3–5 turn PvE fights end before resource pressure materializes. Autoplay AI can't meaningfully manage stamina — it either plays conservatively (boring) or burns recklessly (frustrating).</td></tr>
-      <tr><td>Hold (Temtem-style)</td><td style="color:#c2ae8b">Deferred</td><td>Possible future addition: strong moves start on cooldown, preventing alpha-strike metas. Shelved until balance testing reveals need.</td></tr>
+      <tr><td>Hold</td><td style="color:#c2ae8b">Deferred</td><td>Possible future addition: strong moves start on cooldown, preventing alpha-strike metas. Shelved until balance testing reveals need.</td></tr>
     </table>
     <p>Healing is deliberately rare across creature movesets. Stall is countered through scarcity rather than resource attrition.</p>
 
     <h3>Creatures & characters</h3>
-    <ul><li>Characters level up and spend skill points on a PoE-style tree per class</li><li>Creatures level up, spend skill points, and have evolution chains</li><li>Evolutions triggered by level, item, or bond — swap CreatureData ScriptableObject, preserve stat history</li></ul>
+    <ul><li>Characters level up and spend skill points on a passive skill tree per class</li><li>Creatures level up, spend skill points, and have evolution chains</li><li>Evolutions triggered by level, item, or bond — swap CreatureData ScriptableObject, preserve stat history</li></ul>
   </div>
 
   <!-- LEAGUES -->
@@ -691,7 +691,7 @@ FinalDamage = RawDamage
     <div class="note note-info"><p><strong>Open decision:</strong> Does incubation time scale with egg grade (higher = longer wait), or is it a flat timer? Starter creature grade and stats also TBD.</p></div>
 
     <h3>Skill trees</h3>
-    <p>Both characters and creatures have PoE-style passive skill trees as graph ScriptableObjects. SP earned on level-up. Nodes unlock adjacent nodes only. Respec always possible at a resource cost.</p>
+    <p>Both characters and creatures have passive skill trees as graph ScriptableObjects. SP earned on level-up. Nodes unlock adjacent nodes only. Respec always possible at a resource cost.</p>
 
     <h3>Creature evolutions</h3>
     <table>
@@ -1140,7 +1140,7 @@ Your Backend
       <li><span class="phase-num">9</span><span><strong style="color:#ede0c4">Multi-floor loop</strong> — floor transitions, floor data loading from CSV, 10 grasslands floors playable end-to-end</span></li>
       <li><span class="phase-num">10</span><span><strong style="color:#ede0c4">Full battle system</strong> — expand to 3v3 (avatar + 2 creatures), moves, status effects, animations</span></li>
       <li><span class="phase-num">11</span><span><strong style="color:#ede0c4">Boss floors</strong> — every 10th floor, boss team encounter, key drop from pre-boss floors</span></li>
-      <li><span class="phase-num">12</span><span><strong style="color:#ede0c4">Character & class system</strong> — class XP, character level, PoE skill trees</span></li>
+      <li><span class="phase-num">12</span><span><strong style="color:#ede0c4">Character & class system</strong> — class XP, character level, passive skill trees</span></li>
       <li><span class="phase-num">13</span><span><strong style="color:#ede0c4">Codex</strong> — creature catalogue, seen/acquired states</span></li>
       <li><span class="phase-num">14</span><span><strong style="color:#ede0c4">Metagame UI</strong> — breeding, crafting, farming, hatchery panels</span></li>
       <li><span class="phase-num">15</span><span><strong style="color:#ede0c4">Autoplay</strong> — auto-click creatures, auto-battle, configurable thresholds</span></li>
@@ -1170,7 +1170,7 @@ Your Backend
         <li><span class="phase-num">6</span><span><strong style="color:#ede0c4">Floor win condition & chests</strong> — battle win counter, portal unlock, manual one-time chests, chest tracking on map selector</span></li>
         <li><span class="phase-num">7</span><span><strong style="color:#ede0c4">Boss key & boss floors</strong> — key drop chance on pre-boss floors, key consumption, boss floor access via portal or map selector</span></li>
         <li><span class="phase-num">8</span><span><strong style="color:#ede0c4">Autoplay & multi-tab system</strong> — pathfinding, config options, death handler, simultaneous multi-character simulation</span></li>
-        <li><span class="phase-num">9</span><span><strong style="color:#ede0c4">Character & class system</strong> — class XP, character level aggregation, PoE skill trees</span></li>
+        <li><span class="phase-num">9</span><span><strong style="color:#ede0c4">Character & class system</strong> — class XP, character level aggregation, passive skill trees</span></li>
         <li><span class="phase-num">10</span><span><strong style="color:#ede0c4">Codex</strong> — creature catalogue, seen/acquired states, stat ranges, move lists, evolution chains</span></li>
         <li><span class="phase-num">11</span><span><strong style="color:#ede0c4">Metagame UI</strong> — breeding, crafting, farming, hatchery — all as in-game UI panels accessible during PvE</span></li>
         <li><span class="phase-num">12</span><span><strong style="color:#ede0c4">Player logging system</strong> — event log and battle log, hooked into existing battle/leveling/item systems, file export for PC and mobile share UI</span></li>
@@ -1281,7 +1281,7 @@ Your Backend
     </table>
 
     <h3>Mutant variants — not "Shiny"</h3>
-    <p>The alt-color rare cosmetic variant is called a <strong style="color:#ede0c4">Mutant</strong> in this project, not "Shiny" (that's Pokémon's term — easy to slip into by habit, don't).</p>
+    <p>The alt-color rare cosmetic variant is called a <strong style="color:#ede0c4">Mutant</strong> in this project. Never "Shiny" — it is easy to slip into by habit; don't.</p>
 
     <h3>Leagues (4)</h3>
     <p>Eternal, Hardcore, Seasonal, HC Seasonal.</p>
