@@ -103,7 +103,7 @@ async function load(){
             <div class="slbl">STAGE ${s.Stage}</div>
             <div class="sname">${s.Name}</div>
             <div class="imgbox">${img}</div>
-            <div class="stats">O ${s.Grade_Attack} · D ${s.Grade_Defense} · S ${s.Grade_Speed}</div>
+            <div class="stats">A ${s.Grade_Attack} · D ${s.Grade_Defense} · S ${s.Grade_Speed}</div>
             ${ADMIN&&opts.length?`<div class="opts">${opts.map(o=>`<span class="opt">${o}</span>`).join('')}</div>`:''}
             <div class="admin-info"><b>${s.Class_ID}</b><br>${s.Image_Prompt?s.Image_Prompt.slice(0,160)+'…':'no prompt'}</div>
           </div>`;
