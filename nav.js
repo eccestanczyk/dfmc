@@ -23,7 +23,7 @@
   if (!document.querySelector('link[data-ht-ui]')) {
     const l = document.createElement('link');
     l.rel = 'stylesheet';
-    l.href = 'assets/ui.css';
+    l.href = 'assets/ui.css?v=2';
     l.setAttribute('data-ht-ui','1');
     document.head.appendChild(l);
   }
