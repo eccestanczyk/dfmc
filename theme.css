@@ -281,8 +281,8 @@ table.data-table td.filled{ color:var(--ink); font-style:normal; }
 .evo-node span{ font-size:14px; font-weight:600; }
 .evo-arrow{ color:var(--blood-bright); font-size:18px; }
 
-.shiny-box{ display:flex; gap:18px; align-items:center; }
-.shiny-placeholder{ width:100px; height:100px; border:1px dashed var(--rule); display:flex; align-items:center; justify-content:center; color:var(--ink-faint); font-size:12px; text-align:center; font-style:italic; }
+.mutant-box{ display:flex; gap:18px; align-items:center; }
+.mutant-placeholder{ width:100px; height:100px; border:1px dashed var(--rule); display:flex; align-items:center; justify-content:center; color:var(--ink-faint); font-size:12px; text-align:center; font-style:italic; }
 
 .floor-chip-row{ display:flex; flex-wrap:wrap; gap:6px; }
 .floor-chip{
