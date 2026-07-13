@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BOSSES</title>
+<link rel="stylesheet" href="theme.css">
+<style>
+  .boss-card{ border:1px solid var(--rule); background:var(--panel, rgba(0,0,0,0.25)); margin:0 auto 28px; max-width:1100px; padding:22px; }
+  .boss-head{ display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; border-bottom:1px solid var(--rule-faint); padding-bottom:10px; margin-bottom:14px; }
+  .boss-floor{ font-size:13px; letter-spacing:0.12em; color:var(--ink-faint); }
+  .boss-title{ font-size:24px; color:var(--gold, #cfa650); letter-spacing:0.04em; }
+  .boss-arena{ font-size:13px; color:var(--blood-glow, #c0392b); letter-spacing:0.06em; }
+  .boss-skulls{ margin-left:auto; color:var(--blood-glow, #c0392b); font-size:14px; letter-spacing:2px; }
+  .boss-grid{ display:grid; grid-template-columns:340px 1fr; gap:22px; }
+  @media (max-width:820px){ .boss-grid{ grid-template-columns:1fr; } }
+  .boss-img-wrap{ border:1px solid var(--rule); background:var(--bg-deep, #0c0a08); min-height:420px; display:flex; align-items:center; justify-content:center; }
+  .boss-img-wrap img{ max-width:100%; max-height:520px; display:block; }
+  .boss-img-pending{ color:var(--ink-faint); font-size:12px; letter-spacing:0.1em; text-align:center; padding:20px; }
+  .boss-meta{ font-size:13px; color:var(--ink); margin-bottom:12px; line-height:1.6; }
+  .boss-meta b{ color:var(--gold, #cfa650); font-weight:600; }
+  .boss-desc{ font-style:italic; color:var(--ink-faint); font-size:14px; line-height:1.55; margin:10px 0 14px; }
+  .sec-label{ font-size:11px; letter-spacing:0.14em; color:var(--ink-faint); margin:16px 0 8px; border-bottom:1px solid var(--rule-faint); padding-bottom:4px; }
+  .move-row{ font-size:13px; line-height:1.5; padding:7px 0; border-bottom:1px dotted var(--rule-faint); color:var(--ink); }
+  .move-row b{ color:var(--gold, #cfa650); }
+  .move-src{ color:var(--ink-faint); font-size:11px; letter-spacing:0.06em; }
+  .syn-box{ font-size:13px; line-height:1.55; color:var(--ink); background:rgba(207,166,80,0.05); border-left:2px solid var(--gold, #cfa650); padding:10px 12px; margin-top:8px; }
+  .team-row{ display:flex; flex-wrap:wrap; gap:10px; margin-top:6px; }
+  .prompt-box{ font-size:12px; line-height:1.55; color:var(--ink-faint); background:var(--bg-deep, #0c0a08); border:1px solid var(--rule-faint); padding:10px 12px; white-space:pre-wrap; }
+  details.prompt-details summary{ cursor:pointer; font-size:11px; letter-spacing:0.14em; color:var(--ink-faint); margin:14px 0 6px; }
+  .role-tag{ font-size:10px; letter-spacing:0.1em; color:var(--ink-faint); display:block; margin-bottom:4px; }
+</style>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+
+<div class="topbar">
+  <h1>BOSSES</h1>
+  <div class="count" id="boss-count">— / 10</div>
+</div>
+
+<div id="status">LOADING...</div>
+<main id="main" style="display:none;"></main>
+
+<script>
+const BOSSES_URL = "codex/bosses.csv";
+const CREATURES_URL = "codex/creatures.csv";
+const IMG_BASE = "https://cdn.jsdelivr.net/gh/eccestanczyk/dfmc@main/";
+const RARITY_MAP = { "Common":"C", "Uncommon":"UC", "Rare":"R", "Super Rare":"SR", "Super Super Rare":"SSR" };
+
+function parseCSV(text) {
+  const rows = [];
+  let row = [], field = '', inQuotes = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i], next = text[i+1];
+    if (inQuotes) {
+      if (c === '"' && next === '"') { field += '"'; i++; }
+      else if (c === '"') { inQuotes = false; }
+      else { field += c; }
+    } else {
+      if (c === '"') inQuotes = true;
+      else if (c === ',') { row.push(field); field = ''; }
+      else if (c === '\r') {}
+      else if (c === '\n') { row.push(field); rows.push(row); row = []; field = ''; }
+      else { field += c; }
+    }
+  }
+  if (field.length || row.length) { row.push(field); rows.push(row); }
+  const header = rows.shift();
+  return rows.filter(r => r.length > 1 || r[0]).map(r => {
+    const obj = {};
+    header.forEach((h, idx) => obj[h] = r[idx] ?? '');
+    return obj;
+  });
+}
+function escapeHtml(str) {
+  if (!str) return '';
+  return str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+function creatureTag(c) {
+  if (!c) return '';
+  const tier = RARITY_MAP[c.Rarity] || '?';
+  const pendingClass = c.Art_Status === 'pending' ? ' art-pending' : '';
+  let h = `<a class="creature-tag${pendingClass}" href="creature.html?id=${escapeHtml(c.ID)}">`;
+  h += c.Image_Path ? `<img src="${IMG_BASE}${escapeHtml(c.Image_Path)}" alt="">` : `<div class="no-img">?</div>`;
+  h += `<span class="cn">${escapeHtml(c.Name)} <span style="color:var(--ink-faint);font-size:10px;">S${escapeHtml(c.Stage)}</span></span>`;
+  h += `<span class="tier-seal tier-${tier}">${tier}</span>`;
+  h += `</a>`;
+  return h;
+}
+
+function moveRow(m) {
+  // "Name (LINE) · P160 CD3 · effect"
+  const parts = m.split(' · ');
+  const nameSrc = parts[0] || m;
+  const match = nameSrc.match(/^(.*)\s\(([A-Z]+)\)$/);
+  const name = match ? match[1] : nameSrc;
+  const src = match ? match[2] : '';
+  const rest = parts.slice(1).join(' · ');
+  return `<div class="move-row"><b>${escapeHtml(name)}</b> <span class="move-src">${src ? 'from ' + escapeHtml(src) : ''}</span><br>${escapeHtml(rest)}</div>`;
+}
+
+async function load() {
+  try {
+    const [bossesText, creaturesText] = await Promise.all([
+      fetch(BOSSES_URL + '?t=' + Date.now()).then(r => r.text()),
+      fetch(CREATURES_URL + '?t=' + Date.now()).then(r => r.text()),
+    ]);
+    const bosses = parseCSV(bossesText);
+    const creatures = parseCSV(creaturesText);
+    const byId = {};
+    creatures.forEach(c => byId[c.ID] = c);
+
+    bosses.sort((a,b) => parseInt(a.Floor) - parseInt(b.Floor));
+    document.getElementById('boss-count').textContent = bosses.length + ' / 10';
+
+    let html = '';
+    bosses.forEach(b => {
+      const skulls = '\u2620'.repeat(parseInt(b.Difficulty_Index) || 1);
+      const types = [b.Boss_Type_Primary, b.Boss_Type_Secondary].filter(Boolean).join(' / ');
+      const grades = [
+        ['OFFENSE', b.Grade_Offense], ['DEFENSE', b.Grade_Defense],
+        ['UTILITY', b.Grade_Utility], ['SPEED', b.Grade_Speed],
+      ].map(([label, v]) => {
+        const n = parseInt(v) || 0;
+        return `<div class="grade-row"><span>${label}</span><div class="grade-bar-bg"><div class="grade-bar-fill" style="width:${n*10}%"></div></div><span>${n}/10</span></div>`;
+      }).join('');
+
+      html += `<div class="boss-card">`;
+      html += `<div class="boss-head">`;
+      html += `<span class="boss-floor">FLOOR ${escapeHtml(b.Floor)} \u00b7 ${escapeHtml(b.Zone).toUpperCase()}</span>`;
+      html += `<span class="boss-title">${escapeHtml(b.Boss_Character)}</span>`;
+      html += `<span class="boss-arena">${escapeHtml(b.Boss_Name)}</span>`;
+      html += `<span class="boss-skulls">${skulls}</span>`;
+      html += `</div>`;
+
+      html += `<div class="boss-grid">`;
+
+      // left: image
+      html += `<div>`;
+      html += `<div class="boss-img-wrap">`;
+      if (b.Image_Path) {
+        html += `<img src="${IMG_BASE}${escapeHtml(b.Image_Path)}" alt="${escapeHtml(b.Boss_Character)}">`;
+      } else {
+        html += `<div class="boss-img-pending">ART PENDING<br><span style="font-size:10px;">generation prompt below</span></div>`;
+      }
+      html += `</div>`;
+      html += `<details class="prompt-details"><summary>GENERATION PROMPT (1024\u00d71536 \u00b7 gpt-image-2 \u00b7 t2i)</summary>`;
+      html += `<div class="prompt-box">${escapeHtml(b.Image_Prompt)}</div></details>`;
+      html += `</div>`;
+
+      // right: everything else
+      html += `<div>`;
+      html += `<div class="boss-meta"><b>${escapeHtml(types)}</b> \u00b7 Level ${escapeHtml(b.Boss_Level)} \u00b7 Quality Grade ${escapeHtml(b.Boss_Quality_Grade)}</div>`;
+      html += `<div class="boss-desc">${escapeHtml(b.Description)}</div>`;
+      html += grades;
+
+      html += `<div class="sec-label">MOVESET \u2014 TAKEN FROM THE ZONE'S CREATURES (S3 MAGNITUDES)</div>`;
+      [b.Move_1, b.Move_2, b.Move_3, b.Move_4].forEach(m => { if (m) html += moveRow(m); });
+
+      html += `<div class="sec-label">KIT &amp; TEAM SYNERGY</div>`;
+      html += `<div class="syn-box">${escapeHtml(b.Kit_Synergy)}</div>`;
+
+      html += `<div class="sec-label">BATTLE TEAM \u2014 BOSS + 2 SR ACTIVES, 4 IN RESERVE</div>`;
+      html += `<span class="role-tag">ACTIVE (SUPER RARE, FROM THIS ZONE'S FLOORS)</span>`;
+      html += `<div class="team-row">${creatureTag(byId[b.Active_Creature_1])}${creatureTag(byId[b.Active_Creature_2])}</div>`;
+      html += `<span class="role-tag" style="margin-top:10px;">RESERVE (ZONE NATIVES)</span>`;
+      html += `<div class="team-row">`;
+      [b.Reserve_1, b.Reserve_2, b.Reserve_3, b.Reserve_4].forEach(id => { html += creatureTag(byId[id]); });
+      html += `</div>`;
+
+      html += `</div></div></div>`;
+    });
+
+    document.getElementById('main').innerHTML = html;
+    document.getElementById('status').style.display = 'none';
+    document.getElementById('main').style.display = 'block';
+  } catch (err) {
+    document.getElementById('status').textContent = 'LOAD FAILED: ' + err.message;
+  }
+}
+load();
+</script>
+<script src="admin.js"></script>
+<script src="nav.js"></script>
+</body>
+</html>

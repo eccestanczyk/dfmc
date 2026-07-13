@@ -20,6 +20,7 @@
     { href: 'creature-codex.html', label: 'Creature Codex' },
     { href: 'type-glossary.html',  label: 'Type Glossary' },
     { href: 'floor-codex.html',    label: 'Floor Map' },
+    { href: 'bosses.html',         label: 'Bosses' },
     { href: 'reliquary.html',      label: 'Reliquary' },
   { href: 'classes.html',        label: 'Classes' },
     { href: 'crafting.html',       label: 'Crafting' },
