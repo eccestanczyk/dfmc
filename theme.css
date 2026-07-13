@@ -192,7 +192,6 @@ main{ max-width:920px; margin:0 auto; padding:30px 20px 110px; }
   text-decoration:none; background:var(--surface-2); transition:all 0.14s ease;
 }
 .type-tag:hover{ background:var(--blood); color:var(--ink); border-color:var(--blood-bright); }
-.type-tag.secondary{ border-style:dashed; }
 
 /* ---------- Hero (creature / floor detail) ---------- */
 .hero{ padding:26px; }
