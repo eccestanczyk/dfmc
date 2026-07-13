@@ -191,7 +191,7 @@ h3::before{
   border-color:var(--blood-bright) !important; color:#f6ddd3 !important;
   box-shadow:inset 0 1px 0 rgba(255,150,130,.25), 0 0 15px rgba(221,86,70,.4);
 }
-.type-tag.secondary{ border-style:dashed !important; }
+.type-tag, .type-tag.secondary, .type-tag.tertiary{ border-style:solid !important; }
 
 /* ---------- Lists: gem bullets ---------- */
 main ul, .page ul, section ul, .card ul, .note ul{ list-style:none; padding-left:4px; }
