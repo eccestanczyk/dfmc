@@ -123,7 +123,7 @@ async function load() {
       const skulls = '\u2620'.repeat(parseInt(b.Difficulty_Index) || 1);
       const types = [b.Boss_Type_Primary, b.Boss_Type_Secondary].filter(Boolean).join(' / ');
       const grades = [
-        ['OFFENSE', b.Grade_Offense], ['DEFENSE', b.Grade_Defense],
+        ['ATTACK', b.Grade_Attack], ['DEFENSE', b.Grade_Defense],
         ['UTILITY', b.Grade_Utility], ['SPEED', b.Grade_Speed],
       ].map(([label, v]) => {
         const n = parseInt(v) || 0;

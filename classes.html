@@ -32,7 +32,7 @@
 </style></head><body>
 <div class="topbar"><h1>CLASSES</h1></div>
 <div style="max-width:1040px;margin:0 auto;padding:16px 16px 80px">
-  <p style="font-size:13px;color:#8a7a5e">Six player classes — linear three-stage evolution at the standard breakpoints. Stat sums S1 ≈ 12 · S2 ≈ 16 · S3 ≈ 20 across Offense / Defense / Speed (max 10 per axis). Art pipeline mirrors the creature codex: raw generations placed for approval, crops after sign-off.</p>
+  <p style="font-size:13px;color:#8a7a5e">Six player classes — linear three-stage evolution at the standard breakpoints. Stat sums S1 ≈ 12 · S2 ≈ 16 · S3 ≈ 20 across Attack / Defense / Speed (max 10 per axis). Art pipeline mirrors the creature codex: raw generations placed for approval, crops after sign-off.</p>
   <div id="grid"></div>
 </div>
 <script src="nav.js"></script>
@@ -41,12 +41,12 @@ const IMG_BASE="";  // same-origin (GitHub Pages) — jsDelivr caches stale afte
 const ADMIN=new URLSearchParams(location.search).get('admin')==='1';
 if(ADMIN)document.body.classList.add('admin');
 const DESCRIPTIONS={
-  WARRIOR:"The armored frontliner. High Defense and steady Offense at the cost of Speed — soaks the opening blow and answers in kind. Evolves from a battered mercenary into a masterwork knight, then into a legendary gem-forged paladin.",
-  MAGE:"The glass cannon. The game's highest Offense ceiling paired with the lowest Defense — devastating if it acts, fragile if it's caught. Ascends from apprentice to sorcerer to reality-bending archon.",
-  ARCHER:"The fast ranged striker. High Offense and high Speed on a thin defensive frame — wins initiative and hits hard, but folds under pressure. Grows from scout to ranger to peerless hawkeye.",
-  BRUTE:"The heavy bruiser. High Offense and high Defense weighed down by the lowest Speed — hits like a siege engine and survives the counter, but always moves last. From savage to warlord to unstoppable titan. (DLC)",
-  ASSASSIN:"The pure striker. Extreme Offense and Speed on almost no Defense — the fastest, deadliest, most fragile build in the game. From cutthroat to stalker to shadow-nightblade. (DLC)",
-  PROFESSOR:"The tanky controller. High Defense and high Speed with dumped Offense — survives and acts early, controlling the fight without heavy damage. The scholar who sees it coming, from professor to sage to prophet. (DLC)"
+  WARRIOR:"The armored frontliner. High Defense and steady Attack at the cost of Speed — soaks the opening blow and answers in kind. Evolves from a battered mercenary into a masterwork knight, then into a legendary gem-forged paladin.",
+  MAGE:"The glass cannon. The game's highest Attack ceiling paired with the lowest Defense — devastating if it acts, fragile if it's caught. Ascends from apprentice to sorcerer to reality-bending archon.",
+  ARCHER:"The fast ranged striker. High Attack and high Speed on a thin defensive frame — wins initiative and hits hard, but folds under pressure. Grows from scout to ranger to peerless hawkeye.",
+  BRUTE:"The heavy bruiser. High Attack and high Defense weighed down by the lowest Speed — hits like a siege engine and survives the counter, but always moves last. From savage to warlord to unstoppable titan. (DLC)",
+  ASSASSIN:"The pure striker. Extreme Attack and Speed on almost no Defense — the fastest, deadliest, most fragile build in the game. From cutthroat to stalker to shadow-nightblade. (DLC)",
+  PROFESSOR:"The tanky controller. High Defense and high Speed with dumped Attack — survives and acts early, controlling the fight without heavy damage. The scholar who sees it coming, from professor to sage to prophet. (DLC)"
 };
 function parseCSV(t){
   const rows=[]; let row=[], s='', q=false;
@@ -71,7 +71,7 @@ function parseCSV(t){
 }
 function radar(o,d,sp,color){
   const size=210,cx=105,cy=98,R=66;
-  const axes=[['OFF',-90,o],['DEF',30,d],['SPD',150,sp]];
+  const axes=[['ATK',-90,o],['DEF',30,d],['SPD',150,sp]];
   let rings='';
   [0.25,0.5,0.75,1].forEach(fr=>{const pts=axes.map(([,a])=>{const r=R*fr,ra=a*Math.PI/180;return `${cx+r*Math.cos(ra)},${cy+r*Math.sin(ra)}`}).join(' ');rings+=`<polygon points="${pts}" fill="none" stroke="#3a2d24" stroke-width="1"/>`});
   let ax='',lbl='',dp=[];
@@ -103,12 +103,12 @@ async function load(){
             <div class="slbl">STAGE ${s.Stage}</div>
             <div class="sname">${s.Name}</div>
             <div class="imgbox">${img}</div>
-            <div class="stats">O ${s.Grade_Offense} · D ${s.Grade_Defense} · S ${s.Grade_Speed}</div>
+            <div class="stats">O ${s.Grade_Attack} · D ${s.Grade_Defense} · S ${s.Grade_Speed}</div>
             ${ADMIN&&opts.length?`<div class="opts">${opts.map(o=>`<span class="opt">${o}</span>`).join('')}</div>`:''}
             <div class="admin-info"><b>${s.Class_ID}</b><br>${s.Image_Prompt?s.Image_Prompt.slice(0,160)+'…':'no prompt'}</div>
           </div>`;
         }).join('')}</div>
-        <div class="radar-wrap">${radar(+s3.Grade_Offense,+s3.Grade_Defense,+s3.Grade_Speed,color)}<div class="radar-cap">Final form (Stage 3) · sum ${(+s3.Grade_Offense)+(+s3.Grade_Defense)+(+s3.Grade_Speed)}</div></div>
+        <div class="radar-wrap">${radar(+s3.Grade_Attack,+s3.Grade_Defense,+s3.Grade_Speed,color)}<div class="radar-cap">Final form (Stage 3) · sum ${(+s3.Grade_Attack)+(+s3.Grade_Defense)+(+s3.Grade_Speed)}</div></div>
       </div>
     </div>`;
   }).join('');

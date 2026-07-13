@@ -301,7 +301,7 @@ async function load() {
       ? floors.map(f => `<a class="floor-chip" href="floor.html?num=${f}">FLR ${f}</a>`).join('')
       : `<span class="floor-chip" style="opacity:0.5;">UNASSIGNED — MID/LATE FLOOR PENDING</span>`;
 
-    const grades = [['OFFENSE', c.Grade_Offense],['DEFENSE', c.Grade_Defense],['UTILITY', c.Grade_Utility],['SPEED', c.Grade_Speed]];
+    const grades = [['ATTACK', c.Grade_Attack],['DEFENSE', c.Grade_Defense],['UTILITY', c.Grade_Utility],['SPEED', c.Grade_Speed]];
     document.getElementById('grades-body').innerHTML = grades.map(([label, val]) => {
       const v = parseInt(val) || 0;
       return `<div class="grade-row"><span>${label}</span><div class="grade-bar-bg"><div class="grade-bar-fill" style="width:${v*10}%"></div></div><span>${v}/10</span></div>`;
