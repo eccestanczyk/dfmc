@@ -143,8 +143,9 @@ function floorMapHTML(floorNum, found){
     const cy = Math.floor(i / cols);
     const rowCount = (cy === rowsN - 1) ? (n - cy * cols) : cols;
     const rx = i - cy * cols;
-    const x = x0 + (x1 - x0) * ((rx + 0.5) / rowCount);
-    const y = rowsN === 1 ? (y0 + y1) / 2 : y0 + (y1 - y0) * (cy / (rowsN - 1));
+    const pitch = (x1 - x0) / cols;
+    const x = x0 + pitch * (rx + 0.5) + pitch * (cols - rowCount) / 2; // fixed grid pitch, short row centered
+    const y = y0 + (y1 - y0) * ((cy + 0.5) / rowsN);
     const img = c.Image_Path
       ? `<img class="fm-img" src="${IMG_BASE}${escapeHtml(c.Image_Path)}" alt="${escapeHtml(c.Name)}" loading="lazy">`
       : `<div class="no-img" style="width:100%;aspect-ratio:1;">?</div>`;
