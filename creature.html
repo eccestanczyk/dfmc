@@ -81,6 +81,10 @@
   .zone-bg-gemstone-cave::before  { background: radial-gradient(circle at center, #30203a, #1a1020 40%, #0c0610 70%); background-size: 200% 200%; animation-name: gradientDrift; }
   .zone-bg-flaming-hellscape::before { background: radial-gradient(circle at center, #4a1a10, #2a0e08 40%, #140604 70%); background-size: 200% 200%; animation-name: gradientDrift; }
   .zone-bg-none::before           { background: radial-gradient(circle at center, #2a2a2a, #141414 40%, #0a0a0a 70%); background-size: 200% 200%; animation-name: gradientDrift; }
+.mutant-toggle{ display:inline-block; margin-top:10px; font-family:'Cinzel',serif; font-weight:700; font-size:12px; letter-spacing:.08em;
+  color:var(--gold-bright); background:var(--surface-2); border:1px solid var(--rule); padding:7px 16px; cursor:pointer; }
+.mutant-toggle:hover{ border-color:var(--gold-dim); }
+.mutant-toggle.active{ color:#d9a6ff; border-color:#7a4a8a; box-shadow:0 0 10px rgba(163,53,238,0.35); }
 </style>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
@@ -276,6 +280,25 @@ async function load() {
         imgs += '<img id="' + s.id + '" src="' + IMG_BASE + escapeHtml(s.path) + '" alt="' + escapeHtml(c.Name) + '" style="display:none">';
       });
       document.getElementById('creature-img-wrap').innerHTML = '<div class="compare-tabs">' + tabs + '</div>' + imgs;
+    })();
+
+    // Mutant variant toggle (cosmetic color-pallete rework)
+    if (c.Image_Path) (async function() {
+      const mpath = 'codex/images/mutants/' + c.ID + '.webp';
+      try { if (!(await fetch(IMG_BASE + mpath, { method:'HEAD' })).ok) return; } catch { return; }
+      const wrap = document.getElementById('creature-img-wrap');
+      wrap.insertAdjacentHTML('afterend', '<button id="mutant-toggle" class="mutant-toggle">☣ VIEW MUTANT</button>');
+      let normalHTML = null;
+      document.getElementById('mutant-toggle').addEventListener('click', function() {
+        if (normalHTML === null) {
+          normalHTML = wrap.innerHTML;
+          wrap.innerHTML = '<img src="' + IMG_BASE + mpath + '" alt="' + escapeHtml(c.Name) + ' mutant">';
+          this.textContent = '☣ VIEW NORMAL'; this.classList.add('active');
+        } else {
+          wrap.innerHTML = normalHTML; normalHTML = null;
+          this.textContent = '☣ VIEW MUTANT'; this.classList.remove('active');
+        }
+      });
     })();
 
     // Art approval status banner
