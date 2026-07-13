@@ -60,10 +60,11 @@
 <script src="nav.js"></script>
 <script>
 (function(){
-  const CDN='https://cdn.jsdelivr.net/gh/eccestanczyk/dfmc@main/';
+  const CDN='https://raw.githubusercontent.com/eccestanczyk/dfmc/main/';
+  const BUST='?t='+Date.now();
   const RAW='https://raw.githubusercontent.com/eccestanczyk/dfmc/main/';
   const KEY='dfmc_icon_backlog_v1';
-  document.getElementById('mockimg').src=CDN+'assets/ui/move_icons/mockup.png';
+  document.getElementById('mockimg').src=CDN+'assets/ui/move_icons/mockup.png'+BUST;
 
   const ACTIONS={
     '':'— action —',
@@ -98,7 +99,7 @@
     const rows=parseCSV(t); const g=document.getElementById('grid'); const b=bl();
     rows.forEach(r=>{
       const card=document.createElement('div'); card.className='card';
-      const img=CDN+r.Image_Path;
+      const img=CDN+r.Image_Path+BUST;
       card.innerHTML=`
         <div class="imgbox"><img loading="lazy" src="${img}" alt="${r.Label}"></div>
         <div class="tiny"><span>40px:</span><img src="${img}"><span>on parchment ↑</span></div>
