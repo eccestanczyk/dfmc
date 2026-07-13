@@ -50,8 +50,9 @@
   <h1>Move Effect Icons</h1>
   <div class="sub">Hand-inked effect &amp; targeting glyphs for move cards — iron-gall ink and dried blood on transparent, designed to sit on parchment. Pick an action per icon, then <b>Copy backlog</b> and paste to Claude.</div>
 
-  <div class="mockup">
-    <img id="mockimg" alt="Icons on parchment mockup — 96px grid and 40px strip">
+  <div class="mockup" id="pendingWrap" style="display:none">
+    <div style="padding:10px 14px;font-family:Cinzel,serif;font-size:12px;letter-spacing:.06em;color:#cfa650;border-bottom:1px solid #4a3a24;">PENDING APPROVAL — PARCHMENT PREVIEW</div>
+    <div id="pendingStrip" style="background:url('https://raw.githubusercontent.com/eccestanczyk/dfmc/main/assets/ui/move_icons/mockup_bg.jpg') center/cover, #b99d6b; padding:22px 18px; display:flex; flex-wrap:wrap; gap:26px; align-items:flex-end;"></div>
   </div>
 
   <div class="grid" id="grid"></div>
@@ -64,7 +65,6 @@
   const BUST='?t='+Date.now();
   const RAW='https://raw.githubusercontent.com/eccestanczyk/dfmc/main/';
   const KEY='dfmc_icon_backlog_v1';
-  document.getElementById('mockimg').src=CDN+'assets/ui/move_icons/mockup.png'+BUST;
 
   const ACTIONS={
     '':'— action —',
@@ -97,6 +97,22 @@
 
   fetch(RAW+'codex/move_icons.csv?t='+Date.now()).then(r=>r.text()).then(t=>{
     const rows=parseCSV(t); const g=document.getElementById('grid'); const b=bl();
+    const pend=rows.filter(r=>r.Status!=='approved');
+    if(pend.length){
+      const strip=document.getElementById('pendingStrip');
+      pend.forEach(r=>{
+        const img=CDN+r.Image_Path+BUST;
+        const cell=document.createElement('div');
+        cell.style.cssText='display:flex;flex-direction:column;align-items:center;gap:6px;';
+        cell.innerHTML=`<div style="display:flex;align-items:flex-end;gap:10px;">
+            <img src="${img}" style="width:96px;height:96px;">
+            <img src="${img}" style="width:40px;height:40px;">
+          </div>
+          <span style="font-size:11px;color:#3a2c16;font-weight:600;font-family:Cinzel,serif;letter-spacing:.04em;text-shadow:0 1px 0 rgba(255,255,255,.25);">${r.Label}</span>`;
+        strip.appendChild(cell);
+      });
+      document.getElementById('pendingWrap').style.display='block';
+    }
     rows.forEach(r=>{
       const card=document.createElement('div'); card.className='card';
       const img=CDN+r.Image_Path+BUST;
