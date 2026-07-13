@@ -35,7 +35,10 @@
 .filter-btn.rarity-SSR.active{ background:#6e5020; border-color:#c99a3c; color:#e6c66d; }
 .count-badge{ font-size:14px; color:var(--ink-dim); font-style:italic; margin-bottom:14px; }
 .codex-grid{
-  display:grid; grid-template-columns:repeat(auto-fill, minmax(160px, 1fr)); gap:12px;
+  display:grid; grid-template-columns:repeat(3, 1fr); gap:16px;
+}
+@media(max-width:680px){
+  .codex-grid{ grid-template-columns:repeat(2, 1fr); gap:12px; }
 }
 .codex-card{
   display:flex; flex-direction:column; text-decoration:none; color:var(--ink);
@@ -53,16 +56,22 @@
   display:flex; align-items:center; justify-content:center;
   color:var(--ink-faint); font-size:11px; font-style:italic;
 }
-.codex-card-body{ padding:10px 12px 12px; }
+.codex-card-body{ padding:12px 14px 14px; }
 .codex-card-name{
-  font-family:'Cinzel', serif; font-weight:700; font-size:14px; color:var(--ink);
-  margin-bottom:4px; line-height:1.2;
+  font-family:'Cinzel', serif; font-weight:700; font-size:16px; color:var(--ink);
+  margin-bottom:5px; line-height:1.2;
 }
-.card-num{ font-family:'Cinzel', serif; font-weight:600; font-size:12px; color:var(--ink-dim); margin-right:6px; }
-.codex-card-types{ font-size:12px; color:var(--ink-dim); font-style:italic; margin-bottom:6px; }
-.codex-card-rarity{ display:flex; align-items:center; gap:6px; }
-.codex-card-rarity .tier-seal{ width:22px; height:22px; font-size:8px; }
-.codex-card-rarity span{ font-size:12px; color:var(--ink-dim); }
+.card-num{ font-family:'Cinzel', serif; font-weight:600; font-size:13px; color:var(--ink-dim); margin-right:7px; }
+.codex-card-types{ font-size:13px; color:var(--ink-dim); font-style:italic; margin-bottom:7px; }
+.codex-card-rarity{ display:flex; align-items:center; gap:7px; }
+.codex-card-rarity .tier-seal{ width:24px; height:24px; font-size:9px; }
+.codex-card-rarity span{ font-size:13px; color:var(--ink-dim); }
+@media(max-width:680px){
+  .codex-card-body{ padding:10px 12px 12px; }
+  .codex-card-name{ font-size:14px; }
+  .card-num{ font-size:12px; }
+  .codex-card-types{ font-size:12px; }
+}
 .flag{ font-size:11px; margin-left:4px; vertical-align:middle; opacity:0.8; cursor:help; }
 .flag-art{ color:#e6c66d; }
 .flag-crop{ color:#dd5646; }
@@ -88,7 +97,7 @@
   </div>
 </div>
 <div id="status">LOADING...</div>
-<main id="main" style="display:none; max-width:920px; margin:0 auto; padding:24px 20px 100px;">
+<main id="main" style="display:none; max-width:1120px; margin:0 auto; padding:24px 20px 100px;">
 
   <div class="filter-bar">
     <div class="filter-group">
