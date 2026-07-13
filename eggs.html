@@ -27,39 +27,22 @@
 
 <section class="mech">
   <h2>Hatching Mechanics</h2>
-  <p>Eggs are consumable items that hatch into creatures. Every egg is bound to a <strong>creature type</strong> —
-  its shell shows which — and hatching one always produces a creature whose <em>first type</em> matches the egg.
-  A Beast Egg hatches a Beast; a Void Egg hatches something worse.</p>
-  <p>Every egg also drops at a <strong>grade</strong>, using the same five grades as creatures:
-  Common, Uncommon, Rare, Super Rare, and Super Super Rare. The egg's grade does not fix the hatchling's grade —
-  instead, <strong>each grade of egg has a chance to spawn a creature of each grade</strong>.
-  Higher-grade eggs simply weight the roll toward higher-grade creatures.</p>
-
-  <h3>Hatch Odds by Egg Grade</h3>
-  <table class="grade-table">
-    <thead><tr><th>Egg Grade</th><th>Common</th><th>Uncommon</th><th>Rare</th><th>Super Rare</th><th>SSR</th></tr></thead>
-    <tbody>
-      <tr><td>Common Egg</td><td>60%</td><td>25%</td><td>10%</td><td>4%</td><td>1%</td></tr>
-      <tr><td>Uncommon Egg</td><td>40%</td><td>30%</td><td>18%</td><td>9%</td><td>3%</td></tr>
-      <tr><td>Rare Egg</td><td>22%</td><td>28%</td><td>28%</td><td>15%</td><td>7%</td></tr>
-      <tr><td>Super Rare Egg</td><td>10%</td><td>20%</td><td>30%</td><td>26%</td><td>14%</td></tr>
-      <tr><td>SSR Egg</td><td>4%</td><td>12%</td><td>24%</td><td>32%</td><td>28%</td></tr>
-    </tbody>
-  </table>
-  <div class="tunable">Placeholder odds for tuning — each row sums to 100%. The invariant: at every step up in egg
-  grade, the distribution shifts strictly toward higher creature grades.</div>
-
-  <h3>Gender</h3>
-  <p>Every hatchling also rolls a <strong>gender</strong> at a flat <strong>50/50</strong> — male and female are equally
-  likely from any egg, of any type or grade. The result is permanent and is shown as a sign immediately after the
-  creature's name wherever it appears: <span style="color:#4a9edd;font-weight:700;">&#9794;</span> for male,
-  <span style="color:#d95d8c;font-weight:700;">&#9792;</span> for female. See
-  <a href="system-gender.html">Gender</a> for the full rules.</p>
+  <p><strong>Every creature has its own egg.</strong> Hatching an egg always produces that specific creature —
+  a Bristle Egg hatches a Bristle, a Nightmare Egg hatches a Nightmare. There are as many eggs as creatures in
+  the tower.</p>
+  <p>Egg <em>artwork</em> is shared: an egg's shell shows the creature's <strong>first type</strong>, so every
+  creature whose first type is Beast uses the Beast egg image, and so on. The image is cosmetic — it does not
+  change what hatches.</p>
+  <p>Eggs drop at a <strong>grade</strong> on the shared 10-tier scale used across the game
+  (Worn → Common → Uncommon → Rare → Epic → Legendary → Abyssal → Divine → Primordial → Void).
+  <strong>Each grade of egg has a chance to hatch a creature of each grade</strong> — the egg's grade does not
+  fix the hatchling's grade, it weights the roll: higher-grade eggs give higher chances of higher-grade
+  creatures. Exact weights live in balance tuning.</p>
 </section>
 
 <section>
   <h2>Egg Types</h2>
-  <p>One egg per first-type currently in the tower. Hover a medallion for the type name.</p>
+  <p>The shared egg artwork, one image per first type. Every creature of that first type uses this image for its own egg. Hover a medallion for the type name.</p>
   <div class="egg-grid" id="egg-grid"><div id="status">LOADING…</div></div>
 </section>
 
@@ -69,14 +52,20 @@ const IMG_BASE='https://raw.githubusercontent.com/eccestanczyk/dfmc/main/';
 async function load(){
   const txt=await fetch('codex/eggs.csv?t='+Date.now()).then(r=>r.text());
   const lines=txt.trim().split('\n'); const head=lines[0].split(',');
-  const grid=document.getElementById('egg-grid'); grid.innerHTML='';
+  const byType={};
   for(const ln of lines.slice(1)){
     const c=ln.split(','); const o={}; head.forEach((h,i)=>o[h]=c[i]);
+    (byType[o.Type_Primary]=byType[o.Type_Primary]||{img:o.Image_Path,n:0}).n++;
+  }
+  const grid=document.getElementById('egg-grid'); grid.innerHTML='';
+  for(const t of Object.keys(byType).sort()){
+    const e=byType[t];
     const card=document.createElement('div'); card.className='egg-card';
-    card.innerHTML=`<img class="egg" src="${IMG_BASE}${o.Image_Path}" alt="${o.Name}" loading="lazy">
-      <div class="egg-name">${o.Name}</div>
-      <span class="type-chip egg-type" title="${o.Type}">
-        <img src="assets/types/${o.Type}.png" alt="${o.Type}"><span class="tcn">${o.Type}</span>
+    card.innerHTML=`<img class="egg" src="${IMG_BASE}${e.img}" alt="${t} egg" loading="lazy">
+      <div class="egg-name">${t} Egg Art</div>
+      <div style="font-size:13px;color:var(--ink-faint);margin-top:2px;">${e.n} creature${e.n===1?'':'s'} use this shell</div>
+      <span class="type-chip egg-type" title="${t}">
+        <img src="assets/types/${t}.png" alt="${t}"><span class="tcn">${t}</span>
       </span>`;
     grid.appendChild(card);
   }
