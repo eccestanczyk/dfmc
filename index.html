@@ -213,11 +213,11 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     <p>Every account has a character in every league they have unlocked, starting at level 1. The character slot is permanent — death does not remove or demote the character. On hardcore death, the character is wiped back to level 1 and remains in the same league. Only their items, creatures, and class XP are lost.</p>
 
     <h3>Character level vs class level</h3>
-    <p>The character has a <strong style="color:#ede0c4">character level</strong> — a global level aggregated from XP across all classes. Character level scales base stats (HP, stamina, resistances). Each class has its own <strong style="color:#ede0c4">class level</strong> tracked separately, unlocking skill tree nodes and class-specific bonuses. Switching classes does not reset others.</p>
+    <p>The character has a <strong style="color:#ede0c4">character level</strong> — a global level aggregated from XP across all classes. Character level scales base stats (HP, stamina, resistances). Each class has its own <strong style="color:#ede0c4">class level</strong> tracked separately, unlocking class-specific bonuses. Switching classes does not reset others.</p>
     <div class="card"><div class="card-title">XP & level model</div><pre style="margin:8px 0 0">Character
 ├── characterLevel   → sum of all class XP → scales base stats
 ├── Warrior
-│   ├── classLevel   → unlocks warrior skill tree nodes
+│   ├── classLevel   → scales warrior power
 │   └── classXP
 ├── Archer
 │   ├── classLevel
@@ -255,15 +255,6 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
       <tr><td>Professor → Sage → Prophet</td><td>2 / 5 / 5</td><td>2 / 7 / 7</td><td>3 / 8 / 9</td><td>DLC</td></tr>
     </table>
     <div class="note note-info"><p>Additional class lines (pure-wall, balanced-duelist, speed-specialist, etc.) are reserved as possible future content.</p></div>
-
-    <h3>Skill tree</h3>
-    <p>Each class has a passive skill tree — a large interconnected graph of nodes. Players spend skill points (earned on class level-up) to unlock adjacent nodes only.</p>
-    <ul>
-      <li>Node types: stat (flat bonus), modifier (% bonus), keystone (build-defining passive)</li>
-      <li>Must path from starting node outward — no jumping to isolated nodes</li>
-      <li>Respec costs resources but is always possible</li>
-      <li>Class specializations gate deeper sub-trees inaccessible without specialising</li>
-    </ul>
 
     <h3>Soul gems</h3>
     <div class="note note-lore"><p>When a hardcore character is demoted, their soul fractures. Each class they trained echoes forward as a Soul Gem, deposited in the crypt for the surviving character to reclaim.</p></div>
@@ -564,7 +555,7 @@ FinalDamage = RawDamage
     <p>Healing is deliberately rare across creature movesets. Stall is countered through scarcity rather than resource attrition.</p>
 
     <h3>Creatures & characters</h3>
-    <ul><li>Characters level up and spend skill points on a passive skill tree per class</li><li>Creatures level up, spend skill points, and have evolution chains</li><li>Evolutions triggered by level, item, or bond — swap CreatureData ScriptableObject, preserve stat history</li></ul>
+    <ul><li>Characters level up per class; class level and stage scale power directly (no skill trees in this iteration)</li><li>Creatures level up and have evolution chains</li><li>Evolutions triggered by level, item, or bond — swap CreatureData ScriptableObject, preserve stat history</li></ul>
   </div>
 
   <!-- LEAGUES -->
@@ -687,9 +678,6 @@ FinalDamage = RawDamage
       <tr><td>Grade boost</td><td>Increases probability of higher grade eggs on hatch, independent of parent grade</td></tr>
     </table>
     <div class="note note-info"><p><strong>Open decision:</strong> Does incubation time scale with egg grade (higher = longer wait), or is it a flat timer? Starter creature grade and stats also TBD.</p></div>
-
-    <h3>Skill trees</h3>
-    <p>Both characters and creatures have passive skill trees as graph ScriptableObjects. SP earned on level-up. Nodes unlock adjacent nodes only. Respec always possible at a resource cost.</p>
 
     <h3>Creature evolutions</h3>
     <table>
@@ -861,8 +849,8 @@ FinalDamage = RawDamage
     <table>
       <tr><th>Scope</th><th>Affects</th><th>Usage</th></tr>
       <tr><td style="color:#ede0c4">Local</td><td>Only the item it's on — scales that item's own stat contribution</td><td>Default for all character gear modifiers (gems, runes, enchantments, refinement). A rune's +8% on a weapon only multiplies that weapon's base + gems.</td></tr>
-      <tr><td style="color:#ede0c4">Personal</td><td>The bearer as a whole — the character or the specific creature wearing it</td><td>Skill tree nodes. Creature tag modifiers (tags are the exception — all tag modifiers are Personal, affecting the creature's total stats). Some creature souls.</td></tr>
-      <tr><td style="color:#ede0c4">Team</td><td>All allies (character + both creatures)</td><td>Some creature souls. Some skill tree keystones. Individually weaker per target but multiplied across 3 entities.</td></tr>
+      <tr><td style="color:#ede0c4">Personal</td><td>The bearer as a whole — the character or the specific creature wearing it</td><td>Creature tag modifiers (tags are the exception — all tag modifiers are Personal, affecting the creature's total stats). Some creature souls.</td></tr>
+      <tr><td style="color:#ede0c4">Team</td><td>All allies (character + both creatures)</td><td>Some creature souls. Individually weaker per target but multiplied across 3 entities.</td></tr>
     </table>
 
     <h3>Modifier slots</h3>
@@ -905,8 +893,6 @@ FinalDamage = RawDamage
 
 Character total:
   CharStat = Σ all ItemStats
-           × (1 + Σ Personal skill tree increased%)
-           × Π(Personal keystone mores)
            + Σ Team modifiers from souls</pre>
 
     <h4>Creature Tags (Personal scope — all modifiers affect creature's total stats)</h4>
@@ -915,7 +901,6 @@ Character total:
              × (1 + Σ rune % from both tags)
              × Tag₁ Refinement× × Tag₂ Refinement×
              + enchantment effects
-             + Σ Personal modifiers from skill tree creature nodes
              + Σ Team modifiers from character gear souls</pre>
 
     <h3>Base types & implicit modifiers</h3>
@@ -1059,7 +1044,7 @@ Your Backend
     <table>
       <tr><th>Tradeable</th><th>Not tradeable</th></tr>
       <tr><td>Creatures (with flags)</td><td>Ladder progress / rank</td></tr>
-      <tr><td>Crafting materials</td><td>Character / class levels or skill points</td></tr>
+      <tr><td>Crafting materials</td><td>Character / class levels</td></tr>
       <tr><td>Cosmetic items</td><td>Base upgrades</td></tr>
       <tr><td>Equipment</td><td>Account-bound starter items</td></tr>
       <tr><td>Soul Gems (TBD)</td><td>Hardcore death mark status</td></tr>
@@ -1092,7 +1077,7 @@ Your Backend
     </table>
     <h3>ScriptableObject data types</h3>
     <div class="tags">
-      <span class="tag">CharacterData</span><span class="tag">ClassData</span><span class="tag">SkillTreeGraph</span><span class="tag">SkillNode</span><span class="tag">SoulGemData</span><span class="tag">CreatureData</span><span class="tag">MoveData</span><span class="tag">ItemData</span><span class="tag">FloorData</span><span class="tag">RecipeData</span><span class="tag">SeasonData</span><span class="tag">EncounterTable</span><span class="tag">EvolutionChain</span><span class="tag">LootTable</span><span class="tag">CryptData</span><span class="tag">HatcheryData</span>
+      <span class="tag">CharacterData</span><span class="tag">ClassData</span><span class="tag">SoulGemData</span><span class="tag">CreatureData</span><span class="tag">MoveData</span><span class="tag">ItemData</span><span class="tag">FloorData</span><span class="tag">RecipeData</span><span class="tag">SeasonData</span><span class="tag">EncounterTable</span><span class="tag">EvolutionChain</span><span class="tag">LootTable</span><span class="tag">CryptData</span><span class="tag">HatcheryData</span>
     </div>
     <h3>Save system</h3>
     <ul>
@@ -1138,7 +1123,7 @@ Your Backend
       <li><span class="phase-num">9</span><span><strong style="color:#ede0c4">Multi-floor loop</strong> — floor transitions, floor data loading from CSV, 10 grasslands floors playable end-to-end</span></li>
       <li><span class="phase-num">10</span><span><strong style="color:#ede0c4">Full battle system</strong> — expand to 3v3 (avatar + 2 creatures), moves, status effects, animations</span></li>
       <li><span class="phase-num">11</span><span><strong style="color:#ede0c4">Boss floors</strong> — every 10th floor, boss team encounter, key drop from pre-boss floors</span></li>
-      <li><span class="phase-num">12</span><span><strong style="color:#ede0c4">Character & class system</strong> — class XP, character level, passive skill trees</span></li>
+      <li><span class="phase-num">12</span><span><strong style="color:#ede0c4">Character & class system</strong> — class XP, character level, class stages</span></li>
       <li><span class="phase-num">13</span><span><strong style="color:#ede0c4">Codex</strong> — creature catalogue, seen/acquired states</span></li>
       <li><span class="phase-num">14</span><span><strong style="color:#ede0c4">Metagame UI</strong> — breeding, crafting, hatchery panels</span></li>
       <li><span class="phase-num">15</span><span><strong style="color:#ede0c4">Autoplay</strong> — auto-click creatures, auto-battle, configurable thresholds</span></li>
@@ -1168,7 +1153,7 @@ Your Backend
         <li><span class="phase-num">6</span><span><strong style="color:#ede0c4">Floor win condition & chests</strong> — battle win counter, portal unlock, manual one-time chests, chest tracking on map selector</span></li>
         <li><span class="phase-num">7</span><span><strong style="color:#ede0c4">Boss key & boss floors</strong> — key drop chance on pre-boss floors, key consumption, boss floor access via portal or map selector</span></li>
         <li><span class="phase-num">8</span><span><strong style="color:#ede0c4">Autoplay & multi-tab system</strong> — pathfinding, config options, death handler, simultaneous multi-character simulation</span></li>
-        <li><span class="phase-num">9</span><span><strong style="color:#ede0c4">Character & class system</strong> — class XP, character level aggregation, passive skill trees</span></li>
+        <li><span class="phase-num">9</span><span><strong style="color:#ede0c4">Character & class system</strong> — class XP, character level aggregation</span></li>
         <li><span class="phase-num">10</span><span><strong style="color:#ede0c4">Codex</strong> — creature catalogue, seen/acquired states, stat ranges, move lists, evolution chains</span></li>
         <li><span class="phase-num">11</span><span><strong style="color:#ede0c4">Metagame UI</strong> — breeding, crafting, hatchery — all as in-game UI panels accessible during PvE</span></li>
         <li><span class="phase-num">12</span><span><strong style="color:#ede0c4">Player logging system</strong> — event log and battle log, hooked into existing battle/leveling/item systems, file export for PC and mobile share UI</span></li>
@@ -1187,6 +1172,7 @@ Your Backend
     <div class="note note-warn"><p><strong>Seasonal migration</strong> — crypt delivery mechanism must be rock solid before launch.</p></div>
     <div class="note note-warn"><p><strong>Trade duplication exploits</strong> — implement transfer lock before marketplace goes live.</p></div>
     <h3>Future features (cut from current scope)</h3>
+    <div class="note note-info"><p><strong>Skill trees</strong> — passive skill trees (graph of stat/modifier/keystone nodes, skill points on level-up, respec) for classes and creatures are cut from this iteration. Class and creature power comes from levels, stages, grades, equipment, and souls only. Trees may return as a post-launch depth layer.</p></div>
     <div class="note note-info"><p><strong>Farming</strong> — a timer-based UI system (plant a crop, return after a duration to harvest, yield rendering into crafting materials) was cut from current scope. Crops are therefore <em>not</em> a source of Food: Food comes only from completing battles and dismantling eggs. May return later.</p></div>
     <div class="note note-info"><p><strong>Rogue Collectors</strong> — hostile NPC trainer encounters with patrol routes and line-of-sight triggers, originally part of floor structure. Removed from active scope to keep early development focused. May be reintroduced post-launch or in a content update.</p></div>
     <div class="note note-info"><p><strong>Gathering nodes & secret areas</strong> — the original handcrafted circuit map design with resource nodes, HM-gated secret areas, and a node-farming layer has been replaced by the simpler battle-win-threshold map design. All equipment and crafting materials now come from battle rewards and chests only. May be reconsidered as a future map variant or content layer.</p></div>
@@ -1201,7 +1187,6 @@ Your Backend
       <li>Whether death-marked creatures are tradeable on the marketplace</li>
       <li>Soul Gem XP thresholds for each rank (F through S)</li>
       <li>Whether Soul Gems are tradeable on the Steam marketplace</li>
-      <li>Skill tree node graphs for all six class lines</li>
       <li>Number of chests per floor (the "x" in the x/x chest tracker)</li>
       <li>Key drop rate per battle on pre-boss floors</li>
       <li>Whether chest contents reset along with the win streak on floor re-entry, or remain collected permanently</li>
