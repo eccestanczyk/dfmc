@@ -41,6 +41,7 @@ Character Attack:   Σ ItemStats(Attack)  × ClassAxisMult      ClassAxisMult = 
 Character Defense:  Σ ItemStats(Defense) × ClassAxisMult      (no innate pool — gear is everything)
 Character HP:       (4 × level + 35) × (5 + stageDefStat) / 11 + Σ flat HP items
 Character Speed:    15 (flat, no gear sources — only in-battle stat stages)
+Boss HP:            5 × Floor + 150   (explicit budget per boss in bosses.csv — not the creature HP formula)
 
 Damage:  RawDamage   = ((2 × Level / 5 + 2) × MovePower × Attack / Defense) / 130 + 2 + Attack / 50
          FinalDamage = RawDamage × Synergy/Anti × Random(0.9–1.1) × (1 + Σ increased%) × Π(more)
@@ -96,7 +97,7 @@ Damage:  RawDamage   = ((2 × Level / 5 + 2) × MovePower × Attack / Defense) /
 </table></div>
 <p style="font-size:12px;color:#8a7a5e">Example: level 100 Archon (Atk 10), Void T10 bare set → 229 × 1.75 = 401 Attack before enhancements; same set on a Mage stage with Atk 7 → 229 × 1.30 = 298. A maxed-out set (gems, runes, enchants, +10 refinement, souls) reaches the Section-10 MAX numbers.</p>
 <h2>9 — Creature soul framework (value ranges by soul grade)</h2>
-<p>Soul grade = the class soul's own Worn→Void grade (all souls start Worn; raised only via the soul-grading sink — see Upgrading; creature-side souls do not grade), independent of the source creature's quality grade. Specific effects per species per slot (800 total) are content design; every effect's numeric budget must fit these ranges.</p>
+<p>Soul grade = the quality grade of the creature the soul came from. Specific effects per species per slot (800 total) are content design; every effect's numeric budget must fit these ranges.</p>
 <table><tr><th>Scope</th><th>Budget formula</th><th>Worn</th><th>Legendary</th><th>Void</th></tr>
 <tr><td>Local (this item)</td><td><code>×(1.04 + 0.02 × grade)</code> item total</td><td>×1.06</td><td>×1.16</td><td>×1.24</td></tr>
 <tr><td>Personal (bearer)</td><td><code>+(1 + grade)%</code> to one stat/mechanic</td><td>+2%</td><td>+7%</td><td>+11%</td></tr>

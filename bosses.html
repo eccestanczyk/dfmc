@@ -155,7 +155,7 @@ async function load() {
 
       // right: everything else
       html += `<div>`;
-      html += `<div class="boss-meta"><b>${escapeHtml(types)}</b> \u00b7 Level ${escapeHtml(b.Boss_Level)} \u00b7 Quality Grade ${escapeHtml(b.Boss_Quality_Grade)}</div>`;
+      html += `<div class="boss-meta"><b>${escapeHtml(types)}</b> \u00b7 Level ${escapeHtml(b.Boss_Level)} \u00b7 Quality Grade ${escapeHtml(b.Boss_Quality_Grade)}${b.Boss_HP?` \u00b7 <b>${escapeHtml(b.Boss_HP)} HP</b>`:``}</div>`;
       html += `<div class="boss-desc">${escapeHtml(b.Description)}</div>`;
       html += grades;
 
