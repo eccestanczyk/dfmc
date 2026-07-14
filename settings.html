@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Settings — Herumon Tower</title>
+<link rel="stylesheet" href="theme.css?v=4">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+.pending-banner{
+  max-width:900px; margin:18px auto 0; padding:10px 16px;
+  border:1px dashed var(--gold-dim); background:rgba(207,166,80,0.06);
+  font-family:'Cinzel',serif; font-size:12px; letter-spacing:0.12em; text-transform:uppercase;
+  color:var(--gold-bright); text-align:center;
+}
+</style>
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">SETTINGS</h1></div>
+<div class="pending-banner">&#9203; Pending Approval &mdash; design proposal, not yet final</div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="hub.html">Hub</a> &rsaquo; Settings</div>
+  <p class="sp-lead">The in-game Settings menu. One full-screen panel with a section rail on the left and options on the right (mobile: sections collapse into an accordion). Every option persists locally and syncs with cloud save. Defaults are chosen for a first-time mobile player.</p>
+
+  <h2>Layout</h2>
+  <ul class="sp-rules">
+    <li>Opened from the gear icon on the main HUD. Full-screen overlay, dark parchment-and-iron chrome consistent with the codex aesthetic.</li>
+    <li><strong>Section rail</strong> (left, Cinzel labels): Audio &middot; Display &middot; Battle &amp; Autoplay &middot; Adventure Log &middot; Notifications &middot; Account &amp; Data &middot; Language &amp; Accessibility &middot; Legal &amp; Support.</li>
+    <li>Control types: <strong>slider</strong> (0&ndash;100), <strong>toggle</strong>, <strong>segmented</strong> (2&ndash;4 exclusive choices), <strong>dropdown</strong>, <strong>action button</strong> (opens dialog/page).</li>
+    <li>Footer bar: <strong>Restore Defaults</strong> (per open section, with confirm) and game version/build string.</li>
+    <li>Changes apply instantly &mdash; no Save button. Destructive actions always confirm.</li>
+  </ul>
+
+  <h2>Audio</h2>
+  <table>
+    <tr><th>Option</th><th>Control</th><th>Values</th><th>Default</th></tr>
+    <tr><td class="lbl">Master Volume</td><td>Slider</td><td>0&ndash;100</td><td>80</td></tr>
+    <tr><td class="lbl">Music</td><td>Slider</td><td>0&ndash;100</td><td>70</td></tr>
+    <tr><td class="lbl">Sound Effects</td><td>Slider</td><td>0&ndash;100</td><td>80</td></tr>
+    <tr><td class="lbl">UI Sounds</td><td>Slider</td><td>0&ndash;100</td><td>60</td></tr>
+    <tr><td class="lbl">Mute in Background</td><td>Toggle</td><td>on/off</td><td>On</td></tr>
+  </table>
+
+  <h2>Display</h2>
+  <table>
+    <tr><th>Option</th><th>Control</th><th>Values</th><th>Default</th></tr>
+    <tr><td class="lbl">Graphics Quality</td><td>Segmented</td><td>Low / Medium / High</td><td>Medium</td></tr>
+    <tr><td class="lbl">Frame Rate</td><td>Segmented</td><td>30 / 60 / 120</td><td>60</td></tr>
+    <tr><td class="lbl">Battery Saver</td><td>Toggle</td><td>caps 30 fps, reduces VFX</td><td>Off</td></tr>
+    <tr><td class="lbl">Screen Shake</td><td>Toggle</td><td>on/off</td><td>On</td></tr>
+    <tr><td class="lbl">Damage Numbers</td><td>Segmented</td><td>Off / Compact / Full</td><td>Full</td></tr>
+    <tr><td class="lbl">VFX Intensity</td><td>Segmented</td><td>Low / Standard</td><td>Standard</td></tr>
+  </table>
+
+  <h2>Battle &amp; Autoplay</h2>
+  <table>
+    <tr><th>Option</th><th>Control</th><th>Values</th><th>Default</th></tr>
+    <tr><td class="lbl">Battle Speed</td><td>Segmented</td><td>1&times; / 2&times; / 4&times;</td><td>1&times;</td></tr>
+    <tr><td class="lbl">Skip Battle Animations</td><td>Toggle</td><td>on/off</td><td>Off</td></tr>
+    <tr><td class="lbl">Auto-Advance Floors</td><td>Toggle</td><td>advance when portal opens</td><td>On</td></tr>
+    <tr><td class="lbl">On Death</td><td>Segmented</td><td>Stay / Go Down</td><td>Stay</td></tr>
+    <tr><td class="lbl">Streak Counter</td><td>Toggle</td><td>show/hide post-battle counter</td><td>On</td></tr>
+    <tr><td class="lbl">Confirm Evolutions</td><td>Toggle</td><td>confirm dialog before evolving</td><td>On</td></tr>
+    <tr><td class="lbl">Confirm Release / Sacrifice</td><td>Toggle</td><td>confirm dialog</td><td>On (cannot be disabled for Epic+)</td></tr>
+    <tr><td class="lbl">Confirm Premium Spend</td><td>Toggle</td><td>confirm dialog</td><td>On</td></tr>
+  </table>
+  <p style="font-size:13px;color:var(--ink-faint)">Autoplay never auto-enters boss rooms &mdash; fixed rule, not a setting. See <a href="system-streak.html">Win Streak &amp; Floors</a>.</p>
+
+  <h2>Adventure Log</h2>
+  <table>
+    <tr><th>Option</th><th>Control</th><th>Values</th><th>Default</th></tr>
+    <tr><td class="lbl">Wild Battle Detail Retention</td><td>Segmented</td><td>7 / 30 / 90 days</td><td>30 days</td></tr>
+    <tr><td class="lbl">Clear Wild Battle Detail Now</td><td>Action</td><td>confirm dialog; frees storage</td><td>&mdash;</td></tr>
+  </table>
+  <p style="font-size:13px;color:var(--ink-faint)">Boss and PvP battle detail is always kept; chapter history is never deleted. See <a href="system-adventure-log.html">Adventure Log</a>.</p>
+
+  <h2>Notifications</h2>
+  <table>
+    <tr><th>Option</th><th>Control</th><th>Values</th><th>Default</th></tr>
+    <tr><td class="lbl">Egg Ready to Hatch</td><td>Toggle</td><td>push</td><td>On</td></tr>
+    <tr><td class="lbl">Breeding Complete</td><td>Toggle</td><td>push</td><td>On</td></tr>
+    <tr><td class="lbl">PvP Defense Results</td><td>Toggle</td><td>push</td><td>On</td></tr>
+    <tr><td class="lbl">Season Ending Soon</td><td>Toggle</td><td>push</td><td>On</td></tr>
+    <tr><td class="lbl">Daily Reset</td><td>Toggle</td><td>push</td><td>Off</td></tr>
+    <tr><td class="lbl">Quiet Hours</td><td>Dropdown</td><td>Off / custom time range</td><td>Off</td></tr>
+  </table>
+
+  <h2>Account &amp; Data</h2>
+  <table>
+    <tr><th>Option</th><th>Control</th><th>Values</th><th>Default</th></tr>
+    <tr><td class="lbl">Player Name</td><td>Action</td><td>rename dialog (cooldown applies)</td><td>&mdash;</td></tr>
+    <tr><td class="lbl">Link Account</td><td>Action</td><td>platform account linking</td><td>&mdash;</td></tr>
+    <tr><td class="lbl">Cloud Save</td><td>Toggle + status</td><td>on/off, shows last sync time</td><td>On</td></tr>
+    <tr><td class="lbl">Server / Region</td><td>Dropdown</td><td>region list</td><td>auto</td></tr>
+    <tr><td class="lbl">Restore Purchases</td><td>Action</td><td>store restore flow</td><td>&mdash;</td></tr>
+    <tr><td class="lbl">Export My Data</td><td>Action</td><td>data download request</td><td>&mdash;</td></tr>
+    <tr><td class="lbl">Delete Account</td><td>Action</td><td>double confirm + grace period</td><td>&mdash;</td></tr>
+  </table>
+
+  <h2>Language &amp; Accessibility</h2>
+  <table>
+    <tr><th>Option</th><th>Control</th><th>Values</th><th>Default</th></tr>
+    <tr><td class="lbl">Language</td><td>Dropdown</td><td>supported locales</td><td>system</td></tr>
+    <tr><td class="lbl">Text Size</td><td>Segmented</td><td>Small / Standard / Large</td><td>Standard</td></tr>
+    <tr><td class="lbl">Colorblind Mode</td><td>Dropdown</td><td>Off / Deuteranopia / Protanopia / Tritanopia</td><td>Off</td></tr>
+    <tr><td class="lbl">Reduce Motion</td><td>Toggle</td><td>disables shake, parallax, heavy transitions</td><td>Off</td></tr>
+    <tr><td class="lbl">Reduce Flashing</td><td>Toggle</td><td>dampens hit-flash and strobe VFX</td><td>Off</td></tr>
+    <tr><td class="lbl">Haptics</td><td>Toggle</td><td>vibration feedback</td><td>On</td></tr>
+  </table>
+
+  <h2>Legal &amp; Support</h2>
+  <table>
+    <tr><th>Option</th><th>Control</th><th>Values</th><th>Default</th></tr>
+    <tr><td class="lbl">Help &amp; FAQ</td><td>Action</td><td>opens support page</td><td>&mdash;</td></tr>
+    <tr><td class="lbl">Contact Support</td><td>Action</td><td>support ticket flow</td><td>&mdash;</td></tr>
+    <tr><td class="lbl">Analytics</td><td>Toggle</td><td>opt in/out of usage analytics</td><td>On (opt-out)</td></tr>
+    <tr><td class="lbl">Privacy Policy</td><td>Action</td><td>opens document</td><td>&mdash;</td></tr>
+    <tr><td class="lbl">Terms of Service</td><td>Action</td><td>opens document</td><td>&mdash;</td></tr>
+    <tr><td class="lbl">Credits</td><td>Action</td><td>credits screen</td><td>&mdash;</td></tr>
+    <tr><td class="lbl">Version</td><td>Static</td><td>version + build string</td><td>&mdash;</td></tr>
+  </table>
+
+  <div class="sp-note">All values persist to local settings storage immediately and ride along with cloud save. Per-section "Restore Defaults" resets only the visible section. Nothing in Settings can grant gameplay advantage &mdash; battle speed and skip-animation apply identically in PvE and are locked to server pacing in PvP.</div>
+</div>
+<script src="admin.js"></script>
+<script src="nav.js"></script>
+</body>
+</html>
