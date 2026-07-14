@@ -167,7 +167,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
       <div class="stat-card"><div class="stat-label">Art style</div><div class="stat-val">Dark fantasy, AI-generated painting</div></div>
     </div>
     <h3>Concept</h3>
-    <p>A creature-collecting competitive turn-based RPG where players climb an ever-ascending tower floor by floor. Each floor is a simple map where the Collector triggers battles until a win threshold opens the portal to the next floor, with manual chests scattered throughout. All metagame systems (breeding, crafting, farming, hatchery, crypt) are accessible as UI panels at any time during PvE — no physical base.</p>
+    <p>A creature-collecting competitive turn-based RPG where players climb an ever-ascending tower floor by floor. Each floor is a simple map where the Collector triggers battles until a win threshold opens the portal to the next floor, with manual chests scattered throughout. All metagame systems (breeding, crafting, farming, crypt) are accessible as UI panels at any time during PvE — no physical base.</p>
     <h3>Game modes</h3>
     <div class="grid-2">
       <div class="card"><div class="card-title"><span class="pill pill-eternal">Eternal</span></div><div class="card-body" style="margin-top:6px">Soft death. Character stays in league, no reset. Houses the Eternal crypt (UI panel). Receives crypt contents from seasonal migrations.</div></div>
@@ -651,11 +651,10 @@ FinalDamage = RawDamage
     <div class="grid-2">
       <div class="card"><div class="card-title">🧬 Breeding</div><div class="card-body">Six breeding pens (1 free, 1 bought with Food, 4 DLC). A pen holds a ♂/♀ pair sharing at least one type; toggled on, it drains Food per minute and fills a bar, dropping an egg into inventory each time it completes and continuing automatically. Rates key off pair grade P = ⌊mean of parent grades⌋. Parents are locked out of the battle party; removing one resets the meter. Full rules: <a href="system-breeding.html" style="color:var(--gold-bright)">Breeding</a>.</div></div>
       <div class="card"><div class="card-title">🔧 Crafting</div><div class="card-body">Recipe list in UI. Select recipe, confirm materials, receive output. Materials sourced from battle rewards and chests.</div></div>
-      <div class="card"><div class="card-title">🥚 Hatchery</div><div class="card-body">Egg incubation managed via UI. Set eggs to incubate, return after the timer. Hatchery level (upgraded via crafting resources) improves grade odds and slot count.</div></div>
     </div>
 
     <h3>Creature acquisition</h3>
-    <p>There is no capture mechanic. All creatures come from eggs — either dropped in combat or produced via breeding. Every egg must be incubated in the Hatchery panel before hatching. Egg grade <strong>weights</strong> the hatchling's grade roll — it does not fix it. Any egg can hatch a creature up to 4 grades above its own grade, or any grade below it; higher-grade eggs shift the roll upward and away from the low grades, but the top grades stay rare from any egg. Full weight table in the <a href="eggs.html" style="color:var(--gold-bright)">Eggs codex</a>.</p>
+    <p>There is no capture mechanic. All creatures come from eggs — either dropped in combat or produced via breeding. An egg is an inventory item — use it from the inventory and it hatches immediately. There is no incubation timer and no hatchery. Egg grade <strong>weights</strong> the hatchling's grade roll — it does not fix it. Any egg can hatch a creature up to 4 grades above its own grade, or any grade below it; higher-grade eggs shift the roll upward and away from the low grades, but the top grades stay rare from any egg. Full weight table in the <a href="eggs.html" style="color:var(--gold-bright)">Eggs codex</a>.</p>
 
     <div class="grid-2">
       <div class="card">
@@ -664,7 +663,7 @@ FinalDamage = RawDamage
       </div>
       <div class="card">
         <div class="card-title">🧬 Bred eggs</div>
-        <div class="card-body">Produced via the Breeding UI panel by selecting two parent creatures and spending Food. No grade cap — can produce up to <span style="color:#a855f7">Void</span>. Higher grade parents significantly increase odds of higher grade output. Hatchery level also increases the chance of higher grade eggs independently of parent grade.</div>
+        <div class="card-body">Produced via the Breeding UI panel by selecting two parent creatures and spending Food. No grade cap — can produce up to <span style="color:#a855f7">Void</span>. Higher grade parents significantly increase odds of higher grade output.</div>
       </div>
     </div>
 
@@ -682,14 +681,7 @@ FinalDamage = RawDamage
     </table>
     <p>Pen drain, egg duration, and Food-per-egg are authored per pair grade in <code>codex/breeding.csv</code> — Worn 3 Food/min / 15 min / 45 Food, up to Void 26 Food/min / 110 min / 2,860 Food. A single Void pen eats half a maxed player's entire Food income, and the ceiling is ~1 Void egg per hour no matter how many pens are owned. Full rules: <a href="system-breeding.html" style="color:var(--gold-bright)">Breeding</a>.</p>
 
-    <h3>Incubation & hatchery</h3>
-    <p>All eggs must be incubated before hatching, managed via the Hatchery UI panel. The hatchery has two upgrade vectors, improved by spending crafting resources:</p>
-    <table>
-      <tr><th>Hatchery upgrade</th><th>Effect</th></tr>
-      <tr><td>Capacity</td><td>More eggs incubating simultaneously</td></tr>
-      <tr><td>Grade boost</td><td>Increases probability of higher grade eggs on hatch, independent of parent grade</td></tr>
-    </table>
-    <div class="note note-info"><p><strong>Open decision:</strong> Does incubation time scale with egg grade (higher = longer wait), or is it a flat timer? Starter creature grade and stats also TBD.</p></div>
+    <div class="note note-info"><p><strong>Open decision:</strong> Starter creature grade and stats TBD.</p></div>
 
     <h3>Creature evolutions</h3>
     <table>
@@ -1134,7 +1126,7 @@ Your Backend
     </table>
     <h3>ScriptableObject data types</h3>
     <div class="tags">
-      <span class="tag">CharacterData</span><span class="tag">ClassData</span><span class="tag">SoulGemData</span><span class="tag">CreatureData</span><span class="tag">MoveData</span><span class="tag">ItemData</span><span class="tag">FloorData</span><span class="tag">RecipeData</span><span class="tag">SeasonData</span><span class="tag">EncounterTable</span><span class="tag">EvolutionChain</span><span class="tag">LootTable</span><span class="tag">CryptData</span><span class="tag">HatcheryData</span>
+      <span class="tag">CharacterData</span><span class="tag">ClassData</span><span class="tag">SoulGemData</span><span class="tag">CreatureData</span><span class="tag">MoveData</span><span class="tag">ItemData</span><span class="tag">FloorData</span><span class="tag">RecipeData</span><span class="tag">SeasonData</span><span class="tag">EncounterTable</span><span class="tag">EvolutionChain</span><span class="tag">LootTable</span><span class="tag">CryptData</span>
     </div>
     <h3>Save system</h3>
     <ul>
@@ -1182,7 +1174,7 @@ Your Backend
       <li><span class="phase-num">11</span><span><strong style="color:#ede0c4">Boss floors</strong> — every 10th floor, boss team encounter, key drop from pre-boss floors</span></li>
       <li><span class="phase-num">12</span><span><strong style="color:#ede0c4">Character & class system</strong> — class XP, character level, class stages</span></li>
       <li><span class="phase-num">13</span><span><strong style="color:#ede0c4">Codex</strong> — creature catalogue, seen/acquired states</span></li>
-      <li><span class="phase-num">14</span><span><strong style="color:#ede0c4">Metagame UI</strong> — breeding, crafting, hatchery panels</span></li>
+      <li><span class="phase-num">14</span><span><strong style="color:#ede0c4">Metagame UI</strong> — breeding, crafting panels</span></li>
       <li><span class="phase-num">15</span><span><strong style="color:#ede0c4">Autoplay</strong> — auto-click creatures, auto-battle, configurable thresholds</span></li>
       <li><span class="phase-num">16</span><span><strong style="color:#ede0c4">Leagues & death pipelines</strong> — all four death paths, crypts, soul gems, season migration</span></li>
       <li><span class="phase-num">17</span><span><strong style="color:#ede0c4">PvP & ladders</strong> — matchmaking, relay, leaderboards</span></li>
@@ -1212,7 +1204,7 @@ Your Backend
         <li><span class="phase-num">8</span><span><strong style="color:#ede0c4">Autoplay & multi-tab system</strong> — pathfinding, config options, death handler, simultaneous multi-character simulation</span></li>
         <li><span class="phase-num">9</span><span><strong style="color:#ede0c4">Character & class system</strong> — class XP, character level aggregation</span></li>
         <li><span class="phase-num">10</span><span><strong style="color:#ede0c4">Codex</strong> — creature catalogue, seen/acquired states, stat ranges, move lists, evolution chains</span></li>
-        <li><span class="phase-num">11</span><span><strong style="color:#ede0c4">Metagame UI</strong> — breeding, crafting, hatchery — all as in-game UI panels accessible during PvE</span></li>
+        <li><span class="phase-num">11</span><span><strong style="color:#ede0c4">Metagame UI</strong> — breeding, crafting — all as in-game UI panels accessible during PvE</span></li>
         <li><span class="phase-num">12</span><span><strong style="color:#ede0c4">Player logging system</strong> — event log and battle log, hooked into existing battle/leveling/item systems, file export for PC and mobile share UI</span></li>
         <li><span class="phase-num">13</span><span><strong style="color:#ede0c4">Leagues & death pipelines</strong> — all four death paths, both crypts, soul gem generation, season migration</span></li>
         <li><span class="phase-num">14</span><span><strong style="color:#ede0c4">PvP & ladders</strong> — matchmaking, relay, leaderboards</span></li>
