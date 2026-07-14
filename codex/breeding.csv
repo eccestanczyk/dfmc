@@ -1,0 +1,11 @@
+Grade_Num,Grade,Food_Per_Min,Minutes_Per_Egg,Food_Per_Egg,Egg_Dismantle_Food
+1,Worn,3,15,45,15
+2,Common,5,18,90,25
+3,Uncommon,7,22,154,45
+4,Rare,9,26,234,70
+5,Epic,12,32,384,115
+6,Legendary,15,40,600,180
+7,Abyssal,18,50,900,270
+8,Divine,21,65,1365,410
+9,Primordial,24,85,2040,610
+10,Void,26,110,2860,860

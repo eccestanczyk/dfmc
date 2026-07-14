@@ -649,7 +649,7 @@ FinalDamage = RawDamage
     <h2>Metagame systems</h2>
     <p>All metagame systems are accessible as UI panels at any time during PvE floors, including during battles. They are locked during PvP. There is no physical base — everything is menu-driven.</p>
     <div class="grid-2">
-      <div class="card"><div class="card-title">🧬 Breeding</div><div class="card-body">Two parent creatures fed Food produce an egg via UI. Higher grade creatures require more Food. Higher grade parents increase odds of higher grade eggs. No grade cap on bred eggs.</div></div>
+      <div class="card"><div class="card-title">🧬 Breeding</div><div class="card-body">Six breeding pens (1 free, 1 bought with Food, 4 DLC). A pen holds a ♂/♀ pair sharing at least one type; toggled on, it drains Food per minute and fills a bar, dropping an egg into inventory each time it completes and continuing automatically. Rates key off pair grade P = ⌊mean of parent grades⌋. Parents are locked out of the battle party; removing one resets the meter. Full rules: <a href="system-breeding.html" style="color:var(--gold-bright)">Breeding</a>.</div></div>
       <div class="card"><div class="card-title">🔧 Crafting</div><div class="card-body">Recipe list in UI. Select recipe, confirm materials, receive output. Materials sourced from battle rewards and chests.</div></div>
       <div class="card"><div class="card-title">🥚 Hatchery</div><div class="card-body">Egg incubation managed via UI. Set eggs to incubate, return after the timer. Hatchery level (upgraded via crafting resources) improves grade odds and slot count.</div></div>
     </div>
@@ -674,12 +674,13 @@ FinalDamage = RawDamage
     </div>
 
     <h3>Food</h3>
-    <p><strong style="color:#ede0c4">Food</strong> is the unified metagame currency used to breed creatures. Higher grade creatures require more Food per breeding attempt. Two sources feed the same Food pool:</p>
+    <p><strong style="color:#ede0c4">Food</strong> is the metagame currency that runs the breeding pens. It has <strong>no other sink</strong>, so Food income is the hard ceiling on egg production — pen count never raises it. Two sources feed the same pool:</p>
     <table>
       <tr><th>Source</th><th>How it yields Food</th></tr>
-      <tr><td>Completing battles</td><td>Every battle completed awards Food</td></tr>
-      <tr><td>Dismantling eggs</td><td>Unwanted eggs are dismantled into Food</td></tr>
+      <tr><td>Combat</td><td>Per defeated enemy: <code>round(2 &times; (1 + enemyLevel / 20) &times; RarityMult)</code> — RarityMult C 1.0 / UC 1.5 / R 2.5 / SR 4.0 / SSR 7.0. Roughly 280 Food/h at floor 1, 740 at floor 25, 3,040 at floor 99 (deep floors pay twice: higher levels <em>and</em> richer SSR/SR encounter odds).</td></tr>
+      <tr><td>Egg dismantling</td><td>Keyed to egg grade — 15 / 25 / 45 / 70 / 115 / 180 / 270 / 410 / 610 / 860 (Worn &rarr; Void). Tuned against the hatch-weight matrix to always return 27&ndash;30% of what a pen would spend breeding that grade: a refund on a bad roll, never an engine.</td></tr>
     </table>
+    <p>Pen drain, egg duration, and Food-per-egg are authored per pair grade in <code>codex/breeding.csv</code> — Worn 3 Food/min / 15 min / 45 Food, up to Void 26 Food/min / 110 min / 2,860 Food. A single Void pen eats half a maxed player's entire Food income, and the ceiling is ~1 Void egg per hour no matter how many pens are owned. Full rules: <a href="system-breeding.html" style="color:var(--gold-bright)">Breeding</a>.</p>
 
     <h3>Incubation & hatchery</h3>
     <p>All eggs must be incubated before hatching, managed via the Hatchery UI panel. The hatchery has two upgrade vectors, improved by spending crafting resources:</p>
@@ -1275,6 +1276,7 @@ Your Backend
       <tr><td><code>codex/items.csv</code></td><td>585</td><td>Full item catalog — gems (3 types &times; 10 tiers: Rough &rarr; Sublime), runes (3&times;10: Faded &rarr; Elder), scrolls (10: Tattered &rarr; Fated), class weapons (6 lines &times; 2 hands &times; 10 tiers = 120 pieces, 36 art identities), armour (4 slots &times; 10 named pieces = 40), accessories (2&times;10), tags (3&times;10), materials (5), eggs (300). Gear tier prefixes retired — every weapon and armour tier is a distinct named piece. Columns: <code>Item_ID, Category, Family, Name, Tier, Level_Req, Effect, Flavor_Text, Image_Prompt, Image_Path, Art_Status</code>.</td></tr>
       <tr><td><code>codex/moves.csv</code></td><td>400</td><td>Complete move table — 100 lines &times; 4 moves. Columns: Move_ID (M-{LINE}-{slot}), Line_ID, Slot, Name, Name_S1/S2/S3 (stage-progressive move names), Power_S1/S2/S3, Cooldown, Effect_S1/S2/S3, Synergy, Anti, VFX_Description. Powers use bands 0/50/80/120/160 at S3; S2 &asymp; 80%, S1 &asymp; 60%.</td></tr>
       <tr><td><code>codex/souls.csv</code></td><td>400</td><td>Soul passive table — 100 lines &times; 4 armor slots (Head/Chest/Gloves/Feet). Columns: Soul_ID (S-{LINE}-{SLOT}), Line_ID, Gear_Slot, Scope (Local/Personal/Team), Rarity, Effect_S3. Magnitudes scale by stage (S1 &asymp; 60%, S2 &asymp; 80%). Ability-slot souls (MH/OH/Acc1/Acc2) grant moves instead — see moves.csv.</td></tr>
+      <tr><td><code>codex/breeding.csv</code></td><td>10</td><td>Breeding economy per pair grade. Columns: Grade_Num, Grade, Food_Per_Min, Minutes_Per_Egg, Food_Per_Egg, Egg_Dismantle_Food (the last keyed to egg grade, not pair grade).</td></tr>
       <tr><td><code>codex/item_drops.csv</code></td><td>240</td><td>Zone-weighted item drop table. Each zone lists which base types drop and at what weight (1 = normal, 2 = zone-weighted 2&times;). Feeds the <a href="reliquary.html" style="color:var(--gold-bright)">Reliquary</a>.</td></tr>
       <tr><td><code>codex/floor_assets.csv</code></td><td>100</td><td>Level design pipeline. Per-floor: battle background prompt/path/status, parallax reference, prop assignments, map preview status (empty + populated). Decoupled from floor identity for infinite floor extension.</td></tr>
       <tr><td><code>codex/prop_assets.csv</code></td><td>40</td><td>Zone prop catalog — 3&ndash;4 props + 1 anchor prop per zone, with image prompts and art status.</td></tr>

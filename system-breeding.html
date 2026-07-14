@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Breeding — Herumon Tower</title>
+<link rel="stylesheet" href="theme.css?v=4">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">BREEDING</h1></div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; Breeding</div>
+  <p class="sp-lead">Breeding is a <strong style="color:var(--ink)">continuous pen</strong>, not a transaction. A pair is placed in a pen and the pen is toggled on; from then on it eats <strong style="color:var(--ink)">Food</strong> minute by minute and fills a progress bar. When the bar completes, an egg drops into the inventory and the pen keeps going. Food is the only limiter &mdash; it has no other use in the game.</p>
+
+  <h2>The pen grid</h2>
+  <p>Six pens, shown as a 2&times;3 grid. <strong>Pen 1 is unlocked from the start.</strong> The first additional pen is bought with Food; the remaining four are DLC.</p>
+  <table>
+    <tr><th>Pen</th><th>Unlock</th></tr>
+    <tr><td class="lbl">1</td><td>Free &mdash; available from the first hatch</td></tr>
+    <tr><td class="lbl">2</td><td><strong>12,000 Food</strong> &mdash; the one in-game unlock</td></tr>
+    <tr><td class="lbl">3 &ndash; 6</td><td>DLC</td></tr>
+  </table>
+  <div class="note"><strong>What extra pens actually buy.</strong> Not throughput &mdash; Food income caps that regardless of pen count. Extra pens buy <strong>parallelism</strong>: several different pairs, types, and grade-ladders running at once, and no idle time while you swap partners. A player with six pens and a player with two pens hatch the same number of Void eggs per hour; the six-pen player is also climbing five other lines while they do it.</p></div>
+
+  <h2>Choosing a pair</h2>
+  <p>The pen has two sockets, <strong>&#9794;</strong> and <strong>&#9792;</strong>. Clicking a socket opens a full-screen roster picker &mdash; it leaves the pen grid rather than crowding it, so the 2&times;3 grid stays intact.</p>
+  <table>
+    <tr><th>Rule</th><th>Detail</th></tr>
+    <tr><td class="lbl">Gender</td><td>One male, one female. Gender is a flat 50/50 roll at hatch and never changes.</td></tr>
+    <tr><td class="lbl">Shared type</td><td>The two parents must <strong>share at least one type</strong>. All three type slots count (primary, secondary, tertiary) &mdash; an overlap anywhere is enough.</td></tr>
+    <tr><td class="lbl">Progressive filter</td><td>The first socket lists every creature of that gender. Once one parent is chosen, the second picker <strong>filters to compatible partners only</strong>: opposite gender, sharing a type, not already in another pen.</td></tr>
+    <tr><td class="lbl">Exclusivity</td><td>A creature can sit in only one pen at a time.</td></tr>
+    <tr><td class="lbl">Battle lockout</td><td>A creature in a pen <strong>cannot be in the battle party</strong>. Breeding your best fighters means fighting without them.</td></tr>
+    <tr><td class="lbl">Same line</td><td>Allowed.</td></tr>
+  </table>
+  <div class="note"><strong>Type scarcity is the real gate.</strong> Across the roster of 300, the median creature has 44 type-compatible species and the tightest has 11. The four three-creature types &mdash; Celestial, Demon, Chimera, Aberration &mdash; are a single line each, so they can only breed within their own line. Breeding rewards a <em>broad</em> collection, not a strong one.</div>
+
+  <h2>Pair grade</h2>
+  <p>Every rate in the system keys off one number: <strong>pair grade P</strong>.</p>
+  <pre>P = floor( (grade of parent A + grade of parent B) / 2 )</pre>
+  <p>Mismatched parents are punished by the floor: a <span style="color:#a855f7">Void</span> paired with a <span style="color:#0070dd">Rare</span> breeds as <span style="color:#e5393f">Abyssal</span> (P&nbsp;=&nbsp;7), not as Void. Climbing the grade ladder means lifting <em>both</em> parents.</p>
+
+  <h2>The loop</h2>
+  <table>
+    <tr><th>State</th><th>Behaviour</th></tr>
+    <tr><td class="lbl">Toggle ON</td><td>The pen drains <code>Food_Per_Min(P)</code> every minute and fills the bar. P is <strong>locked in at toggle-on</strong>.</td></tr>
+    <tr><td class="lbl">Bar full</td><td>An egg is sent to the inventory, the bar resets to zero, and the pen <strong>continues automatically</strong> as long as Food and inventory space remain.</td></tr>
+    <tr><td class="lbl">Toggle OFF</td><td>Drain stops. Progress is <strong>retained</strong>, not lost.</td></tr>
+    <tr><td class="lbl">Egg inventory full</td><td>Drain stops, the bar freezes at its current fill. Nothing is consumed and nothing is lost. Clear an egg and it resumes.</td></tr>
+    <tr><td class="lbl">Food hits zero</td><td>Same as above: drain stops, bar freezes, pen resumes the moment Food arrives.</td></tr>
+    <tr><td class="lbl">Removing a parent</td><td><strong>Resets that pen's meter to zero.</strong> This is what stops a player filling a bar on a cheap Worn pair and swapping in two Voids at 99%.</td></tr>
+    <tr><td class="lbl">Clock</td><td><strong>Session time only.</strong> Pens tick while the game is running &mdash; the same clock that generates the Food they eat. No offline accrual.</td></tr>
+  </table>
+
+  <h2>Rates &mdash; drain, duration, cost</h2>
+  <p>Authored per pair grade in <code>codex/breeding.csv</code>. Higher grades are slower <em>and</em> hungrier, so cost per egg rises steeply while the pen's own throughput falls.</p>
+  <table>
+    <tr><th>Pair grade</th><th>Food / min</th><th>Minutes / egg</th><th>Food / egg</th><th>Drain per hour</th></tr>
+    <tr><td class="lbl" style="color:#c2ae8b">Worn</td><td style="text-align:center">3</td><td style="text-align:center">15</td><td style="text-align:center">45</td><td style="text-align:center">180</td></tr>
+    <tr><td class="lbl" style="color:#c2ae8b">Common</td><td style="text-align:center">5</td><td style="text-align:center">18</td><td style="text-align:center">90</td><td style="text-align:center">300</td></tr>
+    <tr><td class="lbl" style="color:#1eff00">Uncommon</td><td style="text-align:center">7</td><td style="text-align:center">22</td><td style="text-align:center">154</td><td style="text-align:center">420</td></tr>
+    <tr><td class="lbl" style="color:#0070dd">Rare</td><td style="text-align:center">9</td><td style="text-align:center">26</td><td style="text-align:center">234</td><td style="text-align:center">540</td></tr>
+    <tr><td class="lbl" style="color:#a335ee">Epic</td><td style="text-align:center">12</td><td style="text-align:center">32</td><td style="text-align:center">384</td><td style="text-align:center">720</td></tr>
+    <tr><td class="lbl" style="color:#ff8000">Legendary</td><td style="text-align:center">15</td><td style="text-align:center">40</td><td style="text-align:center">600</td><td style="text-align:center">900</td></tr>
+    <tr><td class="lbl" style="color:#e5393f">Abyssal</td><td style="text-align:center">18</td><td style="text-align:center">50</td><td style="text-align:center">900</td><td style="text-align:center">1,080</td></tr>
+    <tr><td class="lbl" style="color:#00ffe0">Divine</td><td style="text-align:center">21</td><td style="text-align:center">65</td><td style="text-align:center">1,365</td><td style="text-align:center">1,260</td></tr>
+    <tr><td class="lbl" style="color:#ff44cc">Primordial</td><td style="text-align:center">24</td><td style="text-align:center">85</td><td style="text-align:center">2,040</td><td style="text-align:center">1,440</td></tr>
+    <tr><td class="lbl" style="color:#a855f7">Void</td><td style="text-align:center">26</td><td style="text-align:center">110</td><td style="text-align:center">2,860</td><td style="text-align:center">1,560</td></tr>
+  </table>
+
+  <h2>Food income</h2>
+  <p>Food comes from combat, and scales with what you killed &mdash; level and rarity both. Per defeated enemy:</p>
+  <pre>Food = round( 2 &times; (1 + enemyLevel / 20) &times; RarityMult )
+
+RarityMult:   C 1.0   UC 1.5   R 2.5   SR 4.0   SSR 7.0</pre>
+  <p>A three-enemy battle at the encounter weights in <code>codex/encounter_weights.csv</code> therefore yields:</p>
+  <table>
+    <tr><th>Floor</th><th>C</th><th>UC</th><th>R</th><th>SR</th><th>SSR</th><th>Expected / battle</th><th>Food / hour</th></tr>
+    <tr><td class="lbl">1</td><td style="text-align:center">2</td><td style="text-align:center">3</td><td style="text-align:center">5</td><td style="text-align:center">8</td><td style="text-align:center">15</td><td style="text-align:center">9</td><td style="text-align:center">~280</td></tr>
+    <tr><td class="lbl">25</td><td style="text-align:center">4</td><td style="text-align:center">7</td><td style="text-align:center">11</td><td style="text-align:center">18</td><td style="text-align:center">32</td><td style="text-align:center">25</td><td style="text-align:center">~740</td></tr>
+    <tr><td class="lbl">51</td><td style="text-align:center">7</td><td style="text-align:center">11</td><td style="text-align:center">18</td><td style="text-align:center">28</td><td style="text-align:center">50</td><td style="text-align:center">47</td><td style="text-align:center">~1,420</td></tr>
+    <tr><td class="lbl">75</td><td style="text-align:center">10</td><td style="text-align:center">14</td><td style="text-align:center">24</td><td style="text-align:center">38</td><td style="text-align:center">66</td><td style="text-align:center">72</td><td style="text-align:center">~2,150</td></tr>
+    <tr><td class="lbl">99</td><td style="text-align:center">12</td><td style="text-align:center">18</td><td style="text-align:center">30</td><td style="text-align:center">48</td><td style="text-align:center">83</td><td style="text-align:center">101</td><td style="text-align:center">~3,040</td></tr>
+  </table>
+  <p style="font-size:13px;color:var(--ink-dim)">Hourly figures assume ~30 battles/h. SSR encounter odds climb over the run, so deep floors pay Food twice over &mdash; higher levels <em>and</em> a richer rarity mix.</p>
+
+  <h2>Egg dismantling</h2>
+  <p>Unwanted eggs dismantle back into Food, keyed to the <strong>egg's</strong> grade (not the pair that made it).</p>
+  <table>
+    <tr><th>Egg grade</th><th>Worn</th><th>Common</th><th>Uncommon</th><th>Rare</th><th>Epic</th><th>Legendary</th><th>Abyssal</th><th>Divine</th><th>Primordial</th><th>Void</th></tr>
+    <tr><td class="lbl">Food</td><td style="text-align:center">15</td><td style="text-align:center">25</td><td style="text-align:center">45</td><td style="text-align:center">70</td><td style="text-align:center">115</td><td style="text-align:center">180</td><td style="text-align:center">270</td><td style="text-align:center">410</td><td style="text-align:center">610</td><td style="text-align:center">860</td></tr>
+  </table>
+  <div class="note"><strong>No breed-and-dismantle loop.</strong> Yields are tuned against the hatch-weight matrix so that the expected dismantle value of an egg is always <strong>27&ndash;30% of what the pen spent making it</strong> &mdash; at every rung of the ladder, including the up-rolls. Breeding for Food is always a loss; dismantling is a refund on a bad roll, never an engine.</div>
+
+  <h2>Egg grade output</h2>
+  <p>The pen does <strong>not</strong> need a new matrix. The pair grade P indexes the existing row in <code>codex/egg_hatch_weights.csv</code> &mdash; the same matrix that later rolls the hatchling's grade from the egg's grade. Two <span style="color:#a855f7">Void</span> parents roll a Void egg 78.1% of the time (14% Primordial, 5% Divine, and a long tail below), and that Void egg then rolls a Void creature 78.1% of the time: <strong>~61% Void end-to-end</strong>, with a real chance of falling short at either step. The Hatchery grade-boost upgrade shifts the second roll upward.</p>
+
+  <h2>Throughput ceiling</h2>
+  <p>Food income &mdash; not pen count &mdash; is the hard cap on egg production.</p>
+  <table>
+    <tr><th>Scenario (endgame, ~3,040 Food/h)</th><th>Result</th></tr>
+    <tr><td class="lbl">Void pair, any number of pens</td><td>~1.06 eggs / hour, ceiling</td></tr>
+    <tr><td class="lbl">Epic pairs</td><td>~7.9 eggs / hour</td></tr>
+    <tr><td class="lbl">Six pens, all Void</td><td>9,360 Food/h demanded &mdash; runs at a <strong>32% duty cycle</strong>, starving and resuming</td></tr>
+    <tr><td class="lbl">Six pens, Worn through Legendary</td><td>3,060 Food/h &mdash; almost exactly sustainable at floor 99</td></tr>
+  </table>
+  <p>A single Void pen alone eats half of a maxed player's entire Food income. That is the intended shape: the top of the ladder is slow by construction, and no amount of pens buys past it.</p>
+</div>
+</body>
+</html>
