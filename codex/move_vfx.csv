@@ -1,0 +1,401 @@
+Move_ID,Name,VFX_Archetype,VFX_Color,Target_Anchor,Duration_Class,VFX_Description
+M-THORNBACK-1,Rampart Annihilation,def_down,purple,target,fast,Full-body charge that detonates masonry-like fragments off the target.
+M-THORNBACK-2,Skullplate Onslaught,pierce_strike,rust,target,standard,Bony snout plate glows dull orange on impact; a shockwave ring of dust.
+M-THORNBACK-3,Thornstorm Volley,bleed_dot,crimson,target,fast,A fan of thrown quills that thunk in with visible shafts left standing.
+M-THORNBACK-4,Ironquill Bulwark,shield_def_up,blue,self,standard,"Dorsal quills snap erect, glinting like iron nails."
+M-DUSTHOUND-1,Choking Pall,atk_down,purple,target,fast,The whole field browns out; the hound's eyes are the last thing visible.
+M-DUSTHOUND-2,Run-Down,generic_impact,bone,target,standard,A circling sprint that ends in a shoulder-check through the dust cloud.
+M-DUSTHOUND-3,Snap,melee_crush,bone,target,standard,"A blurred lunge, jaws clicking shut with a dry crack."
+M-DUSTHOUND-4,Dust Kick,atk_down,purple,target,fast,"Hind legs rake the ground, throwing a curtain of ochre grit."
+M-BARROWMOLE-1,Collapse Barrow,def_down,purple,target,fast,A whole burial mound heaves up and slumps over the target.
+M-BARROWMOLE-2,Undermine,generic_impact,bone,target,standard,The ground under the target sags into a funnel of collapsing earth.
+M-BARROWMOLE-3,Spade Claw,melee_slash,bone,target,standard,"One oversized digging claw swats in a low arc, soil trailing."
+M-BARROWMOLE-4,Entrench,cleanse,blue,self,standard,The mole sinks to its shoulders in an instant self-dug pit.
+M-BRAMBLEFAWN-1,Bloomburst,cleanse,blue,self,standard,The antler-vines flower all at once in a concussive pollen flash.
+M-BRAMBLEFAWN-2,Thorn Flick,melee_crush,bone,target,standard,A casual toss of the head; a single vine-thorn whips across.
+M-BRAMBLEFAWN-3,Verdant Ward,shield_def_up,blue,self,standard,Soft green light blooms from the antlers; petals settle on allies.
+M-BRAMBLEFAWN-4,Tangle Snare,melee_crush,bone,target,standard,Thorned vines erupt beneath the target and lace over its legs.
+M-NIGHTMARE-1,Reap the Fleeing,speed_up,blue,self,fast,The nightmare rears; a scythe of black mist follows the swing of its head.
+M-NIGHTMARE-2,Terror Gallop,atk_down,purple,target,fast,Hoofbeats echo from every direction before the hit lands.
+M-NIGHTMARE-3,Soul Chase,generic_impact,bone,target,standard,"The horse phases through the target, trailing torn wisps of spirit."
+M-NIGHTMARE-4,Night Veil,generic_impact,bone,target,standard,Darkness pools off the mane like ink dropped in water.
+M-GOLGOTH-1,Avalanche Blow,melee_crush,bone,target,standard,A two-limbed overhead smash that buries the target in rubble.
+M-GOLGOTH-2,Seismic Stomp,generic_impact,bone,target,standard,"One stamp; the arena jumps, dust leaping off every surface."
+M-GOLGOTH-3,Stone Fist,melee_crush,bone,target,standard,A forelimb like a quarry block hammers straight down.
+M-GOLGOTH-4,Calcify,shield_def_up,blue,self,standard,"Skin audibly hardens, seams of grey stone spreading like frost."
+M-WYCHROOT-1,Strangleroots,generic_impact,bone,target,standard,The entire root system surfaces and constricts in a woody spiral.
+M-WYCHROOT-2,Root Lash,whip_lash,bone,target,standard,A root snaps out of the soil like a bullwhip.
+M-WYCHROOT-3,Sap Drink,drain,crimson,both-sides,standard,Pale rootlets pierce the target; amber sap flows back along them.
+M-WYCHROOT-4,Barkskin,shield_def_up,blue,self,standard,Bark plates grind closed over every gap in the stump's body.
+M-GARROTE-1,Last Knot,atk_down,purple,target,fast,"Every cord on its body strikes at once, weaving a strangling web."
+M-GARROTE-2,Gallows Drop,generic_impact,bone,target,standard,The revenant hoists the target a metre and lets it fall short.
+M-GARROTE-3,Cinch,atk_down,purple,target,fast,A loop of knotted binding tightens around the throat and drags.
+M-GARROTE-4,Wire Whip,generic_impact,bone,target,standard,A sinew-cord cracks across the target faster than sight.
+M-GALLOWSBIRD-1,Funeral Wind,generic_impact,bone,target,standard,A downdraft of grave-cold air flattens the grass around the target.
+M-GALLOWSBIRD-2,Peck of Omens,generic_impact,bone,target,standard,A precise strike; a single black feather drifts down after.
+M-GALLOWSBIRD-3,Death Knell,generic_impact,bone,target,standard,The exposed ribcage rings like a struck bell; the tone lingers.
+M-GALLOWSBIRD-4,Carrion Call,atk_up,blue,self,fast,A rattling caw; shadows of circling birds cross the ground.
+M-HERNE-1,Horned Judgment,charge_impact,bone,target,standard,Antlers blaze white-green as the stag charges through the target.
+M-HERNE-2,Antler Jab,generic_impact,bone,target,standard,"A short, contemptuous toss of the crowned head."
+M-HERNE-3,Sovereign's Bloom,heal,blue,self,standard,Flowers along the antlers open; drifting petals knit wounds shut.
+M-HERNE-4,Wild Command,atk_up,blue,self,fast,The stag-lord's eyes flare green; the ally's hackles rise in answer.
+M-TIDECRAWLER-1,Barnacle Grind,def_down,purple,target,fast,"The crusted shell rasps across the target, shaving off sparks and scale."
+M-TIDECRAWLER-2,Scuttle Strike,melee_slash,bone,target,standard,A blinding sideways skitter ending in a claw-hook.
+M-TIDECRAWLER-3,Pincer Snip,melee_slash,bone,target,standard,One claw scissors shut with a wet clack.
+M-TIDECRAWLER-4,Shell Up,shield_def_up,blue,self,standard,The crab folds flat; barnacled plate faces the world.
+M-SALTJAW-1,Jawlock,atk_down,purple,target,fast,The jaws seize and simply do not let go; the body whips behind them.
+M-SALTJAW-2,Salt Wound,generic_impact,bone,target,standard,Brine gushes from the gills directly into the target's open cuts.
+M-SALTJAW-3,Bite,generic_impact,bone,target,standard,The whole fish is briefly just an open mouth.
+M-SALTJAW-4,Thrash,bleed_dot,crimson,target,fast,Violent side-to-side shaking; water and red spray.
+M-BRINEFROG-1,Deluge Croak,def_down,purple,target,fast,A croak so deep it arrives as a wall of displaced water.
+M-BRINEFROG-2,Brine Spit,atk_down,purple,target,fast,A pressurised jet of cloudy saltwater to the eyes.
+M-BRINEFROG-3,Weeping Mist,atk_down,purple,target,fast,The frog's whole skin weeps; a stinging fog rolls off it.
+M-BRINEFROG-4,Puff Up,shield_def_up,blue,self,standard,The toad inflates to twice its size with a rubbery creak.
+M-CRESTMANTIS-1,Thermal Lance Punch,def_down,purple,target,fast,One punch rides a spear of superheated water that flashes to steam.
+M-CRESTMANTIS-2,Cavitation Snap,pierce_strike,rust,target,standard,The claw snaps; a collapsing bubble flashes white where it points.
+M-CRESTMANTIS-3,Jab Volley,generic_impact,bone,target,standard,A drumroll of punches too fast to count.
+M-CRESTMANTIS-4,Boiling Point,atk_up,blue,self,fast,The crest glows through orange to white; water steams off it.
+M-RUSALKA-1,Grief Surge,generic_impact,bone,target,standard,The nymph's form collapses into a breaking wave of drowned faces.
+M-RUSALKA-2,Undertow Touch,charge_impact,bone,target,standard,A pale hand of moving water brushes past; the pull follows.
+M-RUSALKA-3,Drowning Lure,atk_down,purple,target,fast,A soft song; the water around the target thickens visibly.
+M-RUSALKA-4,Mendtide,heal,blue,self,standard,"A wave washes over the ally and recedes, taking the wounds with it."
+M-BULWARK-1,Fortress Slam,shield_def_up,blue,self,standard,The whole spiral tower of shell pivots and falls like a drawbridge.
+M-BULWARK-2,Shell Bash,melee_crush,bone,target,standard,The fortress-shell tilts and slams down edge-first.
+M-BULWARK-3,Withdraw,heal,blue,self,standard,The snail vanishes inside; the shell seals with a stone-on-stone boom.
+M-BULWARK-4,Rampart Slime,generic_impact,bone,target,standard,A glistening moat of slime spreads out around the target's feet.
+M-NETHEREEL-1,Void Lash,whip_lash,bone,target,standard,The tail sweeps through a smear of pure black that bends the light.
+M-NETHEREEL-2,Static Discharge,generic_impact,bone,target,standard,Blue-white arcs crawl along the target's limbs and lock them.
+M-NETHEREEL-3,Phase Bite,pierce_strike,rust,target,standard,The eel's head flickers out of existence and reappears mid-bite.
+M-NETHEREEL-4,Unreal Slip,charge_impact,bone,target,standard,"Half the eel's body desaturates, like film losing a frame."
+M-CORALHYDRA-1,Ninefold Fury,melee_crush,bone,target,standard,Every head strikes at once; the water itself seems to bite.
+M-CORALHYDRA-2,Triple Maul,generic_impact,bone,target,standard,Three heads strike in overlapping arcs from different angles.
+M-CORALHYDRA-3,Coral Rake,def_down,purple,target,fast,"Razor coral crusts drag across the target, leaving chalky gouges."
+M-CORALHYDRA-4,Regrow Head,cleanse,blue,self,standard,A severed stump boils and blossoms into a new snarling head.
+M-DAGON-1,The Sea Remembers,generic_impact,bone,target,standard,"The water darkens with every wrong ever drowned in it, then falls."
+M-DAGON-2,Tide of Ruin,curse,purple,target,heavy,"A green-black wave crests over the target and hangs, refusing to break."
+M-DAGON-3,Abyssal Crush,generic_impact,bone,target,standard,A barnacled fist falls with the weight of a sinking ship.
+M-DAGON-4,Drowned Court,atk_up,blue,self,fast,Kelp-wrapped shades of drowned sailors rise and bow to the allies.
+M-VOIDSIPHON-1,Event Horizon,generic_impact,bone,target,standard,"The ink cloud collapses inward to a point, dragging the target with it."
+M-VOIDSIPHON-2,Ink Jet,generic_impact,bone,target,standard,A propulsive squirt of ink black enough to look solid.
+M-VOIDSIPHON-3,Swallowing Ink,atk_down,purple,target,fast,The ink cloud doesn't disperse — it contracts around the target's head.
+M-VOIDSIPHON-4,Blink Home,cleanse,blue,self,standard,"The squid folds into its own ink and reappears a metre away, refreshed."
+M-DUSKSCALE-1,Twilight Maw,melee_crush,bone,target,standard,The jaws open against a darkening sky; the bite lands out of the glare.
+M-DUSKSCALE-2,Basking Fury,charge_impact,bone,target,standard,Heat-shimmer pours off the scales as the monitor lunges.
+M-DUSKSCALE-3,Tail Sweep,whip_lash,bone,target,standard,"A low, heavy tail arc that kicks up a fan of sand."
+M-DUSKSCALE-4,Duskshift,shield_def_up,blue,self,standard,Scales ripple through sunset colours until the lizard half-vanishes.
+M-SANDSKITTER-1,Requiem Shriek,generic_impact,bone,target,standard,The wail becomes visible — concentric rings that shred what they cross.
+M-SANDSKITTER-2,Wailing Touch,generic_impact,bone,target,standard,A pale hand passes through the target; the sound arrives late.
+M-SANDSKITTER-3,Keening,def_down,purple,target,fast,A held shriek; threads of the target visibly fray loose.
+M-SANDSKITTER-4,Death Omen,generic_impact,bone,target,standard,The banshee points; a black mark blooms where she looks.
+M-DUNECOIL-1,Buried Fang,poison_dot,green,target,standard,"A strike from below the sand, fangs first, venom mixed with grit."
+M-DUNECOIL-2,Constrict,generic_impact,bone,target,standard,Loops of muscle stack around the target with a dry rasp.
+M-DUNECOIL-3,Ambush Strike,generic_impact,bone,target,standard,The sand bulges and the strike is already over.
+M-DUNECOIL-4,Sand Swim,generic_impact,bone,target,standard,The sidewinder pours itself under the surface like water.
+M-FATA-1,Dream of Water,atk_down,purple,target,fast,"A cool blue oasis blooms around the target, then evaporates into the hit."
+M-FATA-2,Double Image,generic_impact,bone,target,standard,Two identical cats strike; only one leaves pawprints.
+M-FATA-3,Mirage Claw,melee_slash,bone,target,standard,The claw comes from where the cat isn't.
+M-FATA-4,Heat Haze,generic_impact,bone,target,standard,The cat's outline wavers and doubles in the shimmer.
+M-SIMOOM-1,Sandblast,atk_down,purple,target,fast,A shotgun cone of ash and quartz at point-blank range.
+M-SIMOOM-2,Grinding Gale,def_down,purple,target,fast,A sustained blast of sand that polishes what it strikes.
+M-SIMOOM-3,Reform,cleanse,blue,self,standard,The construct collapses to a dune and rebuilds itself grain by grain.
+M-SIMOOM-4,Stormwall,generic_impact,bone,target,standard,A standing wave of sand curls over the team like a cresting dune.
+M-ECHIDNA-1,Thousand Fangs,poison_dot,green,target,standard,The brood strikes as one — a wave of small mouths.
+M-ECHIDNA-2,Matriarch's Coil,generic_impact,bone,target,standard,"The great body wraps the target once, tightens, releases."
+M-ECHIDNA-3,Viper Spit,poison_dot,green,target,standard,A precise dart of venom that hisses where it lands.
+M-ECHIDNA-4,Brood Call,atk_up,blue,self,fast,Dozens of small vipers surface and coil around their mother.
+M-EMBERCLAW-1,White-Hot Rend,melee_slash,bone,target,standard,Both claws cross at full killing heat; the X-shaped afterglow lingers.
+M-EMBERCLAW-2,Killing Heat,burn_dot,red,target,standard,Afterimages of heat hang in the air along the slash path.
+M-EMBERCLAW-3,Sear Swipe,heal,blue,self,standard,The claw glows forge-orange; the wound smokes instead of bleeding.
+M-EMBERCLAW-4,Kindle,atk_up,blue,self,fast,The claws brighten from ember-red toward white.
+M-ZARATAN-1,Continental Roll,def_down,purple,target,fast,"The impossible: the whole mountain-shell tips, rolls, and rights itself."
+M-ZARATAN-2,Weight of Ages,shield_def_up,blue,self,standard,One deliberate step forward. The ground remembers it.
+M-ZARATAN-3,Ruin Shrug,generic_impact,bone,target,standard,The tortoise shifts; a cornice of its shell-ruins drops on the target.
+M-ZARATAN-4,Ancient Patience,shield_def_up,blue,self,standard,The colossus settles lower; moss visibly spreads over its plates.
+M-MARID-1,Simoom's Wrath,def_down,purple,target,fast,The horizon turns brown and arrives all at once.
+M-MARID-2,Sand Cyclone,atk_down,purple,target,fast,A person-sized dust devil engulfs the target's head.
+M-MARID-3,Scouring Wind,whip_lash,bone,target,standard,A ribbon of sand-laden wind snaps like a whip.
+M-MARID-4,Djinn Step,generic_impact,bone,target,standard,The djinn disperses and re-forms three strides closer.
+M-OUROBOROS-1,End Is Beginning,charge_impact,bone,target,standard,For one frame the serpent's ring closes around the entire arena.
+M-OUROBOROS-2,Eternal Bind,whip_lash,bone,target,standard,Coils close in a pattern with no visible beginning.
+M-OUROBOROS-3,World Coil,generic_impact,bone,target,standard,A section of endless body simply tightens across the field.
+M-OUROBOROS-4,Tail Swallow,cleanse,blue,self,standard,The serpent bites its own tail; what ailed it travels the loop and is gone.
+M-GLOOMGRUB-1,Dissolving Flood,def_down,purple,target,fast,A wave of acid that eats colour out of everything it crosses.
+M-GLOOMGRUB-2,Acid Dribble,def_down,purple,target,fast,A thin line of smoking fluid arcs from the larva's mouth.
+M-GLOOMGRUB-3,Corrosive Burst,def_down,purple,target,fast,The grub convulses and vents acid from every pore at once.
+M-GLOOMGRUB-4,Curl Up,shield_def_up,blue,self,standard,"The larva rolls into a glistening, rubbery ball."
+M-THORNHUSK-1,Husk Detonation,def_down,purple,target,fast,The outer husk explodes outward in a ring of thorn shrapnel.
+M-THORNHUSK-2,Thorn Volley,generic_impact,bone,target,standard,A rattling burst of woody spines from the carapace seams.
+M-THORNHUSK-3,Branch Jab,generic_impact,bone,target,standard,What looked like a dead branch stabs forward.
+M-THORNHUSK-4,Mimic Bark,shield_def_up,blue,self,standard,The beetle stills completely; its outline stops reading as a creature.
+M-SPOREFLY-1,Bloomlung,generic_impact,bone,target,standard,"Spores in the target's wounds bloom all at once, tearing outward."
+M-SPOREFLY-2,Dart,charge_impact,bone,target,standard,A needling dive too quick to swat.
+M-SPOREFLY-3,Spore Dusting,generic_impact,bone,target,standard,A puff of grey-green motes settles and clings.
+M-SPOREFLY-4,Carrier Swarm,atk_up,blue,self,fast,"The fly's swarm splits and orbits its fungal allies, feeding them."
+M-ARACHNE-1,Silken Guillotine,generic_impact,bone,target,standard,"A single silk strand pulled taut at neck height, then a shove."
+M-ARACHNE-2,Fang Strike,generic_impact,bone,target,standard,The humanoid torso bends impossibly to bring fangs down.
+M-ARACHNE-3,Paralytic Silk,generic_impact,bone,target,standard,A cast net of silk that tightens as the target struggles.
+M-ARACHNE-4,Web Larder,generic_impact,bone,target,standard,"The target is spun once, twice — hung like stock in a pantry."
+M-CARNIFORA-1,Rooted Feast,heal,blue,self,standard,Rootlets spear into the target and pulse as they draw.
+M-CARNIFORA-2,Snap Trap,generic_impact,bone,target,standard,The head-bloom closes on the target with a wet clap.
+M-CARNIFORA-3,Digestive Bath,def_down,purple,target,fast,Clear fluid sluices over the target; surfaces begin to soften.
+M-CARNIFORA-4,Overgrowth,shield_def_up,blue,self,standard,Vines burst from the soil and lattice over the team.
+M-PLAGUECARRIER-1,Pandemic Bite,melee_crush,bone,target,standard,The bite lingers a beat too long — something is left behind.
+M-PLAGUECARRIER-2,Chitin Clip,generic_impact,bone,target,standard,"Mandibles nip once, almost politely."
+M-PLAGUECARRIER-3,Release the Colony,generic_impact,bone,target,standard,The shell lifts; a glittering tide pours out and onto the target.
+M-PLAGUECARRIER-4,Host's Gift,cleanse,blue,self,standard,A few parasites leap to the ally and eat what troubles it.
+M-DEVOUT-1,Answered Prayer,melee_slash,bone,target,standard,"Both scythe-arms descend in perfect symmetry, like a benediction."
+M-DEVOUT-2,Prayer Strike,projectile,bone,both-sides,standard,Forelimbs unfold from the prayer pose already mid-strike.
+M-DEVOUT-3,Between Blinks,generic_impact,bone,target,standard,You blink. It is somewhere else. You did not see it move.
+M-DEVOUT-4,Silent Grace,generic_impact,bone,target,standard,The mantis bows; the air forgets to carry its sound.
+M-LOCUST-1,The Swarm Descends,generic_impact,bone,target,standard,The sky grains over; the sound arrives before the darkness does.
+M-LOCUST-2,Swarm Surge,generic_impact,bone,target,standard,The single drone blurs into a local cloud of itself.
+M-LOCUST-3,Strip Field,atk_down,purple,target,fast,Everything green in a metre radius vanishes mid-swing.
+M-LOCUST-4,Devour,generic_impact,bone,target,standard,A mouthful of the target simply ceases to be there.
+M-VESPERA-1,Coronation Swarm,generic_impact,bone,target,standard,The half-fungal brood rises behind their queen and falls as one.
+M-VESPERA-2,Sting,poison_dot,green,target,standard,A surgical sting; the puncture blooms dark immediately.
+M-VESPERA-3,Queen's Decree,atk_up,blue,self,fast,A pheromone shimmer rolls outward; allies' movements sharpen.
+M-VESPERA-4,Spore Brood,poison_dot,green,target,standard,"Fungal larvae seed the wound and begin, audibly, to grow."
+M-YGGDRASIL-1,The Deep Roots Rise,def_down,purple,target,fast,The visible trunk is still. Everything else in the ground is not.
+M-YGGDRASIL-2,Root Grasp,generic_impact,bone,target,standard,A root the width of a road closes around the target.
+M-YGGDRASIL-3,World-Root Aegis,generic_impact,bone,target,standard,Roots rise and weave a living palisade around the team.
+M-YGGDRASIL-4,Sap of Ages,heal,blue,self,standard,Golden sap beads from the bark and runs uphill to the wounded.
+M-CLIFFPINCER-1,Sheer Face Slam,def_down,purple,target,fast,The crab rides a slab of falling cliff-face into the target.
+M-CLIFFPINCER-2,Drop Ambush,generic_impact,bone,target,standard,It lets go of the cliff. Gravity does the aiming.
+M-CLIFFPINCER-3,Pincer Crush,melee_slash,bone,target,standard,A claw the colour of the cliff closes with a hydraulic crunch.
+M-CLIFFPINCER-4,Stonecling,shield_def_up,blue,self,standard,The crab flattens against rock and becomes indistinguishable from it.
+M-CRUSHMAUL-1,Juggernaut Roll,atk_down,purple,target,fast,"It circles the arena once, gathering speed, then stops using the target."
+M-CRUSHMAUL-2,Momentum Crash,generic_impact,bone,target,standard,The spiked sphere arrives at full downhill speed.
+M-CRUSHMAUL-3,Roll Over,generic_impact,bone,target,standard,"A short, brutal roll straight across the target."
+M-CRUSHMAUL-4,Spikeball,shield_def_up,blue,self,standard,The pillbug locks into a sphere of interlocking spikes.
+M-SLAGWORM-1,Consume Bedrock,shield_def_up,blue,self,standard,The worm takes a bite out of the world and armors itself with it.
+M-SLAGWORM-2,Caustic Glide,def_down,purple,target,fast,The slug slides across the target; the path smokes.
+M-SLAGWORM-3,Dissolve Stone,def_down,purple,target,fast,A concentrated spit; solid surfaces run like candle wax.
+M-SLAGWORM-4,Molten Mucus,generic_impact,bone,target,standard,A pool of glowing slime spreads beneath the target.
+M-RIDGEDRAKE-1,Cragfire Dive,generic_impact,bone,target,standard,"A vertical stoop trailing heat-shimmer, pulling up at the last metre."
+M-RIDGEDRAKE-2,Furnace Breath,generic_impact,bone,target,standard,"A cone of superheated air — no flame, just distortion and blistering."
+M-RIDGEDRAKE-3,Talon Rake,generic_impact,bone,target,standard,A gliding pass; four parallel lines open on the target.
+M-RIDGEDRAKE-4,Updraft,atk_up,blue,self,fast,Wings catch a thermal; the drake hangs higher than it should.
+M-STONECALLER-1,Tyrant's Verdict,speed_up,blue,self,fast,Both claws slam down in judgment; the ground cracks in a sunburst.
+M-STONECALLER-2,Scornful Backhand,melee_slash,bone,target,standard,A dismissive sweep of one ore-crusted claw.
+M-STONECALLER-3,Decree of Stone,atk_down,purple,target,fast,The Despot points; grey creeps over the target's joints.
+M-STONECALLER-4,Court of Rock,shield_def_up,blue,self,standard,"Pillars of stone rise in a half-circle behind the team, like thrones."
+M-SANGLEECH-1,Exsanguinate,heal,blue,self,standard,The Sanguinarch swells visibly as the target pales.
+M-SANGLEECH-2,Crimson Tithe,heal,blue,self,standard,"The monarch feeds openly now, crown-marks flushing bright."
+M-SANGLEECH-3,Tap Vein,heal,blue,self,standard,A discreet puncture; a red thread runs back along the leech.
+M-SANGLEECH-4,Anticoagulant,heal,blue,self,standard,A clear secretion; the target's smallest wounds refuse to close.
+M-CRAGGERNAUT-1,Tidal Wall of Claws,generic_impact,bone,target,standard,The colony briefly un-fuses into a crashing wave of separate bodies.
+M-CRAGGERNAUT-2,Multitude Grip,melee_slash,bone,target,standard,Small claws by the score close on every available edge of the target.
+M-CRAGGERNAUT-3,Colony Slam,melee_slash,bone,target,standard,A dozen fused claws strike as one fist.
+M-CRAGGERNAUT-4,Fuse Ranks,cleanse,blue,self,standard,The colony grinds tighter; gaps between individuals vanish.
+M-VOIDSHELL-1,Swallow Light,generic_impact,bone,target,standard,The arena goes dark for one beat. The damage is already done.
+M-VOIDSHELL-2,Absent Sting,def_down,purple,target,fast,The tail strikes; where it lands there is briefly nothing at all.
+M-VOIDSHELL-3,Nullpinch,pierce_strike,rust,target,standard,The claw is a claw-shaped absence; the cut has no edge.
+M-VOIDSHELL-4,Lightless Carapace,atk_down,purple,target,fast,The shell drinks the arena's light; shadows bend toward it.
+M-TALOS-1,Titan's Downstroke,def_down,purple,target,fast,Both fused claws rise past vertical and fall like a forge hammer.
+M-TALOS-2,Iron Backfist,generic_impact,bone,target,standard,An ore-plated limb swings with foundry weight.
+M-TALOS-3,Ore-Bound Bulk,shield_def_up,blue,self,standard,Iron veins across the shell glow faintly and thicken.
+M-TALOS-4,Foundry Guard,generic_impact,bone,target,standard,The titan plants itself before the ally like a closing gate.
+M-MAGMACRAWLER-1,Eruption,generic_impact,bone,target,standard,The crawler's back opens like a caldera; the arena rains fire.
+M-MAGMACRAWLER-2,Magma Vent,def_down,purple,target,fast,A carapace seam splits; liquid rock jets across the target.
+M-MAGMACRAWLER-3,Obsidian Edge,bleed_dot,crimson,target,fast,A limb of cooling glass opens a seam that glows at the edges.
+M-MAGMACRAWLER-4,Cooling Shell,shield_def_up,blue,self,standard,The surface blackens and crazes; heat banks deeper inside.
+M-GUSTWING-1,Sky Lacerate,speed_up,blue,self,fast,The bird vanishes upward; the sky itself seems to slice downward.
+M-GUSTWING-2,Scissor Dive,bleed_dot,crimson,target,fast,Two crossing dive-passes leave an X of parted air.
+M-GUSTWING-3,Wind Shear,melee_slash,bone,target,standard,A wingbeat leaves a visible blade of compressed air.
+M-GUSTWING-4,Tailwind,generic_impact,bone,target,standard,"A ribbon of wind curls around the team, lifting feathers and dust."
+M-STORMCROW-1,Stormcrown,generic_impact,bone,target,standard,"Every spark on the field leaps to the crow's brow, then to the target."
+M-STORMCROW-2,Ball Lightning,generic_impact,bone,target,standard,"A slow, wandering sphere of light that detonates on contact."
+M-STORMCROW-3,Static Peck,generic_impact,bone,target,standard,A peck that leaves a crawling blue spark behind.
+M-STORMCROW-4,Thundercall,atk_up,blue,self,fast,The crow spreads its wings; distant thunder answers on cue.
+M-THUNDERMOTH-1,Overload Flash,atk_down,purple,target,fast,One blinding discharge; afterimages of the wing pattern hang in the air.
+M-THUNDERMOTH-2,Dust Zap,whip_lash,bone,target,standard,Glittering wing-dust ignites in a crackling flash.
+M-THUNDERMOTH-3,EM Pulse,atk_down,purple,target,fast,The moth's wings pulse once; the air hums wrong.
+M-THUNDERMOTH-4,Magnet Wings,generic_impact,bone,target,standard,Incoming force visibly curves away from the wings' field.
+M-ROC-1,Mountain-Bearer,generic_impact,bone,target,standard,Not a boulder this time — a piece of the peak itself.
+M-ROC-2,Boulder Drop,def_down,purple,target,fast,A shadow grows; the boulder arrives from higher than seems fair.
+M-ROC-3,Hunting Stoop,charge_impact,bone,target,standard,A folded-wing dive that flattens grass in a widening ring.
+M-ROC-4,Talon Snatch,melee_slash,bone,target,standard,Talons the size of gates close and release.
+M-GALEHOWL-1,Twisterfang,generic_impact,bone,target,standard,The chimera rides its own tornado down onto the target.
+M-GALEHOWL-2,Keening Bite,melee_crush,bone,target,standard,The wolf-jaws close; the howl continues through the bite.
+M-GALEHOWL-3,Tornado Howl,atk_down,purple,target,fast,The howl becomes a visible funnel that walks toward the target.
+M-GALEHOWL-4,Eye of the Funnel,generic_impact,bone,target,standard,A ring of calm air settles around the ally; debris orbits it.
+M-VOLTMANTLE-1,Megavolt Delivery,charge_impact,bone,target,standard,The mantle glows white and grounds its entire charge through the target.
+M-VOLTMANTLE-2,Discharge Sweep,generic_impact,bone,target,standard,A low pass trailing a curtain of arcing current.
+M-VOLTMANTLE-3,Volt Graze,generic_impact,bone,target,standard,A gliding pass; a single arc snaps from wingtip to target.
+M-VOLTMANTLE-4,Thermal Ride,projectile,bone,both-sides,standard,The ray banks into an unseen column of rising air.
+M-COUATL-1,Sky Serpent's Verdict,generic_impact,bone,target,standard,The clouds part in a spiral; the couatl descends the middle of it.
+M-COUATL-2,Feathered Lightning,generic_impact,bone,target,standard,"Two strikes from two directions, trailing rainbow after-glare."
+M-COUATL-3,Plume Strike,whip_lash,bone,target,standard,A feathered coil lashes out of a cloudbank.
+M-COUATL-4,Cloudcoil,atk_up,blue,self,fast,The serpent winds itself in cloud until only colours show through.
+M-TYPHON-1,Hundred-Headed Storm,generic_impact,bone,target,standard,"Funnel clouds descend like striking heads, one after another."
+M-TYPHON-2,Storm Maw,generic_impact,bone,target,standard,The dragon's mouth opens on rotating winds.
+M-TYPHON-3,Pressure Front,atk_down,purple,target,fast,Ears pop; the light goes storm-green around the target.
+M-TYPHON-4,Cyclone Shield,shield_def_up,blue,self,standard,The tempest tightens around the dragon into a visible wall.
+M-ANZU-1,The Wind That Was First,generic_impact,bone,target,standard,For a moment all wind everywhere blows from one direction: Anzu's.
+M-ANZU-2,Stormfeather Volley,projectile,bone,both-sides,standard,Feathers leave the impossible wings like thrown knives.
+M-ANZU-3,First Wind,generic_impact,bone,target,standard,The strike lands before the wingbeat is heard.
+M-ANZU-4,Unbroken Gale,generic_impact,bone,target,standard,The gale that has never stopped bends to pass through the team.
+M-STORMFATHER-1,I Am the Storm,generic_impact,bone,target,standard,The dragon dissolves into the stormfront; the stormfront attacks.
+M-STORMFATHER-2,Lightning Spear,pierce_strike,rust,target,standard,"A single bolt held in the claw like a javelin, then thrown."
+M-STORMFATHER-3,Thunder Rake,melee_slash,bone,target,standard,Claws of the storm-merged dragon trail forked light.
+M-STORMFATHER-4,Stormcall,atk_up,blue,self,fast,The permanent storm above deepens and leans toward the field.
+M-BOGHOPPER-1,Launch Ball,shield_def_up,blue,self,standard,The inflated ball fires itself like a released cork.
+M-BOGHOPPER-2,Gutwater Burst,atk_down,purple,target,fast,The toad vents swallowed bogwater in a rancid pressure-jet.
+M-BOGHOPPER-3,Bounce Slam,generic_impact,bone,target,standard,The toad arcs up and lands seat-first on the target.
+M-BOGHOPPER-4,Inflate,shield_def_up,blue,self,standard,"The toad swells into a taut, quivering sphere."
+M-MIRENEWT-1,Fever Dream,generic_impact,bone,target,standard,The bog warps kaleidoscopically around the target as the hit lands.
+M-MIRENEWT-2,Slick Strike,projectile,bone,both-sides,standard,"A whip of the glistening tail, gone before the spray lands."
+M-MIRENEWT-3,Hallucinogen Coat,atk_down,purple,target,fast,The target's pupils bloom; it flinches at things that are not there.
+M-MIRENEWT-4,Skinshed,cleanse,blue,self,standard,"The newt slides out of its own skin, leaving troubles in the husk."
+M-ROTFLY-1,Blightswarm,generic_impact,bone,target,standard,The fly multiplies into a droning column that passes through the target.
+M-ROTFLY-2,Reanimating Sting,generic_impact,bone,target,standard,The sting glows faint green; nearby dead things twitch.
+M-ROTFLY-3,Corpse Nip,melee_crush,bone,target,standard,A quick bite that smells worse than it looks.
+M-ROTFLY-4,Plague Eggs,generic_impact,bone,target,standard,A clutch of pale eggs deposited in one pass; they do not stay eggs.
+M-LICHFROG-1,Stitchflesh,heal,blue,self,standard,Threads of bog-magic sew stolen vigor into the frog's open wounds.
+M-LICHFROG-2,Bonetongue,whip_lash,bone,target,standard,A tongue of vertebrae lashes out and retracts.
+M-LICHFROG-3,Bog Benediction,heal,blue,self,standard,Marsh-light gathers in the frog's ribcage and pours over the ally.
+M-LICHFROG-4,Deathcroak,atk_down,purple,target,fast,A croak from a throat that no longer needs air; frost rims the water.
+M-WISPMAW-1,Glowfeast,generic_impact,bone,target,standard,The maw opens beneath the light the target was watching.
+M-WISPMAW-2,Lure Flick,generic_impact,bone,target,standard,The glowing lure snaps forward like a fishing cast.
+M-WISPMAW-3,Mesmer Light,generic_impact,bone,target,standard,The lure pulses in a rhythm the target's eyes cannot leave.
+M-WISPMAW-4,Lantern of the Lost,atk_down,purple,target,fast,"Dozens of false lights kindle across the bog, all leading nowhere good."
+M-GRENDEL-1,Fenbreaker,generic_impact,bone,target,standard,"The salamander erupts from below, dragging half the fen with it."
+M-GRENDEL-2,Marsh Maul,generic_impact,bone,target,standard,A mud-slick forearm swats with hippo weight.
+M-GRENDEL-3,Parasite Shrug,generic_impact,bone,target,standard,The flank-parasites migrate off Grendel and onto someone else.
+M-GRENDEL-4,Bog Lurk,shield_def_up,blue,self,standard,Grendel sinks to eye-level in the mire and goes still.
+M-DRAUGR-1,Take You Under,speed_up,blue,self,fast,Hands — many more than two — reach up from the waterline.
+M-DRAUGR-2,Cold Grip,speed_down,purple,target,fast,A waterlogged hand closes; the cold spreads from its print.
+M-DRAUGR-3,Half-Here,generic_impact,bone,target,standard,The draugr thins to a suggestion; the bog shows through it.
+M-DRAUGR-4,Drowned Memory,atk_down,purple,target,fast,The target's limbs move as if underwater; bubbles rise from dry ground.
+M-GALLOWVINE-1,Marionette Harvest,whip_lash,bone,target,standard,Every strung corpse on the vine-network pulls one string at once.
+M-GALLOWVINE-2,Strangling Growth,projectile,bone,both-sides,standard,Green shoots visibly lengthen as they wind up the target's legs.
+M-GALLOWVINE-3,Tendril Snap,whip_lash,bone,target,standard,"A vine cracks like a whip, trailing grave-soil."
+M-GALLOWVINE-4,Puppet Corpse,atk_up,blue,self,fast,A vine-strung carcass rises and mimes the allies' stances.
+M-MIREMOTHER-1,What Lies Beneath,def_down,purple,target,fast,The visible mother doesn't move. Something much larger under her does.
+M-MIREMOTHER-2,Brood Slap,generic_impact,bone,target,standard,A webbed hand the size of a door pats the target flat.
+M-MIREMOTHER-3,Mother's Milk,heal,blue,self,standard,Pale bog-milk wells up and closes over the ally like balm.
+M-MIREMOTHER-4,Spawn Tide,shield_def_up,blue,self,standard,Ten thousand tadpole-things surface at once and push the team forward.
+M-CENOTAPH-1,Nameless End,generic_impact,bone,target,standard,"The absence closes its hand. Where the target was brightest, nothing."
+M-CENOTAPH-2,Absent Touch,pierce_strike,rust,target,standard,The mist-figure's hand passes through armor as if it were rumor.
+M-CENOTAPH-3,Unwritten,generic_impact,bone,target,standard,The figure gestures; the target's advantages simply stop having happened.
+M-CENOTAPH-4,Mourning Veil,generic_impact,bone,target,standard,Grey mist thickens around the team into a standing shroud.
+M-GLOOMCAP-1,Sporefall,atk_down,purple,target,fast,The cave ceiling releases a slow snowfall of glowing spores.
+M-GLOOMCAP-2,Cap Thump,melee_crush,bone,target,standard,"The mushroom headbutts, cap-first, with a dull drumbeat."
+M-GLOOMCAP-3,Vertigo Spores,atk_down,purple,target,fast,Motes drift up under the target's face; its footing goes wrong.
+M-GLOOMCAP-4,Mycowall,shield_def_up,blue,self,standard,Shelf-fungus plates fan out of the cap in overlapping rows.
+M-INKMANTLE-1,Memory Flood,generic_impact,bone,target,standard,The ink cloud collapses inward; the target visibly loses the thread.
+M-INKMANTLE-2,Tentacle Slap,generic_impact,bone,target,standard,"A casual, heavy slap that leaves an ink handprint."
+M-INKMANTLE-3,Lethean Ink,atk_down,purple,target,fast,"Black ink that spreads upstream, against the current, toward the eyes."
+M-INKMANTLE-4,Jet Retreat,cleanse,blue,self,standard,"One pulse of the mantle and the octopus is elsewhere, calmer."
+M-VEINMOLD-1,Total Colonization,atk_down,purple,target,fast,"The mold blooms from the target's own joints, moving them wrongly."
+M-VEINMOLD-2,Spore Lash,whip_lash,bone,target,standard,A fruiting tendril flicks a line of dust across the target.
+M-VEINMOLD-3,Neural Threading,atk_down,purple,target,fast,Fine white filaments crawl visibly under the target's skin.
+M-VEINMOLD-4,Symbiotic Bloom,atk_up,blue,self,fast,"A soft bracket of fungus flowers on the ally's shoulder, feeding it."
+M-SIBYL-1,Inevitable Future,generic_impact,bone,target,standard,The strike arrives exactly where the target was always going to be.
+M-SIBYL-2,Shell Chime,generic_impact,bone,target,standard,"The nautilus shell rings one clear, wrong-feeling note."
+M-SIBYL-3,Glimpse the End,generic_impact,bone,target,standard,"The target sees, for an instant, exactly how this goes for it."
+M-SIBYL-4,Prophecy Ward,generic_impact,bone,target,standard,"A spiral of faint futures winds around the ally, deflecting the worst one."
+M-VERTIGO-1,Unfolding Horror,generic_impact,bone,target,standard,"The body opens like a puzzle-box of limbs, then closes on the target."
+M-VERTIGO-2,Skitterflank,pierce_strike,rust,target,standard,The strike comes from a direction that shouldn't have existed.
+M-VERTIGO-3,Jointed Lunge,generic_impact,bone,target,standard,Too many elbows unfold at once; the reach is wrong.
+M-VERTIGO-4,Wrong Angles,atk_down,purple,target,fast,The crustacean walks a path the eye refuses to follow.
+M-LAMPYRE-1,Vanishing Strike,generic_impact,bone,target,standard,The trace-light goes out. The impact is the only proof of location.
+M-LAMPYRE-2,Traceflash,generic_impact,bone,target,standard,A dotted line of light appears; the hit follows it.
+M-LAMPYRE-3,Afterimage Trail,generic_impact,bone,target,standard,The glowing trail loops and doubles back; the body is not where it is.
+M-LAMPYRE-4,Hypnotic Wake,generic_impact,bone,target,standard,The light-trail draws a slow spiral; the target's eyes follow it down.
+M-SPOREWHALE-1,Breach of the Deep,generic_impact,bone,target,standard,The fungal leviathan breaches in slow motion and falls forever.
+M-SPOREWHALE-2,Bulk Drift,generic_impact,bone,target,standard,The whale-mass simply continues through the target's position.
+M-SPOREWHALE-3,Spore Ballast,shield_def_up,blue,self,standard,"The body densifies, spore-layers packing like sediment."
+M-SPOREWHALE-4,Filter Cleanse,cleanse,blue,self,standard,The whale inhales the water around the ally; troubles go with it.
+M-RIFTANGLER-1,Where It Goes,charge_impact,bone,target,standard,For one frame the target is half through the lure-hole. Then the frame ends.
+M-RIFTANGLER-2,Spacetooth,pierce_strike,rust,target,standard,"The bite closes through the target, armor and all, via somewhere else."
+M-RIFTANGLER-3,Riftlure Snap,melee_crush,bone,target,standard,The lure-hole dilates; the jaws arrive from inside it.
+M-RIFTANGLER-4,Bait the Hole,generic_impact,bone,target,standard,"The hole in space drifts closer to the target, patiently."
+M-MYCELIUM-1,Hyphal Sting,generic_impact,bone,target,standard,A single thread rises from the floor and pricks like a needle.
+M-MYCELIUM-2,The Network Provides,heal,blue,self,standard,"Threads surface beneath the ally, delivering what was needed."
+M-MYCELIUM-3,Rot and Renew,atk_up,blue,self,fast,The target starts breaking down; an ally visibly draws on the yield.
+M-MYCELIUM-4,We Are Elsewhere,cleanse,blue,self,standard,"The fruiting body slumps, hollow — the network was never only here."
+M-KRAKEN-1,Wake the Deep,generic_impact,bone,target,standard,The 'cave formation' opens its eye. The water level changes.
+M-KRAKEN-2,Cavern Collapse,def_down,purple,target,fast,The kraken pulls the ceiling down; the cave becomes a fist.
+M-KRAKEN-3,Eightfold Grip,speed_down,purple,target,fast,Arms find every limb and joint at once and constrict.
+M-KRAKEN-4,Colossal Sweep,generic_impact,bone,target,standard,An arm the size of a bridge span clears the space.
+M-CRYSTALWRAITH-1,Crystallize Grief,def_down,purple,target,fast,"Sorrow condenses on the target as spreading, weighty glass."
+M-CRYSTALWRAITH-2,Refraction Lance,pierce_strike,rust,target,standard,Light bends through the wraith and exits as a solid beam.
+M-CRYSTALWRAITH-3,Shardflick,bleed_dot,crimson,target,fast,An orbiting shard snaps out on an invisible thread.
+M-CRYSTALWRAITH-4,Prism Orbit,generic_impact,bone,target,standard,The drifting crystals accelerate into a glittering defensive ring.
+M-ASHBAT-1,Final Draught,heal,blue,self,standard,The bat drinks until the target's outline goes monochrome.
+M-ASHBAT-2,Life Sip,heal,blue,self,standard,A visible grey stream flows from target to bat.
+M-ASHBAT-3,Grey Nip,heal,blue,self,standard,A featherweight bite; colour drains from the point of contact.
+M-ASHBAT-4,Grey Wake,heal,blue,self,standard,The bat's wake settles on the target like fine ash that will not brush off.
+M-GEMBORN-1,Heartstone Beam,charge_impact,bone,target,standard,The creature aims its own chest; the gem discharges through it.
+M-GEMBORN-2,Facet Jab,generic_impact,bone,target,standard,A crystalline knuckle catches the light on the way in.
+M-GEMBORN-3,Core Shine,shield_def_up,blue,self,standard,The heart-gem flares through the body's translucence.
+M-GEMBORN-4,Hardlight Wall,generic_impact,bone,target,standard,A pane of projected gemlight snaps into place before the ally.
+M-BLOODCARVER-1,Masterpiece,generic_impact,bone,target,standard,The earlier incision was the sketch. This is the finished work.
+M-BLOODCARVER-2,Surgical Strike,pierce_strike,rust,target,standard,The blow enters at the one seam the armor cannot cover.
+M-BLOODCARVER-3,Incision,bleed_dot,crimson,target,fast,"One clean line, placed exactly where intended."
+M-BLOODCARVER-4,Arterial Map,charge_impact,bone,target,standard,Faint red lines glow through the target's skin — a diagram only it can read.
+M-SHATTERSPECTER-1,Reassembled Wrong,atk_down,purple,target,fast,"The specter rebuilds itself around the target, briefly, incorrectly."
+M-SHATTERSPECTER-2,Piecewise Assault,generic_impact,bone,target,standard,"Each fragment attacks separately, from four directions."
+M-SHATTERSPECTER-3,Fragment Swipe,generic_impact,bone,target,standard,A disconnected hand crosses the space between its pieces.
+M-SHATTERSPECTER-4,Come Apart,generic_impact,bone,target,standard,The specter disassembles; strikes pass through the gaps.
+M-VOIDHOUND-1,The Hunt Concludes,generic_impact,bone,target,standard,Every shadow in the room points the same way as the hound leaps.
+M-VOIDHOUND-2,Devour Vitality,heal,blue,self,standard,The bite takes something less visible than flesh.
+M-VOIDHOUND-3,Predestined Bite,melee_crush,bone,target,standard,"The jaws close where the target arrives, not where it was."
+M-VOIDHOUND-4,Scent of Endings,generic_impact,bone,target,standard,The hound inhales once; something in the target's shadow flinches.
+M-DOPPELGANGER-1,Perfect Reflection,charge_impact,bone,target,standard,For one frame the two silhouettes are identical. Then one falls.
+M-DOPPELGANGER-2,Mirror Jab,projectile,bone,both-sides,standard,"Your own arm, thrown back at you a half-beat late."
+M-DOPPELGANGER-3,Copied Stance,generic_impact,bone,target,standard,The reflection adjusts its posture; suddenly the advantage is on its side.
+M-DOPPELGANGER-4,Familiar Face,atk_down,purple,target,fast,"It turns around. The face is the target's own, slightly wrong."
+M-NOSFERATU-1,Red Formality,heal,blue,self,standard,"A single courteous bow, a single motion, and the matter is settled."
+M-NOSFERATU-2,Noble Feast,heal,blue,self,standard,The noble feeds with terrible etiquette; not a drop is wasted.
+M-NOSFERATU-3,Contempt,generic_impact,bone,target,standard,A gloved backhand delivered without looking.
+M-NOSFERATU-4,Command Presence,atk_down,purple,target,fast,The ancient meets the target's eyes; the target looks away first.
+M-PHYLACTERY-1,Gemfire Bolt,generic_impact,bone,target,standard,A lance of violet flame drawn straight from the buried soul-vessel.
+M-PHYLACTERY-2,Soulspark,generic_impact,bone,target,standard,A mote of pale fire leaps from the gem-vein to the target.
+M-PHYLACTERY-3,Leaden Curse,atk_down,purple,target,fast,The target's shadow doubles in darkness and drags at its heels.
+M-PHYLACTERY-4,Soul Elsewhere,generic_impact,bone,target,standard,"The body cracks apart — and re-knits, anchored to a light inside the wall."
+M-SPECULUM-1,Step Through,pierce_strike,rust,target,standard,A hand — then more than a hand — exits the surface at the target.
+M-SPECULUM-2,Backwards Cut,generic_impact,bone,target,standard,The wound appears before the surface finishes moving.
+M-SPECULUM-3,What It Reflects,atk_down,purple,target,fast,The blank surface ripples; something the target owned now shows on it.
+M-SPECULUM-4,Nothing Looks Back,atk_down,purple,target,fast,Attackers see themselves missing from the mirror — and hesitate.
+M-CINDERSHARD-1,Calving Burst,def_down,purple,target,fast,The shard splits violently in two; both halves are already regrowing.
+M-CINDERSHARD-2,Shard Storm,generic_impact,bone,target,standard,The fragment spins; a halo of glass splinters saws outward.
+M-CINDERSHARD-3,Glass Chip,bleed_dot,crimson,target,fast,"A flake of itself, flicked hard enough to bury."
+M-CINDERSHARD-4,Self-Replicate,shield_def_up,blue,self,standard,New shards crystallize from the heat-haze and slot into place.
+M-ASHWALKER-1,Bonefire March,generic_impact,bone,target,standard,"It walks through its own cloud, igniting it as it comes."
+M-ASHWALKER-2,Ash Cuff,generic_impact,bone,target,standard,A grey fist that leaves a powder print.
+M-ASHWALKER-3,Residual Purpose,cleanse,blue,self,standard,"The golem straightens; whatever it was for, it remembers enough."
+M-ASHWALKER-4,Choking Cloud,atk_down,purple,target,fast,"The walker exhales a slow, hot grey plume that hangs at head height."
+M-MOLOCH-1,Sacrificial Maw,generic_impact,bone,target,standard,The belly-grate opens. The fire inside is very old and very hungry.
+M-MOLOCH-2,Idol Fist,generic_impact,bone,target,standard,A hand of furnace-hot iron falls like a verdict.
+M-MOLOCH-3,Furnace Belly,generic_impact,bone,target,standard,The belly-grate glows white; touching the idol has a price.
+M-MOLOCH-4,Iron Adoration,shield_def_up,blue,self,standard,The idol settles into worship-stillness; its plates seal seamlessly.
+M-BLAZEWYRM-1,Wyrmflare,generic_impact,bone,target,standard,The wyrm rears and exhales its own body-heat in one white cone.
+M-BLAZEWYRM-2,Fire Coil,def_down,purple,target,fast,Burning loops stack around the target and tighten.
+M-BLAZEWYRM-3,Flame Lash,whip_lash,bone,target,standard,A whip of living fire licks across the target.
+M-BLAZEWYRM-4,Scorch Trail,generic_impact,bone,target,standard,"The serpent accelerates, its wake a line of standing flame."
+M-INFERNOCHIMERA-1,Three Heads One Hunger,melee_crush,bone,target,standard,For once the heads agree. All three bite the same place.
+M-INFERNOCHIMERA-2,Trisected Flame,burn_dot,red,target,standard,Three breath-cones of different colours converge on one point.
+M-INFERNOCHIMERA-3,Threefold Snap,generic_impact,bone,target,standard,"Three heads strike in sequence — left, right, center."
+M-INFERNOCHIMERA-4,Discordant Roar,atk_down,purple,target,fast,Three voices roar three different notes; the dissonance hits like heat.
+M-FERRODRAKE-1,Blastfurnace Roar,generic_impact,bone,target,standard,The chest-furnace doors swing open mid-roar; the blast is industrial.
+M-FERRODRAKE-2,Molten Rivets,def_down,purple,target,fast,White-hot rivets fire from the shoulder-plates like grapeshot.
+M-FERRODRAKE-3,Pig-Iron Bite,melee_crush,bone,target,standard,Jaws of cast iron close with a foundry clang.
+M-FERRODRAKE-4,Foundry Hide,shield_def_up,blue,self,standard,The plates seat themselves tighter; rivets glow along the seams.
+M-IGNIFER-1,Uncontained,generic_impact,bone,target,standard,The dragon stops holding itself together. Briefly. Deliberately.
+M-IGNIFER-2,Containment Failure,generic_impact,bone,target,standard,A scale lifts; a jet of the inner storm escapes at the target.
+M-IGNIFER-3,Cinder Slash,melee_slash,bone,target,standard,A claw of banked embers drags four glowing lines.
+M-IGNIFER-4,Stoke,atk_up,blue,self,fast,The internal firestorm brightens through the scale-seams.
+M-VIGIL-1,Contingency Zero,generic_impact,bone,target,standard,Something long-dormant authorizes force. The response is total.
+M-VIGIL-2,Warden Strike,generic_impact,bone,target,standard,"A measured blow, exactly as hard as required and no harder."
+M-VIGIL-3,Standing Order,shield_def_up,blue,self,standard,The construct resets to its waiting posture; readiness accumulates.
+M-VIGIL-4,Protocol Shield,generic_impact,bone,target,standard,A barrier of pale instruction-light projects in front of the ally.
+M-PYRIEL-1,Before There Was Light,pierce_strike,rust,target,standard,Everything dims except the burning. The burning was here first.
+M-PYRIEL-2,Primordial Spark,melee_crush,bone,target,standard,A single spark older than colour; it lands like a hammer.
+M-PYRIEL-3,First Flame,cleanse,blue,self,standard,"A small, patient flame that ignores water, wind, and argument."
+M-PYRIEL-4,Anoint in Fire,atk_up,blue,self,fast,"Fire passes over the ally without burning — a coronation, not an attack."
+M-DEMIURGE-1,Deprecation,generic_impact,bone,target,standard,"The target's outline is redrawn without its best features, then struck."
+M-DEMIURGE-2,Editing Stroke,generic_impact,bone,target,standard,"A single line is drawn through the target, as through a word."
+M-DEMIURGE-3,Rewrite Terms,generic_impact,bone,target,standard,The designer annotates; the errors change ownership.
+M-DEMIURGE-4,Design Flaw,atk_down,purple,target,fast,"Blueprint-lines flicker over the target, highlighting one joint in red."
