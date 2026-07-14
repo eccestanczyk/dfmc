@@ -55,7 +55,7 @@ function parseCSV(text){
 function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
 const CAT_META = {
-  'Weapon':    {icon:'⚔', title:'Weapons',      groupBy:null, grid:'rq-grid-3', img:f=>IMG_BASE+'codex/images/classes/CLS-'+f.toUpperCase()+'-1.png'},
+  'Weapon':    {icon:'⚔', title:'Weapons',      groupBy:null, grid:'rq-grid-3', noDesc:true, img:f=>IMG_BASE+'codex/images/classes/CLS-'+f.toUpperCase()+'-1.png'},
   'Armour':    {icon:'🛡', title:'Armour',       groupBy:null, grid:'rq-grid-2'},
   'Accessory': {icon:'💍', title:'Accessories',  groupBy:null},
   'Tag':       {icon:'🏷', title:'Creature Tags', groupBy:null},
@@ -128,6 +128,10 @@ const CAT_ORDER = ['Weapon','Armour','Accessory','Tag','Gem','Rune','Scroll'];
     if(!desc) desc = v.category;
     const src = v.art ? IMG_BASE+v.art+'?t='+Date.now() : ((meta && meta.img) ? meta.img(v.family) : '');
     const img = src ? `<img src="${src}" alt="${esc(v.family)}" loading="lazy">` : '';
+    if (meta && meta.noDesc) {
+      return `<a class="rq-item${img?' with-img':''}" href="item.html?type=${encodeURIComponent(v.family)}">
+        ${img}<div class="rq-item-name">${esc(v.family)}</div></a>`;
+    }
     return `<a class="rq-item${img?' with-img':''}" href="item.html?type=${encodeURIComponent(v.family)}">
       ${img}<div class="rq-item-name">${esc(v.family)}</div>
       <div class="rq-item-desc">${esc(desc)}</div></a>`;
