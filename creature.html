@@ -153,7 +153,7 @@
 
 <script>
 const CREATURES_URL = "codex/creatures.csv";
-const IMG_BASE = "https://cdn.jsdelivr.net/gh/eccestanczyk/dfmc@main/";
+const IMG_BASE = "./";
 const SLOT_NAMES = {"1":"Main Hand","2":"Off Hand","3":"1st Accessory","4":"2nd Accessory"};
 
 function parseCSV(text) {
@@ -491,7 +491,7 @@ load();
     // A = original chroma (DFMC-XXX.png)
     // B = Sylph crop (cropped/DFMC-XXX.png)
     // C = isnet crop (cropped_c/DFMC-XXX.png)
-    const IMG_BASE = 'https://cdn.jsdelivr.net/gh/eccestanczyk/dfmc@main/codex/images/';
+    const IMG_BASE = './codex/images/';
     const OPTION_DEFS = [
       { label: 'A', folder: '',           key: 'A' },
       { label: 'B', folder: 'cropped/',   key: 'B' },

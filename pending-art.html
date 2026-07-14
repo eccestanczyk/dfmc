@@ -36,7 +36,7 @@
 <div class="pending-grid" id="grid"></div>
 <script>
 const CSV_URL = "codex/creatures.csv?" + Date.now();
-const IMG_BASE = "https://cdn.jsdelivr.net/gh/eccestanczyk/dfmc@main/";
+const IMG_BASE = "./";
 function escapeHtml(s){return s?s.replace(/&/g,'&amp;').replace(/</g,'&lt;'):'';}
 fetch(CSV_URL).then(r=>r.text()).then(text=>{
   const lines = text.trim().split('\n');
