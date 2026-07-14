@@ -212,9 +212,13 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     <h3>One character per league, always</h3>
     <p>Every account has a character in every league they have unlocked, starting at level 1. The character slot is permanent — death does not remove or demote the character. On hardcore death, the character is wiped back to level 1 and remains in the same league. Only their items, creatures, and class XP are lost.</p>
 
-    <h3>Character level vs class level</h3>
+    <h3>Player level, character level, class level</h3>
+    <p>The <strong style="color:#ede0c4">player level</strong> is account-wide and uncapped: it accumulates every point of XP the account ever earns, uses the standard curve to 100, then costs a flat 3,135,664 XP per level forever. It grants nothing — no stats, no unlocks — and is the only progression number that survives hardcore death. Creature, class, and character levels all cap at 100.</p>
     <p>The character has a <strong style="color:#ede0c4">character level</strong> — a global level aggregated from XP across all classes. Character level scales base stats (HP, stamina, resistances). Each class has its own <strong style="color:#ede0c4">class level</strong> tracked separately, unlocking class-specific bonuses. Switching classes does not reset others.</p>
-    <div class="card"><div class="card-title">XP & level model</div><pre style="margin:8px 0 0">Character
+    <div class="card"><div class="card-title">XP & level model</div><pre style="margin:8px 0 0">Account
+├── playerLevel      → all XP ever earned → uncapped, grants nothing (see XP & Leveling)
+│                      levels 101+ cost a flat 3,135,664 XP each; survives hardcore death
+└── Character
 ├── characterLevel   → sum of all class XP → scales base stats
 ├── Warrior
 │   ├── classLevel   → scales warrior power

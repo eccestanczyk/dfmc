@@ -21,6 +21,7 @@
     <tr><th>Quantity</th><th>Expression</th></tr>
     <tr><td class="lbl">XP required, levels 1&ndash;66</td><td><code>10 &times; L^1.75</code></td></tr>
     <tr><td class="lbl">XP required, levels 67&ndash;100</td><td><code>234 &times; L &times; 1.16^(L&minus;67)</code></td></tr>
+    <tr><td class="lbl">XP required, player level 101+</td><td><code>3,135,664</code> &mdash; flat, the level-100 requirement repeated forever (player level only; creatures and classes cap at 100)</td></tr>
     <tr><td class="lbl">XP per kill (enemy level C)</td><td><code>10 &times; C</code></td></tr>
     <tr><td class="lbl">Battles per level</td><td><code>L^0.75</code>, then <code>23.4 &times; 1.16^(L&minus;67)</code></td></tr>
   </table>
@@ -38,6 +39,18 @@
   <p style="font-size:12px;color:var(--ink-faint)">*At ~2&nbsp;minutes per battle on autoplay (~30 battles/hour).</p>
 
   <div class="sp-note">The curve is deliberately back-loaded: about <strong style="color:var(--ink)">75% of all leveling time sits in levels 90&ndash;100</strong>, and 50% in the last five levels. Total to max: <strong style="color:var(--ink)">~20,300 battles &asymp; 680&nbsp;h</strong>. Reaching level&nbsp;67 &mdash; where wild Stage&nbsp;3 creatures appear &mdash; takes only ~885 battles (~30&nbsp;h).</div>
+
+  <h2>Player level (uncapped)</h2>
+  <p>Separate from creature levels, class levels, and character level. The <strong>player level</strong> is an account-wide marker of total time in the tower &mdash; it is <strong>purely cosmetic today and grants nothing</strong>: no stats, no unlocks, no gear requirements. It exists so that the endgame keeps counting, and so that a future system has a natural place to hook into.</p>
+  <table>
+    <tr><th>Property</th><th>Rule</th></tr>
+    <tr><td class="lbl">XP source</td><td>Every point of XP the account earns, from every battle, in every league. Player XP is never split &mdash; it is the raw total.</td></tr>
+    <tr><td class="lbl">Curve, levels 1&ndash;100</td><td>Identical to the creature / class curve: <code>10 &times; L^1.75</code>, then <code>234 &times; L &times; 1.16^(L&minus;67)</code>.</td></tr>
+    <tr><td class="lbl">Curve, levels 101+</td><td><strong>Flat</strong>. Every level past 100 costs the same as level 100 did: <code>3,135,664</code> XP. No cap &mdash; the level counter never stops.</td></tr>
+    <tr><td class="lbl">Hardcore death</td><td>Player level is <strong>not</strong> lost. Characters, creatures, items, and class XP are wiped; the player level is the one number that survives, because it measures the account, not the run.</td></tr>
+    <tr><td class="lbl">Grants</td><td>Nothing. Deliberately inert.</td></tr>
+  </table>
+  <p>Pacing, past 100: at level-100 enemies (<code>10 &times; 100</code> = 1,000 XP per kill) each player level is <strong>~3,136 battles &asymp; 105&nbsp;h</strong> of autoplay. Reaching player level 100 itself takes ~21.6&nbsp;M XP; every level after is a fixed ~3.1&nbsp;M grind, so the counter climbs slowly and linearly forever instead of exploding.</p>
 
   <h2>Who receives XP</h2>
   <ul class="sp-rules">
