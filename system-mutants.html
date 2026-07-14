@@ -14,14 +14,24 @@
 <div class="topbar"><h1 style="font-family:'Cinzel',serif;">MUTANT VARIANTS</h1></div>
 <div class="sp-wrap">
   <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; Mutant Variants</div>
-  <p class="sp-lead">Any egg can hatch as a Mutant &mdash; a creature with an alternate colour scheme from a rare pigmentation mutation. It is <strong style="color:var(--ink)">purely cosmetic</strong>: a medal on the creature sheet and a recoloured palette, with no effect on stats or gameplay.</p>
+  <p class="sp-lead">Any egg can hatch as a Mutant, and any wild creature can spawn as one &mdash; a creature with an alternate colour scheme from a rare pigmentation mutation. It is <strong style="color:var(--ink)">purely cosmetic</strong>: a medal on the creature sheet and a recoloured palette, with no effect on stats or gameplay.</p>
 
-  <h2>Hatch chance by egg grade</h2>
+  <h2>Mutant chance by grade</h2>
   <p>Chance scales with egg grade. Completing the Codex adds a permanent flat <code>+0.1%</code> to every mutant hatch chance.</p>
   <table>
     <tr><th>Egg grade</th><th>Base chance</th><th>With Codex bonus</th></tr>
     <tbody id="mBody"></tbody>
   </table>
+
+  <h2>Wild spawns</h2>
+  <p>Mutants are not a hatch-only phenomenon. <strong>Every wild creature rolls for Mutant colouring when it spawns</strong>, on exactly the same odds &mdash; the table above, read against <strong>the wild creature's own grade</strong> instead of an egg's grade, and lifted by the same Codex zone tiers. A Void-grade wild spawn is a Mutant 0.10% of the time (0.20% at full Codex); a Worn one, 0.01%.</p>
+  <table>
+    <tr><th>Source</th><th>Rolls against</th><th>Codex bonus applies</th></tr>
+    <tr><td class="lbl">Hatching an egg</td><td>Egg grade</td><td>Yes</td></tr>
+    <tr><td class="lbl">Wild spawn</td><td>The spawned creature's grade</td><td>Yes</td></tr>
+    <tr><td class="lbl">Fusion</td><td>No roll &mdash; inherits: the result is a Mutant if <em>either</em> parent was one</td><td>&mdash;</td></tr>
+  </table>
+  <p>A wild Mutant is a sighting: it fights in its recoloured palette and marks the Codex accordingly. It is still cosmetic &mdash; identical stats, moves, and grade to any other spawn of its kind &mdash; and, like every wild creature, it is not itself Acquired; Acquisition happens by hatching.</p>
 
   <h2>Codex completion tiers</h2>
   <p>The Codex bonus is not one all-or-nothing unlock &mdash; it is earned <strong>zone by zone</strong>. Each of the ten zones has its own Codex tier: <strong>Acquire (hatch) every creature that appears on that zone's floors</strong> and the tier locks in permanently.</p>
