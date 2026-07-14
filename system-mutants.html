@@ -23,10 +23,29 @@
     <tbody id="mBody"></tbody>
   </table>
 
+  <h2>Codex completion tiers</h2>
+  <p>The Codex bonus is not one all-or-nothing unlock &mdash; it is earned <strong>zone by zone</strong>. Each of the ten zones has its own Codex tier: <strong>Acquire (hatch) every creature that appears on that zone's floors</strong> and the tier locks in permanently.</p>
+  <table>
+    <tr><th>Zone</th><th>Floors</th><th>Creatures</th><th>Tier reward</th><th>Cumulative</th></tr>
+    <tr><td class="lbl">Grasslands</td><td>1&ndash;10</td><td style="text-align:center">90</td><td style="text-align:center">+0.01%</td><td style="text-align:center">+0.01%</td></tr>
+    <tr><td class="lbl">Tidal Shallows</td><td>11&ndash;20</td><td style="text-align:center">90</td><td style="text-align:center">+0.01%</td><td style="text-align:center">+0.02%</td></tr>
+    <tr><td class="lbl">Desert Plains</td><td>21&ndash;30</td><td style="text-align:center">90</td><td style="text-align:center">+0.01%</td><td style="text-align:center">+0.03%</td></tr>
+    <tr><td class="lbl">Swarm Thicket</td><td>31&ndash;40</td><td style="text-align:center">90</td><td style="text-align:center">+0.01%</td><td style="text-align:center">+0.04%</td></tr>
+    <tr><td class="lbl">The Crag</td><td>41&ndash;50</td><td style="text-align:center">90</td><td style="text-align:center">+0.01%</td><td style="text-align:center">+0.05%</td></tr>
+    <tr><td class="lbl">Storm Peaks</td><td>51&ndash;60</td><td style="text-align:center">90</td><td style="text-align:center">+0.01%</td><td style="text-align:center">+0.06%</td></tr>
+    <tr><td class="lbl">Sunken Bog</td><td>61&ndash;70</td><td style="text-align:center">90</td><td style="text-align:center">+0.01%</td><td style="text-align:center">+0.07%</td></tr>
+    <tr><td class="lbl">Underwater Cave</td><td>71&ndash;80</td><td style="text-align:center">90</td><td style="text-align:center">+0.01%</td><td style="text-align:center">+0.08%</td></tr>
+    <tr><td class="lbl">Gemstone Cave</td><td>81&ndash;90</td><td style="text-align:center">90</td><td style="text-align:center">+0.01%</td><td style="text-align:center">+0.09%</td></tr>
+    <tr><td class="lbl">Flaming Hellscape</td><td>91&ndash;100</td><td style="text-align:center">90</td><td style="text-align:center">+0.01%</td><td style="text-align:center">+0.10%</td></tr>
+    </table>
+  <p>Each zone tier grants a permanent <strong>+0.01% flat Mutant hatch chance</strong>. All ten zones = the full Codex = <strong>+0.10%</strong>, exactly the completion bonus in the table above &mdash; the reward was always +0.1%; it is now paid out in ten instalments instead of one.</p>
+  <div class="note"><strong>Zones overlap by design.</strong> Creatures appear on floors across several zones (a creature's <code>Floor_Found</code> reads like <code>1;11;21;32</code>), so each zone's set is 90 creatures and the ten sets union to all 300. A creature counts toward every zone tier whose floors it appears on &mdash; completing the Grasslands tier therefore also carries you part-way through the tiers above it, and the ten tiers finish together only when the last creature is Acquired.</div>
+  <p><strong>Acquired</strong> means hatched. Seeing a creature in the wild marks it Seen in the Codex but does not count toward a tier.</p>
+
   <h2>How it behaves</h2>
   <ul class="sp-rules">
     <li><strong>Cosmetic only</strong> &mdash; grants a medal and a recoloured palette; identical stats, moves, and grade to a normal hatch.</li>
-    <li><strong>Codex completion bonus</strong> &mdash; a permanent +0.1% added to all grades once the Codex is complete, roughly doubling the low end and lifting the ceiling to 0.20%.</li>
+    <li><strong>Codex completion bonus</strong> &mdash; a permanent +0.1% added to all grades at full Codex, accrued +0.01% per completed zone tier; at full completion it roughly doubles the low end and lifts the ceiling to 0.20%.</li>
     <li><strong>Fusion carries it forward</strong> &mdash; fusing two creatures combines their XP and keeps the higher grade; the result is a Mutant if <em>either</em> parent was one.</li>
   </ul>
 
