@@ -13,6 +13,16 @@ table{border-collapse:collapse;width:100%;margin:8px 0}
 th{font-family:'Cinzel',serif;font-size:11px;color:var(--gold);border-bottom:1px solid var(--gold);padding:6px 8px;text-align:left}
 td{border-bottom:1px solid var(--rule);padding:5px 8px;color:var(--ink-dim);font-size:13px}
 .note{background:var(--surface-2);border-left:3px solid var(--gold);padding:8px 14px;margin:12px 0;font-size:13px;color:var(--ink-dim)}
+.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0}
+.filters select,.filters input{background:var(--surface-2);border:1px solid var(--rule);color:var(--ink);font-family:'EB Garamond',serif;font-size:13px;padding:5px 8px}
+.filters input{min-width:220px}
+.filters .count{margin-left:auto;font-family:'Cinzel',serif;font-size:11px;color:var(--ink-faint)}
+#tbl thead th{position:sticky;top:0;background:var(--surface-1)}
+.rid{font-family:'Cinzel',serif;font-size:11px;color:var(--ink-faint)}
+.oname{color:var(--gold-bright,#e0bd6a);text-decoration:none;font-weight:600}
+.oname:hover{text-decoration:underline}
+.grade{margin-left:6px;font-size:10px;color:#8a8070;border:1px solid var(--rule);padding:1px 5px}
+.mats .mat{display:inline-block;background:rgba(207,166,80,0.08);border:1px solid #5c462c;color:#e0bd6a;font-size:12px;padding:1px 7px;margin:1px 4px 1px 0}
 </style></head><body>
 <div class="topbar">
   <div class="site-nav" style="position:relative;z-index:20;">
@@ -27,57 +37,89 @@ td{border-bottom:1px solid var(--rule);padding:5px 8px;color:var(--ink-dim);font
   </div></div>
   <h1>CRAFTING</h1>
 </div>
-<div style="max-width:900px;margin:0 auto;padding:20px 16px 80px">
+<div style="max-width:1040px;margin:0 auto;padding:20px 16px 80px">
   <p style="color:var(--ink-dim);font-style:italic">Nothing is useless. Every drop dismantles into materials. Every material crafts the next tier.</p>
 
-  <h2 style="font-family:'Cinzel',serif;font-size:18px;color:var(--gold);margin:20px 0 8px">Gear crafting</h2>
-  <p style="font-size:14px;color:var(--ink-dim)">Craft a Worn-grade item of any chosen slot and base type at a target tier. Output is always Worn — grade up via Ichor separately.</p>
-  <table>
-    <tr><th>Tier</th><th>Level bracket</th><th>Scrap cost</th><th>Output</th></tr>
-    <tr><td>1</td><td>1–9</td><td>25</td><td>Worn T1 item</td></tr>
-    <tr><td>2</td><td>10–19</td><td>50</td><td>Worn T2 item</td></tr>
-    <tr><td>3</td><td>20–29</td><td>75</td><td>Worn T3 item</td></tr>
-    <tr><td>4</td><td>30–39</td><td>100</td><td>Worn T4 item</td></tr>
-    <tr><td>5</td><td>40–49</td><td>125</td><td>Worn T5 item</td></tr>
-    <tr><td>6</td><td>50–59</td><td>150</td><td>Worn T6 item</td></tr>
-    <tr><td>7</td><td>60–69</td><td>175</td><td>Worn T7 item</td></tr>
-    <tr><td>8</td><td>70–79</td><td>200</td><td>Worn T8 item</td></tr>
-    <tr><td>9</td><td>80–89</td><td>225</td><td>Worn T9 item</td></tr>
-    <tr><td>10</td><td>90–100</td><td>250</td><td>Worn T10 item</td></tr>
+  <div class="note"><strong style="color:var(--gold)">Recipes are authored, not formulaic.</strong> Every craftable item has its own row in <code>codex/recipes.csv</code> with an explicit material bill. There is no cost formula anywhere in the crafting system — change a recipe by editing its row. Output grade is always <strong>Worn</strong>; grading up is the separate Ichor system on the <a href="upgrading.html" style="color:var(--gold-bright)">Upgrading</a> page.</div>
+
+  <h2 style="font-family:'Cinzel',serif;font-size:18px;color:var(--gold);margin:20px 0 8px">Recipe book</h2>
+  <div class="filters">
+    <select id="fcat"><option value="">All categories</option></select>
+    <select id="ffam"><option value="">All families</option></select>
+    <select id="ftier"><option value="">All tiers</option></select>
+    <input id="fq" type="text" placeholder="Search recipe or item…">
+    <span id="count" class="count"></span>
+  </div>
+  <table id="tbl">
+    <thead><tr><th>Recipe</th><th>Output</th><th>Category</th><th>Slot</th><th>Tier</th><th>Lvl</th><th>Materials</th></tr></thead>
+    <tbody id="tb"><tr><td colspan="7" style="color:var(--ink-faint)">Loading recipes…</td></tr></tbody>
   </table>
 
-  <h2 style="font-family:'Cinzel',serif;font-size:18px;color:var(--gold);margin:20px 0 8px">Enhancement crafting</h2>
-  <p style="font-size:14px;color:var(--ink-dim)">Craft a Worn-grade gem, rune, or scroll at a chosen tier using that family's material.</p>
-  <table>
-    <tr><th>Family</th><th>Material</th><th>Cost per tier</th><th>Formula</th></tr>
-    <tr><td>💎 Gems</td><td style="color:var(--gold)">Dust</td><td>6 × tier</td><td>T1 = 6, T5 = 30, T10 = 60 Dust</td></tr>
-    <tr><td>🔷 Runes</td><td style="color:var(--gold)">Essence</td><td>6 × tier</td><td>T1 = 6, T5 = 30, T10 = 60 Essence</td></tr>
-    <tr><td>📜 Scrolls</td><td style="color:var(--gold)">Ink</td><td>6 × tier</td><td>T1 = 6, T5 = 30, T10 = 60 Ink</td></tr>
-  </table>
+  <h2 style="font-family:'Cinzel',serif;font-size:18px;color:var(--gold);margin:24px 0 8px">Gear combining</h2>
+  <p style="font-size:14px;color:var(--ink-dim)"><strong>3 &times; same-slot, same-grade</strong> gear &rarr; 1 random base type of that slot at the next grade. <strong>Capped at Epic.</strong> Legendary and above come from Ichor gambles and lucky drops only.</p>
+  <div class="recipe"><h4>Example</h4><div class="cost">3 &times; Rare Longsword &rarr; 1 &times; Epic (random weapon base)</div><div class="notes">Epic is grade 5 — the market entry tier. Deterministically grindable.</div></div>
 
-  <h2 style="font-family:'Cinzel',serif;font-size:18px;color:var(--gold);margin:20px 0 8px">Gear combining</h2>
-  <p style="font-size:14px;color:var(--ink-dim)"><strong>3 × same-slot, same-grade</strong> gear → 1 random base type of that slot at the next grade. <strong>Capped at Epic.</strong> Legendary and above come from Ichor gambles and lucky drops only.</p>
-  <div class="recipe"><h4>Example</h4><div class="cost">3 × Rare Blade → 1 × Epic (random weapon base)</div><div class="notes">Epic is grade 5 — the market entry tier. Deterministically grindable.</div></div>
-
-  <h2 style="font-family:'Cinzel',serif;font-size:18px;color:var(--gold);margin:20px 0 8px">Dismantling</h2>
+  <h2 style="font-family:'Cinzel',serif;font-size:18px;color:var(--gold);margin:24px 0 8px">Dismantling</h2>
   <table>
-    <tr><th>Item type</th><th>Output</th><th>Yield formula</th></tr>
+    <tr><th>Item type</th><th>Output</th><th>Yield</th></tr>
     <tr><td>Gear</td><td style="color:var(--gold)">Scrap</td><td>W 3 / C 5 / UC 9 / R 15 / E 25 / L 40 / A 65 / D 105 / P 170 / V 275 (refined gear returns extra)</td></tr>
     <tr><td>Gear (Rare+)</td><td style="color:var(--gold)">Scrap + Ichor</td><td>R 1 / E 2 / L 4 / A 8 / D 12 / P 20 / V 32 Ichor</td></tr>
-    <tr><td>Gems</td><td style="color:var(--gold)">Dust</td><td>tier × grade# (T10 Rare = 40 Dust)</td></tr>
-    <tr><td>Runes</td><td style="color:var(--gold)">Essence</td><td>tier × grade#</td></tr>
-    <tr><td>Scrolls</td><td style="color:var(--gold)">Ink</td><td>tier × grade#</td></tr>
+    <tr><td>Gems</td><td style="color:var(--gold)">Dust</td><td><code>tier &times; grade#</code> (T10 Rare = 40 Dust)</td></tr>
+    <tr><td>Runes</td><td style="color:var(--gold)">Essence</td><td><code>tier &times; grade#</code></td></tr>
+    <tr><td>Scrolls</td><td style="color:var(--gold)">Ink</td><td><code>tier &times; grade#</code></td></tr>
   </table>
 
-  <h2 style="font-family:'Cinzel',serif;font-size:18px;color:var(--gold);margin:20px 0 8px">Scroll rerolling</h2>
-  <div class="recipe"><h4>Reroll a socketed scroll's modifier</h4><div class="cost">3 × tier Ink (T10 = 30 Ink)</div><div class="notes">New random modifier from the enchantment pool. Values scale with the gear's grade and tier.</div></div>
+  <h2 style="font-family:'Cinzel',serif;font-size:18px;color:var(--gold);margin:24px 0 8px">Scroll rerolling</h2>
+  <div class="recipe"><h4>Reroll a socketed scroll's modifier</h4><div class="cost">3 &times; tier Ink (T10 = 30 Ink)</div><div class="notes">New random modifier from the enchantment pool. Values scale with the gear's grade and tier.</div></div>
 
-  <h2 style="font-family:'Cinzel',serif;font-size:18px;color:var(--gold);margin:20px 0 8px">Equip requirements</h2>
+  <h2 style="font-family:'Cinzel',serif;font-size:18px;color:var(--gold);margin:24px 0 8px">Equip requirements</h2>
   <table>
     <tr><th>Rule</th><th>Requirement</th></tr>
-    <tr><td>Character gear</td><td>Tier N → character level ≥ (N−1)×10</td></tr>
-    <tr><td>Creature Tags</td><td>Tier N → creature level ≥ (N−1)×10</td></tr>
-    <tr><td>Enhancement socketing</td><td>Enhancement tier ≤ gear's tier</td></tr>
+    <tr><td>Character gear</td><td>Tier N &rarr; character level &ge; (N&minus;1)&times;10</td></tr>
+    <tr><td>Creature Tags</td><td>Tier N &rarr; creature level &ge; (N&minus;1)&times;10</td></tr>
+    <tr><td>Enhancement socketing</td><td>Enhancement tier &le; gear's tier</td></tr>
     <tr><td>Gem/rune removal</td><td>Destroys the enhancement, frees the socket</td></tr>
   </table>
-<script src="nav.js"></script></div></body></html>
+
+<script src="nav.js"></script>
+<script>
+let ROWS=[];
+function parseCSV(t){
+  const out=[];let row=[],cur="",q=false;
+  for(let i=0;i<t.length;i++){const ch=t[i];
+    if(q){ if(ch==='"'){ if(t[i+1]==='"'){cur+='"';i++;} else q=false; } else cur+=ch; }
+    else if(ch==='"') q=true;
+    else if(ch===','){row.push(cur);cur="";}
+    else if(ch==='\n'){row.push(cur);out.push(row);row=[];cur="";}
+    else if(ch!=='\r') cur+=ch;
+  }
+  if(cur.length||row.length){row.push(cur);out.push(row);}
+  const hdr=out.shift();
+  return out.filter(r=>r.length>1).map(r=>Object.fromEntries(hdr.map((h,i)=>[h,(r[i]||"").trim()])));
+}
+function esc(s){return (s||"").replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
+function fill(sel,vals){const e=document.getElementById(sel);vals.forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;e.appendChild(o);});}
+function render(){
+  const cat=fcat.value,fam=ffam.value,tier=ftier.value,q=fq.value.toLowerCase();
+  const r=ROWS.filter(x=>(!cat||x.Category===cat)&&(!fam||x.Family===fam)&&(!tier||x.Tier===tier)
+    &&(!q||(x.Output_Name+" "+x.Recipe_ID+" "+x.Family+" "+x.Materials).toLowerCase().includes(q)));
+  document.getElementById('count').textContent=r.length+" / "+ROWS.length+" recipes";
+  document.getElementById('tb').innerHTML = r.length? r.map(x=>
+    `<tr><td class="rid">${esc(x.Recipe_ID)}</td>`+
+    `<td><a href="item.html?id=${esc(x.Output_Item_ID)}" class="oname">${esc(x.Output_Name)}</a><span class="grade">Worn</span></td>`+
+    `<td>${esc(x.Category)} &middot; ${esc(x.Family)}</td><td>${esc(x.Slot)}</td>`+
+    `<td>T${esc(x.Tier)}</td><td>${esc(x.Level_Req)}</td>`+
+    `<td class="mats">${esc(x.Materials).split(';').map(m=>`<span class="mat">${m.trim()}</span>`).join('')}</td></tr>`
+  ).join('') : '<tr><td colspan="7" style="color:var(--ink-faint)">No recipes match.</td></tr>';
+}
+fetch('codex/recipes.csv?t='+Date.now()).then(r=>r.text()).then(t=>{
+  ROWS=parseCSV(t);
+  fill('fcat',[...new Set(ROWS.map(r=>r.Category))].sort());
+  fill('ffam',[...new Set(ROWS.map(r=>r.Family))].sort());
+  fill('ftier',[...new Set(ROWS.map(r=>+r.Tier))].sort((a,b)=>a-b).map(String));
+  ['fcat','ffam','ftier'].forEach(id=>document.getElementById(id).onchange=render);
+  document.getElementById('fq').oninput=render;
+  render();
+}).catch(e=>{document.getElementById('tb').innerHTML='<tr><td colspan="7" style="color:#b4534f">Failed to load codex/recipes.csv</td></tr>';});
+</script>
+</div></body></html>
