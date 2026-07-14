@@ -60,17 +60,17 @@ td{border-bottom:1px solid var(--rule);padding:5px 8px;color:var(--ink-dim);font
   <div class="recipe"><h4>Example</h4><div class="cost">3 &times; Rare Longsword &rarr; 1 &times; Epic (random weapon base)</div><div class="notes">Epic is grade 5 — the market entry tier. Deterministically grindable.</div></div>
 
   <h2 style="font-family:'Cinzel',serif;font-size:18px;color:var(--gold);margin:24px 0 8px">Dismantling</h2>
-  <table>
-    <tr><th>Item type</th><th>Output</th><th>Yield</th></tr>
-    <tr><td>Gear</td><td style="color:var(--gold)">Scrap</td><td>W 3 / C 5 / UC 9 / R 15 / E 25 / L 40 / A 65 / D 105 / P 170 / V 275 (refined gear returns extra)</td></tr>
-    <tr><td>Gear (Rare+)</td><td style="color:var(--gold)">Scrap + Ichor</td><td>R 1 / E 2 / L 4 / A 8 / D 12 / P 20 / V 32 Ichor</td></tr>
-    <tr><td>Gems</td><td style="color:var(--gold)">Dust</td><td><code>tier &times; grade#</code> (T10 Rare = 40 Dust)</td></tr>
-    <tr><td>Runes</td><td style="color:var(--gold)">Essence</td><td><code>tier &times; grade#</code></td></tr>
-    <tr><td>Scrolls</td><td style="color:var(--gold)">Ink</td><td><code>tier &times; grade#</code></td></tr>
-  </table>
+  <p style="font-size:14px;color:var(--ink-dim)">Authored per row in <code>codex/dismantle.csv</code> — 410 rows. Gear: every (grade &times; refinement) pair. Gems / runes / scrolls: every (tier &times; grade) pair. No yield formula.</p>
+  <div class="filters">
+    <select id="dcat"><option value="">All categories</option></select>
+    <select id="dgrade"><option value="">All grades</option></select>
+    <span id="dcount" class="count"></span>
+  </div>
+  <table><thead><tr><th>ID</th><th>Category</th><th>Grade</th><th>Tier</th><th>Refine</th><th>Yield</th></tr></thead><tbody id="dtb"><tr><td colspan="6" style="color:var(--ink-faint)">Loading…</td></tr></tbody></table>
 
   <h2 style="font-family:'Cinzel',serif;font-size:18px;color:var(--gold);margin:24px 0 8px">Scroll rerolling</h2>
-  <div class="recipe"><h4>Reroll a socketed scroll's modifier</h4><div class="cost">3 &times; tier Ink (T10 = 30 Ink)</div><div class="notes">New random modifier from the enchantment pool. Values scale with the gear's grade and tier.</div></div>
+  <p style="font-size:14px;color:var(--ink-dim)">Authored per tier in <code>codex/reroll.csv</code>. Rerolls the socketed scroll's enchantment modifier from the pool.</p>
+  <table><thead><tr><th>ID</th><th>Tier</th><th>Ink cost</th></tr></thead><tbody id="rtb"><tr><td colspan="3" style="color:var(--ink-faint)">Loading…</td></tr></tbody></table>
 
   <h2 style="font-family:'Cinzel',serif;font-size:18px;color:var(--gold);margin:24px 0 8px">Equip requirements</h2>
   <table>
@@ -121,5 +121,27 @@ fetch('codex/recipes.csv?t='+Date.now()).then(r=>r.text()).then(t=>{
   document.getElementById('fq').oninput=render;
   render();
 }).catch(e=>{document.getElementById('tb').innerHTML='<tr><td colspan="7" style="color:#b4534f">Failed to load codex/recipes.csv</td></tr>';});
+const MATS=["Scrap","Ichor","Dust","Essence","Ink"];
+let DIS=[];
+function drender(){
+  const cat=dcat.value,g=dgrade.value;
+  const r=DIS.filter(x=>(!cat||x.Category===cat)&&(!g||x.Grade===g));
+  document.getElementById('dcount').textContent=r.length+" / "+DIS.length+" rows";
+  document.getElementById('dtb').innerHTML=r.map(x=>{
+    const y=MATS.filter(m=>+x[m]>0).map(m=>`<span class="mat">${x[m]} ${m}</span>`).join('')||'<span class="mat">—</span>';
+    return `<tr><td class="rid">${esc(x.Dismantle_ID)}</td><td>${esc(x.Category)}</td><td>${esc(x.Grade)}</td><td>${x.Tier?'T'+esc(x.Tier):'—'}</td><td>${esc(x.Refinement)||'—'}</td><td class="mats">${y}</td></tr>`;
+  }).join('')||'<tr><td colspan="6" style="color:var(--ink-faint)">No rows.</td></tr>';
+}
+fetch('codex/dismantle.csv?t='+Date.now()).then(r=>r.text()).then(t=>{
+  DIS=parseCSV(t);
+  fill('dcat',[...new Set(DIS.map(r=>r.Category))]);
+  fill('dgrade',[...new Set(DIS.map(r=>r.Grade))]);
+  ['dcat','dgrade'].forEach(id=>document.getElementById(id).onchange=drender);
+  drender();
+}).catch(()=>{document.getElementById('dtb').innerHTML='<tr><td colspan="6" style="color:#b4534f">Failed to load codex/dismantle.csv</td></tr>';});
+fetch('codex/reroll.csv?t='+Date.now()).then(r=>r.text()).then(t=>{
+  document.getElementById('rtb').innerHTML=parseCSV(t).map(x=>
+    `<tr><td class="rid">${esc(x.Reroll_ID)}</td><td>T${esc(x.Tier)}</td><td class="mats"><span class="mat">${esc(x.Ink_Cost)} Ink</span></td></tr>`).join('');
+}).catch(()=>{document.getElementById('rtb').innerHTML='<tr><td colspan="3" style="color:#b4534f">Failed to load codex/reroll.csv</td></tr>';});
 </script>
 </div></body></html>

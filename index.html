@@ -829,9 +829,9 @@ FinalDamage = RawDamage
     <p>Every creature's soul has its own <strong>soul grade</strong> on the shared Worn&ndash;Void ladder, independent of the creature's quality grade. All souls start at Worn. Soul grade is a permanent property of the creature — it is <strong>retained through evolution</strong> (Stage 1 &rarr; 2 &rarr; 3) and persists whether the soul is equipped or not. Grading a soul multiplies its output: the passive magnitude on armour slots, or the granted move's power on ability slots.</p>
     <table>
       <tr><th>Rule</th><th>Detail</th></tr>
-      <tr><td style="color:#ede0c4">Multiplier</td><td><code>SoulMult = 1 + 0.05 &times; (grade# &minus; 1)</code> — Worn &times;1.00 &rarr; Void &times;1.45. Stacks multiplicatively with stage scaling (S1 60% / S2 80% / S3 100%).</td></tr>
+      <tr><td style="color:#ede0c4">Multiplier</td><td>Worn &times;1.00 / Common &times;1.05 / Uncommon &times;1.10 / Rare &times;1.15 / Epic &times;1.20 / Legendary &times;1.25 / Abyssal &times;1.30 / Divine &times;1.35 / Primordial &times;1.40 / Void &times;1.45 — an authored ladder, not a formula. Stacks multiplicatively with stage scaling (S1 60% / S2 80% / S3 100%).</td></tr>
       <tr><td style="color:#ede0c4">Currency</td><td><strong>All five sink currencies per attempt</strong> — Scrap + Ichor + Dust + Essence + Ink in one bundle. Each resource's weight is set by its endgame income rate, so every resource costs the same farm time (Scrap 150/h &rarr; heaviest count; Ichor 10/h &rarr; lightest count). Food is excluded (breeding-only economy).</td></tr>
-      <tr><td style="color:#ede0c4">Attempt cost</td><td><code>mult &times; (15 Scrap + 1 Ichor + 2 Dust + 2 Essence + 2 Ink)</code>, where <code>mult</code> is the gear-grading cost ladder 1 / 1 / 2 / 3 / 5 / 8 / 12 / 18 / 40 by target grade. A Void attempt = 600 Scrap + 40 Ichor + 80 Dust + 80 Essence + 80 Ink.</td></tr>
+      <tr><td style="color:#ede0c4">Attempt cost</td><td>Authored per target grade in <code>codex/soul_grading.csv</code> — one row per step, five explicit currency columns. A Void attempt = 600 Scrap &plus; 40 Ichor &plus; 80 Dust &plus; 80 Essence &plus; 80 Ink.</td></tr>
       <tr><td style="color:#ede0c4">Success chance</td><td>Shared grading ladder: 100 / 90 / 70 / 50 / 35 / 20 / 8 / 3 / <strong>0.5%</strong> into Void — no pity, pure roll every attempt.</td></tr>
       <tr><td style="color:#ede0c4">On failure</td><td>Bundle consumed, soul grade unchanged — no destruction, no downgrade.</td></tr>
     </table>
@@ -886,10 +886,10 @@ FinalDamage = RawDamage
       <tr><th>Family</th><th>Dismantles into</th><th>Material pays for</th></tr>
       <tr><td>💎 Gems</td><td style="color:#ede0c4">Dust</td><td>Crafting new gems, grading gems up</td></tr>
       <tr><td>🔷 Runes</td><td style="color:#ede0c4">Essence</td><td>Crafting new runes, grading runes up</td></tr>
-      <tr><td>📜 Scrolls</td><td style="color:#ede0c4">Ink</td><td>Crafting new scrolls, grading scrolls up, rerolling a socketed scroll's modifier (3 &times; tier Ink)</td></tr>
+      <tr><td>📜 Scrolls</td><td style="color:#ede0c4">Ink</td><td>Crafting new scrolls, grading scrolls up, rerolling a socketed scroll's modifier (per-tier cost authored in <code>codex/reroll.csv</code>)</td></tr>
     </table>
     <ul>
-      <li>Dismantle yield: <code>tier &times; grade#</code> material (a T10 Rare gem &rarr; 40 Dust)</li>
+      <li>Dismantle yield: authored per tier &times; grade in <code>codex/dismantle.csv</code> (410 rows) — a T10 Rare gem returns 40 Dust. No yield formula.</li>
       <li>Craft: each gem, rune and scroll has its <strong>own authored recipe</strong> in <code>codex/recipes.csv</code> naming its exact material bill; output is always <strong>Worn</strong> grade at that tier — the junk-to-on-tier conversion loop. No cost formula: the table is the source of truth.</li>
       <li>Grading up uses the same success ladder as gear (paid in the family material instead of Ichor)</li>
       <li>Removing a socketed gem or rune <strong>destroys it</strong>; the socket is freed</li>
@@ -1013,11 +1013,11 @@ Character total:
     <table>
       <tr><th>Rule</th><th>Detail</th></tr>
       <tr><td>Currency</td><td>Scrap — gained by dismantling gear</td></tr>
-      <tr><td>Cost scaling</td><td>Higher equipment tier and higher current refinement both increase Scrap cost</td></tr>
+      <tr><td>Cost table</td><td>Every (tier &times; target &plus;level) refinement attempt is an authored row in <code>codex/refinement.csv</code> (100 rows) — Scrap cost and success chance are data, not a formula.</td></tr>
       <tr><td>Success chance</td><td>+1&rarr;+10: 100 / 90 / 80 / 65 / 50 / 35 / 20 / 10 / 3 / <strong>1%</strong> — no pity, pure roll every attempt</td></tr>
-      <tr><td>Attempt cost</td><td><code>3 &times; target level &times; item tier</code> Scrap (T10 +10 attempt = 300 Scrap)</td></tr>
+      <tr><td>Attempt cost</td><td>Read from <code>codex/refinement.csv</code> (<code>Scrap_Cost</code>) — a T10 &plus;10 attempt costs 300 Scrap.</td></tr>
       <tr><td>On failure</td><td>No progress, no destruction — Scrap is consumed but gear is unaffected</td></tr>
-      <tr><td>Dismantling refined gear</td><td>Yields more Scrap than base gear — scales with refinement level</td></tr>
+      <tr><td>Dismantling refined gear</td><td>Yields more Scrap than base gear — every (grade &times; refinement) combination is an authored row in <code>codex/dismantle.csv</code>.</td></tr>
     </table>
 
     <h3>Grading up</h3>
@@ -1027,7 +1027,7 @@ Character total:
       <tr><td>Currency</td><td>Ichor</td></tr>
       <tr><td>Cost scaling</td><td>Higher current grade increases Ichor cost</td></tr>
       <tr><td>Success chance</td><td>Into C/UC/R/E/L/A/D/P/V: 100 / 90 / 70 / 50 / 35 / 20 / 8 / 3 / <strong>0.5%</strong> — no pity, pure roll every attempt</td></tr>
-      <tr><td>Attempt cost</td><td>1 / 1 / 2 / 3 / 5 / 8 / 12 / 18 / 40 Ichor per attempt by target grade</td></tr>
+      <tr><td>Attempt cost</td><td>Authored per target grade in <code>codex/grading.csv</code> — 1 / 1 / 2 / 3 / 5 / 8 / 12 / 18 / 40 Ichor. Enhancement grading (gems / runes / scrolls) has its own authored rows, priced per tier in the family material.</td></tr>
       <tr><td>On failure</td><td>No progress, no destruction — Ichor is consumed but grade is unchanged</td></tr>
     </table>
     <h4>Ichor sources</h4>
@@ -1271,6 +1271,11 @@ Your Backend
       <tr><td><code>codex/floor_creature_rarity.csv</code></td><td>900<br>(90 wild floors &times; 10 slots)</td><td>The wild-encounter table. Each non-boss floor's 10 tier-slots (3C/3UC/2R/1SR/1SSR) mapped to a <code>Creature_ID</code>. Columns: <code>Floor, Creature_ID, Rarity_Tier</code>. Stage per slot computed <strong style="color:#ede0c4">per line</strong> from each line's <code>Evolve_Level</code> (mixed stages per floor — see level bands below). Boss floors (every 10th) carry no rows — those are defined in <code>codex/bosses.csv</code>. <strong style="color:#ede0c4">Regenerate this whenever <code>creatures.csv</code> IDs change</strong> — the index joins the two by ID.</td></tr>
       <tr><td><code>codex/bosses.csv</code></td><td>10<br>(1 per boss floor)</td><td>Zone-boss definitions, one per boss floor (10, 20, … 100). Columns: <code>Floor, Zone, Boss_Name, Boss_Character, Active_Creature_1, Active_Creature_2, Difficulty_Index, Notes, Boss_ID, Boss_Type_Primary, Boss_Type_Secondary, Boss_Level, Boss_Quality_Grade, Grade_Attack, Grade_Defense, Grade_Utility, Grade_Speed, Move_1..4, Kit_Synergy, Description, Image_Prompt, Image_Path, Art_Status, BG_Status</code>. All ten bosses fully designed — humanoid boss characters with movesets borrowed from their zone's creature lines (S3 magnitudes, slot order: signature / secondary damage / support &times;2), 2 SR actives from the zone's floors; bosses carry no reserves. Rendered at <a href="bosses.html" style="color:var(--gold-bright)">bosses.html</a>.</td></tr>
       <tr><td><code>codex/recipes.csv</code></td><td>280</td><td>Authored crafting recipes — one row per craftable item (weapons 120, armour 40, accessories 20, tags 30, gems 30, runes 30, scrolls 10). Columns: <code>Recipe_ID, Category, Family, Slot, Output_Item_ID, Output_Name, Output_Grade, Tier, Level_Req, Materials, Notes</code>. <code>Materials</code> is an explicit semicolon-separated bill (<code>150 Scrap</code>, or <code>150 Scrap; 4 Dust</code> for multi-ingredient recipes) — <strong>crafting costs are authored data, never derived at runtime</strong>. Output grade is always Worn; grading up is a separate Ichor system. Joined to <code>items.csv</code> by <code>Output_Item_ID</code>; rendered live at <a href="crafting.html" style="color:var(--gold-bright)">crafting.html</a>.</td></tr>
+      <tr><td><code>codex/dismantle.csv</code></td><td>410</td><td>Authored dismantle yields. Gear: every (grade &times; refinement +0&hellip;+10) pair &rarr; Scrap &plus; Ichor. Gems / runes / scrolls: every (tier &times; grade) pair &rarr; Dust / Essence / Ink. No yield formula.</td></tr>
+      <tr><td><code>codex/refinement.csv</code></td><td>100</td><td>Authored refinement attempts — one row per (tier &times; target &plus;level): <code>Scrap_Cost</code>, <code>Success_Pct</code>, failure behaviour. No cost formula.</td></tr>
+      <tr><td><code>codex/grading.csv</code></td><td>36</td><td>Authored grade-up attempts — 9 gear rows (Ichor) &plus; 27 enhancement rows (3 families &times; 9 grade steps, paid in Dust / Essence / Ink). Columns: <code>Grade_ID, Category, Family, From_Grade, To_Grade, Cost, Success_Pct, On_Failure</code>. Success ladder 100 / 90 / 70 / 50 / 35 / 20 / 8 / 3 / 0.5%.</td></tr>
+      <tr><td><code>codex/soul_grading.csv</code></td><td>9</td><td>Authored soul-grading bundles — one row per grade step with explicit <code>Scrap / Ichor / Dust / Essence / Ink</code> columns and success chance. The terminal sink.</td></tr>
+      <tr><td><code>codex/reroll.csv</code></td><td>10</td><td>Authored scroll-reroll costs — one row per tier, explicit <code>Ink_Cost</code>.</td></tr>
       <tr><td><code>codex/encounter_weights.csv</code></td><td>—</td><td>Per-floor odds of an encounter rolling into each tier; SSR/SR odds scale up over the run (see "Encounter weights" below).</td></tr>
       <tr><td><code>codex/maptypes.csv</code></td><td>—</td><td>Tileset / map-restyle definitions for floor-art generation.</td></tr>
       <tr><td><code>codex/items.csv</code></td><td>585</td><td>Full item catalog — gems (3 types &times; 10 tiers: Rough &rarr; Sublime), runes (3&times;10: Faded &rarr; Elder), scrolls (10: Tattered &rarr; Fated), class weapons (6 lines &times; 2 hands &times; 10 tiers = 120 pieces, 36 art identities), armour (4 slots &times; 10 named pieces = 40), accessories (2&times;10), tags (3&times;10), materials (5), eggs (300). Gear tier prefixes retired — every weapon and armour tier is a distinct named piece. Columns: <code>Item_ID, Category, Family, Name, Tier, Level_Req, Effect, Flavor_Text, Image_Prompt, Image_Path, Art_Status</code>.</td></tr>

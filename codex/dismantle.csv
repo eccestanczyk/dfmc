@@ -1,0 +1,411 @@
+Dismantle_ID,Category,Family,Grade,Grade_Num,Tier,Refinement,Scrap,Ichor,Dust,Essence,Ink,Notes
+DIS-0001,Gear,,Worn,1,,+0,3,0,0,0,0,
+DIS-0002,Gear,,Worn,1,,+1,3,0,0,0,0,refined gear returns extra Scrap
+DIS-0003,Gear,,Worn,1,,+2,4,0,0,0,0,refined gear returns extra Scrap
+DIS-0004,Gear,,Worn,1,,+3,4,0,0,0,0,refined gear returns extra Scrap
+DIS-0005,Gear,,Worn,1,,+4,4,0,0,0,0,refined gear returns extra Scrap
+DIS-0006,Gear,,Worn,1,,+5,4,0,0,0,0,refined gear returns extra Scrap
+DIS-0007,Gear,,Worn,1,,+6,5,0,0,0,0,refined gear returns extra Scrap
+DIS-0008,Gear,,Worn,1,,+7,5,0,0,0,0,refined gear returns extra Scrap
+DIS-0009,Gear,,Worn,1,,+8,5,0,0,0,0,refined gear returns extra Scrap
+DIS-0010,Gear,,Worn,1,,+9,6,0,0,0,0,refined gear returns extra Scrap
+DIS-0011,Gear,,Worn,1,,+10,6,0,0,0,0,refined gear returns extra Scrap
+DIS-0012,Gear,,Common,2,,+0,5,0,0,0,0,
+DIS-0013,Gear,,Common,2,,+1,6,0,0,0,0,refined gear returns extra Scrap
+DIS-0014,Gear,,Common,2,,+2,6,0,0,0,0,refined gear returns extra Scrap
+DIS-0015,Gear,,Common,2,,+3,6,0,0,0,0,refined gear returns extra Scrap
+DIS-0016,Gear,,Common,2,,+4,7,0,0,0,0,refined gear returns extra Scrap
+DIS-0017,Gear,,Common,2,,+5,8,0,0,0,0,refined gear returns extra Scrap
+DIS-0018,Gear,,Common,2,,+6,8,0,0,0,0,refined gear returns extra Scrap
+DIS-0019,Gear,,Common,2,,+7,8,0,0,0,0,refined gear returns extra Scrap
+DIS-0020,Gear,,Common,2,,+8,9,0,0,0,0,refined gear returns extra Scrap
+DIS-0021,Gear,,Common,2,,+9,10,0,0,0,0,refined gear returns extra Scrap
+DIS-0022,Gear,,Common,2,,+10,10,0,0,0,0,refined gear returns extra Scrap
+DIS-0023,Gear,,Uncommon,3,,+0,9,0,0,0,0,
+DIS-0024,Gear,,Uncommon,3,,+1,10,0,0,0,0,refined gear returns extra Scrap
+DIS-0025,Gear,,Uncommon,3,,+2,11,0,0,0,0,refined gear returns extra Scrap
+DIS-0026,Gear,,Uncommon,3,,+3,12,0,0,0,0,refined gear returns extra Scrap
+DIS-0027,Gear,,Uncommon,3,,+4,13,0,0,0,0,refined gear returns extra Scrap
+DIS-0028,Gear,,Uncommon,3,,+5,14,0,0,0,0,refined gear returns extra Scrap
+DIS-0029,Gear,,Uncommon,3,,+6,14,0,0,0,0,refined gear returns extra Scrap
+DIS-0030,Gear,,Uncommon,3,,+7,15,0,0,0,0,refined gear returns extra Scrap
+DIS-0031,Gear,,Uncommon,3,,+8,16,0,0,0,0,refined gear returns extra Scrap
+DIS-0032,Gear,,Uncommon,3,,+9,17,0,0,0,0,refined gear returns extra Scrap
+DIS-0033,Gear,,Uncommon,3,,+10,18,0,0,0,0,refined gear returns extra Scrap
+DIS-0034,Gear,,Rare,4,,+0,15,1,0,0,0,
+DIS-0035,Gear,,Rare,4,,+1,16,1,0,0,0,refined gear returns extra Scrap
+DIS-0036,Gear,,Rare,4,,+2,18,1,0,0,0,refined gear returns extra Scrap
+DIS-0037,Gear,,Rare,4,,+3,20,1,0,0,0,refined gear returns extra Scrap
+DIS-0038,Gear,,Rare,4,,+4,21,1,0,0,0,refined gear returns extra Scrap
+DIS-0039,Gear,,Rare,4,,+5,22,1,0,0,0,refined gear returns extra Scrap
+DIS-0040,Gear,,Rare,4,,+6,24,1,0,0,0,refined gear returns extra Scrap
+DIS-0041,Gear,,Rare,4,,+7,26,1,0,0,0,refined gear returns extra Scrap
+DIS-0042,Gear,,Rare,4,,+8,27,1,0,0,0,refined gear returns extra Scrap
+DIS-0043,Gear,,Rare,4,,+9,28,1,0,0,0,refined gear returns extra Scrap
+DIS-0044,Gear,,Rare,4,,+10,30,1,0,0,0,refined gear returns extra Scrap
+DIS-0045,Gear,,Epic,5,,+0,25,2,0,0,0,
+DIS-0046,Gear,,Epic,5,,+1,28,2,0,0,0,refined gear returns extra Scrap
+DIS-0047,Gear,,Epic,5,,+2,30,2,0,0,0,refined gear returns extra Scrap
+DIS-0048,Gear,,Epic,5,,+3,32,2,0,0,0,refined gear returns extra Scrap
+DIS-0049,Gear,,Epic,5,,+4,35,2,0,0,0,refined gear returns extra Scrap
+DIS-0050,Gear,,Epic,5,,+5,38,2,0,0,0,refined gear returns extra Scrap
+DIS-0051,Gear,,Epic,5,,+6,40,2,0,0,0,refined gear returns extra Scrap
+DIS-0052,Gear,,Epic,5,,+7,43,2,0,0,0,refined gear returns extra Scrap
+DIS-0053,Gear,,Epic,5,,+8,45,2,0,0,0,refined gear returns extra Scrap
+DIS-0054,Gear,,Epic,5,,+9,48,2,0,0,0,refined gear returns extra Scrap
+DIS-0055,Gear,,Epic,5,,+10,50,2,0,0,0,refined gear returns extra Scrap
+DIS-0056,Gear,,Legendary,6,,+0,40,4,0,0,0,
+DIS-0057,Gear,,Legendary,6,,+1,44,4,0,0,0,refined gear returns extra Scrap
+DIS-0058,Gear,,Legendary,6,,+2,48,4,0,0,0,refined gear returns extra Scrap
+DIS-0059,Gear,,Legendary,6,,+3,52,4,0,0,0,refined gear returns extra Scrap
+DIS-0060,Gear,,Legendary,6,,+4,56,4,0,0,0,refined gear returns extra Scrap
+DIS-0061,Gear,,Legendary,6,,+5,60,4,0,0,0,refined gear returns extra Scrap
+DIS-0062,Gear,,Legendary,6,,+6,64,4,0,0,0,refined gear returns extra Scrap
+DIS-0063,Gear,,Legendary,6,,+7,68,4,0,0,0,refined gear returns extra Scrap
+DIS-0064,Gear,,Legendary,6,,+8,72,4,0,0,0,refined gear returns extra Scrap
+DIS-0065,Gear,,Legendary,6,,+9,76,4,0,0,0,refined gear returns extra Scrap
+DIS-0066,Gear,,Legendary,6,,+10,80,4,0,0,0,refined gear returns extra Scrap
+DIS-0067,Gear,,Abyssal,7,,+0,65,8,0,0,0,
+DIS-0068,Gear,,Abyssal,7,,+1,72,8,0,0,0,refined gear returns extra Scrap
+DIS-0069,Gear,,Abyssal,7,,+2,78,8,0,0,0,refined gear returns extra Scrap
+DIS-0070,Gear,,Abyssal,7,,+3,84,8,0,0,0,refined gear returns extra Scrap
+DIS-0071,Gear,,Abyssal,7,,+4,91,8,0,0,0,refined gear returns extra Scrap
+DIS-0072,Gear,,Abyssal,7,,+5,98,8,0,0,0,refined gear returns extra Scrap
+DIS-0073,Gear,,Abyssal,7,,+6,104,8,0,0,0,refined gear returns extra Scrap
+DIS-0074,Gear,,Abyssal,7,,+7,111,8,0,0,0,refined gear returns extra Scrap
+DIS-0075,Gear,,Abyssal,7,,+8,117,8,0,0,0,refined gear returns extra Scrap
+DIS-0076,Gear,,Abyssal,7,,+9,124,8,0,0,0,refined gear returns extra Scrap
+DIS-0077,Gear,,Abyssal,7,,+10,130,8,0,0,0,refined gear returns extra Scrap
+DIS-0078,Gear,,Divine,8,,+0,105,12,0,0,0,
+DIS-0079,Gear,,Divine,8,,+1,116,12,0,0,0,refined gear returns extra Scrap
+DIS-0080,Gear,,Divine,8,,+2,126,12,0,0,0,refined gear returns extra Scrap
+DIS-0081,Gear,,Divine,8,,+3,136,12,0,0,0,refined gear returns extra Scrap
+DIS-0082,Gear,,Divine,8,,+4,147,12,0,0,0,refined gear returns extra Scrap
+DIS-0083,Gear,,Divine,8,,+5,158,12,0,0,0,refined gear returns extra Scrap
+DIS-0084,Gear,,Divine,8,,+6,168,12,0,0,0,refined gear returns extra Scrap
+DIS-0085,Gear,,Divine,8,,+7,179,12,0,0,0,refined gear returns extra Scrap
+DIS-0086,Gear,,Divine,8,,+8,189,12,0,0,0,refined gear returns extra Scrap
+DIS-0087,Gear,,Divine,8,,+9,200,12,0,0,0,refined gear returns extra Scrap
+DIS-0088,Gear,,Divine,8,,+10,210,12,0,0,0,refined gear returns extra Scrap
+DIS-0089,Gear,,Primordial,9,,+0,170,20,0,0,0,
+DIS-0090,Gear,,Primordial,9,,+1,187,20,0,0,0,refined gear returns extra Scrap
+DIS-0091,Gear,,Primordial,9,,+2,204,20,0,0,0,refined gear returns extra Scrap
+DIS-0092,Gear,,Primordial,9,,+3,221,20,0,0,0,refined gear returns extra Scrap
+DIS-0093,Gear,,Primordial,9,,+4,238,20,0,0,0,refined gear returns extra Scrap
+DIS-0094,Gear,,Primordial,9,,+5,255,20,0,0,0,refined gear returns extra Scrap
+DIS-0095,Gear,,Primordial,9,,+6,272,20,0,0,0,refined gear returns extra Scrap
+DIS-0096,Gear,,Primordial,9,,+7,289,20,0,0,0,refined gear returns extra Scrap
+DIS-0097,Gear,,Primordial,9,,+8,306,20,0,0,0,refined gear returns extra Scrap
+DIS-0098,Gear,,Primordial,9,,+9,323,20,0,0,0,refined gear returns extra Scrap
+DIS-0099,Gear,,Primordial,9,,+10,340,20,0,0,0,refined gear returns extra Scrap
+DIS-0100,Gear,,Void,10,,+0,275,32,0,0,0,
+DIS-0101,Gear,,Void,10,,+1,302,32,0,0,0,refined gear returns extra Scrap
+DIS-0102,Gear,,Void,10,,+2,330,32,0,0,0,refined gear returns extra Scrap
+DIS-0103,Gear,,Void,10,,+3,358,32,0,0,0,refined gear returns extra Scrap
+DIS-0104,Gear,,Void,10,,+4,385,32,0,0,0,refined gear returns extra Scrap
+DIS-0105,Gear,,Void,10,,+5,412,32,0,0,0,refined gear returns extra Scrap
+DIS-0106,Gear,,Void,10,,+6,440,32,0,0,0,refined gear returns extra Scrap
+DIS-0107,Gear,,Void,10,,+7,468,32,0,0,0,refined gear returns extra Scrap
+DIS-0108,Gear,,Void,10,,+8,495,32,0,0,0,refined gear returns extra Scrap
+DIS-0109,Gear,,Void,10,,+9,522,32,0,0,0,refined gear returns extra Scrap
+DIS-0110,Gear,,Void,10,,+10,550,32,0,0,0,refined gear returns extra Scrap
+DIS-0111,Gem,Dust,Worn,1,1,,0,0,1,0,0,
+DIS-0112,Gem,Dust,Common,2,1,,0,0,2,0,0,
+DIS-0113,Gem,Dust,Uncommon,3,1,,0,0,3,0,0,
+DIS-0114,Gem,Dust,Rare,4,1,,0,0,4,0,0,
+DIS-0115,Gem,Dust,Epic,5,1,,0,0,5,0,0,
+DIS-0116,Gem,Dust,Legendary,6,1,,0,0,6,0,0,
+DIS-0117,Gem,Dust,Abyssal,7,1,,0,0,7,0,0,
+DIS-0118,Gem,Dust,Divine,8,1,,0,0,8,0,0,
+DIS-0119,Gem,Dust,Primordial,9,1,,0,0,9,0,0,
+DIS-0120,Gem,Dust,Void,10,1,,0,0,10,0,0,
+DIS-0121,Gem,Dust,Worn,1,2,,0,0,2,0,0,
+DIS-0122,Gem,Dust,Common,2,2,,0,0,4,0,0,
+DIS-0123,Gem,Dust,Uncommon,3,2,,0,0,6,0,0,
+DIS-0124,Gem,Dust,Rare,4,2,,0,0,8,0,0,
+DIS-0125,Gem,Dust,Epic,5,2,,0,0,10,0,0,
+DIS-0126,Gem,Dust,Legendary,6,2,,0,0,12,0,0,
+DIS-0127,Gem,Dust,Abyssal,7,2,,0,0,14,0,0,
+DIS-0128,Gem,Dust,Divine,8,2,,0,0,16,0,0,
+DIS-0129,Gem,Dust,Primordial,9,2,,0,0,18,0,0,
+DIS-0130,Gem,Dust,Void,10,2,,0,0,20,0,0,
+DIS-0131,Gem,Dust,Worn,1,3,,0,0,3,0,0,
+DIS-0132,Gem,Dust,Common,2,3,,0,0,6,0,0,
+DIS-0133,Gem,Dust,Uncommon,3,3,,0,0,9,0,0,
+DIS-0134,Gem,Dust,Rare,4,3,,0,0,12,0,0,
+DIS-0135,Gem,Dust,Epic,5,3,,0,0,15,0,0,
+DIS-0136,Gem,Dust,Legendary,6,3,,0,0,18,0,0,
+DIS-0137,Gem,Dust,Abyssal,7,3,,0,0,21,0,0,
+DIS-0138,Gem,Dust,Divine,8,3,,0,0,24,0,0,
+DIS-0139,Gem,Dust,Primordial,9,3,,0,0,27,0,0,
+DIS-0140,Gem,Dust,Void,10,3,,0,0,30,0,0,
+DIS-0141,Gem,Dust,Worn,1,4,,0,0,4,0,0,
+DIS-0142,Gem,Dust,Common,2,4,,0,0,8,0,0,
+DIS-0143,Gem,Dust,Uncommon,3,4,,0,0,12,0,0,
+DIS-0144,Gem,Dust,Rare,4,4,,0,0,16,0,0,
+DIS-0145,Gem,Dust,Epic,5,4,,0,0,20,0,0,
+DIS-0146,Gem,Dust,Legendary,6,4,,0,0,24,0,0,
+DIS-0147,Gem,Dust,Abyssal,7,4,,0,0,28,0,0,
+DIS-0148,Gem,Dust,Divine,8,4,,0,0,32,0,0,
+DIS-0149,Gem,Dust,Primordial,9,4,,0,0,36,0,0,
+DIS-0150,Gem,Dust,Void,10,4,,0,0,40,0,0,
+DIS-0151,Gem,Dust,Worn,1,5,,0,0,5,0,0,
+DIS-0152,Gem,Dust,Common,2,5,,0,0,10,0,0,
+DIS-0153,Gem,Dust,Uncommon,3,5,,0,0,15,0,0,
+DIS-0154,Gem,Dust,Rare,4,5,,0,0,20,0,0,
+DIS-0155,Gem,Dust,Epic,5,5,,0,0,25,0,0,
+DIS-0156,Gem,Dust,Legendary,6,5,,0,0,30,0,0,
+DIS-0157,Gem,Dust,Abyssal,7,5,,0,0,35,0,0,
+DIS-0158,Gem,Dust,Divine,8,5,,0,0,40,0,0,
+DIS-0159,Gem,Dust,Primordial,9,5,,0,0,45,0,0,
+DIS-0160,Gem,Dust,Void,10,5,,0,0,50,0,0,
+DIS-0161,Gem,Dust,Worn,1,6,,0,0,6,0,0,
+DIS-0162,Gem,Dust,Common,2,6,,0,0,12,0,0,
+DIS-0163,Gem,Dust,Uncommon,3,6,,0,0,18,0,0,
+DIS-0164,Gem,Dust,Rare,4,6,,0,0,24,0,0,
+DIS-0165,Gem,Dust,Epic,5,6,,0,0,30,0,0,
+DIS-0166,Gem,Dust,Legendary,6,6,,0,0,36,0,0,
+DIS-0167,Gem,Dust,Abyssal,7,6,,0,0,42,0,0,
+DIS-0168,Gem,Dust,Divine,8,6,,0,0,48,0,0,
+DIS-0169,Gem,Dust,Primordial,9,6,,0,0,54,0,0,
+DIS-0170,Gem,Dust,Void,10,6,,0,0,60,0,0,
+DIS-0171,Gem,Dust,Worn,1,7,,0,0,7,0,0,
+DIS-0172,Gem,Dust,Common,2,7,,0,0,14,0,0,
+DIS-0173,Gem,Dust,Uncommon,3,7,,0,0,21,0,0,
+DIS-0174,Gem,Dust,Rare,4,7,,0,0,28,0,0,
+DIS-0175,Gem,Dust,Epic,5,7,,0,0,35,0,0,
+DIS-0176,Gem,Dust,Legendary,6,7,,0,0,42,0,0,
+DIS-0177,Gem,Dust,Abyssal,7,7,,0,0,49,0,0,
+DIS-0178,Gem,Dust,Divine,8,7,,0,0,56,0,0,
+DIS-0179,Gem,Dust,Primordial,9,7,,0,0,63,0,0,
+DIS-0180,Gem,Dust,Void,10,7,,0,0,70,0,0,
+DIS-0181,Gem,Dust,Worn,1,8,,0,0,8,0,0,
+DIS-0182,Gem,Dust,Common,2,8,,0,0,16,0,0,
+DIS-0183,Gem,Dust,Uncommon,3,8,,0,0,24,0,0,
+DIS-0184,Gem,Dust,Rare,4,8,,0,0,32,0,0,
+DIS-0185,Gem,Dust,Epic,5,8,,0,0,40,0,0,
+DIS-0186,Gem,Dust,Legendary,6,8,,0,0,48,0,0,
+DIS-0187,Gem,Dust,Abyssal,7,8,,0,0,56,0,0,
+DIS-0188,Gem,Dust,Divine,8,8,,0,0,64,0,0,
+DIS-0189,Gem,Dust,Primordial,9,8,,0,0,72,0,0,
+DIS-0190,Gem,Dust,Void,10,8,,0,0,80,0,0,
+DIS-0191,Gem,Dust,Worn,1,9,,0,0,9,0,0,
+DIS-0192,Gem,Dust,Common,2,9,,0,0,18,0,0,
+DIS-0193,Gem,Dust,Uncommon,3,9,,0,0,27,0,0,
+DIS-0194,Gem,Dust,Rare,4,9,,0,0,36,0,0,
+DIS-0195,Gem,Dust,Epic,5,9,,0,0,45,0,0,
+DIS-0196,Gem,Dust,Legendary,6,9,,0,0,54,0,0,
+DIS-0197,Gem,Dust,Abyssal,7,9,,0,0,63,0,0,
+DIS-0198,Gem,Dust,Divine,8,9,,0,0,72,0,0,
+DIS-0199,Gem,Dust,Primordial,9,9,,0,0,81,0,0,
+DIS-0200,Gem,Dust,Void,10,9,,0,0,90,0,0,
+DIS-0201,Gem,Dust,Worn,1,10,,0,0,10,0,0,
+DIS-0202,Gem,Dust,Common,2,10,,0,0,20,0,0,
+DIS-0203,Gem,Dust,Uncommon,3,10,,0,0,30,0,0,
+DIS-0204,Gem,Dust,Rare,4,10,,0,0,40,0,0,
+DIS-0205,Gem,Dust,Epic,5,10,,0,0,50,0,0,
+DIS-0206,Gem,Dust,Legendary,6,10,,0,0,60,0,0,
+DIS-0207,Gem,Dust,Abyssal,7,10,,0,0,70,0,0,
+DIS-0208,Gem,Dust,Divine,8,10,,0,0,80,0,0,
+DIS-0209,Gem,Dust,Primordial,9,10,,0,0,90,0,0,
+DIS-0210,Gem,Dust,Void,10,10,,0,0,100,0,0,
+DIS-0211,Rune,Essence,Worn,1,1,,0,0,0,1,0,
+DIS-0212,Rune,Essence,Common,2,1,,0,0,0,2,0,
+DIS-0213,Rune,Essence,Uncommon,3,1,,0,0,0,3,0,
+DIS-0214,Rune,Essence,Rare,4,1,,0,0,0,4,0,
+DIS-0215,Rune,Essence,Epic,5,1,,0,0,0,5,0,
+DIS-0216,Rune,Essence,Legendary,6,1,,0,0,0,6,0,
+DIS-0217,Rune,Essence,Abyssal,7,1,,0,0,0,7,0,
+DIS-0218,Rune,Essence,Divine,8,1,,0,0,0,8,0,
+DIS-0219,Rune,Essence,Primordial,9,1,,0,0,0,9,0,
+DIS-0220,Rune,Essence,Void,10,1,,0,0,0,10,0,
+DIS-0221,Rune,Essence,Worn,1,2,,0,0,0,2,0,
+DIS-0222,Rune,Essence,Common,2,2,,0,0,0,4,0,
+DIS-0223,Rune,Essence,Uncommon,3,2,,0,0,0,6,0,
+DIS-0224,Rune,Essence,Rare,4,2,,0,0,0,8,0,
+DIS-0225,Rune,Essence,Epic,5,2,,0,0,0,10,0,
+DIS-0226,Rune,Essence,Legendary,6,2,,0,0,0,12,0,
+DIS-0227,Rune,Essence,Abyssal,7,2,,0,0,0,14,0,
+DIS-0228,Rune,Essence,Divine,8,2,,0,0,0,16,0,
+DIS-0229,Rune,Essence,Primordial,9,2,,0,0,0,18,0,
+DIS-0230,Rune,Essence,Void,10,2,,0,0,0,20,0,
+DIS-0231,Rune,Essence,Worn,1,3,,0,0,0,3,0,
+DIS-0232,Rune,Essence,Common,2,3,,0,0,0,6,0,
+DIS-0233,Rune,Essence,Uncommon,3,3,,0,0,0,9,0,
+DIS-0234,Rune,Essence,Rare,4,3,,0,0,0,12,0,
+DIS-0235,Rune,Essence,Epic,5,3,,0,0,0,15,0,
+DIS-0236,Rune,Essence,Legendary,6,3,,0,0,0,18,0,
+DIS-0237,Rune,Essence,Abyssal,7,3,,0,0,0,21,0,
+DIS-0238,Rune,Essence,Divine,8,3,,0,0,0,24,0,
+DIS-0239,Rune,Essence,Primordial,9,3,,0,0,0,27,0,
+DIS-0240,Rune,Essence,Void,10,3,,0,0,0,30,0,
+DIS-0241,Rune,Essence,Worn,1,4,,0,0,0,4,0,
+DIS-0242,Rune,Essence,Common,2,4,,0,0,0,8,0,
+DIS-0243,Rune,Essence,Uncommon,3,4,,0,0,0,12,0,
+DIS-0244,Rune,Essence,Rare,4,4,,0,0,0,16,0,
+DIS-0245,Rune,Essence,Epic,5,4,,0,0,0,20,0,
+DIS-0246,Rune,Essence,Legendary,6,4,,0,0,0,24,0,
+DIS-0247,Rune,Essence,Abyssal,7,4,,0,0,0,28,0,
+DIS-0248,Rune,Essence,Divine,8,4,,0,0,0,32,0,
+DIS-0249,Rune,Essence,Primordial,9,4,,0,0,0,36,0,
+DIS-0250,Rune,Essence,Void,10,4,,0,0,0,40,0,
+DIS-0251,Rune,Essence,Worn,1,5,,0,0,0,5,0,
+DIS-0252,Rune,Essence,Common,2,5,,0,0,0,10,0,
+DIS-0253,Rune,Essence,Uncommon,3,5,,0,0,0,15,0,
+DIS-0254,Rune,Essence,Rare,4,5,,0,0,0,20,0,
+DIS-0255,Rune,Essence,Epic,5,5,,0,0,0,25,0,
+DIS-0256,Rune,Essence,Legendary,6,5,,0,0,0,30,0,
+DIS-0257,Rune,Essence,Abyssal,7,5,,0,0,0,35,0,
+DIS-0258,Rune,Essence,Divine,8,5,,0,0,0,40,0,
+DIS-0259,Rune,Essence,Primordial,9,5,,0,0,0,45,0,
+DIS-0260,Rune,Essence,Void,10,5,,0,0,0,50,0,
+DIS-0261,Rune,Essence,Worn,1,6,,0,0,0,6,0,
+DIS-0262,Rune,Essence,Common,2,6,,0,0,0,12,0,
+DIS-0263,Rune,Essence,Uncommon,3,6,,0,0,0,18,0,
+DIS-0264,Rune,Essence,Rare,4,6,,0,0,0,24,0,
+DIS-0265,Rune,Essence,Epic,5,6,,0,0,0,30,0,
+DIS-0266,Rune,Essence,Legendary,6,6,,0,0,0,36,0,
+DIS-0267,Rune,Essence,Abyssal,7,6,,0,0,0,42,0,
+DIS-0268,Rune,Essence,Divine,8,6,,0,0,0,48,0,
+DIS-0269,Rune,Essence,Primordial,9,6,,0,0,0,54,0,
+DIS-0270,Rune,Essence,Void,10,6,,0,0,0,60,0,
+DIS-0271,Rune,Essence,Worn,1,7,,0,0,0,7,0,
+DIS-0272,Rune,Essence,Common,2,7,,0,0,0,14,0,
+DIS-0273,Rune,Essence,Uncommon,3,7,,0,0,0,21,0,
+DIS-0274,Rune,Essence,Rare,4,7,,0,0,0,28,0,
+DIS-0275,Rune,Essence,Epic,5,7,,0,0,0,35,0,
+DIS-0276,Rune,Essence,Legendary,6,7,,0,0,0,42,0,
+DIS-0277,Rune,Essence,Abyssal,7,7,,0,0,0,49,0,
+DIS-0278,Rune,Essence,Divine,8,7,,0,0,0,56,0,
+DIS-0279,Rune,Essence,Primordial,9,7,,0,0,0,63,0,
+DIS-0280,Rune,Essence,Void,10,7,,0,0,0,70,0,
+DIS-0281,Rune,Essence,Worn,1,8,,0,0,0,8,0,
+DIS-0282,Rune,Essence,Common,2,8,,0,0,0,16,0,
+DIS-0283,Rune,Essence,Uncommon,3,8,,0,0,0,24,0,
+DIS-0284,Rune,Essence,Rare,4,8,,0,0,0,32,0,
+DIS-0285,Rune,Essence,Epic,5,8,,0,0,0,40,0,
+DIS-0286,Rune,Essence,Legendary,6,8,,0,0,0,48,0,
+DIS-0287,Rune,Essence,Abyssal,7,8,,0,0,0,56,0,
+DIS-0288,Rune,Essence,Divine,8,8,,0,0,0,64,0,
+DIS-0289,Rune,Essence,Primordial,9,8,,0,0,0,72,0,
+DIS-0290,Rune,Essence,Void,10,8,,0,0,0,80,0,
+DIS-0291,Rune,Essence,Worn,1,9,,0,0,0,9,0,
+DIS-0292,Rune,Essence,Common,2,9,,0,0,0,18,0,
+DIS-0293,Rune,Essence,Uncommon,3,9,,0,0,0,27,0,
+DIS-0294,Rune,Essence,Rare,4,9,,0,0,0,36,0,
+DIS-0295,Rune,Essence,Epic,5,9,,0,0,0,45,0,
+DIS-0296,Rune,Essence,Legendary,6,9,,0,0,0,54,0,
+DIS-0297,Rune,Essence,Abyssal,7,9,,0,0,0,63,0,
+DIS-0298,Rune,Essence,Divine,8,9,,0,0,0,72,0,
+DIS-0299,Rune,Essence,Primordial,9,9,,0,0,0,81,0,
+DIS-0300,Rune,Essence,Void,10,9,,0,0,0,90,0,
+DIS-0301,Rune,Essence,Worn,1,10,,0,0,0,10,0,
+DIS-0302,Rune,Essence,Common,2,10,,0,0,0,20,0,
+DIS-0303,Rune,Essence,Uncommon,3,10,,0,0,0,30,0,
+DIS-0304,Rune,Essence,Rare,4,10,,0,0,0,40,0,
+DIS-0305,Rune,Essence,Epic,5,10,,0,0,0,50,0,
+DIS-0306,Rune,Essence,Legendary,6,10,,0,0,0,60,0,
+DIS-0307,Rune,Essence,Abyssal,7,10,,0,0,0,70,0,
+DIS-0308,Rune,Essence,Divine,8,10,,0,0,0,80,0,
+DIS-0309,Rune,Essence,Primordial,9,10,,0,0,0,90,0,
+DIS-0310,Rune,Essence,Void,10,10,,0,0,0,100,0,
+DIS-0311,Scroll,Ink,Worn,1,1,,0,0,0,0,1,
+DIS-0312,Scroll,Ink,Common,2,1,,0,0,0,0,2,
+DIS-0313,Scroll,Ink,Uncommon,3,1,,0,0,0,0,3,
+DIS-0314,Scroll,Ink,Rare,4,1,,0,0,0,0,4,
+DIS-0315,Scroll,Ink,Epic,5,1,,0,0,0,0,5,
+DIS-0316,Scroll,Ink,Legendary,6,1,,0,0,0,0,6,
+DIS-0317,Scroll,Ink,Abyssal,7,1,,0,0,0,0,7,
+DIS-0318,Scroll,Ink,Divine,8,1,,0,0,0,0,8,
+DIS-0319,Scroll,Ink,Primordial,9,1,,0,0,0,0,9,
+DIS-0320,Scroll,Ink,Void,10,1,,0,0,0,0,10,
+DIS-0321,Scroll,Ink,Worn,1,2,,0,0,0,0,2,
+DIS-0322,Scroll,Ink,Common,2,2,,0,0,0,0,4,
+DIS-0323,Scroll,Ink,Uncommon,3,2,,0,0,0,0,6,
+DIS-0324,Scroll,Ink,Rare,4,2,,0,0,0,0,8,
+DIS-0325,Scroll,Ink,Epic,5,2,,0,0,0,0,10,
+DIS-0326,Scroll,Ink,Legendary,6,2,,0,0,0,0,12,
+DIS-0327,Scroll,Ink,Abyssal,7,2,,0,0,0,0,14,
+DIS-0328,Scroll,Ink,Divine,8,2,,0,0,0,0,16,
+DIS-0329,Scroll,Ink,Primordial,9,2,,0,0,0,0,18,
+DIS-0330,Scroll,Ink,Void,10,2,,0,0,0,0,20,
+DIS-0331,Scroll,Ink,Worn,1,3,,0,0,0,0,3,
+DIS-0332,Scroll,Ink,Common,2,3,,0,0,0,0,6,
+DIS-0333,Scroll,Ink,Uncommon,3,3,,0,0,0,0,9,
+DIS-0334,Scroll,Ink,Rare,4,3,,0,0,0,0,12,
+DIS-0335,Scroll,Ink,Epic,5,3,,0,0,0,0,15,
+DIS-0336,Scroll,Ink,Legendary,6,3,,0,0,0,0,18,
+DIS-0337,Scroll,Ink,Abyssal,7,3,,0,0,0,0,21,
+DIS-0338,Scroll,Ink,Divine,8,3,,0,0,0,0,24,
+DIS-0339,Scroll,Ink,Primordial,9,3,,0,0,0,0,27,
+DIS-0340,Scroll,Ink,Void,10,3,,0,0,0,0,30,
+DIS-0341,Scroll,Ink,Worn,1,4,,0,0,0,0,4,
+DIS-0342,Scroll,Ink,Common,2,4,,0,0,0,0,8,
+DIS-0343,Scroll,Ink,Uncommon,3,4,,0,0,0,0,12,
+DIS-0344,Scroll,Ink,Rare,4,4,,0,0,0,0,16,
+DIS-0345,Scroll,Ink,Epic,5,4,,0,0,0,0,20,
+DIS-0346,Scroll,Ink,Legendary,6,4,,0,0,0,0,24,
+DIS-0347,Scroll,Ink,Abyssal,7,4,,0,0,0,0,28,
+DIS-0348,Scroll,Ink,Divine,8,4,,0,0,0,0,32,
+DIS-0349,Scroll,Ink,Primordial,9,4,,0,0,0,0,36,
+DIS-0350,Scroll,Ink,Void,10,4,,0,0,0,0,40,
+DIS-0351,Scroll,Ink,Worn,1,5,,0,0,0,0,5,
+DIS-0352,Scroll,Ink,Common,2,5,,0,0,0,0,10,
+DIS-0353,Scroll,Ink,Uncommon,3,5,,0,0,0,0,15,
+DIS-0354,Scroll,Ink,Rare,4,5,,0,0,0,0,20,
+DIS-0355,Scroll,Ink,Epic,5,5,,0,0,0,0,25,
+DIS-0356,Scroll,Ink,Legendary,6,5,,0,0,0,0,30,
+DIS-0357,Scroll,Ink,Abyssal,7,5,,0,0,0,0,35,
+DIS-0358,Scroll,Ink,Divine,8,5,,0,0,0,0,40,
+DIS-0359,Scroll,Ink,Primordial,9,5,,0,0,0,0,45,
+DIS-0360,Scroll,Ink,Void,10,5,,0,0,0,0,50,
+DIS-0361,Scroll,Ink,Worn,1,6,,0,0,0,0,6,
+DIS-0362,Scroll,Ink,Common,2,6,,0,0,0,0,12,
+DIS-0363,Scroll,Ink,Uncommon,3,6,,0,0,0,0,18,
+DIS-0364,Scroll,Ink,Rare,4,6,,0,0,0,0,24,
+DIS-0365,Scroll,Ink,Epic,5,6,,0,0,0,0,30,
+DIS-0366,Scroll,Ink,Legendary,6,6,,0,0,0,0,36,
+DIS-0367,Scroll,Ink,Abyssal,7,6,,0,0,0,0,42,
+DIS-0368,Scroll,Ink,Divine,8,6,,0,0,0,0,48,
+DIS-0369,Scroll,Ink,Primordial,9,6,,0,0,0,0,54,
+DIS-0370,Scroll,Ink,Void,10,6,,0,0,0,0,60,
+DIS-0371,Scroll,Ink,Worn,1,7,,0,0,0,0,7,
+DIS-0372,Scroll,Ink,Common,2,7,,0,0,0,0,14,
+DIS-0373,Scroll,Ink,Uncommon,3,7,,0,0,0,0,21,
+DIS-0374,Scroll,Ink,Rare,4,7,,0,0,0,0,28,
+DIS-0375,Scroll,Ink,Epic,5,7,,0,0,0,0,35,
+DIS-0376,Scroll,Ink,Legendary,6,7,,0,0,0,0,42,
+DIS-0377,Scroll,Ink,Abyssal,7,7,,0,0,0,0,49,
+DIS-0378,Scroll,Ink,Divine,8,7,,0,0,0,0,56,
+DIS-0379,Scroll,Ink,Primordial,9,7,,0,0,0,0,63,
+DIS-0380,Scroll,Ink,Void,10,7,,0,0,0,0,70,
+DIS-0381,Scroll,Ink,Worn,1,8,,0,0,0,0,8,
+DIS-0382,Scroll,Ink,Common,2,8,,0,0,0,0,16,
+DIS-0383,Scroll,Ink,Uncommon,3,8,,0,0,0,0,24,
+DIS-0384,Scroll,Ink,Rare,4,8,,0,0,0,0,32,
+DIS-0385,Scroll,Ink,Epic,5,8,,0,0,0,0,40,
+DIS-0386,Scroll,Ink,Legendary,6,8,,0,0,0,0,48,
+DIS-0387,Scroll,Ink,Abyssal,7,8,,0,0,0,0,56,
+DIS-0388,Scroll,Ink,Divine,8,8,,0,0,0,0,64,
+DIS-0389,Scroll,Ink,Primordial,9,8,,0,0,0,0,72,
+DIS-0390,Scroll,Ink,Void,10,8,,0,0,0,0,80,
+DIS-0391,Scroll,Ink,Worn,1,9,,0,0,0,0,9,
+DIS-0392,Scroll,Ink,Common,2,9,,0,0,0,0,18,
+DIS-0393,Scroll,Ink,Uncommon,3,9,,0,0,0,0,27,
+DIS-0394,Scroll,Ink,Rare,4,9,,0,0,0,0,36,
+DIS-0395,Scroll,Ink,Epic,5,9,,0,0,0,0,45,
+DIS-0396,Scroll,Ink,Legendary,6,9,,0,0,0,0,54,
+DIS-0397,Scroll,Ink,Abyssal,7,9,,0,0,0,0,63,
+DIS-0398,Scroll,Ink,Divine,8,9,,0,0,0,0,72,
+DIS-0399,Scroll,Ink,Primordial,9,9,,0,0,0,0,81,
+DIS-0400,Scroll,Ink,Void,10,9,,0,0,0,0,90,
+DIS-0401,Scroll,Ink,Worn,1,10,,0,0,0,0,10,
+DIS-0402,Scroll,Ink,Common,2,10,,0,0,0,0,20,
+DIS-0403,Scroll,Ink,Uncommon,3,10,,0,0,0,0,30,
+DIS-0404,Scroll,Ink,Rare,4,10,,0,0,0,0,40,
+DIS-0405,Scroll,Ink,Epic,5,10,,0,0,0,0,50,
+DIS-0406,Scroll,Ink,Legendary,6,10,,0,0,0,0,60,
+DIS-0407,Scroll,Ink,Abyssal,7,10,,0,0,0,0,70,
+DIS-0408,Scroll,Ink,Divine,8,10,,0,0,0,0,80,
+DIS-0409,Scroll,Ink,Primordial,9,10,,0,0,0,0,90,
+DIS-0410,Scroll,Ink,Void,10,10,,0,0,0,0,100,

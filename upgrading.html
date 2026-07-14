@@ -31,7 +31,7 @@ td{border-bottom:1px solid var(--rule);padding:5px 8px;color:var(--ink-dim);font
   <p style="color:var(--ink-dim);font-style:italic">No pity. No failstacks. No protection. Every attempt is a pure roll. Failure costs currency only — items are never destroyed or downgraded.</p>
 
   <h2 style="font-family:'Cinzel',serif;font-size:18px;color:var(--gold);margin:20px 0 8px">Refinement (+1 to +10)</h2>
-  <p style="font-size:14px;color:var(--ink-dim)">A <em>more</em> multiplier. On character gear (Local scope) it multiplies that item's total contribution. On Tags (Personal scope) it multiplies the creature's totals from that tag. Currency: <strong style="color:var(--gold)">Scrap</strong>. Cost per attempt: <code>3 × target level × item tier</code>.</p>
+  <p style="font-size:14px;color:var(--ink-dim)">A <em>more</em> multiplier. On character gear (Local scope) it multiplies that item's total contribution. On Tags (Personal scope) it multiplies the creature's totals from that tag. Currency: <strong style="color:var(--gold)">Scrap</strong>. Every attempt cost is an authored row in <code>codex/refinement.csv</code> (100 rows: tier × target level) — no formula.</p>
   <table>
     <tr><th>Level</th><th class="pct">+1</th><th class="pct">+2</th><th class="pct">+3</th><th class="pct">+4</th><th class="pct">+5</th><th class="pct">+6</th><th class="pct">+7</th><th class="pct">+8</th><th class="pct">+9</th><th class="pct">+10</th></tr>
     <tr><td>Success</td><td class="pct">100%</td><td class="pct">90%</td><td class="pct">80%</td><td class="pct">65%</td><td class="pct">50%</td><td class="pct">35%</td><td class="pct">20%</td><td class="pct">10%</td><td class="pct hard">3%</td><td class="pct hard">1%</td></tr>
@@ -43,7 +43,7 @@ td{border-bottom:1px solid var(--rule);padding:5px 8px;color:var(--ink-dim);font
   <div class="note">Expected 0→+10 at T10: ~158 attempts, ~43,700 Scrap ≈ 290h. The +10 gate: lucky (p10) 10 attempts, median 69, unlucky (p90) 229.</div>
 
   <h2 style="font-family:'Cinzel',serif;font-size:18px;color:var(--gold);margin:24px 0 8px">Grading up (Worn → Void)</h2>
-  <p style="font-size:14px;color:var(--ink-dim)">One shared ladder for gear (paid in <strong style="color:var(--gold)">Ichor</strong>) and enhancements (paid in <strong style="color:var(--gold)">Dust / Essence / Ink</strong>). Same success rates, different currencies.</p>
+  <p style="font-size:14px;color:var(--ink-dim)">One shared ladder for gear (paid in <strong style="color:var(--gold)">Ichor</strong>) and enhancements (paid in <strong style="color:var(--gold)">Dust / Essence / Ink</strong>). Same success rates, different currencies. All 36 attempt rows are authored in <code>codex/grading.csv</code>; soul bundles in <code>codex/soul_grading.csv</code>.</p>
   <table>
     <tr><th>Target grade</th><th class="pct">Success</th><th>Gear (Ichor/try)</th><th>Gear cumulative expected</th><th>Enh. (material/try)</th><th>Enh. cumulative expected</th></tr>
     <tr><td>Common</td><td class="pct">100%</td><td>1</td><td>1</td><td>5</td><td>5</td></tr>
