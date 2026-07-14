@@ -56,25 +56,27 @@
   display:flex; align-items:center; justify-content:center;
   color:var(--ink-faint); font-size:11px; font-style:italic;
 }
-.codex-card-body{ padding:12px 14px 14px; }
+.codex-card-body{ padding:10px 12px 11px; display:flex; align-items:center; gap:8px; }
 .codex-card-name{
   font-family:'Cinzel', serif; font-weight:700; font-size:16px; color:var(--ink);
-  margin-bottom:5px; line-height:1.2;
+  line-height:1.2; flex:1 1 auto; min-width:0; white-space:nowrap; overflow:hidden;
 }
-.card-num{ font-family:'Cinzel', serif; font-weight:600; font-size:13px; color:var(--ink-dim); margin-right:7px; }
-.codex-card-types{ font-size:13px; color:var(--ink-dim); font-style:italic; margin-bottom:7px; }
-.codex-card-rarity{ display:flex; align-items:center; gap:7px; }
+.codex-card-meta{ display:flex; align-items:center; gap:7px; flex:0 0 auto; margin-left:auto; }
+.card-num{ font-family:'Cinzel', serif; font-weight:600; font-size:13px; color:var(--ink-dim); }
+.codex-card-types{ display:flex; align-items:center; gap:4px; }
+.codex-card-types .tcn{ display:none; }
+.codex-card-rarity{ display:flex; align-items:center; }
 .codex-card-rarity .tier-seal{ width:24px; height:24px; font-size:9px; }
-.codex-card-rarity span{ font-size:13px; color:var(--ink-dim); }
 @media(max-width:680px){
-  .codex-card-body{ padding:6px 7px 8px; }
-  .codex-card-name{ font-size:11px; margin-bottom:3px; }
-  .card-num{ font-size:9px; margin-right:4px; }
-  .codex-card-types{ font-size:9px; margin-bottom:4px; }
+  .codex-card-body{ padding:6px 7px 7px; gap:5px; }
+  .codex-card-name{ font-size:11px; }
+  .card-num{ font-size:9px; }
+  .codex-card-meta{ gap:4px; }
   .codex-card-rarity .tier-seal{ width:18px; height:18px; font-size:7px; }
-  .codex-card-rarity span{ font-size:9px; }
-  .type-chip img{ width:20px; height:20px; }
+  .codex-card-types .type-chip img{ width:16px; height:16px; }
 }
+.codex-card-types .type-chip{ padding:0; border:0; background:none; }
+.codex-card-types .type-chip img{ width:20px; height:20px; }
 .flag{ font-size:11px; margin-left:4px; vertical-align:middle; opacity:0.8; cursor:help; }
 .flag-art{ color:#e6c66d; }
 .flag-crop{ color:#dd5646; }
@@ -263,13 +265,34 @@ function renderGrid() {
     return `<div class="codex-card" style="${pipelineStyle};position:relative;cursor:pointer;" onclick="if(!event.target.closest('.card-gear,.card-admin-menu,.card-tab')){saveScroll();location.href='creature.html?id=${escapeHtml(c.ID)}';}">
       <div class="card-img-wrap">${imgHtml}${tabsHtml}${gearHtml}</div>
       <div class="codex-card-body">
-        <div class="codex-card-name"><span class="card-num">${parseInt(c.ID.replace('DFMC-',''),10)}</span>${escapeHtml(c.Name)}${c.Art_Status==='pending'?'<span class="flag flag-art" title="Pending art approval">🎨</span>':''}${c.BG_Status==='has_chroma'?'<span class="flag flag-crop" title="Needs cropping">✂</span>':''}${c.BG_Status==='bg_pending'?'<span class="flag" title="Crop approval pending" style="color:#60a5fa;">🔍</span>':''}${c.Sync_Status==='needs_reimport'?'<span class="flag" title="Altered since last import — needs reimport" style="color:#e6a23c;">⟳</span>':''}</div>
-        <div class="codex-card-types">${typeChips}</div>
-        <div class="codex-card-rarity"><div class="tier-seal ${cls}">${short}</div></div>
+        <div class="codex-card-name" title="${escapeHtml(c.Name)}"><span class="cname">${escapeHtml(c.Name)}</span>${c.Art_Status==='pending'?'<span class="flag flag-art" title="Pending art approval">🎨</span>':''}${c.BG_Status==='has_chroma'?'<span class="flag flag-crop" title="Needs cropping">✂</span>':''}${c.BG_Status==='bg_pending'?'<span class="flag" title="Crop approval pending" style="color:#60a5fa;">🔍</span>':''}${c.Sync_Status==='needs_reimport'?'<span class="flag" title="Altered since last import — needs reimport" style="color:#e6a23c;">⟳</span>':''}</div>
+        <div class="codex-card-meta">
+          <div class="codex-card-types">${typeChips}</div>
+          <div class="codex-card-rarity"><div class="tier-seal ${cls}">${short}</div></div>
+          <span class="card-num">${parseInt(c.ID.replace('DFMC-',''),10)}</span>
+        </div>
       </div>
     </div>`;
   }).join('');
+  requestAnimationFrame(() => fitCardNames(grid));
 }
+
+
+// Shrink long creature names to fit instead of truncating with an ellipsis
+function fitCardNames(root){
+  (root || document).querySelectorAll('.codex-card-name').forEach(el => {
+    const span = el.querySelector('.cname');
+    if (!span) return;
+    let size = parseFloat(getComputedStyle(el).fontSize);
+    const min = size * 0.62;
+    span.style.fontSize = '';
+    while (el.scrollWidth > el.clientWidth + 1 && size > min) {
+      size -= 0.5;
+      span.style.fontSize = size + 'px';
+    }
+  });
+}
+window.addEventListener('resize', () => fitCardNames());
 
 function switchCardImg(tabBtn, url) {
   const wrap = tabBtn.closest('.card-img-wrap');
