@@ -154,6 +154,7 @@
 <script>
 const CREATURES_URL = "codex/creatures.csv";
 const IMG_BASE = "./";
+    const BUST = '?t=' + Date.now();
 const SLOT_NAMES = {"1":"Main Hand","2":"Off Hand","3":"1st Accessory","4":"2nd Accessory"};
 
 function parseCSV(text) {
@@ -256,7 +257,7 @@ async function load() {
     // and swap in comparison tabs if any crop file actually exists.
     // (File-probe based, same as codex grid — does NOT rely on BG_Status.)
     document.getElementById('creature-img-wrap').innerHTML = c.Image_Path
-      ? '<img src="' + IMG_BASE + escapeHtml(c.Image_Path) + '" alt="' + escapeHtml(c.Name) + '">'
+      ? '<img src="' + IMG_BASE + escapeHtml(c.Image_Path) + BUST + '" alt="' + escapeHtml(c.Name) + '">'
       : '<div class="no-img">NO IMAGE YET</div>';
 
     if (c.Image_Path) (async function() {
@@ -270,14 +271,14 @@ async function load() {
       const present = [];
       for (const s of slotDefs) {
         const path = origPath.replace('codex/images/', 'codex/images/' + s.folder);
-        try { if ((await fetch(IMG_BASE + path, { method:'HEAD' })).ok) present.push(Object.assign({}, s, { path })); } catch {}
+        try { if ((await fetch(IMG_BASE + path + BUST, { method:'HEAD' })).ok) present.push(Object.assign({}, s, { path })); } catch {}
       }
       if (present.length === 0) return;
       let tabs = '<button class="compare-tab active" onclick="switchTab(this,\'orig\')">Option A</button>';
-      let imgs = '<img id="compare-orig" src="' + IMG_BASE + escapeHtml(origPath) + '" alt="' + escapeHtml(c.Name) + ' original" style="display:block">';
+      let imgs = '<img id="compare-orig" src="' + IMG_BASE + escapeHtml(origPath) + BUST + '" alt="' + escapeHtml(c.Name) + ' original" style="display:block">';
       present.forEach(function(s) {
         tabs += '<button class="compare-tab" onclick="switchTab(this,\'' + s.key + '\')">' + s.label + '</button>';
-        imgs += '<img id="' + s.id + '" src="' + IMG_BASE + escapeHtml(s.path) + '" alt="' + escapeHtml(c.Name) + '" style="display:none">';
+        imgs += '<img id="' + s.id + '" src="' + IMG_BASE + escapeHtml(s.path) + BUST + '" alt="' + escapeHtml(c.Name) + '" style="display:none">';
       });
       document.getElementById('creature-img-wrap').innerHTML = '<div class="compare-tabs">' + tabs + '</div>' + imgs;
     })();
@@ -285,14 +286,14 @@ async function load() {
     // Mutant variant toggle (cosmetic color-pallete rework)
     if (c.Image_Path) (async function() {
       const mpath = 'codex/images/mutants/' + c.ID + '.webp';
-      try { if (!(await fetch(IMG_BASE + mpath, { method:'HEAD' })).ok) return; } catch { return; }
+      try { if (!(await fetch(IMG_BASE + mpath + BUST, { method:'HEAD' })).ok) return; } catch { return; }
       const wrap = document.getElementById('creature-img-wrap');
       wrap.insertAdjacentHTML('afterend', '<button id="mutant-toggle" class="mutant-toggle">☣ VIEW MUTANT</button>');
       let normalHTML = null;
       document.getElementById('mutant-toggle').addEventListener('click', function() {
         if (normalHTML === null) {
           normalHTML = wrap.innerHTML;
-          wrap.innerHTML = '<img src="' + IMG_BASE + mpath + '" alt="' + escapeHtml(c.Name) + ' mutant">';
+          wrap.innerHTML = '<img src="' + IMG_BASE + mpath + BUST + '" alt="' + escapeHtml(c.Name) + ' mutant">';
           this.textContent = '☣ VIEW NORMAL'; this.classList.add('active');
         } else {
           wrap.innerHTML = normalHTML; normalHTML = null;
@@ -492,6 +493,7 @@ load();
     // B = Sylph crop (cropped/DFMC-XXX.png)
     // C = isnet crop (cropped_c/DFMC-XXX.png)
     const IMG_BASE = './codex/images/';
+    const BUST = '?t=' + Date.now();
     const OPTION_DEFS = [
       { label: 'A', folder: '',           key: 'A' },
       { label: 'B', folder: 'cropped/',   key: 'B' },
@@ -504,7 +506,7 @@ load();
     async function probeOptions() {
       availableOptions = [];
       for (const def of OPTION_DEFS) {
-        const url = IMG_BASE + def.folder + id + '.png';
+        const url = IMG_BASE + def.folder + id + '.png' + BUST;
         try {
           const resp = await fetch(url, { method: 'HEAD' });
           if (resp.ok) {
