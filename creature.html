@@ -420,7 +420,7 @@ async function renderMoves(c) {
         document.getElementById('soul-panel').insertAdjacentHTML('beforeend', `
           <h3 style="font-family:'Cinzel',serif;font-size:12px;color:var(--gold);margin:14px 0 4px;">ARMOR-SLOT PASSIVES</h3>
           <table style="width:100%;font-size:12px;">
-            <tr><th style="width:70px;">Slot</th><th style="width:86px;">Scope</th><th>Passive (Stage 3 values${stage < 3 ? ' — this stage grants ' + stageMult : ''})</th></tr>
+            <tr><th style="width:70px;">Slot</th><th style="width:86px;">Scope</th><th>Stage 3 Soul Passive</th></tr>
             ${prows}
           </table>`);
       }
