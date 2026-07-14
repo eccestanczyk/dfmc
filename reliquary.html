@@ -22,7 +22,7 @@
 .rq-grid-3{ grid-template-columns:repeat(3, 1fr); }
 .rq-grid-2{ grid-template-columns:repeat(2, 1fr); }
 .rq-item.with-img{ text-align:center; padding:14px 12px 12px; }
-.rq-item.with-img img{ width:100%; max-width:150px; aspect-ratio:3/4; object-fit:contain; display:block; margin:0 auto 8px; filter:drop-shadow(0 5px 10px rgba(0,0,0,0.7)); }
+.rq-item.with-img img{ width:100%; max-width:150px; aspect-ratio:1/1; object-fit:contain; display:block; margin:0 auto 8px; filter:drop-shadow(0 5px 10px rgba(0,0,0,0.7)); }
 .rq-item{ background:var(--surface-2); border:1px solid var(--rule-faint); padding:10px 12px; text-decoration:none; color:inherit; display:block; transition:border-color 0.14s; }
 .rq-item:hover{ border-color:var(--blood-bright); }
 .rq-item-name{ color:var(--ink); font-weight:600; margin-bottom:3px; }
@@ -75,7 +75,8 @@ const CAT_ORDER = ['Weapon','Armour','Accessory','Tag','Gem','Rune','Scroll'];
   rows.forEach(r=>{
     const f=(r.Family||'').trim();
     if(!f||r.Category==='Material')return;
-    if(!fams[f]) fams[f]={family:f, category:r.Category.trim(), slot:r.Slot.trim(), effect:r.Effect.trim()};
+    if(!fams[f]) fams[f]={family:f, category:r.Category.trim(), slot:r.Slot.trim(), effect:r.Effect.trim(), art:''};
+      if(!fams[f].art && (r.Image_Path||'').trim()) fams[f].art=r.Image_Path.trim();
   });
 
   const byCat={};
@@ -125,7 +126,8 @@ const CAT_ORDER = ['Weapon','Armour','Accessory','Tag','Gem','Rune','Scroll'];
     let desc = v.effect ? v.effect.split(',')[0] : v.category;
     desc = desc.split('(')[0].replace(/^\+/,'').replace(/^Creature\s+/i,'').replace(/^flat\s+/i,'').trim();
     if(!desc) desc = v.category;
-    const img = (meta && meta.img) ? `<img src="${meta.img(v.family)}" alt="${esc(v.family)}" loading="lazy">` : '';
+    const src = v.art ? IMG_BASE+v.art+'?t='+Date.now() : ((meta && meta.img) ? meta.img(v.family) : '');
+    const img = src ? `<img src="${src}" alt="${esc(v.family)}" loading="lazy">` : '';
     return `<a class="rq-item${img?' with-img':''}" href="item.html?type=${encodeURIComponent(v.family)}">
       ${img}<div class="rq-item-name">${esc(v.family)}</div>
       <div class="rq-item-desc">${esc(desc)}</div></a>`;

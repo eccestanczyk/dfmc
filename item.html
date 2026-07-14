@@ -27,6 +27,8 @@ table.item-table td:first-child{ color:var(--ink); font-weight:600; }
 .tbd{ color:var(--ink-faint); font-style:italic; }
 .back-link{ font-family:'Cinzel',serif; font-size:12px; color:var(--gold); text-decoration:none; letter-spacing:0.06em; text-transform:uppercase; border-bottom:1px solid var(--rule-faint); }
 .back-link:hover{ color:var(--blood-bright); border-color:var(--blood-bright); }
+.art-cell{width:56px;padding:4px 6px}
+.tier-art{width:44px;height:44px;object-fit:contain;display:block;filter:drop-shadow(0 3px 6px rgba(0,0,0,.7))}
 </style>
 </head>
 <body>
@@ -38,12 +40,12 @@ table.item-table td:first-child{ color:var(--ink); font-weight:600; }
   <div id="status" style="padding:40px;text-align:center;color:var(--ink-dim);font-style:italic;">LOADING...</div>
   <div id="content" style="display:none;">
     <div class="item-hero">
-      <h2 id="item-name"></h2>
+      <div style="display:flex;align-items:center;gap:14px"><img id="item-hero" alt="" style="display:none;width:96px;height:96px;object-fit:contain;filter:drop-shadow(0 6px 12px rgba(0,0,0,.75))"><h2 id="item-name"></h2></div>
       <div class="item-meta"><b id="item-slot"></b> · <span id="item-category"></span></div>
       <div class="item-implicit"><span>Implicit / Effect</span><div id="item-implicit-text"></div></div>
     </div>
     <div class="item-section"><h3>Tier Progression</h3><div class="item-section-body">
-      <table class="item-table"><thead><tr><th>Tier</th><th>Name</th><th>Level Req</th><th>Craft Cost</th></tr></thead><tbody id="tier-table"></tbody></table>
+      <table class="item-table"><thead><tr><th>Art</th><th>Tier</th><th>Name</th><th>Level Req</th><th>Craft Cost</th></tr></thead><tbody id="tier-table"></tbody></table>
     </div></div>
     <div class="item-section" id="implicit-grid-section"><h3>Implicit Values (Tier × Grade)</h3><div class="item-section-body">
       <div id="implicit-grid-note" style="font-size:12px;color:var(--ink-dim);margin-bottom:8px"></div>
@@ -104,6 +106,8 @@ function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replac
   const family=first.Family||key, category=first.Category||'', slot=first.Slot||'';
   const isEnh=slot==='Enhancement';
   document.getElementById('item-name').textContent=family;
+  const heroSrc=(fam.find(r=>r.Image_Path)||{}).Image_Path;
+  if(heroSrc){const he=document.getElementById('item-hero'); he.src=IMG_BASE+heroSrc+'?t='+Date.now(); he.style.display='block';}
   document.getElementById('topbar-title').textContent=family.toUpperCase();
   document.getElementById('item-slot').textContent=slot||category;
   document.getElementById('item-category').textContent=category;
@@ -120,9 +124,10 @@ function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replac
     ? ['Main Hand','Off Hand'].map(sl=>({label:sl,rows:fam.filter(r=>r.Slot===sl)})).filter(g=>g.rows.length)
     : [{label:null,rows:fam}];
   slotGroups.forEach(g=>{
-    if(g.label) tierBody.innerHTML+=`<tr><td colspan="4" style="color:var(--gold);font-family:Cinzel,serif;font-size:12px;letter-spacing:1px;padding-top:10px">${g.label.toUpperCase()}</td></tr>`;
+    if(g.label) tierBody.innerHTML+=`<tr><td colspan="5" style="color:var(--gold);font-family:Cinzel,serif;font-size:12px;letter-spacing:1px;padding-top:10px">${g.label.toUpperCase()}</td></tr>`;
     g.rows.forEach(r=>{const t=parseInt(r.Tier)||0;
-      tierBody.innerHTML+=`<tr><td>T${t}</td><td>${esc(r.Name)}</td><td>${r.Level_Req?'Lv '+esc(r.Level_Req):'<span class="tbd">—</span>'}</td><td>${craftMult*t} ${craftMat}</td></tr>`;});
+      const ip=r.Image_Path?`<img class="tier-art" src="${IMG_BASE+r.Image_Path}?t=${Date.now()}" alt="" loading="lazy">`:'<span class="tbd">—</span>';
+      tierBody.innerHTML+=`<tr><td class="art-cell">${ip}</td><td>T${t}</td><td>${esc(r.Name)}</td><td>${r.Level_Req?'Lv '+esc(r.Level_Req):'<span class="tbd">—</span>'}</td><td>${craftMult*t} ${craftMat}</td></tr>`;});
   });
   // Implicit value grid (tier x grade)
   (function(){
