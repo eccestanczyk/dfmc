@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adventure Log — Herumon Tower</title>
+<link rel="stylesheet" href="theme.css?v=4">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">ADVENTURE LOG</h1></div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; Adventure Log</div>
+  <p class="sp-lead">A permanent, chapter-bound chronicle of everything that has ever happened on the account &mdash; hatches, evolutions, breedings, floor clears, boss kills, deaths, league events, and every battle fought. The log itself never forgets; only the depth of battle detail is pruned over time.</p>
+
+  <h2>Architecture &mdash; events, not text</h2>
+  <ul class="sp-rules">
+    <li>The log is an <strong>append-only event stream</strong>, not stored prose. Each entry is a compact record: <code>{timestamp, event_type, param_ids[]}</code> &mdash; e.g. <code>{t, HATCH, DFMC-042}</code>, <code>{t, EVOLVE, DFMC-044 &rarr; DFMC-045}</code>, <code>{t, FLOOR_CLEAR, 17}</code>.</li>
+    <li>Display text is <strong>rendered at view time</strong> from string templates plus codex CSV data. Renaming a creature or rewording a template retroactively fixes the entire history.</li>
+    <li>Cost per event: ~50&ndash;100 bytes. A heavy player producing 500 events/day for a full year is ~180k events &asymp; 15&ndash;20&nbsp;MB in SQLite &mdash; negligible.</li>
+    <li>Storage: one local SQLite database, append-only, indexed on date. No server round-trips to read the log.</li>
+  </ul>
+
+  <h2>Chapters</h2>
+  <ul class="sp-rules">
+    <li>Chapters are <strong>dated views, not separate documents</strong>. A chapter is simply a date-range query (<code>WHERE ts BETWEEN x AND y</code>) against the single event table.</li>
+    <li>The chapter list UI shows one entry per active day (or per zone milestone on the same screen). Opening a chapter loads <strong>only that chapter's events, paginated</strong> &mdash; the full history is never held in memory.</li>
+    <li>Because chapters are queries, they cost nothing extra to store and can be re-cut later (per-day, per-zone, per-season) without touching the data.</li>
+  </ul>
+
+  <h2>Event types</h2>
+  <table>
+    <tr><th>Event</th><th>Params</th><th>Chapter line (rendered)</th></tr>
+    <tr><td class="lbl">HATCH</td><td>creature_id, egg_id</td><td>"A creature hatched: &lt;name&gt;."</td></tr>
+    <tr><td class="lbl">BREED</td><td>parent_a, parent_b, egg_id</td><td>"&lt;A&gt; and &lt;B&gt; produced an egg."</td></tr>
+    <tr><td class="lbl">EVOLVE</td><td>from_id, to_id</td><td>"&lt;from&gt; evolved into &lt;to&gt;."</td></tr>
+    <tr><td class="lbl">MUTANT_HATCH</td><td>creature_id</td><td>"A mutant variant emerged: &lt;name&gt;."</td></tr>
+    <tr><td class="lbl">LEVEL_UP</td><td>creature_id, level</td><td>"&lt;name&gt; reached level &lt;n&gt;." (milestone levels only)</td></tr>
+    <tr><td class="lbl">BATTLE</td><td>battle_id + summary</td><td>Summary row with a <strong>Battle Log</strong> button.</td></tr>
+    <tr><td class="lbl">FLOOR_CLEAR</td><td>floor</td><td>"Portal opened &mdash; floor &lt;n&gt; cleared."</td></tr>
+    <tr><td class="lbl">BOSS_DEFEATED</td><td>boss_id, floor</td><td>"&lt;boss&gt; has fallen."</td></tr>
+    <tr><td class="lbl">DEATH</td><td>creature_id, pipeline</td><td>"&lt;name&gt; died &mdash; &lt;pipeline outcome&gt;."</td></tr>
+    <tr><td class="lbl">EQUIP_UPGRADE</td><td>item_id, tier</td><td>"&lt;Tier Base&gt; was forged."</td></tr>
+    <tr><td class="lbl">LEAGUE_EVENT</td><td>season, action</td><td>Season migration / league placement lines.</td></tr>
+  </table>
+  <p style="font-size:13px;color:var(--ink-faint)">Param IDs reference codex CSVs; the log stores no names or descriptions. Ordinary per-battle XP ticks are not logged as separate events &mdash; they live inside the battle summary.</p>
+
+  <h2>Battle Logs <span style="font-size:12px;color:var(--ink-faint);font-weight:400;">(sub-item of the Adventure Log)</span></h2>
+  <ul class="sp-rules">
+    <li>Battles are <strong>not deterministic</strong>, so full turn-by-turn data must be recorded &mdash; there is no seed-replay shortcut.</li>
+    <li>The adventure log itself holds only a <strong>battle summary row</strong>: participants, result, turn count, rewards, and a <code>battle_id</code>.</li>
+    <li>Full detail lives in a <strong>separate table keyed by battle_id</strong>: an array of compact turn-action structs <code>{actor_id, move_id, target_id, damage, flags}</code> at ~20&ndash;40 bytes each. A 30-turn battle &asymp; 1&ndash;3&nbsp;KB raw.</li>
+    <li>Each battle's turn array is serialized and <strong>gzip-compressed as one blob</strong> (3&ndash;5&times; reduction) before storage. Nothing is decompressed until requested.</li>
+  </ul>
+
+  <h2>Viewing a battle log</h2>
+  <div class="sp-cards">
+    <div class="sp-tile"><h4>1 &mdash; Tap</h4><p>The player taps the <strong>Battle Log</strong> button on a battle summary row in a chapter.</p></div>
+    <div class="sp-tile"><h4>2 &mdash; Fetch &amp; decompress</h4><p>The blob is fetched by <code>battle_id</code> and decompressed in memory (&lt;1&nbsp;ms for a 1&ndash;3&nbsp;KB blob) &mdash; only that one battle, never the rest of the history.</p></div>
+    <div class="sp-tile"><h4>3 &mdash; Render</h4><p>Turn structs are deserialized and rendered into readable turn-by-turn text via templates + codex data. Compression is invisible at the UI layer.</p></div>
+  </div>
+
+  <h2>Retention policy</h2>
+  <table>
+    <tr><th>Battle class</th><th>Full turn detail</th><th>Summary row</th></tr>
+    <tr><td class="lbl">Boss battles</td><td>Kept forever</td><td>Forever</td></tr>
+    <tr><td class="lbl">PvP battles</td><td>Kept forever</td><td>Forever</td></tr>
+    <tr><td class="lbl">Ordinary wild battles</td><td>Last N days / last N battles, then compacted away</td><td>Forever</td></tr>
+  </table>
+  <ul class="sp-rules">
+    <li>Compaction deletes only the detail blob; the summary row (and therefore the chapter narrative) is <strong>never lost</strong> &mdash; the log loses replay depth, not history.</li>
+    <li>After compaction, the Battle Log button on an old wild battle shows the summary card with a "detail expired" state instead of turn-by-turn text.</li>
+  </ul>
+
+  <h2>Storage budget</h2>
+  <table>
+    <tr><th>Scenario (20&nbsp;s battles, nonstop)</th><th>Growth</th><th>Time to 100&nbsp;MB</th></tr>
+    <tr><td class="lbl">1&nbsp;KB/battle, uncompressed</td><td>180&nbsp;KB/h</td><td>~570&nbsp;h</td></tr>
+    <tr><td class="lbl">3&nbsp;KB/battle, uncompressed</td><td>540&nbsp;KB/h</td><td>~190&nbsp;h</td></tr>
+    <tr><td class="lbl">With gzip (3&ndash;5&times;)</td><td>&mdash;</td><td>~600&ndash;2,800&nbsp;h</td></tr>
+  </table>
+  <div class="sp-note">With retention active, storage <strong>plateaus instead of growing linearly</strong>: the real cap is (battles retained in full detail) &times; ~0.5&ndash;1&nbsp;KB compressed. Keeping the last 5,000 detailed wild battles plus all boss/PvP detail holds the entire system to single-digit MB permanently. The event stream itself grows unbounded but at 50&ndash;100 bytes/event it is never the constraint.</div>
+
+  <h2>Schema (reference)</h2>
+  <table>
+    <tr><th>Table</th><th>Columns</th><th>Notes</th></tr>
+    <tr><td class="lbl">adventure_events</td><td>id, ts, event_type, p1, p2, p3, battle_id?</td><td>Append-only. Index on <code>ts</code>. battle_id set only for BATTLE rows.</td></tr>
+    <tr><td class="lbl">battle_details</td><td>battle_id, blob (gzip), turns, class (wild/boss/pvp), ts</td><td>Loaded lazily on Battle Log tap. Compaction deletes rows by class + age.</td></tr>
+  </table>
+</div>
+<script src="admin.js"></script>
+<script src="nav.js"></script>
+</body>
+</html>
