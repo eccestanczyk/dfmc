@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Community Feedback Pipeline — Herumon Tower</title>
+<link rel="stylesheet" href="theme.css?v=4">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+.fb td{text-align:left;vertical-align:top;}
+.fb td.lbl{white-space:nowrap;}
+.diag{width:100%;height:auto;display:block;margin:16px 0 8px;background:var(--bg-deep,#0d0a06);border:1px solid var(--rule-faint,#3a2c1a);}
+.diag .bx{fill:#1e1710;stroke:#5c462c;stroke-width:1;}
+.diag .bx2{fill:#271e15;stroke:#5c462c;stroke-width:1;}
+.diag .goldbx{fill:rgba(207,166,80,0.10);stroke:#8a6d2f;stroke-width:1;}
+.diag .dim{fill:#171209;stroke:#3a2c1a;stroke-width:1;}
+.diag text{fill:#ede0c4;font-family:'EB Garamond',Georgia,serif;font-size:15px;}
+.diag .t2{fill:#c2ae8b;font-size:13px;}
+.diag .sm{fill:#9c8963;font-size:12px;}
+.diag .hd{fill:#e6c66d;font-family:'Cinzel',serif;font-size:13px;letter-spacing:0.06em;}
+.diag .ln{stroke:#c2ae8b;stroke-width:1.5;fill:none;}
+.diag .lng{stroke:#cfa650;stroke-width:1.5;fill:none;}
+.diag .dash{stroke-dasharray:5 4;}
+.figcap{font-size:13px;color:var(--ink-faint);font-style:italic;margin:0 0 26px;}
+.callout{background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--gold-dim);padding:12px 16px;margin:16px 0;font-size:15px;}
+.callout.bad{border-left-color:var(--blood-mid);}
+.lbl{color:var(--gold-bright);font-weight:600;white-space:nowrap;}
+.status-chip{display:inline-block;border:1px solid var(--rule);padding:1px 7px;font-size:11px;font-family:'Cinzel',serif;letter-spacing:0.05em;color:var(--gold-dim);margin:0 2px;}
+</style>
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">COMMUNITY FEEDBACK PIPELINE</h1></div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="hub.html">Hub</a> &rsaquo; Dev Tools &rsaquo; Community Feedback Pipeline</div>
+  <p class="sp-lead">Strategy spec (v1, July 2026) for collecting, crunching, and acting on player feedback across creature designs, balance, moves, items, floors, bugs, and systems — sized for one developer. Extends the <a href="analytics.html">Analytics &amp; Telemetry</a> plan (Creature Feedback System, hypothesis C6). One sentence: <strong>every channel funnels into one warehouse, an AI pass agglomerates tickets into counted themes nightly, and the dev triages ~10 themes a week instead of reading 300 messages.</strong></p>
+
+  <h2>Requirements traceability</h2>
+  <table class="fb">
+    <tr><th style="text-align:left;">Design note</th><th style="text-align:left;">Delivered by</th></tr>
+    <tr><td>"Ticket system organized by subject, filtered and agglomerated by subject by AI, so I can decide to work on or discard each feedback and see what got the most attention from the community."</td><td>Unified <code>tickets</code> table + nightly AI pass (classify &rarr; cluster &rarr; score) + <code>themes</code> with an attention score and a work/discard status workflow, surfaced in a triage console.</td></tr>
+    <tr><td>"Creature stars are only dev visible, but any visitor can rate them. Require steam auth?"</td><td>Star widget on <code>creature.html</code>; aggregates render only in admin mode. Ruling below: anonymous stars allowed at reduced weight, Steam sign-in required for any text. Flagged as an amendment to the analytics spec.</td></tr>
+  </table>
+
+  <h2>Principles</h2>
+  <table class="fb">
+    <tr><th style="text-align:left;">Principle</th><th style="text-align:left;">Rule</th></tr>
+    <tr><td class="lbl">One warehouse</td><td>Every source — codex widgets, Discord forums, slash command, in-game button, Steam reviews — normalizes into one D1 <code>tickets</code> table. Nothing lives only in a Discord scroll. What isn't in the warehouse doesn't exist.</td></tr>
+    <tr><td class="lbl">Meet players where they are</td><td>Feedback SaaS vendors converge on one finding: standalone portals go unused; players vent where they already hang out. Our two "where they are" surfaces both exist — the codex (already the reference destination) and the Discord. No third destination is built.</td></tr>
+    <tr><td class="lbl">Themes are the unit of work</td><td>Tickets are cheap and unbounded; the dev's attention is not. Triage happens at the theme level — a cluster of tickets about the same thing with a count attached. Work/discard decisions are made once per theme, never once per message.</td></tr>
+    <tr><td class="lbl">Attention = unique voices</td><td>The attention score counts distinct authors (tier-weighted) plus reactions — never raw message volume. One person posting ten times is one voice. Nothing is discarded for scoring low; it just ranks low. Same doctrine as the analytics feedback weighting.</td></tr>
+    <tr><td class="lbl">Bugs and opinions are two tracks</td><td>The Mojang model: a structured bug tracker and an upvote-style feedback surface are separate intakes with separate templates. A bug needs version + floor + repro steps; an opinion needs a subject + text. Same warehouse, different forms, different console lenses.</td></tr>
+    <tr><td class="lbl">Close the loop or it dies</td><td>People file good reports only while reports visibly land. Status changes propagate back out: staff tags on Discord threads, a weekly digest post, ship-notifications in the original threads. Every source consulted treats this as the single highest-leverage habit.</td></tr>
+    <tr><td class="lbl">Dev-only scores</td><td>Creature star aggregates are never public. This also removes the entire payoff of brigading — review-bombing a hidden number influences one reader who can see the raw data behind it.</td></tr>
+    <tr><td class="lbl">Free tier only</td><td>Cloudflare Worker + D1 (already specced for analytics), GitHub Actions cron, one nightly small-model LLM pass (cents/month). Zero fixed cost, consistent with the backend cost doctrine.</td></tr>
+    <tr><td class="lbl">Human decides, AI crunches</td><td>The AI classifies, clusters, summarizes, and ranks. It never auto-files work, never auto-replies to players, never auto-discards. Community devs are unanimous that auto-ticketing every Discord message produces noise and bad-idea tickets; the human gate is the quality filter.</td></tr>
+  </table>
+
+  <h2>What other games &amp; tools do</h2>
+  <table class="fb">
+    <tr><th style="text-align:left;">Source</th><th style="text-align:left;">Practice</th><th style="text-align:left;">What we take</th></tr>
+    <tr><td class="lbl">Mojang — Minecraft</td><td>Two-track intake: feedback.minecraft.net (upvote portal) for ideas, bugs.mojang.com (public Jira, "Mojira") for defects. Community-moderated; search-before-submit; one issue per report; clear-title + repro-steps guidelines; duplicate votes consolidate onto the original.</td><td>The two-track split; search-first culture; one-issue-per-report; structured bug template. We skip the public tracker itself — dev-only console instead.</td></tr>
+    <tr><td class="lbl">Coffee Stain — Satisfactory</td><td>questions.satisfactorygame.com — a dedicated upvote Q&amp;A portal plus relentless dev-to-community transparency, widely credited for turning feedback into the roadmap.</td><td>Upvoting as prioritization signal. We get the same signal free from Discord's default-reaction 👍 + Top sort and widget volume, without hosting a portal.</td></tr>
+    <tr><td class="lbl">Discord's own game-dev guide</td><td>Recommends Forum channels (not text) for #feedback and #bug-reports; post guidelines enforcing repro steps, platform, version; staff tags like "Under Review" / "Implemented"; dev presence — one genuine reply a day beats a monthly wall of text.</td><td>The entire Discord-side structure, verbatim.</td></tr>
+    <tr><td class="lbl">Forum-channel practice (community guides)</td><td>Required tags (8–15 well-named beats fifty vague); default reaction emoji + "Top" sort turns a forum into an upvote board; lifecycle tags ([open]/[reproduced]/[fixed]/[wontfix]); one job per channel; post titles are the highest-signal text for analysis.</td><td>Tag taxonomy below; 👍 default reaction; titles feed the AI clusterer first.</td></tr>
+    <tr><td class="lbl">BetaHub (Discord QA tooling)</td><td>Bot builds structured reports from casual messages and auto-detects duplicates — five identical crash reports become one issue with a frequency count. Warns that most testers won't fill templates unprompted; tooling must lower the friction.</td><td>Exactly the agglomeration shape requested: duplicates collapse into one counted theme. The /feedback command is the low-friction path.</td></tr>
+    <tr><td class="lbl">AI feedback SaaS (Chatter, Kinn, GameDataCore, Oplix)</td><td>Commercial products doing precisely this for studios: monitor Discord/Steam/forums, cluster related feedback ("47 messages about matchmaking become one pain point with a count"), rank by mention count + growth, auto-notify reporters when a fix ships, weekly digests. Also: spam filtering and translation in the ingest pass.</td><td>Validates the design; we self-build the same loop on free infrastructure. Growth-rate ranking (trend), ship-notification, and digest are adopted. Translation folded into the classify pass.</td></tr>
+    <tr><td class="lbl">Turtle Rock — Evolve (via analytics plan)</td><td>Paired community sentiment with per-character telemetry before moving balance levers.</td><td>Already codified as hypothesis C6 — feedback × telemetry quadrants. This pipeline is the feedback half of that join; the shared identity hash makes the join native.</td></tr>
+  </table>
+  <p style="font-size:12.5px;color:var(--ink-faint);">Links: minecraft.wiki/w/Bug_tracker · feedback.minecraft.net · questions.satisfactorygame.com · docs.discord.com/developers/game-development/how-to-create-a-community-for-your-game · accord.gg/articles/discord-threads-vs-forum-channels-for-game-communities · betahub.io (Discord feedback + closed-beta playbooks) · chatter.plus · kinn.gg · gamedatacore.ai · oplix.io</p>
+
+  <h2>Topology</h2>
+  <svg class="diag" viewBox="0 0 940 490" xmlns="http://www.w3.org/2000/svg">
+    <defs><marker id="arF" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#c2ae8b"/></marker>
+    <marker id="arG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#cfa650"/></marker></defs>
+
+    <text x="120" y="30" class="hd" text-anchor="middle">INTAKE</text>
+    <rect x="20" y="45" width="200" height="72" class="bx"/>
+    <text x="120" y="68" text-anchor="middle">CODEX SITE</text>
+    <text x="120" y="87" class="t2" text-anchor="middle">star widget &#183; feedback form</text>
+    <text x="120" y="104" class="t2" text-anchor="middle">bug form &#183; Steam OpenID</text>
+
+    <rect x="20" y="131" width="200" height="72" class="bx"/>
+    <text x="120" y="154" text-anchor="middle">DISCORD</text>
+    <text x="120" y="173" class="t2" text-anchor="middle">#suggestions &#183; #bug-reports</text>
+    <text x="120" y="190" class="t2" text-anchor="middle">forums + /feedback command</text>
+
+    <rect x="20" y="217" width="200" height="58" class="dim"/>
+    <text x="120" y="240" class="t2" text-anchor="middle">IN-GAME REPORT (F4)</text>
+    <text x="120" y="258" class="sm" text-anchor="middle">build + floor auto-attached</text>
+
+    <rect x="20" y="289" width="200" height="58" class="dim"/>
+    <text x="120" y="312" class="t2" text-anchor="middle">STEAM REVIEWS (post-launch)</text>
+    <text x="120" y="330" class="sm" text-anchor="middle">nightly public-API pull</text>
+
+    <path class="ln" d="M220 81 L320 150" marker-end="url(#arF)"/>
+    <path class="ln" d="M220 167 L320 175" marker-end="url(#arF)"/>
+    <path class="ln dash" d="M220 246 L320 200" marker-end="url(#arF)"/>
+    <path class="ln dash" d="M220 318 L320 220" marker-end="url(#arF)"/>
+
+    <rect x="322" y="120" width="220" height="130" class="goldbx"/>
+    <text x="432" y="146" class="hd" text-anchor="middle">WORKER + D1</text>
+    <text x="432" y="170" class="t2" text-anchor="middle">tickets &#183; ratings &#183; themes</text>
+    <text x="432" y="190" class="t2" text-anchor="middle">rate caps &#183; word filter</text>
+    <text x="432" y="210" class="t2" text-anchor="middle">salted identity hashes</text>
+    <text x="432" y="230" class="sm" text-anchor="middle">same free tier as analytics</text>
+
+    <path class="ln" d="M542 185 L610 185" marker-end="url(#arF)"/>
+
+    <rect x="612" y="120" width="200" height="130" class="bx2"/>
+    <text x="712" y="146" class="hd" text-anchor="middle">NIGHTLY AI PASS</text>
+    <text x="712" y="170" class="t2" text-anchor="middle">GitHub Action cron</text>
+    <text x="712" y="190" class="t2" text-anchor="middle">classify &rarr; cluster &rarr; score</text>
+    <text x="712" y="210" class="t2" text-anchor="middle">theme labels + summaries</text>
+    <text x="712" y="230" class="sm" text-anchor="middle">small model &#183; cents / month</text>
+
+    <path class="ln" d="M712 250 L712 300" marker-end="url(#arF)"/>
+
+    <rect x="612" y="302" width="200" height="96" class="bx"/>
+    <text x="712" y="328" class="hd" text-anchor="middle">TRIAGE CONSOLE</text>
+    <text x="712" y="350" class="t2" text-anchor="middle">themes ranked by attention</text>
+    <text x="712" y="368" class="t2" text-anchor="middle">work / discard, one click</text>
+    <text x="712" y="386" class="sm" text-anchor="middle">feedback-inbox.html &#183; admin</text>
+
+    <rect x="322" y="302" width="220" height="96" class="bx2"/>
+    <text x="432" y="328" class="hd" text-anchor="middle">WEEKLY DIGEST</text>
+    <text x="432" y="350" class="t2" text-anchor="middle">top themes &#183; movers &#183; new</text>
+    <text x="432" y="368" class="t2" text-anchor="middle">one crunched read for the dev</text>
+    <text x="432" y="386" class="sm" text-anchor="middle">public copy &rarr; #dev-updates</text>
+
+    <path class="ln" d="M612 350 L542 350" marker-end="url(#arF)"/>
+
+    <path class="lng dash" d="M612 380 C 380 470, 160 440, 118 205" marker-end="url(#arG)"/>
+    <text x="360" y="452" class="sm" text-anchor="middle" fill="#cfa650">closing the loop — status tags on threads &#183; ship-notify replies &#183; digest post</text>
+  </svg>
+  <p class="figcap">Fig. 1 — Four intakes, one warehouse, one nightly crunch, one console. Dashed intakes are deferred phases. The gold return path is the part most pipelines skip and then die from.</p>
+
+  <h2>Intake surfaces</h2>
+
+  <h3>A — Codex site (extends the analytics Creature Feedback System)</h3>
+  <table class="fb">
+    <tr><th style="text-align:left;">Element</th><th style="text-align:left;">Spec</th></tr>
+    <tr><td class="lbl">Creature stars</td><td>On <code>creature.html</code>: &#9733;1–5 + fixed tag chips (Too weak &#183; Too strong &#183; Boring kit &#183; Fun to use &#183; Confusing &#183; Love the art &#183; Art needs work) + optional comment &le;500 chars. One rating per identity per creature, editable, history kept. <strong>Aggregates render only in admin mode</strong> — visitors see their own rating, never the average.</td></tr>
+    <tr><td class="lbl">General feedback form</td><td>Floating quill button on codex pages &rarr; kind selector (Creature design &#183; Balance &#183; Move &#183; Item &#183; Floor &#183; System &#183; Art &#183; Other) + subject autocomplete fed from the codex CSVs (creatures, moves, items, floors) + text &le;1000 chars. Subject binding at intake is what makes per-subject agglomeration cheap and exact.</td></tr>
+    <tr><td class="lbl">Bug report form</td><td>Separate form, separate template: build version &#183; realm &#183; floor &#183; steps to reproduce &#183; expected &#183; actual, &le;1500 chars. Steam sign-in required (accountability + dedupe by author).</td></tr>
+    <tr><td class="lbl">Later widgets</td><td>The same star/tag widget generalizes by <code>subject_ref</code> to <code>item.html</code>, <code>floor.html</code>, and move rows once the creature version is proven. Not v1.</td></tr>
+  </table>
+
+  <h3>B — Discord restructure</h3>
+  <table class="fb">
+    <tr><th style="text-align:left;">Element</th><th style="text-align:left;">Spec</th></tr>
+    <tr><td class="lbl">#suggestions</td><td>Forum channel (not text). Required tags: Creature &#183; Move &#183; Balance &#183; Item &#183; Floor &#183; System &#183; Art &#183; UI &#183; Other. Default reaction 👍 + "Top" sort = native upvote board. Post guidelines (shown on every New Post): search first; one idea per post; title = subject + claim ("Omnichimera S3 — Eldritch kit feels passive").</td></tr>
+    <tr><td class="lbl">#bug-reports</td><td>Forum channel. Required tags: Crash &#183; Battle &#183; UI &#183; Save &#183; Economy &#183; Visual &#183; Other. Post guidelines embed the bug template (version / realm / floor / repro / expected / actual). Attachments enabled — screenshots and videos are half of every bug report's value.</td></tr>
+    <tr><td class="lbl">Staff lifecycle tags</td><td>Dev-applied only: <span class="status-chip">Under Review</span><span class="status-chip">Planned</span><span class="status-chip">In Progress</span><span class="status-chip">Shipped</span><span class="status-chip">Declined</span><span class="status-chip">Duplicate</span><span class="status-chip">Needs Info</span>. These mirror theme status and are the visible half of the loop.</td></tr>
+    <tr><td class="lbl">/feedback command</td><td>Slash command served by the Worker via Discord HTTP interactions — zero hosted bot. Modal with the same kind/subject/text fields, writes straight to D1. The low-friction path for players who will never write a forum post.</td></tr>
+    <tr><td class="lbl">Ingestion</td><td>Scheduled Worker (cron) polls both forums via Discord REST: new posts &rarr; tickets (title + body + tags + 👍 count + thread URL); reaction counts refreshed on poll. Replies are not auto-ticketed — the opening post is the ticket; discussion stays human-read via the thread link.</td></tr>
+  </table>
+
+  <h3>C — Deferred intakes</h3>
+  <p><strong>In-game report button (F4):</strong> one keypress in the Unity client posts to the same Worker endpoint with build, realm, floor, and recent battle context auto-attached — the friction-killer every playtest guide recommends. Rides the backend roadmap step, not before. <strong>Steam reviews (post-launch):</strong> nightly pull of new reviews via the public storefront API into tickets at low weight — review text is sentiment-rich but subject-poor, so it feeds themes rather than creating them.</p>
+
+  <h2>Data model (D1)</h2>
+  <table class="fb">
+    <tr><th style="text-align:left;">Table</th><th style="text-align:left;">Columns</th></tr>
+    <tr><td class="lbl">tickets</td><td><code>id, source(site|discord|steam|ingame), kind, subject_ref, title, body, author_hash, tier, reactions, source_url, created, cluster_id, state(new|clustered|spam)</code></td></tr>
+    <tr><td class="lbl">themes</td><td><code>id, label, summary, kind, subject_ref, ticket_count, unique_authors, attention, trend_7d, status(inbox|considering|planned|in_progress|shipped|declined), decision_note, first_seen, last_seen</code></td></tr>
+    <tr><td class="lbl">ratings</td><td><code>subject_ref, author_hash, tier, stars, ts</code> — separate from tickets; powers the dev-only aggregates.</td></tr>
+  </table>
+  <p><code>subject_ref</code> is the agglomeration key and reuses codex identity: <code>creature:DFMC-285</code>, <code>move:&lt;id&gt;</code>, <code>item:&lt;id&gt;</code>, <code>floor:41</code>, <code>system:breeding</code>, or <code>none</code>. <code>author_hash</code> is the same salted-hash identity as analytics — the C6 feedback &times; telemetry join costs nothing.</p>
+
+  <h2>The nightly AI pass</h2>
+  <table class="fb">
+    <tr><th style="text-align:left;">Pass</th><th style="text-align:left;">What it does</th></tr>
+    <tr><td class="lbl">1 — Classify</td><td>For each <code>state=new</code> ticket: assign kind; extract <code>subject_ref</code> against the codex CSVs ("Omnichimera hits like a wet noodle" &rarr; <code>creature:DFMC-285</code>, Balance); translate non-English to English (community includes JP — no Mojang-style English-only wall); flag spam/empty &rarr; <code>state=spam</code>.</td></tr>
+    <tr><td class="lbl">2 — Cluster</td><td>Embed title+body. Cosine above threshold joins the nearest open theme with matching kind/subject; otherwise a new theme is opened. The model writes or refreshes each touched theme's label and two-sentence summary with one representative quote. Themes never merge automatically — merge is a console button.</td></tr>
+    <tr><td class="lbl">3 — Score</td><td><code>attention = &Sigma; unique-author tier weights + 0.1 &times; reactions</code>; <code>trend_7d</code> = attention gained this week (what's heating up). Nothing is deleted for scoring low — low just ranks low.</td></tr>
+    <tr><td class="lbl">Output</td><td>Monday digest: top 10 themes by attention, top movers by trend, new themes, totals — one crunched read. A dev-only copy lands in the console; a public copy (minus scores) is postable to #dev-updates.</td></tr>
+  </table>
+  <p>Runs as a GitHub Actions cron calling the OpenAI API, writing back through an admin-token Worker endpoint. At a few hundred tickets a week on a small model this costs cents per month. Raw feedback text never enters the public repo — it stays in D1.</p>
+
+  <h2>Triage console — <code>feedback-inbox.html</code> (build item)</h2>
+  <p>Admin-gated page in Dev Tools. Themes ranked by attention; filters by kind, status, subject; each theme expands to its member tickets with source links (jump straight to the Discord thread). One-click status buttons across <span class="status-chip">Inbox</span><span class="status-chip">Considering</span><span class="status-chip">Planned</span><span class="status-chip">In Progress</span><span class="status-chip">Shipped</span><span class="status-chip">Declined</span> — Declined requires a one-line <code>decision_note</code>, which becomes the reply material when the loop closes. A ratings board lists lowest-rated / most-rated creatures from the dev-only star data, and the codex admin overlay shows per-creature aggregates in place. Once the telemetry plane lands, the C6 quadrant view (loved-but-weak / hated-but-strong &hellip;) joins here.</p>
+
+  <h2>Closing the loop</h2>
+  <table class="fb">
+    <tr><th style="text-align:left;">Mechanism</th><th style="text-align:left;">Spec</th></tr>
+    <tr><td class="lbl">Status sync</td><td>Console status change &rarr; Worker edits the staff tag on every linked Discord thread. Players watch their post move from Under Review to Planned without asking.</td></tr>
+    <tr><td class="lbl">Ship-notify</td><td>When a theme goes Shipped, the bot replies once in each member thread: "Landed in patch X.Y — thanks." The single cheapest retention mechanic any of the studied tools offer.</td></tr>
+    <tr><td class="lbl">Weekly digest post</td><td>Public digest copy to #dev-updates: what's top of mind, what moved status this week. Declined themes are listed with their one-line reason — visible "no" beats silent void.</td></tr>
+    <tr><td class="lbl">Patch-note linkage</td><td>Patch notes cite theme IDs; the analytics patch protocol already logs every lever change — the theme ID rides in that log entry, so charts, patches, and community asks stay cross-referenced.</td></tr>
+  </table>
+
+  <h2>Auth ruling — stars vs text</h2>
+  <table class="fb">
+    <tr><th style="text-align:left;">Tier</th><th style="text-align:left;">Who</th><th style="text-align:left;">Can do</th><th style="text-align:left;">Weight</th></tr>
+    <tr><td class="lbl">0 — Anonymous</td><td>Any visitor; signed cookie UUID + IP rate cap</td><td>Star ratings only. No text of any kind.</td><td>&times;0.25</td></tr>
+    <tr><td class="lbl">1 — Steam signed-in</td><td>Steam OpenID (one click, no password, no account of ours)</td><td>Stars, tag chips, comments, feedback tickets, bug reports</td><td>&times;1</td></tr>
+    <tr><td class="lbl">2 — Verified climber</td><td>Tier 1 + telemetry join shows real playtime (e.g. &ge;50 battles; &ge;50 with the creature for creature feedback)</td><td>Same as Tier 1, badge in console</td><td>&times;2</td></tr>
+  </table>
+  <p><strong>Answer to the note: do not require Steam auth for stars; require it for anything with text.</strong> The reasoning is specific to this design: because aggregates are dev-only, brigading a hidden number has no audience and no payoff, so the classic reason to gate ratings disappears — while the friction cost of forced login on a one-click star is total. Text is different: comments and tickets need accountability, per-author rate caps, and author-dedupe, and OpenID costs the player one click. Anonymous stars are down-weighted, not trusted equally, and the tier is visible per-vote in the console.</p>
+  <div class="callout bad"><span class="lbl">Amendment flag:</span> the Analytics &amp; Telemetry page currently specs the creature widget as Steam-auth-gated for all input. This ruling amends it to the tiered model above (anonymous stars at &times;0.25). Pending approval; on approval, the analytics page's Auth/Widget rows get a one-line edit.</div>
+
+  <h2>Moderation, abuse &amp; privacy</h2>
+  <table class="fb">
+    <tr><th style="text-align:left;">Concern</th><th style="text-align:left;">Control</th></tr>
+    <tr><td class="lbl">Spam / flooding</td><td>Per-identity rate caps (e.g. 20 tickets/day, 1 rating per creature, edits allowed); banned-word filter at the Worker; AI pass flags junk to <code>state=spam</code>. Admin delete is a shadow-discard — excluded from clustering, never surfaced back.</td></tr>
+    <tr><td class="lbl">Sockpuppet stars</td><td>Cookie + IP caps blunt volume; &times;0.25 weight bounds impact; the console can filter aggregates to Tier &ge;1 in one click whenever a number looks manipulated.</td></tr>
+    <tr><td class="lbl">Discord-side noise</td><td>Server verification level gates very new accounts; required tags stop untagged sludge; moderator "Duplicate" tag folds copies onto the original, matching the Mojang consolidation habit.</td></tr>
+    <tr><td class="lbl">Privacy</td><td>Only salted hashes of SteamID64 / Discord author IDs are stored — never raw IDs, matching the analytics identity doctrine. Free text is the one PII surface; the Export My Data / Delete Account flows already promised for analytics extend to <code>tickets</code> and <code>ratings</code>.</td></tr>
+  </table>
+
+  <h2>Rollout</h2>
+  <table class="fb">
+    <tr><th style="text-align:left;">Phase</th><th style="text-align:left;">Lands with</th><th style="text-align:left;">Delivers</th></tr>
+    <tr><td class="lbl">F0 — now, zero code</td><td>An evening of Discord admin</td><td>Both forum channels with required tags, post guidelines, 👍 default reaction + Top sort, staff lifecycle tags. Manual weekly skim continues meanwhile. Everything later ingests this structure retroactively.</td></tr>
+    <tr><td class="lbl">F1 — site intake</td><td>Analytics P3 (independent — any time)</td><td>Worker + D1 + Steam OpenID; creature star widget with tiered auth; general feedback + bug forms with subject autocomplete.</td></tr>
+    <tr><td class="lbl">F2 — Discord ingestion</td><td>After F1</td><td>Cron poll of both forums into <code>tickets</code>; /feedback slash command via HTTP interactions.</td></tr>
+    <tr><td class="lbl">F3 — the crunch</td><td>After F2</td><td>Nightly AI pass, attention + trend scoring, Monday digest, <code>feedback-inbox.html</code> console. The design-note requirement is fully live here.</td></tr>
+    <tr><td class="lbl">F4 — loop + client</td><td>Console live; Unity backend step for the client half</td><td>Status sync to thread tags, ship-notify replies, public digest post; in-game report button; Steam review pull post-launch.</td></tr>
+  </table>
+
+  <h2>Cost</h2>
+  <p>Cloudflare Worker + D1 free tier (the same instance the analytics plan provisions — 100k writes/day of headroom); GitHub Actions cron, free; nightly small-model classification at a few hundred tickets a week, cents per month on the existing OpenAI account; Discord slash command as HTTP interactions on the Worker — no hosted bot, no VPS. Fixed cost: $0.</p>
+
+  <h2>Open flags</h2>
+  <table class="fb">
+    <tr><th style="text-align:left;">#</th><th style="text-align:left;">Flag</th></tr>
+    <tr><td class="lbl">1</td><td>Analytics-page auth amendment (tiered stars) — approve or keep Steam-gated everywhere.</td></tr>
+    <tr><td class="lbl">2</td><td>Declined reasons: public in the digest (recommended — visible "no" builds trust) or dev-only.</td></tr>
+    <tr><td class="lbl">3</td><td>Screenshot upload on the site bug form (needs R2 + moderation surface). v1 is text-only; Discord carries attachments meanwhile.</td></tr>
+    <tr><td class="lbl">4</td><td>Language policy: auto-translate in the classify pass (recommended) vs an English-only submission rule.</td></tr>
+    <tr><td class="lbl">5</td><td>Public roadmap page on the codex — deliberately not in scope; Discord tags + digest cover it. Revisit if the community outgrows Discord.</td></tr>
+    <tr><td class="lbl">6</td><td>Theme statuses could later sync to GitHub issues in the game repo for shipped/planned work — skipped for now to keep one console.</td></tr>
+  </table>
+
+</div>
+<script src="admin.js"></script>
+<script src="nav.js"></script>
+</body>
+</html>
