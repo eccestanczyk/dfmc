@@ -144,7 +144,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     <button onclick="show('xp-progression',this)">XP &amp; progression</button>
     <button onclick="show('core-loop',this)">Core loop</button>
     <button onclick="show('battle',this)">Battle system</button>
-    <button onclick="show('leagues',this)">Leagues</button>
+    <button onclick="show('realms',this)">Realms</button>
     <button onclick="show('metagame',this)">Metagame</button>
     <button onclick="show('codex',this)">Codex</button>
     <button onclick="show('equipment',this)">Equipment</button>
@@ -170,9 +170,9 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     <p>A creature-collecting competitive turn-based RPG where players climb an ever-ascending tower floor by floor. Each floor is a simple map where the Collector triggers battles until a win threshold opens the portal to the next floor, with manual chests scattered throughout. All metagame systems (breeding, crafting, farming, hatchery) are accessible as UI panels at any time during PvE — no physical base.</p>
     <h3>Game modes</h3>
     <div class="grid-2">
-      <div class="card"><div class="card-title"><span class="pill pill-eternal">Eternal</span></div><div class="card-body" style="margin-top:6px">Soft death. Character stays in league, no reset. Receives Hardcore deaths as claimable Bequests, and Seasonal holdings at season end.</div></div>
+      <div class="card"><div class="card-title"><span class="pill pill-eternal">Eternal</span></div><div class="card-body" style="margin-top:6px">Soft death. Character stays in realm, no reset. Receives Hardcore deaths as claimable Bequests, and Seasonal holdings at season end.</div></div>
       <div class="card"><div class="card-title"><span class="pill pill-hc">Hardcore</span></div><div class="card-body" style="margin-top:6px">On death, character is wiped to level 1 and stays in Hardcore. All items, creatures, and class XP (as Soul Gems) are sealed into a Bequest sent to the Eternal inbox.</div></div>
-      <div class="card"><div class="card-title"><span class="pill pill-season">Seasonal</span></div><div class="card-body" style="margin-top:6px">Soft death. Timed league. On season end, character migrates to Eternal; its holdings are delivered there.</div></div>
+      <div class="card"><div class="card-title"><span class="pill pill-season">Seasonal</span></div><div class="card-body" style="margin-top:6px">Soft death. Timed realm. On season end, character migrates to Eternal; its holdings are delivered there.</div></div>
       <div class="card"><div class="card-title"><span class="pill pill-hcs">HC Seasonal</span></div><div class="card-body" style="margin-top:6px">On death, character wiped to level 1 and stays in HC Seasonal. Its loadout is sealed into a Bequest; at season end all HC Seasonal Bequests are delivered to the Hardcore inbox.</div></div>
     </div>
     <h3>Ladders</h3>
@@ -209,8 +209,8 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
   <!-- CHARACTERS -->
   <div id="character" class="page">
     <h2>Character system</h2>
-    <h3>One character per league, always</h3>
-    <p>Every account has a character in every league they have unlocked, starting at level 1. The character slot is permanent — death does not remove or demote the character. On hardcore death, the character is wiped back to level 1 and remains in the same league. Only their items, creatures, and class XP are lost.</p>
+    <h3>One character per realm, always</h3>
+    <p>Every account has a character in every realm they have unlocked, starting at level 1. The character slot is permanent — death does not remove or demote the character. On hardcore death, the character is wiped back to level 1 and remains in the same realm. Only their items, creatures, and class XP are lost.</p>
 
     <h3>Player level, character level, class level</h3>
     <p>The <strong style="color:#ede0c4">player level</strong> is account-wide and uncapped: it accumulates every point of XP the account ever earns, uses the standard curve to 100, then costs a flat 639,723 XP per level forever (~640 battles, ~21h). It grants nothing — no stats, no unlocks — and is the only progression number that survives hardcore death. Creature, class, and character levels all cap at 100.</p>
@@ -357,18 +357,18 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     <h2>Core loop</h2>
 
     <h3>Single active character</h3>
-    <p>The game runs <strong>one league character at a time</strong>. Switching leagues switches the active character; only the active character simulates. There is no offline progression; being in-game is the only way to advance. All economy balancing is denominated in battles for this one active character (~30 battles/hour on autoplay).</p>
+    <p>The game runs <strong>one realm character at a time</strong>. Switching realms switches the active character; only the active character simulates. There is no offline progression; being in-game is the only way to advance. All economy balancing is denominated in battles for this one active character (~30 battles/hour on autoplay).</p>
     <div class="grid-2">
       <div class="card"><div class="card-title">Manual mode</div><div class="card-body">Default state. Player directly controls the active character. Autoplay must be explicitly enabled to hand off control.</div></div>
       <div class="card"><div class="card-title">Autoplay mode</div><div class="card-body">Opt-in. The active character grinds the current floor automatically. Disable to return to manual control.</div></div>
     </div>
     <ul>
       <li>Autoplay is off by default — the player opts in</li>
-      <li>Switching leagues pauses the previous character entirely</li>
+      <li>Switching realms pauses the previous character entirely</li>
       <li>Closing the game window pauses the character</li>
       <li>No offline rewards — open game only</li>
     </ul>
-    <div class="note note-info"><p>The earlier multi-tab simultaneous-simulation design (up to 4 league tabs at once) is retired — one character farms at a time.</p></div>
+    <div class="note note-info"><p>The earlier multi-tab simultaneous-simulation design (up to 4 realm tabs at once) is retired — one character farms at a time.</p></div>
 
     <h3>Floor presentation (Simplified Static)</h3>
     <p>There is no player avatar. Each floor is a static painted map (1536&times;1024&nbsp;px, 3:2; parallax background at 1.5&times; for ultrawide; boss floors are 1024&times;1024 arenas). Creatures wander the map autonomously; hovering a creature highlights it by rarity; clicking (tagging) it starts the battle. Grid movement is archived — see Roadmap.</p>
@@ -569,15 +569,15 @@ FinalDamage = RawDamage
     <ul><li>Characters level up per class; class level and stage scale power directly (no skill trees in this iteration)</li><li>Creatures level up and have evolution chains</li><li>Evolutions triggered by level, item, or bond — swap CreatureData ScriptableObject, preserve stat history</li></ul>
   </div>
 
-  <!-- LEAGUES -->
-  <div id="leagues" class="page">
-    <h2>Leagues & death system</h2>
+  <!-- REALMS -->
+  <div id="realms" class="page">
+    <h2>Realms & death system</h2>
 
-    <div class="note note-info"><p><strong>One character per league per account, always.</strong> Every account starts with a level 1 character in every unlocked league. Death never removes or moves the character — it wipes them back to level 1 in place. Only items, creatures, and class XP are lost.</p></div>
+    <div class="note note-info"><p><strong>One character per realm per account, always.</strong> Every account starts with a level 1 character in every unlocked realm. Death never removes or moves the character — it wipes them back to level 1 in place. Only items, creatures, and class XP are lost.</p></div>
 
     <h3>Death table</h3>
     <table>
-      <tr><th>League</th><th>On death</th><th>Character after death</th><th>Items go to</th></tr>
+      <tr><th>Realm</th><th>On death</th><th>Character after death</th><th>Items go to</th></tr>
       <tr><td><span class="pill pill-eternal">Eternal</span></td><td>Soft — remain on floor, streak resets</td><td>Unchanged</td><td>—</td></tr>
       <tr><td><span class="pill pill-hc">Hardcore</span></td><td>Character wiped to level 1</td><td>Stays in Hardcore, level 1</td><td>Eternal inbox (Bequest)</td></tr>
       <tr><td><span class="pill pill-season">Seasonal</span></td><td>Soft — remain on floor, streak resets</td><td>Unchanged</td><td>—</td></tr>
@@ -585,15 +585,15 @@ FinalDamage = RawDamage
     </table>
 
     <h3>The Bequest inbox</h3>
-    <p>The Bequest inbox is a top-bar icon — a gravestone with a satchel — shown between the menu dropdown and the Speed-order button, only in leagues that receive Bequests (Eternal, and Hardcore at season end) — there is no physical base or chest to walk up to. Each hardcore death sends one Bequest to the receiving league's inbox:</p>
+    <p>The Bequest inbox is a top-bar icon — a gravestone with a satchel — shown between the menu dropdown and the Speed-order button, only in realms that receive Bequests (Eternal, and Hardcore at season end) — there is no physical base or chest to walk up to. Each hardcore death sends one Bequest to the receiving realm's inbox:</p>
     <div class="grid-2">
       <div class="card">
         <div class="card-title"><span class="pill pill-eternal">Eternal inbox</span></div>
-        <div class="card-body" style="margin-top:6px">Accessible via UI in the Eternal league. Receives items from Hardcore deaths as claimable Bequests. Also receives Seasonal holdings at season end.</div>
+        <div class="card-body" style="margin-top:6px">Accessible via UI in the Eternal realm. Receives items from Hardcore deaths as claimable Bequests. Also receives Seasonal holdings at season end.</div>
       </div>
       <div class="card">
         <div class="card-title"><span class="pill pill-season">HC Seasonal Bequests</span></div>
-        <div class="card-body" style="margin-top:6px">Accessible via UI in the Seasonal league. Receives items from HC Seasonal deaths. At season end, all HC Seasonal Bequests are delivered to the Hardcore inbox.</div>
+        <div class="card-body" style="margin-top:6px">Accessible via UI in the Seasonal realm. Receives items from HC Seasonal deaths. At season end, all HC Seasonal Bequests are delivered to the Hardcore inbox.</div>
       </div>
     </div>
 
@@ -606,37 +606,37 @@ FinalDamage = RawDamage
     </ul>
 
     <h3>Season end migration</h3>
-    <div class="flow-box"><div class="flow-box-title" style="color:#60a5fa">Seasonal regular character</div><div class="flow-box-body">Migrates to Eternal league with season badge</div></div>
+    <div class="flow-box"><div class="flow-box-title" style="color:#60a5fa">Seasonal regular character</div><div class="flow-box-body">Migrates to Eternal realm with season badge</div></div>
     <div class="arrow">↓</div>
-    <div class="flow-box"><div class="flow-box-title" style="color:#a78bfa">Eternal league</div><div class="flow-box-body">Character arrives; its holdings are delivered to the Eternal inbox.</div></div>
+    <div class="flow-box"><div class="flow-box-title" style="color:#a78bfa">Eternal realm</div><div class="flow-box-body">Character arrives; its holdings are delivered to the Eternal inbox.</div></div>
     <div style="height:16px"></div>
-    <div class="flow-box"><div class="flow-box-title" style="color:#fbbf24">HC Seasonal character (previously wiped to level 1)</div><div class="flow-box-body">Migrates to Hardcore league with season badge</div></div>
+    <div class="flow-box"><div class="flow-box-title" style="color:#fbbf24">HC Seasonal character (previously wiped to level 1)</div><div class="flow-box-body">Migrates to Hardcore realm with season badge</div></div>
     <div class="arrow">↓</div>
-    <div class="flow-box"><div class="flow-box-title" style="color:#f87171">Hardcore league</div><div class="flow-box-body">Character arrives; all HC Seasonal Bequests are delivered to the Hardcore inbox.</div></div>
+    <div class="flow-box"><div class="flow-box-title" style="color:#f87171">Hardcore realm</div><div class="flow-box-body">Character arrives; all HC Seasonal Bequests are delivered to the Hardcore inbox.</div></div>
 
     <h3>Hardcore death pipeline</h3>
     <ol class="phase-list">
-      <li><span class="phase-num">1</span><span>Character dies in Hardcore league</span></li>
+      <li><span class="phase-num">1</span><span>Character dies in Hardcore realm</span></li>
       <li><span class="phase-num">2</span><span>Character flagged: diedOnHardcore = true, deathFloor and timestamp recorded</span></li>
       <li><span class="phase-num">3</span><span>All class XP converted to soul gems — one per class with any XP, rank by XP amount</span></li>
       <li><span class="phase-num">4</span><span>All gear, inventory, soul gems, and creatures sealed into a Bequest sent to the Eternal inbox</span></li>
-      <li><span class="phase-num">5</span><span>Character reset to level 1, remains in Hardcore league with death mark on status sheet</span></li>
+      <li><span class="phase-num">5</span><span>Character reset to level 1, remains in Hardcore realm with death mark on status sheet</span></li>
     </ol>
 
     <h3>HC Seasonal death pipeline</h3>
     <ol class="phase-list">
-      <li><span class="phase-num">1</span><span>Character dies in HC Seasonal league</span></li>
+      <li><span class="phase-num">1</span><span>Character dies in HC Seasonal realm</span></li>
       <li><span class="phase-num">2</span><span>Character flagged: diedOnHardcore = true, deathFloor and timestamp recorded</span></li>
       <li><span class="phase-num">3</span><span>All class XP converted to soul gems — one per class with any XP, rank by XP amount</span></li>
       <li><span class="phase-num">4</span><span>All gear, inventory, soul gems, and creatures sealed into a Bequest (delivered to Hardcore at season end)</span></li>
-      <li><span class="phase-num">5</span><span>Character reset to level 1, remains in HC Seasonal league with death mark</span></li>
+      <li><span class="phase-num">5</span><span>Character reset to level 1, remains in HC Seasonal realm with death mark</span></li>
     </ol>
 
     <h3>Death mark data</h3>
     <pre>CharacterSaveData {
   bool     diedOnHardcore;
   string   hardcoreDeathFloor;
-  string   hardcoreLeague;     // "HC" | "HCS"
+  string   hardcoreRealm;     // "HC" | "HCS"
   string   hardcoreSeasonId;   // null if not seasonal
   DateTime hardcoreDeathTime;
 }</pre>
@@ -771,8 +771,8 @@ FinalDamage = RawDamage
 
     <h3>Codex scope</h3>
     <ul>
-      <li>One Codex per account, shared across all leagues — seeing a creature in any league updates the Codex globally</li>
-      <li>Acquired status is league-specific — owning a creature in Eternal does not mark it as acquired in Hardcore</li>
+      <li>One Codex per account, shared across all realms — seeing a creature in any realm updates the Codex globally</li>
+      <li>Acquired status is realm-specific — owning a creature in Eternal does not mark it as acquired in Hardcore</li>
       <li>The Codex is never wiped on death — it persists permanently and cannot be reset</li>
     </ul>
 
@@ -1138,9 +1138,9 @@ Your Backend
     </div>
     <h3>Save system</h3>
     <ul>
-      <li>One character per league per account — permanent slot, never removed, reset to level 1 on hardcore death</li>
-      <li>Eternal / Hardcore / Seasonal / HC Seasonal are separate league profiles</li>
-      <li>Each league has its own Bequest inbox state (top-bar icon, no physical base)</li>
+      <li>One character per realm per account — permanent slot, never removed, reset to level 1 on hardcore death</li>
+      <li>Eternal / Hardcore / Seasonal / HC Seasonal are separate realm profiles</li>
+      <li>Each realm has its own Bequest inbox state (top-bar icon, no physical base)</li>
       <li>Character level and all class levels travel with the character on demotion</li>
       <li>Ladder and trade data: cloud save (anti-cheat)</li>
       <li>Hardcore death flag persists permanently and cannot be removed</li>
@@ -1184,7 +1184,7 @@ Your Backend
       <li><span class="phase-num">13</span><span><strong style="color:#ede0c4">Codex</strong> — creature catalogue, seen/acquired states</span></li>
       <li><span class="phase-num">14</span><span><strong style="color:#ede0c4">Metagame UI</strong> — breeding, crafting, hatchery panels</span></li>
       <li><span class="phase-num">15</span><span><strong style="color:#ede0c4">Autoplay</strong> — auto-click creatures, auto-battle, configurable thresholds</span></li>
-      <li><span class="phase-num">16</span><span><strong style="color:#ede0c4">Leagues & death pipelines</strong> — all four death paths, Bequest inboxes, soul gems, season migration</span></li>
+      <li><span class="phase-num">16</span><span><strong style="color:#ede0c4">Realms & death pipelines</strong> — all four death paths, Bequest inboxes, soul gems, season migration</span></li>
       <li><span class="phase-num">17</span><span><strong style="color:#ede0c4">PvP & ladders</strong> — matchmaking, relay, leaderboards</span></li>
       <li><span class="phase-num">18</span><span><strong style="color:#ede0c4">Steam integration</strong> — Steamworks.NET, inventory, marketplace</span></li>
       <li><span class="phase-num">19</span><span><strong style="color:#ede0c4">Monetization</strong> — economy service, battle pass, item grants</span></li>
@@ -1214,7 +1214,7 @@ Your Backend
         <li><span class="phase-num">10</span><span><strong style="color:#ede0c4">Codex</strong> — creature catalogue, seen/acquired states, stat ranges, move lists, evolution chains</span></li>
         <li><span class="phase-num">11</span><span><strong style="color:#ede0c4">Metagame UI</strong> — breeding, crafting, hatchery — all as in-game UI panels accessible during PvE</span></li>
         <li><span class="phase-num">12</span><span><strong style="color:#ede0c4">Player logging system</strong> — event log and battle log, hooked into existing battle/leveling/item systems, file export for PC and mobile share UI</span></li>
-        <li><span class="phase-num">13</span><span><strong style="color:#ede0c4">Leagues & death pipelines</strong> — all four death paths, Bequest delivery, soul gem generation, season migration</span></li>
+        <li><span class="phase-num">13</span><span><strong style="color:#ede0c4">Realms & death pipelines</strong> — all four death paths, Bequest delivery, soul gem generation, season migration</span></li>
         <li><span class="phase-num">14</span><span><strong style="color:#ede0c4">PvP & ladders</strong> — matchmaking, relay, leaderboards</span></li>
         <li><span class="phase-num">15</span><span><strong style="color:#ede0c4">Steam integration</strong> — Steamworks.NET, inventory, marketplace</span></li>
         <li><span class="phase-num">16</span><span><strong style="color:#ede0c4">Monetization</strong> — economy service, battle pass, item grants</span></li>
@@ -1325,7 +1325,7 @@ Your Backend
     <h3>Mutant variants — not "Shiny"</h3>
     <p>The alt-color rare cosmetic variant is called a <strong style="color:#ede0c4">Mutant</strong> in this project. Never "Shiny" — it is easy to slip into by habit; don't.</p>
 
-    <h3>Leagues (4)</h3>
+    <h3>Realms (4)</h3>
     <p>Eternal, Hardcore, Seasonal, HC Seasonal.</p>
 
     <h3>Floor themes (3)</h3>

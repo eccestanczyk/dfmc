@@ -14,7 +14,7 @@
 <div class="topbar"><h1 style="font-family:'Cinzel',serif;">ADVENTURE LOG</h1></div>
 <div class="sp-wrap">
   <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; Adventure Log</div>
-  <p class="sp-lead">A permanent, chapter-bound chronicle of everything that has ever happened on the account &mdash; hatches, evolutions, breedings, floor clears, boss kills, deaths, league events, and every battle fought. The log itself never forgets; only the depth of battle detail is pruned over time.</p>
+  <p class="sp-lead">A permanent, chapter-bound chronicle of everything that has ever happened on the account &mdash; hatches, evolutions, breedings, floor clears, boss kills, deaths, realm events, and every battle fought. The log itself never forgets; only the depth of battle detail is pruned over time.</p>
 
   <h2>Architecture &mdash; events, not text</h2>
   <ul class="sp-rules">
@@ -44,7 +44,7 @@
     <tr><td class="lbl">BOSS_DEFEATED</td><td>boss_id, floor</td><td>"&lt;boss&gt; has fallen."</td></tr>
     <tr><td class="lbl">DEATH</td><td>creature_id, pipeline</td><td>"&lt;name&gt; died &mdash; &lt;pipeline outcome&gt;."</td></tr>
     <tr><td class="lbl">EQUIP_UPGRADE</td><td>item_id, tier</td><td>"&lt;Tier Base&gt; was forged."</td></tr>
-    <tr><td class="lbl">LEAGUE_EVENT</td><td>season, action</td><td>Season migration / league placement lines.</td></tr>
+    <tr><td class="lbl">REALM_EVENT</td><td>season, action</td><td>Season migration / realm placement lines.</td></tr>
   </table>
   <p style="font-size:13px;color:var(--ink-faint)">Param IDs reference codex CSVs; the log stores no names or descriptions. Ordinary per-battle XP ticks are not logged as separate events &mdash; they live inside the battle summary.</p>
 
