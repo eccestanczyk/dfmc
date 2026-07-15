@@ -413,7 +413,7 @@
   </table>
 
   <h2>Implementation order</h2>
-  <p>Maps to the Simplified Static roadmap: keys + access classes + client buffer land with <strong>#1 Data architecture</strong>; the transaction contract and reward path with the economy tables; replay verification once <strong>#6/#10 battle system</strong> persists seeds and move logs; death pipelines at <strong>#16</strong>; commit-reveal PvP at <strong>#17</strong>; mint + transfer lock at <strong>#18 Steam integration</strong>. Open decisions: publisher-key host (Cloud Code direct vs thin Lambda), Soul Gem tradeability, death-marked creature tradeability, and whether settings mirror to UGS for the future mobile port (Steam Cloud is PC-only).</p>
+  <p>This spec is roadmap step <strong>#16 — Backend authority layer</strong> (Simplified Static). Groundwork lands earlier: the save-skeleton key schema with <strong>#1 Data architecture</strong>, and seed + move-log persistence with the <strong>#6/#10 battle system</strong> (replay verification needs them). Step #16 delivers Auth, access classes, the transaction contract, reward validation, the rate cap, and idempotency + writeLock; then <strong>#17 Realms &amp; death</strong> consumes the atomic death pipeline, <strong>#18 PvP</strong> the commit-reveal verifier, and <strong>#19 Steam integration</strong> the mint + transfer lock. Open decisions: publisher-key host (Cloud Code direct vs thin Lambda), Soul Gem tradeability, death-marked creature tradeability, and whether settings mirror to UGS for the future mobile port (Steam Cloud is PC-only).</p>
 
 </div>
 <script src="admin.js"></script>

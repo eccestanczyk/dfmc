@@ -1185,11 +1185,12 @@ Your Backend
       <li><span class="phase-num">13</span><span><strong style="color:#ede0c4">Codex</strong> — creature catalogue, seen/acquired states</span></li>
       <li><span class="phase-num">14</span><span><strong style="color:#ede0c4">Metagame UI</strong> — breeding, crafting, hatchery panels</span></li>
       <li><span class="phase-num">15</span><span><strong style="color:#ede0c4">Autoplay</strong> — auto-click creatures, auto-battle, configurable thresholds</span></li>
-      <li><span class="phase-num">16</span><span><strong style="color:#ede0c4">Realms & death pipelines</strong> — all four death paths, crypt bags, soul gems, season migration</span></li>
-      <li><span class="phase-num">17</span><span><strong style="color:#ede0c4">PvP & ladders</strong> — matchmaking, relay, leaderboards</span></li>
-      <li><span class="phase-num">18</span><span><strong style="color:#ede0c4">Steam integration</strong> — Steamworks.NET, inventory, marketplace</span></li>
-      <li><span class="phase-num">19</span><span><strong style="color:#ede0c4">Monetization</strong> — economy service, battle pass, item grants</span></li>
-      <li><span class="phase-num">20</span><span><strong style="color:#ede0c4">Steam release</strong> — store page, F2P config, achievements</span></li>
+      <li><span class="phase-num">16</span><span><strong style="color:#ede0c4">Backend authority layer</strong> — the UGS spine before any online system: Steam-native Auth, Cloud Save keys + access classes (Protected/Private), Cloud Code transaction contract + reward validation (turn-count rate cap, sampled deterministic replay), client event buffer + reconciliation, idempotency keys + writeLock. Full spec: <a href="admin-backend.html">Backend, Save &amp; Anti-Cheat</a></span></li>
+      <li><span class="phase-num">17</span><span><strong style="color:#ede0c4">Realms & death pipelines</strong> — all four death paths, crypt bags, soul gems, season migration — one atomic server commit per death (see Backend spec)</span></li>
+      <li><span class="phase-num">18</span><span><strong style="color:#ede0c4">PvP & ladders</strong> — matchmaking, relay, leaderboards — commit-reveal rounds, single end-of-match server verification</span></li>
+      <li><span class="phase-num">19</span><span><strong style="color:#ede0c4">Steam integration</strong> — Steamworks.NET, inventory, marketplace — server-side mint (publisher key) + transfer lock</span></li>
+      <li><span class="phase-num">20</span><span><strong style="color:#ede0c4">Monetization</strong> — economy service, battle pass, item grants</span></li>
+      <li><span class="phase-num">21</span><span><strong style="color:#ede0c4">Steam release</strong> — store page, F2P config, achievements</span></li>
     </ol>
 
     <h3>Design backlog (later)</h3>
