@@ -2,7 +2,7 @@
    HERUMON TOWER — Site Navigation (single source of truth)
    Include via <script src="nav.js"></script> on every page.
    Injects: assets/ui.css (site-wide dark-fantasy chrome),
-   the ☰ menu, and the site logo. Creates a .topbar if missing.
+   the ☰ menu, and the site logo. Creates a .topbar if absent.
    ============================================================ */
 
 (function(){

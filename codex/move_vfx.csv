@@ -21,7 +21,7 @@ M-NIGHTMARE-3,Soul Chase,generic_impact,bone,target,standard,"The horse phases t
 M-NIGHTMARE-4,Night Veil,generic_impact,bone,target,standard,Darkness pools off the mane like ink dropped in water.
 M-GOLGOTH-1,Avalanche Blow,melee_crush,bone,target,standard,A two-limbed overhead smash that buries the target in rubble.
 M-GOLGOTH-2,Seismic Stomp,generic_impact,bone,target,standard,"One stamp; the arena jumps, dust leaping off every surface."
-M-GOLGOTH-3,Stone Fist,melee_crush,bone,target,standard,A forelimb like a quarry block hammers straight down.
+M-GOLGOTH-3,Stone Fist,melee_crush,bone,target,standard,A forelimb like a quarry slab hammers straight down.
 M-GOLGOTH-4,Calcify,shield_def_up,blue,self,standard,"Skin audibly hardens, seams of grey stone spreading like frost."
 M-WYCHROOT-1,Strangleroots,generic_impact,bone,target,standard,The entire root system surfaces and constricts in a woody spiral.
 M-WYCHROOT-2,Root Lash,whip_lash,bone,target,standard,A root snaps out of the soil like a bullwhip.
@@ -358,7 +358,7 @@ M-PHYLACTERY-4,Soul Elsewhere,generic_impact,bone,target,standard,"The body crac
 M-SPECULUM-1,Step Through,pierce_strike,rust,target,standard,A hand — then more than a hand — exits the surface at the target.
 M-SPECULUM-2,Backwards Cut,generic_impact,bone,target,standard,The wound appears before the surface finishes moving.
 M-SPECULUM-3,What It Reflects,atk_down,purple,target,fast,The blank surface ripples; something the target owned now shows on it.
-M-SPECULUM-4,Nothing Looks Back,atk_down,purple,target,fast,Attackers see themselves missing from the mirror — and hesitate.
+M-SPECULUM-4,Nothing Looks Back,atk_down,purple,target,fast,Attackers see themselves absent from the mirror — and hesitate.
 M-CINDERSHARD-1,Calving Burst,def_down,purple,target,fast,The shard splits violently in two; both halves are already regrowing.
 M-CINDERSHARD-2,Shard Storm,generic_impact,bone,target,standard,The fragment spins; a halo of glass splinters saws outward.
 M-CINDERSHARD-3,Glass Chip,bleed_dot,crimson,target,fast,"A flake of itself, flicked hard enough to bury."

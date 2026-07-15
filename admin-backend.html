@@ -397,7 +397,7 @@
     <tr><td class="lbl">Store hashes, not logs</td><td>Chain head server-side, full logs client-side, fetched on audit — storage ≈ 0.</td></tr>
     <tr><td class="lbl">UGS Analytics stays OFF</td><td>MAU-metered — at the ~3–5M MAU that 500k CCU implies, roughly another $9–10k/mo. Use free telemetry.</td></tr>
     <tr><td class="lbl">Leaderboards = unpriced risk</td><td>"Free for a limited time." Our write pattern (personal bests + post-match only) keeps exposure minimal whatever they price.</td></tr>
-    <tr><td class="lbl">Card on file before launch</td><td>Exceeding any UGS free tier blocks ALL UGS APIs and config changes; 30 days unpaid disables services. A usage spike must not hard-lock the backend.</td></tr>
+    <tr><td class="lbl">Card on file before launch</td><td>Exceeding any UGS free tier disables ALL UGS APIs and config changes; 30 days unpaid disables services. A usage spike must not hard-lock the backend.</td></tr>
     <tr><td class="lbl">Migration kept possible, not planned</td><td>500k CCU ≈ ~550 req/s average — self-hosting (~$2–4k/mo hardware) would undercut UGS but buys a solo dev an ops burden $12k/mo does not justify against F2P revenue at that scale. Keep the Cloud Code layer behind a thin interface; revisit only if per-op bills materially outpace revenue.</td></tr>
   </table>
 

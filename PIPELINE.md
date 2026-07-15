@@ -139,6 +139,6 @@ Multiple Claude sessions write this repo simultaneously. These rules prevent ses
 3. **Slot ops are file+CSV atomic.** Deleting a slot file requires reshuffling higher slots down (no gaps like A,E) AND updating `Option_Slots` in the SAME commit. Adding an option updates `Option_Slots` in the same commit.
 4. **Verify after every batch:** assert `Option_Slots` matches actual tree files (A=main, B=cropped/, C=cropped_c/, D=cropped_d/, E=cropped_e/) for every touched ID, and re-read your own rows from HEAD after commit.
 5. **Recovery:** clobbered files/prompts are recoverable — `GET /contents/{path}?ref=<pre-clobber sha>` then blob fetch. Originals also live in `codex/images/originals/`.
-6. **No secrets in the repo.** `tools/ghlib.py` reads tokens from env (`GH_TOKEN`, `REMOVEBG_KEY`) — GitHub push protection blocks credential literals, and rightly so.
+6. **No secrets in the repo.** `tools/ghlib.py` reads tokens from env (`GH_TOKEN`, `REMOVEBG_KEY`) — GitHub push protection rejects credential literals, and rightly so.
 Reference implementation: `tools/ghlib.py`.
 
