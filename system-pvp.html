@@ -44,7 +44,7 @@
     <tr><td class="lbl">Save cadence</td><td>Once per round: both sides' committed choices plus the round's RNG seed are persisted <strong>before the resolution is shown</strong>. One small write per round.</td></tr>
     <tr><td class="lbl">PvE crash</td><td>Relaunch resumes the battle at the top of the current round &mdash; same state, same seed. Nothing is lost and nothing rerolls.</td></tr>
     <tr><td class="lbl">Anti-scum</td><td>Because the seed is committed before results render, killing the game after seeing a bad roll and reloading replays the <em>identical</em> roll. There is no outcome to reroll, ever.</td></tr>
-    <tr><td class="lbl">PvP authority</td><td>PvP state lives server-side (Unity Relay + UGS per the tech stack); clients are views. Reconnecting re-fetches the authoritative state.</td></tr>
+    <tr><td class="lbl">PvP authority</td><td>Unity Relay is a packet relay, not a simulating server &mdash; both clients run the deterministic sim in lockstep, kept honest by the Competitive-integrity layers below. Reconnecting replays the committed log to the current round.</td></tr>
   </table>
 
   <h2>Disconnects</h2>
@@ -64,6 +64,18 @@
     <tr><td class="lbl">No mid-round escape value</td><td>Killing the client <em>before</em> committing a move just returns the player to the same decision with the same information. In a turn-based game there is no "leave the server before the hit lands" &mdash; nothing advances without a committed round.</td></tr>
     <tr><td class="lbl">Hardcore PvP</td><td>Uses the standard PvP rules above; a hardcore PvP loss is a match loss, not a character death. Permadeath is a PvE-climb stake only.</td></tr>
   </table>
+
+  <h2>Competitive integrity</h2>
+  <p>Unity Relay forwards packets between two untrusted clients &mdash; there is no simulating server in the loop. Integrity therefore comes from five layers, each cheap because battles are already deterministic replays.</p>
+  <table>
+    <tr><th>Layer</th><th>Mechanism</th></tr>
+    <tr><td class="lbl">1 &middot; Team legality</td><td><strong>Never transmit derived values.</strong> A team submission is inputs only &mdash; creature ID, level, quality, tags with every gem/rune/enchant/refine, gear, souls, moves. The validator recomputes all stats from the committed formulas, so an impossible stat cannot be expressed. Rule checks against codex data: moves &sube; learnset, stage consistent with level, grades 1&ndash;10, gear tier/grade/level-req legal, enhancement tier &le; gear tier, sockets &le; grade allowance, enchant rolls inside authored ranges, weapons class-legal, souls on armour slots only with legal granted moves. Both clients and a Cloud Code function run the identical validator.</td></tr>
+    <tr><td class="lbl">2 &middot; Provenance</td><td>Rules cannot prove an item was earned. The rated queue requires the team to be a subset of the account's <strong>server-known inventory</strong> (UGS Economy / cloud save) &mdash; the one strictly server-side layer.</td></tr>
+    <tr><td class="lbl">3 &middot; Commit&ndash;reveal rounds</td><td>Double-blind between peers requires it: each round both clients send <code>H(move + nonce)</code>, and reveal only after both commits arrive. A reveal that fails its commit is an instant forfeit. The round's RNG seed is <code>H(commitA &#8214; commitB &#8214; roundN)</code> &mdash; neither side can bias the 0.9&ndash;1.1 roll, because neither knew the other's commit when choosing. One mechanism provides blindness <em>and</em> unriggable randomness.</td></tr>
+    <tr><td class="lbl">4 &middot; Per-round checksum</td><td>After each resolution both clients exchange a truncated SHA-256 of the canonical battle state (fixed serialization order, RNG cursor included). Match &rarr; continue; mismatch &rarr; escalate to layer 5, never argue locally. Requirement: <strong>battle math is integer / fixed-point with pinned rounding points</strong> (random band as an integer 90&ndash;110 roll /100) &mdash; float math diverges across CPUs and would fabricate desyncs between honest players.</td></tr>
+    <tr><td class="lbl">5 &middot; Replay adjudication</td><td>On any mismatch &mdash; and by random sampling of clean rated matches &mdash; both clients submit signed move logs; a Cloud Code function replays the battle deterministically and issues the verdict. The ladder only accepts checksum-clean or adjudicated results. <strong>Checksums detect; replay decides.</strong> A cheater can desync a match but cannot win one.</td></tr>
+  </table>
+  <p>Per-round input validation runs on both sides regardless: the chosen move is one of the unit's four, its cooldown is legal, the target is legal. Malformed actions die before resolution.</p>
 
   <h2>Leaderboards</h2>
   <p>Scoped per realm, tracked per season and all-time (all-time = best-ever snapshot). One PvP board, three PvE boards.</p>
