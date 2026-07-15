@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PvP, Timers &amp; Persistence — Herumon Tower</title>
+<link rel="stylesheet" href="theme.css?v=4">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">PVP, TIMERS &amp; PERSISTENCE</h1></div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; PvP, Timers &amp; Persistence</div>
+  <p class="sp-lead">Ranked 3v3 (avatar + 2 creatures per side), best of 3, team locked at match start, double-blind simultaneous move selection. This page defines the PvP screen, the move timers, how battles survive crashes and disconnects, hardcore quit-out rules, and the leaderboards.</p>
+
+  <h2>The PvP Arena screen</h2>
+  <p>Entered from the main menu (<strong>PVP ARENA</strong>, between Adventure Log and Game Mode). One screen, four regions:</p>
+  <table>
+    <tr><th>Region</th><th>Contents</th></tr>
+    <tr><td class="lbl">Rank card (top left)</td><td>Current rank, rating number, season W/L, and placement progress. Ranks reuse the game's own ladder language: <span style="color:#c2ae8b">Worn</span> &rarr; <span style="color:#a855f7">Void</span> &mdash; the ten grade names as ten rank tiers, top of ladder is Void.</td></tr>
+    <tr><td class="lbl">Team lock (center)</td><td>Three sockets: avatar + 2 creatures. This is the roster the queue locks; creatures sitting in breeding pens are ineligible. A team-power summary line sits below the sockets. Locked for the whole Bo3 &mdash; no sideboarding between games.</td></tr>
+    <tr><td class="lbl">Queue button (bottom center)</td><td>One large FIND MATCH button; while queuing it becomes a cancel with elapsed time. Matchmaking pairs by rating, band widening the longer the wait.</td></tr>
+    <tr><td class="lbl">Right rail</td><td>Two tabs: <strong>Leaderboard</strong> (top 100 + your position) and <strong>History</strong> (recent matches, each opening a full replay &mdash; replays are free because battles are deterministic logs, see Persistence).</td></tr>
+  </table>
+
+  <h2>Move timers</h2>
+  <p>Both sides pick all their moves for the round simultaneously; timers exist to bound the round, not each unit. The design follows the banked chess-clock model competitive simulators converged on, sized to our 10&ndash;16-turn fights.</p>
+  <table>
+    <tr><th>Timer</th><th>Value</th><th>Rule</th></tr>
+    <tr><td class="lbl">Round timer (PvP)</td><td>30 s</td><td>Both players pick within it. Resolution/animation time does not count.</td></tr>
+    <tr><td class="lbl">Personal bank (PvP)</td><td>90 s</td><td>Drawn from only after the 30 s round timer is spent, chess-clock style. Never refills during a game; resets between games of the Bo3.</td></tr>
+    <tr><td class="lbl">On expiry</td><td>&mdash;</td><td>The <strong>autoplay AI picks for you</strong> &mdash; the same AI that runs PvE grinding, not "first move in the list." Losing time costs quality, not the game outright.</td></tr>
+    <tr><td class="lbl">Match cap (PvP)</td><td>30 rounds</td><td>Hard cap at ~2&times; the tuned fight length. Tiebreak in order: units remaining &rarr; total remaining HP% &rarr; cumulative damage dealt.</td></tr>
+    <tr><td class="lbl">PvE</td><td><strong>No timer</strong></td><td>Move timers are a PvP-integrity tool; against the AI there is nothing to protect and autoplay already exists for players who want speed. PvE battles instead get full crash-safe resume (below).</td></tr>
+  </table>
+
+  <h2>Persistence &mdash; battles survive anything</h2>
+  <p>Every battle is a deterministic replay: <code>initial state + per-round RNG seed + committed move log</code>. That single decision buys crash recovery, reconnects, replays, and hardcore integrity all at once.</p>
+  <table>
+    <tr><th>Rule</th><th>Detail</th></tr>
+    <tr><td class="lbl">Save cadence</td><td>Once per round: both sides' committed choices plus the round's RNG seed are persisted <strong>before the resolution is shown</strong>. One small write per round.</td></tr>
+    <tr><td class="lbl">PvE crash</td><td>Relaunch resumes the battle at the top of the current round &mdash; same state, same seed. Nothing is lost and nothing rerolls.</td></tr>
+    <tr><td class="lbl">Anti-scum</td><td>Because the seed is committed before results render, killing the game after seeing a bad roll and reloading replays the <em>identical</em> roll. There is no outcome to reroll, ever.</td></tr>
+    <tr><td class="lbl">PvP authority</td><td>PvP state lives server-side (Unity Relay + UGS per the tech stack); clients are views. Reconnecting re-fetches the authoritative state.</td></tr>
+  </table>
+
+  <h2>Disconnects</h2>
+  <table>
+    <tr><th>Case</th><th>Rule</th></tr>
+    <tr><td class="lbl">PvP disconnect</td><td>The match does not pause and timers keep burning &mdash; pausing on disconnect is a documented exploit vector (players firewall-drop to buy free thinking time). When your round timer + bank expire, the <strong>autoplay AI plays your side</strong>, exactly as on a timeout.</td></tr>
+    <tr><td class="lbl">Reconnect window</td><td>Reconnect at any point and control returns at the next round. After <strong>5 consecutive fully-AI rounds</strong>, the game is forfeited &mdash; long enough to survive a router reboot, short enough that a rage-quit cannot hold the opponent hostage.</td></tr>
+    <tr><td class="lbl">PvE crash / quit</td><td>Identical outcomes: resume at the current round on next launch. A battle in progress can be resumed but never abandoned.</td></tr>
+  </table>
+
+  <h2>Hardcore &amp; Alt+F4</h2>
+  <p>The classic hardcore failure mode is the logout escape: kill the client the instant a fight goes wrong. Turn-based rounds close that door structurally.</p>
+  <table>
+    <tr><th>Rule</th><th>Why it holds</th></tr>
+    <tr><td class="lbl">Battles are resume-only</td><td>Alt+F4, crash, and power loss are indistinguishable and all lead to the same place: the battle resumes at the top of the current round with the committed seed. Quitting never exits a battle.</td></tr>
+    <tr><td class="lbl">Committed rounds stand</td><td>Once both sides' moves are locked, resolution is deterministic and already persisted. If the round that kills the character has committed, the death happens on resume &mdash; watching it or not changes nothing.</td></tr>
+    <tr><td class="lbl">No mid-round escape value</td><td>Killing the client <em>before</em> committing a move just returns the player to the same decision with the same information. In a turn-based game there is no "leave the server before the hit lands" &mdash; nothing advances without a committed round.</td></tr>
+    <tr><td class="lbl">Hardcore PvP</td><td>Uses the standard PvP rules above; a hardcore PvP loss is a match loss, not a character death. Permadeath is a PvE-climb stake only.</td></tr>
+  </table>
+
+  <h2>Leaderboards</h2>
+  <p>Scoped per realm, tracked per season and all-time (all-time = best-ever snapshot). One PvP board, three PvE boards.</p>
+  <table>
+    <tr><th>Board</th><th>Metric</th><th>Notes</th></tr>
+    <tr><td class="lbl">PvP ladder</td><td>Rating (Glicko-2)</td><td>Bo3 results only. Rank tiers named Worn &rarr; Void by rating band. Season reset compresses ratings toward the mean; all-time board keeps peak rating.</td></tr>
+    <tr><td class="lbl">Deepest climb</td><td>Highest floor reached</td><td>The existing progress ladder.</td></tr>
+    <tr><td class="lbl">Longest streak</td><td>Best win streak</td><td>Pairs with the streak/floor-gating system.</td></tr>
+    <tr><td class="lbl">Swiftest ascent</td><td>Shortest in-game time from character creation to first Floor 100 clear</td><td>The speed board; session-time clock, same as everything else.</td></tr>
+  </table>
+</div>
+<script src="admin.js"></script>
+<script src="nav.js"></script>
+</body>
+</html>

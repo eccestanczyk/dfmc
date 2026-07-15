@@ -445,7 +445,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
       <tr><td>Enemy</td><td>1 to N enemies (varies per encounter)</td><td>1 avatar + 2 creatures</td></tr>
     </table>
     <h3>PvP format</h3>
-    <ul><li>3v3: 1 avatar + 2 creatures per side</li><li>Best of 3 — no sideboarding between games</li><li>Team locked at match start</li><li>Results post to PvP ladder</li></ul>
+    <ul><li>3v3: 1 avatar + 2 creatures per side</li><li>Best of 3 — no sideboarding between games</li><li>Team locked at match start</li><li>Round timer 30 s + 90 s personal bank (chess-clock; timeout &rarr; autoplay AI picks)</li><li>30-round cap; tiebreak units remaining &rarr; total HP% &rarr; cumulative damage</li><li>Disconnect: timers keep burning, autoplay plays the absent side, forfeit after 5 consecutive AI rounds</li><li>Results post to PvP ladder</li></ul>
     <h3>Architecture</h3>
     <pre>BattleManager (state machine)
 ├── PlayerSide: [Avatar] [Creature1] [Creature2]
@@ -454,6 +454,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
 ├── ActionQueue
 ├── AnimationController
 └── BattleResultHandler</pre>
+    <p style="font-size:13px;color:#c2ae8b">Every battle is a deterministic replay — initial state + per-round RNG seed + committed move log, persisted once per round <em>before</em> resolution renders. This buys PvE crash-resume, PvP reconnects, free replays, and hardcore Alt+F4 integrity (battles are resume-only; committed rounds stand; there is no roll to scum). PvE has no move timer. Details: <a href="system-pvp.html" style="color:var(--gold-bright)">PvP, Timers &amp; Persistence</a>.</p>
     <h3>Turn structure</h3>
     <p><strong>Simultaneous selection, sequential resolution.</strong> Both sides select actions blind (double-blind). Once locked, all actions resolve in Speed order &mdash; highest Speed acts first. Status effects queued (poison, stun, burn, etc.) resolve after move resolution. This makes Speed the decisive tactical axis: a faster creature can KO a threat before it acts, even if both sides chose to attack the same target.</p>
     <h3>PvP sync</h3>
