@@ -402,6 +402,17 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
       </div>
     </div>
 
+    <h3>Wild spawns — persistent floor pool</h3>
+    <p>Each floor holds a persistent pool of up to <strong style="color:#ede0c4">10 wild creatures</strong>, refilled by a serial respawner: <strong style="color:#ede0c4">one spawn per 60 seconds</strong> while below cap. The timer runs in real time whether the player is on the floor, elsewhere in the tower, or offline; every floor ticks independently in parallel.</p>
+    <table>
+      <tr><th>Rule</th><th>Detail</th></tr>
+      <tr><td>Re-entry is a no-op</td><td>Leaving and re-entering a floor never respawns or rerolls its creatures. Kills and catches are the only removals; the respawn tick is the only addition. There is no reroll-by-entrance.</td></tr>
+      <tr><td>Roll once, at spawn</td><td>Encounter-table rarity and the Mutant colouring roll happen once, when the creature spawns. A spawned creature keeps its identity and roll until killed or caught.</td></tr>
+      <tr><td>No banked credits</td><td>Refill on access = <code>min(elapsed_minutes, 10 &minus; current)</code>; overflow is discarded. At cap the timer is frozen — a full floor rolls nothing, so absence banks at most 10 fresh rolls.</td></tr>
+      <tr><td>Server-clocked</td><td>Spawn count is a pure function of server wall-clock time; client clocks are never consulted.</td></tr>
+    </table>
+    <div class="note note-info"><p>Throughput: the refill ceiling is 60 spawns/hour per floor against the ~30 battles/hour endgame anchor — 2&times; headroom, so a floor never runs dry at design pace. Sustained single-floor farming is throttled at the spawner; endgame acquisition scales through floor rotation (&approx;10 per floor per pass) instead.</p></div>
+
     <h3>Streak counter</h3>
     <p>After every battle, a compact rectangle appears mid-screen showing the current streak status as <strong style="color:#ede0c4">X / Y</strong> (battles won / threshold). On a <strong style="color:#4a7a44">win</strong>, X scrolls up to the new count and the text pops in size briefly. On a <strong style="color:#dd5646">loss</strong>, the rectangle visually cracks and X rolls back down through each number to 0. The counter only appears on floors not yet cleared.</p>
 
@@ -415,6 +426,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     <table>
       <tr><th>Element</th><th>Details</th></tr>
       <tr><td>Battle trigger</td><td>Click (tag) a wandering creature on the map — identical on all floor themes. Wins count toward the floor's streak threshold.</td></tr>
+      <tr><td>Wild spawns</td><td>Persistent pool, cap 10, serial 60&nbsp;s respawner (see Wild spawns above). Re-entry never rerolls the pool.</td></tr>
       <tr><td>Chests</td><td>Manual-only, one-time per chest. Tracked as x/x on map selector.</td></tr>
       <tr><td>Boss (every 10th floor)</td><td>Requires consuming a Key. One-time encounter, gates the next zone. First completion of the 9th floor in each zone guarantees a key (one-time only).</td></tr>
       <tr><td>Portal / door</td><td>Opens after the win streak threshold is met. Leads to the next floor.</td></tr>
@@ -1172,7 +1184,7 @@ Your Backend
     <ol class="phase-list">
       <li><span class="phase-num">1</span><span><strong style="color:#ede0c4">Data architecture</strong> — all ScriptableObjects and save system skeleton</span></li>
       <li><span class="phase-num">2</span><span><strong style="color:#ede0c4">Floor renderer</strong> — load ground plate sprite + prop sprites from floor config, Y-sorted SpriteRenderers on a Transparency Sort Axis</span></li>
-      <li><span class="phase-num">3</span><span><strong style="color:#ede0c4">Creature spawning</strong> — spawn N creatures per floor from encounter table with weighted rarity rolls, place at valid positions (not on props/boundary)</span></li>
+      <li><span class="phase-num">3</span><span><strong style="color:#ede0c4">Creature spawning</strong> — persistent 10-cap pool per floor, serial 60&nbsp;s server-clocked respawner (see Core loop &rarr; Wild spawns); rolls from encounter table with weighted rarity, place at valid positions (not on props/boundary)</span></li>
       <li><span class="phase-num">4</span><span><strong style="color:#ede0c4">Creature wandering</strong> — random waypoint movement within floor bounds, idle pauses, speed variance per instance</span></li>
       <li><span class="phase-num">5</span><span><strong style="color:#ede0c4">Creature interaction</strong> — mouse hover highlights creature with rarity color outline (C=grey, UC=green, R=blue, SR=purple, SSR=gold), click initiates battle</span></li>
       <li><span class="phase-num">6</span><span><strong style="color:#ede0c4">Battle system (minimal)</strong> — 1v1 turn-based battle, creature moves, win/loss result</span></li>
