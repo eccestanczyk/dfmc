@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Backend, Save &amp; Anti-Cheat — Herumon Tower</title>
+<link rel="stylesheet" href="theme.css?v=4">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+.diag{width:100%;height:auto;display:block;margin:16px 0 8px;background:var(--bg-deep,#0d0a06);border:1px solid var(--rule-faint,#3a2c1a);}
+.diag .bx{fill:#1e1710;stroke:#5c462c;stroke-width:1;}
+.diag .bx2{fill:#271e15;stroke:#5c462c;stroke-width:1;}
+.diag .danger{fill:rgba(124,21,25,0.28);stroke:#a3282a;stroke-width:1;}
+.diag .ok{fill:rgba(74,122,68,0.20);stroke:#4a7a44;stroke-width:1;}
+.diag .goldbx{fill:rgba(207,166,80,0.10);stroke:#8a6d2f;stroke-width:1;}
+.diag text{fill:#ede0c4;font-family:'EB Garamond',Georgia,serif;font-size:15px;}
+.diag .t2{fill:#c2ae8b;font-size:13px;}
+.diag .sm{fill:#9c8963;font-size:12px;}
+.diag .hd{fill:#e6c66d;font-family:'Cinzel',serif;font-size:13px;letter-spacing:0.06em;}
+.diag .red{fill:#dd5646;}
+.diag .grn{fill:#7fae6e;}
+.diag .ln{stroke:#c2ae8b;stroke-width:1.5;fill:none;}
+.diag .lng{stroke:#cfa650;stroke-width:1.5;fill:none;}
+.diag .lnr{stroke:#dd5646;stroke-width:1.5;fill:none;}
+.diag .dash{stroke-dasharray:5 4;}
+.figcap{font-size:13px;color:var(--ink-faint);font-style:italic;margin:0 0 26px;}
+.callout{background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--gold-dim);padding:12px 16px;margin:16px 0;font-size:15px;}
+.callout.bad{border-left-color:var(--blood-mid);}
+.lbl{color:var(--gold-bright);font-weight:600;white-space:nowrap;}
+</style>
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">BACKEND, SAVE &amp; ANTI-CHEAT</h1></div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="hub.html">Hub</a> &rsaquo; Dev Tools &rsaquo; Backend, Save &amp; Anti-Cheat</div>
+  <p class="sp-lead">Canonical spec (v2, July 2026) for persistence, the server-authoritative economy, Steam integration, anti-cheat, and live-service cost. Supersedes the v1 draft. Stack per GDD: UGS (Auth, Cloud Save, Cloud Code, Leaderboards, Remote Config) + Steamworks.NET + Steam Inventory Service. One sentence: <strong>the client sends events and requests, never state; the server owns state and computes every result; Steam Cloud carries preferences only.</strong></p>
+
+  <h2>The principle &amp; trust boundary</h2>
+  <p>Local editing is not <em>prevented</em> — it is made <em>inert</em>. "I have 999,999 Scrap" is state and is never an input to any write. "Craft recipe R" / "I completed battle #8837" is a request or event, validated against the server's own copy of the data. The client keeps a disposable prediction cache for responsiveness; every Cloud Code return overwrites it with the authoritative snapshot. There is nothing to clean up after a cheat attempt because the illegal state never existed server-side.</p>
+
+  <svg class="diag" viewBox="0 0 940 470" xmlns="http://www.w3.org/2000/svg">
+    <defs><marker id="arA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#c2ae8b"/></marker></defs>
+    <text x="145" y="42" class="hd" text-anchor="middle">CLIENT — UNTRUSTED</text>
+    <rect x="20" y="55" width="255" height="350" class="bx"/>
+    <rect x="35" y="75" width="225" height="66" class="bx2"/>
+    <text x="147" y="100" text-anchor="middle">Prediction cache</text>
+    <text x="147" y="122" class="sm" text-anchor="middle">optimistic, disposable, overwritten</text>
+    <rect x="35" y="155" width="225" height="66" class="bx2"/>
+    <text x="147" y="180" text-anchor="middle">Event / request buffer</text>
+    <text x="147" y="202" class="sm" text-anchor="middle">battle logs · craft requests</text>
+    <rect x="35" y="235" width="225" height="66" class="bx2"/>
+    <text x="147" y="260" text-anchor="middle">Settings · keybinds · logs</text>
+    <text x="147" y="282" class="sm" text-anchor="middle">the ONLY client-owned data</text>
+    <text x="147" y="345" class="sm" text-anchor="middle">edits here change a private fiction —</text>
+    <text x="147" y="363" class="sm" text-anchor="middle">never the input to an authoritative write</text>
+
+    <line x1="305" y1="30" x2="305" y2="440" class="lnr dash"/>
+    <text x="305" y="458" class="red" text-anchor="middle" font-size="12" style="font-family:'Cinzel',serif;letter-spacing:0.08em;">TRUST BOUNDARY</text>
+
+    <text x="465" y="42" class="hd" text-anchor="middle">UGS CLOUD CODE — THE GATE</text>
+    <rect x="340" y="55" width="250" height="350" class="goldbx"/>
+    <text x="465" y="92" text-anchor="middle">validates vs server truth</text>
+    <text x="465" y="122" text-anchor="middle">computes rewards from tables</text>
+    <text x="465" y="152" text-anchor="middle">atomic debit + grant</text>
+    <text x="465" y="182" text-anchor="middle">wall-clock rate cap</text>
+    <text x="465" y="212" text-anchor="middle">sampled deterministic replay</text>
+    <text x="465" y="242" text-anchor="middle">idempotency + writeLock</text>
+    <text x="465" y="272" text-anchor="middle">mints Steam items</text>
+    <text x="465" y="296" class="sm" text-anchor="middle">(publisher key never on client)</text>
+
+    <rect x="655" y="55" width="265" height="92" class="bx"/>
+    <text x="787" y="82" class="hd" text-anchor="middle">UGS CLOUD SAVE</text>
+    <text x="787" y="106" class="t2" text-anchor="middle">Protected: client read-only</text>
+    <text x="787" y="126" class="t2" text-anchor="middle">Private: client no access</text>
+    <rect x="655" y="163" width="265" height="70" class="bx"/>
+    <text x="787" y="190" class="hd" text-anchor="middle">STEAM INVENTORY</text>
+    <text x="787" y="212" class="t2" text-anchor="middle">tradeable ownership · server-minted</text>
+    <rect x="655" y="249" width="265" height="52" class="bx"/>
+    <text x="787" y="280" class="hd" text-anchor="middle">LEADERBOARDS</text>
+    <rect x="655" y="317" width="265" height="66" class="bx"/>
+    <text x="787" y="344" class="hd" text-anchor="middle">STEAM CLOUD</text>
+    <text x="787" y="366" class="t2" text-anchor="middle">settings only — never authoritative</text>
+
+    <line x1="275" y1="185" x2="332" y2="185" class="ln" marker-end="url(#arA)"/>
+    <text x="303" y="175" class="sm" text-anchor="middle">events</text>
+    <line x1="340" y1="330" x2="283" y2="330" class="lng dash" marker-end="url(#arA)"/>
+    <text x="311" y="322" class="sm" text-anchor="middle">snapshot</text>
+    <line x1="590" y1="101" x2="647" y2="101" class="ln" marker-end="url(#arA)"/>
+    <line x1="647" y1="121" x2="596" y2="121" class="ln" marker-end="url(#arA)"/>
+    <line x1="590" y1="198" x2="647" y2="198" class="ln" marker-end="url(#arA)"/>
+    <line x1="590" y1="275" x2="647" y2="275" class="ln" marker-end="url(#arA)"/>
+    <path d="M 147 301 L 147 430 L 620 430 L 620 383" class="ln dash" marker-end="url(#arA)"/>
+    <text x="390" y="422" class="sm" text-anchor="middle">file sync — settings only</text>
+  </svg>
+  <p class="figcap">Fig. 1 — Trust boundary and storage topology. Everything that gates loot, rank, trade, or death lives right of the boundary.</p>
+
+  <h2>Data classification</h2>
+  <p>Every persisted category maps to one authority, one store, one access class, one flush policy. Rule of thumb: if faking it affects loot, rank, trade, or death → Protected/Private on UGS, server-written. If faking it only affects the player's own convenience → client-local.</p>
+  <table>
+    <tr><th>Data</th><th>Authority</th><th>Store · class</th><th>Flush</th></tr>
+    <tr><td class="lbl">Currencies (Scrap, Ichor, Food) + materials (Dust, Essence, Ink)</td><td>Server</td><td>Cloud Save · Protected</td><td>Batched; immediate on rare gains</td></tr>
+    <tr><td class="lbl">Inventory, eggs, creature instances</td><td>Server</td><td>Cloud Save · Protected</td><td>Immediate on craft/grade/hatch/fuse; batched on drops/XP</td></tr>
+    <tr><td class="lbl">Character, class levels, playerLevel, Codex</td><td>Server</td><td>Cloud Save · Protected</td><td>Batched</td></tr>
+    <tr><td class="lbl">Hardcore death mark · crypt bag / Bequests</td><td>Server</td><td>Cloud Save · <strong>Private</strong></td><td>Immediate, atomic with death pipeline</td></tr>
+    <tr><td class="lbl">Floor record / PvP rank</td><td>Server</td><td>Leaderboards + Cloud Save</td><td>Personal best / post-match only</td></tr>
+    <tr><td class="lbl">Tradeable items &amp; creatures (ownership)</td><td>Steam</td><td>Steam Inventory Service</td><td>Server-minted via publisher key</td></tr>
+    <tr><td class="lbl">Autoplay config, keybinds, graphics, UI, exported logs</td><td>Client</td><td>Steam Cloud + local</td><td>Best-effort</td></tr>
+  </table>
+  <p>Access classes are the structural wall — a Protected/Private key physically cannot be written by the client SDK. Validation logic is the second layer. Keys are namespaced per realm (<code>eternal.* / hardcore.* / seasonal.* / hcSeasonal.*</code>); Codex and playerLevel are account-wide. State is written as <strong>consolidated documents per realm, not per-field keys</strong> — every extra key per flush is another billed write.</p>
+
+  <h2>The economy transaction contract</h2>
+  <p>Every spend — craft, refine, grade-up, soul grade, breed, enhancement — is the same atomic transaction computed against the <em>server</em> balance. Ordering is the entire guarantee: <strong>check, then atomically debit + grant, else reject whole.</strong> RNG rolls (refinement 100→1%, grading 100→0.5% ladders) resolve server-side, so a failed roll cannot be re-rolled by save-scumming — the currency is already gone on the server. Costs come from the same authored tables as the GDD (25×tier Scrap crafts, 3×lvl×tier refines, the 1/1/2/3/5/8/12/18/40 Ichor ladder, the five-material soul bundle).</p>
+
+  <svg class="diag" viewBox="0 0 940 450" xmlns="http://www.w3.org/2000/svg">
+    <defs><marker id="arB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#c2ae8b"/></marker></defs>
+    <rect x="20" y="30" width="300" height="56" class="bx"/>
+    <text x="170" y="53" text-anchor="middle">REQUEST: craft T7 (175 Scrap)</text>
+    <text x="170" y="74" class="sm" text-anchor="middle">idempotency key attached</text>
+    <rect x="20" y="110" width="300" height="52" class="danger"/>
+    <text x="170" y="132" class="t2" text-anchor="middle">client's local claim: 999,999 Scrap</text>
+    <text x="170" y="152" class="red" text-anchor="middle" font-size="13">never read — not an input</text>
+    <rect x="390" y="30" width="230" height="56" class="bx2"/>
+    <text x="505" y="53" text-anchor="middle">READ server truth</text>
+    <text x="505" y="74" class="t2" text-anchor="middle">Scrap = 40</text>
+    <line x1="320" y1="58" x2="382" y2="58" class="ln" marker-end="url(#arB)"/>
+    <rect x="390" y="118" width="230" height="46" class="bx"/>
+    <text x="505" y="147" text-anchor="middle">covers cost?</text>
+    <line x1="505" y1="86" x2="505" y2="110" class="ln" marker-end="url(#arB)"/>
+    <line x1="620" y1="141" x2="682" y2="141" class="lnr" marker-end="url(#arB)"/>
+    <text x="650" y="132" class="red" text-anchor="middle" font-size="13">no</text>
+    <rect x="690" y="112" width="230" height="58" class="danger"/>
+    <text x="805" y="136" text-anchor="middle">REJECT — whole op</text>
+    <text x="805" y="158" class="t2" text-anchor="middle">no debit, no grant</text>
+    <line x1="805" y1="170" x2="805" y2="196" class="ln" marker-end="url(#arB)"/>
+    <rect x="690" y="204" width="230" height="56" class="bx2"/>
+    <text x="805" y="227" text-anchor="middle">snapshot {Scrap: 40}</text>
+    <text x="805" y="249" class="sm" text-anchor="middle">phantom items evaporate on client</text>
+    <line x1="505" y1="164" x2="505" y2="192" class="lng" marker-end="url(#arB)"/>
+    <text x="520" y="184" class="grn" font-size="13">yes</text>
+    <rect x="390" y="200" width="230" height="58" class="bx2"/>
+    <text x="505" y="224" text-anchor="middle">resolve() — server RNG</text>
+    <text x="505" y="246" class="t2" text-anchor="middle">refine/grade odds roll here</text>
+    <line x1="505" y1="258" x2="505" y2="284" class="lng" marker-end="url(#arB)"/>
+    <rect x="390" y="292" width="230" height="58" class="ok"/>
+    <text x="505" y="316" text-anchor="middle">ATOMIC: debit + grant</text>
+    <text x="505" y="338" class="t2" text-anchor="middle">all or nothing (fail = currency only)</text>
+    <line x1="505" y1="350" x2="505" y2="376" class="lng" marker-end="url(#arB)"/>
+    <rect x="390" y="384" width="230" height="48" class="bx2"/>
+    <text x="505" y="414" text-anchor="middle">single doc write → snapshot</text>
+    <text x="180" y="300" class="sm">Validation is a gate, not an audit:</text>
+    <text x="180" y="320" class="sm">the illegal craft never executes,</text>
+    <text x="180" y="340" class="sm">so there is nothing to reconcile,</text>
+    <text x="180" y="360" class="sm">no orphaned items, no cleanup.</text>
+  </svg>
+  <p class="figcap">Fig. 2 — Transaction gate. The "player edits Scrap and crafts ten items" scenario dies at the first read: server sees 40, all ten requests reject, zero items ever exist.</p>
+
+  <h2>Rewards, batching &amp; flush tiers</h2>
+  <p>Rewards are <em>derived</em> server-side from completed battles; the client cannot assert an amount. Per event, Cloud Code recomputes Food (<code>round(2×(1+lvl/20)×RarityMult)</code>), XP with the level-penalty curve, and rolls the 10%/10% gear/enhancement drops from server tables — then applies one aggregated write. Batching groups events at the Cloud Code boundary: it changes <em>how often</em> we write, never <em>who decides</em> what is written.</p>
+
+  <svg class="diag" viewBox="0 0 940 510" xmlns="http://www.w3.org/2000/svg">
+    <defs><marker id="arC" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#c2ae8b"/></marker></defs>
+    <g>
+      <rect x="20" y="46" width="26" height="26" class="bx2"/><rect x="52" y="46" width="26" height="26" class="bx2"/><rect x="84" y="46" width="26" height="26" class="bx2"/>
+      <text x="65" y="34" class="sm" text-anchor="middle">battle stream</text>
+    </g>
+    <line x1="110" y1="59" x2="152" y2="59" class="ln" marker-end="url(#arC)"/>
+    <rect x="160" y="26" width="300" height="70" class="bx"/>
+    <text x="310" y="52" text-anchor="middle">LOCAL EVENT BUFFER</text>
+    <text x="310" y="76" class="sm" text-anchor="middle">{id, floor, seed, moveLog, result, prevHash}</text>
+    <path d="M 460 45 L 520 45" class="ln" marker-end="url(#arC)"/>
+    <path d="M 460 80 L 520 170" class="ln" marker-end="url(#arC)"/>
+    <rect x="528" y="16" width="392" height="104" class="goldbx"/>
+    <text x="724" y="40" class="hd" text-anchor="middle">IMMEDIATE — own call, flush now</text>
+    <text x="724" y="66" class="t2" text-anchor="middle">SSR/SR drop · boss kill · new floor record</text>
+    <text x="724" y="88" class="t2" text-anchor="middle">hatch · fuse · evolve · craft/refine/grade result</text>
+    <text x="724" y="110" class="t2" text-anchor="middle">hardcore death · any trade — never buffered</text>
+    <rect x="528" y="136" width="392" height="88" class="bx"/>
+    <text x="724" y="160" class="hd" text-anchor="middle">BATCHED — one call per timer</text>
+    <text x="724" y="186" class="t2" text-anchor="middle">fodder XP · Food · common drops · codex-seen</text>
+    <text x="724" y="208" class="t2" text-anchor="middle">flush every T minutes — TIME-based, never count-based</text>
+    <path d="M 724 120 L 724 128" class="ln"/>
+    <path d="M 724 224 L 724 252 L 470 252 L 470 276" class="lng" marker-end="url(#arC)"/>
+    <rect x="300" y="284" width="340" height="52" class="bx2"/>
+    <text x="470" y="316" text-anchor="middle">Cloud Code invocation</text>
+    <line x1="470" y1="336" x2="470" y2="360" class="lng" marker-end="url(#arC)"/>
+    <rect x="40" y="368" width="270" height="66" class="bx"/>
+    <text x="175" y="392" text-anchor="middle">① wall-clock rate cap</text>
+    <text x="175" y="416" class="sm" text-anchor="middle">Σ min-seconds ≤ elapsed (Fig. 4)</text>
+    <rect x="335" y="368" width="270" height="66" class="bx"/>
+    <text x="470" y="392" text-anchor="middle">② recompute rewards</text>
+    <text x="470" y="416" class="sm" text-anchor="middle">Food / XP / drops from server tables</text>
+    <rect x="630" y="368" width="280" height="66" class="bx"/>
+    <text x="770" y="392" text-anchor="middle">③ deterministic replay</text>
+    <text x="770" y="416" class="sm" text-anchor="middle">100% value-gating · ~1% random sample</text>
+    <path d="M 470 434 L 470 458" class="lng" marker-end="url(#arC)"/>
+    <rect x="230" y="466" width="480" height="38" class="ok"/>
+    <text x="470" y="491" text-anchor="middle">+ΣFood · +ΣXP · drops · record — one aggregated write → snapshot</text>
+  </svg>
+  <p class="figcap">Fig. 3 — Reward path. Immediate-tier events can never sit in an unflushed buffer; batched-tier loss on crash is bounded to a few minutes of personal grind — an availability tradeoff, never an economy hole. Replay reuses the GDD's determinism primitive (initial state + seed + committed move log).</p>
+
+  <h2>Rate cap — variable battle speed</h2>
+  <p>Battle duration is not constant: a floor-1 one-shot is far faster than a 5-turn endgame fight (the economy sheet's 280 Food/h at floor 1 already implies ~85+ battles/h there vs ~30/h endgame). So the cap is a <strong>curve derived from each battle's committed turn count</strong>, not a flat battles-per-hour number. Elapsed time is measured between Cloud Code's own flush timestamps — client clocks are never trusted.</p>
+
+  <svg class="diag" viewBox="0 0 940 350" xmlns="http://www.w3.org/2000/svg">
+    <rect x="60" y="40" width="820" height="34" class="bx"/>
+    <text x="470" y="30" class="sm" text-anchor="middle">server-observed elapsed since last flush (Cloud Code timestamps) — e.g. 1,200 s</text>
+    <g>
+      <rect x="60" y="96" width="34" height="40" class="bx2"/><rect x="96" y="96" width="34" height="40" class="bx2"/><rect x="132" y="96" width="34" height="40" class="bx2"/><rect x="168" y="96" width="34" height="40" class="bx2"/><rect x="204" y="96" width="34" height="40" class="bx2"/><rect x="240" y="96" width="34" height="40" class="bx2"/>
+      <rect x="276" y="96" width="96" height="40" class="bx"/>
+      <rect x="374" y="96" width="34" height="40" class="bx2"/><rect x="410" y="96" width="34" height="40" class="bx2"/>
+      <rect x="446" y="96" width="96" height="40" class="bx"/>
+      <rect x="544" y="96" width="34" height="40" class="bx2"/><rect x="580" y="96" width="34" height="40" class="bx2"/><rect x="616" y="96" width="34" height="40" class="bx2"/>
+      <rect x="652" y="96" width="120" height="40" class="danger"/>
+      <text x="712" y="121" class="red" text-anchor="middle" font-size="13">over budget</text>
+    </g>
+    <text x="230" y="158" class="sm" text-anchor="middle">1-turn one-shots ≈ overhead + 1×turn ≈ ~10 s each</text>
+    <text x="494" y="158" class="sm" text-anchor="middle">5-turn fights ≈ 25–30 s</text>
+    <text x="712" y="158" class="sm" text-anchor="middle">clamped · discarded · flagged</text>
+    <rect x="60" y="190" width="820" height="52" class="goldbx"/>
+    <text x="470" y="222" text-anchor="middle">credit while  Σ ( overhead + turns × perTurnTime ) ≤ elapsed × (1 + tolerance)</text>
+    <text x="470" y="278" class="t2" text-anchor="middle">Floors don't set the cap — the committed turn count does. Floor-1 one-shots ≈ up to ~300–350/h legal; endgame ≈ ~30/h.</text>
+    <text x="470" y="302" class="t2" text-anchor="middle">Constants live in Remote Config, margined ~20–30% under observed legit minimums; derived from the same</text>
+    <text x="470" y="324" class="t2" text-anchor="middle">battles-per-hour-by-floor assumption as the economy sheet, so cap and faucet can never drift apart.</text>
+  </svg>
+  <p class="figcap">Fig. 4 — Turn-count time floors. Guarantee: no account accrues faucet output faster than the design pacing curve for the content it fights. A headless client can forge 1,000 logs in 10 s of CPU — they credit at design pace, so the farmer gains exactly nothing over legal autoplay. Forged 1-turn logs against enemies the server-known party can't one-shot fail the sampled replay.</p>
+
+  <h2>Log integrity — hash chain</h2>
+  <p>Each battle event carries the previous event's hash. The server stores only the chain head per session; full logs stay client-side and are requested on audit. Streak and floor-record history becomes tamper-evident at ~zero storage cost.</p>
+
+  <svg class="diag" viewBox="0 0 940 180" xmlns="http://www.w3.org/2000/svg">
+    <defs><marker id="arD" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#c2ae8b"/></marker></defs>
+    <rect x="30" y="46" width="150" height="60" class="bx2"/>
+    <text x="105" y="72" text-anchor="middle">e₁ · prev: ∅</text>
+    <text x="105" y="94" class="sm" text-anchor="middle">h₁ = H(e₁)</text>
+    <line x1="180" y1="76" x2="222" y2="76" class="ln" marker-end="url(#arD)"/>
+    <rect x="230" y="46" width="150" height="60" class="bx2"/>
+    <text x="305" y="72" text-anchor="middle">e₂ · prev: h₁</text>
+    <text x="305" y="94" class="sm" text-anchor="middle">h₂ = H(e₂‖h₁)</text>
+    <line x1="380" y1="76" x2="422" y2="76" class="ln" marker-end="url(#arD)"/>
+    <rect x="430" y="46" width="150" height="60" class="bx2"/>
+    <text x="505" y="72" text-anchor="middle">e₃ · prev: h₂</text>
+    <text x="505" y="94" class="sm" text-anchor="middle">h₃ = H(e₃‖h₂)</text>
+    <line x1="580" y1="76" x2="622" y2="76" class="ln dash" marker-end="url(#arD)"/>
+    <rect x="630" y="30" width="280" height="50" class="goldbx"/>
+    <text x="770" y="61" text-anchor="middle">server stores chain head hₙ only</text>
+    <rect x="630" y="94" width="280" height="50" class="bx"/>
+    <text x="770" y="115" class="t2" text-anchor="middle">audit: request full log →</text>
+    <text x="770" y="135" class="t2" text-anchor="middle">verify chain → replay sample</text>
+  </svg>
+  <p class="figcap">Fig. 5 — Hash-chained event log. Editing, inserting, or deleting any past battle breaks every subsequent hash.</p>
+
+  <h2>Concurrency — the actual historical dupe vector</h2>
+  <p>Server-authoritative games get robbed through their transaction layer, not the client. The classic dupe: two simultaneous spend requests both read balance 100, both pass validation, both commit. Two mechanisms close it, both mandatory before trading exists: every request carries an <strong>idempotency key</strong> (retries return the cached original result), and every Cloud Save write uses the <strong>writeLock version token</strong> so concurrent writes to the same player document conflict and retry serially.</p>
+
+  <svg class="diag" viewBox="0 0 940 400" xmlns="http://www.w3.org/2000/svg">
+    <defs><marker id="arE" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#c2ae8b"/></marker></defs>
+    <rect x="20" y="30" width="230" height="56" class="bx"/>
+    <text x="135" y="53" text-anchor="middle">REQ A — spend 100</text>
+    <text x="135" y="74" class="sm" text-anchor="middle">idem key K₁</text>
+    <rect x="20" y="110" width="230" height="56" class="bx"/>
+    <text x="135" y="133" text-anchor="middle">REQ B — spend 100</text>
+    <text x="135" y="154" class="sm" text-anchor="middle">idem key K₂ · simultaneous</text>
+    <rect x="330" y="66" width="230" height="56" class="bx2"/>
+    <text x="445" y="89" text-anchor="middle">both read: balance 100</text>
+    <text x="445" y="110" class="sm" text-anchor="middle">document version v7</text>
+    <line x1="250" y1="58" x2="322" y2="82" class="ln" marker-end="url(#arE)"/>
+    <line x1="250" y1="138" x2="322" y2="108" class="ln" marker-end="url(#arE)"/>
+    <rect x="640" y="24" width="280" height="60" class="ok"/>
+    <text x="780" y="48" text-anchor="middle">A writes if version == v7 → OK</text>
+    <text x="780" y="70" class="t2" text-anchor="middle">v7 → v8 · balance 0</text>
+    <rect x="640" y="100" width="280" height="60" class="danger"/>
+    <text x="780" y="124" text-anchor="middle">B writes if version == v7 → CONFLICT</text>
+    <text x="780" y="146" class="t2" text-anchor="middle">stale token — write refused</text>
+    <line x1="560" y1="78" x2="632" y2="56" class="ln" marker-end="url(#arE)"/>
+    <line x1="560" y1="110" x2="632" y2="128" class="ln" marker-end="url(#arE)"/>
+    <path d="M 780 160 L 780 196" class="lnr" marker-end="url(#arE)"/>
+    <rect x="640" y="204" width="280" height="58" class="bx2"/>
+    <text x="780" y="228" text-anchor="middle">B retries: reads v8, balance 0</text>
+    <text x="780" y="250" class="red" text-anchor="middle" font-size="13">→ REJECT (insufficient)</text>
+    <rect x="20" y="300" width="900" height="66" class="goldbx"/>
+    <text x="470" y="326" text-anchor="middle">Retry of A (same key K₁, e.g. after network drop) → idempotency cache hit → returns the original result.</text>
+    <text x="470" y="350" text-anchor="middle">No double debit, no double grant — ever.</text>
+  </svg>
+  <p class="figcap">Fig. 6 — Optimistic concurrency + idempotency. 100 gold cannot become 200 gold of spending regardless of request timing.</p>
+
+  <h2>PvP — commit-reveal, verify once</h2>
+  <p>Rounds run peer-to-peer over Relay; the server is not in the per-round loop. Each side commits <code>hash(move‖nonce)</code>, then reveals; the round's RNG seed derives from both nonces, so neither side can peek at the opponent's pick or steer a roll. Committed rounds persist before resolution renders (the GDD's anti-scum rule). At match end, <strong>one</strong> Cloud Code call replays the committed log, verifies it against both players' commitments, and writes the ladder — server-only. Timeouts and disconnects follow the PvP page: autoplay AI picks on expiry, five consecutive AI rounds forfeits.</p>
+
+  <svg class="diag" viewBox="0 0 940 440" xmlns="http://www.w3.org/2000/svg">
+    <defs><marker id="arF" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#c2ae8b"/></marker></defs>
+    <rect x="20" y="20" width="900" height="250" class="bx"/>
+    <text x="470" y="46" class="hd" text-anchor="middle">ROUND LOOP — peer-to-peer over Relay, ≤30 rounds</text>
+    <rect x="50" y="70" width="130" height="50" class="bx2"/>
+    <text x="115" y="100" text-anchor="middle">Player 1</text>
+    <rect x="50" y="180" width="130" height="50" class="bx2"/>
+    <text x="115" y="210" text-anchor="middle">Player 2</text>
+    <rect x="260" y="70" width="240" height="50" class="goldbx"/>
+    <text x="380" y="94" text-anchor="middle">commit  h₁ = H(move₁‖n₁)</text>
+    <text x="380" y="112" class="sm" text-anchor="middle">blind — nothing readable</text>
+    <rect x="260" y="180" width="240" height="50" class="goldbx"/>
+    <text x="380" y="204" text-anchor="middle">commit  h₂ = H(move₂‖n₂)</text>
+    <text x="380" y="222" class="sm" text-anchor="middle">blind — nothing readable</text>
+    <line x1="180" y1="95" x2="252" y2="95" class="ln" marker-end="url(#arF)"/>
+    <line x1="180" y1="205" x2="252" y2="205" class="ln" marker-end="url(#arF)"/>
+    <rect x="560" y="125" width="330" height="60" class="bx2"/>
+    <text x="725" y="149" text-anchor="middle">reveal → verify hashes → resolve</text>
+    <text x="725" y="171" class="sm" text-anchor="middle">round seed = H(n₁‖n₂‖round#) · persisted pre-render</text>
+    <line x1="500" y1="95" x2="552" y2="140" class="ln" marker-end="url(#arF)"/>
+    <line x1="500" y1="205" x2="552" y2="170" class="ln" marker-end="url(#arF)"/>
+    <text x="470" y="250" class="sm" text-anchor="middle">timeout: 30 s round + 90 s bank spent → autoplay AI picks · 5 straight AI rounds → forfeit</text>
+    <line x1="470" y1="270" x2="470" y2="300" class="lng" marker-end="url(#arF)"/>
+    <rect x="170" y="308" width="600" height="56" class="ok"/>
+    <text x="470" y="332" text-anchor="middle">MATCH END — one Cloud Code call: replay committed log vs commitments</text>
+    <text x="470" y="354" class="t2" text-anchor="middle">verified → write ladder (server-only) · mismatch → flag both, no write</text>
+    <text x="470" y="404" class="t2" text-anchor="middle">~1–2 server calls per match instead of ~70 with per-round server resolution — ≈ $13k/mo saved at 500k CCU,</text>
+    <text x="470" y="426" class="t2" text-anchor="middle">identical integrity: no peeking, no roll-steering, no forged outcomes.</text>
+  </svg>
+  <p class="figcap">Fig. 7 — Commit-reveal PvP with single end-of-match verification.</p>
+
+  <h2>Hardcore death — one atomic commit</h2>
+  <p>Death is confirmed server-side (the losing battle is replay-verifiable), then the whole pipeline applies as a single transaction. The death mark lives in a <strong>Private</strong> key the client cannot read, let alone clear; it is written atomically with the Bequest seal, so a wipe without a seal — or a seal without a mark — is structurally impossible. Sealing also transfer-locks the Steam-owned assets into the receiving crypt so nothing can be duped out mid-death. The HC-Seasonal → Hardcore double-migration (the GDD's highest-risk path) is a scheduled, idempotent <em>server</em> job at season end — never client-driven.</p>
+
+  <svg class="diag" viewBox="0 0 940 420" xmlns="http://www.w3.org/2000/svg">
+    <defs><marker id="arG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#c2ae8b"/></marker></defs>
+    <rect x="270" y="20" width="400" height="50" class="bx"/>
+    <text x="470" y="51" text-anchor="middle">losing battle — server replay-verified</text>
+    <line x1="470" y1="70" x2="470" y2="96" class="lnr" marker-end="url(#arG)"/>
+    <rect x="40" y="104" width="860" height="220" class="danger"/>
+    <text x="470" y="130" class="hd" text-anchor="middle">ATOMIC — ALL FIVE OR NOTHING</text>
+    <rect x="60" y="150" width="250" height="66" class="bx2"/>
+    <text x="185" y="176" text-anchor="middle">① fracture class XP</text>
+    <text x="185" y="198" class="sm" text-anchor="middle">→ Soul Gems, rank by XP</text>
+    <rect x="60" y="236" width="250" height="66" class="bx2"/>
+    <text x="185" y="262" text-anchor="middle">② seal Bequest</text>
+    <text x="185" y="284" class="sm" text-anchor="middle">gear + inventory + gems + creatures · transfer-lock Steam assets</text>
+    <rect x="344" y="150" width="250" height="66" class="bx2"/>
+    <text x="469" y="176" text-anchor="middle">③ deliver → crypt bag</text>
+    <text x="469" y="198" class="sm" text-anchor="middle">HC → Eternal now · HCS → season-end job → HC</text>
+    <rect x="344" y="236" width="250" height="66" class="bx2"/>
+    <text x="469" y="262" text-anchor="middle">④ reset character to L1</text>
+    <text x="469" y="284" class="sm" text-anchor="middle">same realm, slot permanent</text>
+    <rect x="628" y="150" width="252" height="152" class="goldbx"/>
+    <text x="754" y="196" text-anchor="middle">⑤ write deathMark</text>
+    <text x="754" y="222" class="t2" text-anchor="middle">PRIVATE key —</text>
+    <text x="754" y="244" class="t2" text-anchor="middle">client cannot read or clear</text>
+    <text x="754" y="266" class="sm" text-anchor="middle">diedOnHardcore · floor · realm · seasonId · time</text>
+    <line x1="470" y1="324" x2="470" y2="352" class="lng" marker-end="url(#arG)"/>
+    <rect x="220" y="360" width="500" height="44" class="ok"/>
+    <text x="470" y="388" text-anchor="middle">single commit — no partial state possible</text>
+  </svg>
+  <p class="figcap">Fig. 8 — Hardcore death pipeline. Test all four realm paths and the season migration independently, per GDD critical risks.</p>
+
+  <h2>Steam market &amp; farm accounts</h2>
+  <p>The mint is downstream of validation: a Cloud Code transaction confirms the asset was legitimately earned or paid for, <em>then</em> calls Steam GenerateItem with the publisher key and binds the instance ID back to Cloud Save. A faked balance never reaches the mint — the only thing touching the real-money market is the one thing that cannot be spoofed. Every trade path goes through a server-side <strong>transfer lock</strong> with a single-ownership check (in place before the marketplace opens, per GDD critical risks), and every item class carries a config-level <code>tradeable</code> flag so a compromised category can be frozen without a patch.</p>
+  <p>With client edits neutralized, the residual economic threat is <strong>farm accounts</strong> — F2P + legal 24/7 autoplay + a real-money market invites item-printing at account scale. Every farm account plays "legitimately," so this is fought with gates and telemetry, not client tech:</p>
+  <table>
+    <tr><th>Gate</th><th>Effect</th><th>Cost to us</th></tr>
+    <tr><td class="lbl">Steam limited accounts</td><td>Accounts that never spent $5 cannot use the Community Market or trade at all — Valve's rule</td><td>Free</td></tr>
+    <tr><td class="lbl">Grade-5+ trade gate</td><td>Already in the GDD — sub-Epic output is unsellable</td><td>Free</td></tr>
+    <tr><td class="lbl">Per-account market unlock</td><td>Floor / character-level threshold before listing — a time tax per farm account</td><td>Config</td></tr>
+    <tr><td class="lbl">Faucet &amp; listing telemetry</td><td>Per-account faucet rate vs design curve, listing velocity, multi-account clustering → flag queue</td><td>Analytics only</td></tr>
+    <tr><td class="lbl">Market kill-switch</td><td>Freeze all trading by config while investigating an incident</td><td>Config</td></tr>
+  </table>
+
+  <h2>What other games teach</h2>
+  <table>
+    <tr><th>Case</th><th>What happened</th><th>Rule we take</th></tr>
+    <tr><td class="lbl">Authoritative-server model (industry standard; e.g. Clash of Clans)</td><td>Client sends inputs/commands, server runs the game and returns results — a hacked client's local values are fiction. CoC's client is so purely a view that full private-server reimplementations exist; modding the client against the real server yields nothing.</td><td>Exactly this page's model. Events in, computed state out.</td></tr>
+    <tr><td class="lbl">Diablo 3 gold dupe (2013)</td><td>A patch bug in the auction house — not a client hack — let players duplicate gold into the trillions. Blizzard took the AH offline, audited every transaction since the patch, banned the 415 accounts that exploited it, recovered ~85% of the gold, and chose targeted removal over a rollback.</td><td>The transaction layer is the attack surface. Keep a per-account transaction audit trail from day one, keep a market kill-switch, and design so surgical removal is possible — a live-economy rollback is not a real option.</td></tr>
+    <tr><td class="lbl">CS:GO keys (2019)</td><td>Worldwide fraud networks laundered stolen-card money through tradeable keys; Valve concluded nearly all marketplace key purchases were fraud-sourced and made new keys permanently non-tradeable.</td><td>Any stable-value tradeable item is a laundering instrument. Keep all liquidity inside the Steam Market (Valve's fraud detection, trade holds, and authenticator friction protect us for free) and keep the per-class tradeable flag revocable by config — Valve's exact lever.</td></tr>
+    <tr><td class="lbl">Pattern (TF2 2019 crate bug, Lost Ark 2022 bot waves, RuneScape's botting decades)</td><td>F2P games with trading get hurt by economy bugs and account farms — almost never by the client-edit vector.</td><td>Spend the paranoia on transactions and the market. Our autoplay design removes the botting arms race entirely: grinding automation is a feature, so "bot detection" reduces to the rate cap + farm-account gates above.</td></tr>
+  </table>
+
+  <h2>Live-service cost model</h2>
+  <p>UGS pay-as-you-go unit prices (July 2026): Cloud Code $1.50/M invocations + $0.00002 per compute-second (1M invocations + 20 compute-hours free/mo); Cloud Save $2.50/M writes, $0.90/M reads, $0.50/GiB stored (1M + 1M + 5 GiB free); egress $0.25/GiB; Relay $0.16 per average monthly CCU after the first 50; Leaderboards currently "free for a limited time".</p>
+  <p><strong>Load model:</strong> autoplay per the GDD; flush every 20 min + ~1 immediate event/h ⇒ 4 Cloud Code invocations/h/CCU, each 1 consolidated-doc read + 1 write, ~50 ms compute, ~1 KB delta response; CCU treated as sustained 24/7 (autoplay worst case, 730 h/mo); PvP = 2% of CCU, commit-reveal, 2 verify calls/match, Relay transport; storage 50 KB per stored account.</p>
+  <table>
+    <tr><th>Sustained CCU</th><th>Cloud Code</th><th>Cloud Save R+W</th><th>Egress</th><th>PvP</th><th>Storage</th><th>Total / mo</th></tr>
+    <tr><td class="lbl">~300</td><td>free tier</td><td>free tier</td><td>free</td><td>~$1</td><td>$0</td><td><strong>~$0</strong></td></tr>
+    <tr><td class="lbl">1,000</td><td>~$5</td><td>~$7</td><td>~$0.5</td><td>~$5</td><td>~$0</td><td><strong>~$15–20</strong></td></tr>
+    <tr><td class="lbl">10,000</td><td>~$73</td><td>~$99</td><td>~$7</td><td>~$50</td><td>~$5</td><td><strong>~$230–260</strong></td></tr>
+    <tr><td class="lbl">100,000</td><td>~$730</td><td>~$990</td><td>~$70</td><td>~$500</td><td>~$50</td><td><strong>~$2.3–2.6k</strong></td></tr>
+    <tr><td class="lbl">500,000</td><td>~$3,650</td><td>~$4,960</td><td>~$350</td><td>~$2,400</td><td>~$250</td><td><strong>~$12–15k</strong></td></tr>
+  </table>
+  <p>≈ <strong>$0.02–0.03 per CCU per month.</strong> Cheap because the client simulates and the server only validates — this is a key-value store plus arithmetic, not game servers. Contrast the naive build (per-battle invocations, per-field writes, currencies on the UGS Economy service): it computes to <strong>$450k+/mo at 500k CCU</strong>, dominated by Economy's $35/M writes. The batched, consolidated, Cloud-Save-ledger design is a ~30× reduction.</p>
+  <table>
+    <tr><th>Lever</th><th>Rule</th></tr>
+    <tr><td class="lbl">Currencies on Cloud Save, never Economy</td><td>Economy writes cost 14× Cloud Save writes ($35/M vs $2.50/M) — at 500k CCU the difference is ~$47k/mo. Ledger by Cloud Code on Protected keys.</td></tr>
+    <tr><td class="lbl">Time-based flush, never count-based</td><td>Battle rate varies ~10× by floor (one-shots); a count trigger would multiply the entire bill during low-floor farming. A 20-min flush carries 30–100 events for the same price as 10.</td></tr>
+    <tr><td class="lbl">Flush window = linear dial</td><td>20 → 60 min roughly halves the core bill (~$7–8k at 500k) at the cost of a longer batched-tier loss window on crash.</td></tr>
+    <tr><td class="lbl">One consolidated document per realm</td><td>Every extra key per flush is another billed write.</td></tr>
+    <tr><td class="lbl">Return deltas, not snapshots</td><td>Unused response bytes bill as egress.</td></tr>
+    <tr><td class="lbl">Replay only where it pays</td><td>100% of value-gating events, ~1% random sample — a 3–5-turn replay is sub-millisecond compute; the budget concern is invocation shape, not CPU.</td></tr>
+    <tr><td class="lbl">Store hashes, not logs</td><td>Chain head server-side, full logs client-side, fetched on audit — storage ≈ 0.</td></tr>
+    <tr><td class="lbl">UGS Analytics stays OFF</td><td>MAU-metered — at the ~3–5M MAU that 500k CCU implies, roughly another $9–10k/mo. Use free telemetry.</td></tr>
+    <tr><td class="lbl">Leaderboards = unpriced risk</td><td>"Free for a limited time." Our write pattern (personal bests + post-match only) keeps exposure minimal whatever they price.</td></tr>
+    <tr><td class="lbl">Card on file before launch</td><td>Exceeding any UGS free tier blocks ALL UGS APIs and config changes; 30 days unpaid disables services. A usage spike must not hard-lock the backend.</td></tr>
+    <tr><td class="lbl">Migration kept possible, not planned</td><td>500k CCU ≈ ~550 req/s average — self-hosting (~$2–4k/mo hardware) would undercut UGS but buys a solo dev an ops burden $12k/mo does not justify against F2P revenue at that scale. Keep the Cloud Code layer behind a thin interface; revisit only if per-op bills materially outpace revenue.</td></tr>
+  </table>
+
+  <h2>v2 corrections changelog</h2>
+  <table>
+    <tr><th>#</th><th>Correction (July 2026 review)</th></tr>
+    <tr><td class="lbl">1</td><td>Reversed the v1 recommendation to use UGS Economy for currency ledgers — 14× write cost. Currencies live on Cloud Save Protected keys.</td></tr>
+    <tr><td class="lbl">2</td><td>Added the concurrency contract: idempotency keys on every request + Cloud Save writeLock optimistic versioning. Mandatory before trading exists.</td></tr>
+    <tr><td class="lbl">3</td><td>Replaced the flat battles/hour cap with turn-count-derived time floors (variable battle speed — floor-1 one-shots vs endgame fights), Remote-Config-tuned, sharing the economy sheet's pacing curve.</td></tr>
+    <tr><td class="lbl">4</td><td>Added the farm-account gate set (Steam $5 limit, grade-5 gate, per-account market unlock, faucet/listing telemetry, kill-switch) as the primary residual-threat defense.</td></tr>
+    <tr><td class="lbl">5</td><td>PvP moved from per-round server resolution to commit-reveal over Relay with a single end-of-match verification (~$13k/mo saved at 500k CCU, same integrity).</td></tr>
+    <tr><td class="lbl">6</td><td>Event logs hash-chained; server stores chain heads only, full logs fetched on audit.</td></tr>
+  </table>
+
+  <h2>Implementation order</h2>
+  <p>Maps to the Simplified Static roadmap: keys + access classes + client buffer land with <strong>#1 Data architecture</strong>; the transaction contract and reward path with the economy tables; replay verification once <strong>#6/#10 battle system</strong> persists seeds and move logs; death pipelines at <strong>#16</strong>; commit-reveal PvP at <strong>#17</strong>; mint + transfer lock at <strong>#18 Steam integration</strong>. Open decisions: publisher-key host (Cloud Code direct vs thin Lambda), Soul Gem tradeability, death-marked creature tradeability, and whether settings mirror to UGS for the future mobile port (Steam Cloud is PC-only).</p>
+
+</div>
+<script src="admin.js"></script>
+<script src="nav.js"></script>
+</body>
+</html>
