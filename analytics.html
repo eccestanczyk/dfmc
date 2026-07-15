@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analytics &amp; Telemetry — Herumon Tower</title>
+<link rel="stylesheet" href="theme.css?v=4">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+.diag{width:100%;height:auto;display:block;margin:16px 0 8px;background:var(--bg-deep,#0d0a06);border:1px solid var(--rule-faint,#3a2c1a);}
+.diag .bx{fill:#1e1710;stroke:#5c462c;stroke-width:1;}
+.diag .bx2{fill:#271e15;stroke:#5c462c;stroke-width:1;}
+.diag .goldbx{fill:rgba(207,166,80,0.10);stroke:#8a6d2f;stroke-width:1;}
+.diag .okbx{fill:rgba(74,122,68,0.16);stroke:#4a7a44;stroke-width:1;}
+.diag text{fill:#ede0c4;font-family:'EB Garamond',Georgia,serif;font-size:15px;}
+.diag .t2{fill:#c2ae8b;font-size:13px;}
+.diag .sm{fill:#9c8963;font-size:12px;}
+.diag .hd{fill:#e6c66d;font-family:'Cinzel',serif;font-size:13px;letter-spacing:0.06em;}
+.diag .ln{stroke:#c2ae8b;stroke-width:1.5;fill:none;}
+.diag .lng{stroke:#cfa650;stroke-width:1.5;fill:none;}
+.diag .dash{stroke-dasharray:5 4;}
+.figcap{font-size:13px;color:var(--ink-faint);font-style:italic;margin:0 0 26px;}
+.callout{background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--gold-dim);padding:12px 16px;margin:16px 0;font-size:15px;}
+.callout.bad{border-left-color:var(--blood-mid);}
+.lbl{color:var(--gold-bright);font-weight:600;white-space:nowrap;}
+.hyp td{vertical-align:top;font-size:14.5px;}
+.hyp td:first-child{color:var(--gold-bright);font-weight:600;white-space:nowrap;}
+.prop{display:inline-block;font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold-dim);border:1px solid var(--rule);padding:2px 6px;margin-left:8px;vertical-align:middle;}
+code{background:var(--surface-2);border:1px solid var(--rule-faint);padding:1px 5px;font-size:13.5px;color:var(--gold-bright);}
+</style>
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">ANALYTICS &amp; TELEMETRY</h1></div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="hub.html">Hub</a> &rsaquo; Dev Tools &rsaquo; Analytics &amp; Telemetry</div>
+  <p class="sp-lead">Canonical plan (v1, July 2026) for hypothesis-driven telemetry: what we measure, where each number comes from, and which authored lever it moves. Purpose per design notes: rebalance drop rates, abilities, stats, general strength, and upgrade chances from observed progression speed — <strong>the default analytical lens is the non-buyer (self-found) player; every tracked metric must map to a named lever (a CSV column, a formula constant, or a Remote Config value); and balance truth comes from the server plane, never from client claims.</strong> Companion to <a href="admin-backend.html">Backend, Save &amp; Anti-Cheat</a>, which already mandates: UGS Analytics stays OFF (MAU-metered) — use free telemetry.</p>
+
+  <h2>Requirements traceability</h2>
+  <p>The four driving design notes and where each lands in this plan:</p>
+  <table>
+    <tr><th>Note</th><th>Handled by</th></tr>
+    <tr><td class="lbl">Creature wins/losses per level · damage dealt per battle per creature · logout point &amp; session length</td><td>Hypotheses C1–C4 (creature performance), S1/D3 (logout context), battle &amp; session schema rows</td></tr>
+    <tr><td class="lbl">Hypotheses + data to rebalance drops, abilities, stats, strength, upgrade chances from progression speed — non-buyers first</td><td>The full hypothesis register (D/C/E/B/S groups), proposed target bands, segmentation (non-buyer default lens)</td></tr>
+    <tr><td class="lbl">Steam-account login on the codex site for direct per-creature feedback</td><td>Creature Feedback System section + hypothesis C6 (feedback × telemetry quadrant)</td></tr>
+    <tr><td class="lbl">Item slots filled per container, twice daily or at session begin/end</td><td>Container snapshot schema row + hypothesis S4 (inventory pressure); rides every server flush ≈ 20-min granularity, covering both proposed cadences</td></tr>
+  </table>
+
+  <h2>Principles</h2>
+  <table>
+    <tr><th>Principle</th><th>Rule</th></tr>
+    <tr><td class="lbl">Server plane is truth</td><td>Balance reads come from the Cloud Code boundary — server-computed rewards, server-rolled odds, replay-verified battles. Client-side events (sessions, UI, screens) are directional context, never balance evidence. Same doctrine as anti-cheat: the client reports events; the server derives numbers.</td></tr>
+    <tr><td class="lbl">Free telemetry only</td><td>Per the backend cost model, UGS Analytics is off (MAU-metered, ~$9–10k/mo at scale). Client plane: GameAnalytics free tier. Server plane: piggyback the existing Cloud Code flush — no new invocations, one outbound append per flush to owned storage.</td></tr>
+    <tr><td class="lbl">Time is the anchor</td><td>The GDD already denominates the whole economy in battles (~30/h endgame). Every pacing question is answered in battles/hours, matching the design sheets, so observed reality and authored intent share one axis.</td></tr>
+    <tr><td class="lbl">Hypothesis → metric → trigger → lever</td><td>No vanity metrics. Each register row names the number, the plane it comes from, the threshold that fires, and the authored lever it moves (<code>creatures.csv</code> grades, <code>moves.csv</code> powers, <code>encounter_weights.csv</code>, drop rates, odds ladders, Remote Config constants).</td></tr>
+    <tr><td class="lbl">Segment before judging</td><td>Nothing is interpreted without the buyer/non-buyer split and the realm split. A number that looks fine blended can hide a starving self-found cohort behind a market-fed one.</td></tr>
+    <tr><td class="lbl">Numbers say what, feedback says why</td><td>Telemetry cannot distinguish "weak" from "feels bad." Every balance read pairs with the site feedback channel before a lever moves.</td></tr>
+    <tr><td class="lbl">Privacy by default</td><td>Analytics ID = salted hash of SteamID64. The Settings menu already ships an Analytics opt-out toggle (on, opt-out) — both planes honor it. Export My Data / Delete Account flows include the analytics store and the feedback DB.</td></tr>
+  </table>
+
+  <h2>Two collection planes + the feedback loop</h2>
+  <p>Three sources, one warehouse. The <strong>client plane</strong> exists from the prototype onward and costs nothing; the <strong>server plane</strong> arrives with roadmap step #16 and is the balance authority; the <strong>site plane</strong> (Steam-login feedback) is independent and can ship any time.</p>
+
+  <svg class="diag" viewBox="0 0 940 430" xmlns="http://www.w3.org/2000/svg">
+    <defs><marker id="arA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#c2ae8b"/></marker></defs>
+    <text x="150" y="36" class="hd" text-anchor="middle">GAME CLIENT (Unity)</text>
+    <rect x="25" y="48" width="250" height="150" class="bx"/>
+    <rect x="40" y="62" width="220" height="56" class="bx2"/>
+    <text x="150" y="85" text-anchor="middle">GameAnalytics SDK</text>
+    <text x="150" y="105" class="sm" text-anchor="middle">sessions · progression · UI events</text>
+    <rect x="40" y="128" width="220" height="56" class="bx2"/>
+    <text x="150" y="151" text-anchor="middle">Event / request buffer</text>
+    <text x="150" y="171" class="sm" text-anchor="middle">battle logs — already exists (backend)</text>
+
+    <text x="150" y="250" class="hd" text-anchor="middle">CODEX SITE</text>
+    <rect x="25" y="262" width="250" height="120" class="bx"/>
+    <rect x="40" y="276" width="220" height="56" class="bx2"/>
+    <text x="150" y="299" text-anchor="middle">Steam OpenID login</text>
+    <text x="150" y="319" class="sm" text-anchor="middle">per-creature ratings · tags · comments</text>
+    <text x="150" y="362" class="sm" text-anchor="middle">Cloudflare Worker + D1 (free tier)</text>
+
+    <rect x="360" y="48" width="230" height="86" class="okbx"/>
+    <text x="475" y="78" class="hd" text-anchor="middle">GAMEANALYTICS</text>
+    <text x="475" y="100" class="t2" text-anchor="middle">free dashboards — retention,</text>
+    <text x="475" y="118" class="t2" text-anchor="middle">funnels, sessions, resource flow</text>
+
+    <rect x="360" y="160" width="230" height="120" class="goldbx"/>
+    <text x="475" y="188" class="hd" text-anchor="middle">UGS CLOUD CODE</text>
+    <text x="475" y="212" class="t2" text-anchor="middle">validates · computes rewards</text>
+    <text x="475" y="232" class="t2" text-anchor="middle">rolls odds · rate-caps · replays</text>
+    <text x="475" y="258" text-anchor="middle">+ 1 analytics append per flush</text>
+
+    <rect x="655" y="120" width="260" height="200" class="bx"/>
+    <text x="785" y="150" class="hd" text-anchor="middle">OWNED WAREHOUSE</text>
+    <text x="785" y="178" class="t2" text-anchor="middle">ingest Worker → NDJSON on R2</text>
+    <text x="785" y="200" class="t2" text-anchor="middle">nightly compaction → Parquet</text>
+    <text x="785" y="222" class="t2" text-anchor="middle">DuckDB — full SQL, local</text>
+    <text x="785" y="256" text-anchor="middle">weekly balance report</text>
+    <text x="785" y="280" class="sm" text-anchor="middle">non-buyer lens by default</text>
+    <text x="785" y="300" class="sm" text-anchor="middle">joins all three sources by hashed ID</text>
+
+    <line x1="260" y1="90" x2="352" y2="90" class="ln" marker-end="url(#arA)"/>
+    <line x1="275" y1="156" x2="352" y2="210" class="ln" marker-end="url(#arA)"/>
+    <text x="300" y="172" class="sm">events</text>
+    <line x1="590" y1="220" x2="647" y2="220" class="lng" marker-end="url(#arA)"/>
+    <text x="618" y="210" class="sm" text-anchor="middle">flush</text>
+    <line x1="275" y1="322" x2="647" y2="308" class="ln dash" marker-end="url(#arA)"/>
+    <text x="460" y="330" class="sm" text-anchor="middle">nightly feedback export</text>
+    <line x1="590" y1="100" x2="700" y2="100" class="ln dash"/>
+    <path d="M 700 100 L 700 112" class="ln dash" marker-end="url(#arA)"/>
+    <text x="672" y="90" class="sm" text-anchor="middle">CSV export (manual, free)</text>
+  </svg>
+  <p class="figcap">Fig. 1 — Collection topology. The server plane adds zero Cloud Code invocations: the analytics record is appended inside the flush that already runs every ~20 minutes. The client plane works today, in the prototype, before any backend exists.</p>
+
+  <h2>Segmentation</h2>
+  <p>Every metric in the register is computed per segment. The two structural splits are non-negotiable; the rest are lenses.</p>
+  <table>
+    <tr><th>Segment</th><th>Definition</th><th>Why</th></tr>
+    <tr><td class="lbl">Market cohort</td><td><strong>non-buyer</strong> (never bought a gameplay-affecting item/creature on the Steam market — the default lens) vs <strong>buyer</strong> (≥1 such purchase). Selling alone does not flip the flag — a seller still progressed self-found.</td><td>The design question: does the game pace correctly for players who never touch the market? The market is the variance smoother — non-buyers are the ones exposed to raw RNG.</td></tr>
+    <tr><td class="lbl">Realm</td><td>Eternal / Hardcore / Seasonal / HC Seasonal (keys are already realm-namespaced server-side). Hardcore post-death releveling is its own sub-cohort.</td><td>Death stakes and season resets change every pacing number; blending realms poisons all of them.</td></tr>
+    <tr><td class="lbl">Progression band</td><td>Highest zone reached (1–10).</td><td>Difficulty and economy read per band, not globally.</td></tr>
+    <tr><td class="lbl">Tenure</td><td>Day 0–7 / 8–30 / 31+.</td><td>Early-funnel problems and endgame problems need different levers.</td></tr>
+    <tr><td class="lbl">Playstyle</td><td>Auto-share of battles: manual-heavy &lt;25% / mixed / auto-heavy &gt;75%.</td><td>Chests and Ichor are the active-play premium — auto-heavy starvation is by design; measure whether it converts to manual play or to churn.</td></tr>
+    <tr><td class="lbl">Ladder tier</td><td>Top 1% / top 10% / rest, per season (PvP and floor ladders).</td><td>Competitive balance reads only at the top; population reads only at the base.</td></tr>
+  </table>
+
+  <h2>Hypothesis register</h2>
+  <p>Each row: the claim, the numbers that test it, the plane they come from, and the trigger → lever. IDs are stable for referencing in weekly reports.</p>
+
+  <h3 style="font-family:'Cinzel',serif;color:var(--gold-bright);">D — Difficulty, floors &amp; progression</h3>
+  <table class="hyp">
+    <tr><th>ID</th><th>Hypothesis</th><th>Metrics · plane</th><th>Trigger → lever</th></tr>
+    <tr><td>D1</td><td>The streak clear condition makes floor cost hypersensitive to win rate at depth (see the streak amplifier below). On-progression wild win rate must stay high enough that observed battles-to-clear tracks the design pace.</td><td>Per-floor win rate (all parties, and level-matched parties); observed battles-to-clear p50/p90 vs the streak-math expectation. Server.</td><td>Floor whose p50 battles-to-clear &gt;2× the at-target expectation for two weeks → tune that floor's roster (<code>floor_creature_rarity.csv</code>, <code>encounter_weights.csv</code>, offending creatures' grades/moves).</td></tr>
+    <tr><td>D2</td><td>Unintended walls appear where enemy level outpaces attainable gear — distinct from the authored XP cliffs in zones 8–10.</td><td>Time-on-floor p50 normalized against the zone-local trend; next-day return rate per floor. Server + client.</td><td>Return-rate dip &gt;5 pp vs zone baseline on a non-boss floor → drop weights / roster review for that floor band.</td></tr>
+    <tr><td>D3</td><td>Losses drive logoffs at specific floors — the "where players logged off" question.</td><td>% of sessions ending ≤60 s after a loss, per floor; loss-streak length at logout; last screen at logout. Client (context) + server (loss).</td><td>Floor in the top decile of rage-quit rate two consecutive weeks → difficulty review; pair with feedback before nerfing.</td></tr>
+    <tr><td>D4</td><td>Boss gates should be tense, not grindy: keys are consumed per entry, so retry friction = key economy, and boss kill turns are budgeted by HP = 5×Floor+150.</td><td>Attempts-per-kill distribution per boss; first-attempt win rate; key wait time (boss-floor arrival → key in hand); keys held at first arrival; boss fight turn counts. Server.</td><td>p50 attempts &gt;3 or key wait &gt;1 session → key drop rate (open decision — this metric prices it), <code>bosses.csv</code> HP budget / Difficulty_Index / SR active tuning.</td></tr>
+    <tr><td>D5</td><td>Auto vs manual divergence classifies floors: manual ≫ auto = strategy check (fine); both ≈100% deep = trivial; both low = stat wall (bad).</td><td>Win rate by mode per floor; auto-share per floor (a dip = players forced back to manual). Server.</td><td>Stat-wall floors → roster stats; trivial deep floors → encounter weights. Strategy checks are left alone unless feedback flags them.</td></tr>
+    <tr><td>D6</td><td>The level penalty makes over-leveled XP farming pointless — but players may still park on trivial floors for Food/drops, which is an economy signal, not an XP bug.</td><td>XP/h and battles by (party level − floor) offset; faucet mix on parked floors. Server.</td><td>Parking concentration on one floor → check that floor's faucet outliers rather than the XP curve.</td></tr>
+  </table>
+
+  <h3 style="font-family:'Cinzel',serif;color:var(--gold-bright);">C — Creatures &amp; moves</h3>
+  <table class="hyp">
+    <tr><th>ID</th><th>Hypothesis</th><th>Metrics · plane</th><th>Trigger → lever</th></tr>
+    <tr><td>C1</td><td>At matched rarity, stage, and floor band, creature win rates should cluster; persistent outliers are mistuned lines — the note's "creatures winning and losing battles per level."</td><td>Per-creature win/loss per floor band, level-matched; deviation from same-rarity cohort median. Server.</td><td>±5 pp from cohort median at n≥500 battles for two weeks → <code>creatures.csv</code> grades / <code>moves.csv</code> powers &amp; effect magnitudes / synergy-anti bands.</td></tr>
+    <tr><td>C2</td><td>Usage × win rate quadrant separates dominance from popularity: a widely used strong creature is only a problem if it is <em>always</em> optimal regardless of context.</td><td>Pick rate (share of party slots) × win rate, per floor band and PvP rating band. Server.</td><td>High-pick + high-WR → dominance check (context dependence?); low + low → buff; low-pick + high-WR → discoverability/feedback; high-pick + low-WR → fun-but-weak: buff numbers, keep the kit.</td></tr>
+    <tr><td>C3</td><td>Damage accounting exposes over/under-performing kits and dead moves — the note's "damage dealt per battle by creature."</td><td>Per battle per creature: damage dealt/taken, KOs, faints-first rate, turns alive; per move: use count (manual vs autoplay AI), damage share. Server (client-claimed aggregates, calibrated against the replay-verified subset).</td><td>A move &lt;5% manual use on a line with ≥25% of its power budget → rework/effect-clarity pass in <code>moves.csv</code>. Kit-wide damage-share outliers → power band review.</td></tr>
+    <tr><td>C4</td><td>Turn counts should hold the authored bands: wild 3–5 turns ("mowing through fodder"), bosses in the budgeted kill window.</td><td>Turn-count distribution per floor band and per boss; 1-turn wipe share deep; &gt;6-turn wild fight share. Server.</td><td>Drift → move power bands / Core curve review; boss drift → HP budget. (Note the GDD lists boss turn targets both as 8–13 via the HP budget and 10–15 in the turn-target table — flagged below.)</td></tr>
+    <tr><td>C5</td><td>Acquisition without use marks weak or unclear kits: lines players hatch but never field.</td><td>Funnel per line: hatched → ever partied → 50+ battles → S3 reached. Server.</td><td>High-acquisition / near-zero-use lines → cross-reference feedback tags (C6) before touching numbers — may be a clarity problem, not a power problem.</td></tr>
+    <tr><td>C6</td><td>Feedback × telemetry mismatches route the fix: low rating + high WR = feel problem (VFX, kit legibility); high rating + low WR = fun-but-weak, buff numbers and keep identity.</td><td>Site feedback (rating, tags) joined per creature with WR/pick, votes weighted by experience (≥50 battles with the creature). Site + server.</td><td>Quadrant assignment feeds the weekly report; levers per quadrant as in C2/C3.</td></tr>
+    <tr><td>C7</td><td>PvP meta health: rarity should shape identity, not gate competitiveness outright.</td><td>Per-creature pick/win by rating band (fully replay-verified); comp clustering; mirror-match rate; SSR share of top-ladder party slots. Server.</td><td>Top-1% ladder &gt;80% SSR-only slots, or one comp &gt;40% of top-tier matches → synergy/anti clause and grade levers; never a type chart.</td></tr>
+  </table>
+
+  <h3 style="font-family:'Cinzel',serif;color:var(--gold-bright);">E — Economy: drops, upgrades, market</h3>
+  <table class="hyp">
+    <tr><th>ID</th><th>Hypothesis</th><th>Metrics · plane</th><th>Trigger → lever</th></tr>
+    <tr><td>E1</td><td>Implemented faucets match authored tables (gear 10%/battle, enhancements 10%, Ichor ~2% on floors 61+, key rate, grade weights by floor band). The server rolls every drop, so this is a free integrity audit.</td><td>Observed rate per faucet vs table, with confidence intervals. Server.</td><td>Deviation outside the 99% CI at n≥1,000 → implementation bug hunt before any design change.</td></tr>
+    <tr><td>E2</td><td>Non-buyers hit the authored milestones on pace: bracket-appropriate loadout "falls out of the journey," Epic key pieces within weeks of 100, Legendary–Divine in months.</td><td>Hours/battles to each milestone, p50/p90, non-buyer lens; velocity ratio non-buyer p50 vs buyer p50 at matched playtime. Server.</td><td>Milestone p50 &gt;125% of design target, or velocity ratio &lt;70% <span class="prop">proposed</span> → drop weights, craft costs (25×T), dismantle yields.</td></tr>
+    <tr><td>E3</td><td>No-pity gates are survivable in practice: the p90 unlucky tail (≈22× spread) should grumble, not quit — and for non-buyers the market cannot smooth it, so their tail is the one to watch.</td><td>Observed success per stated chance (refine 100→1%, grading 100→0.5%, soul ladder); fail-streak distributions per gate; 14-day churn delta of p90-tail rollers vs cohort; non-buyer chase abandonment (attempt cadence stops while income continues). Server.</td><td>Tail churn delta &gt;5 pp on a marquee gate <span class="prop">proposed</span> → revisit the no-pity stance for that gate, or widen the deterministic path (combining cap, costs) — decision, not automatic.</td></tr>
+    <tr><td>E4</td><td>Each currency stays tight: hoarding (balance grows, sinks idle) and starvation (attempts blocked by balance) are both failure states.</td><td>Per currency (Scrap, Ichor, Food, Dust, Essence, Ink): source/sink flow per hour vs the design anchors (150 / 10 / — / 20 / 20 / 20 per h endgame), days-of-stock, blocked-attempt events (client UI: opened upgrade, could not afford). Server + client.</td><td>Hoard: sink engagement &lt;20% of income for a band → cost/sink review. Starve: blocked-attempt rate spike at a band → drop/dismantle yield review.</td></tr>
+    <tr><td>E5</td><td>Ichor is the active-play premium (bosses, chests, deep drops, Rare+ dismantles). Auto-heavy players starving on Ichor is intended tension — measure whether it converts to manual play or to churn.</td><td>Ichor/h by playstyle cohort; chest collection rate per floor (chests are manual-only); grading attempts blocked by Ichor vs by materials. Server.</td><td>Chest engagement &lt;30% among mixed players <span class="prop">proposed</span> → chest count per floor (open decision — this metric prices it) / chest contents weighting.</td></tr>
+    <tr><td>E6</td><td>The deterministic path holds below Epic: 3→1 combining should dominate low-grade progression, protecting the Ichor gamble as the high-end path.</td><td>Route share (combining vs grading) into each grade ≤ Epic; time-to-first grade-5 tradeable (also calibrates the farm-account market gate). Server.</td><td>Grading dominating below Epic → combining friction review; grade-5 arrival wildly off the farm-gate assumption → per-account market unlock threshold (Remote Config).</td></tr>
+    <tr><td>E7</td><td>Market health: prices discover, listings clear, and faucet-rate outliers surface — the "faucet &amp; listing telemetry" the backend spec assigns to analytics.</td><td>Median price per class/tier; listing velocity; sell-through; per-account faucet rate vs design curve; multi-account clustering flags. Server + Steam. (P2.)</td><td>Outlier accounts → audit queue; category anomalies → per-class tradeable kill-switch (config) per backend spec.</td></tr>
+  </table>
+
+  <h3 style="font-family:'Cinzel',serif;color:var(--gold-bright);">B — Breeding, hatching, mutants</h3>
+  <table class="hyp">
+    <tr><th>ID</th><th>Hypothesis</th><th>Metrics · plane</th><th>Trigger → lever</th></tr>
+    <tr><td>B1</td><td>The Food loop is the egg-production ceiling by design: income caps pens, and dismantling refunds 27–30% without ever becoming an engine.</td><td>Food income/h by floor vs pen drain by pair grade (<code>breeding.csv</code>); pen idle share among pen owners; net Food across dismantle cycles (must stay negative). Server.</td><td>Dismantle cycles going net-positive anywhere → yield table bug; chronic pen idleness in a band → Food faucet (RarityMult) review.</td></tr>
+    <tr><td>B2</td><td>Hatch outcomes match the weight matrix, and the chase for high grades paces sanely.</td><td>Hatch grade distribution vs table per egg grade × hatchery level (integrity); time-to-first grade 7/8/9/10 creature, non-buyer lens. Server.</td><td>Distribution deviation → bug; chase pacing off → egg-grade weights / hatchery grade-boost curve.</td></tr>
+    <tr><td>B3</td><td>Mutant rates hold the 0.01–0.10% table and the Codex +0.1% chase actually pulls completionist play.</td><td>Observed mutant rate per egg grade; codex zone-tier completion progression per cohort. Server.</td><td>Rate deviation → bug; dead codex chase → surfacing/reward review (design decision).</td></tr>
+  </table>
+
+  <h3 style="font-family:'Cinzel',serif;color:var(--gold-bright);">S — Sessions, retention &amp; containers</h3>
+  <table class="hyp">
+    <tr><th>ID</th><th>Hypothesis</th><th>Metrics · plane</th><th>Trigger → lever</th></tr>
+    <tr><td>S1</td><td>Session shape is the baseline health signal, and logout context tells us where the game loses people — the note's "where players logged off and session length."</td><td>Session length/frequency distributions; last screen, floor, last battle result, loss streak at logout. Client (GA auto-sessions + one logout-context design event).</td><td>Logout-screen concentration (e.g. inventory or upgrade screen) → that system's friction review.</td></tr>
+    <tr><td>S2</td><td>Churn announces itself: declining session length plus a progression stall plus a fail streak is a composite early-warning signal — any single signal alone is noise.</td><td>7-day session-length trend; days since last floor clear; active fail streaks; churn = no session in 14 days <span class="prop">proposed</span>. Client + server.</td><td>Composite cohort growing → find the shared stall point (floor, gate, currency) and treat that, not the symptom.</td></tr>
+    <tr><td>S3</td><td>The earliest funnel dominates retention — first session and first floors decide D7 more than anything endgame.</td><td>Funnel: first battle → starter picked → first hatch → floor 5 → first evolution → boss 1 killed → floor 11. Client (GA progression + funnels).</td><td>Any step dropping &gt;20% vs neighbors → onboarding/difficulty fix at that step; this outranks all endgame tuning.</td></tr>
+    <tr><td>S4</td><td>Container pressure predicts disengagement: a full inventory at session start is friction before play begins — the note's slots-filled-per-container requirement.</td><td>Per container (inventory, hatchery slots, breeding pens, crypt bag — capacities read from the build): slots used/max at session start &amp; end and at every server flush (~20-min granularity, satisfying both the twice-daily and session-boundary cadences). Client + server.</td><td>Sessions starting ≥90% full running measurably shorter → capacity, dismantle-flow, or delivery UX levers. Pens/hatchery idle share → system engagement review (overlaps B1).</td></tr>
+    <tr><td>S5</td><td>Autoplay adoption should be an arc, not a crutch: manual early, mixed later. Day-7 players already &gt;90% auto means manual play failed to hook.</td><td>Auto-share by tenure cohort; auto-toggle timing in first sessions. Client + server.</td><td>Early auto-saturation → onboarding pacing / manual-play reward review (chests already exist as the manual premium).</td></tr>
+  </table>
+
+  <h2>The streak amplifier</h2>
+  <p>Clearing a floor requires <code>ceil(floor^0.65)</code> consecutive wins, and a loss resets the streak. Expected battles to complete an n-streak at per-battle win rate p is <code>E = (1−pⁿ) / ((1−p)·pⁿ)</code> — exponential in n. This is why the win-rate curve per floor is the single most load-bearing chart in the plan: a 10-point win-rate dip that is invisible on floor 9 is a 6× cost multiplier on floor 99.</p>
+  <table>
+    <tr><th>Win rate p</th><th>Floor 9 (streak 5)</th><th>Floor 25 (streak 9)</th><th>Floor 55 (streak 14)</th><th>Floor 99 (streak 20)</th></tr>
+    <tr><td class="lbl">95%</td><td>~6 battles</td><td>~12</td><td>~21</td><td>~36</td></tr>
+    <tr><td class="lbl">90%</td><td>~7</td><td>~16</td><td>~34</td><td>~72</td></tr>
+    <tr><td class="lbl">85%</td><td>~8</td><td>~22</td><td>~58</td><td>~165</td></tr>
+    <tr><td class="lbl">80%</td><td>~10</td><td>~32</td><td>~109</td><td>~429</td></tr>
+    <tr><td class="lbl">70%</td><td>~17</td><td>~79</td><td>~488</td><td>~4,174</td></tr>
+  </table>
+  <p class="figcap">Expected battles to open the portal, by on-floor win rate. At ~30 battles/h endgame, 90% ≈ 2.4 h per deep clear; 80% ≈ 14 h. Boss floors bypass this (always 1 battle, key-gated).</p>
+
+  <h2>Proposed target bands <span class="prop">all pending approval</span></h2>
+  <p>Analytics needs authored targets to alarm against. These are proposals derived from the streak math, the authored turn/pacing targets, and the research below — none is canon until approved.</p>
+  <table>
+    <tr><th>Target</th><th>Proposed band</th><th>Rationale</th></tr>
+    <tr><td class="lbl">On-progression wild win rate</td><td>≥85% floors 1–40 · ≥90% floors 41–100</td><td>Keeps expected battles-to-clear within the zone-time sheet; the streak amplifier punishes anything lower at depth.</td></tr>
+    <tr><td class="lbl">Boss first-attempt win rate</td><td>35–60%; attempts-per-kill p50 ≤3</td><td>Bosses should be the tense beat; keys-per-entry makes long attempt chains expensive in farm time.</td></tr>
+    <tr><td class="lbl">Non-buyer velocity ratio</td><td>≥70% of buyer p50 at matched playtime</td><td>The market may accelerate; it must not become the only viable pace.</td></tr>
+    <tr><td class="lbl">Milestone pacing tolerance</td><td>observed p50 within ±25% of authored target</td><td>Design targets exist in the GDD milestone table; this is the alarm width.</td></tr>
+    <tr><td class="lbl">Churn definition</td><td>no session in 14 days</td><td>Grind/autoplay game: 7 is too twitchy, 28 too slow to react; literature uses 7/14/28 — pick 14.</td></tr>
+    <tr><td class="lbl">Odds integrity alarm</td><td>outside 99% CI at n≥1,000 attempts per gate</td><td>Separates RNG noise from implementation bugs before touching design.</td></tr>
+    <tr><td class="lbl">Turn-count bands</td><td>wild 3–5 (alert: p50 &gt;6, or 1-turn share &gt;60% deep) · boss 8–15</td><td>Authored targets; boss band spans the HP-budget (8–13) and turn-table (10–15) figures pending the flag below.</td></tr>
+  </table>
+
+  <h2>Event schema</h2>
+  <p><strong>Server plane</strong> — derived inside the existing Cloud Code flush; one compact NDJSON record batch appended per flush. Every record carries <code>{analytics_id, realm, ts, client_version}</code>.</p>
+  <table>
+    <tr><th>Record</th><th>Fields</th><th>Notes</th></tr>
+    <tr><td class="lbl">battle</td><td>battle_id, floor, mode (auto/manual), result, turns, duration_s, streak_before→after, party[3: creature_id, level, stage, grade, quality], enemy summary (count, levels, rarities), per-unit aggregates {dmg_dealt, dmg_taken, kos, faints, turns_alive, move_use[4]}, verified flag</td><td>Party/result/floor are server-validated (the buffer already carries them). Per-unit damage aggregates are a compact client-supplied block, sanity-bounded server-side and calibrated against the replay-verified subset (bosses, PvP, ~1% sample) — sufficient for balance, honest about trust.</td></tr>
+    <tr><td class="lbl">floor_clear</td><td>floor, battles_on_floor, losses, wall_time_s, first_clear flag</td><td>Feeds D1/D2 directly.</td></tr>
+    <tr><td class="lbl">boss_attempt</td><td>boss_id, result, turns, party, keys_remaining, attempt_no</td><td>Immediate-tier event already; analytics rides it.</td></tr>
+    <tr><td class="lbl">drops</td><td>per flush, folded counts: {source, family, tier, grade → qty}</td><td>Never per-item rows — volume control. Server rolled them; rates are exact.</td></tr>
+    <tr><td class="lbl">attempt</td><td>type (craft/refine/grade/soul/reroll), family, tier, from→to, stated_p, result, fail_streak, currencies_spent</td><td>The upgrade-chance dataset (E1/E3/E4). Server rolls the odds — ground truth.</td></tr>
+    <tr><td class="lbl">hatch / breed_cycle / evolve / fuse</td><td>hatch: egg_grade, result_grade, line_id, mutant, hatchery_lvl · breed: pair grade P, food_spent, egg_grade · evolve: line, stage, level · fuse: inputs, result</td><td>B1–B3, C5 funnel entry points.</td></tr>
+    <tr><td class="lbl">currency_flow</td><td>per flush per currency: source_by_channel, sink_by_channel, balance</td><td>E4 tightness; channels = battle, dismantle, chest, boss, craft, refine, grade, breed…</td></tr>
+    <tr><td class="lbl">container_snapshot</td><td>per container: {slots_used, slots_max}</td><td>Rides every flush; first/last flush of a session ≈ session begin/end state. Capacities read from the build (see flags).</td></tr>
+    <tr><td class="lbl">pvp_match (P2)</td><td>rating band, comps, result, rounds, per-unit aggregates</td><td>Fully replay-verified — the one wholly trusted combat dataset.</td></tr>
+    <tr><td class="lbl">market_tx (P2)</td><td>list/buy/sell, class, tier/grade, price, first_buy flag</td><td>Sets the buyer cohort flag; feeds E7 and the farm audit queue.</td></tr>
+  </table>
+
+  <p><strong>Client plane</strong> — GameAnalytics free SDK. Sessions, retention, DAU, and country/device come automatic; the rest maps onto GA's four event classes. Constraint honored: custom key-value fields require paid raw export, so dimensions are encoded in event-ID hierarchies; resource itemTypes stay ≤100 by using families/tiers, never item IDs.</p>
+  <table>
+    <tr><th>GA class</th><th>Usage here</th></tr>
+    <tr><td class="lbl">Progression</td><td><code>Start/Complete</code> on <code>Zone01..10 : Floor001..100</code> — one hierarchy only (floors), per GA guidance. Powers the early funnel (S3) and drop-off views.</td></tr>
+    <tr><td class="lbl">Resource</td><td>Sink/source per currency, aggregated per floor-exit or session-end — never per pickup (GA's own volume rule). Six currencies + Keys.</td></tr>
+    <tr><td class="lbl">Design</td><td>Bounded-cardinality IDs: <code>logout:screen:{name}</code>, <code>logout:floor</code> (value=floor), <code>container:{name}:fill</code> (value=%; session start/end), <code>upgrade:blocked:{currency}</code>, <code>autoplay:on/off</code>, <code>boss:{id}:attempt/kill</code>, <code>battle:floorexit</code> (value=wins/losses folded).</td></tr>
+    <tr><td class="lbl">Business</td><td>Deferred to monetization step (battle pass) — roadmap #20.</td></tr>
+  </table>
+
+  <div class="callout">Volume guardrails: no per-turn data ever leaves the device — turn-by-turn detail already lives in the local Adventure Log by design. Analytics carries aggregates only. Per-item drops fold to per-flush counts. Event-ID cardinality is budgeted (≤100 resource itemTypes, design-event ID space kept small and enumerable).</div>
+
+  <h2>Infrastructure &amp; cost</h2>
+  <table>
+    <tr><th>Piece</th><th>Choice</th><th>Cost</th></tr>
+    <tr><td class="lbl">Client analytics</td><td>GameAnalytics Unity SDK, free tier — retention/session/funnel dashboards out of the box; CSV export by hand when needed. (Raw export + custom fields are paid — not required by this plan.)</td><td>$0</td></tr>
+    <tr><td class="lbl">Server ingest</td><td>Cloud Code appends one NDJSON batch per flush (inside the existing invocation — zero new invocations) → tiny Cloudflare Worker → R2 object per flush; nightly compaction to daily Parquet.</td><td>~$0 at prototype scale; ~$5–10/mo at 1k sustained CCU (object-write ops dominate; a buffering Worker halves it). Compute cost inside Cloud Code: negligible (one HTTP POST, ~1 KB).</td></tr>
+    <tr><td class="lbl">Warehouse / queries</td><td>DuckDB over the Parquet partitions, local — full SQL, joins all three sources on <code>analytics_id</code>. Weekly report is a scripted notebook.</td><td>$0</td></tr>
+    <tr><td class="lbl">Site feedback</td><td>Cloudflare Pages Functions/Worker + D1 (SQLite) free tier; Steam OpenID verification in the Worker.</td><td>$0 within free tier (100k req/day, D1 100k writes/day — orders of magnitude of headroom)</td></tr>
+    <tr><td class="lbl">Privacy</td><td>analytics_id = salted SteamID64 hash; Settings opt-out honored on both planes (events simply not emitted); Export/Delete flows cover R2 partitions + D1 rows.</td><td>—</td></tr>
+  </table>
+
+  <h2>Creature Feedback System (codex site)</h2>
+  <p>Per design note: players sign into the codex site with their Steam account and leave direct, per-creature feedback. GitHub Pages is static, so auth and storage live in a small serverless layer; the site stays exactly where it is.</p>
+  <table>
+    <tr><th>Element</th><th>Spec</th></tr>
+    <tr><td class="lbl">Auth</td><td>Steam OpenID 2.0. The Worker verifies the assertion with Valve, sets a signed HttpOnly session cookie, and stores only <code>hash(SteamID64 + salt)</code> — the same analytics_id, making telemetry joins native. No passwords, no accounts of our own.</td></tr>
+    <tr><td class="lbl">Widget</td><td>On <code>creature.html</code>: 1–5 rating + fixed tag chips (<em>Too weak · Too strong · Boring kit · Fun to use · Confusing · Love the art · Art needs work</em>) + optional comment ≤500 chars. One submission per account per creature, editable; edit history retained for trend.</td></tr>
+    <tr><td class="lbl">Storage / API</td><td>D1 table <code>feedback(creature_id, sid_hash, rating, tags, comment, ts, version)</code>. <code>GET /feedback/:creature</code> returns public aggregates (avg, counts, tag histogram); <code>POST</code> requires the session cookie. Per-account rate limit, banned-word filter, admin delete.</td></tr>
+    <tr><td class="lbl">Weighting</td><td>Nightly export joins feedback to telemetry: votes from players with ≥50 battles using the creature are weighted up; never discarded, just ranked. Feeds C6 quadrants in the weekly report.</td></tr>
+    <tr><td class="lbl">Display</td><td>Admin mode: per-creature rating, tag histogram, and comment stream as an overlay in the codex (Dev Tools). Public aggregate display optional, later, behind approval.</td></tr>
+  </table>
+
+  <h2>Cadence &amp; patch protocol</h2>
+  <table>
+    <tr><th>Rhythm</th><th>Contents</th></tr>
+    <tr><td class="lbl">Weekly balance report</td><td>Scripted, non-buyer lens by default: floor win-rate curve + wall detector (D1/D2), creature quadrants (C1–C3), currency flows &amp; blocked attempts (E4), gate tails (E3), boss/key friction (D4), container pressure (S4), early funnel + retention (S3/S2), feedback quadrant movers (C6).</td></tr>
+    <tr><td class="lbl">Patch protocol</td><td>Every lever change is logged (date, lever, old→new, hypothesis ID it serves) and annotated on every chart. One lever per system per patch where possible; 7-day minimum before/after windows; the "butterfly problem" is real — expect side-effects, so re-read adjacent hypotheses after each change.</td></tr>
+    <tr><td class="lbl">Integrity alarms</td><td>Continuous, not weekly: faucet deviation (E1), odds deviation (E3), faucet-rate/listing outliers (E7 — the backend's farm queue), error/crash rates (GA automatic).</td></tr>
+    <tr><td class="lbl">Quarterly</td><td>Re-audit the proposed target bands against reality; retire hypotheses that never fire; add new ones from feedback themes.</td></tr>
+  </table>
+
+  <h2>Rollout — mapped to the build roadmap</h2>
+  <table>
+    <tr><th>Phase</th><th>Lands with</th><th>Delivers</th></tr>
+    <tr><td class="lbl">P0 — now</td><td>Prototype (steps 6–15)</td><td>GA SDK in the Unity client: auto sessions/retention, floor progression events, folded battle/resource design events, logout context, container fill at session boundaries. Client-claimed, which is fine pre-launch — there is nothing to cheat yet, and the early-funnel + difficulty reads start accumulating immediately.</td></tr>
+    <tr><td class="lbl">P1 — server plane</td><td>Step #16 (backend authority)</td><td>The analytics append inside the Cloud Code flush; Worker + R2 + nightly Parquet; DuckDB weekly report. Balance authority switches to this plane; hooks are added while writing the flush code, not retrofitted (same lesson as the player logging system).</td></tr>
+    <tr><td class="lbl">P2 — competitive &amp; market</td><td>Steps #18–#19</td><td>Replay-verified PvP records, ladder snapshots, market events + buyer flag, farm-telemetry dashboards.</td></tr>
+    <tr><td class="lbl">P3 — site feedback</td><td>Independent — any time</td><td>Steam OpenID + feedback API + admin overlay; nightly telemetry join. Can precede P1 (feedback is useful against playtest builds).</td></tr>
+  </table>
+
+  <h2>What other games &amp; specialists do</h2>
+  <table>
+    <tr><th>Source</th><th>Practice</th><th>What we take</th></tr>
+    <tr><td class="lbl">Turtle Rock — Evolve telemetry threads</td><td>Published per-character win/loss curves by player level, patch by patch, and argued balance changes directly from them; later split the same curves by skill rank.</td><td>Exactly the shape of C1/C7: per-creature win rate by floor band and rating band, with segment splits before judgment.</td></tr>
+    <tr><td class="lbl">Balance practice (industry guides)</td><td>Popularity ≠ dominance — intervene on always-optimal, not on well-liked; telemetry says <em>what</em>, never <em>why</em>; track win rates, pick rates, unit lifespan, and where players die/quit.</td><td>C2's quadrant discipline; C6's mandatory feedback pairing; D3's quit-point tracking.</td></tr>
+    <tr><td class="lbl">GameAnalytics docs</td><td>Four event classes (business / design / progression / resource with sink–source), funnel tooling, aggregate-not-per-pickup volume rule, event-ID hierarchies.</td><td>The entire client-plane mapping, verbatim discipline on cardinality and aggregation.</td></tr>
+    <tr><td class="lbl">Economy design (Machinations, Mobile Free To Play, F2P econ guides)</td><td>Anchor every economy question in time; keep currencies tight — hoarding and starvation are both failures; expect the spreadsheet to be wrong and rebalance from telemetry; cost cliffs churn players.</td><td>E2/E4's structure; the battles/hour anchor the GDD already uses; blocked-attempt instrumentation.</td></tr>
+    <tr><td class="lbl">Churn literature &amp; practice</td><td>Churn defined as absence over 7/14/28 days; declining session length/frequency is the leading indicator, but composite signals (decline + progression stall + fail streak) beat any single one; the first sessions and earliest levels dominate retention.</td><td>S2's composite early-warning design; the 14-day definition; S3's early-funnel priority over endgame tuning.</td></tr>
+  </table>
+  <p class="figcap">Links: turtlerockstudios telemetry threads (talk.turtlerockstudios.com) · videogamedevelopmentauthority.com/game-balancing-and-tuning · docs.gameanalytics.com (event types, funnels) · gameanalytics.com/blog/exploring-gaming-funnels · machinations.io/articles/game-economy-design-free-to-play-games · mobilefreetoplay.com/bible/building-lasting-free-play-economy · joschka-huellmann.net (Rothmeier et al., churn prediction survey) · kumo.ai/solutions/industries/gaming/player-churn.</p>
+
+  <h2>Open flags &amp; contradictions</h2>
+  <table>
+    <tr><th>#</th><th>Flag</th></tr>
+    <tr><td class="lbl">1</td><td><strong>Determinism contradiction.</strong> The GDD battle section and Backend v2 build on deterministic seeded replay (state + seed + move log); <code>system-adventure-log.html</code> states battles are <em>not</em> deterministic and rules out seed-replay. This plan works either way (battle aggregates are client-claimed + verified-subset-calibrated), but one ruling is needed — it decides whether per-battle damage could instead be replay-derived server-side at 100% trust.</td></tr>
+    <tr><td class="lbl">2</td><td><strong>Boss turn targets disagree.</strong> HP budget section: kill in 8–13 turns; turn-target table: 10–15. C4/D4 alarm bands need one canonical window.</td></tr>
+    <tr><td class="lbl">3</td><td><strong>Container capacities are undocumented.</strong> The GDD never states inventory slot caps (or whether eggs share the item inventory). Instrumentation is generic <code>used/max</code> per container the build exposes (inventory, hatchery, pens, crypt bag); capacities are read from the build, and S4 will surface whatever they are.</td></tr>
+    <tr><td class="lbl">4</td><td><strong>All target bands above are proposals</strong> — win-rate floors, boss attempt p50, 70% velocity ratio, 14-day churn window, alarm widths. Nothing alarms until approved.</td></tr>
+    <tr><td class="lbl">5</td><td><strong>Key drop rate and chests-per-floor are open GDD decisions.</strong> D4 and E5 are built to price them: instrument first, then author the numbers from observed friction.</td></tr>
+    <tr><td class="lbl">6</td><td><strong>Site feedback adds a small serverless surface</strong> (Worker + D1 + Steam OpenID) — the first non-UGS backend piece. Deliberately isolated from game state; it can never grant anything.</td></tr>
+  </table>
+
+  <p>Implementation order: P0 instrumentation can begin immediately in the prototype (a day of SDK wiring). The server plane is authored as part of roadmap <strong>#16 Backend authority layer</strong> — the flush already computes every number this plan needs; the analytics append is written alongside it, not retrofitted. The feedback system is independent and site-side. This page is the source of truth for event names, hypothesis IDs, and alarm thresholds; changes land here first.</p>
+
+</div>
+<script src="admin.js"></script>
+<script src="nav.js"></script>
+</body>
+</html>
