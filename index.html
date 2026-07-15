@@ -403,7 +403,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     </div>
 
     <h3>Wild spawns — persistent floor pool</h3>
-    <p>Each floor holds a persistent pool of up to <strong style="color:#ede0c4">10 wild creatures</strong>, refilled by a serial respawner: <strong style="color:#ede0c4">one spawn per 60 seconds</strong> while below cap. The timer runs in real time whether the player is on the floor, elsewhere in the tower, or offline; every floor ticks independently in parallel.</p>
+    <p>Each floor holds a persistent pool of up to <strong style="color:#ede0c4">10 wild creatures</strong>, refilled by a serial respawner: <strong style="color:#ede0c4">one spawn per 60 seconds</strong> while below cap. The timer runs in real time whether the player is on the floor, elsewhere in the tower, or offline; every floor ticks independently in parallel. A floor spawns its full pool of 10 the first time the player enters it; from then on the pool is persistent.</p>
     <table>
       <tr><th>Rule</th><th>Detail</th></tr>
       <tr><td>Re-entry is a no-op</td><td>Leaving and re-entering a floor never respawns or rerolls its creatures. Kills and catches are the only removals; the respawn tick is the only addition. There is no reroll-by-entrance.</td></tr>
