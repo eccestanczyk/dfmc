@@ -14,27 +14,58 @@
 <div class="topbar"><h1 style="font-family:'Cinzel',serif;">DEATH &amp; LEAGUES</h1></div>
 <div class="sp-wrap">
   <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; Death &amp; Leagues</div>
-  <p class="sp-lead">Every account holds one character in every unlocked league, each starting at level&nbsp;1. The character slot is permanent &mdash; death never removes or moves it. What death costs depends on the league.</p>
+  <p class="sp-lead">Every account holds one character in every unlocked league, each starting at level&nbsp;1. The character slot is permanent &mdash; death never removes or moves it. What death costs depends on the league. There is no crypt panel in this version: a dead hardcore character's holdings travel as a <strong style="color:var(--ink)">Bequest</strong> and are claimed from a single inbox. Everything &mdash; gear, creatures, eggs, Soul Gems &mdash; is an item in one unified inventory.</p>
 
   <h2>The four leagues</h2>
   <div class="sp-cards">
-    <div class="sp-tile"><h4 style="color:#bda6e8;">Eternal</h4><p>Soft death: stay on the floor, streak resets, character unchanged. Houses the Eternal crypt and receives contents migrated from seasonal leagues.</p></div>
-    <div class="sp-tile"><h4 style="color:#dd5646;">Hardcore</h4><p>On death the character is wiped to level&nbsp;1 and stays in Hardcore. All items, creatures, and class XP (as Soul Gems) go to the Eternal crypt.</p></div>
-    <div class="sp-tile"><h4 style="color:#cfa650;">Seasonal</h4><p>Soft death like Eternal. Timed league; at season end the character migrates to Eternal and the Seasonal crypt is delivered to the Eternal crypt.</p></div>
-    <div class="sp-tile"><h4 style="color:#e0803c;">HC Seasonal</h4><p>On death, wiped to level&nbsp;1 in place; items go to the Seasonal crypt. At season end the HC Seasonal crypt is delivered to the Hardcore crypt.</p></div>
+    <div class="sp-tile"><h4 style="color:#bda6e8;">Eternal</h4><p>Soft death: stay on the floor, streak resets, character unchanged. Receives every Hardcore death as a claimable <strong>Bequest</strong> (see below), plus Seasonal contents at season end.</p></div>
+    <div class="sp-tile"><h4 style="color:#dd5646;">Hardcore</h4><p>On death the character is wiped to level&nbsp;1 and stays in Hardcore. Its entire loadout &mdash; every item, every creature, one Soul Gem per class it had XP in &mdash; is sealed into a Bequest and sent to Eternal to be claimed.</p></div>
+    <div class="sp-tile"><h4 style="color:#cfa650;">Seasonal</h4><p>Soft death like Eternal. Timed league; at season end the character migrates to Eternal and its holdings are delivered there.</p></div>
+    <div class="sp-tile"><h4 style="color:#e0803c;">HC Seasonal</h4><p>On death, wiped to level&nbsp;1 in place; the loadout is sealed into a Bequest. At season end all HC Seasonal Bequests are delivered to Hardcore to be claimed there.</p></div>
   </div>
 
   <h2>Death table</h2>
   <table>
-    <tr><th>League</th><th>On death</th><th>Character after</th><th>Items go to</th></tr>
+    <tr><th>League</th><th>On death</th><th>Character after</th><th>Bequest sent to</th></tr>
     <tr><td class="lbl" style="color:#bda6e8;">Eternal</td><td>Soft &mdash; streak resets</td><td>Unchanged</td><td>&mdash;</td></tr>
-    <tr><td class="lbl" style="color:#dd5646;">Hardcore</td><td>Wiped to level 1</td><td>Stays, level 1</td><td>Eternal crypt</td></tr>
+    <tr><td class="lbl" style="color:#dd5646;">Hardcore</td><td>Wiped to level 1</td><td>Stays, level 1</td><td>Eternal inbox &mdash; immediately</td></tr>
     <tr><td class="lbl" style="color:#cfa650;">Seasonal</td><td>Soft &mdash; streak resets</td><td>Unchanged</td><td>&mdash;</td></tr>
-    <tr><td class="lbl" style="color:#e0803c;">HC Seasonal</td><td>Wiped to level 1</td><td>Stays, level 1</td><td>Seasonal crypt</td></tr>
+    <tr><td class="lbl" style="color:#e0803c;">HC Seasonal</td><td>Wiped to level 1</td><td>Stays, level 1</td><td>Hardcore inbox &mdash; at season end</td></tr>
   </table>
 
   <h2>Soul Gems</h2>
-  <p>When a hardcore character is wiped, one <strong style="color:var(--ink)">Soul Gem</strong> is generated per class they had any XP in, deposited in the crypt. Rank scales with the XP amount. Consuming a gem grants that XP to the surviving character's matching class &mdash; softening a wipe without erasing the loss.</p>
+  <p>When a hardcore character is wiped, one <strong style="color:var(--ink)">Soul Gem</strong> is generated per class it had any XP in and placed inside that death's Bequest. Rank scales with the XP amount. A Soul Gem is an item like any other; consuming it grants that XP to the surviving character's matching class &mdash; softening a wipe without erasing the loss.</p>
+
+  <h2>The Bequest inbox</h2>
+  <p>Hardcore deaths do not silently deposit loot into a vault. Each death produces one <strong>Bequest</strong> &mdash; a single sealed record of that character at the moment it fell &mdash; delivered to the receiving league's inbox to be claimed by hand.</p>
+
+  <h3>The icon</h3>
+  <ul class="sp-rules">
+    <li>A <strong>gravestone with a satchel resting in front of it</strong> sits in the top bar of the receiving league, positioned <strong>between the menu dropdown and the Speed-order button</strong>.</li>
+    <li>It is <strong>hidden entirely</strong> when nothing is pending &mdash; the bar looks normal until a death occurs.</li>
+    <li>When Bequests are waiting it appears with a <strong>count badge</strong>. The badge counts <strong>Bequests (deaths), not items</strong> &mdash; &ldquo;3&rdquo; means three characters to review.</li>
+    <li>The icon lives only in leagues that <em>receive</em> Bequests: Eternal (from Hardcore) and Hardcore (from HC Seasonal, at season end). It never appears in a league that only sends.</li>
+  </ul>
+
+  <h3>What a Bequest holds</h3>
+  <p>One Bequest is one death, kept whole. Bequests never merge into a shared pile &mdash; multiple deaths stack as <strong>discrete, individually-labelled entries</strong>.</p>
+  <table>
+    <tr><th>Contents</th><th>Detail</th></tr>
+    <tr><td class="lbl">Items</td><td>Everything the character was wearing and carrying &mdash; every equipped and stored item.</td></tr>
+    <tr><td class="lbl">Creatures</td><td>The full party that died with it. (Creatures are items in the unified inventory.)</td></tr>
+    <tr><td class="lbl">Soul Gems</td><td>One per class the character had XP in, ranked by that XP.</td></tr>
+    <tr><td class="lbl">Label</td><td>Class, death level, floor, and timestamp &mdash; so stacked Bequests are told apart at a glance.</td></tr>
+  </table>
+
+  <h3>The claim popup</h3>
+  <ul class="sp-rules">
+    <li>Opens to a <strong>list of Bequests, newest first</strong>. Each is a collapsed row: <code>&#9760; Paladin &middot; Lv&nbsp;87 &middot; Floor&nbsp;91 &middot; 2h ago &middot; 14 items &middot; 3 gems &middot; 5 creatures</code>. Expanding a row reveals the full contents.</li>
+    <li><strong>Claim</strong> per Bequest empties that one; <strong>Claim All</strong> works the whole queue. Claimed contents flow into the single unified inventory.</li>
+    <li>Claiming is <strong>atomic per item, not per Bequest</strong>. If the inventory fills mid-claim, the items that fit are taken and the remainder <strong>stays inside the Bequest</strong>, which remains in the queue showing only what is left.</li>
+  </ul>
+
+  <h3>How stacking is handled</h3>
+  <div class="sp-note"><strong>The inbox itself is uncapped; nothing is ever destroyed for lack of room.</strong> Die ten times at level&nbsp;90 and ten labelled Bequests wait patiently, each claimable when space allows. The only pressure the player ever feels is &ldquo;my inventory is full&rdquo; &mdash; never &ldquo;my inbox overflowed and I lost the gear.&rdquo; Because claims are per-item and the queue is unbounded, stacking is always safe and never punitive: the unified inventory is the single capacity gate, and a partially-claimed Bequest simply lingers with its remainder until the player makes room.</div>
 
   <h2>One character at a time</h2>
   <ul class="sp-rules">

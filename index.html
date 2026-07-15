@@ -167,13 +167,13 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
       <div class="stat-card"><div class="stat-label">Art style</div><div class="stat-val">Dark fantasy, AI-generated painting</div></div>
     </div>
     <h3>Concept</h3>
-    <p>A creature-collecting competitive turn-based RPG where players climb an ever-ascending tower floor by floor. Each floor is a simple map where the Collector triggers battles until a win threshold opens the portal to the next floor, with manual chests scattered throughout. All metagame systems (breeding, crafting, farming, crypt) are accessible as UI panels at any time during PvE — no physical base.</p>
+    <p>A creature-collecting competitive turn-based RPG where players climb an ever-ascending tower floor by floor. Each floor is a simple map where the Collector triggers battles until a win threshold opens the portal to the next floor, with manual chests scattered throughout. All metagame systems (breeding, crafting, farming, hatchery) are accessible as UI panels at any time during PvE — no physical base.</p>
     <h3>Game modes</h3>
     <div class="grid-2">
-      <div class="card"><div class="card-title"><span class="pill pill-eternal">Eternal</span></div><div class="card-body" style="margin-top:6px">Soft death. Character stays in league, no reset. Houses the Eternal crypt (UI panel). Receives crypt contents from seasonal migrations.</div></div>
-      <div class="card"><div class="card-title"><span class="pill pill-hc">Hardcore</span></div><div class="card-body" style="margin-top:6px">On death, character is wiped to level 1 and stays in Hardcore. All items, creatures, and class XP (as soul gems) go to the Eternal crypt.</div></div>
-      <div class="card"><div class="card-title"><span class="pill pill-season">Seasonal</span></div><div class="card-body" style="margin-top:6px">Soft death. Timed league. On season end, character migrates to Eternal. Seasonal crypt contents delivered to Eternal crypt.</div></div>
-      <div class="card"><div class="card-title"><span class="pill pill-hcs">HC Seasonal</span></div><div class="card-body" style="margin-top:6px">On death, character wiped to level 1 and stays in HC Seasonal. Items go to Seasonal crypt. On season end, HC Seasonal crypt delivered to Hardcore crypt.</div></div>
+      <div class="card"><div class="card-title"><span class="pill pill-eternal">Eternal</span></div><div class="card-body" style="margin-top:6px">Soft death. Character stays in league, no reset. Receives Hardcore deaths as claimable Bequests, and Seasonal holdings at season end.</div></div>
+      <div class="card"><div class="card-title"><span class="pill pill-hc">Hardcore</span></div><div class="card-body" style="margin-top:6px">On death, character is wiped to level 1 and stays in Hardcore. All items, creatures, and class XP (as Soul Gems) are sealed into a Bequest sent to the Eternal inbox.</div></div>
+      <div class="card"><div class="card-title"><span class="pill pill-season">Seasonal</span></div><div class="card-body" style="margin-top:6px">Soft death. Timed league. On season end, character migrates to Eternal; its holdings are delivered there.</div></div>
+      <div class="card"><div class="card-title"><span class="pill pill-hcs">HC Seasonal</span></div><div class="card-body" style="margin-top:6px">On death, character wiped to level 1 and stays in HC Seasonal. Its loadout is sealed into a Bequest; at season end all HC Seasonal Bequests are delivered to the Hardcore inbox.</div></div>
     </div>
     <h3>Ladders</h3>
     <ul><li>PvP ladder — ranked 3v3 combat, tracked per season and all-time</li><li>Progress (floor) ladder — highest floor reached, tracked per season and all-time</li></ul>
@@ -262,7 +262,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     <div class="note note-info"><p>Additional class lines (pure-wall, balanced-duelist, speed-specialist, etc.) are reserved as possible future content.</p></div>
 
     <h3>Soul gems</h3>
-    <div class="note note-lore"><p>When a hardcore character is demoted, their soul fractures. Each class they trained echoes forward as a Soul Gem, deposited in the crypt for the surviving character to reclaim.</p></div>
+    <div class="note note-lore"><p>When a hardcore character is demoted, their soul fractures. Each class they trained echoes forward as a Soul Gem, sealed in the death's Bequest for the surviving character to claim.</p></div>
     <p>One Soul Gem is generated per class the character had any XP in. Rank scales with XP amount. Consuming a gem grants that XP to the character's matching class.</p>
     <div class="soul-gem"><div class="gem-rank" style="background:#2d1f00;border:0.5px solid #fbbf2460;color:#fbbf24">S</div><div><div class="gem-name">Soul of the Mage <span style="color:#fbbf24">S</span></div><div class="gem-xp">Grants 999,999 Mage XP on consume</div></div></div>
     <div class="soul-gem"><div class="gem-rank" style="background:#1a1a1a;border:0.5px solid #c2ae8b60;color:#c2ae8b">E</div><div><div class="gem-name">Soul of the Archer <span style="color:#c2ae8b">E</span></div><div class="gem-xp">Grants 250 Archer XP on consume</div></div></div>
@@ -579,25 +579,25 @@ FinalDamage = RawDamage
     <table>
       <tr><th>League</th><th>On death</th><th>Character after death</th><th>Items go to</th></tr>
       <tr><td><span class="pill pill-eternal">Eternal</span></td><td>Soft — remain on floor, streak resets</td><td>Unchanged</td><td>—</td></tr>
-      <tr><td><span class="pill pill-hc">Hardcore</span></td><td>Character wiped to level 1</td><td>Stays in Hardcore, level 1</td><td>Eternal crypt (UI panel)</td></tr>
+      <tr><td><span class="pill pill-hc">Hardcore</span></td><td>Character wiped to level 1</td><td>Stays in Hardcore, level 1</td><td>Eternal inbox (Bequest)</td></tr>
       <tr><td><span class="pill pill-season">Seasonal</span></td><td>Soft — remain on floor, streak resets</td><td>Unchanged</td><td>—</td></tr>
-      <tr><td><span class="pill pill-hcs">HC Seasonal</span></td><td>Character wiped to level 1</td><td>Stays in HC Seasonal, level 1</td><td>Seasonal crypt (UI panel)</td></tr>
+      <tr><td><span class="pill pill-hcs">HC Seasonal</span></td><td>Character wiped to level 1</td><td>Stays in HC Seasonal, level 1</td><td>Hardcore inbox (season end)</td></tr>
     </table>
 
-    <h3>Crypt</h3>
-    <p>The crypt is a UI panel accessible at any time during PvE — there is no physical base or chest to walk up to. Two crypts exist, one per hardcore league type:</p>
+    <h3>The Bequest inbox</h3>
+    <p>The Bequest inbox is a top-bar icon — a gravestone with a satchel — shown between the menu dropdown and the Speed-order button, only in leagues that receive Bequests (Eternal, and Hardcore at season end) — there is no physical base or chest to walk up to. Each hardcore death sends one Bequest to the receiving league's inbox:</p>
     <div class="grid-2">
       <div class="card">
-        <div class="card-title"><span class="pill pill-eternal">Eternal crypt</span></div>
-        <div class="card-body" style="margin-top:6px">Accessible via UI in the Eternal league. Receives items from Hardcore deaths. Also receives Seasonal crypt contents at season end.</div>
+        <div class="card-title"><span class="pill pill-eternal">Eternal inbox</span></div>
+        <div class="card-body" style="margin-top:6px">Accessible via UI in the Eternal league. Receives items from Hardcore deaths as claimable Bequests. Also receives Seasonal holdings at season end.</div>
       </div>
       <div class="card">
-        <div class="card-title"><span class="pill pill-season">Seasonal crypt</span></div>
-        <div class="card-body" style="margin-top:6px">Accessible via UI in the Seasonal league. Receives items from HC Seasonal deaths. At season end, contents are transferred to the Hardcore crypt.</div>
+        <div class="card-title"><span class="pill pill-season">HC Seasonal Bequests</span></div>
+        <div class="card-body" style="margin-top:6px">Accessible via UI in the Seasonal league. Receives items from HC Seasonal deaths. At season end, all HC Seasonal Bequests are delivered to the Hardcore inbox.</div>
       </div>
     </div>
 
-    <h3>What goes into the crypt on death</h3>
+    <h3>What a Bequest holds</h3>
     <ul>
       <li>All equipped gear at time of death</li>
       <li>All inventory items</li>
@@ -608,18 +608,18 @@ FinalDamage = RawDamage
     <h3>Season end migration</h3>
     <div class="flow-box"><div class="flow-box-title" style="color:#60a5fa">Seasonal regular character</div><div class="flow-box-body">Migrates to Eternal league with season badge</div></div>
     <div class="arrow">↓</div>
-    <div class="flow-box"><div class="flow-box-title" style="color:#a78bfa">Eternal league</div><div class="flow-box-body">Character arrives. Seasonal crypt contents transferred to Eternal crypt (accessible via UI).</div></div>
+    <div class="flow-box"><div class="flow-box-title" style="color:#a78bfa">Eternal league</div><div class="flow-box-body">Character arrives; its holdings are delivered to the Eternal inbox.</div></div>
     <div style="height:16px"></div>
     <div class="flow-box"><div class="flow-box-title" style="color:#fbbf24">HC Seasonal character (previously wiped to level 1)</div><div class="flow-box-body">Migrates to Hardcore league with season badge</div></div>
     <div class="arrow">↓</div>
-    <div class="flow-box"><div class="flow-box-title" style="color:#f87171">Hardcore league</div><div class="flow-box-body">Character arrives. HC Seasonal crypt contents transferred to Hardcore crypt (accessible via UI).</div></div>
+    <div class="flow-box"><div class="flow-box-title" style="color:#f87171">Hardcore league</div><div class="flow-box-body">Character arrives; all HC Seasonal Bequests are delivered to the Hardcore inbox.</div></div>
 
     <h3>Hardcore death pipeline</h3>
     <ol class="phase-list">
       <li><span class="phase-num">1</span><span>Character dies in Hardcore league</span></li>
       <li><span class="phase-num">2</span><span>Character flagged: diedOnHardcore = true, deathFloor and timestamp recorded</span></li>
       <li><span class="phase-num">3</span><span>All class XP converted to soul gems — one per class with any XP, rank by XP amount</span></li>
-      <li><span class="phase-num">4</span><span>All gear, inventory, soul gems, and creatures deposited into the Eternal crypt (UI panel)</span></li>
+      <li><span class="phase-num">4</span><span>All gear, inventory, soul gems, and creatures sealed into a Bequest sent to the Eternal inbox</span></li>
       <li><span class="phase-num">5</span><span>Character reset to level 1, remains in Hardcore league with death mark on status sheet</span></li>
     </ol>
 
@@ -628,7 +628,7 @@ FinalDamage = RawDamage
       <li><span class="phase-num">1</span><span>Character dies in HC Seasonal league</span></li>
       <li><span class="phase-num">2</span><span>Character flagged: diedOnHardcore = true, deathFloor and timestamp recorded</span></li>
       <li><span class="phase-num">3</span><span>All class XP converted to soul gems — one per class with any XP, rank by XP amount</span></li>
-      <li><span class="phase-num">4</span><span>All gear, inventory, soul gems, and creatures deposited into the Seasonal crypt (UI panel)</span></li>
+      <li><span class="phase-num">4</span><span>All gear, inventory, soul gems, and creatures sealed into a Bequest (delivered to Hardcore at season end)</span></li>
       <li><span class="phase-num">5</span><span>Character reset to level 1, remains in HC Seasonal league with death mark</span></li>
     </ol>
 
@@ -641,7 +641,7 @@ FinalDamage = RawDamage
   DateTime hardcoreDeathTime;
 }</pre>
 
-    <div class="note note-warn"><p>Test all four death pipelines and the season-end migration independently. The HC Seasonal crypt → Hardcore league inventory delivery is the most likely source of data bugs.</p></div>
+    <div class="note note-warn"><p>Test all four death pipelines and the season-end migration independently. The HC Seasonal → Hardcore Bequest delivery is the most likely source of data bugs.</p></div>
   </div>
 
   <!-- METAGAME -->
@@ -651,10 +651,11 @@ FinalDamage = RawDamage
     <div class="grid-2">
       <div class="card"><div class="card-title">🧬 Breeding</div><div class="card-body">Six breeding pens (1 free, 1 bought with Food, 4 DLC). A pen holds a ♂/♀ pair sharing at least one type; toggled on, it drains Food per minute and fills a bar, dropping an egg into inventory each time it completes and continuing automatically. Rates key off pair grade P = ⌊mean of parent grades⌋. Parents are locked out of the battle party; removing one resets the meter. Full rules: <a href="system-breeding.html" style="color:var(--gold-bright)">Breeding</a>.</div></div>
       <div class="card"><div class="card-title">🔧 Crafting</div><div class="card-body">Recipe list in UI. Select recipe, confirm materials, receive output. Materials sourced from battle rewards and chests.</div></div>
+      <div class="card"><div class="card-title">🥚 Hatchery</div><div class="card-body">Egg incubation managed via UI. Set eggs to incubate, return after the timer. Hatchery level (upgraded via crafting resources) improves grade odds and slot count.</div></div>
     </div>
 
     <h3>Creature acquisition</h3>
-    <p>There is no capture mechanic. All creatures come from eggs — either dropped in combat or produced via breeding. An egg is an inventory item — use it from the inventory and it hatches immediately. There is no incubation timer and no hatchery. Egg grade <strong>weights</strong> the hatchling's grade roll — it does not fix it. Any egg can hatch a creature up to 4 grades above its own grade, or any grade below it; higher-grade eggs shift the roll upward and away from the low grades, but the top grades stay rare from any egg. Full weight table in the <a href="eggs.html" style="color:var(--gold-bright)">Eggs codex</a>.</p>
+    <p>There is no capture mechanic. All creatures come from eggs — either dropped in combat or produced via breeding. Every egg must be incubated in the Hatchery panel before hatching. Egg grade <strong>weights</strong> the hatchling's grade roll — it does not fix it. Any egg can hatch a creature up to 4 grades above its own grade, or any grade below it; higher-grade eggs shift the roll upward and away from the low grades, but the top grades stay rare from any egg. Full weight table in the <a href="eggs.html" style="color:var(--gold-bright)">Eggs codex</a>.</p>
 
     <div class="grid-2">
       <div class="card">
@@ -663,7 +664,7 @@ FinalDamage = RawDamage
       </div>
       <div class="card">
         <div class="card-title">🧬 Bred eggs</div>
-        <div class="card-body">Produced via the Breeding UI panel by selecting two parent creatures and spending Food. No grade cap — can produce up to <span style="color:#a855f7">Void</span>. Higher grade parents significantly increase odds of higher grade output.</div>
+        <div class="card-body">Produced via the Breeding UI panel by selecting two parent creatures and spending Food. No grade cap — can produce up to <span style="color:#a855f7">Void</span>. Higher grade parents significantly increase odds of higher grade output. Hatchery level also increases the chance of higher grade eggs independently of parent grade.</div>
       </div>
     </div>
 
@@ -681,7 +682,14 @@ FinalDamage = RawDamage
     </table>
     <p>Pen drain, egg duration, and Food-per-egg are authored per pair grade in <code>codex/breeding.csv</code> — Worn 3 Food/min / 15 min / 45 Food, up to Void 26 Food/min / 110 min / 2,860 Food. A single Void pen eats half a maxed player's entire Food income, and the ceiling is ~1 Void egg per hour no matter how many pens are owned. Full rules: <a href="system-breeding.html" style="color:var(--gold-bright)">Breeding</a>.</p>
 
-    <div class="note note-info"><p><strong>Open decision:</strong> Starter creature grade and stats TBD.</p></div>
+    <h3>Incubation & hatchery</h3>
+    <p>All eggs must be incubated before hatching, managed via the Hatchery UI panel. The hatchery has two upgrade vectors, improved by spending crafting resources:</p>
+    <table>
+      <tr><th>Hatchery upgrade</th><th>Effect</th></tr>
+      <tr><td>Capacity</td><td>More eggs incubating simultaneously</td></tr>
+      <tr><td>Grade boost</td><td>Increases probability of higher grade eggs on hatch, independent of parent grade</td></tr>
+    </table>
+    <div class="note note-info"><p><strong>Open decision:</strong> Does incubation time scale with egg grade (higher = longer wait), or is it a flat timer? Starter creature grade and stats also TBD.</p></div>
 
     <h3>Creature evolutions</h3>
     <table>
@@ -1126,13 +1134,13 @@ Your Backend
     </table>
     <h3>ScriptableObject data types</h3>
     <div class="tags">
-      <span class="tag">CharacterData</span><span class="tag">ClassData</span><span class="tag">SoulGemData</span><span class="tag">CreatureData</span><span class="tag">MoveData</span><span class="tag">ItemData</span><span class="tag">FloorData</span><span class="tag">RecipeData</span><span class="tag">SeasonData</span><span class="tag">EncounterTable</span><span class="tag">EvolutionChain</span><span class="tag">LootTable</span><span class="tag">CryptData</span>
+      <span class="tag">CharacterData</span><span class="tag">ClassData</span><span class="tag">SoulGemData</span><span class="tag">CreatureData</span><span class="tag">MoveData</span><span class="tag">ItemData</span><span class="tag">FloorData</span><span class="tag">RecipeData</span><span class="tag">SeasonData</span><span class="tag">EncounterTable</span><span class="tag">EvolutionChain</span><span class="tag">LootTable</span><span class="tag">BequestData</span><span class="tag">HatcheryData</span>
     </div>
     <h3>Save system</h3>
     <ul>
       <li>One character per league per account — permanent slot, never removed, reset to level 1 on hardcore death</li>
       <li>Eternal / Hardcore / Seasonal / HC Seasonal are separate league profiles</li>
-      <li>Each league has its own crypt state (UI panel, no physical base)</li>
+      <li>Each league has its own Bequest inbox state (top-bar icon, no physical base)</li>
       <li>Character level and all class levels travel with the character on demotion</li>
       <li>Ladder and trade data: cloud save (anti-cheat)</li>
       <li>Hardcore death flag persists permanently and cannot be removed</li>
@@ -1174,9 +1182,9 @@ Your Backend
       <li><span class="phase-num">11</span><span><strong style="color:#ede0c4">Boss floors</strong> — every 10th floor, boss team encounter, key drop from pre-boss floors</span></li>
       <li><span class="phase-num">12</span><span><strong style="color:#ede0c4">Character & class system</strong> — class XP, character level, class stages</span></li>
       <li><span class="phase-num">13</span><span><strong style="color:#ede0c4">Codex</strong> — creature catalogue, seen/acquired states</span></li>
-      <li><span class="phase-num">14</span><span><strong style="color:#ede0c4">Metagame UI</strong> — breeding, crafting panels</span></li>
+      <li><span class="phase-num">14</span><span><strong style="color:#ede0c4">Metagame UI</strong> — breeding, crafting, hatchery panels</span></li>
       <li><span class="phase-num">15</span><span><strong style="color:#ede0c4">Autoplay</strong> — auto-click creatures, auto-battle, configurable thresholds</span></li>
-      <li><span class="phase-num">16</span><span><strong style="color:#ede0c4">Leagues & death pipelines</strong> — all four death paths, crypts, soul gems, season migration</span></li>
+      <li><span class="phase-num">16</span><span><strong style="color:#ede0c4">Leagues & death pipelines</strong> — all four death paths, Bequest inboxes, soul gems, season migration</span></li>
       <li><span class="phase-num">17</span><span><strong style="color:#ede0c4">PvP & ladders</strong> — matchmaking, relay, leaderboards</span></li>
       <li><span class="phase-num">18</span><span><strong style="color:#ede0c4">Steam integration</strong> — Steamworks.NET, inventory, marketplace</span></li>
       <li><span class="phase-num">19</span><span><strong style="color:#ede0c4">Monetization</strong> — economy service, battle pass, item grants</span></li>
@@ -1204,9 +1212,9 @@ Your Backend
         <li><span class="phase-num">8</span><span><strong style="color:#ede0c4">Autoplay & multi-tab system</strong> — pathfinding, config options, death handler, simultaneous multi-character simulation</span></li>
         <li><span class="phase-num">9</span><span><strong style="color:#ede0c4">Character & class system</strong> — class XP, character level aggregation</span></li>
         <li><span class="phase-num">10</span><span><strong style="color:#ede0c4">Codex</strong> — creature catalogue, seen/acquired states, stat ranges, move lists, evolution chains</span></li>
-        <li><span class="phase-num">11</span><span><strong style="color:#ede0c4">Metagame UI</strong> — breeding, crafting — all as in-game UI panels accessible during PvE</span></li>
+        <li><span class="phase-num">11</span><span><strong style="color:#ede0c4">Metagame UI</strong> — breeding, crafting, hatchery — all as in-game UI panels accessible during PvE</span></li>
         <li><span class="phase-num">12</span><span><strong style="color:#ede0c4">Player logging system</strong> — event log and battle log, hooked into existing battle/leveling/item systems, file export for PC and mobile share UI</span></li>
-        <li><span class="phase-num">13</span><span><strong style="color:#ede0c4">Leagues & death pipelines</strong> — all four death paths, both crypts, soul gem generation, season migration</span></li>
+        <li><span class="phase-num">13</span><span><strong style="color:#ede0c4">Leagues & death pipelines</strong> — all four death paths, Bequest delivery, soul gem generation, season migration</span></li>
         <li><span class="phase-num">14</span><span><strong style="color:#ede0c4">PvP & ladders</strong> — matchmaking, relay, leaderboards</span></li>
         <li><span class="phase-num">15</span><span><strong style="color:#ede0c4">Steam integration</strong> — Steamworks.NET, inventory, marketplace</span></li>
         <li><span class="phase-num">16</span><span><strong style="color:#ede0c4">Monetization</strong> — economy service, battle pass, item grants</span></li>
@@ -1217,15 +1225,15 @@ Your Backend
     <h3>Critical risks</h3>
     <div class="note note-risk"><p><strong>PvP anti-cheat</strong> — server-authoritative resolution required. Design this before any PvP work begins.</p></div>
     <div class="note note-risk"><p><strong>Art consistency</strong> — lock style-guide prompt before mass generation.</p></div>
-    <div class="note note-risk"><p><strong>Death pipeline integrity</strong> — four death paths + two crypt systems + season migration must all be tested exhaustively. HC Seasonal double-migration is highest risk.</p></div>
-    <div class="note note-warn"><p><strong>Seasonal migration</strong> — crypt delivery mechanism must be rock solid before launch.</p></div>
+    <div class="note note-risk"><p><strong>Death pipeline integrity</strong> — four death paths + Bequest inbox + season migration must all be tested exhaustively. HC Seasonal double-migration is highest risk.</p></div>
+    <div class="note note-warn"><p><strong>Seasonal migration</strong> — Bequest delivery mechanism must be rock solid before launch.</p></div>
     <div class="note note-warn"><p><strong>Trade duplication exploits</strong> — implement transfer lock before marketplace goes live.</p></div>
     <h3>Future features (cut from current scope)</h3>
     <div class="note note-info"><p><strong>Skill trees</strong> — passive skill trees (graph of stat/modifier/keystone nodes, skill points on level-up, respec) for classes and creatures are cut from this iteration. Class and creature power comes from levels, stages, grades, equipment, and souls only. Trees may return as a post-launch depth layer.</p></div>
     <div class="note note-info"><p><strong>Farming</strong> — a timer-based UI system (plant a crop, return after a duration to harvest, yield rendering into crafting materials) was cut from current scope. Crops are therefore <em>not</em> a source of Food: Food comes only from completing battles and dismantling eggs. May return later.</p></div>
     <div class="note note-info"><p><strong>Rogue Collectors</strong> — hostile NPC trainer encounters with patrol routes and line-of-sight triggers, originally part of floor structure. Removed from active scope to keep early development focused. May be reintroduced post-launch or in a content update.</p></div>
     <div class="note note-info"><p><strong>Gathering nodes & secret areas</strong> — the original handcrafted circuit map design with resource nodes, HM-gated secret areas, and a node-farming layer has been replaced by the simpler battle-win-threshold map design. All equipment and crafting materials now come from battle rewards and chests only. May be reconsidered as a future map variant or content layer.</p></div>
-    <div class="note note-info"><p><strong>Physical base</strong> — the original design included a physical base the Collector could walk around in, with tile-based farming, craftings stations, a hatchery building, and a crypt chest to interact with. This has been replaced entirely by UI panels accessible during PvE floors. A physical base may be reintroduced in a future content update as an optional social/cosmetic space.</p></div>
+    <div class="note note-info"><p><strong>Physical base</strong> — the original design included a physical base the Collector could walk around in, with tile-based farming, craftings stations, a hatchery building, and a loot chest to interact with. This has been replaced entirely by UI panels accessible during PvE floors. A physical base may be reintroduced in a future content update as an optional social/cosmetic space.</p></div>
     <div class="note note-info"><p><strong>Isometric Exploration</strong> — the original prototype used top-down Gen II–style grid movement with a player avatar, tile-based encounter triggers (grass/cave/fishing), and autoplay pathfinding. Archived in favor of the Simplified Static approach for faster prototyping. The full grid-movement system can be restored from the archived roadmap above.</p></div>
 
     <h3>Open decisions</h3>
