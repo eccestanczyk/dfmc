@@ -822,7 +822,7 @@ FinalDamage = RawDamage
     <table>
       <tr><th>Soul scope</th><th>Effect</th><th>Example</th></tr>
       <tr><td style="color:#ede0c4">Local</td><td>Buffs only that item's contribution — strongest per-item impact (×1.12–×1.20 by rarity)</td><td>Thornback on Chest: "This armour's Defense ×1.12"</td></tr>
-      <tr><td style="color:#ede0c4">Personal</td><td>Buffs the character's totals — moderate power (5–10% band by rarity)</td><td>Dusthound on Head: "+4% crit chance"</td></tr>
+      <tr><td style="color:#ede0c4">Personal</td><td>Buffs the character's totals — moderate power (5–10% band by rarity)</td><td>Dusthound on Head: "+4% Attack"</td></tr>
       <tr><td style="color:#ede0c4">Team</td><td>Buffs all allies (character + both creatures) — weaker per target but ×3 entities (4–8% band)</td><td>Yggdrasil on Feet: "All allies +7% Defense"</td></tr>
     </table>
     <p>Soul scope varies per creature per slot, creating targeted build decisions around which soul goes where. Passive magnitudes follow the equipped creature's stage like move grants: Stage 1 ≈ 60%, Stage 2 ≈ 80% of the listed Stage-3 values. Speed never appears on any soul passive. A creature whose soul is equipped in <em>any</em> slot cannot be summoned; one soul per creature across all 8 slots.</p>
@@ -878,7 +878,7 @@ FinalDamage = RawDamage
       </div>
       <div class="card">
         <div class="card-title">📜 Scrolls — random modifier pool</div>
-        <div class="card-body">Socketable items for enchantment slots. On socket, the scroll rolls a random <strong>Local</strong> modifier: flat Attack / Defense / HP, or item-local % Attack / Defense / HP. Enchantment stats are item-local only — no Personal rolls, no crit, no loot modifiers. Rerollable for Ink. Up to 3 slots at Void grade.</div>
+        <div class="card-body">Socketable items for enchantment slots. On socket, the scroll rolls a random <strong>Local</strong> modifier: flat Attack / Defense / HP, or item-local % Attack / Defense / HP. Enchantment stats are item-local only — no Personal rolls, no loot modifiers. Rerollable for Ink. Up to 3 slots at Void grade.</div>
       </div>
     </div>
 
@@ -980,7 +980,7 @@ Character total:
       <tr><td>Signet</td><td>+Attack (2.0 &times; T &times; GF)</td></tr>
       <tr><td>Relic</td><td>+HP (3.0 &times; T &times; GF)</td></tr>
     </table>
-    <div class="note note-info"><p>Retired with the crit/status/Personal cull: Totem, Talisman, Fetish, Idol, Effigy. Ward retired separately: at the max-build anchor a Defense accessory is strictly dominated by an HP accessory (the Attack/50 damage floor is Defense-immune, and marginal flat HP on the deliberately small HP pool outvalues marginal Defense on the large Defense pool — 14.4 vs 10.7 wall turns). Crit chance and crit damage are removed from the game entirely — on 3&ndash;15-turn double-blind samples they were pure variance with zero counterplay. Character-side stats are exactly three pools: Attack, Defense, HP. Creature buffing from the character lives exclusively in Team-scope souls.</p></div>
+    <div class="note note-info"><p>Retired item classes: Totem, Talisman, Fetish, Idol, Effigy. Ward retired separately: at the max-build anchor a Defense accessory is strictly dominated by an HP accessory (the Attack/50 damage floor is Defense-immune, and marginal flat HP on the deliberately small HP pool outvalues marginal Defense on the large Defense pool — 14.4 vs 10.7 wall turns). Character-side stats are exactly three pools: Attack, Defense, HP. Creature buffing from the character lives exclusively in Team-scope souls.</p></div>
 
     <h3>Creature equipment — Tags</h3>
     <p>Creatures have 2 equipment slots that accept <strong style="color:#ede0c4">Tags</strong>. Tags follow the same grade system and gem/rune/enchantment slot rules as all other equipment, with one exception: Tags cannot be equipped with creature souls.</p>
