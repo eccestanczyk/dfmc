@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Save, Economy &amp; Anti-Cheat — Herumon Tower</title>
+<link rel="stylesheet" href="theme.css?v=4">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">SAVE, ECONOMY &amp; ANTI-CHEAT</h1></div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; Save, Economy &amp; Anti-Cheat</div>
+  <p class="sp-lead">One doctrine underneath everything: <strong style="color:var(--ink)">the client sends events and requests, never state.</strong> The local save is a disposable prediction cache, overwritten on every server reconciliation &mdash; editing it is inert, not forbidden. This page is the distilled, validated summary; the full technical spec is <code>SAVE_ARCHITECTURE.md</code> (v2).</p>
+
+  <h2>Who owns what</h2>
+  <table>
+    <tr><th>Data</th><th>Authority</th><th>Store</th></tr>
+    <tr><td class="lbl">Currencies (Scrap, Ichor, Food, Dust, Essence, Ink)</td><td>Server</td><td>Cloud Save <strong>Protected</strong> keys, ledgered by Cloud Code. UGS Economy was evaluated and rejected &mdash; 14&times; the per-write cost for the same guarantee.</td></tr>
+    <tr><td class="lbl">Creatures, character/class levels, inventory, souls</td><td>Server</td><td>Cloud Save Protected keys, namespaced per realm.</td></tr>
+    <tr><td class="lbl">Hardcore death mark</td><td>Server</td><td>Private key &mdash; written by the atomic seal-wipe-mark death pipeline, unreadable and unwritable by the client.</td></tr>
+    <tr><td class="lbl">Ladder ratings, leaderboards</td><td>Server</td><td>UGS Leaderboards; only adjudicated results post (see PvP).</td></tr>
+    <tr><td class="lbl">Tradeable items</td><td>Steam</td><td>Steam Inventory Service; minted server-only via the publisher key, never by the client.</td></tr>
+    <tr><td class="lbl">Settings, keybinds, autoplay config, local logs</td><td>Player</td><td>Steam Cloud &mdash; the only tier the player is <em>meant</em> to own; nothing competitive or economic lives here.</td></tr>
+  </table>
+
+  <h2>The transaction contract</h2>
+  <p>Every economic action is: <code>check server balance &rarr; atomic debit + grant &rarr; or reject whole</code>. Nothing partial, nothing client-computed. Two mechanisms make "atomic" real rather than aspirational:</p>
+  <table>
+    <tr><th>Mechanism</th><th>What it stops</th></tr>
+    <tr><td class="lbl">Idempotency keys</td><td>Every request carries a unique key; replays of the same request are no-ops. Retried packets and deliberate double-sends cannot double-grant.</td></tr>
+    <tr><td class="lbl">Version tokens (write locks)</td><td>Cloud Save writes are compare-and-swap on a version token. Two simultaneous spends that both read balance 100 cannot both commit &mdash; the second fails and re-reads. This is the actual historical dupe vector: Diablo&nbsp;3's trillions-of-gold incident was a <em>transaction-layer</em> race in its own auction house, not a hacked client.</td></tr>
+  </table>
+
+  <h2>Reward path &amp; the accrual cap</h2>
+  <p>The client reports <em>what happened</em> (battle event logs); the server derives reward values from its own tables &mdash; a client cannot name a number. On top of that sits the single cheapest, strongest control an autoplay game can have:</p>
+  <div class="sp-note"><strong>Wall-clock accrual cap.</strong> Rewards credited per flush are capped by elapsed real time (~30 battles/hour at autoplay pace, with headroom). A client claiming 4,000 battles in ten minutes is not investigated &mdash; it is arithmetically impossible and clipped at the ledger. Farming faster than time permits cannot be expressed in the protocol.</div>
+
+  <h2>Verification &mdash; trust, but replay</h2>
+  <table>
+    <tr><th>Event</th><th>Verification</th></tr>
+    <tr><td class="lbl">Boss kills, floor/ladder advances</td><td><strong>100% seeded-replay verified</strong>: the server issued the encounter seed, the client submits the move log, Cloud Code re-simulates deterministically and compares the claimed result. Value-gating events are never taken on faith.</td></tr>
+    <tr><td class="lbl">Ordinary grind battles</td><td>Random sampling + statistical invariants: monotonic XP, battle-rate plausibility, streak-threshold consistency, drop-rate bounds, currency reconciliation. Cheap to run, expensive to fool at scale.</td></tr>
+    <tr><td class="lbl">Rated PvP matches</td><td>Every match ends with one deterministic replay adjudication &mdash; full spec on <a href="system-pvp.html" style="color:var(--gold-bright)">PvP, Timers &amp; Persistence</a> (team legality by recompute-from-inputs, commit&ndash;reveal rounds with reveal-derived RNG seeds, per-round state checksums, replay as final authority).</td></tr>
+  </table>
+
+  <h2>The residual threat: farm accounts</h2>
+  <p>Once client cheating is inert, the economy's remaining attacker plays <em>legitimately</em> &mdash; fleets of accounts running real autoplay to print tradeable items. Mitigations, in order:</p>
+  <table>
+    <tr><th>Gate</th><th>Effect</th></tr>
+    <tr><td class="lbl">Steam's $5 limited-account gate</td><td>Market and trading are locked behind Steam's own spend threshold &mdash; each farm account has a real cost floor.</td></tr>
+    <tr><td class="lbl">Progression-gated market unlock</td><td>Trading unlocks only past a progression milestone; a farm account must invest real climb-time before it can sell anything.</td></tr>
+    <tr><td class="lbl">Listing velocity monitoring</td><td>Accounts whose listing rate is inconsistent with their play pattern get flagged for the audit queue &mdash; the CS:GO key-fraud lesson: watch the exit, not just the faucet.</td></tr>
+  </table>
+
+  <h2>Failure &amp; cost doctrine</h2>
+  <p>Precedent says the model holds: the mobile-strategy pattern this follows (client as pure view, all authority server-side) is why modded clients achieve nothing against such games. Its known failure modes are the transaction layer (handled above) and cost blowout &mdash; the naive build of this same architecture (UGS Economy ledgers, per-round PvP server resolution) priced at &gt;$450k/month at 500k CCU; the committed build lands at <strong>~$0.02&ndash;0.03 per concurrent user per month (~$12&ndash;15k/month at 500k CCU)</strong>, dominated by batched Cloud Save writes. Flush tiers: immediate for stakes (deaths, trades, ladder), batched for grind accrual.</p>
+  <div class="sp-note"><strong>Open item:</strong> <code>SAVE_ARCHITECTURE.md</code> v2 (with the five review corrections folded in) is written but not yet committed to the repo. It belongs next to <code>PIPELINE.md</code>.</div>
+</div>
+<script src="admin.js"></script>
+<script src="nav.js"></script>
+</body>
+</html>
