@@ -14,7 +14,7 @@
 <div class="topbar"><h1 style="font-family:'Cinzel',serif;">DEATH &amp; REALMS</h1></div>
 <div class="sp-wrap">
   <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; Death &amp; Realms</div>
-  <p class="sp-lead">Every account holds one character in every unlocked realm, each starting at level&nbsp;1. The character slot is permanent &mdash; death never removes or moves it. What death costs depends on the realm. There is no crypt panel in this version: a dead hardcore character's holdings travel as a <strong style="color:var(--ink)">Bequest</strong> and are claimed from a single inbox. Everything &mdash; gear, creatures, eggs, Soul Gems &mdash; is an item in one unified inventory.</p>
+  <p class="sp-lead">Every account holds one character in every unlocked realm, each starting at level&nbsp;1. The character slot is permanent &mdash; death never removes or moves it. What death costs depends on the realm. There is no crypt panel in this version: a dead hardcore character's holdings travel as a <strong style="color:var(--ink)">Bequest</strong> and are claimed from a single crypt bag. Everything &mdash; gear, creatures, eggs, Soul Gems &mdash; is an item in one unified inventory.</p>
 
   <h2>The four realms</h2>
   <div class="sp-cards">
@@ -28,23 +28,25 @@
   <table>
     <tr><th>Realm</th><th>On death</th><th>Character after</th><th>Bequest sent to</th></tr>
     <tr><td class="lbl" style="color:#bda6e8;">Eternal</td><td>Soft &mdash; streak resets</td><td>Unchanged</td><td>&mdash;</td></tr>
-    <tr><td class="lbl" style="color:#dd5646;">Hardcore</td><td>Wiped to level 1</td><td>Stays, level 1</td><td>Eternal inbox &mdash; immediately</td></tr>
+    <tr><td class="lbl" style="color:#dd5646;">Hardcore</td><td>Wiped to level 1</td><td>Stays, level 1</td><td>Eternal crypt bag &mdash; immediately</td></tr>
     <tr><td class="lbl" style="color:#cfa650;">Seasonal</td><td>Soft &mdash; streak resets</td><td>Unchanged</td><td>&mdash;</td></tr>
-    <tr><td class="lbl" style="color:#e0803c;">HC Seasonal</td><td>Wiped to level 1</td><td>Stays, level 1</td><td>Hardcore inbox &mdash; at season end</td></tr>
+    <tr><td class="lbl" style="color:#e0803c;">HC Seasonal</td><td>Wiped to level 1</td><td>Stays, level 1</td><td>Hardcore crypt bag &mdash; only during an HC Seasonal season</td></tr>
   </table>
 
   <h2>Soul Gems</h2>
   <p>When a hardcore character is wiped, one <strong style="color:var(--ink)">Soul Gem</strong> is generated per class it had any XP in and placed inside that death's Bequest. Rank scales with the XP amount. A Soul Gem is an item like any other; consuming it grants that XP to the surviving character's matching class &mdash; softening a wipe without erasing the loss.</p>
 
-  <h2>The Bequest inbox</h2>
-  <p>Hardcore deaths do not silently deposit loot into a vault. Each death produces one <strong>Bequest</strong> &mdash; a single sealed record of that character at the moment it fell &mdash; delivered to the receiving realm's inbox to be claimed by hand.</p>
+  <h2>The crypt bag</h2>
+  <p>Hardcore deaths do not silently deposit loot into a vault. Each death produces one <strong>Bequest</strong> &mdash; a single sealed record of that character at the moment it fell &mdash; delivered to the receiving realm's <strong>crypt bag</strong> to be claimed by hand.</p>
 
   <h3>The icon</h3>
   <ul class="sp-rules">
     <li>A <strong>gravestone with a satchel resting in front of it</strong> sits in the top bar of the receiving realm, positioned <strong>between the menu dropdown and the Speed-order button</strong>.</li>
     <li>It is <strong>hidden entirely</strong> when nothing is pending &mdash; the bar looks normal until a death occurs.</li>
     <li>When Bequests are waiting it appears with a <strong>count badge</strong>. The badge counts <strong>Bequests (deaths), not items</strong> &mdash; &ldquo;3&rdquo; means three characters to review.</li>
-    <li>The icon lives only in realms that <em>receive</em> Bequests: Eternal (from Hardcore) and Hardcore (from HC Seasonal, at season end). It never appears in a realm that only sends.</li>
+    <li><strong>Eternal</strong> shows the crypt bag whenever a Bequest is waiting &mdash; it continuously receives Hardcore deaths.</li>
+    <li><strong>Hardcore</strong> shows the crypt bag <strong>only while an HC Seasonal season is active</strong>. HC Seasonal is the sole source that feeds Hardcore, delivering at season end; with no active HC Seasonal season there is nothing to receive, so Hardcore has no crypt bag at all.</li>
+    <li>The icon never appears in a send-only realm (Seasonal, HC Seasonal), nor in a receiving realm with an empty queue.</li>
   </ul>
 
   <h3>What a Bequest holds</h3>
@@ -65,7 +67,7 @@
   </ul>
 
   <h3>How stacking is handled</h3>
-  <div class="sp-note"><strong>The inbox itself is uncapped; nothing is ever destroyed for lack of room.</strong> Die ten times at level&nbsp;90 and ten labelled Bequests wait patiently, each claimable when space allows. The only pressure the player ever feels is &ldquo;my inventory is full&rdquo; &mdash; never &ldquo;my inbox overflowed and I lost the gear.&rdquo; Because claims are per-item and the queue is unbounded, stacking is always safe and never punitive: the unified inventory is the single capacity gate, and a partially-claimed Bequest simply lingers with its remainder until the player makes room.</div>
+  <div class="sp-note"><strong>The crypt bag itself is uncapped; nothing is ever destroyed for lack of room.</strong> Die ten times at level&nbsp;90 and ten labelled Bequests wait patiently, each claimable when space allows. The only pressure the player ever feels is &ldquo;my inventory is full&rdquo; &mdash; never &ldquo;my crypt bag overflowed and I lost the gear.&rdquo; Because claims are per-item and the queue is unbounded, stacking is always safe and never punitive: the unified inventory is the single capacity gate, and a partially-claimed Bequest simply lingers with its remainder until the player makes room.</div>
 
   <h2>One character at a time</h2>
   <ul class="sp-rules">
