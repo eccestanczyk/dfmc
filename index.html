@@ -280,9 +280,17 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
       <tr><th>Formula</th><th>Expression</th><th>Purpose</th></tr>
       <tr><td>XP required, levels 1&ndash;66</td><td><code>10 &times; L<sup>1.75</sup></code></td><td>Gentle journey phase &mdash; the full tower and all Stage 3 content unlock quickly</td></tr>
       <tr><td>XP required, levels 67&ndash;100</td><td><code>234 &times; L &times; 1.16<sup>(L&minus;67)</sup></code></td><td>Geometric endgame phase &mdash; battles per level grow +16% each level (continuous with phase 1 at L67)</td></tr>
-      <tr><td>XP per kill (creature level C)</td><td><code>10 &times; C</code></td><td>Flat XP from defeating a creature of level C</td></tr>
+      <tr><td>XP per battle (expected)</td><td><code>10 &times; L</code></td><td>A battle defeats 3 enemies (tagged + 2 conjured); their kill XP sums to 10 &times; zone level in expectation &mdash; every battle-denominated table below is unchanged</td></tr>
+      <tr><td>XP per kill (level C, rarity r)</td><td><code>max(4, round(10&frasl;3 &times; C &times; m<sub>r</sub> &frasl; M&#772;(C)))</code></td><td>m<sub>r</sub> = rarity multiplier (table below); M&#772;(C) = expected multiplier under the floor-C encounter weights (<code>codex/encounter_weights.csv</code>) &mdash; normalizes expected battle XP to exactly 10 &times; L</td></tr>
       <tr><td>Battles per level</td><td><code>L<sup>0.75</sup></code> then <code>23.4 &times; 1.16<sup>(L&minus;67)</sup></code></td><td>Derived &mdash; 23 battles at L67, 613 at L89, ~2,700 for 99&rarr;100</td></tr>
     </table>
+
+    <h4>Rarity XP multipliers</h4>
+    <table>
+      <tr><th>Rarity</th><th>C</th><th>UC</th><th>R</th><th>SR</th><th>SSR</th></tr>
+      <tr><td>m<sub>r</sub></td><td>1.0</td><td>1.5</td><td>2.5</td><td>4.0</td><td>7.0</td></tr>
+    </table>
+    <p>Same ladder as Food &mdash; one rarity-value scale game-wide. The <code>&frasl;M&#772;(C)</code> normalization holds expected battle XP at exactly 10 &times; L on every floor even as encounter weights drift toward rarer tiers over the run (un-normalized, endgame XP would inflate 2.8&times;). The 4-XP-per-kill floor only lifts level 1&ndash;2 Commons/Uncommons: it makes the worst possible first battle (3 level-1 Commons) grant 12 XP &mdash; a guaranteed full first level (10 needed) with no special-case rule. Baked per-level, per-rarity values are the game-side authority: <code>dfmc-game/Assets/Data/XPCurve.csv</code>.</p>
 
     <p>The curve is deliberately back-loaded for an autoplay game: <strong>75% of all leveling time sits in levels 90&ndash;100</strong> (50% in the last five levels). Total to max level: <strong>~20,300 battles &asymp; 680&nbsp;h</strong> at 2 minutes per battle. Reaching level 67 &mdash; where wild Stage&nbsp;3 creatures appear &mdash; takes only ~885 battles (~30&nbsp;h). Owned-creature final evolutions land between levels 56&ndash;73 depending on line rarity (see Creature evolutions).</p>
 
@@ -304,18 +312,18 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     </table>
     <div class="note note-info"><p><strong>Hardcore implication:</strong> death wipes to level 1 &mdash; the relevel back to 67 is ~30&nbsp;h of autoplay, but a death at level 95+ costs a dedicated player weeks. High stakes by design.</p></div>
 
-    <p>There is <strong>no XP multiplier bonus</strong> for fighting creatures above the player&rsquo;s level. The only incentive to push harder content is the higher flat XP that higher-level creatures naturally grant (a level 40 creature gives 400 XP vs 300 from a level 30 creature). This keeps the system clean and unexploitable.</p>
+    <p>There is <strong>no XP multiplier bonus</strong> for fighting creatures above the player&rsquo;s level. The only incentive to push harder content is the higher flat XP that higher-level battles naturally grant (a level-40 battle yields 400 XP in expectation vs 300 at level 30). This keeps the system clean and unexploitable.</p>
 
     <h3>Zone creature level distribution</h3>
 
-    <p>Creatures on each floor spawn within &plusmn;3 levels of the zone&rsquo;s base level, following a symmetric bell distribution. The weighted average XP per kill equals the zone-level XP exactly, preserving the timing math above.</p>
+    <p>Creatures on each floor spawn within &plusmn;3 levels of the zone&rsquo;s base level, following a symmetric bell distribution. The weighted average XP per battle equals <code>10 &times; zone_level</code> exactly, preserving the timing math above.</p>
 
     <table>
       <tr><th>Offset from zone level</th><th>&minus;3</th><th>&minus;2</th><th>&minus;1</th><th>0</th><th>+1</th><th>+2</th><th>+3</th></tr>
       <tr><td>Spawn rate</td><td>3%</td><td>7%</td><td>12%</td><td>56%</td><td>12%</td><td>7%</td><td>3%</td></tr>
     </table>
 
-    <div class="note note-info"><p><strong>Average preservation:</strong> &Sigma;(rate &times; offset) = 0.03(&minus;3) + 0.07(&minus;2) + 0.12(&minus;1) + 0.56(0) + 0.12(+1) + 0.07(+2) + 0.03(+3) = 0. Average XP per kill = 10 &times; zone_level.</p></div>
+    <div class="note note-info"><p><strong>Average preservation:</strong> &Sigma;(rate &times; offset) = 0.03(&minus;3) + 0.07(&minus;2) + 0.12(&minus;1) + 0.56(0) + 0.12(+1) + 0.07(+2) + 0.03(+3) = 0. Level offsets cancel; with the rarity normalization above, average XP per battle = 10 &times; zone_level (average per kill: 10&frasl;3 &times; zone_level).</p></div>
 
     <h3>Zone progression estimate</h3>
 
@@ -336,7 +344,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     <h3>XP reference table</h3>
 
     <table>
-      <tr><th>Level</th><th>XP required</th><th>XP/kill (on-level)</th><th>Battles (on-level)</th></tr>
+      <tr><th>Level</th><th>XP required</th><th>XP/battle (expected, on-level)</th><th>Battles (on-level)</th></tr>
       <tr><td>1</td><td>10</td><td>10</td><td>1</td></tr>
       <tr><td>10</td><td>562</td><td>100</td><td>6</td></tr>
       <tr><td>20</td><td>1,889</td><td>200</td><td>9</td></tr>
