@@ -1,17 +1,6 @@
 Param,Value,Notes
-Gear_Drop_Chance_C,0.022222,Per wild creature defeated. Rarity-scaled inverse to the fixed 3C:3UC:2R:1SR:1SSR floor pool mix; 10% per battle in expectation (3 kills). Tier = at-floor tier; grade from drop_grade_weights.csv; Divine+ never drops.
-Gear_Drop_Chance_UC,0.022222,
-Gear_Drop_Chance_R,0.033333,
-Gear_Drop_Chance_SR,0.066667,
-Gear_Drop_Chance_SSR,0.066667,
-Enhancement_Drop_Chance_C,0.022222,"Per wild creature defeated, independent of the gear roll; same rarity scaling; 10% per battle in expectation. Even split gem/rune/scroll."
-Enhancement_Drop_Chance_UC,0.022222,
-Enhancement_Drop_Chance_R,0.033333,
-Enhancement_Drop_Chance_SR,0.066667,
-Enhancement_Drop_Chance_SSR,0.066667,
-Egg_Drop_Chance_C,0.022222,"Per wild creature defeated, independent roll; same rarity scaling; 10% per battle in expectation. The drop is the defeated line's Stage-1 egg; grade from drop_grade_weights for the floor band, clamped to the Legendary wild-egg cap."
-Egg_Drop_Chance_UC,0.022222,
-Egg_Drop_Chance_R,0.033333,
-Egg_Drop_Chance_SR,0.066667,
-Egg_Drop_Chance_SSR,0.066667,
+Drop_Chance_Table,drop_chances_by_floor.csv,"Per wild creature defeated, per-kill chance by floor and rarity — one independent roll each for gear, enhancement, and egg. Rarity-scaled on the game-wide value ladder (C 1.0 / UC 1.5 / R 2.5 / SR 4.0 / SSR 7.0), normalized per floor against encounter_weights.csv so each family lands exactly 10% per battle (3 kills) at every floor."
+Gear_Drop_Notes,-,Tier = at-floor tier; grade from drop_grade_weights.csv; Divine+ never drops.
+Enhancement_Drop_Notes,-,Even split gem/rune/scroll.
+Egg_Drop_Notes,-,"The drop is the defeated line's Stage-1 egg; grade from drop_grade_weights for the floor band, clamped to the Legendary wild-egg cap."
 Enhancement_Grade_Rule,one_band_behind_gear,Enhancement grade weights sit one band behind gear (see drop_grade_weights.csv).
