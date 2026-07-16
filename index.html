@@ -1067,7 +1067,7 @@ Character total:
     <p>All progression currencies flow from battles and chests, denominated in battles (~30/hour on autoplay, single active character). Journey milestones are near-deterministic (thousands of drop rolls); the endgame is gated by pure-RNG success rolls with <strong>no pity system anywhere</strong> — the market is the variance smoother. Full numeric tables in <a href="stat-tables.html" style="color:var(--gold-bright)">Stat &amp; Equipment Tables</a>.</p>
     <table>
       <tr><th>Income</th><th>Rate</th></tr>
-      <tr><td>Gear drop</td><td>Per creature defeated, rarity-scaled (<code>codex/drop_rates.csv</code>) — 10% per battle in expectation; at-floor tier, grade weights by floor band (Divine+ never drops)</td></tr>
+      <tr><td>Gear drop</td><td>Per creature defeated, rarity-scaled (<code>codex/drop_rates.csv</code>) — 10% per battle in expectation; base from the zone table <code>codex/item_drops.csv</code>, at-floor tier, grade weights by floor band per <code>codex/drop_grade_weights.csv</code> (Divine+ never drops)</td></tr>
       <tr><td>Enhancement drop (gem / rune / scroll)</td><td>Per creature defeated, rarity-scaled (<code>codex/drop_rates.csv</code>) — 10% per battle in expectation; even family split, grades one band behind gear</td></tr>
       <tr><td>Scrap</td><td>~150/h endgame (dismantling)</td></tr>
       <tr><td>Ichor</td><td>~10/h endgame (bosses, Rare+ dismantles, deep-floor drops, chests)</td></tr>
