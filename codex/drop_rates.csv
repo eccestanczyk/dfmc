@@ -1,4 +1,12 @@
 Param,Value,Notes
-Gear_Drop_Chance,0.10,Per battle won. Tier = at-floor tier. Grade rolled from drop_grade_weights.csv. Divine/Primordial/Void never drop.
-Enhancement_Drop_Chance,0.10,"Per battle won, independent of gear roll. Even split across gem/rune/scroll."
+Gear_Drop_Chance_C,0.022222,Per wild creature defeated. Rarity-scaled inverse to the fixed 3C:3UC:2R:1SR:1SSR floor pool mix; 10% per battle in expectation (3 kills). Tier = at-floor tier; grade from drop_grade_weights.csv; Divine+ never drops.
+Gear_Drop_Chance_UC,0.022222,
+Gear_Drop_Chance_R,0.033333,
+Gear_Drop_Chance_SR,0.066667,
+Gear_Drop_Chance_SSR,0.066667,
+Enhancement_Drop_Chance_C,0.022222,"Per wild creature defeated, independent of the gear roll; same rarity scaling; 10% per battle in expectation. Even split gem/rune/scroll."
+Enhancement_Drop_Chance_UC,0.022222,
+Enhancement_Drop_Chance_R,0.033333,
+Enhancement_Drop_Chance_SR,0.066667,
+Enhancement_Drop_Chance_SSR,0.066667,
 Enhancement_Grade_Rule,one_band_behind_gear,Enhancement grade weights sit one band behind gear (see drop_grade_weights.csv).
