@@ -410,6 +410,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
       <tr><td>Roll once, at spawn</td><td>Encounter-table rarity and the Mutant colouring roll happen once, when the creature spawns. A spawned creature keeps its identity and roll until killed or caught.</td></tr>
       <tr><td>No banked credits</td><td>Refill on access = <code>min(elapsed_minutes, 10 &minus; current)</code>; overflow is discarded. At cap the timer is frozen — a full floor rolls nothing, so absence banks at most 10 fresh rolls.</td></tr>
       <tr><td>Server-clocked</td><td>Spawn count is a pure function of server wall-clock time; client clocks are never consulted.</td></tr>
+      <tr><td>Battles remove one</td><td>A won battle removes only the tagged creature from the pool. The two battle companions are conjured extras (see Battle party rules) — pool count and the respawn timer are untouched by them.</td></tr>
     </table>
     <div class="note note-info"><p>Throughput: the refill ceiling is 60 spawns/hour per floor against the ~30 battles/hour endgame anchor — 2&times; headroom, so a floor never runs dry at design pace. Sustained single-floor farming is throttled at the spawner; endgame acquisition scales through floor rotation (&approx;10 per floor per pass) instead.</p></div>
 
@@ -554,7 +555,7 @@ FinalDamage = RawDamage
     <h3>Battle party rules</h3>
     <ul>
       <li>In battle: <strong>2 creatures + the character</strong></li>
-      <li>Wild battles are 3v3: slot 1 on the wild side is <strong>the tagged creature from the map</strong>; the other two are <strong>drawn at random from the floor's pool by rarity chance</strong></li>
+      <li>Wild battles are 3v3: slot 1 on the wild side is <strong>the tagged creature from the map</strong>; the other two are <strong>extra creatures rolled by the floor's rarity chances, conjured for the battle only</strong> — they never consume the floor's pool or its respawn timer</li>
       <li>Only 1 of each creature species per party</li>
       <li>PvP tournaments: +3 creatures on the bench for sideboarding between matches in a Bo3</li>
     </ul>
