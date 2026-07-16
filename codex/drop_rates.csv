@@ -1,0 +1,4 @@
+Param,Value,Notes
+Gear_Drop_Chance,0.10,Per battle won. Tier = at-floor tier. Grade rolled from drop_grade_weights.csv. Divine/Primordial/Void never drop.
+Enhancement_Drop_Chance,0.10,"Per battle won, independent of gear roll. Even split across gem/rune/scroll."
+Enhancement_Grade_Rule,one_band_behind_gear,Enhancement grade weights sit one band behind gear (see drop_grade_weights.csv).
