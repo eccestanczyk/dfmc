@@ -9,4 +9,9 @@ Enhancement_Drop_Chance_UC,0.022222,
 Enhancement_Drop_Chance_R,0.033333,
 Enhancement_Drop_Chance_SR,0.066667,
 Enhancement_Drop_Chance_SSR,0.066667,
+Egg_Drop_Chance_C,0.022222,"Per wild creature defeated, independent roll; same rarity scaling; 10% per battle in expectation. The drop is the defeated line's Stage-1 egg; grade from drop_grade_weights for the floor band, clamped to the Legendary wild-egg cap."
+Egg_Drop_Chance_UC,0.022222,
+Egg_Drop_Chance_R,0.033333,
+Egg_Drop_Chance_SR,0.066667,
+Egg_Drop_Chance_SSR,0.066667,
 Enhancement_Grade_Rule,one_band_behind_gear,Enhancement grade weights sit one band behind gear (see drop_grade_weights.csv).

@@ -420,6 +420,13 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     <h3>Boss key</h3>
     <p>A single Key is required to enter a boss floor, accessible via the portal or directly through the map selector. Keys are zone-specific items (<code>ITM-KEY-010</code>&hellip;<code>ITM-KEY-100</code>). Every wild creature defeated on the 9 floors preceding a boss rolls for that zone's Key. The roll is per creature and scales with the creature's rarity — inversely to the fixed 3C:3UC:2R:1SR:1SSR floor pool mix, so each rarity tier carries equal expected weight — calibrated so a minimum-win journey (3 kills per win) yields one Key in expectation: <code>p(zone, rarity) = w<sub>rarity</sub> / (3 &times; &Sigma; ceil(floor<sup>0.65</sup>))</code>. Full table in <code>codex/key_drop_rates.csv</code>. <strong>Guaranteed key:</strong> the first time a player completes the 9th floor of a zone (floors 9, 19, 29, &hellip; 99), a key is guaranteed to drop. This is a one-time reward per zone per character. The Key is consumed on boss entry.</p>
 
+    <h3>Boss loot</h3>
+    <p>Every boss kill guarantees two drops, delivered on the conclusion screen (params in <code>codex/boss_loot.csv</code>):</p>
+    <ul>
+      <li><strong style="color:#ede0c4">One piece of equipment</strong> — base from the zone's <code>item_drops.csv</code> rows at at-floor tier; grade rolled <strong style="color:#ede0c4">one floor band ahead</strong> of the boss's band (the mirror of enhancements' one-band-behind; the final band clamps to itself).</li>
+      <li><strong style="color:#ede0c4">One native egg</strong> — a Stage-1 egg of a line native to the zone (<code>Home_Zone</code>), weighted by the canonical rarity chances (30/30/20/10/10 over the tiers present); grade from the boss's floor band, clamped to the Legendary wild-egg cap. Breeding remains the only path to Divine+ and Void.</li>
+    </ul>
+
     <h3>Chests</h3>
     <p>Chests are scattered around each map as manual-only, one-time pickups — autoplay does not collect them. Each chest can only be opened once per floor visit cycle. The map selector displays chest collection progress per floor as <strong style="color:#ede0c4">x/x collected</strong>.</p>
 
@@ -684,7 +691,7 @@ FinalDamage = RawDamage
     <div class="grid-2">
       <div class="card">
         <div class="card-title">🥚 Wild eggs</div>
-        <div class="card-body">Drop from combat encounters. Grade range: <span style="color:#c2ae8b">Worn</span> through <span style="color:#ff8000">Legendary</span> only — no wild eggs above grade 6. Grade determines stat range at hatch.</div>
+        <div class="card-body">Drop from combat encounters — every defeated wild creature rolls its line's Stage-1 egg at a rarity-scaled chance (<code>codex/drop_rates.csv</code>, <code>Egg_Drop_Chance_*</code>; 10% per battle in expectation), grade from the floor band's weights. Grade range: <span style="color:#c2ae8b">Worn</span> through <span style="color:#ff8000">Legendary</span> only — no wild eggs above grade 6. Grade determines stat range at hatch.</div>
       </div>
       <div class="card">
         <div class="card-title">🧬 Bred eggs</div>
@@ -1078,6 +1085,7 @@ Character total:
       <tr><th>Income</th><th>Rate</th></tr>
       <tr><td>Gear drop</td><td>Per creature defeated, rarity-scaled (<code>codex/drop_rates.csv</code>) — 10% per battle in expectation; base from the zone table <code>codex/item_drops.csv</code>, at-floor tier, grade weights by floor band per <code>codex/drop_grade_weights.csv</code> (Divine+ never drops)</td></tr>
       <tr><td>Enhancement drop (gem / rune / scroll)</td><td>Per creature defeated, rarity-scaled (<code>codex/drop_rates.csv</code>) — 10% per battle in expectation; even family split, grades one band behind gear</td></tr>
+      <tr><td>Egg drop</td><td>Per creature defeated, rarity-scaled (<code>codex/drop_rates.csv</code>) — 10% per battle in expectation; the defeated line's Stage-1 egg, grade from the floor band clamped to the Legendary wild-egg cap</td></tr>
       <tr><td>Scrap</td><td>~150/h endgame (dismantling)</td></tr>
       <tr><td>Ichor</td><td>~10/h endgame (bosses, Rare+ dismantles, deep-floor drops, chests)</td></tr>
       <tr><td>Dust / Essence / Ink</td><td>~20/h per family endgame (enhancement dismantles, chests)</td></tr>
@@ -1302,9 +1310,10 @@ Your Backend
       <tr><td><code>codex/souls.csv</code></td><td>400</td><td>Soul passive table — 100 lines &times; 4 armor slots (Head/Chest/Gloves/Feet). Columns: Soul_ID (S-{LINE}-{SLOT}), Line_ID, Gear_Slot, Scope (Local/Personal/Team), Rarity, Effect_S3. Magnitudes scale by stage (S1 &asymp; 60%, S2 &asymp; 80%). Ability-slot souls (MH/OH/Acc1/Acc2) grant moves instead — see moves.csv.</td></tr>
       <tr><td><code>codex/breeding.csv</code></td><td>10</td><td>Breeding economy per pair grade. Columns: Grade_Num, Grade, Food_Per_Min, Minutes_Per_Egg, Food_Per_Egg, Egg_Dismantle_Food (the last keyed to egg grade, not pair grade).</td></tr>
       <tr><td><code>codex/item_drops.csv</code></td><td>220</td><td>Zone-weighted item drop table. Each zone lists which base types drop and at what weight (1 = normal, 2 = zone-weighted 2&times;). Feeds the <a href="reliquary.html" style="color:var(--gold-bright)">Reliquary</a>.</td></tr>
-        <tr><td><code>codex/drop_rates.csv</code></td><td>11</td><td>Drop roll parameters — per-creature, rarity-scaled gear and enhancement chances plus the enhancement grade-band rule. Prototypes and the game read chances from here; no hardcoding.</td></tr>
+        <tr><td><code>codex/drop_rates.csv</code></td><td>16</td><td>Drop roll parameters — per-creature, rarity-scaled gear, enhancement and egg chances plus the enhancement grade-band rule. Prototypes and the game read chances from here; no hardcoding.</td></tr>
         <tr><td><code>codex/drop_grade_weights.csv</code></td><td>21</td><td>Gear-drop grade weights per floor band (mirrors Stat &amp; Equipment Tables &sect;15). Divine, Primordial and Void never drop.</td></tr>
         <tr><td><code>codex/key_drop_rates.csv</code></td><td>10</td><td>Per-creature boss-Key drop chances by rarity and zone, with each zone's <code>Key_Item_ID</code> — one expected Key per minimum-win zone journey.</td></tr>
+        <tr><td><code>codex/boss_loot.csv</code></td><td>6</td><td>Guaranteed boss drops — one piece of equipment (grade one band ahead) and one native Stage-1 egg (rarity-weighted, Legendary-capped). Delivered on the conclusion screen.</td></tr>
       <tr><td><code>codex/floor_assets.csv</code></td><td>100</td><td>Level design pipeline. Per-floor: battle background prompt/path/status, parallax reference, prop assignments, map preview status (empty + populated). Decoupled from floor identity for infinite floor extension.</td></tr>
       <tr><td><code>codex/prop_assets.csv</code></td><td>40</td><td>Zone prop catalog — 3&ndash;4 props + 1 anchor prop per zone, with image prompts and art status.</td></tr>
     </table>
