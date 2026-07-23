@@ -235,7 +235,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     <p>Stat sums scale by stage, matching creature grade tiers spread across three axes: <strong>Stage 1 ≈ 12 (Common-tier), Stage 2 ≈ 16 (Rare-tier), Stage 3 ≈ 20 (SSR-tier)</strong>. Every axis value stays ≤ 10.</p>
 
     <h4>Starter classes <span style="font-size:12px;color:#8a7a5e">(pick one free at character creation)</span></h4>
-    <p>Character creation opens on the class-select screen: Warrior, Archer, or Mage. Each option displays its two fixed starter creatures — one SR and one SSR line, at Worn quality grade (line assignments per class TBD). On pick, the character is created with that class, its two starter creatures (genders rolled 50/50 at grant, account-bound — never tradeable), and its T1 class weapons (main + off hand) equipped. The two unpicked starter classes become purchasable for <strong>100 Scrap each</strong> — class + T1 weapons only, no creatures.</p>
+    <p>Character creation opens on the class-select screen: Warrior, Archer, or Mage. Each option displays its two fixed starter creatures — one SR and one SSR line, at Worn quality grade: <strong>Warrior</strong> Ferrodrake (SR) + Ridgedrake (SSR) · <strong>Mage</strong> Marid (SR) + Pyriel (SSR) · <strong>Archer</strong> Herne (SR) + Stormfather (SSR) — recorded in <code>codex/classes.csv</code> (<code>Starter_SR</code> / <code>Starter_SSR</code>, Stage-1 creature IDs). After picking a class the player names the character; creation then completes with that class, its two starter creatures (genders rolled 50/50 at grant, account-bound — never tradeable), and its T1 class weapons (main + off hand) equipped. The two unpicked starter classes become purchasable for <strong>100 Scrap each</strong> — class + T1 weapons only, no creatures.</p>
     <div class="grid-3">
       <div class="card"><div class="card-title"><span class="pill pill-warrior">Warrior → Knight → Paladin</span></div><div class="card-body" style="margin-top:6px">High Defense, moderate Attack, low Speed. The armored frontliner — soaks the alpha strike, acts late.<br><br><span style="font-size:12px;color:#c2ae8b">Stage 3: Atk 6 · Def 10 · Spd 4</span></div></div>
       <div class="card"><div class="card-title"><span class="pill pill-mage">Mage → Sorcerer → Archon</span></div><div class="card-body" style="margin-top:6px">Highest Attack, lowest Defense, moderate Speed. The glass cannon — the game's top damage ceiling, pays with fragility.<br><br><span style="font-size:12px;color:#c2ae8b">Stage 3: Atk 10 · Def 2 · Spd 8</span></div></div>
@@ -722,7 +722,7 @@ FinalDamage = RawDamage
 
     <div class="card">
       <div class="card-title">⭐ Starter creatures</div>
-      <div class="card-body">Granted at character creation via the class-select screen — each starter class carries two fixed creatures, one SR and one SSR line, at Worn quality grade. Genders roll 50/50 at grant; starter creatures are account-bound (never tradeable). Later class unlocks grant no creatures. Line assignments per class TBD.</div>
+      <div class="card-body">Granted at character creation via the class-select screen — each starter class carries two fixed creatures, one SR and one SSR line, at Worn quality grade. Genders roll 50/50 at grant; starter creatures are account-bound (never tradeable). Later class unlocks grant no creatures. Assignments: Warrior — Ferrodrake (SR) + Ridgedrake (SSR); Mage — Marid (SR) + Pyriel (SSR); Archer — Herne (SR) + Stormfather (SSR).</div>
     </div>
 
     <h3>Food</h3>
@@ -1301,7 +1301,6 @@ Your Backend
       <li>Whether Soul Gems are tradeable on the Steam marketplace</li>
       <li>Number of chests per floor (the "x" in the x/x chest tracker)</li>
       <li>Whether chest contents reset along with the win streak on floor re-entry, or remain collected permanently</li>
-      <li>Starter creature line assignments — which SR + SSR line pair each of the three starter classes carries</li>
     </ul>
   </div>
 
