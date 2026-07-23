@@ -1,0 +1,12 @@
+Win,Reward_Type,Category,Family,Tier,Grade,Selection,Item_ID
+1,Item,Accessory,,1,Worn,random_family,
+1,Egg,Egg,,,Worn,lowest_rarity_tie_random,
+2,Item,Armour,Head,1,Worn,fixed,ITM-0472
+3,Item,Armour,Gloves,1,Worn,fixed,ITM-0492
+4,Item,Accessory,,1,Worn,complement_of_win_1,
+5,Item,Gem,,1,Worn,random_family,
+6,Item,Gem,,1,Worn,random_family,
+7,Item,Armour,Chest,1,Worn,fixed,ITM-0482
+8,Item,Armour,Feet,1,Worn,fixed,ITM-0502
+9,Egg,Egg,,,Worn,lowest_rarity_tie_random,
+10,Item,Gem,,1,Worn,random_family,
