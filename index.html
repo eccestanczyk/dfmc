@@ -250,7 +250,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     </div>
 
     <h4>Class unlocks</h4>
-    <p>All six classes are earnable in-game in the prototype — the three advanced classes ship as DLC post-prototype (the earned path remains). Unlocking a class grants the class + its T1 class weapons (main + off hand) only — never creatures. Unlock ownership survives hardcore death (it is not part of items / creatures / class XP; account-wide vs per-realm scope is an open decision). Costs are farm-time-normalized on the canonical endgame income weights (Scrap 150/h : Dust/Essence/Ink 20/h : Ichor 10/h — the same 15 : 2 : 1 basis as the soul-grading bundle) and live in <code>codex/classes.csv</code> (<code>Unlock_Cost</code>):</p>
+    <p>All six classes are earnable in-game in the prototype — the three advanced classes ship as DLC post-prototype (the earned path remains). Unlocking a class grants the class + its T1 class weapons (main + off hand) only — never creatures. Class unlocks are <strong>account-wide</strong> — one purchase unlocks the class for the character in every realm — and survive hardcore death (not part of items / creatures / class XP). Costs are farm-time-normalized on the canonical endgame income weights (Scrap 150/h : Dust/Essence/Ink 20/h : Ichor 10/h — the same 15 : 2 : 1 basis as the soul-grading bundle) and live in <code>codex/classes.csv</code> (<code>Unlock_Cost</code>):</p>
     <table>
       <tr><th>Class</th><th>Unlock cost</th><th>Endgame farm time</th><th>Path</th></tr>
       <tr><td>Unpicked starters (Warrior / Mage / Archer)</td><td>100 Scrap each</td><td>~40 min</td><td>Gear dismantling — early-accessible</td></tr>
@@ -1302,7 +1302,6 @@ Your Backend
       <li>Number of chests per floor (the "x" in the x/x chest tracker)</li>
       <li>Whether chest contents reset along with the win streak on floor re-entry, or remain collected permanently</li>
       <li>Starter creature line assignments — which SR + SSR line pair each of the three starter classes carries</li>
-      <li>Class unlock scope — account-wide vs per realm character</li>
     </ul>
   </div>
 
