@@ -11,6 +11,7 @@
 .line-title{font-family:'Cinzel',serif;font-size:19px;font-weight:600;color:#e8c547}
 .access{font-size:10px;padding:2px 10px;border:1px solid #5c462c;border-radius:10px;color:#c2ae8b}
 .access.dlc{border-color:#6b2d5a;color:#d78ac0}
+.unlock-cost{font-size:11px;color:#8a7a5e;letter-spacing:.4px;margin:-8px 0 12px}
 .desc{font-size:13px;color:#b8a888;font-style:italic;margin:2px 0 12px;line-height:1.5}
 .line-body{display:grid;grid-template-columns:1fr 220px;gap:18px;align-items:start}
 @media(max-width:760px){.line-body{grid-template-columns:1fr}}
@@ -44,9 +45,9 @@ const DESCRIPTIONS={
   WARRIOR:"The armored frontliner. High Defense and steady Attack at the cost of Speed — soaks the opening blow and answers in kind. Evolves from a battered mercenary into a masterwork knight, then into a legendary gem-forged paladin.",
   MAGE:"The glass cannon. The game's highest Attack ceiling paired with the lowest Defense — devastating if it acts, fragile if it's caught. Ascends from apprentice to sorcerer to reality-bending archon.",
   ARCHER:"The fast ranged striker. High Attack and high Speed on a thin defensive frame — wins initiative and hits hard, but folds under pressure. Grows from scout to ranger to peerless hawkeye.",
-  BRUTE:"The heavy bruiser. High Attack and high Defense weighed down by the lowest Speed — hits like a siege engine and survives the counter, but always moves last. From savage to warlord to unstoppable titan. (DLC)",
-  ASSASSIN:"The pure striker. Extreme Attack and Speed on almost no Defense — the fastest, deadliest, most fragile build in the game. From cutthroat to stalker to shadow-nightblade. (DLC)",
-  PROFESSOR:"The tanky controller. High Defense and high Speed with dumped Attack — survives and acts early, controlling the fight without heavy damage. The scholar who sees it coming, from professor to sage to prophet. (DLC)"
+  BRUTE:"The heavy bruiser. High Attack and high Defense weighed down by the lowest Speed — hits like a siege engine and survives the counter, but always moves last. From savage to warlord to unstoppable titan.",
+  ASSASSIN:"The pure striker. Extreme Attack and Speed on almost no Defense — the fastest, deadliest, most fragile build in the game. From cutthroat to stalker to shadow-nightblade.",
+  PROFESSOR:"The tanky controller. High Defense and high Speed with dumped Attack — survives and acts early, controlling the fight without heavy damage. The scholar who sees it coming, from professor to sage to prophet."
 };
 function parseCSV(t){
   const rows=[]; let row=[], s='', q=false;
@@ -89,12 +90,14 @@ async function load(){
     sts.sort((a,b)=>+a.Stage-+b.Stage);
     const chain=sts.map(s=>s.Name).join(' → ');
     const acc=sts[0].Access;
+  const cost=sts[0].Unlock_Cost||'';
     const s3=sts[sts.length-1];
     if(!s3) return '';
     const color=COLORS[lid]||'#c2ae8b';
     return `<div class="line-block">
-      <div class="line-head"><span class="line-title">${chain}</span><span class="access ${acc==='DLC'?'dlc':''}">${acc}</span></div>
+      <div class="line-head"><span class="line-title">${chain}</span><span class="access ${acc==='Unlock'?'dlc':''}">${acc}</span></div>
       <div class="desc">${DESCRIPTIONS[lid]||''}</div>
+      ${cost?'<div class="unlock-cost">Unlock: '+cost+(acc==='Starter'?' per unpicked starter (one starter is free at character creation)':'')+'</div>':''}
       <div class="line-body">
         <div class="stages">${sts.map(s=>{
           const img=s.Image_Path?`<img src="${IMG_BASE}${s.Image_Path}?v=${Date.now()}" loading="lazy">`:`<span class="pend">ART PENDING</span>`;

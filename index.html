@@ -135,7 +135,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
 <div class="wrap">
   <div class="header">
     <img class="gdd-logo" src="assets/logo.png" alt="Herumon Tower"><div class="sub" style="font-family:'Cinzel',serif;font-size:12px;letter-spacing:.18em;color:var(--gold-dim);text-transform:uppercase;margin-bottom:4px;">Game Design Document</div>
-    <div class="sub">Living document · Last updated June 2026 · <span class="pill pill-wip">In Development</span></div>
+    <div class="sub">Living document · Last updated July 2026 · <span class="pill pill-wip">In Development</span></div>
   </div>
 
   <div class="nav">
@@ -214,7 +214,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
 
     <h3>Player level, character level, class level</h3>
     <p>The <strong style="color:#ede0c4">player level</strong> is account-wide and uncapped: it accumulates every point of XP the account ever earns, uses the standard curve to 100, then costs a flat 639,723 XP per level forever (~640 battles, ~21h). It grants nothing — no stats, no unlocks — and is the only progression number that survives hardcore death. Creature, class, and character levels all cap at 100.</p>
-    <p>The character has a <strong style="color:#ede0c4">character level</strong> — a global level aggregated from XP across all classes. Character level scales base stats (HP, stamina, resistances). Each class has its own <strong style="color:#ede0c4">class level</strong> tracked separately, unlocking class-specific bonuses. Switching classes does not reset others.</p>
+    <p>The character has a <strong style="color:#ede0c4">character level</strong> — a global level aggregated from XP across all classes. Character level scales base stats (HP, stamina, resistances). Each class has its own <strong style="color:#ede0c4">class level</strong> tracked separately, unlocking class-specific bonuses. Switching classes does not reset others. Switching the active class <strong>unequips everything attached to the character</strong> — all 8 gear slots return to inventory (socketed gems, runes, enchantments and attached souls stay on their items); the new class starts bare and is re-equipped from inventory.</p>
     <div class="card"><div class="card-title">XP & level model</div><pre style="margin:8px 0 0">Account
 ├── playerLevel      → all XP ever earned → uncapped, grants nothing (see XP & Leveling)
 │                      levels 101+ cost a flat PLAYER_FLAT_XP = 639,723 each; survives death
@@ -234,29 +234,41 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     <p>Six classes, each a <strong>linear evolution line</strong> of three stages — the class evolves cosmetically and grows in stats at the same evolution breakpoints as creatures. There is no branching specialization; a Warrior is always a Warrior, just stronger and re-skinned. Characters use three stat axes only: <strong>Attack, Defense, Speed</strong> (Utility is a creature-only measure — a character can wield any ability regardless of stats). Speed is capped at 10 like all axes and has no gear sources.</p>
     <p>Stat sums scale by stage, matching creature grade tiers spread across three axes: <strong>Stage 1 ≈ 12 (Common-tier), Stage 2 ≈ 16 (Rare-tier), Stage 3 ≈ 20 (SSR-tier)</strong>. Every axis value stays ≤ 10.</p>
 
-    <h4>Starter classes <span style="font-size:12px;color:#8a7a5e">(free)</span></h4>
+    <h4>Starter classes <span style="font-size:12px;color:#8a7a5e">(pick one free at character creation)</span></h4>
+    <p>Character creation opens on the class-select screen: Warrior, Archer, or Mage. Each option displays its two fixed starter creatures — one SR and one SSR line, at Worn quality grade (line assignments per class TBD). On pick, the character is created with that class, its two starter creatures (genders rolled 50/50 at grant, account-bound — never tradeable), and its T1 class weapons (main + off hand) equipped. The two unpicked starter classes become purchasable for <strong>100 Scrap each</strong> — class + T1 weapons only, no creatures.</p>
     <div class="grid-3">
       <div class="card"><div class="card-title"><span class="pill pill-warrior">Warrior → Knight → Paladin</span></div><div class="card-body" style="margin-top:6px">High Defense, moderate Attack, low Speed. The armored frontliner — soaks the alpha strike, acts late.<br><br><span style="font-size:12px;color:#c2ae8b">Stage 3: Atk 6 · Def 10 · Spd 4</span></div></div>
       <div class="card"><div class="card-title"><span class="pill pill-mage">Mage → Sorcerer → Archon</span></div><div class="card-body" style="margin-top:6px">Highest Attack, lowest Defense, moderate Speed. The glass cannon — the game's top damage ceiling, pays with fragility.<br><br><span style="font-size:12px;color:#c2ae8b">Stage 3: Atk 10 · Def 2 · Spd 8</span></div></div>
       <div class="card"><div class="card-title"><span class="pill pill-archer">Archer → Ranger → Hawkeye</span></div><div class="card-body" style="margin-top:6px">High Attack, low Defense, high Speed. The fast ranged striker — wins initiative, hits hard, folds under pressure.<br><br><span style="font-size:12px;color:#c2ae8b">Stage 3: Atk 8 · Def 3 · Spd 9</span></div></div>
     </div>
 
-    <h4>DLC-locked classes</h4>
+    <h4>Unlockable classes <span style="font-size:12px;color:#8a7a5e">(earned in-game; DLC post-prototype)</span></h4>
     <div class="grid-3">
       <div class="card"><div class="card-title"><span class="pill pill-warrior">Brute → Warlord → Titan</span></div><div class="card-body" style="margin-top:6px">High Attack, high Defense, lowest Speed. The heavy bruiser — hits and survives, but always moves last.<br><br><span style="font-size:12px;color:#c2ae8b">Stage 3: Atk 9 · Def 8 · Spd 3</span></div></div>
       <div class="card"><div class="card-title"><span class="pill pill-archer">Assassin → Stalker → Nightblade</span></div><div class="card-body" style="margin-top:6px">High Attack, lowest Defense, highest Speed. The pure glass-cannon striker — faster and squishier than the Mage.<br><br><span style="font-size:12px;color:#c2ae8b">Stage 3: Atk 9 · Def 2 · Spd 9</span></div></div>
       <div class="card"><div class="card-title"><span class="pill pill-mage">Professor → Sage → Prophet</span></div><div class="card-body" style="margin-top:6px">High Defense, high Speed, low Attack. The tanky-fast controller — survives and acts early, but does not hit hard. The scholar who sees it coming.<br><br><span style="font-size:12px;color:#c2ae8b">Stage 3: Atk 3 · Def 8 · Spd 9</span></div></div>
     </div>
 
+    <h4>Class unlocks</h4>
+    <p>All six classes are earnable in-game in the prototype — the three advanced classes ship as DLC post-prototype (the earned path remains). Unlocking a class grants the class + its T1 class weapons (main + off hand) only — never creatures. Unlock ownership survives hardcore death (it is not part of items / creatures / class XP; account-wide vs per-realm scope is an open decision). Costs are farm-time-normalized on the canonical endgame income weights (Scrap 150/h : Dust/Essence/Ink 20/h : Ichor 10/h — the same 15 : 2 : 1 basis as the soul-grading bundle) and live in <code>codex/classes.csv</code> (<code>Unlock_Cost</code>):</p>
+    <table>
+      <tr><th>Class</th><th>Unlock cost</th><th>Endgame farm time</th><th>Path</th></tr>
+      <tr><td>Unpicked starters (Warrior / Mage / Archer)</td><td>100 Scrap each</td><td>~40 min</td><td>Gear dismantling — early-accessible</td></tr>
+      <tr><td>Brute → Warlord → Titan</td><td>750 Scrap</td><td>~5 h</td><td>Gear dismantling — affordable earliest of the three</td></tr>
+      <tr><td>Professor → Sage → Prophet</td><td>100 Ink</td><td>~5 h</td><td>Scroll/enhancement dismantling — mid</td></tr>
+      <tr><td>Assassin → Stalker → Nightblade</td><td>50 Ichor</td><td>~5 h</td><td>Bosses / chests — de facto latest (Ichor scarce pre-floor-61)</td></tr>
+    </table>
+    <div class="note note-info"><p>The three advanced unlocks cost equal endgame farm time but diverge in when they become realistically affordable — a soft unlock ordering without hard gates. Food is excluded (breeding-only economy).</p></div>
+
     <h4>Stat progression by stage</h4>
     <table>
       <tr><th>Class line</th><th>Stage 1 (A/D/S)</th><th>Stage 2 (A/D/S)</th><th>Stage 3 (A/D/S)</th><th>Access</th></tr>
-      <tr><td>Warrior → Knight → Paladin</td><td>4 / 6 / 2</td><td>5 / 8 / 3</td><td>6 / 10 / 4</td><td>Free</td></tr>
-      <tr><td>Mage → Sorcerer → Archon</td><td>6 / 1 / 5</td><td>8 / 2 / 6</td><td>10 / 2 / 8</td><td>Free</td></tr>
-      <tr><td>Archer → Ranger → Hawkeye</td><td>5 / 2 / 5</td><td>7 / 2 / 7</td><td>8 / 3 / 9</td><td>Free</td></tr>
-      <tr><td>Brute → Warlord → Titan</td><td>5 / 5 / 2</td><td>7 / 7 / 2</td><td>9 / 8 / 3</td><td>DLC</td></tr>
-      <tr><td>Assassin → Stalker → Nightblade</td><td>6 / 1 / 5</td><td>7 / 2 / 7</td><td>9 / 2 / 9</td><td>DLC</td></tr>
-      <tr><td>Professor → Sage → Prophet</td><td>2 / 5 / 5</td><td>2 / 7 / 7</td><td>3 / 8 / 9</td><td>DLC</td></tr>
+      <tr><td>Warrior → Knight → Paladin</td><td>4 / 6 / 2</td><td>5 / 8 / 3</td><td>6 / 10 / 4</td><td>Starter</td></tr>
+      <tr><td>Mage → Sorcerer → Archon</td><td>6 / 1 / 5</td><td>8 / 2 / 6</td><td>10 / 2 / 8</td><td>Starter</td></tr>
+      <tr><td>Archer → Ranger → Hawkeye</td><td>5 / 2 / 5</td><td>7 / 2 / 7</td><td>8 / 3 / 9</td><td>Starter</td></tr>
+      <tr><td>Brute → Warlord → Titan</td><td>5 / 5 / 2</td><td>7 / 7 / 2</td><td>9 / 8 / 3</td><td>Unlock — 750 Scrap</td></tr>
+      <tr><td>Assassin → Stalker → Nightblade</td><td>6 / 1 / 5</td><td>7 / 2 / 7</td><td>9 / 2 / 9</td><td>Unlock — 50 Ichor</td></tr>
+      <tr><td>Professor → Sage → Prophet</td><td>2 / 5 / 5</td><td>2 / 7 / 7</td><td>3 / 8 / 9</td><td>Unlock — 100 Ink</td></tr>
     </table>
     <div class="note note-info"><p><strong>Class stats are multipliers, not pools.</strong> A class stage stat feeds <code>AxisMult = (3 &times; stat + 5) / 20</code> and multiplies the summed item stats for that axis — Paladin Def 10 means &times;1.75 on all armour Defense; Mage Def 2 means &times;0.55. The character has no innate stat pool; an unarmed character has no Attack. Same curve as creature axis grades.</p></div>
     <div class="note note-info"><p>Additional class lines (pure-wall, balanced-duelist, speed-specialist, etc.) are reserved as possible future content.</p></div>
@@ -710,7 +722,7 @@ FinalDamage = RawDamage
 
     <div class="card">
       <div class="card-title">⭐ Starter creatures</div>
-      <div class="card-body">The player's very first creatures are selected from a set of 3 options before any combat. Grade and stats of starters are TBD.</div>
+      <div class="card-body">Granted at character creation via the class-select screen — each starter class carries two fixed creatures, one SR and one SSR line, at Worn quality grade. Genders roll 50/50 at grant; starter creatures are account-bound (never tradeable). Later class unlocks grant no creatures. Line assignments per class TBD.</div>
     </div>
 
     <h3>Food</h3>
@@ -729,7 +741,7 @@ FinalDamage = RawDamage
       <tr><td>Capacity</td><td>More eggs incubating simultaneously</td></tr>
       <tr><td>Grade boost</td><td>Increases probability of higher grade eggs on hatch, independent of parent grade</td></tr>
     </table>
-    <div class="note note-info"><p><strong>Open decision:</strong> Does incubation time scale with egg grade (higher = longer wait), or is it a flat timer? Starter creature grade and stats also TBD.</p></div>
+    <div class="note note-info"><p><strong>Open decision:</strong> Does incubation time scale with egg grade (higher = longer wait), or is it a flat timer?</p></div>
 
     <h3>Creature evolutions</h3>
     <table>
@@ -1289,6 +1301,8 @@ Your Backend
       <li>Whether Soul Gems are tradeable on the Steam marketplace</li>
       <li>Number of chests per floor (the "x" in the x/x chest tracker)</li>
       <li>Whether chest contents reset along with the win streak on floor re-entry, or remain collected permanently</li>
+      <li>Starter creature line assignments — which SR + SSR line pair each of the three starter classes carries</li>
+      <li>Class unlock scope — account-wide vs per realm character</li>
     </ul>
   </div>
 
