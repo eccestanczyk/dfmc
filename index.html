@@ -167,7 +167,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
       <div class="stat-card"><div class="stat-label">Art style</div><div class="stat-val">Dark fantasy, AI-generated painting</div></div>
     </div>
     <h3>Concept</h3>
-    <p>A creature-collecting competitive turn-based RPG where players climb an ever-ascending tower floor by floor. Each floor is a simple map where the Collector triggers battles until a win threshold opens the portal to the next floor, with manual chests scattered throughout. All metagame systems (breeding, crafting, farming, hatchery) are accessible as UI panels at any time during PvE — no physical base.</p>
+    <p>A creature-collecting competitive turn-based RPG where players climb an ever-ascending tower floor by floor. Each floor is a simple map where the Collector triggers battles until a win threshold opens the portal to the next floor. All metagame systems (breeding, crafting, farming, hatchery) are accessible as UI panels at any time during PvE — no physical base.</p>
     <h3>Game modes</h3>
     <div class="grid-2">
       <div class="card"><div class="card-title"><span class="pill pill-eternal">Eternal</span></div><div class="card-body" style="margin-top:6px">Soft death. Character stays in realm, no reset. Receives Hardcore deaths as claimable Bequests, and Seasonal holdings at season end.</div></div>
@@ -256,7 +256,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
       <tr><td>Unpicked starters (Warrior / Mage / Archer)</td><td>100 Scrap each</td><td>~40 min</td><td>Gear dismantling — early-accessible</td></tr>
       <tr><td>Brute → Warlord → Titan</td><td>750 Scrap</td><td>~5 h</td><td>Gear dismantling — affordable earliest of the three</td></tr>
       <tr><td>Professor → Sage → Prophet</td><td>100 Ink</td><td>~5 h</td><td>Scroll/enhancement dismantling — mid</td></tr>
-      <tr><td>Assassin → Stalker → Nightblade</td><td>50 Ichor</td><td>~5 h</td><td>Bosses / chests — de facto latest (Ichor scarce pre-floor-61)</td></tr>
+      <tr><td>Assassin → Stalker → Nightblade</td><td>50 Ichor</td><td>~5 h</td><td>Bosses — de facto latest (Ichor scarce pre-floor-61)</td></tr>
     </table>
     <div class="note note-info"><p>The three advanced unlocks cost equal endgame farm time but diverge in when they become realistically affordable — a soft unlock ordering without hard gates. Food is excluded (breeding-only economy).</p></div>
 
@@ -409,7 +409,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
         <div class="card-body">Visual theme only — waterside backdrop, aquatic dressing.</div>
       </div>
     </div>
-    <div class="note note-info"><p>Floor theme is fixed per floor and purely cosmetic. The battle trigger (click a creature), win condition (consecutive win streak scaled by floor depth), boss key drop, and chest system are identical across all three themes.</p></div>
+    <div class="note note-info"><p>Floor theme is fixed per floor and purely cosmetic. The battle trigger (click a creature), win condition (consecutive win streak scaled by floor depth), and boss key drop are identical across all three themes.</p></div>
 
     <div class="grid-2">
       <div class="card">
@@ -443,24 +443,21 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     <h3>Boss loot</h3>
     <p>Every boss kill guarantees two drops, delivered on the conclusion screen (params in <code>codex/boss_loot.csv</code>):</p>
     <ul>
-      <li><strong style="color:#ede0c4">One piece of equipment</strong> — base from the zone's <code>item_drops.csv</code> rows at at-floor tier; grade rolled <strong style="color:#ede0c4">one floor band ahead</strong> of the boss's band (the mirror of enhancements' one-band-behind; the final band clamps to itself).</li>
+      <li><strong style="color:#ede0c4">One piece of equipment</strong> — a uniform pick among the Weapon / Armour / Accessory bases at at-floor tier; grade rolled <strong style="color:#ede0c4">one floor band ahead</strong> of the boss's band (the mirror of enhancements' one-band-behind; the final band clamps to itself).</li>
       <li><strong style="color:#ede0c4">One native egg</strong> — a Stage-1 egg of a line native to the zone (<code>Home_Zone</code>), weighted by the canonical rarity chances (30/30/20/10/10 over the tiers present); grade from the boss's floor band, clamped to the Legendary wild-egg cap. Breeding remains the only path to Divine+ and Void.</li>
     </ul>
 
-    <h3>Chests</h3>
-    <p>Chests are scattered around each map as manual-only, one-time pickups — autoplay does not collect them. Each chest can only be opened once per floor visit cycle. The map selector displays chest collection progress per floor as <strong style="color:#ede0c4">x/x collected</strong>.</p>
 
     <h3>Floor structure</h3>
     <table>
       <tr><th>Element</th><th>Details</th></tr>
       <tr><td>Battle trigger</td><td>Click (tag) a wandering creature on the map — identical on all floor themes. Wins count toward the floor's streak threshold.</td></tr>
       <tr><td>Wild spawns</td><td>Persistent pool, cap 10, serial 60&nbsp;s respawner (see Wild spawns above). Re-entry never rerolls the pool.</td></tr>
-      <tr><td>Chests</td><td>Manual-only, one-time per chest. Tracked as x/x on map selector.</td></tr>
       <tr><td>Boss (every 10th floor)</td><td>Requires consuming a Key. One-time encounter, gates the next zone. First completion of the 9th floor in each zone guarantees a key (one-time only).</td></tr>
       <tr><td>Portal / door</td><td>Opens after the win streak threshold is met. Leads to the next floor.</td></tr>
     </table>
 
-    <div class="note note-info"><p>All equipment and crafting materials now come exclusively from battle rewards and chests — there is no resource gathering layer. Gathering nodes have been removed from active scope; see Roadmap for details.</p></div>
+    <div class="note note-info"><p>All equipment and crafting materials now come exclusively from battle rewards — there is no resource gathering layer. Gathering nodes have been removed from active scope; see Roadmap for details.</p></div>
 
     <h3>Defeat</h3>
     <p>Losing a battle does not remove the player from the floor. The team remains on the current floor and the win streak resets to zero. There is no forced exit, no floor lock, and no return to floor select.</p>
@@ -637,7 +634,7 @@ FinalDamage = RawDamage
     </table>
 
     <h3>The crypt bag</h3>
-    <p>The crypt bag is a top-bar icon — a gravestone with a satchel — shown between the menu dropdown and the Speed-order button, shown in Eternal whenever a Bequest waits, and in Hardcore only while an HC Seasonal season is active (its sole feeder) — there is no physical base or chest to walk up to. Each hardcore death sends one Bequest to the receiving realm's crypt bag:</p>
+    <p>The crypt bag is a top-bar icon — a gravestone with a satchel — shown between the menu dropdown and the Speed-order button, shown in Eternal whenever a Bequest waits, and in Hardcore only while an HC Seasonal season is active (its sole feeder) — there is no physical base to walk up to. Each hardcore death sends one Bequest to the receiving realm's crypt bag:</p>
     <div class="grid-2">
       <div class="card">
         <div class="card-title"><span class="pill pill-eternal">Eternal crypt bag</span></div>
@@ -702,7 +699,7 @@ FinalDamage = RawDamage
     <p>All metagame systems are accessible as UI panels at any time during PvE floors, including during battles. They are locked during PvP. There is no physical base — everything is menu-driven.</p>
     <div class="grid-2">
       <div class="card"><div class="card-title">🧬 Breeding</div><div class="card-body">Six breeding pens (1 free, 1 bought with Food, 4 DLC). A pen holds a ♂/♀ pair sharing at least one type; toggled on, it drains Food per minute and fills a bar, dropping an egg into inventory each time it completes and continuing automatically. Rates key off pair grade P = ⌊mean of parent grades⌋. Parents are locked out of the battle party; removing one resets the meter. Full rules: <a href="system-breeding.html" style="color:var(--gold-bright)">Breeding</a>.</div></div>
-      <div class="card"><div class="card-title">🔧 Crafting</div><div class="card-body">Recipe list in UI. Select recipe, confirm materials, receive output. Materials sourced from battle rewards and chests.</div></div>
+      <div class="card"><div class="card-title">🔧 Crafting</div><div class="card-body">Recipe list in UI. Select recipe, confirm materials, receive output. Materials sourced from battle rewards.</div></div>
       <div class="card"><div class="card-title">🥚 Hatchery</div><div class="card-body">Egg incubation managed via UI. Set eggs to incubate, return after the timer. Hatchery level (upgraded via crafting resources) improves grade odds and slot count.</div></div>
     </div>
 
@@ -1089,7 +1086,6 @@ Character total:
       <tr><td>Boss kills</td><td>1&ndash;3 Ichor per kill</td></tr>
       <tr><td>Dismantling Rare+ gear</td><td>R 1 / E 2 / L 4 / A 8 / D 12 / P 20 / V 32</td></tr>
       <tr><td>Deep-floor battle drops (floors 61+)</td><td>~2% chance per battle</td></tr>
-      <tr><td>Chests (manual-only)</td><td>Weighted heavily &mdash; the active-play premium currency</td></tr>
     </table>
     <h4>Gear combining</h4>
     <p>3 &times; same-slot, same-grade gear combine into 1 random base of that slot at the next grade — <strong>capped at Epic</strong>. Grade 5 (market entry tier) is deterministically grindable; Legendary and above only come from the Ichor gamble and lucky drops, protecting high-end market value.</p>
@@ -1101,16 +1097,16 @@ Character total:
     <h2>Economy & marketplace</h2>
 
     <h3>Acquisition &amp; upgrade economy</h3>
-    <p>All progression currencies flow from battles and chests, denominated in battles (~30/hour on autoplay, single active character). Journey milestones are near-deterministic (thousands of drop rolls); the endgame is gated by pure-RNG success rolls with <strong>no pity system anywhere</strong> — the market is the variance smoother. Full numeric tables in <a href="stat-tables.html" style="color:var(--gold-bright)">Stat &amp; Equipment Tables</a>.</p>
+    <p>All progression currencies flow from battles, denominated in battles (~30/hour on autoplay, single active character). Journey milestones are near-deterministic (thousands of drop rolls); the endgame is gated by pure-RNG success rolls with <strong>no pity system anywhere</strong> — the market is the variance smoother. Full numeric tables in <a href="stat-tables.html" style="color:var(--gold-bright)">Stat &amp; Equipment Tables</a>.</p>
     <table>
       <tr><th>Income</th><th>Rate</th></tr>
-      <tr><td>Gear drop</td><td>Per creature defeated, rarity-scaled on the value ladder &times;1/1.5/2.5/4/7, normalized per floor against encounter weights (<code>codex/drop_chances_by_floor.csv</code>) — exactly 10% per battle at every floor; base from the zone table <code>codex/item_drops.csv</code>, at-floor tier, grade weights by floor band per <code>codex/drop_grade_weights.csv</code> (Divine+ never drops)</td></tr>
+      <tr><td>Gear drop</td><td>Per creature defeated, rarity-scaled on the value ladder &times;1/1.5/2.5/4/7, normalized per floor against encounter weights (<code>codex/drop_chances_by_floor.csv</code>) — exactly 10% per battle at every floor; base drawn uniformly among the gear bases (weapons, armour, accessories, tags), at-floor tier, grade weights by floor band per <code>codex/drop_grade_weights.csv</code> (Divine+ never drops)</td></tr>
       <tr><td>Enhancement drop (gem / rune / scroll)</td><td>Per creature defeated, independent roll on the same per-floor table — exactly 10% per battle; even family split, grades one band behind gear</td></tr>
       <tr><td>Egg drop</td><td>Per creature defeated, independent roll on the same per-floor table — exactly 10% per battle; the defeated line's Stage-1 egg, grade from the floor band clamped to the Legendary wild-egg cap</td></tr>
       <tr><td>First-win bonus drops</td><td>The first 10 wild-battle wins each grant additional guaranteed drops on top of normal rolls — Worn T1 gear and gems on an authored ladder, plus eggs (wins 1 and 9) of the lowest-rarity enemy present, random among ties. Boss wins do not advance the counter. Win 1 rolls the accessory family; win 4 grants the complement. Authored in <code>codex/first_win_drops.csv</code>.</td></tr>
       <tr><td>Scrap</td><td>~150/h endgame (dismantling)</td></tr>
-      <tr><td>Ichor</td><td>~10/h endgame (bosses, Rare+ dismantles, deep-floor drops, chests)</td></tr>
-      <tr><td>Dust / Essence / Ink</td><td>~20/h per family endgame (enhancement dismantles, chests)</td></tr>
+      <tr><td>Ichor</td><td>~10/h endgame (bosses, Rare+ dismantles, deep-floor drops)</td></tr>
+      <tr><td>Dust / Essence / Ink</td><td>~20/h per family endgame (enhancement dismantles)</td></tr>
     </table>
     <h4>Progression milestones (per premises)</h4>
     <table>
@@ -1262,7 +1258,7 @@ Your Backend
         <li><span class="phase-num">3</span><span><strong style="color:#ede0c4">Encounter trigger</strong> — battle scene entry, minimal 1v1 battle, return to overworld</span></li>
         <li><span class="phase-num">4</span><span><strong style="color:#ede0c4">Full battle system</strong> — expand to 3v3, moves, status effects, animations</span></li>
         <li><span class="phase-num">5</span><span><strong style="color:#ede0c4">Floor progression</strong> — boss gate, stairs, floor transition, multiple floors</span></li>
-        <li><span class="phase-num">6</span><span><strong style="color:#ede0c4">Floor win condition & chests</strong> — battle win counter, portal unlock, manual one-time chests, chest tracking on map selector</span></li>
+        <li><span class="phase-num">6</span><span><strong style="color:#ede0c4">Floor win condition</strong> — battle win counter, portal unlock</span></li>
         <li><span class="phase-num">7</span><span><strong style="color:#ede0c4">Boss key & boss floors</strong> — key drop chance on pre-boss floors, key consumption, boss floor access via portal or map selector</span></li>
         <li><span class="phase-num">8</span><span><strong style="color:#ede0c4">Autoplay & multi-tab system</strong> — pathfinding, config options, death handler, simultaneous multi-character simulation</span></li>
         <li><span class="phase-num">9</span><span><strong style="color:#ede0c4">Character & class system</strong> — class XP, character level aggregation</span></li>
@@ -1287,8 +1283,8 @@ Your Backend
     <div class="note note-info"><p><strong>Skill trees</strong> — passive skill trees (graph of stat/modifier/keystone nodes, skill points on level-up, respec) for classes and creatures are cut from this iteration. Class and creature power comes from levels, stages, grades, equipment, and souls only. Trees may return as a post-launch depth layer.</p></div>
     <div class="note note-info"><p><strong>Farming</strong> — a timer-based UI system (plant a crop, return after a duration to harvest, yield rendering into crafting materials) was cut from current scope. Crops are therefore <em>not</em> a source of Food: Food comes only from completing battles and dismantling eggs. May return later.</p></div>
     <div class="note note-info"><p><strong>Rogue Collectors</strong> — hostile NPC trainer encounters with patrol routes and line-of-sight triggers, originally part of floor structure. Removed from active scope to keep early development focused. May be reintroduced post-launch or in a content update.</p></div>
-    <div class="note note-info"><p><strong>Gathering nodes & secret areas</strong> — the original handcrafted circuit map design with resource nodes, HM-gated secret areas, and a node-farming layer has been replaced by the simpler battle-win-threshold map design. All equipment and crafting materials now come from battle rewards and chests only. May be reconsidered as a future map variant or content layer.</p></div>
-    <div class="note note-info"><p><strong>Physical base</strong> — the original design included a physical base the Collector could walk around in, with tile-based farming, craftings stations, a hatchery building, and a loot chest to interact with. This has been replaced entirely by UI panels accessible during PvE floors. A physical base may be reintroduced in a future content update as an optional social/cosmetic space.</p></div>
+    <div class="note note-info"><p><strong>Gathering nodes & secret areas</strong> — the original handcrafted circuit map design with resource nodes, HM-gated secret areas, and a node-farming layer has been replaced by the simpler battle-win-threshold map design. All equipment and crafting materials now come from battle rewards only. May be reconsidered as a future map variant or content layer.</p></div>
+    <div class="note note-info"><p><strong>Physical base</strong> — the original design included a physical base the Collector could walk around in, with tile-based farming, craftings stations, a hatchery building. This has been replaced entirely by UI panels accessible during PvE floors. A physical base may be reintroduced in a future content update as an optional social/cosmetic space.</p></div>
     <div class="note note-info"><p><strong>Isometric Exploration</strong> — the original prototype used top-down Gen II–style grid movement with a player avatar, tile-based encounter triggers (grass/cave/fishing), and autoplay pathfinding. Archived in favor of the Simplified Static approach for faster prototyping. The full grid-movement system can be restored from the archived roadmap above.</p></div>
 
     <h3>Open decisions</h3>
@@ -1299,8 +1295,6 @@ Your Backend
       <li>Whether death-marked creatures are tradeable on the marketplace</li>
       <li>Soul Gem XP thresholds for each rank (F through S)</li>
       <li>Whether Soul Gems are tradeable on the Steam marketplace</li>
-      <li>Number of chests per floor (the "x" in the x/x chest tracker)</li>
-      <li>Whether chest contents reset along with the win streak on floor re-entry, or remain collected permanently</li>
     </ul>
   </div>
 
@@ -1331,7 +1325,6 @@ Your Backend
       <tr><td><code>codex/moves.csv</code></td><td>401</td><td>Complete move table — 100 lines &times; 4 moves. Columns: Move_ID (M-{LINE}-{slot}), Line_ID, Slot, Name, Name_S1/S2/S3 (stage-progressive move names), Power_S1/S2/S3, Cooldown, Effect_S1/S2/S3, Synergy, Anti, VFX_Description. Powers use bands 0/50/80/120/160 at S3; S2 &asymp; 80%, S1 &asymp; 60%., Targets (derived, machine-readable: union of effect-clause sides across stages — enemy / self / ally, joined with +; display text remains authoritative for counts and amounts), Level_Learned, Level_Upgrade_V2, Level_Upgrade_V3 (per-line learn/upgrade schedule derived from evolve levels). Row 401 is <code>M-CLASS-STRIKE</code> (Line_ID <code>CLASS</code>, Slot 0) — the character's no-souls fallback; excluded from per-line invariants and schedule regeneration</td></tr>
       <tr><td><code>codex/souls.csv</code></td><td>400</td><td>Soul passive table — 100 lines &times; 4 armor slots (Head/Chest/Gloves/Feet). Columns: Soul_ID (S-{LINE}-{SLOT}), Line_ID, Gear_Slot, Scope (Local/Personal/Team), Rarity, Effect_S3. Magnitudes scale by stage (S1 &asymp; 60%, S2 &asymp; 80%). Ability-slot souls (MH/OH/Acc1/Acc2) grant moves instead — see moves.csv.</td></tr>
       <tr><td><code>codex/breeding.csv</code></td><td>10</td><td>Breeding economy per pair grade. Columns: Grade_Num, Grade, Food_Per_Min, Minutes_Per_Egg, Food_Per_Egg, Egg_Dismantle_Food (the last keyed to egg grade, not pair grade).</td></tr>
-      <tr><td><code>codex/item_drops.csv</code></td><td>220</td><td>Zone-weighted item drop table. Each zone lists which base types drop and at what weight (1 = normal, 2 = zone-weighted 2&times;). Feeds the <a href="reliquary.html" style="color:var(--gold-bright)">Reliquary</a>.</td></tr>
         <tr><td><code>codex/first_win_drops.csv</code></td><td>11</td><td>Guaranteed bonus drops for the first 10 wild-battle wins (boss wins excluded from the counter). All grants spawn Worn T1. Selection rules: fixed Item_ID, random family, complement of win 1, or lowest-rarity enemy egg (random among ties).</td></tr>
         <tr><td><code>codex/drop_rates.csv</code></td><td>5</td><td>Drop roll rules — points to <code>drop_chances_by_floor.csv</code> for chances, plus family notes and the enhancement grade-band rule. Prototypes and the game read from the tables; no hardcoding.</td></tr>
         <tr><td><code>codex/drop_chances_by_floor.csv</code></td><td>100</td><td>Per-kill drop chance by floor and rarity — one independent roll each for gear, enhancement, and egg. Value ladder &times;1/1.5/2.5/4/7 normalized per floor against encounter weights: each family lands exactly 10% per battle everywhere. Boss floors zeroed (no wilds).</td></tr>
@@ -1341,7 +1334,7 @@ Your Backend
       <tr><td><code>codex/floor_assets.csv</code></td><td>100</td><td>Level design pipeline. Per-floor: battle background prompt/path/status, parallax reference, prop assignments, map preview status (empty + populated). Decoupled from floor identity for infinite floor extension.</td></tr>
       <tr><td><code>codex/prop_assets.csv</code></td><td>40</td><td>Zone prop catalog — 3&ndash;4 props + 1 anchor prop per zone, with image prompts and art status.</td></tr>
     </table>
-    <p style="font-size:13px;color:#c2ae8b">Codex pages: <code>floor-codex.html</code> is the zone/floor index (joins floors &rarr; floor_creature_rarity &rarr; creatures by ID) &middot; <code>creature.html?id=DFMC-XXX</code> a single creature &middot; <code>floor.html?num=N</code> and <code>type.html?type=X</code> the floor and type views &middot; <code>reliquary.html</code> filterable item catalog with zone drop weights &middot; <code>crafting.html</code> all crafting recipes and costs &middot; <code>upgrading.html</code> refinement and grading success tables &middot; <code>stat-tables.html</code> full numerical tables.</p>
+    <p style="font-size:13px;color:#c2ae8b">Codex pages: <code>floor-codex.html</code> is the zone/floor index (joins floors &rarr; floor_creature_rarity &rarr; creatures by ID) &middot; <code>creature.html?id=DFMC-XXX</code> a single creature &middot; <code>floor.html?num=N</code> and <code>type.html?type=X</code> the floor and type views &middot; <code>reliquary.html</code> filterable item catalog &middot; <code>crafting.html</code> all crafting recipes and costs &middot; <code>upgrading.html</code> refinement and grading success tables &middot; <code>stat-tables.html</code> full numerical tables.</p>
     <p style="font-size:13px;color:#c2ae8b">GitHub API edit workflow: <code>GET</code> the file's current SHA, then <code>PUT</code> base64-encoded content <em>with</em> that SHA (omitting it fails). Build CSVs with a real CSV writer, never hand-rolled strings, and validate every row's column count before pushing.</p>
 
     <h3>Grade scale (Worn → Void)</h3>

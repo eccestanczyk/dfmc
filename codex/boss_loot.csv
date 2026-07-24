@@ -1,5 +1,5 @@
 Param,Value,Notes
-Gear_Guaranteed_Per_Kill,1,Base: weighted pick from the zone's item_drops Weapon/Armour/Accessory rows; tier = at-floor tier (boss floor).
+Gear_Guaranteed_Per_Kill,1,Base: uniform pick among Weapon/Armour/Accessory bases; tier = at-floor tier (boss floor).
 Gear_Grade_Band_Rule,one_band_ahead,Roll drop_grade_weights one floor band AHEAD of the boss's band; the final band clamps to itself. Divine+ never drops.
 Egg_Guaranteed_Per_Kill,1,"One egg of a line NATIVE to the zone (creatures.csv Home_Zone), Stage-1 egg — evolution intact."
 Egg_Line_Weighting,rarity_appearance,"Native lines weighted by the canonical tier chances 30/30/20/10/10 (C/UC/R/SR/SSR), normalized over tiers present in the zone."

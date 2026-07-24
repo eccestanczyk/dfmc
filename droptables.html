@@ -34,9 +34,9 @@ code{color:var(--gold-bright);}
 
 <section>
   <h2>How Drops Work</h2>
-  <p><strong>Every wild creature defeated makes three independent rolls</strong> — one for <strong>gear</strong>, one for an <strong>enhancement</strong> (gem / rune / scroll, even split), and one for the defeated line's <strong>Stage-1 egg</strong>. Each roll uses the same per-floor chance table below.</p>
+  <p><strong>Every wild creature defeated makes three independent rolls</strong> — one for <strong>gear</strong>, one for an <strong>enhancement</strong> (gem / rune / scroll, even split), and one for the defeated line's <strong>Stage-1 egg</strong>. Each roll uses the same per-floor chance table below. When a gear roll succeeds, the base is a <strong>uniform pick among the gear bases</strong> (weapons, armour, accessories, tags); a successful enhancement roll splits evenly across gem / rune / scroll, uniform within the family.</p>
   <p>Per-kill chances are scaled on the game-wide <strong>rarity value ladder</strong> — <span class="rar-C">C 1.0</span> / <span class="rar-UC">UC 1.5</span> / <span class="rar-R">R 2.5</span> / <span class="rar-SR">SR 4.0</span> / <span class="rar-SSR">SSR 7.0</span> (the same ladder as XP and Food) — and normalized per floor against <code>codex/encounter_weights.csv</code>, so each drop family lands <strong>exactly 10% per battle</strong> (3 kills) in expectation on every floor of the tower. Rarer kills pay better; the floor-wide economy never drifts.</p>
-  <p>All chances on this page are read live from the codex CSVs — <code>drop_chances_by_floor.csv</code>, <code>drop_grade_weights.csv</code>, <code>item_drops.csv</code>, <code>key_drop_rates.csv</code>, <code>boss_loot.csv</code>, <code>first_win_drops.csv</code> — the same tables the game reads. Nothing is hardcoded.</p>
+  <p>All chances on this page are read live from the codex CSVs — <code>drop_chances_by_floor.csv</code>, <code>drop_grade_weights.csv</code>, <code>key_drop_rates.csv</code>, <code>boss_loot.csv</code>, <code>first_win_drops.csv</code> — the same tables the game reads. Nothing is hardcoded.</p>
 </section>
 
 <section>
@@ -55,13 +55,6 @@ code{color:var(--gold-bright);}
 </section>
 
 <section>
-  <h2>Item Pools by Zone</h2>
-  <p>Which base items can drop in each zone, and at what weight. When a gear or enhancement roll succeeds, the base is a weighted pick from the zone's rows — <span style="outline:1px solid var(--gold);outline-offset:1px;padding:0 4px;color:var(--gold-bright);font-weight:700">2</span> marks the zone-weighted 2&times; bases. Dropped gear always spawns at the <strong>at-floor tier</strong>.</p>
-  <div class="tbl-scroll" id="pools-wrap">LOADING…</div>
-  <p class="foot">Source: <code>codex/item_drops.csv</code> · feeds the <a href="reliquary.html" style="color:var(--gold-bright)">Reliquary</a></p>
-</section>
-
-<section>
   <h2>Boss Keys</h2>
   <p>A single zone-specific <strong>Key</strong> (<code>ITM-KEY-010</code>…<code>ITM-KEY-100</code>) is required to enter a boss floor and is consumed on entry. Every wild creature defeated on the zone's 9 preceding floors rolls for that zone's Key, per creature, scaled on the rarity value ladder and normalized so a <strong>minimum-win journey through the zone yields exactly one Key in expectation</strong>.</p>
   <p><strong>Guaranteed key:</strong> the first time a character clears the 9th floor of a zone (floors 9, 19, … 99), a Key is guaranteed to drop — one-time per zone per character.</p>
@@ -72,7 +65,7 @@ code{color:var(--gold-bright);}
 <section>
   <h2>Boss Loot</h2>
   <p>Every boss kill guarantees <strong>two drops</strong>, delivered on the battle-conclusion screen straight to inventory:</p>
-  <p><strong style="color:var(--gold-bright)">One piece of equipment</strong> — a weighted pick from the zone's Weapon / Armour / Accessory pool rows above, at the boss floor's tier, with grade rolled <strong>one band ahead</strong> of the boss's floor band (the final band clamps to itself). Divine+ never drops.</p>
+  <p><strong style="color:var(--gold-bright)">One piece of equipment</strong> — a uniform pick among the Weapon / Armour / Accessory bases, at the boss floor's tier, with grade rolled <strong>one band ahead</strong> of the boss's floor band (the final band clamps to itself). Divine+ never drops.</p>
   <p><strong style="color:var(--gold-bright)">One native egg</strong> — a Stage-1 egg of a line native to the zone (<code>Home_Zone</code>), weighted by the canonical rarity chances 30/30/20/10/10 (<span class="rar-C">C</span>/<span class="rar-UC">UC</span>/<span class="rar-R">R</span>/<span class="rar-SR">SR</span>/<span class="rar-SSR">SSR</span>) normalized over the tiers present in the zone. Grade from the boss's floor band, clamped to the Legendary wild-egg cap — breeding remains the only path to Divine+ and Void creatures.</p>
   <p class="foot">Source: <code>codex/boss_loot.csv</code></p>
 </section>
@@ -92,10 +85,10 @@ code{color:var(--gold-bright);}
     <tbody>
       <tr class="catrow"><td colspan="3">Gear — Character</td></tr>
       <tr><td class="rowhead">Weapon (MH/OH, 6 classes)</td><td>Wild gear roll · boss guaranteed gear · first-win ladder · crafting (<code>25 × tier</code> Scrap, Worn)</td><td>At-floor tier. Grade from the floor band; boss gear one band ahead. Divine+ never drops — Ichor gamble only. Equip: tier N needs character level ≥ (N−1)×10.</td></tr>
-      <tr><td class="rowhead">Armour (Head / Chest / Gloves / Feet)</td><td>Same as weapons; each zone 2&times;-weights one slot</td><td>Same tier, grade, cap, and equip rules as weapons.</td></tr>
+      <tr><td class="rowhead">Armour (Head / Chest / Gloves / Feet)</td><td>Same as weapons</td><td>Same tier, grade, cap, and equip rules as weapons.</td></tr>
       <tr><td class="rowhead">Accessory (Signet +Atk / Relic +HP)</td><td>Same as weapons; win 1 rolls one family, win 4 grants the complement</td><td>Same tier, grade, cap, and equip rules as weapons.</td></tr>
       <tr class="catrow"><td colspan="3">Gear — Creature</td></tr>
-      <tr><td class="rowhead">Tag (Carapace / Fang / Heart)</td><td>Wild gear roll from the zone pool; each zone 2&times;-weights one tag</td><td>At-floor tier, floor-band grade, Divine+ never drops. Equip: tier N needs <em>creature</em> level ≥ (N−1)×10. Full gem/rune/enchant slot rules; no soul socket.</td></tr>
+      <tr><td class="rowhead">Tag (Carapace / Fang / Heart)</td><td>Wild gear roll</td><td>At-floor tier, floor-band grade, Divine+ never drops. Equip: tier N needs <em>creature</em> level ≥ (N−1)×10. Full gem/rune/enchant slot rules; no soul socket.</td></tr>
       <tr class="catrow"><td colspan="3">Enhancements</td></tr>
       <tr><td class="rowhead">Gem (Garnet / Onyx / Bloodstone)</td><td>Wild enhancement roll (even split gem/rune/scroll) · first-win ladder · crafting (<code>6 × tier</code> family material, Worn)</td><td>Grade weights sit <strong>one band behind</strong> gear. Dismantles to Dust.</td></tr>
       <tr><td class="rowhead">Rune (Ruin / Aegis / Vitality)</td><td>Wild enhancement roll · crafting</td><td>One band behind gear. Dismantles to Essence.</td></tr>
@@ -149,29 +142,6 @@ async function loadGrades(){
   }
   document.getElementById('grades-wrap').innerHTML=h+'</tbody></table>';
 }
-async function loadPools(){
-  const [pools,keys]=await Promise.all([csv('codex/item_drops.csv'),csv('codex/key_drop_rates.csv')]);
-  const zones=keys.slice(1).map(c=>c[1]);
-  const cats=[];const map={};
-  for(const c of pools.slice(1)){
-    const cat=c[3],base=c[4],zone=c[0],w=c[5];
-    if(!map[cat]){map[cat]={};cats.push(cat);}
-    if(!map[cat][base])map[cat][base]={};
-    map[cat][base][zone]=w;
-  }
-  let h='<table class="dt-table"><thead><tr><th class="rowhead">Base</th>';
-  zones.forEach((z,i)=>h+=`<th title="${z}">Z${i+1}<br><span style="font-size:9px;letter-spacing:0;text-transform:none;color:var(--ink-dim)">${z}</span></th>`);
-  h+='</tr></thead><tbody>';
-  for(const cat of cats){
-    h+=`<tr class="catrow"><td colspan="${zones.length+1}">${cat}</td></tr>`;
-    for(const base of Object.keys(map[cat])){
-      h+=`<tr><td class="rowhead">${base}</td>`;
-      zones.forEach(z=>{const w=map[cat][base][z];h+=w?`<td${w==='2'?' class="w2"':''}>${w}</td>`:'<td class="zero">—</td>';});
-      h+='</tr>';
-    }
-  }
-  document.getElementById('pools-wrap').innerHTML=h+'</tbody></table>';
-}
 async function loadKeys(){
   const rows=await csv('codex/key_drop_rates.csv');
   let h='<table class="dt-table"><thead><tr><th class="rowhead">Zone</th><th>Key</th><th>Floors</th><th>Min Wins</th><th>Min Kills</th>';
@@ -197,7 +167,7 @@ async function loadFirstWin(){
   }
   document.getElementById('firstwin-wrap').innerHTML=h+'</tbody></table>';
 }
-loadChances();loadGrades();loadPools();loadKeys();loadFirstWin();
+loadChances();loadGrades();loadKeys();loadFirstWin();
 </script>
 <script src="nav.js"></script>
 </body>
