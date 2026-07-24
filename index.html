@@ -689,6 +689,7 @@ FinalDamage = RawDamage
   string   hardcoreSeasonId;   // null if not seasonal
   DateTime hardcoreDeathTime;
 }</pre>
+    <p>Creature instances carry their own <code>diedOnHardcore</code> on the backend record (see Economy &amp; marketplace). The mark is provenance-only and persists through trades — death-marked creatures trade normally.</p>
 
     <div class="note note-warn"><p>Test all four death pipelines and the season-end migration independently. The HC Seasonal → Hardcore Bequest delivery is the most likely source of data bugs.</p></div>
   </div>
@@ -1137,6 +1138,7 @@ Your Backend
       level, moves, stats,
       diedOnHardcore, breedCount
     }</pre></div>
+    <p><strong>Death-marked creatures are fully tradeable.</strong> <code>diedOnHardcore</code> is a backend instance field and persists across ownership transfers — the mark is provenance-only, with no mechanical effect. On fungible Community Market listings the mark is not visible pre-purchase (instances share one ItemDef listing); in peer-to-peer trade offers it is visible on the instance.</p>
     <h3>Item grant flow (server-side only)</h3>
     <ol class="phase-list">
       <li><span class="phase-num">1</span><span>Player completes breed/craft action</span></li>
@@ -1150,11 +1152,11 @@ Your Backend
     <h3>Tradeable vs non-tradeable</h3>
     <table>
       <tr><th>Tradeable</th><th>Not tradeable</th></tr>
-      <tr><td>Creatures (with flags)</td><td>Ladder progress / rank</td></tr>
+      <tr><td>Creatures — instance data and death mark travel with the token</td><td>Ladder progress / rank</td></tr>
       <tr><td>Crafting materials</td><td>Character / class levels</td></tr>
       <tr><td>Cosmetic items</td><td>Base upgrades</td></tr>
       <tr><td>Equipment</td><td>Account-bound starter items</td></tr>
-      <tr><td>Soul Gems (TBD)</td><td>Hardcore death mark status</td></tr>
+      <tr><td>Soul Gems (TBD)</td><td>—</td></tr>
     </table>
   </div>
 
@@ -1292,7 +1294,6 @@ Your Backend
       <li>Cosmetics-only vs convenience items in shop</li>
       <li>Breed count limit per creature</li>
       <li>Which AI art tool to standardize on</li>
-      <li>Whether death-marked creatures are tradeable on the marketplace</li>
       <li>Soul Gem XP thresholds for each rank (F through S)</li>
       <li>Whether Soul Gems are tradeable on the Steam marketplace</li>
     </ul>
