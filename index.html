@@ -270,7 +270,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
       <tr><td>Assassin → Stalker → Nightblade</td><td>6 / 1 / 5</td><td>7 / 2 / 7</td><td>9 / 2 / 9</td><td>Unlock — 50 Ichor</td></tr>
       <tr><td>Professor → Sage → Prophet</td><td>2 / 5 / 5</td><td>2 / 7 / 7</td><td>3 / 8 / 9</td><td>Unlock — 100 Ink</td></tr>
     </table>
-    <div class="note note-info"><p><strong>Class stats are multipliers, not pools.</strong> A class stage stat feeds <code>AxisMult = (3 &times; stat + 5) / 20</code> and multiplies the summed item stats for that axis — Paladin Def 10 means &times;1.75 on all armour Defense; Mage Def 2 means &times;0.55. The character has no innate stat pool; an unarmed character has no Attack. Same curve as creature axis grades.</p></div>
+    <div class="note note-info"><p><strong>Class stats are multipliers, not pools.</strong> A class stage stat feeds <code>AxisMult = (3 &times; stat + 5) / 20</code> and multiplies the summed item stats for that axis — Paladin Def 10 means &times;1.75 on all armour Defense; Mage Def 2 means &times;0.55. The character has no innate stat pool beyond a flat +10 Attack / +10 Defense floor applied after all multipliers (July 2026); gear provides everything else. Same curve as creature axis grades.</p></div>
     <div class="note note-info"><p>Additional class lines (pure-wall, balanced-duelist, speed-specialist, etc.) are reserved as possible future content.</p></div>
 
     <h3>Soul gems</h3>
@@ -518,7 +518,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
       <tr><td style="color:#ede0c4">Core (creatures)</td><td><code>Core(level) = 1.6 &times; (level + 25)</code> — the grade-5 baseline pool (200 at level 100)</td></tr>
       <tr><td style="color:#ede0c4">Axis multiplier</td><td><code>AxisMult(g) = (3g + 5) / 20</code> — grade 1 &times;0.40 &middot; grade 5 &times;1.00 &middot; grade 10 &times;1.75. Same curve for creature axis grades and class stage stats.</td></tr>
       <tr><td style="color:#ede0c4">Creature Atk / Def</td><td><code>(Core(level) + &Sigma; TagStats) &times; AxisMult(grade) &times; QM</code></td></tr>
-      <tr><td style="color:#ede0c4">Character Atk / Def</td><td><code>&Sigma; ItemStats &times; AxisMult(classStageStat) &times; (1 + &Sigma; increased%) &times; &Pi;(more)</code> — the character has no innate pool; gear is everything, the class multiplies it</td></tr>
+      <tr><td style="color:#ede0c4">Character Atk / Def</td><td><code>&Sigma; ItemStats &times; AxisMult(classStageStat) &times; (1 + &Sigma; increased%) &times; &Pi;(more) + 10</code> — gear is everything and the class multiplies it; the flat +10 per axis is an innate floor applied after all multipliers (July 2026)</td></tr>
       <tr><td style="color:#ede0c4">Speed</td><td><code>Speed = axisGrade</code> (flat — no level scaling, no quality scaling, no gear sources; only temporary in-battle stat stages modify turn order)</td></tr>
       <tr><td style="color:#ede0c4">HP</td><td><code>HP = (4 &times; level + 35) &times; (5 + Defense_Grade) / 11 + &Sigma; flat HP items</code> (&times;QM for creatures)</td></tr>
       <tr><td style="color:#ede0c4">Boss HP</td><td><code>Boss HP = 5 &times; Floor + 150</code> — an explicit budget (stored per boss in <code>bosses.csv</code>), replacing creature-formula HP for bosses. Tuned so an on-progression party (2 effective attackers on the boss while its SR actives pressure the third, grade-6 mid-quality striker, average rotation power 100) kills in 8&ndash;13 turns at every boss floor; high-Defense bosses naturally sit at the long end.</td></tr>
@@ -556,7 +556,7 @@ FinalDamage = RawDamage
             × Synergy/Anti clause modifiers × Random(0.9–1.1)
             × (1 + Σ increased%)
             × Π(more multipliers)</pre>
-    <p style="font-size:12px;color:#8a7a5e">Divisor retuned 120 &rarr; 130 (July 2026) alongside the symmetric random band 0.9&ndash;1.1 (mean 1.0, was 0.85&ndash;1.0 mean 0.925) — mean damage is unchanged, hits can now roll over 100%. The <code>+ Attack/50</code> overwhelm term makes absolute stat growth matter: negligible early (level 10 &asymp; +1), it prevents fully-optimized mirror walls from stalling ratio-based damage — validated max-vs-max bands: maxed striker vs maxed char wall 15, maxed creature mirror 16 (HP-stacked creature wall 19), PvE trash still melts.</p>
+    <p style="font-size:12px;color:#8a7a5e">Divisor retuned 120 &rarr; 130 (July 2026) alongside the symmetric random band 0.9&ndash;1.1 (mean 1.0, was 0.85&ndash;1.0 mean 0.925) — mean damage is unchanged, hits can now roll over 100%. The <code>+ Attack/50</code> overwhelm term makes absolute stat growth matter: negligible early (level 10 &asymp; +1), it prevents fully-optimized mirror walls from stalling ratio-based damage — validated max-vs-max bands: maxed striker vs maxed char wall 15, maxed creature mirror 16 (HP-stacked creature wall 19), PvE trash still melts. <strong>Level in the formula is the attacker’s level.</strong> Multi-hit moves (“damage as N hits”) use MovePower / N per hit and split the 2 + Attack/50 term by N; the 0.9–1.1 roll is per hit — a move’s expected total equals its single-hit budget exactly (July 2026).</p>
 
     <h3>Moves</h3>
     <p>Every creature line has exactly <strong>4 fixed moves</strong> — no move customization (creature customization is Tags/equipment only). Moves persist across the 3 evolution stages, growing stronger: Stage 2 ≈ 80% of Stage 3 power with reduced effect magnitudes; Stage 1 ≈ 60% power with one effect component removed. All 400 moves are catalogued in <code>codex/moves.csv</code>.</p>
@@ -966,6 +966,7 @@ Character total:
   CharStat = Σ all ItemStats
            × ClassAxisMult((3 × stageStat + 5) / 20)
            + Σ Team modifiers from souls
+           + 10 innate floor (post-multiplier)
 
   CreatureStat = (Core(level) + Σ TagStats)
                × AxisMult × QM
