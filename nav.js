@@ -40,6 +40,7 @@
     { href: 'crafting.html',       label: 'Crafting' },
   { href: 'upgrading.html',      label: 'Upgrading' },
   { href: 'stat-tables.html',    label: 'Stat Tables' },
+  { href: 'droptables.html',     label: 'Droptables' },
     { href: 'other-systems.html',  label: 'Other Systems' },
     { href: 'index.html',          label: 'Game Design Document' },
   ];
