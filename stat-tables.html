@@ -40,7 +40,7 @@ Creature quality multiplier:       QM       = 0.80 + 0.04 × qualityGrade      (
 Character Attack:   Σ ItemStats(Attack)  × ClassAxisMult + 10   ClassAxisMult = (3 × stageStat + 5) / 20
 Character Defense:  Σ ItemStats(Defense) × ClassAxisMult + 10   (+10 = innate floor, post-multiplier; gear is everything beyond it)
 Character HP:       (4 × level + 35) × (5 + stageDefStat) / 11 + Σ flat HP items
-Character Speed:    15 (flat, no gear sources — only in-battle stat stages)
+Character Speed:    Grade_Speed for the class stage (classes.csv) — a per-class, per-stage value like Attack and Defense, never a constant. No gear sources; only in-battle stat stages move it.
 Boss HP:            5 × Floor + 150   (explicit budget per boss in bosses.csv — not the creature HP formula)
 
 Damage:  RawDamage   = ((2 × Level / 5 + 2) × MovePower × Attack / Defense) / 130 + 2 + Attack / 50
