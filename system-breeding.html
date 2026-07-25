@@ -17,12 +17,15 @@
   <p class="sp-lead">Breeding is a <strong style="color:var(--ink)">continuous pen</strong>, not a transaction. A pair is placed in a pen and the pen is toggled on; from then on it eats <strong style="color:var(--ink)">Food</strong> minute by minute and fills a progress bar. When the bar completes, an egg drops into the inventory and the pen keeps going. Food is the only limiter &mdash; it has no other use in the game.</p>
 
   <h2>The pen grid</h2>
-  <p>Six pens, shown as a 2&times;3 grid. <strong>Pen 1 is unlocked from the start.</strong> The first additional pen is bought with Food; the remaining four are DLC.</p>
+  <p>Six pens, shown as a 2&times;3 grid. <strong>Pen 1 is unlocked from the start.</strong> <strong>Every other pen is bought with Food</strong> (D ruling, July 2026 &mdash; no DLC pens in this version). They unlock in order and the price climbs steeply from the third: the last two are long-haul goals, not purchases. Costs are authored in <code>codex/pen_unlocks.csv</code> and read by the client &mdash; never hardcoded.</p>
   <table>
     <tr><th>Pen</th><th>Unlock</th></tr>
     <tr><td class="lbl">1</td><td>Free &mdash; available from the first hatch</td></tr>
-    <tr><td class="lbl">2</td><td><strong>12,000 Food</strong> &mdash; the one in-game unlock</td></tr>
-    <tr><td class="lbl">3 &ndash; 6</td><td>DLC</td></tr>
+    <tr><td class="lbl">2</td><td><strong>12,000 Food</strong> &mdash; roughly 4h of endgame income</td></tr>
+    <tr><td class="lbl">3</td><td><strong>60,000 Food</strong> &mdash; ~20h</td></tr>
+    <tr><td class="lbl">4</td><td><strong>180,000 Food</strong> &mdash; ~60h</td></tr>
+    <tr><td class="lbl">5</td><td><strong>450,000 Food</strong> &mdash; ~150h</td></tr>
+    <tr><td class="lbl">6</td><td><strong>1,000,000 Food</strong> &mdash; ~330h, the long-haul pen</td></tr>
   </table>
   <div class="note"><strong>What extra pens actually buy.</strong> Not throughput &mdash; Food income caps that regardless of pen count. Extra pens buy <strong>parallelism</strong>: several different pairs, types, and grade-ladders running at once, and no idle time while you swap partners. A player with six pens and a player with two pens hatch the same number of Void eggs per hour; the six-pen player is also climbing five other lines while they do it.</p></div>
 
