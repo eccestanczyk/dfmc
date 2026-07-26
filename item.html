@@ -161,7 +161,7 @@ function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replac
     else if(category==='Rune'){pct=true;stat=(family.indexOf('Aegis')>=0)?'increased % Defense':(family.indexOf('Vitality')>=0)?'increased % HP':'increased % Attack';}
     else {sec.style.display='none';return;}
     document.getElementById('implicit-grid-note').textContent=pct
-      ? stat+' — 1.5% + 0.45% × (grade−1) + 0.15% × tier'
+      ? stat+' — 12% + 1.2% × (grade−1) + 0.6% × tier'
       : stat+' — '+coef+' × tier × GF, GF = 1 + 0.12 × (grade−1)';
     // strictly increasing per +1 tier and +1 grade (half-up rounding, then lift by >=1 vs left/upper neighbour)
     const M=pct?null:liftedM(coef);
