@@ -56,6 +56,14 @@ Never preload other zones' plates, unowned creatures, or unequipped item art. Ho
 in a warm map so the decode is retained — dropping the ref lets the browser evict the decode and
 the asset pops in again on next paint.
 
+## The loading mark
+
+The turning **rune circle** (`assets/ui/battle/rune_circle.png`) is the game's loading icon.
+It ships as a 320px WebP at `play/assets/rune_circle.webp` — served LOCALLY, not from the CDN,
+because the loader paints before any remote fetch could return. It is in the Tier 0 shell warm so
+it is decoded before the veil is drawn, and it turns once every 5.5s (slowed to 22s under
+prefers-reduced-motion). If the loader ever needs another element, it goes local and in Tier 0 too.
+
 ## What "already fine" looks like
 
 Not everything needs work. These were audited and left alone:
