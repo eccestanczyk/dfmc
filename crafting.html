@@ -78,7 +78,9 @@ td{border-bottom:1px solid var(--rule);padding:5px 8px;color:var(--ink-dim);font
     <tr><td>Character gear</td><td>Tier N &rarr; character level &ge; (N&minus;1)&times;10</td></tr>
     <tr><td>Creature Tags</td><td>Tier N &rarr; creature level &ge; (N&minus;1)&times;10</td></tr>
     <tr><td>Enhancement socketing</td><td>Enhancement tier &le; gear's tier</td></tr>
-    <tr><td>Gem/rune removal</td><td>Destroys the enhancement, frees the socket</td></tr>
+    <tr><td>Gem/rune removal</td><td>Returns the gem or rune intact and frees the socket &mdash; enhancements are permanent and behave as portable stat blocks, so one gem can serve every item you own in turn</td></tr>
+    <tr><td>Scroll removal</td><td>Not possible. A socketed scroll can only be overwritten by applying another, which destroys the enchantment it replaces</td></tr>
+    <tr><td>Scroll roll timing</td><td>The enchantment rolls when the scroll is applied, from <code>codex/enchants.csv</code>, and can only take the stat the host item itself carries</td></tr>
   </table>
 
 <script src="nav.js"></script>
