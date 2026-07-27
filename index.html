@@ -231,7 +231,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     └── classXP</pre></div>
 
     <h3>Classes</h3>
-    <p>Six classes, each a <strong>linear evolution line</strong> of three stages — the class evolves cosmetically and grows in stats at the same evolution breakpoints as creatures. There is no branching specialization; a Warrior is always a Warrior, just stronger and re-skinned. Characters use three stat axes only: <strong>Attack, Defense, Speed</strong> (Utility is a creature-only measure — a character can wield any ability regardless of stats). Speed is capped at 10 like all axes and has no gear sources.</p>
+    <p>Six classes, each a <strong>linear evolution line</strong> of three stages. The class advances at <strong>class level 33</strong> (Stage 1 &rarr; 2) and <strong>class level 66</strong> (Stage 2 &rarr; 3) — fixed breakpoints, not the per-line levels creatures use (D ruling, 2026-07-27). Advancing re-skins the character and moves it onto that stage's row in <code>codex/classes.csv</code>, so its Attack / Defense / Speed grades rise with the form; the stage is derived from the class level, so the two can never drift apart. There is no branching specialization; a Warrior is always a Warrior, just stronger and re-skinned. Characters use three stat axes only: <strong>Attack, Defense, Speed</strong> (Utility is a creature-only measure — a character can wield any ability regardless of stats). Speed is capped at 10 like all axes and has no gear sources.</p>
     <p>Stat sums scale by stage, matching creature grade tiers spread across three axes: <strong>Stage 1 ≈ 12 (Common-tier), Stage 2 ≈ 16 (Rare-tier), Stage 3 ≈ 20 (SSR-tier)</strong>. Every axis value stays ≤ 10.</p>
 
     <h4>Starter classes <span style="font-size:12px;color:#8a7a5e">(pick one free at character creation)</span></h4>
@@ -877,7 +877,7 @@ FinalDamage = RawDamage
       <tr><td style="color:#ede0c4">Personal</td><td>Buffs the character's totals — moderate power (5–10% band by rarity)</td><td>Dusthound on Head: "+4% Attack"</td></tr>
       <tr><td style="color:#ede0c4">Team</td><td>Buffs all allies (character + both creatures) — weaker per target but ×3 entities (4–8% band)</td><td>Yggdrasil on Feet: "All allies +7% Defense"</td></tr>
     </table>
-    <p>Soul scope varies per creature per slot, creating targeted build decisions around which soul goes where. Passive magnitudes follow the equipped creature's stage like move grants: Stage 1 ≈ 60%, Stage 2 ≈ 80% of the listed Stage-3 values. Speed never appears on any soul passive. A creature whose soul is equipped in <em>any</em> slot cannot be summoned; one soul per creature across all 8 slots.</p>
+    <p>Soul scope varies per creature per slot, creating targeted build decisions around which soul goes where. Passive magnitudes follow the equipped creature's stage like move grants: Stage 1 ≈ 60%, Stage 2 ≈ 80% of the listed Stage-3 values. Speed never appears on any soul passive. A creature whose soul is equipped in <em>any</em> slot cannot be summoned; one soul per creature across all 8 slots. A socketed creature is still a creature: it earns the same battle XP the party earns, it levels in the socket, and when it crosses its line's <code>Evolve_Level</code> it <strong>evolves there</strong>, playing the same advancement scene a party creature does — which steps its passive and its granted move up a stage band. Soul grade, quality grade and XP all survive the change.</p>
 
     <h4>Soul grading — the final resource sink</h4>
     <p>Every creature's soul has its own <strong>soul grade</strong> on the shared Worn&ndash;Void ladder, independent of the creature's quality grade. All souls start at Worn. Soul grade is a permanent property of the creature — it is <strong>retained through evolution</strong> (Stage 1 &rarr; 2 &rarr; 3) and persists whether the soul is equipped or not. Grading a soul multiplies its output: the passive magnitude on armour slots, or the granted move's power on ability slots.</p>
@@ -1372,7 +1372,7 @@ Your Backend
       <tr><td>Gloves</td><td>Armour — passive</td></tr>
       <tr><td>Feet</td><td>Armour — passive</td></tr>
     </table>
-    <p style="font-size:13px;color:#c2ae8b">Creatures separately have 2 <strong style="color:#ede0c4">Tag</strong> slots (equipment attached to the creature itself, not the character). Tags follow the same grade/socket rules but cannot hold a creature soul.</p>
+    <p style="font-size:13px;color:#c2ae8b">Creatures separately have 2 <strong style="color:#ede0c4">Tag</strong> slots (equipment attached to the creature itself, not the character). Tags follow the same grade/socket rules but cannot hold a creature soul. Each party creature owns its own pair — a tag raises the stats of the creature wearing it and of nobody else — and gems and runes socketed into a tag apply to that creature too.</p>
 
     <h3>Currencies</h3>
     <table>
