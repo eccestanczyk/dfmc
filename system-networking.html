@@ -62,6 +62,10 @@
     which is exactly what <code>idFromName('main')</code> is today.</strong> Their Queues team hit the same wall at ~400 msg/s and
     only got a 10&times; speedup by sharding into consumer-shard objects. Shared objects must therefore be sharded too: a single
     leaderboard object is the same mistake at a smaller scale.</p>
+    <p><strong>Objects never call each other. The Worker orchestrates.</strong> A <code>PlayerDO</code> that awaits a
+    <code>fetch()</code> to another object blocks hibernation for the whole round trip and bills for the wait &mdash; it is the
+    same mistake as an open socket, wearing an internal address. When a battle needs both a player write and a leaderboard
+    submit, the Worker calls each in turn.</p>
     <p>Scheduled work is a <strong>Worker <code>scheduled()</code> cron</strong> that calls into the object.
     Never a DO alarm: <code>setAlarm()</code> is itself billed as a row written and keeps the object awake.
     Also standing: no unqualified <code>DELETE</code> or <code>SELECT</code> in a constructor, and one-off migrations claim
@@ -167,9 +171,12 @@
   <h2>Sharding</h2>
   <table>
     <tr><th>Object</th><th>Holds</th></tr>
-    <tr><td class="lbl">Per-player, <code>idFromName(steamid)</code></td><td>Save, ledger, chain cursor, floor cursors, adventure log</td></tr>
-    <tr><td class="lbl">Shared</td><td>Leaderboards, name uniqueness, game-wide rate counters, anomalies &mdash; anything inherently cross-player</td></tr>
+    <tr><td class="lbl"><code>PlayerDO</code> &mdash; <code>idFromName(steamid)</code></td><td><code>saves</code>, <code>save_hist</code>, <code>ledger</code>, <code>chains</code>, floor cursors, adventure-log rows, <code>entitlements</code></td></tr>
+    <tr><td class="lbl"><code>WorldDO</code> &mdash; shared</td><td><code>lb</code>, <code>lb_snap</code>, <code>names</code> (uniqueness), <code>anomalies</code> and the traffic-review queue, game-wide rate counters, <code>matches</code>, <code>pidowner</code>, <code>ratings</code></td></tr>
   </table>
+  <p>Two <strong>separate classes</strong>, not two names on one class. It keeps the per-player object small and lets the build
+  guard check each explicitly. Shard <code>WorldDO</code> in turn if leaderboards get hot &mdash; a single global leaderboard object
+  is the same mistake at a smaller scale, and it is the one Cloudflare's Queues team hit at ~400 msg/s.</p>
   <p>A single global object caps at ~1,200 players on save size alone, against a 10&nbsp;GB per-object SQLite limit.
   Per-player never needs rebalancing; a fixed shard pool does, every time it grows.</p>
 
@@ -189,6 +196,23 @@
   </table>
   <p>Rows written dominates at every scale, and it is bought down by cadence, not by save size &mdash; a row is a row whether it
   holds 12&nbsp;KB or 655&nbsp;KB. Storage size matters for the 10&nbsp;GB ceiling and for bandwidth, not for this line.</p>
+
+  <h2>Cutover order</h2>
+  <p>Each step depends on the one before it. The whole set lands in the wipe window, because that is the only time step&nbsp;2
+  is free &mdash; afterwards it means moving live saves between objects while players are connected.</p>
+  <table>
+    <tr><th>#</th><th>Step</th><th>Why here</th></tr>
+    <tr><td class="lbl">0</td><td><strong>Build guard + budget alert</strong></td><td>Ships <em>first</em>, before the object is touched. It is the only thing standing between a slip and the six-figure duration bill, and it must exist while the rewrite is happening, not after</td></tr>
+    <tr><td class="lbl">1</td><td><strong>Validate the session in the Worker</strong></td><td>Today nothing knows who is calling until the request is already inside the object. Routing by account is impossible without it, and it is also the abuse fix &mdash; unauthenticated traffic gets a 401 from the Worker instead of costing a DO request</td></tr>
+    <tr><td class="lbl">2</td><td><strong>Route by account</strong> &mdash; <code>idFromName(steamid)</code></td><td>Objects are created lazily on first request, so there is nothing to provision. This is the ceiling being lifted; everything else is optimisation</td></tr>
+    <tr><td class="lbl">3</td><td><strong>Split <code>WorldDO</code> out</strong></td><td>Cross-player state has nowhere to live once players are islands</td></tr>
+    <tr><td class="lbl">4</td><td><strong>Save format</strong> &mdash; logs to rows, pools derived, items by id</td><td>Changes what lives in the object, so it follows the object move. 655&nbsp;KB &rarr; ~12&nbsp;KB</td></tr>
+    <tr><td class="lbl">5</td><td><strong>Write path</strong> &mdash; delete the periodic save, add the debounced flush</td><td>Depends on the format. This is the cost fix: rows written is ~95% of the bill</td></tr>
+    <tr><td class="lbl">6</td><td><strong>Backup sweep</strong> &mdash; Worker cron, fan out across accounts</td><td>Cannot be written until the accounts are sharded; the current cursor walks one table that will no longer exist</td></tr>
+    <tr><td class="lbl">7</td><td>Rate caps, traffic-review queue, then leaderboards back on</td><td>Everything above must be stable first</td></tr>
+  </table>
+  <p><strong>If time runs short, cut 7 and the mirror's version retention.</strong> Steps 0&ndash;5 move together; half of them
+  shipped is worse than none, because the format and the routing each invalidate the old backup path.</p>
 
   <h2>Precedent</h2>
   <p>Where each decision on this page has been done before, so it is not re-litigated from scratch.</p>
@@ -213,7 +237,9 @@
     <tr><td class="lbl">Mirror version retention</td><td>Overwrites in place, so a corrupted save overwrites the good copy. Keep last N</td></tr>
     <tr><td class="lbl">Save trust</td><td><code>/api/save</code> clamps only <code>playerXp</code> and <code>food</code>. <code>classXp</code>, creature XP, items, equipment, wallet, <code>maxFloor</code> and <code>invCap</code> are accepted verbatim; <code>floorNum</code> is range-checked 1&ndash;100 only</td></tr>
     <tr><td class="lbl">Exact ranks</td><td>Wanted; conflicts with the top-200 storage that is built. Any full ranking pass must be paginated across many invocations, never one request</td></tr>
-    <tr><td class="lbl">Build guard</td><td>A check that fails the deploy on the banned Durable Object constructs, plus a Cloudflare budget alert</td></tr>
+    <tr><td class="lbl">Build guard</td><td>A check that fails the deploy on the banned Durable Object constructs, across both classes, plus a Cloudflare budget alert. Step 0 of the cutover</td></tr>
+    <tr><td class="lbl">Single global object</td><td><code>idFromName('main')</code> routes every player through one object &mdash; the thing Cloudflare's own docs say not to build. It is the ceiling, not an optimisation: ~1,200 players on save size and ~1,000 req/s on throughput</td></tr>
+    <tr><td class="lbl">Unauthenticated traffic</td><td>Reaches the object before any session check, so it costs DO requests and duration and can starve one global object. Step 1</td></tr>
   </table>
 </div>
 </body>
