@@ -1380,7 +1380,22 @@ Your Backend
       <tr><td><span style="color:#c2ae8b">Scrap</span></td><td>Refinement (+1 to +10 on gear)</td></tr>
       <tr><td><span style="color:#a855f7">Ichor</span></td><td>Grading up equipment/eggs to the next grade tier</td></tr>
       <tr><td>Food</td><td>Unified breeding currency — from completing battles and dismantling eggs</td></tr>
+      <tr><td><span style="color:#9fe0d0">Wraithgold</span></td><td><strong style="color:#ede0c4">Premium.</strong> Bought with real money — it never drops and no amount of play produces it. Its only sink today is soul-bag expansion. PvP ladder and tournament payouts are planned and will be the only earned source that ever exists.</td></tr>
     </table>
+    <p style="font-size:13px;color:#c2ae8b">Wraithgold buys a <em>determined</em> outcome only. Real money never buys a random draw anywhere in this game — no paid hatch, no paid roll, no paid grading attempt.</p>
+
+    <h3>The two bags</h3>
+    <p>Storage is split. Gear, gems, runes, scrolls, tags and keys go in the <strong style="color:#ede0c4">inventory</strong>. Creatures, eggs and class souls go in the <strong style="color:#ede0c4">soul bag</strong>. They have separate caps and separate expansion currencies, so filling one never squeezes the other.</p>
+    <table>
+      <tr><th></th><th>Inventory</th><th>Soul bag</th></tr>
+      <tr><td>Holds</td><td>Weapons, armour, accessories, tags, gems, runes, scrolls, boss keys</td><td>Creatures, eggs, class souls</td></tr>
+      <tr><td>Starting slots</td><td>78</td><td>30</td></tr>
+      <tr><td>Bought in</td><td>1 slot at a time</td><td>30 slots at a time</td></tr>
+      <tr><td>Maximum</td><td>160</td><td>600</td></tr>
+      <tr><td>Currency</td><td>Scrap (<code>codex/inventory_slots.csv</code>)</td><td>Wraithgold (<code>codex/soul_slots.csv</code>)</td></tr>
+    </table>
+    <p>Soul-bag expansion runs 19 purchases on a rising curve — 50 Wraithgold for the first block of 30, 2,800 for the last, 13,700 for all 600. A class soul occupies a slot for as long as the account owns it; a creature socketed into gear or placed in a breeding pen does not, because it has left the bag. Filters in the soul bag are kind, grade and <strong style="color:#ede0c4">creature type</strong>; creature icons carry their current level; and the default order is class soul, then grade, then creature line, then level.</p>
+    <p>A creature can be dismantled from its details window, which also shows its types as badges in the header. It salvages for the same Food an egg of that grade salvages for. Bulk salvage never touches creatures — that is a deliberate, one-at-a-time act.</p>
 
     <h3>Mutant variants — not "Shiny"</h3>
     <p>The alt-color rare cosmetic variant is called a <strong style="color:#ede0c4">Mutant</strong> in this project. Never "Shiny" — it is easy to slip into by habit; don't.</p>
