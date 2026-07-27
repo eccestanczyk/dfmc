@@ -51,6 +51,17 @@
       <tr><td class="lbl">Hibernateable (current code)</td><td class="yes">~$250 / month</td></tr>
       <tr><td class="lbl">One blocker introduced</td><td class="no">~$101,000 / month</td></tr>
     </table>
+    <h3 style="color:#e0644f">Throughput ceilings</h3>
+    <table>
+      <tr><th>Limit</th><th>Value</th><th>Consequence</th></tr>
+      <tr><td class="lbl">Requests per single object</td><td>~1,000/s soft limit</td><td>Past it the object queues, then returns an overloaded error to the caller</td></tr>
+      <tr><td class="lbl"><code>blockConcurrencyWhile()</code></td><td>~200 req/s at 5ms per call</td><td>Blocks all concurrency unconditionally. Reserve for initialisation and migrations, never regular request handling</td></tr>
+      <tr><td class="lbl">SQLite per object</td><td>10 GB</td><td>Writes fail with <code>SQLITE_FULL</code></td></tr>
+    </table>
+    <p><strong>Cloudflare's own guidance is &ldquo;do not create a single global Durable Object that handles all requests&rdquo; &mdash;
+    which is exactly what <code>idFromName('main')</code> is today.</strong> Their Queues team hit the same wall at ~400 msg/s and
+    only got a 10&times; speedup by sharding into consumer-shard objects. Shared objects must therefore be sharded too: a single
+    leaderboard object is the same mistake at a smaller scale.</p>
     <p>Scheduled work is a <strong>Worker <code>scheduled()</code> cron</strong> that calls into the object.
     Never a DO alarm: <code>setAlarm()</code> is itself billed as a row written and keeps the object awake.
     Also standing: no unqualified <code>DELETE</code> or <code>SELECT</code> in a constructor, and one-off migrations claim
@@ -112,12 +123,15 @@
     <tr><td class="lbl">Whether a battle could be entered</td><td>Server &mdash; it holds the spawn cursor</td></tr>
     <tr><td class="lbl">XP, food, drops, class XP, creature XP</td><td>Server &mdash; derived from its own tables and returned to the client</td></tr>
     <tr><td class="lbl">Player decisions during a fight</td><td>Client &mdash; the only thing it genuinely owns</td></tr>
-    <tr><td class="lbl">Fight simulation</td><td>Client, for now. Guarded by a power-plausibility gate: an unwinnable matchup is refused, not flagged for later review</td></tr>
+    <tr><td class="lbl">Fight simulation &mdash; grind and autoplay</td><td>Client. Guarded by a power-plausibility gate (an unwinnable matchup is refused, not flagged for later review) plus <strong>sampled server re-simulation</strong> of retained inputs, and cross-player statistical anomaly detection</td></tr>
+    <tr><td class="lbl">Fight simulation &mdash; ranked, PvP, leaderboard-defining runs</td><td><strong>Server re-simulates in full.</strong> Cheap for turn-based, and only these runs need it</td></tr>
   </table>
-  <div class="note">Full server-side battle resolution is deliberately <strong>not</strong> planned. Turn-based replay would be
-  cheap in CPU, but extracting the engine into a module both sides import is the largest job on the table and buys little once
-  spawns, entry and rewards are all server-owned. Forging a fight you could not start, against creatures that never spawned,
-  for rewards you do not control, is not worth much.</div>
+  <div class="note">Blanket server-side resolution of <em>every</em> battle is deliberately not planned &mdash; extracting the engine
+  into a module both sides import is the largest job on the table. The documented industry line is the split above: full
+  re-simulation for the competitive surface, plausibility gates and sampled auditing for grind. The idle RPG <em>Firestone</em>
+  runs this exact model &mdash; 99% server-side with the main battle left client-side because the calculation volume does not
+  justify it &mdash; and catches the residual with statistical flagging, reporting roughly 1% of new players banned daily at
+  fewer than 1 wrong call in 500 reports. Note the corollary: <strong>flags feed a human queue, they do not auto-ban.</strong></div>
 
   <h2>Floor spawns are derived, never stored</h2>
   <table>
@@ -134,7 +148,7 @@
   <h2>What the save contains</h2>
   <table>
     <tr><th>Out of the save</th><th>Where it lives instead</th></tr>
-    <tr><td class="lbl">Battle turn logs</td><td>Client-local, replay only. Never uploaded</td></tr>
+    <tr><td class="lbl">Battle turn logs</td><td><strong>Not stored anywhere.</strong> Persist <code>{seed, inputs, resultHash}</code> instead and re-simulate to render a replay. This is Supercell's model: replays are not recordings, they recreate the match from where the player tapped, because storing millions of battles as media is untenable. The same record doubles as the audit artifact</td></tr>
     <tr><td class="lbl">Adventure log, chapters and events</td><td>Server rows, written from data the battle endpoint already receives. Fetched on demand, so a new device keeps the record</td></tr>
     <tr><td class="lbl">Floor spawn pools</td><td>Derived, see above</td></tr>
     <tr><td class="lbl">Item and equipment display fields</td><td>Looked up from <code>items.csv</code> by id. The save keeps id, quantity and instance data only</td></tr>
@@ -166,6 +180,22 @@
   </table>
   <p>Rows written dominates at every scale, and it is bought down by cadence, not by save size &mdash; a row is a row whether it
   holds 12&nbsp;KB or 655&nbsp;KB. Storage size matters for the 10&nbsp;GB ceiling and for bandwidth, not for this line.</p>
+
+  <h2>Precedent</h2>
+  <p>Where each decision on this page has been done before, so it is not re-litigated from scratch.</p>
+  <table>
+    <tr><th>Decision</th><th>Precedent</th></tr>
+    <tr><td class="lbl">Rewards server-derived, combat client-side</td><td><em>Firestone</em> (Holyday Studios): 99% server-side, main battle client-side because the calculation volume does not justify moving it. Residual handled by statistical flagging</td></tr>
+    <tr><td class="lbl">Replays are inputs + seed, re-simulated</td><td>Clash of Clans: replays recreate the match from recorded taps rather than storing video, because millions of battles a day would need far too much storage</td></tr>
+    <tr><td class="lbl">Server owns the seed; verified leaderboard runs</td><td><em>AntGame.io</em>: server generates and controls the seed, the client submits the run, the server re-simulates. Forged submissions are impossible; every leaderboard run is verified</td></tr>
+    <tr><td class="lbl">HMAC commit-reveal so the client cannot look ahead</td><td>The provably-fair construction: publish the hash of a secret server seed first, compute outcomes as <code>HMAC(server_seed, client_seed:nonce)</code>, reveal the seed only afterwards. Works only while the seed stays secret until after resolution</td></tr>
+    <tr><td class="lbl">Never expose the seed to the client</td><td>Diablo II: Resurrected &mdash; a deterministic PRNG with client-visible state was fully reverse-engineered into known-seed farming routes with guaranteed drops</td></tr>
+    <tr><td class="lbl">No periodic autosave; event-driven writes</td><td>Nakama's own guidance: avoid background jobs in favour of an event-driven route so work is only performed for players actually present</td></tr>
+    <tr><td class="lbl">Offline progression banned outright</td><td>Offline income is normally a delta-time calculation against the device clock, and is therefore trivially exploited &mdash; Melvor Idle and Territory Idle both have documented clock-skip exploits. Games that keep it either make time server-authoritative or convert offline time into a capped resource spent while online</td></tr>
+    <tr><td class="lbl">Economic caps rather than anti-automation</td><td>Idle players broadly treat auto-clickers as legitimate optimisation, so the defence is the value ceiling per real second &mdash; here, the 60 spawns/hour spawner &mdash; not client-side automation detection</td></tr>
+    <tr><td class="lbl">Staying custom rather than moving to a BaaS</td><td>Platforms solve auth, IAP receipt validation, leaderboards and sharded storage; they never solve game-rule validation or anti-cheat. PlayFab cut its free tier in March 2026 from 100,000 to 1,000 <em>lifetime</em> players per title, with the replacement tier limited to studios shipping on Xbox &mdash; the lock-in risk in practice</td></tr>
+    <tr><td class="lbl">Per-player actor isolation</td><td>Microsoft Orleans has run Halo backend services since 2011. The model is proven; a published cost postmortem for a live-service game specifically on Durable Objects does not yet exist, so expect undocumented operational edges</td></tr>
+  </table>
 
   <h2>Open</h2>
   <table>
