@@ -14,11 +14,11 @@
 <div class="topbar"><h1 style="font-family:'Cinzel',serif;">ADVENTURE LOG</h1></div>
 <div class="sp-wrap">
   <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; Adventure Log</div>
-  <p class="sp-lead">A permanent, chapter-bound chronicle of everything that has ever happened on the account &mdash; hatches, evolutions, breedings, floor clears, boss kills, deaths, realm events, and every battle fought. The log itself never forgets; only the depth of battle detail is pruned over time.</p>
+  <p class="sp-lead">A permanent, chapter-bound chronicle of everything that has ever happened on the account &mdash; hatches, advancements, breedings, floor clears, boss kills, deaths, realm events, and every battle fought. The log itself never forgets; only the depth of battle detail is pruned over time.</p>
 
   <h2>Architecture &mdash; events, not text</h2>
   <ul class="sp-rules">
-    <li>The log is an <strong>append-only event stream</strong>, not stored prose. Each entry is a compact record: <code>{timestamp, event_type, param_ids[]}</code> &mdash; e.g. <code>{t, HATCH, DFMC-042}</code>, <code>{t, EVOLVE, DFMC-044 &rarr; DFMC-045}</code>, <code>{t, FLOOR_CLEAR, 17}</code>.</li>
+    <li>The log is an <strong>append-only event stream</strong>, not stored prose. Each entry is a compact record: <code>{timestamp, event_type, param_ids[]}</code> &mdash; e.g. <code>{t, HATCH, DFMC-042}</code>, <code>{t, ADVANCE, DFMC-044 &rarr; DFMC-045}</code>, <code>{t, FLOOR_CLEAR, 17}</code>.</li>
     <li>Display text is <strong>rendered at view time</strong> from string templates plus codex CSV data. Renaming a creature or rewording a template retroactively fixes the entire history.</li>
     <li>Cost per event: ~50&ndash;100 bytes. A heavy player producing 500 events/day for a full year is ~180k events &asymp; 15&ndash;20&nbsp;MB in SQLite &mdash; negligible.</li>
     <li>Storage: one local SQLite database, append-only, indexed on date. No server round-trips to read the log.</li>
@@ -36,7 +36,7 @@
     <tr><th>Event</th><th>Params</th><th>Chapter line (rendered)</th></tr>
     <tr><td class="lbl">HATCH</td><td>creature_id, egg_id</td><td>"A creature hatched: &lt;name&gt;."</td></tr>
     <tr><td class="lbl">BREED</td><td>parent_a, parent_b, egg_id</td><td>"&lt;A&gt; and &lt;B&gt; produced an egg."</td></tr>
-    <tr><td class="lbl">EVOLVE</td><td>from_id, to_id</td><td>"&lt;from&gt; evolved into &lt;to&gt;."</td></tr>
+    <tr><td class="lbl">ADVANCE</td><td>from_id, to_id</td><td>"&lt;from&gt; advanced into &lt;to&gt;."</td></tr>
     <tr><td class="lbl">MUTANT_HATCH</td><td>creature_id</td><td>"A mutant variant emerged: &lt;name&gt;."</td></tr>
     <tr><td class="lbl">LEVEL_UP</td><td>creature_id, level</td><td>"&lt;name&gt; reached level &lt;n&gt;." (milestone levels only)</td></tr>
     <tr><td class="lbl">BATTLE</td><td>battle_id + summary</td><td>Summary row with a <strong>Battle Log</strong> button.</td></tr>

@@ -231,7 +231,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     └── classXP</pre></div>
 
     <h3>Classes</h3>
-    <p>Six classes, each a <strong>linear evolution line</strong> of three stages. The class advances at <strong>class level 33</strong> (Stage 1 &rarr; 2) and <strong>class level 66</strong> (Stage 2 &rarr; 3) — fixed breakpoints, not the per-line levels creatures use (D ruling, 2026-07-27). Advancing re-skins the character and moves it onto that stage's row in <code>codex/classes.csv</code>, so its Attack / Defense / Speed grades rise with the form; the stage is derived from the class level, so the two can never drift apart. There is no branching specialization; a Warrior is always a Warrior, just stronger and re-skinned. Characters use three stat axes only: <strong>Attack, Defense, Speed</strong> (Utility is a creature-only measure — a character can wield any ability regardless of stats). Speed is capped at 10 like all axes and has no gear sources.</p>
+    <p>Six classes, each a <strong>linear advancement line</strong> of three stages. The class advances at <strong>class level 33</strong> (Stage 1 &rarr; 2) and <strong>class level 66</strong> (Stage 2 &rarr; 3) — fixed breakpoints, not the per-line levels creatures use (D ruling, 2026-07-27). Advancing re-skins the character and moves it onto that stage's row in <code>codex/classes.csv</code>, so its Attack / Defense / Speed grades rise with the form; the stage is derived from the class level, so the two can never drift apart. There is no branching specialization; a Warrior is always a Warrior, just stronger and re-skinned. Characters use three stat axes only: <strong>Attack, Defense, Speed</strong> (Utility is a creature-only measure — a character can wield any ability regardless of stats). Speed is capped at 10 like all axes and has no gear sources.</p>
     <p>Stat sums scale by stage, matching creature grade tiers spread across three axes: <strong>Stage 1 ≈ 12 (Common-tier), Stage 2 ≈ 16 (Rare-tier), Stage 3 ≈ 20 (SSR-tier)</strong>. Every axis value stays ≤ 10.</p>
 
     <h4>Starter classes <span style="font-size:12px;color:#8a7a5e">(pick one free at character creation)</span></h4>
@@ -304,7 +304,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     </table>
     <p>Same ladder as Food &mdash; one rarity-value scale game-wide. The <code>&frasl;M&#772;(C)</code> normalization holds expected battle XP at exactly 10 &times; L on every floor even as encounter weights drift toward rarer tiers over the run (un-normalized, endgame XP would inflate 2.8&times;). The 4-XP-per-kill floor only lifts level 1&ndash;2 Commons/Uncommons: it makes the worst possible first battle (3 level-1 Commons) grant 12 XP &mdash; a guaranteed full first level (10 needed) with no special-case rule. Baked per-level, per-rarity values are the game-side authority: <code>dfmc-game/Assets/Data/XPCurve.csv</code>.</p>
 
-    <p>The curve is deliberately back-loaded for an autoplay game: <strong>75% of all leveling time sits in levels 90&ndash;100</strong> (50% in the last five levels). Total to max level: <strong>~20,300 battles &asymp; 680&nbsp;h</strong> at 2 minutes per battle. Reaching level 67 &mdash; where wild Stage&nbsp;3 creatures appear &mdash; takes only ~885 battles (~30&nbsp;h). Owned-creature final evolutions land between levels 56&ndash;73 depending on line rarity (see Creature evolutions).</p>
+    <p>The curve is deliberately back-loaded for an autoplay game: <strong>75% of all leveling time sits in levels 90&ndash;100</strong> (50% in the last five levels). Total to max level: <strong>~20,300 battles &asymp; 680&nbsp;h</strong> at 2 minutes per battle. Reaching level 67 &mdash; where wild Stage&nbsp;3 creatures appear &mdash; takes only ~885 battles (~30&nbsp;h). Owned-creature final advancements land between levels 56&ndash;73 depending on line rarity (see Creature advancements).</p>
 
     <h3>XP distribution &amp; level penalty</h3>
     <p>End-of-battle XP is awarded to <strong style="color:#ede0c4">every creature in the party and the avatar</strong>, not only the participants. <strong style="color:#ede0c4">Dying in battle does not forfeit XP</strong> — a fainted creature or downed avatar still receives its full share. Each recipient's XP is then scaled by a penalty based on <em>its own</em> level versus the defeated enemy's level (<code>diff = enemyLevel &minus; recipientLevel</code>). The two directions are asymmetric:</p>
@@ -318,7 +318,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     <h4>Time to milestones by play profile</h4>
     <table>
       <tr><th>Milestone</th><th>Battles</th><th>Casual (3&nbsp;h/day)</th><th>Dedicated (12&nbsp;h/day)</th><th>24/7 autoplay</th></tr>
-      <tr><td>Level 67 &mdash; wild Stage 3 band (final evolutions: Lv 56&ndash;73 by rarity)</td><td>~885</td><td>10 days</td><td>2.5 days</td><td>1.2 days</td></tr>
+      <tr><td>Level 67 &mdash; wild Stage 3 band (final advancements: Lv 56&ndash;73 by rarity)</td><td>~885</td><td>10 days</td><td>2.5 days</td><td>1.2 days</td></tr>
       <tr><td>Level 90</td><td>~5,180</td><td>~2 months</td><td>14 days</td><td>7 days</td></tr>
       <tr><td>Level 100</td><td>~20,300</td><td>~7.5 months</td><td>~2 months</td><td>~1 month</td></tr>
     </table>
@@ -559,7 +559,7 @@ FinalDamage = RawDamage
     <p style="font-size:12px;color:#8a7a5e">Divisor retuned 120 &rarr; 130 (July 2026) alongside the symmetric random band 0.9&ndash;1.1 (mean 1.0, was 0.85&ndash;1.0 mean 0.925) — mean damage is unchanged, hits can now roll over 100%. The <code>+ Attack/50</code> overwhelm term makes absolute stat growth matter: negligible early (level 10 &asymp; +1), it prevents fully-optimized mirror walls from stalling ratio-based damage — validated max-vs-max bands: maxed striker vs maxed char wall 15, maxed creature mirror 16 (HP-stacked creature wall 19), PvE trash still melts. <strong>Level in the formula is the attacker’s level.</strong> Multi-hit moves (“damage as N hits”) use MovePower / N per hit and split the 2 + Attack/50 term by N; the 0.9–1.1 roll is per hit — a move’s expected total equals its single-hit budget exactly (July 2026).</p>
 
     <h3>Moves</h3>
-    <p>Every creature line has exactly <strong>4 fixed moves</strong> — no move customization (creature customization is Tags/equipment only). Moves persist across the 3 evolution stages, growing stronger: Stage 2 ≈ 80% of Stage 3 power with reduced effect magnitudes; Stage 1 ≈ 60% power with one effect component removed. All 400 moves are catalogued in <code>codex/moves.csv</code>.</p>
+    <p>Every creature line has exactly <strong>4 fixed moves</strong> — no move customization (creature customization is Tags/equipment only). Moves persist across the 3 advancement stages, growing stronger: Stage 2 ≈ 80% of Stage 3 power with reduced effect magnitudes; Stage 1 ≈ 60% power with one effect component removed. All 400 moves are catalogued in <code>codex/moves.csv</code>.</p>
     <table>
       <tr><th>Budget rule</th><th>Detail</th></tr>
       <tr><td>Damage-per-turn proxy</td><td><code>DPT = Power / (1 + Cooldown)</code>, anchored at Standard 80 @ CD0 = 80. Heavy 120 @ CD2 = 40, Nuke 160 @ CD3 = 40 — the DPT deficit is the headroom that pays for rider effects.</td></tr>
@@ -601,12 +601,12 @@ FinalDamage = RawDamage
     <h3>Move system</h3>
     <p>Creatures have a fixed set of moves tied to their species and theme. Moves are not swappable or customizable. Hostile effects target enemies only; the sole exception is a deliberate self-cost rider on the caster, permitted when the move's upside is powerful (Monolith Skin's self-slow, Phylactery's post-survival Defense dip). Ally-targeted debuffs do not exist.</p>
     <h4>Move learning &amp; upgrades</h4>
-    <p>Creatures do not start with all four moves, and move versions improve with level — granular power steps between evolutions, not only at them. Both schedules are derived per line from its own evolve levels (E1, E2) and stored in <code>codex/moves.csv</code>:</p>
+    <p>Creatures do not start with all four moves, and move versions improve with level — granular power steps between advancements, not only at them. Both schedules are derived per line from its own advancement levels (E1, E2) and stored in <code>codex/moves.csv</code>:</p>
     <table>
       <tr><th>Event</th><th>Level</th><th>Rule</th></tr>
       <tr><td>Learn (per move)</td><td><code>Level_Learned</code>: 1, then ceil(0.2&middot;E1), ceil(0.4&middot;E1), ceil(0.6&middot;E1)</td><td>Learn order is cheapest cooldown first (ties by slot) — every creature starts with a spammable and earns its signature nuke last.</td></tr>
-      <tr><td>Version 2 (all moves)</td><td><code>Level_Upgrade_V2</code>: ceil(0.8&middot;E1)</td><td>A pre-evolution power surge; the move's _S2 name/power/effect become active.</td></tr>
-      <tr><td>Version 3 (all moves)</td><td><code>Level_Upgrade_V3</code>: ceil((E1+E2)/2)</td><td>Midway between evolutions; the _S3 version becomes active. Versions never lag stage.</td></tr>
+      <tr><td>Version 2 (all moves)</td><td><code>Level_Upgrade_V2</code>: ceil(0.8&middot;E1)</td><td>A pre-advancement power surge; the move's _S2 name/power/effect become active.</td></tr>
+      <tr><td>Version 3 (all moves)</td><td><code>Level_Upgrade_V3</code>: ceil((E1+E2)/2)</td><td>Midway between advancements; the _S3 version becomes active. Versions never lag stage.</td></tr>
     </table>
     <p>The <code>_S1/_S2/_S3</code> move columns denote <strong style="color:#ede0c4">versions</strong>, gated by the upgrade levels above. Wild creatures obey the same schedule at their level (floor = level), so early floors field 1&ndash;2-move wilds; bosses are exempt (fixed kits). <strong style="color:#ede0c4">UI:</strong> on reaching an upgrade level, a power-up popup presents the creature and the move's old version beside its new one — names and numbers side by side.</p>
     <table>
@@ -618,7 +618,7 @@ FinalDamage = RawDamage
     <p>Healing is deliberately rare across creature movesets. Stall is countered through scarcity rather than resource attrition.</p>
 
     <h3>Creatures & characters</h3>
-    <ul><li>Characters level up per class; class level and stage scale power directly (no skill trees in this iteration)</li><li>Creatures level up and have evolution chains</li><li>Evolutions triggered by level, item, or bond — swap CreatureData ScriptableObject, preserve stat history</li></ul>
+    <ul><li>Characters level up per class; class level and stage scale power directly (no skill trees in this iteration)</li><li>Creatures level up and have advancement chains</li><li>Advancements triggered by level, item, or bond — swap CreatureData ScriptableObject, preserve stat history</li></ul>
   </div>
 
   <!-- REALMS -->
@@ -744,15 +744,15 @@ FinalDamage = RawDamage
     </table>
     <div class="note note-info"><p><strong>Open decision:</strong> Does incubation time scale with egg grade (higher = longer wait), or is it a flat timer?</p></div>
 
-    <h3>Creature evolutions</h3>
+    <h3>Creature advancements</h3>
     <table>
       <tr><th>Trigger type</th><th>Example</th></tr>
-      <tr><td>Level threshold</td><td>Evolve at level 27 (per-line, see bands below)</td></tr>
-      <tr><td>Item use</td><td>Use Evolution Stone</td></tr>
+      <tr><td>Level threshold</td><td>Advance at level 27 (per-line, see bands below)</td></tr>
+      <tr><td>Item use</td><td>Use Advancement Stone</td></tr>
       <tr><td>Bond/friendship</td><td>High bond + level up</td></tr>
     </table>
-    <h4>Evolution level bands (by rarity)</h4>
-    <p>Evolution levels are <strong style="color:#ede0c4">per-line</strong>, stored in the <code>Evolve_Level</code> column of <code>codex/creatures.csv</code> (set on Stage&nbsp;1 and Stage&nbsp;2 rows — the level at which that stage evolves to the next). Levels are spread within a rarity band so the player sees evolutions frequently rather than in two synchronized waves. Commons evolve earliest, SSRs latest. Within each rarity, lines cycle evenly through the band by line number (deterministic).</p>
+    <h4>Advancement level bands (by rarity)</h4>
+    <p>Advancement levels are <strong style="color:#ede0c4">per-line</strong>, stored in the <code>Evolve_Level</code> column of <code>codex/creatures.csv</code> (set on Stage&nbsp;1 and Stage&nbsp;2 rows — the level at which that stage advances to the next). Levels are spread within a rarity band so the player sees advancements frequently rather than in two synchronized waves. Commons advance earliest, SSRs latest. Within each rarity, lines cycle evenly through the band by line number (deterministic).</p>
     <table>
       <tr><th>Rarity</th><th>Lines</th><th>S1 &rarr; S2</th><th>S2 &rarr; S3</th></tr>
       <tr><td>Common</td><td>28</td><td>Lv 24&ndash;30</td><td>Lv 56&ndash;64</td></tr>
@@ -799,7 +799,7 @@ FinalDamage = RawDamage
       <tr><th>State</th><th>Condition</th><th>Information visible</th></tr>
       <tr><td>Undiscovered</td><td>Never encountered</td><td>Silhouette only, no data</td></tr>
       <tr><td>Seen</td><td>Encountered in battle at least once</td><td>Name, floor levels found, basic stats ranges visible</td></tr>
-      <tr><td>Acquired</td><td>Hatched from an egg of this creature type</td><td>Full entry — all moves, full stat ranges, evolution chain, egg grade ranges</td></tr>
+      <tr><td>Acquired</td><td>Hatched from an egg of this creature type</td><td>Full entry — all moves, full stat ranges, advancement chain, egg grade ranges</td></tr>
     </table>
 
     <h3>Entry contents (full)</h3>
@@ -817,8 +817,8 @@ FinalDamage = RawDamage
         <div class="card-body">Min and max possible values for each stat (HP, Attack, Defense, Speed, etc.) across all grades. Higher grade creatures have higher stat ceilings.</div>
       </div>
       <div class="card">
-        <div class="card-title">🧬 Evolution chain</div>
-        <div class="card-body">Full evolution tree for the creature line, showing trigger conditions (level, item, bond). Evolution stages link to their own Codex entries.</div>
+        <div class="card-title">🧬 Advancement chain</div>
+        <div class="card-body">Full advancement tree for the creature line, showing trigger conditions (level, item, bond). Advancement stages link to their own Codex entries.</div>
       </div>
     </div>
 
@@ -877,10 +877,10 @@ FinalDamage = RawDamage
       <tr><td style="color:#ede0c4">Personal</td><td>Buffs the character's totals — moderate power (5–10% band by rarity)</td><td>Dusthound on Head: "+4% Attack"</td></tr>
       <tr><td style="color:#ede0c4">Team</td><td>Buffs all allies (character + both creatures) — weaker per target but ×3 entities (4–8% band)</td><td>Yggdrasil on Feet: "All allies +7% Defense"</td></tr>
     </table>
-    <p>Soul scope varies per creature per slot, creating targeted build decisions around which soul goes where. Passive magnitudes follow the equipped creature's stage like move grants: Stage 1 ≈ 60%, Stage 2 ≈ 80% of the listed Stage-3 values. Speed never appears on any soul passive. A creature whose soul is equipped in <em>any</em> slot cannot be summoned; one soul per creature across all 8 slots. A socketed creature is still a creature: it earns the same battle XP the party earns, it levels in the socket, and when it crosses its line's <code>Evolve_Level</code> it <strong>evolves there</strong>, playing the same advancement scene a party creature does — which steps its passive and its granted move up a stage band. Soul grade, quality grade and XP all survive the change.</p>
+    <p>Soul scope varies per creature per slot, creating targeted build decisions around which soul goes where. Passive magnitudes follow the equipped creature's stage like move grants: Stage 1 ≈ 60%, Stage 2 ≈ 80% of the listed Stage-3 values. Speed never appears on any soul passive. A creature whose soul is equipped in <em>any</em> slot cannot be summoned; one soul per creature across all 8 slots. A socketed creature is still a creature: it earns the same battle XP the party earns, it levels in the socket, and when it crosses its line's <code>Evolve_Level</code> it <strong>advances there</strong>, playing the same advancement scene a party creature does — which steps its passive and its granted move up a stage band. Soul grade, quality grade and XP all survive the change.</p>
 
     <h4>Soul grading — the final resource sink</h4>
-    <p>Every creature's soul has its own <strong>soul grade</strong> on the shared Worn&ndash;Void ladder, independent of the creature's quality grade. All souls start at Worn. Soul grade is a permanent property of the creature — it is <strong>retained through evolution</strong> (Stage 1 &rarr; 2 &rarr; 3) and persists whether the soul is equipped or not. Grading a soul multiplies its output: the passive magnitude on armour slots, or the granted move's power on ability slots.</p>
+    <p>Every creature's soul has its own <strong>soul grade</strong> on the shared Worn&ndash;Void ladder, independent of the creature's quality grade. All souls start at Worn. Soul grade is a permanent property of the creature — it is <strong>retained through advancement</strong> (Stage 1 &rarr; 2 &rarr; 3) and persists whether the soul is equipped or not. Grading a soul multiplies its output: the passive magnitude on armour slots, or the granted move's power on ability slots.</p>
     <table>
       <tr><th>Rule</th><th>Detail</th></tr>
       <tr><td style="color:#ede0c4">Multiplier</td><td><code>SoulMult = 1 + 0.05 &times; (grade# &minus; 1)</code> — Worn &times;1.00 &rarr; Void &times;1.45. Stacks multiplicatively with stage scaling (S1 60% / S2 80% / S3 100%).</td></tr>
@@ -1190,7 +1190,7 @@ Your Backend
     </table>
     <h3>ScriptableObject data types</h3>
     <div class="tags">
-      <span class="tag">CharacterData</span><span class="tag">ClassData</span><span class="tag">SoulGemData</span><span class="tag">CreatureData</span><span class="tag">MoveData</span><span class="tag">ItemData</span><span class="tag">FloorData</span><span class="tag">RecipeData</span><span class="tag">SeasonData</span><span class="tag">EncounterTable</span><span class="tag">EvolutionChain</span><span class="tag">LootTable</span><span class="tag">BequestData</span><span class="tag">HatcheryData</span>
+      <span class="tag">CharacterData</span><span class="tag">ClassData</span><span class="tag">SoulGemData</span><span class="tag">CreatureData</span><span class="tag">MoveData</span><span class="tag">ItemData</span><span class="tag">FloorData</span><span class="tag">RecipeData</span><span class="tag">SeasonData</span><span class="tag">EncounterTable</span><span class="tag">AdvancementChain</span><span class="tag">LootTable</span><span class="tag">BequestData</span><span class="tag">HatcheryData</span>
     </div>
     <h3>Save system</h3>
     <ul>
@@ -1268,7 +1268,7 @@ Your Backend
         <li><span class="phase-num">7</span><span><strong style="color:#ede0c4">Boss key & boss floors</strong> — key drop chance on pre-boss floors, key consumption, boss floor access via portal or map selector</span></li>
         <li><span class="phase-num">8</span><span><strong style="color:#ede0c4">Autoplay & multi-tab system</strong> — pathfinding, config options, death handler, simultaneous multi-character simulation</span></li>
         <li><span class="phase-num">9</span><span><strong style="color:#ede0c4">Character & class system</strong> — class XP, character level aggregation</span></li>
-        <li><span class="phase-num">10</span><span><strong style="color:#ede0c4">Codex</strong> — creature catalogue, seen/acquired states, stat ranges, move lists, evolution chains</span></li>
+        <li><span class="phase-num">10</span><span><strong style="color:#ede0c4">Codex</strong> — creature catalogue, seen/acquired states, stat ranges, move lists, advancement chains</span></li>
         <li><span class="phase-num">11</span><span><strong style="color:#ede0c4">Metagame UI</strong> — breeding, crafting, hatchery — all as in-game UI panels accessible during PvE</span></li>
         <li><span class="phase-num">12</span><span><strong style="color:#ede0c4">Player logging system</strong> — event log and battle log, hooked into existing battle/leveling/item systems, file export for PC and mobile share UI</span></li>
         <li><span class="phase-num">13</span><span><strong style="color:#ede0c4">Realms & death pipelines</strong> — all four death paths, Bequest delivery, soul gem generation, season migration</span></li>
@@ -1300,7 +1300,7 @@ Your Backend
       <li>Which AI art tool to standardize on</li>
       <li>Soul Gem XP thresholds for each rank (F through S)</li>
       <li>Whether Soul Gems are tradeable on the Steam marketplace</li>
-      <li>Class XP: earn rule, per-level curve, and stage evolution breakpoints — player and creature curves are committed, the class curve is unauthored; the class/character level stat hooks in Characters predate the multiplier model</li>
+      <li>Class XP: earn rule, per-level curve, and stage advancement breakpoints — player and creature curves are committed, the class curve is unauthored; the class/character level stat hooks in Characters predate the multiplier model</li>
     </ul>
   </div>
 
@@ -1321,14 +1321,14 @@ Your Backend
     <p>These CSVs are the source of truth for creatures and where they appear. The codex site reads them live from the <code>main</code> branch, so updating a CSV updates the site — no page edits needed.</p>
     <table>
       <tr><th>File</th><th>Rows</th><th>Contents</th></tr>
-      <tr><td><code>codex/creatures.csv</code></td><td>300<br>(100 lines &times; 3 stages)</td><td>Full creature roster, one row per evolution stage. Columns: <code>ID, Line_ID, Stage, Name, Type_Primary, Type_Secondary, Type_Tertiary, Background_Key, Rarity, Floor_Found, Encounter_Type, Evolves_From, Evolves_To, Evolve_Level, Grade_Attack, Grade_Defense, Grade_Utility, Grade_Speed, Description, Image_Prompt, Image_Path, Home_Zone, Art_Status, BG_Status, Option_Slots, Sync_Status</code>. IDs run <code>DFMC-001</code>…<code>DFMC-300</code>, assigned per line then stage (line&nbsp;k &rarr; <code>3k-2 / 3k-1 / 3k</code>). <code>Sync_Status</code> tracks game-import state (<code>not_imported</code> / <code>synced</code> / <code>needs_reimport</code>): once a creature is imported into the game, any later change to it flips it to <code>needs_reimport</code> and it's tagged with an amber <code>⟳</code> cue in the admin codex, so only altered creatures are re-imported rather than the whole roster.</td></tr>
+      <tr><td><code>codex/creatures.csv</code></td><td>300<br>(100 lines &times; 3 stages)</td><td>Full creature roster, one row per advancement stage. Columns: <code>ID, Line_ID, Stage, Name, Type_Primary, Type_Secondary, Type_Tertiary, Background_Key, Rarity, Floor_Found, Encounter_Type, Evolves_From, Evolves_To, Evolve_Level, Grade_Attack, Grade_Defense, Grade_Utility, Grade_Speed, Description, Image_Prompt, Image_Path, Home_Zone, Art_Status, BG_Status, Option_Slots, Sync_Status</code>. IDs run <code>DFMC-001</code>…<code>DFMC-300</code>, assigned per line then stage (line&nbsp;k &rarr; <code>3k-2 / 3k-1 / 3k</code>). <code>Sync_Status</code> tracks game-import state (<code>not_imported</code> / <code>synced</code> / <code>needs_reimport</code>): once a creature is imported into the game, any later change to it flips it to <code>needs_reimport</code> and it's tagged with an amber <code>⟳</code> cue in the admin codex, so only altered creatures are re-imported rather than the whole roster.</td></tr>
       <tr><td><code>codex/floors.csv</code></td><td>100</td><td>The 100 floors. Columns: <code>Floor, Zone, Encounter_Type, Is_Boss, Boss_Name, Primary_Type, Tier, Visual_Theme, Description, Cover_Image_Path</code>.</td></tr>
       <tr><td><code>codex/floor_creature_rarity.csv</code></td><td>900<br>(90 wild floors &times; 10 slots)</td><td>The wild-encounter table. Each non-boss floor's 10 tier-slots (3C/3UC/2R/1SR/1SSR) mapped to a <code>Creature_ID</code>. Columns: <code>Floor, Creature_ID, Rarity_Tier</code>. Stage per slot computed <strong style="color:#ede0c4">per line</strong> from each line's <code>Evolve_Level</code> (mixed stages per floor — see level bands below). Boss floors (every 10th) carry no rows — those are defined in <code>codex/bosses.csv</code>. <strong style="color:#ede0c4">Regenerate this whenever <code>creatures.csv</code> IDs change</strong> — the index joins the two by ID.</td></tr>
       <tr><td><code>codex/bosses.csv</code></td><td>10<br>(1 per boss floor)</td><td>Zone-boss definitions, one per boss floor (10, 20, … 100). Columns: <code>Floor, Zone, Boss_Name, Boss_Character, Active_Creature_1, Active_Creature_2, Difficulty_Index, Notes, Boss_ID, Boss_Type_Primary, Boss_Type_Secondary, Boss_Level, Boss_Quality_Grade, Grade_Attack, Grade_Defense, Grade_Utility, Grade_Speed, Move_1..4, Kit_Synergy, Description, Image_Prompt, Image_Path, Art_Status, BG_Status</code>. All ten bosses fully designed — humanoid boss characters with movesets borrowed from their zone's creature lines (S3 magnitudes, slot order: signature / secondary damage / support &times;2), 2 SR actives from the zone's floors; bosses carry no reserves. Rendered at <a href="bosses.html" style="color:var(--gold-bright)">bosses.html</a>.</td></tr>
       <tr><td><code>codex/encounter_weights.csv</code></td><td>—</td><td>Per-floor odds of an encounter rolling into each tier; SSR/SR odds scale up over the run (see "Encounter weights" below).</td></tr>
       <tr><td><code>codex/maptypes.csv</code></td><td>—</td><td>Tileset / map-restyle definitions for floor-art generation.</td></tr>
       <tr><td><code>codex/items.csv</code></td><td>585</td><td>Full item catalog — gems (3 types &times; 10 tiers: Rough &rarr; Sublime), runes (3&times;10: Faded &rarr; Elder), scrolls (10: Tattered &rarr; Fated), class weapons (6 lines &times; 2 hands &times; 10 tiers = 120 pieces, 36 art identities), armour (4 slots &times; 10 named pieces = 40), accessories (2&times;10), tags (3&times;10), materials (5), eggs (300). Gear tier prefixes retired — every weapon and armour tier is a distinct named piece. Columns: <code>Item_ID, Category, Family, Name, Tier, Level_Req, Effect, Flavor_Text, Image_Prompt, Image_Path, Art_Status</code>.</td></tr>
-      <tr><td><code>codex/moves.csv</code></td><td>401</td><td>Complete move table — 100 lines &times; 4 moves. Columns: Move_ID (M-{LINE}-{slot}), Line_ID, Slot, Name, Name_S1/S2/S3 (stage-progressive move names), Power_S1/S2/S3, Cooldown, Effect_S1/S2/S3, Synergy, Anti, VFX_Description. Powers use bands 0/50/80/120/160 at S3; S2 &asymp; 80%, S1 &asymp; 60%., Targets (derived, machine-readable: union of effect-clause sides across stages — enemy / self / ally, joined with +; display text remains authoritative for counts and amounts), Level_Learned, Level_Upgrade_V2, Level_Upgrade_V3 (per-line learn/upgrade schedule derived from evolve levels). Row 401 is <code>M-CLASS-STRIKE</code> (Line_ID <code>CLASS</code>, Slot 0) — the character's no-souls fallback; excluded from per-line invariants and schedule regeneration</td></tr>
+      <tr><td><code>codex/moves.csv</code></td><td>401</td><td>Complete move table — 100 lines &times; 4 moves. Columns: Move_ID (M-{LINE}-{slot}), Line_ID, Slot, Name, Name_S1/S2/S3 (stage-progressive move names), Power_S1/S2/S3, Cooldown, Effect_S1/S2/S3, Synergy, Anti, VFX_Description. Powers use bands 0/50/80/120/160 at S3; S2 &asymp; 80%, S1 &asymp; 60%., Targets (derived, machine-readable: union of effect-clause sides across stages — enemy / self / ally, joined with +; display text remains authoritative for counts and amounts), Level_Learned, Level_Upgrade_V2, Level_Upgrade_V3 (per-line learn/upgrade schedule derived from advancement levels). Row 401 is <code>M-CLASS-STRIKE</code> (Line_ID <code>CLASS</code>, Slot 0) — the character's no-souls fallback; excluded from per-line invariants and schedule regeneration</td></tr>
       <tr><td><code>codex/souls.csv</code></td><td>400</td><td>Soul passive table — 100 lines &times; 4 armor slots (Head/Chest/Gloves/Feet). Columns: Soul_ID (S-{LINE}-{SLOT}), Line_ID, Gear_Slot, Scope (Local/Personal/Team), Rarity, Effect_S3. Magnitudes scale by stage (S1 &asymp; 60%, S2 &asymp; 80%). Ability-slot souls (MH/OH/Acc1/Acc2) grant moves instead — see moves.csv.</td></tr>
       <tr><td><code>codex/breeding.csv</code></td><td>10</td><td>Breeding economy per pair grade. Columns: Grade_Num, Grade, Food_Per_Min, Minutes_Per_Egg, Food_Per_Egg, Egg_Dismantle_Food (the last keyed to egg grade, not pair grade).</td></tr>
         <tr><td><code>codex/wild_quality_weights.csv</code></td><td>10</td><td>Zone-banded quality-grade weights for wild spawns (Worn&ndash;Legendary columns, per-zone rows). Floors 1&ndash;9 all-Worn; curve begins floor 11; Legendary cap. Rolled once at spawn; sets the wild QM and the virtual-tag grade context.</td></tr>
@@ -1422,11 +1422,11 @@ Your Backend
     <p style="font-size:13px;color:#c2ae8b">Types live in <code>Type_Primary</code>/<code>Type_Secondary</code>, plus <code>Type_Tertiary</code> for the rare 3-type line (e.g. VEINMOLD = Fungal/Parasite/Construct). No slash-compound names inside a single field.</p>
 
     <h3>Creature level bands (max level 100, for now)</h3>
-    <p>A creature's floor is its level. Which evolutionary stage appears in the wild is gated <strong style="color:#ede0c4">per line by that line's own evolution levels</strong> (<code>Evolve_Level</code> in <code>codex/creatures.csv</code>) — a line shows its Stage&nbsp;1 form on floors below its S1&rarr;S2 level, Stage&nbsp;2 between its two evolution levels, and Stage&nbsp;3 at or above its S2&rarr;S3 level. Because evolution levels are spread by rarity, floors now carry <strong style="color:#ede0c4">mixed stages</strong>: a Common line can already be Stage&nbsp;3 on a floor where an SSR line is still Stage&nbsp;2. The old fixed 33/66 cutoffs below are the <em>reference midpoint</em> only; actual wild stage per slot is computed from each line's evolution levels and baked into <code>codex/floor_creature_rarity.csv</code> (regenerate whenever <code>Evolve_Level</code> changes).</p>
+    <p>A creature's floor is its level. Which advancement stage appears in the wild is gated <strong style="color:#ede0c4">per line by that line's own advancement levels</strong> (<code>Evolve_Level</code> in <code>codex/creatures.csv</code>) — a line shows its Stage&nbsp;1 form on floors below its S1&rarr;S2 level, Stage&nbsp;2 between its two advancement levels, and Stage&nbsp;3 at or above its S2&rarr;S3 level. Because advancement levels are spread by rarity, floors now carry <strong style="color:#ede0c4">mixed stages</strong>: a Common line can already be Stage&nbsp;3 on a floor where an SSR line is still Stage&nbsp;2. The old fixed 33/66 cutoffs below are the <em>reference midpoint</em> only; actual wild stage per slot is computed from each line's advancement levels and baked into <code>codex/floor_creature_rarity.csv</code> (regenerate whenever <code>Evolve_Level</code> changes).</p>
     <table>
       <tr><th>Band (reference)</th><th>Nominal floors</th><th>Actual wild spread</th></tr>
       <tr><td>Infant (Stage 1)</td><td>1–33</td><td>Floors 1–38 (SSR lines hold S1 latest)</td></tr>
-      <tr><td>Evolved (Stage 2)</td><td>34–66</td><td>Floors 24–72 (Commons reach S2 by ~24)</td></tr>
+      <tr><td>Advanced (Stage 2)</td><td>34–66</td><td>Floors 24–72 (Commons reach S2 by ~24)</td></tr>
       <tr><td>Final (Stage 3)</td><td>67–100</td><td>Floors 57–99 (Commons reach S3 by ~57)</td></tr>
     </table>
     <p style="font-size:13px;color:#c2ae8b">All 100 creature lines are full 3-stage — no exceptions. Rarity (C/UC/R/SR/SSR) is a fixed property of the <em>line</em>, independent of stage, since every creature on a given floor is necessarily the same stage. 100 lines split: 28 Common, 27 Uncommon, 20 Rare, 14 Super Rare, 11 Super Super Rare.</p>
@@ -1443,13 +1443,13 @@ Your Backend
 
     <h3>Per-floor creature encounter rarity (C / UC / R / SR / SSR)</h3>
     <p><strong>Superseded note below</strong> — kept for context, but rarity is now per-line (see level bands above), not per-stage.</p>
-    <p>Not the same scale as equipment/egg Grade above. Every wild (non-boss) floor has exactly 10 encounter slots: 3 Common, 3 Uncommon, 2 Rare, 1 Super Rare, 1 Super Super Rare. The ten boss floors have none. Data lives in <code>codex/floor_creature_rarity.csv</code>. A line's strongest evolution is typically SSR on a zone's earliest floors, shifting down to SR by that zone's later floors.</p>
+    <p>Not the same scale as equipment/egg Grade above. Every wild (non-boss) floor has exactly 10 encounter slots: 3 Common, 3 Uncommon, 2 Rare, 1 Super Rare, 1 Super Super Rare. The ten boss floors have none. Data lives in <code>codex/floor_creature_rarity.csv</code>. A line's strongest advancement is typically SSR on a zone's earliest floors, shifting down to SR by that zone's later floors.</p>
 
     <h3>Creature grading design principle</h3>
-    <p>Each creature line has one fixed set of 4 identity grades — <strong>Attack / Defense / Utility / Speed</strong>, scale 1–10 — that stays constant across every evolution stage in that line. Evolution scales actual battle stats later; it does not change the identity shape.</p>
+    <p>Each creature line has one fixed set of 4 identity grades — <strong>Attack / Defense / Utility / Speed</strong>, scale 1–10 — that stays constant across every advancement stage in that line. Advancement scales actual battle stats later; it does not change the identity shape.</p>
 
     <h3>Creature naming</h3>
-    <p style="font-size:13px;color:#c2ae8b">Every creature line name is a <strong style="color:#ede0c4">single word</strong> — no multi-word names, no "The ___". Dark-fantasy tone, frequently a modified myth or religious reference. <code>Line_ID</code> in the CSV is the uppercase line name. The three evolution stages now carry <strong style="color:#ede0c4">distinct names</strong>: Stage 3 keeps the line name, while Stages 1 and 2 are real-word <em>precursor</em> names drawn from the final name's own myth, etymology, or life-cycle (e.g. Veliger &rarr; Hafgufa &rarr; Kraken; Eyas &rarr; Haggard &rarr; Roc). Applied across all 100 lines in <code>codex/creatures.csv</code>. <code>Line_ID</code> stays the final name, so evolution links and encounter IDs are unaffected.</p>
+    <p style="font-size:13px;color:#c2ae8b">Every creature line name is a <strong style="color:#ede0c4">single word</strong> — no multi-word names, no "The ___". Dark-fantasy tone, frequently a modified myth or religious reference. <code>Line_ID</code> in the CSV is the uppercase line name. The three advancement stages now carry <strong style="color:#ede0c4">distinct names</strong>: Stage 3 keeps the line name, while Stages 1 and 2 are real-word <em>precursor</em> names drawn from the final name's own myth, etymology, or life-cycle (e.g. Veliger &rarr; Hafgufa &rarr; Kraken; Eyas &rarr; Haggard &rarr; Roc). Applied across all 100 lines in <code>codex/creatures.csv</code>. <code>Line_ID</code> stays the final name, so advancement links and encounter IDs are unaffected.</p>
 
     <h3>Image generation conventions</h3>
     <ul>
