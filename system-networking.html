@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Networking Architecture — Herumon Tower</title>
+<link rel="stylesheet" href="theme.css?v=4">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+  .danger{border:2px solid #cf4530;background:rgba(207,69,48,.08);padding:16px 20px;margin:26px 0;border-radius:6px}
+  .danger h2{margin-top:0;color:#e0644f}
+  .danger code{color:#ffb4a6}
+  .note{border-left:3px solid #8f8672;padding:4px 0 4px 16px;margin:18px 0;color:#a99e88}
+  table td.no{color:#e0644f}
+  table td.yes{color:#6fbf73}
+</style>
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">NETWORKING ARCHITECTURE</h1></div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; Networking Architecture</div>
+  <p class="sp-lead">How the client and the backend talk, what each side is allowed to decide, and what every call costs.
+  <strong style="color:var(--ink)">Read this before changing anything in <code>src/worker.js</code> or any code path that makes a network call.</strong>
+  The stack is Cloudflare Workers plus SQLite-backed Durable Objects. The older
+  <a href="system-integrity.html">Save, Economy &amp; Anti-Cheat</a> page describes the retired Unity/UGS design and is kept for its
+  <em>doctrine</em> only &mdash; its named services no longer apply.</p>
+
+  <h2>Doctrine</h2>
+  <table>
+    <tr><th>Rule</th><th>Meaning</th></tr>
+    <tr><td class="lbl">Clients send events and requests, never state</td><td>The save is a prediction cache. A server reconciliation overwrites it. Editing it should be inert.</td></tr>
+    <tr><td class="lbl">Nothing happens offline</td><td>Offline play is banned outright. No queue, no outbox, no banking, no replay of work done while disconnected. On loss of connection autoplay pauses, the battle pauses, and a reconnecting window shows. Play resumes only when the connection returns.</td></tr>
+    <tr><td class="lbl">The server derives rewards</td><td>The client reports what it did, never what it earned. XP, food and drops come from server tables, and the client applies what it is told.</td></tr>
+    <tr><td class="lbl">Cost scales with battles, not with time connected</td><td>An idle account must write nothing. If a player is doing nothing there is nothing to save.</td></tr>
+  </table>
+
+  <div class="danger">
+    <h2>&#9888; Durable Object rules &mdash; a 1000&times; cost risk</h2>
+    <p>Duration is billed in wall-clock time at the full 128&nbsp;MB allocation whenever an object is <em>active</em> or
+    <em>idle but unable to hibernate</em>. An idle object that <em>qualifies</em> for hibernation is not billed at all.
+    Hibernation requires <strong>all</strong> of: no <code>setTimeout</code>/<code>setInterval</code>, no in-progress awaited
+    <code>fetch()</code>, no standard WebSocket API, and no request still being processed. It then hibernates after 10s idle.</p>
+    <p><strong>Nothing inside a Durable Object class may ever use <code>setTimeout</code>, <code>setInterval</code>, a plain
+    WebSocket <code>accept()</code>, or an awaited <code>fetch()</code>.</strong> Any one of them makes the object permanently
+    non-hibernateable. With a request arriving every few seconds the object then never leaves the billed idle state.</p>
+    <table>
+      <tr><th>At 300k players &times; 24h</th><th>Duration cost</th></tr>
+      <tr><td class="lbl">Hibernateable (current code)</td><td class="yes">~$250 / month</td></tr>
+      <tr><td class="lbl">One blocker introduced</td><td class="no">~$101,000 / month</td></tr>
+    </table>
+    <p>Scheduled work is a <strong>Worker <code>scheduled()</code> cron</strong> that calls into the object.
+    Never a DO alarm: <code>setAlarm()</code> is itself billed as a row written and keeps the object awake.
+    Also standing: no unqualified <code>DELETE</code> or <code>SELECT</code> in a constructor, and one-off migrations claim
+    their completion flag <em>before</em> doing the work.</p>
+  </div>
+
+  <h2>Endpoints &mdash; who calls what</h2>
+  <table>
+    <tr><th>Endpoint</th><th>Caller</th><th>Trigger</th><th>Writes</th></tr>
+    <tr><td class="lbl"><code>/api/me</code></td><td>Shell</td><td>Connection check, 15s poll and on tab return</td><td>none</td></tr>
+    <tr><td class="lbl"><code>/api/save</code> GET</td><td>Shell</td><td>Boot. Server copy wins on <code>ts &gt;=</code> local</td><td>none</td></tr>
+    <tr><td class="lbl"><code>/api/save</code> POST</td><td>Game</td><td>Debounced action flush, and forced boundaries</td><td>1 coalesced row</td></tr>
+    <tr><td class="lbl"><code>/api/battle</code></td><td>Game</td><td>Once per battle. Returns rewards and the replacement spawn</td><td>1 coalesced row</td></tr>
+    <tr><td class="lbl"><code>/api/floor/enter</code></td><td>Game</td><td>Floor entry. Returns the derived pool and accrued refill</td><td>1 row (cursor)</td></tr>
+    <tr><td class="lbl"><code>/api/entitlements/pending</code></td><td>Game</td><td>Load, and after purchase</td><td>none</td></tr>
+    <tr><td class="lbl"><code>/api/name/claim</code></td><td>Game</td><td>Immediate, never debounced &mdash; cross-player uniqueness</td><td>1 row</td></tr>
+    <tr><td class="lbl"><code>/api/pvp/finish</code></td><td>Game</td><td>Immediate &mdash; another player is waiting</td><td>shared object</td></tr>
+    <tr><td class="lbl"><code>/api/lb/*</code></td><td>Game</td><td>Board view, edge-cached; submit on change</td><td>shared object</td></tr>
+    <tr><td class="lbl"><code>/api/usage</code>, <code>/api/backup/*</code>, <code>/api/feedback/export</code></td><td>Tooling</td><td>Key-gated, <code>FEEDBACK_KEY</code>. Note the export param is <code>k</code>, not <code>key</code></td><td>varies</td></tr>
+  </table>
+
+  <h2>The write path &mdash; only two writers</h2>
+  <p>There is <strong>no periodic autosave</strong>. A player sitting in a menu costs nothing.</p>
+  <table>
+    <tr><th>Writer</th><th>Cadence</th><th>Notes</th></tr>
+    <tr><td class="lbl"><code>/api/battle</code></td><td>One per battle</td><td>Irreducible &mdash; it is the game. Capped by the spawner at 60/hour/floor.</td></tr>
+    <tr><td class="lbl">Action flush</td><td>10s debounce, reset on each action</td><td>A whole loadout rework becomes one call.</td></tr>
+  </table>
+
+  <h3>Safe to debounce</h3>
+  <table>
+    <tr><th>System</th><th>Why</th></tr>
+    <tr><td class="lbl">Equip, unequip, swap</td><td>Rearranging owned items; only the resting state matters</td></tr>
+    <tr><td class="lbl">Socket and unsocket gems, runes, souls</td><td>Intermediate states are noise</td></tr>
+    <tr><td class="lbl">Inventory sort, party composition, pen assignment</td><td>Pure arrangement</td></tr>
+    <tr><td class="lbl">Settings, autoplay config</td><td>No server arbitration</td></tr>
+    <tr><td class="lbl">Dismantle</td><td>Own items, own scrap. A lost call leaves the item; the next flush heals it</td></tr>
+  </table>
+
+  <h3>Never debounced &mdash; send immediately</h3>
+  <table>
+    <tr><th>System</th><th>Why</th></tr>
+    <tr><td class="lbl">Purchases and entitlement acks</td><td>Real money gets zero-loss durability regardless of cadence cost. The ack lives in the <em>save</em>, never the ledger &mdash; a ledger-side ack survives a restore and silently loses the purchase</td></tr>
+    <tr><td class="lbl">Name claim</td><td>Cross-player uniqueness needs arbitration</td></tr>
+    <tr><td class="lbl">PvP actions</td><td>Another player is blocked on it</td></tr>
+    <tr><td class="lbl">Hardcore death</td><td>Irreversible and character-ending</td></tr>
+    <tr><td class="lbl">Boss key consumption</td><td>Gates zone progression; a lost call duplicates the key</td></tr>
+  </table>
+
+  <h3>Forced flush boundaries</h3>
+  <p>A debounce may only ever be pending while the player is fiddling in menus &mdash; never while the server is being asked to
+  judge something. Flush immediately on: <strong>battle entry, floor entry, boss entry, any purchase, <code>pagehide</code>,
+  and on reconnect.</strong> Otherwise the server validates a battle against a stale loadout.</p>
+
+  <h2>Trust boundary</h2>
+  <table>
+    <tr><th>Fact</th><th>Who decides</th></tr>
+    <tr><td class="lbl">What spawned on a floor</td><td>Server &mdash; derived, see below</td></tr>
+    <tr><td class="lbl">Whether a battle could be entered</td><td>Server &mdash; it holds the spawn cursor</td></tr>
+    <tr><td class="lbl">XP, food, drops, class XP, creature XP</td><td>Server &mdash; derived from its own tables and returned to the client</td></tr>
+    <tr><td class="lbl">Player decisions during a fight</td><td>Client &mdash; the only thing it genuinely owns</td></tr>
+    <tr><td class="lbl">Fight simulation</td><td>Client, for now. Guarded by a power-plausibility gate: an unwinnable matchup is refused, not flagged for later review</td></tr>
+  </table>
+  <div class="note">Full server-side battle resolution is deliberately <strong>not</strong> planned. Turn-based replay would be
+  cheap in CPU, but extracting the engine into a module both sides import is the largest job on the table and buys little once
+  spawns, entry and rewards are all server-owned. Forging a fight you could not start, against creatures that never spawned,
+  for rewards you do not control, is not worth much.</div>
+
+  <h2>Floor spawns are derived, never stored</h2>
+  <table>
+    <tr><th>Element</th><th>Rule</th></tr>
+    <tr><td class="lbl">Identity</td><td><code>HMAC(serverSecret, account + floor + DATA_PIN + spawnIndex)</code>. The secret never leaves the server, so there is no lookahead: a player cannot compute future spawns</td></tr>
+    <tr><td class="lbl">Refill</td><td>Lazy on access: <code>min(elapsed_minutes, 10 &minus; current)</code>, overflow discarded, frozen at cap. Only spawns whose 60s has <em>already elapsed</em> are ever sent</td></tr>
+    <tr><td class="lbl">Consistency</td><td>Index <em>N</em> always resolves to the same creature, so a spawn keeps its identity and roll until killed, and re-entry never rerolls</td></tr>
+    <tr><td class="lbl">Stored</td><td><code>{lastAccessTs, liveIndices[], cursor, pin}</code> per floor, ~50 bytes. The save stores nothing about pools</td></tr>
+    <tr><td class="lbl">Delivery</td><td>Floor entry, and on the <code>/api/battle</code> response. Respawns cost no extra request</td></tr>
+    <tr><td class="lbl">Data changes</td><td>The pin is stored per floor so live spawns keep their identity; only new indices use the new pin</td></tr>
+  </table>
+  <div class="note">The server secret is load-bearing. Rotating it rerolls the world for everyone. Treat it like <code>DATA_PIN</code>: set once, never rotated casually.</div>
+
+  <h2>What the save contains</h2>
+  <table>
+    <tr><th>Out of the save</th><th>Where it lives instead</th></tr>
+    <tr><td class="lbl">Battle turn logs</td><td>Client-local, replay only. Never uploaded</td></tr>
+    <tr><td class="lbl">Adventure log, chapters and events</td><td>Server rows, written from data the battle endpoint already receives. Fetched on demand, so a new device keeps the record</td></tr>
+    <tr><td class="lbl">Floor spawn pools</td><td>Derived, see above</td></tr>
+    <tr><td class="lbl">Item and equipment display fields</td><td>Looked up from <code>items.csv</code> by id. The save keeps id, quantity and instance data only</td></tr>
+  </table>
+  <p>Measured against a real save: <strong>655&nbsp;KB &rarr; ~12&nbsp;KB</strong>. Turn logs alone were 68% of it.</p>
+
+  <h2>Sharding</h2>
+  <table>
+    <tr><th>Object</th><th>Holds</th></tr>
+    <tr><td class="lbl">Per-player, <code>idFromName(steamid)</code></td><td>Save, ledger, chain cursor, floor cursors, adventure log</td></tr>
+    <tr><td class="lbl">Shared</td><td>Leaderboards, name uniqueness, game-wide rate counters, anomalies &mdash; anything inherently cross-player</td></tr>
+  </table>
+  <p>A single global object caps at ~1,200 players on save size alone, against a 10&nbsp;GB per-object SQLite limit.
+  Per-player never needs rebalancing; a fixed shard pool does, every time it grows.</p>
+
+  <h2>Cost model</h2>
+  <p>Rates: DO requests $0.15/M after 1M; duration $12.50/M GB-s after 400k; rows written $1.00/M after 50M;
+  rows read $0.001/M after 25B; SQLite storage 5&nbsp;GB included. R2 $0.015/GB-month, $4.50/M Class&nbsp;A.</p>
+  <table>
+    <tr><th>Line</th><th>300k &times; 24/7</th><th>300k, 30% &times; 8h</th></tr>
+    <tr><td class="lbl">Rows written</td><td>$13,990</td><td>$1,354</td></tr>
+    <tr><td class="lbl">Worker requests</td><td>$4,860</td><td>$483</td></tr>
+    <tr><td class="lbl">DO requests</td><td>$2,430</td><td>$243</td></tr>
+    <tr><td class="lbl">Worker CPU</td><td>$324</td><td>$32</td></tr>
+    <tr><td class="lbl">DO duration</td><td>$250</td><td>$20</td></tr>
+    <tr><td class="lbl">Storage (3.6&nbsp;GB)</td><td>$0</td><td>$0</td></tr>
+    <tr><td class="lbl">R2 backups</td><td>$45</td><td>$45</td></tr>
+    <tr><td class="lbl"><strong>Total</strong></td><td><strong>~$21,900</strong></td><td><strong>~$2,180</strong></td></tr>
+  </table>
+  <p>Rows written dominates at every scale, and it is bought down by cadence, not by save size &mdash; a row is a row whether it
+  holds 12&nbsp;KB or 655&nbsp;KB. Storage size matters for the 10&nbsp;GB ceiling and for bandwidth, not for this line.</p>
+
+  <h2>Open</h2>
+  <table>
+    <tr><th>Item</th><th>State</th></tr>
+    <tr><td class="lbl">Backup sweep</td><td>The bucket exists and the binding is live, but <strong>nothing schedules the sweep</strong> &mdash; no cron trigger, no <code>scheduled()</code> handler, zero objects in the bucket. Prove it by making a save and seeing an object appear</td></tr>
+    <tr><td class="lbl">Mirror version retention</td><td>Overwrites in place, so a corrupted save overwrites the good copy. Keep last N</td></tr>
+    <tr><td class="lbl">Save trust</td><td><code>/api/save</code> clamps only <code>playerXp</code> and <code>food</code>. <code>classXp</code>, creature XP, items, equipment, wallet, <code>maxFloor</code> and <code>invCap</code> are accepted verbatim; <code>floorNum</code> is range-checked 1&ndash;100 only</td></tr>
+    <tr><td class="lbl">Exact ranks</td><td>Wanted; conflicts with the top-200 storage that is built. Any full ranking pass must be paginated across many invocations, never one request</td></tr>
+    <tr><td class="lbl">Build guard</td><td>A check that fails the deploy on the banned Durable Object constructs, plus a Cloudflare budget alert</td></tr>
+  </table>
+</div>
+</body>
+</html>
