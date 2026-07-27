@@ -123,9 +123,18 @@
     <tr><td class="lbl">Whether a battle could be entered</td><td>Server &mdash; it holds the spawn cursor</td></tr>
     <tr><td class="lbl">XP, food, drops, class XP, creature XP</td><td>Server &mdash; derived from its own tables and returned to the client</td></tr>
     <tr><td class="lbl">Player decisions during a fight</td><td>Client &mdash; the only thing it genuinely owns</td></tr>
-    <tr><td class="lbl">Fight simulation &mdash; grind and autoplay</td><td>Client. Guarded by a power-plausibility gate (an unwinnable matchup is refused, not flagged for later review) plus <strong>sampled server re-simulation</strong> of retained inputs, and cross-player statistical anomaly detection</td></tr>
-    <tr><td class="lbl">Fight simulation &mdash; ranked, PvP, leaderboard-defining runs</td><td><strong>Server re-simulates in full.</strong> Cheap for turn-based, and only these runs need it</td></tr>
+    <tr><td class="lbl">Fight simulation</td><td>Client, everywhere. Guarded by a <strong>power-plausibility gate</strong> &mdash; an unwinnable matchup is refused at the request, not flagged for later review &mdash; plus cross-player statistical anomaly detection</td></tr>
   </table>
+  <h3>Re-simulation: considered and rejected (D ruling)</h3>
+  <p>Deterministic replay <em>does</em> account for player choices &mdash; the choices are the inputs, and for autoplay there are none
+  to send because the heuristic is deterministic. It was rejected anyway, because it requires the battle engine to run
+  server-side, which is the engine-extraction job already ruled out. <strong>Do not re-propose it as a cheap addition; it is
+  that job wearing a different name.</strong></p>
+  <p>What the power gate does not catch, accepted knowingly: a forged win in a fight that was <em>plausibly</em> winnable, and an
+  understated <code>turns</code> count (which feeds the rate cap). The exposure is bounded because the server already owns what
+  spawned, whether the battle could be entered, and what the rewards are &mdash; and the spawner caps a player at 60 battles an
+  hour. The most a forger converts is some losses into wins, at a rate they were already limited to, visibly out of line with
+  their power in the statistics.</p>
   <div class="note">Blanket server-side resolution of <em>every</em> battle is deliberately not planned &mdash; extracting the engine
   into a module both sides import is the largest job on the table. The documented industry line is the split above: full
   re-simulation for the competitive surface, plausibility gates and sampled auditing for grind. The idle RPG <em>Firestone</em>
@@ -148,7 +157,7 @@
   <h2>What the save contains</h2>
   <table>
     <tr><th>Out of the save</th><th>Where it lives instead</th></tr>
-    <tr><td class="lbl">Battle turn logs</td><td><strong>Not stored anywhere.</strong> Persist <code>{seed, inputs, resultHash}</code> instead and re-simulate to render a replay. This is Supercell's model: replays are not recordings, they recreate the match from where the player tapped, because storing millions of battles as media is untenable. The same record doubles as the audit artifact</td></tr>
+    <tr><td class="lbl">Battle turn logs</td><td><strong>Client-local.</strong> They feed the adventure log on the device and are never uploaded. The server keeps only the ~185-byte battle metadata row, which is what a new device fetches</td></tr>
     <tr><td class="lbl">Adventure log, chapters and events</td><td>Server rows, written from data the battle endpoint already receives. Fetched on demand, so a new device keeps the record</td></tr>
     <tr><td class="lbl">Floor spawn pools</td><td>Derived, see above</td></tr>
     <tr><td class="lbl">Item and equipment display fields</td><td>Looked up from <code>items.csv</code> by id. The save keeps id, quantity and instance data only</td></tr>
@@ -186,8 +195,8 @@
   <table>
     <tr><th>Decision</th><th>Precedent</th></tr>
     <tr><td class="lbl">Rewards server-derived, combat client-side</td><td><em>Firestone</em> (Holyday Studios): 99% server-side, main battle client-side because the calculation volume does not justify moving it. Residual handled by statistical flagging</td></tr>
-    <tr><td class="lbl">Replays are inputs + seed, re-simulated</td><td>Clash of Clans: replays recreate the match from recorded taps rather than storing video, because millions of battles a day would need far too much storage</td></tr>
-    <tr><td class="lbl">Server owns the seed; verified leaderboard runs</td><td><em>AntGame.io</em>: server generates and controls the seed, the client submits the run, the server re-simulates. Forged submissions are impossible; every leaderboard run is verified</td></tr>
+    <tr><td class="lbl">Replays as inputs, not recordings &mdash; <em>noted, not adopted</em></td><td>Clash of Clans recreates a match from recorded taps rather than storing video. DFMC keeps turn logs client-side instead, because it does not run the engine server-side and so cannot recreate anything</td></tr>
+    <tr><td class="lbl">Server-verified leaderboard runs &mdash; <em>considered, rejected</em></td><td><em>AntGame.io</em> controls the seed, takes the client's run, and re-simulates it, so no submission can be forged. Rejected here on cost: it needs the engine server-side</td></tr>
     <tr><td class="lbl">HMAC commit-reveal so the client cannot look ahead</td><td>The provably-fair construction: publish the hash of a secret server seed first, compute outcomes as <code>HMAC(server_seed, client_seed:nonce)</code>, reveal the seed only afterwards. Works only while the seed stays secret until after resolution</td></tr>
     <tr><td class="lbl">Never expose the seed to the client</td><td>Diablo II: Resurrected &mdash; a deterministic PRNG with client-visible state was fully reverse-engineered into known-seed farming routes with guaranteed drops</td></tr>
     <tr><td class="lbl">No periodic autosave; event-driven writes</td><td>Nakama's own guidance: avoid background jobs in favour of an event-driven route so work is only performed for players actually present</td></tr>
