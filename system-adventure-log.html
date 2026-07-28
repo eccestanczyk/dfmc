@@ -34,15 +34,15 @@
   <h2>Event types</h2>
   <table>
     <tr><th>Event</th><th>Params</th><th>Chapter line (rendered)</th></tr>
-    <tr><td class="lbl">HATCH</td><td>creature_id, egg_id</td><td>"A creature hatched: &lt;name&gt;."</td></tr>
-    <tr><td class="lbl">BREED</td><td>parent_a, parent_b, egg_id</td><td>"&lt;A&gt; and &lt;B&gt; produced an egg."</td></tr>
-    <tr><td class="lbl">ADVANCE</td><td>from_id, to_id</td><td>"&lt;from&gt; advanced into &lt;to&gt;."</td></tr>
-    <tr><td class="lbl">MUTANT_HATCH</td><td>creature_id</td><td>"A mutant variant emerged: &lt;name&gt;."</td></tr>
-    <tr><td class="lbl">LEVEL_UP</td><td>creature_id, level</td><td>"&lt;name&gt; reached level &lt;n&gt;." (milestone levels only)</td></tr>
+    <tr><td class="lbl">HATCH</td><td>name, <strong>grade</strong>, <strong>sex</strong>, <strong>eggGrade</strong>, <strong>pen</strong> or <strong>floor</strong>, bred, types</td><td>"A creature hatched: <strong>Rare Fawn (F)</strong>, bred in pen 2 from an Uncommon egg."</td></tr>
+    <tr><td class="lbl">BREED</td><td>a, b, <strong>ag</strong>/<strong>bg</strong> (parent grades), <strong>pen</strong>, <strong>grade</strong>, <strong>species</strong></td><td>"Riptide [Epic] and Naiad [Rare] in pen 3 produced a Rare Fry egg."</td></tr>
+    <tr><td class="lbl">ADVANCE</td><td>from, to, <strong>lv</strong>, <strong>stage</strong></td><td>"Fawn advanced into Hart at level 18 &middot; stage 2."</td></tr>
+    <tr><td class="lbl">MUTANT_HATCH</td><td>same fields as HATCH</td><td>"A mutant variant emerged: Epic Nommo (M), bred in pen 1 from a Rare egg."</td></tr>
+    <tr><td class="lbl">LEVEL_UP</td><td>name, lv, <strong>from</strong></td><td>"Ingot reached level 33 (from 32)."</td></tr>
     <tr><td class="lbl">BATTLE</td><td>battle_id + summary</td><td>Summary row with a <strong>Battle Log</strong> button.</td></tr>
     <tr><td class="lbl">FLOOR_CLEAR</td><td>floor</td><td>"Portal opened &mdash; floor &lt;n&gt; cleared."</td></tr>
-    <tr><td class="lbl">BOSS_DEFEATED</td><td>boss_id, floor</td><td>"&lt;boss&gt; has fallen."</td></tr>
-    <tr><td class="lbl">DEATH</td><td>creature_id, pipeline</td><td>"&lt;name&gt; died &mdash; &lt;pipeline outcome&gt;."</td></tr>
+    <tr><td class="lbl">BOSS_DEFEATED</td><td>name, <strong>floor</strong>, <strong>rounds</strong>, <strong>survivors</strong></td><td>"Pelagos, the Trench Warden has fallen on floor 20 in 7 rounds &middot; 2/3 standing."</td></tr>
+    <tr><td class="lbl">DEATH</td><td>name, <strong>floor</strong>, <strong>killer</strong>, <strong>rounds</strong>, pipeline</td><td>"Monkey died on floor 31 to Gorgon &mdash; the streak is lost."</td></tr>
     <tr><td class="lbl">EQUIP_UPGRADE</td><td>item_id, tier</td><td>"&lt;Tier Base&gt; was forged."</td></tr>
     <tr><td class="lbl">REALM_EVENT</td><td>season, action</td><td>Season migration / realm placement lines.</td></tr>
   </table>
@@ -55,6 +55,11 @@
     <li>Full detail lives in a <strong>separate table keyed by battle_id</strong>: an array of compact turn-action structs <code>{actor_id, move_id, target_id, damage, flags}</code> at ~20&ndash;40 bytes each. A 30-turn battle &asymp; 1&ndash;3&nbsp;KB raw.</li>
     <li>Each battle's turn array is serialized and <strong>gzip-compressed as one blob</strong> (3&ndash;5&times; reduction) before storage. Nothing is decompressed until requested.</li>
   </ul>
+
+  <div class="note"><strong>Renderers degrade, never break.</strong> Every field above is optional at render
+  time: a log written before a field existed still reads correctly, it just says less &mdash; "A creature
+  hatched: Cairn." is a valid line from an old save. Adding a field to an event therefore never needs a
+  migration, and old chapters are never rewritten.</div>
 
   <h2>Viewing a battle log</h2>
   <div class="sp-cards">
@@ -90,6 +95,16 @@
     <tr><td class="lbl">adventure_events</td><td>id, ts, event_type, p1, p2, p3, battle_id?</td><td>Append-only. Index on <code>ts</code>. battle_id set only for BATTLE rows.</td></tr>
     <tr><td class="lbl">battle_details</td><td>battle_id, blob (gzip), turns, class (wild/boss/pvp), ts</td><td>Loaded lazily on Battle Log tap. Compaction deletes rows by class + age.</td></tr>
   </table>
+  <h2>Changelog</h2>
+  <ul>
+    <li><strong>2026-07-28 &mdash; events carry what actually happened.</strong> Every event above recorded
+    little more than a name. HATCH and MUTANT_HATCH now carry grade, sex, the egg's grade and where the egg
+    came from (bred in pen N, or found on floor N); ADVANCE carries the level and stage it happened at;
+    LEVEL_UP carries the level it came from; BOSS_DEFEATED carries floor, rounds and how many of the party
+    were still standing; DEATH carries floor, killer and rounds. <strong>BREED was never written at all</strong>
+    &mdash; the renderer existed and nothing called it, so a pen laying an egg produced no entry; it now fires
+    on lay with both parents, their grades, the pen, and the egg's grade and species.</li>
+  </ul>
 </div>
 <script src="admin.js"></script>
 <script src="nav.js"></script>
