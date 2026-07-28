@@ -43,6 +43,10 @@
     <tr><td class="lbl">FLOOR_CLEAR</td><td>floor</td><td>"Portal opened &mdash; floor &lt;n&gt; cleared."</td></tr>
     <tr><td class="lbl">BOSS_DEFEATED</td><td>name, <strong>floor</strong>, <strong>rounds</strong>, <strong>survivors</strong></td><td>"Pelagos, the Trench Warden has fallen on floor 20 in 7 rounds &middot; 2/3 standing."</td></tr>
     <tr><td class="lbl">DEATH</td><td>name, <strong>floor</strong>, <strong>killer</strong>, <strong>rounds</strong>, pipeline</td><td>"Monkey died on floor 31 to Gorgon &mdash; the streak is lost."</td></tr>
+    <tr><td class="lbl">UPGRADE</td><td>n, f (from), t (to), k (1 win / 0 fail)</td><td>"Sublime Onyx graded Rare &rarr; Epic." / "Grading Soul of the Mage Epic &rarr; Legendary failed &mdash; the bundle was spent."</td></tr>
+    <tr><td class="lbl">DISMANTLE</td><td>c (count), g (grade tally), y (yield), m (mode)</td><td>"Dismantled 37 items (22 Worn, 12 Common, 3 Rare) &rarr; +148 Scrap &middot; +12 Essence."</td></tr>
+    <tr><td class="lbl">PURCHASE</td><td>w (what), q (qty), p (price), u (currency)</td><td>"Bought the Soul of the Archer for 2,500 Ichor."</td></tr>
+    <tr><td class="lbl">SOCKET</td><td>n (socketable), h (host)</td><td>"Rough Garnet socketed into Arming Sword."</td></tr>
     <tr><td class="lbl">EQUIP_UPGRADE</td><td>item_id, tier</td><td>"&lt;Tier Base&gt; was forged."</td></tr>
     <tr><td class="lbl">REALM_EVENT</td><td>season, action</td><td>Season migration / realm placement lines.</td></tr>
   </table>
@@ -95,6 +99,23 @@
     <tr><td class="lbl">adventure_events</td><td>id, ts, event_type, p1, p2, p3, battle_id?</td><td>Append-only. Index on <code>ts</code>. battle_id set only for BATTLE rows.</td></tr>
     <tr><td class="lbl">battle_details</td><td>battle_id, blob (gzip), turns, class (wild/boss/pvp), ts</td><td>Loaded lazily on Battle Log tap. Compaction deletes rows by class + age.</td></tr>
   </table>
+  <h2>Storage budget</h2>
+  <p>The log lives inside the save, and the save is posted whole every ten seconds &mdash; so every byte
+  here is a byte in every write. Measured on two real accounts before this budget existed, the log was
+  <strong>73% and 87% of the entire save</strong>. Three rules keep it bounded:</p>
+  <table>
+    <tr><th>Rule</th><th>Limit</th><th>Why</th></tr>
+    <tr><td class="lbl">Battle rows are deleted, not blanked</td><td>25 kept</td><td>The old policy emptied a wild battle's round log past 60 and kept the row. One account carried 1,433 husks at ~490 bytes each. Boss and PvP rows are always kept; wild rows are deleted once they fall out of the newest 25. The BATTLE event keeps its own ~30-byte stub (result, floor, XP, Food) so the chapter line still reads without the row.</td></tr>
+    <tr><td class="lbl">Rounds per battle</td><td>10</td><td>Only the last 10 rounds are stored. A 30-round grind is not worth 5&nbsp;KB.</td></tr>
+    <tr><td class="lbl">Events, recency first</td><td>500, plus a floor of 150 story events</td><td>Keep the newest 500 of everything, then additionally keep the newest story events &mdash; a death, a boss, an advancement, a mutant, a floor cleared &mdash; up to 150, so the arc of a climb survives a heavy grinding session. <strong>Recency comes first:</strong> an earlier draft dropped by class before age and threw away entries written seconds ago.</td></tr>
+  </table>
+  <p>Both caps are applied on write <em>and on load</em>, so a save that is already oversized shrinks the
+  moment it is opened rather than on its next battle. Measured on the worst real account:
+  <strong>905&nbsp;KB &rarr; 299&nbsp;KB</strong>, a 67% cut, with the log falling from 774&nbsp;KB to 169&nbsp;KB.</p>
+  <p>High-frequency events are written with one-letter keys for the same reason &mdash;
+  <code>{c:37,g:{Worn:22},y:'+148 Scrap'}</code>, not <code>{count:…,grades:…,yield:…}</code>. A bulk action
+  is <strong>always one event</strong>: dismantling 113 eggs costs one line with a grade tally, never 113 lines.</p>
+
   <h2>Changelog</h2>
   <ul>
     <li><strong>2026-07-28 &mdash; events carry what actually happened.</strong> Every event above recorded
@@ -104,6 +125,12 @@
     were still standing; DEATH carries floor, killer and rounds. <strong>BREED was never written at all</strong>
     &mdash; the renderer existed and nothing called it, so a pen laying an egg produced no entry; it now fires
     on lay with both parents, their grades, the pen, and the egg's grade and species.</li>
+    <li><strong>2026-07-28 (second pass) &mdash; everything else logged, under a budget.</strong> Added
+    UPGRADE (grading an item or a class soul, <em>including the failed roll that spends the bundle and
+    previously left no trace</em>), DISMANTLE (one event per sweep with a grade tally and the yield),
+    PURCHASE (inventory slots, soul-bag slots, a class &mdash; with price and currency) and SOCKET. In the
+    same pass the storage budget above was introduced, because the log had quietly become the largest
+    thing in the save.</li>
   </ul>
 </div>
 <script src="admin.js"></script>
