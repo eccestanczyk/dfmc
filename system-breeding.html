@@ -60,8 +60,22 @@
     <tr><td class="lbl">Egg inventory full</td><td>Drain stops, the bar freezes at its current fill. Nothing is consumed and nothing is lost. Clear an egg and it resumes.</td></tr>
     <tr><td class="lbl">Food hits zero</td><td>Same as above: drain stops, bar freezes, pen resumes the moment Food arrives.</td></tr>
     <tr><td class="lbl">Removing a parent</td><td><strong>Resets that pen's meter to zero.</strong> This is what stops a player filling a bar on a cheap Worn pair and swapping in two Voids at 99%.</td></tr>
-    <tr><td class="lbl">Clock</td><td><strong>Session time only.</strong> Pens tick while the game is running &mdash; the same clock that generates the Food they eat. No offline accrual.</td></tr>
+    <tr><td class="lbl">Clock</td><td><strong>Session time only, and session means the tab is alive &mdash; not that it is in front of you.</strong> A pen advances on wall-clock elapsed time whenever the client is loaded, including while the window sits unfocused or behind another tab. It does <strong>not</strong> advance while the game is closed: no offline accrual, ever.</td></tr>
   </table>
+
+  <h3>How the meter actually advances</h3>
+  <ul class="sp-rules">
+    <li>The tick is a function of <strong>elapsed wall-clock time</strong>, not of frames drawn. Each tick credits
+    <code>prog += (minutes elapsed &times; speed) / Minutes_Per_Egg</code> and spends <code>Food_Per_Min &times; minutes elapsed</code>.</li>
+    <li>It therefore does not matter how often the tick runs. A browser that throttles a background tab to one tick a
+    minute credits that whole minute on the next call; the pen finishes at the same moment either way.</li>
+    <li>Partial ticks are honest: if there is not enough Food for the full interval the pen credits the fraction it could
+    pay for and flags <em>LOW FOOD</em>. At zero Food it pauses without consuming anything.</li>
+    <li>A pen that reaches 100% with the soul bag full <strong>freezes at 100%</strong> and reports
+    <em>SOUL BAG FULL</em>. Nothing is consumed and no egg is lost &mdash; it lays as soon as a slot exists.</li>
+    <li><strong>speed</strong> is 1 on release: one game minute is one real minute. The &times;60 accelerator exists only
+    in development builds.</li>
+  </ul>
 
   <h2>Rates &mdash; drain, duration, cost</h2>
   <p>Authored per pair grade in <code>codex/breeding.csv</code>. Higher grades are slower <em>and</em> hungrier, so cost per egg rises steeply while the pen's own throughput falls.</p>
@@ -118,6 +132,10 @@ RarityMult:   C 1.0   UC 1.5   R 2.5   SR 4.0   SSR 7.0</pre>
   <p>A single Void pen alone eats half of a maxed player's entire Food income. That is the intended shape: the top of the ladder is slow by construction, and no amount of pens buys past it.</p>
 </div>
 <script src="admin.js"></script>
+<h2>Changelog</h2>
+<ul>
+  <li><strong>2026-07-28</strong> &mdash; Clarified the pen clock as mechanics: a pen advances on elapsed wall-clock time while the client is loaded, <em>including an unfocused or background window</em>, and never while the game is closed. Added <em>How the meter actually advances</em> covering the credit formula, tick frequency independence, partial and paused ticks, and the full-bag freeze. Client fix in the same batch: the pen tick and the run save had been riding requestAnimationFrame, which stops in an unfocused tab.</li>
+</ul>
 <script src="nav.js"></script>
 </body>
 </html>
