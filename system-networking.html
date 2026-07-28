@@ -158,6 +158,29 @@
   </table>
   <div class="note">The server secret is load-bearing. Rotating it rerolls the world for everyone. Treat it like <code>DATA_PIN</code>: set once, never rotated casually.</div>
 
+  <h2>Save authority &mdash; which copy wins on login</h2>
+  <p><strong>The server save is authoritative. If the server holds a save for a realm, that save wins on
+  login, unconditionally.</strong> The local copy is used only when the server has nothing for that realm,
+  which is a first login on a browser that already carries progress; that one copy is pushed up and becomes
+  the server's.</p>
+  <table>
+    <tr><th>Server has&hellip;</th><th>Local has&hellip;</th><th>Result</th></tr>
+    <tr><td>a save</td><td>anything, any age</td><td>Server save adopted into <code>localStorage</code>. If the local copy carried later work, that work is discarded and the in-progress battle snapshot is dropped with it &mdash; a battle snapshot belongs to the save it was taken from.</td></tr>
+    <tr><td>nothing</td><td>a save at the current <code>SAVE_EPOCH</code></td><td>Local kept and posted to the server.</td></tr>
+    <tr><td>nothing</td><td>nothing, or a pre-epoch save</td><td>Character creation.</td></tr>
+  </table>
+  <p><strong>Why not the newest copy.</strong> Adoption used to pick whichever save carried the later
+  <code>ts</code>. That stamp records when a <em>browser</em> last wrote, not how far the save got, so a
+  browser left on old progress won every conflict simply by being opened last &mdash; and then posted its
+  old state back up. It also put the decision in the hands of the client clock, which is arbitrary: a
+  machine with a skewed clock would win every conflict forever, or lose every one. No timestamp comparison
+  between two clients can be trusted, so none is made.</p>
+  <p>Two server-side gates remain behind this and are unchanged: a write whose <code>ts</code> precedes the
+  stored one is rejected 409 <em>stale</em>, and a write whose <code>playerXp</code> is under half the
+  stored value is rejected 409 <em>xp regression flagged</em>. Note that <code>floorNum</code> and
+  <code>maxFloor</code> carry no regression gate of their own &mdash; the login rule above is what keeps a
+  stale client from walking them backwards.</p>
+
   <h2>What the save contains</h2>
   <table>
     <tr><th>Out of the save</th><th>Where it lives instead</th></tr>
@@ -247,6 +270,14 @@
     <tr><td class="lbl"><code>/api/entitlements/pending</code> answered 500 to everyone</td><td>Fixed 2026-07-28. It sat above <code>const ses = this.session(req)</code> and referenced it &mdash; temporal dead zone. Confirmed live before the fix. Nothing in the client calls it, so it was dormant, but it is the endpoint for a player disputing a missing purchase. Carry the hoist through the class split</td></tr>
     <tr><td class="lbl"><code>FEEDBACK_KEY</code> is a var, not a secret</td><td>Plaintext in <code>wrangler.jsonc</code> and therefore in the repo. It gates <code>/api/backup/export</code> (every save of every player), <code>/api/ledger/reconcile</code> (writes) and <code>/api/lb/purge</code> (destructive). Should be a Wrangler secret and should be rotated. Security, not cost &mdash; but the cutover is the natural moment</td></tr>
   </table>
+  <h2>Changelog</h2>
+  <ul>
+    <li><strong>2026-07-28 &mdash; save authority ruled and implemented.</strong> Login adoption was
+    "newest <code>ts</code> wins", which let a browser last used days earlier resume at floor 6 against a
+    server save at floor 39 and then attempt to overwrite it. The server copy is now authoritative on
+    login; local is used only when the server has nothing for that realm. Reproduced and verified in all
+    three cases before and after.</li>
+  </ul>
 </div>
 <script src="admin.js"></script>
 <script src="nav.js"></script>
