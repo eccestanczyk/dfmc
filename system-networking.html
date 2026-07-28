@@ -248,5 +248,7 @@
     <tr><td class="lbl"><code>FEEDBACK_KEY</code> is a var, not a secret</td><td>Plaintext in <code>wrangler.jsonc</code> and therefore in the repo. It gates <code>/api/backup/export</code> (every save of every player), <code>/api/ledger/reconcile</code> (writes) and <code>/api/lb/purge</code> (destructive). Should be a Wrangler secret and should be rotated. Security, not cost &mdash; but the cutover is the natural moment</td></tr>
   </table>
 </div>
+<script src="admin.js"></script>
+<script src="nav.js"></script>
 </body>
 </html>
