@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Status Effects &amp; Buff Stacking — Herumon Tower</title>
+<link rel="stylesheet" href="theme.css?v=4">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">STATUS EFFECTS &amp; BUFF STACKING</h1></div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; Status Effects &amp; Buff Stacking</div>
+  <p class="sp-lead">Every buff and debuff in the game belongs to exactly one ability. Two different abilities stack; one ability never stacks with itself. Magnitudes on the same stat combine <strong>additively</strong>, never multiplicatively, so a +50% and a +15% is +65% &mdash; not &times;1.725.</p>
+
+  <h2>Identity: a status is its ability</h2>
+  <p>A status is identified by the ability that applied it, not by the stat it moves. Every buff payload a move produces is stamped at build time with:</p>
+  <ul class="sp-rules">
+    <li><code>key = 'ab:' + Move_ID</code> &mdash; e.g. <code>ab:M-STORMFATHER-4</code>. This is the identity the engine matches on.</li>
+    <li><code>name</code> = the ability's own stage name (<em>Stormcall</em> / <em>Call the Storm</em> / <em>Convocation of Storms</em>). This is what the player sees on the status chip.</li>
+  </ul>
+  <p>The key is stamped onto <strong>every</strong> buff clause of the move &mdash; its self buff, its ally buff, its single-target ally buff and its Synergy clause &mdash; so all clauses of one ability share one identity. Riders, marks and DoTs applied to enemies keep their authored names (<em>Mothervenom</em>, <em>Impale</em>) and are identified by that name.</p>
+
+  <h2>Stacking rules</h2>
+  <table>
+    <tr><th>Situation</th><th>Result</th></tr>
+    <tr><td>Two <strong>different</strong> abilities buff the same stat</td><td>Both statuses exist side by side. Their magnitudes add.</td></tr>
+    <tr><td>Two clauses of the <strong>same</strong> ability land on one unit</td><td>One status. Same key, so they merge &mdash; they do not stack.</td></tr>
+    <tr><td>The <strong>same</strong> ability is cast again</td><td>Duration <strong>refreshes</strong> to the new cast. Magnitude keeps whichever is <strong>stronger</strong>. Never a second instance.</td></tr>
+  </table>
+  <p>"Stronger" means further from the baseline in the direction the payload points: 1.0 for multipliers, 0 for flat adds. A +50% Attack buff re-applied at +35% stays +50%; a &minus;40% Attack debuff re-applied at &minus;25% stays &minus;40%. The chip takes the name of the cast whose magnitude survived, so a weaker later cast cannot relabel a stronger running buff.</p>
+  <p>This is what caps buff spam. <em>Stoke</em> has Cooldown&nbsp;1; without same-ability merging a player would reach +50%, +100%, +150% on consecutive turns.</p>
+
+  <h2>Aggregation and clamps</h2>
+  <p>Every status contributing to a stat has its <em>delta</em> summed once, then applied:</p>
+  <p style="text-align:center;font-size:16px;"><code>atkMult = clamp(1 + &Sigma;(atkMul &minus; 1) &times; stacks, 0.30, 2.50)</code></p>
+  <ul class="sp-rules">
+    <li><strong>Attack</strong> and <strong>Defense</strong> follow the formula above.</li>
+    <li><strong>Speed</strong> is a flat add: stages sum directly, no multiplier, no clamp beyond the stage system.</li>
+    <li><strong>Damage taken</strong> follows the same additive rule and the same 0.30&ndash;2.50 clamp, summed over the target's statuses at hit time.</li>
+    <li>Because deltas sum, a buff and a debuff on one stat cancel point for point: +50% and &minus;30% is &times;1.20.</li>
+  </ul>
+  <p>Legacy named statuses that carry no numeric payload contribute fixed deltas: <em>Slagbite</em> and <em>Fracture</em> &minus;22% Defense, <em>Gravechill</em> &minus;18% Attack and &minus;2 Speed, <em>Cinch</em> &minus;3 Speed, <em>Doomrune</em> +18% damage taken, <em>Warded</em> &minus;18% damage taken.</p>
+
+  <h2>Synergy clauses and the caster</h2>
+  <p>A move's Synergy clause is a second buff clause gated on creature type. Two rules govern whether the caster is included:</p>
+  <ul class="sp-rules">
+    <li><strong>A type-gated buff includes the caster when the caster is of that type.</strong> A Dragon casting "Dragon allies gain +15% Attack" is a Dragon and receives it. This is not a special case &mdash; the caster is an ally.</li>
+    <li><strong>A clause that requires <em>another</em> ally of a type excludes the caster from that test.</strong> "If no Undead ally, self +30% Attack" asks whether some <em>other</em> party member is Undead; the caster does not satisfy its own requirement.</li>
+  </ul>
+  <p>Because the Synergy buff carries the same ability key as the move's own self buff, a caster who qualifies for both gets one status at the stronger of the two magnitudes. A weak type synergy can never overwrite the ability's own stronger self buff.</p>
+
+  <h3>Worked example &mdash; Convocation of Storms</h3>
+  <p><code>M-STORMFATHER-4</code>, <code>Targets=self</code>, Effect_S3 <em>Self +50% Attack, 3t</em>, Synergy <em>Elemental and Dragon allies gain +15% Attack, 3t</em>. Party: Riptide (Elemental&middot;Dragon, the caster), Ignis (Elemental&middot;Dragon, already running its own <em>Feed the Conflagration</em> at +50%), and a Construct character.</p>
+  <table>
+    <tr><th>Unit</th><th>Statuses after the cast</th><th>Attack multiplier</th></tr>
+    <tr><td>Riptide (caster)</td><td>One: <em>Convocation of Storms</em>, +50%, 3t. The +15% Synergy shares its key and merges at the stronger value.</td><td>&times;1.50</td></tr>
+    <tr><td>Ignis</td><td>Two: <em>Feed the Conflagration</em> +50% and <em>Convocation of Storms</em> +15%. Different abilities, so both run.</td><td>&times;1.65</td></tr>
+    <tr><td>Character (Construct)</td><td>None &mdash; fails the type gate.</td><td>&times;1.00</td></tr>
+  </table>
+
+  <h2>Targeting</h2>
+  <p>The <code>Targets</code> column in <code>moves.csv</code> routes sides and is never inferred from Power. It governs selection as well as resolution:</p>
+  <ul class="sp-rules">
+    <li><code>Targets=self</code> &mdash; only the caster is highlighted and only the caster can be clicked.</li>
+    <li>Support moves that reach one ally highlight the living allies.</li>
+    <li>Hostile moves highlight the living enemies.</li>
+    <li>An illegal click is <strong>refused</strong>. It is never silently redirected to a legal unit, which previously made a self-only buff look as though it could be aimed at a party member.</li>
+  </ul>
+
+  <h2>Where this lives in the client</h2>
+  <table>
+    <tr><th>Function</th><th>Responsibility</th></tr>
+    <tr><td><code>buildMove</code></td><td>Stamps the ability key and display name onto every buff payload of the move.</td></tr>
+    <tr><td><code>stKey</code></td><td>Status identity: the ability key when present, else the display name.</td></tr>
+    <tr><td><code>addStatusObj</code></td><td>Finds a status with the same identity and merges, or appends a new one.</td></tr>
+    <tr><td><code>mergeStatus</code></td><td>Refresh duration, keep the stronger magnitude, keep the surviving cast's name.</td></tr>
+    <tr><td><code>statusMult</code></td><td>Additive aggregation of Attack, Defense and Speed with the 0.30&ndash;2.50 clamp.</td></tr>
+    <tr><td><code>applySyn</code></td><td>Synergy clause: type gate including the caster, "another ally" test excluding it.</td></tr>
+    <tr><td><code>targetOk</code> / <code>pickTarget</code></td><td>Target legality, shared with the selection highlight.</td></tr>
+  </table>
+
+  <h2>Changelog</h2>
+  <ul class="sp-rules">
+    <li><strong>2026-07-28 &mdash; page created, and the buff system rebuilt beneath it.</strong> Previously every positive Attack buff was named <em>Rallied</em> and every positive Defense buff <em>Guarded</em>, and applying one filtered out any existing status of that name. Three consequences, all reported from live play: a move's own Synergy clause overwrote its self buff, so casting <em>Convocation of Storms</em> left the caster at +15% instead of +50%; one creature's buff overwrote another creature's unrelated buff; and the newer cast always won regardless of strength. Fixed by making a status's identity its ability. In the same pass: buffs now combine additively rather than multiplicatively; re-application refreshes duration and keeps the stronger magnitude; a Synergy type gate includes the caster while an "if no X ally" fallback excludes it; and <code>Targets=self</code> moves no longer offer allies as targets.</li>
+  </ul>
+</div>
+<script src="admin.js"></script>
+<script src="nav.js"></script>
+</body>
+</html>

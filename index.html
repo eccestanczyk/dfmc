@@ -564,6 +564,7 @@ FinalDamage = RawDamage
       <tr><th>Budget rule</th><th>Detail</th></tr>
       <tr><td>Damage-per-turn proxy</td><td><code>DPT = Power / (1 + Cooldown)</code>, anchored at Standard 80 @ CD0 = 80. Heavy 120 @ CD2 = 40, Nuke 160 @ CD3 = 40 — the DPT deficit is the headroom that pays for rider effects.</td></tr>
       <tr><td>Riders</td><td>120-power carries one named debuff at CD2; 160-power carries a strong debuff or second component at CD3–4; 50-power can carry a strong effect at CD0–1; 0-power status moves carry very strong effects at CD1–4.</td></tr>
+      <tr><td>Buff stacking</td><td>A status is identified by the <strong>ability</strong> that applied it. Two different abilities stack and their magnitudes <strong>add</strong> (+50% and +15% is +65%); one ability never stacks with itself, and re-applying it refreshes duration and keeps the stronger magnitude. Full rules, including Synergy-clause self-inclusion and targeting: <a href="system-status-effects.html">Status Effects &amp; Buff Stacking</a>.</td></tr>
       <tr><td>Named debuffs only</td><td>No generic statuses. Every buff/debuff is named and owned by one move (e.g. <em>Mothervenom</em> belongs to Echidna's Viper Spit). Families: Shred (−Def), Sap (−Off), Mire (−Speed stages), named DoTs, Marks (+damage taken), and rare action-denial.</td></tr>
       <tr><td>NO TYPE CHART</td><td>There is no global type-effectiveness matrix and never will be. All type interaction lives inside individual moves: <strong>Synergy</strong> clauses — a move is empowered by allied types in one of three ways: (a) an ally of a certain type <em>on the field</em> boosts the move (+20–50% band); (b) the move is stronger when it <em>targets</em> an ally of a certain type (buffs/heals, +20–50% band); or (c) the move <em>gains an added effect</em> when used on an ally of a certain type and <strong>Anti</strong> clauses (bonus vs specific target types, +30–60% band, thematically justified). Every type appears as both a synergy-giver and an anti-target.</td></tr>
       <tr><td>Kit shape by stat profile</td><td>Strikers (A8–10): spam → utility-lite → Heavy CD2 → Nuke CD3–4 signature. Walls (D8–10): Def buffs, reflection, chip. Utility (U8–10): strong named debuffs/buffs, the game's few heals (7 healers game-wide), damage held to Light/Standard. Speed (S8–10): first-strike riders and momentum.</td></tr>
@@ -1751,6 +1752,10 @@ async function loadBalance() {
   renderTable();
 }
 </script>
+<h2>Changelog</h2>
+<ul>
+  <li><strong>2026-07-28</strong> &mdash; Buff stacking rewritten and documented on its own page: a status is identified by its ability, different abilities stack additively, one ability never stacks with itself, and re-application refreshes duration while keeping the stronger magnitude. Also: a Synergy type gate includes the caster when the caster is of that type, while an "if no X ally" fallback tests other allies only; and <code>Targets=self</code> moves no longer offer allies in target selection. See <a href="system-status-effects.html">Status Effects &amp; Buff Stacking</a>.</li>
+</ul>
 <script src="admin.js"></script>
 <script src="nav.js"></script>
 </body>
