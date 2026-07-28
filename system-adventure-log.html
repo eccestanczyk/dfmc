@@ -84,37 +84,36 @@
     <li>After compaction, the Battle Log button on an old wild battle shows the summary card with a "detail expired" state instead of turn-by-turn text.</li>
   </ul>
 
-  <h2>Storage budget</h2>
+  <h2>Storage budget &mdash; compress, never discard</h2>
+  <p><strong>Nothing is ever deleted.</strong> Every event and every battle's numbers are kept for the life
+  of the account, because they are balancing data to be pulled off real players. What changes with age is
+  how they are <em>stored</em>.</p>
   <table>
-    <tr><th>Scenario (20&nbsp;s battles, nonstop)</th><th>Growth</th><th>Time to 100&nbsp;MB</th></tr>
-    <tr><td class="lbl">1&nbsp;KB/battle, uncompressed</td><td>180&nbsp;KB/h</td><td>~570&nbsp;h</td></tr>
-    <tr><td class="lbl">3&nbsp;KB/battle, uncompressed</td><td>540&nbsp;KB/h</td><td>~190&nbsp;h</td></tr>
-    <tr><td class="lbl">With gzip (3&ndash;5&times;)</td><td>&mdash;</td><td>~600&ndash;2,800&nbsp;h</td></tr>
+    <tr><th>Age</th><th>Form</th><th>Cost</th></tr>
+    <tr><td class="lbl">Newest 500 events</td><td>Expanded in <code>advChapters</code>, rendered in the log window</td><td>~68 bytes each</td></tr>
+    <tr><td class="lbl">Older events</td><td>Packed one-per-line and gzipped into <code>advArc</code> blocks (base64). Falls back to the plain packed string where <code>CompressionStream</code> is unavailable &mdash; still complete, just larger</td><td><strong>~7 bytes each</strong>, a ~10&times; cut</td></tr>
+    <tr><td class="lbl">Newest 25 battles</td><td>Full round-by-round log, last 10 rounds</td><td>~5 KB each</td></tr>
+    <tr><td class="lbl">Battles 26&ndash;200</td><td>Compact row: result, floor, XP, Food, participants. The prose goes, the numbers stay</td><td>~290 bytes each</td></tr>
+    <tr><td class="lbl">Older battles</td><td>Archived into <code>advArc</code> as <code>BATTLEROW</code> entries. The chapter line falls back to the BATTLE event's own stub</td><td>~7 bytes each</td></tr>
   </table>
-  <div class="sp-note">With retention active, storage <strong>plateaus instead of growing linearly</strong>: the real cap is (battles retained in full detail) &times; ~0.5&ndash;1&nbsp;KB compressed. Keeping the last 5,000 detailed wild battles plus all boss/PvP detail holds the entire system to single-digit MB permanently. The event stream itself grows unbounded but at 50&ndash;100 bytes/event it is never the constraint.</div>
+  <p>Measured on the two worst real accounts, with the full history intact in both cases:
+  <strong>905&nbsp;KB &rarr; 373&nbsp;KB</strong> (500 live events + 3,380 archived in 38&nbsp;KB) and
+  <strong>638&nbsp;KB &rarr; 317&nbsp;KB</strong>. Applied on write <em>and on load</em>, so an oversized
+  save shrinks the moment it is opened.</p>
+  <p>High-frequency events use one-letter keys &mdash; <code>{c:37,g:{Worn:22},y:'+148 Scrap'}</code> &mdash;
+  and a bulk action is <strong>always one event</strong>: dismantling 113 eggs costs one line with a grade
+  tally, never 113 lines.</p>
 
-  <h2>Schema (reference)</h2>
-  <table>
-    <tr><th>Table</th><th>Columns</th><th>Notes</th></tr>
-    <tr><td class="lbl">adventure_events</td><td>id, ts, event_type, p1, p2, p3, battle_id?</td><td>Append-only. Index on <code>ts</code>. battle_id set only for BATTLE rows.</td></tr>
-    <tr><td class="lbl">battle_details</td><td>battle_id, blob (gzip), turns, class (wild/boss/pvp), ts</td><td>Loaded lazily on Battle Log tap. Compaction deletes rows by class + age.</td></tr>
-  </table>
-  <h2>Storage budget</h2>
-  <p>The log lives inside the save, and the save is posted whole every ten seconds &mdash; so every byte
-  here is a byte in every write. Measured on two real accounts before this budget existed, the log was
-  <strong>73% and 87% of the entire save</strong>. Three rules keep it bounded:</p>
-  <table>
-    <tr><th>Rule</th><th>Limit</th><th>Why</th></tr>
-    <tr><td class="lbl">Battle rows are deleted, not blanked</td><td>25 kept</td><td>The old policy emptied a wild battle's round log past 60 and kept the row. One account carried 1,433 husks at ~490 bytes each. Boss and PvP rows are always kept; wild rows are deleted once they fall out of the newest 25. The BATTLE event keeps its own ~30-byte stub (result, floor, XP, Food) so the chapter line still reads without the row.</td></tr>
-    <tr><td class="lbl">Rounds per battle</td><td>10</td><td>Only the last 10 rounds are stored. A 30-round grind is not worth 5&nbsp;KB.</td></tr>
-    <tr><td class="lbl">Events, recency first</td><td>500, plus a floor of 150 story events</td><td>Keep the newest 500 of everything, then additionally keep the newest story events &mdash; a death, a boss, an advancement, a mutant, a floor cleared &mdash; up to 150, so the arc of a climb survives a heavy grinding session. <strong>Recency comes first:</strong> an earlier draft dropped by class before age and threw away entries written seconds ago.</td></tr>
-  </table>
-  <p>Both caps are applied on write <em>and on load</em>, so a save that is already oversized shrinks the
-  moment it is opened rather than on its next battle. Measured on the worst real account:
-  <strong>905&nbsp;KB &rarr; 299&nbsp;KB</strong>, a 67% cut, with the log falling from 774&nbsp;KB to 169&nbsp;KB.</p>
-  <p>High-frequency events are written with one-letter keys for the same reason &mdash;
-  <code>{c:37,g:{Worn:22},y:'+148 Scrap'}</code>, not <code>{count:…,grades:…,yield:…}</code>. A bulk action
-  is <strong>always one event</strong>: dismantling 113 eggs costs one line with a grade tally, never 113 lines.</p>
+  <h3>Reading the archive</h3>
+  <p><code>advArc</code> rides the save, so <code>/api/backup/export</code> already carries every account's
+  complete history. Each block is <code>{n, z}</code> (gzip, base64) or <code>{n, t}</code> (plain).
+  Unpack a block's text into events by splitting lines on <code>\n</code> and fields on <code>\x01</code>
+  &mdash; <code>ts</code>, <code>TYPE</code>, JSON params:</p>
+  <pre>import gzip, base64, json
+for b in save.get('advArc', []):
+    txt = gzip.decompress(base64.b64decode(b['z'])).decode() if 'z' in b else b['t']
+    for line in txt.split('\n'):
+        ts, typ, params = line.split('\x01'); ev = (ts, typ, json.loads(params))</pre>
 
   <h2>Changelog</h2>
   <ul>
@@ -131,6 +130,11 @@
     PURCHASE (inventory slots, soul-bag slots, a class &mdash; with price and currency) and SOCKET. In the
     same pass the storage budget above was introduced, because the log had quietly become the largest
     thing in the save.</li>
+    <li><strong>2026-07-28 (third pass) &mdash; compress instead of discard.</strong> The budget's first
+    form evicted old events and deleted old battle rows outright. On D's ruling the history is kept in
+    full &mdash; it is balancing data to be pulled off live players &mdash; so overflow is now gzipped into
+    <code>advArc</code> and old battle rows are archived rather than dropped. Same size win, no data loss:
+    the worst account still falls from 905&nbsp;KB to 373&nbsp;KB with all 3,880 entries recoverable.</li>
   </ul>
 </div>
 <script src="admin.js"></script>
