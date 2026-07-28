@@ -35,6 +35,7 @@
   <table>
     <tr><th>Event</th><th>Params</th><th>Chapter line (rendered)</th></tr>
     <tr><td class="lbl">HATCH</td><td>name, <strong>grade</strong>, <strong>sex</strong>, <strong>eggGrade</strong>, <strong>pen</strong> or <strong>floor</strong>, bred, types</td><td>"A creature hatched: <strong>Rare Fawn (F)</strong>, bred in pen 2 from an Uncommon egg."</td></tr>
+    <tr><td class="lbl">HATCH_BATCH</td><td>c (count), g (grade tally), s (species breakdown), m (mutants)</td><td>"Hatched 25 eggs (17 Worn, 6 Common, 1 Uncommon, 1 Rare) &rarr; 3&times; Flicker, 2&times; Scorpling, 2&times; Ignis, 2&times; Fry, 1&times; Fledgling, 1&times; Tempest, +14 more &middot; 1 mutant."</td></tr>
     <tr><td class="lbl">BREED</td><td>a, b, <strong>ag</strong>/<strong>bg</strong> (parent grades), <strong>pen</strong>, <strong>grade</strong>, <strong>species</strong></td><td>"Riptide [Epic] and Naiad [Rare] in pen 3 produced a Rare Fry egg."</td></tr>
     <tr><td class="lbl">ADVANCE</td><td>from, to, <strong>lv</strong>, <strong>stage</strong></td><td>"Fawn advanced into Hart at level 18 &middot; stage 2."</td></tr>
     <tr><td class="lbl">MUTANT_HATCH</td><td>same fields as HATCH</td><td>"A mutant variant emerged: Epic Nommo (M), bred in pen 1 from a Rare egg."</td></tr>
@@ -50,6 +51,15 @@
     <tr><td class="lbl">EQUIP_UPGRADE</td><td>item_id, tier</td><td>"&lt;Tier Base&gt; was forged."</td></tr>
     <tr><td class="lbl">REALM_EVENT</td><td>season, action</td><td>Season migration / realm placement lines.</td></tr>
   </table>
+
+  <h3>HATCH ALL is one event</h3>
+  <ul class="sp-rules">
+    <li>A single-egg hatch writes <code>HATCH</code> (or <code>MUTANT_HATCH</code>) with the full per-creature fields. The soul bag's <strong>HATCH ALL</strong> button does not: however many eggs it opens, it writes exactly one <code>HATCH_BATCH</code>.</li>
+    <li>The batch carries the hatchling count, the grade tally of what came out, and the species breakdown <strong>sorted by count, capped at six entries</strong> with <code>+n more</code> beyond that. The cap is a storage rule, not a display one &mdash; the string is written at hatch time and lives in the save forever.</li>
+    <li><strong>A mutant is exempt.</strong> Any mutant in the batch still writes its own <code>MUTANT_HATCH</code> line alongside the batch line, and is also counted in the batch's mutant tally. Mutants are story events and are rare enough to deserve the room.</li>
+    <li>Rationale: one press of HATCH ALL on a full soul bag wrote 85 separate events, which buried the chapter it landed in and was then carried in every save from that moment on.</li>
+  </ul>
+
   <p style="font-size:13px;color:var(--ink-faint)">Param IDs reference codex CSVs; the log stores no names or descriptions. Ordinary per-battle XP ticks are not logged as separate events &mdash; they live inside the battle summary.</p>
 
   <h2>Battle Logs <span style="font-size:12px;color:var(--ink-faint);font-weight:400;">(sub-item of the Adventure Log)</span></h2>
@@ -117,6 +127,7 @@ for b in save.get('advArc', []):
 
   <h2>Changelog</h2>
   <ul>
+  <li><strong>2026-07-28</strong> &mdash; <code>HATCH_BATCH</code> added: HATCH ALL now writes one event for the whole press instead of one per hatchling, carrying the grade tally, the capped species breakdown and the mutant count. Mutants keep their own line. Documented under <em>Event types</em>.</li>
     <li><strong>2026-07-28 &mdash; events carry what actually happened.</strong> Every event above recorded
     little more than a name. HATCH and MUTANT_HATCH now carry grade, sex, the egg's grade and where the egg
     came from (bred in pen N, or found on floor N); ADVANCE carries the level and stage it happened at;
