@@ -801,6 +801,7 @@ FinalDamage = RawDamage
       <tr><td>Undiscovered</td><td>Never encountered</td><td>Silhouette only, no data</td></tr>
       <tr><td>Seen</td><td>Encountered in battle at least once</td><td>Name, floor levels found, basic stats ranges visible</td></tr>
       <tr><td>Acquired</td><td>Hatched from an egg of this creature type</td><td>Full entry — all moves, full stat ranges, advancement chain, egg grade ranges</td></tr>
+      <tr><td colspan="3"><strong>Where the states surface.</strong> Three surfaces read the same knowledge map and must present it identically: the codex grid, the floor-map creature tiles, and the floor-map row indicator. A creature tile is blacked out with no name when <em>Undiscovered</em>; dimmed (grayscale, 75% brightness) with its real name and an <strong>eye medal</strong> when <em>Seen</em>; full colour with its rarity border and a <strong>rune medal</strong> when <em>Acquired</em>; and carries the mutant medal when a mutant of that species has been hatched. The floor row shows the eye when every creature on that floor is at least Seen, a tick when all are Acquired, and a double tick when all are mutant.</td></tr>
     </table>
 
     <h3>Entry contents (full)</h3>
@@ -1754,6 +1755,7 @@ async function loadBalance() {
 </script>
 <h2>Changelog</h2>
 <ul>
+  <li><strong>2026-07-28</strong> &mdash; The floor map was discarding the <em>Seen</em> state: every creature tile branched on "acquired or mutant", so a creature you had defeated but not caught rendered exactly like one you had never met &mdash; black silhouette, no name, no eye medal &mdash; while its hover tooltip already showed the real name. The tile now uses the same three-state treatment as the codex grid, documented above.</li>
   <li><strong>2026-07-28</strong> &mdash; Buff stacking rewritten and documented on its own page: a status is identified by its ability, different abilities stack additively, one ability never stacks with itself, and re-application refreshes duration while keeping the stronger magnitude. Also: a Synergy type gate includes the caster when the caster is of that type, while an "if no X ally" fallback tests other allies only; and <code>Targets=self</code> moves no longer offer allies in target selection. See <a href="system-status-effects.html">Status Effects &amp; Buff Stacking</a>.</li>
 </ul>
 <script src="admin.js"></script>
