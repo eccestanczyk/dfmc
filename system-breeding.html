@@ -14,20 +14,20 @@
 <div class="topbar"><h1 style="font-family:'Cinzel',serif;">BREEDING</h1></div>
 <div class="sp-wrap">
   <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; Breeding</div>
-  <p class="sp-lead">Breeding is a <strong style="color:var(--ink)">continuous pen</strong>, not a transaction. A pair is placed in a pen and the pen is toggled on; from then on it eats <strong style="color:var(--ink)">Food</strong> minute by minute and fills a progress bar. When the bar completes, an egg drops into the inventory and the pen keeps going. Food is the only limiter &mdash; it has no other use in the game.</p>
+  <p class="sp-lead">Breeding is a <strong style="color:var(--ink)">continuous pen</strong>, not a transaction. A pair is placed in a pen and the pen is toggled on; from then on it eats <strong style="color:var(--ink)">Ichor</strong> minute by minute and fills a progress bar. When the bar completes, an egg drops into the inventory and the pen keeps going. Ichor is the only limiter &mdash; it has no other use in the game.</p>
 
   <h2>The pen grid</h2>
-  <p>Six pens, shown as a 2&times;3 grid. <strong>Pen 1 is unlocked from the start.</strong> <strong>Every other pen is bought with Food</strong> (D ruling, July 2026 &mdash; no DLC pens in this version). They unlock in order and the price climbs steeply from the third: the last two are long-haul goals, not purchases. Costs are authored in <code>codex/pen_unlocks.csv</code> and read by the client &mdash; never hardcoded.</p>
+  <p>Six pens, shown as a 2&times;3 grid. <strong>Pen 1 is unlocked from the start.</strong> <strong>Every other pen is bought with Ichor</strong> (D ruling, July 2026 &mdash; no DLC pens in this version). They unlock in order and the price climbs steeply from the third: the last two are long-haul goals, not purchases. Costs are authored in <code>codex/pen_unlocks.csv</code> and read by the client &mdash; never hardcoded.</p>
   <table>
     <tr><th>Pen</th><th>Unlock</th></tr>
     <tr><td class="lbl">1</td><td>Free &mdash; available from the first hatch</td></tr>
-    <tr><td class="lbl">2</td><td><strong>12,000 Food</strong> &mdash; roughly 4h of endgame income</td></tr>
-    <tr><td class="lbl">3</td><td><strong>60,000 Food</strong> &mdash; ~20h</td></tr>
-    <tr><td class="lbl">4</td><td><strong>180,000 Food</strong> &mdash; ~60h</td></tr>
-    <tr><td class="lbl">5</td><td><strong>450,000 Food</strong> &mdash; ~150h</td></tr>
-    <tr><td class="lbl">6</td><td><strong>1,000,000 Food</strong> &mdash; ~330h, the long-haul pen</td></tr>
+    <tr><td class="lbl">2</td><td><strong>12,000 Ichor</strong> &mdash; roughly 4h of endgame income</td></tr>
+    <tr><td class="lbl">3</td><td><strong>60,000 Ichor</strong> &mdash; ~20h</td></tr>
+    <tr><td class="lbl">4</td><td><strong>180,000 Ichor</strong> &mdash; ~60h</td></tr>
+    <tr><td class="lbl">5</td><td><strong>450,000 Ichor</strong> &mdash; ~150h</td></tr>
+    <tr><td class="lbl">6</td><td><strong>1,000,000 Ichor</strong> &mdash; ~330h, the long-haul pen</td></tr>
   </table>
-  <div class="note"><strong>What extra pens actually buy.</strong> Not throughput &mdash; Food income caps that regardless of pen count. Extra pens buy <strong>parallelism</strong>: several different pairs, types, and grade-ladders running at once, and no idle time while you swap partners. A player with six pens and a player with two pens hatch the same number of Void eggs per hour; the six-pen player is also climbing five other lines while they do it.</p></div>
+  <div class="note"><strong>What extra pens actually buy.</strong> Not throughput &mdash; Ichor income caps that regardless of pen count. Extra pens buy <strong>parallelism</strong>: several different pairs, types, and grade-ladders running at once, and no idle time while you swap partners. A player with six pens and a player with two pens hatch the same number of Void eggs per hour; the six-pen player is also climbing five other lines while they do it.</p></div>
 
   <h2>Choosing a pair</h2>
   <p>The pen has two sockets, <strong>&#9794;</strong> and <strong>&#9792;</strong>. Clicking a socket opens a full-screen roster picker &mdash; it leaves the pen grid rather than crowding it, so the 2&times;3 grid stays intact.</p>
@@ -54,11 +54,11 @@
   <h2>The loop</h2>
   <table>
     <tr><th>State</th><th>Behaviour</th></tr>
-    <tr><td class="lbl">Toggle ON</td><td>The pen drains <code>Food_Per_Min(P)</code> every minute and fills the bar. P is <strong>locked in at toggle-on</strong>.</td></tr>
-    <tr><td class="lbl">Bar full</td><td>An egg is sent to the inventory, the bar resets to zero, and the pen <strong>continues automatically</strong> as long as Food and inventory space remain.</td></tr>
+    <tr><td class="lbl">Toggle ON</td><td>The pen drains <code>Ichor_Per_Min(P)</code> every minute and fills the bar. P is <strong>locked in at toggle-on</strong>.</td></tr>
+    <tr><td class="lbl">Bar full</td><td>An egg is sent to the inventory, the bar resets to zero, and the pen <strong>continues automatically</strong> as long as Ichor and inventory space remain.</td></tr>
     <tr><td class="lbl">Toggle OFF</td><td>Drain stops. Progress is <strong>retained</strong>, not lost.</td></tr>
     <tr><td class="lbl">Egg inventory full</td><td>Drain stops, the bar freezes at its current fill. Nothing is consumed and nothing is lost. Clear an egg and it resumes.</td></tr>
-    <tr><td class="lbl">Food hits zero</td><td>Same as above: drain stops, bar freezes, pen resumes the moment Food arrives.</td></tr>
+    <tr><td class="lbl">Ichor hits zero</td><td>Same as above: drain stops, bar freezes, pen resumes the moment Ichor arrives.</td></tr>
     <tr><td class="lbl">Removing a parent</td><td><strong>Resets that pen's meter to zero.</strong> This is what stops a player filling a bar on a cheap Worn pair and swapping in two Voids at 99%.</td></tr>
     <tr><td class="lbl">Clock</td><td><strong>Session time only, and session means the tab is alive &mdash; not that it is in front of you.</strong> A pen advances on wall-clock elapsed time whenever the client is loaded, including while the window sits unfocused or behind another tab. It does <strong>not</strong> advance while the game is closed: no offline accrual, ever.</td></tr>
   </table>
@@ -66,11 +66,11 @@
   <h3>How the meter actually advances</h3>
   <ul class="sp-rules">
     <li>The tick is a function of <strong>elapsed wall-clock time</strong>, not of frames drawn. Each tick credits
-    <code>prog += (minutes elapsed &times; speed) / Minutes_Per_Egg</code> and spends <code>Food_Per_Min &times; minutes elapsed</code>.</li>
+    <code>prog += (minutes elapsed &times; speed) / Minutes_Per_Egg</code> and spends <code>Ichor_Per_Min &times; minutes elapsed</code>.</li>
     <li>It therefore does not matter how often the tick runs. A browser that throttles a background tab to one tick a
     minute credits that whole minute on the next call; the pen finishes at the same moment either way.</li>
-    <li>Partial ticks are honest: if there is not enough Food for the full interval the pen credits the fraction it could
-    pay for and flags <em>LOW FOOD</em>. At zero Food it pauses without consuming anything.</li>
+    <li>Partial ticks are honest: if there is not enough Ichor for the full interval the pen credits the fraction it could
+    pay for and flags <em>LOW FOOD</em>. At zero Ichor it pauses without consuming anything.</li>
     <li>A pen that reaches 100% with the soul bag full <strong>freezes at 100%</strong> and reports
     <em>SOUL BAG FULL</em>. Nothing is consumed and no egg is lost &mdash; it lays as soon as a slot exists.</li>
     <li><strong>speed</strong> is 1 on release: one game minute is one real minute. The &times;60 accelerator exists only
@@ -80,7 +80,7 @@
   <h2>Rates &mdash; drain, duration, cost</h2>
   <p>Authored per pair grade in <code>codex/breeding.csv</code>. Higher grades are slower <em>and</em> hungrier, so cost per egg rises steeply while the pen's own throughput falls.</p>
   <table>
-    <tr><th>Pair grade</th><th>Food / min</th><th>Minutes / egg</th><th>Food / egg</th><th>Drain per hour</th></tr>
+    <tr><th>Pair grade</th><th>Ichor / min</th><th>Minutes / egg</th><th>Ichor / egg</th><th>Drain per hour</th></tr>
     <tr><td class="lbl" style="color:#c2ae8b">Worn</td><td style="text-align:center">3</td><td style="text-align:center">15</td><td style="text-align:center">45</td><td style="text-align:center">180</td></tr>
     <tr><td class="lbl" style="color:#c2ae8b">Common</td><td style="text-align:center">5</td><td style="text-align:center">18</td><td style="text-align:center">90</td><td style="text-align:center">300</td></tr>
     <tr><td class="lbl" style="color:#1eff00">Uncommon</td><td style="text-align:center">7</td><td style="text-align:center">22</td><td style="text-align:center">154</td><td style="text-align:center">420</td></tr>
@@ -93,43 +93,43 @@
     <tr><td class="lbl" style="color:#a855f7">Void</td><td style="text-align:center">26</td><td style="text-align:center">110</td><td style="text-align:center">2,860</td><td style="text-align:center">1,560</td></tr>
   </table>
 
-  <h2>Food income</h2>
-  <p>Food comes from combat, and scales with what you killed &mdash; level and rarity both. Per defeated enemy:</p>
-  <pre>Food = round( 2 &times; (1 + enemyLevel / 20) &times; RarityMult )
+  <h2>Ichor income</h2>
+  <p>Ichor comes from combat, and scales with what you killed &mdash; level and rarity both. Per defeated enemy:</p>
+  <pre>Ichor = round( 2 &times; (1 + enemyLevel / 20) &times; RarityMult )
 
 RarityMult:   C 1.0   UC 1.5   R 2.5   SR 4.0   SSR 7.0</pre>
   <p>A three-enemy battle at the encounter weights in <code>codex/encounter_weights.csv</code> therefore yields:</p>
   <table>
-    <tr><th>Floor</th><th>C</th><th>UC</th><th>R</th><th>SR</th><th>SSR</th><th>Expected / battle</th><th>Food / hour</th></tr>
+    <tr><th>Floor</th><th>C</th><th>UC</th><th>R</th><th>SR</th><th>SSR</th><th>Expected / battle</th><th>Ichor / hour</th></tr>
     <tr><td class="lbl">1</td><td style="text-align:center">2</td><td style="text-align:center">3</td><td style="text-align:center">5</td><td style="text-align:center">8</td><td style="text-align:center">15</td><td style="text-align:center">9</td><td style="text-align:center">~280</td></tr>
     <tr><td class="lbl">25</td><td style="text-align:center">4</td><td style="text-align:center">7</td><td style="text-align:center">11</td><td style="text-align:center">18</td><td style="text-align:center">32</td><td style="text-align:center">25</td><td style="text-align:center">~740</td></tr>
     <tr><td class="lbl">51</td><td style="text-align:center">7</td><td style="text-align:center">11</td><td style="text-align:center">18</td><td style="text-align:center">28</td><td style="text-align:center">50</td><td style="text-align:center">47</td><td style="text-align:center">~1,420</td></tr>
     <tr><td class="lbl">75</td><td style="text-align:center">10</td><td style="text-align:center">14</td><td style="text-align:center">24</td><td style="text-align:center">38</td><td style="text-align:center">66</td><td style="text-align:center">72</td><td style="text-align:center">~2,150</td></tr>
     <tr><td class="lbl">99</td><td style="text-align:center">12</td><td style="text-align:center">18</td><td style="text-align:center">30</td><td style="text-align:center">48</td><td style="text-align:center">83</td><td style="text-align:center">101</td><td style="text-align:center">~3,040</td></tr>
   </table>
-  <p style="font-size:13px;color:var(--ink-dim)">Hourly figures assume ~30 battles/h. SSR encounter odds climb over the run, so deep floors pay Food twice over &mdash; higher levels <em>and</em> a richer rarity mix.</p>
+  <p style="font-size:13px;color:var(--ink-dim)">Hourly figures assume ~30 battles/h. SSR encounter odds climb over the run, so deep floors pay Ichor twice over &mdash; higher levels <em>and</em> a richer rarity mix.</p>
 
   <h2>Egg dismantling</h2>
-  <p>Unwanted eggs dismantle back into Food, keyed to the <strong>egg's</strong> grade (not the pair that made it).</p>
+  <p>Unwanted eggs dismantle back into Ichor, keyed to the <strong>egg's</strong> grade (not the pair that made it).</p>
   <table>
     <tr><th>Egg grade</th><th>Worn</th><th>Common</th><th>Uncommon</th><th>Rare</th><th>Epic</th><th>Legendary</th><th>Abyssal</th><th>Divine</th><th>Primordial</th><th>Void</th></tr>
-    <tr><td class="lbl">Food</td><td style="text-align:center">15</td><td style="text-align:center">25</td><td style="text-align:center">45</td><td style="text-align:center">70</td><td style="text-align:center">115</td><td style="text-align:center">180</td><td style="text-align:center">270</td><td style="text-align:center">410</td><td style="text-align:center">610</td><td style="text-align:center">860</td></tr>
+    <tr><td class="lbl">Ichor</td><td style="text-align:center">15</td><td style="text-align:center">25</td><td style="text-align:center">45</td><td style="text-align:center">70</td><td style="text-align:center">115</td><td style="text-align:center">180</td><td style="text-align:center">270</td><td style="text-align:center">410</td><td style="text-align:center">610</td><td style="text-align:center">860</td></tr>
   </table>
-  <div class="note"><strong>No breed-and-dismantle loop.</strong> Yields are tuned against the hatch-weight matrix so that the expected dismantle value of an egg is always <strong>27&ndash;30% of what the pen spent making it</strong> &mdash; at every rung of the ladder, including the up-rolls. Breeding for Food is always a loss; dismantling is a refund on a bad roll, never an engine.</div>
+  <div class="note"><strong>No breed-and-dismantle loop.</strong> Yields are tuned against the hatch-weight matrix so that the expected dismantle value of an egg is always <strong>27&ndash;30% of what the pen spent making it</strong> &mdash; at every rung of the ladder, including the up-rolls. Breeding for Ichor is always a loss; dismantling is a refund on a bad roll, never an engine.</div>
 
   <h2>Egg grade output</h2>
   <p>The pen does <strong>not</strong> need a new matrix. The pair grade P indexes the existing row in <code>codex/egg_hatch_weights.csv</code> &mdash; the same matrix that later rolls the hatchling's grade from the egg's grade. Two <span style="color:#a855f7">Void</span> parents roll a Void egg 78.1% of the time (14% Primordial, 5% Divine, and a long tail below), and that Void egg then rolls a Void creature 78.1% of the time: <strong>~61% Void end-to-end</strong>, with a real chance of falling short at either step. The Hatchery grade-boost upgrade shifts the second roll upward.</p>
 
   <h2>Throughput ceiling</h2>
-  <p>Food income &mdash; not pen count &mdash; is the hard cap on egg production.</p>
+  <p>Ichor income &mdash; not pen count &mdash; is the hard cap on egg production.</p>
   <table>
-    <tr><th>Scenario (endgame, ~3,040 Food/h)</th><th>Result</th></tr>
+    <tr><th>Scenario (endgame, ~3,040 Ichor/h)</th><th>Result</th></tr>
     <tr><td class="lbl">Void pair, any number of pens</td><td>~1.06 eggs / hour, ceiling</td></tr>
     <tr><td class="lbl">Epic pairs</td><td>~7.9 eggs / hour</td></tr>
-    <tr><td class="lbl">Six pens, all Void</td><td>9,360 Food/h demanded &mdash; runs at a <strong>32% duty cycle</strong>, starving and resuming</td></tr>
-    <tr><td class="lbl">Six pens, Worn through Legendary</td><td>3,060 Food/h &mdash; almost exactly sustainable at floor 99</td></tr>
+    <tr><td class="lbl">Six pens, all Void</td><td>9,360 Ichor/h demanded &mdash; runs at a <strong>32% duty cycle</strong>, starving and resuming</td></tr>
+    <tr><td class="lbl">Six pens, Worn through Legendary</td><td>3,060 Ichor/h &mdash; almost exactly sustainable at floor 99</td></tr>
   </table>
-  <p>A single Void pen alone eats half of a maxed player's entire Food income. That is the intended shape: the top of the ladder is slow by construction, and no amount of pens buys past it.</p>
+  <p>A single Void pen alone eats half of a maxed player's entire Ichor income. That is the intended shape: the top of the ladder is slow by construction, and no amount of pens buys past it.</p>
 </div>
 <script src="admin.js"></script>
 <h2>Changelog</h2>

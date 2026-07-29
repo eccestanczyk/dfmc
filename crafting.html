@@ -40,7 +40,7 @@ td{border-bottom:1px solid var(--rule);padding:5px 8px;color:var(--ink-dim);font
 <div style="max-width:1040px;margin:0 auto;padding:20px 16px 80px">
   <p style="color:var(--ink-dim);font-style:italic">Nothing is useless. Every drop dismantles into materials. Every material crafts the next tier.</p>
 
-  <div class="note"><strong style="color:var(--gold)">Recipes are authored, not formulaic.</strong> Every craftable item has its own row in <code>codex/recipes.csv</code> with an explicit material bill. There is no cost formula anywhere in the crafting system — change a recipe by editing its row. Output grade is always <strong>Worn</strong>; grading up is the separate Ichor system on the <a href="upgrading.html" style="color:var(--gold-bright)">Upgrading</a> page.</div>
+  <div class="note"><strong style="color:var(--gold)">Recipes are authored, not formulaic.</strong> Every craftable item has its own row in <code>codex/recipes.csv</code> with an explicit material bill. There is no cost formula anywhere in the crafting system — change a recipe by editing its row. Output grade is always <strong>Worn</strong>; grading up is the separate Scrap-fed gamble on the <a href="upgrading.html" style="color:var(--gold-bright)">Upgrading</a> page.</div>
 
   <h2 style="font-family:'Cinzel',serif;font-size:18px;color:var(--gold);margin:20px 0 8px">Recipe book</h2>
   <div class="filters">
@@ -56,7 +56,7 @@ td{border-bottom:1px solid var(--rule);padding:5px 8px;color:var(--ink-dim);font
   </table>
 
     <h2 style="font-family:'Cinzel',serif;font-size:18px;color:var(--gold);margin:24px 0 8px">Raising an item's grade</h2>
-  <p style="font-size:14px;color:var(--ink-dim)">There is no combining. <strong>Gear grade is raised only by spending resources on an attempt</strong> — Ichor for gear, Dust for gems, Essence for runes, Ink for scrolls, all authored in <code>codex/grading.csv</code>. A failed attempt consumes the currency and leaves the item exactly as it was; nothing is ever destroyed. Those are the same resources dismantling yields, so every drop feeds the ladder. See the Upgrading page for the full table.</p>
+  <p style="font-size:14px;color:var(--ink-dim)">There is no combining. <strong>Gear grade is raised only by spending resources on an attempt</strong> — Scrap for gear, Dust for gems, Essence for runes, Ink for scrolls, all authored in <code>codex/grading.csv</code>. A failed attempt consumes the currency and leaves the item exactly as it was; nothing is ever destroyed. Those are the same resources dismantling yields, so every drop feeds the ladder. See the Upgrading page for the full table.</p>
 
 <h2 style="font-family:'Cinzel',serif;font-size:18px;color:var(--gold);margin:24px 0 8px">Dismantling</h2>
   <p style="font-size:14px;color:var(--ink-dim)">Authored per row in <code>codex/dismantle.csv</code> — 410 rows. Gear: every (grade &times; refinement) pair. Gems / runes / scrolls: every (tier &times; grade) pair. No yield formula.</p>

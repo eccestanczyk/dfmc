@@ -35,7 +35,7 @@ code{color:var(--gold-bright);}
 <section>
   <h2>How Drops Work</h2>
   <p><strong>Every wild creature defeated makes three independent rolls</strong> — one for <strong>gear</strong>, one for an <strong>enhancement</strong> (gem / rune / scroll, even split), and one for the defeated line's <strong>Stage-1 egg</strong>. Each roll uses the same per-floor chance table below. When a gear roll succeeds, the base is a <strong>uniform pick among the gear bases</strong> (weapons, armour, accessories, tags); a successful enhancement roll splits evenly across gem / rune / scroll, uniform within the family.</p>
-  <p>Per-kill chances are scaled on the game-wide <strong>rarity value ladder</strong> — <span class="rar-C">C 1.0</span> / <span class="rar-UC">UC 1.5</span> / <span class="rar-R">R 2.5</span> / <span class="rar-SR">SR 4.0</span> / <span class="rar-SSR">SSR 7.0</span> (the same ladder as XP and Food) — and normalized per floor against <code>codex/encounter_weights.csv</code>, so each drop family lands <strong>exactly 10% per battle</strong> (3 kills) in expectation on every floor of the tower. Rarer kills pay better; the floor-wide economy never drifts.</p>
+  <p>Per-kill chances are scaled on the game-wide <strong>rarity value ladder</strong> — <span class="rar-C">C 1.0</span> / <span class="rar-UC">UC 1.5</span> / <span class="rar-R">R 2.5</span> / <span class="rar-SR">SR 4.0</span> / <span class="rar-SSR">SSR 7.0</span> (the same ladder as XP and Ichor) — and normalized per floor against <code>codex/encounter_weights.csv</code>, so each drop family lands <strong>exactly 10% per battle</strong> (3 kills) in expectation on every floor of the tower. Rarer kills pay better; the floor-wide economy never drifts.</p>
   <p>All chances on this page are read live from the codex CSVs — <code>drop_chances_by_floor.csv</code>, <code>drop_grade_weights.csv</code>, <code>key_drop_rates.csv</code>, <code>boss_loot.csv</code>, <code>first_win_drops.csv</code> — the same tables the game reads. Nothing is hardcoded.</p>
 </section>
 
@@ -48,7 +48,7 @@ code{color:var(--gold-bright);}
 
 <section>
   <h2>Drop Grade Weights by Floor Band</h2>
-  <p>When a <strong>gear</strong> drop lands, its grade is rolled from the band of the floor it dropped on. <strong>Divine, Primordial, and Void never drop</strong> — the Ichor gamble is the only path to Divine+ gear, and breeding the only path to Divine+ creatures.</p>
+  <p>When a <strong>gear</strong> drop lands, its grade is rolled from the band of the floor it dropped on. <strong>Divine, Primordial, and Void never drop</strong> — the grading gamble (paid in Scrap) is the only path to Divine+ gear, and breeding the only path to Divine+ creatures.</p>
   <div class="tbl-scroll" id="grades-wrap">LOADING…</div>
   <p><strong>Band shifts:</strong> <strong>Enhancements</strong> (gems, runes, scrolls) roll their grade <strong>one band behind</strong> gear. <strong>Boss gear</strong> rolls <strong>one band ahead</strong> of the boss's band (the final band clamps to itself). <strong>Wild and boss eggs</strong> use the floor band clamped to the <strong>Legendary wild-egg cap</strong>.</p>
   <p class="foot">Source: <code>codex/drop_grade_weights.csv</code> · band rules in <code>codex/drop_rates.csv</code> and <code>codex/boss_loot.csv</code></p>
@@ -84,7 +84,7 @@ code{color:var(--gold-bright);}
     <thead><tr><th class="rowhead">Item Type</th><th style="text-align:left">Sources</th><th style="text-align:left">Tier &amp; Grade Rules</th></tr></thead>
     <tbody>
       <tr class="catrow"><td colspan="3">Gear — Character</td></tr>
-      <tr><td class="rowhead">Weapon (MH/OH, 6 classes)</td><td>Wild gear roll · boss guaranteed gear · first-win ladder · crafting (<code>25 × tier</code> Scrap, Worn)</td><td>At-floor tier. Grade from the floor band; boss gear one band ahead. Divine+ never drops — Ichor gamble only. Equip: tier N needs character level ≥ (N−1)×10.</td></tr>
+      <tr><td class="rowhead">Weapon (MH/OH, 6 classes)</td><td>Wild gear roll · boss guaranteed gear · first-win ladder · crafting (<code>25 × tier</code> Scrap, Worn)</td><td>At-floor tier. Grade from the floor band; boss gear one band ahead. Divine+ never drops — the Scrap grading gamble only. Equip: tier N needs character level ≥ (N−1)×10.</td></tr>
       <tr><td class="rowhead">Armour (Head / Chest / Gloves / Feet)</td><td>Same as weapons</td><td>Same tier, grade, cap, and equip rules as weapons.</td></tr>
       <tr><td class="rowhead">Accessory (Signet +Atk / Relic +HP)</td><td>Same as weapons; win 1 rolls one family, win 4 grants the complement</td><td>Same tier, grade, cap, and equip rules as weapons.</td></tr>
       <tr class="catrow"><td colspan="3">Gear — Creature</td></tr>

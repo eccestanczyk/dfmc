@@ -1,4 +1,4 @@
-Grade_Num,Grade,Food_Per_Min,Minutes_Per_Egg,Food_Per_Egg,Egg_Dismantle_Food
+Grade_Num,Grade,Ichor_Per_Min,Minutes_Per_Egg,Ichor_Per_Egg,Egg_Dismantle_Ichor
 1,Worn,3,15,45,15
 2,Common,5,18,90,25
 3,Uncommon,7,22,154,45

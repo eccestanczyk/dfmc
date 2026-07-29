@@ -250,15 +250,15 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     </div>
 
     <h4>Class unlocks</h4>
-    <p>All six classes are earnable in-game in the prototype — the three advanced classes ship as DLC post-prototype (the earned path remains). Unlocking a class grants the class + its T1 class weapons (main + off hand) only — never creatures. Class unlocks are <strong>account-wide</strong> — one purchase unlocks the class for the character in every realm — and survive hardcore death (not part of items / creatures / class XP). Costs are farm-time-normalized on the canonical endgame income weights (Scrap 150/h : Dust/Essence/Ink 20/h : Ichor 10/h — the same 15 : 2 : 1 basis as the soul-grading bundle) and live in <code>codex/classes.csv</code> (<code>Unlock_Cost</code>):</p>
+    <p>All six classes are earnable in-game in the prototype — the three advanced classes ship as DLC post-prototype (the earned path remains). Unlocking a class grants the class + its T1 class weapons (main + off hand) only — never creatures. Class unlocks are <strong>account-wide</strong> — one purchase unlocks the class for the character in every realm — and survive hardcore death (not part of items / creatures / class XP). Costs are farm-time-normalized on the canonical endgame income weights (Scrap &asymp;150&ndash;225/h at endgame after the Ichor&rarr;Scrap fold at 15:1 : Dust/Essence/Ink 20/h) and live in <code>codex/classes.csv</code> (<code>Unlock_Cost</code>):</p>
     <table>
       <tr><th>Class</th><th>Unlock cost</th><th>Endgame farm time</th><th>Path</th></tr>
       <tr><td>Unpicked starters (Warrior / Mage / Archer)</td><td>100 Scrap each</td><td>~40 min</td><td>Gear dismantling — early-accessible</td></tr>
       <tr><td>Brute → Warlord → Titan</td><td>750 Scrap</td><td>~5 h</td><td>Gear dismantling — affordable earliest of the three</td></tr>
       <tr><td>Professor → Sage → Prophet</td><td>100 Ink</td><td>~5 h</td><td>Scroll/enhancement dismantling — mid</td></tr>
-      <tr><td>Assassin → Stalker → Nightblade</td><td>50 Ichor</td><td>~5 h</td><td>Bosses — de facto latest (Ichor scarce pre-floor-61)</td></tr>
+      <tr><td>Assassin → Stalker → Nightblade</td><td>750 Scrap</td><td>~5 h</td><td>Bosses — de facto latest (priced against endgame Scrap income)</td></tr>
     </table>
-    <div class="note note-info"><p>The three advanced unlocks cost equal endgame farm time but diverge in when they become realistically affordable — a soft unlock ordering without hard gates. Food is excluded (breeding-only economy).</p></div>
+    <div class="note note-info"><p>The three advanced unlocks cost equal endgame farm time but diverge in when they become realistically affordable — a soft unlock ordering without hard gates. Ichor is excluded (breeding-only economy).</p></div>
 
     <h4>Stat progression by stage</h4>
     <table>
@@ -267,7 +267,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
       <tr><td>Mage → Sorcerer → Archon</td><td>6 / 1 / 5</td><td>8 / 2 / 6</td><td>10 / 2 / 8</td><td>Starter</td></tr>
       <tr><td>Archer → Ranger → Hawkeye</td><td>5 / 2 / 5</td><td>7 / 2 / 7</td><td>8 / 3 / 9</td><td>Starter</td></tr>
       <tr><td>Brute → Warlord → Titan</td><td>5 / 5 / 2</td><td>7 / 7 / 2</td><td>9 / 8 / 3</td><td>Unlock — 750 Scrap</td></tr>
-      <tr><td>Assassin → Stalker → Nightblade</td><td>6 / 1 / 5</td><td>7 / 2 / 7</td><td>9 / 2 / 9</td><td>Unlock — 50 Ichor</td></tr>
+      <tr><td>Assassin → Stalker → Nightblade</td><td>6 / 1 / 5</td><td>7 / 2 / 7</td><td>9 / 2 / 9</td><td>Unlock — 750 Scrap</td></tr>
       <tr><td>Professor → Sage → Prophet</td><td>2 / 5 / 5</td><td>2 / 7 / 7</td><td>3 / 8 / 9</td><td>Unlock — 100 Ink</td></tr>
     </table>
     <div class="note note-info"><p><strong>Class stats are multipliers, not pools.</strong> A class stage stat feeds <code>AxisMult = (3 &times; stat + 5) / 20</code> and multiplies the summed item stats for that axis — Paladin Def 10 means &times;1.75 on all armour Defense; Mage Def 2 means &times;0.55. The character has no innate stat pool beyond a flat +10 Attack / +10 Defense floor applied after all multipliers (July 2026); gear provides everything else. Same curve as creature axis grades.</p></div>
@@ -302,7 +302,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
       <tr><th>Rarity</th><th>C</th><th>UC</th><th>R</th><th>SR</th><th>SSR</th></tr>
       <tr><td>m<sub>r</sub></td><td>1.0</td><td>1.5</td><td>2.5</td><td>4.0</td><td>7.0</td></tr>
     </table>
-    <p>Same ladder as Food &mdash; one rarity-value scale game-wide. The <code>&frasl;M&#772;(C)</code> normalization holds expected battle XP at exactly 10 &times; L on every floor even as encounter weights drift toward rarer tiers over the run (un-normalized, endgame XP would inflate 2.8&times;). The 4-XP-per-kill floor only lifts level 1&ndash;2 Commons/Uncommons: it makes the worst possible first battle (3 level-1 Commons) grant 12 XP &mdash; a guaranteed full first level (10 needed) with no special-case rule. Baked per-level, per-rarity values are the game-side authority: <code>dfmc-game/Assets/Data/XPCurve.csv</code>.</p>
+    <p>Same ladder as Ichor &mdash; one rarity-value scale game-wide. The <code>&frasl;M&#772;(C)</code> normalization holds expected battle XP at exactly 10 &times; L on every floor even as encounter weights drift toward rarer tiers over the run (un-normalized, endgame XP would inflate 2.8&times;). The 4-XP-per-kill floor only lifts level 1&ndash;2 Commons/Uncommons: it makes the worst possible first battle (3 level-1 Commons) grant 12 XP &mdash; a guaranteed full first level (10 needed) with no special-case rule. Baked per-level, per-rarity values are the game-side authority: <code>dfmc-game/Assets/Data/XPCurve.csv</code>.</p>
 
     <p>The curve is deliberately back-loaded for an autoplay game: <strong>75% of all leveling time sits in levels 90&ndash;100</strong> (50% in the last five levels). Total to max level: <strong>~20,300 battles &asymp; 680&nbsp;h</strong> at 2 minutes per battle. Reaching level 67 &mdash; where wild Stage&nbsp;3 creatures appear &mdash; takes only ~885 battles (~30&nbsp;h). Owned-creature final advancements land between levels 56&ndash;73 depending on line rarity (see Creature advancements).</p>
 
@@ -435,13 +435,13 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     <div class="note note-info"><p>Throughput: the refill ceiling is 60 spawns/hour per floor — 2&times; headroom at the ~30 battles/hour endgame anchor, and exact parity for optimized offensive builds approaching 60 battles/hour, which ride the drip on a camped floor. Sustained single-floor farming is throttled at the spawner; speed builds, like everyone else, scale through floor rotation (&approx;10 per floor per pass).</p></div>
     <h3>Wild quality &amp; virtual gear</h3>
     <p>Every wild spawn rolls a <strong style="color:#ede0c4">quality grade</strong> once, at spawn, from the zone-banded weights in <code>codex/wild_quality_weights.csv</code> — floors 1&ndash;9 are all-Worn (&times;0.84), the curve begins at floor 11, and the roll is <strong>capped at Legendary</strong> — Abyssal&ndash;Void quality exists only through breeding and never appears in the wild. The rolled grade sets the creature's quality multiplier (QM) on Attack, Defense, and HP. There is <strong style="color:#ede0c4">no catching</strong> — wild creatures are fought, never taken; their lines enter the roster only through egg drops and hatching.</p>
-    <p>Deep-zone wilds also carry <strong style="color:#ede0c4">virtual gear</strong>: zone 1 none; zones 2&ndash;4 one tag; zones 5&ndash;10 both combat tags. The single tag is Fang when the species' <code>Grade_Attack &ge; Grade_Defense</code>, otherwise Carapace — <strong>never Heart</strong> (HP scales through QM only; wall inflation stays capped at the source). Tag value is the canonical tag implicit at the at-floor tier — no gems, runes, refinement, or item instances; nothing enters the loot tables. Drops, eggs, XP, and Food are computed exactly as before — enemy quality never feeds the reward economy.</p>
+    <p>Deep-zone wilds also carry <strong style="color:#ede0c4">virtual gear</strong>: zone 1 none; zones 2&ndash;4 one tag; zones 5&ndash;10 both combat tags. The single tag is Fang when the species' <code>Grade_Attack &ge; Grade_Defense</code>, otherwise Carapace — <strong>never Heart</strong> (HP scales through QM only; wall inflation stays capped at the source). Tag value is the canonical tag implicit at the at-floor tier — no gems, runes, refinement, or item instances; nothing enters the loot tables. Drops, eggs, XP, and Ichor are computed exactly as before — enemy quality never feeds the reward economy.</p>
 
     <h3>Streak counter</h3>
     <p>After every battle, a compact rectangle appears mid-screen showing the current streak status as <strong style="color:#ede0c4">X / Y</strong> (battles won / threshold). On a <strong style="color:#4a7a44">win</strong>, X scrolls up to the new count and the text pops in size briefly. On a <strong style="color:#dd5646">loss</strong>, the rectangle visually cracks and X rolls back down through each number to 0. The counter only appears on floors not yet cleared.</p>
 
     <h3>Boss key</h3>
-    <p>A single Key is required to enter a boss floor, accessible via the portal or directly through the map selector. Keys are zone-specific items (<code>ITM-KEY-010</code>&hellip;<code>ITM-KEY-100</code>). Every wild creature defeated on the 9 floors preceding a boss rolls for that zone's Key. The roll is per creature and scales with the creature's rarity — on the game-wide rarity value ladder (C&nbsp;1.0 / UC&nbsp;1.5 / R&nbsp;2.5 / SR&nbsp;4.0 / SSR&nbsp;7.0 &mdash; same as Food and XP), normalized against the zone's encounter weights so a minimum-win journey (3 kills per win) yields exactly one Key in expectation: <code>p(zone, r) = m<sub>r</sub> &frasl; &Sigma;<sub>floors</sub>(3 &times; ceil(floor<sup>0.65</sup>) &times; M&#772;(floor))</code>. Full table in <code>codex/key_drop_rates.csv</code>. <strong>Guaranteed key:</strong> the first time a player completes the 9th floor of a zone (floors 9, 19, 29, &hellip; 99), a key is guaranteed to drop. This is a one-time reward per zone per character. The Key is consumed on boss entry.</p>
+    <p>A single Key is required to enter a boss floor, accessible via the portal or directly through the map selector. Keys are zone-specific items (<code>ITM-KEY-010</code>&hellip;<code>ITM-KEY-100</code>). Every wild creature defeated on the 9 floors preceding a boss rolls for that zone's Key. The roll is per creature and scales with the creature's rarity — on the game-wide rarity value ladder (C&nbsp;1.0 / UC&nbsp;1.5 / R&nbsp;2.5 / SR&nbsp;4.0 / SSR&nbsp;7.0 &mdash; same as Ichor and XP), normalized against the zone's encounter weights so a minimum-win journey (3 kills per win) yields exactly one Key in expectation: <code>p(zone, r) = m<sub>r</sub> &frasl; &Sigma;<sub>floors</sub>(3 &times; ceil(floor<sup>0.65</sup>) &times; M&#772;(floor))</code>. Full table in <code>codex/key_drop_rates.csv</code>. <strong>Guaranteed key:</strong> the first time a player completes the 9th floor of a zone (floors 9, 19, 29, &hellip; 99), a key is guaranteed to drop. This is a one-time reward per zone per character. The Key is consumed on boss entry.</p>
 
     <h3>Boss loot</h3>
     <p>Every boss kill guarantees two drops, delivered on the conclusion screen (params in <code>codex/boss_loot.csv</code>):</p>
@@ -703,7 +703,7 @@ FinalDamage = RawDamage
     <h2>Metagame systems</h2>
     <p>All metagame systems are accessible as UI panels at any time during PvE floors, including during battles. They are locked during PvP. There is no physical base — everything is menu-driven.</p>
     <div class="grid-2">
-      <div class="card"><div class="card-title">🧬 Breeding</div><div class="card-body">Six breeding pens (1 free, 1 bought with Food, 4 DLC). A pen holds a ♂/♀ pair sharing at least one type; toggled on, it drains Food per minute and fills a bar, dropping an egg into inventory each time it completes and continuing automatically. Rates key off pair grade P = ⌊mean of parent grades⌋. Parents are locked out of the battle party; removing one resets the meter. Full rules: <a href="system-breeding.html" style="color:var(--gold-bright)">Breeding</a>.</div></div>
+      <div class="card"><div class="card-title">🧬 Breeding</div><div class="card-body">Six breeding pens (1 free, 1 bought with Ichor, 4 DLC). A pen holds a ♂/♀ pair sharing at least one type; toggled on, it drains Ichor per minute and fills a bar, dropping an egg into inventory each time it completes and continuing automatically. Rates key off pair grade P = ⌊mean of parent grades⌋. Parents are locked out of the battle party; removing one resets the meter. Full rules: <a href="system-breeding.html" style="color:var(--gold-bright)">Breeding</a>.</div></div>
       <div class="card"><div class="card-title">🔧 Crafting</div><div class="card-body">Recipe list in UI. Select recipe, confirm materials, receive output. Materials sourced from battle rewards.</div></div>
       <div class="card"><div class="card-title">🥚 Hatchery</div><div class="card-body">Egg incubation managed via UI. Set eggs to incubate, return after the timer. Hatchery level (upgraded via crafting resources) improves grade odds and slot count.</div></div>
     </div>
@@ -718,7 +718,7 @@ FinalDamage = RawDamage
       </div>
       <div class="card">
         <div class="card-title">🧬 Bred eggs</div>
-        <div class="card-body">Produced via the Breeding UI panel by selecting two parent creatures and spending Food. No grade cap — can produce up to <span style="color:#a855f7">Void</span>. Higher grade parents significantly increase odds of higher grade output. Hatchery level also increases the chance of higher grade eggs independently of parent grade.</div>
+        <div class="card-body">Produced via the Breeding UI panel by selecting two parent creatures and spending Ichor. No grade cap — can produce up to <span style="color:#a855f7">Void</span>. Higher grade parents significantly increase odds of higher grade output. Hatchery level also increases the chance of higher grade eggs independently of parent grade.</div>
       </div>
     </div>
 
@@ -727,14 +727,14 @@ FinalDamage = RawDamage
       <div class="card-body">Granted at character creation via the class-select screen — each starter class carries two fixed creatures, one SR and one SSR line, at Worn quality grade. Genders roll 50/50 at grant; starter creatures are account-bound (never tradeable). Later class unlocks grant no creatures. Assignments: Warrior — Ferrodrake (SR) + Ridgedrake (SSR); Mage — Phylactery (SR) + Pyriel (SSR); Archer — Typhon (SR) + Stormfather (SSR).</div>
     </div>
 
-    <h3>Food</h3>
-    <p><strong style="color:#ede0c4">Food</strong> is the metagame currency that runs the breeding pens. It has <strong>no other sink</strong>, so Food income is the hard ceiling on egg production — pen count never raises it. Two sources feed the same pool:</p>
+    <h3>Ichor</h3>
+    <p><strong style="color:#ede0c4">Ichor</strong> is the metagame currency that runs the breeding pens. It has <strong>no other sink</strong>, so Ichor income is the hard ceiling on egg production — pen count never raises it. Two sources feed the same pool:</p>
     <table>
-      <tr><th>Source</th><th>How it yields Food</th></tr>
-      <tr><td>Combat</td><td>Per defeated enemy: <code>round(2 &times; (1 + enemyLevel / 20) &times; RarityMult)</code> — RarityMult C 1.0 / UC 1.5 / R 2.5 / SR 4.0 / SSR 7.0. Roughly 280 Food/h at floor 1, 740 at floor 25, 3,040 at floor 99 (deep floors pay twice: higher levels <em>and</em> richer SSR/SR encounter odds).</td></tr>
+      <tr><th>Source</th><th>How it yields Ichor</th></tr>
+      <tr><td>Combat</td><td>Per defeated enemy: <code>round(2 &times; (1 + enemyLevel / 20) &times; RarityMult)</code> — RarityMult C 1.0 / UC 1.5 / R 2.5 / SR 4.0 / SSR 7.0. Roughly 280 Ichor/h at floor 1, 740 at floor 25, 3,040 at floor 99 (deep floors pay twice: higher levels <em>and</em> richer SSR/SR encounter odds).</td></tr>
       <tr><td>Egg dismantling</td><td>Keyed to egg grade — 15 / 25 / 45 / 70 / 115 / 180 / 270 / 410 / 610 / 860 (Worn &rarr; Void). Tuned against the hatch-weight matrix to always return 27&ndash;30% of what a pen would spend breeding that grade: a refund on a bad roll, never an engine.</td></tr>
     </table>
-    <p>Pen drain, egg duration, and Food-per-egg are authored per pair grade in <code>codex/breeding.csv</code> — Worn 3 Food/min / 15 min / 45 Food, up to Void 26 Food/min / 110 min / 2,860 Food. A single Void pen eats half a maxed player's entire Food income, and the ceiling is ~1 Void egg per hour no matter how many pens are owned. Full rules: <a href="system-breeding.html" style="color:var(--gold-bright)">Breeding</a>.</p>
+    <p>Pen drain, egg duration, and Ichor-per-egg are authored per pair grade in <code>codex/breeding.csv</code> — Worn 3 Ichor/min / 15 min / 45 Ichor, up to Void 26 Ichor/min / 110 min / 2,860 Ichor. A single Void pen eats half a maxed player's entire Ichor income, and the ceiling is ~1 Void egg per hour no matter how many pens are owned. Full rules: <a href="system-breeding.html" style="color:var(--gold-bright)">Breeding</a>.</p>
 
     <h3>Incubation & hatchery</h3>
     <p>All eggs must be incubated before hatching, managed via the Hatchery UI panel. The hatchery has two upgrade vectors, improved by spending crafting resources:</p>
@@ -886,7 +886,7 @@ FinalDamage = RawDamage
     <table>
       <tr><th>Rule</th><th>Detail</th></tr>
       <tr><td style="color:#ede0c4">Multiplier</td><td><code>SoulMult = 1 + 0.05 &times; (grade# &minus; 1)</code> — Worn &times;1.00 &rarr; Void &times;1.45. Stacks multiplicatively with stage scaling (S1 60% / S2 80% / S3 100%).</td></tr>
-      <tr><td style="color:#ede0c4">Currency</td><td><strong>All five sink currencies per attempt</strong> — Scrap + Ichor + Dust + Essence + Ink in one bundle. Each resource's weight is set by its endgame income rate, so every resource costs the same farm time (Scrap 150/h &rarr; heaviest count; Ichor 10/h &rarr; lightest count). Food is excluded (breeding-only economy).</td></tr>
+      <tr><td style="color:#ede0c4">Currency</td><td><strong>All five sink currencies per attempt</strong> — Scrap + Ichor + Dust + Essence + Ink in one bundle. Each resource's weight is set by its endgame income rate, so every resource costs the same farm time (Scrap 150/h &rarr; heaviest count; Ichor 10/h &rarr; lightest count). Ichor is excluded (breeding-only economy).</td></tr>
       <tr><td style="color:#ede0c4">Attempt cost</td><td><code>mult &times; (15 Scrap + 1 Ichor + 2 Dust + 2 Essence + 2 Ink)</code>, where <code>mult</code> is the gear-grading cost ladder 1 / 1 / 2 / 3 / 5 / 8 / 12 / 18 / 40 by target grade. A Void attempt = 600 Scrap + 40 Ichor + 80 Dust + 80 Essence + 80 Ink.</td></tr>
       <tr><td style="color:#ede0c4">Success chance</td><td>Shared grading ladder: 100 / 90 / 70 / 50 / 35 / 20 / 8 / 3 / <strong>0.5%</strong> into Void — no pity, pure roll every attempt.</td></tr>
       <tr><td style="color:#ede0c4">On failure</td><td>Bundle consumed, soul grade unchanged — no destruction, no downgrade.</td></tr>
@@ -1289,7 +1289,7 @@ Your Backend
     <div class="note note-warn"><p><strong>Trade duplication exploits</strong> — implement transfer lock before marketplace goes live.</p></div>
     <h3>Future features (cut from current scope)</h3>
     <div class="note note-info"><p><strong>Skill trees</strong> — passive skill trees (graph of stat/modifier/keystone nodes, skill points on level-up, respec) for classes and creatures are cut from this iteration. Class and creature power comes from levels, stages, grades, equipment, and souls only. Trees may return as a post-launch depth layer.</p></div>
-    <div class="note note-info"><p><strong>Farming</strong> — a timer-based UI system (plant a crop, return after a duration to harvest, yield rendering into crafting materials) was cut from current scope. Crops are therefore <em>not</em> a source of Food: Food comes only from completing battles and dismantling eggs. May return later.</p></div>
+    <div class="note note-info"><p><strong>Farming</strong> — a timer-based UI system (plant a crop, return after a duration to harvest, yield rendering into crafting materials) was cut from current scope. Crops are therefore <em>not</em> a source of Ichor: Ichor comes only from completing battles and dismantling eggs. May return later.</p></div>
     <div class="note note-info"><p><strong>Rogue Collectors</strong> — hostile NPC trainer encounters with patrol routes and line-of-sight triggers, originally part of floor structure. Removed from active scope to keep early development focused. May be reintroduced post-launch or in a content update.</p></div>
     <div class="note note-info"><p><strong>Gathering nodes & secret areas</strong> — the original handcrafted circuit map design with resource nodes, HM-gated secret areas, and a node-farming layer has been replaced by the simpler battle-win-threshold map design. All equipment and crafting materials now come from battle rewards only. May be reconsidered as a future map variant or content layer.</p></div>
     <div class="note note-info"><p><strong>Physical base</strong> — the original design included a physical base the Collector could walk around in, with tile-based farming, craftings stations, a hatchery building. This has been replaced entirely by UI panels accessible during PvE floors. A physical base may be reintroduced in a future content update as an optional social/cosmetic space.</p></div>
@@ -1381,7 +1381,7 @@ Your Backend
       <tr><th>Name</th><th>Use</th></tr>
       <tr><td><span style="color:#c2ae8b">Scrap</span></td><td>Refinement (+1 to +10 on gear)</td></tr>
       <tr><td><span style="color:#a855f7">Ichor</span></td><td>Grading up equipment/eggs to the next grade tier</td></tr>
-      <tr><td>Food</td><td>Unified breeding currency — from completing battles and dismantling eggs</td></tr>
+      <tr><td>Ichor</td><td>Unified breeding currency — from completing battles and dismantling eggs</td></tr>
       <tr><td><span style="color:#9fe0d0">Wraithgold</span></td><td><strong style="color:#ede0c4">Premium.</strong> Bought with real money — it never drops and no amount of play produces it. Its only sink today is soul-bag expansion. PvP ladder and tournament payouts are planned and will be the only earned source that ever exists.</td></tr>
     </table>
     <p style="font-size:13px;color:#c2ae8b">Wraithgold buys a <em>determined</em> outcome only. Real money never buys a random draw anywhere in this game — no paid hatch, no paid roll, no paid grading attempt.</p>
@@ -1407,7 +1407,7 @@ Your Backend
     <h4 style="color:#e4ca8e">Class souls</h4>
     <p>A class is held as a <strong style="color:#ede0c4">class soul</strong> — an item in the soul bag, one per class the account owns. Open it to equip it, which switches the active class and strips the character bare; all eight gear slots return to the inventory, and the switch is refused outright if the inventory has no room for them. A class soul is <strong style="color:#ede0c4">untradeable and undismantleable</strong>: it is bound to the account, and no salvage, bulk sweep or trade can consume one.</p>
     <p>Class souls grade on the same Worn–Void soul ladder as creature souls (<code>codex/soul_grading.csv</code>) — the full five-currency bundle per attempt, the shared 100 / 90 / 70 / 50 / 35 / 20 / 8 / 3 / 0.5% success chain, and a failure that consumes the bundle and changes nothing else. Grade is stored per class line and survives class switching, since the soul is a property of the class and not of the character wearing it.</p>
-    <p>A creature can be dismantled from its details window, which also shows its types as badges in the header. It salvages for the same Food an egg of that grade salvages for. Bulk salvage never touches creatures — that is a deliberate, one-at-a-time act.</p>
+    <p>A creature can be dismantled from its details window, which also shows its types as badges in the header. It salvages for the same Ichor an egg of that grade salvages for. Bulk salvage never touches creatures — that is a deliberate, one-at-a-time act.</p>
 
     <h3>Mutant variants — not "Shiny"</h3>
     <p>The alt-color rare cosmetic variant is called a <strong style="color:#ede0c4">Mutant</strong> in this project. Never "Shiny" — it is easy to slip into by habit; don't.</p>
