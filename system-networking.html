@@ -154,7 +154,8 @@
     <tr><td class="lbl">Consistency</td><td>Index <em>N</em> always resolves to the same creature, so a spawn keeps its identity and roll until killed, and re-entry never rerolls</td></tr>
     <tr><td class="lbl">Stored</td><td><code>{lastAccessTs, liveIndices[], cursor, pin}</code> per floor, ~50 bytes. The save stores nothing about pools</td></tr>
     <tr><td class="lbl">Delivery</td><td>Floor entry, and on the <code>/api/battle</code> response. Respawns cost no extra request</td></tr>
-    <tr><td class="lbl">Data changes</td><td>The pin is stored per floor so live spawns keep their identity; only new indices use the new pin</td></tr>
+    <tr><td class="lbl">Data changes &mdash; adding creatures (D ruling)</td><td>Version <strong>per floor</strong>, not by <code>DATA_PIN</code>: a <code>spawnTableVersion</code> advances only when that floor's pool actually changes, so adding creatures to floor 40 never re-rolls floor 3. Nothing on a floor is ownable (creatures come from eggs and breeding; floor spawns cannot be captured), so re-deriving a changed floor costs a player nothing but a different opponent. A battle in flight is the only hazard: <code>/api/battle</code> carries the version it started under, and the server resolves under the old table</td></tr>
+    <tr><td class="lbl">Structural changes</td><td>Anything changing the derivation function, the secret, or the table format takes a <strong>maintenance window</strong> &mdash; the flag exists in the worker (<code>MAINTENANCE=1</code>, bring-up is two edits per OPS). A window is required whenever the same data would be valid under two rulesets at once; routine content patches do not create that, data-shape changes do</td></tr>
   </table>
   <div class="note">The server secret is load-bearing. Rotating it rerolls the world for everyone. Treat it like <code>DATA_PIN</code>: set once, never rotated casually.</div>
 
@@ -204,8 +205,11 @@
   Per-player never needs rebalancing; a fixed shard pool does, every time it grows.</p>
 
   <h2>Cost model</h2>
-  <p>Rates: DO requests $0.15/M after 1M; duration $12.50/M GB-s after 400k; rows written $1.00/M after 50M;
-  rows read $0.001/M after 25B; SQLite storage 5&nbsp;GB included. R2 $0.015/GB-month, $4.50/M Class&nbsp;A.</p>
+  <p>Rates, verified against Cloudflare's pricing docs 2026-07-29: DO requests $0.15/M after 1M; duration $12.50/M GB-s after
+  400k; rows written $1.00/M after 50M; rows read $0.001/M after 25B; SQLite storage 5&nbsp;GB included then $0.20/GB-month.
+  R2 $0.015/GB-month, $4.50/M Class&nbsp;A. Fine print that bites: <code>setAlarm()</code> is billed as a row written, deletes
+  count as rows written, the KV-style <code>get/put/delete/list</code> methods are billed as row operations, and every write
+  stores nominal metadata that counts toward billable storage.</p>
   <table>
     <tr><th>Line</th><th>300k &times; 24/7</th><th>300k, 30% &times; 8h</th></tr>
     <tr><td class="lbl">Rows written</td><td>$13,990</td><td>$1,354</td></tr>
