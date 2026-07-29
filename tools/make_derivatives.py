@@ -22,7 +22,7 @@ TARGETS = [
     ('assets/ui/move_icons/*.png',        'assets/ui/opt/move_icons',   64,  88, 'status chips paint at 33x33'),
     ('assets/ui/medals/*.png',            'assets/ui/opt/medals',      128,  88, 'medal badges'),
     ('assets/ui/icons/*.png',             'assets/ui/opt/icons',       160,  88, 'menu tile icons'),
-    ('codex/images/classes/*.png',        'codex/images/opt/classes',  256,  90, 'battle avatar paints at 128x128'),
+    ('codex/images/classes/*.png',        'codex/images/opt/classes', 1024,  92, 'avatar paints 480px, roster 341px; @2x that is ~960/683 device px - keep master res'),
     ('codex/images/eggs/*.png',           'codex/images/opt/eggs',     256,  88, 'egg tiles paint at 250x250'),
     ('codex/images/items/*.png',          'codex/images/opt/items',    128,  88, 'inventory tiles paint at 33-50px'),
     ('_parking/game-mirror/Inventory/*.png', 'assets/ui/opt/frames',   160,  90, 'tile frames paint behind a 50px icon'),
