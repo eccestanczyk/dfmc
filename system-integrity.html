@@ -22,7 +22,7 @@
     <tr><td class="lbl">Currencies (Scrap, Ichor, Food, Dust, Essence, Ink)</td><td>Server</td><td>Cloud Save <strong>Protected</strong> keys, ledgered by Cloud Code. UGS Economy was evaluated and rejected &mdash; 14&times; the per-write cost for the same guarantee.</td></tr>
     <tr><td class="lbl">Creatures, character/class levels, inventory, souls</td><td>Server</td><td>Cloud Save Protected keys, namespaced per realm.</td></tr>
     <tr><td class="lbl">Hardcore death mark</td><td>Server</td><td>Private key &mdash; written by the atomic seal-wipe-mark death pipeline, unreadable and unwritable by the client.</td></tr>
-    <tr><td class="lbl">Ladder ratings, leaderboards</td><td>Server</td><td>UGS Leaderboards; only adjudicated results post (see PvP).</td></tr>
+    <tr><td class="lbl">Ladder ratings, leaderboards</td><td>Server</td><td>Server-derived (2026-07-30): the client cannot submit a board score at all &mdash; see the Leaderboards section below.</td></tr>
     <tr><td class="lbl">Tradeable items</td><td>Steam</td><td>Steam Inventory Service; minted server-only via the publisher key, never by the client.</td></tr>
     <tr><td class="lbl">Settings, keybinds, autoplay config, local logs</td><td>Player</td><td>Steam Cloud &mdash; the only tier the player is <em>meant</em> to own; nothing competitive or economic lives here.</td></tr>
   </table>
@@ -56,9 +56,30 @@
     <tr><td class="lbl">Listing velocity monitoring</td><td>Accounts whose listing rate is inconsistent with their play pattern get flagged for the audit queue &mdash; the CS:GO key-fraud lesson: watch the exit, not just the faucet.</td></tr>
   </table>
 
+  <h2>Leaderboards are server-derived (ANTICHEAT&nbsp;2, 2026-07-30)</h2>
+  <p>The studied model is Steam's <em>Trusted writes</em>: leaderboard scores cannot be set by clients &mdash; only the publisher's own server may write them. Client-writable boards die predictably (every <em>Papers, Please</em> endless board tops out at a forged 2,147,483,647). Herumon Tower follows the same rule: <strong><code>/api/lb/submit</code> is retired (HTTP&nbsp;410)</strong> and no client-callable board write exists. Every board value is derived from truth the server already owns:</p>
+  <table>
+    <tr><th>Board</th><th>Source of truth</th><th>Write policy</th></tr>
+    <tr><td class="lbl">ladder</td><td>The server-owned Elo. Written by <code>pvp/finish</code> in the same request that writes the ratings rows, for both participants.</td><td><code>set</code> &mdash; the ladder shows the <em>current</em> rating; the row's first-arrival timestamp is kept.</td></tr>
+    <tr><td class="lbl">climb</td><td>The maxFloor <strong>ratchet</strong> (<code>progress</code>), advanced only by credited battles. When a battle ratchets, the player object annotates its response and the Worker relays the new value to the world object under <code>waitUntil</code> &mdash; objects never call objects, and the player's response is never delayed.</td><td><code>max</code> &mdash; keep-best; monotone by construction. ~1 write per floor per player lifetime.</td></tr>
+    <tr><td class="lbl">power</td><td>The one value with no server recompute yet (that is ANTICHEAT&nbsp;5). It rides the save as <code>pw</code>, is stripped from the stored record, and is validated in the player object against <code>POW_MAX = LB_POW_BASE + LB_POW_PER_FLOOR &times; (ratchet+1)</code> (env-tunable; defaults 2,000&nbsp;+&nbsp;1,500&times;f, calibrated from live data: 3,380 power at maxFloor&nbsp;5 &rarr; ~3&times; headroom).</td><td><code>max</code> &mdash; keep-best, deadbanded (only an improvement over the last published value is relayed, so a 10-second autosave cadence can never become a world-write cadence).</td></tr>
+  </table>
+  <ul class="sp-rules">
+    <li><strong>Breach = quarantine, never clamp.</strong> A power claim over the ceiling is flagged (<code>lb_power_over</code>) and writes <em>no row</em> &mdash; a cheater is absent from the board, never parked at the ceiling &mdash; and the save itself is stored untouched.</li>
+    <li><strong>The first-there tiebreak is unforgeable:</strong> <code>at</code> is stamped by the server at the moment of the improvement. The retired submit route accepted a client <code>at</code>, which let a forged <code>at:1</code> win every tiebreak forever; that class of input no longer exists.</li>
+    <li><strong>A lower value never erases a stored best</strong> (the retired route's <code>INSERT OR REPLACE</code> could).</li>
+    <li><strong>Rider, same batch:</strong> a battle event's <code>floor</code> is now clamped to <code>ratchet+1</code> before it prices kills or advances anything (<code>battle_floor_over</code> flag). A forged floor-50 event used to ratchet &mdash; and would have boarded &mdash; 50 floors in one request; clamped, a fake climb costs one credited battle per floor through the spawn budget and rate caps, the same cost class as playing. The full enter-proof (require the floor's <code>floors_srv</code> row) stays on the Phase-2b list.</li>
+    <li><strong>Reads are unchanged:</strong> the daily <code>lb_snap</code> top-100 behind a 30-minute edge cache, the daily rank pass for exact ranks, and <code>/api/lb/purge</code> as the removal tooling.</li>
+    <li>Board display names come from the world <code>name/claim</code> identity (claimed at character creation); an account without one shows <em>Climber</em>.</li>
+  </ul>
+
   <h2>Failure &amp; cost doctrine</h2>
   <p>Precedent says the model holds: the mobile-strategy pattern this follows (client as pure view, all authority server-side) is why modded clients achieve nothing against such games. Its known failure modes are the transaction layer (handled above) and cost blowout &mdash; the naive build of this same architecture (UGS Economy ledgers, per-round PvP server resolution) priced at &gt;$450k/month at 500k CCU; the committed build lands at <strong>~$0.02&ndash;0.03 per concurrent user per month (~$12&ndash;15k/month at 500k CCU)</strong>, dominated by batched Cloud Save writes. Flush tiers: immediate for stakes (deaths, trades, ladder), batched for grind accrual.</p>
   <div class="sp-note"><strong>Open item:</strong> <code>SAVE_ARCHITECTURE.md</code> v2 (with the five review corrections folded in) is written but not yet committed to the repo. It belongs next to <code>PIPELINE.md</code>.</div>
+  <h2>Changelog</h2>
+  <ul class="sp-rules">
+    <li><strong>2026-07-30 &mdash; ANTICHEAT&nbsp;2: leaderboards became server-derived.</strong> The client submit route is retired (410); ladder/climb/power are written only by server code from the Elo, the ratchet, and save-time-validated power respectively, relayed Worker-side under <code>waitUntil</code>. Quarantine on breach, server-stamped first-there, keep-best semantics, and the battle-event floor clamp shipped in the same batch. The trust-boundary row above was corrected from the pre-build "UGS Leaderboards" wording to as-built truth.</li>
+  </ul>
 </div>
 <script src="admin.js"></script>
 <script src="nav.js"></script>
