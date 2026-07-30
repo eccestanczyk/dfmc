@@ -362,6 +362,25 @@
   </table>
   <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-07-30 &mdash; boss events happen on boss floors.</strong> Boss floors are 10/20/30; x9
+    floors are regular floors (D ruling). The client emitted boss victories with the pre-boss floor its
+    <code>floorNum</code> still read, so <code>advanceProgress</code> &mdash; the only writer of the server
+    ratchet &mdash; could never pass a boss (the first two players to fell one both capped at
+    <code>maxFloor</code> 10 with floor 11 refusing), and the x9 floor defeated the spawn-table machinery's own
+    boss handling (<code>T4.boss</code> skips the wild-slot clamp). The victory event now carries the boss floor
+    itself plus <code>boss:1</code>; the plain ratchet credit passes the boss with no special path, boss events
+    off boss floors are flagged (<code>boss_floor_anomaly</code>) and credit nothing extra, and the
+    BOSS_DEFEATED adventure-log record names the boss floor. The ops-restore ratchet seed dropped its dev-era
+    floor of 9 as well.</li>
+    <li><strong>2026-07-30 &mdash; client-local state is ownership-stamped.</strong> Every run save and battle
+    snapshot now carries <code>{sid, gen}</code>; the shell captures the session identity from <code>/api/me</code>
+    and refuses to adopt, splice or resume anything stamped for another account or another generation &mdash; the
+    device adventure-log/floors splice, the run slot at load, and battle resume are all gated. And the shell no
+    longer concludes anything from a FAILED save-sync: a 500 or malformed <code>/api/save</code> response used to
+    read as &ldquo;the server has nothing&rdquo;, preserving the real local aside and offering character creation
+    &mdash; one confirm from flushing a newborn over a real save. The game now refuses to mount until the sync
+    succeeds (gate + retry). Battle-chain heads are cleared on wipe-kick and sign-out; server-side chains were
+    already steamid-keyed, so foreign chains were benign.</li>
     <li><strong>2026-07-30 &mdash; the floor-9 teleport is closed.</strong> Three mechanisms, one incident:
     (1) the client battle snapshot (<code>herumon_battle_v1</code>) carried no epoch/generation stamp, survived
     every wipe path, and resume validated only the realm before writing <code>floorNum: snap.floorNum||9</code>

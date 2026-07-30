@@ -73,4 +73,21 @@ td{border-bottom:1px solid var(--rule);padding:5px 8px;color:var(--ink-dim);font
     <tr><td>×0.84</td><td>×0.88</td><td>×0.92</td><td>×0.96</td><td>×1.00</td><td>×1.04</td><td>×1.08</td><td>×1.12</td><td>×1.16</td><td>×1.20</td></tr>
   </table>
   <p style="font-size:13px;color:var(--ink-faint)">Wild eggs cap at Legendary as eggs, but the hatch roll's +4 upside means a wild Legendary egg can still produce Abyssal 9% / Divine 1.5% / Primordial 0.5% / Void 0.1% hatchlings — above-Legendary creatures remain effectively a breeding pursuit. Void vs Worn = 43% more stats at identical species, level, and gear.</p>
+  <h2>Upgrading equipped gear in place (2026-07-30)</h2>
+  <p>Equipped gear never appears in the bag, so the upgrade panel could not reach it. Clicking an
+  equipment slot now offers <strong>ATTEMPT UPGRADE</strong> on the currently equipped piece: the same
+  grade ladder, costs and success rolls as a bag attempt, resolved in place. Sockets and the scroll
+  follow the item through the promotion (the socket identity key carries the grade, and the promotion
+  migrates it) &mdash; this also fixed a pre-existing bug where a <em>bag</em> item's sockets and scroll
+  were silently orphaned by a successful grade upgrade.</p>
+  <h2>Auto-optimize (2026-07-30)</h2>
+  <p>The equipment header carries <strong>AUTO-OPTIMIZE</strong>: it proposes the strongest legal loadout
+  from what the player owns &mdash; gear slots and tags, plus a global re-assignment of gems and runes
+  drawn from the bag and from everything currently socketed on equipped pieces. The displayed POWER
+  number is the single metric; slots that could host several stats resolve to whichever combination of
+  piece and stones scores highest. Hard rules: stat-match (a stone only enters a host of its own base
+  stat), class-locked weapons are never proposed, creatures, souls and scrolls are never touched, stones
+  on unequipped inventory gear are not cannibalized, and ties keep the current piece so a second run
+  proposes nothing. Nothing changes without the preview's confirmation; the preview states the exact
+  inventory delta and is blocked by the inventory guard if the bag cannot absorb it.</p>
 <script src="nav.js"></script></div></body></html>
