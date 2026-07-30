@@ -145,7 +145,7 @@ function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replac
     }
     if(category==='Weapon'){
       const ohDef=!!DEF_OH[family];
-      const noteTxt='Main Hand: flat Attack — 5.5 × tier × GF. Off Hand: '+(ohDef?'flat Defense — 2.2 × tier × GF (defensive off hand)':'flat Attack — 1.5 × tier × GF')+'. Half-up, strictly increasing per tier and per grade.';
+      const noteTxt='Main Hand: flat Attack — 16.5 × tier × GF. Off Hand: '+(ohDef?'flat Defense — 6.6 × tier × GF (defensive off hand)':'flat Attack — 4.5 × tier × GF')+'. Half-up, strictly increasing per tier and per grade.';
       const wrap=document.getElementById('implicit-grid-body').parentElement.parentElement.parentElement;
       wrap.innerHTML='<div style="font-size:12px;color:var(--ink-dim);margin-bottom:8px">'+noteTxt+'</div><h4 style="color:var(--gold);font-family:Cinzel,serif;font-size:12px;letter-spacing:1px">MAIN HAND — FLAT ATTACK</h4>'
         +'<div style="overflow-x:auto;margin-bottom:12px"><table class="item-table">'+renderGrid(liftedM(5.5),false)+'</table></div>'
@@ -192,7 +192,7 @@ function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replac
   document.getElementById('content').style.display='block';
 })();
 </script>
-<script src="nav.js"></script>
+<div style="margin-top:18px;font-size:12px;color:#8a7a5e"><strong>Changelog</strong> &mdash; 2026-07-30: tooltip coefficients corrected to codex/items.csv truth (16.5 / 6.6 / 4.5, were a magnitude rework behind).</div><script src="nav.js"></script>
 <script src="admin.js"></script>
 </body>
 </html>
