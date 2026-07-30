@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Devour &mdash; Herumon Tower</title>
+<link rel="stylesheet" href="theme.css?v=4">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">&dagger; DEVOUR</h1></div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; Devour</div>
+  <p class="sp-lead">One creature consumes another &mdash; or a Devour item &mdash; and takes what was worth keeping. The fodder's XP <strong>always</strong> transfers in full. Grade and mutant status transfer too, but <strong>only between the same species</strong>. The fodder is destroyed permanently: its uid is burned and nothing recovers it.</p>
+
+  <h2>Where it lives</h2>
+  <ul class="sp-rules">
+    <li><strong>Soul bag:</strong> open a creature's sheet &mdash; <strong>&dagger; DEVOUR</strong> sits beside DISMANTLE. That creature is the consumer.</li>
+    <li><strong>Equipment window:</strong> click an equipped creature's slot &mdash; <strong>&dagger; DEVOUR</strong> sits under ATTEMPT UPGRADE. The equipped creature is the consumer, and its gains (level, grade&nbsp;&rarr;&nbsp;QM, mutant) re-derive the party immediately.</li>
+    <li>The panel shows the <strong>consumer on the left</strong> with the arrow pointing <em>at</em> it, and the fodder slot on the right. Clicking the slot opens the picker.</li>
+    <li>Devour only opens on the <strong>floor or in the boss room</strong>. During a battle (select through flash) it refuses with NOT DURING A BATTLE. While the panel is open the floor simulation is frozen, like every other window.</li>
+  </ul>
+
+  <h2>What can be consumed</h2>
+  <p>The fodder picker lists the soul bag's <strong>visible pool</strong> only: creatures and Devour consumables. By construction this means anything <strong>equipped, penned or socketed can never be fodder</strong> &mdash; those are not in the visible pool. Eggs and class souls are never fodder. The consumer is excluded from its own pool; a creature cannot devour itself. Consumables sort to the top of the picker, then creatures in soul-bag order.</p>
+
+  <h2>Devouring a creature</h2>
+  <table>
+    <tr><th>Aspect</th><th>Rule</th></tr>
+    <tr><td>XP</td><td><strong>Always</strong> transfers, in full, regardless of species: <code>consumer.xp += fodder.xp</code>. Level is re-derived from the shared XP curve.</td></tr>
+    <tr><td>Grade</td><td>Transfers <strong>only between the same species</strong>, and only upward: the consumer keeps the <strong>higher</strong> of the two grades. Grade feeds the <a href="system-grade.html">Grade Multiplier</a>, so this is a real stat change.</td></tr>
+    <tr><td>Mutant</td><td>Transfers <strong>only between the same species</strong>: a mutant fodder makes the consumer a mutant (see <a href="system-mutants.html">Mutant Variants</a>). Never removed, never reversed.</td></tr>
+    <tr><td>Fodder</td><td>Destroyed. The record leaves the bag, the uid is burned, equipment is unaffected (a bag creature carries none).</td></tr>
+    <tr><td>Identity</td><td>The consumer's uid, origin, gender and everything not listed above are untouched. It is the same creature, fed.</td></tr>
+  </table>
+  <p><strong>&ldquo;Same species&rdquo; means the same creature, not the same line.</strong> Species identity is the creature's codex row (its DFMC image id, falling back to name). An S1 and the S3 it advances into are <em>different species</em> for this rule &mdash; devouring one into the other transfers XP only.</p>
+
+  <h2>The Devour consumables</h2>
+  <p>Three item types live in the soul bag under the new <strong>Consumable</strong> category. <strong>None of them can be obtained anywhere yet</strong> (D ruling) &mdash; no drop, no craft, no purchase mints them; <code>mkDevourItem</code> is the single mint and nothing calls it in play. A refused consumable is <strong>never spent</strong>.</p>
+  <table>
+    <tr><th>Item</th><th>Effect when consumed</th><th>Refusal rule</th></tr>
+    <tr><td>Blood Pellet</td><td>Grants XP to the consumer. Currently <strong>1,000 XP</strong> &mdash; a placeholder constant (<code>DEVOUR_PELLET_XP</code>) pending tuning; each pellet record can also carry its own <code>xp</code>.</td><td>None.</td></tr>
+    <tr><td>Mutagen</td><td>The consumer becomes a mutant.</td><td>Refused if the consumer already is one: ALREADY A MUTANT.</td></tr>
+    <tr><td>[Grade] Essence of Power</td><td>Raises the consumer's grade to the essence's grade (e.g. an <em>Abyssal Essence of Power</em> makes the creature Abyssal). One item per grade on the Worn&rarr;Void ladder.</td><td>Refused unless the essence's grade is <strong>strictly higher</strong> than the creature's: THE ESSENCE MUST OUTRANK THE CREATURE'S GRADE. Equal or lower is unusable.</td></tr>
+  </table>
+
+  <h2>Order of operations</h2>
+  <ul class="sp-rules">
+    <li>One judgement function (<code>dvJudge</code>) computes the outcome for <strong>both</strong> the preview line and the execution, so what the panel promises is exactly what commits.</li>
+    <li>The commit is <strong>one atomic state update</strong>: fodder removed (or its stack decremented) and consumer rewritten in the same write. If the world moved underneath &mdash; the fodder left the bag, the slot changed occupants &mdash; the updater bails and <strong>nothing is paid</strong>.</li>
+    <li>The consumer is resolved live on every read: a bag consumer must still be in the bag, a slot consumer is whatever the slot holds now.</li>
+    <li>Each successful devour writes a <code>DEVOUR</code> adventure-log event and saves the run. The panel stays open so the player can keep feeding the same creature.</li>
+  </ul>
+
+  <h2>Edge cases and consequences</h2>
+  <ul class="sp-rules">
+    <li><strong>Advancement is not triggered from the panel.</strong> Devoured XP can carry a creature past its advancement level, but the advancement scene plays where it always does: a party creature advances on its next victory; a bag creature advances once it is equipped and wins. The XP is banked either way.</li>
+    <li>A grade raise on an <strong>equipped</strong> consumer changes its quality multiplier at once &mdash; the party re-derives and the power number moves.</li>
+    <li>Devour only ever <em>removes</em> from the bag, so the inventory guard is not in play &mdash; no path here returns an item.</li>
+    <li>Stacked consumables decrement quantity; the last one leaves the bag.</li>
+  </ul>
+
+  <h2>Integrity</h2>
+  <p>Devour resolves entirely client-side, like crafting and grading: the result rides the save, and the server does not yet validate creature XP, grade or the mutant flag. It therefore belongs to the same anticheat class as those systems &mdash; the Phase&nbsp;2b transaction gate (server-rolled outcomes) covers it when it lands. Until the items are obtainable, nothing of economic value is minted here: a devour can only concentrate what the account already legitimately holds into fewer creatures.</p>
+
+  <h2>Engine reference</h2>
+  <table>
+    <tr><th>Function</th><th>Responsibility</th></tr>
+    <tr><td><code>dvOpenBag</code> / <code>dvOpenSlot</code></td><td>Entry points from the creature sheet and the equipped-creature slot picker; both enforce the battle-phase gate.</td></tr>
+    <tr><td><code>dvChoices</code></td><td>The fodder pool: visible soul-bag creatures + consumables, consumer excluded, consumables first.</td></tr>
+    <tr><td><code>dvSpeciesId</code></td><td>Species identity: the codex row (imgId, name fallback). Same row = same species.</td></tr>
+    <tr><td><code>dvJudge</code></td><td>The single outcome judgement shared by preview and execution.</td></tr>
+    <tr><td><code>dvExec</code></td><td>The atomic commit: consume fodder, rewrite consumer, log, toast, save; bails on stale references.</td></tr>
+    <tr><td><code>mkDevourItem</code></td><td>The only mint for Blood Pellet / Mutagen / Essence records. No play path calls it.</td></tr>
+  </table>
+
+  <h2>Changelog</h2>
+  <ul class="sp-rules">
+    <li><strong>2026-07-30 &mdash; page created with the system (D spec, same day).</strong> Devour ships on dev: creature-into-creature consumption with full XP transfer, same-species-only grade and mutant transfer, the three unobtainable consumables (Blood Pellet, Mutagen, graded Essences of Power), both entry points, the battle-phase gate, the atomic commit and the DEVOUR log event. Blood Pellet XP is a 1,000 placeholder pending D's number.</li>
+  </ul>
+</div>
+<script src="admin.js"></script>
+<script src="nav.js"></script>
+</body>
+</html>

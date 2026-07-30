@@ -48,6 +48,7 @@
     <tr><td class="lbl">DISMANTLE</td><td>c (count), g (grade tally), y (yield), m (mode)</td><td>"Dismantled 37 items (22 Worn, 12 Common, 3 Rare) &rarr; +148 Scrap &middot; +12 Essence."</td></tr>
     <tr><td class="lbl">PURCHASE</td><td>w (what), q (qty), p (price), u (currency)</td><td>"Bought the Soul of the Archer for 2,500 Ichor."</td></tr>
     <tr><td class="lbl">SOCKET</td><td>n (socketable), h (host)</td><td>"Rough Garnet socketed into Arming Sword."</td></tr>
+    <tr><td class="lbl">DEVOUR</td><td>n (consumer), f (fodder), k (kind: mon / pellet / mutagen / essence), x (xp), o&rarr;g (grade), m (mutant)</td><td>"Reliquary devoured Reliquary &mdash; +12,000 XP, grade Worn &rarr; Rare, became a mutant." / "Reliquary consumed a Blood Pellet &mdash; +1,000 XP."</td></tr>
     <tr><td class="lbl">EQUIP_UPGRADE</td><td>item_id, tier</td><td>"&lt;Tier Base&gt; was forged."</td></tr>
     <tr><td class="lbl">REALM_EVENT</td><td>season, action</td><td>Season migration / realm placement lines.</td></tr>
   </table>
@@ -146,6 +147,7 @@ for b in save.get('advArc', []):
     full &mdash; it is balancing data to be pulled off live players &mdash; so overflow is now gzipped into
     <code>advArc</code> and old battle rows are archived rather than dropped. Same size win, no data loss:
     the worst account still falls from 905&nbsp;KB to 373&nbsp;KB with all 3,880 entries recoverable.</li>
+    <li><strong>2026-07-30 &mdash; DEVOUR event added.</strong> Fired once per successful devour: the consumer, what was consumed (creature or Devour item), the XP transferred, any grade change and any mutant transfer. Refused attempts write nothing. See <a href="system-devour.html">Devour</a>.</li>
   </ul>
 </div>
 <script src="admin.js"></script>
