@@ -70,7 +70,7 @@ td{border-bottom:1px solid var(--rule);padding:5px 8px;color:var(--ink-dim);font
   <h2 style="font-family:'Cinzel',serif;font-size:18px;color:var(--gold);margin:24px 0 8px">Scroll rerolling</h2>
   <p style="font-size:14px;color:var(--ink-dim)">There is no separate reroll action and no Ink cost. <strong>Applying another scroll over a socketed one is the reroll</strong> — it draws a fresh class and value from <code>codex/enchants.csv</code>, and the enchantment it replaces is destroyed. Scrolls can never be unsocketed; gems and runes always return to the bag intact.</p>
     <p><strong>Scroll legality (2026-07-31):</strong> a scroll is a die, not a fixed stat &mdash; the socket stat-match rule judges its <em>rolled</em> result. A flat Attack/Defense/HP roll must match the host stat exactly like a gem; item-local % rolls are host-relative by definition, and Increased/More/utility rolls and unrolled scrolls fit any host. (Before this ruling the catalog text was unreadable as a stat, so every socketed scroll in the game read ILLEGAL &mdash; bug #3.)</p>
-    <p><strong>Socket identity (2026-07-31):</strong> every equipped item is its own instance &mdash; two copies of the same item never share sockets. Unequipping folds an item&rsquo;s gems, runes and scroll onto the item itself; they travel with it in the bag and return to its sockets when it is equipped again. Promoting an equipped item carries only <em>that</em> copy&rsquo;s sockets across the grade.</p>
+    <p><strong>Socket identity (2026-07-31):</strong> every equipped item is its own instance &mdash; two copies of the same item never share sockets. Unequipping or swapping an item <strong>returns its gems and runes to your bag</strong> (D ruling 2026-07-31); only the scroll stays bound to the item, travels with it, and returns to its socket when the item is equipped again. Dismantling a socketed item refunds its gems and runes the same way &mdash; the scroll is destroyed with it. Promoting an equipped item carries only <em>that</em> copy&rsquo;s scroll across the grade.</p>
 
   <h2 style="font-family:'Cinzel',serif;font-size:18px;color:var(--gold);margin:24px 0 8px">Equip requirements</h2>
   <table>
@@ -146,6 +146,7 @@ fetch('codex/dismantle.csv?t='+Date.now()).then(r=>r.text()).then(t=>{
 </div>
 <h2>Changelog</h2>
 <ul>
+  <li><strong>2026-07-31</strong> &mdash; Socketable refunds: unequipping, swapping or dismantling returns gems and runes to your bag; scrolls stay bound to their item (and die with it on dismantle).</li>
   <li><strong>2026-07-31</strong> &mdash; Scroll legality: judged by the rolled result (flat rolls match like gems; local %, Increased/More, utility and unrolled scrolls fit any host). The stat-match rule taken literally had condemned the whole category.</li>
   <li><strong>2026-07-31</strong> &mdash; Socket identity: per-instance sockets (copies of one item are distinct); sockets fold onto an item when unequipped and travel with it.</li>
 </ul>
