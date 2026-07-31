@@ -120,3 +120,16 @@ td{border-bottom:1px solid var(--rule);padding:5px 8px;color:var(--ink-dim);font
   proposes nothing. Nothing changes without the preview's confirmation; the preview states the exact
   inventory delta and is blocked by the inventory guard if the bag cannot absorb it.</p>
 <script src="nav.js"></script></div></body></html>
+  <h2>Where the roll happens</h2>
+  <p><strong>The server rolls the attempt, not the client.</strong> An upgrade is chance-based, so it is
+  cheatable anywhere else. <code>POST /api/roll</code> with <code>kind:'grade'</code> (or
+  <code>'soul_grade'</code>), the item's category, its <code>from</code> and <code>to</code> grade, its tier,
+  and an <code>idem</code> key of the client's choosing. The server matches the authored row in
+  <code>grading.csv</code>, draws against its <code>Success_Pct</code> with a secret-keyed HMAC, records the
+  result, and answers <code>{success, pct, cost, on_failure}</code>. The client displays that answer; it does
+  not decide it.</p>
+  <p>Re-sending the same <code>idem</code> replays the same outcome instead of rolling again, so a dropped
+  connection or an impatient second tap can never re-roll an attempt or charge for it twice. A step that is
+  not in the CSV is refused outright, so the ladder cannot be shortened from the client. Currency is still
+  spent client-side and validated by the save door until inventory moves server-side.</p>
+

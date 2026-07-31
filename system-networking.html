@@ -182,6 +182,85 @@
   <code>maxFloor</code> carry no regression gate of their own &mdash; the login rule above is what keeps a
   stale client from walking them backwards.</p>
 
+  <h2>The save door &mdash; what the server checks before it stores anything</h2>
+  <p><strong>A save is a proposal, not a fact.</strong> The client posts its state; the server decides what
+  the account becomes. Every rule below runs on every write, in this order, and none of them can move a
+  player backwards &mdash; that was the defect they exist to kill.</p>
+  <table>
+    <tr><th>Rule</th><th>What it does</th><th>Flag</th></tr>
+    <tr><td class="lbl">Generation</td><td>A save from a generation older than the account's is answered
+      <code>{wiped:true}</code> and the client reboots fresh. Runs first, before any content rule.</td><td>&mdash;</td></tr>
+    <tr><td class="lbl">Version handshake</td><td>If the client sends <code>base_ver</code> and it is not the
+      version the server holds, the write is refused <strong>409</strong> with the authoritative
+      <code>{ver, ts, data}</code>. The stale session adopts that copy and reboots; nothing of its own is
+      stored. Optional by design, so a client that predates the handshake keeps working.</td><td><code>save_conflict</code></td></tr>
+    <tr><td class="lbl">Genesis</td><td>An account with no server save may only create a newborn one. Rich
+      state enters through the key-gated ops restore, never this door.</td><td><code>save_genesis</code></td></tr>
+    <tr><td class="lbl">Floor ceiling</td><td><code>maxFloor</code> and <code>floorNum</code> are capped at
+      <code>max(ratchet + 1, what the account already held)</code>. The second term matters: when the ratchet
+      stalls, the cap can no longer confiscate floors the server itself previously stored.</td><td><code>maxfloor_over</code>, <code>floornum_over</code></td></tr>
+    <tr><td class="lbl">Grow-only progress</td><td><code>maxFloor</code>, <code>playerXp</code> and
+      <code>classXp</code> never decrease. A stale device, an old tab or a re-adopted local slot simply loses
+      the merge. Both level readouts derive from those two xp fields, which is why a stale write used to read
+      as "I lost twenty levels".</td><td><code>maxfloor_regress</code>, <code>xp_regress_merged</code></td></tr>
+    <tr><td class="lbl">Grow-only earned state</td><td>Earned scalars (<code>wildWins</code>,
+      <code>invCap</code>, <code>soulCap</code>, <code>pensUnlocked</code>) keep the higher value; earned maps
+      (<code>zoneWins</code>, <code>zoneKills</code>, <code>crXp</code>, <code>bossDown</code>,
+      <code>hatchLv</code>) merge per key; <code>cleared</code>, <code>codex</code> and <code>clsOwned</code>
+      merge by union &mdash; a floor once cleared and a creature once seen are never un-seen.</td><td><code>grow_only</code>, <code>grow_only_map</code></td></tr>
+    <tr><td class="lbl">Credible counters</td><td>Kill and win counters are capped by what the server actually
+      credited. Every accepted save stamps <code>_ledK</code>/<code>_ledB</code> &mdash; the ledger's kill and
+      battle counts at that moment &mdash; so the next save may only claim the <em>delta</em> the server
+      credited since, plus a small burst for battles in flight. A blob claiming two thousand kills against
+      sixty credited ones is contradicting the server's own record.</td><td><code>kills_over_ledger</code>, <code>wins_over_ledger</code></td></tr>
+    <tr><td class="lbl">Ledger ceilings</td><td><code>playerXp</code> and <code>wallet.Ichor</code> stay at or
+      below <code>max(previous stored value, ledger + grace)</code>. Wraithgold is separate: spend freely,
+      never mint, ceiling = held + grants recorded since the last save.</td><td><code>xp_over_ledger</code>, <code>ichor_over_ledger</code>, <code>wraithgold_over_grant</code></td></tr>
+    <tr><td class="lbl">Wallet rates</td><td>Two tiers. Crossing the soft line only reports; the hard line
+      clamps, and it sits above the worst legitimate income in the data.</td><td><code>wallet_rate</code>, <code>wallet_rate_hard</code></td></tr>
+  </table>
+  <p><strong>The server says what it changed.</strong> An accepted write answers with
+  <code>srv:{}</code> naming every field the server overrode, and the client adopts those values. A clamp
+  that returns <code>200 OK</code> and quietly eats progress is data loss with a success message on top;
+  that is exactly how a stalled ratchet cost two players sixteen and ten floors and hours of xp.</p>
+  <div class="note"><strong>Why it is built this way.</strong> Every shipped save service resolves the same
+  problem with a version token the client echoes, and refuses the stale writer rather than merging or
+  clamping it: PlayFab (ETag + <code>If-Match</code> &rarr; 412), Unity Cloud Save (write locks), Nakama
+  (object versions), DynamoDB (conditional writes), Google Play Games (both conflicting snapshots returned,
+  resolved by highest progress). None of them resolve conflicts by client clock, and none silently reduce a
+  submitted value. Earned progress is a grow-only counter &mdash; it merges by <em>max</em>, so a late
+  arrival from a stale device can never subtract.</div>
+
+  <h2>Server-owned outcomes &mdash; the roll door</h2>
+  <p><strong>Chance belongs to the server. Deterministic work belongs to the client.</strong> That split is
+  the ruling (2026-07-31): drops, upgrade attempts, egg hatching and breeding results are told to the client
+  and never reported by it; equipping, unequipping and dismantling are deterministic, so the client performs
+  them and they are validated in the next exchange by the save-door rules above.</p>
+  <p><code>POST /api/roll</code> &mdash; session-gated. The <strong>Worker</strong> resolves the authored row
+  from the codex CSVs (<code>grading.csv</code>, <code>soul_grading.csv</code>, <code>breeding.csv</code>;
+  pinned to <code>DATA_PIN</code> on release and to <code>main</code> on dev, module-cached) and hands it to
+  the player's object, exactly the way <code>/api/floor/enter</code> hands over its floor table &mdash; a
+  Durable Object may never await a fetch. The <strong>object</strong> draws with
+  <code>HMAC-SHA256(SPAWN_SECRET, "roll|sid|realm|kind|idem")</code>, the same keyed generator the spawn
+  table uses, records the outcome and answers it.</p>
+  <table>
+    <tr><th>Property</th><th>Mechanic</th></tr>
+    <tr><td class="lbl">Idempotent</td><td>The outcome is keyed on the client's <code>idem</code> string. A
+      retry, a reconnect or a double-tap replays the stored result: it can never re-roll and never
+      double-charge. This is what makes it safe to ask again after losing the answer.</td></tr>
+    <tr><td class="lbl">Unpredictable</td><td>The draw is keyed on the server secret. A client cannot
+      compute it in advance and cannot reproduce it afterwards.</td></tr>
+    <tr><td class="lbl">Authored only</td><td>A <code>from</code>/<code>to</code>/<code>tier</code> step the
+      CSV does not contain is refused <strong>400</strong>. No inventing a cheaper ladder.</td></tr>
+    <tr><td class="lbl">Rate ceiling</td><td>Counted in SQL, not memory &mdash; an in-memory throttle dies
+      with the isolate.</td><td></td></tr>
+  </table>
+  <p>Answered today: <code>grade</code> and <code>soul_grade</code> (success, authored odds, cost, the
+  on-failure rule) and <code>breed_rate</code> (Ichor per minute, minutes per egg, Ichor per egg, dismantle
+  value). <strong>Not yet server-owned:</strong> battle drops, egg hatching results, and the breeding timer
+  itself &mdash; the server answers breeding economics but does not yet own when a pen produces. The client
+  is not wired to the door yet either; it still rolls its own upgrades until that half lands.</p>
+
   <h2>What the save contains</h2>
   <table>
     <tr><th>Out of the save</th><th>Where it lives instead</th></tr>
@@ -362,6 +441,7 @@
   </table>
   <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-07-31 &mdash; the save door checks the transition, and chance moved server-side.</strong> Two players were rolled back sixteen and ten floors with hours of xp lost. Two causes: the door stored the client blob verbatim with no concurrency check (last writer won, so a second device or a reloaded tab could overwrite newer state), and the ratchet clamp silently pushed floor and xp down to a stalled counter while answering <code>200 OK</code>, so every reload re-adopted the reduced copy. Now: earned progress is grow-only, the floor ceiling can never sit below what the account already held, kill and win counters are capped by what the server credited (new ledger columns, delta-stamped per save), an optional <code>base_ver</code> handshake refuses a stale session 409 with the authoritative save, and every override is reported in <code>srv:{}</code>. Separately, <code>POST /api/roll</code> gives the server the chance outcomes it never had &mdash; the worker held no item logic at all, so every roll in the game was made on the client and merely reported.</li>
     <li><strong>2026-07-30 &mdash; backup truth &amp; environment split.</strong> A diagnosis session mistook R2 mirrors for live saves and dev/release sweeps shared one key space. Fixed: env-prefixed mirror keys (<code>dev/</code> for the dev deployment; skip-when-unknown), <code>live=1</code> export reading the player object's SQL with every export response naming its <code>source</code>, and the ops restore gaining the newer-save guard it lacked (409 unless <code>force=1</code>). The bare <code>/</code> path also gained <code>Cache-Control: no-cache</code> &mdash; only <code>/index.html</code> had it, so the shell served for <code>/</code> could go stale across deploys, which is how /dev pages spent whole sessions talking to the release API.</li>
     <li><strong>2026-07-30 &mdash; boss events happen on boss floors.</strong> Boss floors are 10/20/30; x9
     floors are regular floors (D ruling). The client emitted boss victories with the pre-boss floor its

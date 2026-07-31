@@ -420,3 +420,27 @@
 <script src="nav.js"></script>
 </body>
 </html>
+  <h2>Ops reads &mdash; the account's own record</h2>
+  <p>Both are key-gated with the ops key and are <strong>read-only</strong>: they select, they never write.
+  They exist because <code>/api/admin/*</code> is dispatched to the WorldDO while saves, anomalies and
+  progress live in the player's own object, so the admin console's save-history and flags views have always
+  answered empty for player data. That routing defect is still open; these doors are what made the
+  2026-07-31 rollback repair possible.</p>
+  <table>
+    <tr><th>Door</th><th>Answers</th></tr>
+    <tr><td class="lbl"><code>GET /api/backup/history?key=&amp;sid=&amp;realm=</code></td><td>The version ring
+      for that account &mdash; <code>ver</code>, <code>ts</code> and size for the last 20 saves; add
+      <code>full=1</code> for the payloads. Gaps in it are diagnostic: a player who is clearly playing while
+      no version lands is a client that has stopped uploading.</td></tr>
+    <tr><td class="lbl"><code>GET /api/backup/facts?key=&amp;sid=</code></td><td>The server's own record for
+      the account: the <code>progress</code> ratchet per realm and the <code>ledger</code> it built from
+      credited battles (xp, food, kills, battles). This is the honest basis for any repair &mdash; it is what
+      the server credited, not what a client claimed.</td></tr>
+  </table>
+  <div class="note"><strong>Repair discipline.</strong> Restore only what the server can prove. The ratchet
+  proves floors; the ledger's <code>xp</code> proves character xp because xp is earned and never spent. It
+  does <em>not</em> prove currency: <code>food_total</code> is cumulative earned, and a player has spent some
+  of it, so restoring a wallet from the ledger mints money. Never send a placeholder payload to a live
+  account to test the door &mdash; <code>/api/backup/restore</code> sets the ratchet from
+  <code>data.maxFloor</code>, so a stub body resets the account's climb to 1.</div>
+
