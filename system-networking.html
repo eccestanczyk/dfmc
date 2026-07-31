@@ -84,7 +84,7 @@
     <tr><td class="lbl"><code>/api/name/claim</code></td><td>Game</td><td>Immediate, never debounced &mdash; cross-player uniqueness</td><td>1 row</td></tr>
     <tr><td class="lbl"><code>/api/pvp/finish</code></td><td>Game</td><td>Immediate &mdash; another player is waiting</td><td>shared object</td></tr>
     <tr><td class="lbl"><code>/api/lb/*</code></td><td>Game</td><td>Board view, edge-cached; submit on change</td><td>shared object</td></tr>
-    <tr><td class="lbl"><code>/api/usage</code>, <code>/api/backup/*</code>, <code>/api/feedback/export</code></td><td>Tooling</td><td>Key-gated, <code>FEEDBACK_KEY</code>. Note the export param is <code>k</code>, not <code>key</code></td><td>varies</td></tr>
+    <tr><td class="lbl"><code>/api/usage</code>, <code>/api/backup/*</code>, <code>/api/feedback/export</code></td><td>Tooling</td><td>Key-gated, <code>FEEDBACK_KEY</code>. Note the export param is <code>k</code>, not <code>key</code> <strong>Backup export names its source</strong> (2026-07-30): default reads the R2 <em>mirror</em> (<code>source:"r2-mirror"</code>, sweep-time copy, env-scoped); <code>live=1</code> reads the player object's actual SQL (<code>source:"live"</code>) &mdash; the only truth read. Restore refuses an older payload over a newer live save with 409 unless <code>force=1</code>.</td><td>varies</td></tr>
   </table>
 
   <h2>The write path &mdash; only two writers</h2>
@@ -289,7 +289,7 @@
       <code>MAINTENANCE=1</code> as the universal breaker.</td></tr>
     <tr><td class="lbl">Backup sweep</td><td>Worker cron, every minute, never a DO alarm. <code>waccounts</code> in the world (written on every
       login) is the only cross-player census; <code>wmeta</code> holds the cursor; 250 accounts a page (~750 subrequests; 300k &asymp; 20&nbsp;h a cycle).
-      Mirrors to R2 as <code>saves/{sid}/{realm}/slotN.json</code>, <strong>N&nbsp;=&nbsp;utc_day&nbsp;%&nbsp;5</strong> &mdash; five generations always exist, the
+      Mirrors to R2 as <code>{env}saves/{sid}/{realm}/slotN.json</code> &mdash; <strong>env-prefixed since 2026-07-30</strong>: the dev deployment writes under <code>dev/</code>, release stays unprefixed (existing-data compat), because both deployments share ONE bucket and unprefixed dev sweeps were rotating over release backups. The deployment learns which environment it is from <code>ENV_NAME</code> (deploy-time var, authoritative) or from its own live traffic (per-deployment stable), and the sweep <em>skips the minute</em> rather than guess when cold. <strong>N&nbsp;=&nbsp;utc_day&nbsp;%&nbsp;5</strong> &mdash; five generations always exist, the
       oldest is overwritten, zero list or delete calls. <strong>Day gate:</strong> one full cycle per UTC day &mdash; without it a small account list
       wraps instantly and the cron re-mirrors unchanged saves forever (measured ~$390/mo of waste at 1,000 accounts). The sweep asks the
       <code>r2_write</code> budget before any put. Tooling, each route carrying <em>its own</em> key lock: <code>/api/backup/export</code> (newest of
@@ -362,6 +362,7 @@
   </table>
   <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-07-30 &mdash; backup truth &amp; environment split.</strong> A diagnosis session mistook R2 mirrors for live saves and dev/release sweeps shared one key space. Fixed: env-prefixed mirror keys (<code>dev/</code> for the dev deployment; skip-when-unknown), <code>live=1</code> export reading the player object's SQL with every export response naming its <code>source</code>, and the ops restore gaining the newer-save guard it lacked (409 unless <code>force=1</code>). The bare <code>/</code> path also gained <code>Cache-Control: no-cache</code> &mdash; only <code>/index.html</code> had it, so the shell served for <code>/</code> could go stale across deploys, which is how /dev pages spent whole sessions talking to the release API.</li>
     <li><strong>2026-07-30 &mdash; boss events happen on boss floors.</strong> Boss floors are 10/20/30; x9
     floors are regular floors (D ruling). The client emitted boss victories with the pre-boss floor its
     <code>floorNum</code> still read, so <code>advanceProgress</code> &mdash; the only writer of the server
