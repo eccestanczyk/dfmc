@@ -558,6 +558,8 @@ FinalDamage = RawDamage
             × Π(more multipliers)</pre>
     <p style="font-size:12px;color:#8a7a5e">Divisor retuned 120 &rarr; 130 (July 2026) alongside the symmetric random band 0.9&ndash;1.1 (mean 1.0, was 0.85&ndash;1.0 mean 0.925) — mean damage is unchanged, hits can now roll over 100%. The <code>+ Attack/50</code> overwhelm term makes absolute stat growth matter: negligible early (level 10 &asymp; +1), it prevents fully-optimized mirror walls from stalling ratio-based damage — validated max-vs-max bands: maxed striker vs maxed char wall 15, maxed creature mirror 16 (HP-stacked creature wall 19), PvE trash still melts. <strong>Level in the formula is the attacker’s level.</strong> Multi-hit moves (“damage as N hits”) use MovePower / N per hit and split the 2 + Attack/50 term by N; the 0.9–1.1 roll is per hit — a move’s expected total equals its single-hit budget exactly (July 2026).</p>
 
+    <p><strong>AoE moves: the authored Power is the per-target truth.</strong> Every foe takes the full listed power &mdash; there is no hidden per-target factor anywhere in the damage path. (A &times;0.62 AoE multiplier existed in the engine's AoE resolution branch and never on any card or page; it was retired 2026-07-31 by ruling, and the AoE kit powers were re-authored to per-target truth in the same change: Onslaught / Pyroclasm / Stranglehold / Sunspot Strike 160 &rarr; 100, Sand Scour 80 &rarr; 50.) What a move card shows is what each target takes.</p>
+
     <h3>Moves</h3>
     <p>Every creature line has exactly <strong>4 fixed moves</strong> — no move customization (creature customization is Tags/equipment only). Moves persist across the 3 advancement stages, growing stronger: Stage 2 ≈ 80% of Stage 3 power with reduced effect magnitudes; Stage 1 ≈ 60% power with one effect component removed. All 400 moves are catalogued in <code>codex/moves.csv</code>.</p>
     <table>
@@ -887,7 +889,7 @@ FinalDamage = RawDamage
       <tr><th>Rule</th><th>Detail</th></tr>
       <tr><td style="color:#ede0c4">Multiplier</td><td><code>SoulMult = 1 + 0.05 &times; (grade# &minus; 1)</code> — Worn &times;1.00 &rarr; Void &times;1.45. Stacks multiplicatively with stage scaling (S1 60% / S2 80% / S3 100%).</td></tr>
       <tr><td style="color:#ede0c4">Currency</td><td><strong>All five sink currencies per attempt</strong> — Scrap + Ichor + Dust + Essence + Ink in one bundle. Each resource's weight is set by its endgame income rate, so every resource costs the same farm time (Scrap 150/h &rarr; heaviest count; Ichor 10/h &rarr; lightest count). Ichor is excluded (breeding-only economy).</td></tr>
-      <tr><td style="color:#ede0c4">Attempt cost</td><td><code>mult &times; (15 Scrap + 1 Ichor + 2 Dust + 2 Essence + 2 Ink)</code>, where <code>mult</code> is the gear-grading cost ladder 1 / 1 / 2 / 3 / 5 / 8 / 12 / 18 / 40 by target grade. A Void attempt = 600 Scrap + 40 Ichor + 80 Dust + 80 Essence + 80 Ink.</td></tr>
+      <tr><td style="color:#ede0c4">Attempt cost</td><td><code>mult &times; 5 units</code>, payable in any combination at <code>1 unit = 15 Scrap = 2 Dust = 2 Essence = 2 Ink</code> (Ichor is excluded &mdash; the renamed Food belongs to breeding), where <code>mult</code> is the ladder 1 / 1 / 2 / 3 / 5 / 8 / 12 / 18 / 40 by target grade. A Void attempt = 200 units, e.g. 3,000 Scrap all-Scrap.</td></tr>
       <tr><td style="color:#ede0c4">Success chance</td><td>Shared grading ladder: 100 / 90 / 70 / 50 / 35 / 20 / 8 / 3 / <strong>0.5%</strong> into Void — no pity, pure roll every attempt.</td></tr>
       <tr><td style="color:#ede0c4">On failure</td><td>Bundle consumed, soul grade unchanged — no destruction, no downgrade.</td></tr>
     </table>
@@ -1078,11 +1080,11 @@ Character total:
     </table>
 
     <h3>Grading up</h3>
-    <p>Gear can be upgraded to the next grade (e.g. Rare → Epic) using <strong style="color:#a855f7">Ichor</strong>. Functions identically to refinement in terms of cost scaling, failure chance, and no-destruction on failure.</p>
+    <p>Gear can be upgraded to the next grade (e.g. Rare → Epic) using <strong style="color:#c2ae8b">Scrap</strong> (enhancements pay their family material). Like refinement: failure consumes the currency only, nothing is ever destroyed.</p>
     <table>
       <tr><th>Rule</th><th>Detail</th></tr>
-      <tr><td>Currency</td><td>Ichor</td></tr>
-      <tr><td>Cost scaling</td><td>Higher current grade increases Ichor cost</td></tr>
+      <tr><td>Currency</td><td>Scrap (gear) &middot; Dust / Essence / Ink (enhancements)</td></tr>
+      <tr><td>Cost scaling</td><td>Rises with the rung <em>and</em> with the item's tier (2026-07-31): the T10 column is the hour-priced ladder, lower tiers discount on the measured income curve, so the time price per rung is identical at every tier &mdash; full 9&times;10 grids on the <a href="upgrading.html" style="color:var(--gold-bright)">Upgrading</a> page</td></tr>
       <tr><td>Success chance</td><td>Into C/UC/R/E/L/A/D/P/V: 100 / 90 / 70 / 50 / 35 / 20 / 8 / 3 / <strong>0.5%</strong> — no pity, pure roll every attempt</td></tr>
       <tr><td>Attempt cost</td><td>1 / 1 / 2 / 3 / 5 / 8 / 12 / 18 / 40 Ichor per attempt by target grade</td></tr>
       <tr><td>On failure</td><td>No progress, no destruction — Ichor is consumed but grade is unchanged</td></tr>
@@ -1127,7 +1129,7 @@ Character total:
     <p>Success gates are geometric distributions: the spread between a lucky (p10) and unlucky (p90) player on a single gate is ~22&times;. Failure costs currency only — no destruction, no downgrade. Raw chances: <strong>Void 0.5%, +10 refinement 1%</strong>.</p>
     <table>
       <tr><th>One item, Worn&rarr;Void grading</th><th>One item, 0&rarr;+10 refinement</th></tr>
-      <tr><td>Expected ~8,800 Ichor &asymp; 880&nbsp;h &middot; p10 ~2,000 &middot; p90 ~19,000 (Void gate alone: 841 / 8,000 / 18,400)</td><td>Expected ~43,700 Scrap &asymp; 290&nbsp;h &middot; +10 gate alone: p10 10, median 69, p90 229 attempts at 300 Scrap each</td></tr>
+      <tr><td>Expected ~44,535 Scrap at T10 &asymp; 222&nbsp;h at 30 battles/h (Void gate alone: p10 ~3,573 / expected 34,000 / p90 ~78,092) &mdash; the same hours at every tier by construction</td><td>Expected ~43,700 Scrap &asymp; 290&nbsp;h &middot; +10 gate alone: p10 10, median 69, p90 229 attempts at 300 Scrap each</td></tr>
     </table>
     <p>A marquee item taken to Void +10 is ~1,200&nbsp;h expected — a year-scale chase at 3&ndash;4&nbsp;h/day, months even on 24/7 autoplay, with honest odds of doubling that. A full 12-slot Void +10 loadout is a multi-year, market-aggregated pursuit; Void enhancements (expected ~282,000 material each) are mythical trade goods. Casuals buy from the market; grinders and lucky rollers supply it — that variance is what gives grade-5+ items real price discovery.</p>
 
@@ -1380,7 +1382,7 @@ Your Backend
     <table>
       <tr><th>Name</th><th>Use</th></tr>
       <tr><td><span style="color:#c2ae8b">Scrap</span></td><td>Refinement (+1 to +10 on gear)</td></tr>
-      <tr><td><span style="color:#a855f7">Ichor</span></td><td>Grading up equipment/eggs to the next grade tier</td></tr>
+      <tr><td><span style="color:#c2ae8b">Scrap</span></td><td>Grading gear up the Worn&ndash;Void ladder &mdash; tier-scaled attempt costs (2026-07-31); enhancements grade in Dust / Essence / Ink</td></tr>
       <tr><td>Ichor</td><td>Unified breeding currency — from completing battles and dismantling eggs</td></tr>
       <tr><td><span style="color:#9fe0d0">Wraithgold</span></td><td><strong style="color:#ede0c4">Premium.</strong> Bought with real money — it never drops and no amount of play produces it. Its only sink today is soul-bag expansion. PvP ladder and tournament payouts are planned and will be the only earned source that ever exists.</td></tr>
     </table>
@@ -1759,6 +1761,8 @@ async function loadBalance() {
 </script>
 <h2>Changelog</h2>
 <ul>
+  <li><strong>2026-07-31</strong> &mdash; Damage-path truth: the 0.9&ndash;1.1 damage roll documented above is live again &mdash; the engine line carrying it had been dead text inside a trailing comment, so every hit resolved deterministic. AoE resolution now applies the authored Power to every target with no hidden multiplier, and the five AoE kit moves were re-authored to per-target truth (160-class &rarr; 100; Sand Scour 80 &rarr; 50). Battle snapshots advanced to v2: a mid-battle save from before this change is dropped once rather than re-simulated under the new math.</li>
+  <li><strong>2026-07-31</strong> &mdash; Grading attempt cost scales with tier (ruling on a playtest report, reversing the 07-29 tier-flat call): codex/grading.csv is now the full 360-row tier grid, T10 anchored to the hour-priced ladder, lower tiers discounted on the measured income curve (Scrap &times;12.0, materials &times;14.9 from T1&rarr;T10 at 30 battles/h). The stale pre-fold Ichor wording in this page's Grading up section, the currency table, and the soul-bundle cell were corrected to fold truth in the same pass; the soul-grading hour prose elsewhere on this page still carries pre-fold numbers and is flagged for the doc sweep.</li>
   <li><strong>2026-07-30</strong> &mdash; Coefficient sweep: implicit coefficients on this page were a magnitude rework behind codex/items.csv. Corrected to data truth (Main Hand 16.5, Off Hand 4.5, defensive off hands and Armour 6.6, gems 4.5, class gear budget 33 &times; T &times; GF) and the duplicated main-hand grid regenerated with the engine's exact algorithm (round half-up + the grade-step floor now enforced by itemBase). Full grids live on <a href="stat-tables.html">stat-tables</a>.</li>
   <li><strong>2026-07-28</strong> &mdash; The inventory and the soul bag can be crossed from inside the window itself. The two bags are separate menu destinations sharing one window, so the only route between them used to be closing the window and picking the other entry off the menu. A crossing button now sits left of <em>Dismantling</em> on the category row, and both buttons are taller (46 &rarr; 64px). Nothing moves between the bags. Documented under <em>The two bags</em>, including what a crossing discards.</li>
   <li><strong>2026-07-28</strong> &mdash; The floor map was discarding the <em>Seen</em> state: every creature tile branched on "acquired or mutant", so a creature you had defeated but not caught rendered exactly like one you had never met &mdash; black silhouette, no name, no eye medal &mdash; while its hover tooltip already showed the real name. The tile now uses the same three-state treatment as the codex grid, documented above.</li>
