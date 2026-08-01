@@ -26,7 +26,17 @@
   </ul>
   <p><strong>Why it is taken deliberately and not lazily.</strong> The freeze used to happen on whichever combat read called <code>gearBonus()</code> first. That was only safe while the equipment window and the optimizer both refused to run during a battle &mdash; once the battle gate came off, a player could change their loadout before any combat read and the NEW gear would have been frozen instead of the old, silently altering the fight in progress. The snapshot is now taken at battle entry, before anything can act.</p>
 
-  <h2>Auto-optimize</h2>
+<h2>Which stat an item grants</h2>
+  <p>An item's stat comes from <strong>its own row in <code>items.csv</code></strong>, never from the slot it sits in. <code>itemStat()</code> reads the <code>Effect</code> column and matches the authored grammar (<code>+flat X</code> for gear, tags and gems; <code>increased % X</code> for runes). The slot's default stat is only a fallback for an item with no effect row at all.</p>
+  <p>This matters most for <strong>accessories</strong>, which are the one category where the family decides the stat:</p>
+  <table>
+    <tr><th>Family</th><th>Effect</th><th>Grants</th></tr>
+    <tr><td>Signet</td><td><code>+Attack (implicit, 6&times;T&times;GF, Local)</code></td><td>Attack</td></tr>
+    <tr><td>Relic</td><td><code>+HP (implicit, 9&times;T&times;GF, Local)</code></td><td>HP</td></tr>
+  </table>
+  <p>Both go in the same two Accessory slots, whose slot-level default is <code>Attack</code> &mdash; so any surface that labels off the slot instead of the item will call a Relic an Attack item while showing its correct HP number. Weapons and armour hide this class of bug, because there the slot default happens to match the item.</p>
+
+    <h2>Auto-optimize</h2>
   <ul class="sp-rules">
     <li>Searches the equipped items plus everything in the bag and proposes the loadout with the highest character Power, reshuffling gems and runes globally across the result. Scrolls never move.</li>
     <li>It touches <strong>gear slots only</strong>. The two creature slots (Monster&nbsp;I and II) are outside its order and are never changed by it &mdash; see <a href="system-party.html">The Active Party</a>.</li>
@@ -39,6 +49,7 @@
 
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-08-02 &mdash; an HP accessory was labelled ATK in the slot preview.</strong> The currently-slotted preview built its label from <code>EQUIP[gi].stat</code> &mdash; the SLOT default, Attack for accessories &mdash; instead of <code>statKind</code>, the item’s own identity. The number shown was always the right one (a Crude Relic read <code>+10 ATK</code>, and 10 IS its HP base), which is what made it look like a display quirk rather than a wrong field. Every other surface already used <code>statKind</code>; only this one line disagreed.</li>
     <li><strong>2026-08-02 &mdash; auto-optimize no longer refuses during a battle (D ruling).</strong> It answered &ldquo;finish the battle first&rdquo;, which was belt-and-braces over a lock that already existed. The gate is gone; the freeze is now taken explicitly at all four battle-entry points instead of lazily on the first combat read; and <code>optScore()</code> lifts the freeze while measuring a candidate, without which every candidate scored the same mid-battle. Page created &mdash; nothing owned the equipment window, the gear lock or the optimizer before this.</li>
   </ul>
 </div>
