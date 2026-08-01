@@ -215,10 +215,24 @@
       sixty credited ones is contradicting the server's own record.</td><td><code>kills_over_ledger</code>, <code>wins_over_ledger</code></td></tr>
     <tr><td class="lbl">Ledger ceilings</td><td><code>playerXp</code> and <code>wallet.Ichor</code> stay at or
       below <code>max(previous stored value, ledger + grace)</code>. Wraithgold is separate: spend freely,
-      never mint, ceiling = held + grants recorded since the last save.</td><td><code>xp_over_ledger</code>, <code>ichor_over_ledger</code>, <code>wraithgold_over_grant</code></td></tr>
+      never mint, ceiling = held + grants recorded since the last save. The <strong>account seed</strong>
+      (<code>WG_SEED</code>, 100 during the alpha) is applied by the SERVER, once per account, AFTER that
+      clamp, keyed on the durable-object flag <code>__wg_seed</code> claimed before the credit.</td><td><code>xp_over_ledger</code>, <code>ichor_over_ledger</code>, <code>wraithgold_over_grant</code></td></tr>
     <tr><td class="lbl">Wallet rates</td><td>Two tiers. Crossing the soft line only reports; the hard line
       clamps, and it sits above the worst legitimate income in the data.</td><td><code>wallet_rate</code>, <code>wallet_rate_hard</code></td></tr>
   </table>
+  <div class="sp-note"><p><strong>Why the seed moved server-side (2026-08-02).</strong> It used to be minted by the
+  CLIENT: on load, an account with no <code>wgSeed</code> flag set its own wallet to <code>WG_SEED</code> and claimed the
+  flag in the same write. That is correct shape for a client-side migration and wrong for money. The ceiling above is
+  <code>held = previous stored Wraithgold</code>, so for any account that ALREADY had a save when the seed shipped
+  (2026-07-27) <code>held</code> was 0, the claimed 100 was clamped straight back to 0 and flagged
+  <code>wraithgold_over_grant</code> &mdash; and the client never retried, because it had already written
+  <code>wgSeed:1</code>. Permanent zero, reachable only by the OLDEST accounts, which is why it surfaced as a single
+  developer report against three healthy player accounts. The rule to take from it: <strong>a client-side one-off
+  cannot mint anything the server ratchets.</strong> If the server owns the ceiling, the server owns the grant.</p>
+  <p>An entitlement row was the other candidate shape and was rejected: nothing on the client applies pending
+  entitlements yet, so the credit would have lifted the ceiling and never reached the wallet.</p></div>
+
   <p><strong>The server says what it changed.</strong> An accepted write answers with
   <code>srv:{}</code> naming every field the server overrode, and the client adopts those values. A clamp
   that returns <code>200 OK</code> and quietly eats progress is data loss with a success message on top;
@@ -519,6 +533,14 @@
   </table>
   <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-02 &mdash; the Wraithgold account seed moved server-side.</strong> D reported holding zero;
+      his was the only account of four at zero, and the oldest. The client minted the seed and claimed its own
+      idempotency flag in the same write, but the server ceiling is the previously stored balance, so any account
+      that already had a save when the seed shipped had the grant clamped back to 0 and never retried. The seed is
+      now applied by the durable object after the clamp, once, behind the <code>__wg_seed</code> flag claimed before
+      the credit. Verified <code>tools/probe_wgseed.py</code> 7/7 against a real worker: a pre-seed account is
+      seeded, a second save does not re-mint, spending down to 40 sticks at 40 (the seed is not a standing floor),
+      and a forged 999,999 claim is still clamped.</li>
     <li><strong>2026-08-01 &mdash; the adventure-log archive stops riding the save.</strong> The third and
       last cause of the rollback, and the one still hurting players after the first two were fixed. The save door
       refuses anything over 131,072&nbsp;B with a 413; <code>advArc</code> had never joined the strip list and grew
