@@ -170,6 +170,20 @@ async function loadFirstWin(){
 loadChances();loadGrades();loadKeys();loadFirstWin();
 </script>
 <script src="nav.js"></script>
+  <h2>Changelog</h2>
+  <ul>
+    <li><strong>2026-08-01 &mdash; the server picks the base, and picks it the way this page says.</strong>
+      Item selection moved off the client, which had been picking a <code>category|family</code> bucket and
+      then an item inside it &mdash; over-weighting bases in small families against the uniform-across-bases
+      rule authored here. The draw is made in the player&rsquo;s object and mapped to <code>items.csv</code>
+      by the Worker, so the 208&nbsp;KB table never rides the battle request.</li>
+    <li><strong>2026-07-31 &mdash; drops moved to the server.</strong> The backend rolls every drop from
+      these CSVs and tells the client; the client no longer decides one. Item tier comes from the zone
+      boundaries in <code>floors.csv</code> instead of a hardcoded <code>ceil(floor/10)</code>. No fallback
+      constants: a missing table means no drop and a flag. <em>(Backfilled 2026-08-01 &mdash; this page had
+      no changelog section, and the commit that should have added this entry skipped it silently.)</em></li>
+  </ul>
+
 </body>
 </html>
   <h2>Who rolls the drop</h2>
@@ -186,6 +200,13 @@ loadChances();loadGrades();loadKeys();loadFirstWin();
     <tr><td class="lbl">What grade</td><td><code>drop_grade_weights.csv</code> for the floor's band.
       Enhancements use the band one behind gear, and that rule is read from
       <code>drop_rates.csv</code> (<code>Enhancement_Grade_Rule</code>) rather than assumed.</td></tr>
+    <tr><td class="lbl">Which base</td><td>The server picks it, uniformly among the gear bases at that
+      tier &mdash; the rule this page already authors. Enhancements split evenly across gem / rune /
+      scroll, then pick uniformly within. <strong>The client used to do this differently:</strong> it
+      picked a <code>category|family</code> bucket uniformly and then picked inside it, giving a base
+      that sits in a two-item family far more weight than one in a ten-item family. That was a
+      deviation from this page rather than a balance decision, and moving the pick to the server
+      corrects it &mdash; expect the visible distribution to change.</td></tr>
     <tr><td class="lbl">What tier</td><td>The zone boundaries authored in <code>floors.csv</code>. The
       client's <code>ceil(floor/10)</code> is a hardcoded restatement of today's zone layout &mdash;
       re-author the zones and it silently produces the wrong tier.</td></tr>
@@ -195,6 +216,14 @@ loadChances();loadGrades();loadKeys();loadFirstWin();
     <tr><td class="lbl">Once only</td><td>Recorded against the battle's event id, which is already deduped,
       so a retried or replayed battle returns the same grant instead of a second one.</td></tr>
   </table>
+  <div class="note"><strong>How the pieces divide.</strong> The player&rsquo;s Durable Object makes the
+  <em>draw</em>, because that is where the secret-keyed generator lives; the Worker maps that draw onto
+  <code>items.csv</code> and substitutes the concrete base on the way out. The split is not decoration:
+  <code>items.csv</code> is around 208&nbsp;KB and the chance tables travel <em>inside the battle request
+  body</em>, so adding it there would put 208&nbsp;KB on the hottest path in the game, every battle. The
+  Worker holds it module-cached instead and the object never sees it. If it cannot be loaded the drop is
+  dropped rather than invented, and the raw draw is stripped before the client sees the response.</div>
+
   <div class="note"><strong>Balancing.</strong> Change a rate here and the live game changes with it &mdash;
   the backend reads these files at <code>DATA_PIN</code> on release and at <code>main</code> on dev. No code
   edit, no deploy.</div>
