@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Autoplay &amp; Floor Transits — Herumon Tower</title>
+<link rel="stylesheet" href="theme.css?v=4">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">AUTOPLAY &amp; FLOOR TRANSITS</h1></div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; Autoplay &amp; Floor Transits</div>
+  <p class="sp-lead">Autoplay reduces grind: it picks a live creature on the current floor and engages it, over and over, and advances the floor when the portal is open. It is a convenience over the ordinary floor loop &mdash; it takes no action a player could not take by hand, and it never enters a boss den.</p>
+
+  <h2>The loop</h2>
+  <ul class="sp-rules">
+    <li>Runs inside <code>tickFloor()</code>, which only executes while <code>phase === 'floor'</code>. Every other phase (battle, boss den, victory, defeat) stops it dead.</li>
+    <li>After returning to the floor it waits <strong>2600ms</strong>, then acts once and re-arms.</li>
+    <li><strong>Advance:</strong> if the <em>auto-advance</em> setting is on and the portal is open, it climbs. On a pre-boss floor (<code>floor % 10 === 9</code>) it climbs <strong>only if that zone's boss is already down</strong> &mdash; otherwise it keeps farming. Autoplay never takes a boss; the player does.</li>
+    <li><strong>Engage:</strong> otherwise it picks a uniformly random living spawn, sets the pan-to cue, and schedules the engage <strong>650ms</strong> later.</li>
+    <li>Overlays (inventory, breeding, equipment) freeze the roam physics for performance but do <strong>not</strong> stop the engage step &mdash; play continues under an open window by design.</li>
+  </ul>
+
+  <h2>Transits, and why the engage is guarded</h2>
+  <p>Changing floor or entering a boss den is a <strong>transit</strong>: <code>floorTransit</code> is set, an input-blocking veil covers the stage, and every image for the destination is decoded before the new phase is applied. The veil holds for a minimum of <strong>1400ms</strong>, with a 30s anti-softlock failsafe.</p>
+  <p><strong>The phase does not change until the transit lands.</strong> Through the whole veil the game still reads <code>phase === 'floor'</code>. Three rules follow, and all three are load-bearing:</p>
+  <ul class="sp-rules">
+    <li>The autoplay loop does not <em>arm</em> a new engage while <code>floorTransit</code> is set.</li>
+    <li>The queued 650ms engage re-checks <code>!floorTransit</code> when it <em>fires</em>, not only when it is scheduled. A transit that begins inside that 650ms window is the whole bug class.</li>
+    <li><code>enterBattle()</code> refuses outright while <code>floorTransit</code> is set. This is the central guard: it covers autoplay, a manual click on a creature under the veil, and any future caller.</li>
+  </ul>
+
+  <h2>Failure mode this prevents</h2>
+  <p>Reported live 2026-08-01 (feedback #12) and reproduced against the reporter's own save. With autoplay on, an engage armed 650ms before the player entered the boss den. The den transit began; the phase was still <code>'floor'</code>; the engage fired and started an ordinary floor battle. <code>enterBattle()</code> calls <code>clearTimers()</code>, which destroyed the den transit's own pending apply &mdash; including its 30s failsafe &mdash; so <code>floorTransit</code> stayed set <strong>permanently</strong>. The veil never lifted, the den was never reached, and the boss challenge button underneath stayed live: the player spent a Key from that wedged state and got the standard fight. Keys are the rarest lane in a zone, so the loss stranded him on the floor.</p>
+  <p class="foot">Client: <code>tickFloor()</code> autoplay block, <code>enterBattle()</code>, <code>enterBossRoom()</code>, <code>travel()</code> in <code>play/app.js</code></p>
+
+  <h2>Changelog</h2>
+  <ul class="sp-rules">
+    <li><strong>2026-08-02 &mdash; page created; transit guards added.</strong> Autoplay had no codex page at all, which is why the interaction above was never written down and had to be rediscovered by reproducing a player report. The queued engage now re-checks <code>floorTransit</code> when it fires, and <code>enterBattle()</code> refuses during a transit.</li>
+  </ul>
+</div>
+<script src="admin.js"></script>
+<script src="nav.js"></script>
+</body>
+</html>

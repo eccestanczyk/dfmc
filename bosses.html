@@ -216,8 +216,29 @@ load();
   <p style="font-size:13px;color:var(--ink-faint)">Preview any boss's entrance without spending a key:
   <code>/dev/?scene=bossintro</code> on the floor below that boss.</p>
 
+<section>
+  <h2>Boss Names &mdash; Full vs Short</h2>
+  <p>Every boss carries <strong>two authored names</strong> and they are not interchangeable:</p>
+  <ul class="sp-rules">
+    <li><code>Boss_Character</code> &mdash; the full name with its title, e.g. <em>Mother Vesk, the Broodmother</em>.
+    Used on the <strong>boss den screen</strong>, the <strong>entrance (<code>bintro</code>) card</strong> and the codex.</li>
+    <li><code>Boss_Short_Name</code> &mdash; the bare name, e.g. <em>Vesk</em>. Used on the <strong>battle name plate</strong>
+    (the life container above the HP bar) and nowhere else.</li>
+    <li><code>Boss_Name</code> &mdash; the den's own name, e.g. <em>The Broodmother&rsquo;s Hollow</em>. Unrelated to the character.</li>
+  </ul>
+  <p><strong>The short name is AUTHORED, never derived.</strong> Splitting <code>Boss_Character</code> on its comma is wrong:
+  floor 40 yields <em>Mother Vesk</em>, not <em>Vesk</em>. Any future boss must fill the column by hand.
+  <code>bossData()</code> falls back to <code>Boss_Character</code> when the column is blank, so a missing value degrades to the
+  old long-name behaviour rather than to an empty plate.</p>
+  <p><strong>Why it matters mechanically:</strong> the battle plate is a fixed 300px box and <code>plateNameFs()</code> shrinks
+  the name to fit around the Lv chip and the type medals, down to a floor of 8px. A 28-character name drove the floor and
+  rendered unreadably small &mdash; reported live on floor 40 (feedback #11). Short names sit at the 19px maximum.</p>
+  <p class="foot">Source: <code>codex/bosses.csv</code> &mdash; columns <code>Boss_Name</code>, <code>Boss_Character</code>, <code>Boss_Short_Name</code></p>
+</section>
+
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-08-02 &mdash; <code>Boss_Short_Name</code> column added; battle plate uses it.</strong> The battle name plate carried the full <code>Boss_Character</code> string, which shrank to the 8px font floor on the longer names (floor 40 reported by a player as unreadable). All ten rows now author a bare name and <code>challengeBoss()</code> builds the battle unit from it; den, entrance and codex are unchanged. Data change &mdash; <code>DATA_PIN</code> must advance in the release that carries it or the release client reads a pinned copy with no such column and silently keeps the long names.</li>
     <li><strong>2026-07-28 &mdash; boss entrance added.</strong> <code>challengeBoss()</code> previously set
     <code>phase:'select'</code> directly: a boss appeared with no transition of any kind, while a wild encounter got a
     shake and a zoom. It now routes through the <code>bintro</code> phase described above, themed on the boss's primary

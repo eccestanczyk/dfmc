@@ -59,6 +59,8 @@ code{color:var(--gold-bright);}
   <p>A single zone-specific <strong>Key</strong> (<code>ITM-KEY-010</code>…<code>ITM-KEY-100</code>) is required to enter a boss floor and is consumed on entry. Every wild creature defeated on the zone's 9 preceding floors rolls for that zone's Key, per creature, scaled on the rarity value ladder and normalized so a <strong>minimum-win journey through the zone yields exactly one Key in expectation</strong>.</p>
   <p><strong>Guaranteed key:</strong> the first time a character clears the 9th floor of a zone (floors 9, 19, … 99), a Key is guaranteed to drop — one-time per zone per character.</p>
   <div class="tbl-scroll" id="keys-wrap">LOADING…</div>
+  <p><strong>Gates:</strong> a zone's Key cannot drop until the character has banked that zone's <code>Min_Wins</code> wins AND <code>Min_Kills</code> wild kills (<code>zoneWins</code>/<code>zoneKills</code> in the save, counted per zone, wild battles only — a boss win advances neither). Below either gate the roll is skipped entirely.</p>
+  <p><strong style="color:var(--gold-bright)">A Key that drops into a full inventory is DESTROYED.</strong> Every grant goes through one shared space check: no free item slot means the drop is discarded, never queued and never held — the victory screen reports only the generic <em>"N drops lost — inventory full"</em> and does not say a Key was among them. Since keys are the rarest item lane in the zone (0.46% per Common kill in Desert Plains, ~1 per 60 battles), a player farming with a full bag can lose several keys without ever knowing. Reported live 2026-08-01 by a player stranded on floor 29 with 235 zone wins and no key; his context snapshot read <code>invCount 80 / invCap 80</code>.</p>
   <p class="foot">Source: <code>codex/key_drop_rates.csv</code></p>
 </section>
 
@@ -186,6 +188,7 @@ loadChances();loadGrades();loadKeys();loadFirstWin();
 
   <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-02 &mdash; key loss on a full bag documented.</strong> No behaviour change: the gates and the destroy-on-full rule were always in the code and were never written down, so a player question about a missing key could not be answered from this page. Both are now stated above.</li>
     <li><strong>2026-08-01 &mdash; the client stopped rolling wild drops, and the egg cap became real.</strong>
       <code>/api/battle</code>&rsquo;s resolved <code>drops</code> array is now what the client renders; the
       gear, enhancement and egg rolls were deleted from the client rather than mirrored, and
