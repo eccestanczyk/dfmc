@@ -233,6 +233,23 @@
   <p>An entitlement row was the other candidate shape and was rejected: nothing on the client applies pending
   entitlements yet, so the credit would have lifted the ceiling and never reached the wallet.</p></div>
 
+  <div class="sp-note"><p><strong>ONE WRITE IN FLIGHT AT A TIME.</strong> <code>base_ver</code> is optimistic concurrency:
+  a write lands only if the version the client echoes is still the one the server holds. It follows that two
+  <em>overlapping</em> writes from the SAME session are indistinguishable from a second device &mdash; both carry the same
+  <code>base_ver</code>, the first bumps the version, and the second is refused <code>409</code>. The client then does exactly
+  what it is told to do with a 409: concludes it is the loser, stops saving, adopts the server copy and reloads.
+  <strong>That copy predates whatever the losing write was carrying</strong>, so the player is thrown backwards.</p>
+  <p>Reported live 2026-08-02 on a single device: <em>&ldquo;frequently getting this error and getting kicked down a floor
+  when trying to ascend a floor.&rdquo;</em> The ascend is precisely where it bites &mdash; <code>preloadFloor()</code> forces a
+  <code>floor-entry</code> flush, and the rAF heartbeat can fire the 10s <code>debounce</code> flush in the same breath.
+  Writes are now serialized: a flush issued while another is in flight is CHAINED behind it and re-runs once the first has
+  landed and refreshed the version, so it never sends a stale <code>base_ver</code>. Unload writes
+  (<code>pagehide</code>, <code>keepalive</code>) cannot wait for a promise the page will not live to settle, so they re-arm
+  the dirty flag instead of chaining.</p>
+  <p>The general point: <strong>a concurrency primitive that cannot tell your own second write from someone else’s
+  turns every self-race into a false conflict</strong> &mdash; and a false conflict here is indistinguishable, to the player,
+  from data loss.</p></div>
+
   <p><strong>The server says what it changed.</strong> An accepted write answers with
   <code>srv:{}</code> naming every field the server overrode, and the client adopts those values. A clamp
   that returns <code>200 OK</code> and quietly eats progress is data loss with a success message on top;
@@ -533,6 +550,12 @@
   </table>
   <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-02 &mdash; server writes are serialized; the self-conflict is gone.</strong> A forced flush firing
+      alongside the debounce flush sent two writes with the same <code>base_ver</code>; the second 409&rsquo;d and the client
+      rebooted onto a pre-ascend save, reporting it as another device. Proven both ways against the shipped write path: on the
+      previous build the second POST carries <code>base_ver 7</code> against server version 8, 409s, and arms the conflict
+      reboot; after the change it carries 8, is accepted, and no reboot is armed
+      (<code>tools/verify_flushrace.py</code>).</li>
     <li><strong>2026-08-02 &mdash; the Wraithgold account seed moved server-side.</strong> D reported holding zero;
       his was the only account of four at zero, and the oldest. The client minted the seed and claimed its own
       idempotency flag in the same write, but the server ceiling is the previously stored balance, so any account
