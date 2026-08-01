@@ -24,6 +24,12 @@
     <li>Creature and character unit stats (HP, attack, defence, speed, moves) are separate snapshots taken by <code>initUnits()</code> at the same moment, so they behave identically.</li>
     <li>Out of battle the lock does not apply and the live loadout is authoritative immediately.</li>
   </ul>
+  <p><strong>The lock binds the FIGHT, not the SHEET (D ruling 2026-08-02).</strong> Every display surface reads the
+  <em>live</em> loadout: the character stat panel, POWER, and the creature cards all update the instant an item is swapped,
+  mid-battle or not. Only the combat path sees the frozen copy. Before this the freeze applied to everything, so a player who
+  swapped a weapon during a fight saw no number move anywhere on the equipment screen and had no way to tell the swap had
+  taken. Display producers are wrapped in a helper that lifts the freeze for the duration of the read and restores it on the
+  way out &mdash; including on a throw, so a render can never leak live gear into the fight in progress.</p>
   <p><strong>Why it is taken deliberately and not lazily.</strong> The freeze used to happen on whichever combat read called <code>gearBonus()</code> first. That was only safe while the equipment window and the optimizer both refused to run during a battle &mdash; once the battle gate came off, a player could change their loadout before any combat read and the NEW gear would have been frozen instead of the old, silently altering the fight in progress. The snapshot is now taken at battle entry, before anything can act.</p>
 
 <h2>Which stat an item grants</h2>
@@ -49,6 +55,7 @@
 
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-08-02 &mdash; the equipment sheet reads live gear during a battle.</strong> The battle-entry freeze was applied to display as well as combat, so a mid-battle swap moved nothing on screen. The stat panel, POWER and the creature cards now read current equipment; the combat path is untouched and still gets the entry snapshot. Verified 8/8 in a real battle: the sheet moves, the fight does not, and a render leaves the frozen copy installed.</li>
     <li><strong>2026-08-02 &mdash; an HP accessory was labelled ATK in the slot preview.</strong> The currently-slotted preview built its label from <code>EQUIP[gi].stat</code> &mdash; the SLOT default, Attack for accessories &mdash; instead of <code>statKind</code>, the item’s own identity. The number shown was always the right one (a Crude Relic read <code>+10 ATK</code>, and 10 IS its HP base), which is what made it look like a display quirk rather than a wrong field. Every other surface already used <code>statKind</code>; only this one line disagreed.</li>
     <li><strong>2026-08-02 &mdash; auto-optimize no longer refuses during a battle (D ruling).</strong> It answered &ldquo;finish the battle first&rdquo;, which was belt-and-braces over a lock that already existed. The gate is gone; the freeze is now taken explicitly at all four battle-entry points instead of lazily on the first combat read; and <code>optScore()</code> lifts the freeze while measuring a candidate, without which every candidate scored the same mid-battle. Page created &mdash; nothing owned the equipment window, the gear lock or the optimizer before this.</li>
   </ul>
