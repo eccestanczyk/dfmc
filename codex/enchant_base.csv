@@ -1,0 +1,4 @@
+Class,Mode,Const,Per_Grade,Per_Tier,Uses_Grade_Factor,GF_Base,GF_Step,Notes
+Flat,multiply,3.6,0,0,yes,1.00,0.12,"base = Const x Tier x GF(grade); GF = GF_Base + GF_Step x grade_index (Worn x1.00 -> Void x2.08)"
+Increased,add,5.6,1.70,0.56,no,1.00,0.12,"base = Const + Per_Grade x (grade_index) + Per_Tier x Tier"
+More,add,12.0,0.90,0.50,no,1.00,0.12,"base = Const + Per_Grade x (grade_index) + Per_Tier x Tier"
