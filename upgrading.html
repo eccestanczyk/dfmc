@@ -133,3 +133,9 @@ td{border-bottom:1px solid var(--rule);padding:5px 8px;color:var(--ink-dim);font
   not in the CSV is refused outright, so the ladder cannot be shortened from the client. Currency is still
   spent client-side and validated by the save door until inventory moves server-side.</p>
 
+
+  <h2>Changelog</h2>
+  <ul>
+    <li><strong>2026-07-31 &mdash; upgrade attempts are rolled by the server.</strong> <code>POST /api/roll</code> answers success from the authored <code>Success_Pct</code> using a secret-keyed draw, idempotent on the caller&rsquo;s key so a retry replays rather than re-rolls, and refuses any step the CSV does not author.</li>
+    <li><em>Backfilled 2026-08-01 &mdash; this page had no changelog section, and the commit that should have added the entry above skipped it silently instead of failing.</em></li>
+  </ul>

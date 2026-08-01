@@ -115,6 +115,12 @@ async function loadHatch(){
 loadEggs(); loadHatch();
 </script>
 <script src="nav.js"></script>
+  <h2>Changelog</h2>
+  <ul>
+    <li><strong>2026-07-31 &mdash; hatching moved to the server.</strong> The grade is drawn server-side from <code>egg_hatch_weights.csv</code> and told to the client, idempotent on the egg id so an egg can never be re-rolled. An unauthored egg grade hatches nothing.</li>
+    <li><em>Backfilled 2026-08-01 &mdash; this page had no changelog section, and the commit that should have added the entry above skipped it silently instead of failing.</em></li>
+  </ul>
+
 </body>
 </html>
   <h2>Where the hatch is decided</h2>
