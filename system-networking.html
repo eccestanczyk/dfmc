@@ -257,9 +257,20 @@
   </table>
   <p>Answered today: <code>grade</code> and <code>soul_grade</code> (success, authored odds, cost, the
   on-failure rule) and <code>breed_rate</code> (Ichor per minute, minutes per egg, Ichor per egg, dismantle
-  value). <strong>Not yet server-owned:</strong> battle drops, egg hatching results, and the breeding timer
-  itself &mdash; the server answers breeding economics but does not yet own when a pen produces. The client
-  is not wired to the door yet either; it still rolls its own upgrades until that half lands.</p>
+  value). <strong>Now server-owned and WIRED:</strong> wild battle drops &mdash; <code>/api/battle</code>
+  returns a resolved <code>drops</code> array and the client grants exactly that, having had its own gear,
+  enhancement and egg rolls deleted. <strong>Server-owned but not yet wired:</strong> egg hatching results
+  and upgrade attempts &mdash; the doors exist and are probe-verified, but the client still rolls those
+  locally until their batches land. <strong>Still client-side:</strong> boss guaranteed loot, zone keys and
+  the first-win ladder, which the backend does not roll at all yet.</p>
+
+  <p><strong>How a wired outcome reaches the screen.</strong> Deterministic rewards (XP, Ichor) are computed
+  and shown the moment the battle ends, because nothing about them is chance. The chance-bearing part waits
+  for the server: the client posts the battle, and the resolved drops are granted when the response lands,
+  inside the victory bar&rsquo;s own fill animation. Space is checked through the same bag guard as any other
+  grant, so a full bag loses the drop rather than overflowing. If the player has already left the victory
+  screen the items still land in the bag. Nothing is banked offline: a failed post grants nothing and forces
+  the connection check, which pauses play.</p>
 
   <h2>What the save contains</h2>
   <table>
@@ -441,6 +452,12 @@
   </table>
   <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-01 &mdash; the client consumes the server's drops.</strong> The first of the
+      chance-outcome wirings. The client's own gear/enhancement/egg rolls are deleted, not mirrored, so a wild
+      drop has exactly one author. The battle event now names the creatures killed, and the server accepts a
+      claimed species only when the floor's own table authors it at the already-clamped tier &mdash; enough to
+      name the line an egg comes from, never enough to choose one. The derived spawn's identity, which the
+      battle path had been discarding, is carried through instead.</li>
     <li><strong>2026-07-31 &mdash; the save door checks the transition, and chance moved server-side.</strong> Two players were rolled back sixteen and ten floors with hours of xp lost. Two causes: the door stored the client blob verbatim with no concurrency check (last writer won, so a second device or a reloaded tab could overwrite newer state), and the ratchet clamp silently pushed floor and xp down to a stalled counter while answering <code>200 OK</code>, so every reload re-adopted the reduced copy. Now: earned progress is grow-only, the floor ceiling can never sit below what the account already held, kill and win counters are capped by what the server credited (new ledger columns, delta-stamped per save), an optional <code>base_ver</code> handshake refuses a stale session 409 with the authoritative save, and every override is reported in <code>srv:{}</code>. Separately, <code>POST /api/roll</code> gives the server the chance outcomes it never had &mdash; the worker held no item logic at all, so every roll in the game was made on the client and merely reported.</li>
     <li><strong>2026-07-30 &mdash; backup truth &amp; environment split.</strong> A diagnosis session mistook R2 mirrors for live saves and dev/release sweeps shared one key space. Fixed: env-prefixed mirror keys (<code>dev/</code> for the dev deployment; skip-when-unknown), <code>live=1</code> export reading the player object's SQL with every export response naming its <code>source</code>, and the ops restore gaining the newer-save guard it lacked (409 unless <code>force=1</code>). The bare <code>/</code> path also gained <code>Cache-Control: no-cache</code> &mdash; only <code>/index.html</code> had it, so the shell served for <code>/</code> could go stale across deploys, which is how /dev pages spent whole sessions talking to the release API.</li>
     <li><strong>2026-07-30 &mdash; boss events happen on boss floors.</strong> Boss floors are 10/20/30; x9

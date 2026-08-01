@@ -170,8 +170,31 @@ async function loadFirstWin(){
 loadChances();loadGrades();loadKeys();loadFirstWin();
 </script>
 <script src="nav.js"></script>
+  <div class="note"><strong>The egg lane names a line, and the server is the one that names it.</strong>
+  A wild egg is the Stage-1 egg of the <em>line that was defeated</em>, so the grant needs a species as
+  well as a grade. Of the three kills in a battle, one is the spawn the server itself derived from the
+  seeded slot &mdash; that creature&rsquo;s identity is the server&rsquo;s own fact and is used directly. The
+  other two have no server-derived identity; the client names them, and the claim is accepted
+  <em>only if this floor&rsquo;s own creature table authors that creature at the tier the kill was already
+  clamped to</em>. A claim the floor does not author is discarded and that kill grants no egg &mdash; the
+  client can never talk a valuable line out of the server. The grade is band-rolled as above and then
+  clamped to <code>Wild_Egg_Grade_Cap</code> in <code>drop_rates.csv</code> (<strong>Legendary</strong>),
+  with the grade ladder read from the order of <code>drop_grade_weights.csv</code> rather than restated in
+  code. This clamp is load-bearing: the 91&ndash;100 band authors an Abyssal weight, and without the cap a
+  wild egg could hatch above the ceiling that makes breeding the only path to Divine and above. No cap
+  authored means no egg is granted, the same no-fallback rule the rates use.</div>
+
   <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-01 &mdash; the client stopped rolling wild drops, and the egg cap became real.</strong>
+      <code>/api/battle</code>&rsquo;s resolved <code>drops</code> array is now what the client renders; the
+      gear, enhancement and egg rolls were deleted from the client rather than mirrored, and
+      <code>rollEnhDrop</code>/<code>rollEggDrop</code> are gone. XP and Ichor are deterministic and still
+      credit immediately, so the drop rows arrive during the victory bar fill. Two defects closed on the way:
+      the server was band-rolling egg grades with <em>no</em> Legendary clamp (a forbidden Abyssal egg at
+      floors 91&ndash;100), now authored as <code>Wild_Egg_Grade_Cap</code>; and the derived spawn&rsquo;s
+      creature id was being discarded one line after it was derived, leaving the egg lane unable to name a
+      line at all.</li>
     <li><strong>2026-08-01 &mdash; the server picks the base, and picks it the way this page says.</strong>
       Item selection moved off the client, which had been picking a <code>category|family</code> bucket and
       then an item inside it &mdash; over-weighting bases in small families against the uniform-across-bases

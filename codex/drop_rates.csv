@@ -3,4 +3,5 @@ Drop_Chance_Table,drop_chances_by_floor.csv,"Per wild creature defeated, per-kil
 Gear_Drop_Notes,-,Tier = at-floor tier; grade from drop_grade_weights.csv; Divine+ never drops.
 Enhancement_Drop_Notes,-,Even split gem/rune/scroll.
 Egg_Drop_Notes,-,"The drop is the defeated line's Stage-1 egg; grade from drop_grade_weights for the floor band, clamped to the Legendary wild-egg cap."
+Wild_Egg_Grade_Cap,Legendary,"Hard ceiling on the grade of a wild or boss egg. Breeding is the only path to Divine and above, so the band-rolled grade is clamped to this value. The backend reads this parameter and the grade ladder from drop_grade_weights.csv; if no cap is authored no egg is granted (a missing cap must never silently mean uncapped)."
 Enhancement_Grade_Rule,one_band_behind_gear,Enhancement grade weights sit one band behind gear (see drop_grade_weights.csv).
