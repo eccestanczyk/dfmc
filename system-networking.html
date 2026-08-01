@@ -282,6 +282,46 @@
   </table>
   <p>Measured against a real save: <strong>655&nbsp;KB &rarr; ~12&nbsp;KB</strong>. Turn logs alone were 68% of it.</p>
 
+  <h2>The save ceiling &mdash; 131,072 bytes, and what happens when a save reaches it</h2>
+  <p><code>POST /api/save</code> strips the device-only fields, then measures what remains. Anything over
+  <strong>131,072&nbsp;B</strong> is refused <code>413 save too large</code> and flagged <code>save_oversize</code>.
+  A legitimate slim save is well under 60&nbsp;KB, so the ceiling is headroom, not a budget to spend.</p>
+  <table>
+    <tr><th>Field</th><th>Travels?</th><th>Why</th></tr>
+    <tr><td class="lbl"><code>advBattles</code>, <code>advChapters</code>, <code>floors</code></td><td>No &mdash; stripped by <code>serverSnap()</code> on the client <em>and</em> by the save door</td><td>Turn logs and floor pools are device data. Pools are derived; logs are prose</td></tr>
+    <tr><td class="lbl"><code>advArc</code> (adventure-log archive)</td><td><strong>No, since 2026-08-01</strong> &mdash; same two strips</td><td>It grows forever by design (compress-not-discard) and is the field that walked live accounts into the ceiling</td></tr>
+    <tr><td class="lbl">Everything else</td><td>Yes</td><td>Game state the server validates and stores</td></tr>
+  </table>
+  <p><strong>Why this matters, measured on a live account.</strong> <code>advArc</code> was added on 2026-07-28 and was
+  never added to the strip list, so it rode every upload. On one player's save it was <strong>68,560&nbsp;B of
+  127,115&nbsp;B &mdash; 54%</strong>, leaving 3,957&nbsp;B of headroom. Once an account reaches the cap <em>every</em>
+  save is refused, and the client's <code>serverFlush</code> re-arms only on a network throw: a 413 returns
+  <code>false</code> silently, with no retry and no warning. The player keeps playing, <code>/api/battle</code> keeps
+  crediting the ledger, and the next login adopts the stale stored copy &mdash; because the server save is
+  authoritative on login. <strong>That is the rollback.</strong> One account went thirteen hours and 1,908 credited
+  kills between two accepted saves; three of five active accounts were at or against the cap, and every healthy
+  account was far below it.</p>
+  <p><strong>The archive lives on the device only.</strong> It is spliced back into the adopted save by
+  <code>syncSaves()</code> on login, and for this one field <em>local wins</em> &mdash; unlike the three fields above it
+  still exists inside every save written before the strip, and that stored copy is by definition the stale one. A device
+  with no archive of its own keeps the server's last upload rather than nothing. Without the splice, every login would
+  blank the player's log. No migration is needed: the first post-fix save is under the cap, is accepted, and the stored
+  blob sheds its archive on that write.</p>
+  <p><strong>Diagnosing a stalled account.</strong> The admin console's per-player routes read the WorldDO and answer
+  empty, so use the key-gated doors: <code>/api/backup/history?sid=&amp;realm=</code> for the version ring (a version
+  number that has not advanced while play continued <em>is</em> the symptom) and <code>/api/backup/facts?sid=</code> for
+  the ratchet and ledger the server built from credited battles &mdash; the only honest record of what a rolled-back
+  player actually earned.</p>
+  <p class="note"><strong>Known and not yet fixed:</strong> a refused save is still silent to the player &mdash; any
+  non-OK, non-409 answer should warn and pause, since a save being refused is functionally offline. The archive also
+  packs <em>one event per block</em>, so gzip+base64 inflates it (40,912&nbsp;B of text stored as 68,560&nbsp;B, against
+  7,856&nbsp;B if packed as designed); now that it stays on the device this is a localStorage-quota problem rather than a
+  save-ceiling one. And 275 of 405 archived battle rows carry a blank timestamp.</p>
+  <p class="note"><strong>Design vs build:</strong> the table above says the adventure log lives as server rows fetched
+  on demand. It never did &mdash; the archive rode the save instead. The server-side log is now specified around what the
+  battle path already knows (player power, result, loot) rather than around uploaded prose, and the client's copy is
+  requested only when there is something to compare.</p>
+
   <h2>Sharding</h2>
   <table>
     <tr><th>Object</th><th>Holds</th></tr>
@@ -452,6 +492,14 @@
   </table>
   <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-01 &mdash; the adventure-log archive stops riding the save.</strong> The third and
+      last cause of the rollback, and the one still hurting players after the first two were fixed. The save door
+      refuses anything over 131,072&nbsp;B with a 413; <code>advArc</code> had never joined the strip list and grew
+      without bound, reaching 54% of a live 127,115&nbsp;B save. At the cap every save is refused, the client drops a
+      non-OK answer silently, and each login adopts the stale stored copy &mdash; one account lost thirteen hours and
+      1,908 credited kills. The archive is now stripped by both the client and the save door, and spliced back from the
+      device on login with the local copy winning. Wire measured 127,105&nbsp;B &rarr; 58,531&nbsp;B on the affected
+      player's real save.</li>
     <li><strong>2026-08-01 &mdash; the client consumes the server's drops.</strong> The first of the
       chance-outcome wirings. The client's own gear/enhancement/egg rolls are deleted, not mirrored, so a wild
       drop has exactly one author. The battle event now names the creatures killed, and the server accepts a
