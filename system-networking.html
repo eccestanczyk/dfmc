@@ -322,6 +322,33 @@
   battle path already knows (player power, result, loot) rather than around uploaded prose, and the client's copy is
   requested only when there is something to compare.</p>
 
+  <h2>Inventory &mdash; synced every save, validated in the Worker</h2>
+  <p>The bag stays inside the save. On every sync the <strong>Worker</strong> checks each row against
+  <code>items.csv</code> and <code>creatures.csv</code> and removes anything that could never have existed, then
+  forwards a clean body to the object. It runs in the Worker and not the object for the same reason the drop tables
+  do: <code>items.csv</code> is 208&nbsp;KB, a save fires every 10&ndash;60&nbsp;s, and handing that table to a
+  Durable Object per request is the cost trap the whole drop design was shaped to avoid.</p>
+  <table>
+    <tr><th>Rejected</th><th>Test</th></tr>
+    <tr><td class="lbl">Unauthored base</td><td>the name is not in <code>items.csv</code></td></tr>
+    <tr><td class="lbl">Wrong category</td><td>the row's category contradicts the authored one</td></tr>
+    <tr><td class="lbl">Off-ladder grade</td><td>not one of the ten authored grades</td></tr>
+    <tr><td class="lbl">Wrong tier</td><td>only for bases that HAVE a tier &mdash; see below</td></tr>
+    <tr><td class="lbl">Invented species</td><td>a monster naming nothing in <code>creatures.csv</code></td></tr>
+    <tr><td class="lbl">Impossible quantity</td><td><code>qty &lt; 1</code></td></tr>
+  </table>
+  <p class="note"><strong>Eggs have grades, not tiers.</strong> <code>items.csv</code> authors them with a blank Tier
+  and the client writes <code>tier: 0</code>. A validator that compared the two would call every egg in the game a
+  mismatch &mdash; 60 across the live accounts, 54 on one of them. Untiered bases skip the tier test entirely.</p>
+  <p class="note"><strong>Legality is not provenance.</strong> The checks above ask whether an item <em>could</em>
+  exist, which needs no history. Whether a legal item was ever actually granted is a different question, and the
+  server's grant record only begins the day it shipped &mdash; so every item every live account holds predates it.
+  Unrecognised items are therefore FLAGGED, never removed, until granted items are born carrying a server-issued id.
+  The server keeps one row per item so it can answer that question later; the first sync adopts what an account
+  already holds, once.</p>
+  <p>Nothing is stripped silently: every removal is flagged and counted back to the client in <code>srv{}</code>, and
+  the validator fails open &mdash; if the codex cannot be read the save still lands untouched.</p>
+
   <h2>Sharding</h2>
   <table>
     <tr><th>Object</th><th>Holds</th></tr>
