@@ -132,8 +132,33 @@ RarityMult:   C 1.0   UC 1.5   R 2.5   SR 4.0   SSR 7.0</pre>
   <p>A single Void pen alone eats half of a maxed player's entire Ichor income. That is the intended shape: the top of the ladder is slow by construction, and no amount of pens buys past it.</p>
 </div>
 <script src="admin.js"></script>
+  <h2>Where breeding happens &mdash; anchor and claim</h2>
+  <p><strong>The server is called once, at the end.</strong> Starting a pen costs no request of its own and
+  no tick is ever reported. The client attaches two fields &mdash; the pen index and its grade &mdash; to
+  whatever call it was already making, and the server anchors the pen. <code>POST /api/breed/claim</code> is
+  the only breeding request in the system.</p>
+  <table>
+    <tr><th>Step</th><th>What happens</th></tr>
+    <tr><td class="lbl">Start</td><td>The client rides <code>{p, g}</code> on an existing request. The server
+      stamps its <strong>own</strong> clock. The payload carries no start time on purpose: a client that
+      could name one would backdate it and collect instantly. Anchoring at first-hearing costs the player
+      only the seconds before their next call, which is the safe direction to be wrong in.</td></tr>
+    <tr><td class="lbl">Running</td><td>Nothing. No tick, no heartbeat, no request. The pen is a row with a
+      grade and a timestamp, and it survives a worker restart because it lives in the account's SQL.</td></tr>
+    <tr><td class="lbl">Re-announced</td><td>Ignored. A re-sent note does not restart a running pen &mdash;
+      otherwise a client could re-announce forever and hold an egg at 99%.</td></tr>
+    <tr><td class="lbl">Claim</td><td>The server compares elapsed time against <code>Minutes_Per_Egg</code>
+      for that grade. Early, it answers the remaining wait and grants nothing. Ready, it returns the egg with
+      the authored <code>Ichor_Per_Egg</code> and <code>Egg_Dismantle_Ichor</code>, and consumes the pen so
+      one wait can never pay twice.</td></tr>
+  </table>
+  <div class="note">Every number comes from <code>breeding.csv</code> &mdash; minutes per egg, ichor per
+  minute, ichor per egg, dismantle value. Nothing is hardcoded, and a grade the file does not author grants
+  nothing at all rather than falling back to a default.</div>
+
 <h2>Changelog</h2>
 <ul>
+    <li><strong>2026-07-31 &mdash; breeding became server-owned, at one call per egg.</strong> The pen is anchored on the server clock by two fields riding an existing request, no tick is ever sent, and the result is claimed at the end. Timing, cost and dismantle value read from <code>breeding.csv</code>. A backdated or re-sent note cannot move the timer, and a claim consumes the pen.</li>
   <li><strong>2026-07-28</strong> &mdash; Clarified the pen clock as mechanics: a pen advances on elapsed wall-clock time while the client is loaded, <em>including an unfocused or background window</em>, and never while the game is closed. Added <em>How the meter actually advances</em> covering the credit formula, tick frequency independence, partial and paused ticks, and the full-bag freeze. Client fix in the same batch: the pen tick and the run save had been riding requestAnimationFrame, which stops in an unfocused tab.</li>
 </ul>
 <script src="nav.js"></script>
