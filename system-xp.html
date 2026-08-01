@@ -59,6 +59,41 @@
     <li>Each recipient's XP is then scaled by the level gap to the defeated enemy. See <a href="system-level-penalty.html">Level Penalty</a> for the full curve.</li>
   </ul>
   <div class="sp-note">Hardcore implication: death wipes a character to level&nbsp;1. The relevel to 67 is ~30&nbsp;h of autoplay, but a death at level&nbsp;95+ costs a dedicated player weeks — high stakes by design. See <a href="system-realms.html">Death &amp; Realms</a>.</div>
+
+  <h2>Class XP &mdash; who computes it</h2>
+  <p><strong>The server, since 2026-08-01.</strong> Class XP is the avatar's share of the same battle, and it is
+  derived from the same authored tables the account total comes from &mdash; the client is not asked and is not
+  believed.</p>
+  <table>
+    <tr><th>Quantity</th><th>Rule</th></tr>
+    <tr><td class="lbl">Account XP (player level)</td><td>The <strong>raw</strong> sum of <code>XP_Kill_&lt;tier&gt;</code> over the kills the server derived from its own seeded slot. No penalty is applied &mdash; player XP is never split</td></tr>
+    <tr><td class="lbl">Class XP</td><td>The <strong>same</strong> kills, each scaled by the level-gap penalty between the avatar's class level and that enemy: <code>round(base &times; (1 &minus; penalty(enemyLevel &minus; classLevel)))</code>. The class level is read once, before the battle</td></tr>
+    <tr><td class="lbl">Class level</td><td>Derived from the ledger's own class total against <code>XP_Cumulative</code> in <code>XPCurve.csv</code> &mdash; the server needs nothing from the client to know it</td></tr>
+    <tr><td class="lbl">Ceiling</td><td>Classes cap at level&nbsp;100, so <strong>18,464,128</strong> (the cumulative at 100) is an absolute ceiling on class XP. Below that, a save may only claim what the server has credited since the previous accepted save</td></tr>
+  </table>
+  <p>Two consequences fall straight out of the definitions. Class XP <strong>can never exceed account XP</strong>, because
+  the penalty is never negative &mdash; an account where it does has a starved account total, not a rich class total.
+  And at a level gap inside the grace window the penalty is zero, so the two totals are <em>identical</em>; that is the
+  sharpest available check that both are being computed from the same table.</p>
+  <p class="note"><strong>What this replaces.</strong> Until this landed the ledger held account XP, Ichor, kills and
+  battles &mdash; and nothing at all for class XP. The save door capped it only on a <em>newborn</em> account, then
+  merged it grow-only forever after, so on any established account a crafted save could set class XP to any number and
+  keep it permanently. Class advancement was the last progression system still authored entirely by the client.</p>
+  <p class="note"><strong>Grandfathering.</strong> The class ledger starts counting from the day it shipped while every
+  live account's class XP is historical, so the ceiling is a <em>delta</em>: each accepted save is stamped with the
+  server's class total at that moment, and the next save may claim what was credited since, plus the standard grace.
+  An account with no stamp yet keeps what it holds. This is the same shape as the kill and battle counters, and for the
+  same reason &mdash; a flat total would have confiscated real progress on the first save.</p>
+
+  <h2>Changelog</h2>
+  <ul>
+    <li><strong>2026-08-01 &mdash; class XP moves server-side.</strong> It had no ledger and no ceiling; a save could
+      claim any class level and keep it. The server now credits class XP itself per battle from the authored curve and
+      the level-gap penalty, caps it at the level-100 cumulative, and clamps a claim to what it actually credited.
+      Verified against a real worker: at zero level gap the class and account totals come out identical, a
+      1,000,000,000 claim clamps, a claim past the level-100 cumulative clamps to the cap, an established account's
+      historical total is kept, and legitimate growth still lands untouched.</li>
+  </ul>
 </div>
 
 <script>

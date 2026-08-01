@@ -128,6 +128,15 @@ for b in save.get('advArc', []):
 
   <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-01 &mdash; the archive packs before it compresses, and rows keep their time.</strong>
+      Overflow was gzipped and base64'd the instant it happened, and once the live window is full the overflow is
+      exactly one event &mdash; so a 405-event archive was 405 single-line blocks. gzip has nothing to find in a
+      100-byte line and costs an ~18-byte header, then base64 adds a third on top: measured 40,912&nbsp;B of text
+      stored as 68,560&nbsp;B, <em>larger</em> than not compressing at all, where one packed block is 7,856&nbsp;B.
+      Events now land in a trailing plain block and are sealed into gzip only at 16&nbsp;KB, and a fragmented archive
+      is re-packed once on load (405 blocks &rarr; 2, every event preserved). Archived battle rows were also being
+      built with an empty <code>ts</code> field and losing their time &mdash; 275 of 405 in a live save; the row now
+      carries the timestamp stamped when the battle was recorded.</li>
   <li><strong>2026-07-28</strong> &mdash; <code>HATCH_BATCH</code> added: HATCH ALL now writes one event for the whole press instead of one per hatchling, carrying the grade tally, the capped species breakdown and the mutant count. Mutants keep their own line. Documented under <em>Event types</em>.</li>
     <li><strong>2026-07-28 &mdash; events carry what actually happened.</strong> Every event above recorded
     little more than a name. HATCH and MUTANT_HATCH now carry grade, sex, the egg's grade and where the egg
