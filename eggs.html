@@ -117,3 +117,14 @@ loadEggs(); loadHatch();
 <script src="nav.js"></script>
 </body>
 </html>
+  <h2>Where the hatch is decided</h2>
+  <p><strong>The server draws the hatched grade and tells the client.</strong> <code>POST /api/hatch</code>
+  carries the egg's id and its grade; the server reads that grade's row from
+  <code>egg_hatch_weights.csv</code>, draws against those weights with a secret-keyed HMAC, records the
+  result and answers it. The weights are never restated in code, and there is no fallback &mdash; an egg
+  whose grade the file does not author hatches <em>nothing</em> rather than defaulting to the lowest tier,
+  because a default would quietly become the balance.</p>
+  <p><strong>An egg hatches once, forever.</strong> The result is stored against the egg's own id, not a
+  key the caller chooses, so a retry or a lost connection replays the same creature. Re-submitting the same
+  egg while claiming a richer grade cannot re-roll it.</p>
+
