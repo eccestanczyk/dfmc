@@ -172,3 +172,30 @@ loadChances();loadGrades();loadKeys();loadFirstWin();
 <script src="nav.js"></script>
 </body>
 </html>
+  <h2>Who rolls the drop</h2>
+  <p><strong>The server rolls it and tells the client.</strong> The client renders the grant and never
+  reports a drop of its own, so there is no second opinion to reconcile. Every number the roll uses is read
+  from the files on this page &mdash; nothing about a drop is hardcoded in the backend, and there is no
+  fallback constant anywhere in the path: if a table fails to load the drop simply does not happen and the
+  account is flagged (<code>drop_data</code>). A default would quietly become the balance.</p>
+  <table>
+    <tr><th>Step</th><th>Source</th></tr>
+    <tr><td class="lbl">Does it drop</td><td><code>drop_chances_by_floor.csv</code> &mdash; one independent
+      roll each for gear, enhancement and egg, per kill, at that kill's rarity. The kills are the ones the
+      <em>server</em> derived from the seeded spawn slot, so floor, rarity and count are its own facts.</td></tr>
+    <tr><td class="lbl">What grade</td><td><code>drop_grade_weights.csv</code> for the floor's band.
+      Enhancements use the band one behind gear, and that rule is read from
+      <code>drop_rates.csv</code> (<code>Enhancement_Grade_Rule</code>) rather than assumed.</td></tr>
+    <tr><td class="lbl">What tier</td><td>The zone boundaries authored in <code>floors.csv</code>. The
+      client's <code>ceil(floor/10)</code> is a hardcoded restatement of today's zone layout &mdash;
+      re-author the zones and it silently produces the wrong tier.</td></tr>
+    <tr><td class="lbl">Only when earned</td><td>The roll runs in the credited branch only. An uncredited
+      battle &mdash; over the spawn budget, over a rate cap &mdash; earns nothing and therefore drops
+      nothing.</td></tr>
+    <tr><td class="lbl">Once only</td><td>Recorded against the battle's event id, which is already deduped,
+      so a retried or replayed battle returns the same grant instead of a second one.</td></tr>
+  </table>
+  <div class="note"><strong>Balancing.</strong> Change a rate here and the live game changes with it &mdash;
+  the backend reads these files at <code>DATA_PIN</code> on release and at <code>main</code> on dev. No code
+  edit, no deploy.</div>
+
