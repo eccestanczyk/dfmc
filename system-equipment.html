@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Equipment, the Gear Lock &amp; Auto-Optimize — Herumon Tower</title>
+<link rel="stylesheet" href="theme.css?v=4">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">EQUIPMENT, THE GEAR LOCK &amp; AUTO-OPTIMIZE</h1></div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; Equipment &amp; Auto-Optimize</div>
+  <p class="sp-lead">Equipment can be changed at any time, including in the middle of a fight. What it <em>cannot</em> do is change a fight already in progress: every combat bonus is snapshotted when the battle starts and served from that snapshot until the battle ends.</p>
+
+  <h2>The gear lock</h2>
+  <ul class="sp-rules">
+    <li>All equipment-derived combat values &mdash; flat and percentage stats, souls, thorns, heal-received, debuff potency and duration, type and kind multipliers &mdash; come from <code>gearBonus()</code>.</li>
+    <li>At the start of every battle the current bonus is computed and frozen. For the rest of the battle <code>gearBonus()</code> returns that frozen copy and ignores the live loadout entirely.</li>
+    <li>The freeze is taken at <strong>four</strong> entry points, each of which begins a battle: a wild encounter, a boss challenge, a re-entered fight from the victory screen, and a battle resumed after a page reload.</li>
+    <li>Creature and character unit stats (HP, attack, defence, speed, moves) are separate snapshots taken by <code>initUnits()</code> at the same moment, so they behave identically.</li>
+    <li>Out of battle the lock does not apply and the live loadout is authoritative immediately.</li>
+  </ul>
+  <p><strong>Why it is taken deliberately and not lazily.</strong> The freeze used to happen on whichever combat read called <code>gearBonus()</code> first. That was only safe while the equipment window and the optimizer both refused to run during a battle &mdash; once the battle gate came off, a player could change their loadout before any combat read and the NEW gear would have been frozen instead of the old, silently altering the fight in progress. The snapshot is now taken at battle entry, before anything can act.</p>
+
+  <h2>Auto-optimize</h2>
+  <ul class="sp-rules">
+    <li>Searches the equipped items plus everything in the bag and proposes the loadout with the highest character Power, reshuffling gems and runes globally across the result. Scrolls never move.</li>
+    <li>It touches <strong>gear slots only</strong>. The two creature slots (Monster&nbsp;I and II) are outside its order and are never changed by it &mdash; see <a href="system-party.html">The Active Party</a>.</li>
+    <li>It runs <strong>during a battle</strong> (D ruling 2026-08-02). The change lands immediately and, because of the lock above, takes effect from the next battle.</li>
+    <li>The preview is re-derived and compared before it is applied; if anything moved in between it is refused with <em>&ldquo;Things changed &mdash; run it again&rdquo;</em> rather than applied against a stale plan.</li>
+    <li>If the resulting loadout needs more bag room than the account has, it is blocked before anything moves.</li>
+  </ul>
+  <p><strong>Scoring must bypass the lock.</strong> The optimizer measures a candidate by swapping it into state and asking the game for its own Power number. During a battle <code>gearBonus()</code> would answer with the frozen snapshot for every candidate alike, so every option scored identically and the optimizer reported <em>&ldquo;already optimal&rdquo;</em> whatever was in the bag. The measurement therefore lifts the freeze for the duration of the swap and restores it afterwards. This was found by probe the moment the battle gate was removed &mdash; the gate had been hiding it.</p>
+  <p class="foot">Client: <code>gearBonus()</code>, <code>freezeGear()</code>, <code>optBuildPlan()</code>, <code>optScore()</code>, <code>optApply()</code> in <code>play/app.js</code></p>
+
+  <h2>Changelog</h2>
+  <ul class="sp-rules">
+    <li><strong>2026-08-02 &mdash; auto-optimize no longer refuses during a battle (D ruling).</strong> It answered &ldquo;finish the battle first&rdquo;, which was belt-and-braces over a lock that already existed. The gate is gone; the freeze is now taken explicitly at all four battle-entry points instead of lazily on the first combat read; and <code>optScore()</code> lifts the freeze while measuring a candidate, without which every candidate scored the same mid-battle. Page created &mdash; nothing owned the equipment window, the gear lock or the optimizer before this.</li>
+  </ul>
+</div>
+<script src="admin.js"></script>
+<script src="nav.js"></script>
+</body>
+</html>
