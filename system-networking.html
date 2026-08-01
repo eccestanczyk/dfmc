@@ -550,6 +550,17 @@
   </table>
   <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-02 &mdash; the backup cron could not tell which environment it was, and was skipping.</strong>
+      The sweep is scheduled (a 1-minute cron) and always has been, but <code>envPrefix()</code> reads a module global set
+      inside <code>fetch()</code>, and a <code>scheduled()</code> invocation can run in an isolate that has never served a
+      request. It then returned null and the sweep bailed with <code>paused:'env-unknown'</code> &mdash; the right call
+      (writing into the other environment’s keys would be worse) but it meant the sweep could sit out indefinitely on a
+      quiet worker. Measured on live: the newest mirror for an active account was a save from two days earlier while every
+      forced sweep, which runs on a request-served isolate, worked perfectly. The environment is now STAMPED durably in the
+      world object the first time each isolate serves a request, and the sweep reads it back when its own isolate does not
+      know; <code>ENV_NAME</code> still wins if it is ever set, and a world that has genuinely never seen traffic still
+      pauses rather than guessing. A full forced cycle was run at the same time, so every live account now holds a current
+      mirror.</li>
     <li><strong>2026-08-02 &mdash; server writes are serialized; the self-conflict is gone.</strong> A forced flush firing
       alongside the debounce flush sent two writes with the same <code>base_ver</code>; the second 409&rsquo;d and the client
       rebooted onto a pre-ascend save, reporting it as another device. Proven both ways against the shipped write path: on the
