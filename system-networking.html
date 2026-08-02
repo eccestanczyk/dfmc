@@ -608,8 +608,11 @@
   <table>
     <tr><th>Detail</th><th>Why</th></tr>
     <tr><td class="lbl">A missing header is refused too</td><td>Once a session has an epoch, omitting the
-      header is a mismatch. Otherwise the bypass is simply not to send it &mdash; which is the hole that
-      <code>base_ver</code>'s optionality still leaves open on the save door.</td></tr>
+      header is a mismatch. Otherwise the bypass is simply not to send it. The same reasoning closed
+      <code>base_ver</code>'s optionality on the save door: once a session has an epoch it is by
+      definition running a build that sends both, so an absent <code>base_ver</code> against a save the
+      server holds is answered with the ordinary conflict payload and the client reboots onto server
+      truth. Pre-epoch sessions keep the old behaviour until they reload, and never after.</td></tr>
     <tr><td class="lbl">Enforced only once the session HAS an epoch</td><td>A tab open across the deploy
       keeps working until it reloads. After that every session has one and the gate is absolute. This is a
       migration window, not a permanent exemption.</td></tr>
@@ -620,6 +623,16 @@
     <tr><td class="lbl">One client wrapper, not N call sites</td><td>The shell wraps <code>fetch</code> once
       to attach the header and to recognise <code>stale_session</code>. <code>app.js</code> issues fetches
       from dozens of places and global-regexing a call site there is forbidden.</td></tr>
+    <tr><td class="lbl">A second tab is stopped before it can claim</td><td>The epoch catches a second tab
+      <em>after</em> it has taken the save. The Web Locks API stops it taking one at all, which matters
+      because <code>GET /api/save</code> mints the epoch &mdash; a loser tab that booted normally would fence
+      out the legitimate owner. The lock is claimed with <code>ifAvailable</code> before
+      <code>/api/me</code>, held for the tab's lifetime, and handed on by the browser when the holder
+      closes: no heartbeat, no timer, no server cost. The loser gets ALREADY OPEN and a
+      <em>play here instead</em> button that <code>steal</code>s the lock; the steal rejects the holder's
+      request, which is how the retired tab learns to halt. Scoped per environment, or opening
+      <code>/dev/</code> would evict a production tab on the same origin. Where the API is missing the tab
+      proceeds and the epoch remains the guarantee &mdash; this layer is prevention, not the fence.</td></tr>
     <tr><td class="lbl">Known gap: the WORLD object is not fenced</td><td>It authenticates from the
       <code>x-sid</code> header and holds no session table, so it has no epoch to compare. PvP, leaderboard
       and admin paths are therefore unfenced. Lower stakes, recorded rather than fixed.</td></tr>
@@ -634,6 +647,7 @@
 
 <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-02 &mdash; a second tab is stopped before it can claim, and <code>base_ver</code> is no longer optional (report #16).</strong> Web Locks holds ownership for the tab's lifetime and the loser is offered a steal-and-reload instead of silently racing the owner; a fenced session must now send <code>base_ver</code> on any realm the server already holds.</li>
     <li><strong>2026-08-02 &mdash; ownership is fenced server-side (report #16).</strong> <code>GET /api/save</code> mints a per-instance <code>epoch</code>; every later request carries it and the object refuses a lower one with <code>409 stale_session</code>. A login already fenced other devices; this fences other tabs, which is the case that caused the loss. Adds the ops-key <code>/api/backup/drops</code> read door over the 7-day drop grant log.</li>
     <li><strong>2026-08-02 &mdash; a dead write path now pauses play (report #16).</strong> <code>_staleInst</code>/<code>_loadBroken</code> stopped both save writers but not <code>/api/battle</code>, so a window kept being credited for ten hours while nothing it did was stored, and the login rule then correctly discarded all of it. The latch now enters the connection-lost pause, battle entry awaits its flush and refuses the fight if it did not land, and <code>/api/battle</code> derives the divergence from <code>_ledB</code> and answers <code>_stale</code>.</li>
     <li><strong>2026-08-02 &mdash; the backup cron could not tell which environment it was, and was skipping.</strong>
