@@ -1,0 +1,48 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Premium Shop — DFMC Codex</title>
+<style>
+ body{background:#0d0c09;color:#c9c0aa;font:15px/1.65 Georgia,serif;margin:0;padding:38px 22px;max-width:860px}
+ h1{color:#ede0c4;font-size:26px;letter-spacing:2px;margin:0 0 6px} h2{color:#9fe0d0;font-size:16px;letter-spacing:1px;margin:30px 0 8px}
+ a{color:#9fe0d0} code{background:#17150f;border:1px solid #3a352c;padding:1px 5px;border-radius:3px;color:#ede0c4;font-size:13px}
+ table{border-collapse:collapse;width:100%;margin:10px 0} td,th{border:1px solid #3a352c;padding:7px 10px;text-align:left;font-size:14px}
+ th{color:#ede0c4;background:#17150f} .note{color:#8a8378;font-size:13px} hr{border:0;border-top:1px solid #3a352c;margin:26px 0}
+</style></head><body>
+<h1>PREMIUM SHOP</h1>
+<p class="note">Server-authoritative store for Wraithgold. Prices and durations are authored in
+<code>codex/premium_shop.csv</code> — never in code.</p>
+
+<h2>What is for sale</h2>
+<table><tr><th>SKU</th><th>Name</th><th>Cost</th><th>Duration</th><th>Effect</th></tr>
+<tr><td>SHOP-001</td><td>Incense Burner</td><td>10 Wraithgold</td><td>30 days</td><td>Doubles the wild respawn rate</td></tr></table>
+<p>The authored respawner gives <strong>one spawn per 60 seconds</strong> while below the cap of ten.
+Incense halves that interval to <strong>30 seconds</strong>. The pool cap is unchanged — the cap is how many
+creatures can be waiting, not how fast they arrive.</p>
+
+<h2>How a purchase works</h2>
+<p>The client names a SKU and an idempotency key. It never sends a price. The worker resolves the
+authored row and the player's own object performs the balance check, the debit and the grant inside a
+single transaction. A repeated key returns the original answer rather than charging twice.</p>
+<table><tr><th>Rule</th><th>Behaviour</th></tr>
+<tr><td>Insufficient balance</td><td>Refused with <code>402</code>. A balance never goes negative on a purchase.</td></tr>
+<tr><td>Repeat purchase while active</td><td>Extends the expiry by another 30 days. Time already paid for is never burned.</td></tr>
+<tr><td>Unauthored SKU</td><td>Refused. Only rows in the CSV are for sale.</td></tr>
+<tr><td>Catalogue unreachable</td><td>Refuses to sell rather than inventing a price.</td></tr>
+<tr><td>Expiry</td><td>Computed server-side from the grant. A save rollback can neither lose nor extend it.</td></tr></table>
+
+<h2>The wallet ledger</h2>
+<p>Wraithgold is held in an append-only ledger. The balance is the sum of its entries; there is no
+authoritative balance stored anywhere else. Every entry carries its provenance, so paid, granted and
+promotional units stay distinguishable — that distinction cannot be reconstructed once units mix.</p>
+<p><strong>A progress wipe does not touch it.</strong> Resetting a realm clears saves and progress; currency
+that was paid for survives.</p>
+
+<h2>Item grants</h2>
+<p>Items owed to a player — compensation, purchases, promotions — are minted server-side and stay
+pending until the client takes delivery and records the grant in its own save. If a save is rolled back,
+the record rolls back with it and the grant becomes owed again, so a restore can never silently swallow
+an item. A grant with nowhere to go waits rather than being destroyed.</p>
+
+<hr><p class="note">Changelog<br>
+2026-08-02 — Page created. Premium Shop, Incense Burner, the Wraithgold ledger and the item grant lane.</p>
+</body></html>

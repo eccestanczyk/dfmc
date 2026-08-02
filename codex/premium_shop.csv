@@ -1,0 +1,2 @@
+SKU,Name,Category,Currency,Cost,Duration_Days,Effect_Kind,Effect_Value,Description,Enabled
+SHOP-001,Incense Burner,Boon,Wraithgold,10,30,spawn_rate,2,Wild creatures return to your floor twice as often. Burns for 30 days.,1
