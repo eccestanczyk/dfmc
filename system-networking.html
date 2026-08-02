@@ -33,6 +33,7 @@
     <tr><th>Rule</th><th>Meaning</th></tr>
     <tr><td class="lbl">Clients send events and requests, never state</td><td>The save is a prediction cache. A server reconciliation overwrites it. Editing it should be inert.</td></tr>
     <tr><td class="lbl">Nothing happens offline</td><td>Offline play is banned outright. No queue, no outbox, no banking, no replay of work done while disconnected. On loss of connection autoplay pauses, the battle pauses, and a reconnecting window shows. Play resumes only when the connection returns.</td></tr>
+    <tr><td class="lbl">A dead writer is a dead channel</td><td>&ldquo;Offline&rdquo; means the writer, not the socket. A window that can no longer save takes the same path as a lost connection &mdash; play pauses &mdash; because <code>/api/battle</code> is a separate writer and keeps crediting a window whose save has stopped moving. The one difference: a write halt is terminal, cleared only by a reload that re-adopts the server copy. Never by a client-side merge.</td></tr>
     <tr><td class="lbl">The server derives rewards</td><td>The client reports what it did, never what it earned. XP, food and drops come from server tables, and the client applies what it is told.</td></tr>
     <tr><td class="lbl">Cost scales with battles, not with time connected</td><td>An idle account must write nothing. If a player is doing nothing there is nothing to save.</td></tr>
   </table>
@@ -548,8 +549,53 @@
     <tr><td class="lbl"><code>/api/entitlements/pending</code> answered 500 to everyone</td><td>Fixed 2026-07-28. It sat above <code>const ses = this.session(req)</code> and referenced it &mdash; temporal dead zone. Confirmed live before the fix. Nothing in the client calls it, so it was dormant, but it is the endpoint for a player disputing a missing purchase. Carry the hoist through the class split</td></tr>
     <tr><td class="lbl"><code>FEEDBACK_KEY</code> is a var, not a secret</td><td>Plaintext in <code>wrangler.jsonc</code> and therefore in the repo. It gates <code>/api/backup/export</code> (every save of every player), <code>/api/ledger/reconcile</code> (writes) and <code>/api/lb/purge</code> (destructive). Should be a Wrangler secret and should be rotated. Security, not cost &mdash; but the cutover is the natural moment</td></tr>
   </table>
-  <h2>Changelog</h2>
+    <h2>When the write path dies</h2>
+  <p>There are two writers and only one of them can be latched off. <code>_staleInst</code> (another window
+  took the localStorage slot, or the slot was cleared underneath this one) and <code>_loadBroken</code> (the
+  save would not parse) both stop <code>saveLocal</code> and <code>serverFlush</code>. Neither stops
+  <code>/api/battle</code>. A window in that state keeps being credited &mdash; the ledger and the floor
+  ratchet advance normally &mdash; while the save blob stands still. On the next login the server copy wins
+  unconditionally, which is correct, and everything that lived only in the blob is gone with it: wallet,
+  inventory, creature levels, eggs, pens.</p>
+  <p>This cost a player ten hours on 2026-08-01. His last stored save was <code>ver 874</code> at 10:43 UTC;
+  the next was <code>ver 876</code> at 21:11 carrying <code>playerXp 478,119</code> and
+  <code>maxFloor 69</code> from the server's own ledger and ratchet, beside the Ichor and the 66-item
+  inventory of 10:43. The only warning had been a toast, and a toast does not stop autoplay.</p>
+  <table>
+    <tr><th>Rule</th><th>As built 2026-08-02</th></tr>
+    <tr><td class="lbl">A latch pauses play</td><td><code>haltWrites()</code> calls the shell's
+      <code>window.__HT_HALT</code>, which enters the same paused state as a lost connection: overlay up,
+      <code>__HT_PAUSED</code> set, so <code>enterBattle</code>, <code>lockIn</code> and
+      <code>challengeBoss</code> all refuse. Autoplay stops at the next battle boundary.</td></tr>
+    <tr><td class="lbl">A halt outranks the poller</td><td><code>__connCheck</code> clears the pause the
+      moment <code>/api/me</code> answers 200 &mdash; and during a write halt it always will, because the
+      connection was never the problem. <code>__setPaused</code> refuses to un-pause while
+      <code>__HT_HALTED</code> is set. The overlay reads NOT SAVING and offers only a reload.</td></tr>
+    <tr><td class="lbl">Stage 5 is a gate, not a hope</td><td>Battle entry <em>awaits</em>
+      <code>serverFlush('battle-entry')</code> and refuses the fight if it did not land, re-taking the phase
+      guards after the round trip. Floor and boss entry refuse while paused. Previously the flush was
+      fire-and-forget, so a dead writer returned <code>false</code> instantly and the fight was entered
+      anyway &mdash; the server then judged it against a loadout it had never been sent, which is the exact
+      thing the boundary exists to prevent.</td></tr>
+    <tr><td class="lbl">The server derives the paralysis</td><td>A paralysed client cannot report itself, so
+      <code>/api/battle</code> compares the ledger's battle count against <code>_ledB</code>, the count the
+      server itself stamped into the last accepted save. Past <code>STALE_WRITER_N</code> (25) it returns
+      <code>_stale</code> and flags <code>stale_writer</code>. One indexed row read via
+      <code>json_extract</code>, no JS parse of a 128&nbsp;KB blob, inside a call that already exists &mdash;
+      no extra write, so cost still scales with battles, not with time connected. Fail-open: a diagnostic may
+      never refuse a battle. <code>STALE_WRITER_N=0</code> disables it.</td></tr>
+    <tr><td class="lbl">The client tries the writer before it dies</td><td>On <code>_stale</code> the client
+      flushes first. A healthy client simply closes the gap and plays on; a latched one gets
+      <code>false</code> back immediately and halts. A false positive costs one save, not a session.</td></tr>
+  </table>
+  <p><strong>What is deliberately absent.</strong> No outbox, no replay, no client-side merge of the two
+  copies. The ten hours are gone and stay gone. What survived &mdash; the XP, the floor, the kill count
+  &mdash; survived because the server derived it from its own tables, which is the doctrine working exactly
+  as intended.</p>
+
+<h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-02 &mdash; a dead write path now pauses play (report #16).</strong> <code>_staleInst</code>/<code>_loadBroken</code> stopped both save writers but not <code>/api/battle</code>, so a window kept being credited for ten hours while nothing it did was stored, and the login rule then correctly discarded all of it. The latch now enters the connection-lost pause, battle entry awaits its flush and refuses the fight if it did not land, and <code>/api/battle</code> derives the divergence from <code>_ledB</code> and answers <code>_stale</code>.</li>
     <li><strong>2026-08-02 &mdash; the backup cron could not tell which environment it was, and was skipping.</strong>
       The sweep is scheduled (a 1-minute cron) and always has been, but <code>envPrefix()</code> reads a module global set
       inside <code>fetch()</code>, and a <code>scheduled()</code> invocation can run in an isolate that has never served a
