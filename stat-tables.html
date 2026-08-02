@@ -203,10 +203,31 @@ Damage:  RawDamage   = ((2 × Level / 5 + 2) × MovePower × Attack / Defense) /
       and <strong>+0%</strong> for anything already at 10 &mdash; so it also compresses the top of the ladder.
       That is a 300-row <code>creatures.csv</code> change with a <code>DATA_PIN</code> advance in the same
       commit, and large enough to want <code>tools/balance_*.py</code> run before and after.
-      <br><br><strong>Loose end worth a look either way:</strong> exactly one line already varies &mdash;
-      CORALHYDRA, <code>6/5/4/3</code> at stage 1 then <code>9/8/4/3</code> at stages 2 and 3. Either the
-      system was started and abandoned, or that row is an authoring slip. It is currently the only creature
-      in the game that gets stronger for advancing.</td></tr>
+      <br><br><strong>D ruling 2026-08-02: &ldquo;Coralhydra is how all creatures should be.&rdquo;</strong>
+      A full proposed spread now exists at <code>codex/proposed/creature_stage_grades.csv</code> &mdash; a
+      proposal only; <code>creatures.csv</code> is untouched.</td></tr>
+    <tr><td class="lbl">Proposed stage spread<br><span style="opacity:.7">codex/proposed/creature_stage_grades.csv</span></td>
+      <td><strong>The rule, calibrated from CORALHYDRA rather than invented.</strong> Its authored S1 sits at
+      <code>axis(6)/axis(9) = 0.719</code> of S3 on Attack and <code>axis(5)/axis(8) = 0.690</code> on
+      Defense &mdash; so S1 is <strong>0.70 &times; the S3 multiplier</strong>, and S2 is the midpoint,
+      <strong>0.85 &times;</strong>, each snapped to the nearest grade on the same
+      <code>AxisMult = (3g + 5) / 20</code> curve. Fed back through the rule, CORALHYDRA's S1 comes out
+      <strong>6 / 5 exactly</strong>, which is what makes this a derivation and not a guess.
+      <br><br><strong>Current grades are kept as S3 for every line</strong>, per D. Attack and Defense are the
+      only axes that move: Utility is flat in CORALHYDRA, and Speed must stay flat because the GDD defines it
+      as ungeared, unlevelled and unaffected by quality &mdash; a per-stage Speed would silently reorder turns
+      on advancement.
+      <br><br><strong>Why not a flat grade delta.</strong> CORALHYDRA's S1 is literally S3&minus;3, but the
+      grade distribution is bottom-heavy (23 lines at Attack 3, 27 at Defense 3), so a flat &minus;3 would
+      collapse <strong>63 of 100 lines</strong> to the grade&nbsp;1 floor and erase the role signal that a low
+      axis grade carries. Scaling the multiplier instead clamps only <strong>2 of 100</strong>.
+      <br><br><strong>Result:</strong> mean S1&rarr;S3 Attack gain <strong>&times;1.42</strong> (min &times;1.00
+      on the two floored lines, max &times;1.55), landing beside the +45% class ladder rather than on top of it.
+      199 of 300 rows change; all 100 S3 rows are untouched by construction.
+      <br><br><strong>One thing to rule on:</strong> CORALHYDRA's authored S2 is <em>flat with S3</em>
+      (9/8), so its second advancement currently pays nothing. The rule gives it 7/7, making the ladder
+      monotonic and every advancement felt. Taking the rule changes CORALHYDRA at S2 only; keeping the
+      authored value means the last advancement is a move-power upgrade with no stat gain.</td></tr>
   </table>
 
 <h2>Changelog</h2>
