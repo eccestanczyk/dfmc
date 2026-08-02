@@ -33,6 +33,7 @@
     <tr><th>Rule</th><th>Meaning</th></tr>
     <tr><td class="lbl">Clients send events and requests, never state</td><td>The save is a prediction cache. A server reconciliation overwrites it. Editing it should be inert.</td></tr>
     <tr><td class="lbl">Nothing happens offline</td><td>Offline play is banned outright. No queue, no outbox, no banking, no replay of work done while disconnected. On loss of connection autoplay pauses, the battle pauses, and a reconnecting window shows. Play resumes only when the connection returns.</td></tr>
+    <tr><td class="lbl">Ownership is fenced by the server, not asserted by the client</td><td>Adopting the save mints an <strong>epoch</strong>; every later request carries it and the object refuses any instance holding a lower one. A check a client performs on itself is worth nothing once the client is the thing that is broken.</td></tr>
     <tr><td class="lbl">A dead writer is a dead channel</td><td>&ldquo;Offline&rdquo; means the writer, not the socket. A window that can no longer save takes the same path as a lost connection &mdash; play pauses &mdash; because <code>/api/battle</code> is a separate writer and keeps crediting a window whose save has stopped moving. The one difference: a write halt is terminal, cleared only by a reload that re-adopts the server copy. Never by a client-side merge.</td></tr>
     <tr><td class="lbl">The server derives rewards</td><td>The client reports what it did, never what it earned. XP, food and drops come from server tables, and the client applies what it is told.</td></tr>
     <tr><td class="lbl">Cost scales with battles, not with time connected</td><td>An idle account must write nothing. If a player is doing nothing there is nothing to save.</td></tr>
@@ -593,8 +594,47 @@
   &mdash; survived because the server derived it from its own tables, which is the doctrine working exactly
   as intended.</p>
 
+  <h2>The fence &mdash; who owns the save right now</h2>
+  <p>A login already fences other <em>devices</em>: <code>/api/_internal/session</code> deletes every
+  previous token for the steamid, so the old device's next request is simply unauthenticated. It does not
+  fence other <em>tabs</em>, because two tabs share one cookie, one token and one session row &mdash; and
+  that is the case that cost ten hours on 2026-08-01.</p>
+  <p>So the token is per instance, not per login. <code>GET /api/save</code> is the moment a tab adopts the
+  save, so it mints a fresh <code>epoch</code> on the session row and returns it. Every later request from
+  that tab carries <code>x-ht-epoch</code>. The object compares and refuses <code>409 stale_session</code>
+  on any mismatch, flagging <code>stale_instance</code>. This is Kleppmann's fencing token: the guarantee
+  only exists because the <em>resource</em> rejects the stale number &mdash; a client that checks itself is
+  worth nothing once the client is what has failed.</p>
+  <table>
+    <tr><th>Detail</th><th>Why</th></tr>
+    <tr><td class="lbl">A missing header is refused too</td><td>Once a session has an epoch, omitting the
+      header is a mismatch. Otherwise the bypass is simply not to send it &mdash; which is the hole that
+      <code>base_ver</code>'s optionality still leaves open on the save door.</td></tr>
+    <tr><td class="lbl">Enforced only once the session HAS an epoch</td><td>A tab open across the deploy
+      keeps working until it reloads. After that every session has one and the gate is absolute. This is a
+      migration window, not a permanent exemption.</td></tr>
+    <tr><td class="lbl">Exempt: <code>/api/me</code>, <code>/api/logout</code>, <code>GET /api/save</code></td>
+      <td>The first two bootstrap and tear down; the third <em>is</em> the claim.</td></tr>
+    <tr><td class="lbl">The claim rides an existing request</td><td>No extra round trip. One row written per
+      boot, against the seven this account already writes per battle.</td></tr>
+    <tr><td class="lbl">One client wrapper, not N call sites</td><td>The shell wraps <code>fetch</code> once
+      to attach the header and to recognise <code>stale_session</code>. <code>app.js</code> issues fetches
+      from dozens of places and global-regexing a call site there is forbidden.</td></tr>
+    <tr><td class="lbl">Known gap: the WORLD object is not fenced</td><td>It authenticates from the
+      <code>x-sid</code> header and holds no session table, so it has no epoch to compare. PvP, leaderboard
+      and admin paths are therefore unfenced. Lower stakes, recorded rather than fixed.</td></tr>
+  </table>
+  <p><strong>The drop grant log is the restoration source, and it expires.</strong>
+  <code>drops_granted(ev, realm, ts, items)</code> is the server's own record of what it handed out per
+  battle event, and it prunes at <strong>7 days</strong> along with <code>events_seen</code>. Inside that
+  window a save-loss restoration is a REPLAY of fact; outside it, it is an estimate. Read-only, ops-key
+  gated: <code>GET /api/backup/drops?key=&amp;sid=&amp;realm=&amp;from=&amp;to=</code>, which also reports
+  <code>oldest_retained</code> so you can see how much of the window is left. There is deliberately no
+  restore side &mdash; granting is a separate decision from knowing.</p>
+
 <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-02 &mdash; ownership is fenced server-side (report #16).</strong> <code>GET /api/save</code> mints a per-instance <code>epoch</code>; every later request carries it and the object refuses a lower one with <code>409 stale_session</code>. A login already fenced other devices; this fences other tabs, which is the case that caused the loss. Adds the ops-key <code>/api/backup/drops</code> read door over the 7-day drop grant log.</li>
     <li><strong>2026-08-02 &mdash; a dead write path now pauses play (report #16).</strong> <code>_staleInst</code>/<code>_loadBroken</code> stopped both save writers but not <code>/api/battle</code>, so a window kept being credited for ten hours while nothing it did was stored, and the login rule then correctly discarded all of it. The latch now enters the connection-lost pause, battle entry awaits its flush and refuses the fight if it did not land, and <code>/api/battle</code> derives the divergence from <code>_ledB</code> and answers <code>_stale</code>.</li>
     <li><strong>2026-08-02 &mdash; the backup cron could not tell which environment it was, and was skipping.</strong>
       The sweep is scheduled (a 1-minute cron) and always has been, but <code>envPrefix()</code> reads a module global set
