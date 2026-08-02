@@ -418,8 +418,56 @@
 </div>
 <script src="admin.js"></script>
 <script src="nav.js"></script>
+  <h2>Traffic blocks &mdash; the rate limiter's second layer</h2>
+  <p>Every authenticated <code>/api/*</code> request is sorted into a <strong>rate class</strong> and spends a
+  token from a per-account bucket for that class. The classes and their buckets (<code>src/worker.js</code>,
+  <code>RATE</code>): <code>battle</code> 12&nbsp;/&nbsp;1&nbsp;per&nbsp;min, <code>floor</code> 15&nbsp;/&nbsp;4,
+  <code>save</code> 10&nbsp;/&nbsp;6, <code>save_read</code> 30&nbsp;/&nbsp;30, <code>name</code> 3&nbsp;/&nbsp;0.05,
+  <code>auth</code> 10&nbsp;/&nbsp;10, <code>db</code> 40&nbsp;/&nbsp;20, <code>other</code> 20&nbsp;/&nbsp;12, plus a
+  blanket <code>ip_all</code> of 240&nbsp;/&nbsp;120 per address. An empty bucket answers
+  <code>429 {error:'rate'}</code>.</p>
+  <p>A refusal also <strong>escalates</strong>. <code>reportBreach</code> posts the (account, class) pair to the
+  WorldDO at most once per <code>RATE_FLAG_MS</code> (default 60s); once <code>TRAFFIC_BLOCK_N</code> reports
+  (default <strong>3</strong>) land inside a rolling 10 minutes, <code>traffic_status</code> is set
+  <code>blocked=1</code> for that pair and an <code>anomalies</code> row is written. A blocked pair is refused at
+  the gate with <code>403 {error:'soft_block'}</code> <em>before any Durable Object wakes</em>. The worker caches
+  the block set per isolate for <code>SB_TTL_MS</code> (default 60s), so a change takes up to a minute to be felt.</p>
+  <p><strong>Reads are exempt (2026-08-02).</strong> Classes listed in <code>RATE_READ_ONLY</code> &mdash; currently
+  only <code>save_read</code>, i.e. <code>GET /api/save</code> &mdash; are never soft-blocked and never escalate.
+  Reading your own save grants nothing, so blocking it prevents no abuse; and because the shell RETRIES that read
+  when it fails, escalation on it meant the retry loop fed the counter that produced the block. Nothing may join
+  that set which can mutate state or mint a value.</p>
+  <p><strong>Blocks expire (2026-08-02).</strong> <code>/api/_internal/softblocks</code> clears
+  <code>blocked=1</code> rows older than <code>SB_EXPIRE_MS</code> (default 1&nbsp;hour) each time the set is read.
+  The row survives with <code>blocked=0</code>, so <code>/api/admin/traffic</code> history and the
+  <code>traffic</code> audit table are unaffected, and a genuine abuser is re-blocked by the next 10-minute window.
+  <code>SB_EXPIRE_MS=0</code> restores permanent blocks. Before this, blocks were permanent and cleared only by
+  hand &mdash; the flag detail said &ldquo;queued for review&rdquo; and there was no queue.</p>
+  <p><strong>Failure mode this class of block produces, and how to recognise it.</strong> A soft block is
+  per&nbsp;(account,&nbsp;class), so the account keeps working everywhere else. With <code>save</code> blocked,
+  <code>GET /api/me</code> still answers 200 (class <code>other</code>) while <code>GET /api/save</code> answers
+  403 forever. The shell reads that as a failed sync and falls back to the sign-in gate, so the player sees
+  <em>&ldquo;Could not load your save &mdash; retry N&hellip;&rdquo;</em> under a Steam button and reports it as
+  <strong>&ldquo;I cannot log in&rdquo;</strong>. It is not a login failure and re-authenticating cannot help.
+  Diagnose with the account's own cookie: <code>curl -i https://playdfmc.com/api/save -H 'cookie: ht_session=&hellip;'</code>
+  &mdash; 403 is a block, 429 is the bucket, 500 is the object.</p>
+  <table>
+    <tr><th>Door</th><th>Answers</th></tr>
+    <tr><td class="lbl"><code>GET /api/admin/traffic</code></td><td>Every currently blocked (account, class) pair
+      with the timestamp it was set, plus the last 24h of breach reports grouped by pair. Admin session only
+      (<code>ADMIN_STEAMIDS</code>), routed to the WorldDO.</td></tr>
+    <tr><td class="lbl"><code>POST /api/admin/traffic/clear</code></td><td><code>{sid, cls}</code> &mdash; deletes
+      the block AND that pair's breach history, so the count starts from zero rather than re-tripping on the next
+      refusal. This is the unblock.</td></tr>
+    <tr><td class="lbl"><code>POST /api/admin/traffic/block</code></td><td><code>{sid, cls}</code> &mdash; manual
+      block, for when the automatic threshold is not what you want to rely on.</td></tr>
+    <tr><td class="lbl"><code>GET /api/admin/flags</code></td><td>The last 200 WorldDO anomalies, which is where
+      <code>traffic_block</code> rows land with their <code>cls xN/10min</code> detail.</td></tr>
+  </table>
+
   <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-02 &mdash; traffic blocks documented; reads exempted; blocks now expire.</strong> An alpha account was soft-blocked on the <code>save</code> class for seven hours and the symptom was indistinguishable from a broken login; two more accounts had been silently blocked on <code>floor</code> and <code>db</code> for three days. <code>GET /api/save</code> moved to its own <code>save_read</code> class which is never blocked and never escalates, and <code>blocked=1</code> now ages out after <code>SB_EXPIRE_MS</code>.</li>
     <li><strong>2026-07-31 &mdash; key-gated reads of a player&rsquo;s save history and of the server&rsquo;s own ratchet and ledger.</strong> Added for the rollback repair, because the admin console&rsquo;s equivalents are routed to the WorldDO and are blind to player data.</li>
     <li><em>Backfilled 2026-08-01 &mdash; this page had no changelog section, and the commit that should have added the entry above skipped it silently instead of failing.</em></li>
   </ul>
