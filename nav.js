@@ -43,6 +43,7 @@
   { href: 'droptables.html',     label: 'Droptables' },
     { href: 'other-systems.html',  label: 'Other Systems' },
     { href: 'index.html',          label: 'Game Design Document' },
+    { href: 'research.html',      label: 'Research' },
   ];
 
   const currentPage = location.pathname.split('/').pop() || 'index.html';

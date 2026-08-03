@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research — Herumon Tower</title>
+<link rel="stylesheet" href="theme.css?v=4">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">RESEARCH</h1></div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="hub.html">Home</a> &rsaquo; Research</div>
+  <p class="sp-lead">Outside evidence, gathered deliberately, and measured against what this build actually does. Every entry states what the industry converged on, where Herumon Tower differs, and whether that difference is a decision or a defect. A finding with no comparison against our own code is not research, it is reading.</p>
+
+  <h2>1. Durable delivery of server-granted rewards (2026-08-03)</h2>
+  <p><strong>The question.</strong> The server decides a battle's drops and returns them inline in the battle response. The client adds them to its inventory and uploads a whole-save blob every 10&ndash;20&nbsp;s. If the save carrying that drop never lands &mdash; crash, network loss, a 429, a save over the size ceiling &mdash; the item is gone. Does the player get it back on the next sync?</p>
+  <p><strong>The answer in this build is no</strong>, and worse than no: <code>invSync</code> reconciles the server's item table by <em>following the client's save</em>, deleting any uid the save no longer carries. So the next successful sync erases the server's own record that the drop was ever granted. The <code>drops_granted</code> log ages out at 7 days, and there is no re-delivery path anywhere.</p>
+
+  <h3>What the industry converged on</h3>
+  <ul class="sp-rules">
+    <li><strong>Mailboxes, not inline responses.</strong> Rewards are written into a server-side inbox the player explicitly claims. Genshin Impact delivers quest rewards, event prizes, compensation and code redemptions all through Mail, with a 30-day expiry and a 1,000-entry cap that evicts claimed mail oldest-first. Heroic Labs' Hiro ships a "Reward Mailbox" primitive with per-entry <code>create_time</code>, <code>expiry_time</code>, <code>claim_time</code> and a <code>can_claim</code> flag, and states that claims and grants are atomic "to avoid partial updates and double claims".</li>
+    <li><strong>"Exactly-once" does not exist; the target is at-least-once plus idempotent application.</strong> The transport guarantees a message arrives at least once and the application makes applying it twice a no-op. The building blocks are a stable idempotency key stored under a unique constraint in the same transaction as the effect, a transactional outbox so the state change and the to-be-delivered record commit together, and consumer-side dedup via a processed-id set or a monotonic high-water mark.</li>
+    <li><strong>Server-authoritative inventory is the norm.</strong> PlayFab Economy v2 mutates inventory only through authenticated calls, batchable atomically, each taking an <code>IdempotencyId</code>, with a separate durable transaction history. Steam keeps inventory on Valve's servers and warns that the client-side <code>GenerateItems</code> is "only intended for prototyping". Nakama's docs are explicit: "wallets can only be directly updated from the server to make it more difficult for unintended or exploitative transactions to occur", with an append-only ledger.</li>
+    <li><strong>Destruction is an explicit event, never an inferred absence.</strong> Steam has <code>ConsumeItem</code>, PlayFab has <code>SubtractInventoryItems</code>, Nakama appends a negative changeset. Event-sourced designs use tombstones and per-item state machines &mdash; <em>granted &rarr; delivered &rarr; claimed &rarr; consumed</em> &mdash; so a gap is never read as a deletion.</li>
+    <li><strong>Platform idempotency keys are time-bounded de-dup, not a delivery guarantee.</strong> PlayFab enforces <code>IdempotencyId</code> for <strong>14 days</strong> and then garbage-collects it, while keeping transaction history for up to four years. Steam's <code>requestid</code> gives at-most-once execution and returns a <code>replayed</code> flag, but documents no retention window and explicitly re-attempts an original that <em>failed</em>. The durable answer to "did this player ever receive grant X" is a pending row or a ledger, never the idempotency key.</li>
+    <li><strong>The war stories are all rollback races or client authority.</strong> RuneScape Classic's 2003 partyhat duplication ran to over two million copies and was never rolled back; Old School RuneScape has taken repeated emergency rollbacks (Sins of the Father in 2020 corrupted equipped/inventory save state; Guardians of the Rift in 2022 forced a shutdown twenty minutes after release). Minecraft-family dupes are theorised the same way &mdash; "the game saves one state without properly removing or updating another", which is structurally identical to a whole-save-blob race.</li>
+  </ul>
+
+  <h3>How Herumon Tower compares</h3>
+  <table>
+    <tr><th>Industry pattern</th><th>What this build does</th><th>Verdict</th></tr>
+    <tr><td>All rewards delivered through a claimable pending queue</td><td>The <strong>grant lane</strong> does exactly this &mdash; mint &rarr; pending &rarr; ack. <strong>Battle drops bypass it</strong> and are returned inline.</td><td><strong>Defect.</strong> The correct machinery already exists and drops do not use it.</td></tr>
+    <tr><td>Acknowledgement stored server-side</td><td>The ack (<code>grantAck</code>) is stored <em>in the save</em>. <code>pendingGrants</code> = minted, not revoked, not in the <strong>stored</strong> save's <code>grantAck</code>.</td><td><strong>Right answer, fragile reason.</strong> It survives rollback because the ack rolls back <em>with</em> the save. Correct by colocation, not by design.</td></tr>
+    <tr><td>Destruction recorded as an explicit event</td><td><code>invSync</code> deletes any server row whose uid is absent from the incoming save.</td><td><strong>Defect.</strong> This is set-difference reconciliation; it cannot tell "dismantled" from "never received", and it erases the evidence.</td></tr>
+    <tr><td>Server-authoritative inventory</td><td>The client holds the bag and uploads it. The server now mirrors the full per-instance state (2026-08-03) but the save is still the authority.</td><td><strong>Known, ruled on.</strong> D's ruling 2026-08-03: "the bag needs to be fill-able from the server. Local &lt;&lt; server."</td></tr>
+    <tr><td>Idempotency/retention window of 14&ndash;30 days</td><td><code>drops_granted</code> prunes at <strong>7 days</strong>.</td><td><strong>Too short.</strong> Shorter than every comparable window found, and it is the only record of a lost drop.</td></tr>
+    <tr><td>Durability tiered by stakes</td><td>Real-money Wraithgold already runs on an append-only <code>wallet_ledger</code> with server authority; gameplay drops do not.</td><td><strong>Correct, and matches the industry.</strong> Purchases are held to the stricter standard already.</td></tr>
+    <tr><td>Idempotent grant application</td><td><code>/api/hatch</code> is idempotent per egg id off an HMAC keyed stream; grants are keyed on a <code>gid</code>.</td><td><strong>Correct.</strong> The hatch design is textbook &mdash; an egg hatches into exactly one creature, forever.</td></tr>
+  </table>
+
+  <h3>The finding that matters</h3>
+  <p>This build already has <strong>all three primitives</strong> the industry answer is made of, and they are simply not wired together:</p>
+  <ul class="sp-rules">
+    <li>a durable pending queue with idempotent claim (the <strong>grant lane</strong>),</li>
+    <li>a server-side per-instance item record (the <strong>items table</strong>, completed 2026-08-03 with <code>xp</code>, <code>mut</code>, <code>g</code>, <code>extra</code>),</li>
+    <li>and an <strong>explicit consume event</strong> &mdash; the dismantle claim (<code>_dismQ</code>), where the client says what it destroyed and the server verifies each row against its own previous save before honouring it.</li>
+  </ul>
+  <p>The dismantle claim is the important one, because it is the first place in this codebase where destruction is a <em>positive statement</em> rather than an inferred absence. Generalising that shape to every removal path is what resolves the ambiguity: an item gone <em>with</em> a consume event was destroyed; an item gone <em>without</em> one, still sitting unclaimed in pending, was never received.</p>
+
+  <h3>Recommended sequence</h3>
+  <ul class="sp-rules">
+    <li><strong>Stage 1 &mdash; stop erasing evidence.</strong> Remove the set-difference deletion in <code>invSync</code>: never drop a server item row merely because a uid is absent from an incoming save. Extend <code>drops_granted</code> retention from 7 days toward the 14&ndash;30 day window the industry uses. Both are small and neither changes player-facing behaviour.</li>
+    <li><strong>Stage 2 &mdash; put drops through the lane that already works.</strong> Mint each battle's drops into the pending queue (one row per battle, not per item) instead of returning them inline, and move the ack server-side so exactly-once stops depending on save durability. This is what makes a lost save self-healing, and it retires the manual compensation grants that P8-class tickets currently need.</li>
+    <li><strong>Stage 3 &mdash; make the save a projection, not the authority.</strong> Record every removal as an explicit consume event, reconcile by replaying events rather than diffing sets, and let the client upload <em>intents</em> the server validates. This is the same direction as the server-side inventory ruling and the two should land together.</li>
+  </ul>
+  <p><strong>Cost, because it is the usual objection.</strong> Durable Object SQLite bills rows written at $1 per million against a 50-million monthly inclusion, and rows read a thousand times cheaper &mdash; and an indexed column adds a second billed row per write. One pending row per battle at 30 battles/hour is affordable, and coalescing a battle's drops into a single row plus batching currency into a ledger keeps it that way. Keep the hot pending table minimally indexed. Revisit if grant writes approach the monthly inclusion.</p>
+  <p><strong>What would change this.</strong> If the save could be made transactional and rollback-proof, inline delivery would be tolerable &mdash; it cannot be, over a browser on a phone. If drop volume were a handful per session, a per-grant mailbox row would beat a cursor for flexibility.</p>
+  <p class="foot">Sources: Genshin Impact Wiki (mail expiry and capacity); Heroic Labs Hiro documentation (Reward Mailbox); Microsoft Learn / PlayFab Economy v2 (inventory operations, <code>IdempotencyId</code> 14-day enforcement, transaction history); Steamworks Inventory Service (<code>requestid</code>, at-most-once, <code>replayed</code>); Nakama documentation (server-only wallet updates, ledger); Cloudflare Workers pricing (Durable Object SQLite rows written/read, index write amplification); Wikipedia and RuneScape Wiki (2003 RSC duplication); Old School RuneScape update history (2020, 2022, 2024 rollbacks).</p>
+
+  <h2>Changelog</h2>
+  <ul class="sp-rules">
+    <li><strong>2026-08-03 &mdash; page created; first entry is durable reward delivery.</strong> Commissioned after a live incident chain: a multi-device rollback cost D his dismantle proceeds, which raised the question of what else a lost save loses. The answer &mdash; that a server-granted drop is lost <em>and</em> its server-side record is then deleted by the next sync &mdash; is the reason this page exists. Compared against the build rather than summarised, because the conclusion is that we already own every piece of the industry answer and have not connected them.</li>
+  </ul>
+</div>
+<script src="admin.js"></script>
+<script src="nav.js"></script>
+</body>
+</html>
