@@ -73,5 +73,27 @@ var ROWS=[['Worn','#c2ae8b',0.01],['Common','#c2ae8b',0.02],['Uncommon','#1eff00
 </script>
 <script src="admin.js"></script>
 <script src="nav.js"></script>
+
+  <h2>Changelog</h2>
+  <ul>
+    <li><strong>2026-08-04 &mdash; the wild-spawn roll now actually uses the table on this page (ON DEV, not
+      yet on release).</strong> It did not. <code>deriveSlot</code> was handed <code>mutPctOf()</code>, which
+      returned the <em>number of bosses the player had downed</em> (0&ndash;10) and used it as a
+      <em>percentage</em>. A count where a probability belonged. The spawn's own grade &mdash; computed on the
+      line directly above &mdash; was ignored entirely. One units error produced both live symptoms at once: a
+      new player with no bosses down rolled <strong>0%</strong> and could never see a wild Mutant, while a
+      player six bosses in rolled <strong>6%</strong> of every spawn, about 0.6 per ten-slot floor. That is
+      report&nbsp;#23, &ldquo;3 shiny in under 5 min&rdquo;, on floor&nbsp;91. Wild spawns now roll
+      <code>MUTANT_CHANCE</code> against their own grade exactly as documented above: on the 91&ndash;100 band
+      (40% Epic / 60% Legendary) that is <strong>0.056%</strong> per spawn, roughly 1 in 1,800, a
+      <strong>107&times;</strong> reduction from what was live.</li>
+    <li><strong>2026-08-04 &mdash; KNOWN GAP: the Codex bonus described below is not yet in effect.</strong>
+      The bonus is implemented and reads only the stored save, but the zone&rarr;species map it needs
+      (<code>zoneSpeciesMap</code>) is <em>never called</em>, so the value handed to both the hatch roll and the
+      spawn roll is always <code>0</code>. Every &ldquo;with Codex bonus&rdquo; figure on this page is therefore
+      currently unreachable &mdash; base chances are what the game actually rolls. Wiring it is one injection
+      in the Worker; it is not done, and this note stands until it is.</li>
+  </ul>
+
 </body>
 </html>
