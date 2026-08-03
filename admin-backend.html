@@ -484,6 +484,7 @@
 
   <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-04 &mdash; restore does not write history or save parts.</strong> Recorded against a live account: a restore created ver 65 in <code>saves</code> while the history ring still topped out at ver 64 and no <code>save_parts</code> row existed. Harmless while <code>saves</code> is authoritative; a silent data-loss bug the moment reads cut over to parts. Also: the first sweep of these doors was run unpaced and dropped responses were swallowed into empty results by the tooling, which read as missing data on accounts that had answered correctly minutes earlier &mdash; pace the requests and print the status.</li>
     <li><strong>2026-08-04 &mdash; the PvP queue door answered 401 on release; root cause was route placement, and the full ops-door set is now documented (ON DEV, not yet on release).</strong> <code>/api/_internal/pvpq</code> had been written among the PvP routes, roughly 1,150 lines below the blanket session gate in <code>MainDO.fetch</code>, while all thirty-odd sibling internal routes sit above it. The Worker forwards internal calls with no session cookie, so the object refused the request before the handler ran and the ops key was never the problem. Moved above the gate with the invariant recorded at the call site. No logic changed &mdash; the diff is the move plus a comment. Also fixed on this page: the &ldquo;Ops reads&rdquo; section had been appended <em>after</em> <code>&lt;/body&gt;&lt;/html&gt;</code>, so the page had been shipping malformed since it was added.</li>
     <li><strong>2026-08-03 &mdash; dismantle yield extracted to a shared, parity-gated module (ON DEV, not enforcing yet).</strong> The yield lived only in the client, which is why the ops dismantle door deletes rows and credits nothing, and why dismantle Ichor is client-minted against a battle-only ceiling. <code>src/dismantle.js</code> now carries it on the <code>src/power.js</code> pattern, proven 9/9 against the live client over all 1,515 authored rows. Server-side validation by save-diff is the next batch.</li>
     <li><strong>2026-08-02 &mdash; traffic blocks documented; reads exempted; blocks now expire.</strong> An alpha account was soft-blocked on the <code>save</code> class for seven hours and the symptom was indistinguishable from a broken login; two more accounts had been silently blocked on <code>floor</code> and <code>db</code> for three days. <code>GET /api/save</code> moved to its own <code>save_read</code> class which is never blocked and never escalates, and <code>blocked=1</code> now ages out after <code>SB_EXPIRE_MS</code>.</li>
@@ -513,7 +514,17 @@
   does <em>not</em> prove currency: <code>food_total</code> is cumulative earned, and a player has spent some
   of it, so restoring a wallet from the ledger mints money. Never send a placeholder payload to a live
   account to test the door &mdash; <code>/api/backup/restore</code> sets the ratchet from
-  <code>data.maxFloor</code>, so a stub body resets the account's climb to 1.</div>
+  <code>data.maxFloor</code>, so a stub body resets the account's climb to 1.
+  <br><br><strong>Restore is not a save.</strong> <code>/api/backup/restore</code> writes the
+  <code>saves</code> row and the <code>progress</code> ratchet and nothing else &mdash; it does
+  <em>not</em> add a <code>save_hist</code> version and it does <em>not</em> write
+  <code>save_parts</code>, because <code>writeSaveParts()</code> is called from the save door alone.
+  Two consequences. First, a restored version is invisible to
+  <code>GET /api/backup/history</code>: the ring can top out one version below what
+  <code>export&amp;live=1</code> returns, and that gap is the restore, not a lost write. Second, once
+  the save split cuts reads over to parts, a restore would install a save that no part reflects and
+  the player would load the stale parts instead &mdash; silently discarding the repair. Every writer
+  of <code>saves</code> must write the parts before that cutover.</div>
 
   <h2>Ops doors &mdash; the complete set</h2>
   <p>Every door below is <strong>read-only</strong> and gated on the ops key at the Worker's session gate,
