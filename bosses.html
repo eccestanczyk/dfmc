@@ -236,8 +236,20 @@ load();
   <p class="foot">Source: <code>codex/bosses.csv</code> &mdash; columns <code>Boss_Name</code>, <code>Boss_Character</code>, <code>Boss_Short_Name</code></p>
 </section>
 
+  <h2>Respawn &mdash; the gravestone</h2>
+  <p class="sp-lead">Re-entering a boss room does <strong>not</strong> respawn the boss. After it dies a <strong>gravestone</strong> stands in its place and counts down from <strong>10 seconds</strong>; at zero the boss returns in place. <strong>Keys are the rate limit</strong>, not the timer &mdash; the gravestone is a beat, not a gate.</p>
+  <ul class="sp-rules">
+    <li>The window is <code>BOSS_RESPAWN = 10000</code> ms, stamped per den in <code>bossDown[floor]</code> on the winning blow. Per-den, so killing one boss never hides another.</li>
+    <li>Respawn is a pure function of wall-clock time against that stamp &mdash; <code>bossRespawning()</code> is <code>Date.now() - bossDown[floor] &lt; BOSS_RESPAWN</code>. Walking out and back changes nothing; only elapsed time does.</li>
+    <li>While it counts, the challenge target is unmounted (<code>bossPresent</code> is false) and the den shows the countdown. At zero the boss remounts and is challengeable again, provided a key is held.</li>
+    <li><strong>The countdown drives its own repaint.</strong> <code>startGraveTick()</code> repaints every 400&nbsp;ms, paints once more <em>after</em> expiry so the boss returns in place, then cancels itself. It is started by the boss-win commit and re-armed by <code>ensureTicker()</code> if the floor comes back with a gravestone still running.</li>
+  </ul>
+  <p><strong>Why the repaint is the whole fix (report&nbsp;#18).</strong> The respawn was always time-based, so re-entry never respawned anything. What was missing is that nothing repainted while it counted: <code>challengeBoss()</code> calls <code>clearTimers()</code>, so after the fight there was no timer left to redraw the room. It sat frozen on whichever second the fight ended on, and the boss appeared to return only after walking a floor and coming back &mdash; because the window had quietly elapsed on the way. Reported as <em>"the CD to fight it again doesnt show and the game just stay there doing nothing"</em>.</p>
+  <p class="foot">Client: <code>BOSS_RESPAWN</code>, <code>startGraveTick()</code>, <code>bossDownAtFor()</code>, <code>bossRespawning()</code>, <code>ensureTicker()</code> in <code>play/app.js</code>. Probe: <code>tools/probe_grave.py</code> (6/6).</p>
+
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-08-03 &mdash; boss respawn documented; gravestone shortened to 10s (ON DEV, not yet on release).</strong> Re-entry never respawned the boss and never did &mdash; the window was already time-based. The defect was that nothing repainted while it counted down, because <code>challengeBoss()</code> clears the timers, so the den froze until the player walked a floor and back. The countdown now drives its own repaint and cancels itself at zero, and the window went 30s &rarr; 10s. Keys remain the rate limit. D spec 2026-08-02; approved then, lost before it was committed, re-applied 2026-08-03. Verified 6/6.</li>
     <li><strong>2026-08-02 &mdash; <code>Boss_Short_Name</code> column added; battle plate uses it.</strong> The battle name plate carried the full <code>Boss_Character</code> string, which shrank to the 8px font floor on the longer names (floor 40 reported by a player as unreadable). All ten rows now author a bare name and <code>challengeBoss()</code> builds the battle unit from it; den, entrance and codex are unchanged. Data change &mdash; <code>DATA_PIN</code> must advance in the release that carries it or the release client reads a pinned copy with no such column and silently keeps the long names.</li>
     <li><strong>2026-07-28 &mdash; boss entrance added.</strong> <code>challengeBoss()</code> previously set
     <code>phase:'select'</code> directly: a boss appeared with no transition of any kind, while a wild encounter got a

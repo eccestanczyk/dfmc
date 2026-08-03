@@ -45,6 +45,7 @@
 
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-08-03 &mdash; the reset is now told to the player in-game (ON DEV).</strong> The between-floors loading screen carries a rotating tip pool (<code>LOADING_TIPS</code>, surfaced by <code>transitTip()</code> as the transit subtitle); its first line is <em>"Changing floors resets your streak."</em> The pick is stable for the life of one transit so it cannot reshuffle mid-fade. D spec 2026-08-02.</li>
     <li><strong>2026-08-03 &mdash; the floor-change streak reset written down.</strong> It was always the intent and always the behaviour, but no page said so, so it was raised as a defect (report&nbsp;#17) and re-proposed as work. Closed <em>wontfix</em> on D's ruling and documented here with the code condition, so the next reader does not have to ask again.</li>
   </ul>
 
