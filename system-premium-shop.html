@@ -43,6 +43,11 @@ pending until the client takes delivery and records the grant in its own save. I
 the record rolls back with it and the grant becomes owed again, so a restore can never silently swallow
 an item. A grant with nowhere to go waits rather than being destroyed.</p>
 
+<h2>The incense prompt (P7, shipped 2026-08-03)</h2>
+<p>When a floor's spawns are exhausted and no boon is running, the floor offers <strong>BURN INCENSE TO GET MORE SPAWNS</strong>. <code>incPromptOn</code> and <code>onIncensePrompt</code> had been computed and inert in <code>app.js</code> with <strong>no markup at all</strong> &mdash; the block was removed and never rebuilt. Six candidate causes were ruled out across earlier attempts (the scene, the condition, a missing <code>spawnSb</code>, wiped markup, a missing <code>hint-placeholder-val</code>, and placement) without finding one, because the block was not in the document to begin with. It is deliberately a <em>sibling</em> of the drought gate rather than nested inside it: nesting in the drought pill is the placement that was already tried and emitted nothing.</p>
+<p>It shows only when the pool is empty and no Incense boon is active, and hides the moment one is burned. Probe: <code>tools/probe_deadprops.py</code> (8/8), which asserts the condition is true before believing the render.</p>
+
 <hr><p class="note">Changelog<br>
+2026-08-03 &mdash; The incense prompt renders at last (P7, ON DEV). The block had never been rebuilt after its removal, so every investigation into why it did not appear was searching a document that did not contain it.<br>
 2026-08-02 — Page created. Premium Shop, Incense Burner, the Wraithgold ledger and the item grant lane.</p>
 </body></html>
