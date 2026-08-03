@@ -900,8 +900,35 @@
   <p><strong>Why this rather than lengthening the interval.</strong> Tuning 10s to 20s would have halved a number that should be zero. The interval was only long enough to matter because we were saving something the server already had.</p>
   <p class="foot">Client: <code>queueFlush()</code>, <code>maybeFlush()</code>, <code>FIGHT_PHASES</code> in <code>play/app.js</code>. Probe: <code>tools/probe_flushrate.py</code>.</p>
 
+<h2>Codex data loading &mdash; the client fails OPEN, the server fails CLOSED</h2>
+<p>The game's tables (<code>creatures.csv</code>, <code>floors.csv</code>, <code>floor_creature_rarity.csv</code>,
+<code>moves.csv</code>, <code>items.csv</code>, <code>classes.csv</code> and a dozen more) are fetched from the codex
+at boot &mdash; live <code>main</code> on dev, the immutable <code>DATA_PIN</code> snapshot on release.</p>
+<p>The server treats a missing table as fatal: <code>/api/floor/enter</code> answers
+<code>503 spawn_data_unavailable</code> rather than build a pool it cannot vouch for &mdash; <em>no pool without
+truth</em>. <strong>The client does the opposite.</strong> A failed fetch resolves to <code>null</code>, the loader
+emits <code>Core CSVs missing &mdash; game data incomplete</code>, and <strong>play continues</strong>. Worse, the
+loader then aborts at its first unguarded dereference of that null (<code>crs.forEach</code>), so every structure it
+would have built <em>after</em> that point is missing too &mdash; the client is left partially initialised, with no
+single flag saying so.</p>
+<p><strong>This is the data side of report #20</strong> (&ldquo;sumiu td&rdquo; &mdash; the screen vanished). The CSVs
+were never wrong; they were <em>absent</em>. With no creature table, every spawn descriptor the server sent resolved to
+nothing and warned <code>Spawn "?" has no Line_ID in creatures.csv</code>. That nameless unit is what threw inside
+<code>renderVals</code>, and because <code>renderVals</code> is all-or-nothing, one exception blanked every binding on
+screen at once. Reproduced by blocking exactly one cross-origin CSV: the client boots, is playable, and holds no
+creature data at all.</p>
+<p><strong>Mitigated (2026-08-04):</strong> core tables now retry a transient failure &mdash; three attempts with
+backoff, network errors and 5xx only. A <code>4xx</code> is <em>not</em> retried, because a file legitimately absent
+from an older <code>DATA_PIN</code> must fail fast rather than stall the boot three times over. Measured: two 503s
+followed by a success now loads all 300 creature rows with no warning at all, where before a single 503 lost the table
+for the whole session.</p>
+<p><strong>Still open, and it is a policy decision, not a bug:</strong> when the retries are exhausted the client
+<em>still</em> plays on without the table. Failing closed would match the server, but it also means a CDN outage locks
+players out, so the behaviour is owner's choice and is deliberately unchanged.</p>
+
 <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-04 &mdash; core codex tables retry a transient load failure (ON DEV, not yet on release).</strong> A single failed fetch used to cost the whole table for the session and the client kept playing without it, which is the data side of report #20: spawns with no <code>Line_ID</code> because the creature table was absent, not wrong. Three attempts, 5xx and network errors only. The remaining fail-open behaviour after the retries are exhausted is unchanged and needs an owner ruling.</li>
     <li><strong>2026-08-03 &mdash; the save tick stops during a fight (ON DEV).</strong> The debounce was action-armed and correct, but a battle re-dirties every turn and turned it into a 10s heartbeat &mdash; 6/min against a bucket refilling at exactly 6/min, leaving no headroom for the event-driven flushes and soft-blocking accounts. Suppressed while a round is in progress; the held flush fires on leaving, which gives victory the save it never had. Measured 0 saves in a 25s fight.</li>
     <li><strong>2026-08-03 &mdash; page audited against live code and brought back to as-built truth (codex only; no code changed).</strong>
       Every claim was checked against <code>src/worker.js</code> (byte-identical on <code>main</code> and <code>dev</code>, so
