@@ -82,8 +82,51 @@
   <p><strong>Now verified, and the earlier claim here was wrong.</strong> This paragraph previously said the mint-on-battle leg could not be tested because the chance tables would not load locally. <em>Both halves of that were false.</em> The tables load fine; the real cause was that the harness fired every battle on ONE chain, which drains its bank &mdash; and once a battle is uncredited, drops never roll, because the roll lives inside the credited branch. One chain per battle and it drops on the first try: <em>Faded Rune of Aegis</em>, <em>Rough Garnet</em>, each returning both the resolved drop and its <code>dropGid</code>, and each showing up as pending until acked. <code>probe_droplane</code> is now 8/8 including the battle leg itself.</p>
   <p><strong>How the correction was found is the point.</strong> <code>rollDrops</code> records exactly why it declined &mdash; <code>flag('drop_data', note)</code> &mdash; and until today nothing in this system could read a flag. 60 <code>flag()</code> call sites across 57 distinct kinds had been writing to the <code>anomalies</code> table since it was created, and <code>FROM anomalies</code> appeared <strong>zero</strong> times in the worker. Every guard recorded its reason and then discarded it, which is why a production question had to be answered by reasoning about source &mdash; the thing the standing rule forbids and could not actually satisfy. A read door (<code>GET /api/backup/flags</code>, with a kind histogram) was added, and it answered the question on first use: the flags said <code>rate_cap</code>, then <code>spawn_budget</code>, and never once said <code>drop_data</code>.</p>
 
+  <h2>2. Save size and synchronisation (2026-08-03)</h2>
+  <p><strong>The question.</strong> The client holds the whole player state as one JSON blob and uploads all of it every 10&ndash;20&nbsp;s. The server refuses anything over a ceiling. Three of four live accounts have crossed that ceiling by playing normally, and one accumulated <strong>eight and a half hours</strong> of play that never reached the server, because a refused save is silent and the game keeps running happily from the copy in the browser.</p>
+
+  <h3>What the platforms actually do</h3>
+  <ul class="sp-rules">
+    <li><strong>PlayFab hit this exact wall and did not raise the limit.</strong> Their legacy player data was key/value <em>"limited to storing data in key value pairs of strings that are limited to 100K"</em> &mdash; essentially our 128&nbsp;KiB. The answer was Entity Objects: multiple structured JSON objects per entity, plus Files for bulk, built to <em>"support larger, more complex data"</em> and to <em>"support atomic updates and concurrency control"</em>.</li>
+    <li><strong>Unity Cloud Save does not use a blob at all.</strong> A value is limited to 5&nbsp;MB across all default access-level slots, and the saved state to <strong>2000 keys</strong> per access class. Key/value, written per key.</li>
+    <li><strong>Steam Cloud</strong> is a different shape and not a fair comparison &mdash; developer-set quota, commonly ~1&nbsp;GB per user per game, 100&nbsp;MB maximum per write call &mdash; because it syncs files at session boundaries, not every ten seconds.</li>
+  </ul>
+  <p><strong>The pattern:</strong> nobody stores mutable player state as one blob under one limit. Everyone shards it, and that single decision solves three things at once &mdash; you write only the key that changed, so deltas stop being a problem to solve; growth never meets a single wall; and the total budget is far larger anyway.</p>
+
+  <h3>Measured on this game, not assumed</h3>
+  <p>Split by <strong>how often a thing changes</strong> rather than by what it is, because that is where the payoff sits:</p>
+  <table>
+    <tr><th>Key</th><th>Bytes</th><th>Share</th><th>Changes</th></tr>
+    <tr><td>HOT &mdash; run + account (floor, xp, wallet, streak)</td><td>1,367</td><td>0.9%</td><td>every battle</td></tr>
+    <tr><td>HOT &mdash; party + souls</td><td>7,325</td><td>5.0%</td><td>every battle (creature XP)</td></tr>
+    <tr><td>WARM &mdash; breeding pens</td><td>2,623</td><td>1.8%</td><td>on breeding</td></tr>
+    <tr><td>COLD &mdash; inventory (bag + bagAdd)</td><td><strong>112,920</strong></td><td><strong>77.5%</strong></td><td>on drops / dismantles</td></tr>
+    <tr><td>COLD &mdash; sockets</td><td>9,521</td><td>6.5%</td><td>rarely</td></tr>
+    <tr><td>COLD &mdash; codex</td><td>11,022</td><td>7.6%</td><td>on first defeat / acquire</td></tr>
+  </table>
+  <p><strong>A battle today rewrites 145,626 bytes. Split, it rewrites 8,692 &mdash; six per cent of that.</strong> The save is huge <em>and</em> written constantly only because creature XP (tiny, moves every battle) shares a document with the inventory (enormous, moves rarely).</p>
+
+  <h3>Compression: measured, and better than expected</h3>
+  <p>Taken on the real save rather than from published ratios:</p>
+  <ul class="sp-rules">
+    <li>131,147 B raw &rarr; <strong>24,305 B gzipped (5.4&times;)</strong>. That is under the old 128&nbsp;KiB ceiling <em>and</em> under the 64&nbsp;KiB browser <code>keepalive</code> cap that currently kills the page-close flush for large accounts. <strong>Compression alone fixes both walls today.</strong></li>
+    <li>It is <strong>not merely a delay</strong>, because the collection is <em>capped</em> by design: 160 items + 600 souls = 760 rows. A maxed collection projects to 369,118 B raw &rarr; <strong>66,690 B gzipped</strong>. The save therefore has a maximum size, and compressed it stays under the ceiling we already had.</li>
+    <li>Both halves are native: <code>CompressionStream</code> in the browser, <code>DecompressionStream</code> in the Worker.</li>
+    <li>Splitting and compressing are <em>complementary, not alternatives</em>. Compression fixes SIZE, which is the lockout. Splitting fixes WRITE VOLUME &mdash; a battle write drops from 24,305 B to <strong>2,222 B</strong> gzipped, an eleven-fold cut in traffic per battle.</li>
+  </ul>
+
+  <h3>Recommended order</h3>
+  <ul class="sp-rules">
+    <li><strong>1. Compress the payload.</strong> Small, fast, and it fixes the live lockout properly rather than by choosing a larger arbitrary number &mdash; which is all the 2026-08-03 ceiling raise did.</li>
+    <li><strong>2. Split the save by write frequency</strong> into the six keys above. This is the structural fix and it is the same shape PlayFab and Unity arrived at. Our Durable Object gives atomically what PlayFab had to engineer: several keys in one SQL transaction, so a dismantle that removes a row and adds currency cannot half-land.</li>
+    <li><strong>3. Move the collection server-authoritative</strong> ("local &lt;&lt; server"), at which point the client stops holding it at all.</li>
+  </ul>
+  <p><strong>The provenance block stays.</strong> It is 33.5% of the save and the obvious thing to cut, and it must not be: the save carries a rich birth record <code>{src, ts, egg{name,grade,uid}, parents, pen, floor}</code> while the server's <code>items.origin</code> holds only the string <code>'seed'</code>. Stripping it would destroy every creature's origin permanently. Compression makes cutting it unnecessary anyway.</p>
+  <p class="foot">Sources: Microsoft Learn / PlayFab (entity objects, the 100K legacy limit, Economy v2 limits); Unity Cloud Save documentation (5&nbsp;MB across default slots, 2000 keys); Steamworks ISteamRemoteStorage and Steam Cloud documentation. All byte figures measured directly against a live account's save on 2026-08-03.</p>
+
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-08-03 &mdash; second entry: save size and synchronisation.</strong> Measured rather than assumed &mdash; a battle currently rewrites 145,626 bytes and would rewrite 8,692 if the save were split by write frequency, and the whole save gzips 5.4&times; to 24,305 bytes, which clears both the size ceiling and the browser keepalive cap. PlayFab hit the same wall at 100K and split rather than raised.</li>
     <li><strong>2026-08-03 &mdash; the mint-on-battle leg verified, and a wrong cause retracted.</strong> An earlier note here blamed the chance tables for a harness that never dropped; the tables were fine and the real cause was a shared battle chain draining its bank, which makes every later battle uncredited. Found by adding the first reader the <code>anomalies</code> table has ever had &mdash; 60 flag sites had been writing to it and nothing had ever read one.</li>
     <li><strong>2026-08-03 &mdash; Stage 2 implemented, and the "move the ack server-side" recommendation retracted.</strong> Drops are minted into the pending lane keyed on the battle event id, the client acks the same gid it applied inline, and raw descriptors are named at drain time. The ack stays in the save because <code>pendingGrants</code> reads it from the <em>stored</em> copy &mdash; which is what makes a lost save self-healing rather than prematurely acked. Verified 5/5; the mint-on-battle leg remains unverified in the harness.</li>
     <li><strong>2026-08-03 &mdash; Stage 1 implemented.</strong> Tombstones replace the set-difference deletion, the read door exposes them, and the drop log retention now matches the 30-day window <code>hatches</code> already used. Verified 11/11.</li>
