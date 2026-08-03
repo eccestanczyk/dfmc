@@ -50,4 +50,27 @@ an item. A grant with nowhere to go waits rather than being destroyed.</p>
 <hr><p class="note">Changelog<br>
 2026-08-03 &mdash; The incense prompt renders at last (P7, ON DEV). The block had never been rebuilt after its removal, so every investigation into why it did not appear was searching a document that did not contain it.<br>
 2026-08-02 — Page created. Premium Shop, Incense Burner, the Wraithgold ledger and the item grant lane.</p>
+
+  <h2>Incense &mdash; the player can see it burning</h2>
+  <p>Incense doubles wild-spawn refill for 30 days. The expiry has always been server-side
+  (<code>spawn_budget.boon_until</code>) and <code>/api/floor/enter</code> has always returned it to the
+  client as <code>inc</code>, which the client stored as <code>spawnInc</code> &mdash; and
+  <strong>nothing ever rendered it</strong>, so a player who had paid for Incense had no way to tell how
+  much was left. The floor screen now shows a pill reading <code>INCENSE &middot; 4d 23h</code>, under the
+  MENU button. Coarse by design: the boon runs 30 days, so days and hours are the useful unit.</p>
+  <div class="note"><strong>Placement was measured, not chosen.</strong> The obvious spot &mdash; centred
+  under the floor title &mdash; is covered by the floor header bar, which is <code>z-index 80</code> with an
+  <em>opaque</em> background. A pill placed there is present in the DOM with every computed style reading
+  visible, and invisible on screen. The centre lower down belongs to the incense <em>prompt</em>
+  (<code>top:12%</code>), which can be showing at the same time. Under MENU is clear, and
+  <code>z-index 105</code> clears the bar. Verify this class of change with
+  <code>document.elementFromPoint()</code> at the element's own centre, never by reading its text.</div>
+
+  <h2>Panel size</h2>
+  <p>The shop was the only panel in the game not on the full-bleed pattern &mdash; a fixed
+  <code>520px</code> column while inventory, equipment, breeding and settings are all <code>width:100%</code>.
+  It is now <code>min(1180px,94%)</code> at 86% height, the offers lay out in a responsive grid
+  (<code>auto-fill, minmax(360px,1fr)</code>) rather than a single column, and the note and CLOSE are pinned
+  to the bottom so a short catalogue does not leave the footer floating in the middle of an empty panel.</p>
+
 </body></html>
