@@ -46,8 +46,26 @@
 <tr><td style="color:#ede0c4">PROFESSOR</td><td>Recitation / Grand Thesis / Revelation</td><td>Echo: every slotted support ability fires at once, team-wide, at 40 / 50 / 60% magnitude and half duration.</td></tr>
 <tr><td style="color:#ede0c4">ASSASSIN</td><td>Slip Away / Shadowmeld / Vanish</td><td>Untargetable by single-target moves for 1 / 2 / 3 rounds.</td></tr>
 </table>
+<h2 style="font-family:'Cinzel',serif;color:#e8c547;font-size:19px;margin:34px 0 6px">Stage is derived, never stored</h2>
+<p style="font-size:13px;color:#b8a888;line-height:1.55">A class line advances at <strong style="color:#e8c547">class level 33 and 66</strong>
+(<code>CLASS_STAGE_LV</code>). The stage is <strong>computed from the class level every time it is needed</strong> &mdash;
+<code>clsStageOf(lvl)</code> returns 3 at level&nbsp;66+, 2 at 33+, else 1 &mdash; and there is no stored stage anywhere that could
+drift. A save already past a breakpoint is therefore correct the instant it loads. <code>clsAdv</code> records only which stage has
+already been <em>shown</em>, so the advancement scene does not replay; it is not the stage itself. Only the class being played
+advances: <code>clsStageNow(id)</code> returns 1 for any line other than the active <code>charSoul</code>, because <code>classXp</code>
+belongs to the line in play.</p>
+<p style="font-size:13px;color:#b8a888;line-height:1.55"><strong style="color:#e8c547">Everything the player sees must derive its own
+stage.</strong> The client's <code>CLASSLINES</code> table carries <code>curStage:1</code> and <code>img:'CLS-&lt;LINE&gt;-1'</code>;
+those two fields are <em>fresh-save defaults and are not the stage</em>. Reading them renders stage-1 content for a fully advanced
+character. Report&nbsp;#22 (2026-08-03) was exactly this: the equipment portrait read the pinned <code>img</code> while the name
+beside it derived correctly, so a class-Lv75 <strong>Paladin</strong> was shown the Warrior stage-1 art. The portrait now builds its
+path as <code>CLS-&lt;LINE&gt;-&lt;clsStageNow()&gt;</code>, the same way the battle avatar always did. Art exists for all three
+stages of all six lines (<code>codex/images/classes/CLS-&lt;LINE&gt;-1|2|3.png</code>), so a stage-1 portrait on an advanced
+character is always a binding defect, never missing art.</p>
+
 <h2 style="font-family:'Cinzel',serif;color:#e8c547;font-size:19px;margin:34px 0 6px">Changelog</h2>
 <ul style="font-size:13px;color:#b8a888;line-height:1.6">
+<li><strong>2026-08-04</strong> &mdash; Documented that class stage is derived from class level and never stored, and that <code>CLASSLINES.curStage</code>/<code>.img</code> are fresh-save defaults rather than the stage. Fixes report #22: the equipment portrait was reading the pinned stage-1 image, so an advanced class showed its stage-1 art next to a correct stage-3 name. Reproduced against the reporter's own save and verified before/after. <em>On DEV, not yet on release.</em></li>
 <li><strong>2026-07-31</strong> &mdash; Ultimates are learned at class level 10; the class preview now carries the ultimate's description.</li>
 <li><strong>2026-07-31</strong> &mdash; Class ultimates added: one per line per stage, once per battle, priority bracket. Ladder and effects as tabled above.</li>
 </ul>
