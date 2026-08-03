@@ -109,7 +109,10 @@
   <h3>Compression: measured, and better than expected</h3>
   <p>Taken on the real save rather than from published ratios:</p>
   <ul class="sp-rules">
-    <li>131,147 B raw &rarr; <strong>24,305 B gzipped (5.4&times;)</strong>. That is under the old 128&nbsp;KiB ceiling <em>and</em> under the 64&nbsp;KiB browser <code>keepalive</code> cap that currently kills the page-close flush for large accounts. <strong>Compression alone fixes both walls today.</strong></li>
+    <li>131,147 B raw &rarr; <strong>24,305 B gzipped (5.4&times;)</strong>.</li>
+    <li><strong>CORRECTION, same day, before anything was built on it.</strong> This entry first claimed compression "fixes both walls today". <em>It fixes one.</em> The 413 measures <code>JSON.stringify(d).length</code> &mdash; the <em>parsed</em> object &mdash; so compressing the transit body does not move the ceiling at all. Nor can it be applied at rest: six call sites run <code>json_extract(data, &hellip;)</code> straight against the stored save (<code>grantAck</code>, <code>invCap</code>, <code>soulCap</code>, <code>maxFloor</code>, <code>heroName</code>, <code>_ledB</code>), and those exist specifically to avoid parsing a 128&nbsp;KB blob on hot paths. A compressed BLOB breaks all six.</li>
+    <li><strong>What compression genuinely fixes</strong> is the 64&nbsp;KiB browser <code>keepalive</code> cap, which is a <em>wire-size</em> limit &mdash; so the page-close flush, which currently cannot send at all for large accounts, starts working. That is worth having, but it is not the lockout.</li>
+    <li>Making the ceiling measure the <em>compressed</em> size would be worse than useless: a client could then ship a 5&nbsp;MB save that happens to compress well, and the ceiling exists to bound what the server stores and parses, not what crosses the wire.</li>
     <li>It is <strong>not merely a delay</strong>, because the collection is <em>capped</em> by design: 160 items + 600 souls = 760 rows. A maxed collection projects to 369,118 B raw &rarr; <strong>66,690 B gzipped</strong>. The save therefore has a maximum size, and compressed it stays under the ceiling we already had.</li>
     <li>Both halves are native: <code>CompressionStream</code> in the browser, <code>DecompressionStream</code> in the Worker.</li>
     <li>Splitting and compressing are <em>complementary, not alternatives</em>. Compression fixes SIZE, which is the lockout. Splitting fixes WRITE VOLUME &mdash; a battle write drops from 24,305 B to <strong>2,222 B</strong> gzipped, an eleven-fold cut in traffic per battle.</li>
@@ -117,8 +120,8 @@
 
   <h3>Recommended order</h3>
   <ul class="sp-rules">
-    <li><strong>1. Compress the payload.</strong> Small, fast, and it fixes the live lockout properly rather than by choosing a larger arbitrary number &mdash; which is all the 2026-08-03 ceiling raise did.</li>
-    <li><strong>2. Split the save by write frequency</strong> into the six keys above. This is the structural fix and it is the same shape PlayFab and Unity arrived at. Our Durable Object gives atomically what PlayFab had to engineer: several keys in one SQL transaction, so a dismantle that removes a row and adds currency cannot half-land.</li>
+    <li><strong>1. Split the save by write frequency</strong> into the six keys above. This is the one that fixes the lockout, and it fixes it <em>by construction</em>: once the inventory is its own record, no single key is anywhere near a limit, and the ceiling stops being a thing players can reach. It is the same shape PlayFab and Unity arrived at. Our Durable Object gives atomically what PlayFab had to engineer: several keys in one SQL transaction, so a dismantle that removes a row and adds currency cannot half-land.</li>
+    <li><strong>2. Compress the payload</strong> &mdash; for the unload path, not the ceiling. It makes the page-close flush possible again for large accounts and cuts egress; it does not and cannot raise the limit.</li>
     <li><strong>3. Move the collection server-authoritative</strong> ("local &lt;&lt; server"), at which point the client stops holding it at all.</li>
   </ul>
   <p><strong>The provenance block stays.</strong> It is 33.5% of the save and the obvious thing to cut, and it must not be: the save carries a rich birth record <code>{src, ts, egg{name,grade,uid}, parents, pen, floor}</code> while the server's <code>items.origin</code> holds only the string <code>'seed'</code>. Stripping it would destroy every creature's origin permanently. Compression makes cutting it unnecessary anyway.</p>
