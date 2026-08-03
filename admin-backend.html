@@ -484,14 +484,13 @@
 
   <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-04 &mdash; the PvP queue door answered 401 on release; root cause was route placement, and the full ops-door set is now documented (ON DEV, not yet on release).</strong> <code>/api/_internal/pvpq</code> had been written among the PvP routes, roughly 1,150 lines below the blanket session gate in <code>MainDO.fetch</code>, while all thirty-odd sibling internal routes sit above it. The Worker forwards internal calls with no session cookie, so the object refused the request before the handler ran and the ops key was never the problem. Moved above the gate with the invariant recorded at the call site. No logic changed &mdash; the diff is the move plus a comment. Also fixed on this page: the &ldquo;Ops reads&rdquo; section had been appended <em>after</em> <code>&lt;/body&gt;&lt;/html&gt;</code>, so the page had been shipping malformed since it was added.</li>
     <li><strong>2026-08-03 &mdash; dismantle yield extracted to a shared, parity-gated module (ON DEV, not enforcing yet).</strong> The yield lived only in the client, which is why the ops dismantle door deletes rows and credits nothing, and why dismantle Ichor is client-minted against a battle-only ceiling. <code>src/dismantle.js</code> now carries it on the <code>src/power.js</code> pattern, proven 9/9 against the live client over all 1,515 authored rows. Server-side validation by save-diff is the next batch.</li>
     <li><strong>2026-08-02 &mdash; traffic blocks documented; reads exempted; blocks now expire.</strong> An alpha account was soft-blocked on the <code>save</code> class for seven hours and the symptom was indistinguishable from a broken login; two more accounts had been silently blocked on <code>floor</code> and <code>db</code> for three days. <code>GET /api/save</code> moved to its own <code>save_read</code> class which is never blocked and never escalates, and <code>blocked=1</code> now ages out after <code>SB_EXPIRE_MS</code>.</li>
     <li><strong>2026-07-31 &mdash; key-gated reads of a player&rsquo;s save history and of the server&rsquo;s own ratchet and ledger.</strong> Added for the rollback repair, because the admin console&rsquo;s equivalents are routed to the WorldDO and are blind to player data.</li>
     <li><em>Backfilled 2026-08-01 &mdash; this page had no changelog section, and the commit that should have added the entry above skipped it silently instead of failing.</em></li>
   </ul>
 
-</body>
-</html>
   <h2>Ops reads &mdash; the account's own record</h2>
   <p>Both are key-gated with the ops key and are <strong>read-only</strong>: they select, they never write.
   They exist because <code>/api/admin/*</code> is dispatched to the WorldDO while saves, anomalies and
@@ -516,3 +515,46 @@
   account to test the door &mdash; <code>/api/backup/restore</code> sets the ratchet from
   <code>data.maxFloor</code>, so a stub body resets the account's climb to 1.</div>
 
+  <h2>Ops doors &mdash; the complete set</h2>
+  <p>Every door below is <strong>read-only</strong> and gated on the ops key at the Worker's session gate,
+  which matches on the <em>stripped</em> path so <code>/dev/api/backup/*</code> is gated identically. A wrong
+  key answers <code>403 forbidden</code> and never wakes an object. Note <code>/api/feedback/export</code>
+  takes <code>k</code>, not <code>key</code>.</p>
+  <table>
+    <tr><th>Door</th><th>Answers</th></tr>
+    <tr><td class="lbl"><code>GET /api/backup/accounts?key=&amp;after=&amp;limit=</code></td><td>The roster
+      &mdash; every steamid the world object knows, paginated. Durable Objects are addressed <em>by</em>
+      steamid, so without this there is no way to enumerate who exists.</td></tr>
+    <tr><td class="lbl"><code>GET /api/backup/flags?key=&amp;sid=&amp;kind=&amp;n=</code></td><td>Anomalies
+      recorded against the account, plus a histogram by kind.</td></tr>
+    <tr><td class="lbl"><code>GET /api/backup/inv?key=&amp;sid=&amp;realm=</code></td><td>Server-held item
+      rows and tombstones.</td></tr>
+    <tr><td class="lbl"><code>GET /api/backup/parts?key=&amp;sid=&amp;realm=</code></td><td>Split save parts
+      and <code>rejoin_ok</code> &mdash; the stage-2 gate for the save split.</td></tr>
+    <tr><td class="lbl"><code>GET /api/backup/pvpq?key=</code></td><td>The PvP queue: one row per node with
+      <code>age_ms</code>, and a count of how many are <em>pairable</em> right now. Age is the point &mdash;
+      the pairing window is 12&nbsp;s, so a live node and an expired one are indistinguishable until you
+      subtract. Fewer than two pairable nodes means nobody can be matched, and the door says so.</td></tr>
+    <tr><td class="lbl"><code>GET /api/backup/export?key=&amp;sid=&amp;realm=&amp;live=1</code></td><td>The
+      save. <strong><code>live=1</code> matters.</strong> Without it the read comes from the R2 mirror, which
+      is a <em>nightly</em> copy &mdash; a player who started today has no R2 object at all, and reading that
+      absence as &ldquo;no save&rdquo; is wrong. The authoritative save is always in the player's own Durable
+      Object, with 20 versions of history, from the first write. R2 is off-site disaster recovery, not the
+      store.</td></tr>
+  </table>
+
+  <div class="note"><strong>Route placement is load-bearing &mdash; this is a real defect class, not a
+  style note.</strong> <code>MainDO.fetch</code> carries a <em>blanket</em> session gate partway down its
+  body: <code>if (!ses) return json({error:'unauthenticated'}, 401)</code>. Every route defined below that
+  line requires a player session. The Worker calls an internal route with <code>x-internal: 1</code> and
+  <strong>no session cookie</strong>, so any <code>/api/_internal/*</code> handler written below the gate is
+  unreachable: <code>ses</code> is null, the object 401s, and the Worker forwards that status verbatim. The
+  ops door then fails with <code>unauthenticated</code> even though the caller's ops key was correct and the
+  door beside it answered.
+  <br><br><strong>Invariant: every <code>/api/_internal/*</code> handler lives above the blanket gate.</strong>
+  The symptom is diagnostic &mdash; an ops door returning <code>401 unauthenticated</code> rather than
+  <code>403 forbidden</code> is a <em>placement</em> failure, because a bad key produces 403 at the Worker and
+  never reaches the object at all.</div>
+
+</body>
+</html>
