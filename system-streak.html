@@ -20,6 +20,8 @@
   <ul class="sp-rules">
     <li>Win a streak of consecutive battles on a floor to open the portal to the next floor. Threshold: <code>ceil(floor^0.65)</code>.</li>
     <li><strong>Losing a battle resets the streak to zero.</strong> You are not removed from the floor &mdash; the team stays put and rebuilds. No forced exit, no floor lock, no return to floor-select.</li>
+    <li><strong>Leaving a floor resets the streak to zero &mdash; INTENDED (D ruling, reaffirmed 2026-08-03).</strong> The streak is a property of the floor you are standing on, not a running total you carry. Any change of floor clears it: ascending, descending, the death-descent, and the floor selector alike. The only case that keeps it is a move that lands you back on the floor you started on. In code the streak survives exactly when <code>floorNum</code> is unchanged (<code>streak:(prev.floorNum!==target?0:prev.streak)</code> in the travel path).</li>
+    <li><strong>The consequence is deliberate:</strong> stepping off a partly-cleared new floor forfeits that progress and it must be rebuilt from zero. Reported as a bug (report&nbsp;#17, closed <em>wontfix</em>) &mdash; it is the design. The pressure in this game comes from the reset, and a streak that banked across floors would let a player accumulate wins on trivial floors and spend them on hard ones.</li>
     <li><strong>Boss floors (every 10th) always require exactly 1 battle</strong> &mdash; the boss fight itself. No wild encounters on boss floors.</li>
     <li><strong>Full HP is restored after every battle,</strong> win or lose. Healing items were removed entirely; attrition exists only within a single battle.</li>
   </ul>
@@ -40,6 +42,11 @@
     <div class="sp-tile"><h4>Auto-advance floors</h4><p>When the threshold is met and the portal opens, advance automatically. Off &rarr; keep farming the current floor. Autoplay never auto-enters boss rooms.</p></div>
     <div class="sp-tile"><h4>On death</h4><p><strong>Stay</strong> &mdash; remain on the floor and rebuild the streak. <strong>Go down</strong> &mdash; drop one floor and continue there.</p></div>
   </div>
+
+  <h2>Changelog</h2>
+  <ul class="sp-rules">
+    <li><strong>2026-08-03 &mdash; the floor-change streak reset written down.</strong> It was always the intent and always the behaviour, but no page said so, so it was raised as a defect (report&nbsp;#17) and re-proposed as work. Closed <em>wontfix</em> on D's ruling and documented here with the code condition, so the next reader does not have to ask again.</li>
+  </ul>
 
   <div class="sp-note">Wild creature levels scale with floor (floor&nbsp;&plusmn;3, bell-distributed), and floor equals level &mdash; so the streak threshold and the enemy levels both climb together as you ascend. Which advancement stage appears in the wild is governed per line by <a href="system-level-penalty.html">advancement levels</a>, not by floor bands.</div>
 </div>
