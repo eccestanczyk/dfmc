@@ -61,8 +61,18 @@
   <p><strong>What would change this.</strong> If the save could be made transactional and rollback-proof, inline delivery would be tolerable &mdash; it cannot be, over a browser on a phone. If drop volume were a handful per session, a per-grant mailbox row would beat a cursor for flexibility.</p>
   <p class="foot">Sources: Genshin Impact Wiki (mail expiry and capacity); Heroic Labs Hiro documentation (Reward Mailbox); Microsoft Learn / PlayFab Economy v2 (inventory operations, <code>IdempotencyId</code> 14-day enforcement, transaction history); Steamworks Inventory Service (<code>requestid</code>, at-most-once, <code>replayed</code>); Nakama documentation (server-only wallet updates, ledger); Cloudflare Workers pricing (Durable Object SQLite rows written/read, index write amplification); Wikipedia and RuneScape Wiki (2003 RSC duplication); Old School RuneScape update history (2020, 2022, 2024 rollbacks).</p>
 
+  <h3>Stage 1 shipped (2026-08-03, on dev)</h3>
+  <ul class="sp-rules">
+    <li><strong>The set-difference deletion is gone.</strong> <code>invSync</code> no longer deletes a server item row because its uid is absent from the incoming save; it writes a <code>gone</code> timestamp instead. The row is kept for <strong>30 days</strong> and pruned after. This does not yet decide <em>why</em> an item left &mdash; it stops us destroying the ability to ask.</li>
+    <li><strong>A returning uid is un-tombstoned and keeps its provenance.</strong> An item that leaves and comes back (equipped, penned, traded through) clears <code>gone</code> on the next sync via the same <code>ON CONFLICT</code> update, and its <code>origin</code> survives untouched.</li>
+    <li><strong>Tombstones are readable.</strong> <code>GET /api/backup/inv</code> now returns <code>rows</code> (live) and <code>tombs</code> (what the account used to hold, newest first). That second list is the point of not deleting &mdash; it is the only way to answer "was this granted and then lost?" after the fact.</li>
+    <li><strong><code>drops_granted</code> retention 7 &rarr; 30 days.</strong> Not an imported number: <code>hatches</code> already prunes at 30, so 7 was the outlier, and the drop log is the only record of a lost drop.</li>
+  </ul>
+  <p>Still outstanding from the sequence: Stage&nbsp;2, minting drops into the pending lane and moving the ack server-side, and Stage&nbsp;3, making the save a projection rather than the authority.</p>
+
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-08-03 &mdash; Stage 1 implemented.</strong> Tombstones replace the set-difference deletion, the read door exposes them, and the drop log retention now matches the 30-day window <code>hatches</code> already used. Verified 11/11.</li>
     <li><strong>2026-08-03 &mdash; page created; first entry is durable reward delivery.</strong> Commissioned after a live incident chain: a multi-device rollback cost D his dismantle proceeds, which raised the question of what else a lost save loses. The answer &mdash; that a server-granted drop is lost <em>and</em> its server-side record is then deleted by the next sync &mdash; is the reason this page exists. Compared against the build rather than summarised, because the conclusion is that we already own every piece of the industry answer and have not connected them.</li>
   </ul>
 </div>
