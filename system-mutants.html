@@ -87,12 +87,7 @@ var ROWS=[['Worn','#c2ae8b',0.01],['Common','#c2ae8b',0.02],['Uncommon','#1eff00
       <code>MUTANT_CHANCE</code> against their own grade exactly as documented above: on the 91&ndash;100 band
       (40% Epic / 60% Legendary) that is <strong>0.056%</strong> per spawn, roughly 1 in 1,800, a
       <strong>107&times;</strong> reduction from what was live.</li>
-    <li><strong>2026-08-04 &mdash; KNOWN GAP: the Codex bonus described below is not yet in effect.</strong>
-      The bonus is implemented and reads only the stored save, but the zone&rarr;species map it needs
-      (<code>zoneSpeciesMap</code>) is <em>never called</em>, so the value handed to both the hatch roll and the
-      spawn roll is always <code>0</code>. Every &ldquo;with Codex bonus&rdquo; figure on this page is therefore
-      currently unreachable &mdash; base chances are what the game actually rolls. Wiring it is one injection
-      in the Worker; it is not done, and this note stands until it is.</li>
+    <li><strong>2026-08-04 &mdash; the Codex bonus is now actually wired (ON DEV, not yet on release).</strong> It had been implemented on both roll paths and was <em>never reachable</em>: the zone&rarr;species map it depends on (<code>zoneSpeciesMap</code>) was defined and never called, so the value handed to the hatch roll and the spawn roll was always <code>0</code> and every &ldquo;with Codex bonus&rdquo; figure on this page was unattainable by any player. The Worker now attaches the map to both requests, the same way it attaches the spawn table, because the Durable Object must never fetch. A codex-data outage is not fatal on either path &mdash; the bonus simply falls back to 0. Scale note, measured against live saves: a zone tier counts as complete only when <strong>all 90 species</strong> appearing on that zone's floors are acquired, so the bonus is a genuine endgame reward &mdash; an account 109 species in completes zero tiers.</li>
   </ul>
 
 </body>
