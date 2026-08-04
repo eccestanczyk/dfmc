@@ -175,8 +175,30 @@ made <code>xp_over_ledger</code> fire on every live account &mdash; hundreds of 
 accounts measured. A guard that fires on every honest player describes the system, not the players, and a
 real offender would have been invisible inside it. With one authority the flag becomes a signal again.</p>
 
+<h2>Advancement is asked for, not given</h2>
+<p><strong>ON DEV, not yet on release.</strong> A creature, a socketed soul or the class still becomes
+eligible to advance the same way &mdash; by passing its line's advance level with a further stage to reach.
+What changed is who starts it. <strong>A victory no longer interrupts itself to play the scene.</strong> The
+win resolves, the rewards land, and the floor returns.</p>
+<p>The advancement waits on the slot that earned it. An upward arrow sits on that slot's icon &mdash; the
+teammate's portrait, or the equipment slot holding the soul &mdash; and clicking it plays the advancement
+scene. Inspecting a creature and clicking its slot is how a player reaches it.</p>
+<ul>
+  <li><strong>The arrow and the scene are one call.</strong> The marker is computed from the same function
+      the scene uses, so an arrow can never appear on a slot the scene will not go to.</li>
+  <li><strong>One at a time, in order</strong> &mdash; party creature, then socketed soul, then class. That was
+      always the rule; it is simply now visible. A second eligible creature is marked once the first has been
+      played.</li>
+  <li><strong>Nothing expires.</strong> Eligibility is read from the creature's level, not from an edge, so an
+      advancement left unclaimed stays claimable across battles, floors and reloads.</li>
+</ul>
+
 <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-04 &mdash; advancement is fired by the player (ON DEV, not yet on release).</strong>
+      A victory no longer plays the advancement scene on its own. An upward arrow marks the slot that earned
+      it &mdash; the teammate or the socketed soul &mdash; and clicking it plays the scene. Eligibility is
+      level-based, so an unclaimed advancement keeps until it is asked for.</li>
     <li><strong>2026-08-04 &mdash; &ldquo;battles per level&rdquo; was framed as normal play; it is a best case
       (live, on release).</strong> D called it and the live saves agree. The two battle columns assume the character
       stands on the floor matching its level, which is the one place the level-gap penalty is zero. Measured against
