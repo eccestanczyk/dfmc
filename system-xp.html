@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>XP &amp; Leveling — Herumon Tower</title>
 <link rel="stylesheet" href="theme.css?v=4">
+<style>
+.tbl-scroll{ overflow-x:auto; margin-top:12px; }
+.tbl-scroll.tall{ max-height:560px; overflow-y:auto; }
+.tbl-scroll table{ font-size:12px; }
+.tbl-scroll thead th{ position:sticky; top:0; background:var(--surface-2); z-index:1; }
+.tbl-scroll tr.knee td{ background:rgba(207,166,80,.10); }
+.foot{ font-size:12px; color:var(--ink-faint); margin-top:8px; }
+</style>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
@@ -22,8 +30,9 @@
     <tr><td class="lbl">XP required, levels 1&ndash;66</td><td><code>10 &times; L^1.75</code></td></tr>
     <tr><td class="lbl">XP required, levels 67&ndash;100</td><td><code>234 &times; L &times; 1.16^(L&minus;67)</code></td></tr>
     <tr><td class="lbl">XP required, player level 101+</td><td><code>PLAYER_FLAT_XP = 639,723</code> &mdash; flat forever (player level only; creatures and classes cap at 100)</td></tr>
-    <tr><td class="lbl">XP per kill (enemy level C)</td><td><code>10 &times; C</code></td></tr>
-    <tr><td class="lbl">Battles per level</td><td><code>L^0.75</code>, then <code>23.4 &times; 1.16^(L&minus;67)</code></td></tr>
+    <tr><td class="lbl">XP per kill</td><td><strong>Not a formula &mdash; a table.</strong> <code>XP_Kill_&lt;tier&gt;</code> in <code>codex/XPCurve.csv</code>, indexed by the <em>enemy&rsquo;s</em> level, on the game-wide value ladder <code>C&nbsp;1.0 / UC&nbsp;1.5 / R&nbsp;2.5 / SR&nbsp;4.0 / SSR&nbsp;7.0</code> (level&nbsp;1 floored at 4&nbsp;XP). Client <code>xpKill()</code> and server <code>TABLES.xp_kill</code> read the same 100 rows; no multiplier is applied on top</td></tr>
+    <tr><td class="lbl">XP per battle</td><td>The sum over the battle&rsquo;s <strong>3 kills</strong>. Because <code>encounter_weights.csv</code> is tuned per floor against that same ladder, a full battle on floor&nbsp;<code>L</code> averages <code>&asymp; 10 &times; L</code> &mdash; within <strong>&plusmn;0.7%</strong> from level&nbsp;10 up (floor&nbsp;100: 999.4 against 1,000). Below level&nbsp;10 the 4-XP floor lifts it above the line</td></tr>
+    <tr><td class="lbl">Battles per level</td><td><code>XP_To_Next(L) &divide; XP-per-battle(L)</code>, which reduces to <code>L^0.75</code> and then <code>23.4 &times; 1.16^(L&minus;67)</code>. Exact per-level values in the table below</td></tr>
   </table>
   <p>The two phases are continuous at level&nbsp;67. XP per kill is flat in the enemy's level, so the battle counts below follow directly from the requirement curve.</p>
 
@@ -39,6 +48,11 @@
   <p style="font-size:12px;color:var(--ink-faint)">*At ~2&nbsp;minutes per battle on autoplay (~30 battles/hour).</p>
 
   <div class="sp-note">The curve is deliberately back-loaded: about <strong style="color:var(--ink)">75% of all leveling time sits in levels 90&ndash;100</strong>, and 50% in the last five levels. Total to max: <strong style="color:var(--ink)">~20,300 battles &asymp; 680&nbsp;h</strong>. Reaching level&nbsp;67 &mdash; where wild Stage&nbsp;3 creatures appear &mdash; takes only ~885 battles (~30&nbsp;h).</div>
+
+  <h2>Level-by-level curve</h2>
+  <p>Read live from <code>codex/XPCurve.csv</code> &mdash; the same 100 rows the client's <code>xpLevel()</code>/<code>xpKill()</code> and the server's <code>TABLES.xp_cum</code>/<code>TABLES.xp_kill</code> read. Nothing here is restated by hand. <strong>XP&nbsp;to&nbsp;next</strong> and <strong>cumulative</strong> are the requirement curve and apply identically to creatures, classes and the player level; the five per-kill columns are indexed by the <em>enemy&rsquo;s</em> level, not the recipient's. <strong>XP/battle</strong> and <strong>battles</strong> are derived against that floor's own rarity mix in <code>codex/encounter_weights.csv</code> over 3 kills &mdash; a boss floor has no wild spawns, so it inherits the last wild floor's mix.</p>
+  <div class="tbl-scroll tall" id="curveWrap">LOADING&hellip;</div>
+  <p class="foot">Source: <code>codex/XPCurve.csv</code> &middot; mix from <code>codex/encounter_weights.csv</code>. Level&nbsp;100 carries <code>XP_To_Next = 0</code>: creatures and classes are maxed there, and the player level continues at a flat <code>639,723</code>. Battle counts assume the enemy is level-appropriate, so the level-gap penalty is zero &mdash; see <a href="system-level-penalty.html">Level Penalty</a>.</p>
 
   <h2>Player level (uncapped)</h2>
   <p>Separate from creature levels, class levels, and character level. The <strong>player level</strong> is an account-wide marker of total time in the tower &mdash; it is <strong>purely cosmetic today and grants nothing</strong>: no stats, no unlocks, no gear requirements. It exists so that the endgame keeps counting, and so that a future system has a natural place to hook into.</p>
@@ -120,6 +134,20 @@ real offender would have been invisible inside it. With one authority the flag b
 
 <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-04 &mdash; the level-by-level curve is on the page (live, on release).</strong>
+      All 100 rows of <code>codex/XPCurve.csv</code> now render here &mdash; XP to next, cumulative, and the five
+      per-kill columns &mdash; alongside derived XP-per-battle and battles-per-level against each floor's own
+      <code>encounter_weights.csv</code> mix. The milestone table and the chart were switched off their analytic
+      approximation onto the same data (the approximation survives only as a fetch-failure fallback).
+      Two Formulas rows were WRONG and are corrected: per-kill XP is not <code>10 &times; C</code> &mdash; it is an
+      authored table on the C&nbsp;1.0 / UC&nbsp;1.5 / R&nbsp;2.5 / SR&nbsp;4.0 / SSR&nbsp;7.0 ladder, and at level 100
+      a Common kill is 118 XP, not 1,000. What <em>is</em> <code>&asymp; 10 &times; L</code> is a whole battle
+      (3 kills at the floor's rarity mix): 999.4 at floor 100, within &plusmn;0.7% of the line from level 10 up.
+      That identity is why every downstream figure on this page &mdash; ~20,300 battles to max, ~885 to level 67,
+      74.5% of the climb in levels 90&ndash;100 &mdash; verified against the real tables rather than needing a rewrite.
+      Client and server were checked against the CSV on both branches: <code>xp_cum</code> and <code>xp_kill</code> in
+      <code>src/tables.json</code> match all 100 rows exactly on <code>main</code> and <code>dev</code>, and
+      <code>class_max_xp</code> equals the level-100 cumulative, 18,464,128.</li>
     <li><strong>2026-08-04 &mdash; no client-credited battle rewards (ON DEV, not yet on release).</strong>
       Account XP, class XP and Ichor are no longer moved at battle end; the server's figures are the only
       ones that reach the account, and the victory class row is rebuilt from them when they land. The
@@ -135,17 +163,68 @@ real offender would have been invisible inside it. With one authority the flag b
 </div>
 
 <script>
-function battlesAt(L){ return L<=66 ? Math.pow(L,0.75) : 23.4*Math.pow(1.16, L-67); }
-(function(){
-  var body=document.getElementById('mileBody');
-  var cum=0, rows=[], marks={1:1,10:1,25:1,50:1,67:1,80:1,90:1,95:1,99:1,100:1};
-  for(var L=1;L<=100;L++){ cum+=battlesAt(L); if(marks[L]){ rows.push([L, Math.round(battlesAt(L)), Math.round(cum)]); } }
-  rows.forEach(function(r){
-    var hrs=r[2]/30, t = hrs<48? Math.round(hrs)+' h' : Math.round(hrs/24)+' days';
-    body.insertAdjacentHTML('beforeend','<tr><td class="lbl">'+r[0]+'</td><td>'+r[1].toLocaleString()+'</td><td>'+r[2].toLocaleString()+'</td><td>'+t+'</td></tr>');
-  });
-})();
-(function(){
+// ---- ONE SOURCE: codex/XPCurve.csv, the file the client and the worker both read. -------------
+// The analytic forms are the curve the CSV was GENERATED from and are used only as a fallback if
+// the fetch fails, so the page can never render a number that contradicts the shipped table.
+var XPC=null, MIX=null;
+function costAt(L){ return L<=66 ? Math.round(10*Math.pow(L,1.75)) : Math.round(234*L*Math.pow(1.16,L-67)); }
+function toNextAt(L){ return XPC ? XPC[L].toNext : (L<100?costAt(L):0); }
+function cumAt(L){ if(XPC) return XPC[L].cum; var c=0; for(var i=1;i<L;i++) c+=costAt(i); return c; }
+function mixAt(L){ if(!MIX) return null;
+  for(var f=L; f>=1; f--){ var r=MIX[f]; if(r){ var s=0; for(var i=0;i<5;i++) s+=r[i]; if(s>0) return r; } }
+  return null; }
+function xpPerBattle(L){
+  if(!XPC) return 10*L;
+  var w=mixAt(L), k=XPC[L].kill, T=['C','UC','R','SR','SSR'];
+  if(!w) return 3*k.C;
+  var s=0, t=0, i; for(i=0;i<5;i++) s+=w[i];
+  for(i=0;i<5;i++) t+=w[i]/s*k[T[i]];
+  return 3*t; }
+function battlesAt(L){ var c=toNextAt(L); if(c<=0) return 0;
+  if(!XPC) return L<=66 ? Math.pow(L,0.75) : 23.4*Math.pow(1.16, L-67);
+  return c/xpPerBattle(L); }
+var CSV=function(u){ return fetch(u+'?t='+Date.now()).then(function(r){ return r.text(); })
+  .then(function(t){ return t.replace(/\r/g,'').trim().split('\n').map(function(l){ return l.split(','); }); }); };
+
+function renderMilestones(){
+  var body=document.getElementById('mileBody'); body.innerHTML='';
+  var cum=0, marks={1:1,10:1,25:1,50:1,67:1,80:1,90:1,95:1,99:1,100:1};
+  for(var L=1;L<=100;L++){
+    if(marks[L]){
+      var at=battlesAt(L), hrs=cum/30, t = hrs<48? Math.round(hrs)+' h' : Math.round(hrs/24)+' days';
+      body.insertAdjacentHTML('beforeend','<tr'+(L===67?' class="knee"':'')+'><td class="lbl">'+L+'</td><td>'+
+        (at>0?Math.round(at).toLocaleString():'&mdash;')+'</td><td>'+Math.round(cum).toLocaleString()+'</td><td>'+t+'</td></tr>');
+    }
+    cum+=battlesAt(L);
+  }
+}
+function renderCurve(){
+  var w=document.getElementById('curveWrap');
+  var h='<table><thead><tr><th>Lv</th><th>XP to next</th><th>Cumulative</th><th>C</th><th>UC</th><th>R</th><th>SR</th><th>SSR</th><th>XP / battle</th><th>Battles at Lv</th></tr></thead><tbody>';
+  for(var L=1;L<=100;L++){
+    var k = XPC ? XPC[L].kill : null, b=battlesAt(L), tn=toNextAt(L);
+    h+='<tr'+(L===67?' class="knee"':'')+'><td class="lbl">'+L+'</td>'+
+       '<td>'+(tn>0?tn.toLocaleString():'&mdash;')+'</td>'+
+       '<td>'+cumAt(L).toLocaleString()+'</td>'+
+       (k? '<td>'+k.C+'</td><td>'+k.UC+'</td><td>'+k.R+'</td><td>'+k.SR+'</td><td>'+k.SSR+'</td>'
+         : '<td colspan="5">&mdash;</td>')+
+       '<td>'+Math.round(xpPerBattle(L)).toLocaleString()+'</td>'+
+       '<td>'+(b>0?Math.round(b).toLocaleString():'&mdash;')+'</td></tr>';
+  }
+  w.innerHTML=h+'</tbody></table>';
+}
+Promise.all([CSV('codex/XPCurve.csv'), CSV('codex/encounter_weights.csv')]).then(function(res){
+  var x={}, rows=res[0], i;
+  for(i=1;i<rows.length;i++){ var r=rows[i]; if(!r[0]) continue;
+    x[+r[0]]={ toNext:+r[1], cum:+r[2], kill:{C:+r[3],UC:+r[4],R:+r[5],SR:+r[6],SSR:+r[7]} }; }
+  if(Object.keys(x).length===100) XPC=x;
+  var m={}, wr=res[1];
+  for(i=1;i<wr.length;i++){ var q=wr[i]; if(!q[0]) continue; m[+q[0]]=[+q[1],+q[2],+q[3],+q[4],+q[5]]; }
+  if(Object.keys(m).length) MIX=m;
+}).catch(function(){ /* fallback curve stays in force */ })
+  .then(function(){ renderMilestones(); renderCurve(); drawChart(); });
+
+function drawChart(){
   var cv=document.getElementById('xpChart'), ctx=cv.getContext('2d');
   var W=cv.width,H=cv.height, ml=54,mr=16,mt=16,mb=34;
   var minY=Math.log10(0.8), maxY=Math.log10(3000);
@@ -158,11 +237,11 @@ function battlesAt(L){ return L<=66 ? Math.pow(L,0.75) : 23.4*Math.pow(1.16, L-6
   var x67=px(67); ctx.strokeStyle='#cfa650'; ctx.setLineDash([4,4]); ctx.beginPath(); ctx.moveTo(x67,mt); ctx.lineTo(x67,H-mb); ctx.stroke(); ctx.setLineDash([]);
   ctx.fillStyle='#cfa650'; ctx.textAlign='center'; ctx.fillText('L67', x67, mt+12); ctx.textAlign='left';
   ctx.lineWidth=2.4; ctx.strokeStyle='#dd5646'; ctx.beginPath();
-  for(var L=1;L<=100;L++){ var xx=px(L), yy=py(battlesAt(L)); if(L===1)ctx.moveTo(xx,yy); else ctx.lineTo(xx,yy); } ctx.stroke();
+  for(var L=1;L<=99;L++){ var xx=px(L), yy=py(battlesAt(L)); if(L===1)ctx.moveTo(xx,yy); else ctx.lineTo(xx,yy); } ctx.stroke();
   ctx.fillStyle='#c2ae8b'; ctx.font="12px 'Cinzel',serif"; ctx.textAlign='center';
   ctx.fillText('character level  \u2192', W/2, H-4);
   ctx.save(); ctx.translate(14,H/2); ctx.rotate(-Math.PI/2); ctx.fillText('battles per level (log)',0,0); ctx.restore(); ctx.textAlign='left';
-})();
+}
 </script>
 <script src="admin.js"></script>
 <script src="nav.js"></script>
