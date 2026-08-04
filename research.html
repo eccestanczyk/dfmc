@@ -127,8 +127,156 @@
   <p><strong>The provenance block stays.</strong> It is 33.5% of the save and the obvious thing to cut, and it must not be: the save carries a rich birth record <code>{src, ts, egg{name,grade,uid}, parents, pen, floor}</code> while the server's <code>items.origin</code> holds only the string <code>'seed'</code>. Stripping it would destroy every creature's origin permanently. Compression makes cutting it unnecessary anyway.</p>
   <p class="foot">Sources: Microsoft Learn / PlayFab (entity objects, the 100K legacy limit, Economy v2 limits); Unity Cloud Save documentation (5&nbsp;MB across default slots, 2000 keys); Steamworks ISteamRemoteStorage and Steam Cloud documentation. All byte figures measured directly against a live account's save on 2026-08-03.</p>
 
+  <h2>3. Single-writer save ownership and stale-writer rejection (2026-08-01)</h2>
+  <p><strong>Backfilled 2026-08-04.</strong> This read was done on 2026-08-01 during the cross-device rollback
+  investigation and was recorded only in <code>OPS.md</code>, which is a task list. It belongs here, because the
+  fence that ships today rests on it.</p>
+  <p><strong>The question.</strong> A player's second device, or a long-open tab, was overwriting newer server
+  state with months-old progress and the save door accepted it. What do shipped save services do when a stale
+  writer arrives?</p>
+
+  <h3>What the industry converged on</h3>
+  <ul class="sp-rules">
+    <li><strong>Every one of them rejects; none of them silently clamp.</strong> PlayFab Economy v2 returns an
+        ETag on read and refuses a mismatched write with 412. Unity Cloud Save issues a WriteLock token per item
+        and errors when it no longer matches &mdash; and documents that a null lock skips validation entirely and
+        overwrites, which was precisely the behaviour of our own door. Nakama versions each storage object and
+        rejects on mismatch. DynamoDB uses a condition expression and fails the write. R2 has conditional
+        <code>onlyIf</code>/ETag. Google Play Games hands the app <em>both</em> conflicting snapshots and offers a
+        highest-progress resolution policy rather than picking silently.</li>
+    <li><strong>Nobody orders writes by client wall-clock.</strong> Timestamps record when a browser last wrote,
+        not how far the save got, so the device opened last wins by being opened last. Aphyr's treatment of
+        timestamps as unsafe ordering constructs is the standard citation.</li>
+    <li><strong>Earned progress is modelled as grow-only.</strong> Max-merge counters (G-Counter shape) are the
+        conventional answer for anything a player has earned, because a merge can then never move a player
+        backwards regardless of which copy arrives.</li>
+    <li><strong>Single-writer leasing is normal in always-online games.</strong> The losing session is made
+        read-only and told so &mdash; the &ldquo;logged in elsewhere&rdquo; message &mdash; rather than being
+        allowed to flush.</li>
+  </ul>
+  <p><strong>Where Herumon Tower differs, and it is now a decision rather than a defect.</strong> The save door
+  originally stored the client body verbatim, with only two refusals (an older client <code>ts</code>, and
+  <code>playerXp</code> below half of the previous value), and the ratchet clamp rewrote the save downward and
+  answered 200 &mdash; a silent rollback by construction. What shipped instead follows the research directly:
+  <code>base_ver</code> optimistic concurrency answering 409 with the authoritative copy; a per-instance epoch
+  minted at <code>GET /api/save</code> and required on every later request, because two tabs share one cookie and
+  one session row and only an instance-scoped token separates them; Web Locks tab ownership so a losing tab never
+  claims the epoch at all; and grow-only treatment for <code>maxFloor</code>, <code>playerXp</code> and
+  <code>classXp</code>. One gap is recorded rather than closed: <code>base_ver</code> proves the client
+  <em>read</em> the latest version, not that its <em>content</em> derives from it.</p>
+
+  <h2>4. Keeping a split save consistent when many paths write it (2026-08-04)</h2>
+  <p><strong>The question.</strong> Entry 2 concluded the save should be split by write frequency, and the split is
+  now built as far as a dual write: <code>save_parts</code> holds seven keys beside the authoritative
+  <code>saves</code> blob. An audit then found that <strong>six code paths write <code>saves</code> and exactly one
+  of them writes the parts</strong> &mdash; the save door. The bypassing five are the ops restore door, the R2
+  backup restore, bulk dismantle, the ledger-reconcile sweep and admin rollback. Worse, <code>resetRealm</code>
+  deletes <code>saves</code>, <code>save_hist</code>, <code>chains</code>, <code>ledger</code>,
+  <code>progress</code> and more, and there is <strong>no <code>DELETE FROM save_parts</code> anywhere in the
+  Worker</strong>. So: do we make all five writers dual-write, or do we treat the parts as derived?</p>
+
+  <h3>What the platforms actually do</h3>
+  <ul class="sp-rules">
+    <li><strong>Independently versioned keyed records, everywhere.</strong> PlayFab Entity Objects carry a
+        ProfileVersion; Unity Cloud Save gives every key its own WriteLock; Nakama versions each storage object.
+        The record, not the account, is the unit of concurrency.</li>
+    <li><strong>Cross-record atomicity is the advertised hard part.</strong> PlayFab sells atomic multi-object
+        <code>SetObjects</code> as an improvement over its old model, where a partial failure left data
+        inconsistent with no way to tell which key failed. Unity's batch set is all-or-nothing. Nakama offers
+        cross-object transactions only through a specific server-runtime call. Firestore caps an atomic batch at
+        500 documents. Three vendors treat as a headline feature the thing we get for nothing.</li>
+    <li><strong>Splitting by write frequency is first-party advice, not just our inference.</strong> Steamworks
+        recommends separate files for state that changes often and state that does not, so the unchanged part is
+        not re-uploaded every session. That is entry 2's conclusion, arrived at independently and then confirmed.</li>
+    <li><strong>Size-driven splits look the same.</strong> CloudKit caps a record at 1&nbsp;MB and spills the
+        overflow into assets automatically; Firestore's 1&nbsp;MB document limit plus its lack of partial document
+        reads pushes the same hot/cold separation for cost reasons.</li>
+  </ul>
+
+  <h3>The dual-write anti-pattern, and why it does not apply here</h3>
+  <p>Kleppmann's 2015 articulation is the canonical one: application code updating two independent systems &mdash;
+  a database and a search index, a database and a cache &mdash; works at first and then desynchronises, because
+  partial failure and reordering have nowhere to be resolved. The prescribed fixes are a single ordered log or
+  change data capture. The transactional outbox pattern is the practical form, and the reason it works states the
+  boundary exactly: the business table and the outbox table are in the <em>same</em> database, so both writes ride
+  one ACID transaction. <strong>The anti-pattern is about crossing a transaction boundary between two systems.</strong></p>
+  <p><strong>We do not cross one.</strong> <code>saves</code> and <code>save_parts</code> are two tables in one
+  SQLite database inside one Durable Object, which is single-threaded and whose storage is transactional and
+  serializable. Writing both in one transaction is not a dual write in Kleppmann's sense &mdash; it is what the
+  outbox pattern deliberately engineers. So the objection that would normally rule out &ldquo;make every writer
+  write both&rdquo; does not apply to us. What remains is not a consistency problem but a <em>coverage</em>
+  problem: six call sites, one of which is correct.</p>
+
+  <h3>Staleness detection, and admin write paths</h3>
+  <ul class="sp-rules">
+    <li><strong>A monotonic source version compared against a stored watermark is the conventional staleness
+        test.</strong> BigQuery exposes a refresh watermark per materialised view; Oracle models freshness as
+        fresh/stale/unusable against its master tables; PostgreSQL requires an explicit refresh and offers a
+        concurrent form so readers never see a torn rebuild. SQLite has no materialised views at all, so the
+        watermark is ours to implement.</li>
+    <li><strong>Mark-stale-then-rebuild-on-read is the standard cheap invalidation.</strong> CQRS practice treats
+        a read model as a disposable cache that is dropped and rebuilt, and warns against replaying into a live
+        read model rather than a shadow one.</li>
+    <li><strong>Admin and repair tooling must not be a back door.</strong> The rule is stated plainly in general
+        engineering: a business rule expressed only in application code is only in force when that code path runs.
+        Google's SRE data-integrity chapter is the strongest evidence for our specific risk &mdash; across nineteen
+        Google recovery efforts the most common user-visible loss came from software bugs deleting data or breaking
+        referential integrity, the worst variants surfacing weeks to months later, and restores across several
+        uncoordinated datastores force engineers to reconcile restored-versus-live in every combination. Our R2
+        restore is exactly that shape: it would restore the monolith and leave the parts as they were.</li>
+    <li><strong>Deleting across split records needs generation invalidation <em>and</em> real deletion.</strong>
+        Erasure practice treats a logical tombstone as insufficient, and the streaming world names the failure
+        mode directly: consumers that replay without applying tombstones resurrect deleted data. Our wipe
+        generation is the right primitive; it is simply not applied to <code>save_parts</code>.</li>
+    <li><strong>Live monolith-to-split migrations are expand/contract plus shadow comparison,</strong> promoted
+        only once the match rate holds near perfect over a representative window, and with a decommission deadline
+        for the old path so it is not kept on life support.</li>
+  </ul>
+
+  <h3>Where Herumon Tower differs</h3>
+  <ul class="sp-rules">
+    <li><strong>Decision, and a favourable one:</strong> one transactional store per player means we can have
+        cross-key atomicity that PlayFab, Unity and Nakama each had to build deliberately. The five-stage migration
+        already matches expand/contract.</li>
+    <li><strong>Defect:</strong> six writers, one compliant. This is the documented admin-back-door failure class,
+        and it was found by measuring rather than reading &mdash; which is the reason to assume there will be a
+        seventh writer.</li>
+    <li><strong>Defect, and the sharper one:</strong> a realm reset does not clear <code>save_parts</code>. Today
+        that is inert because <code>saves</code> is authoritative. At read cutover it resurrects the deleted run
+        &mdash; the reset silently does not happen.</li>
+    <li><strong>Measured, and it kills the cheap version of the fix:</strong> the watermark cannot be inferred from
+        <code>max(parts.ver)</code>, because <code>writeSaveParts</code> only rewrites rows whose content hash
+        moved. On a live account <code>saves.ver</code> read 3430 while the highest part version read 3429. The
+        watermark has to be stored explicitly.</li>
+  </ul>
+  <p><strong>What this changes about the plan.</strong> The two shapes are not alternatives &mdash; the correct
+  build is both: a single internal write function that every writer calls, updating <code>saves</code> and
+  <code>save_parts</code> in one transaction and stamping the watermark; plus a load path that trusts the parts
+  only while the watermark equals <code>saves.ver</code> and rebuilds from the monolith when it does not. The
+  facade is the fix; the watermark is what survives the writer nobody remembered. Two invariants come with it:
+  <code>saves.ver</code> must be monotonic across <em>every</em> writer, or a restore that lowers it passes the
+  check silently; and the reset must both bump the generation and delete the parts.</p>
+  <p><strong>And stage 5 changes what the watermark means, which is worth stating now.</strong> A
+  projection-with-fallback design assumes an authority that will eventually stop existing. Through stages 1&ndash;4
+  the monolith stays authoritative and the watermark answers &ldquo;are the parts stale?&rdquo;. When the monolith
+  is retired the parts become the system of record and the per-key version becomes an optimistic-concurrency token
+  for the client's per-key upload &mdash; which is exactly the PlayFab / Unity / Nakama model. That is a deliberate
+  semantic flip, not a deletion.</p>
+
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-08-04 &mdash; fourth entry: keeping a split save consistent when many paths write it.</strong>
+      An audit found six writers of <code>saves</code> and only one writing <code>save_parts</code>, plus a realm
+      reset that never deletes the parts at all &mdash; which would resurrect a deleted run at read cutover. The
+      research says the dual-write anti-pattern does <em>not</em> apply to us, because both tables sit in one
+      transactional SQLite database inside one single-threaded object, so a single write facade is correct and
+      cheap; and that a stored watermark compared against the source version is the conventional staleness test,
+      which is what covers the writer nobody remembers. Measured and recorded: the watermark cannot be inferred
+      from <code>max(parts.ver)</code> &mdash; a live account read <code>saves.ver</code> 3430 against 3429.</li>
+    <li><strong>2026-08-04 &mdash; third entry BACKFILLED: single-writer save ownership and stale-writer
+      rejection.</strong> This read was done on 2026-08-01 and had only ever been written into <code>OPS.md</code>,
+      which is a task list and not the record. The fence, the epoch, Web Locks tab ownership and the grow-only
+      fields all rest on it, so it now sits here with the rest.</li>
     <li><strong>2026-08-03 &mdash; second entry: save size and synchronisation.</strong> Measured rather than assumed &mdash; a battle currently rewrites 145,626 bytes and would rewrite 8,692 if the save were split by write frequency, and the whole save gzips 5.4&times; to 24,305 bytes, which clears both the size ceiling and the browser keepalive cap. PlayFab hit the same wall at 100K and split rather than raised.</li>
     <li><strong>2026-08-03 &mdash; the mint-on-battle leg verified, and a wrong cause retracted.</strong> An earlier note here blamed the chance tables for a harness that never dropped; the tables were fine and the real cause was a shared battle chain draining its bank, which makes every later battle uncredited. Found by adding the first reader the <code>anomalies</code> table has ever had &mdash; 60 flag sites had been writing to it and nothing had ever read one.</li>
     <li><strong>2026-08-03 &mdash; Stage 2 implemented, and the "move the ack server-side" recommendation retracted.</strong> Drops are minted into the pending lane keyed on the battle event id, the client acks the same gid it applied inline, and raw descriptors are named at drain time. The ack stays in the save because <code>pendingGrants</code> reads it from the <em>stored</em> copy &mdash; which is what makes a lost save self-healing rather than prematurely acked. Verified 5/5; the mint-on-battle leg remains unverified in the harness.</li>
