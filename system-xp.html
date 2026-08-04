@@ -203,8 +203,45 @@ still exists and is still correct &mdash; nothing renders it.</p>
 <p><strong>The tier colour stays</strong> (owner ruling). A card still reads at a glance without naming what it
 is. Item grades are a separate system and are untouched.</p>
 
+<h2>Aptitude is a shape, not a score &mdash; LIVE 0.31</h2>
+<p>Base attributes are drawn as the same three-axis radar the class pages use: ATK at the top, DEF lower
+right, SPD lower left, rings at 25/50/75/100%, values scaled out of ten. It replaced the numeric rows on the
+creature sheet and the bar charts on the class card and the class selector. <strong>HP is not charted</strong>
+&mdash; the class pages chart three axes and list HP nowhere, and the in-game chart follows that exactly.
+Utility went with the bars for the same reason.</p>
+<p>The point is what a player reads off it. A grade of 9 reads as a quantity to be compared; a shape reads as
+an aptitude &mdash; what this creature is <em>for</em>. The geometry is shared with the codex so the two can
+never drift into two different triangles.</p>
+
+<h2>Move upgrades follow the stages &mdash; LIVE 0.31</h2>
+<p>A move exists in three versions, and a creature moves up through them by level. Until 0.31 <strong>every one
+of the hundred lines upgraded its entire four-move kit on a single level</strong>: all four to V2 at once, then
+all four to V3 at once. Learn levels were already staggered, so only the upgrade columns were flat &mdash; a
+column filled per line rather than per move. The result was a cliff: a creature crossed one level and gained
+its whole next kit.</p>
+<p><strong>The rule now:</strong></p>
+<ul>
+  <li>V1 is learned on the way to the second stage.</li>
+  <li>V2 lands inside the second-stage window &mdash; between the S2 advance and the S3 advance.</li>
+  <li>V3 lands only after the S3 advance, so a creature can never wield its final form's moves before it has
+      reached that form.</li>
+  <li>Everything is fully upgraded by level 90.</li>
+  <li>Each line has its own shape, so no level between 2 and 90 passes without some creature gaining
+      something &mdash; either a new move or an upgrade to one it has.</li>
+</ul>
+<p><strong>What found it.</strong> A player reported Hafgufa as overtuned. It was: Hafgufa is the second stage
+of the kraken line and advances at 69, but every move in that line upgraded to V3 at 54 &mdash; so for fifteen
+levels a mid-stage creature with the top attack grade held the full final kit, on the floors where it spawns.
+It was throwing <em>Collapse of the Trench</em>, a Kraken's move, at power 120. That move now cannot exist
+below level 80, and the line advances at 69, so a Hafgufa can never fire it.</p>
+
 <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-04 &mdash; aptitude radar and staggered move upgrades (LIVE in 0.31).</strong>
+      Base attributes became the codex's three-axis radar everywhere in game; HP is not charted. Move
+      upgrades were flat across every line's whole kit and now follow the stage windows, complete by 90,
+      with each line on its own schedule. Found by a player reporting Hafgufa as overtuned &mdash; it was
+      firing a Kraken's move fifteen levels before it could become one.</li>
     <li><strong>2026-08-04 &mdash; creatures no longer state their rarity (ON DEV, not yet on release).</strong>
       The C / UC / R / SR / SSR badges are gone from the creature card, the creature sheet, the hatch and codex
       lists, and from creature subtitles. Rarity still drives spawn rates, art and the codex, and the tier
