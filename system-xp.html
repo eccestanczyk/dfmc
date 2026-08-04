@@ -85,8 +85,46 @@
   An account with no stamp yet keeps what it holds. This is the same shape as the kill and battle counters, and for the
   same reason &mdash; a flat total would have confiscated real progress on the first save.</p>
 
-  <h2>Changelog</h2>
+  <h2>Who credits a battle's XP &mdash; nobody but the server</h2>
+<p><strong>ON DEV, not yet on release.</strong> Owner ruling, standing: <em>no client-credited battle
+rewards</em>. Account XP, class XP and Ichor are not moved when a battle ends. <code>/api/battle</code>
+answers with the figures the server derived from its own kill list, and those are the only numbers that
+ever reach the account or the screen.</p>
+<p><strong>What this replaced, stated precisely, because the end state was already correct.</strong> Since
+2026-08-03 the client credited its own arithmetic and then reconciled to the server's number as a delta
+when the response landed &mdash; so the stored total was already the server's. What was wrong was the
+<em>transient</em>: for the 67&ndash;256&nbsp;ms until the response arrived, the player's totals held a
+figure the server had never agreed to, and an uncredited battle (rate cap, spawn budget) had to be
+adjusted back down to zero afterwards. The local credit is now zero, which makes that same delta
+reconciliation an absolute apply with no second code path.</p>
+<ul>
+  <li><strong>Timing is not the obstacle and was measured, not assumed.</strong> The victory bar stages at
+      80&nbsp;/&nbsp;1000&nbsp;/&nbsp;1070&nbsp;ms while a live round trip is 67&ndash;256&nbsp;ms, so the
+      server's figure lands an order of magnitude inside the fill animation. The bar simply grows to it.</li>
+  <li><strong>The victory class row is rebuilt from the server's number too.</strong> Account XP is rendered
+      nowhere on the victory screen, so the class row is the one battle figure a player actually reads;
+      leaving it on the client's estimate would have kept showing a number the server never agreed to. The
+      row's XP text, both percentages and the level-up marker are recomputed from the same level function
+      the row was built with, so bar and label can never disagree.</li>
+  <li><strong>Creature XP is untouched by this.</strong> The server does not compute per-creature XP, so
+      <code>crXp</code> is still client-side. It is a separate question from the account ledger.</li>
+  <li><strong>An uncredited or unanswered battle now credits nothing at all</strong>, which is the ruling
+      working: the server credited nothing, so the player earns nothing. A battle cannot start without
+      connectivity in the first place &mdash; the battle-entry gate awaits a save flush and refuses the
+      fight if it does not land.</li>
+</ul>
+<p><strong>Why it matters beyond correctness.</strong> The two authorities disagreeing by design is what
+made <code>xp_over_ledger</code> fire on every live account &mdash; hundreds of times each, on four of four
+accounts measured. A guard that fires on every honest player describes the system, not the players, and a
+real offender would have been invisible inside it. With one authority the flag becomes a signal again.</p>
+
+<h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-04 &mdash; no client-credited battle rewards (ON DEV, not yet on release).</strong>
+      Account XP, class XP and Ichor are no longer moved at battle end; the server's figures are the only
+      ones that reach the account, and the victory class row is rebuilt from them when they land. The
+      delta reconciliation shipped 2026-08-03 already left the stored total correct &mdash; what this
+      removes is the window in which the player held a number the server never agreed to.</li>
     <li><strong>2026-08-01 &mdash; class XP moves server-side.</strong> It had no ledger and no ceiling; a save could
       claim any class level and keep it. The server now credits class XP itself per battle from the authored curve and
       the level-gap penalty, caps it at the level-100 cumulative, and clamps a claim to what it actually credited.
