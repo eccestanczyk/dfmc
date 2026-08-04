@@ -34,11 +34,15 @@
     <tr><td class="lbl">XP per battle</td><td>The sum over the battle&rsquo;s <strong>3 kills</strong>. Because <code>encounter_weights.csv</code> is tuned per floor against that same ladder, a full battle on floor&nbsp;<code>L</code> averages <code>&asymp; 10 &times; L</code> &mdash; within <strong>&plusmn;0.7%</strong> from level&nbsp;10 up (floor&nbsp;100: 999.4 against 1,000). Below level&nbsp;10 the 4-XP floor lifts it above the line</td></tr>
     <tr><td class="lbl">Battles per level</td><td><code>XP_To_Next(L) &divide; XP-per-battle(L)</code>, which reduces to <code>L^0.75</code> and then <code>23.4 &times; 1.16^(L&minus;67)</code>. Exact per-level values in the table below</td></tr>
   </table>
-  <p>The two phases are continuous at level&nbsp;67. XP per kill is flat in the enemy's level, so the battle counts below follow directly from the requirement curve.</p>
+  <p>The two phases are continuous at level&nbsp;67. Per-kill XP is <em>not</em> flat in the enemy's level &mdash; it is the authored table &mdash; but a whole battle tracks <code>10 &times; L</code> closely enough that the battle counts follow the requirement curve almost exactly.</p>
 
-  <h2>Battles-per-level curve</h2>
+  <h2>XP curve</h2>
+  <div class="sp-chart"><canvas id="xpReqChart" width="760" height="330"></canvas></div>
+  <p style="font-size:13px;color:var(--ink-faint)">Log scale, plotted from <code>codex/XPCurve.csv</code>. <span style="color:#dd5646">Requirement for the next level</span> and <span style="color:#cfa650">cumulative XP to reach the level</span>. The knee at&nbsp;67 is where <code>10&nbsp;&times;&nbsp;L^1.75</code> hands off to the +16%-per-level geometric phase; the last ten levels cost more than the first ninety put together.</p>
+
+  <h2>Battles curve</h2>
   <div class="sp-chart"><canvas id="xpChart" width="760" height="330"></canvas></div>
-  <p style="font-size:13px;color:var(--ink-faint)">Log scale. The knee at level&nbsp;67 is where the gentle phase hands off to the +16%-per-level geometric phase.</p>
+  <p style="font-size:13px;color:var(--ink-faint)">The same curve divided by what a battle actually pays &mdash; <span style="color:#dd5646">battles spent at each level</span> and <span style="color:#cfa650">cumulative battles to reach it</span>, at the level-appropriate floor's own rarity mix over the &minus;3&hellip;+3 spawn spread. Log scale. Level&nbsp;100 has no bar of its own: it is the finish line, 20,346 battles out.</p>
 
   <h2>Milestones</h2>
   <table>
@@ -146,6 +150,13 @@ real offender would have been invisible inside it. With one authority the flag b
 
 <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-04 &mdash; both curves are now charted (live, on release).</strong> The single
+      battles-per-level canvas became two, drawn by one generic log-scale routine off the same loaded data:
+      an <strong>XP curve</strong> (requirement for the next level against cumulative XP to reach it) and a
+      <strong>battles curve</strong> (battles spent at each level against cumulative battles to reach it).
+      Both carry a legend and the level-67 knee marker. The caption above them claimed per-kill XP is flat in
+      the enemy's level, which is the same error the Formulas table carried &mdash; corrected: the flat thing
+      is a whole battle, at <code>&asymp;10&nbsp;&times;&nbsp;L</code>.</li>
     <li><strong>2026-08-04 &mdash; battles-to-level, averaged over the real spawn spread (live, on release).</strong>
       The level-by-level table gains <strong>battles to reach that level</strong> and <strong>time to reach it</strong>
       (at 30 battles/h), and the XP-per-battle column is no longer read off the floor's own row: it now averages the
@@ -262,23 +273,58 @@ Promise.all([CSV('codex/XPCurve.csv'), CSV('codex/encounter_weights.csv')]).then
 }).catch(function(){ /* fallback curve stays in force */ })
   .then(function(){ renderMilestones(); renderCurve(); drawChart(); });
 
-function drawChart(){
-  var cv=document.getElementById('xpChart'), ctx=cv.getContext('2d');
-  var W=cv.width,H=cv.height, ml=54,mr=16,mt=16,mb=34;
-  var minY=Math.log10(0.8), maxY=Math.log10(3000);
+// cumulative battles to REACH level L (so L1 = 0 and L100 = the whole climb)
+var _cumB=null;
+function cumBattles(L){
+  if(!_cumB){ _cumB=[0,0]; for(var i=1;i<100;i++) _cumB[i+1]=_cumB[i]+battlesAt(i); }
+  return _cumB[L]||0; }
+function axisFmt(v){
+  if(v>=1e6) return (v/1e6)+'M';
+  if(v>=1e3) return (v/1e3)+'k';
+  return String(v); }
+// one generic log-scale line chart, so both figures are drawn by the same code from the same data
+function lineChart(id, series, axis, yTitle){
+  var cv=document.getElementById(id); if(!cv) return;
+  var ctx=cv.getContext('2d'), W=cv.width, H=cv.height, ml=58, mr=16, mt=26, mb=34;
+  var lo=Math.log10(axis.min), hi=Math.log10(axis.max);
   function px(L){ return ml+(L-1)/99*(W-ml-mr); }
-  function py(v){ var t=(Math.log10(v)-minY)/(maxY-minY); return mt+(1-t)*(H-mt-mb); }
+  function py(v){ var t=(Math.log10(v)-lo)/(hi-lo); return mt+(1-t)*(H-mt-mb); }
   ctx.clearRect(0,0,W,H);
-  ctx.strokeStyle='#3a2c1a'; ctx.fillStyle='#8a7a5e'; ctx.font="11px 'Cinzel',serif";
-  [1,10,100,1000].forEach(function(v){ var y=py(v); ctx.beginPath(); ctx.moveTo(ml,y); ctx.lineTo(W-mr,y); ctx.stroke(); ctx.fillText(v.toLocaleString(),6,y+4); });
-  for(var L=1;L<=100;L+=10){ var x=px(L); ctx.strokeStyle='#2a2015'; ctx.beginPath(); ctx.moveTo(x,mt); ctx.lineTo(x,H-mb); ctx.stroke(); ctx.fillStyle='#8a7a5e'; ctx.textAlign='center'; ctx.fillText(L===1?'1':L, x, H-mb+16); ctx.textAlign='left'; }
-  var x67=px(67); ctx.strokeStyle='#cfa650'; ctx.setLineDash([4,4]); ctx.beginPath(); ctx.moveTo(x67,mt); ctx.lineTo(x67,H-mb); ctx.stroke(); ctx.setLineDash([]);
-  ctx.fillStyle='#cfa650'; ctx.textAlign='center'; ctx.fillText('L67', x67, mt+12); ctx.textAlign='left';
-  ctx.lineWidth=2.4; ctx.strokeStyle='#dd5646'; ctx.beginPath();
-  for(var L=1;L<=99;L++){ var xx=px(L), yy=py(battlesAt(L)); if(L===1)ctx.moveTo(xx,yy); else ctx.lineTo(xx,yy); } ctx.stroke();
+  ctx.font="11px 'Cinzel',serif";
+  axis.ticks.forEach(function(v){ var y=py(v);
+    ctx.strokeStyle='#3a2c1a'; ctx.beginPath(); ctx.moveTo(ml,y); ctx.lineTo(W-mr,y); ctx.stroke();
+    ctx.fillStyle='#8a7a5e'; ctx.textAlign='right'; ctx.fillText(axisFmt(v), ml-6, y+4); ctx.textAlign='left'; });
+  for(var L=1;L<=100;L+=10){ var x=px(L);
+    ctx.strokeStyle='#2a2015'; ctx.beginPath(); ctx.moveTo(x,mt); ctx.lineTo(x,H-mb); ctx.stroke();
+    ctx.fillStyle='#8a7a5e'; ctx.textAlign='center'; ctx.fillText(L===1?'1':L, x, H-mb+16); ctx.textAlign='left'; }
+  var x67=px(67);
+  ctx.strokeStyle='#cfa650'; ctx.setLineDash([4,4]); ctx.beginPath(); ctx.moveTo(x67,mt); ctx.lineTo(x67,H-mb); ctx.stroke(); ctx.setLineDash([]);
+  ctx.fillStyle='#cfa650'; ctx.textAlign='center'; ctx.fillText('L67', x67, mt-8); ctx.textAlign='left';
+  series.forEach(function(sr){
+    ctx.lineWidth=2.4; ctx.strokeStyle=sr.color; ctx.beginPath(); var started=false;
+    for(var L=1;L<=100;L++){ var v=sr.f(L); if(!(v>0)) continue;
+      var xx=px(L), yy=Math.max(mt, Math.min(H-mb, py(v)));
+      if(!started){ ctx.moveTo(xx,yy); started=true; } else ctx.lineTo(xx,yy); }
+    ctx.stroke(); });
+  var lx=ml+10;
+  series.forEach(function(sr){
+    ctx.strokeStyle=sr.color; ctx.lineWidth=2.4; ctx.beginPath(); ctx.moveTo(lx,mt-8); ctx.lineTo(lx+16,mt-8); ctx.stroke();
+    ctx.fillStyle='#c2ae8b'; ctx.font="11px 'Cinzel',serif"; ctx.fillText(sr.name, lx+21, mt-4);
+    lx+=32+ctx.measureText(sr.name).width; });
   ctx.fillStyle='#c2ae8b'; ctx.font="12px 'Cinzel',serif"; ctx.textAlign='center';
-  ctx.fillText('character level  \u2192', W/2, H-4);
-  ctx.save(); ctx.translate(14,H/2); ctx.rotate(-Math.PI/2); ctx.fillText('battles per level (log)',0,0); ctx.restore(); ctx.textAlign='left';
+  ctx.fillText('level  \u2192', W/2, H-4);
+  ctx.save(); ctx.translate(14,H/2); ctx.rotate(-Math.PI/2); ctx.fillText(yTitle,0,0); ctx.restore(); ctx.textAlign='left';
+}
+function drawChart(){
+  _cumB=null;
+  lineChart('xpReqChart',
+    [{name:'XP to next level', color:'#dd5646', f:function(L){ return toNextAt(L); }},
+     {name:'cumulative XP',    color:'#cfa650', f:function(L){ return cumAt(L); }}],
+    {min:8, max:3e7, ticks:[10,100,1000,1e4,1e5,1e6,1e7]}, 'XP (log)');
+  lineChart('xpChart',
+    [{name:'battles at level',   color:'#dd5646', f:function(L){ return battlesAt(L); }},
+     {name:'cumulative battles', color:'#cfa650', f:function(L){ return cumBattles(L); }}],
+    {min:0.5, max:3e4, ticks:[1,10,100,1000,1e4]}, 'battles (log)');
 }
 </script>
 <script src="admin.js"></script>
