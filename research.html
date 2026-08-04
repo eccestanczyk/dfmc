@@ -263,8 +263,75 @@
   for the client's per-key upload &mdash; which is exactly the PlayFab / Unity / Nakama model. That is a deliberate
   semantic flip, not a deletion.</p>
 
+  <h2>5. How games write patch notes (2026-08-04)</h2>
+  <p><strong>The question.</strong> Two releases shipped in one day and the Discord notice was written for one of
+  them and forgotten for the other; two of five changes reached release with no codex entry. The failure was not
+  knowing what to write &mdash; it was that writing it was an afterthought rather than a step.</p>
+
+  <h3>The Path of Exile article, and it is a real primary source</h3>
+  <p>&ldquo;How Patch Notes Get Made&rdquo;, Path of Exile forum, 28 December 2020, written by Nick, GGG's senior
+  Narrative Designer. Its central point is the one that matters most here: <strong>patch notes are not generated
+  from commits.</strong> A human reads roughly twenty thousand commits per expansion, keeps only what a player
+  would notice, traces each one back to its work item to find out what it actually means, and then goes into the
+  game and reads every before/after number by hand &mdash; the step he says he dreads, because it is the one where
+  things get missed. Finished notes run 7,000&ndash;14,000 words and take about eighty hours.</p>
+  <ul class="sp-rules">
+    <li><strong>Commit notes are written for developers and are useless to players.</strong> &ldquo;Tweaked the
+        damage&rdquo; tells a player nothing. Translation is the craft, and it cannot be automated.</li>
+    <li><strong>Most work is deliberately not noted.</strong> Performance, audio and internal tidying stay out.</li>
+    <li><strong>The notes will be wrong on publication</strong> and players will find it. He corrects live rather
+        than pretending otherwise.</li>
+  </ul>
+
+  <h3>What the rest of the industry converges on</h3>
+  <ul class="sp-rules">
+    <li><strong>League of Legends</strong> pairs every balance change with a one-line reason above the numbers.
+        The reason defuses far more anger than the number causes.</li>
+    <li><strong>Deep Rock Galactic</strong> headers a nerf as a NERF, in a consistent in-fiction voice.</li>
+    <li><strong>Factorio</strong> splits the channels: a dry exhaustive changelog for <em>what</em>, a dev blog for
+        <em>why</em>, so the changelog stays scannable.</li>
+    <li><strong>Dwarf Fortress</strong> shows that specificity is the comedy. The humour is a by-product of writing
+        the strange true detail, not of adding jokes.</li>
+    <li><strong>Old School RuneScape</strong> polls design questions &mdash; but Jagex itself warned polls
+        &ldquo;offer an illusion of choice&rdquo; when the thing is already built. Poll open questions only.</li>
+  </ul>
+
+  <h3>Why this matters more here than for most games</h3>
+  <p>Herumon Tower is competitive with leaderboards, and players measure. The documented incidents are all about
+  <em>omission</em>, not about the change itself: Destiny 2's Edge of Fate undocumented nerfs, where Bungie's
+  community lead answered &ldquo;we would be completely out of our minds if we thought we could slip something
+  under the rug&rdquo;; and Helldivers 2, where a fire-buildup value moved from 2.0 to 2.1 undocumented and the
+  community found it by testing &mdash; the studio's own explanation was that small balance changes were not being
+  collated properly. <strong>A missing line in a leaderboard game is indistinguishable from cheating.</strong>
+  Even GGG has been caught by this: PoE2's 0.2.0 withheld exact numbers, players read it as hiding nerfs, and a
+  game director conceded there were blatant mistakes.</p>
+
+  <h3>Crediting the player who found it</h3>
+  <p>Accepted practice, and it pays for itself: name the reporter, with permission. Riot does it in Valorant notes.
+  The reasoning is that players who see their report land keep reporting, and players who report into a void stop.
+  With eleven alpha players the rule needs to be consistent or it reads as favouritism &mdash; first clear
+  reproducible report gets the credit line.</p>
+
+  <h3>Where Herumon Tower already agrees, and where it did not</h3>
+  <ul class="sp-rules">
+    <li><strong>Agrees:</strong> `changelog.json` already splits `player` from `dev`, which is the audience split
+        the whole field recommends. The release gate already refuses an undated or unreleased entry, and already
+        counts player lines against player-visible commits.</li>
+    <li><strong>Did not:</strong> nothing forced the Discord post, and nothing forced a codex entry. Both were
+        habits, and habits fail at the end of a long session. They are now steps in the release gate's checklist
+        rather than things to remember.</li>
+    <li><strong>Did not:</strong> player lines were being written at release time from the commit log &mdash;
+        exactly the reconstruction problem Nick describes at twenty-thousand-commit scale. The line now gets
+        written at the moment the change is made.</li>
+  </ul>
+
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-08-04 &mdash; fifth entry: how games write patch notes.</strong> Prompted by forgetting the
+      Discord notice on one of two same-day releases and shipping two changes with no codex entry. Confirms the
+      Path of Exile article (Nick, GGG, 28 Dec 2020) and its core rule that notes are translated by a human, never
+      generated from commits. Records why omission is uniquely costly in a leaderboard game, and the practice of
+      crediting the reporter by name.</li>
     <li><strong>2026-08-04 &mdash; fourth entry: keeping a split save consistent when many paths write it.</strong>
       An audit found six writers of <code>saves</code> and only one writing <code>save_parts</code>, plus a realm
       reset that never deletes the parts at all &mdash; which would resurrect a deleted run at read cutover. The
