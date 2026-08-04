@@ -818,6 +818,49 @@
   &mdash; survived because the server derived it from its own tables, which is the doctrine working exactly
   as intended.</p>
 
+  <h2>Travelling while the line is down &mdash; the veil watchdog</h2>
+  <p><strong>ON DEV, not yet on release.</strong> The floor-transit veil (ASCENDING / DESCENDING) is an
+  input-blocking overlay held up until the next floor is real: the server's answer for that floor, then
+  its plate and every spawn image decoded. Reported 2026-08-04 from a metro tunnel: the veil read
+  ASCENDING &middot; FLOOR 23 and never lifted, and it stayed up after the connection came back. Only a
+  reload cleared it. Reproduced headless before anything was changed.</p>
+  <table>
+    <tr><th>Rule</th><th>As built 2026-08-04 (dev)</th></tr>
+    <tr><td class="lbl">The refusal comes before the veil</td><td><code>travel()</code> and
+      <code>travelTo()</code> refuse outright while <code>__HT_PAUSED</code> is set, the way
+      <code>enterBossRoom()</code> always has. Previously the veil went up first and the refusal happened
+      one call later, inside <code>preloadFloor</code>. The page above has claimed since 2026-08-02 that
+      &ldquo;floor and boss entry refuse while paused&rdquo;; that was true of the intent and of boss
+      entry, and one call too late for floors.</td></tr>
+    <tr><td class="lbl">A refusal never leaves a veil behind</td><td><code>preloadFloor</code> still
+      refuses while paused, and now clears any transit it is declining to drive &mdash; the case where the
+      pause lands between raising the veil and the call, and the re-entry from
+      <code>syncFloorSrv</code>'s callback.</td></tr>
+    <tr><td class="lbl">The watchdog belongs to whoever raises the veil</td><td>Every anti-softlock timer
+      used to be armed <em>inside</em> <code>preloadFloor</code> (two of them, both 30&nbsp;s), so a veil
+      raised by a path that never reached it was watched by nothing. Each trip now carries a token and
+      <code>veilWatch(tok, target)</code> is armed by <code>travel</code>/<code>travelTo</code> at 35&nbsp;s
+      &mdash; longer than both inner timers, so it only ever fires when they were never armed. It cancels
+      the trip and shows FLOOR n UNREACHABLE. Keyed on the token, not on floor numbers, because
+      <code>travelTo</code> may legally target the current floor.</td></tr>
+    <tr><td class="lbl">Resume finishes the trip</td><td><code>onConnectionChange(false)</code> re-drives a
+      pending transit through <code>preloadFloor(target)</code>. It previously only reset the pacing
+      counters, so a trip caught in flight had nothing to restart it &mdash; and
+      <code>travel</code>/<code>travelTo</code>/<code>enterBossRoom</code> all refuse while a transit is
+      set, so the player could not restart it either.</td></tr>
+    <tr><td class="lbl">Nothing is credited for the attempt</td><td>The watchdog cancels; it does not
+      retry and does not advance the floor. A refused or abandoned trip leaves <code>floorNum</code>,
+      the streak and the server untouched &mdash; the doctrine is unchanged, only the exit is.</td></tr>
+  </table>
+  <p><strong>Why it was near-certain rather than rare.</strong> Autoplay's auto-advance branch calls
+  <code>travel('up')</code> on a 2.6&nbsp;s cadence and had no pause check of its own, so any autoplaying
+  account that lost its line on an open floor raised a veil nothing could clear. The refusal in
+  <code>travel()</code> covers that branch and the manual button and the floor map in one place.</p>
+  <p><strong>Measured:</strong> <code>tools/probe_veil.py</code> &mdash; normal travel lands; a paused
+  travel raises no veil; an orphaned veil is cleared; a trip caught by a pause completes on resume; a veil
+  nothing drives clears itself within 35&nbsp;s and hands control back. BEFORE 1/6, AFTER 6/6 against the
+  real client.</p>
+
   <h2>The fence &mdash; who owns the save right now</h2>
   <p>A login already fences other <em>devices</em>: <code>/api/_internal/session</code> deletes every
   previous token for the steamid, so the old device's next request is simply unauthenticated. It does not
@@ -1048,6 +1091,14 @@ wrote, and whatever reads it must still treat it as untrusted and never interpol
 
 <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-04 &mdash; the transit veil can no longer outlive the outage that raised it (ON DEV, not yet on release).</strong>
+      Reported from a metro tunnel: stuck on ASCENDING &middot; FLOOR 23, still stuck after the connection
+      returned. <code>travel</code>/<code>travelTo</code> now refuse while paused instead of raising a veil
+      <code>preloadFloor</code> will not drive; <code>preloadFloor</code> clears a veil it refuses; the
+      35&nbsp;s watchdog is armed by whoever raises the veil rather than living inside
+      <code>preloadFloor</code>; and a resumed connection re-drives a trip caught in flight. Autoplay's
+      auto-advance was the branch that made it near-certain. Nothing is credited for a cancelled trip.
+      BEFORE 1/6, AFTER 6/6 on <code>tools/probe_veil.py</code>.</li>
     <li><strong>2026-08-04 &mdash; the battle credit is retried, and an outage is a reconnecting screen (ON DEV, not yet on release).</strong>
       Three attempts with backoff on network errors and 5xx, 429 honoured at the server's own retry_ms,
       other 4xx never retried because a decision is not an outage. Exhausting them pauses play at once
