@@ -423,9 +423,25 @@
   token from a per-account bucket for that class. The classes and their buckets (<code>src/worker.js</code>,
   <code>RATE</code>): <code>battle</code> 12&nbsp;/&nbsp;1&nbsp;per&nbsp;min, <code>floor</code> 15&nbsp;/&nbsp;4,
   <code>save</code> 10&nbsp;/&nbsp;6, <code>save_read</code> 30&nbsp;/&nbsp;30, <code>name</code> 3&nbsp;/&nbsp;0.05,
-  <code>auth</code> 10&nbsp;/&nbsp;10, <code>db</code> 40&nbsp;/&nbsp;20, <code>other</code> 20&nbsp;/&nbsp;12, plus a
+  <code>auth</code> 10&nbsp;/&nbsp;10, <code>db</code> 40&nbsp;/&nbsp;20, <code>wallet</code> 12&nbsp;/&nbsp;20, <code>other</code> 20&nbsp;/&nbsp;12, plus a
   blanket <code>ip_all</code> of 240&nbsp;/&nbsp;120 per address. An empty bucket answers
   <code>429 {error:'rate'}</code>.</p>
+  <div class="note"><strong><code>wallet</code> exists because a generic bucket punished a normal player
+  (2026-08-04).</strong> <code>/api/wallet/spend</code> and <code>/api/shop/buy</code> matched no prefix, so
+  they fell into <code>other</code> and shared its 20 tokens with hatching, breeding, feedback and the shop
+  catalogue. A player mid-session has only a handful left, so a couple of quick clicks on the inventory
+  <em>+</em> button returned <code>429</code> &mdash; shown to the player as <em>PURCHASE FAILED</em> with no
+  reason, and, worse, passed to <code>reportBreach</code>, which files that account into the traffic table.
+  <strong>Mashing a buy button looked like abuse in our own anticheat record.</strong>
+  <br><br>These calls spend the player's <em>own</em> currency, are server-validated and carry an idempotency
+  key, so repeating one mints nothing: the limit is there for server cost, not for economy abuse. The class is
+  therefore sized so a legitimate player <em>cannot</em> reach it &mdash; the client paces purchases at one per
+  five seconds behind a confirmation gate (12/min) while the bucket refills at 20/min with a burst of 12 for
+  someone buying several slot tiers after topping up. Measured: mashing from a full bucket is refused on the
+  13th call, while thirty purchases at the client's pace never take the bucket below 11 tokens.
+  <strong>The client is the pacer; the bucket is only the backstop.</strong> A rate class that a normal player
+  can reach is a bug report waiting to be filed against the wrong subsystem.</div>
+
   <p>A refusal also <strong>escalates</strong>. <code>reportBreach</code> posts the (account, class) pair to the
   WorldDO at most once per <code>RATE_FLAG_MS</code> (default 60s); once <code>TRAFFIC_BLOCK_N</code> reports
   (default <strong>3</strong>) land inside a rolling 10 minutes, <code>traffic_status</code> is set
@@ -484,6 +500,7 @@
 
   <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-04 &mdash; new <code>wallet</code> rate class (ON DEV, not yet on release).</strong> Currency spends no longer share the generic <code>other</code> bucket, where normal play left too few tokens for a couple of clicks on the inventory <em>+</em> and produced a 429 that was both shown as PURCHASE FAILED and filed as a traffic breach.</li>
     <li><strong>2026-08-04 &mdash; restore does not write history or save parts.</strong> Recorded against a live account: a restore created ver 65 in <code>saves</code> while the history ring still topped out at ver 64 and no <code>save_parts</code> row existed. Harmless while <code>saves</code> is authoritative; a silent data-loss bug the moment reads cut over to parts. Also: the first sweep of these doors was run unpaced and dropped responses were swallowed into empty results by the tooling, which read as missing data on accounts that had answered correctly minutes earlier &mdash; pace the requests and print the status.</li>
     <li><strong>2026-08-04 &mdash; the PvP queue door answered 401 on release; root cause was route placement, and the full ops-door set is now documented (ON DEV, not yet on release).</strong> <code>/api/_internal/pvpq</code> had been written among the PvP routes, roughly 1,150 lines below the blanket session gate in <code>MainDO.fetch</code>, while all thirty-odd sibling internal routes sit above it. The Worker forwards internal calls with no session cookie, so the object refused the request before the handler ran and the ops key was never the problem. Moved above the gate with the invariant recorded at the call site. No logic changed &mdash; the diff is the move plus a comment. Also fixed on this page: the &ldquo;Ops reads&rdquo; section had been appended <em>after</em> <code>&lt;/body&gt;&lt;/html&gt;</code>, so the page had been shipping malformed since it was added.</li>
     <li><strong>2026-08-03 &mdash; dismantle yield extracted to a shared, parity-gated module (ON DEV, not enforcing yet).</strong> The yield lived only in the client, which is why the ops dismantle door deletes rows and credits nothing, and why dismantle Ichor is client-minted against a battle-only ceiling. <code>src/dismantle.js</code> now carries it on the <code>src/power.js</code> pattern, proven 9/9 against the live client over all 1,515 authored rows. Server-side validation by save-diff is the next batch.</li>
