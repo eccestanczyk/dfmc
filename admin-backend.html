@@ -559,6 +559,30 @@
       rows and tombstones.</td></tr>
     <tr><td class="lbl"><code>GET /api/backup/parts?key=&amp;sid=&amp;realm=</code></td><td>Split save parts
       and <code>rejoin_ok</code> &mdash; the stage-2 gate for the save split.</td></tr>
+<tr><td colspan="2"><strong>2026-08-04 &mdash; the detected-but-unenforced flag class reports itself (ON DEV).</strong>
+Fifteen flag kinds now file a bug report into the same inbox as player reports, with
+<code>kind='auto'</code> and <code>status='open'</code>, instead of waiting in the flags door to be found by
+hand. <strong>Written server-side on purpose.</strong> The obvious route was the client's automatic report, and
+that was rejected: sending a server detection back through the client tells the client which guard fired, which
+is the exact criticism of <code>headOk</code> &mdash; computed, flagged, returned to the caller, gating nothing,
+so the reply announces the catch. The client is told nothing.
+<br><br><strong>It is an allowlist, not everything.</strong> Most flags are routine and reporting them would bury
+the ones that are not. Reported: <code>dismantle_claim_bad</code>, <code>inv_unsourced</code>,
+<code>party_line_dupe</code>, <code>grow_only_map</code>, <code>maxfloor_regress</code>,
+<code>wraithgold_over_grant</code>, <code>save_conflict</code>, <code>stale_instance</code>,
+<code>chain_break</code>, <code>xp_over_ledger</code>, <code>classxp_over_ledger</code>,
+<code>ichor_over_ledger</code>, <code>boss_floor_anomaly</code>, <code>floor_oob</code>, <code>roll_rate</code>.
+Deliberately excluded, each for a reason: <code>grow_only</code> (the normal outcome of a grow-only merge, 237 on
+one account), <code>save_oversize</code> and <code>save_large</code> (the save ceiling, owned by the split),
+<code>rate_cap</code> (the cap doing its job), and <code>dead_slot</code> (measured benign &mdash; a legitimately
+resumed battle claims a spawn the server already marked dead, so reporting it would report honest players).
+<br><br><strong>Deduped and budgeted.</strong> One report per account per kind per day, held on disk rather than
+in the isolate's memory, because an isolate restart would otherwise file the same report again. Forty automatic
+rows a day across the whole inbox, because the failure mode of a reporter is a systemic bug filing thousands of
+rows and burying every real report including its own. The flag row itself is written regardless: the reporter has
+its own <code>try</code> and can never stop the evidence being recorded.
+<br><br><strong>None of this enforces anything.</strong> These guards still gate nothing; what changed is that
+they now arrive somewhere they will be read.</td></tr>
 <tr><td colspan="2"><strong>2026-08-04 &mdash; the parts door also answers freshness (ON DEV).</strong> It now returns <code>fresh</code>, <code>saves_ver</code>, <code>mark_ver</code>, <code>gen</code> and <code>mark_gen</code> beside <code>n</code> and <code>rejoin_ok</code>. <code>fresh</code> is the stage-3 gate in miniature: the parts are only servable while the stored watermark equals <code>saves.ver</code> and the wipe generation matches. Watch it before the read cutover &mdash; once every writer goes through <code>writeSave()</code> a not-fresh account should be rare, and a sustained rate names a writer still bypassing the facade.</td></tr>
     <tr><td class="lbl"><code>GET /api/backup/pvpq?key=</code></td><td>The PvP queue: one row per node with
       <code>age_ms</code>, and a count of how many are <em>pairable</em> right now. Age is the point &mdash;
