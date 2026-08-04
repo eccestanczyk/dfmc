@@ -1001,8 +1001,59 @@ at read cutover the wiped run would have loaded straight back out of the project
 not have happened. Both defences are in: the generation stamped on the watermark makes stale parts unreadable, and
 the rows are deleted as well, because ignoring data is not reclaiming it.</p>
 
+<h2>When the battle credit cannot be delivered</h2>
+<p><strong>ON DEV, not yet on release.</strong> The server's figure is the only number a battle pays
+(see <em>system-xp.html</em>), so the question of what happens when that answer does not arrive stopped
+being cosmetic. Owner ruling: hold the player for a couple more tries; local authority is never an
+option; if it is an outage the player gets the reconnecting window, not a fabricated battle end; and a
+failure files an automatic report.</p>
+<table>
+  <tr><th>Answer</th><th>What happens</th></tr>
+  <tr><td>Network throw, or 5xx</td><td><strong>Retried.</strong> The request may never have arrived.
+      Three attempts total, backing off 600&nbsp;ms then 1800&nbsp;ms with jitter.</td></tr>
+  <tr><td>429</td><td><strong>Retried, but never sooner than the server's own <code>retry_ms</code>.</strong>
+      Retrying inside the window is what turns a rate limit into a soft block, and a soft block on an
+      honest player is how the seven-hour login incident happened.</td></tr>
+  <tr><td>Any other 4xx</td><td><strong>Not retried.</strong> A 400/403/409 is a decision, not an outage;
+      hammering it spends the bucket and files an honest player into the traffic table. The body still
+      heals the floor pool exactly as before.</td></tr>
+  <tr><td>All attempts exhausted</td><td><strong>That is the outage.</strong> Play pauses into the
+      reconnecting window, nothing is credited, nothing is banked, and one automatic report is filed.</td></tr>
+</table>
+<p><strong>Retrying is safe by construction, and it was checked rather than assumed.</strong>
+<code>/api/battle</code> is deduplicated on the battle event id, so a repeat credits once.</p>
+<p><strong>But the dedup branch used to answer nothing, and that was a hole the moment the client stopped
+crediting itself.</strong> It returned <code>{ok, dedup}</code> with no figures, so a retry after a
+<em>lost response</em> &mdash; the request landed, the answer did not &mdash; paid the player zero for a
+battle the server really had credited. The event row now stores the answer it gave and the dedup branch
+replays it. It costs nothing extra: the credited figures are all known where the row is already written,
+and rows written is most of the bill. Drops are deliberately <em>not</em> replayed inline &mdash; they
+were minted into the pending lane, and draining that lane exactly once is the whole point of it. Events
+recorded before this shipped have no stored answer and replay as a bare dedup, which is the old
+behaviour rather than a new hole.</p>
+<p><strong>An exhausted credit pauses immediately, and does not wait for the poll.</strong> The connection
+check normally requires two consecutive misses &mdash; one blip is not an outage. A caller that has
+already failed three attempts with backoff has proved the point far better than one poll miss, so it asks
+to pause at once. Waiting for a second miss let the player fight another battle that could not be
+credited either, which is precisely what &ldquo;nothing happens offline&rdquo; forbids. Incidental
+failures and the 60&nbsp;s poll keep the two-miss rule.</p>
+<p><strong>The report is budgeted and bounded.</strong> <code>/api/feedback</code> shares the
+<code>other</code> rate class with hatching, breeding and the shop catalogue, so during an outage an
+autoplaying account would otherwise file one report per battle and rate-limit itself &mdash; reporting a
+failure must never become the second failure. Battle-credit failures get two reports per session with a
+sixty-second cooldown; the boot bucket keeps its separate one-per-boot budget. The log payload is capped
+per line, truncated to the last 16&nbsp;KB (the failure is at the end, not the start) and stripped of C0
+control bytes. That is a size and hygiene bound, not a security boundary: a report is text a browser
+wrote, and whatever reads it must still treat it as untrusted and never interpolate it as markup.</p>
+
 <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-04 &mdash; the battle credit is retried, and an outage is a reconnecting screen (ON DEV, not yet on release).</strong>
+      Three attempts with backoff on network errors and 5xx, 429 honoured at the server's own retry_ms,
+      other 4xx never retried because a decision is not an outage. Exhausting them pauses play at once
+      rather than waiting for a second poll miss, and files one bounded, budgeted automatic report.
+      The dedup branch of <code>/api/battle</code> now REPLAYS the answer it gave, closing the case where
+      a lost response paid the player nothing for a battle the server had credited.</li>
     <li><strong>2026-08-04 &mdash; one write path and a parts watermark (ON DEV, not yet on release).</strong>
       Six code paths wrote <code>saves</code> and one wrote the parts; all six now go through
       <code>writeSave()</code>, which splits and stamps a watermark in the same transaction. The read cutover will
