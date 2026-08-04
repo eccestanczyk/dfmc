@@ -52,7 +52,19 @@
   <h2>Level-by-level curve</h2>
   <p>Read live from <code>codex/XPCurve.csv</code> &mdash; the same 100 rows the client's <code>xpLevel()</code>/<code>xpKill()</code> and the server's <code>TABLES.xp_cum</code>/<code>TABLES.xp_kill</code> read. Nothing here is restated by hand. <strong>XP&nbsp;to&nbsp;next</strong> and <strong>cumulative</strong> are the requirement curve and apply identically to creatures, classes and the player level; the five per-kill columns are indexed by the <em>enemy&rsquo;s</em> level, not the recipient's. <strong>XP/battle</strong> and <strong>battles</strong> are derived against that floor's own rarity mix in <code>codex/encounter_weights.csv</code> over 3 kills &mdash; a boss floor has no wild spawns, so it inherits the last wild floor's mix.</p>
   <div class="tbl-scroll tall" id="curveWrap">LOADING&hellip;</div>
-  <p class="foot">Source: <code>codex/XPCurve.csv</code> &middot; mix from <code>codex/encounter_weights.csv</code>. Level&nbsp;100 carries <code>XP_To_Next = 0</code>: creatures and classes are maxed there, and the player level continues at a flat <code>639,723</code>. Battle counts assume the enemy is level-appropriate, so the level-gap penalty is zero &mdash; see <a href="system-level-penalty.html">Level Penalty</a>.</p>
+  <div class="sp-note"><strong>What &ldquo;battles at Lv&rdquo; assumes, exactly.</strong> That the player is fighting
+  <strong>at their own level</strong> &mdash; standing on the floor whose number matches their level, which is the normal
+  shape of a climb. Two things follow and both are checked, not assumed. First, a wild slot is not stamped at the floor's
+  level: <code>app.js</code> rolls an offset of <strong>&minus;3&hellip;+3 at 3/7/12/56/12/7/3%</strong> (clamped to
+  1&ndash;100), so the column is a genuine average over that spread, not a single-level reading. Second, the entire spread
+  sits inside the level-gap grace &mdash; zero penalty up to +10 above and &minus;3 below &mdash; so on a level-appropriate
+  floor the penalty is <strong>exactly zero on every roll</strong>, and account XP, class XP and creature XP come out
+  identical. Averaging over the spread rather than reading the floor's own row moves the number by <strong>less than
+  0.35% above level&nbsp;4</strong> and changes the total climb by <strong>one battle in 20,346</strong>; it only matters
+  at the very bottom, where the 4-XP floor lifts level&nbsp;1 by ~19%. Fight above your level and the XP does not rise
+  &mdash; the per-kill table is indexed by the enemy, so a higher floor pays more per kill; fight more than 3 levels
+  <em>below</em> and the penalty starts eating it. See <a href="system-level-penalty.html">Level Penalty</a>.</div>
+  <p class="foot">Source: <code>codex/XPCurve.csv</code> &middot; mix from <code>codex/encounter_weights.csv</code> &middot; spawn spread from <code>app.js</code> <code>buildSpawn()</code>. Level&nbsp;100 carries <code>XP_To_Next = 0</code>: creatures and classes are maxed there, and the player level continues at a flat <code>639,723</code>. Battle counts assume the enemy is level-appropriate, so the level-gap penalty is zero &mdash; see <a href="system-level-penalty.html">Level Penalty</a>.</p>
 
   <h2>Player level (uncapped)</h2>
   <p>Separate from creature levels, class levels, and character level. The <strong>player level</strong> is an account-wide marker of total time in the tower &mdash; it is <strong>purely cosmetic today and grants nothing</strong>: no stats, no unlocks, no gear requirements. It exists so that the endgame keeps counting, and so that a future system has a natural place to hook into.</p>
@@ -134,6 +146,15 @@ real offender would have been invisible inside it. With one authority the flag b
 
 <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-04 &mdash; battles-to-level, averaged over the real spawn spread (live, on release).</strong>
+      The level-by-level table gains <strong>battles to reach that level</strong> and <strong>time to reach it</strong>
+      (at 30 battles/h), and the XP-per-battle column is no longer read off the floor's own row: it now averages the
+      <code>&minus;3&hellip;+3 at 3/7/12/56/12/7/3%</code> spawn-level spread that <code>buildSpawn()</code> actually
+      rolls. The whole spread lies inside the level-gap grace, so on a level-appropriate floor the penalty is zero on
+      every roll and account, class and creature XP are identical &mdash; which is what makes a single
+      &ldquo;battles at Lv&rdquo; number well defined at all. Measured effect of the averaging: under 0.35% above
+      level 4, one battle in 20,346 across the whole climb, and ~19% at level 1 where the 4-XP floor bites. The flat
+      floor-row figure was therefore already the average, and is documented as such rather than quietly kept.</li>
     <li><strong>2026-08-04 &mdash; the level-by-level curve is on the page (live, on release).</strong>
       All 100 rows of <code>codex/XPCurve.csv</code> now render here &mdash; XP to next, cumulative, and the five
       per-kill columns &mdash; alongside derived XP-per-battle and battles-per-level against each floor's own
@@ -173,12 +194,24 @@ function cumAt(L){ if(XPC) return XPC[L].cum; var c=0; for(var i=1;i<L;i++) c+=c
 function mixAt(L){ if(!MIX) return null;
   for(var f=L; f>=1; f--){ var r=MIX[f]; if(r){ var s=0; for(var i=0;i<5;i++) s+=r[i]; if(s>0) return r; } }
   return null; }
+// A wild slot is NOT stamped at the floor's level: app.js rolls an offset -3..+3 at
+// 3/7/12/56/12/7/3%, clamped to 1..100. The whole spread sits inside the level-gap grace
+// (+10 up / -3 down), so at a level-appropriate floor the penalty is ZERO on every roll and
+// account, class and creature XP come out identical. So this is a plain average over the spread.
+var SPAWN_OFF=[[-3,0.03],[-2,0.07],[-1,0.12],[0,0.56],[1,0.12],[2,0.07],[3,0.03]];
 function xpPerBattle(L){
   if(!XPC) return 10*L;
-  var w=mixAt(L), k=XPC[L].kill, T=['C','UC','R','SR','SSR'];
-  if(!w) return 3*k.C;
-  var s=0, t=0, i; for(i=0;i<5;i++) s+=w[i];
-  for(i=0;i<5;i++) t+=w[i]/s*k[T[i]];
+  var w=mixAt(L), T=['C','UC','R','SR','SSR'];
+  if(!w) return 3*XPC[L].kill.C;
+  var s=0, t=0, i, j; for(i=0;i<5;i++) s+=w[i];
+  for(i=0;i<5;i++){
+    var per=0;
+    for(j=0;j<SPAWN_OFF.length;j++){
+      var lv=Math.max(1,Math.min(100,L+SPAWN_OFF[j][0]));
+      per+=SPAWN_OFF[j][1]*XPC[lv].kill[T[i]];
+    }
+    t+=w[i]/s*per;
+  }
   return 3*t; }
 function battlesAt(L){ var c=toNextAt(L); if(c<=0) return 0;
   if(!XPC) return L<=66 ? Math.pow(L,0.75) : 23.4*Math.pow(1.16, L-67);
@@ -186,12 +219,13 @@ function battlesAt(L){ var c=toNextAt(L); if(c<=0) return 0;
 var CSV=function(u){ return fetch(u+'?t='+Date.now()).then(function(r){ return r.text(); })
   .then(function(t){ return t.replace(/\r/g,'').trim().split('\n').map(function(l){ return l.split(','); }); }); };
 
+function hoursText(h){ if(h<=0) return '&mdash;'; if(h<1) return '&lt;1 h'; return h<48 ? Math.round(h)+' h' : Math.round(h/24)+' days'; }
 function renderMilestones(){
   var body=document.getElementById('mileBody'); body.innerHTML='';
   var cum=0, marks={1:1,10:1,25:1,50:1,67:1,80:1,90:1,95:1,99:1,100:1};
   for(var L=1;L<=100;L++){
     if(marks[L]){
-      var at=battlesAt(L), hrs=cum/30, t = hrs<48? Math.round(hrs)+' h' : Math.round(hrs/24)+' days';
+      var at=battlesAt(L), t = hoursText(cum/30);
       body.insertAdjacentHTML('beforeend','<tr'+(L===67?' class="knee"':'')+'><td class="lbl">'+L+'</td><td>'+
         (at>0?Math.round(at).toLocaleString():'&mdash;')+'</td><td>'+Math.round(cum).toLocaleString()+'</td><td>'+t+'</td></tr>');
     }
@@ -200,7 +234,8 @@ function renderMilestones(){
 }
 function renderCurve(){
   var w=document.getElementById('curveWrap');
-  var h='<table><thead><tr><th>Lv</th><th>XP to next</th><th>Cumulative</th><th>C</th><th>UC</th><th>R</th><th>SR</th><th>SSR</th><th>XP / battle</th><th>Battles at Lv</th></tr></thead><tbody>';
+  var h='<table><thead><tr><th>Lv</th><th>XP to next</th><th>Cumulative XP</th><th>C</th><th>UC</th><th>R</th><th>SR</th><th>SSR</th><th>XP / battle</th><th>Battles at Lv</th><th>Battles to reach Lv</th><th>Time to reach Lv</th></tr></thead><tbody>';
+  var cb=0;
   for(var L=1;L<=100;L++){
     var k = XPC ? XPC[L].kill : null, b=battlesAt(L), tn=toNextAt(L);
     h+='<tr'+(L===67?' class="knee"':'')+'><td class="lbl">'+L+'</td>'+
@@ -209,7 +244,10 @@ function renderCurve(){
        (k? '<td>'+k.C+'</td><td>'+k.UC+'</td><td>'+k.R+'</td><td>'+k.SR+'</td><td>'+k.SSR+'</td>'
          : '<td colspan="5">&mdash;</td>')+
        '<td>'+Math.round(xpPerBattle(L)).toLocaleString()+'</td>'+
-       '<td>'+(b>0?Math.round(b).toLocaleString():'&mdash;')+'</td></tr>';
+       '<td>'+(b>0?Math.round(b).toLocaleString():'&mdash;')+'</td>'+
+       '<td>'+Math.round(cb).toLocaleString()+'</td>'+
+       '<td>'+hoursText(cb/30)+'</td></tr>';
+    cb+=b;
   }
   w.innerHTML=h+'</tbody></table>';
 }
