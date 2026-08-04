@@ -56,18 +56,45 @@
   <h2>Level-by-level curve</h2>
   <p>Read live from <code>codex/XPCurve.csv</code> &mdash; the same 100 rows the client's <code>xpLevel()</code>/<code>xpKill()</code> and the server's <code>TABLES.xp_cum</code>/<code>TABLES.xp_kill</code> read. Nothing here is restated by hand. <strong>XP&nbsp;to&nbsp;next</strong> and <strong>cumulative</strong> are the requirement curve and apply identically to creatures, classes and the player level; the five per-kill columns are indexed by the <em>enemy&rsquo;s</em> level, not the recipient's. <strong>XP/battle</strong> and <strong>battles</strong> are derived against that floor's own rarity mix in <code>codex/encounter_weights.csv</code> over 3 kills &mdash; a boss floor has no wild spawns, so it inherits the last wild floor's mix.</p>
   <div class="tbl-scroll tall" id="curveWrap">LOADING&hellip;</div>
-  <div class="sp-note"><strong>What &ldquo;battles at Lv&rdquo; assumes, exactly.</strong> That the player is fighting
-  <strong>at their own level</strong> &mdash; standing on the floor whose number matches their level, which is the normal
-  shape of a climb. Two things follow and both are checked, not assumed. First, a wild slot is not stamped at the floor's
-  level: <code>app.js</code> rolls an offset of <strong>&minus;3&hellip;+3 at 3/7/12/56/12/7/3%</strong> (clamped to
-  1&ndash;100), so the column is a genuine average over that spread, not a single-level reading. Second, the entire spread
-  sits inside the level-gap grace &mdash; zero penalty up to +10 above and &minus;3 below &mdash; so on a level-appropriate
-  floor the penalty is <strong>exactly zero on every roll</strong>, and account XP, class XP and creature XP come out
-  identical. Averaging over the spread rather than reading the floor's own row moves the number by <strong>less than
-  0.35% above level&nbsp;4</strong> and changes the total climb by <strong>one battle in 20,346</strong>; it only matters
-  at the very bottom, where the 4-XP floor lifts level&nbsp;1 by ~19%. Fight above your level and the XP does not rise
-  &mdash; the per-kill table is indexed by the enemy, so a higher floor pays more per kill; fight more than 3 levels
-  <em>below</em> and the penalty starts eating it. See <a href="system-level-penalty.html">Level Penalty</a>.</div>
+  <div class="sp-note"><strong>&ldquo;On-level&rdquo; is a floor, not a forecast &mdash; and live accounts do not sit on it.</strong>
+  Those two columns assume the character is standing on the floor whose number matches their level. That is the case where
+  the level-gap penalty is <em>zero</em>, so it is the cheapest the climb can possibly be. <strong>It is not what the tower
+  actually looks like.</strong> Measured against all 11 closed-alpha accounts (live saves, floors 1&ndash;99): the class
+  level runs <strong>+1 to +19 levels above the floor</strong> through the early and middle tower &mdash; a median of about
+  <strong>+7</strong> &mdash; and then falls <strong>17&ndash;19 levels behind</strong> at floors 97&ndash;99, where the
+  requirement curve outruns the climb. Exactly <strong>two of eleven</strong> sit inside the zero-penalty band. Treat the
+  two on-level columns as a lower bound and multiply by the table below.</div>
+
+  <p><strong>What actually sets the number.</strong> Per-kill XP is indexed by the <em>enemy&rsquo;s</em> level, so XP per
+  battle is set by <strong>the floor you farm</strong> and never by your own level &mdash; out-levelling a floor earns you
+  nothing extra, it only costs. Three things are measured rather than assumed:</p>
+  <ul class="sp-rules">
+    <li><strong>3.00 kills per battle, exactly</strong> &mdash; on 9 of 9 alpha accounts that have fought one
+      (<code>_ledK / _ledB</code> from the server's own ledger). The assumption behind every battle count on this page.</li>
+    <li><strong>A wild slot is not stamped at the floor's level.</strong> <code>buildSpawn()</code> rolls an offset of
+      <code>&minus;3&hellip;+3</code> at <code>3/7/12/56/12/7/3%</code>, clamped 1&ndash;100, and the whole spread sits
+      inside the grace band, so on-level really is penalty-free on every roll. Averaging over it rather than reading the
+      floor's own row moves the number by under 0.35% above level 4 &mdash; one battle in 20,346 across the climb.</li>
+    <li><strong>The penalty is visible in the ledger.</strong> Account XP is raw, class XP is penalised, so
+      <code>_ledC / _ledX</code> is the retention the account actually got. On the reference account &mdash; class 31 on
+      floor 23, a gap of +8 &mdash; the formula predicts 0.796 and the ledger reads <strong>0.807</strong>.</li>
+  </ul>
+
+  <table>
+    <tr><th>Gap</th><th>Level penalty</th><th>XP retained</th><th>Battles per level</th></tr>
+    <tr><td class="lbl">On-level, or up to 3 above / 10 below the floor</td><td>0</td><td>100%</td><td>&times;1.00 (the table)</td></tr>
+    <tr><td class="lbl">5 levels above the floor</td><td>0.082</td><td>91.8%</td><td>&times;1.09</td></tr>
+    <tr><td class="lbl">8 levels above the floor <span style="color:var(--ink-faint)">(measured, reference account)</span></td><td>0.205</td><td>79.5%</td><td>&times;1.26</td></tr>
+    <tr><td class="lbl">14 levels above the floor</td><td>0.450</td><td>55.0%</td><td>&times;1.82</td></tr>
+    <tr><td class="lbl">19 levels above the floor</td><td>0.655</td><td>34.5%</td><td>&times;2.89</td></tr>
+    <tr><td class="lbl">25+ levels above the floor</td><td>0.900</td><td>10.0%</td><td>&times;10.0</td></tr>
+    <tr><td class="lbl">19 levels below the floor <span style="color:var(--ink-faint)">(measured, floors 97&ndash;99)</span></td><td>0.203</td><td>79.8%</td><td>&times;1.25</td></tr>
+    <tr><td class="lbl">50+ levels below the floor</td><td>0.900</td><td>10.0%</td><td>&times;10.0</td></tr>
+  </table>
+  <p style="font-size:13px;color:var(--ink-faint)">The multiplier applies to <strong>class and creature</strong> levels only.
+  <strong>Account (player) XP takes no penalty at all</strong> &mdash; it is the raw sum &mdash; so the account level tracks
+  the on-level column exactly, provided the character is farming the floor that matches it. Full curve in
+  <a href="system-level-penalty.html">Level Penalty</a>.</p>
   <p class="foot">Source: <code>codex/XPCurve.csv</code> &middot; mix from <code>codex/encounter_weights.csv</code> &middot; spawn spread from <code>app.js</code> <code>buildSpawn()</code>. Level&nbsp;100 carries <code>XP_To_Next = 0</code>: creatures and classes are maxed there, and the player level continues at a flat <code>639,723</code>. Battle counts assume the enemy is level-appropriate, so the level-gap penalty is zero &mdash; see <a href="system-level-penalty.html">Level Penalty</a>.</p>
 
   <h2>Player level (uncapped)</h2>
@@ -150,6 +177,17 @@ real offender would have been invisible inside it. With one authority the flag b
 
 <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-04 &mdash; &ldquo;battles per level&rdquo; was framed as normal play; it is a best case
+      (live, on release).</strong> D called it and the live saves agree. The two battle columns assume the character
+      stands on the floor matching its level, which is the one place the level-gap penalty is zero. Measured against
+      all 11 closed-alpha accounts: class level runs <strong>+1 to +19 above the floor</strong> through the early and
+      middle tower (median ~+7) and <strong>17&ndash;19 below</strong> at floors 97&ndash;99; two of eleven are inside
+      the zero-penalty band. Columns are relabelled <em>on-level</em>, and a gap&nbsp;&rarr;&nbsp;retention&nbsp;&rarr;
+      battles-multiplier table now sits under them. Also measured from the server ledger rather than assumed:
+      <code>_ledK / _ledB</code> is <strong>3.00 kills per battle on 9 of 9</strong> accounts that have fought, and
+      <code>_ledC / _ledX</code> on the reference account (class 31, floor 23, gap +8) reads <strong>0.807</strong>
+      against a predicted 0.796 &mdash; the penalty model is confirmed against live data, the framing around it was
+      what was wrong. Account XP is unaffected: it is raw, so the account level still tracks the on-level column.</li>
     <li><strong>2026-08-04 &mdash; both curves are now charted (live, on release).</strong> The single
       battles-per-level canvas became two, drawn by one generic log-scale routine off the same loaded data:
       an <strong>XP curve</strong> (requirement for the next level against cumulative XP to reach it) and a
@@ -245,7 +283,7 @@ function renderMilestones(){
 }
 function renderCurve(){
   var w=document.getElementById('curveWrap');
-  var h='<table><thead><tr><th>Lv</th><th>XP to next</th><th>Cumulative XP</th><th>C</th><th>UC</th><th>R</th><th>SR</th><th>SSR</th><th>XP / battle</th><th>Battles at Lv</th><th>Battles to reach Lv</th><th>Time to reach Lv</th></tr></thead><tbody>';
+  var h='<table><thead><tr><th>Lv</th><th>XP to next</th><th>Cumulative XP</th><th>C</th><th>UC</th><th>R</th><th>SR</th><th>SSR</th><th>XP / battle</th><th>Battles at Lv<br><span style="color:var(--ink-faint);font-size:10px">on-level</span></th><th>Battles to reach Lv<br><span style="color:var(--ink-faint);font-size:10px">on-level</span></th><th>Time to reach Lv</th></tr></thead><tbody>';
   var cb=0;
   for(var L=1;L<=100;L++){
     var k = XPC ? XPC[L].kill : null, b=battlesAt(L), tn=toNextAt(L);
