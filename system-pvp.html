@@ -77,7 +77,48 @@
   </table>
   <p>Per-round input validation runs on both sides regardless: the chosen move is one of the unit's four, its cooldown is legal, the target is legal. Malformed actions die before resolution.</p>
 
-  <h2>Leaderboards</h2>
+  <h2>Matchmaking &mdash; the queue keeps looking</h2>
+<p><strong>ON DEV, not yet on release.</strong> A player opens the Arena and presses FIND MATCH. From that
+moment the client writes a node under <code>queue/&lt;pid&gt;</code> carrying name, rating and a timestamp,
+and re-stamps that timestamp once a second. Matching is a scan of every other node: a candidate must have no
+match marker, a timestamp fresher than 12&nbsp;s, and a rating inside the searcher's band. The band opens as
+the wait grows &mdash; 25 points, widening by 25 every two seconds &mdash; so a long wait eventually reaches
+the whole population. The lower player id creates the match node, writes the marker to both sides, and both
+clients surface MATCH FOUND on their next tick.</p>
+<p><strong>The queue does not expire and is not tied to a screen.</strong> Closing the Arena panel used to set
+the queue to null, which stopped the heartbeat &mdash; so a player's node went stale 12&nbsp;s later and two
+people had to be sitting on the arena screen at the same moment to meet. With eleven accounts that is close to
+never, and it is the reason PvP had never matched. The queue now survives closing the panel, walking a floor
+and fighting a battle. It ends on a match or on an explicit CANCEL, and on nothing else: a MATCH FOUND popup
+that simply runs out of seconds returns the player to LOOKING rather than closing the queue.</p>
+<ul>
+  <li><strong>The timer is always visible.</strong> A pill reading <code>&#9876; LOOKING FOR MATCH &middot; m:ss</code>
+      sits at the bottom right of the screen, immediately left of the turn counter, and keeps counting through a
+      PvE battle. Its elapsed time is measured from when the player queued and never restarts.</li>
+  <li><strong>Being in a match blocks queueing.</strong> FIND MATCH refuses while a PvP match is live.</li>
+  <li><strong>MATCH FOUND offers JOIN MATCH or CANCEL.</strong> JOIN takes the match; CANCEL closes the queue.</li>
+</ul>
+
+<h2>Joining out of a PvE battle &mdash; pause, never forfeit</h2>
+<p><strong>ON DEV, not yet on release.</strong> A match can be taken in the middle of a PvE fight. Owner ruling:
+that fight is <em>paused</em> and restored afterwards &mdash; it is not forfeited and nothing is lost.</p>
+<ol>
+  <li>On JOIN, the PvE fight is written to its own snapshot slot as stage <code>park</code>. Parking works from
+      any battle phase, not only the phases that already persist.</li>
+  <li>The PvP match takes the screen. The two fights cannot collide because the snapshot is split by kind
+      (see <em>system-networking.html</em>); before that split, taking a match destroyed the paused fight.</li>
+  <li>When the player closes the PvP result panel, the parked fight is restored &mdash; same round, same units,
+      same floor, same seed.</li>
+</ol>
+<p>The server holds nothing mid-fight: a spawn slot is marked dead only when a kill is <em>credited</em>, so the
+paused enemy is still standing when the player returns, and battle chains are keyed per chain id so a PvP fight
+cannot break a paused PvE chain's continuity.</p>
+<p><strong>HARDCORE refuses the join.</strong> Hardcore already forbids leaving a battle &mdash; forfeit is
+refused there too &mdash; so taking a match out of a live hardcore fight is blocked and the player is told why.
+Queueing itself is unaffected: a hardcore player may queue, and may take the match from anywhere that is not a
+live fight.</p>
+
+<h2>Leaderboards</h2>
   <p>Scoped per realm, tracked per season and all-time (all-time = best-ever snapshot). One PvP board, three PvE boards.</p>
   <table>
     <tr><th>Board</th><th>Metric</th><th>Notes</th></tr>
@@ -87,6 +128,17 @@
     <tr><td class="lbl">Swiftest ascent</td><td>Shortest in-game time from character creation to first Floor 100 clear</td><td>The speed board; session-time clock, same as everything else.</td></tr>
   </table>
 </div>
+<h2>Changelog</h2>
+  <ul>
+    <li><strong>2026-08-04 &mdash; the queue keeps looking, the timer is always on screen, and a match can be taken out of a PvE fight (ON DEV, not yet on release).</strong>
+      Closing the Arena panel used to kill the queue, which stopped the one-second heartbeat and let the player's
+      node go stale &mdash; so two people had to sit on the arena screen together to meet, which is why PvP had
+      never matched. The queue now ends only on a match or an explicit CANCEL; a popup that times out returns to
+      LOOKING. The elapsed timer moved to the bottom right, left of the turn counter, and keeps counting through a
+      battle. Taking a match parks the PvE fight and closing the PvP result restores it; hardcore refuses the join.
+      Also fixed here: a team node that existed but was empty threw inside the join and left the player on the
+      splash forever with no message.</li>
+  </ul>
 <script src="admin.js"></script>
 <script src="nav.js"></script>
 </body>
