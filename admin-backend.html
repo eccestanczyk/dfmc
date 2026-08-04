@@ -559,6 +559,7 @@
       rows and tombstones.</td></tr>
     <tr><td class="lbl"><code>GET /api/backup/parts?key=&amp;sid=&amp;realm=</code></td><td>Split save parts
       and <code>rejoin_ok</code> &mdash; the stage-2 gate for the save split.</td></tr>
+<tr><td colspan="2"><strong>2026-08-04 &mdash; the parts door also answers freshness (ON DEV).</strong> It now returns <code>fresh</code>, <code>saves_ver</code>, <code>mark_ver</code>, <code>gen</code> and <code>mark_gen</code> beside <code>n</code> and <code>rejoin_ok</code>. <code>fresh</code> is the stage-3 gate in miniature: the parts are only servable while the stored watermark equals <code>saves.ver</code> and the wipe generation matches. Watch it before the read cutover &mdash; once every writer goes through <code>writeSave()</code> a not-fresh account should be rare, and a sustained rate names a writer still bypassing the facade.</td></tr>
     <tr><td class="lbl"><code>GET /api/backup/pvpq?key=</code></td><td>The PvP queue: one row per node with
       <code>age_ms</code>, and a count of how many are <em>pairable</em> right now. Age is the point &mdash;
       the pairing window is 12&nbsp;s, so a live node and an expired one are indistinguishable until you
