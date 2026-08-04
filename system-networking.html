@@ -1089,8 +1089,42 @@ per line, truncated to the last 16&nbsp;KB (the failure is at the end, not the s
 control bytes. That is a size and hygiene bound, not a security boundary: a report is text a browser
 wrote, and whatever reads it must still treat it as untrusted and never interpolate it as markup.</p>
 
+<h2>The battle chain, and why it kept &ldquo;breaking&rdquo;</h2>
+<p><strong>ON DEV, not yet on release.</strong> Every battle event carries the chain it belongs to and the
+<em>head</em> it follows &mdash; a hash of the previous event. The server compares the submitted head against
+the one it holds and flags <code>chain_break</code> on a mismatch. The flag fired 19 times on the owner's own
+account, which is exactly why it was never enforced.</p>
+<p><strong>The cause was an ordering difference, not an attack.</strong> The client advanced its head when it
+<em>built</em> the event, before the request was sent. The server advances its head only after the event passes
+validation. Every path that returns before that write therefore left the client one ahead:</p>
+<ul>
+  <li><code>bad event</code> and <code>bad slot</code> &mdash; malformed submissions.</li>
+  <li><code>dead_slot</code> &mdash; the client claims a spawn the server already marked dead, <em>which a
+      legitimately resumed battle can do</em>.</li>
+  <li><code>spawn_data_unavailable</code> (503) &mdash; fail-closed, and what a cold start or a deploy produces.</li>
+  <li>Any request that never landed at all.</li>
+</ul>
+<p><strong>It self-corrects after exactly one flag,</strong> which is why the pattern looked odd: the mismatching
+battle still advances the server's head, so the battle after it lines up again. Ten flags on one chain id over a
+day and a half is ten rejected or lost battles, not a sustained break.</p>
+<p><strong>The head now advances on confirmation.</strong> An answer without an <code>error</code> &mdash; credited,
+accepted-but-uncredited, or a dedup replay of an event the server already holds &mdash; means the server's head is
+now this event's. An error means it rejected the event and its head did not move, so the client's must not either;
+the retry and the pause cover the no-answer case, where it also did not move. The two heads now agree by
+construction.</p>
+<p><strong>It is still not enforced, and that is deliberate.</strong> Making the flag trustworthy is a separate
+decision from acting on it. A correction of the record belongs here too: the first diagnosis of this said the
+server does not advance on an uncredited battle. It does &mdash; the <code>chains</code> write is unconditional, and
+a rate-capped battle advances it. That conclusion came from a probe stub rather than the worker, and the real cause
+is the list above.</p>
+
 <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-04 &mdash; the battle chain head advances on confirmation (ON DEV, not yet on release).</strong>
+      It used to advance when the event was built, so any submission the server rejected before its own head
+      write &mdash; a resumed battle claiming an already-dead slot, a 503 during a deploy, a request that never
+      landed &mdash; left the client one ahead and made the next honest battle flag <code>chain_break</code>. The
+      heads now agree by construction. Still not enforced.</li>
     <li><strong>2026-08-04 &mdash; the transit veil can no longer outlive the outage that raised it (ON DEV, not yet on release).</strong>
       Reported from a metro tunnel: stuck on ASCENDING &middot; FLOOR 23, still stuck after the connection
       returned. <code>travel</code>/<code>travelTo</code> now refuse while paused instead of raising a veil
