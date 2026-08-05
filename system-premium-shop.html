@@ -48,6 +48,7 @@ an item. A grant with nowhere to go waits rather than being destroyed.</p>
 <p>It shows only when the pool is empty and no Incense boon is active, and hides the moment one is burned. Probe: <code>tools/probe_deadprops.py</code> (8/8), which asserts the condition is true before believing the render.</p>
 
 <hr><p class="note">Changelog<br>
+2026-08-05 &mdash; Offers are a LIST, not a grid, and sized for the phone: name 30px, description 21px, buy control 24px with an 18&times;30 pad (D: &ldquo;the items are too small&hellip; mobile friendly font size&rdquo;). Measured, not estimated &mdash; the old name drew at 5.03 CSS px at fitScale 0.36. A tap on the backdrop now closes the panel (D: &ldquo;clicking outside of the window is not closing it&rdquo;); the backdrop had no handler at all. <em>ON DEV, not yet on release.</em><br>
 2026-08-03 &mdash; The incense prompt renders at last (P7, ON DEV). The block had never been rebuilt after its removal, so every investigation into why it did not appear was searching a document that did not contain it.<br>
 2026-08-02 — Page created. Premium Shop, Incense Burner, the Wraithgold ledger and the item grant lane.</p>
 
@@ -66,11 +67,40 @@ an item. A grant with nowhere to go waits rather than being destroyed.</p>
   <code>z-index 105</code> clears the bar. Verify this class of change with
   <code>document.elementFromPoint()</code> at the element's own centre, never by reading its text.</div>
 
-  <h2>Panel size</h2>
+  <h2>Panel size and offer layout</h2>
   <p>The shop was the only panel in the game not on the full-bleed pattern &mdash; a fixed
   <code>520px</code> column while inventory, equipment, breeding and settings are all <code>width:100%</code>.
-  It is now <code>min(1180px,94%)</code> at 86% height, the offers lay out in a responsive grid
-  (<code>auto-fill, minmax(360px,1fr)</code>) rather than a single column, and the note and CLOSE are pinned
-  to the bottom so a short catalogue does not leave the footer floating in the middle of an empty panel.</p>
+  It is <code>min(1180px,94%)</code> at 86% height, and the note and CLOSE are pinned to the bottom so a
+  short catalogue does not leave the footer floating in the middle of an empty panel.</p>
+
+  <p><strong>The offers are a LIST, one row per sku</strong> (<code>display:flex; flex-direction:column;
+  gap:12px</code>). They were briefly a responsive grid (<code>auto-fill, minmax(360px,1fr)</code>); that
+  is reversed as of 2026-08-05. The grid capped every card at roughly 360 stage px, and the reason that
+  matters is the stage: the whole UI is a fixed <code>1920&times;1080</code> box scaled by
+  <code>fitScale = min(innerWidth/1920, innerHeight/1080)</code>, which on a phone is about
+  <code>0.36</code>. Authored sizes are therefore stage units, and what a player sees is the size
+  &times; fitScale. Measured on a 690&times;674 viewport, the old <code>14px</code> offer name drew at
+  <strong>5.03 CSS px</strong> and the buy control stood <strong>12 CSS px</strong> tall &mdash; below any
+  usable tap target.</p>
+
+  <table>
+    <tr><th>Element</th><th>Stage size</th><th>Drawn at fitScale 0.36</th></tr>
+    <tr><td>Offer name</td><td><code>30px</code></td><td>10.8 CSS px</td></tr>
+    <tr><td>Offer description</td><td><code>21px</code></td><td>7.5 CSS px</td></tr>
+    <tr><td>Buy control</td><td><code>24px</code>, padding <code>18px 30px</code></td><td>52.3 &times; 25.9 CSS px</td></tr>
+  </table>
+
+  <p class="note">RULE: any size authored for this panel is a STAGE size. Divide nothing; multiply by
+  fitScale to find out what a phone actually shows, and check the result rather than the source.</p>
+
+  <h2>Dismissal</h2>
+  <p>The panel closes three ways: the CLOSE control, and &mdash; since 2026-08-05 &mdash; a tap anywhere on
+  the backdrop. The backdrop carries <code>onCloseShop</code> and the window itself carries
+  <code>onStopProp</code>, so a tap inside never bubbles out and closes it. This is the same pattern the
+  Crypt Bag popup has always used; the shop backdrop simply carried no handler at all, so a tap outside
+  did nothing. Verified with <code>document.elementFromPoint()</code> at a point derived from the
+  backdrop's rect minus the window's &mdash; note that on a phone the stage is letterboxed, so the
+  top-left of the SCREEN is page background and is <em>not</em> outside the window.
+  Probe: <code>tools/probe_shoplist.py</code> (BEFORE 8/8, AFTER 9/9).</p>
 
 </body></html>
