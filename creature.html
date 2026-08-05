@@ -149,6 +149,21 @@
       <p class="pending-note">Mutant variant art pending.</p>
     </div>
   </section>
+
+  <section>
+    <h3>Changelog</h3>
+    <div class="section-body">
+      <p style="font-size:12px;margin:0 0 6px;"><strong>2026-08-05</strong> — The MOVES panel now prints the
+      full version ladder for every move: V1 / V2 / V3 with the level each one unlocks, its own name, power
+      and effect text, plus the move's target scope. It previously printed a single row taken from the
+      creature's STAGE (<code>Power_S&lt;stage&gt;</code>), which is not how the game resolves a move: versions
+      unlock at <code>Level_Learned</code>, <code>Level_Upgrade_V2</code> and <code>Level_Upgrade_V3</code>, and
+      since the 2026-08-04 upgrade stagger those sit 22 (V2) and 29 (V3) levels later on average than they did
+      before. A stage-3 entry therefore advertised endgame numbers the creature does not yet have. The row
+      matching the entry's stage window is highlighted; the levels are the truth.
+      <em>On DEV and on the live codex — this page is data-only and carries no client code.</em></p>
+    </div>
+  </section>
 </main>
 
 <script>
@@ -369,20 +384,51 @@ async function renderMoves(c) {
     const mine = rows.filter(m => m.Line_ID === c.Line_ID).sort((a,b) => parseInt(a.Slot)-parseInt(b.Slot));
     if (!mine.length) { document.getElementById('moves-panel').innerHTML = '<span style="color:var(--ink-faded);font-size:13px;font-style:italic;">No moves catalogued yet.</span>'; return; }
     document.getElementById('moves-panel').innerHTML = mine.map(m => {
-      const pw = m['Power_S' + stage], fx = m['Effect_S' + stage];
-      const mName = m['Name_S' + stage] || m.Name;
-      const pwLabel = pw === '0' ? 'STATUS' : 'PWR ' + pw;
+      // THE VERSION LADDER IS DRIVEN BY LEVEL, NOT BY THE CREATURE'S STAGE (2026-08-05).
+      // This panel used to print Power_S<creature stage> / Effect_S<creature stage> and nothing
+      // else, so a stage-3 entry advertised the V3 numbers as if they were what the creature
+      // fires. They are not: moves upgrade at Level_Upgrade_V2 / _V3, and after the 2026-08-04
+      // stagger those land 22-29 levels later on average than the stage advance does. A stage-3
+      // Ridgedrake at level 70 is still on V2. Showing one row hid exactly the thing a player
+      // needs, which is the report this fixes.
+      const LV = k => { const v = String(m[k] || '').trim(); return (!v || v === '-') ? null : v; };
+      const vers = [1, 2, 3].map(i => ({
+        i,
+        lv:   i === 1 ? LV('Level_Learned') : LV('Level_Upgrade_V' + i),
+        name: m['Name_S' + i] || m.Name,
+        pw:   m['Power_S' + i],
+        fx:   m['Effect_S' + i]
+      })).filter(v => v.lv !== null);
+      const cur = String(stage);
+      const rows = vers.map(v => {
+        const on = String(v.i) === cur;   // the version that matches this entry's stage window
+        return `<div style="display:grid;grid-template-columns:34px 62px 1fr;gap:8px;align-items:baseline;
+                  padding:5px 7px;border-left:2px solid ${on ? 'var(--gold)' : 'transparent'};
+                  background:${on ? 'rgba(184,152,90,.07)' : 'transparent'};">
+          <span style="font-family:'Cinzel',serif;font-size:11px;color:${on ? 'var(--gold)' : 'var(--ink-faint)'};">V${v.i}</span>
+          <span style="font-size:11px;color:var(--ink-faint);">Lv ${escapeHtml(v.lv)}</span>
+          <span>
+            <span style="font-weight:600;font-size:12.5px;color:${on ? 'var(--ink)' : 'var(--ink-faded)'};">${escapeHtml(v.name)}</span>
+            <span style="font-size:11px;color:var(--ink-faint);"> · ${v.pw === '0' ? 'STATUS' : 'PWR ' + escapeHtml(v.pw)}</span>
+            <div style="font-size:11.5px;color:var(--ink-faded);margin-top:2px;">${escapeHtml(v.fx)}</div>
+          </span>
+        </div>`;
+      }).join('');
+      const tgt = String(m.Targets || '').trim();
       return `<div style="background:var(--surface-2);border:1px solid var(--rule);padding:10px 12px;">
         <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px;">
-          <span style="font-family:'Cinzel',serif;font-weight:600;font-size:13px;color:var(--gold);">${escapeHtml(mName)}</span>
-          <span style="font-size:11px;color:var(--ink-faint);">${pwLabel} · CD ${escapeHtml(m.Cooldown)} · ${escapeHtml(SLOT_NAMES[m.Slot] || 'slot '+m.Slot)}</span>
+          <span style="font-family:'Cinzel',serif;font-weight:600;font-size:13px;color:var(--gold);">${escapeHtml(m.Name)}</span>
+          <span style="font-size:11px;color:var(--ink-faint);">CD ${escapeHtml(m.Cooldown)} · ${escapeHtml(SLOT_NAMES[m.Slot] || 'slot ' + m.Slot)}${tgt && tgt !== '-' ? ' · ' + escapeHtml(tgt) : ''}</span>
         </div>
-        <div style="font-size:12px;color:var(--ink);margin-top:4px;">${escapeHtml(fx)}</div>
-        ${m.Synergy !== '-' ? `<div style="font-size:11px;color:#7fd4a0;margin-top:3px;">Synergy: ${escapeHtml(m.Synergy)}</div>` : ''}
+        <div style="margin-top:6px;display:grid;gap:2px;">${rows}</div>
+        ${m.Synergy !== '-' ? `<div style="font-size:11px;color:#7fd4a0;margin-top:5px;">Synergy: ${escapeHtml(m.Synergy)}</div>` : ''}
         ${m.Anti !== '-' ? `<div style="font-size:11px;color:#e08080;margin-top:3px;">Anti: ${escapeHtml(m.Anti)}</div>` : ''}
         <div style="font-size:11px;color:var(--ink-faint);font-style:italic;margin-top:3px;">${escapeHtml(m.VFX_Description)}</div>
       </div>`;
     }).join('');
+    document.getElementById('moves-panel').insertAdjacentHTML('beforeend',
+      '<p style="font-size:11px;color:var(--ink-faint);margin:2px 0 0;">Move versions unlock by LEVEL, not by stage. '
+      + 'The highlighted row is the version matching this entry\u2019s stage window \u2014 a creature below the listed level still fires the version above it.</p>');
 
     // Soul equip: equipping this creature's soul grants its moves to the character
     const soulRows = mine.map(m => {
