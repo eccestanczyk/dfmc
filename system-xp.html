@@ -117,6 +117,42 @@
   </ul>
   <div class="sp-note">Hardcore implication: death wipes a character to level&nbsp;1. The relevel to 67 is ~30&nbsp;h of autoplay, but a death at level&nbsp;95+ costs a dedicated player weeks — high stakes by design. See <a href="system-realms.html">Death &amp; Realms</a>.</div>
 
+  <h2>XP is addressed to a CREATURE, never to a party slot &mdash; ON DEV, not yet on release</h2>
+  <p>The party occupies gear slots <code>8</code> and <code>9</code>, and the battle units
+  <code>a1</code>/<code>a2</code> are derived from whatever record sits in them. The credit used to be
+  written back the same way &mdash; straight into <code>equipOv[8|9]</code> at commit time. The Equipment
+  window can be opened <em>during</em> a battle, so that record is not guaranteed to still be the creature
+  that fought.</p>
+
+  <p>Reported by a player on 0.31 and reproduced on his own save: a level&nbsp;28 Scorchscale fought a full
+  battle, was swapped out mid-fight, and received <strong>nothing</strong>; a level&nbsp;1 Vaettir swapped
+  into the slot received <strong>282</strong> &mdash; the gain computed from the <em>fighter's</em> level
+  and applied to the <em>newcomer's</em> base. That is also a power-levelling exploit: swap a fresh
+  creature in before the killing blow and it earns at a veteran's rate.</p>
+
+  <ul class="sp-rules">
+    <li>Every battle unit carries the <code>uid</code> of the record it was derived from
+      (<code>monFromSlot</code> / <code>mkMon</code>).</li>
+    <li><code>partyRecFor(un, gi, st)</code> resolves the fighter's record wherever it now sits: still in
+      its slot, moved to the other slot, or back in the bag. A fighter found in the bag is paid there.</li>
+    <li>If the fighter cannot be found, <strong>nobody is credited</strong> &mdash; never the occupant of
+      the slot. A slot that is simply empty still falls back to the pre-uid <code>crXp</code> species map,
+      so legacy saves keep working.</li>
+    <li>Records written before uids existed compare on name instead. This is the same guard shape
+      <code>commitSoulEvolution</code> has carried since 2026-07-27.</li>
+  </ul>
+
+  <p><strong>The advance check had the same defect, with a worse outcome.</strong>
+  <code>advancingAlly</code> also read the slot, so after a mid-battle swap it took the newcomer's level
+  and stamped the newcomer's <code>uid</code> &mdash; which meant <code>commitPartyEvolution</code>'s own
+  guard <em>passed</em> and wrote the fighter's next form into the newcomer's record. That is the exact
+  cross-line corruption the guard exists to prevent, arriving through a different door. It now resolves
+  through <code>partyRecFor</code> as well.</p>
+
+  <div class="sp-note">Probe: <code>tools/probe_partyswapxp.py</code> &mdash; BEFORE 11/11 (the bug
+  reproduces on the reporter's save), AFTER 12/12, including an assertion that the unit carries a real
+  <code>uid</code> so the match is exact rather than a species-name guess.</div>
+
   <h2>Class XP &mdash; who computes it</h2>
   <p><strong>The server, since 2026-08-01.</strong> Class XP is the avatar's share of the same battle, and it is
   derived from the same authored tables the account total comes from &mdash; the client is not asked and is not
@@ -237,6 +273,11 @@ below level 80, and the line advances at 69, so a Hafgufa can never fire it.</p>
 
 <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-05 &mdash; battle XP is addressed by creature, not by party slot (ON DEV, not yet
+      on release).</strong> Swapping a party creature mid-battle in the Equipment window paid the
+      newcomer at the fighter's rate and paid the fighter nothing; the advance check had the same
+      slot-addressing and could write one creature's next form into another's record. Both now resolve
+      the fighting unit's own <code>uid</code>, and credit nobody rather than the wrong creature.</li>
     <li><strong>2026-08-04 &mdash; aptitude radar and staggered move upgrades (LIVE in 0.31).</strong>
       Base attributes became the codex's three-axis radar everywhere in game; HP is not charted. Move
       upgrades were flat across every line's whole kit and now follow the stage windows, complete by 90,
