@@ -65,6 +65,22 @@
       host at <code>left:0</code>. Moving the host any further right narrows that margin.</li>
   </ul>
 
+  <h2>Glyph and badge sizes, as drawn</h2>
+  <p>Small overlay glyphs are where the stage-unit trap bites hardest, because a corner badge is
+  authored small to begin with. Survey at <code>fitScale 0.3594</code> (phone 690&times;674):</p>
+  <table>
+    <tr><th>Surface</th><th>Stage px</th><th>Drawn</th></tr>
+    <tr><td class="lbl">Item tile gender glyph</td><td>30px</td><td>10.78 CSS px &mdash; raised from 16px / 5.75 on 2026-08-05 (D: &ldquo;very hard to see&rdquo;)</td></tr>
+    <tr><td class="lbl">Creature card gender</td><td>30px</td><td>10.78 CSS px</td></tr>
+    <tr><td class="lbl">Breeding pen gender</td><td>34px</td><td>12.22 CSS px</td></tr>
+    <tr><td class="lbl">Hatch result sex</td><td>26px</td><td>9.34 CSS px</td></tr>
+    <tr><td class="lbl">Equipment current gender</td><td>17px</td><td>6.11 CSS px &mdash; <strong>still small, not yet raised</strong></td></tr>
+    <tr><td class="lbl">Breeding picker gender</td><td>19px</td><td>6.83 CSS px &mdash; <strong>still small, not yet raised</strong></td></tr>
+  </table>
+  <p class="note">Rule of thumb from these: <strong>anything under about 22 stage px is illegible on a
+  phone</strong>. The item tile is 135&times;135 stage px, so a 30px badge is roughly 22% of it &mdash;
+  large enough to read without swamping the art.</p>
+
   <h2>Measuring it</h2>
   <p><code>elementFromPoint</code> and <code>getBoundingClientRect</code> <strong>disagree</strong>
   under CSS <code>zoom</code>, so an occlusion test built on the two together reports elements that are
@@ -77,6 +93,7 @@
 
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-08-05 &mdash; item-tile gender glyph raised 16px &rarr; 30px stage</strong> (5.75 &rarr; 10.78 CSS px on a phone). Survey of every gender glyph added above; two surfaces remain under 7 CSS px. <em>ON DEV.</em></li>
     <li><strong>2026-08-05 &mdash; page created (ON DEV, not yet on release).</strong> Written after the
       stage/viewport asymmetry produced three defects in one session. Records fitScale, the letterboxed
       corner, the <code>position:fixed</code> escape, the menu HUD spec, and how to measure any of it.</li>
