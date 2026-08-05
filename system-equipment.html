@@ -53,6 +53,26 @@
   <p><strong>Scoring must bypass the lock.</strong> The optimizer measures a candidate by swapping it into state and asking the game for its own Power number. During a battle <code>gearBonus()</code> would answer with the frozen snapshot for every candidate alike, so every option scored identically and the optimizer reported <em>&ldquo;already optimal&rdquo;</em> whatever was in the bag. The measurement therefore lifts the freeze for the duration of the swap and restores it afterwards. This was found by probe the moment the battle gate was removed &mdash; the gate had been hiding it.</p>
   <p class="foot">Client: <code>gearBonus()</code>, <code>freezeGear()</code>, <code>optBuildPlan()</code>, <code>optScore()</code>, <code>optApply()</code> in <code>play/app.js</code></p>
 
+  <h2>The soul readout</h2>
+  <p>Each of the eight gear slots shows a readout of what its soul grants &mdash; the move for an
+  ability slot, the passive text for an armour slot. Since 2026-08-05 that panel also reports the
+  <strong>slotted creature</strong>, not only its effect:</p>
+  <ul class="sp-rules">
+    <li>An <strong>XP bar fills the bottom edge</strong> of the readout, and the creature&rsquo;s
+      current <strong>level sits bottom-right</strong> (26px stage, 9.34 CSS px on a phone).</li>
+    <li><strong>These are live.</strong> A socketed soul is a creature and it levels &mdash;
+      <code>battleRewards</code> banks XP into <code>soulOv[gi].src</code> &mdash; so the bar is read
+      through <code>monXpOf</code>/<code>xpLevel</code>, the same pair the creature sheet uses. The bar
+      and the sheet cannot disagree, and neither is a snapshot taken when the creature was consumed.</li>
+    <li>Gender appears on the <strong>soul tile</strong> and on the <strong>party creature card</strong>.
+      Resolved with <code>monGenderKnown</code>, never <code>monGender</code>: the latter defaults to
+      <code>M</code> so breeding always has a side to compare, and printing that default as fact is
+      exactly what the UI must not do. A creature with no stamped gender shows no glyph.</li>
+  </ul>
+  <p class="note">Probe: <code>tools/probe_eqsoulxp.py</code> (BEFORE 4/4, AFTER 6/6). The party card
+  carries its own level label at 15px stage &mdash; <strong>5.39 CSS px, still sub-legible</strong> and
+  not yet raised; see <a href="system-stage.html">The Stage</a>. <em>ON DEV, not yet on release.</em></p>
+
   <h2>The item details window</h2>
   <p>Clicking an item in the inventory opens its details. What that window offers is decided by the
   item's category.</p>
@@ -115,6 +135,7 @@
 
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-08-05 &mdash; the soul readout gains a live XP bar and level, and creature icons gain a gender glyph (D).</strong> ON DEV.</li>
     <li><strong>2026-08-05 &mdash; item details: Tag and Key gain DISMANTLE, a key gains a route to its boss, and a tag’s slot row stops naming a socket (D).</strong> All three ON DEV.</li>
     <li>2026-08-05 &mdash; <strong>Soul ladder rebased and the grade half repaired.</strong> Soul grade was computed but returned only on the four ability slots, so on the four passive slots <code>grMult</code> defaulted to 1 and upgrading a soul changed nothing (measured on a live save: persDefPct 4.2 at Worn, 4.2 at Void). Grade now reaches the passive path. The combined stage&times;grade surface is rebased to &times;1.00 (S1/Worn) &rarr; &times;2.50 (S3/Void) &mdash; nothing sits below 1 any more &mdash; with grade carrying 2.00&times; and stage 1.25&times;, reversing which lever held the wider range. <em>ON DEV, not yet on release.</em></li>
     <li><strong>2026-08-02 &mdash; the equipment sheet reads live gear during a battle.</strong> The battle-entry freeze was applied to display as well as combat, so a mid-battle swap moved nothing on screen. The stat panel, POWER and the creature cards now read current equipment; the combat path is untouched and still gets the entry snapshot. Verified 8/8 in a real battle: the sheet moves, the fight does not, and a render leaves the frozen copy installed.</li>
