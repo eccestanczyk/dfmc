@@ -63,7 +63,7 @@
       <td>Free &mdash; creatures advance on their own.</td></tr>
     <tr><td class="lbl">Soul grade</td><td>Worn &times;1.00 &rarr; Void &times;2.00, nine equal steps
       (<code>1 + (1/9) &times; (grade# &minus; 1)</code>)</td>
-      <td>~264,000 Scrap and 259 attempts in expectation, Worn to Void (<code>soul_grading.csv</code>).</td></tr>
+      <td><strong>259 attempts in expectation</strong> to reach Void, 200 of them on the final 0.5% step alone (<code>soul_grading.csv</code>). Paid in <em>units</em>, any combination of the four sink currencies &mdash; see <a href="upgrading.html">Upgrading</a>. <strong>The unit figure is not quotable yet:</strong> see the note below.</td></tr>
   </table>
   <p>The combined surface therefore runs <strong>&times;1.00 at S1/Worn to &times;2.50 at S3/Void</strong>.
   <strong>Nothing is ever below &times;1.00</strong> &mdash; a soul is never a penalty, only a bonus that
@@ -82,6 +82,8 @@
   power at the ceiling moves +7.6%. The levers also swapped weight: stage used to carry 1.67&times; and
   grade only 1.45&times;, which put the wider range on the free lever. Recalculated with
   <code>tools/statmodel.py</code> against the three anchor creatures, never hand-modelled.</p>
+
+  <p class="note"><strong>THE SOUL UPGRADE COST DOES NOT RECONCILE &mdash; found 2026-08-05, not resolved.</strong> Three sources disagree and none of them can be quoted as fact until D rules. (1) <a href="upgrading.html">Upgrading</a> states <code>mult &times; 5 units</code> per attempt, but <code>soul_grading.csv</code>’s last row is 1200 Scrap, and at the stated <code>1 unit = 15 Scrap</code> that is 80 units &mdash; no <code>SoulMult &times; 5</code> reaches 80. (2) The CSV’s own columns disagree with the stated exchange rate: every row’s Scrap column implies twice the units its Dust/Essence/Ink columns do (row 1: 30 Scrap = 2 units, but 2 Dust = 1 unit). (3) The columns are therefore ambiguous between “four alternative denominations of one price” and “four separate bills”. The attempt COUNT is safe — it comes from <code>Success_Pct</code> alone — so the argument for grade carrying the ladder’s range stands on the 259 attempts, not on a currency figure.</p>
 
   <p class="note"><strong>Known, and not a soul problem.</strong> Solving for the combined multiplier that
   would put a maxed L100 avatar on the median maxed-SSR-creature power does not converge &mdash; at
