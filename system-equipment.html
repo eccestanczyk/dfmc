@@ -53,6 +53,28 @@
   <p><strong>Scoring must bypass the lock.</strong> The optimizer measures a candidate by swapping it into state and asking the game for its own Power number. During a battle <code>gearBonus()</code> would answer with the frozen snapshot for every candidate alike, so every option scored identically and the optimizer reported <em>&ldquo;already optimal&rdquo;</em> whatever was in the bag. The measurement therefore lifts the freeze for the duration of the swap and restores it afterwards. This was found by probe the moment the battle gate was removed &mdash; the gate had been hiding it.</p>
   <p class="foot">Client: <code>gearBonus()</code>, <code>freezeGear()</code>, <code>optBuildPlan()</code>, <code>optScore()</code>, <code>optApply()</code> in <code>play/app.js</code></p>
 
+  <h2>The soul picker</h2>
+  <ul class="sp-rules">
+    <li>Hovering a candidate shows its <strong>move summary</strong>. The rows always set
+      <code>eqHMv</code>; <code>eqHoverOn</code> carried <code>!s.eqPick</code>, so the summary was
+      suppressed precisely while a picker was open &mdash; the one screen where a player most needs it
+      was the one screen that refused it. Fixed 2026-08-05.</li>
+    <li><strong>The containment rule is not abandoned, only excepted.</strong> The original rule
+      &mdash; &ldquo;never paints over a picker or a confirm&rdquo; &mdash; still holds for sock picks
+      and confirms. Over a SOUL picker the panel is allowed, and two things make that safe rather than
+      a straight reversal: it is pinned to <code>top:82%</code> so it does not sit on the list being
+      hovered, and it is <code>pointer-events:none</code> so it cannot steal the mouse off a row.
+      Without the second, hovering would drop the hover the instant the panel appeared, and flicker.</li>
+    <li>Each row states the soul's strength as the <strong>live stage &times; grade figure</strong>.
+      It previously read &ldquo;60% strength&rdquo; from the retired stage ladder &mdash; a number that
+      stopped existing when the surface was rebased to &times;1.00&ndash;&times;2.50 earlier the same
+      day. Anything quoting a multiplier reads it from the same place the maths does.</li>
+  </ul>
+  <p class="note">Probe: <code>tools/probe_soulhover.py</code> (BEFORE 4/4, AFTER 5/5). It dispatches a
+  real <code>mouseover</code> on the row, because the renderer strips
+  <code>sc-camel-on-mouse-enter</code> from the DOM and there is no attribute to select on.
+  <em>ON DEV, not yet on release.</em></p>
+
   <h2>The soul readout</h2>
   <p>Each of the eight gear slots shows a readout of what its soul grants &mdash; the move for an
   ability slot, the passive text for an armour slot. Since 2026-08-05 that panel also reports the
@@ -135,6 +157,7 @@
 
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-08-05 &mdash; the soul picker shows a move summary on hover, and its rows stop quoting the retired stage ladder (D).</strong> ON DEV.</li>
     <li><strong>2026-08-05 &mdash; the soul readout gains a live XP bar and level, and creature icons gain a gender glyph (D).</strong> ON DEV.</li>
     <li><strong>2026-08-05 &mdash; item details: Tag and Key gain DISMANTLE, a key gains a route to its boss, and a tag’s slot row stops naming a socket (D).</strong> All three ON DEV.</li>
     <li>2026-08-05 &mdash; <strong>Soul ladder rebased and the grade half repaired.</strong> Soul grade was computed but returned only on the four ability slots, so on the four passive slots <code>grMult</code> defaulted to 1 and upgrading a soul changed nothing (measured on a live save: persDefPct 4.2 at Worn, 4.2 at Void). Grade now reaches the passive path. The combined stage&times;grade surface is rebased to &times;1.00 (S1/Worn) &rarr; &times;2.50 (S3/Void) &mdash; nothing sits below 1 any more &mdash; with grade carrying 2.00&times; and stage 1.25&times;, reversing which lever held the wider range. <em>ON DEV, not yet on release.</em></li>
