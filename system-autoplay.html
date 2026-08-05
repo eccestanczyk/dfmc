@@ -25,6 +25,18 @@
     <li>Overlays (inventory, breeding, equipment) freeze the roam physics for performance but do <strong>not</strong> stop the engage step &mdash; play continues under an open window by design.</li>
   </ul>
 
+  <h2>Descending on death</h2>
+  <p><strong>Status: on DEV (0.33), not yet on release.</strong> The <em>On Death</em> battle option (<code>Stay</code> / <code>Go Down</code>, default <code>Go Down</code>) is read in exactly one place &mdash; the autoplay defeat handler. A defeat dismissed by hand never descends, whatever the setting says.</p>
+  <p>With autoplay on, <code>2200ms</code> after the defeat scene appears:</p>
+  <ul class="sp-rules">
+    <li><strong>Lost to a boss:</strong> no descent. <code>floorNum</code> already reads the pre-boss floor for the whole boss fight (<code>travelToBossRoom()</code> parks it at <code>bf-1</code>), so the floor below the boss is the one already loaded &mdash; the run returns to it. Descending here would have skipped a floor, which it did until 2026-07-31.</li>
+    <li><strong>Floor &gt; 1:</strong> descends one floor.</li>
+    <li><strong>Floor 1:</strong> stays. There is nothing below it.</li>
+    <li>Any death descent switches <strong>Auto-Advance Floors off</strong>, persisted, so the climb is re-armed deliberately rather than immediately undoing the retreat.</li>
+  </ul>
+  <p><strong>The den is skipped, autoplay only.</strong> A <em>manual</em> descent onto a boss floor always routes into the den (<code>travel()</code> hands off to <code>travelToBossRoom()</code>), mirroring the climb &mdash; a downed boss does not skip it. An <em>autoplay</em> descent passes <code>opts.skipBoss</code>, which bypasses that branch; the same clamp that keeps an upward target off a boss floor then carries the target one further down. So <strong>11 &rarr; 9</strong>, <strong>21 &rarr; 19</strong>, and an ordinary descent (8 &rarr; 7) is untouched.</p>
+  <p><strong>Why it must be skipped:</strong> autoplay never fights bosses, and the loop only runs while <code>phase === 'floor'</code>. A death descent that landed in the den therefore parked the run in a room the loop cannot act in, with no timer and no path back &mdash; it stood still until the player noticed and walked out by hand. Reported live 2026-08-05 (feedback #28) while descending repeatedly after losses. Verified by <code>tools/probe_r28.py</code> (8/8; the unpatched build fails three of the eight, including &ldquo;autoplay resumes on the landed floor&rdquo;).</p>
+
   <h2>Transits, and why the engage is guarded</h2>
   <p>Changing floor or entering a boss den is a <strong>transit</strong>: <code>floorTransit</code> is set, an input-blocking veil covers the stage, and every image for the destination is decoded before the new phase is applied. The veil holds for a minimum of <strong>1400ms</strong>, with a 30s anti-softlock failsafe.</p>
   <p><strong>The phase does not change until the transit lands.</strong> Through the whole veil the game still reads <code>phase === 'floor'</code>. Three rules follow, and all three are load-bearing:</p>
@@ -40,6 +52,7 @@
 
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-08-05 &mdash; autoplay descent skips the boss den (on DEV, not yet on release).</strong> <code>travel()</code> gained <code>opts.skipBoss</code> and the On Death <code>Go Down</code> handler passes it, so a death descent lands on the next non-boss floor instead of the lair. Manual descent is unchanged. The whole &ldquo;Descending on death&rdquo; section above is new &mdash; the behaviour existed and had never been written down. Report #28.</li>
     <li><strong>2026-08-02 &mdash; page created; transit guards added.</strong> Autoplay had no codex page at all, which is why the interaction above was never written down and had to be rediscovered by reproducing a player report. The queued engage now re-checks <code>floorTransit</code> when it fires, and <code>enterBattle()</code> refuses during a transit.</li>
   </ul>
 </div>
