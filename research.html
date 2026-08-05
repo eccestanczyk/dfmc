@@ -343,6 +343,22 @@
     <li>Per-endpoint row cost is measurable today without shipping anything. Running the real worker under <code>workerd</code> locally with <code>sql.exec</code> wrapped &mdash; the cursor returns <code>rowsRead</code> and <code>rowsWritten</code> &mdash; gave, on an empty account: <code>/api/me</code> 4 read / 0 written; <code>/api/save</code> (GET) 3 / 1; login 3 / 6 across four tables; <code>/api/grants/pending</code> 6 / <strong>9</strong>, six of those nine being an automatic bug report writing <code>feedback</code>, <code>flag_rept</code> and <code>anomalies</code> at two rows each.</li>
   </ul>
 
+  <h3>CORRECTION to the figures above (2026-08-05, same day)</h3>
+  <p>The per-player figures in this entry were divided by the wrong number, and the population they describe is not a normal one. Both are corrected here rather than edited away, because the original numbers were quoted to D.</p>
+  <ul class="sp-rules">
+    <li><strong>The denominator counted accounts that never played.</strong> Twelve player objects took requests on 2026-08-04, but four of them took only 10&ndash;12 requests each with an identical hourly fingerprint &mdash; that is the daily R2 backup sweep touching a dormant account, not a session. <strong>Eight accounts actually played.</strong> Every per-player figure above is therefore understated by <strong>1.5&times;</strong>: rows written per active account per day is <strong>21,769</strong>, not 14,512; rows read is <strong>2,710,548</strong>, not 1,807,032.</li>
+    <li><strong>The population is close to 24/7.</strong> Active hours on 2026-08-04, measured as distinct UTC hours with at least one Durable Object request: <strong>23, 20, 14, 14, 13, 13, 9, 2</strong>. Median <strong>13.5 hours per player per day</strong>, 108 player-hours across eight accounts. Two accounts are effectively continuous. This is autoplay running overnight, and no real population of 100,000 behaves this way.</li>
+    <li><strong>Headcount is the wrong scaling unit; the player-hour is the right one.</strong> Per active player-hour: <strong>1,612 rows written, 200,781 rows read, 2.48&nbsp;GB-s, 156 Durable Object requests, 268 Worker requests.</strong> Rebuilding the projection on that basis, monthly total including the $5 plan fee:</li>
+  </ul>
+  <table class="sp-table"><thead><tr><th>hours/day</th><th>1,000</th><th>10,000</th><th>100,000</th></tr></thead><tbody>
+  <tr><td>13.5 (alpha, as measured)</td><td>$721</td><td>$7,914</td><td>$79,845</td></tr>
+  <tr><td>4 (very heavy)</td><td>$160</td><td>$2,290</td><td>$23,603</td></tr>
+  <tr><td>2 (heavy)</td><td>$56</td><td>$1,106</td><td>$11,762</td></tr>
+  <tr><td>1 (typical live-service)</td><td>$6</td><td>$514</td><td>$5,842</td></tr>
+  <tr><td>0.5 (casual)</td><td>$5</td><td>$218</td><td>$2,882</td></tr>
+  </tbody></table>
+  <p>The original $53,521 figure sat between the 4-hour and 13.5-hour rows because it used the wrong denominator on a 13.5-hour population. <strong>The honest statement is a range: roughly $2,900 to $80,000 a month at 100,000 players, set almost entirely by hours played per day, and writes are the dominant term at every point on it</strong> &mdash; $66,106 of the 13.5-hour case, $9,751 of the 2-hour case. Autoplay is a designed feature, so the real average will sit above a normal RPG's; it will not sit at 13.5.</p>
+
   <h3>The finding that matters</h3>
   <p>A per-write audit trail is paid for in the exact currency it is measuring. One stored row per write doubles the dimension that is 82% of the bill, and the existing helper is worse than a bare insert: <code>spend(kind, n)</code> runs a <code>SELECT</code> on <code>wmeta</code>, a <code>SELECT</code> on <code>usage</code>, then the upsert &mdash; two reads and a write <em>per call</em>. Wired into every write path it would add 10&ndash;30% to the number under investigation.</p>
   <p>The resolution the industry has already reached is that measurement granularity and storage granularity are different decisions. Tag <strong>per request</strong>, aggregate <strong>in memory</strong>, and persist <strong>per period</strong> &mdash; one row per system per period, never one row per event. The wrap belongs in one place (the object's constructor) rather than at 123 call sites, because a per-call-site tag misses every statement issued from a helper, and this codebase issues many.</p>
@@ -356,8 +372,89 @@
   </ul>
   <p class="foot">Sources: Cloudflare Developer Docs &mdash; <em>Rules of Durable Objects</em> (in-memory batching, output-gate write coalescing, the <code>blockConcurrencyWhile</code> throughput ceiling, index write amplification) and Durable Objects / Workers pricing pages (rows read and written rates, included allowances, verified 2026-08-05); AWS Well-Architected Games Industry Lens (write-queueing with batched consumer inserts, and the cost argument for it); GameDev.net, <em>MMO database consistency</em> (write-important-events-immediately, accumulate per-tick state in memory); horizOn engineering blog (write-behind cache, 5&ndash;30s flush, spike absorption); FinOps Foundation X conference session, <em>Engineering a Cost per Feature Capability with OpenTelemetry</em> (billing data joined to distributed tracing, sampling adjustment); Honeycomb / Jessitron, <em>Span or Attribute?</em> (accumulate attributes on one span; attributes are near-free where billing is per event); OneUptime, span and resource attribute design (cardinality placement). Herumon Tower figures are from the Cloudflare GraphQL analytics API and a local <code>workerd</code> run of the shipped worker, both on 2026-08-05.</p>
 
+  <h2>7. Durable Objects SQLite write accounting, and what it costs to measure it (2026-08-05)</h2>
+  <p><strong>The question.</strong> Entry 6 established that rows written is the bill and that attribution needs a tagging layer. This is the mechanics pass: exactly how a row becomes a billed row, what the platform charges to measure itself, and what each lever is actually worth.</p>
+
+  <h3>How a billed row is counted</h3>
+  <ul class="sp-rules">
+    <li>Cloudflare's documentation is explicit: INSERT, UPDATE and DELETE all contribute, and a statement inserting ten rows bills ten. <code>setAlarm()</code> bills one row written. The key-value methods on a SQLite-backed object store into a hidden SQLite table and bill through the same row accounting.</li>
+    <li><strong>Indexes amplify, and the docs say so:</strong> every row update of an index counts as an additional row.</li>
+    <li>Independently measured by Larry Maccherone (lumenize.com, 23 February 2026) &mdash; 36 tests reading <code>cursor.rowsWritten</code> under workerd, written because the question kept coming up on the Durable Objects Discord with no experimentally-validated answer. His results:</li>
+  </ul>
+  <ul class="sp-rules">
+    <li><code>INSERT</code> costs <strong>1 for the row + 1 per index that needs updating</strong>.</li>
+    <li>A <code>TEXT PRIMARY KEY</code> <em>without</em> <code>WITHOUT ROWID</code> creates a hidden index, so the INSERT costs <strong>2, not 1</strong>. His headline recommendation is to add <code>WITHOUT ROWID</code> to every table with a TEXT or compound primary key &mdash; he reports no downside. <code>INTEGER PRIMARY KEY</code> aliases the rowid and costs 1 either way.</li>
+    <li>A compound index <code>(a,b)</code> costs <strong>1</strong> extra write and still serves leftmost-prefix lookups on <code>a</code>; two single-column indexes cost <strong>2</strong>.</li>
+    <li>An inline <code>UNIQUE</code> creates a hidden index: +1 per INSERT.</li>
+    <li><strong>UPDATE only rewrites indexes covering columns that changed.</strong> Updating one non-indexed column on a three-index table costs <strong>1</strong>. This is the cheapest write shape available.</li>
+    <li><code>INSERT OR REPLACE</code> costs 1 for the row rather than delete-plus-insert, but rewrites <em>all</em> indexes &mdash; 4 on a three-index table. A narrow UPDATE beats it.</li>
+    <li>Partial indexes (<code>WHERE status=1</code>) bill only when the written row matches the filter &mdash; near-free for sparse flags.</li>
+    <li><code>DELETE</code> reports <code>rowsWritten</code> 1 regardless of index count. He flags that he could not confirm whether index cleanup is genuinely unbilled or merely not surfaced by the cursor.</li>
+    <li>Column count is irrelevant. A two-column and a ten-column table both cost 1 per row.</li>
+  </ul>
+
+  <h3>The correction this forces on entry 6</h3>
+  <p><strong>Batching does not reduce billed rows.</strong> Entry 6 cited AWS write-queueing and Cloudflare's in-memory aggregation approvingly and left the impression that batching lowers the bill. It does not, not directly: a multi-row <code>INSERT &hellip; VALUES</code> bills exactly the same total as the same rows inserted one at a time. Batching coalesces the <em>commit</em> &mdash; latency, atomicity, output-gate round trips. Billed rows are always rows touched plus index updates. Batching only lowers the bill when it removes <em>redundant</em> row touches: collapsing many per-tick whole-row rewrites into a single flush of the final state. That is dirty-flag coalescing, and it is a different mechanism from a batch INSERT. Stating it loosely will produce a saving that does not arrive.</p>
+
+  <h3>What the platform charges to measure itself</h3>
+  <ul class="sp-rules">
+    <li>Every counter bump in the SQL <code>usage</code> table is a billed write, permanently. Diagnostic counters added there are a recurring cost, not a one-off.</li>
+    <li><strong>Workers Analytics Engine <code>writeDataPoint()</code> is hibernation-safe.</strong> It is fire-and-forget, returns immediately, needs no <code>await</code> and no <code>waitUntil()</code>, and opens no outbound connection &mdash; so it is none of the things the Durable Object lifecycle documentation lists as blocking hibernation (an awaited <code>fetch()</code>, the WebSocket API, an outbound TCP or WebSocket connection, an in-progress request, a timer). Checked against that list deliberately, because the hibernation rule is a thousandfold cost difference here.</li>
+    <li>Limits: 20 blobs and 20 doubles and <strong>1 index</strong> per data point, 16&nbsp;KB of blobs, a 96-byte index, 250 <code>writeDataPoint</code> calls per invocation, <strong>3-month retention</strong>. Currently unbilled; the announced price is $0.25 per million written and $1.00 per million read, with 10 million written per month free.</li>
+    <li><strong>Cardinality is free</strong> &mdash; each blob is stored independently, so adding dimensions costs nothing. But sampling is equitable <em>per index value</em>, so index on something low-cardinality (an event kind, a floor bucket) and never on the steamid, or every player becomes their own sparsely-sampled bucket.</li>
+    <li>It is sampled, lossy and best-effort, with no retry and no backpressure. Fine for diagnosis and a budget dashboard; <strong>never</strong> a system of record for a granted reward. It has also historically returned undefined under local <code>wrangler dev</code> &mdash; guard the call.</li>
+  </ul>
+
+  <h3>There is no write cap, and three people have proved it</h3>
+  <ul class="sp-rules">
+    <li><strong>Little Bear Apps, 18 March 2026.</strong> Two bugs wrote <strong>4.83 billion rows</strong> to D1 in one month on a $5 account, an overage of about <strong>$4,868</strong>, waived after eighteen days and four escalation channels. One bug was a cron re-processing the same batch with no dedup and no offset tracking &mdash; 3.45 billion writes in four days, peaking at <strong>1.42 billion in a single day</strong>. The other was an <code>INSERT</code> with no <code>ON CONFLICT</code> re-inserting rows that already existed, roughly 910 million redundant writes. Normal usage for that account was about <strong>200 writes an hour</strong>.</li>
+    <li>Their remediation is ours almost line for line: usage tracking moved off the billed store into Analytics Engine; three-sigma anomaly detection on a 168-hour rolling window, which they calculate would have caught the spike in under an hour; monitoring inserts collapsed from about 200 individual writes an hour to about 8 batched transactions.</li>
+    <li><strong>ofsecman.io:</strong> a missing <code>WHERE</code> turned a single-row UPDATE into a full-table UPDATE running repeatedly &mdash; over <strong>$5,000 in under ten seconds</strong>.</li>
+    <li><strong>Cloudflare community:</strong> a first-time user billed <strong>$3,200</strong> for want of an index, card overdrawn before they noticed.</li>
+    <li>The common finding across all three: <strong>no hard write cap, no write rate limit, and no billing alert granular enough to catch a runaway writer.</strong> The circuit breaker has to be ours. This is a standing risk for any endpoint that writes inside a retry or a cron.</li>
+  </ul>
+
+  <h3>Snapshot versus append-only, priced against this meter</h3>
+  <p>An append-only design costs <strong>more</strong> writes than a snapshot when state changes often and each event is small: every action is at least one row plus its indexes, where a snapshot rewrites one row only when you choose to flush. For an autoplay grinder that is a write amplifier, not a saving. Compaction is itself a write; with reads a thousand times cheaper than writes, compacting to speed reads almost never pays here, though compacting to control storage at $0.20 per GB-month can, on a coarse cadence.</p>
+  <p>Keep append-only for what must survive a rollback &mdash; grants, wallet, entitlements, drops &mdash; written immediately, idempotency-keyed, minimally indexed, with a compound primary key under <code>WITHOUT ROWID</code> so the dedup key costs one write rather than two. The Durable Object is already the single-writer boundary, so no distributed lock is needed for exactly-once <em>processing</em>; exactly-once delivery remains impossible and the idempotency key is what covers the retry.</p>
+
+  <h3>What other games do about the same problem</h3>
+  <ul class="sp-rules">
+    <li><strong>James Gwertzman (PopCap/EA), HPTS 2013.</strong> Save payload cut from 30K to 3.5K, and analytics split onto its own pipeline rather than the transactional store &mdash; because once free-to-play instrumentation landed, analytics accounted for more than half of all transactions. That is this problem exactly, a decade earlier: co-located, observability is billed at authoritative-write prices. (Retrievable as a slide deck; treat the specific numbers as from that deck rather than a reviewed paper.)</li>
+    <li><strong>Nakama / Heroic Labs.</strong> Wallets are updatable only from the server, and <code>MultiUpdate</code> combines account updates, storage writes and deletes, and wallet updates into a single atomic transaction &mdash; the canonical shape for coalescing related authoritative writes into one commit.</li>
+    <li><strong>Discord's Cassandra to ScyllaDB migration</strong> is widely cited on write-heavy game persistence, but in an LSM store reads cost more than writes &mdash; the inverse of this pricing. Its lessons do not port directly and should not be quoted as if they do.</li>
+  </ul>
+
+  <h3>Ranked levers</h3>
+  <ul class="sp-rules">
+    <li><strong>1. Zero writes on read and poll endpoints.</strong> <code>/api/grants/pending</code> writes nine rows, six of them an automatic bug report. A polling endpoint should write nothing. Highest leverage because autoplay polls.</li>
+    <li><strong>2. Dirty-flag coalescing in object memory</strong>, flushed on cadence or session end &mdash; the mechanism that actually removes redundant writes. Authoritative writes still go through immediately; in-memory state does not survive hibernation.</li>
+    <li><strong>3. Narrow UPDATE of non-indexed columns</strong> in place of whole-row rewrites and <code>INSERT OR REPLACE</code>.</li>
+    <li><strong>4. Observational logs off the billed store</strong> &mdash; sampled to Analytics Engine or flushed to R2, leaving only the authoritative grant ledger in SQLite.</li>
+    <li><strong>5. Schema pass, and it is free:</strong> <code>WITHOUT ROWID</code> on TEXT and compound primary keys, compound indexes in place of several single-column ones, inline <code>UNIQUE</code> reconsidered. The <code>kv</code> table, at 18 write statements, is first.</li>
+    <li><strong>6. Counters to Analytics Engine</strong> rather than the <code>usage</code> table.</li>
+    <li><strong>7. Retention pruning on a coarse cadence.</strong> Each DELETE is a write, so prune in batches, never per request.</li>
+    <li><strong>8. Circuit breaker and anomaly detection.</strong> Not a saving &mdash; a cap on the downside the three incidents above describe.</li>
+  </ul>
+  <p><strong>Not yet measured on this build:</strong> which of these levers is worth what. The ranking is by mechanism, not by measurement, and it rests on the unverified assumption that whole-row rewrites and per-poll writes dominate the 10.3 rows written per request. The instrumentation in entry 6 is what settles it, and nothing should be promised as a saving before it runs.</p>
+  <p class="foot">Sources: Cloudflare Developer Docs &mdash; Durable Objects and Workers pricing, SQLite storage API, <em>Rules of Durable Objects</em>, Durable Object lifecycle, Workers Analytics Engine (pricing, limits, sampling); Larry Maccherone, <em>Every index costs you $1 per million rows: measuring DO SQLite write costs</em>, lumenize.com, 23 Feb 2026 (36 experiments against <code>cursor.rowsWritten</code>); Little Bear Apps (Nathan Schram), <em>My $5/month Cloudflare bill hit $4,868</em>, 18 Mar 2026; ofsecman.io, <em>How Cloudflare D1 Burned $5000 in 10 Seconds</em>; Cloudflare Community (the $3,200 missing-index report, via Little Bear Apps); James Gwertzman, <em>No Free Lunch: Transactions in Online Games</em>, HPTS 2013; Heroic Labs Nakama documentation (wallets, MultiUpdate); Bo Ingram, <em>How Discord Stores Trillions of Messages</em>, Discord Engineering, 2023. Prices verified 2026-08-05 and subject to change.</p>
+
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-08-05 &mdash; seventh entry: Durable Objects SQLite write accounting, and what it costs to
+      measure it.</strong> The mechanics pass behind entry 6. Records how a billed row is counted (row plus one
+      per affected index), the <code>WITHOUT ROWID</code> finding, that a narrow UPDATE only rewrites indexes on
+      changed columns, and that <strong>batching does not reduce billed rows</strong> &mdash; a correction to
+      entry 6's phrasing. Establishes that <code>writeDataPoint()</code> does not block hibernation, and records
+      three published runaway-write incidents ($4,868, $5,000, $3,200) proving there is no platform write cap.
+      Ranked levers included; none of them measured on this build yet.</li>
+    <li><strong>2026-08-05 &mdash; entry 6 corrected on the same day it was written.</strong> The per-player
+      figures divided by twelve accounts when only <strong>eight</strong> played &mdash; the other four were the
+      backup sweep touching dormant accounts &mdash; understating every per-player figure by 1.5&times;. And the
+      population is close to 24/7: median <strong>13.5 active hours per player per day</strong>, two accounts
+      effectively continuous. Rebuilt on the player-hour, the 100,000-player projection is a range of roughly
+      <strong>$2,900 to $80,000 a month</strong> set almost entirely by hours played, not the single $53,521
+      figure originally quoted. Writes dominate at every point on the range.</li>
     <li><strong>2026-08-05 &mdash; sixth entry: attributing write cost to the system that caused it.</strong>
       Prompted by a measured Cloudflare projection in which rows written are 82% of the bill at 100,000 players
       and nothing in the build says which system produces them. Confirms that the industry answer is write-behind
