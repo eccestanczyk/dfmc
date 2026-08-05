@@ -117,7 +117,7 @@
   </ul>
   <div class="sp-note">Hardcore implication: death wipes a character to level&nbsp;1. The relevel to 67 is ~30&nbsp;h of autoplay, but a death at level&nbsp;95+ costs a dedicated player weeks — high stakes by design. See <a href="system-realms.html">Death &amp; Realms</a>.</div>
 
-  <h2>XP is addressed to a CREATURE, never to a party slot &mdash; ON DEV, not yet on release</h2>
+  <h2>XP is addressed to a CREATURE, never to a party slot &mdash; LIVE on release since 2026-08-05 (0.32)</h2>
   <p>The party occupies gear slots <code>8</code> and <code>9</code>, and the battle units
   <code>a1</code>/<code>a2</code> are derived from whatever record sits in them. The credit used to be
   written back the same way &mdash; straight into <code>equipOv[8|9]</code> at commit time. The Equipment
@@ -179,7 +179,7 @@
   same reason &mdash; a flat total would have confiscated real progress on the first save.</p>
 
   <h2>Who credits a battle's XP &mdash; nobody but the server</h2>
-<p><strong>ON DEV, not yet on release.</strong> Owner ruling, standing: <em>no client-credited battle
+<p><strong>LIVE on release since 2026-08-04 (0.31).</strong> Owner ruling, standing: <em>no client-credited battle
 rewards</em>. Account XP, class XP and Ichor are not moved when a battle ends. <code>/api/battle</code>
 answers with the figures the server derived from its own kill list, and those are the only numbers that
 ever reach the account or the screen.</p>
@@ -212,7 +212,7 @@ accounts measured. A guard that fires on every honest player describes the syste
 real offender would have been invisible inside it. With one authority the flag becomes a signal again.</p>
 
 <h2>Advancement is asked for, not given</h2>
-<p><strong>ON DEV, not yet on release.</strong> A creature, a socketed soul or the class still becomes
+<p><strong>LIVE on release since 2026-08-04 (0.31).</strong> A creature, a socketed soul or the class still becomes
 eligible to advance the same way &mdash; by passing its line's advance level with a further stage to reach.
 What changed is who starts it. <strong>A victory no longer interrupts itself to play the scene.</strong> The
 win resolves, the rewards land, and the floor returns.</p>
@@ -230,7 +230,7 @@ scene. Inspecting a creature and clicking its slot is how a player reaches it.</
 </ul>
 
 <h2>A creature does not state its tier</h2>
-<p><strong>ON DEV, not yet on release.</strong> Rarity still exists and still governs everything it always
+<p><strong>LIVE on release since 2026-08-04 (0.31).</strong> Rarity still exists and still governs everything it always
 did &mdash; spawn tables, encounter weights, art, the codex. What it no longer does is announce itself.
 <strong>Owner ruling: players work it out by meeting a creature more or less often.</strong></p>
 <p>Removed from every in-game surface: the badge on the creature card, the badge on the creature sheet, the
@@ -273,8 +273,7 @@ below level 80, and the line advances at 69, so a Hafgufa can never fire it.</p>
 
 <h2>Changelog</h2>
   <ul>
-    <li><strong>2026-08-05 &mdash; battle XP is addressed by creature, not by party slot (ON DEV, not yet
-      on release).</strong> Swapping a party creature mid-battle in the Equipment window paid the
+    <li><strong>2026-08-05 &mdash; battle XP is addressed by creature, not by party slot (LIVE on release since 2026-08-05 (0.32)).</strong> Swapping a party creature mid-battle in the Equipment window paid the
       newcomer at the fighter's rate and paid the fighter nothing; the advance check had the same
       slot-addressing and could write one creature's next form into another's record. Both now resolve
       the fighting unit's own <code>uid</code>, and credit nobody rather than the wrong creature.</li>
@@ -283,11 +282,11 @@ below level 80, and the line advances at 69, so a Hafgufa can never fire it.</p>
       upgrades were flat across every line's whole kit and now follow the stage windows, complete by 90,
       with each line on its own schedule. Found by a player reporting Hafgufa as overtuned &mdash; it was
       firing a Kraken's move fifteen levels before it could become one.</li>
-    <li><strong>2026-08-04 &mdash; creatures no longer state their rarity (ON DEV, not yet on release).</strong>
+    <li><strong>2026-08-04 &mdash; creatures no longer state their rarity (LIVE on release since 2026-08-04 (0.31)).</strong>
       The C / UC / R / SR / SSR badges are gone from the creature card, the creature sheet, the hatch and codex
       lists, and from creature subtitles. Rarity still drives spawn rates, art and the codex, and the tier
       colour stays &mdash; only the words are gone.</li>
-    <li><strong>2026-08-04 &mdash; advancement is fired by the player (ON DEV, not yet on release).</strong>
+    <li><strong>2026-08-04 &mdash; advancement is fired by the player (LIVE on release since 2026-08-04 (0.31)).</strong>
       A victory no longer plays the advancement scene on its own. An upward arrow marks the slot that earned
       it &mdash; the teammate or the socketed soul &mdash; and clicking it plays the scene. Eligibility is
       level-based, so an unclaimed advancement keeps until it is asked for.</li>
@@ -332,7 +331,7 @@ below level 80, and the line advances at 69, so a Hafgufa can never fire it.</p>
       Client and server were checked against the CSV on both branches: <code>xp_cum</code> and <code>xp_kill</code> in
       <code>src/tables.json</code> match all 100 rows exactly on <code>main</code> and <code>dev</code>, and
       <code>class_max_xp</code> equals the level-100 cumulative, 18,464,128.</li>
-    <li><strong>2026-08-04 &mdash; no client-credited battle rewards (ON DEV, not yet on release).</strong>
+    <li><strong>2026-08-04 &mdash; no client-credited battle rewards (LIVE on release since 2026-08-04 (0.31)).</strong>
       Account XP, class XP and Ichor are no longer moved at battle end; the server's figures are the only
       ones that reach the account, and the victory class row is rebuilt from them when they land. The
       delta reconciliation shipped 2026-08-03 already left the stored total correct &mdash; what this

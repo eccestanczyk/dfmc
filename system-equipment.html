@@ -73,7 +73,7 @@
   <p class="note">Probe: <code>tools/probe_soulhover.py</code> (BEFORE 4/4, AFTER 5/5). It dispatches a
   real <code>mouseover</code> on the row, because the renderer strips
   <code>sc-camel-on-mouse-enter</code> from the DOM and there is no attribute to select on.
-  <em>ON DEV, not yet on release.</em></p>
+  <em>LIVE on release since 2026-08-05 (0.32).</em></p>
 
   <h2>The soul readout</h2>
   <p>Each of the eight gear slots shows a readout of what its soul grants &mdash; the move for an
@@ -93,7 +93,7 @@
   </ul>
   <p class="note">Probe: <code>tools/probe_eqsoulxp.py</code> (BEFORE 4/4, AFTER 6/6). The party card
   carries its own level label at 15px stage &mdash; <strong>5.39 CSS px, still sub-legible</strong> and
-  not yet raised; see <a href="system-stage.html">The Stage</a>. <em>ON DEV, not yet on release.</em></p>
+  not yet raised; see <a href="system-stage.html">The Stage</a>. <em>LIVE on release since 2026-08-05 (0.32).</em></p>
 
   <h2>The item details window</h2>
   <p>Clicking an item in the inventory opens its details. What that window offers is decided by the
@@ -122,7 +122,7 @@
   If they are, the boss room opens directly; otherwise they are taken to the boss's approach floor and
   enter by the normal door. Travel is asynchronous and this area produced the orphaned-veil softlock on
   2026-08-04, so nothing is sequenced across it. Probe: <code>tools/probe_itemdet.py</code>.
-  <em>ON DEV, not yet on release.</em></p>
+  <em>LIVE on release since 2026-08-05 (0.32).</em></p>
 
   <h2>Soul strength &mdash; stage &times; grade</h2>
   <p>A gear soul&rsquo;s output (passive magnitude, and granted move power on the four ability slots) is
@@ -157,10 +157,10 @@
 
   <h2>Changelog</h2>
   <ul class="sp-rules">
-    <li><strong>2026-08-05 &mdash; the soul picker shows a move summary on hover, and its rows stop quoting the retired stage ladder (D).</strong> ON DEV.</li>
-    <li><strong>2026-08-05 &mdash; the soul readout gains a live XP bar and level, and creature icons gain a gender glyph (D).</strong> ON DEV.</li>
-    <li><strong>2026-08-05 &mdash; item details: Tag and Key gain DISMANTLE, a key gains a route to its boss, and a tag’s slot row stops naming a socket (D).</strong> All three ON DEV.</li>
-    <li>2026-08-05 &mdash; <strong>Soul ladder rebased and the grade half repaired.</strong> Soul grade was computed but returned only on the four ability slots, so on the four passive slots <code>grMult</code> defaulted to 1 and upgrading a soul changed nothing (measured on a live save: persDefPct 4.2 at Worn, 4.2 at Void). Grade now reaches the passive path. The combined stage&times;grade surface is rebased to &times;1.00 (S1/Worn) &rarr; &times;2.50 (S3/Void) &mdash; nothing sits below 1 any more &mdash; with grade carrying 2.00&times; and stage 1.25&times;, reversing which lever held the wider range. <em>ON DEV, not yet on release.</em></li>
+    <li><strong>2026-08-05 &mdash; the soul picker shows a move summary on hover, and its rows stop quoting the retired stage ladder (D).</strong> LIVE on release since 2026-08-05 (0.32).</li>
+    <li><strong>2026-08-05 &mdash; the soul readout gains a live XP bar and level, and creature icons gain a gender glyph (D).</strong> LIVE on release since 2026-08-05 (0.32).</li>
+    <li><strong>2026-08-05 &mdash; item details: Tag and Key gain DISMANTLE, a key gains a route to its boss, and a tag’s slot row stops naming a socket (D).</strong> All three LIVE on release since 2026-08-05 (0.32).</li>
+    <li>2026-08-05 &mdash; <strong>Soul ladder rebased and the grade half repaired.</strong> Soul grade was computed but returned only on the four ability slots, so on the four passive slots <code>grMult</code> defaulted to 1 and upgrading a soul changed nothing (measured on a live save: persDefPct 4.2 at Worn, 4.2 at Void). Grade now reaches the passive path. The combined stage&times;grade surface is rebased to &times;1.00 (S1/Worn) &rarr; &times;2.50 (S3/Void) &mdash; nothing sits below 1 any more &mdash; with grade carrying 2.00&times; and stage 1.25&times;, reversing which lever held the wider range. <em>LIVE on release since 2026-08-05 (0.32).</em></li>
     <li><strong>2026-08-02 &mdash; the equipment sheet reads live gear during a battle.</strong> The battle-entry freeze was applied to display as well as combat, so a mid-battle swap moved nothing on screen. The stat panel, POWER and the creature cards now read current equipment; the combat path is untouched and still gets the entry snapshot. Verified 8/8 in a real battle: the sheet moves, the fight does not, and a render leaves the frozen copy installed.</li>
     <li><strong>2026-08-02 &mdash; an HP accessory was labelled ATK in the slot preview.</strong> The currently-slotted preview built its label from <code>EQUIP[gi].stat</code> &mdash; the SLOT default, Attack for accessories &mdash; instead of <code>statKind</code>, the item’s own identity. The number shown was always the right one (a Crude Relic read <code>+10 ATK</code>, and 10 IS its HP base), which is what made it look like a display quirk rather than a wrong field. Every other surface already used <code>statKind</code>; only this one line disagreed.</li>
     <li><strong>2026-08-02 &mdash; auto-optimize no longer refuses during a battle (D ruling).</strong> It answered &ldquo;finish the battle first&rdquo;, which was belt-and-braces over a lock that already existed. The gate is gone; the freeze is now taken explicitly at all four battle-entry points instead of lazily on the first combat read; and <code>optScore()</code> lifts the freeze while measuring a candidate, without which every candidate scored the same mid-battle. Page created &mdash; nothing owned the equipment window, the gear lock or the optimizer before this.</li>
