@@ -59,31 +59,24 @@
   neither is meaningful alone.</p>
   <table>
     <tr><th>Lever</th><th>Range</th><th>What it costs</th></tr>
-    <tr><td class="lbl">Creature stage</td><td>S1 &times;1.00 &middot; S2 &times;1.12 &middot; S3 &times;1.25</td>
-      <td>Free &mdash; creatures advance on their own.</td></tr>
-    <tr><td class="lbl">Soul grade</td><td>Worn &times;1.00 &rarr; Void &times;2.00, nine equal steps
-      (<code>1 + (1/9) &times; (grade# &minus; 1)</code>)</td>
-      <td><strong>259 attempts in expectation</strong> to reach Void, 200 of them on the final 0.5% step alone (<code>soul_grading.csv</code>). Paid in <em>units</em>, any combination of the four sink currencies &mdash; see <a href="upgrading.html">Upgrading</a>. <strong>The unit figure is not quotable yet:</strong> see the note below.</td></tr>
+    <tr><td class="lbl">Source creature&rsquo;s stage</td><td>S1 &times;1.00 &middot; S2 &times;1.12 &middot; S3 &times;1.25</td>
+      <td>Raised by advancing the creature &mdash; levels, not resources.</td></tr>
+    <tr><td class="lbl">Source creature&rsquo;s quality grade</td><td>Worn &times;1.00 &rarr; Void &times;2.00, nine equal steps (<code>1 + (1/9) &times; (grade# &minus; 1)</code>)</td><td><strong>Inherited from the egg.</strong> Creatures are not upgraded with resources &mdash; they are bred and hatched, so this lever is raised by breeding for a better egg, and above Legendary it is a breeding pursuit outright. See <a href="system-breeding.html">Breeding</a>.</td></tr>
   </table>
   <p>The combined surface therefore runs <strong>&times;1.00 at S1/Worn to &times;2.50 at S3/Void</strong>.
   <strong>Nothing is ever below &times;1.00</strong> &mdash; a soul is never a penalty, only a bonus that
   grows.</p>
   <table>
-    <tr><th>Soul grade</th><th>Stage 1</th><th>Stage 2</th><th>Stage 3</th></tr>
+    <tr><th>Creature quality grade</th><th>Stage 1</th><th>Stage 2</th><th>Stage 3</th></tr>
     <tr><td class="lbl">Worn &times;1.00</td><td>&times;1.00</td><td>&times;1.12</td><td>&times;1.25</td></tr>
     <tr><td class="lbl">Rare &times;1.33</td><td>&times;1.33</td><td>&times;1.49</td><td>&times;1.67</td></tr>
     <tr><td class="lbl">Legendary &times;1.56</td><td>&times;1.56</td><td>&times;1.74</td><td>&times;1.94</td></tr>
     <tr><td class="lbl">Divine &times;1.78</td><td>&times;1.78</td><td>&times;1.99</td><td>&times;2.22</td></tr>
     <tr><td class="lbl">Void &times;2.00</td><td>&times;2.00</td><td>&times;2.24</td><td>&times;2.50</td></tr>
   </table>
-  <p class="note"><strong>Rebased 2026-08-05 (D).</strong> It previously ran &times;0.60 (S1/Worn) to
-  &times;1.45 (S3/Void), so most souls sat <em>below</em> 1 and read as a penalty. The span is close to
-  unchanged (2.42&times; &rarr; 2.50&times;) &mdash; this is a rebase, not an inflation; modelled avatar
-  power at the ceiling moves +7.6%. The levers also swapped weight: stage used to carry 1.67&times; and
-  grade only 1.45&times;, which put the wider range on the free lever. Recalculated with
-  <code>tools/statmodel.py</code> against the three anchor creatures, never hand-modelled.</p>
+  <p class="note"><strong>Rebased 2026-08-05 (D).</strong> It previously ran &times;0.60 (S1/Worn) to &times;1.45 (S3/Void), so most souls sat <em>below</em> 1 and read as a penalty. Span is close to unchanged (2.42&times; &rarr; 2.50&times;) &mdash; a rebase, not an inflation; modelled avatar power at the ceiling +7.7%. The levers also swapped weight: stage used to carry 1.67&times; and grade only 1.45&times;, which put the wider range on the lever that costs least. Grade now carries 2.00&times; &mdash; a Void creature is a breeding outcome, and consuming one for its soul should read as a real decision. Recalculated with <code>tools/statmodel.py</code> against the three anchor creatures, never hand-modelled.</p>
 
-  <p class="note"><strong>THE SOUL UPGRADE COST DOES NOT RECONCILE &mdash; found 2026-08-05, not resolved.</strong> Three sources disagree and none of them can be quoted as fact until D rules. (1) <a href="upgrading.html">Upgrading</a> states <code>mult &times; 5 units</code> per attempt, but <code>soul_grading.csv</code>’s last row is 1200 Scrap, and at the stated <code>1 unit = 15 Scrap</code> that is 80 units &mdash; no <code>SoulMult &times; 5</code> reaches 80. (2) The CSV’s own columns disagree with the stated exchange rate: every row’s Scrap column implies twice the units its Dust/Essence/Ink columns do (row 1: 30 Scrap = 2 units, but 2 Dust = 1 unit). (3) The columns are therefore ambiguous between “four alternative denominations of one price” and “four separate bills”. The attempt COUNT is safe — it comes from <code>Success_Pct</code> alone — so the argument for grade carrying the ladder’s range stands on the 259 attempts, not on a currency figure.</p>
+  <p class="note"><strong>Not this lever, but recorded while looking: the CLASS-soul upgrade cost does not reconcile.</strong> Class souls (<code>CLS-*</code>) do have a resource ladder and it keeps its own grade field; creature souls never did. Three sources disagree on what that ladder costs and none can be quoted until D rules: <a href="upgrading.html">Upgrading</a> states <code>mult &times; 5 units</code> per attempt, but <code>soul_grading.csv</code>&rsquo;s last row is 1200 Scrap = 80 units at the stated <code>1 unit = 15 Scrap</code> and no <code>SoulMult &times; 5</code> reaches 80; and the CSV contradicts that rate internally, every row&rsquo;s Scrap column implying twice the units its Dust/Essence/Ink columns do.</p>
 
   <p class="note"><strong>Known, and not a soul problem.</strong> Solving for the combined multiplier that
   would put a maxed L100 avatar on the median maxed-SSR-creature power does not converge &mdash; at
