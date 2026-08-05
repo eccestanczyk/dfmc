@@ -454,6 +454,48 @@
   screen the items still land in the bag. Nothing is banked offline: a failed post grants nothing and forces
   the connection check, which pauses play.</p>
 
+  <h2>The grant lane &mdash; what the server owes, and how it knows</h2>
+
+  <p><strong>The rule.</strong> <code>pendingGrants(steamid, realm)</code> = every row in
+  <code>item_grants</code> that is minted, not revoked, and whose <code>gid</code> is <em>not listed in the
+  STORED save&rsquo;s <code>grantAck</code></em>. That is the whole definition. There is no server-side
+  &ldquo;delivered&rdquo; column, deliberately: the ack lives in the save so that a restore to an earlier
+  point rolls the ack back <em>with</em> the items, and the grant becomes owed again rather than the item
+  vanishing. A server-side ack loses the item silently in exactly that case.</p>
+
+  <p><strong>The order of a delivery.</strong> (1) The server mints a grant, one row per battle event,
+  keyed <code>drop:&lt;eventId&gt;</code>, holding raw descriptors &mdash; <code>lane</code>,
+  <code>grade</code>, <code>tier</code> and the draw seeds. (2) The Worker resolves those descriptors
+  against <code>items.csv</code> on the way out, because the Durable Object may never hold the item table.
+  (3) The client applies the items through <code>invRoomFor</code>, the same guard every other path that
+  hands the player an item uses, and appends the <code>gid</code> to <code>grantAck</code>. (4) The next
+  save carries that ack, and the grant stops being pending. A full bag <em>pauses</em> the drain and
+  reports how many items are still waiting; it never eats them.</p>
+
+  <p><strong><code>grantAck</code> must survive a page load, and until 2026-08-05 it did not.</strong>
+  <code>loadRun</code> restores a fixed list of keys from the stored save. <code>grantAck</code> was written
+  to the save and concatenated in two places but was <em>not in that list</em>, so every page load began
+  with an empty ack. The first save afterwards then overwrote the stored history with only what that
+  session had drained, the server was owed every forgotten grant again, and the drain handed the player
+  items they already had. Measured on a seeded account: 40 acks stored, client boots with 0, inventory
+  28&nbsp;&rarr;&nbsp;68 within thirty seconds. Live, on real accounts: 134&nbsp;&rarr;&nbsp;105&nbsp;&rarr;&nbsp;0
+  acks across one session, with the save shrinking 64,386&nbsp;&rarr;&nbsp;62,469&nbsp;bytes and nothing else
+  changed; another account holding 1,048 grants against 0 acks with a bag at 258 of 160.</p>
+
+  <p><strong>The ack has no floor, and that is the sharp edge.</strong> A save carrying fewer acks is
+  accepted over a stored save carrying more, and every gid dropped in that write is owed again on the next
+  drain. This is the same class of hole the rollback work closed for <code>maxFloor</code>,
+  <code>playerXp</code> and <code>classXp</code> by making them grow-only &mdash; and <code>grantAck</code>
+  is the one field where walking backwards <em>mints items</em>. Re-acking is idempotent and never produces
+  a duplicate grant, which is what makes recovery from a wipe safe.</p>
+
+  <p><strong>Failure modes to keep in mind.</strong> A grant whose items all fail to resolve is still
+  offered, with an empty item list. The ack list grows with every delivery and is not pruned against the
+  grant lane&rsquo;s own retention, so acks for long-expired grants stay in the save as dead weight &mdash;
+  on a heavy account that is roughly 19&nbsp;KB against a 184&nbsp;KB save, under the 256&nbsp;KiB ceiling
+  but above the 128&nbsp;KiB warn line. Nothing here accrues offline: a grant is only ever minted by a
+  battle the player actually fought while connected.</p>
+
   <h2>What the save contains</h2>
   <table>
     <tr><th>Out of the save</th><th>Where it lives instead</th></tr>
@@ -1120,6 +1162,15 @@ is the list above.</p>
 
 <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-05 &mdash; grants were re-delivered on every page load (ON DEV, not yet on release).</strong>
+      <code>loadRun</code>&rsquo;s restore list carried 44 keys and <code>grantAck</code> was not one of them,
+      so every page load started the ack empty and the next save destroyed the stored history. The server
+      then owed every forgotten grant again and the drain handed back items the player already had &mdash;
+      which is why bags climbed past their cap and why a player who left a tab idle came back to a full
+      inventory. Reproduced against a real client, real worker and real DO SQLite before it was diagnosed
+      (<code>probe_ackrestore.py</code> 4/4, <code>probe_ackregress.py</code> 6/6). The fix is the one
+      missing key. It does not undo deliveries already made: the duplicates already sitting in bags are a
+      separate reconciliation.</li>
     <li><strong>2026-08-04 &mdash; the battle chain head advances on confirmation (ON DEV, not yet on release).</strong>
       It used to advance when the event was built, so any submission the server rejected before its own head
       write &mdash; a resumed battle claiming an already-dead slot, a 503 during a deploy, a request that never
