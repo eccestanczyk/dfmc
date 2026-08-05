@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Stage &mdash; Herumon Tower</title>
+<link rel="stylesheet" href="theme.css?v=4">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">THE STAGE</h1></div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; The Stage</div>
+  <p class="sp-lead">Every screen in the game is drawn inside <strong>one fixed 1920&times;1080 box</strong>
+  that is then scaled to the device. Nothing in the client is authored in device pixels. Getting this
+  wrong has produced three separate defects in a single day, so it is written down here rather than
+  rediscovered a fourth time.</p>
+
+  <h2>fitScale</h2>
+  <p>The stage carries <code>zoom: fitScale</code>, where
+  <code>fitScale = min(innerWidth/1920, innerHeight/1080)</code>, recomputed on <code>resize</code>.</p>
+  <table>
+    <tr><th>Device</th><th>fitScale</th><th>Stage drawn at</th></tr>
+    <tr><td class="lbl">Desktop 1600&times;900</td><td>0.833</td><td>1600&times;900 &mdash; fills exactly</td></tr>
+    <tr><td class="lbl">Phone 690&times;674</td><td>0.359</td><td>690&times;388, letterboxed top and bottom</td></tr>
+  </table>
+  <p class="note"><strong>THE RULE: an authored px is a STAGE px.</strong> What the player sees is
+  <code>authored &times; fitScale</code>. A 14px label is about <strong>5 CSS px</strong> on a phone.
+  Never judge a size by reading the source &mdash; measure the drawn result at a phone viewport.</p>
+
+  <h2>The stage corner is not the screen corner</h2>
+  <p>Because the stage is letterboxed on a phone, its top-left sits at roughly
+  <code>y = 143</code> on a 674px-tall viewport, not at 0. HUD elements are positioned against the
+  <strong>stage</strong>, which is the corner a player reads as the game's edge. A probe that clicks
+  &ldquo;the top-left of the screen&rdquo; is clicking page background, not the game.</p>
+
+  <h2>position:fixed escapes the zoom</h2>
+  <p>A <code>position:fixed</code> overlay is <strong>not</strong> scaled by the stage's
+  <code>zoom</code>, so any percentage sizing on it resolves against the <em>real</em> viewport while
+  everything inside it is still in stage units. This asymmetry is the cause of the defects below.</p>
+  <table>
+    <tr><th>Instance</th><th>What happened</th></tr>
+    <tr><td class="lbl">Dismantle toast</td><td>Rendered at 1&times; against a 0.36&times; UI, 572px wide on a
+      690px viewport. Horizontal overflow made mobile Chrome expand the layout viewport, and
+      <code>fitScale</code> did not recompute &mdash; the stage kept its old size inside a bigger
+      viewport, which reads as a permanent resolution shift. <strong>Open.</strong></td></tr>
+    <tr><td class="lbl">Devour panel</td><td><code>max-height:88%</code> resolved to 593px on a phone
+      against 792px on desktop, so the body scrolled on the phone only. Fixed 2026-08-05 by sizing the
+      contents down. See <a href="system-devour.html">Devour</a>.</td></tr>
+    <tr><td class="lbl">Premium shop</td><td>A three-column grid capped each card near 360 stage px,
+      forcing text that drew at 5 CSS px. Fixed 2026-08-05. See
+      <a href="system-premium-shop.html">Premium Shop</a>.</td></tr>
+  </table>
+
+  <h2>The menu HUD</h2>
+  <ul class="sp-rules">
+    <li>The button sits <strong>flush in the stage's top-left corner</strong> &mdash;
+      <code>left:0; top:0</code> on its host &mdash; and is <strong>rectangular</strong>,
+      <code>border-radius:0</code>. It measures 143&times;56 stage px. It was previously inset
+      <code>24,8</code> with <code>border-radius:999px</code>, a pill. (D, 2026-08-05.)</li>
+    <li>Its dropdown is 1780px wide plus 18px padding = 1816px, so it fits the 1920px stage with the
+      host at <code>left:0</code>. Moving the host any further right narrows that margin.</li>
+  </ul>
+
+  <h2>Measuring it</h2>
+  <p><code>elementFromPoint</code> and <code>getBoundingClientRect</code> <strong>disagree</strong>
+  under CSS <code>zoom</code>, so an occlusion test built on the two together reports elements that are
+  plainly on screen as invisible. <code>elementFromPoint</code> also answers <code>null</code> outside
+  the viewport, and returns the element <em>beneath</em> anything marked
+  <code>pointer-events:none</code>. Prefer geometry plus computed style, and convert offsets back into
+  stage units by dividing by <code>fitScale</code> before comparing them to authored values.</p>
+  <p class="note">Probes: <code>tools/probe_menucorner.py</code>, <code>tools/probe_devourfit.py</code>,
+  <code>tools/probe_shoplist.py</code> &mdash; each measures at a phone viewport, not only at desktop.</p>
+
+  <h2>Changelog</h2>
+  <ul class="sp-rules">
+    <li><strong>2026-08-05 &mdash; page created (ON DEV, not yet on release).</strong> Written after the
+      stage/viewport asymmetry produced three defects in one session. Records fitScale, the letterboxed
+      corner, the <code>position:fixed</code> escape, the menu HUD spec, and how to measure any of it.</li>
+  </ul>
+</div>
+<script src="nav.js"></script>
+</body>
+</html>
