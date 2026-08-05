@@ -53,8 +53,45 @@
   <p><strong>Scoring must bypass the lock.</strong> The optimizer measures a candidate by swapping it into state and asking the game for its own Power number. During a battle <code>gearBonus()</code> would answer with the frozen snapshot for every candidate alike, so every option scored identically and the optimizer reported <em>&ldquo;already optimal&rdquo;</em> whatever was in the bag. The measurement therefore lifts the freeze for the duration of the swap and restores it afterwards. This was found by probe the moment the battle gate was removed &mdash; the gate had been hiding it.</p>
   <p class="foot">Client: <code>gearBonus()</code>, <code>freezeGear()</code>, <code>optBuildPlan()</code>, <code>optScore()</code>, <code>optApply()</code> in <code>play/app.js</code></p>
 
+  <h2>Soul strength &mdash; stage &times; grade</h2>
+  <p>A gear soul&rsquo;s output (passive magnitude, and granted move power on the four ability slots) is
+  scaled by <strong>two multipliers that multiply together</strong>. They are set as one curve, because
+  neither is meaningful alone.</p>
+  <table>
+    <tr><th>Lever</th><th>Range</th><th>What it costs</th></tr>
+    <tr><td class="lbl">Creature stage</td><td>S1 &times;1.00 &middot; S2 &times;1.12 &middot; S3 &times;1.25</td>
+      <td>Free &mdash; creatures advance on their own.</td></tr>
+    <tr><td class="lbl">Soul grade</td><td>Worn &times;1.00 &rarr; Void &times;2.00, nine equal steps
+      (<code>1 + (1/9) &times; (grade# &minus; 1)</code>)</td>
+      <td>~264,000 Scrap and 259 attempts in expectation, Worn to Void (<code>soul_grading.csv</code>).</td></tr>
+  </table>
+  <p>The combined surface therefore runs <strong>&times;1.00 at S1/Worn to &times;2.50 at S3/Void</strong>.
+  <strong>Nothing is ever below &times;1.00</strong> &mdash; a soul is never a penalty, only a bonus that
+  grows.</p>
+  <table>
+    <tr><th>Soul grade</th><th>Stage 1</th><th>Stage 2</th><th>Stage 3</th></tr>
+    <tr><td class="lbl">Worn &times;1.00</td><td>&times;1.00</td><td>&times;1.12</td><td>&times;1.25</td></tr>
+    <tr><td class="lbl">Rare &times;1.33</td><td>&times;1.33</td><td>&times;1.49</td><td>&times;1.67</td></tr>
+    <tr><td class="lbl">Legendary &times;1.56</td><td>&times;1.56</td><td>&times;1.74</td><td>&times;1.94</td></tr>
+    <tr><td class="lbl">Divine &times;1.78</td><td>&times;1.78</td><td>&times;1.99</td><td>&times;2.22</td></tr>
+    <tr><td class="lbl">Void &times;2.00</td><td>&times;2.00</td><td>&times;2.24</td><td>&times;2.50</td></tr>
+  </table>
+  <p class="note"><strong>Rebased 2026-08-05 (D).</strong> It previously ran &times;0.60 (S1/Worn) to
+  &times;1.45 (S3/Void), so most souls sat <em>below</em> 1 and read as a penalty. The span is close to
+  unchanged (2.42&times; &rarr; 2.50&times;) &mdash; this is a rebase, not an inflation; modelled avatar
+  power at the ceiling moves +7.6%. The levers also swapped weight: stage used to carry 1.67&times; and
+  grade only 1.45&times;, which put the wider range on the free lever. Recalculated with
+  <code>tools/statmodel.py</code> against the three anchor creatures, never hand-modelled.</p>
+
+  <p class="note"><strong>Known, and not a soul problem.</strong> Solving for the combined multiplier that
+  would put a maxed L100 avatar on the median maxed-SSR-creature power does not converge &mdash; at
+  &times;3.00 the avatar is still 32.8% short, and <code>atk</code> never moves at all, because LOCAL souls
+  only multiply Defence on three armour slots. The avatar/creature parity target cannot be reached through
+  the soul ladder and needs its own lever.</p>
+
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li>2026-08-05 &mdash; <strong>Soul ladder rebased and the grade half repaired.</strong> Soul grade was computed but returned only on the four ability slots, so on the four passive slots <code>grMult</code> defaulted to 1 and upgrading a soul changed nothing (measured on a live save: persDefPct 4.2 at Worn, 4.2 at Void). Grade now reaches the passive path. The combined stage&times;grade surface is rebased to &times;1.00 (S1/Worn) &rarr; &times;2.50 (S3/Void) &mdash; nothing sits below 1 any more &mdash; with grade carrying 2.00&times; and stage 1.25&times;, reversing which lever held the wider range. <em>ON DEV, not yet on release.</em></li>
     <li><strong>2026-08-02 &mdash; the equipment sheet reads live gear during a battle.</strong> The battle-entry freeze was applied to display as well as combat, so a mid-battle swap moved nothing on screen. The stat panel, POWER and the creature cards now read current equipment; the combat path is untouched and still gets the entry snapshot. Verified 8/8 in a real battle: the sheet moves, the fight does not, and a render leaves the frozen copy installed.</li>
     <li><strong>2026-08-02 &mdash; an HP accessory was labelled ATK in the slot preview.</strong> The currently-slotted preview built its label from <code>EQUIP[gi].stat</code> &mdash; the SLOT default, Attack for accessories &mdash; instead of <code>statKind</code>, the item’s own identity. The number shown was always the right one (a Crude Relic read <code>+10 ATK</code>, and 10 IS its HP base), which is what made it look like a display quirk rather than a wrong field. Every other surface already used <code>statKind</code>; only this one line disagreed.</li>
     <li><strong>2026-08-02 &mdash; auto-optimize no longer refuses during a battle (D ruling).</strong> It answered &ldquo;finish the battle first&rdquo;, which was belt-and-braces over a lock that already existed. The gate is gone; the freeze is now taken explicitly at all four battle-entry points instead of lazily on the first combat read; and <code>optScore()</code> lifts the freeze while measuring a candidate, without which every candidate scored the same mid-battle. Page created &mdash; nothing owned the equipment window, the gear lock or the optimizer before this.</li>
