@@ -557,8 +557,152 @@
   <code>tools/schema_audit.py</code> against the shipped worker. Write-cost rules from entry 7. All figures measured
   2026-08-06.</em></p>
 
+  <h2>9. Matchmaking that does not trust a player's clock (2026-08-06)</h2>
+  <p><strong>The question.</strong> Two players queued, one was shown JOIN&nbsp;MATCH and the other never was, the match
+  never started, and both were then left &ldquo;searching&rdquo; while the ops door showed no queue node for either.
+  Commissioned after the cause turned out to be one player's PC clock, which asked the larger question: what do other
+  games do so that a player's own machine cannot decide whether a match is real?</p>
+
+  <h3>What the defect actually was, measured</h3>
+  <p>Matchmaking is <strong>client-driven peer discovery</strong>. Each client writes <code>{n, r, ts}</code> to
+  <code>queue/&lt;pid&gt;</code> once a second with <code>ts&nbsp;=&nbsp;its own Date.now()</code>, reads the whole
+  queue, and filters candidates on <code>Date.now()&nbsp;&minus;&nbsp;candidate.ts&nbsp;&lt;&nbsp;12000</code>. The
+  lower <code>pid</code> creates the match; the other side validates it with
+  <code>Date.now()&nbsp;&minus;&nbsp;meta.ts&nbsp;&lt;&nbsp;90000</code>. <strong>Every one of those tests compares one
+  machine's wall clock against a timestamp written by a different machine.</strong></p>
+  <p>Measured on the live door, not inferred: Farmaca's node read <code>age_ms&nbsp;-220103</code> &mdash; his clock ran
+  <strong>3m&nbsp;40s ahead</strong>. His client therefore judged every legitimate match to be 220s stale, discarded it,
+  wiped its own pairing marker and kept queueing in silence. His opponent sat out the 28s team wait and was told the
+  opponent never readied. Which of the two symptoms appears depends on <em>which side holds the lower pid</em>: with the
+  fast clock on the creating side, no match is made at all.</p>
+  <p>Reproduced end to end in <code>tools/probe_pvpclock.py</code> &mdash; two browser contexts, separate pids, one
+  clock pinned +220s to the measured offset. Pristine build 16/16 reproduces; both pid orderings covered.</p>
+
+  <h3>Five faults, only two of them about clocks</h3>
+  <table>
+    <tr><th>fault</th><th>who it hit</th></tr>
+    <tr><td class="lbl">cross-machine clock comparison in the 12s and 90s windows</td><td>any skewed clock, either direction</td></tr>
+    <tr><td class="lbl">a future <code>ts</code> passes every upper-bound test, so a dead node advertises as live forever</td><td>any fast clock</td></tr>
+    <tr><td class="lbl"><code>_pvpJoining</code> never released on the abandon branch</td><td><strong>everyone</strong>, perfect clock included</td></tr>
+    <tr><td class="lbl"><code>_pvpJoining</code> never released by <code>startPvpGame</code>, the real-PvP entry</td><td><strong>everyone</strong> &mdash; first completed match kills the queue until reload</td></tr>
+    <tr><td class="lbl">leaderboard <code>at</code> is a client stamp; server 403s anything &gt;60s future</td><td>every player &gt;60s fast, silently absent from all three boards</td></tr>
+  </table>
+  <p>The two latch faults are not clock bugs at all. The fourth had never fired only because no two humans had yet
+  finished a real match.</p>
+
+  <h3>What the industry converged on</h3>
+  <p><strong>Nobody uses peer discovery. Every production matchmaker is ticket-based, and the client polls only its own
+  ticket.</strong> Open Match: the frontend creates a Ticket, it enters a Pool, a Director calls FetchMatches, a Match
+  Function proposes, and an Evaluator de-collides overlapping proposals because one ticket may only appear in one
+  resulting match. GameLift FlexMatch runs the ticket through
+  <code>QUEUED&nbsp;&rarr;&nbsp;SEARCHING&nbsp;&rarr;&nbsp;REQUIRES_ACCEPTANCE&nbsp;&rarr;&nbsp;PLACING&nbsp;&rarr;&nbsp;COMPLETED</code>.
+  PlayFab allows <em>one ticket per user per queue</em> precisely so a player can never be in two matches and have to
+  choose, and recommends polling no faster than every 6s. Nakama cancels a player's pending matchmaking request when
+  they disconnect, so liveness is structural rather than timestamped.</p>
+  <p><strong>No production system compares client wall clocks.</strong> Firebase writes time with a server sentinel
+  (<code>serverTimestamp()</code>) and exposes <code>/.info/serverTimeOffset</code> for clients to correct local time
+  &mdash; explicitly for <em>display</em>, never for authority. The distributed-systems position is blunt: using a
+  wall-clock timestamp as the source of ordering is a named anti-pattern, and the remedy is a server-assigned timestamp
+  or sequence number. If a client must estimate server time it uses the NTP/Cristian correction
+  <code>offset&nbsp;=&nbsp;[(T2&minus;T1)&nbsp;+&nbsp;(T3&minus;T4)]&nbsp;/&nbsp;2</code>. Our code implemented neither
+  half &mdash; it neither stamped server-side nor corrected for offset.</p>
+  <p><strong>Race-freedom comes from a unique constraint, not from a tie-break rule.</strong> The conventional pattern is
+  act-first-then-insert against a uniqueness constraint, because the constraint is the one thing two concurrent writers
+  cannot both satisfy. &ldquo;The lower pid creates the match&rdquo; is a client-side convention with no enforcement
+  behind it.</p>
+  <p><strong>Ready-check exists so both sides move together.</strong> FlexMatch bounds acceptance
+  (<code>acceptanceTimeoutSeconds</code>, max 600); League cancels the match and returns the accepting player to queue
+  when the other side misses the check, with escalating dodge penalties. The property that matters is that one server
+  owns the deadline and both transitions, so one player can never hang while the other is told the opponent failed.</p>
+
+  <h3>Where Herumon Tower differs</h3>
+  <p>Server authority is already an absolute rule here for drops, hatching, breeding and battle rewards &mdash; PvP
+  matchmaking is the one system that was never brought under it. The queue is the last place in the build where a
+  client both holds the identity (<code>pvpPid()</code> is a random string in <code>localStorage</code>) and makes the
+  decision. Offline play is banned and the server owns battle outcomes, so the surrounding contract is already correct;
+  the gap is the matchmaker itself.</p>
+
+  <h3>The finding that matters</h3>
+  <p><strong>Freshness must be a server-owned lease, not a timestamp comparison.</strong> Stamping server-side is
+  necessary but not sufficient &mdash; a client still evaluates <code>myNow&nbsp;&minus;&nbsp;serverTs</code> against its
+  own clock. The permanent form is: the server holds <code>lease_expires_at</code> and a monotonic
+  <code>lease_seq</code>, both read and compared with the <em>same</em> clock inside the Durable Object, and the client
+  is told only a status. No comparison ever crosses a machine boundary, so the entire bug class disappears by
+  construction rather than by bounding.</p>
+
+  <h3>Running a matchmaker without breaking hibernation</h3>
+  <p>Hibernation is lost by <code>setTimeout</code>, <code>setInterval</code>, a standard (non-Hibernation) WebSocket,
+  or an in-progress awaited <code>fetch</code> &mdash; so a server tick loop is not available to us at any price.</p>
+  <table>
+    <tr><th>mechanism</th><th>cost</th><th>latency to match</th><th>verdict</th></tr>
+    <tr><td class="lbl">piggyback (a pass on each incoming request)</td><td>~zero, runs inside a billed request</td><td>excellent with &ge;2 waiters; <strong>unbounded for a lone waiter</strong></td><td><strong>primary</strong></td></tr>
+    <tr><td class="lbl">one demand-scheduled Alarm</td><td>billed per invocation; armed only while a ticket waits</td><td>bounded backstop</td><td><strong>safety net</strong></td></tr>
+    <tr><td class="lbl">fixed high-frequency alarm</td><td>pure waste on an idle queue</td><td>good</td><td>rejected</td></tr>
+    <tr><td class="lbl">cron trigger</td><td>max three per service, not programmatic</td><td>coarse</td><td>rejected</td></tr>
+  </table>
+  <p>One alarm per object, at-least-once execution, retried on throw with exponential backoff from 2s up to 6 retries,
+  stored transactionally with DO storage. Arm it only to the nearest real deadline (next lease expiry, or the end of an
+  open accept window) and let it lapse when the queue empties, so the object hibernates. This is the pattern Cloudflare
+  Queues uses for itself. Because a lone waiter can wait, the UI must say <em>searching</em> &mdash; never attribute it
+  to an opponent.</p>
+
+  <h3>Small population is our real constraint, not scale</h3>
+  <p>Eleven accounts. A strict synchronous 1v1 queue will usually find nobody, and no amount of architecture fixes that.
+  Ranked from least to most invasive to competitive integrity: server-side band widening on the ticket's
+  <em>server-measured</em> age, with cross-region pooling (a turn-based game is latency-tolerant, so there is no reason
+  to shard the pool geographically); announced queue windows to concentrate the roster; and asynchronous PvP against a
+  snapshotted opponent team. Async is the honest trade to name: a snapshot cannot make adaptive double-blind commits, so
+  the AI piloting it becomes the real opponent and the skill signal is weaker. It belongs as a <strong>labelled,
+  unranked</strong> mode that keeps players engaged, and must stay out of the ladder until PvP anticheat lands.</p>
+  <p>Rating: Glicko-2 carries a deviation and volatility term, which is what makes it right for a roster that plays in
+  bursts; OpenSkill is the public-domain alternative, benchmarked at 87.56% accuracy against TrueSkill's 92.44% but at
+  0.97s versus 3.41s. Either works for 1v1 &mdash; plain Elo is the weakest option here because it has no uncertainty
+  term at all.</p>
+
+  <h3>Cost and when to shard</h3>
+  <table>
+    <tr><th>concurrent players</th><th>shape</th></tr>
+    <tr><td class="lbl">10</td><td>one DO, piggyback only, alarm rarely armed, hibernates whenever the queue empties</td></tr>
+    <tr><td class="lbl">1,000</td><td>still one DO &mdash; but 1&nbsp;Hz self-polling is ~1,000&nbsp;req/s, at the documented soft limit. Lengthen the poll to 3&ndash;5s (PlayFab itself caps at 6s) for ~200&ndash;330&nbsp;req/s</td></tr>
+    <tr><td class="lbl">100,000</td><td>shard by rating band and/or region behind a Worker router with a KV shard map, promoting long-waiting tickets to a shared overflow object. Cloudflare's own Queues rebuild went 400&nbsp;&rarr;&nbsp;5,000 msg/s by exactly this route</td></tr>
+  </table>
+  <p>Secondary ceilings to watch: 30s CPU per invocation, and the 10&nbsp;GB SQLite cap on the paid plan.</p>
+
+  <h3>Recommended sequence</h3>
+  <p>Each stage is independently shippable and each retires a named fault.</p>
+  <table>
+    <tr><th>stage</th><th>what it does</th><th>what it retires</th></tr>
+    <tr><td class="lbl">0</td><td>server stamps every stored ts; <code>x-srv-now</code> header; windows bounded both ends; both latches released; board <code>at</code> converted to server time</td><td>all five faults above, defensively</td></tr>
+    <tr><td class="lbl">1</td><td>replace <code>pvpPid()</code> with the authenticated account key</td><td>client-owned identity</td></tr>
+    <tr><td class="lbl">2</td><td>ticket model &mdash; server owns the queue, client polls only its own ticket; freshness becomes a lease</td><td>the clock class, permanently</td></tr>
+    <tr><td class="lbl">3</td><td>lifecycle state machine, mutual ready-check, server-assigned match id, unique <code>pair_key</code>, idempotency keys</td><td>the hung-side and double-create classes</td></tr>
+    <tr><td class="lbl">4</td><td>Glicko-2, server-side relaxation, pooled regions, labelled async mode</td><td>empty-queue at alpha size</td></tr>
+    <tr><td class="lbl">5</td><td>demand-scheduled alarm for lease expiry and accept timeouts; shard router prepared, not split</td><td>lone-waiter latency</td></tr>
+  </table>
+  <p><strong>Release status: stage 0 is written and verified but NOT PUSHED &mdash; it is on neither dev nor release as
+  of this entry.</strong> Stages 1&ndash;5 are design only, not started. Identity binding in stage 1 must validate
+  through Steam's own endpoint (<code>ISteamUserAuth/AuthenticateUserTicket</code>, which Steamworks requires be called
+  from a secure server and never from a client); generic OpenID implementations have documented spoofing pitfalls.</p>
+
+  <p><em>Sources: Open Match (Evaluator and Synchronizer); AWS GameLift FlexMatch <code>MatchmakingTicket</code>;
+  Microsoft PlayFab matchmaking docs and error cases; Heroic Labs Nakama matchmaker; Firebase server timestamp and
+  <code>serverTimeOffset</code>; RFC&nbsp;5905 &sect;8 and Cristian's algorithm (Krzyzanowski, Rutgers CS&nbsp;417);
+  Cloudflare Durable Objects lifecycle, alarms, pricing and limits docs, and the Cloudflare Queues rebuild post;
+  Joshy 2024, arXiv:2401.05451 (OpenSkill); Steamworks user authentication. Measured on this build 2026-08-06 via the
+  <code>/api/backup/pvpq</code> door and <code>tools/probe_pvpclock.py</code>.</em></p>
+
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-08-06 &mdash; ninth entry: matchmaking that does not trust a player's clock.</strong>
+      Commissioned after a live PvP failure whose cause was a player's PC clock running 3m&nbsp;40s fast
+      (<code>age_ms&nbsp;-220103</code> on the ops door). Every freshness and validity test in the matchmaker compared one
+      machine's wall clock against a timestamp written by another. The industry answer is uniform and we implement none
+      of it: ticket-based matchmaking where the client polls only its own ticket, freshness expressed as a server-owned
+      lease rather than a timestamp comparison, and race-freedom from a unique constraint rather than a
+      &ldquo;lower&nbsp;pid wins&rdquo; convention. Five faults recorded, two of which are not clock bugs at all and hit
+      every player &mdash; including one on the success path that would have killed the queue on the first completed
+      match between two humans. Reproduced 16/16 in <code>tools/probe_pvpclock.py</code>. Staged plan 0&ndash;5;
+      <strong>stage 0 is written and verified but not pushed to dev or release.</strong></li>
     <li><strong>2026-08-06 &mdash; eighth entry: what the write bill is actually made of, measured over fourteen days.</strong>
       D's correction to the plan: the collection day was unnecessary, fourteen days of billing data already existed. Rows
       written rose 35&times; in a week on a static roster; player objects are 98.6% of it; and dividing exact save counts
