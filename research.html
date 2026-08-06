@@ -439,8 +439,85 @@
   <p><strong>Not yet measured on this build:</strong> which of these levers is worth what. The ranking is by mechanism, not by measurement, and it rests on the unverified assumption that whole-row rewrites and per-poll writes dominate the 10.3 rows written per request. The instrumentation in entry 6 is what settles it, and nothing should be promised as a saving before it runs.</p>
   <p class="foot">Sources: Cloudflare Developer Docs &mdash; Durable Objects and Workers pricing, SQLite storage API, <em>Rules of Durable Objects</em>, Durable Object lifecycle, Workers Analytics Engine (pricing, limits, sampling); Larry Maccherone, <em>Every index costs you $1 per million rows: measuring DO SQLite write costs</em>, lumenize.com, 23 Feb 2026 (36 experiments against <code>cursor.rowsWritten</code>); Little Bear Apps (Nathan Schram), <em>My $5/month Cloudflare bill hit $4,868</em>, 18 Mar 2026; ofsecman.io, <em>How Cloudflare D1 Burned $5000 in 10 Seconds</em>; Cloudflare Community (the $3,200 missing-index report, via Little Bear Apps); James Gwertzman, <em>No Free Lunch: Transactions in Online Games</em>, HPTS 2013; Heroic Labs Nakama documentation (wallets, MultiUpdate); Bo Ingram, <em>How Discord Stores Trillions of Messages</em>, Discord Engineering, 2023. Prices verified 2026-08-05 and subject to change.</p>
 
+  <h2>8. What the write bill is actually made of, measured over fourteen days (2026-08-06)</h2>
+  <p><strong>The question.</strong> Entry&nbsp;7 ranked the levers by mechanism and said plainly that lever value was
+  unmeasured on this build. The plan was to instrument, then collect a day, then rank. D's correction: fourteen days of
+  traffic already exist, and the shape of the bill can be recovered from them without waiting.</p>
+
+  <h3>Rows written, whole account, per day</h3>
+  <p>From the Cloudflare GraphQL analytics API, <code>durableObjectsPeriodicGroups</code>:</p>
+  <table>
+    <tr><th>date</th><th>rows written</th><th>date</th><th>rows written</th></tr>
+    <tr><td class="lbl">2026-07-29</td><td>8,088</td><td class="lbl">2026-08-03</td><td>100,990</td></tr>
+    <tr><td class="lbl">2026-07-30</td><td>35,861</td><td class="lbl">2026-08-04</td><td>175,727</td></tr>
+    <tr><td class="lbl">2026-07-31</td><td>40,899</td><td class="lbl">2026-08-05</td><td>280,142</td></tr>
+    <tr><td class="lbl">2026-08-02</td><td>70,745</td><td class="lbl">&nbsp;</td><td>&nbsp;</td></tr>
+  </table>
+  <p>A <strong>35&times; rise in a week against a static roster of 8&ndash;11 active players</strong>. That is not
+  growth; it is per-player cost. Grouped by object name, <strong>player objects are 98.6% of it and the WorldDO is
+  1.4%</strong>, which rules out the cross-player surfaces and points the whole question at the save path.</p>
+
+  <h3>What one save costs, without needing a route dimension</h3>
+  <p>The billing data has no route dimension, but the save <code>ver</code> counter is monotonic and the nightly R2
+  sweep snapshots it at ~00:00&nbsp;UTC. So <code>&Delta;ver</code> between consecutive nightly snapshots is an
+  <em>exact</em> count of that player's saves for that day, and it can be divided into the same player's rows written
+  for the same day. One window per player per day, boundary nearest midnight:</p>
+  <table>
+    <tr><th>day</th><th>players</th><th>saves</th><th>rows written</th><th>rows per save</th></tr>
+    <tr><td class="lbl">2026-08-02</td><td>3</td><td>3,740</td><td>66,882</td><td><strong>17.9</strong></td></tr>
+    <tr><td class="lbl">2026-08-03</td><td>5</td><td>3,493</td><td>88,735</td><td><strong>25.4</strong></td></tr>
+    <tr><td class="lbl">2026-08-04</td><td>3</td><td>2,915</td><td>91,569</td><td><strong>31.4</strong></td></tr>
+    <tr><td class="lbl">2026-08-05</td><td>3</td><td>2,847</td><td>109,244</td><td><strong>38.4</strong></td></tr>
+  </table>
+  <p>Pooled: <strong>12,995 saves, 356,430 rows written, 27.4 rows per save</strong> &mdash; and the figure is
+  <strong>doubling</strong> across four days.</p>
+
+  <h3>The cause is our own migration, and it is in its most expensive state</h3>
+  <p>The save-split dual write landed 2026-08-03 and widened on 2026-08-04 when all six writers of <code>saves</code>
+  were routed through <code>writeSave()</code>. Every save now also writes <code>save_parts</code> and
+  <code>save_parts_mark</code>. Both carry compound TEXT primary keys, and <code>WITHOUT ROWID</code> appears
+  <strong>zero times</strong> in the worker &mdash; so by entry&nbsp;7's measured rule each of those rows bills twice.
+  <strong>Mid-migration the game pays for both save shapes and benefits from neither</strong>, because the read cutover
+  has not happened. This is not an argument against the split: entry&nbsp;2 recommendation&nbsp;1 remains right, and a
+  split battle write is 8,692 bytes against 145,626. It is an argument that the half-finished state is the worst one to
+  sit in, and it has been sat in for three days.</p>
+
+  <h3>Schema audit (<code>tools/schema_audit.py</code>, step 4)</h3>
+  <p>45 tables, 78 write statements. <strong>40 of the 45 carry a primary key that creates a hidden index</strong> that
+  <code>WITHOUT ROWID</code> would remove &mdash; every INSERT against them bills 2 rows where it could bill 1. No table
+  in the build has two or more single-column indexes, so that lever is already clean. <code>kv</code> is the worst
+  single target at 12 <code>INSERT OR REPLACE</code> sites: that shape bills 1 for the row but rewrites every index,
+  where a narrow <code>UPDATE</code> of a non-indexed column rewrites none.</p>
+  <p><strong>The one-time rebuild cost, which is what step&nbsp;5 is gated on:</strong> <code>WITHOUT ROWID</code>
+  cannot be added in place &mdash; it is create-new, <code>INSERT SELECT</code>, drop, rename, writing every existing
+  row once per table per object. Measured across the whole roster today: <code>items</code> 1,833,
+  <code>item_grants</code> 5,142, <code>anomalies</code> 4,034+ (a floor &mdash; the read door caps at 500 per account),
+  <code>save_hist</code> 280 (capped at 20 versions per realm). Everything else is single digits per account.
+  <strong>Total on the order of 11,000 rows, about one US cent.</strong> Retention is what keeps this small:
+  <code>drops_granted</code> and <code>anomalies</code> prune at 30 days, <code>events_seen</code> at 7,
+  <code>save_hist</code> at 20 versions. <strong>The rebuild is cheap now and scales with the roster, so the argument
+  for doing it at fourteen accounts rather than at a hundred thousand is the whole argument.</strong></p>
+
+  <h3>The finding that matters</h3>
+  <p>The save path is the bill. Not battles, not the leaderboard, not the WorldDO. Two of the three levers that follow
+  are already identified and neither needs new research: halve the number of saves (the client sent <em>two per
+  battle</em> until 2026-08-06), and stop each save costing double (finish the split cutover, and put
+  <code>WITHOUT ROWID</code> on the 40 tables). The third &mdash; per-system attribution inside a request &mdash; still
+  needs the WRCOST tags from step&nbsp;1 to be on release, because the historical billing data has no route dimension
+  and never will.</p>
+  <p><em>Sources: Cloudflare GraphQL analytics API <code>durableObjectsPeriodicGroups</code> (rows written by date and
+  by object name, 2026-07-24 to 2026-08-06); this game's own ops doors for save versions, inventory, grants and flags;
+  <code>tools/schema_audit.py</code> against the shipped worker. Write-cost rules from entry 7. All figures measured
+  2026-08-06.</em></p>
+
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-08-06 &mdash; eighth entry: what the write bill is actually made of, measured over fourteen days.</strong>
+      D's correction to the plan: the collection day was unnecessary, fourteen days of billing data already existed. Rows
+      written rose 35&times; in a week on a static roster; player objects are 98.6% of it; and dividing exact save counts
+      (from the monotonic <code>ver</code> and the nightly R2 snapshots) into per-object rows written gives 27.4 rows per
+      save, doubling from 17.9 to 38.4 across four days as our own dual write landed. Schema audit: 40 of 45 tables carry
+      a removable hidden index, and the one-time rebuild is about one cent today.</li>
     <li><strong>2026-08-05 &mdash; seventh entry: Durable Objects SQLite write accounting, and what it costs to
       measure it.</strong> The mechanics pass behind entry 6. Records how a billed row is counted (row plus one
       per affected index), the <code>WITHOUT ROWID</code> finding, that a narrow UPDATE only rewrites indexes on
