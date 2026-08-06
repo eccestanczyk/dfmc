@@ -472,6 +472,40 @@
   <p>Pooled: <strong>12,995 saves, 356,430 rows written, 27.4 rows per save</strong> &mdash; and the figure is
   <strong>doubling</strong> across four days.</p>
 
+  <h3>CORRECTION, same day, before anything was built on it: &ldquo;27.4 rows per save&rdquo; is not the cost of a save</h3>
+  <p>The figure above is <strong>total rows written by that player's object, divided by the number of saves it
+  posted</strong>. Every other write the object made that day &mdash; battles, drops, hatching, breeding, dismantles,
+  flags &mdash; is in the numerator. Calling it &ldquo;rows per save&rdquo; invites the next session to attack the save
+  handler and find only a quarter of the bill there. It is a <em>rate</em> normalised against saves, not a unit cost,
+  and the distinction matters because the two lead to different work.</p>
+  <p>The unit costs were then measured directly, per table, by extending the step&nbsp;1 tags to a per-statement
+  breakdown and driving the real worker under <code>workerd</code>:</p>
+  <table>
+    <tr><th>endpoint</th><th>tables written</th><th>rows</th></tr>
+    <tr><td class="lbl">POST /api/save<br>(steady state)</td>
+        <td><code>saves</code> 3, <code>save_hist</code> 2, <code>save_parts</code> 2, <code>save_parts_mark</code> 2</td>
+        <td><strong>9</strong> &rarr; <strong>7</strong> after <code>WITHOUT ROWID</code> on the two derived tables</td></tr>
+    <tr><td class="lbl">POST /api/battle<br>(steady state)</td>
+        <td><code>ledger</code> 2, <code>chains</code> 2, <code>events_seen</code> 2, <code>spawn_budget</code> 1</td>
+        <td><strong>7</strong></td></tr>
+  </table>
+  <p>So one battle in production, which posted <em>two</em> saves until 2026-08-06, costs about
+  <strong>7 + 7 + 7 = 21 rows</strong>; with the client fix that is 14, and with the derived-table migration 12. The
+  remainder of the 27.4 is the rest of the day's activity &mdash; drops minting <code>item_grants</code> and
+  <code>drops_granted</code>, hatching, breeding, dismantles, and flags. An earlier draft of this entry guessed that
+  flags were &ldquo;most of the gap&rdquo;; measured, each flag is about 2 rows (<code>anomalies</code> plus
+  <code>flag_rept</code>) and a heavy account fires two per save, so flags are roughly 4 rows per save &mdash; real,
+  worth removing under entry&nbsp;7 lever&nbsp;4, but not the majority. <strong>That guess is recorded here rather than
+  deleted, because it was stated to D before it was measured.</strong></p>
+  <p><strong>What the unit costs point at, which the rate did not:</strong> three of the four tables on the battle path
+  &mdash; <code>ledger</code>, <code>chains</code>, <code>events_seen</code> &mdash; each pay one extra row for a hidden
+  primary-key index, exactly as <code>save_parts</code> did. <code>WITHOUT ROWID</code> on those three takes the battle
+  path from <strong>7 rows to 4</strong>, and on <code>saves</code> and <code>save_hist</code> takes the save path from
+  <strong>7 to 5</strong>. Unlike the derived parts tables these hold real state, so each needs
+  create&nbsp;/&nbsp;<code>INSERT SELECT</code>&nbsp;/&nbsp;verify&nbsp;/&nbsp;rename inside one transaction rather than
+  a drop and a create. <code>events_seen</code> is the largest of them at roughly seven days of battles, and it repays
+  its own rebuild in about a week.</p>
+
   <h3>The cause is our own migration, and it is in its most expensive state</h3>
   <p>The save-split dual write landed 2026-08-03 and widened on 2026-08-04 when all six writers of <code>saves</code>
   were routed through <code>writeSave()</code>. Every save now also writes <code>save_parts</code> and
