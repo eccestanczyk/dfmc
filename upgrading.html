@@ -136,6 +136,28 @@ td{border-bottom:1px solid var(--rule);padding:5px 8px;color:var(--ink-dim);font
 
   <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-06 &mdash; the advancement trigger now reaches party creatures, and class souls join the system. ON DEV, not yet on release.</strong>
+      <strong>What was broken.</strong> <code>advReady()</code> has always built its map from <em>both</em>
+      <code>advancingSoul()</code> (keys gear slots 4&ndash;7) and <code>advancingAlly()</code> (keys slots <strong>8 and
+      9</strong>, the creature slots). The only tile reading that map was <code>invSlots</code>, which is
+      <code>EQUIP.slice(0,8)</code>. Slots 8 and 9 render from a different list, <code>invMons</code>, which carried no
+      arrow at all &mdash; so every party advancement was computed, <em>counted in the readiness badge</em>, and then
+      discarded at the moment of drawing. The player was told an advancement was ready and shown no way to start it.
+      <br><em>Why it survived review:</em> the comment sitting directly above <code>advArrow</code> claimed the arrow sits
+      on &ldquo;the teammate in equip group 8 or 9&rdquo;. Reading the code agreed with the design; only the screen
+      disagreed. A comment that describes intent the code contradicts is worse than no comment.
+      <br><strong>Class souls.</strong> <code>advancingClass()</code> already existed and was already counted, so the same
+      dead-end applied to it. It is deliberately <strong>not</strong> folded into <code>advReady()</code>: that map is
+      keyed by <em>gear slot index</em> and a class soul has no gear slot, so a synthetic index would hang its arrow on
+      another creature's tile. It gets its own binding on the class row, through the same <code>playAdvance</code> path,
+      with the same wording and the same glyph &mdash; one advancement system, three sources.
+      <br><strong>Where the arrow sits.</strong> On the soul tile it hangs above the tile edge. The party creature card
+      sets <code>overflow:hidden</code>, so the same offset there would be <em>clipped</em> &mdash; present, styled and
+      invisible. It is inset instead.
+      <br><strong>Verified:</strong> <code>tools/probe_advarrow.py</code> 7/7 (the binding) and
+      <code>tools/probe_advpaint.py</code> 9/9 (it paints with a real box, and <em>clicking it opens the advancement
+      scene</em> &mdash; for the party creature and for the class soul), each with the control that nothing appears
+      before the advancement is armed.</li>
     <li><strong>2026-08-06 &mdash; the soul tooltip showed a constant (report #36, Colodetti). ON DEV, not yet on release.</strong>
       <code>souls.csv</code> carries <code>Effect_S3</code>: the magnitude at stage&nbsp;3 with a Worn soul.
       <code>soulInfo()</code> returned that string <em>verbatim</em>, so the number a player read never moved &mdash;
