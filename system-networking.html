@@ -454,7 +454,14 @@
   screen the items still land in the bag. Nothing is banked offline: a failed post grants nothing and forces
   the connection check, which pauses play.</p>
 
-  <h2>The grant lane &mdash; what the server owes, and how it knows</h2>
+  <h2>The grant lane &mdash; retired 2026-08-05</h2>
+
+  <p><strong>The drain is off.</strong> Everything below describes how the lane worked until v0.34 and is kept as the record of why it was switched off, not as current behaviour. Drops arrive inline at the end of each battle; there is no catch-up on load. The lane itself disappears in the server-authority rework, when the server holds the bag and there is nothing to catch up on.</p>
+
+  <h3>Why it was switched off</h3>
+  <p>Two faults made it do more harm than good. The owed list was computed from the <em>stored</em> save&rsquo;s <code>grantAck</code>, and that field was written to the save but never read back on load &mdash; so every page load began with an empty acknowledgement, the first save afterwards overwrote the stored history, and the server re-owed everything it had already handed over. Players came back to bags past their cap. And the drain filtered the offered items on having a <em>name</em>, which eggs do not carry: it found nothing to place, and acknowledged the grant anyway. Ninety-three eggs were destroyed that way and 1,357 more were queued to follow; 785 of those were formally revoked on 2026-08-05 and the remainder sit dormant.</p>
+
+  <h3>How it worked, for the record</h3>
 
   <p><strong>The rule.</strong> <code>pendingGrants(steamid, realm)</code> = every row in
   <code>item_grants</code> that is minted, not revoked, and whose <code>gid</code> is <em>not listed in the
@@ -1162,6 +1169,7 @@ is the list above.</p>
 
 <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-05 (v0.34) &mdash; the drain is off.</strong> The catch-up that ran twelve seconds after load is neither scheduled nor callable. It re-owed every grant on every page load because the acknowledgement was not restored with the save, and it destroyed eggs because it required a name they do not have. Drops still arrive inline at the end of each battle. 785 owed egg grants were revoked; grants mixing eggs with gear were deliberately left alone so a sweep could not take a gear drop with it.</li>
     <li><strong>2026-08-05 &mdash; grants were re-delivered on every page load (ON DEV, not yet on release).</strong>
       <code>loadRun</code>&rsquo;s restore list carried 44 keys and <code>grantAck</code> was not one of them,
       so every page load started the ack empty and the next save destroyed the stored history. The server
