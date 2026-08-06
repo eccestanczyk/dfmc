@@ -492,11 +492,24 @@
   <p>So one battle in production, which posted <em>two</em> saves until 2026-08-06, costs about
   <strong>7 + 7 + 7 = 21 rows</strong>; with the client fix that is 14, and with the derived-table migration 12. The
   remainder of the 27.4 is the rest of the day's activity &mdash; drops minting <code>item_grants</code> and
-  <code>drops_granted</code>, hatching, breeding, dismantles, and flags. An earlier draft of this entry guessed that
-  flags were &ldquo;most of the gap&rdquo;; measured, each flag is about 2 rows (<code>anomalies</code> plus
-  <code>flag_rept</code>) and a heavy account fires two per save, so flags are roughly 4 rows per save &mdash; real,
-  worth removing under entry&nbsp;7 lever&nbsp;4, but not the majority. <strong>That guess is recorded here rather than
-  deleted, because it was stated to D before it was measured.</strong></p>
+  <code>drops_granted</code>, hatching, breeding, dismantles, and flags. Flags were guessed at twice before being
+  measured, and both guesses are kept here rather than deleted because both were stated to D first. The first said
+  flags were &ldquo;most of the gap&rdquo;. The second said &ldquo;about 4 rows per save&rdquo;, on the reasoning that a
+  heavy account fires two flags per save. <strong>Both are wrong, the second by roughly eight times.</strong>
+  <code>flag()</code> collapses repeats to <strong>one row per account per kind per MINUTE</strong>, not per write, and
+  the live evidence had been read the wrong way round: entries at 04:00, 04:01, 04:02 are a per-minute cadence, not a
+  per-save one. Measured on the heaviest live account over 129 consecutive minutes:
+  <strong>3.10 anomaly rows per minute</strong> against roughly 6.5 saves per minute, which is
+  <strong>0.48 rows per save</strong>. Still worth moving off the billed store under entry&nbsp;7 lever&nbsp;4, and
+  nowhere near the majority.</p>
+  <p><strong>The throttle was then proved rather than read</strong> (<code>tools/probe_flagstorm.py</code> 6/6). The
+  storm shape is the one the 2026-08-06 incident produced &mdash; a client retrying a call the server keeps refusing.
+  With the rate cap deliberately disabled so the burst actually reaches the object (with it on, 41 of 60 requests were
+  answered 429 before the object woke, and the run would have been testing the rate cap instead):
+  <strong>120 refused requests in 3.3 seconds wrote 13 rows in total &mdash; 0.11 rows per request.</strong>
+  <code>anomalies</code> 4, <code>feedback</code> 2, <code>flag_rept</code> 2, none of them scaling with the burst.
+  <strong>The known weakness stays named:</strong> the <code>flag()</code> window lives in isolate memory, so an outage
+  that also cycles objects resets it. <code>flag_rept</code>, which gates the auto-reports, is stored and does not.</p>
   <p><strong>What the unit costs point at, which the rate did not:</strong> three of the four tables on the battle path
   &mdash; <code>ledger</code>, <code>chains</code>, <code>events_seen</code> &mdash; each pay one extra row for a hidden
   primary-key index, exactly as <code>save_parts</code> did. <code>WITHOUT ROWID</code> on those three takes the battle
