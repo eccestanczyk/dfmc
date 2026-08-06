@@ -712,8 +712,15 @@
       128&nbsp;KB post-strip ceiling &rarr; 413 + flag.</td></tr>
     <tr><td class="lbl">Rate caps</td><td>Token buckets in Worker isolate memory, keyed on the <em>verified</em> steamid, checked before any
       object wakes. <strong>Doubled 2026-08-06</strong> after ordinary play locked a live account out (see the changelog entry):
-      <code>battle 24&nbsp;burst&nbsp;/&nbsp;2&nbsp;per&nbsp;min</code>, <code>floor 30/8</code>, <code>save 20/12</code>,
-      <code>save_read 60/60</code>, <code>db 80/40</code>, <code>other 40/24</code>, <code>wallet 24/40</code>;
+      <code>battle 24&nbsp;burst&nbsp;/&nbsp;4&nbsp;per&nbsp;min</code>, <code>floor 30/8</code>, <code>save 20/12</code>,
+      <code>save_read 60/60</code>, <code>me 60/60</code>, <code>db 80/40</code>, <code>other 40/24</code>, <code>wallet 24/40</code>;
+      <strong>battle is set from the spawn budget, not from &ldquo;parity&rdquo;.</strong> <code>tables.json</code>
+      <code>spawn_budget</code> accrues one credit per 60,000&nbsp;ms, cap 10, and <strong>incense halves
+      <code>per_ms</code></strong> &mdash; so an incense player legitimately accrues 2/min and the old 1/min cap could not
+      be reached without breaching it. 4/min is 2&times; the fastest legitimate accrual. The bucket is a COST limit,
+      not an economy one: the spawn budget is server-side and authoritative and binds earnings whatever this number is.
+      Consequence to hold in mind &mdash; a wider <code>/api/battle</code> surface makes the Phase&nbsp;2b kill-claim
+      cross-check more important, not less;
       <code>name 3/hr</code> and <code>auth 10/10</code> are UNCHANGED &mdash; they are per-IP abuse limits, not play limits,
       and no real player has breached either;
       auth caps per IP before a session exists; a blanket <code>ip_all 240&nbsp;burst&nbsp;/&nbsp;120&nbsp;per&nbsp;min</code> ceilings one address across
@@ -722,7 +729,15 @@
       <br><br><strong>Reads are a separate class, and they are exempt (2026-08-02).</strong> <code>rateClass</code> takes the
       HTTP method, so <code>GET /api/save</code> spends <code>save_read</code> tokens rather than write tokens. Membership of
       <code>RATE_READ_ONLY</code> means two things at the gate: <strong>never soft-blocked</strong>, and <strong>never
-      escalated</strong> to the traffic queue. Reading your own save grants nothing, so it cannot be an abuse vector &mdash;
+      escalated</strong> to the traffic queue.
+      <strong><code>/api/me</code> joined the set on 2026-08-06, and the reason is the class, not the block.</strong>
+      <code>other</code> is a junk drawer: it held <code>/api/me</code> &mdash; the one endpoint the shell uses to learn
+      whether it is signed in &mdash; beside <code>/api/hatch</code>, <code>/api/roll</code>, <code>/api/breed/claim</code>
+      and <code>/api/account/reset</code>, so tripping the bucket on a hatching spree took the login door with it and a
+      player holding a valid 90-day cookie was shown a Steam gate. <code>/api/me</code> measures 4 rows read and ZERO
+      written, mints nothing and mutates nothing, so it satisfies the rule this set is governed by on its own terms. It
+      still spends a token and still answers 429 when the bucket is dry: what was removed is the LOCKOUT, not the limit,
+      and the soft block is unchanged in force on every endpoint that mints. Reading your own save grants nothing, so it cannot be an abuse vector &mdash;
       and because the shell <em>retries</em> that read on failure, the escalation was being fed by the retry loop itself.
       Nothing may be added to this set that can mutate state or mint a value.</td></tr>
     <tr><td class="lbl">Traffic review</td><td><code>TRAFFIC_BLOCK_N</code> (3) breaches in 10&nbsp;min soft-blocks that sid <strong>for that endpoint class only</strong> &mdash;
@@ -1173,6 +1188,23 @@ is the list above.</p>
 
 <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-06 &mdash; the three repairs behind the lockout: one save per battle, /api/me out of the junk drawer, battle sized from the spawn budget.</strong>
+      <em>Worker changes are ON RELEASE. The client change is ON DEV, not yet on release.</em>
+      <br><strong>1. Two saves per battle became one (ON DEV).</strong> <code>battle-entry</code>, <code>floor-entry</code> and
+      <code>boss-entry</code> were excluded from the not-dirty skip that <code>debounce</code>/<code>hidden</code>/<code>pagehide</code>
+      already had, so they uploaded unconditionally. The damaging case: the in-fight debounce is held while phase is in
+      <code>FIGHT_PHASES</code> and released at the victory boundary, then autoplay calls <code>enterBattle</code> ~0.4&nbsp;s
+      later and the entry gate re-sent byte-identical state. Measured on the locked-out account: gaps of 16.8&nbsp;s, 0.4&nbsp;s,
+      13.3&nbsp;s, 0.5&nbsp;s at ~165&nbsp;KB each. The entry flush is <em>not merely a save</em> &mdash; it is the report&nbsp;#16
+      liveness gate, and <code>enterBattle</code> refuses the fight when it fails, so it could not simply be deleted. The skip is
+      therefore bounded by PROOF: it may only skip when a write <em>succeeded</em> within <code>ENTRY_PROOF_MS</code> (15&nbsp;s,
+      the same clock as <code>HIDE_COALESCE_MS</code> and the 429 <code>retry_ms</code>), because that success IS the evidence the
+      gate exists to obtain. <code>_srvOkAt</code> is stamped only on a real 2xx &mdash; a 409 returns earlier and a 429 is
+      <code>r.ok</code> false, so neither can forge liveness. Probe <code>tools/probe_entryskip.py</code> 6/6: 2.0 saves per
+      battle before, 1.0 after, every gate still passing, stale proof still uploads, dirty state always uploads, 0 page errors.
+      <br><strong>2. <code>/api/me</code> is its own read-only class (ON RELEASE).</strong> See the rate-caps row above.
+      <br><strong>3. <code>battle</code> 2&nbsp;&rarr;&nbsp;4 per minute (ON RELEASE).</strong> Sized from
+      <code>spawn_budget</code> including the incense halving, rather than from the phrase &ldquo;spawner parity&rdquo;.</li>
     <li><strong>2026-08-06 &mdash; ordinary play was locking accounts out of the game; every per-account cap doubled (ON RELEASE).</strong>
       A live incident, not a theory. Plank posted <strong>2/5/6/7 saves per minute</strong> across 04:01&ndash;04:05&nbsp;UTC against a
       <code>save</code> bucket refilling at <strong>exactly 6/min</strong>. The bucket drained; <code>enterBattle</code>
