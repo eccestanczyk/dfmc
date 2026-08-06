@@ -77,27 +77,92 @@
   </table>
   <p>Per-round input validation runs on both sides regardless: the chosen move is one of the unit's four, its cooldown is legal, the target is legal. Malformed actions die before resolution.</p>
 
-  <h2>Matchmaking &mdash; the queue keeps looking</h2>
-<p><strong>ON DEV, not yet on release.</strong> A player opens the Arena and presses FIND MATCH. From that
-moment the client writes a node under <code>queue/&lt;pid&gt;</code> carrying name, rating and a timestamp,
-and re-stamps that timestamp once a second. Matching is a scan of every other node: a candidate must have no
-match marker, a timestamp fresher than 12&nbsp;s, and a rating inside the searcher's band. The band opens as
-the wait grows &mdash; 25 points, widening by 25 every two seconds &mdash; so a long wait eventually reaches
-the whole population. The lower player id creates the match node, writes the marker to both sides, and both
-clients surface MATCH FOUND on their next tick.</p>
-<p><strong>The queue does not expire and is not tied to a screen.</strong> Closing the Arena panel used to set
-the queue to null, which stopped the heartbeat &mdash; so a player's node went stale 12&nbsp;s later and two
-people had to be sitting on the arena screen at the same moment to meet. With eleven accounts that is close to
-never, and it is the reason PvP had never matched. The queue now survives closing the panel, walking a floor
-and fighting a battle. It ends on a match or on an explicit CANCEL, and on nothing else: a MATCH FOUND popup
-that simply runs out of seconds returns the player to LOOKING rather than closing the queue.</p>
+  <h2>Matchmaking &mdash; the server owns it</h2>
+<p><strong>NOT YET PUSHED as of this entry &mdash; lands with build&nbsp;0.36. This section replaces the
+peer-discovery queue entirely.</strong> A player presses FIND&nbsp;MATCH and the client posts a
+<em>ticket</em> to <code>POST /api/pvp/mm/queue</code>. From then on it polls <code>/api/pvp/mm/poll</code>
+and renders whatever status comes back. <strong>The client does not read the pool, score candidates, choose an
+opponent, create a match, or hold an identity.</strong> There is no decision left on the client to get wrong.</p>
+
+<h3>Why the old design failed, and why bounding it was not enough</h3>
+<p>The queue used to be peer discovery: every client wrote its own node with <code>ts = its own
+Date.now()</code>, read everyone else's, and judged freshness with <code>myClock &minus; theirClock</code>.
+On 2026-08-06 a player's PC ran 3m&nbsp;40s fast (measured on the ops door as <code>age_ms&nbsp;-220103</code>).
+His client therefore judged every legitimate match to be 220&nbsp;s stale, discarded it, wiped its own pairing
+marker and kept queueing in silence, while his opponent sat out the 28&nbsp;s team wait and was told the
+opponent never readied. Which of the two symptoms appeared depended on which side held the lower player id.
+A first fix stamped timestamps server-side and let the client measure its own drift; that worked, but it left
+the client <em>correcting</em> itself, so a missing header would silently restore the bug. The authority was in
+the wrong place, and that is what this rewrite moves.</p>
+
+<h3>Identity, rating and name are all server-owned</h3>
 <ul>
-  <li><strong>The timer is always visible.</strong> A pill reading <code>&#9876; LOOKING FOR MATCH &middot; m:ss</code>
-      sits at the bottom right of the screen, immediately left of the turn counter, and keeps counting through a
-      PvE battle. Its elapsed time is measured from when the player queued and never restarts.</li>
-  <li><strong>Being in a match blocks queueing.</strong> FIND MATCH refuses while a PvP match is live.</li>
-  <li><strong>MATCH FOUND offers JOIN MATCH or CANCEL.</strong> JOIN takes the match; CANCEL closes the queue.</li>
+  <li><strong>Identity</strong> is <code>acctKey(steamid)</code>, derived from the Steam session the Worker has
+      already signature-verified. The old random <code>localStorage</code> player id is deleted &mdash; a player
+      can no longer name themselves to the matchmaker or write into another player's slot.</li>
+  <li><strong>Rating</strong> is read from the player's own ladder row on the server. It used to be a number the
+      client put in its queue node, which is a matchmaking input a player must never supply about themselves.</li>
+  <li><strong>Name</strong> comes from the <code>names</code> table. It briefly fell back to a client-supplied
+      string when no ladder row existed, which would have let a player queue under someone else's name; caught by
+      running the endpoint, not by reading it.</li>
+  <li><strong>One ticket per account</strong>, enforced by the primary key, so a player can never be in two
+      matches and have to choose.</li>
 </ul>
+
+<h3>Time never crosses the boundary</h3>
+<p>Every deadline the server sends is a <strong>duration remaining</strong> (<code>closesInMs</code>), computed
+against the object's own clock. Nothing in the payload is an absolute timestamp, so there is no comparison left
+for a wrong clock to poison &mdash; the whole failure class is gone by construction rather than bounded.
+Liveness is a server-held <em>lease</em>, not a timestamp the client re-stamps: the ticket carries
+<code>lease_ms</code>, renewed only once it is in its second half.</p>
+
+<h3>Pairing</h3>
+<p>One indexed read of the pool ordered by rating, then a single sweep pairing nearest neighbours oldest-first.
+The band opens with the ticket's <strong>server-measured</strong> age &mdash; 25 points, widening by 25 every two
+seconds, capped at 5000. A match is created by inserting a row whose <code>pair_key</code> carries a
+<code>UNIQUE</code> constraint: <strong>the constraint is the arbiter</strong>, replacing the old
+&ldquo;lower player id creates the match&rdquo; convention, which was a rule two clients agreed on with nothing
+enforcing it.</p>
+
+<h3>The lifecycle, and why nobody can hang</h3>
+<table>
+  <tr><th>phase</th><th>what has to happen</th><th>if it does not</th></tr>
+  <tr><td class="lbl">ready</td><td>both sides press JOIN MATCH within 20&nbsp;s</td><td>the match is cancelled; whoever readied goes straight back into the pool, the other is dropped</td></tr>
+  <tr><td class="lbl">teams</td><td>both teams posted within 30&nbsp;s</td><td>cancelled, same rule</td></tr>
+  <tr><td class="lbl">live</td><td>the server hands both teams down and the battle starts</td><td>&mdash;</td></tr>
+</table>
+<p>Both sides are moved by the server or neither is, so the old failure &mdash; one player waiting 28&nbsp;s and
+being told the opponent never readied while the opponent saw nothing at all &mdash; cannot occur. Cancelling
+also returns the <em>other</em> player to the pool immediately rather than making them wait out a dead window.</p>
+
+<h3>Cadence and cost</h3>
+<p>The poll interval is <strong>dictated by the server</strong> (<code>pollMs</code>, currently 2000&nbsp;ms), so
+load can be shed centrally without shipping a client. It has its own rate bucket (<code>mm</code>, cap&nbsp;60,
+45/min) rather than sharing <code>db</code> with the round exchange and the leaderboards: at a one-second poll the
+old shared bucket refilled at 40/min against 60/min of demand, so a player queueing for two minutes would have
+started answering 429 while the timer kept counting. An ordinary poll <strong>writes zero rows</strong> &mdash;
+the lease renewal is a single conditional <code>UPDATE</code> whose <code>WHERE</code> matches nothing until the
+lease is half spent. Sweep and pass are coalesced to one tick for the whole object, so a thousand players polling
+do not cause a thousand passes. There are no timers, no alarms and no sockets: the object stays hibernatable.</p>
+
+<h3>Failure is visible</h3>
+<p>A matchmaking call that fails says so on screen, and three consecutive failures stop the queue outright rather
+than leaving a timer counting against nothing. That silent shape &mdash; the screen saying LOOKING while the
+server held no ticket at all &mdash; is what made the original bug so hard to see.</p>
+
+<h3>Limits, measured</h3>
+<p>A pass over 1,000 queued takes ~120&nbsp;ms and 5,000 takes ~320&nbsp;ms, both inside the one-second tick;
+20,000 takes ~1.6&nbsp;s, which exceeds it, so passes would stack. Single-object matchmaking is therefore good to
+roughly <strong>5,000 concurrently searching</strong> &mdash; not registered, not online, actively searching at the
+same moment. Above that it must shard by rating band with promotion to a shared overflow object; the design is
+recorded in <code>BACKLOG.md</code> and in <code>research.html</code> entry&nbsp;9, and deliberately not built yet.</p>
+
+<h3>What is NOT server-owned yet</h3>
+<p>Matchmaking is authoritative through to the moment the battle starts. The per-round commit-reveal exchange
+still runs over the <code>/api/db</code> facade under <code>m/&lt;mid&gt;/g&lt;n&gt;/r&lt;n&gt;/&lt;side&gt;</code>,
+now authorised from the match table rather than from a client-written node. That path was audited for the same
+clock disease and is clean: the only timestamp it carried was written and never read, and has been removed.
+Moving the round protocol server-side is the anti-cheat project, not this one.</p>
 
 <h2>Joining out of a PvE battle &mdash; pause, never forfeit</h2>
 <p><strong>ON DEV, not yet on release.</strong> A match can be taken in the middle of a PvE fight. Owner ruling:
@@ -135,6 +200,17 @@ live fight.</p>
 
 <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-06 &mdash; matchmaking rewritten server-authoritative (NOT YET PUSHED; lands with 0.36).</strong>
+      Peer discovery is deleted. The client posts a ticket and renders status; it no longer reads the pool, picks an
+      opponent, creates a match or holds an identity. Root cause of the 2026-08-06 failure was a player's PC clock
+      running 3m&nbsp;40s fast &mdash; every freshness test compared one machine's clock against a timestamp written
+      by another. Deadlines are now durations, liveness is a server lease, identity is <code>acctKey(steamid)</code>,
+      and rating and name are read server-side. Match creation is arbitrated by a <code>UNIQUE</code> constraint
+      instead of a &ldquo;lower id wins&rdquo; convention. Both sides transition together, so one player can no longer
+      hang while the other is told the opponent never readied. Own rate bucket and a server-dictated 2&nbsp;s cadence;
+      an ordinary poll writes zero rows. Verified: 33/33 against the real matcher and real SQLite, and 9/9 with two
+      real browsers one of which was pinned 220&nbsp;s fast. Untested until release: the Cloudflare router and session
+      seam, which the harness stubs.</li>
     <li><strong>2026-08-05 (v0.34).</strong> Three fixes. The queue and match record now carry the player&rsquo;s real hero name &mdash; three sites wrote the missing-name fallback <code>Vael</code> hardcoded, so both sides of a real match saw their opponent as Vael. Locking in no longer hangs both players. And the opponent fabricator was deleted along with its name pools and simulated lock countdowns.</li>
     <li><strong>2026-08-04 &mdash; the queue keeps looking, the timer is always on screen, and a match can be taken out of a PvE fight (ON DEV, not yet on release).</strong>
       Closing the Arena panel used to kill the queue, which stopped the one-second heartbeat and let the player's
