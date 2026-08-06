@@ -1186,6 +1186,41 @@ server does not advance on an uncredited battle. It does &mdash; the <code>chain
 a rate-capped battle advances it. That conclusion came from a probe stub rather than the worker, and the real cause
 is the list above.</p>
 
+<h2>Write accounting</h2>
+  <p>Rows written is the dominant Cloudflare cost line at every population size &mdash; Durable Objects bill
+  <code>$1.00</code> per million rows written against <code>$0.001</code> per million read, a thousand to one &mdash; and
+  until 2026-08-06 nothing in the build recorded <em>which system</em> produced them. The billing telemetry cannot answer
+  it either: <code>durableObjectsPeriodicGroups</code> resolves to object and day, with no route dimension anywhere in
+  the dataset. Research: <code>research.html</code> entries 6 and 7.</p>
+  <table>
+    <tr><td class="lbl">Where the wrap lives</td><td>ONE wrap of <code>sql.exec</code> in the <code>MainDO</code>
+      constructor, not at the 313 call sites. Most SQL in this build is issued from helpers on a caller's behalf, so a
+      per-call-site tag would miss the majority of statements and could drift; a constructor wrap catches all of them by
+      construction.</td></tr>
+    <tr><td class="lbl">What identifies a system</td><td>A request-scoped tag set at the top of <code>MainDO.fetch</code>
+      from the path: <code>battle</code>, <code>save</code>, <code>floor</code>, <code>breeding</code>,
+      <code>hatching</code>, <code>grants</code>, <code>wallet</code>, <code>leaderboard</code>, <code>pvp</code>,
+      <code>session</code>, <code>feedback</code>, <code>roll</code>, <code>ops</code>. Everything beneath the tag
+      inherits it. A Durable Object serves one request at a time, so the tag cannot interleave.</td></tr>
+    <tr><td class="lbl">What it costs</td><td><strong>Zero database writes.</strong> One <code>console.log</code> per
+      request, and <code>observability</code> is already on. A per-write audit row would be paid for in the exact
+      currency being measured &mdash; it would double the dimension under investigation &mdash; and the existing
+      <code>spend()</code> helper is worse than a bare insert at two reads and a write per call.</td></tr>
+    <tr><td class="lbl">Why cursors are summed at the END of the request</td><td><code>rowsRead</code> is only final once
+      the <em>caller</em> has consumed the cursor, and callers spread it after <code>exec()</code> returns. Reading the
+      counter inside the wrapper would undercount every <code>SELECT</code> in the build. The cursors are held for the
+      life of one request (capped at 4,000) and summed in the <code>finally</code>.</td></tr>
+    <tr><td class="lbl">Hibernation</td><td>No timer, no <code>fetch</code>, no socket. <code>do_guard</code> green.</td></tr>
+  </table>
+  <p><strong>First measurements</strong> (<code>tools/probe_wrcost.py</code> 13/13, real workerd, 2026-08-06 &mdash;
+  ON DEV, not yet on release): <code>/api/me</code> on a warm object is 2 statements, 2 rows read and <strong>0
+  written</strong>; the same call on a COLD object writes <strong>2 rows to <code>kv</code></strong>, once, on the first
+  request after <code>WIPE_EPOCH</code> moves. <code>GET /api/save</code> <strong>writes 1 row</strong> despite being a
+  read path. And a <em>rejected</em> save (409 <code>stale_session</code>) still costs 2&ndash;9 rows with
+  <code>flag_rept</code> as its top table &mdash; <strong>rejections are not free</strong>, and the flag path is what
+  makes them expensive. None of these are yet a ranking: research entry 7 is explicit that lever value is unmeasured on
+  this build until a full collection day has run.</p>
+
 <h2>Changelog</h2>
   <ul>
     <li><strong>2026-08-06 &mdash; the three repairs behind the lockout: one save per battle, /api/me out of the junk drawer, battle sized from the spawn budget.</strong>
