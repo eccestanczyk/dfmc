@@ -136,6 +136,25 @@ td{border-bottom:1px solid var(--rule);padding:5px 8px;color:var(--ink-dim);font
 
   <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-06 &mdash; the soul tooltip showed a constant (report #36, Colodetti). ON DEV, not yet on release.</strong>
+      <code>souls.csv</code> carries <code>Effect_S3</code>: the magnitude at stage&nbsp;3 with a Worn soul.
+      <code>soulInfo()</code> returned that string <em>verbatim</em>, so the number a player read never moved &mdash;
+      while <code>gearBonus</code> had been multiplying by stage &times; grade correctly all along. The display was off
+      by up to <strong>1.67&times; high</strong> on a stage-1 soul and <strong>1.89&times; low</strong> on a Void one, in
+      both directions at once, which is why it reads as &ldquo;not scaling&rdquo; rather than as a consistent error. The
+      reporter called it exactly right and flagged it as tooltip-only and untested.
+      <br>The effective magnitude is now rendered <strong>from the same parse the maths uses</strong>, so display and
+      maths cannot drift apart. It is deliberately NOT a regex rewrite of the prose: scaling every number in the string
+      turns <em>&ldquo;+5% Defense while above 50% HP&rdquo;</em> into <em>&ldquo;above 84% HP&rdquo;</em>, corrupting the
+      condition. <code>text</code> also stays raw, because <code>gearBonus</code> parses it and <em>then</em> applies the
+      multiplier &mdash; a pre-scaled string would be scaled twice. Both surfaces are fixed: the equipped panel and the
+      bag tooltip for an un-socketed creature, the latter deriving both levers from the item's own grade and stage so the
+      number shown while choosing matches the number after socketing.
+      <br><strong>The third lever in the report needs no fix.</strong> Tier does not scale souls and never has &mdash;
+      this page already states it: <em>souls have no tier axis and are untouched</em>. Working as designed.
+      <br>Verified: <code>tools/probe_souleff.py</code> 7/7, including the negative test that the 50% condition is never
+      rewritten. Grade &times; stage worked examples: 5% at S3/Worn stays 5.0%; at S1/Worn it is 3.0%; at S3/Void it is
+      9.4%. A LOCAL &times;1.35 becomes &times;1.21 at S1/Worn and &times;1.66 at S3/Void.</li>
     <li>2026-08-05 &mdash; <strong>Soul ladder rebased and the grade half repaired.</strong> Soul grade was computed but returned only on the four ability slots, so on the four passive slots <code>grMult</code> defaulted to 1 and upgrading a soul changed nothing (measured on a live save: persDefPct 4.2 at Worn, 4.2 at Void). Grade now reaches the passive path. The combined stage&times;grade surface is rebased to &times;1.00 (S1/Worn) &rarr; &times;2.50 (S3/Void) &mdash; nothing sits below 1 any more &mdash; with grade carrying 2.00&times; and stage 1.25&times;, reversing which lever held the wider range. <em>LIVE on release since 2026-08-05 (0.32).</em></li>
     <li><strong>2026-07-31 &mdash; upgrade attempts are rolled by the server.</strong> <code>POST /api/roll</code> answers success from the authored <code>Success_Pct</code> using a secret-keyed draw, idempotent on the caller&rsquo;s key so a retry replays rather than re-rolls, and refuses any step the CSV does not author.</li>
     <li><em>Backfilled 2026-08-01 &mdash; this page had no changelog section, and the commit that should have added the entry above skipped it silently instead of failing.</em></li>
