@@ -82,6 +82,20 @@
 
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-08-06 &mdash; a devour that pays nothing is refused. ON DEV, not yet on release.</strong>
+      There are exactly three payouts: <strong>experience, grade and mutant</strong>. If none of them moves, the
+      transaction had no content &mdash; and until now it went through anyway, destroying the fodder for literally
+      nothing and reporting success. A freshly hatched creature carries <strong>zero experience</strong>, so feeding one
+      <em>across lines</em>, where grade and the mutant flag cannot transfer at all, was the ordinary way to hit it.
+      The devour is now refused with <em>&ldquo;THERE IS NOTHING TO BE GAINED HERE&rdquo;</em> and the fodder survives.
+      <br><strong>The refusal is deliberately narrow.</strong> Experience alone still pays. A grade rise still pays even
+      when the fodder carries no experience, and so does a mutant passing on. And <em>GRADE HELD</em> is untouched: that
+      is a real devour which paid experience and merely failed to raise the grade, so it still goes through and still
+      says so. The consumables were already correct and are not changed &mdash; a mutagen refuses a creature that is
+      already a mutant, an essence refuses unless it outranks, and a pellet's experience falls back to the standard
+      value so it can never be zero.
+      <br>Verified: <code>tools/probe_dvworthless.py</code> 8/8, of which six assertions exist to prove the cases that
+      must still work rather than the one that must not.</li>
     <li><strong>2026-08-05 &mdash; the devour window no longer scrolls unnecessarily (D).</strong> The fixed-content view needed 442px against 440px available on a phone, so a scrollbar appeared on a panel that plainly had room. Card padding, body padding, the column gap and the preview line were trimmed from measurement, taking the content to 359&ndash;380px. The fodder picker still scrolls and should &mdash; it is a list. Probe: <code>tools/probe_devourfit.py</code>, which measures all three panel states at desktop AND phone (BEFORE 8/8, AFTER 10/10).</li>
     <li><strong>2026-08-02 &mdash; grade and mutant now ride the LINE, not the creature row (D ruling).</strong> Previously <code>dvJudge</code> compared <code>dvSpeciesId</code> (the DFMC image id), so feeding a Stage-1 into its own Stage-3 passed XP and nothing else &mdash; which is what a player means by &ldquo;Devour is bugged&rdquo;: the grade they fed in vanished. Now compared on <code>Line_ID</code> via <code>dvLineId()</code>. XP behaviour is unchanged, and cross-line devouring is unchanged.</li>
     <li><strong>2026-07-30 &mdash; page created with the system (D spec, same day).</strong> Devour ships on dev: creature-into-creature consumption with full XP transfer, same-species-only grade and mutant transfer, the three unobtainable consumables (Blood Pellet, Mutagen, graded Essences of Power), both entry points, the battle-phase gate, the atomic commit and the DEVOUR log event. Blood Pellet XP is a 1,000 placeholder pending D's number.</li>
