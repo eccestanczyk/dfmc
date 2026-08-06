@@ -711,9 +711,11 @@
       Battle logs and adventure history never leave the device; the shell splices local-only fields back on adoption so logs survive login.
       128&nbsp;KB post-strip ceiling &rarr; 413 + flag.</td></tr>
     <tr><td class="lbl">Rate caps</td><td>Token buckets in Worker isolate memory, keyed on the <em>verified</em> steamid, checked before any
-      object wakes. <code>battle 12&nbsp;burst&nbsp;/&nbsp;1&nbsp;per&nbsp;min</code> (spawner parity &mdash; a full floor clear is a legitimate burst, sustained
-      can never out-earn the design), <code>floor 15/4</code>, <code>save 10/6</code>, <code>save_read 30/30</code>,
-      <code>name 3/hr</code>, <code>auth 10/10</code>, <code>db 40/20</code>, <code>other 20/12</code>;
+      object wakes. <strong>Doubled 2026-08-06</strong> after ordinary play locked a live account out (see the changelog entry):
+      <code>battle 24&nbsp;burst&nbsp;/&nbsp;2&nbsp;per&nbsp;min</code>, <code>floor 30/8</code>, <code>save 20/12</code>,
+      <code>save_read 60/60</code>, <code>db 80/40</code>, <code>other 40/24</code>, <code>wallet 24/40</code>;
+      <code>name 3/hr</code> and <code>auth 10/10</code> are UNCHANGED &mdash; they are per-IP abuse limits, not play limits,
+      and no real player has breached either;
       auth caps per IP before a session exists; a blanket <code>ip_all 240&nbsp;burst&nbsp;/&nbsp;120&nbsp;per&nbsp;min</code> ceilings one address across
       everything, first thing after the maintenance gate. Over cap = 429 <em>plus</em> a breach report to the world's traffic table
       (throttled 60&nbsp;s per sid|class) &mdash; never a silent drop.
@@ -736,7 +738,9 @@
       while <code>GET /api/save</code> answered 403 forever, so the shell fell back to the sign-in gate and told the player to do
       the one thing that could not help. It was reported as &ldquo;player can't log in&rdquo; and cost an alpha account seven
       hours; two more accounts had been blocked for <em>three days</em> and nobody knew. Blocks now age out after
-      <code>SB_EXPIRE_MS</code> (default 1&nbsp;h; <code>0</code> restores permanent). The row survives with
+      <code>SB_EXPIRE_MS</code> (code default 1&nbsp;h; <code>0</code> restores permanent). <strong>Set to 5&nbsp;min in
+      <code>wrangler.jsonc</code> on 2026-08-06</strong>, because an hour of total lockout was never proportionate to three
+      429s that ordinary play produces; a genuine abuser is simply re-blocked by the next ten-minute window. The row survives with
       <code>blocked=0</code>, so <code>/api/admin/traffic</code> history and the audit table are untouched and a real abuser is
       re-blocked by the next window.</td></tr>
     <tr><td class="lbl">Budgets</td><td>Ceilings on everything the code itself can spend: <code>BUDGET</code> kinds (<code>r2_write</code> 800k/mo,
@@ -1169,6 +1173,24 @@ is the list above.</p>
 
 <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-06 &mdash; ordinary play was locking accounts out of the game; every per-account cap doubled (ON RELEASE).</strong>
+      A live incident, not a theory. Plank posted <strong>2/5/6/7 saves per minute</strong> across 04:01&ndash;04:05&nbsp;UTC against a
+      <code>save</code> bucket refilling at <strong>exactly 6/min</strong>. The bucket drained; <code>enterBattle</code>
+      <em>awaits</em> its <code>battle-entry</code> flush and <strong>refuses the fight if it does not land</strong>, so fights
+      stopped starting &mdash; the player&rsquo;s words were &ldquo;not starting fights&rdquo;. Three 429s inside ten minutes then
+      soft-blocked <code>save</code> at 04:05:53 and <code>other</code> at 04:09:58, and <code>/api/me</code> is class
+      <code>other</code>, so the shell fell back to the Steam gate and a signed-in player saw a login screen. Colodetti took
+      <strong>11 <code>battle</code> breaches</strong> at 01:58 the same night against a bucket refilling at 1/min while fighting
+      roughly 3/min. Caps doubled for <code>battle</code>, <code>floor</code>, <code>save</code>, <code>save_read</code>,
+      <code>db</code>, <code>other</code> and <code>wallet</code>; <code>auth</code>, <code>name</code> and <code>ip_all</code>
+      deliberately untouched. <code>SB_EXPIRE_MS</code> dropped to 5&nbsp;min so an account already blocked recovers on the next
+      poll instead of sitting out the hour.
+      <br><strong>This is a ceiling raise and NOT the repair.</strong> The client still sends <strong>two saves per battle,
+      0.4&nbsp;s apart</strong> &mdash; the post-victory debounce fires as the fight ends, then <code>battle-entry</code>
+      re-uploads the identical state immediately after, because <code>battle-entry</code>, <code>floor-entry</code> and
+      <code>boss-entry</code> are excluded from the not-dirty skip that <code>debounce</code>/<code>hidden</code>/<code>pagehide</code>
+      enjoy. Measured on Plank&rsquo;s own save history: gaps run 16.8&nbsp;s, 0.4&nbsp;s, 13.3&nbsp;s, 0.5&nbsp;s. Halving that
+      is open work.</li>
     <li><strong>2026-08-05 (v0.34) &mdash; the drain is off.</strong> The catch-up that ran twelve seconds after load is neither scheduled nor callable. It re-owed every grant on every page load because the acknowledgement was not restored with the save, and it destroyed eggs because it required a name they do not have. Drops still arrive inline at the end of each battle. 785 owed egg grants were revoked; grants mixing eggs with gear were deliberately left alone so a sweep could not take a gear drop with it.</li>
     <li><strong>2026-08-05 &mdash; grants were re-delivered on every page load (ON DEV, not yet on release).</strong>
       <code>loadRun</code>&rsquo;s restore list carried 44 keys and <code>grantAck</code> was not one of them,
