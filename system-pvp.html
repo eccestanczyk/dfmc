@@ -78,8 +78,8 @@
   <p>Per-round input validation runs on both sides regardless: the chosen move is one of the unit's four, its cooldown is legal, the target is legal. Malformed actions die before resolution.</p>
 
   <h2>Matchmaking &mdash; the server owns it</h2>
-<p><strong>NOT YET PUSHED as of this entry &mdash; lands with build&nbsp;0.36. This section replaces the
-peer-discovery queue entirely.</strong> A player presses FIND&nbsp;MATCH and the client posts a
+<p><strong>ON RELEASE from build&nbsp;0.36 (2026-08-06). This section replaces the peer-discovery
+queue entirely.</strong> A player presses FIND&nbsp;MATCH and the client posts a
 <em>ticket</em> to <code>POST /api/pvp/mm/queue</code>. From then on it polls <code>/api/pvp/mm/poll</code>
 and renders whatever status comes back. <strong>The client does not read the pool, score candidates, choose an
 opponent, create a match, or hold an identity.</strong> There is no decision left on the client to get wrong.</p>
@@ -200,7 +200,7 @@ live fight.</p>
 
 <h2>Changelog</h2>
   <ul>
-    <li><strong>2026-08-06 &mdash; matchmaking rewritten server-authoritative (NOT YET PUSHED; lands with 0.36).</strong>
+    <li><strong>2026-08-06 (v0.36) &mdash; matchmaking rewritten server-authoritative.</strong>
       Peer discovery is deleted. The client posts a ticket and renders status; it no longer reads the pool, picks an
       opponent, creates a match or holds an identity. Root cause of the 2026-08-06 failure was a player's PC clock
       running 3m&nbsp;40s fast &mdash; every freshness test compared one machine's clock against a timestamp written

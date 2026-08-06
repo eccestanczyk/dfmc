@@ -679,8 +679,12 @@
     <tr><td class="lbl">4</td><td>Glicko-2, server-side relaxation, pooled regions, labelled async mode</td><td>empty-queue at alpha size</td></tr>
     <tr><td class="lbl">5</td><td>demand-scheduled alarm for lease expiry and accept timeouts; shard router prepared, not split</td><td>lone-waiter latency</td></tr>
   </table>
-  <p><strong>Release status: stage 0 is written and verified but NOT PUSHED &mdash; it is on neither dev nor release as
-  of this entry.</strong> Stages 1&ndash;5 are design only, not started. Identity binding in stage 1 must validate
+  <p><strong>Release status, CORRECTED 2026-08-06 after D's ruling: stage&nbsp;0 was ABANDONED, not shipped.</strong>
+  His objection was exact &mdash; stage&nbsp;0 leaves the CLIENT correcting itself, which is a bandaid on a design that
+  lets the client decide at all, and it should not ship ahead of the real fix. <strong>Stages 1&ndash;3 went to release
+  together in build&nbsp;0.36</strong>: identity, the ticket model, and the lifecycle with a mutual ready-check and a
+  UNIQUE-constraint arbiter. Stage&nbsp;4 (rating and small-population work) and stage&nbsp;5 (alarm liveness and
+  sharding) remain design only; the sharding design sits in <code>BACKLOG.md</code> with an explicit trigger. Identity binding in stage 1 must validate
   through Steam's own endpoint (<code>ISteamUserAuth/AuthenticateUserTicket</code>, which Steamworks requires be called
   from a secure server and never from a client); generic OpenID implementations have documented spoofing pitfalls.</p>
 
@@ -701,8 +705,11 @@
       lease rather than a timestamp comparison, and race-freedom from a unique constraint rather than a
       &ldquo;lower&nbsp;pid wins&rdquo; convention. Five faults recorded, two of which are not clock bugs at all and hit
       every player &mdash; including one on the success path that would have killed the queue on the first completed
-      match between two humans. Reproduced 16/16 in <code>tools/probe_pvpclock.py</code>. Staged plan 0&ndash;5;
-      <strong>stage 0 is written and verified but not pushed to dev or release.</strong></li>
+      match between two humans. Reproduced 16/16 at the time in <code>tools/probe_pvpclock.py</code>, since
+      retired with the code it tested. <strong>Stages 1&ndash;3 shipped in v0.36; stage&nbsp;0 was abandoned on D's
+      ruling as a bandaid.</strong> The shipped design is verified by <code>tools/probe_mmserver.mjs</code> (33/33,
+      the real matcher against real SQLite) and <code>tools/probe_mmlive.py</code> (9/9, two real browsers, one
+      pinned 220&nbsp;s fast).</li>
     <li><strong>2026-08-06 &mdash; eighth entry: what the write bill is actually made of, measured over fourteen days.</strong>
       D's correction to the plan: the collection day was unnecessary, fourteen days of billing data already existed. Rows
       written rose 35&times; in a week on a static roster; player objects are 98.6% of it; and dividing exact save counts
