@@ -19,6 +19,16 @@
 Incense halves that interval to <strong>30 seconds</strong>. The pool cap is unchanged — the cap is how many
 creatures can be waiting, not how fast they arrive.</p>
 
+<p>The boon <strong>starts when it is paid for and never reaches backwards</strong>. Credits accrue
+lazily — the row holds a balance and the instant it was last touched, and the accrual splits that
+window at the boon boundary, so time before the purchase settles at 60 seconds and time after it at
+30. A purchase therefore <em>settles the row first</em>: it banks what the old rate earned, stamps
+the instant, and only then hangs the new expiry.</p>
+<p class="note">Until 2026-08-07 the purchase wrote the expiry alone and left the instant at the last
+spawn spent, so the whole already-elapsed window was re-accrued at the boosted rate — buying after
+three idle minutes handed the player six spawns for three minutes of ordinary waiting. Bounded by the
+cap of ten, and always in the player's favour, but paid time that was never paid for.</p>
+
 <h2>How a purchase works</h2>
 <p>The client names a SKU and an idempotency key. It never sends a price. The worker resolves the
 authored row and the player's own object performs the balance check, the debit and the grant inside a
@@ -50,6 +60,7 @@ an item. A grant with nowhere to go waits rather than being destroyed.</p>
 <hr><p class="note">Changelog<br>
 2026-08-05 &mdash; Offers are a LIST, not a grid, and sized for the phone: name 30px, description 21px, buy control 24px with an 18&times;30 pad (D: &ldquo;the items are too small&hellip; mobile friendly font size&rdquo;). Measured, not estimated &mdash; the old name drew at 5.03 CSS px at fitScale 0.36. A tap on the backdrop now closes the panel (D: &ldquo;clicking outside of the window is not closing it&rdquo;); the backdrop had no handler at all. <em>LIVE on release since 2026-08-05 (0.32).</em><br>
 2026-08-03 &mdash; The incense prompt renders at last (P7, LIVE on release). The block had never been rebuilt after its removal, so every investigation into why it did not appear was searching a document that did not contain it.<br>
+2026-08-07 &mdash; The boon no longer reaches backwards: a purchase settles the spawn row before hanging the new expiry. The buy answer carries the expiry and budget, and the pill expires on its own clock.<br>
 2026-08-02 — Page created. Premium Shop, Incense Burner, the Wraithgold ledger and the item grant lane.</p>
 
   <h2>Incense &mdash; the player can see it burning</h2>
@@ -59,6 +70,15 @@ an item. A grant with nowhere to go waits rather than being destroyed.</p>
   <strong>nothing ever rendered it</strong>, so a player who had paid for Incense had no way to tell how
   much was left. The floor screen now shows a pill reading <code>INCENSE &middot; 4d 23h</code>, under the
   MENU button. Coarse by design: the boon runs 30 days, so days and hours are the useful unit.</p>
+  <p>The pill is a <strong>floor-scene</strong> element: <code>incLeftOn</code> requires the floor phase
+  <em>and</em> that no panel is open, because panels are overlays and the phase stays <code>floor</code>
+  underneath every one of them.</p>
+  <p>Two delivery holes closed on <strong>2026-08-07</strong>. The buy answer now returns the expiry and
+  the spawn budget alongside the balance, so Incense bought while standing on a floor takes effect on
+  screen immediately instead of waiting for the next <code>/api/floor/enter</code> — previously the shop
+  said it was active and the floor showed nothing. And <code>incPump()</code> arms a single timeout on
+  the boon's own expiry, so the pill and the upsell prompt stop reading a boon that has ended on an idle
+  floor; the one-second drought tick only runs while the pool is starved and could not serve this.</p>
   <div class="note"><strong>Placement was measured, not chosen.</strong> The obvious spot &mdash; centred
   under the floor title &mdash; is covered by the floor header bar, which is <code>z-index 80</code> with an
   <em>opaque</em> background. A pill placed there is present in the DOM with every computed style reading
