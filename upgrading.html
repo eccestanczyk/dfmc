@@ -154,8 +154,59 @@ td{border-bottom:1px solid var(--rule);padding:5px 8px;color:var(--ink-dim);font
   <p><strong>The aura alternates between two identical keyframes, and that is deliberate.</strong> A CSS animation only replays when its element mounts or its animation <em>name</em> changes, and the success gate stays true from one upgrade to the next &mdash; so a second upgrade in the same session would have played no burst at all. Alternating the name on each success is the whole mechanism.</p>
   <p class="foot">Client: <code>upgradeAttempt()</code>, the <code>upg</code> render values in <code>play/app.js</code>; the panel in <code>play/markup.html</code>. Probe: <code>tools/probe_upgcolor.py</code> &mdash; BEFORE 4/4 (asserting the border shows the <em>next</em> grade's colour and no circle exists), AFTER 9/9.</p>
 
+  <h2>A paid attempt is a ticket, and a ticket always settles</h2>
+  <p><em>On DEV, not yet on release.</em> Reports <strong>#58</strong> and <strong>#60</strong>: the
+  forge takes the materials and then spins forever, showing no result. Only a relog cleared it, and
+  the materials were gone.</p>
+  <p><strong>The mechanism.</strong> <code>upgradeAttempt()</code> debits the bundle
+  <em>synchronously</em>, then holds the roll back for 620&nbsp;ms so the attempt animation can run.
+  That delay used to be an entry in <code>this._timers</code> &mdash; the component&rsquo;s general
+  cancellable pool. <code>clearTimers()</code> empties that pool, and <strong>every battle path calls
+  it</strong>: entering a fight, forfeiting, resuming, starting or ending a PvP game, entering or
+  leaving a replay. So a battle event landing inside the 620&nbsp;ms window destroyed the resolution
+  outright: the wallet was already spent, <code>upgBusy</code> stayed <code>true</code>, and no
+  result was ever produced. Both reporters sent with a battle resolving, which is exactly why it felt
+  random &mdash; it needed autoplay running while the player used the forge.</p>
+  <p><strong>The rule now.</strong> A paid attempt is a <strong>ticket</strong>
+  (<code>_upgPend</code>), and a ticket always settles:</p>
+  <ul>
+    <li>Its timer is <code>_upgT</code>, <strong>deliberately outside <code>_timers</code></strong>.
+      <code>clearTimers()</code> cancels animation and autoplay work; it must never be able to cancel
+      something the player has already been charged for. The exclusion is commented at
+      <code>clearTimers()</code> itself so it is not tidied back in.</li>
+    <li><code>upgResolve(id)</code> is <strong>idempotent by ticket id</strong>. A sweep and a late
+      timer cannot both pay out, and a repeat cannot double-charge.</li>
+    <li><code>upgSweep()</code> settles any ticket older than 4&nbsp;s whose timer was lost by any
+      means we did not predict. It runs from <em>both</em> <code>componentDidUpdate</code> and the
+      rAF ticker &mdash; <code>componentDidUpdate</code> alone would leave a ticket hanging on a
+      screen that is not re-rendering.</li>
+    <li><strong>Opening or closing the forge settles; it never cancels.</strong>
+      <code>closeUpgrade()</code> previously cleared <code>upgBusy</code> whether or not the attempt
+      had resolved, which is what made the broken build look like it recovered when it had simply
+      eaten the materials.</li>
+    <li>The re-entry guard is <code>_upgPend</code>, not <code>upgBusy</code> alone. <code>upgBusy</code>
+      lives in state and a <code>setState</code> that has not committed guards nothing:
+      <strong>three clicks in one tick were measured charging 14 against a 10-Scrap bundle</strong> on
+      the old build.</li>
+  </ul>
+  <p><strong>One RNG seam.</strong> The roll is now the whole of
+  <code>upgRoll(st)</code> and nothing else in the forge reads the RNG. That is deliberate: item and
+  class-soul grading is <em>item&nbsp;1</em> of D&rsquo;s 2026-08-08 server-side-rolls order, and
+  moving it means moving one method rather than unpicking a resolution path.</p>
+  <p><strong>Probe.</strong> <code>tools/probe_upghang.py</code>, seeded on reporter
+  #60&rsquo;s own save &mdash; BEFORE 5/12, AFTER 12/12 across three consecutive runs.
+  <code>tools/repro_upghang.py</code> remains the record of the diagnosis. Three of the gate&rsquo;s
+  own assertions were wrong first and were <em>fixed rather than relaxed</em>, and each failure mode
+  is worth knowing: a same-tick wallet read reported the pre-charge figure, so the broken build
+  passed the double-charge test; a fixed five-currency sum undercounted a bundle that spends outside
+  the list, reporting &ldquo;bundle 10, charged 3&rdquo; on a build behaving correctly; and reading
+  the item&rsquo;s grade to prove a close had settled made the result depend on the roll &mdash; it
+  passed on a win and failed on a loss, on the same build. The last is now spied off
+  <code>advEvent('UPGRADE')</code>, which is written on both branches of the roll.</p>
+
   <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-08 &mdash; the forge no longer eats the materials and hangs (reports #58, #60). ON DEV, NOT YET ON RELEASE.</strong> The roll resolved inside <code>this._timers</code>, which <code>clearTimers()</code> empties and every battle path calls, so a battle event inside the 620&nbsp;ms window destroyed a paid attempt. A paid attempt is now a ticket that survives <code>clearTimers</code>, settles exactly once, is swept if its timer is lost, and is settled &mdash; not cancelled &mdash; by opening or closing the forge. Also fixed in passing: <code>upgBusy</code> alone did not guard re-entry, and three clicks in one tick were measured charging 14 against a 10-Scrap bundle. Probe <code>tools/probe_upghang.py</code>: BEFORE 5/12, AFTER 12/12.</li>
     <li><strong>2026-08-07 &mdash; the upgrade panel paints the grade the item is, and the circle is always there (LIVE on release since 2026-08-07 (0.39)).</strong> A win swaps the panel's item for the upgraded one, so every colour derived from the next step was a tier ahead: a Rare item drew Epic purple, message included. The circle was gated on success, showed no grade colour, and had no aura. Reports #52 and #53. New section above. Verified 9/9, with a before-picture proving both defects.</li>
     <li><strong>2026-08-06 &mdash; the advancement trigger now reaches party creatures, and class souls join the system. ON DEV, not yet on release.</strong>
       <strong>What was broken.</strong> <code>advReady()</code> has always built its map from <em>both</em>
