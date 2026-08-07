@@ -1221,6 +1221,17 @@ is the list above.</p>
   makes them expensive. None of these are yet a ranking: research entry 7 is explicit that lever value is unmeasured on
   this build until a full collection day has run.</p>
 
+<h2>Alt-tabbing must not cost a battle</h2>
+<p>Two things go wrong at once when the tab is hidden, and only together do they produce <em>COULD NOT REACH THE SERVER &mdash; THIS BATTLE WAS NOT COUNTED</em>:</p>
+<ul>
+  <li><code>visibilitychange</code>&rarr;<code>hidden</code> fires <code>serverFlush('hidden',{keepalive:true})</code>. A real save is ~131&nbsp;KB and gzips to ~24&nbsp;KB, and <strong>keepalive bodies share a 64&nbsp;KiB browser-wide quota</strong>. <code>/api/battle</code> is also keepalive, so a credit in flight competes with the flush for that quota and can be <strong>refused by the browser before it ever reaches the network</strong>.</li>
+  <li>That refusal is indistinguishable from a network error in the retry, so all three attempts burn inside ~2.4&nbsp;s while the tab is still hidden, and the run pauses into the reconnecting window.</li>
+</ul>
+<p><strong>An attempt made while the document is hidden no longer advances the attempt counter.</strong> A hidden tab is not evidence of an outage. A wall-clock bound still applies, so a player who never comes back cannot retry forever, and the three-attempt rule is untouched once the tab is visible &mdash; which is the case that rule was written for.</p>
+<p><strong>And the two keepalive bodies stop competing at all:</strong> the hide flush yields while a credit is in flight. The save is the cheap one to defer &mdash; the battle event is the authoritative reward record, and the credit's own success already queues a flush &mdash; so the save still lands at the next boundary. Nothing is skipped, only ordered.</p>
+<p>Nothing about this banks a result offline. A credit that genuinely cannot be delivered still credits nothing and still pauses play; what changed is that a tab switch is no longer mistaken for that.</p>
+<p class="foot">Client: the <code>_battlePost</code> retry and the <code>visibilitychange</code> handler in <code>play/app.js</code>. Probe: <code>tools/probe_hidecredit.py</code> &mdash; BEFORE 6/6 (asserting the retry has no notion of a hidden tab), AFTER 7/7.</p>
+
 <h2>The spawn budget is one pool, and every floor entry re-asks for it</h2>
 <p>The budget is keyed by <strong>realm</strong>, not by floor: one pool, 1/min, cap 10, spent wherever you fight. Floors keep their own <code>dead[]</code> so identity and roll serials stay per-floor &mdash; only the credit is shared.</p>
 <ul>
@@ -1234,6 +1245,7 @@ is the list above.</p>
 
 <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-07 &mdash; alt-tabbing no longer costs a battle (ON DEV, not yet on release).</strong> Reports #44 and #49. Backgrounding fires a keepalive save flush, and the battle credit is keepalive too &mdash; they share a 64&nbsp;KiB browser quota, so the credit could be refused by the browser and all three retries burned while the tab was still hidden. Hidden-tab failures no longer advance the attempt counter (with a wall-clock bound), and the hide flush now yields to a credit in flight. New section above. Verified 7/7.</li>
     <li><strong>2026-08-07 &mdash; every floor entry re-asks for the spawn budget (ON DEV, not yet on release).</strong> Report #40. The server has capped the pool to the shared budget since the 2026-07-29 ruling and does so correctly even for a never-visited floor &mdash; the client was not asking, serving any previously-fetched floor from cache. Measured: 2 credits, 10 spawns shown. Cached pools are now capped locally too, so the boss-den exit and resume paths cannot over-show. New section above. Verified 9/9 and 6/6.</li>
     <li><strong>2026-08-06 &mdash; the three repairs behind the lockout: one save per battle, /api/me out of the junk drawer, battle sized from the spawn budget.</strong>
       <em>Worker changes are ON RELEASE. The client change is ON DEV, not yet on release.</em>
