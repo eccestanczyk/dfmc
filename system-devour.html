@@ -80,8 +80,19 @@
     <tr><td><code>mkDevourItem</code></td><td>The only mint for Blood Pellet / Mutagen / Essence records. No play path calls it.</td></tr>
   </table>
 
+  <h2>The fodder picker shows what it cannot take</h2>
+  <p class="sp-lead">Creatures that are <strong>equipped</strong> (a party slot or a soul socket) or <strong>breeding</strong> (in a pen) appear in the fodder list, <strong>greyed, badged</strong> EQUIPPED or BREEDING, and cannot be selected. Clicking one says why rather than doing nothing.</p>
+  <ul class="sp-rules">
+    <li><strong>They sit after the selectable creatures.</strong> Sorting them in among the rest would push a creature the player <em>can</em> feed below three they cannot, on the one screen whose entire job is picking one.</li>
+    <li><strong>They are shallow copies, never the live records.</strong> Nothing that reaches this list can be fed, but a copy cannot be fed by accident either.</li>
+  </ul>
+  <p><strong>The report that prompted this was a name collision, and the measurement is worth keeping.</strong> It was raised as &ldquo;it is showing mons currently in breeding as options&rdquo;. Compared by <code>uid</code> on the reporting save, <strong>zero</strong> penned, equipped or socketed creatures were in the list &mdash; penning and equipping both <em>splice the creature out of the bag</em>, which is exactly why <code>isPennedItem()</code> and <code>isEquippedMon()</code> can honestly return <code>false</code>. The account held three creatures called Tempest and two called Ingot; one of each was penned, and the rest were ordinary bag creatures. What the player could not do was tell them apart.</p>
+  <p>So the filter that was asked for already existed. Showing the unavailable creatures greyed is what fixes the actual confusion, and it is worth more than the filter: <strong>a list that silently omits a creature cannot explain where it went.</strong></p>
+  <p class="foot">Client: <code>dvBlockedRecs()</code>, <code>dvChoices()</code> in <code>play/app.js</code>. Probe: <code>tools/probe_devsel.py</code> &mdash; BEFORE 4/4 (asserting the creatures are absent entirely), AFTER 7/7, matching by uid rather than by name.</p>
+
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-08-07 &mdash; the fodder picker shows equipped and breeding creatures, greyed and badged (ON DEV, not yet on release).</strong> Report #48 said they were being offered as options; measured by uid, they were not &mdash; the account simply held three creatures of the same name. They are now shown and labelled so the player can tell which is which, and a click on one says why it cannot be taken. New section above. Verified 7/7.</li>
     <li><strong>2026-08-06 &mdash; a devour that pays nothing is refused. ON DEV, not yet on release.</strong>
       There are exactly three payouts: <strong>experience, grade and mutant</strong>. If none of them moves, the
       transaction had no content &mdash; and until now it went through anyway, destroying the fodder for literally
