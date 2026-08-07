@@ -171,8 +171,44 @@
   only multiply Defence on three armour slots. The avatar/creature parity target cannot be reached through
   the soul ladder and needs its own lever.</p>
 
+  <h2>Every item surface states its tier</h2>
+  <p><em>On DEV, not yet on release.</em> An item&rsquo;s tier is the single largest term in its stat
+  base (<code>coefficient &times; T &times; GF</code>), and until now it was readable only by opening the
+  item or reading a <code>meta</code> string. Every surface that draws an item now carries a
+  <strong>tier plaque</strong>: a Roman numeral in the top-right corner of the item&rsquo;s own box,
+  on a near-black plate bordered in the item&rsquo;s grade colour.</p>
+  <p>Five prop sites feed one plaque, so there is exactly one definition of what it says:</p>
+  <table>
+    <tr><th>Surface</th><th>Prop site</th><th>Position</th></tr>
+    <tr><td class="lbl">Inventory grid tile</td><td><code>invGridProps</code></td><td>top-right, <code>z-index:4</code> &mdash; above the frame overlay, below the dismantle &times; mark (6)</td></tr>
+    <tr><td class="lbl">Equipment slot row</td><td><code>invSlots</code></td><td>top-right of the 72&nbsp;px icon box, which gains <code>position:relative</code> to host it</td></tr>
+    <tr><td class="lbl">Equip picker card</td><td><code>eqChoices</code> (slot branch)</td><td>top-right of the card</td></tr>
+    <tr><td class="lbl">Socket picker card</td><td><code>eqChoices</code> (sock branch)</td><td>top-right of the card &mdash; gems, runes and scrolls</td></tr>
+    <tr><td class="lbl">Victory reward row</td><td><code>rwItems</code></td><td>far right of the row</td></tr>
+  </table>
+  <p class="note"><strong>Mechanics.</strong> <code>hasTier</code> is <code>!!it.tier</code>, so an item
+  with no tier &mdash; creatures, eggs, currency, an empty equipment slot &mdash; renders nothing at all
+  rather than a zero or a blank plate. <code>tierRoman</code> is <code>romanN(tier)</code>, the same
+  converter that names the chronicle chapters; there is no second numeral table. The plaque is
+  <code>pointer-events:none</code> on every surface, so it can never eat a click meant for the tile
+  beneath it. Reward rows are the one place the tier is not carried on the row object: the drop code
+  writes it into the <code>sub</code> string (<em>Rare Weapon T7</em>), so the mapper reads
+  <code>x.tier</code> where it exists and otherwise parses <code>/\bT(\d+)\b/</code> out of
+  <code>sub</code> &mdash; no reward push site had to be touched.</p>
+  <p class="note"><strong>Why this took three attempts.</strong> <code>invGridProps</code> had exposed a
+  <code>tierBadge</code> prop since the inventory was written and <strong>no markup ever bound it</strong>.
+  Earlier sessions read the prop, saw it populated, and went hunting for an occlusion bug that did not
+  exist. The lesson is the standing one: a prop is not a pixel. <code>tools/probe_tierplaque.py</code>
+  measures geometry, computed style and viewport containment on the real client &mdash; BEFORE 4/7 with
+  zero plaques on any of the three surfaces, AFTER 10/10. Two of its own assertions were wrong first and
+  were fixed rather than relaxed: the corner test measured the leaf span against itself (dc-runtime wraps
+  bound text in a static inner span, so the positioned box is the parent) and answered 0/0, which reads
+  as a pass; and the plaque failed the legibility floor at 7.3 CSS px, which is why the type is 15&ndash;16
+  stage px and not the 11 px it started at.</p>
+
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-08-08 &mdash; every item surface states its tier as a Roman numeral (D order: &ldquo;I want it everywhere&rdquo;). ON DEV, NOT YET ON RELEASE.</strong> Five prop sites, four render sites, one plaque. The root cause of two failed earlier attempts was that <code>markup.html</code> carried no tier binding at all &mdash; the <code>tierBadge</code> prop had been populated and unrendered since the inventory was written, so the fault was never occlusion. Probe <code>tools/probe_tierplaque.py</code>: BEFORE 4/7, AFTER 10/10.</li>
     <li><strong>2026-08-07 &mdash; the soul passive text states the effective percentage, and the multiplier moved to the details window (LIVE on release since 2026-08-07 (0.39)).</strong> The screen quoted the <code>souls.csv</code> constant while <code>gearBonus</code> paid stage &times; grade on top of it: measured, <em>+4%</em> on screen against <em>6.22</em> applied. Only magnitudes scale &mdash; the first cut also scaled a condition threshold, turning <em>above 50% HP</em> into <em>above 77.8% HP</em>, which a probe caught. Report #47, D ruling on placement. Verified 9/9 against <code>gearBonus</code>.</li>
     <li><strong>2026-08-07 &mdash; the soul picker is ordered grade &gt; level &gt; line (LIVE on release since 2026-08-07 (0.39)).</strong> It had no order at all: cards came straight off <code>BAG.concat(bagAdd)</code>, so a Divine sat wherever it was hatched. Report #46. Probe <code>tools/probe_soulorder.py</code>, seeded so bag order is not the answer and with a grade tie so the second key has to do work &mdash; BEFORE 5/5 (asserting it is <em>not</em> ordered), AFTER 7/7.</li>
     <li><strong>2026-08-05 &mdash; the soul picker shows a move summary on hover, and its rows stop quoting the retired stage ladder (D).</strong> LIVE on release since 2026-08-05 (0.32).</li>
