@@ -581,8 +581,17 @@
   <code>enterBossRoom</code> and floor entry all <em>await</em> that flush and refuse to proceed when it fails (the
   Stage&nbsp;5 boundary, so the server never judges a fight against a stale loadout). An oversize save therefore
   presents to the player as <em>"the game will not start fights"</em>, not as a save error.
-  <strong>STILL OPEN:</strong> the refusal is SILENT &mdash; no toast, no pause, <code>dataWarns:0</code> &mdash; so a
-  player can play into a void for hours before noticing. A rejected save must be LOUD.</div>
+  <strong>FIXED 2026-08-08 &mdash; ON DEV, NOT YET ON RELEASE.</strong> A refused save now PAUSES play and files an
+  automatic bug report. Two classes, because they are not the same failure:
+  <strong>terminal</strong> (<code>413</code> too large, <code>403</code> refused) halts on the FIRST refusal &mdash; a
+  retry resends the same body, so it can never succeed; <strong>persistent</strong> (<code>429</code>, 5xx) is allowed
+  its retries and halts once the writer has failed <code>SRV_FAIL_HALT</code> = 6 times running, roughly a minute of a
+  dead write path. Counting attempts rather than trusting the status is what catches the case nobody predicted.
+  It calls <code>haltWrites()</code> and not <code>__setPaused()</code> deliberately: <code>haltWrites</code> latches
+  <code>__HT_HALTED</code>, which is what stops <code>__connCheck</code> un-pausing the window the instant
+  <code>/api/me</code> answers 200 &mdash; and during a write halt it always will, because the connection was never the
+  problem. The report fires BEFORE the halt, or the re-render costs it its log, and it uses its own
+  <code>save</code> bucket so it cannot eat the boot budget or file one per battle during an outage.</div>
   <table>
     <tr><th>Field</th><th>Travels?</th><th>Why</th></tr>
     <tr><td class="lbl"><code>advBattles</code>, <code>advChapters</code>, <code>floors</code></td><td>No &mdash; stripped by <code>serverSnap()</code> on the client <em>and</em> by the save door</td><td>Turn logs and floor pools are device data. Pools are derived; logs are prose</td></tr>
@@ -1259,6 +1268,19 @@ is the list above.</p>
 <p class="foot">Server: <code>spawn_budget</code>, <code>capPoolToBudget()</code>, <code>peekSpawnCredits()</code> in <code>src/worker.js</code>. Client: <code>preloadFloor()</code>, <code>capPoolLocal()</code> in <code>play/app.js</code>. Probes: <code>tools/probe_spawnshare.mjs</code> (9/9, real SQLite, methods lifted from the shipped worker) and <code>tools/probe_spawncap.py</code> (BEFORE 3/3, AFTER 6/6).</p>
 
 <h2>Changelog</h2>
+<p><strong>2026-08-08 &mdash; a refused save is LOUD: play pauses and a report files itself.</strong>
+<em>ON DEV, not yet on release</em> &mdash; dfmc-client <code>dev</code> only, awaiting D's word for <code>main</code>.
+D's order, and the item had been open since 2026-08-01 without being built. The <code>!r.ok</code> branch of
+<code>serverFlush</code> did exactly one thing &mdash; re-arm a retry &mdash; so a refusal was invisible: no toast, no
+pause, <code>dataWarns:0</code>. Meanwhile <code>/api/battle</code> kept crediting a ledger the next login would discard,
+which is how report&nbsp;#68's account played into a void for hours and how the 2026-08-01 rollback cost ten. Both halves
+of the machinery already existed and neither was wired to this path: <code>haltWrites()</code> (pause overlay, latched
+against the connection poller) and <code>autoReport()</code> (budgeted, bounded logs).
+<strong>Terminal codes halt immediately; everything else halts after 6 consecutive failures.</strong>
+<code>tools/probe_saveloud.py</code> 14/14 against the real client, including a BEFORE control on the unpatched build
+proving the defect (paused=false, reports=0) &mdash; and the probe caught two of its own faults on the way: it was
+refusing the boot's <em>GET</em> <code>/api/save</code> as well as the write, which correctly triggered the fail-closed
+load screen and looked exactly like a broken build.</p>
 <p><strong>2026-08-08 &mdash; save ceiling raised to 400&nbsp;KiB (256&nbsp;KiB &rarr; 409,600&nbsp;B), and this page
 corrected from two raises of drift.</strong> <em>ON RELEASE</em> &mdash; dfmc-client <code>main</code>
 <code>c086232326f8</code>, <code>dev</code> <code>c3366b88ed5a</code>.
