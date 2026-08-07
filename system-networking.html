@@ -1221,8 +1221,20 @@ is the list above.</p>
   makes them expensive. None of these are yet a ranking: research entry 7 is explicit that lever value is unmeasured on
   this build until a full collection day has run.</p>
 
+<h2>The spawn budget is one pool, and every floor entry re-asks for it</h2>
+<p>The budget is keyed by <strong>realm</strong>, not by floor: one pool, 1/min, cap 10, spent wherever you fight. Floors keep their own <code>dead[]</code> so identity and roll serials stay per-floor &mdash; only the credit is shared.</p>
+<ul>
+  <li><strong>The server caps the pool it hands out.</strong> If the budget is below ten, a floor is shown with only as many spawns as the budget will honour &mdash; including a floor never visited before. The pool the client is shown <em>is</em> the pool the server will pay for, so a player can never fight a spawn that will not be credited.</li>
+  <li><strong>The client re-asks on every entry.</strong> Once a floor had been fetched it was served from cache forever, so a floor first walked on a full budget kept showing its ten spawns long after the budget drained &mdash; measured at 2 credits and 10 spawns shown. One request per floor <em>change</em>, which is a rare path; battles are untouched.</li>
+  <li><strong>A cached pool is capped locally as well.</strong> The boss-den exit and the resume path also paint from cache, so the last known budget caps whatever is drawn. Suppression is for display only &mdash; the entries are untouched, so identity and serials survive and the next server answer restores them.</li>
+</ul>
+<p><strong>Why over-showing is worse than it looks.</strong> An over-budget kill is not merely unpaid: the server sets <code>credited = false</code> <em>and raises a <code>spawn_budget</code> flag against the account</em>. A player shown a full map they cannot be paid for therefore accrues anti-cheat signal for doing exactly what the screen invited. Under-showing is self-correcting; over-showing is not.</p>
+<p><strong>Travel now requires the server answer for every floor</strong>, cached or not. That follows the offline ruling &mdash; a dead connection must pause rather than serve stale content &mdash; and the existing 30&nbsp;s <em>FLOOR N UNREACHABLE</em> watchdog covers the failure.</p>
+<p class="foot">Server: <code>spawn_budget</code>, <code>capPoolToBudget()</code>, <code>peekSpawnCredits()</code> in <code>src/worker.js</code>. Client: <code>preloadFloor()</code>, <code>capPoolLocal()</code> in <code>play/app.js</code>. Probes: <code>tools/probe_spawnshare.mjs</code> (9/9, real SQLite, methods lifted from the shipped worker) and <code>tools/probe_spawncap.py</code> (BEFORE 3/3, AFTER 6/6).</p>
+
 <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-07 &mdash; every floor entry re-asks for the spawn budget (ON DEV, not yet on release).</strong> Report #40. The server has capped the pool to the shared budget since the 2026-07-29 ruling and does so correctly even for a never-visited floor &mdash; the client was not asking, serving any previously-fetched floor from cache. Measured: 2 credits, 10 spawns shown. Cached pools are now capped locally too, so the boss-den exit and resume paths cannot over-show. New section above. Verified 9/9 and 6/6.</li>
     <li><strong>2026-08-06 &mdash; the three repairs behind the lockout: one save per battle, /api/me out of the junk drawer, battle sized from the spawn budget.</strong>
       <em>Worker changes are ON RELEASE. The client change is ON DEV, not yet on release.</em>
       <br><strong>1. Two saves per battle became one (ON DEV).</strong> <code>battle-entry</code>, <code>floor-entry</code> and
