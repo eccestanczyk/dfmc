@@ -229,6 +229,18 @@ scene. Inspecting a creature and clicking its slot is how a player reaches it.</
       advancement left unclaimed stays claimable across battles, floors and reloads.</li>
 </ul>
 
+<h2>The arrow &mdash; where it sits, and when it goes</h2>
+<p class="sp-lead">The arrow is <strong>dead centre on the image</strong> in all three places it can appear: the equipped soul's tile, the party creature's card, and the <strong>class portrait</strong>. One shape, one size, one placement, so it means the same thing everywhere.</p>
+<ul>
+  <li><strong>It goes on the click.</strong> Every arrow is derived from the records, and the records are not written until <code>commitEvolution()</code> runs at the end of the ~3s scene &mdash; so the arrow used to sit there, live and clickable, for the whole animation. <code>advFired</code> holds the advancements already set in motion so the derivation can answer honestly while the screen stops offering it.</li>
+  <li><strong>The suppression key carries the creature and the target form</strong> (<code>uid</code> + <code>toId</code>), never the slot. A slot can be swapped while the scene plays &mdash; that is the cross-line corruption the commit guard exists for &mdash; and a slot-keyed suppression would hide the newcomer's arrow instead.</li>
+  <li><strong>Every commit path clears it, deliberately.</strong> A commit refused by the same-creature guard writes nothing, so the derivation offers the advancement again and the arrow returns &mdash; correct, because that creature did not advance. Suppression outliving a failure would be a silent loss.</li>
+  <li><strong>The class arrow lives on the portrait</strong>, not beside the class name in the header row, which is where it used to be and where players kept finding it. Its click stops propagation, so the portrait still opens the soul crystals when the arrow is not hit.</li>
+</ul>
+<p><strong>The stale battle unit (report&nbsp;#41, measured 2026-08-07).</strong> <code>advancingAlly()</code> reads the creature's current stage off <code>units[id].src</code> &mdash; the battle unit &mdash; and <code>commitEvolution()</code> only ever rewrote <code>equipOv</code>. Measured against a real save: the slot became a Lich and <code>units.a1.src</code> stayed on <code>DFMC-265</code>, so the arrow was re-derived <em>forever</em> and every click replayed <em>Reliquary&nbsp;&rarr;&nbsp;Lich</em> on a creature that was already a Lich &mdash; word for word what the player reported. <code>refreshPartyFromCsv()</code> could not rescue it either: it rebuilds the party only while the phase is <code>'floor'</code>, and an advancement runs in phase <code>'evolution'</code>, so it fell through to a bare <code>forceUpdate()</code> and the stale unit survived even a return to the floor. The commit now moves the battle unit with the record.</p>
+<p><strong>The equipment arrow was clipped, not missing.</strong> It sat at <code>top:-9px</code> inside an <code>overflow:hidden</code> 72&nbsp;px soul tile &mdash; measured 17&times;17 with <code>clippedTop: true</code>. It is now centred and 44&nbsp;px declared.</p>
+<p class="foot">Client: <code>advKey()</code>, <code>advFiredHas()</code>, <code>advClearFired()</code>, <code>advReady()</code>, <code>advancingClassLive()</code>, <code>commitEvolution()</code> in <code>play/app.js</code>. Probe: <code>tools/probe_advarrow2.py</code> (10/10).</p>
+
 <h2>A creature does not state its tier</h2>
 <p><strong>LIVE on release since 2026-08-04 (0.31).</strong> Rarity still exists and still governs everything it always
 did &mdash; spawn tables, encounter weights, art, the codex. What it no longer does is announce itself.
@@ -273,6 +285,7 @@ below level 80, and the line advances at 69, so a Hafgufa can never fire it.</p>
 
 <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-07 &mdash; the advancement arrow: dismissal, the stale battle unit, and placement (ON DEV, not yet on release).</strong> Report #41: an equipped creature advanced, the record became a Lich, and the arrow stayed live and replayed the same scene on a creature that had already advanced. Cause: <code>advancingAlly()</code> reads the stage off the battle unit and the commit only wrote the record, while <code>refreshPartyFromCsv()</code> rebuilds only in phase <code>'floor'</code> &mdash; so the stale unit survived even a return to the floor. The commit now moves both. The arrow also disappears on the click rather than at the end of the scene (<code>advFired</code>), is centred on the image and materially larger everywhere, and the class arrow moved from the name row onto the class portrait. The equipment arrow was not missing but clipped: <code>top:-9px</code> inside an <code>overflow:hidden</code> tile. New section above. D report + #41. Verified 10/10.</li>
     <li><strong>2026-08-05 &mdash; battle XP is addressed by creature, not by party slot (LIVE on release since 2026-08-05 (0.32)).</strong> Swapping a party creature mid-battle in the Equipment window paid the
       newcomer at the fighter's rate and paid the fighter nothing; the advance check had the same
       slot-addressing and could write one creature's next form into another's record. Both now resolve
