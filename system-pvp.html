@@ -209,8 +209,74 @@ live fight.</p>
 </ul>
 <p class="foot">Client: <code>confirmLocked</code> and the <code>confirmBtn*</code> values in <code>play/app.js</code>; the HUD and decree in <code>play/markup.html</code>. Probe: <code>tools/probe_pvpui.py</code> &mdash; BEFORE 4/4, AFTER 8/8.</p>
 
+<h2>A late reply from a finished match cannot write</h2>
+<p>Both networked PvP paths &mdash; <code>pvpNetCommit()</code> and <code>pvpNetPoll()</code> &mdash; read
+<code>state.pvp</code> <em>once</em>, at entry, and then await the network. <code>pvpNetCommit</code> retries
+<code>netSet</code> up to three times with 400&nbsp;ms between attempts and then the <code>round</code> announce up
+to three times with 500&nbsp;ms between attempts, so it can be in flight for several seconds. The match can end
+inside that window &mdash; an opponent forfeits, a side is wiped, the Bo3 is decided &mdash; and
+<code>pvpMatchOver()</code> sets <code>pvp:null</code>.</p>
+<p>Every continuation that then resumed wrote with <code>Object.assign({}, p.pvp, {&hellip;})</code>.
+<strong><code>Object.assign</code> ignores a null source</strong>, so the state was not left null: it was
+<em>resurrected</em> as <code>{netWait:false, oppC:false}</code> &mdash; truthy, with no <code>games</code>, no
+<code>opp</code>, no <code>net</code>. Six sites did this.</p>
+<p>The rule now is identity, not presence:</p>
+<ul>
+  <li><code>pvpAlive(mid)</code> answers <em>&ldquo;is the live match still THAT match&rdquo;</em>, comparing
+      <code>state.pvp.net.mid</code> against the id the call was fired under. Not <em>&ldquo;is there a pvp
+      object&rdquo;</em>.</li>
+  <li><code>pvpPatch(mid, patch)</code> returns a React updater that yields <code>null</code> &mdash; a no-op &mdash;
+      when it is not. That is what stops a null <code>pvp</code> being resurrected.</li>
+  <li>Both async paths capture <code>const _mid = v.net.mid</code> at entry. All six writes, both desync forfeits,
+      the opponent-forfeit path and both <code>lockIn()</code> callbacks are guarded by it.</li>
+</ul>
+<p><strong>Why the match does not instead wait for the server before ending</strong> (D's ruling, 2026-08-08).
+Waiting cannot fix this: however long the deadline, a reply can always land one moment after it. Worse, the most
+common reason a match ends is an opponent vanishing, so a match that ends only on a reply would freeze the player
+owed the win &mdash; the exact failure the 2026-08-06 <em>&ldquo;a PvP snapshot is not authority&rdquo;</em> work
+removed. The fix is that a late reply cannot <em>write</em>, not that it is unlikely to arrive.</p>
+
+<h2>A pvp object that is not a match cannot route a fight</h2>
+<p><code>pvpReal(v)</code> is <code>!!(v &amp;&amp; v.opp &amp;&amp; Array.isArray(v.games))</code>. Four things key
+off it, because each one changes what a fight <em>is</em>:</p>
+<ul>
+  <li><code>endRound()</code>'s PvP branch &mdash; otherwise a PvE party wipe entered the Bo3 machinery.</li>
+  <li><code>battleKindNow()</code> &mdash; otherwise a PvE fight was persisted to the <em>PvP</em> localStorage
+      slot, and <code>tryResumeBattle(null)</code> tries <code>'pvp'</code> first, so a reload resumed straight
+      back into it.</li>
+  <li><code>persistBattle()</code>'s slot choice and the battle log's <code>kind</code>.</li>
+</ul>
+<p>A truthy <code>pvp</code> also hides Auto-Battle, which is what players saw first.</p>
+
+<h2>Match end and the round watchdog cannot take the fight down</h2>
+<ul>
+  <li><code>pvpGameEnd()</code> and <code>pvpForfeitWin()</code> build with
+      <code>(v.games || []).concat([&hellip;])</code>, never <code>v.games.push(&hellip;)</code>. A match-end path is
+      the only way out of a fight, so it must not be able to throw on a malformed object.</li>
+  <li><code>endRound()</code>'s catch is a watchdog, and a thrown round is not a live round. If nobody on the
+      player's side can act, it ends the fight and clears the battle snapshot instead of returning the player to
+      <code>'select'</code> with a dead party &mdash; moves visible, none selectable, and the next
+      <code>endRound()</code> throwing in the same place.</li>
+</ul>
+<p class="foot">Client: <code>pvpAlive</code>, <code>pvpPatch</code>, <code>pvpReal</code>,
+<code>pvpNetCommit</code>, <code>pvpNetPoll</code>, <code>pvpGameEnd</code>, <code>pvpForfeitWin</code>,
+<code>persistBattle</code>, <code>battleKindNow</code> and <code>endRound</code> in <code>play/app.js</code>.
+Probe: <code>tools/probe_r64.py</code> (9/9, including a control that a live match still takes its own reply, and
+one that a clean PvE defeat is untouched). Replayer: <code>tools/_r64_patch.py</code>.</p>
+
 <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-08 (v0.41) &mdash; a reply from a finished match can no longer write, and a PvE fight can
+      no longer be mistaken for a PvP one (LIVE on release, 2026-08-08).</strong>
+      Reports #64, #65 and #66 &mdash; one player, wedged in combat after a PvP match, signature
+      <code>endRound error: Cannot read properties of undefined (reading 'push')</code>, with F5 returning him to the
+      same round and only a relog clearing it. Reproduced first (8/8) and the probe then inverted to verify (9/9).
+      Three links in one chain: a late network reply resurrected <code>state.pvp</code> from null into a truthy stub
+      via <code>Object.assign</code>; that stub sent his next PvE fight into the PvP save slot and into the Bo3
+      match-end code; and that code threw on a <code>games</code> array the stub never had, after which the round
+      watchdog handed him back an unplayable <code>'select'</code> every time. Fixed with an identity stamp
+      (<code>pvpAlive</code>/<code>pvpPatch</code>), <code>pvpReal</code> on every branch that decides what a fight
+      is, a match-end path that cannot throw, and a watchdog that ends a fight nobody can act in.</li>
     <li><strong>2026-08-07 &mdash; the match HUD moves under the turn-order button, and the decree stamp waits for the lock (LIVE on release since 2026-08-07 (0.39)).</strong> Reports #56 and #57. The HUD was anchored mid-screen across the battlefield; the stamp was painted before anything was committed, and the lock-in button gave no sign it had been pressed. New section above. Verified 8/8.</li>
     <li><strong>2026-08-06 (v0.36) &mdash; matchmaking rewritten server-authoritative.</strong>
       Peer discovery is deleted. The client posts a ticket and renders status; it no longer reads the pool, picks an
