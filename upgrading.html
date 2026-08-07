@@ -134,8 +134,21 @@ td{border-bottom:1px solid var(--rule);padding:5px 8px;color:var(--ink-dim);font
   spent client-side and validated by the save door until inventory moves server-side.</p>
 
 
+  <h2>What the upgrade panel paints, and in which grade</h2>
+  <p class="sp-lead">A successful upgrade replaces the panel's item with the <strong>upgraded</strong> item, so <code>gradeStep()</code> immediately describes the <em>next</em> attempt &mdash; Rare&nbsp;&rarr;&nbsp;Epic. Anything painted from <code>st.toColor</code> after that moment is showing the colour of a grade the item has not reached. Measured before the fix: a Rare item drew <code>rgb(163,53,238)</code>, which is Epic, and the word <em>RARE</em> was printed in the same purple.</p>
+  <ul>
+    <li><strong>The item is drawn in the grade it IS.</strong> The border reads the item's own grade, not the target of the next attempt.</li>
+    <li><strong>The success message carries the colour it was written with.</strong> It is stamped onto <code>upgMsg</code> at the moment of the win rather than re-derived on every render, which is what made it drift a tier.</li>
+    <li><strong>The from&nbsp;&rarr;&nbsp;to row is unchanged and still correct.</strong> It genuinely describes the next attempt, so <em>Rare</em> in blue and <em>Epic</em> in purple is what it should say.</li>
+  </ul>
+  <h3>The circle</h3>
+  <p>The alchemical circle is <strong>always</strong> behind the item, not only after a success &mdash; it is the room the work happens in, not a reward for it. It is drawn as a CSS mask rather than an image so it can be <strong>tinted by the item's current grade</strong>, which means it turns blue the instant a Rare exists. A success adds a short aura ring in the grade just reached.</p>
+  <p><strong>The aura alternates between two identical keyframes, and that is deliberate.</strong> A CSS animation only replays when its element mounts or its animation <em>name</em> changes, and the success gate stays true from one upgrade to the next &mdash; so a second upgrade in the same session would have played no burst at all. Alternating the name on each success is the whole mechanism.</p>
+  <p class="foot">Client: <code>upgradeAttempt()</code>, the <code>upg</code> render values in <code>play/app.js</code>; the panel in <code>play/markup.html</code>. Probe: <code>tools/probe_upgcolor.py</code> &mdash; BEFORE 4/4 (asserting the border shows the <em>next</em> grade's colour and no circle exists), AFTER 9/9.</p>
+
   <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-07 &mdash; the upgrade panel paints the grade the item is, and the circle is always there (ON DEV, not yet on release).</strong> A win swaps the panel's item for the upgraded one, so every colour derived from the next step was a tier ahead: a Rare item drew Epic purple, message included. The circle was gated on success, showed no grade colour, and had no aura. Reports #52 and #53. New section above. Verified 9/9, with a before-picture proving both defects.</li>
     <li><strong>2026-08-06 &mdash; the advancement trigger now reaches party creatures, and class souls join the system. ON DEV, not yet on release.</strong>
       <strong>What was broken.</strong> <code>advReady()</code> has always built its map from <em>both</em>
       <code>advancingSoul()</code> (keys gear slots 4&ndash;7) and <code>advancingAlly()</code> (keys slots <strong>8 and
