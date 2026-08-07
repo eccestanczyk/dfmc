@@ -54,6 +54,12 @@
   <p class="foot">Client: <code>gearBonus()</code>, <code>freezeGear()</code>, <code>optBuildPlan()</code>, <code>optScore()</code>, <code>optApply()</code> in <code>play/app.js</code></p>
 
   <h2>The soul picker</h2>
+  <p class="sp-lead"><strong>Ordered grade &gt; level &gt; line.</strong> The list built its cards straight off <code>BAG.concat(bagAdd)</code> &mdash; insertion order &mdash; so a Divine sat wherever it happened to have been hatched and the player had to hunt for it. It now sorts by <code>GRADE_ORDER</code> descending, then level descending, then line, then name.</p>
+  <ul class="sp-rules">
+    <li><strong>Line is the third key, not the first.</strong> Grade decides the slot, level decides between equals, and the line only groups what is otherwise identical. Name breaks the final tie so the order cannot shuffle between re-renders on equal creatures.</li>
+    <li><strong>Same comparator shape as the breeding picker and the inventory</strong>, which is the point: three lists that order creatures should not each invent their own order. The breeding selector had this exact defect on 2026-08-05.</li>
+    <li><strong><code>BAG</code> is copied before sorting.</strong> It is not React state, and the bag's own order is its identity &mdash; sorting it in place would reorder the inventory as a side effect of opening a picker.</li>
+  </ul>
   <ul class="sp-rules">
     <li>Hovering a candidate shows its <strong>move summary</strong>. The rows always set
       <code>eqHMv</code>; <code>eqHoverOn</code> carried <code>!s.eqPick</code>, so the summary was
@@ -157,6 +163,7 @@
 
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-08-07 &mdash; the soul picker is ordered grade &gt; level &gt; line (ON DEV, not yet on release).</strong> It had no order at all: cards came straight off <code>BAG.concat(bagAdd)</code>, so a Divine sat wherever it was hatched. Report #46. Probe <code>tools/probe_soulorder.py</code>, seeded so bag order is not the answer and with a grade tie so the second key has to do work &mdash; BEFORE 5/5 (asserting it is <em>not</em> ordered), AFTER 7/7.</li>
     <li><strong>2026-08-05 &mdash; the soul picker shows a move summary on hover, and its rows stop quoting the retired stage ladder (D).</strong> LIVE on release since 2026-08-05 (0.32).</li>
     <li><strong>2026-08-05 &mdash; the soul readout gains a live XP bar and level, and creature icons gain a gender glyph (D).</strong> LIVE on release since 2026-08-05 (0.32).</li>
     <li><strong>2026-08-05 &mdash; item details: Tag and Key gain DISMANTLE, a key gains a route to its boss, and a tag’s slot row stops naming a socket (D).</strong> All three LIVE on release since 2026-08-05 (0.32).</li>
