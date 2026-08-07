@@ -110,6 +110,14 @@ td{border-bottom:1px solid var(--rule);padding:5px 8px;color:var(--ink-dim);font
   migrates it) &mdash; this also fixed a pre-existing bug where a <em>bag</em> item's sockets and scroll
   were silently orphaned by a successful grade upgrade.</p>
   <h2>Auto-optimize (2026-07-30)</h2>
+  <p class="sp-lead"><strong>The target decides, and Overall Power breaks the tie.</strong> <em>Optimize For</em> maximises the chosen metric, but on a slot where that metric cannot tell the candidates apart it falls back to overall power instead of leaving the slot alone.</p>
+  <ul>
+    <li><strong>Why it was needed.</strong> The scorer returned one metric for the whole loadout. With <em>ATK</em> selected, the attack metric sums attack only &mdash; so on a Head or a Chest every candidate scored the <em>same number</em>. The incumbent is evaluated first and the comparison is a strict improvement, so the incumbent always won and those slots were <strong>never optimised at all</strong>. Not a preference gone wrong: whole slots were skipped. Report&nbsp;#50.</li>
+    <li><strong>There is no list of which slots carry attack, deliberately.</strong> &ldquo;Attack isn't available for that slot&rdquo; is exactly &ldquo;the target metric cannot tell these candidates apart&rdquo;, which the scores already say. A class that gains an attack-bearing armour slot tomorrow is handled with no edit; a hand-written list would be wrong the first time that happened.</li>
+    <li><strong>Ties still keep the incumbent.</strong> Both terms must be beaten strictly, so a loadout that is already best changes nothing.</li>
+  </ul>
+  <p class="foot">Client: <code>optScore2()</code> and the candidate loop in <code>optBuildPlan()</code>. Probe: <code>tools/probe_optfallback.py</code> &mdash; BEFORE 6/6 (asserting the defence slots are skipped under ATK), AFTER 7/7.</p>
+
   <p>The equipment header carries <strong>AUTO-OPTIMIZE</strong>: it proposes the strongest legal loadout
   from what the player owns &mdash; gear slots and tags, plus a global re-assignment of gems and runes
   drawn from the bag and from everything currently socketed on equipped pieces. The displayed POWER
