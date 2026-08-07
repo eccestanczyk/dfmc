@@ -81,6 +81,16 @@
   <code>sc-camel-on-mouse-enter</code> from the DOM and there is no attribute to select on.
   <em>LIVE on release since 2026-08-05 (0.32).</em></p>
 
+  <h2>The passive text states what the game pays</h2>
+  <p class="sp-lead"><code>souls.csv</code> authors the <strong>S3</strong> text, and <code>gearBonus</code> then applies <code>p.&lt;pct&gt; &times; stMult &times; grMult</code>. The screen quoted the CSV constant while the game paid something else &mdash; measured on a live save, the equipment UI read <strong>+4% Attack</strong> while <code>gearBonus</code> was accumulating <strong>6.22</strong>. The percentages in the text are now the effective ones.</p>
+  <ul class="sp-rules">
+    <li><strong>Rewritten in place, not appended.</strong> The sentence still reads as a sentence &mdash; <em>PERSONAL: +6.2% Attack.</em> &mdash; rather than <em>+4% Attack. &rarr; +6.2%</em>. A player reading a passive is reading a description, not a derivation. <code>soulEffLine</code> still builds the derivation for the details window, where showing the working is the point.</li>
+    <li><strong>Only the magnitudes scale, and <code>parseSoul</code> decides which those are.</strong> Scaling every percentage in the sentence was the first attempt and it <em>corrupted the condition</em>: <em>+5% Defense while above 50% HP</em> became <em>above 77.8% HP</em>, silently changing when the soul fires. The magnitudes are taken from <code>parseSoul</code>'s own output rather than from a rule about plus signs, because <code>parseSoul</code> is what <code>gearBonus</code> pays out of &mdash; a number it does not read as an effect is a number the game does not scale either.</li>
+    <li><strong>The multiplier has left the equipment UI</strong> (D ruling on report&nbsp;#47). The tile badge and the picker row's <em>&times;1.56 strength</em> are gone: those quote the <em>lever</em>, and a player choosing a soul can do nothing with a lever. The <strong>details window</strong> now carries <code>&times;N STRENGTH (S<em>stage</em> &times; <em>grade</em>)</code> along with the raw&nbsp;&rarr;&nbsp;effective working for every slot in the line.</li>
+    <li><strong>Freeing the tile also freed the advancement arrow</strong>, which sat off-centre at <code>top:32%</code> to avoid the multiplier band. It is back to dead centre at full size.</li>
+  </ul>
+  <p class="foot">Client: <code>soulTextEff()</code>, <code>soulEffLine()</code>, <code>invTipInfo()</code> in <code>play/app.js</code>. Probe: <code>tools/probe_soulpct.py</code> &mdash; BEFORE 3/3 (asserting the text quotes the raw constant), AFTER 9/9, with the displayed number compared against what <code>gearBonus</code> accumulates rather than against a formula the probe restates.</p>
+
   <h2>The soul readout</h2>
   <p>Each of the eight gear slots shows a readout of what its soul grants &mdash; the move for an
   ability slot, the passive text for an armour slot. Since 2026-08-05 that panel also reports the
@@ -163,6 +173,7 @@
 
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-08-07 &mdash; the soul passive text states the effective percentage, and the multiplier moved to the details window (ON DEV, not yet on release).</strong> The screen quoted the <code>souls.csv</code> constant while <code>gearBonus</code> paid stage &times; grade on top of it: measured, <em>+4%</em> on screen against <em>6.22</em> applied. Only magnitudes scale &mdash; the first cut also scaled a condition threshold, turning <em>above 50% HP</em> into <em>above 77.8% HP</em>, which a probe caught. Report #47, D ruling on placement. Verified 9/9 against <code>gearBonus</code>.</li>
     <li><strong>2026-08-07 &mdash; the soul picker is ordered grade &gt; level &gt; line (ON DEV, not yet on release).</strong> It had no order at all: cards came straight off <code>BAG.concat(bagAdd)</code>, so a Divine sat wherever it was hatched. Report #46. Probe <code>tools/probe_soulorder.py</code>, seeded so bag order is not the answer and with a grade tie so the second key has to do work &mdash; BEFORE 5/5 (asserting it is <em>not</em> ordered), AFTER 7/7.</li>
     <li><strong>2026-08-05 &mdash; the soul picker shows a move summary on hover, and its rows stop quoting the retired stage ladder (D).</strong> LIVE on release since 2026-08-05 (0.32).</li>
     <li><strong>2026-08-05 &mdash; the soul readout gains a live XP bar and level, and creature icons gain a gender glyph (D).</strong> LIVE on release since 2026-08-05 (0.32).</li>
