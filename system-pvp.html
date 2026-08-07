@@ -198,8 +198,20 @@ live fight.</p>
   <p><strong>A commit is only real once the server has taken it.</strong> The write is awaited and retried; the player is shown as locked in only after it lands, and if the commit later goes missing from the match record it is sent again. This matters because every downstream step tests for your own commit being present &mdash; including the timeout that resolves a round when the clocks run out. Until v0.34 the client marked itself locked <em>before</em> writing and discarded the result, so a failed write shut three doors at once: it blocked its own retry, the opponent never saw a commit, and the timeout could not fire either. Both players waited forever.</p>
   <p><strong>The client may never invent an opponent.</strong> A match comes from the queue meeting a real partner or it does not happen. There is no simulated opponent, as a game feature or a testing one, and no fabricated name, rating or lock countdown.</p>
 
+<h2>The match HUD, and what the decree stamp means</h2>
+<p><strong>The round/bank/game readout sits directly under the turn-order button</strong>, on the same centre axis, in one row. It was anchored <code>bottom:648px</code>, which on the 1080 stage puts it mid-screen across the battlefield. It is anchored to the <em>top</em> for the same reason the button is: a bottom anchor moves with every change to the panels below it.</p>
+<p>The band between the button and the creature sprites is about 40 stage pixels and the row was about 43, so its padding is tightened to fit rather than the row being allowed to clip a sprite. That is a measurement, not a taste &mdash; <code>tools/probe_pvpui.py</code> asserts the HUD overlaps nothing else drawn, which is what caught the first placement.</p>
+<h3>The stamp means &ldquo;locked in&rdquo;</h3>
+<ul>
+  <li><strong>No stamp until the moves are committed.</strong> The wax stamp was painted on the decree unconditionally, so the order read as sealed while the player was still choosing it. In PvP the lock is <code>netWait</code> &mdash; the moves are committed and the round is waiting on the opponent.</li>
+  <li><strong>The lock-in button looks pressed once it has been</strong>, reads <em>MOVES LOCKED</em>, and stops inviting a second press. <code>pvpNetCommit()</code> already returned early while <code>netWait</code> was set, so this only makes the screen agree with what the code was doing.</li>
+  <li><strong>Outside PvP there is no frame to show one.</strong> The decree closes the instant <code>lockIn()</code> runs, so the gate is simply false there.</li>
+</ul>
+<p class="foot">Client: <code>confirmLocked</code> and the <code>confirmBtn*</code> values in <code>play/app.js</code>; the HUD and decree in <code>play/markup.html</code>. Probe: <code>tools/probe_pvpui.py</code> &mdash; BEFORE 4/4, AFTER 8/8.</p>
+
 <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-07 &mdash; the match HUD moves under the turn-order button, and the decree stamp waits for the lock (ON DEV, not yet on release).</strong> Reports #56 and #57. The HUD was anchored mid-screen across the battlefield; the stamp was painted before anything was committed, and the lock-in button gave no sign it had been pressed. New section above. Verified 8/8.</li>
     <li><strong>2026-08-06 (v0.36) &mdash; matchmaking rewritten server-authoritative.</strong>
       Peer discovery is deleted. The client posts a ticket and renders status; it no longer reads the pool, picks an
       opponent, creates a match or holds an identity. Root cause of the 2026-08-06 failure was a player's PC clock
