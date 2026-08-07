@@ -239,7 +239,7 @@
       set headers, which is why it is used.</td></tr>
   </table>
   <div class="note"><strong>Open, and it interacts with the save ceiling.</strong> A <code>keepalive</code> request body is
-  capped at 64&nbsp;KB by the Fetch standard while a save is allowed up to 131,072&nbsp;bytes. Any save past 64&nbsp;KB
+  capped at 64&nbsp;KB by the Fetch standard while a save is allowed up to 409,600&nbsp;bytes. Any save past 64&nbsp;KB
   therefore cannot be flushed on unload at all, and the largest accounts are exactly the ones with most to lose.
   Unverified against the runtime; if it holds, the unload path needs a <em>smaller payload</em>, not a bigger allowance.</div>
 
@@ -322,7 +322,8 @@
       the ordinary conflict payload. Pre-epoch sessions keep the old behaviour until they reload, and never
       after.</td><td><code>save_conflict</code>, <code>save_no_base_ver</code></td></tr>
     <tr><td class="lbl">Two size ceilings</td><td>The device-only fields are stripped, then what remains is measured:
-      over <strong>131,072&nbsp;B</strong> is refused <code>413</code>. A second, looser guard refuses a serialised save
+      over <strong>409,600&nbsp;B</strong> is refused <code>413</code> (and over <strong>262,144&nbsp;B</strong> is
+      flagged <code>save_large</code>). A second, looser guard refuses a serialised save
       over <strong>900,000&nbsp;B</strong> after every other rule has run. Accepted writes keep a
       <strong>20-version</strong> <code>save_hist</code> ring per realm, which is what
       <code>/api/backup/history</code> reads.</td><td><code>save_oversize</code></td></tr>
@@ -564,10 +565,24 @@
   <code>advArc</code> the local copy wins outright</strong>, because a stored save written before the strip still carries an
   archive and that copy is by definition the stale one.</p>
 
-  <h2>The save ceiling &mdash; 131,072 bytes, and what happens when a save reaches it</h2>
+  <h2>The save ceiling &mdash; 409,600 bytes, and what happens when a save reaches it</h2>
   <p><code>POST /api/save</code> strips the device-only fields, then measures what remains. Anything over
-  <strong>131,072&nbsp;B</strong> is refused <code>413 save too large</code> and flagged <code>save_oversize</code>.
-  A legitimate slim save is well under 60&nbsp;KB, so the ceiling is headroom, not a budget to spend.</p>
+  <strong>409,600&nbsp;B</strong> (400&nbsp;KiB) is refused <code>413 save too large</code> and flagged
+  <code>save_oversize</code>; over <strong>262,144&nbsp;B</strong> is accepted but flagged <code>save_large</code>.</p>
+  <div class="note"><strong>The ceiling does not control the save size &mdash; the CAPS do. The ceiling only decides
+  whether the player is refused.</strong> Measured on a real maxed account 2026-08-08: a soul costs
+  <strong>~401&nbsp;B</strong> (most of it the <code>origin</code> birth record) and an item <strong>~177&nbsp;B</strong>.
+  At the authored caps of <strong>600 souls + 160 items</strong> a fully legitimate save projects to
+  <strong>~321,700&nbsp;B</strong>. Any ceiling below that refuses saves the game's own caps permit, so every player who
+  fills their collection is locked out &mdash; which is exactly what happened twice. Do not lower this below the
+  projection without lowering the caps first.</div>
+  <div class="note"><strong>A 413 is not just a lost write &mdash; it stops the player entering any fight.</strong>
+  <code>serverFlush</code> returns <code>false</code> on a 413, and <code>enterBattle</code>,
+  <code>enterBossRoom</code> and floor entry all <em>await</em> that flush and refuse to proceed when it fails (the
+  Stage&nbsp;5 boundary, so the server never judges a fight against a stale loadout). An oversize save therefore
+  presents to the player as <em>"the game will not start fights"</em>, not as a save error.
+  <strong>STILL OPEN:</strong> the refusal is SILENT &mdash; no toast, no pause, <code>dataWarns:0</code> &mdash; so a
+  player can play into a void for hours before noticing. A rejected save must be LOUD.</div>
   <table>
     <tr><th>Field</th><th>Travels?</th><th>Why</th></tr>
     <tr><td class="lbl"><code>advBattles</code>, <code>advChapters</code>, <code>floors</code></td><td>No &mdash; stripped by <code>serverSnap()</code> on the client <em>and</em> by the save door</td><td>Turn logs and floor pools are device data. Pools are derived; logs are prose</td></tr>
@@ -709,7 +724,7 @@
       still flushes instantly. The connection poll is a 60&nbsp;s heartbeat; any failed request checks instantly, so pause latency is one round-trip.</td></tr>
     <tr><td class="lbl">Save diet</td><td>Measured on a real save: 670,388&nbsp;B local &rarr; <strong>20,875&nbsp;B stored</strong> (32&times;).
       Battle logs and adventure history never leave the device; the shell splices local-only fields back on adoption so logs survive login.
-      128&nbsp;KB post-strip ceiling &rarr; 413 + flag.</td></tr>
+      400&nbsp;KiB post-strip ceiling &rarr; 413 + flag (raised from 128&nbsp;KB via 256&nbsp;KiB; see changelog).</td></tr>
     <tr><td class="lbl">Rate caps</td><td>Token buckets in Worker isolate memory, keyed on the <em>verified</em> steamid, checked before any
       object wakes. <strong>Doubled 2026-08-06</strong> after ordinary play locked a live account out (see the changelog entry):
       <code>battle 24&nbsp;burst&nbsp;/&nbsp;4&nbsp;per&nbsp;min</code>, <code>floor 30/8</code>, <code>save 20/12</code>,
@@ -840,7 +855,7 @@
     <tr><td class="lbl">The admin console cannot see player data</td><td><code>/api/admin/*</code> is routed to the <strong>WorldDO</strong> while saves, flags and history live in the <strong>PlayerDO</strong>, so <code>flags</code>, <code>save-history</code> and <code>rollback</code> answer empty. Not a data loss &mdash; a blind console. The key-gated <code>/api/backup/history</code> and <code>/api/backup/facts</code> are the working substitutes and are what any diagnosis should use</td></tr>
     <tr><td class="lbl">The WORLD object is not fenced</td><td>It authenticates from the <code>x-sid</code> header set by the Worker and holds no session table, so it has no epoch to compare: <code>/api/db</code>, <code>/api/pvp/*</code>, <code>/api/lb/*</code> and <code>/api/admin/*</code> are unfenced. Safe by construction today &mdash; <code>_trustHeaderSid</code> returns no <code>epoch</code> and the gate skips &mdash; but that is an accident of shape, not a decision. Lower stakes than the save path; recorded rather than fixed</td></tr>
     <tr><td class="lbl">Vestigial second seed path</td><td>Cosmetic, no player impact, but it should not survive a reading. After the ledger overwrite the save door still runs the old <code>__wg_seed</code> kv block, which raises the blob to <code>max(before, WG_SEED)</code>. It is a no-op because <code>wgEnsureSeed</code> has already posted the same 100 to the ledger immediately above it &mdash; but it is a second seeding path pointed at the <em>blob</em> rather than the ledger, and the whole point of 2026-08-02 was that there is exactly one balance. Delete on the next pass through that handler</td></tr>
-    <tr><td class="lbl"><code>keepalive</code> body cap vs the save ceiling</td><td>64&nbsp;KB by the Fetch standard against a 131,072&nbsp;B allowance. Unverified against the runtime; see the queueing section</td></tr>
+    <tr><td class="lbl"><code>keepalive</code> body cap vs the save ceiling</td><td>64&nbsp;KB by the Fetch standard against a 409,600&nbsp;B allowance. Unverified against the runtime; see the queueing section</td></tr>
   </table>
     <h2>When the write path dies</h2>
   <p>There are two writers and only one of them can be latched off. <code>_staleInst</code> (another window
@@ -987,7 +1002,7 @@
   <p><strong>2. Backgrounding burned the rate bucket.</strong> <code>hidden</code> and <code>pagehide</code> bypassed the debounce, and on a phone <code>hidden</code> fires on every screen-off, notification pull and app switch. Each one spent a token; three breaches inside the window soft-block the account, which is the trap that once made a signed-in account look logged-out for seven hours. <code>hidden</code> is now throttled to one flush per <code>HIDE_COALESCE_MS</code> (15&nbsp;s, matching the 429 <code>retry_ms</code>); <code>_srvDirty</code> is deliberately <strong>left set</strong> when a flush is skipped, so nothing is dropped and the debounce heartbeat sends it.</p>
   <p><strong><code>pagehide</code> is never coalesced.</strong> Backgrounding is recoverable because the page survives; a close is the last chance there will ever be.</p>
   <p><strong>Why not <code>sendBeacon</code>:</strong> it cannot set custom headers, so it cannot carry <code>x-ht-epoch</code>. The fence treats a missing epoch against a non-null session epoch as a mismatch, so a beacon write would be refused &mdash; and exempting it would reopen the exact bypass the fence exists to close. <code>fetch(keepalive:true)</code> can set headers, which is why it is used.</p>
-  <p><strong>OPEN, and it interacts with the save ceiling above:</strong> a <code>keepalive</code> request body is capped at <strong>64&nbsp;KB</strong> by the Fetch standard, while a save is allowed up to <strong>131,072&nbsp;bytes</strong>. Any save past 64&nbsp;KB therefore cannot be flushed on unload at all, and the largest accounts are exactly the ones with most to lose. Unverified against the runtime; it needs measuring, and if it holds the unload path needs a smaller payload rather than a bigger allowance.</p>
+  <p><strong>OPEN, and it interacts with the save ceiling above:</strong> a <code>keepalive</code> request body is capped at <strong>64&nbsp;KB</strong> by the Fetch standard, while a save is allowed up to <strong>409,600&nbsp;bytes</strong>. Any save past 64&nbsp;KB therefore cannot be flushed on unload at all, and the largest accounts are exactly the ones with most to lose. Unverified against the runtime; it needs measuring, and if it holds the unload path needs a smaller payload rather than a bigger allowance.</p>
   <p class="foot">Client: <code>serverFlush()</code>, <code>HIDE_COALESCE_MS</code> in <code>play/app.js</code>. Probe: <code>tools/probe_saveflush.py</code> (8/8).</p>
 
 <h2>The shell adopted server truth into a key the app never read</h2>
@@ -1244,6 +1259,20 @@ is the list above.</p>
 <p class="foot">Server: <code>spawn_budget</code>, <code>capPoolToBudget()</code>, <code>peekSpawnCredits()</code> in <code>src/worker.js</code>. Client: <code>preloadFloor()</code>, <code>capPoolLocal()</code> in <code>play/app.js</code>. Probes: <code>tools/probe_spawnshare.mjs</code> (9/9, real SQLite, methods lifted from the shipped worker) and <code>tools/probe_spawncap.py</code> (BEFORE 3/3, AFTER 6/6).</p>
 
 <h2>Changelog</h2>
+<p><strong>2026-08-08 &mdash; save ceiling raised to 400&nbsp;KiB (256&nbsp;KiB &rarr; 409,600&nbsp;B), and this page
+corrected from two raises of drift.</strong> <em>ON RELEASE</em> &mdash; dfmc-client <code>main</code>
+<code>c086232326f8</code>, <code>dev</code> <code>c3366b88ed5a</code>.
+Report&nbsp;#68: a player was locked out of play at 263,087&nbsp;B, with 20 consecutive <code>save_oversize</code> flags
+&mdash; not merely unable to save, but unable to enter any battle, because the battle-entry flush gate refuses the fight
+when the save is refused. Root cause was a collision, not a leak: the authored caps permit a ~321,700&nbsp;B save and the
+ceiling refused at 262,144&nbsp;B. <strong>Not a write-cost risk:</strong> DO SQLite bills rows at D1 rates and row size
+does not affect the count, so a larger save costs the same per write; the hard platform limit is 2&nbsp;MB per SQL row.
+Only SQL Stored data scales with bytes ($0.20/GB-mo over 5&nbsp;GB), ~8.4&nbsp;MB per player-realm worst case across the
+21 kept copies. <code>SAVE_WARN</code> moved 128&nbsp;&rarr;&nbsp;256&nbsp;KiB so the flag still precedes the refusal.
+<strong>This page was stale:</strong> it documented 131,072&nbsp;B at four sites, so the 2026-08-03 raise to
+256&nbsp;KiB shipped without its codex update &mdash; an ORDER&nbsp;#1 miss, corrected here alongside the new value.
+<strong>Still triage:</strong> the real fix is the server-side inventory (~30&nbsp;KB saves), and the silent-413 hole is
+still open.</p>
   <ul>
     <li><strong>2026-08-07 &mdash; alt-tabbing no longer costs a battle (LIVE on release since 2026-08-07 (0.39)).</strong> Reports #44 and #49. Backgrounding fires a keepalive save flush, and the battle credit is keepalive too &mdash; they share a 64&nbsp;KiB browser quota, so the credit could be refused by the browser and all three retries burned while the tab was still hidden. Hidden-tab failures no longer advance the attempt counter (with a wall-clock bound), and the hide flush now yields to a credit in flight. New section above. Verified 7/7.</li>
     <li><strong>2026-08-07 &mdash; every floor entry re-asks for the spawn budget (LIVE on release since 2026-08-07 (0.39)).</strong> Report #40. The server has capped the pool to the shared budget since the 2026-07-29 ruling and does so correctly even for a never-visited floor &mdash; the client was not asking, serving any previously-fetched floor from cache. Measured: 2 credits, 10 spawns shown. Cached pools are now capped locally too, so the boss-den exit and resume paths cannot over-show. New section above. Verified 9/9 and 6/6.</li>
