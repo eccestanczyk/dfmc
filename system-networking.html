@@ -1422,7 +1422,64 @@ out every refusal would take half an hour for a distribution check. A flat &plus
 tight for n=64 and worthless as evidence, so the bound is now <strong>three standard deviations of a
 binomial at the observed n</strong>, with a sample floor of 50 so it cannot pass on a handful.</p>
 
+<h2>The whole encounter is derived, not just the one you clicked</h2>
+<p><em>ON DEV, not yet on release.</em> D, 2026-08-08: <strong>&ldquo;All three mons in battle need to
+come from the server together with the battle xp and loot. Rethink this system as it's being done very
+stupid.&rdquo;</strong></p>
+<h3>What was wrong</h3>
+<p>A wild battle has three enemies. <strong>Only <code>e2</code> &mdash; the spawn you clicked &mdash;
+was ever derived.</strong> <code>e0</code> and <code>e1</code> were conjured by the client with
+<code>Math.random()</code>: tier, species, level, quality and mutant, all client-side, then sent back
+in the kills array for the server to price.</p>
+<p>The defence was a clamp &mdash; an extra's tier pulled down to the primary's, its level pinned to
+floor&nbsp;&plusmn;3, its species accepted only if the floor's own table authored that creature. That
+bounds the damage and it is still <em>the client deciding what two thirds of every fight are</em>, and
+account XP, class XP, food and the egg lane all read off those claims.</p>
+<h3>The fix is not a better clamp</h3>
+<p>An extra is a <strong>property of the slot</strong>. It comes off the same keyed stream on its own
+lane suffix &mdash; <code>deriveExtras()</code> calls <code>deriveSlot()</code> with
+<code>lane = 'x0' | 'x1'</code> &mdash; and it ships <strong>with the pool the client already asks
+for</strong>.</p>
+<ul>
+  <li><strong>No new request.</strong> The extras ride <code>/api/floor/enter</code> and the
+    post-battle pool, both of which the client receives anyway. Deriving is pure CPU: no extra reads,
+    no extra writes. That is what makes this affordable where a per-battle start call was not &mdash;
+    a full extra request pair per battle was measured at roughly $18k/month at 300k players and
+    deliberately removed in July.</li>
+  <li><strong>The conclusion reads no claimed kills at all.</strong> The server re-derives all three
+    from <code>(floor, ver, slot, seq)</code>, so XP, class XP, food and the egg lane are its own
+    facts end to end. <code>claimedSpecies()</code> and the tier clamp survive only to tolerate an
+    older client, and a kills array of the wrong length is flagged rather than believed.</li>
+  <li><strong>A reload cannot reroll the encounter.</strong> <code>seq</code> moves only when the slot
+    respawns. That is the same hole report #81 found in breeding &mdash; closed here before anyone
+    went looking for it.</li>
+  <li>Extras carry no <code>px</code>/<code>py</code>: they are battle-only and never stand on the
+    floor.</li>
+</ul>
+<h3>Six client rollers deleted</h3>
+<p><code>rollSpawns</code>, <code>rollWeightedRow</code>, <code>buildSpawn</code>,
+<code>spawnOne</code>, <code>conjureExtra</code>, <code>ensureFloorPool</code>. Between them they
+rolled encounter tier, species, level offset, wild quality and mutant. <strong>Only
+<code>conjureExtra</code> was still reachable</strong> &mdash; the rest sat one call away from being
+wired back up, which is exactly how the boss-loot roller survived four months after the wild lanes
+moved. The cutout fallback no longer re-rolls either: a bad crop is an <em>art</em> problem and must
+never silently become a different creature. <code>wildTags()</code> stays &mdash; deterministic in
+floor, quality and grades, and it reads no RNG.</p>
+<p class="note"><strong>Verified.</strong> Slot 0 on floor 2 issues primary <code>DFMC-076 (UC)</code>
+with extras <code>DFMC-010 (C)</code> and <code>DFMC-256 (R)</code>; re-entering the floor returns the
+identical encounter; the battle credits 21 XP / 11 Ichor / 21 class from three server-derived kills
+with an <strong>empty client kills array</strong>. Full regression, all green:
+<code>probe_spawnbudget</code> 7/7, <code>probe_bossloot</code> 9/9, <code>probe_bosskey</code> 5/5,
+<code>probe_enchant</code> 9/9, <code>probe_eggroll</code> 8/8, <code>probe_sexroll</code> 8/8,
+<code>probe_upghang</code> 14/14.</p>
+
 <h2>Changelog</h2>
+<p><strong>2026-08-08 &mdash; the whole encounter is derived server-side, not just the spawn you
+clicked.</strong> <em>ON DEV, not yet on release.</em> The two battle extras were rolled by the client
+and priced against a clamp; they are now a property of the slot, derived on their own lane and shipped
+with the pool at no extra request. The battle conclusion reads no claimed kills. Six client spawn
+rollers deleted.</p>
+
 <p><strong>2026-08-08 &mdash; server-side rolls, item 4: the scroll enchantment.</strong>
 <em>ON DEV, not yet on release.</em> The client no longer rolls it and no longer holds the magnitude
 table. Nothing is consumed until the server answers, which matters here more than anywhere: a scroll
