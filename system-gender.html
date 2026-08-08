@@ -29,6 +29,33 @@
     <li><strong>Permanent</strong> &mdash; gender does not change on level-up or advancement; a creature carries the same gender across all three stages of its line.</li>
   </ul>
 
+  <h2>The roll is the server's, and there is no reroll</h2>
+  <p><em>ON DEV, not yet on release.</em> Server-side rolls item 7. The hatch path has answered with
+  the server's gender since 2026-07-31. <strong>Two rolls never moved, and both were rerollable</strong>
+  &mdash; which matters far more than a coin flip sounds, because a breeding pair needs one of each and
+  a pair is the most valuable thing a new account can own.</p>
+  <ul>
+    <li><code>ensureGenders()</code>, the backfill for creatures minted before gender existed: stripping
+      <code>g</code> out of a save and reloading <strong>re-rolled the whole bag</strong>.</li>
+    <li>The two character-creation starters: two <code>Math.random()</code> calls on a screen with a
+      <strong>back button that clears them</strong>, so a player could sit there and reroll until the
+      pair came up M+F.</li>
+  </ul>
+  <p>The draw is <code>HMAC(SPAWN_SECRET, "sex|account|realm|key")</code>, where the key is the
+  creature's own <strong>uid</strong>. Asking again for the same creature always answers the same
+  gender, under any request and any idempotency key. That is the point: idempotency here is not about
+  surviving a retry, it is about <em>there being no reroll left to find</em>. The character-creation
+  pair uses two fixed account-scoped keys for the same reason &mdash; the answer is identical every
+  time the screen is opened, whichever class is chosen. <code>ensureUids()</code> now runs
+  <em>before</em> <code>ensureGenders()</code> on load, since the backfill keys on uid.</p>
+  <div class="sp-note"><strong>One request for a whole bag.</strong> A 126-creature backfill costs one
+  call, not 126. If the server does not answer, <strong>nothing is written</strong>: a creature simply
+  keeps no gender, and <code>monGender()</code> already reads <code>M</code> for a missing value rather
+  than storing one. Probe <code>tools/probe_sexroll.py</code>, 8/8 on the full stack &mdash; test 2
+  asks again under a <em>different</em> idempotency key, because if the answer only repeated for a
+  repeated idem that would be ordinary replay caching and a save-stripper would still get a fresh roll.
+  It has to repeat because the KEY is the seed.</div>
+
   <h2>Display</h2>
   <p>Gender is shown as a sign immediately after the creature's name, everywhere the name appears &mdash; party list, battle UI, creature sheet, and reliquary.</p>
   <table>
