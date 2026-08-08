@@ -581,7 +581,7 @@
   <code>enterBossRoom</code> and floor entry all <em>await</em> that flush and refuse to proceed when it fails (the
   Stage&nbsp;5 boundary, so the server never judges a fight against a stale loadout). An oversize save therefore
   presents to the player as <em>"the game will not start fights"</em>, not as a save error.
-  <strong>FIXED 2026-08-08 &mdash; ON DEV, NOT YET ON RELEASE.</strong> A refused save now PAUSES play and files an
+  <strong>FIXED 2026-08-08 &mdash; LIVE on release since 2026-08-08 (0.42).</strong> A refused save now PAUSES play and files an
   automatic bug report. Two classes, because they are not the same failure:
   <strong>terminal</strong> (<code>413</code> too large, <code>403</code> refused) halts on the FIRST refusal &mdash; a
   retry resends the same body, so it can never succeed; <strong>persistent</strong> (<code>429</code>, 5xx) is allowed
@@ -1268,7 +1268,7 @@ is the list above.</p>
 <p class="foot">Server: <code>spawn_budget</code>, <code>capPoolToBudget()</code>, <code>peekSpawnCredits()</code> in <code>src/worker.js</code>. Client: <code>preloadFloor()</code>, <code>capPoolLocal()</code> in <code>play/app.js</code>. Probes: <code>tools/probe_spawnshare.mjs</code> (9/9, real SQLite, methods lifted from the shipped worker) and <code>tools/probe_spawncap.py</code> (BEFORE 3/3, AFTER 6/6).</p>
 
 <h2>Server-side rolls: the chance is the server's, always</h2>
-<p><em>ON DEV, not yet on release</em> &mdash; dfmc-client <code>dev</code> only, awaiting D's word for <code>main</code>.
+<p><em>LIVE on release since 2026-08-08 (0.42).</em>
 D's order, 2026-08-08, verbatim: <strong>&ldquo;server side for all chance outcomes&rdquo;</strong>. An
 audit of <code>play/app.js</code> found 61 <code>Math.random()</code> calls; most are cosmetic (spawn
 positions, animation jitter, AI targeting, shuffles, uids, commit salt). Seven decide something a
@@ -1337,7 +1337,7 @@ and a single correct charge was reported as <em>bundle 10, charged 30</em>; and 
 a sleep instead of waited for as a condition.</p>
 
 <h2>The spawn pool is ONE pool, and the client may never guess at it</h2>
-<p><em>ON DEV, not yet on release.</em> D restated the rule on 2026-08-08 because the build was not
+<p><em>LIVE on release since 2026-08-08 (0.42).</em> D restated the rule on 2026-08-08 because the build was not
 honouring it: <strong>&ldquo;Only 10 creatures can be spawned at most in any floor. If I kill one on
 floor 27 and now have 9 creatures spawned, all floors that I go to now have 9 until it refills.
 Refills are server side and the rate is increased by having incense applied.&rdquo;</strong> That is
@@ -1387,7 +1387,7 @@ and the Genesis rule refuses a fresh account claiming progress, so a seed save m
 AFTER 7/7. <code>tools/repro_spawnbudget.py</code> holds the diagnosis.</p>
 
 <h2>Server-side rolls, item 4: the scroll enchantment</h2>
-<p><em>ON DEV, not yet on release.</em> D, 2026-08-08: <strong>&ldquo;Enchant roll needs to be server
+<p><em>LIVE on release since 2026-08-08 (0.42).</em> D, 2026-08-08: <strong>&ldquo;Enchant roll needs to be server
 side as well because it changes the item in the database (scrolls are only overwritable not
 removable).&rdquo;</strong> That last clause is the whole design. A scroll applied over another
 <strong>destroys the one underneath</strong> and there is no way back, so the outcome has to exist
@@ -1423,7 +1423,7 @@ tight for n=64 and worthless as evidence, so the bound is now <strong>three stan
 binomial at the observed n</strong>, with a sample floor of 50 so it cannot pass on a handful.</p>
 
 <h2>The whole encounter is derived, not just the one you clicked</h2>
-<p><em>ON DEV, not yet on release.</em> D, 2026-08-08: <strong>&ldquo;All three mons in battle need to
+<p><em>LIVE on release since 2026-08-08 (0.42).</em> D, 2026-08-08: <strong>&ldquo;All three mons in battle need to
 come from the server together with the battle xp and loot. Rethink this system as it's being done very
 stupid.&rdquo;</strong></p>
 <h3>What was wrong</h3>
@@ -1475,20 +1475,20 @@ with an <strong>empty client kills array</strong>. Full regression, all green:
 
 <h2>Changelog</h2>
 <p><strong>2026-08-08 &mdash; the whole encounter is derived server-side, not just the spawn you
-clicked.</strong> <em>ON DEV, not yet on release.</em> The two battle extras were rolled by the client
+clicked.</strong> <em>LIVE on release since 2026-08-08 (0.42).</em> The two battle extras were rolled by the client
 and priced against a clamp; they are now a property of the slot, derived on their own lane and shipped
 with the pool at no extra request. The battle conclusion reads no claimed kills. Six client spawn
 rollers deleted.</p>
 
 <p><strong>2026-08-08 &mdash; server-side rolls, item 4: the scroll enchantment.</strong>
-<em>ON DEV, not yet on release.</em> The client no longer rolls it and no longer holds the magnitude
+<em>LIVE on release since 2026-08-08 (0.42).</em> The client no longer rolls it and no longer holds the magnitude
 table. Nothing is consumed until the server answers, which matters here more than anywhere: a scroll
 overwrites and can never be removed. Fixed in passing: <code>codex/enchant_base.csv</code> had never
 been read by anything, and the coefficients lived as literals in the client. Probe
 <code>tools/probe_enchant.py</code>: BEFORE 2/9, AFTER 9/9.</p>
 
 <p><strong>2026-08-08 &mdash; a refused floor sync no longer leaves the client showing a full floor.</strong>
-<em>ON DEV, not yet on release.</em> One pool, cap ten, shared across every floor &mdash; the server
+<em>LIVE on release since 2026-08-08 (0.42).</em> One pool, cap ten, shared across every floor &mdash; the server
 always did this and was measured doing it. <code>syncFloorSrv</code> swallowed a 429 and kept the old
 <code>spawnSb</code>, so the client drew ten where the server would draw two, and every over-budget
 kill raised a <code>spawn_budget</code> flag against an honest player. Refusals now retry with
@@ -1496,14 +1496,14 @@ backoff on a timer outside <code>_timers</code>, and an unknown budget shows not
 stale number. Probe <code>tools/probe_spawnbudget.py</code>: BEFORE 5/7, AFTER 7/7.</p>
 
 <p><strong>2026-08-08 &mdash; server-side rolls, item 1: item and class-soul grading.</strong>
-<em>ON DEV, not yet on release.</em> The forge decides nothing and is told. Nothing is spent until the
+<em>LIVE on release since 2026-08-08 (0.42).</em> The forge decides nothing and is told. Nothing is spent until the
 server answers, so an unanswered attempt costs nothing. Fixed in passing: <code>POST /api/roll</code>
 could never resolve a <code>soul_grade</code> row, because it constrained on two columns
 <code>soul_grading.csv</code> does not author &mdash; shipped 2026-07-31 and unreachable until a client
 finally called it. Probe <code>tools/probe_upghang.py</code>: BEFORE 6/14, AFTER 14/14.</p>
 
 <p><strong>2026-08-08 &mdash; a refused save is LOUD: play pauses and a report files itself.</strong>
-<em>ON DEV, not yet on release</em> &mdash; dfmc-client <code>dev</code> only, awaiting D's word for <code>main</code>.
+<em>LIVE on release since 2026-08-08 (0.42).</em>
 D's order, and the item had been open since 2026-08-01 without being built. The <code>!r.ok</code> branch of
 <code>serverFlush</code> did exactly one thing &mdash; re-arm a retry &mdash; so a refusal was invisible: no toast, no
 pause, <code>dataWarns:0</code>. Meanwhile <code>/api/battle</code> kept crediting a ledger the next login would discard,
