@@ -1386,7 +1386,50 @@ and the Genesis rule refuses a fresh account claiming progress, so a seed save m
 <code>invCap&le;80</code> and a capped wallet. <code>tools/probe_spawnbudget.py</code>: BEFORE 5/7,
 AFTER 7/7. <code>tools/repro_spawnbudget.py</code> holds the diagnosis.</p>
 
+<h2>Server-side rolls, item 4: the scroll enchantment</h2>
+<p><em>ON DEV, not yet on release.</em> D, 2026-08-08: <strong>&ldquo;Enchant roll needs to be server
+side as well because it changes the item in the database (scrolls are only overwritable not
+removable).&rdquo;</strong> That last clause is the whole design. A scroll applied over another
+<strong>destroys the one underneath</strong> and there is no way back, so the outcome has to exist
+before anything is consumed. The client asks and is told; if no answer comes, the scroll is still in
+the bag and the socket is untouched. There is no refund path because nothing is ever spent
+speculatively.</p>
+<p>Gems and runes carry no chance at all &mdash; their value is read straight from
+<code>items.csv</code> &mdash; so they are untouched and still apply in the same tick. Only the
+scroll waits.</p>
+<h3>The balance file that nothing read</h3>
+<p><code>codex/enchant_base.csv</code> authors the magnitude table: <code>Const</code>,
+<code>Per_Grade</code>, <code>Per_Tier</code>, <code>GF_Base</code>, <code>GF_Step</code> and a
+<code>Mode</code> of multiply or add. <strong>Nothing had ever read it.</strong> The client carried
+3.6, 5.6, 1.70, 0.56, 12.0, 0.90 and 0.50 as literals in <code>enchBase()</code>, so the CSV and the
+game could drift apart in silence and the balance file was decoration. <code>enchBase()</code> is
+deleted and the server reads the CSV &mdash; D, 2026-07-31: <em>&ldquo;The csvs need to be the source
+of all truth so we can balance. Hardcoded NEVER. Client authority NEVER.&rdquo;</em></p>
+<p>The draw takes <strong>two HMAC lanes</strong> from the same keyed generator as the grade roll:
+lane 0 picks the enchantment against the authored <code>Weight_Pct</code>, lane 1 picks the magnitude
+inside the row's <code>Roll_Min_Mult</code>&ndash;<code>Roll_Max_Mult</code> band. Lane 0 is
+byte-identical to the previous single-lane call, so every grade roll already recorded is unaffected.
+The roll can only take the stat the <em>host item</em> carries &mdash; a Defense item never rolls
+Attack &mdash; and the eligible pool is filtered server-side, not trusted from the request.</p>
+<p class="note"><strong>Probe.</strong> <code>tools/probe_enchant.py</code> &mdash; BEFORE 2/9, AFTER
+9/9. Test 7 aborts <code>/api/roll</code> and proves the scroll survives. Two of its own assertions
+were wrong first and were fixed rather than relaxed. Test 8 searched the served bundle for
+<code>enchBase(</code> and matched the comment recording the deletion &mdash; <em>the probe failed on
+its own tombstone</em>; it matches the definitions now. And test 5 judged the class mix on eighteen
+draws, because <code>/api/roll</code> has its own rate class and answers 429 with
+<code>retry_ms</code> 15,000: 200 requests yield about 64 draws however they are paced, and waiting
+out every refusal would take half an hour for a distribution check. A flat &plusmn;0.10 was both too
+tight for n=64 and worthless as evidence, so the bound is now <strong>three standard deviations of a
+binomial at the observed n</strong>, with a sample floor of 50 so it cannot pass on a handful.</p>
+
 <h2>Changelog</h2>
+<p><strong>2026-08-08 &mdash; server-side rolls, item 4: the scroll enchantment.</strong>
+<em>ON DEV, not yet on release.</em> The client no longer rolls it and no longer holds the magnitude
+table. Nothing is consumed until the server answers, which matters here more than anywhere: a scroll
+overwrites and can never be removed. Fixed in passing: <code>codex/enchant_base.csv</code> had never
+been read by anything, and the coefficients lived as literals in the client. Probe
+<code>tools/probe_enchant.py</code>: BEFORE 2/9, AFTER 9/9.</p>
+
 <p><strong>2026-08-08 &mdash; a refused floor sync no longer leaves the client showing a full floor.</strong>
 <em>ON DEV, not yet on release.</em> One pool, cap ten, shared across every floor &mdash; the server
 always did this and was measured doing it. <code>syncFloorSrv</code> swallowed a 429 and kept the old
