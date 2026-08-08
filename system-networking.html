@@ -1336,7 +1336,65 @@ every frame, so a &ldquo;wallet unchanged&rdquo; assertion drifts in both direct
 and a single correct charge was reported as <em>bundle 10, charged 30</em>; and settling was raced with
 a sleep instead of waited for as a condition.</p>
 
+<h2>The spawn pool is ONE pool, and the client may never guess at it</h2>
+<p><em>ON DEV, not yet on release.</em> D restated the rule on 2026-08-08 because the build was not
+honouring it: <strong>&ldquo;Only 10 creatures can be spawned at most in any floor. If I kill one on
+floor 27 and now have 9 creatures spawned, all floors that I go to now have 9 until it refills.
+Refills are server side and the rate is increased by having incense applied.&rdquo;</strong> That is
+the same rule this page and <a href="system-premium-shop.html">Premium Shop</a> already author &mdash;
+one pool, cap ten, one spawn per 60&nbsp;s while below cap, 30&nbsp;s under Incense, the cap itself
+unchanged. It is <em>not</em> a pool per floor.</p>
+<p><strong>The server was already right, and this was measured rather than assumed.</strong> Against
+a real Worker and real Durable Object SQLite: with the pool drained on one floor, an untouched floor
+whose own ten slots were all occupied answered <code>sb=0</code> and ten nulls. One kill anywhere
+takes every floor to nine. <code>/api/battle</code> carries the refreshed pool and the new budget
+back in <code>slot{pool, sb, sbNextMs}</code>. Spawn identity is
+<code>HMAC(SPAWN_SECRET, account+floor+ver+index)</code> &mdash; seed-based, unchanged.</p>
+<h3>The client was the liar</h3>
+<p><code>syncFloorSrv</code> ended with <code>if(!j||!j.ok) return;</code>. A <strong>429 from the
+floor rate cap</strong> (30&nbsp;burst / 8&nbsp;per&nbsp;min) landed on that line and returned in
+<strong>silence</strong> &mdash; no retry, no pause, no connection check &mdash; and
+<code>spawnSb</code> kept whatever it last held. <code>capPoolLocal</code> then capped the floor
+against a <em>stale</em> budget. Measured: the client painted <strong>ten</strong> spawns while the
+server would have shown <strong>two</strong>.</p>
+<p><strong>This is not cosmetic.</strong> An over-budget kill is not merely uncredited &mdash; it
+sets <code>credited=false</code> <em>and</em> raises a <code>spawn_budget</code> flag against the
+account. An honest player accrues anti-cheat signal for fighting exactly what the screen invited them
+to fight. It is the same failure class as the battle-credit reports (#71/#72/#73): a refused or
+dropped request that nothing surfaces.</p>
+<h3>The rule now</h3>
+<ul>
+  <li>Every refusal <strong>retries with backoff</strong>, honouring the server's
+    <code>retry_ms</code> where it gives one, up to <code>SPAWN_SYNC_TRIES</code> (4); past that the
+    connection check fires and play pauses.</li>
+  <li>The retry timer is <code>_spawnT</code>, <strong>deliberately outside <code>_timers</code></strong>
+    &mdash; every battle path calls <code>clearTimers()</code>. Same lesson as the forge ticket.</li>
+  <li><strong>An unknown budget is not the last known budget.</strong> While a sync is failing,
+    <code>spawnStale</code> is set and the floor shows <em>nothing</em>. Under-showing is
+    self-correcting; over-showing costs the player.</li>
+  <li><code>fpool()</code> is now the single gate &mdash; every surface that paints the floor pool
+    goes through <code>capPoolLocal</code>, so a stale budget cannot reach the screen by a side route
+    (<code>bossExit</code> and the resume path both painted from cache).</li>
+</ul>
+<p class="note"><strong>The full-stack harness exists now</strong>, and OPS had been recording it as
+missing. <code>npx wrangler dev --local --var DEV_LOGIN:1</code> serves the real Worker <em>and</em>
+<code>play/</code> as assets, so <code>localhost:8787</code> is the real client on real object
+storage. Two traps cost a run each: <code>ALLOWED_ORIGINS</code> whitelists the hostname
+<code>localhost</code> only, so a browser POST from <code>127.0.0.1</code> is 403 <em>bad origin</em>;
+and the Genesis rule refuses a fresh account claiming progress, so a seed save must be clamped to
+<code>maxFloor&le;2</code>, <code>classXp&le;300</code>, 15 <code>bagAdd</code>,
+<code>invCap&le;80</code> and a capped wallet. <code>tools/probe_spawnbudget.py</code>: BEFORE 5/7,
+AFTER 7/7. <code>tools/repro_spawnbudget.py</code> holds the diagnosis.</p>
+
 <h2>Changelog</h2>
+<p><strong>2026-08-08 &mdash; a refused floor sync no longer leaves the client showing a full floor.</strong>
+<em>ON DEV, not yet on release.</em> One pool, cap ten, shared across every floor &mdash; the server
+always did this and was measured doing it. <code>syncFloorSrv</code> swallowed a 429 and kept the old
+<code>spawnSb</code>, so the client drew ten where the server would draw two, and every over-budget
+kill raised a <code>spawn_budget</code> flag against an honest player. Refusals now retry with
+backoff on a timer outside <code>_timers</code>, and an unknown budget shows nothing rather than a
+stale number. Probe <code>tools/probe_spawnbudget.py</code>: BEFORE 5/7, AFTER 7/7.</p>
+
 <p><strong>2026-08-08 &mdash; server-side rolls, item 1: item and class-soul grading.</strong>
 <em>ON DEV, not yet on release.</em> The forge decides nothing and is told. Nothing is spent until the
 server answers, so an unanswered attempt costs nothing. Fixed in passing: <code>POST /api/roll</code>
