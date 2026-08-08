@@ -186,7 +186,48 @@ loadChances();loadGrades();loadKeys();loadFirstWin();
   wild egg could hatch above the ceiling that makes breeding the only path to Divine and above. No cap
   authored means no egg is granted, the same no-fallback rule the rates use.</div>
 
-  <h2>Changelog</h2>
+  <h2>Boss loot and boss keys are the server's</h2>
+<p><em>ON DEV, not yet on release.</em> Server-side rolls items 5 and 6. The wild drop lanes moved on
+2026-08-01 and <strong>the boss lanes were left behind</strong>, so
+<code>rollGearDrop&nbsp;&rarr;&nbsp;rollDropGrade&nbsp;&rarr;&nbsp;Math.random()</code> survived on the
+client for the single most valuable drop in the game, and the boss-key chance was the last
+<code>Math.random()</code> on the wild-kill reward path. Both are gone.</p>
+<h3>What the server now decides</h3>
+<table>
+  <tr><th>Lane</th><th>Rule</th></tr>
+  <tr><td class="lbl">Boss gear</td><td>Count is guaranteed (<code>Gear_Guaranteed_Per_Kill</code>). The <em>grade</em> rolls the band shifted by <code>Gear_Grade_Band_Rule</code> &mdash; &ldquo;one_band_ahead&rdquo; is a value in the CSV, not a branch name in code &mdash; and the final band clamps to itself.</td></tr>
+  <tr><td class="lbl">Boss egg</td><td>One Stage-1 egg of a line NATIVE to the zone, tiers weighted by the newly machine-readable <code>Egg_Line_Weight_*</code> Params, grade rolled on the boss's own band and clamped to the wild-egg cap.</td></tr>
+  <tr><td class="lbl">Boss key</td><td>The <em>chance</em> is the server's, off <code>key_drop_rates.csv</code> at the kill's rarity, at most one per battle. The <code>Min_Wins</code>/<code>Min_Kills</code> gate counters stay the client's, per D's ruling &mdash; <em>&ldquo;We are tracking battle wins. So it should be trivial for the client to keep the streak counter, and it should.&rdquo;</em> They are clamped to the server's own credited ledger before they are read, so an inflated claim buys nothing and costs no extra write. The deterministic first-clear key is untouched: it is a grant, not a roll.</td></tr>
+</table>
+<h3>The balance table that was prose</h3>
+<p><code>boss_loot.csv</code> authored the egg's line weighting as
+<code>Egg_Line_Weighting,rarity_appearance</code> with &ldquo;30/30/20/10/10 (C/UC/R/SR/SSR)&rdquo;
+<strong>inside the Notes cell</strong>. Notes are prose, not data: nothing could read them, and the
+client carried the numbers as a literal. They are five Params now &mdash;
+<code>Egg_Line_Weight_C</code> through <code>_SSR</code>, values unchanged. A formatting fix, not a
+balance change, and the same failure the enchantment magnitudes had.</p>
+<p class="note"><strong>A drop that throws now says so.</strong> An exception in the drop roll used to
+leave <code>drops</code> simply <em>absent</em>, which is indistinguishable from &ldquo;nothing
+dropped&rdquo;. The boss lanes vanished for an entire probe run and the only trace was a flag nobody
+reads; the response carries <code>dropNote</code> now, and it named the cause in one run. Same lesson
+as the swallowed floor sync &mdash; a refusal that looks like a null result is the worst kind.</p>
+<p class="note"><strong>Probes.</strong> <code>tools/probe_bossloot.py</code> 9/9 and
+<code>tools/probe_bosskey.py</code> 5/5, full stack. The loot probe climbs to a boss floor the honest
+way (the Genesis rule caps a new account at floor 2) and waits out the spawn budget between kills.
+The key probe deliberately has <strong>no end-to-end &ldquo;a key dropped&rdquo; test</strong>: the
+cheapest authored gate is 29 wins / 87 kills, every credited kill costs a spawn credit refilling at
+one per minute, and the chance behind it is 1.4% for a Common &mdash; roughly ninety minutes to open
+the gate and hours more to land one. It tests the gate, the clamp and the naming, which are the parts
+that can be attacked.</p>
+
+<h2>Changelog</h2>
+<p><strong>2026-08-08 &mdash; boss gear, boss eggs and boss keys are decided server-side.</strong>
+<em>ON DEV, not yet on release.</em> <code>rollGearDrop</code>, <code>rollBossEgg</code> and
+<code>rollDropGrade</code> are all deleted &mdash; the last was the final <code>Math.random()</code>
+grade roller in the client. The boss-egg tier weights became machine-readable Params in
+<code>boss_loot.csv</code> (values unchanged); <code>DATA_PIN</code> moves with them. Probes:
+<code>tools/probe_bossloot.py</code> 9/9, <code>tools/probe_bosskey.py</code> 5/5.</p>
+
   <ul>
     <li><strong>2026-08-02 &mdash; key loss on a full bag documented.</strong> No behaviour change: the gates and the destroy-on-full rule were always in the code and were never written down, so a player question about a missing key could not be answered from this page. Both are now stated above.</li>
     <li><strong>2026-08-01 &mdash; the client stopped rolling wild drops, and the egg cap became real.</strong>
