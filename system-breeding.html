@@ -164,7 +164,49 @@ RarityMult:   C 1.0   UC 1.5   R 2.5   SR 4.0   SSR 7.0</pre>
   minute, ichor per egg, dismantle value. Nothing is hardcoded, and a grade the file does not author grants
   nothing at all rather than falling back to a default.</div>
 
+<h2>The egg's grade and its line are the server's</h2>
+<p><em>ON DEV, not yet on release.</em> Server-side rolls items 2 and 3, and they are <strong>one
+ask</strong>, because they are one decision made at one instant. Split into two calls, a client could
+keep a grade it liked and re-ask for the line.</p>
+<p>D's breeding ruling is unchanged: <em>&ldquo;Server only needs to be called when breeding ends for
+the result. Starting breeding and the ticks can be queued.&rdquo;</em> So the per-second tick still
+runs locally and still meters Ichor in whole units. <strong>Only the laying waits.</strong></p>
+<h3>A due egg is a paid entitlement, and the pen stops</h3>
+<p>Breeding charges as it goes, so by the time progress reaches 1 the Ichor is <em>already spent</em>.
+The egg cannot simply be dropped if the server is unreachable, and it must not be laid blind either.
+So the pen banks <code>due</code> and <strong>stops</strong>: it spends no more Ichor and accrues no
+second entitlement. That is what keeps this out of outbox territory &mdash; a stopped pen credits
+nothing, and what is owed is one egg, not a growing queue. It reuses the rule breeding already has:
+a full soul bag <em>pauses</em> a pen, it never discards.</p>
+<p><code>layEgg()</code> is idempotent against its own entitlement, so an answer arriving twice
+cannot lay twice, and it re-checks the soul cap &mdash; the bag can fill between the entitlement
+being banked and the answer landing.</p>
+<h3>What the server decides</h3>
+<table>
+  <tr><th>Fact</th><th>Source</th></tr>
+  <tr><td class="lbl">Egg grade</td><td><code>egg_hatch_weights.csv</code>, the row for the <em>pair's</em> grade. The ladder is the CSV's own column set, never restated in code &mdash; re-author the grades and the weights move with them.</td></tr>
+  <tr><td class="lbl">Parent line</td><td>50/50 between the two parents, drawn on a second HMAC lane. The client is <em>told</em> which parent and only resolves it to a line id.</td></tr>
+  <tr><td class="lbl">Species, origin record, toast</td><td>Client. None of it is a chance.</td></tr>
+</table>
+<p class="note"><strong>Also deleted:</strong> <code>rollHatchGrade()</code>, dead since the hatch
+path became server-decided. No call site remained, and a live <code>Math.random()</code> grade roller
+sitting beside the door that replaced it is an invitation to wire the wrong one back up.
+<code>hatchWeights()</code> stays &mdash; the mass-hatch screen reads it to <em>show</em> the odds,
+which is display, not a draw.</p>
+<p class="note"><strong>Probe.</strong> <code>tools/probe_eggroll.py</code> &mdash; BEFORE 1/8, AFTER
+8/8 over three runs, on the full stack. Test 5 aborts <code>/api/roll</code> and proves the pen stops
+dead; test 6 restores it and proves the egg lands exactly once. Test 2 reads the authored weights out
+of the CSV rather than restating them, and test 4 bounds the 50/50 at three standard deviations of
+the sample the roll rate cap actually permits.</p>
+
 <h2>Changelog</h2>
+<p><strong>2026-08-08 &mdash; the bred egg's grade and parent line are decided server-side.</strong>
+<em>ON DEV, not yet on release.</em> One ask, because they are one decision. The tick still runs
+locally and still meters Ichor; only the laying waits. A due egg stops its pen rather than stacking
+entitlements, and lays exactly once when the answer arrives. <code>rollEggGrade()</code> and the dead
+<code>rollHatchGrade()</code> are both gone. Probe <code>tools/probe_eggroll.py</code>: BEFORE 1/8,
+AFTER 8/8.</p>
+
 <ul>
     <li><strong>2026-08-05 &mdash; the DUNECOIL line (Wyrmling &rarr; Neonate &rarr; Sidewinder) is now Serpent + Elemental (D ruling; on DEV immediately, on release at the next DATA_PIN bump).</strong> It carried Serpent alone. Type is not combat maths &mdash; nothing in the client multiplies damage by it &mdash; so the only mechanical consumer of the second slot is <code>breedShareType()</code>, the pair gate on this page, plus the inventory type filters and the displayed type string. The consequence is therefore entirely here: a Wyrmling went from <strong>14 type-compatible species across 4 lines</strong> (BLAZEWYRM, COUATL, ECHIDNA, OUROBOROS) to <strong>62 across 20</strong>, because Elemental is the roster's widest type at 51 rows. The roster median above moved 44 &rarr; 45.5 with it; the tightest is still 11 and the four single-line types are untouched. Recomputed from <code>creatures.csv</code>, not estimated. Note that DUNECOIL and BLAZEWYRM now carry an identical type pair.</li>
     <li><strong>2026-08-05 &mdash; the breeding selector is ordered by grade (LIVE on release since 2026-08-05 (0.32)).</strong> <code>pickCards</code> built straight off <code>breedPool()</code>, which is <code>BAG.concat(bagAdd)</code> &mdash; insertion order &mdash; so the roster picker had no order at all. Now GRADE_ORDER descending, then level, then name, matching the comparator the inventory and dismantle lists already use. Probe: <code>tools/probe_breedorder.py</code>, seeded with a deliberate grade spread laid out so bag order is not grade order (BEFORE 4/4, AFTER 5/5).</li>
