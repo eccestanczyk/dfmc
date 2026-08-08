@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Classes — Herumon Tower</title>
+<link rel="stylesheet" href="theme.css?v=4">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+.line-block{margin:22px 0;background:#161110;border:1px solid #3a2d24;border-radius:12px;padding:16px}
+.line-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+.line-title{font-family:'Cinzel',serif;font-size:19px;font-weight:600;color:#e8c547}
+.access{font-size:10px;padding:2px 10px;border:1px solid #5c462c;border-radius:10px;color:#c2ae8b}
+.access.dlc{border-color:#6b2d5a;color:#d78ac0}
+.unlock-cost{font-size:11px;color:#8a7a5e;letter-spacing:.4px;margin:-8px 0 12px}
+.desc{font-size:13px;color:#b8a888;font-style:italic;margin:2px 0 12px;line-height:1.5}
+.line-body{display:grid;grid-template-columns:1fr 220px;gap:18px;align-items:start}
+@media(max-width:760px){.line-body{grid-template-columns:1fr}}
+.stages{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stage-card{text-align:center}
+.slbl{font-size:9px;color:#8a7a5e;letter-spacing:.1em}
+.sname{font-family:'Cinzel',serif;font-size:13px;font-weight:600;color:#d8c9a8;margin:1px 0 5px}
+.imgbox{aspect-ratio:1/1;background:#0d0a08;border:1px solid #3a2d24;border-radius:6px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.imgbox img{width:100%;height:100%;object-fit:contain;object-position:center}
+.pend{color:#8a7a5e;font-size:10px;font-style:italic}
+.stats{font-family:monospace;font-size:11px;color:#c2ae8b;margin-top:5px}
+.radar-wrap{text-align:center}
+.radar-wrap svg{max-width:210px}
+.radar-cap{font-size:10px;color:#8a7a5e;margin-top:2px}
+.admin-info{font-size:9px;color:#8a7a5e;text-align:left;margin-top:5px;border-top:1px dashed #3a2d24;padding-top:4px;display:none;word-break:break-word}
+.admin .admin-info{display:block}
+.opts{display:flex;gap:4px;justify-content:center;margin-top:4px;flex-wrap:wrap}
+.opts .opt{font-size:9px;padding:1px 6px;border:1px solid #5c462c;border-radius:6px;color:#c2ae8b}
+</style></head><body>
+<div class="topbar"><h1>CLASSES</h1></div>
+<div style="max-width:1040px;margin:0 auto;padding:16px 16px 80px">
+  <p style="font-size:13px;color:#8a7a5e">Six player classes — linear three-stage advancement at the standard breakpoints. Stat sums S1 ≈ 12 · S2 ≈ 16 · S3 ≈ 20 across Attack / Defense / Speed (max 10 per axis). Art pipeline mirrors the creature codex: raw generations placed for approval, crops after sign-off.</p>
+  <div id="grid"></div>
+<h2 style="font-family:'Cinzel',serif;color:#e8c547;font-size:19px;margin:34px 0 6px">Class ultimates</h2>
+<p style="font-size:13px;color:#b8a888;line-height:1.55">One per line, upgrading with stage. <strong style="color:#e8c547">Learned at class level 10</strong> (authored as <code>Learn_Level</code>). Costs the avatar's action, once per battle, and resolves in a priority bracket ahead of every normal action regardless of Speed (two in one round tie on the round seed). Authored in <code>codex/ultimates.csv</code>. Full mechanics &mdash; redirect scope, vanish retargeting, echo rounding, autoplay &mdash; on the <a href="index.html#battle">battle system</a> page.</p>
+<table>
+<tr><th>Line</th><th>S1 / S2 / S3</th><th>Effect</th></tr>
+<tr><td style="color:#ede0c4">WARRIOR</td><td>Hold the Line / Iron Bulwark / Martyr&rsquo;s Aegis</td><td>Taunt for the round. S2 adds +10% Defense for the rest of the battle; S3 adds 5% of maximum HP healed per hit taken this round.</td></tr>
+<tr><td style="color:#ede0c4">MAGE</td><td>Shardburst / Stonefall / Cataclysm</td><td>Strikes every enemy. Power 75 / 100 / 125 <em>per target</em>.</td></tr>
+<tr><td style="color:#ede0c4">ARCHER</td><td>Sure Shot / Deadeye / Godpiercer</td><td>Strikes one enemy. Power 180 / 240 / 300.</td></tr>
+<tr><td style="color:#ede0c4">BRUTE</td><td>Blood Price / Tyrant&rsquo;s Toll / Wrath of the Pit</td><td>Retaliation stance for the round: each hit taken answers with a 50 / 65 / 80 power counter and raises Attack 4 / 5 / 6% for the rest of the battle, capped at +40 / 50 / 60%.</td></tr>
+<tr><td style="color:#ede0c4">PROFESSOR</td><td>Recitation / Grand Thesis / Revelation</td><td>Echo: every slotted support ability fires at once, team-wide, at 40 / 50 / 60% magnitude and half duration.</td></tr>
+<tr><td style="color:#ede0c4">ASSASSIN</td><td>Slip Away / Shadowmeld / Vanish</td><td>Untargetable by single-target moves for 1 / 2 / 3 rounds.</td></tr>
+</table>
+<h2 style="font-family:'Cinzel',serif;color:#e8c547;font-size:19px;margin:34px 0 6px">Stage is derived, never stored</h2>
+<p style="font-size:13px;color:#b8a888;line-height:1.55">A class line advances at <strong style="color:#e8c547">class level 33 and 66</strong>
+(<code>CLASS_STAGE_LV</code>). The stage is <strong>computed from the class level every time it is needed</strong> &mdash;
+<code>clsStageOf(lvl)</code> returns 3 at level&nbsp;66+, 2 at 33+, else 1 &mdash; and there is no stored stage anywhere that could
+drift. A save already past a breakpoint is therefore correct the instant it loads. <code>clsAdv</code> records only which stage has
+already been <em>shown</em>, so the advancement scene does not replay; it is not the stage itself. Only the class being played
+advances: <code>clsStageNow(id)</code> returns 1 for any line other than the active <code>charSoul</code>, because <code>classXp</code>
+belongs to the line in play.</p>
+<p style="font-size:13px;color:#b8a888;line-height:1.55"><strong style="color:#e8c547">Everything the player sees must derive its own
+stage.</strong> The client's <code>CLASSLINES</code> table carries <code>curStage:1</code> and <code>img:'CLS-&lt;LINE&gt;-1'</code>;
+those two fields are <em>fresh-save defaults and are not the stage</em>. Reading them renders stage-1 content for a fully advanced
+character. Report&nbsp;#22 (2026-08-03) was exactly this: the equipment portrait read the pinned <code>img</code> while the name
+beside it derived correctly, so a class-Lv75 <strong>Paladin</strong> was shown the Warrior stage-1 art. The portrait now builds its
+path as <code>CLS-&lt;LINE&gt;-&lt;clsStageNow()&gt;</code>, the same way the battle avatar always did. Art exists for all three
+stages of all six lines (<code>codex/images/classes/CLS-&lt;LINE&gt;-1|2|3.png</code>), so a stage-1 portrait on an advanced
+character is always a binding defect, never missing art.</p>
+
+<h2 style="font-family:'Cinzel',serif;color:#e8c547;font-size:19px;margin:34px 0 6px">Changelog</h2>
+<ul style="font-size:13px;color:#b8a888;line-height:1.6">
+<li><strong>2026-08-04</strong> &mdash; Documented that class stage is derived from class level and never stored, and that <code>CLASSLINES.curStage</code>/<code>.img</code> are fresh-save defaults rather than the stage. Fixes report #22: the equipment portrait was reading the pinned stage-1 image, so an advanced class showed its stage-1 art next to a correct stage-3 name. Reproduced against the reporter's own save and verified before/after. <em>LIVE on release since 2026-08-08 (0.42).</em></li>
+<li><strong>2026-07-31</strong> &mdash; Ultimates are learned at class level 10; the class preview now carries the ultimate's description.</li>
+<li><strong>2026-07-31</strong> &mdash; Class ultimates added: one per line per stage, once per battle, priority bracket. Ladder and effects as tabled above.</li>
+</ul>
+
+</div>
+<script src="nav.js"></script>
+<script>
+const IMG_BASE="";  // same-origin (GitHub Pages) — jsDelivr caches stale after purge
+const ADMIN=new URLSearchParams(location.search).get('admin')==='1';
+if(ADMIN)document.body.classList.add('admin');
+const DESCRIPTIONS={
+  WARRIOR:"The armored frontliner. High Defense and steady Attack at the cost of Speed — soaks the opening blow and answers in kind. Advances from a battered mercenary into a masterwork knight, then into a legendary gem-forged paladin.",
+  MAGE:"The glass cannon. The game's highest Attack ceiling paired with the lowest Defense — devastating if it acts, fragile if it's caught. Ascends from apprentice to sorcerer to reality-bending archon.",
+  ARCHER:"The fast ranged striker. High Attack and high Speed on a thin defensive frame — wins initiative and hits hard, but folds under pressure. Grows from scout to ranger to peerless hawkeye.",
+  BRUTE:"The heavy bruiser. High Attack and high Defense weighed down by the lowest Speed — hits like a siege engine and survives the counter, but always moves last. From savage to warlord to unstoppable titan.",
+  ASSASSIN:"The pure striker. Extreme Attack and Speed on almost no Defense — the fastest, deadliest, most fragile build in the game. From cutthroat to stalker to shadow-nightblade.",
+  PROFESSOR:"The tanky controller. High Defense and high Speed with dumped Attack — survives and acts early, controlling the fight without heavy damage. The scholar who sees it coming, from professor to sage to prophet."
+};
+function parseCSV(t){
+  const rows=[]; let row=[], s='', q=false;
+  t = t.replace(/\r\n/g,'\n').replace(/\r/g,'\n');
+  for(let i=0;i<t.length;i++){
+    const ch=t[i];
+    if(q){
+      if(ch==='"'){ if(t[i+1]==='"'){ s+='"'; i++; } else { q=false; } }
+      else s+=ch;                      // newlines inside quotes are kept
+    } else {
+      if(ch==='"') q=true;
+      else if(ch===','){ row.push(s); s=''; }
+      else if(ch==='\n'){ row.push(s); s=''; rows.push(row); row=[]; }
+      else s+=ch;
+    }
+  }
+  if(s.length||row.length){ row.push(s); rows.push(row); }
+  const nonEmpty=rows.filter(r=>r.some(c=>c.trim()!==''));
+  if(!nonEmpty.length) return [];
+  const h=nonEmpty[0].map(k=>k.trim());
+  return nonEmpty.slice(1).map(c=>{const o={};h.forEach((k,i)=>o[k]=(c[i]||'').trim());return o});
+}
+function radar(o,d,sp,color){
+  const size=210,cx=105,cy=98,R=66;
+  const axes=[['ATK',-90,o],['DEF',30,d],['SPD',150,sp]];
+  let rings='';
+  [0.25,0.5,0.75,1].forEach(fr=>{const pts=axes.map(([,a])=>{const r=R*fr,ra=a*Math.PI/180;return `${cx+r*Math.cos(ra)},${cy+r*Math.sin(ra)}`}).join(' ');rings+=`<polygon points="${pts}" fill="none" stroke="#3a2d24" stroke-width="1"/>`});
+  let ax='',lbl='',dp=[];
+  axes.forEach(([n,a,v])=>{const ra=a*Math.PI/180;ax+=`<line x1="${cx}" y1="${cy}" x2="${cx+R*Math.cos(ra)}" y2="${cy+R*Math.sin(ra)}" stroke="#3a2d24" stroke-width="1"/>`;
+    const lx=cx+(R+16)*Math.cos(ra),ly=cy+(R+16)*Math.sin(ra);lbl+=`<text x="${lx}" y="${ly}" fill="#8a7a5e" font-size="10" text-anchor="middle" dominant-baseline="middle">${n}</text>`;
+    const r=R*(v/10);dp.push(`${cx+r*Math.cos(ra)},${cy+r*Math.sin(ra)}`)});
+  const dots=dp.map(p=>`<circle cx="${p.split(',')[0]}" cy="${p.split(',')[1]}" r="3" fill="${color}"/>`).join('');
+  return `<svg viewBox="0 0 ${size} ${size}">${rings}${ax}${lbl}<polygon points="${dp.join(' ')}" fill="${color}55" stroke="${color}" stroke-width="2"/>${dots}</svg>`;
+}
+const COLORS={WARRIOR:'#4f9fd4',MAGE:'#9085e9',ARCHER:'#1baf7a',BRUTE:'#eb6834',ASSASSIN:'#e34948',PROFESSOR:'#5bc0be'};
+async function load(){
+  const rows=parseCSV(await (await fetch('codex/classes.csv?t='+Date.now())).text());
+  const lines={};rows.forEach(r=>{(lines[r.Line_ID]=lines[r.Line_ID]||[]).push(r)});
+  document.getElementById('grid').innerHTML=Object.entries(lines).map(([lid,sts])=>{
+    sts.sort((a,b)=>+a.Stage-+b.Stage);
+    const chain=sts.map(s=>s.Name).join(' → ');
+    const acc=sts[0].Access;
+  const cost=sts[0].Unlock_Cost||'';
+    const s3=sts[sts.length-1];
+    if(!s3) return '';
+    const color=COLORS[lid]||'#c2ae8b';
+    return `<div class="line-block">
+      <div class="line-head"><span class="line-title">${chain}</span><span class="access ${acc==='Unlock'?'dlc':''}">${acc}</span></div>
+      <div class="desc">${DESCRIPTIONS[lid]||''}</div>
+      ${cost?'<div class="unlock-cost">Unlock: '+cost+(acc==='Starter'?' per unpicked starter (one starter is free at character creation)':'')+'</div>':''}
+      <div class="line-body">
+        <div class="stages">${sts.map(s=>{
+          const img=s.Image_Path?`<img src="${IMG_BASE}${s.Image_Path}?v=${Date.now()}" loading="lazy">`:`<span class="pend">ART PENDING</span>`;
+          const opts=(s.Option_Slots||'').split(';').filter(Boolean);
+          return `<div class="stage-card">
+            <div class="slbl">STAGE ${s.Stage}</div>
+            <div class="sname">${s.Name}</div>
+            <div class="imgbox">${img}</div>
+            <div class="stats">A ${s.Grade_Attack} · D ${s.Grade_Defense} · S ${s.Grade_Speed}</div>
+            ${ADMIN&&opts.length?`<div class="opts">${opts.map(o=>`<span class="opt">${o}</span>`).join('')}</div>`:''}
+            <div class="admin-info"><b>${s.Class_ID}</b><br>${s.Image_Prompt?s.Image_Prompt.slice(0,160)+'…':'no prompt'}</div>
+          </div>`;
+        }).join('')}</div>
+        <div class="radar-wrap">${radar(+s3.Grade_Attack,+s3.Grade_Defense,+s3.Grade_Speed,color)}<div class="radar-cap">Final form (Stage 3) · sum ${(+s3.Grade_Attack)+(+s3.Grade_Defense)+(+s3.Grade_Speed)}</div></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+load().catch(e=>{
+  document.getElementById('grid').innerHTML =
+    '<div style="padding:20px;color:#dd5646;font-family:monospace;">FAILED TO LOAD CLASSES: '+e.message+'</div>';
+  console.error(e);
+});
+</script></body></html>

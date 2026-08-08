@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Autoplay &amp; Floor Transits — Herumon Tower</title>
+<link rel="stylesheet" href="theme.css?v=4">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">AUTOPLAY &amp; FLOOR TRANSITS</h1></div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; Autoplay &amp; Floor Transits</div>
+  <p class="sp-lead">Autoplay reduces grind: it picks a live creature on the current floor and engages it, over and over, and advances the floor when the portal is open. It is a convenience over the ordinary floor loop &mdash; it takes no action a player could not take by hand, and it never enters a boss den.</p>
+
+  <h2>The loop</h2>
+  <ul class="sp-rules">
+    <li>Runs inside <code>tickFloor()</code>, which only executes while <code>phase === 'floor'</code>. Every other phase (battle, boss den, victory, defeat) stops it dead.</li>
+    <li>After returning to the floor it waits <strong>2600ms</strong>, then acts once and re-arms.</li>
+    <li><strong>Advance:</strong> if the <em>auto-advance</em> setting is on and the portal is open, it climbs. On a pre-boss floor (<code>floor % 10 === 9</code>) it climbs <strong>only if that zone's boss is already down</strong> &mdash; otherwise it keeps farming. Autoplay never takes a boss; the player does.</li>
+    <li><strong>Engage:</strong> otherwise it picks a uniformly random living spawn, sets the pan-to cue, and schedules the engage <strong>650ms</strong> later.</li>
+    <li>Overlays (inventory, breeding, equipment) freeze the roam physics for performance but do <strong>not</strong> stop the engage step &mdash; play continues under an open window by design.</li>
+  </ul>
+
+  <h2>Descending on death</h2>
+  <p><strong>Status: on DEV (0.33), not yet on release.</strong> The <em>On Death</em> battle option (<code>Stay</code> / <code>Go Down</code>, default <code>Go Down</code>) is read in exactly one place &mdash; the autoplay defeat handler. A defeat dismissed by hand never descends, whatever the setting says.</p>
+  <p>With autoplay on, <code>2200ms</code> after the defeat scene appears:</p>
+  <ul class="sp-rules">
+    <li><strong>Lost to a boss:</strong> no descent. <code>floorNum</code> already reads the pre-boss floor for the whole boss fight (<code>travelToBossRoom()</code> parks it at <code>bf-1</code>), so the floor below the boss is the one already loaded &mdash; the run returns to it. Descending here would have skipped a floor, which it did until 2026-07-31.</li>
+    <li><strong>Floor &gt; 1:</strong> descends one floor.</li>
+    <li><strong>Floor 1:</strong> stays. There is nothing below it.</li>
+    <li>Any death descent switches <strong>Auto-Advance Floors off</strong>, persisted, so the climb is re-armed deliberately rather than immediately undoing the retreat.</li>
+  </ul>
+  <p><strong>The den is skipped, autoplay only.</strong> A <em>manual</em> descent onto a boss floor always routes into the den (<code>travel()</code> hands off to <code>travelToBossRoom()</code>), mirroring the climb &mdash; a downed boss does not skip it. An <em>autoplay</em> descent passes <code>opts.skipBoss</code>, which bypasses that branch; the same clamp that keeps an upward target off a boss floor then carries the target one further down. So <strong>11 &rarr; 9</strong>, <strong>21 &rarr; 19</strong>, and an ordinary descent (8 &rarr; 7) is untouched.</p>
+  <p><strong>Why it must be skipped:</strong> autoplay never fights bosses, and the loop only runs while <code>phase === 'floor'</code>. A death descent that landed in the den therefore parked the run in a room the loop cannot act in, with no timer and no path back &mdash; it stood still until the player noticed and walked out by hand. Reported live 2026-08-05 (feedback #28) while descending repeatedly after losses. Verified by <code>tools/probe_r28.py</code> (8/8; the unpatched build fails three of the eight, including &ldquo;autoplay resumes on the landed floor&rdquo;).</p>
+
+  <h2>Transits, and why the engage is guarded</h2>
+  <p>Changing floor or entering a boss den is a <strong>transit</strong>: <code>floorTransit</code> is set, an input-blocking veil covers the stage, and every image for the destination is decoded before the new phase is applied. The veil holds for a minimum of <strong>1400ms</strong>, with a 30s anti-softlock failsafe.</p>
+  <p><strong>The phase does not change until the transit lands.</strong> Through the whole veil the game still reads <code>phase === 'floor'</code>. Three rules follow, and all three are load-bearing:</p>
+  <ul class="sp-rules">
+    <li>The autoplay loop does not <em>arm</em> a new engage while <code>floorTransit</code> is set.</li>
+    <li>The queued 650ms engage re-checks <code>!floorTransit</code> when it <em>fires</em>, not only when it is scheduled. A transit that begins inside that 650ms window is the whole bug class.</li>
+    <li><code>enterBattle()</code> refuses outright while <code>floorTransit</code> is set. This is the central guard: it covers autoplay, a manual click on a creature under the veil, and any future caller.</li>
+  </ul>
+
+  <h2>Autochallenge Boss &mdash; a switch on a room, not on the loop</h2>
+  <p class="sp-lead">The floor loop <strong>never</strong> auto-enters a boss den; that is a fixed rule and not a setting, and it is unchanged. <strong>Autochallenge Boss</strong> is a separate switch that lives <em>inside</em> the den, under the challenge button. Armed, it opens the boss fight as soon as the gravestone clears, <strong>fights it</strong>, and does so again and again until the boss keys run out. D, 2026-08-07: <em>&ldquo;It should keep fighting only the boss until you are out of keys.&rdquo;</em></p>
+  <ul class="sp-rules">
+    <li><strong>It fights the boss, and only the boss.</strong> Armed, it opens the fight <em>and</em> plays it: moves resolve unattended, the manual menu does not draw, and the victory, power-up and advancement screens advance themselves. It is not floor autoplay &mdash; the wild engage in <code>tickFloor()</code> still reads <code>s.autoplay</code> alone, so walking out of the den with the switch on engages nothing.</li>
+    <li><strong>The boss context is the whole gate.</strong> <code>autoFighting()</code> is <code>s.autoplay</code> <em>or</em> <code>s.bossAuto</code> while <code>inBossFight</code> (the fight) or <code>vicWasBoss</code> (the victory, power-up and advancement scenes that follow it, set by the boss-win commit and cleared by <code>toFloor()</code>). Every manual-play affordance &mdash; move menu, target picker, confirm, ultimate, actor ring &mdash; hides on the same test, or the fight would resolve itself underneath a live menu.</li>
+    <li><strong>Leaving the den disarms it.</strong> Derived, not a disarm call per door: there are five ways out of a den &mdash; <code>bossExit()</code>, <code>travel()</code> up, <code>travel()</code> down, atlas <code>travelTo()</code> and the key's own boss button &mdash; and a list of five is wrong the first time a sixth is added. <code>bossAutoLeaveGuard()</code> asks the only question that matters instead: are we still somewhere the switch means anything? The den, the boss fight (<code>inBossFight</code>, covering <code>bintro</code> through <code>resolving</code>) and the scenes after a boss win (<code>vicWasBoss</code>) are the whole of that; anything else and it turns itself off. A transit is <em>not</em> a departure &mdash; <code>travel()</code> holds the phase at <code>'bossroom'</code> while the next floor's art decodes, so the guard fires on arrival, and the loop already refuses while <code>floorTransit</code> is set.</li>
+    <li><strong>A defeat disarms it.</strong> Every defeat commit clears <code>bossAuto</code>. The On Death descent belongs to autoplay and is deliberately not extended here: a boss loss leaves the player standing in the den, which matters most on Hardcore, where a run must never walk itself anywhere on its own authority.</li>
+    <li><strong>The gravestone is still the pacing.</strong> Autochallenge waits out <code>BOSS_RESPAWN</code> (10s) exactly as a player would; it does not shorten, reset or bypass it. Keys remain the real rate limit.</li>
+    <li><strong>It refuses to arm with no key for that den</strong> (<em>NO BOSS KEYS FOR THIS DEN</em>), and it disarms <em>itself</em> when the last key is spent.</li>
+    <li><strong>An open panel suspends it.</strong> Reading the codex or the bag while standing in a den must not end with the player thrown into a boss fight. The test is the derived <code>isPanelOpen()</code> written for the incense pill, so a panel added later is covered without touching this code.</li>
+    <li><strong>Out of keys &mdash; Stay / Go Up / Go Down.</strong> A new Battle &amp; Autoplay setting. The switch is turned <strong>off before</strong> the trip, so a refused or veiled travel cannot leave the loop armed and re-fire on arrival.</li>
+  </ul>
+  <p><strong>The default splits by realm: <code>Go Down</code> on Eternal, <code>Stay</code> on Hardcore.</strong> A hardcore death is permanent, so a run there never walks itself anywhere on its own authority. This is the first setting whose default depends on the realm: settings were already stored per realm (one save slot each) &mdash; only the <em>fallback</em> did not know which realm it was in. <code>optDef()</code> reads <code>defHc</code> for hardcore and ignores it everywhere else, so an option without one behaves exactly as before, and <code>restoreSection()</code> inherits the split for free because it deletes keys rather than writing defaults.</p>
+  <p><strong>Why the loop rides the den's repaint instead of its own timer.</strong> <code>challengeBoss()</code> calls <code>clearTimers()</code>. A loop built on <code>setTimeout</code> would therefore destroy itself on its first challenge and never fire again &mdash; the same shape as the gravestone freeze in report&nbsp;#18, where the room sat frozen because the fight had cleared the timer that repainted it. Autochallenge instead hangs off the 400&nbsp;ms tick the den already runs, which nothing in the battle path can cancel.</p>
+  <p class="foot">Client: <code>bossAutoTick()</code>, <code>bossAutoOut()</code>, <code>toggleBossAuto()</code>, <code>optDef()</code> in <code>play/app.js</code>. Probe: <code>tools/probe_bossauto.py</code> (18/18).</p>
+
+  <h2>Failure mode this prevents</h2>
+  <p>Reported live 2026-08-01 (feedback #12) and reproduced against the reporter's own save. With autoplay on, an engage armed 650ms before the player entered the boss den. The den transit began; the phase was still <code>'floor'</code>; the engage fired and started an ordinary floor battle. <code>enterBattle()</code> calls <code>clearTimers()</code>, which destroyed the den transit's own pending apply &mdash; including its 30s failsafe &mdash; so <code>floorTransit</code> stayed set <strong>permanently</strong>. The veil never lifted, the den was never reached, and the boss challenge button underneath stayed live: the player spent a Key from that wedged state and got the standard fight. Keys are the rarest lane in a zone, so the loss stranded him on the floor.</p>
+  <p class="foot">Client: <code>tickFloor()</code> autoplay block, <code>enterBattle()</code>, <code>enterBossRoom()</code>, <code>travel()</code> in <code>play/app.js</code></p>
+
+  <h2>Changelog</h2>
+  <ul class="sp-rules">
+    <li><strong>2026-08-07 &mdash; Autochallenge Boss (LIVE on release since 2026-08-07 (0.39)).</strong> A den-local switch that opens the boss fight as each gravestone clears, fights it, and repeats until the keys run out, plus a Battle &amp; Autoplay setting for what happens then: Stay / Go Up / Go Down, defaulting to Go Down on Eternal and Stay on Hardcore. It fights the boss and <em>only</em> the boss &mdash; the wild engage still reads <code>s.autoplay</code> alone, so leaving the den with it armed engages nothing. A defeat disarms it. The floor loop's rule that autoplay never auto-enters a den is untouched. New section above. D spec. Leaving the den disarms it. Verified 18/18.</li>
+    <li><strong>2026-08-05 &mdash; autoplay descent skips the boss den (on DEV, LIVE on release since 2026-08-08 (0.42).).</strong> <code>travel()</code> gained <code>opts.skipBoss</code> and the On Death <code>Go Down</code> handler passes it, so a death descent lands on the next non-boss floor instead of the lair. Manual descent is unchanged. The whole &ldquo;Descending on death&rdquo; section above is new &mdash; the behaviour existed and had never been written down. Report #28.</li>
+    <li><strong>2026-08-02 &mdash; page created; transit guards added.</strong> Autoplay had no codex page at all, which is why the interaction above was never written down and had to be rediscovered by reproducing a player report. The queued engage now re-checks <code>floorTransit</code> when it fires, and <code>enterBattle()</code> refuses during a transit.</li>
+  </ul>
+</div>
+<script src="admin.js"></script>
+<script src="nav.js"></script>
+</body>
+</html>
