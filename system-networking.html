@@ -1267,7 +1267,83 @@ is the list above.</p>
 <p><strong>Travel now requires the server answer for every floor</strong>, cached or not. That follows the offline ruling &mdash; a dead connection must pause rather than serve stale content &mdash; and the existing 30&nbsp;s <em>FLOOR N UNREACHABLE</em> watchdog covers the failure.</p>
 <p class="foot">Server: <code>spawn_budget</code>, <code>capPoolToBudget()</code>, <code>peekSpawnCredits()</code> in <code>src/worker.js</code>. Client: <code>preloadFloor()</code>, <code>capPoolLocal()</code> in <code>play/app.js</code>. Probes: <code>tools/probe_spawnshare.mjs</code> (9/9, real SQLite, methods lifted from the shipped worker) and <code>tools/probe_spawncap.py</code> (BEFORE 3/3, AFTER 6/6).</p>
 
+<h2>Server-side rolls: the chance is the server's, always</h2>
+<p><em>ON DEV, not yet on release</em> &mdash; dfmc-client <code>dev</code> only, awaiting D's word for <code>main</code>.
+D's order, 2026-08-08, verbatim: <strong>&ldquo;server side for all chance outcomes&rdquo;</strong>. An
+audit of <code>play/app.js</code> found 61 <code>Math.random()</code> calls; most are cosmetic (spawn
+positions, animation jitter, AI targeting, shuffles, uids, commit salt). Seven decide something a
+player <em>owns</em> and are the migration list, in D's order:</p>
+<table>
+  <tr><th>#</th><th>Roll</th><th>Status</th></tr>
+  <tr><td class="lbl">1</td><td>item + class-soul grading success</td><td><strong>DONE, on dev</strong></td></tr>
+  <tr><td class="lbl">4</td><td>enchant roll</td><td>next</td></tr>
+  <tr><td class="lbl">2</td><td>bred egg grade</td><td>pending</td></tr>
+  <tr><td class="lbl">3</td><td>breeding parent line 50/50</td><td>pending</td></tr>
+  <tr><td class="lbl">5</td><td>drop grade band</td><td>pending</td></tr>
+  <tr><td class="lbl">6</td><td>boss key drop chance</td><td>pending</td></tr>
+  <tr><td class="lbl">7</td><td>creature sex</td><td>pending &mdash; already server-side on the HATCH path (<code>/api/hatch</code> returns <code>g</code>); breeding and the <code>ensureGenders</code> backfill remain</td></tr>
+  <tr><td class="lbl">8</td><td>wild spawn tier / quality / mutant</td><td><strong>HELD &mdash; needs D's ruling</strong></td></tr>
+</table>
+
+<h3>The door already existed, and it had never worked</h3>
+<p><code>POST /api/roll</code> was built on 2026-07-31 under the rollback/authority batch and accepts
+<code>grade</code>, <code>soul_grade</code> and <code>breed_rate</code>. <strong>No client ever called
+it.</strong> Wiring the forge to it exposed a defect that had been shipped and unreachable for eight
+days: the worker matched a row with
+<code>String(r.Category)&nbsp;===&nbsp;cat</code>, but <code>soul_grading.csv</code> authors
+<em>neither</em> a <code>Category</code> nor a <code>Tier</code> column, so that comparison tested the
+literal string <code>&quot;undefined&quot;</code> against a real category and <strong>no
+<code>soul_grade</code> request could ever resolve a row</strong>. Both keys are now column-tolerant:
+a column the CSV does not author is an unconstrained key, not a mismatch. The lesson is the standing
+one &mdash; an endpoint nothing calls is not tested by its own existence.</p>
+
+<h3>How the roll is drawn</h3>
+<p>The worker resolves the authored row (a Durable Object may never <code>await fetch()</code> &mdash;
+the hibernation rule) and hands it to the player's own object. The object draws
+<code>HMAC-SHA256(SPAWN_SECRET, "roll|steamid|realm|kind|idem")</code>, the same keyed generator the
+spawn table uses: the client cannot predict it and cannot reproduce it. The result is stored under the
+client's <code>idem</code> key, so <strong>a retry, a reconnect or a double-tap always answers the same
+outcome</strong> &mdash; that idempotency is what makes it safe for the client to ask again when it
+loses the answer.</p>
+
+<h3>Nothing is spent until the server answers</h3>
+<p>The forge used to debit the bundle synchronously and then roll. It now creates the ticket, shows the
+attempt animation, and <strong>debits in the same tick that applies the outcome</strong>. Three
+consequences, all deliberate:</p>
+<ul>
+  <li>An attempt the server never answers <strong>costs nothing and decides nothing</strong>. The
+    player is told <em>could not reach the server &mdash; nothing was spent</em>, and that is literally
+    true because the debit lives below the early return.</li>
+  <li>There is <strong>no refund path</strong>, so there is no refund path to get wrong.</li>
+  <li>Offline play stays banned outright. The forge never invents an outcome, never queues one, and
+    never resolves locally &ldquo;to sync later&rdquo;.</li>
+</ul>
+<p>The 620&nbsp;ms wait is now an animation <em>floor</em>, not the roll. If the answer beats it, the
+result waits for the animation; if the animation beats the answer, the result waits for the server, up
+to <code>UPG_ROLL_MS</code> (12&nbsp;s).</p>
+<p class="note"><strong>Write cost.</strong> A roll writes one row to a <code>rolls</code> table and
+sweeps rows older than seven days. Against the measured 27.4 rows per save this is noise, and the
+record only has to outlive a session. The abuse ceiling is counted in the same table (120/min) because
+an in-memory throttle dies with the isolate.</p>
+<p class="note"><strong>Probe.</strong> <code>tools/probe_upghang.py</code> &mdash; BEFORE 6/14, AFTER
+14/14 across fourteen consecutive runs. It stubs <code>/api/roll</code> on a <em>narrow single-path</em>
+route (never a catch-all, which serves every request 200 and leaves <code>dc-runtime.js</code>
+unexecuted while looking like a broken build). Test 9 aborts the route outright to prove the offline
+rule. Three harness races were found and fixed rather than tolerated, and each is a general trap: the
+wallet is <strong>not a stable observable</strong> (the breeding pens both accrue and consume Ichor
+every frame, so a &ldquo;wallet unchanged&rdquo; assertion drifts in both directions); a bench reset's
+<code>setState</code> had not committed after a fixed sleep, so a cost was read off the previous item
+and a single correct charge was reported as <em>bundle 10, charged 30</em>; and settling was raced with
+a sleep instead of waited for as a condition.</p>
+
 <h2>Changelog</h2>
+<p><strong>2026-08-08 &mdash; server-side rolls, item 1: item and class-soul grading.</strong>
+<em>ON DEV, not yet on release.</em> The forge decides nothing and is told. Nothing is spent until the
+server answers, so an unanswered attempt costs nothing. Fixed in passing: <code>POST /api/roll</code>
+could never resolve a <code>soul_grade</code> row, because it constrained on two columns
+<code>soul_grading.csv</code> does not author &mdash; shipped 2026-07-31 and unreachable until a client
+finally called it. Probe <code>tools/probe_upghang.py</code>: BEFORE 6/14, AFTER 14/14.</p>
+
 <p><strong>2026-08-08 &mdash; a refused save is LOUD: play pauses and a report files itself.</strong>
 <em>ON DEV, not yet on release</em> &mdash; dfmc-client <code>dev</code> only, awaiting D's word for <code>main</code>.
 D's order, and the item had been open since 2026-08-01 without being built. The <code>!r.ok</code> branch of
