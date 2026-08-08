@@ -290,7 +290,7 @@ one that a clean PvE defeat is untouched). Replayer: <code>tools/_r64_patch.py</
       real browsers one of which was pinned 220&nbsp;s fast. Untested until release: the Cloudflare router and session
       seam, which the harness stubs.</li>
     <li><strong>2026-08-05 (v0.34).</strong> Three fixes. The queue and match record now carry the player&rsquo;s real hero name &mdash; three sites wrote the missing-name fallback <code>Vael</code> hardcoded, so both sides of a real match saw their opponent as Vael. Locking in no longer hangs both players. And the opponent fabricator was deleted along with its name pools and simulated lock countdowns.</li>
-    <li><strong>2026-08-04 &mdash; the queue keeps looking, the timer is always on screen, and a match can be taken out of a PvE fight (ON DEV, not yet on release).</strong>
+    <li><strong>2026-08-04 &mdash; the queue keeps looking, the timer is always on screen, and a match can be taken out of a PvE fight (LIVE on release since 2026-08-08 (0.42)).</strong>
       Closing the Arena panel used to kill the queue, which stopped the one-second heartbeat and let the player's
       node go stale &mdash; so two people had to sit on the arena screen together to meet, which is why PvP had
       never matched. The queue now ends only on a match or an explicit CANCEL; a popup that times out returns to

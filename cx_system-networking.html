@@ -1237,7 +1237,7 @@ is the list above.</p>
     <tr><td class="lbl">Hibernation</td><td>No timer, no <code>fetch</code>, no socket. <code>do_guard</code> green.</td></tr>
   </table>
   <p><strong>First measurements</strong> (<code>tools/probe_wrcost.py</code> 13/13, real workerd, 2026-08-06 &mdash;
-  LIVE on release since 2026-08-08 (0.42).: <code>/api/me</code> on a warm object is 2 statements, 2 rows read and <strong>0
+  ON DEV, not yet on release): <code>/api/me</code> on a warm object is 2 statements, 2 rows read and <strong>0
   written</strong>; the same call on a COLD object writes <strong>2 rows to <code>kv</code></strong>, once, on the first
   request after <code>WIPE_EPOCH</code> moves. <code>GET /api/save</code> <strong>writes 1 row</strong> despite being a
   read path. And a <em>rejected</em> save (409 <code>stale_session</code>) still costs 2&ndash;9 rows with
@@ -1533,8 +1533,8 @@ still open.</p>
     <li><strong>2026-08-07 &mdash; alt-tabbing no longer costs a battle (LIVE on release since 2026-08-07 (0.39)).</strong> Reports #44 and #49. Backgrounding fires a keepalive save flush, and the battle credit is keepalive too &mdash; they share a 64&nbsp;KiB browser quota, so the credit could be refused by the browser and all three retries burned while the tab was still hidden. Hidden-tab failures no longer advance the attempt counter (with a wall-clock bound), and the hide flush now yields to a credit in flight. New section above. Verified 7/7.</li>
     <li><strong>2026-08-07 &mdash; every floor entry re-asks for the spawn budget (LIVE on release since 2026-08-07 (0.39)).</strong> Report #40. The server has capped the pool to the shared budget since the 2026-07-29 ruling and does so correctly even for a never-visited floor &mdash; the client was not asking, serving any previously-fetched floor from cache. Measured: 2 credits, 10 spawns shown. Cached pools are now capped locally too, so the boss-den exit and resume paths cannot over-show. New section above. Verified 9/9 and 6/6.</li>
     <li><strong>2026-08-06 &mdash; the three repairs behind the lockout: one save per battle, /api/me out of the junk drawer, battle sized from the spawn budget.</strong>
-      <em>Worker changes are ON RELEASE. The client change is LIVE on release since 2026-08-08 (0.42).</em>
-      <br><strong>1. Two saves per battle became one (LIVE on release since 2026-08-08 (0.42)).</strong> <code>battle-entry</code>, <code>floor-entry</code> and
+      <em>Worker changes are ON RELEASE. The client change is ON DEV, not yet on release.</em>
+      <br><strong>1. Two saves per battle became one (ON DEV).</strong> <code>battle-entry</code>, <code>floor-entry</code> and
       <code>boss-entry</code> were excluded from the not-dirty skip that <code>debounce</code>/<code>hidden</code>/<code>pagehide</code>
       already had, so they uploaded unconditionally. The damaging case: the in-fight debounce is held while phase is in
       <code>FIGHT_PHASES</code> and released at the victory boundary, then autoplay calls <code>enterBattle</code> ~0.4&nbsp;s
@@ -1568,7 +1568,7 @@ still open.</p>
       enjoy. Measured on Plank&rsquo;s own save history: gaps run 16.8&nbsp;s, 0.4&nbsp;s, 13.3&nbsp;s, 0.5&nbsp;s. Halving that
       is open work.</li>
     <li><strong>2026-08-05 (v0.34) &mdash; the drain is off.</strong> The catch-up that ran twelve seconds after load is neither scheduled nor callable. It re-owed every grant on every page load because the acknowledgement was not restored with the save, and it destroyed eggs because it required a name they do not have. Drops still arrive inline at the end of each battle. 785 owed egg grants were revoked; grants mixing eggs with gear were deliberately left alone so a sweep could not take a gear drop with it.</li>
-    <li><strong>2026-08-05 &mdash; grants were re-delivered on every page load (LIVE on release since 2026-08-08 (0.42)).</strong>
+    <li><strong>2026-08-05 &mdash; grants were re-delivered on every page load (ON DEV, not yet on release).</strong>
       <code>loadRun</code>&rsquo;s restore list carried 44 keys and <code>grantAck</code> was not one of them,
       so every page load started the ack empty and the next save destroyed the stored history. The server
       then owed every forgotten grant again and the drain handed back items the player already had &mdash;
@@ -1577,12 +1577,12 @@ still open.</p>
       (<code>probe_ackrestore.py</code> 4/4, <code>probe_ackregress.py</code> 6/6). The fix is the one
       missing key. It does not undo deliveries already made: the duplicates already sitting in bags are a
       separate reconciliation.</li>
-    <li><strong>2026-08-04 &mdash; the battle chain head advances on confirmation (LIVE on release since 2026-08-08 (0.42)).</strong>
+    <li><strong>2026-08-04 &mdash; the battle chain head advances on confirmation (ON DEV, not yet on release).</strong>
       It used to advance when the event was built, so any submission the server rejected before its own head
       write &mdash; a resumed battle claiming an already-dead slot, a 503 during a deploy, a request that never
       landed &mdash; left the client one ahead and made the next honest battle flag <code>chain_break</code>. The
       heads now agree by construction. Still not enforced.</li>
-    <li><strong>2026-08-04 &mdash; the transit veil can no longer outlive the outage that raised it (LIVE on release since 2026-08-08 (0.42)).</strong>
+    <li><strong>2026-08-04 &mdash; the transit veil can no longer outlive the outage that raised it (ON DEV, not yet on release).</strong>
       Reported from a metro tunnel: stuck on ASCENDING &middot; FLOOR 23, still stuck after the connection
       returned. <code>travel</code>/<code>travelTo</code> now refuse while paused instead of raising a veil
       <code>preloadFloor</code> will not drive; <code>preloadFloor</code> clears a veil it refuses; the
@@ -1590,13 +1590,13 @@ still open.</p>
       <code>preloadFloor</code>; and a resumed connection re-drives a trip caught in flight. Autoplay's
       auto-advance was the branch that made it near-certain. Nothing is credited for a cancelled trip.
       BEFORE 1/6, AFTER 6/6 on <code>tools/probe_veil.py</code>.</li>
-    <li><strong>2026-08-04 &mdash; the battle credit is retried, and an outage is a reconnecting screen (LIVE on release since 2026-08-08 (0.42)).</strong>
+    <li><strong>2026-08-04 &mdash; the battle credit is retried, and an outage is a reconnecting screen (ON DEV, not yet on release).</strong>
       Three attempts with backoff on network errors and 5xx, 429 honoured at the server's own retry_ms,
       other 4xx never retried because a decision is not an outage. Exhausting them pauses play at once
       rather than waiting for a second poll miss, and files one bounded, budgeted automatic report.
       The dedup branch of <code>/api/battle</code> now REPLAYS the answer it gave, closing the case where
       a lost response paid the player nothing for a battle the server had credited.</li>
-    <li><strong>2026-08-04 &mdash; one write path and a parts watermark (LIVE on release since 2026-08-08 (0.42)).</strong>
+    <li><strong>2026-08-04 &mdash; one write path and a parts watermark (ON DEV, not yet on release).</strong>
       Six code paths wrote <code>saves</code> and one wrote the parts; all six now go through
       <code>writeSave()</code>, which splits and stamps a watermark in the same transaction. The read cutover will
       trust the parts only while that watermark matches <code>saves.ver</code> and the wipe generation, and rebuild
@@ -1604,16 +1604,16 @@ still open.</p>
       reset now deletes the parts, which it never did: at cutover that would have resurrected the wiped run.
       Monotonic <code>ver</code> became an enforced invariant, because a restore that lowered it would have made
       stale parts read fresh.</li>
-    <li><strong>2026-08-04 &mdash; the battle snapshot is split by kind, and the resume path is fixed (LIVE on release since 2026-08-08 (0.42)).</strong>
+    <li><strong>2026-08-04 &mdash; the battle snapshot is split by kind, and the resume path is fixed (ON DEV, not yet on release).</strong>
       One slot could only ever hold one fight, so a PvP match joined out of a PvE battle overwrote the paused PvE fight
       &mdash; the blocker under the queue redesign. PvE keeps the historic key, PvP gets its own, clearing is scoped to
       one kind and account wipes clear both. Found while proving it: <strong>the reconcile guard iterated
       <code>snap.units</code> as an array when it is an object</strong>, threw on every boot and dropped the snapshot,
       so no battle had ever resumed &mdash; measured against the pristine build, not inferred. Its floor test read
       fields that do not exist at the top level of a snapshot and never fired either.</li>
-    <li><strong>2026-08-04 &mdash; the client now fails closed on missing core data, and reports itself (LIVE on release since 2026-08-08 (0.42)).</strong> Owner ruling: if it cannot load, it cannot play. Stays on the loading screen with the failing filename and a RELOAD button, stops save writes, and files one automatic bug report with the log.</li>
-    <li><strong>2026-08-04 &mdash; core codex tables retry a transient load failure (LIVE on release since 2026-08-08 (0.42)).</strong> A single failed fetch used to cost the whole table for the session and the client kept playing without it, which is the data side of report #20: spawns with no <code>Line_ID</code> because the creature table was absent, not wrong. Three attempts, 5xx and network errors only. The remaining fail-open behaviour after the retries are exhausted is unchanged and needs an owner ruling.</li>
-    <li><strong>2026-08-03 &mdash; the save tick stops during a fight (LIVE on release since 2026-08-08 (0.42)).</strong> The debounce was action-armed and correct, but a battle re-dirties every turn and turned it into a 10s heartbeat &mdash; 6/min against a bucket refilling at exactly 6/min, leaving no headroom for the event-driven flushes and soft-blocking accounts. Suppressed while a round is in progress; the held flush fires on leaving, which gives victory the save it never had. Measured 0 saves in a 25s fight.</li>
+    <li><strong>2026-08-04 &mdash; the client now fails closed on missing core data, and reports itself (ON DEV, not yet on release).</strong> Owner ruling: if it cannot load, it cannot play. Stays on the loading screen with the failing filename and a RELOAD button, stops save writes, and files one automatic bug report with the log.</li>
+    <li><strong>2026-08-04 &mdash; core codex tables retry a transient load failure (ON DEV, not yet on release).</strong> A single failed fetch used to cost the whole table for the session and the client kept playing without it, which is the data side of report #20: spawns with no <code>Line_ID</code> because the creature table was absent, not wrong. Three attempts, 5xx and network errors only. The remaining fail-open behaviour after the retries are exhausted is unchanged and needs an owner ruling.</li>
+    <li><strong>2026-08-03 &mdash; the save tick stops during a fight (ON DEV).</strong> The debounce was action-armed and correct, but a battle re-dirties every turn and turned it into a 10s heartbeat &mdash; 6/min against a bucket refilling at exactly 6/min, leaving no headroom for the event-driven flushes and soft-blocking accounts. Suppressed while a round is in progress; the held flush fires on leaving, which gives victory the save it never had. Measured 0 saves in a 25s fight.</li>
     <li><strong>2026-08-03 &mdash; page audited against live code and brought back to as-built truth (codex only; no code changed).</strong>
       Every claim was checked against <code>src/worker.js</code> (byte-identical on <code>main</code> and <code>dev</code>, so
       all backend statements are true on RELEASE), <code>play/app.js</code> and <code>play/index.html</code>. Corrections:
@@ -1627,8 +1627,8 @@ still open.</p>
       the <code>hidden</code>/<code>pagehide</code> split, and the re-arm rule per answer class) and <em>What lives on the
       device</em> (every localStorage key, its namespacing, and the four fields that never travel). Five items added to Open,
       the largest being that the three chance doors are built and nothing calls them.</li>
-    <li><strong>2026-08-03 &mdash; multi-device rollback root-caused and fixed (LIVE on release since 2026-08-08 (0.42)).</strong> The shell adopted server truth into <code>herumon_run_rel_v1</code> while the app read <code>herumon_run_v2:&lt;env&gt;:&lt;sid&gt;</code>, and the migration bridging them only copies when the namespaced key is empty &mdash; so any device that had played before discarded the server save unread and booted on its own stale state, with a valid epoch and base_ver. The shell now writes both keys. The fence was never at fault.</li>
-    <li><strong>2026-08-03 &mdash; the background flush no longer drops writes or burns the rate bucket (LIVE on release since 2026-08-08 (0.42)).</strong> A 429 resolves rather than throwing, so a rate-limited save fell through the re-arm and the client believed it was clean; any non-OK response now re-arms and honours <code>retry_ms</code>, while a 409 still does not. <code>hidden</code> is throttled to one flush per 15&nbsp;s with the dirty flag kept, and <code>pagehide</code> stays unthrottled. Flags an open tension: keepalive bodies cap at 64&nbsp;KB against a 131,072-byte save ceiling.</li>
+    <li><strong>2026-08-03 &mdash; multi-device rollback root-caused and fixed (ON DEV).</strong> The shell adopted server truth into <code>herumon_run_rel_v1</code> while the app read <code>herumon_run_v2:&lt;env&gt;:&lt;sid&gt;</code>, and the migration bridging them only copies when the namespaced key is empty &mdash; so any device that had played before discarded the server save unread and booted on its own stale state, with a valid epoch and base_ver. The shell now writes both keys. The fence was never at fault.</li>
+    <li><strong>2026-08-03 &mdash; the background flush no longer drops writes or burns the rate bucket (ON DEV).</strong> A 429 resolves rather than throwing, so a rate-limited save fell through the re-arm and the client believed it was clean; any non-OK response now re-arms and honours <code>retry_ms</code>, while a 409 still does not. <code>hidden</code> is throttled to one flush per 15&nbsp;s with the dirty flag kept, and <code>pagehide</code> stays unthrottled. Flags an open tension: keepalive bodies cap at 64&nbsp;KB against a 131,072-byte save ceiling.</li>
     <li><strong>2026-08-02 &mdash; a second tab is stopped before it can claim, and <code>base_ver</code> is no longer optional (report #16).</strong> Web Locks holds ownership for the tab's lifetime and the loser is offered a steal-and-reload instead of silently racing the owner; a fenced session must now send <code>base_ver</code> on any realm the server already holds.</li>
     <li><strong>2026-08-02 &mdash; ownership is fenced server-side (report #16).</strong> <code>GET /api/save</code> mints a per-instance <code>epoch</code>; every later request carries it and the object refuses a lower one with <code>409 stale_session</code>. A login already fenced other devices; this fences other tabs, which is the case that caused the loss. Adds the ops-key <code>/api/backup/drops</code> read door over the 7-day drop grant log.</li>
     <li><strong>2026-08-02 &mdash; a dead write path now pauses play (report #16).</strong> <code>_staleInst</code>/<code>_loadBroken</code> stopped both save writers but not <code>/api/battle</code>, so a window kept being credited for ten hours while nothing it did was stored, and the login rule then correctly discarded all of it. The latch now enters the connection-lost pause, battle entry awaits its flush and refuses the fight if it did not land, and <code>/api/battle</code> derives the divergence from <code>_ledB</code> and answers <code>_stale</code>.</li>

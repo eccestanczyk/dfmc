@@ -208,7 +208,7 @@ td{border-bottom:1px solid var(--rule);padding:5px 8px;color:var(--ink-dim);font
   <ul>
     <li><strong>2026-08-08 &mdash; the forge no longer eats the materials and hangs (reports #58, #60). LIVE on release since 2026-08-08 (0.42).</strong> The roll resolved inside <code>this._timers</code>, which <code>clearTimers()</code> empties and every battle path calls, so a battle event inside the 620&nbsp;ms window destroyed a paid attempt. A paid attempt is now a ticket that survives <code>clearTimers</code>, settles exactly once, is swept if its timer is lost, and is settled &mdash; not cancelled &mdash; by opening or closing the forge. Also fixed in passing: <code>upgBusy</code> alone did not guard re-entry, and three clicks in one tick were measured charging 14 against a 10-Scrap bundle. Probe <code>tools/probe_upghang.py</code>: BEFORE 5/12, AFTER 12/12.</li>
     <li><strong>2026-08-07 &mdash; the upgrade panel paints the grade the item is, and the circle is always there (LIVE on release since 2026-08-07 (0.39)).</strong> A win swaps the panel's item for the upgraded one, so every colour derived from the next step was a tier ahead: a Rare item drew Epic purple, message included. The circle was gated on success, showed no grade colour, and had no aura. Reports #52 and #53. New section above. Verified 9/9, with a before-picture proving both defects.</li>
-    <li><strong>2026-08-06 &mdash; the advancement trigger now reaches party creatures, and class souls join the system. LIVE on release since 2026-08-08 (0.42).</strong>
+    <li><strong>2026-08-06 &mdash; the advancement trigger now reaches party creatures, and class souls join the system. ON DEV, not yet on release.</strong>
       <strong>What was broken.</strong> <code>advReady()</code> has always built its map from <em>both</em>
       <code>advancingSoul()</code> (keys gear slots 4&ndash;7) and <code>advancingAlly()</code> (keys slots <strong>8 and
       9</strong>, the creature slots). The only tile reading that map was <code>invSlots</code>, which is
@@ -230,7 +230,7 @@ td{border-bottom:1px solid var(--rule);padding:5px 8px;color:var(--ink-dim);font
       <code>tools/probe_advpaint.py</code> 9/9 (it paints with a real box, and <em>clicking it opens the advancement
       scene</em> &mdash; for the party creature and for the class soul), each with the control that nothing appears
       before the advancement is armed.</li>
-    <li><strong>2026-08-06 &mdash; the soul tooltip showed a constant (report #36, Colodetti). LIVE on release since 2026-08-08 (0.42).</strong>
+    <li><strong>2026-08-06 &mdash; the soul tooltip showed a constant (report #36, Colodetti). ON DEV, not yet on release.</strong>
       <code>souls.csv</code> carries <code>Effect_S3</code>: the magnitude at stage&nbsp;3 with a Worn soul.
       <code>soulInfo()</code> returned that string <em>verbatim</em>, so the number a player read never moved &mdash;
       while <code>gearBonus</code> had been multiplying by stage &times; grade correctly all along. The display was off
