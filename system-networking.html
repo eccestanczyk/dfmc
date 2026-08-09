@@ -1256,16 +1256,55 @@ is the list above.</p>
 <p>Nothing about this banks a result offline. A credit that genuinely cannot be delivered still credits nothing and still pauses play; what changed is that a tab switch is no longer mistaken for that.</p>
 <p class="foot">Client: the <code>_battlePost</code> retry and the <code>visibilitychange</code> handler in <code>play/app.js</code>. Probe: <code>tools/probe_hidecredit.py</code> &mdash; BEFORE 6/6 (asserting the retry has no notion of a hidden tab), AFTER 7/7.</p>
 
-<h2>The spawn budget is one pool, and every floor entry re-asks for it</h2>
-<p>The budget is keyed by <strong>realm</strong>, not by floor: one pool, 1/min, cap 10, spent wherever you fight. Floors keep their own <code>dead[]</code> so identity and roll serials stay per-floor &mdash; only the credit is shared.</p>
+<h2>There are two spawn limiters, and the player sees the smaller one</h2>
+<p><em>Section rewritten 2026-08-09 (0.45).</em> The heading this replaced &mdash; &ldquo;the spawn budget is one pool&rdquo; &mdash;
+is the sentence that let a real bug survive a fix. It described the layer on top and denied the existence of the layer
+underneath, and a probe written to it spent credits without ever marking a slot dead: it proved the pool was shared across
+floors while never touching the counter that was actually binding.</p>
+<p><strong>Two counters decide how many spawns a floor shows, and the player sees the minimum of them.</strong></p>
+<table>
+  <tr><th>Limiter</th><th>Keyed by</th><th>Rate and cap</th></tr>
+  <tr><td class="lbl">The account budget &mdash; table <code>spawn_budget</code></td><td><strong>Realm only.</strong> One pool, spent wherever you fight</td><td><code>TABLES.spawn_budget</code>: <code>per_ms</code> 60,000, <code>cap</code> 10. Incense <strong>halves <code>per_ms</code></strong> &mdash; 2/min, cap untouched</td></tr>
+  <tr><td class="lbl">The floor's own memory &mdash; <code>floors_srv.dead[]</code></td><td><strong>Realm and floor.</strong> One row per floor, each running its own clock from its own last drain</td><td><code>refillSrv()</code>, cap 10, the same rate off the same boon expiry</td></tr>
+</table>
+<p><code>/api/floor/enter</code> builds the pool out of that floor's own <code>dead[]</code> and <em>then</em> caps it to the
+account budget. What the player is shown is therefore <strong><code>min(this floor's live slots, your budget)</code></strong>,
+and the countdown quotes whichever of the two is actually binding.</p>
+<ul>
+  <li><strong>They hold in lockstep at the base rate</strong>, because a credited battle decrements <em>both</em> by one:
+  <code>/api/battle</code> takes a credit from the budget and marks that slot dead on the floor. Equal drains against equal
+  rates keep the two equal, which is why a fault in one of them can hide indefinitely.</li>
+  <li><strong>Anything that changes the spawn RATE must move BOTH counters or they drift apart.</strong> That is the bug class
+  this section exists to prevent. The rate is now read from <code>TABLES</code> in both places rather than written as a
+  literal in either, so a future rate lever moves them together by construction.</li>
+</ul>
+
+<h3>How they drifted &mdash; reports #85 and #87</h3>
+<p><code>refillSrv</code> hardcoded one slot per 60,000&nbsp;ms and took only the floor state, so it had no steamid, no realm
+and no way to know a boon existed. Under Incense the account accrued <strong>2/min while every floor still refilled 1/min</strong>.
+The floor just farmed fell behind the budget and looked empty; an untouched floor, whose slots had never been drained, showed
+the full amount. D's own report is the shape exactly: floor 49 empty, floor 48 full.</p>
+<p>The repair is arithmetic, not a rate swap. <code>refillSrv(st, boonUntil)</code> now runs the budget's own
+<code>accrue()</code>, and advances its clock with <code>accrueAt()</code> &mdash; the exact inverse, such that
+<code>accrue(from, accrueAt(from, n, bu), bu) === n</code> by construction. A plain 60000&rarr;30000 swap would still have been
+wrong across the instant a boon expires, because that window has to split at the boundary. A <strong>third</strong> hardcoded
+60,000 was found in the same expression while fixing it: the floor-bound branch of <code>nextInMs</code> told a player under
+Incense to wait twice as long as the floor actually needed.</p>
+<div class="note">Known and deliberate: the client's own <code>refillPool()</code> still re-asks the server on a hardcoded
+60,000&nbsp;ms, so under Incense the on-screen countdown can lag by up to 30&nbsp;s. It is cosmetic &mdash; the client never
+invents a spawn and the number shown comes from the server's <code>nextInMs</code> &mdash; and it was left out so the fix
+stayed worker-only.</div>
+
+<h3>What was already true and still is</h3>
 <ul>
   <li><strong>The server caps the pool it hands out.</strong> If the budget is below ten, a floor is shown with only as many spawns as the budget will honour &mdash; including a floor never visited before. The pool the client is shown <em>is</em> the pool the server will pay for, so a player can never fight a spawn that will not be credited.</li>
   <li><strong>The client re-asks on every entry.</strong> Once a floor had been fetched it was served from cache forever, so a floor first walked on a full budget kept showing its ten spawns long after the budget drained &mdash; measured at 2 credits and 10 spawns shown. One request per floor <em>change</em>, which is a rare path; battles are untouched.</li>
   <li><strong>A cached pool is capped locally as well.</strong> The boss-den exit and the resume path also paint from cache, so the last known budget caps whatever is drawn. Suppression is for display only &mdash; the entries are untouched, so identity and serials survive and the next server answer restores them.</li>
 </ul>
 <p><strong>Why over-showing is worse than it looks.</strong> An over-budget kill is not merely unpaid: the server sets <code>credited = false</code> <em>and raises a <code>spawn_budget</code> flag against the account</em>. A player shown a full map they cannot be paid for therefore accrues anti-cheat signal for doing exactly what the screen invited. Under-showing is self-correcting; over-showing is not.</p>
-<p><strong>Travel now requires the server answer for every floor</strong>, cached or not. That follows the offline ruling &mdash; a dead connection must pause rather than serve stale content &mdash; and the existing 30&nbsp;s <em>FLOOR N UNREACHABLE</em> watchdog covers the failure.</p>
-<p class="foot">Server: <code>spawn_budget</code>, <code>capPoolToBudget()</code>, <code>peekSpawnCredits()</code> in <code>src/worker.js</code>. Client: <code>preloadFloor()</code>, <code>capPoolLocal()</code> in <code>play/app.js</code>. Probes: <code>tools/probe_spawnshare.mjs</code> (9/9, real SQLite, methods lifted from the shipped worker) and <code>tools/probe_spawncap.py</code> (BEFORE 3/3, AFTER 6/6).</p>
+<p><strong>Travel requires the server answer for every floor</strong>, cached or not. That follows the offline ruling &mdash; a dead connection must pause rather than serve stale content &mdash; and the existing 30&nbsp;s <em>FLOOR N UNREACHABLE</em> watchdog covers the failure.</p>
+<p><strong>Reviving a slot from the budget alone was considered and refused.</strong> <code>st.seq[i]</code> is bumped in exactly two places &mdash; <code>refillSrv</code> and a floor re-roll &mdash; and <code>deriveSlot</code> derives creature identity from it, so a slot revived without a serial bump comes back byte-identical and the same creature can be refought for its drops. The dead-slot 409 in <code>/api/battle</code> is also the only thing stopping a client refighting one slot, and it calls <code>flag()</code>: honest players would have tripped it. That is a change to creature identity and to the anti-cheat surface, not a bug fix.</p>
+<p class="foot">Server: <code>spawn_budget</code>, <code>accrue()</code>, <code>accrueAt()</code>, <code>refillSrv()</code>, <code>floorStateOf()</code>, <code>capPoolToBudget()</code>, <code>peekSpawnCredits()</code> in <code>src/worker.js</code>. Client: <code>preloadFloor()</code>, <code>capPoolLocal()</code>, <code>refillPool()</code> in <code>play/app.js</code>. Probes: <code>tools/probe_floorclock_boon.mjs</code> (9/9 after, 3/9 on the pre-fix tree, with T6 and T8 passing on both as controls), <code>tools/probe_spawnshare.mjs</code> (9/9, real SQLite, methods lifted from the shipped worker) and <code>tools/probe_spawncap.py</code> (BEFORE 3/3, AFTER 6/6).</p>
 
 <h2>Server-side rolls: the chance is the server's, always</h2>
 <p><em>LIVE on release since 2026-08-08 (0.42).</em>
@@ -1344,6 +1383,7 @@ Refills are server side and the rate is increased by having incense applied.&rdq
 the same rule this page and <a href="system-premium-shop.html">Premium Shop</a> already author &mdash;
 one pool, cap ten, one spawn per 60&nbsp;s while below cap, 30&nbsp;s under Incense, the cap itself
 unchanged. It is <em>not</em> a pool per floor.</p>
+<div class="note"><strong>Read this with the two-limiter section above.</strong> D’s rule is about the <em>budget</em>, and the budget is one pool. It is not the only counter: each floor also keeps its own <code>dead[]</code>, refilled on its own clock, and the player sees the smaller of the two. A rate change that moves only the budget leaves the floors behind — reports #85 and #87.</div>
 <p><strong>The server was already right, and this was measured rather than assumed.</strong> Against
 a real Worker and real Durable Object SQLite: with the pool drained on one floor, an untouched floor
 whose own ten slots were all occupied answered <code>sb=0</code> and ten nulls. One kill anywhere
@@ -1530,6 +1570,7 @@ Only SQL Stored data scales with bytes ($0.20/GB-mo over 5&nbsp;GB), ~8.4&nbsp;M
 <strong>Still triage:</strong> the real fix is the server-side inventory (~30&nbsp;KB saves), and the silent-413 hole is
 still open.</p>
   <ul>
+    <li><strong>2026-08-09 &mdash; the per-floor spawn clock was blind to Incense, so a farmed floor fell behind the budget (LIVE on release since 2026-08-09 (0.45)).</strong> Reports #85 and #87. There are two spawn limiters, not one: the account budget and each floor’s own <code>dead[]</code>, and the player sees the smaller. <code>refillSrv</code> hardcoded 1 per 60,000&nbsp;ms and could not see the boon, so under Incense the account refilled at 2/min while every floor stayed at 1/min. It now runs the budget’s own <code>accrue()</code>/<code>accrueAt()</code> off the same expiry, and a third hardcoded 60,000 in <code>nextInMs</code> went with it. <strong>This page said &ldquo;the spawn budget is one pool&rdquo; and that sentence is why an earlier fix stopped half way</strong> — the section above is rewritten. Verified 9/9, 3/9 on the pre-fix tree.</li>
     <li><strong>2026-08-07 &mdash; alt-tabbing no longer costs a battle (LIVE on release since 2026-08-07 (0.39)).</strong> Reports #44 and #49. Backgrounding fires a keepalive save flush, and the battle credit is keepalive too &mdash; they share a 64&nbsp;KiB browser quota, so the credit could be refused by the browser and all three retries burned while the tab was still hidden. Hidden-tab failures no longer advance the attempt counter (with a wall-clock bound), and the hide flush now yields to a credit in flight. New section above. Verified 7/7.</li>
     <li><strong>2026-08-07 &mdash; every floor entry re-asks for the spawn budget (LIVE on release since 2026-08-07 (0.39)).</strong> Report #40. The server has capped the pool to the shared budget since the 2026-07-29 ruling and does so correctly even for a never-visited floor &mdash; the client was not asking, serving any previously-fetched floor from cache. Measured: 2 credits, 10 spawns shown. Cached pools are now capped locally too, so the boss-den exit and resume paths cannot over-show. New section above. Verified 9/9 and 6/6.</li>
     <li><strong>2026-08-06 &mdash; the three repairs behind the lockout: one save per battle, /api/me out of the junk drawer, battle sized from the spawn budget.</strong>
