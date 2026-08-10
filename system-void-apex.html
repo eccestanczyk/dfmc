@@ -30,7 +30,7 @@
   <h2>Wild creature tuning</h2>
   <p>Four dials ramp per grind floor. Floor 101 continues the live floor-99 wild exactly; floor 119 is a fully equipped, max-grade, optimized creature. Boss floors carry zero rows, matching the existing convention on floors 10&hellip;100.</p>
 
-  <h3>Quality grade &mdash; <code>codex/apex_wild_quality_weights.csv</code></h3>
+  <h3>Quality grade &mdash; <code>codex/wild_quality_weights.csv</code> (Apex bands)</h3>
   <p>Continues zone 10's live band (Epic 40 / Legendary 60) and marches to pure Void at 119. This is an <strong>enemy-side</strong> ladder only: the Legendary cap on wild quality for players, and the reward economy, are untouched &mdash; enemy quality has never fed drops.</p>
   <table>
     <tr><th>Floor</th><th>Epic</th><th>Legendary</th><th>Abyssal</th><th>Divine</th><th>Primordial</th><th>Void</th></tr>
@@ -46,7 +46,8 @@
     <tr><td class="lbl">119</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td><strong>100</strong></td></tr>
   </table>
 
-  <h3>Virtual gear &mdash; <code>codex/apex_wild_gear.csv</code></h3>
+  <h3>Virtual gear &mdash; <code>codex/apex_wild_gear.csv</code> <em>(not yet implementable &mdash; see below)</em></h3>
+  <div class="sp-note"><strong>Read this before building against the table below.</strong> The live implementation gives a wild creature ONE implicit tag value, scaled by tier and by its quality grade &mdash; <code>wildTags()</code> in the client. Wild tags have <strong>no gem, rune or enchant sockets at all</strong>, so the slot counts in this table describe something the engine does not have. As built today the Apex gear ramp is carried entirely by the quality ladder above (Void quality raises the tag through its grade factor). Treat the grades column as the intent and the slot columns as unbuilt.</div>
   <p>Both combat tags as today (Fang + Carapace, T10), but now <em>graded</em>, with every slot the grade allows filled at that same grade.</p>
   <table>
     <tr><th>Floor</th><th>Gear grade</th><th>Gems / tag</th><th>Runes / tag</th><th>Enchants / tag</th><th>AI tier</th></tr>
@@ -84,7 +85,7 @@
 
   <h2>Drops</h2>
   <p>Every Apex drop rolls one of four grades &mdash; <strong>Rare, Epic, Legendary, Abyssal</strong>. Rare is the floor: nothing worse ever drops in the Apex. Divine, Primordial and Void <strong>never</strong> drop and remain upgrade-only. Each drop reads its own floor's row; boss loot reads the boss floor's row. Existing rates are untouched: three independent 10% rolls per battle, and two guaranteed drops per boss kill.</p>
-  <p>Full 20-row curve in <code>codex/apex_drop_grade_weights.csv</code>. Boss floors:</p>
+  <p>Full curve in <code>codex/drop_grade_weights.csv</code>, one single-floor band per Apex floor. Boss floors:</p>
   <table>
     <tr><th>Boss floor</th><th>Rare</th><th>Epic</th><th>Legendary</th><th>Abyssal</th></tr>
     <tr><td class="lbl">102</td><td>67.5%</td><td>29.0%</td><td>3.4%</td><td>0.12%</td></tr>
@@ -103,7 +104,7 @@
   <h2>Eggs</h2>
   <ul class="sp-rules">
     <li><strong>Grade band Rare&ndash;Legendary.</strong> Eggs use the same curve with the Abyssal share folded into Legendary &mdash; so the Legendary-grade egg chance rises instead: 3.1% on floor 101, 29.6% on floor 119, 33.5% from the floor-120 boss. <strong>No Abyssal eggs</strong> (D ruling 2026-08-10); breeding stays the only path above Legendary.</li>
-    <li><strong>Rarity climbs on two levers.</strong> The spawn mix itself shifts toward SR and SSR with depth (<code>codex/apex_spawn_rarity_weights.csv</code>) &mdash; floor 101 continues floor 99's live mix, and SSR grows from 12% of spawns to 50% by floor 119. Since a wild egg is the defeated line's own egg and the roll is rarity-scaled, the egg mix follows automatically: <strong>SSR share of wild eggs 29.6% &rarr; 68.2%</strong>.</li>
+    <li><strong>Rarity climbs on two levers.</strong> The spawn mix itself shifts toward SR and SSR with depth (<code>codex/encounter_weights.csv</code> (rows 101&ndash;120)) &mdash; floor 101 continues floor 99's live mix, and SSR grows from 12% of spawns to 50% by floor 119. Since a wild egg is the defeated line's own egg and the roll is rarity-scaled, the egg mix follows automatically: <strong>SSR share of wild eggs 29.6% &rarr; 68.2%</strong>.</li>
     <li><strong>Boss eggs re-authored</strong> (<code>codex/apex_boss_egg_rarity.csv</code>), replacing the main tower's 30/30/20/10/10: 12/18/25/22/23 at boss 102, ramping to 2/5/13/30/50 at boss 120 (C/UC/R/SR/SSR).</li>
     <li>Yield, simulated: a dedicated player pulls ~18 SSR eggs a day mid-zone and ~25 a day at the cap, of which roughly 1.5 and 7.4 respectively are Legendary grade.</li>
   </ul>
