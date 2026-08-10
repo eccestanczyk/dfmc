@@ -176,6 +176,9 @@
     <li><strong>No props</strong> in the Apex &mdash; the void is empty by design. <strong>The ground plate is the same treatment</strong> (D ruling 2026-08-10): <code>floors/ground_plates/voidapex_plate.png</code>, 2560&times;1440, black with small gray stars, so the walkable surface and the backdrop read as one continuous void.</li>
   </ul>
 
+  <h2>Status</h2>
+  <div class="sp-note"><strong>Playable on <code>/dev/</code> as of 2026-08-10; nothing on release.</strong> Design, data, server and client are all landed on the dev branch and verified in the bytes the browser actually receives &mdash; the dev bundle carries the new floor ceiling, the authored boss test and the authored win threshold, and the release bundle carries none of them. Still to do before this ships: probe coverage for the client rules, D's own pass on <code>/dev/</code>, and the release merge, which is also where <code>DATA_PIN</code> advances so live players get the Apex tables. <strong>One propagation note:</strong> the dev client reads codex CSVs from GitHub Pages, which lags the commit by a few minutes &mdash; during that window a new column is silently absent and the client falls back to its old rule, so a freshly authored value can read stale on <code>/dev/</code> for a short while after a codex push.</div>
+
   <h2>Rulings log</h2>
   <ul class="sp-rules">
     <li><strong>2026-08-10 &mdash; structure.</strong> Alternating floors: odd spawn, even boss, ten bosses. Progress persists. No map teleport and no creature list, and any creature can spawn on any Apex floor. Autoplay normal. 30 wins per grind floor. One key per 12 hours.</li>
