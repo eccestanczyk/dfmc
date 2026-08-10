@@ -117,12 +117,22 @@
   </ul>
 
   <h2>&Uuml;ber bosses</h2>
-  <ul class="sp-rules">
-    <li>Ten bosses, one per even floor. Each is a mutant apex form of a Stage-3 line &mdash; the mutant palette becomes the boss-tier visual signature. Hatched mutants stay purely cosmetic; this is the first mechanical use of the look.</li>
-    <li>Stats sit above anything legally reachable at level 100, on an explicit budget per boss rather than the creature formula &mdash; same approach as the existing boss HP budget.</li>
-    <li>AI tier 3, plus <strong>one signature rule each</strong>: a mechanic to solve rather than a wall to out-stat, so a spent key buys an attempt at a puzzle.</li>
-    <li><strong>Still to author:</strong> the per-boss stat budgets, the ten signature rules, and the boss roster itself.</li>
-  </ul>
+  <p><strong>The ten &uuml;ber bosses are the tower's own ten bosses, returned in mutant form.</strong> Not new characters &mdash; Vargr comes back on floor 102 and Eskaton on floor 120, in the same order they were first met, each in mutant colouring at level 100 with Void quality, uplifted grades, tier-3 AI, and one signature rule that has to be solved rather than out-statted. Their two actives return with them at Void quality and Apex-grade virtual gear. Kits are inherited from the source boss and re-tuned; art is a mutant recolour of the approved boss portrait, so no new character design is needed. Data: <code>codex/uber_bosses.csv</code>.</p>
+  <table>
+    <tr><th>Floor</th><th>&Uuml;ber boss</th><th>Returns from</th><th>Grades</th><th>HP</th><th>Signature rule</th></tr>
+    <tr><td class="lbl">102</td><td>Mutant Vargr, the Alpha</td><td>floor 10</td><td>A9 D6 U6 S9</td><td>13,750</td><td><strong>Pack Without End</strong> &mdash; At the end of every round the Alpha calls one replacement active if a slot is empty; the call is refused for the rest of the battle once he has taken a hit from every unit on your side in a single round.</td></tr>
+    <tr><td class="lbl">104</td><td>Mutant Pelagos, the Trench Warden</td><td>floor 20</td><td>A8 D10 U7 S5</td><td>15,250</td><td><strong>Sealed Gate</strong> &mdash; Damage below 8% of his maximum HP in a single hit is reduced to zero. Chip, DoT and multihit components each check separately — a wall that only real hits get through.</td></tr>
+    <tr><td class="lbl">106</td><td>Mutant Sethek, the Ossuary King</td><td>floor 30</td><td>A10 D6 U10 S6</td><td>17,250</td><td><strong>Ossuary Rebirth</strong> &mdash; The first time he is downed he stands back up at 40% HP with every debuff cleared. Kill the ossuary active first and the second rising never happens.</td></tr>
+    <tr><td class="lbl">108</td><td>Mutant Mother Vesk, the Broodmother</td><td>floor 40</td><td>A10 D7 U10 S5</td><td>19,500</td><td><strong>Brood Tithe</strong> &mdash; Every round she is not the target of at least one hostile action, she gains a permanent +12% Attack, uncapped. Ignoring her is the losing line.</td></tr>
+    <tr><td class="lbl">110</td><td>Mutant Ostrakon, the Carapace Despot</td><td>floor 50</td><td>A9 D10 U9 S5</td><td>21,750</td><td><strong>Carapace Layers</strong> &mdash; Takes 75% reduced damage until five separate damaging hits land in one round; a hit from each side of a multihit counts. Burst-once builds cannot open him.</td></tr>
+    <tr><td class="lbl">112</td><td>Mutant Keraun, the Stormcaller</td><td>floor 60</td><td>A10 D6 U7 S10</td><td>24,500</td><td><strong>Storm Priority</strong> &mdash; Acts first every round regardless of Speed, but every ultimate and priority action on your side resolves before his — speed loses its meaning and sequencing replaces it.</td></tr>
+    <tr><td class="lbl">114</td><td>Mutant Morast, the Bogfather</td><td>floor 70</td><td>A10 D10 U8 S5</td><td>27,500</td><td><strong>Bog Memory</strong> &mdash; Every named debuff that lands on him is remembered; from the second application of the same debuff onward it is refused. No repeat-debuff loop, one clean window per effect.</td></tr>
+    <tr><td class="lbl">116</td><td>Mutant Teloma, the Bloom Herald</td><td>floor 80</td><td>A9 D9 U10 S6</td><td>31,000</td><td><strong>Spore Inheritance</strong> &mdash; When one of her actives dies, she gains that active's full move kit for the rest of the battle. Killing her escort arms her — the order you kill in is the fight.</td></tr>
+    <tr><td class="lbl">118</td><td>Mutant Varkolan, the Undying King</td><td>floor 90</td><td>A10 D9 U10 S6</td><td>34,750</td><td><strong>Two Deaths</strong> &mdash; Cannot be reduced below 1 HP while either active still stands, and neither active can be reduced below 1 HP while he stands. Break the ring or nothing dies.</td></tr>
+    <tr><td class="lbl">120</td><td>Mutant Eskaton, the Unfinished God</td><td>floor 100</td><td>A10 D10 U10 S6</td><td>39,000</td><td><strong>The Unfinished Work</strong> &mdash; Every 4 rounds the forge rebuilds him: all buffs on your side are stripped and he heals 10% of maximum HP. Landing 25% of his maximum HP in damage inside a single round cancels the next rebuild.</td></tr>
+  </table>
+  <p style="font-size:13px;color:var(--ink-faint)">HP is budgeted from the live boss anchor (an on-progression party kills a floor-100 boss in ~10 turns at ~490 damage per turn). Apex budgets assume a party doing 2&times; that at floor 102 rising to 5&times; at floor 120, targeting 14&ndash;16 turns throughout &mdash; 2.8&times; the floor-100 boss at the entry and 8&times; at the cap.</p>
+  <p><strong>Still to author:</strong> the per-boss move retunes, the mutant portrait pass, and the &uuml;ber loot tables.</p>
 
   <h2>Server authority</h2>
   <p>The most valuable content in the game is also the first content built server-authoritative end to end: the key drop roll, the key debit on entry, the Apex floor clear, and every &uuml;ber reward are all server-side, granted only against an open server-held boss session. A disconnect pauses and resumes through the deterministic replay; no refund, no offline credit. All five Apex tables ship pinned like every other data file.</p>
@@ -141,6 +151,7 @@
     <li><strong>2026-08-10 &mdash; drops.</strong> All Apex drops at least Rare; the final three grades can never drop; higher grades get commoner with each boss floor but the top of the band stays very rare. Curve simulated and tuned before authoring.</li>
     <li><strong>2026-08-10 &mdash; eggs.</strong> No Abyssal eggs. Higher-rarity eggs made commoner instead, through the spawn mix and the boss egg weights.</li>
     <li><strong>2026-08-10 &mdash; keys.</strong> Pure rolls. No guarantee.</li>
+    <li><strong>2026-08-10 &mdash; &uuml;ber bosses.</strong> The ten bosses are mutant returns of the tower's own bosses, in original order, with HP budgets derived from the live boss anchor and one signature rule each.</li>
     <li><strong>2026-08-10 &mdash; art.</strong> Placeholder background is a black void with gray stars.</li>
     <li><strong>2026-08-10 &mdash; wilds.</strong> Floor 119 fully equipped at max grade with optimized items. HP modifiers stay banned on wild creatures.</li>
   </ul>
