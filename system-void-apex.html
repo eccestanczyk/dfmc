@@ -145,6 +145,7 @@
     <tr><td class="lbl">encounter_weights.csv</td><td>20 rows: the SR/SSR ramp on grind floors, zeroed on boss floors</td></tr>
     <tr><td class="lbl">wild_quality_weights.csv</td><td>4 new grade columns (Abyssal&ndash;Void, zero on every pre-existing band) and 10 per-floor Apex bands</td></tr>
     <tr><td class="lbl">drop_grade_weights.csv</td><td>80 rows &mdash; a single-floor band per Apex floor, Rare through Abyssal</td></tr>
+    <tr><td class="lbl">drop_chances_by_floor.csv</td><td>20 rows &mdash; without a row here the drop roller returns <code>no_floor_row</code> and an Apex floor pays nothing at all. Rates match the live per-battle rate exactly; boss floors zeroed as floor 100 already is</td></tr>
     <tr><td class="lbl">key_drop_rates.csv</td><td>10 rows, one per &uuml;ber key, each tuned to 1 per 360 battles</td></tr>
     <tr><td class="lbl">floor_creature_rarity.csv</td><td>1,000 rows &mdash; all 100 lines on all 10 grind floors, which is the &ldquo;anything can spawn here&rdquo; ruling in data</td></tr>
     <tr><td class="lbl">items.csv</td><td>the ten &uuml;ber keys</td></tr>
@@ -183,6 +184,7 @@
     <li><strong>2026-08-10 &mdash; &uuml;ber bosses.</strong> The ten bosses are mutant returns of the tower's own bosses, in original order, with HP budgets derived from the live boss anchor and one signature rule each.</li>
     <li><strong>2026-08-10 &mdash; art.</strong> Placeholder background is a black void with gray stars; the ground plate uses the same image treatment.</li>
     <li><strong>2026-08-10 &mdash; boss loot.</strong> No separate per-boss loot tables. Shared Apex pool, higher grade odds the deeper the boss.</li>
+    <li><strong>2026-08-10 &mdash; drop chances.</strong> <code>drop_chances_by_floor.csv</code> gains rows 101&ndash;120; the roller refuses to pay a floor with no row there.</li>
     <li><strong>2026-08-10 &mdash; data shape.</strong> Apex data extends the existing tables rather than adding parallel ones, so the server reads the new floors with no data-layer change.</li>
     <li><strong>2026-08-10 &mdash; kits.</strong> &Uuml;ber bosses inherit their source kit verbatim; move powers are not raised past the authored 160 band ceiling.</li>
     <li><strong>2026-08-10 &mdash; portraits.</strong> Derived with the existing mutant generator, not generated. The tool gained a <code>bosses</code> mode.</li>
