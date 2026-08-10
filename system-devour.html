@@ -90,8 +90,75 @@
   <p>So the filter that was asked for already existed. Showing the unavailable creatures greyed is what fixes the actual confusion, and it is worth more than the filter: <strong>a list that silently omits a creature cannot explain where it went.</strong></p>
   <p class="foot">Client: <code>dvBlockedRecs()</code>, <code>dvChoices()</code> in <code>play/app.js</code>. Probe: <code>tools/probe_devsel.py</code> &mdash; BEFORE 4/4 (asserting the creatures are absent entirely), AFTER 7/7, matching by uid rather than by name.</p>
 
+  <h2>The fodder picker is ordered, and it offers only fodder that can change the consumer</h2>
+  <p class="sp-lead"><em>Build 0.47.</em> Two changes to the same list: it has an order, and it has a usefulness filter.</p>
+
+  <h2>Ordering &mdash; Level &gt; Grade &gt; line &gt; stage &gt; gender &gt; rarity</h2>
+  <table>
+    <tr><th>Key</th><th>Direction</th><th>Why it sits here</th></tr>
+    <tr><td>Level</td><td>best first</td><td>The XP a fodder carries is the payout that always applies, so it leads.</td></tr>
+    <tr><td>Grade</td><td>best first</td><td>The second payout, and the one that decides whether a devour is worth spending a creature on.</td></tr>
+    <tr><td>Advancement line</td><td><strong>alphabetical</strong></td><td>Not a ranking &mdash; it exists to <strong>group a family together</strong>, so every stage of one line lands in one block.</td></tr>
+    <tr><td>Stage</td><td>ascending, within a line</td><td>S1 before S3, so a family block reads in advancement order.</td></tr>
+    <tr><td>Gender</td><td>tie-break</td><td></td></tr>
+    <tr><td>Rarity</td><td>last</td><td>Rarity does not affect what a devour pays, so it is the weakest key here.</td></tr>
+    <tr><td>Name</td><td>ascending</td><td>Present so the order is <strong>TOTAL</strong> and cannot shuffle between re-renders.</td></tr>
+  </table>
+  <div class="sp-note"><strong>Record this explicitly: this is a DIFFERENT key order from the party equipment
+  picker</strong>, which is <em>Level &gt; Grade &gt; Rarity &gt; Codex # &gt; Gender</em> (see
+  <a href="system-equipment.html">Equipment &amp; Auto-Optimize</a>). <strong>The two are deliberately separate
+  comparators</strong>: the party picker is choosing a creature to fight with, where rarity and codex identity matter and
+  the advancement line does not; this picker is choosing a creature to <em>spend</em>, where the line decides whether
+  grade and mutant transfer at all. <strong>They must not be unified without the designer's word.</strong></div>
+
+  <h2>The usefulness filter</h2>
+  <p>The list now offers only fodder that <strong>can actually change the consumer</strong>. The predicate is the
+  existing <code>dvJudge</code>, which returns not-ok <strong>exactly when xp, grade and mut are ALL absent</strong>
+  &mdash; the same three payouts the 2026-08-06 refusal is built on.</p>
+  <ul class="sp-rules">
+    <li><strong>It is the same judgement the preview and the execution use</strong>, so the list can never offer
+    something the confirm step would then refuse. One function, three surfaces, no second opinion about what a devour
+    pays.</li>
+    <li><strong>It is applied only once a consumer exists.</strong> With no consumer selected, <code>dvJudge</code>
+    answers <em>&ldquo;THE CREATURE IS GONE&rdquo;</em> for every candidate, so filtering on it before that point would
+    <strong>empty the window instead of filling it</strong>.</li>
+  </ul>
+  <p><strong>Consequence worth recording: the filter made &ldquo;no rows at all&rdquo; the wrong empty-state test.</strong>
+  The common empty state is now a list holding <strong>only blocked cards</strong> &mdash; the equipped and breeding
+  creatures that exist to explain where a creature went and that can never be picked. A row-count test reads that list as
+  populated and stays silent on a screen the player cannot act on. <strong>The empty message now fires on nothing
+  SELECTABLE, not on nothing at all.</strong></p>
+
+  <h2>What a devour pays &mdash; the full set, for completeness</h2>
+  <table>
+    <tr><th>Source</th><th>Payout</th></tr>
+    <tr><td>Same-line fodder of a higher grade</td><td>Raises the consumer's grade to the fodder's.</td></tr>
+    <tr><td>Mutant fodder</td><td>Makes a non-mutant consumer mutant. Never reversed.</td></tr>
+    <tr><td>Any fodder</td><td>XP transfers.</td></tr>
+    <tr><td>Blood Pellet</td><td>XP.</td></tr>
+    <tr><td>Mutagen</td><td>Mutant &mdash; and <strong>nothing at all</strong> if the consumer already is one.</td></tr>
+    <tr><td>[Grade] Essence of Power</td><td>Grade, and <strong>only</strong> if the essence outranks the consumer's grade.</td></tr>
+  </table>
+  <p class="note"><strong>Correction to earlier text on this page.</strong> <em>What can be consumed</em> above ends
+  &ldquo;Consumables sort to the top of the picker, then creatures in soul-bag order.&rdquo; The soul-bag order half is
+  stale as of 0.47 &mdash; creatures are ordered by the comparator above. The sentence is left as written; this page is
+  append-only.</p>
+
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-08-10 &mdash; the fodder picker is ordered, and it offers only fodder that can change the consumer (shipped in 0.47).</strong>
+      Order is <strong>Level &gt; Grade &gt; advancement line &gt; stage &gt; gender &gt; rarity</strong>, ending on a
+      name compare so it is total: line is alphabetical because it groups a family together rather than ranking one,
+      stage ascends within a line, and rarity is last because it does not affect what a devour pays. <strong>This is a
+      different key order from the party equipment picker</strong> (Level &gt; Grade &gt; Rarity &gt; Codex # &gt;
+      Gender) and the two are deliberately separate comparators &mdash; they must not be unified without the designer's
+      word. The usefulness filter uses the existing <code>dvJudge</code>, which returns not-ok exactly when xp, grade and
+      mut are all absent, and which is the same judgement the preview and the execution use, so the list can never offer
+      something the confirm step would refuse; it is applied only once a consumer exists, because with no consumer
+      <code>dvJudge</code> answers &ldquo;THE CREATURE IS GONE&rdquo; for everything and the window would empty instead
+      of fill. Consequence: &ldquo;no rows at all&rdquo; is no longer the right empty-state test &mdash; the common empty
+      state is a list holding only blocked (equipped/breeding) cards, so the empty message now fires on nothing
+      SELECTABLE. New sections above.</li>
     <li><strong>2026-08-07 &mdash; the fodder picker shows equipped and breeding creatures, greyed and badged (LIVE on release since 2026-08-07 (0.39)).</strong> Report #48 said they were being offered as options; measured by uid, they were not &mdash; the account simply held three creatures of the same name. They are now shown and labelled so the player can tell which is which, and a click on one says why it cannot be taken. New section above. Verified 7/7.</li>
     <li><strong>2026-08-06 &mdash; a devour that pays nothing is refused. LIVE on release since 2026-08-08 (0.42).</strong>
       There are exactly three payouts: <strong>experience, grade and mutant</strong>. If none of them moves, the
