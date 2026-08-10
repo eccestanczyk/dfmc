@@ -1597,6 +1597,74 @@ well; measured, it answers <strong>429 with <code>retry_ms</code> 15000</strong>
 <strong>24&nbsp;h</strong>. Without an explicit delete, a rename would be invisible on the board for up to a day even
 after <code>lb</code> itself carried the new name.</p>
 
+<h2>A stale device could teleport the player backwards &mdash; report #114</h2>
+<p><em>Hotfix on top of build 0.47, release commit <code>208bb79</code>. Already live.</em></p>
+<p><strong>Symptom.</strong> The player was on <strong>floor 93</strong> on his PC. He logged into his phone briefly,
+returned to the PC, and landed on <strong>floor 57</strong>.</p>
+
+<h3>Mechanism &mdash; two thirds of the doctrine were already there</h3>
+<p><code>/api/save</code> already merges two classes of stale-device damage back <em>up</em>, and both fired correctly on
+this write:</p>
+<table>
+  <tr><th>Field</th><th>Rule</th><th>Flag</th></tr>
+  <tr><td class="lbl"><code>maxFloor</code></td><td>Grow-only &mdash; the stored value is kept when the claim is lower.</td><td><code>maxfloor_regress</code></td></tr>
+  <tr><td class="lbl"><code>playerXp</code>, <code>classXp</code></td><td>Grow-only. The rule's own comment names this exact report class: <em>&ldquo;logged in on my phone and lost 20 levels is exactly this write&rdquo;</em>.</td><td><code>xp_regress_merged</code></td></tr>
+  <tr><td class="lbl"><code>floorNum</code></td><td><strong>Deliberately excluded</strong> &mdash; stored verbatim in the downward direction.</td><td>&mdash;</td></tr>
+</table>
+<p>The exclusion is not an oversight and it is documented in the <code>maxFloor</code> rule's own comment:
+<strong><em>&ldquo;floorNum is a POSITION, not progress &mdash; the player walks down floors legitimately &mdash; so it
+is ceilinged but never floored.&rdquo;</em></strong></p>
+<p><strong>That reasoning is correct about a player and wrong about a stale device.</strong> The chain, in order:</p>
+<ul>
+  <li>The phone replays an old local slot and <strong>writes a fresh <code>ts</code></strong>, so the
+  <code>ts &lt; cur[0].ts</code> staleness guard passes &mdash; the write does not look stale, because its clock is not
+  old.</li>
+  <li><code>maxFloor</code> and both XP fields are merged back up by their own grow-only rules, so nothing
+  <em>progress</em>-shaped is lost. The account still knows the player reached 93.</li>
+  <li><strong><code>floorNum</code> alone is stored verbatim</strong>, at whatever the old blob said.</li>
+  <li>The next login adopts that stored position. The player is standing on floor 57 with a <code>maxFloor</code> of 93.</li>
+</ul>
+
+<h3>The fix</h3>
+<p>When <code>maxFloor</code> <strong>had to be merged back UP</strong> &mdash; the regression case, specifically &mdash;
+<strong>and</strong> the claimed <code>floorNum</code> is <strong>below</strong> the stored one, the stored position is
+kept. Like every other server correction it is reported back in <code>srv</code>, so the client adopts the server's
+answer rather than being quietly overruled. New flag: <code>floornum_stale_writer</code>.</p>
+
+<h3>Why the signal is <code>maxFloor</code> REGRESSING and not the XP merge</h3>
+<div class="note"><p>This is the part a future session would get wrong, so it is recorded as reasoning and not just as
+a rule.</p>
+<p><strong>The XP merge is not a staleness signal.</strong> The server credits XP from its own ledger, so a perfectly
+current client <em>routinely</em> saves a slightly lower XP number simply because it has not yet seen the last credit.
+Keying this rule on <code>xp_regress_merged</code> would <strong>hold the position of ordinary players during ordinary
+play</strong> &mdash; a worse bug than the one being fixed, and one that would look like the game refusing to let people
+walk.</p>
+<p><strong><code>maxFloor</code> is unambiguous.</strong> It is grow-only <em>and</em> the server hands its value back in
+<code>srv</code>, so a current device always carries at least what the account holds. A claim below it can only come from
+a blob that <strong>predates the account's own progress</strong>. That is the definition of a stale writer, established
+without a clock.</p>
+<p><strong>The flag is set on the REGRESSION specifically.</strong> The over-claim ceiling clamp writes the same
+<code>_srvFix.maxFloor</code> key and is <strong>not</strong> a staleness signal &mdash; it is an honest client being
+capped. Testing for the presence of the key rather than for the regression would collapse the two cases.</p></div>
+
+<h3>Direction, failure mode and what is deliberately untouched</h3>
+<ul>
+  <li><strong>Downward only.</strong> A stale device claiming a <em>higher</em> floor is already handled by the
+  pre-existing ceiling rule, <code>ceil = max(ratchet + 1, storedMaxFloor)</code>. This rule refuses to teleport a player
+  backwards and does nothing else &mdash; it is not a second opinion about the upward direction.</li>
+  <li><strong>Worst case is one save not moving a position</strong>, with the next save from a current device moving it.
+  <strong>It cannot lower anything</strong> and cannot lock anyone out.</li>
+  <li><strong>It reads and writes no extra rows.</strong> Every value it uses was already loaded by the door it sits in
+  &mdash; which is what makes it affordable on the hot path.</li>
+  <li><strong>The legitimate walk-down the field was left open for is untouched.</strong> A current device carrying a
+  current <code>maxFloor</code> triggers nothing at all, and its position is taken verbatim. The rule only reaches a
+  write that has already proved itself stale on a different field.</li>
+</ul>
+<p class="foot">Gate: <code>tools/probe_floorpos.mjs</code> &mdash; <strong>14/14</strong>. It covers the reported case,
+the legitimate walk-down, a current device climbing, the pre-existing ceiling rule, the XP-lag case in
+<em>both</em> directions, and a sweep over all <strong>120</strong> claimable floors proving a stale writer can never
+lower a stored position.</p>
+
 <h2>Changelog</h2>
 <p><strong>2026-08-08 &mdash; the whole encounter is derived server-side, not just the spawn you
 clicked.</strong> <em>LIVE on release since 2026-08-08 (0.42).</em> The two battle extras were rolled by the client
@@ -1654,6 +1722,27 @@ Only SQL Stored data scales with bytes ($0.20/GB-mo over 5&nbsp;GB), ~8.4&nbsp;M
 <strong>Still triage:</strong> the real fix is the server-side inventory (~30&nbsp;KB saves), and the silent-413 hole is
 still open.</p>
   <ul>
+    <li><strong>2026-08-10 &mdash; a stale device could teleport the player backwards; <code>floorNum</code> joins the merge doctrine in the downward direction (hotfix on top of 0.47, release commit <code>208bb79</code>, live).</strong>
+      Report #114: floor 93 on the PC, a brief login on the phone, back to the PC on <strong>floor 57</strong>.
+      <code>/api/save</code> already merged two classes of stale-device damage back up &mdash; <code>maxFloor</code>
+      grow-only (<code>maxfloor_regress</code>) and <code>playerXp</code>/<code>classXp</code> grow-only
+      (<code>xp_regress_merged</code>, whose comment already named this report class) &mdash; but
+      <strong><code>floorNum</code> was deliberately excluded</strong>, on the reasoning recorded in the
+      <code>maxFloor</code> rule's own comment: <em>&ldquo;floorNum is a POSITION, not progress &mdash; the player walks
+      down floors legitimately &mdash; so it is ceilinged but never floored.&rdquo;</em> Correct about a player, wrong
+      about a stale device: a phone replaying an old local slot writes a fresh <code>ts</code>, so the
+      <code>ts &lt; cur[0].ts</code> guard passes, <code>maxFloor</code> and XP merge back up, and <code>floorNum</code>
+      alone is stored verbatim for the next login to adopt. Now, when <code>maxFloor</code> had to be merged back UP and
+      the claimed <code>floorNum</code> is below the stored one, the stored position is kept and reported in
+      <code>srv</code>; new flag <code>floornum_stale_writer</code>. <strong>The signal is deliberately the
+      <code>maxFloor</code> regression and not the XP merge</strong> &mdash; the server credits XP from its own ledger,
+      so a current client routinely saves a slightly lower XP number it has not yet seen the credit for, and keying on
+      that would hold ordinary players' positions during ordinary play. The flag is set on the regression specifically:
+      the over-claim ceiling clamp writes the same <code>_srvFix.maxFloor</code> key and is not a staleness signal.
+      Downward only &mdash; a higher claim is already handled by <code>ceil = max(ratchet + 1, storedMaxFloor)</code>.
+      Worst case is one save not moving a position, with the next current save moving it; it lowers nothing, locks nobody
+      out, and reads and writes no extra rows. New section above. Gate
+      <code>tools/probe_floorpos.mjs</code> 14/14, including a sweep over all 120 claimable floors.</li>
     <li><strong>2026-08-10 &mdash; re-fighting a cleared boss stopped spending a spawn credit (shipped in 0.47).</strong>
       <code>bossEdge</code> was one flag doing two jobs. It carried <code>floor === _mfB + 1</code> &mdash; &ldquo;the
       first clear of this boss&rdquo; &mdash; which is load-bearing for the <strong>rate-cap overdraft</strong>, because
