@@ -215,6 +215,77 @@
     <li><strong>2026-08-10 &mdash; wilds.</strong> Floor 119 fully equipped at max grade with optimized items. HP modifiers stay banned on wild creatures.</li>
   </ul>
 
+  <h2>The tower is 120 floors &mdash; the travel clamp, the autoplay gate and the board bound</h2>
+  <p><em>Shipped in <strong>0.46</strong> as a silent hotfix on 2026-08-10. LIVE on release.</em> Void Apex raised the
+  tower from <strong>100 floors to 120</strong>: <code>floors.csv</code> authors floors <strong>1&ndash;120</strong> and
+  <code>TOP_FLOOR = 120</code> is declared in <strong>both</strong> <code>play/app.js</code> and
+  <code>src/worker.js</code>. Three places still restated the retired 100-floor tower as a literal, and each one is its
+  own failure.</p>
+
+  <h3>1. <code>travel()</code> clamped to the old ceiling &mdash; players were hard-stuck on floor 100</h3>
+  <p><code>travel()</code> computed its target and then clamped it with <code>Math.min(100, target)</code>, left over
+  from the 100-floor tower. The order of operations is what made this fatal rather than merely wrong:</p>
+  <ul class="sp-rules">
+    <li><strong>Floor 100 is the Godforge boss den</strong>, so leaving the den computes <code>101</code>.</li>
+    <li>The clamp pulls <code>101</code> back to <code>100</code> &mdash; <strong>a boss floor, which has no wild
+    map</strong>.</li>
+    <li>The <strong><code>target === floorNum</code> no-op guard on the next line</strong> then compares 100 against 100
+    and <strong>returns</strong>. Every further ascend was refused for the same reason, permanently.</li>
+  </ul>
+  <p>The observable symptom is a portal that draws, accepts the click and does nothing at all &mdash; no error, no toast,
+  because the guard is a legitimate no-op path and reports nothing. <strong>0.46 had already moved the portal LABEL to
+  <code>TOP_FLOOR</code> and left the clamp behind</strong>, so the tower advertised a floor on a button that could not
+  reach it. This was an <em>incomplete migration</em>, not an unattempted one, which is why the surface looked correct.</p>
+
+  <h3>2. The autoplay advance gate carried the same literal</h3>
+  <p>Autoplay's advance test read <code>fn &lt; 100</code> &mdash; the same retired constant written a second time in a
+  second place &mdash; so autoplay stopped dead at exactly the floor the travel clamp stuck on. Both sites now read
+  <code>TOP_FLOOR</code>.</p>
+
+  <h3>3. Leaderboard plausibility rejected an Apex climb</h3>
+  <p>The plausibility check bounded a climb entry at <strong>1&ndash;100</strong>, so an Apex player's board write was
+  refused as <code>lb floor</code>: a legitimate score against a stale bound. Widened to <code>TOP_FLOOR</code>.</p>
+
+  <h3>Edge cases, verified</h3>
+  <table>
+    <tr><th>Transition</th><th>Behaviour</th></tr>
+    <tr><td class="lbl">100 &rarr; 101</td><td>Leaving the Godforge den lands on 101 instead of clamping back onto the den.</td></tr>
+    <tr><td class="lbl">101 &rarr; 103, 103 &rarr; 105</td><td>An ascend skips the even floor. <strong>Even Apex floors are boss floors and are never landed on</strong> by an ascend.</td></tr>
+    <tr><td class="lbl">119 &rarr; 120</td><td>Permitted &mdash; 120 is the authored top floor.</td></tr>
+    <tr><td class="lbl">120 &rarr; ascend</td><td><strong>Refused.</strong> 120 is the true summit; this is the one floor where the ceiling and the no-op guard are supposed to agree.</td></tr>
+    <tr><td class="lbl">101 &rarr; descend</td><td>Routes <em>through</em> the Godforge den at 100 and does <strong>not</strong> refuse. Descending onto a boss floor is legal; only an ascend skips one.</td></tr>
+  </table>
+
+  <div class="sp-note"><strong>Do not &ldquo;fix&rdquo; the ground plate clamp.</strong> Ground plate art exists only to
+  floor 100. <code>Math.min(100, fn)</code> on the <strong>plate URL</strong> is a <strong>deliberate fallback</strong>
+  so an Apex floor draws floor 100's plate instead of requesting an asset that was never authored. It is the same
+  expression as the retired travel clamp, and it is the one place that expression is correct. It is not a leftover.
+  Removing it breaks the ground on every Apex floor.</div>
+
+  <div class="sp-note"><strong>Correction to earlier text on this page (2026-08-10).</strong> Three statements above
+  predate 0.46 and are now wrong. They are left in place &mdash; this page is append-only &mdash; and corrected here:
+  <ul class="sp-rules">
+    <li>The lead reads <em>&ldquo;Design settled 2026-08-10 (D rulings); not yet implemented.&rdquo;</em> The Apex is implemented and shipped.</li>
+    <li><strong>Status</strong> reads <em>&ldquo;Playable on <code>/dev/</code> as of 2026-08-10; nothing on release.&rdquo;</em> 0.46 is on release as of 2026-08-10.</li>
+    <li><strong>What still needs code</strong> opens <em>&ldquo;Four hardcoded assumptions block the Apex&rdquo;</em>. Its two surviving list items are both marked DONE, and the three literals fixed in 0.46 &mdash; the travel clamp, the autoplay gate, the board bound &mdash; were further restatement sites that section never enumerated.</li>
+  </ul></div>
+
+  <h2>Changelog</h2>
+  <ul class="sp-rules">
+    <li><strong>2026-08-10 &mdash; the 100-floor tower stopped being written into the code in three more places; players were hard-stuck on floor 100 (shipped in <strong>0.46</strong> as a silent hotfix, LIVE on release since 2026-08-10).</strong>
+      <code>travel()</code> still clamped its target with <code>Math.min(100, target)</code>. Leaving the Godforge den
+      computes 101, the clamp pulled it to 100 &mdash; a boss floor with no wild map &mdash; and the
+      <code>target === floorNum</code> guard on the next line then refused every further ascend, with the portal drawing
+      and clicking and doing nothing. 0.46 had moved the portal label to <code>TOP_FLOOR</code> and left the clamp, so
+      the migration was incomplete rather than missing. The autoplay advance gate carried the same literal
+      (<code>fn &lt; 100</code>) and stalled at the same floor, and leaderboard plausibility bounded a climb entry at
+      1&ndash;100 and rejected an Apex board write as <code>lb floor</code>; both now read <code>TOP_FLOOR</code>.
+      Verified: 100&rarr;101; 101&rarr;103 and 103&rarr;105 (even Apex floors are boss floors and are never landed on);
+      119&rarr;120; 120 refuses to ascend; descending from 101 routes through the Godforge den without refusing. The
+      <code>Math.min(100, fn)</code> on the ground plate URL is recorded as deliberate and must not be removed.
+      Changelog section created &mdash; this page had none, and the Rulings log records design decisions, not builds.</li>
+  </ul>
+
   <div class="sp-note">Related: <a href="system-streak.html">Win Streak &amp; Floors</a> for the main-tower threshold this zone overrides, <a href="droptables.html">Droptables</a> for the floor 1&ndash;100 grade weights, <a href="eggs.html">Eggs</a> for the hatch-weight matrix that Apex eggs feed, and <a href="system-mutants.html">Mutant Variants</a> for the cosmetic roll the &uuml;ber bosses borrow their look from.</div>
 </div>
 
