@@ -127,12 +127,21 @@
   <h2>Server authority</h2>
   <p>The most valuable content in the game is also the first content built server-authoritative end to end: the key drop roll, the key debit on entry, the Apex floor clear, and every &uuml;ber reward are all server-side, granted only against an open server-held boss session. A disconnect pauses and resumes through the deterministic replay; no refund, no offline credit. All five Apex tables ship pinned like every other data file.</p>
 
+  <h2>Art</h2>
+  <ul class="sp-rules">
+    <li><strong>Placeholder, live now (D ruling 2026-08-10): a black void filled with small gray stars.</strong> No terrain, no horizon, no colour. Procedurally generated, not from the art pipeline &mdash; a stand-in until real Apex art is authored.</li>
+    <li>One shared asset set for the whole zone, reused by all twenty floors, exactly as the floor sheet's asset-pool decoupling intends: <code>floors/backgrounds/voidapex.png</code> (1536&times;1024, grind floors), <code>floors/backgrounds/voidapex_boss.png</code> (1024&times;1024, boss arenas), <code>floors/parallax/voidapex_par.png</code> (2304&times;1024).</li>
+    <li>Rows 101&ndash;120 exist in <code>codex/floor_assets.csv</code> with zone <em>Void Apex</em>, theme <em>The Starless Void</em>, and <code>BG_Status</code> / <code>Parallax_Status</code> = <code>placeholder</code>.</li>
+    <li><strong>No props</strong> in the Apex &mdash; the void is empty by design. <strong>Ground plate not authored</strong>: pending a ruling on whether these floors have a walkable surface at all, or creatures simply hang in the void.</li>
+  </ul>
+
   <h2>Rulings log</h2>
   <ul class="sp-rules">
     <li><strong>2026-08-10 &mdash; structure.</strong> Alternating floors: odd spawn, even boss, ten bosses. Progress persists. No map teleport and no creature list, and any creature can spawn on any Apex floor. Autoplay normal. 30 wins per grind floor. One key per 12 hours.</li>
     <li><strong>2026-08-10 &mdash; drops.</strong> All Apex drops at least Rare; the final three grades can never drop; higher grades get commoner with each boss floor but the top of the band stays very rare. Curve simulated and tuned before authoring.</li>
     <li><strong>2026-08-10 &mdash; eggs.</strong> No Abyssal eggs. Higher-rarity eggs made commoner instead, through the spawn mix and the boss egg weights.</li>
     <li><strong>2026-08-10 &mdash; keys.</strong> Pure rolls. No guarantee.</li>
+    <li><strong>2026-08-10 &mdash; art.</strong> Placeholder background is a black void with gray stars.</li>
     <li><strong>2026-08-10 &mdash; wilds.</strong> Floor 119 fully equipped at max grade with optimized items. HP modifiers stay banned on wild creatures.</li>
   </ul>
 
