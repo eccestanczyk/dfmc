@@ -165,6 +165,10 @@
 
   <div class="sp-note"><strong>Data note &mdash; there is no second copy.</strong> Every Apex table lives in this repo and nowhere else, exactly like the rest of the game data. Dev reads live <code>main</code>, so Apex tables are visible on <code>/dev/</code> as soon as they are committed; release reads the immutable <code>DATA_PIN</code> snapshot, so nothing here can reach live players until a release advances the pin. That is why the design and its data can land in full while the code is still unwritten.</div>
 
+  <h3>Signature rules in battle</h3>
+  <p><strong>Built and live on dev 2026-08-10.</strong> A signature rule is not a hidden script &mdash; it is a <strong>status on the boss</strong>, visible from the moment the fight starts, sitting on the buff side of its plate like anything else happening to a unit. It carries a <strong>red screaming skull</strong> in place of the usual effect icon, and its parchment is recoloured dark grey and black so it cannot be mistaken for an ordinary buff. Hovering it shows the rule in full, ending with <strong>&ldquo;This cannot be removed.&rdquo;</strong> There is no duration line, because it never expires, never stacks and cannot be cleansed.</p>
+  <p>Authored per boss row as <code>Signature_Name</code> and <code>Signature_Rule</code>, so a boss without one simply has no chip. The chip&rsquo;s parchment became data-driven across all twelve status blocks rather than hardcoded per side, which is what let a third kind of paper exist at all. <strong>Displayed, not yet enforced:</strong> the battle engine does not read the rule text &mdash; the ten mechanics still have to be implemented one by one.</p>
+
   <h2>Server authority</h2>
   <p>The most valuable content in the game is also the first content built server-authoritative end to end: the key drop roll, the key debit on entry, the Apex floor clear, and every &uuml;ber reward are all server-side, granted only against an open server-held boss session. A disconnect pauses and resumes through the deterministic replay; no refund, no offline credit. All five Apex tables ship pinned like every other data file.</p>
 
