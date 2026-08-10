@@ -59,9 +59,18 @@ def mutate(path, cid, out_path):
     Image.fromarray(out,'RGBA').save(out_path, 'WEBP', quality=95, method=4, exact=True)
 
 if __name__ == '__main__':
+    # `python3 tools/make_mutants.py [outdir] [bosses]`
+    # Default source is codex/creatures.csv. Pass `bosses` to derive the Void Apex
+    # uber-boss portraits from codex/bosses.csv instead (same remap, same determinism,
+    # keyed on Boss_ID so BOSS-010.png -> mutants/BOSS-010.webp).
     outdir = sys.argv[1] if len(sys.argv) > 1 else 'codex/images/mutants'
+    mode = sys.argv[2] if len(sys.argv) > 2 else 'creatures'
     os.makedirs(outdir, exist_ok=True)
-    rows = list(csv.DictReader(open('codex/creatures.csv')))
+    if mode == 'bosses':
+        rows = [{'ID': r['Boss_ID'], 'Image_Path': r['Image_Path']}
+                for r in csv.DictReader(open('codex/bosses.csv'))]
+    else:
+        rows = list(csv.DictReader(open('codex/creatures.csv')))
     done = skipped = 0
     for r in rows:
         p = r.get('Image_Path','').strip()
