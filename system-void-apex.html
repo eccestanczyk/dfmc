@@ -141,7 +141,7 @@
   <p><strong>The Apex extends the tables the game already reads &mdash; it does not add its own.</strong> Floors 101&ndash;120 are just more rows, so the server picks them up with no change to its data layer:</p>
   <table>
     <tr><th>Table</th><th>What the Apex adds</th></tr>
-    <tr><td class="lbl">floors.csv</td><td>20 rows, zone <em>Void Apex</em>, <code>Is_Boss</code> alternating &mdash; this is what makes every even floor a boss room, not a floor-number rule</td></tr>
+    <tr><td class="lbl">floors.csv</td><td>20 rows, zone <em>Void Apex</em>, <code>Is_Boss</code> alternating &mdash; this is what makes every even floor a boss room, not a floor-number rule &mdash; plus a new <code>Wins_To_Clear</code> column on all 120 rows: <code>ceil(floor^0.65)</code> for 1&ndash;100 so the tower is byte-identical to before, and a flat <strong>30</strong> for 101&ndash;120</td></tr>
     <tr><td class="lbl">encounter_weights.csv</td><td>20 rows: the SR/SSR ramp on grind floors, zeroed on boss floors</td></tr>
     <tr><td class="lbl">wild_quality_weights.csv</td><td>4 new grade columns (Abyssal&ndash;Void, zero on every pre-existing band) and 10 per-floor Apex bands</td></tr>
     <tr><td class="lbl">drop_grade_weights.csv</td><td>80 rows &mdash; a single-floor band per Apex floor, Rare through Abyssal</td></tr>
@@ -159,7 +159,7 @@
     
     
     
-    <li><strong>Client &mdash; this is the real work.</strong> The 30-win threshold has to replace <code>ceil(floor^0.65)</code> in four places; the every-tenth-floor boss assumption appears in seven; travel is hard-clamped with <code>Math.min(100, target)</code> and the ascend button is disabled at floor 100.</li>
+    <li><strong>Client &mdash; DONE on dev 2026-08-10.</strong> The 100-floor tower was written into the client in 25 places. <code>TOP_FLOOR</code> replaces the travel ceiling; <code>bossAt()</code> reads <code>Is_Boss</code> from floors.csv (already loaded) so a boss on every even floor is expressible at last; <code>winsToClear()</code> reads the authored <code>Wins_To_Clear</code> instead of restating <code>ceil(floor^0.65)</code> in four places. Both helpers fall back to the retired rules only when the sheet has not loaded, because the client fails open on a failed CSV fetch. <strong>The Apex is reachable and its 30-win threshold is live on dev.</strong></li>
     <li><strong>Client &mdash; wild virtual gear: FIXED on dev 2026-08-10.</strong> <code>wildTags()</code> derived the tag tier as <code>ceil(floor/10)</code>, which is 11 at floor 101 and 12 at 119; no Tag item exists at those tiers, so the lookup missed and every Apex wild would have carried <strong>zero</strong> virtual gear, silently. Tier now clamps at 10. Note the standing limit this exposes: a wild's tag is a single implicit scaled by tier and quality grade, and wilds have no gem, rune or enchant sockets &mdash; so above floor 100 the tag value is flat and <strong>quality is the only lever that still grows enemy gear</strong>, which is exactly what the quality ladder is doing.</li>
   </ul>
 
