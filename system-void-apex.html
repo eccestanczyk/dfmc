@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Void Apex &mdash; Herumon Tower</title>
+<link rel="stylesheet" href="theme.css?v=4">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">VOID APEX</h1></div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; Void Apex</div>
+  <p class="sp-lead">The postgame zone above floor 100 &mdash; twenty floors of maxed-out wild creatures and ten &uuml;ber bosses behind consumable keys. Best rewards in the game, no shortcuts to reach them. <strong>Design settled 2026-08-10 (D rulings); not yet implemented.</strong></p>
+
+  <h2>Shape of the zone</h2>
+  <ul class="sp-rules">
+    <li><strong>Zone 11, floors 101&ndash;120</strong>, shown as corrupted numerals (<code>???1</code> &hellip; <code>??2&Oslash;</code>). Unlocked by clearing floor 100.</li>
+    <li><strong>Odd floors spawn, even floors are boss rooms</strong> &mdash; ten grind floors (101&ndash;119) alternating with ten &uuml;ber bosses (102&ndash;120).</li>
+    <li><strong>No fast travel.</strong> Apex floors never appear in the map selector; movement is portal-only and sequential. <strong>Progress persists</strong> &mdash; the highest Apex floor reached is kept, this is not a gauntlet that restarts each session.</li>
+    <li><strong>No creature list.</strong> Apex floors publish no spawn roster anywhere in the client or codex, and <strong>any creature in the game can spawn on any Apex floor</strong>. What appears where is community knowledge, not a table the player is handed.</li>
+    <li><strong>30 wins per grind floor</strong> opens the boss room above it &mdash; a flat threshold, replacing <code>ceil(floor^0.65)</code> inside the Apex.</li>
+    <li><strong>Autoplay behaves normally</strong> on every Apex floor, grind and boss alike.</li>
+    <li>Wild creatures stay at <strong>level 100</strong> &mdash; the cap is not raised. Everything that makes an Apex creature stronger comes from its build.</li>
+  </ul>
+
+  <h2>Wild creature tuning</h2>
+  <p>Four dials ramp per grind floor. Floor 101 continues the live floor-99 wild exactly; floor 119 is a fully equipped, max-grade, optimized creature. Boss floors carry zero rows, matching the existing convention on floors 10&hellip;100.</p>
+
+  <h3>Quality grade &mdash; <code>codex/apex_wild_quality_weights.csv</code></h3>
+  <p>Continues zone 10's live band (Epic 40 / Legendary 60) and marches to pure Void at 119. This is an <strong>enemy-side</strong> ladder only: the Legendary cap on wild quality for players, and the reward economy, are untouched &mdash; enemy quality has never fed drops.</p>
+  <table>
+    <tr><th>Floor</th><th>Epic</th><th>Legendary</th><th>Abyssal</th><th>Divine</th><th>Primordial</th><th>Void</th></tr>
+    <tr><td class="lbl">101</td><td>30</td><td>60</td><td>10</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+    <tr><td class="lbl">103</td><td>15</td><td>60</td><td>25</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+    <tr><td class="lbl">105</td><td>&mdash;</td><td>55</td><td>35</td><td>10</td><td>&mdash;</td><td>&mdash;</td></tr>
+    <tr><td class="lbl">107</td><td>&mdash;</td><td>35</td><td>45</td><td>20</td><td>&mdash;</td><td>&mdash;</td></tr>
+    <tr><td class="lbl">109</td><td>&mdash;</td><td>15</td><td>50</td><td>30</td><td>5</td><td>&mdash;</td></tr>
+    <tr><td class="lbl">111</td><td>&mdash;</td><td>&mdash;</td><td>40</td><td>40</td><td>20</td><td>&mdash;</td></tr>
+    <tr><td class="lbl">113</td><td>&mdash;</td><td>&mdash;</td><td>20</td><td>45</td><td>30</td><td>5</td></tr>
+    <tr><td class="lbl">115</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>35</td><td>45</td><td>20</td></tr>
+    <tr><td class="lbl">117</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>10</td><td>40</td><td>50</td></tr>
+    <tr><td class="lbl">119</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td><strong>100</strong></td></tr>
+  </table>
+
+  <h3>Virtual gear &mdash; <code>codex/apex_wild_gear.csv</code></h3>
+  <p>Both combat tags as today (Fang + Carapace, T10), but now <em>graded</em>, with every slot the grade allows filled at that same grade.</p>
+  <table>
+    <tr><th>Floor</th><th>Gear grade</th><th>Gems / tag</th><th>Runes / tag</th><th>Enchants / tag</th><th>AI tier</th></tr>
+    <tr><td class="lbl">101</td><td>Rare</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+    <tr><td class="lbl">103</td><td>Epic</td><td>2</td><td>1</td><td>1</td><td>1</td></tr>
+    <tr><td class="lbl">105</td><td>Legendary</td><td>2</td><td>2</td><td>1</td><td>2</td></tr>
+    <tr><td class="lbl">107</td><td>Legendary</td><td>2</td><td>2</td><td>1</td><td>2</td></tr>
+    <tr><td class="lbl">109</td><td>Abyssal</td><td>2</td><td>2</td><td>2</td><td>2</td></tr>
+    <tr><td class="lbl">111</td><td>Abyssal</td><td>2</td><td>2</td><td>2</td><td>2</td></tr>
+    <tr><td class="lbl">113</td><td>Divine</td><td>3</td><td>2</td><td>2</td><td>3</td></tr>
+    <tr><td class="lbl">115</td><td>Divine</td><td>3</td><td>2</td><td>2</td><td>3</td></tr>
+    <tr><td class="lbl">117</td><td>Primordial</td><td>3</td><td>3</td><td>2</td><td>3</td></tr>
+    <tr><td class="lbl">119</td><td><strong>Void</strong></td><td><strong>3</strong></td><td><strong>3</strong></td><td><strong>3</strong></td><td>3</td></tr>
+  </table>
+
+  <div class="sp-note"><strong>The optimization rule &mdash; deterministic, no per-species authoring.</strong> Every gem, rune and enchant on an Apex wild takes that species' dominant axis: <code>Grade_Attack &ge; Grade_Defense</code> &rarr; Garnet / Ruin / Attack enchants, otherwise Onyx / Aegis / Defense. It is the same comparison that already chooses Fang vs Carapace, so 300 lines need no hand-built loadouts. <strong>HP modifiers stay banned on wilds</strong> (Heart, Bloodstone, Vitality) &mdash; enemy HP scales through quality alone, which is what keeps a fully-geared floor-119 creature killable while its offensive and defensive numbers max out. D ruling 2026-08-10.</div>
+
+  <h3>AI tiers</h3>
+  <div class="sp-cards">
+    <div class="sp-tile"><h4>Tier 1</h4><p>Focus the lowest-HP target. Floors 101&ndash;103.</p></div>
+    <div class="sp-tile"><h4>Tier 2</h4><p>Adds Anti-clause exploitation and holds high-cooldown moves for kill windows. Floors 105&ndash;111.</p></div>
+    <div class="sp-tile"><h4>Tier 3</h4><p>Adds priority targeting of the player's utility creature and status-opener sequencing. Floors 113&ndash;119, and every &uuml;ber boss.</p></div>
+  </div>
+  <p><strong>The dice are never bent.</strong> The 0.9&ndash;1.1 damage roll, accuracy and every other chance stay exactly as they are at all tiers &mdash; difficulty comes from stats, kits and decisions. Battles are deterministic replays, so a biased roll would be provable from a log anyway.</p>
+
+  <h3>Resulting power</h3>
+  <p>Grade-10 striker profile, dominant axis, compared against the equivalent floor-99 wild today (~840).</p>
+  <table>
+    <tr><th>Floor</th><th>101</th><th>105</th><th>109</th><th>113</th><th>117</th><th>119</th></tr>
+    <tr><td class="lbl">Dominant stat</td><td>~1,470</td><td>~2,250</td><td>~2,670</td><td>~3,440</td><td>~4,270</td><td><strong>~5,000</strong></td></tr>
+    <tr><td class="lbl">vs floor 99</td><td>1.7&times;</td><td>2.7&times;</td><td>3.2&times;</td><td>4.1&times;</td><td>5.1&times;</td><td><strong>6.0&times;</strong></td></tr>
+    <tr><td class="lbl">HP</td><td>612</td><td>630</td><td>647</td><td>669</td><td>698</td><td>712</td></tr>
+  </table>
+  <p style="font-size:13px;color:var(--ink-faint)">A floor-119 wild sits at the "maxed creature" end of the validated max-vs-max damage bands, so cap battles land around 10&ndash;16 turns; entry floors run ~8&ndash;14 turns for a fresh floor-100 player. Postgame-length fights, autoplay throughput broadly held.</p>
+
+  <h2>Drops</h2>
+  <p>Every Apex drop rolls one of four grades &mdash; <strong>Rare, Epic, Legendary, Abyssal</strong>. Rare is the floor: nothing worse ever drops in the Apex. Divine, Primordial and Void <strong>never</strong> drop and remain upgrade-only. Each drop reads its own floor's row; boss loot reads the boss floor's row. Existing rates are untouched: three independent 10% rolls per battle, and two guaranteed drops per boss kill.</p>
+  <p>Full 20-row curve in <code>codex/apex_drop_grade_weights.csv</code>. Boss floors:</p>
+  <table>
+    <tr><th>Boss floor</th><th>Rare</th><th>Epic</th><th>Legendary</th><th>Abyssal</th></tr>
+    <tr><td class="lbl">102</td><td>67.5%</td><td>29.0%</td><td>3.4%</td><td>0.12%</td></tr>
+    <tr><td class="lbl">104</td><td>54.6%</td><td>40.9%</td><td>4.4%</td><td>0.15%</td></tr>
+    <tr><td class="lbl">106</td><td>44.1%</td><td>50.1%</td><td>5.6%</td><td>0.20%</td></tr>
+    <tr><td class="lbl">108</td><td>35.7%</td><td>56.9%</td><td>7.2%</td><td>0.27%</td></tr>
+    <tr><td class="lbl">110</td><td>28.9%</td><td>61.6%</td><td>9.2%</td><td>0.36%</td></tr>
+    <tr><td class="lbl">112</td><td>23.4%</td><td>64.4%</td><td>11.8%</td><td>0.48%</td></tr>
+    <tr><td class="lbl">114</td><td>18.9%</td><td>65.3%</td><td>15.2%</td><td>0.64%</td></tr>
+    <tr><td class="lbl">116</td><td>15.3%</td><td>64.4%</td><td>19.4%</td><td>0.85%</td></tr>
+    <tr><td class="lbl">118</td><td>12.4%</td><td>61.6%</td><td>24.9%</td><td>1.13%</td></tr>
+    <tr><td class="lbl">120</td><td>10.0%</td><td>56.5%</td><td><strong>32.0%</strong></td><td><strong>1.50%</strong></td></tr>
+  </table>
+  <p>Simulated, grind drops and boss loot combined: a dedicated player (12&nbsp;h/day) sees an Abyssal drop about once every nine days on the entry floors, once every three days mid-zone, and a little over one a day at the cap. A casual player (3&nbsp;h/day) is roughly four times slower. This does not devalue the chase &mdash; Legendary&nbsp;&rarr;&nbsp;Abyssal already costs only ~40 Ichor in expectation, so an Abyssal drop is worth a Legendary base plus about four hours of income.</p>
+
+  <h2>Eggs</h2>
+  <ul class="sp-rules">
+    <li><strong>Grade band Rare&ndash;Legendary.</strong> Eggs use the same curve with the Abyssal share folded into Legendary &mdash; so the Legendary-grade egg chance rises instead: 3.1% on floor 101, 29.6% on floor 119, 33.5% from the floor-120 boss. <strong>No Abyssal eggs</strong> (D ruling 2026-08-10); breeding stays the only path above Legendary.</li>
+    <li><strong>Rarity climbs on two levers.</strong> The spawn mix itself shifts toward SR and SSR with depth (<code>codex/apex_spawn_rarity_weights.csv</code>) &mdash; floor 101 continues floor 99's live mix, and SSR grows from 12% of spawns to 50% by floor 119. Since a wild egg is the defeated line's own egg and the roll is rarity-scaled, the egg mix follows automatically: <strong>SSR share of wild eggs 29.6% &rarr; 68.2%</strong>.</li>
+    <li><strong>Boss eggs re-authored</strong> (<code>codex/apex_boss_egg_rarity.csv</code>), replacing the main tower's 30/30/20/10/10: 12/18/25/22/23 at boss 102, ramping to 2/5/13/30/50 at boss 120 (C/UC/R/SR/SSR).</li>
+    <li>Yield, simulated: a dedicated player pulls ~18 SSR eggs a day mid-zone and ~25 a day at the cap, of which roughly 1.5 and 7.4 respectively are Legendary grade.</li>
+  </ul>
+
+  <h2>&Uuml;ber keys</h2>
+  <ul class="sp-rules">
+    <li>One key type per boss (<code>ITM-UKEY-102</code>&hellip;<code>ITM-UKEY-120</code>). <strong>A grind floor drops only the key for the boss directly above it</strong> &mdash; farm 109 to fight 110. Climbing is what adds new key types to the pool.</li>
+    <li><strong>Consumed on boss entry, not on victory.</strong> A wipe burns the key.</li>
+    <li>Per-kill roll, rarity-scaled and normalized like zone keys, <strong>rolled and debited server-side</strong>. Rate: expected <strong>one key per ~12 hours</strong> of Apex play (~360 battles).</li>
+    <li><strong>Pure roll &mdash; no pity, no timer, no guaranteed key</strong> (D ruling 2026-08-10). Half of all keys arrive inside ~8.3&nbsp;h; one in ten takes over ~27.6&nbsp;h; one in a hundred over ~55&nbsp;h. There is no guaranteed-key equivalent of the floor-9 zone rule.</li>
+  </ul>
+
+  <h2>&Uuml;ber bosses</h2>
+  <ul class="sp-rules">
+    <li>Ten bosses, one per even floor. Each is a mutant apex form of a Stage-3 line &mdash; the mutant palette becomes the boss-tier visual signature. Hatched mutants stay purely cosmetic; this is the first mechanical use of the look.</li>
+    <li>Stats sit above anything legally reachable at level 100, on an explicit budget per boss rather than the creature formula &mdash; same approach as the existing boss HP budget.</li>
+    <li>AI tier 3, plus <strong>one signature rule each</strong>: a mechanic to solve rather than a wall to out-stat, so a spent key buys an attempt at a puzzle.</li>
+    <li><strong>Still to author:</strong> the per-boss stat budgets, the ten signature rules, and the boss roster itself.</li>
+  </ul>
+
+  <h2>Server authority</h2>
+  <p>The most valuable content in the game is also the first content built server-authoritative end to end: the key drop roll, the key debit on entry, the Apex floor clear, and every &uuml;ber reward are all server-side, granted only against an open server-held boss session. A disconnect pauses and resumes through the deterministic replay; no refund, no offline credit. All five Apex tables ship pinned like every other data file.</p>
+
+  <h2>Rulings log</h2>
+  <ul class="sp-rules">
+    <li><strong>2026-08-10 &mdash; structure.</strong> Alternating floors: odd spawn, even boss, ten bosses. Progress persists. No map teleport and no creature list, and any creature can spawn on any Apex floor. Autoplay normal. 30 wins per grind floor. One key per 12 hours.</li>
+    <li><strong>2026-08-10 &mdash; drops.</strong> All Apex drops at least Rare; the final three grades can never drop; higher grades get commoner with each boss floor but the top of the band stays very rare. Curve simulated and tuned before authoring.</li>
+    <li><strong>2026-08-10 &mdash; eggs.</strong> No Abyssal eggs. Higher-rarity eggs made commoner instead, through the spawn mix and the boss egg weights.</li>
+    <li><strong>2026-08-10 &mdash; keys.</strong> Pure rolls. No guarantee.</li>
+    <li><strong>2026-08-10 &mdash; wilds.</strong> Floor 119 fully equipped at max grade with optimized items. HP modifiers stay banned on wild creatures.</li>
+  </ul>
+
+  <div class="sp-note">Related: <a href="system-streak.html">Win Streak &amp; Floors</a> for the main-tower threshold this zone overrides, <a href="droptables.html">Droptables</a> for the floor 1&ndash;100 grade weights, <a href="eggs.html">Eggs</a> for the hatch-weight matrix that Apex eggs feed, and <a href="system-mutants.html">Mutant Variants</a> for the cosmetic roll the &uuml;ber bosses borrow their look from.</div>
+</div>
+
+<script src="admin.js"></script>
+<script src="nav.js"></script>
+</body>
+</html>
