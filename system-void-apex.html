@@ -136,6 +136,30 @@
   <p><strong>Portraits are done and cost nothing.</strong> Each &uuml;ber portrait is the deterministic mutant recolour of the approved boss art, produced by <code>tools/make_mutants.py</code> &mdash; the same hue-cluster remap that makes every creature mutant, seeded from the boss id, luminance untouched. Run it with <code>python3 tools/make_mutants.py codex/images/mutants bosses</code>; output is <code>codex/images/mutants/BOSS-0X0.webp</code>, exactly where anything already looks for the mutant of that id. No image generation, no matte pass, no credits.</p>
   <div class="sp-note"><strong>Move powers are deliberately NOT inflated.</strong> The authored power bands top out at 160 (Nuke, CD3&ndash;4) and every one of these bosses already sits on that ceiling, so the &uuml;ber kits carry over from <a href="bosses.html">bosses.csv</a> verbatim &mdash; same four moves, same powers, same cooldowns, same synergy text. Raising them would put numbers outside the band system every other move in the game is balanced against. The uplift lives entirely in grades, HP, AI tier and the signature rule. Kits and synergy strings are copied into <code>codex/uber_bosses.csv</code> so the &uuml;ber row is self-contained and can be retuned later without touching the tower boss. <strong>Overturn this if you want &uuml;ber-only powers above the band.</strong></div>
 
+  <h2>Where the data lives</h2>
+  <p><strong>The Apex extends the tables the game already reads &mdash; it does not add its own.</strong> Floors 101&ndash;120 are just more rows, so the server picks them up with no change to its data layer:</p>
+  <table>
+    <tr><th>Table</th><th>What the Apex adds</th></tr>
+    <tr><td class="lbl">floors.csv</td><td>20 rows, zone <em>Void Apex</em>, <code>Is_Boss</code> alternating &mdash; this is what makes every even floor a boss room, not a floor-number rule</td></tr>
+    <tr><td class="lbl">encounter_weights.csv</td><td>20 rows: the SR/SSR ramp on grind floors, zeroed on boss floors</td></tr>
+    <tr><td class="lbl">wild_quality_weights.csv</td><td>4 new grade columns (Abyssal&ndash;Void, zero on every pre-existing band) and 10 per-floor Apex bands</td></tr>
+    <tr><td class="lbl">drop_grade_weights.csv</td><td>80 rows &mdash; a single-floor band per Apex floor, Rare through Abyssal</td></tr>
+    <tr><td class="lbl">key_drop_rates.csv</td><td>10 rows, one per &uuml;ber key, each tuned to 1 per 360 battles</td></tr>
+    <tr><td class="lbl">floor_creature_rarity.csv</td><td>1,000 rows &mdash; all 100 lines on all 10 grind floors, which is the &ldquo;anything can spawn here&rdquo; ruling in data</td></tr>
+    <tr><td class="lbl">items.csv</td><td>the ten &uuml;ber keys</td></tr>
+    <tr><td class="lbl">uber_bosses.csv</td><td>the only genuinely new file &mdash; nothing existing describes a returning boss</td></tr>
+  </table>
+
+  <h2>What still needs code</h2>
+  <p>Four hardcoded assumptions block the Apex. Each is small, and each is a place where today's code restates &ldquo;the tower is 100 floors of 10-floor zones&rdquo; instead of reading it:</p>
+  <ul class="sp-rules">
+    <li><strong>Server &mdash; the save gate refuses floors above 100.</strong> <code>floorNum &gt;= 1 &amp;&amp; &lt;= 100</code> rejects an Apex save outright.</li>
+    <li><strong>Server &mdash; <code>floor % 10 === 0</code> in the drop path.</strong> Floor 102 is a boss floor by <code>Is_Boss</code> but not by that test, so boss loot would not fire. The floors table already knows the answer.</li>
+    <li><strong>Server &mdash; enemy quality is capped at Legendary</strong> by a six-entry grade list, and <strong>item tier is the zone index</strong>, so a new eleventh zone asks for tier-11 items that do not exist. Extend the list; clamp the tier at 10.</li>
+    <li><strong>Client &mdash; this is the real work.</strong> The 30-win threshold has to replace <code>ceil(floor^0.65)</code> in four places; the every-tenth-floor boss assumption appears in seven; travel is hard-clamped with <code>Math.min(100, target)</code> and the ascend button is disabled at floor 100.</li>
+    <li><strong>Client &mdash; wild virtual gear breaks silently above floor 100.</strong> <code>wildTags()</code> derives the tag tier as <code>ceil(floor/10)</code>, which is 11 or 12 in the Apex; no Tag item exists at those tiers, so the lookup misses and every Apex wild would carry <strong>zero</strong> tags with no warning. Clamp the tier at 10. Note also that a wild's tag value is a single implicit scaled by tier and quality grade &mdash; wilds have no gem, rune or enchant slots at all, so quality is the only lever that grows their gear.</li>
+  </ul>
+
   <div class="sp-note"><strong>Data note &mdash; there is no second copy.</strong> Every Apex table lives in this repo and nowhere else, exactly like the rest of the game data. Dev reads live <code>main</code>, so Apex tables are visible on <code>/dev/</code> as soon as they are committed; release reads the immutable <code>DATA_PIN</code> snapshot, so nothing here can reach live players until a release advances the pin. That is why the design and its data can land in full while the code is still unwritten.</div>
 
   <h2>Server authority</h2>
@@ -158,6 +182,7 @@
     <li><strong>2026-08-10 &mdash; &uuml;ber bosses.</strong> The ten bosses are mutant returns of the tower's own bosses, in original order, with HP budgets derived from the live boss anchor and one signature rule each.</li>
     <li><strong>2026-08-10 &mdash; art.</strong> Placeholder background is a black void with gray stars; the ground plate uses the same image treatment.</li>
     <li><strong>2026-08-10 &mdash; boss loot.</strong> No separate per-boss loot tables. Shared Apex pool, higher grade odds the deeper the boss.</li>
+    <li><strong>2026-08-10 &mdash; data shape.</strong> Apex data extends the existing tables rather than adding parallel ones, so the server reads the new floors with no data-layer change.</li>
     <li><strong>2026-08-10 &mdash; kits.</strong> &Uuml;ber bosses inherit their source kit verbatim; move powers are not raised past the authored 160 band ceiling.</li>
     <li><strong>2026-08-10 &mdash; portraits.</strong> Derived with the existing mutant generator, not generated. The tool gained a <code>bosses</code> mode.</li>
     <li><strong>2026-08-10 &mdash; wilds.</strong> Floor 119 fully equipped at max grade with optimized items. HP modifiers stay banned on wild creatures.</li>
