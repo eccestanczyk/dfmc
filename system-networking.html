@@ -1513,6 +1513,90 @@ with an <strong>empty client kills array</strong>. Full regression, all green:
 <code>probe_enchant</code> 9/9, <code>probe_eggroll</code> 8/8, <code>probe_sexroll</code> 8/8,
 <code>probe_upghang</code> 14/14.</p>
 
+<h2>Spawn credits and boss floors &mdash; one flag was doing two jobs</h2>
+<p><em>Build 0.47.</em> <code>bossEdge</code> gated two unrelated rules at once, and the two rules do not want the same
+test.</p>
+<table>
+  <tr><th>Rule</th><th>What it needs to know</th><th>Why</th></tr>
+  <tr><td class="lbl">The <strong>spawn-credit skip</strong></td><td><em>&ldquo;Is this a boss floor?&rdquo;</em> Nothing else.</td><td>A boss floor has no wild slots, so there is nothing for a credit to buy. Charging one is charging for a spawn that does not exist.</td></tr>
+  <tr><td class="lbl">The <strong>rate-cap overdraft</strong></td><td><em>&ldquo;Is this the first clear of this boss?&rdquo;</em> &mdash; <code>floor === _mfB + 1</code>.</td><td>The <code>_mfB</code> ratchet is <strong>monotonic</strong>, so that equality can be true at most once per boss per account. That is what <strong>bounds the overdraft to one</strong>; without it the allowance would be renewable by re-fighting.</td></tr>
+</table>
+<p><code>bossEdge</code> carried the ratchet clause, and the credit skip was reading it. <strong>Every re-fight of an
+already-cleared boss therefore spent one of the account's ten spawn credits</strong> &mdash; the ratchet had already
+advanced past that floor, so the equality was false, so the skip did not fire, so a floor with no wild slots on it
+debited the wild-spawn budget. The first clear of each boss was free and every clear after it was charged.</p>
+<p>The flag is now split, and the ratchet clause lives on exactly one of them:</p>
+<ul>
+  <li><code>bossFloor</code> &mdash; <strong>no ratchet clause</strong>. Gates the spawn-credit skip.</li>
+  <li><code>bossEdge = bossFloor &amp;&amp; floor === _mfB + 1</code> &mdash; gates the rate-cap overdraft, still bounded to one per boss per account by the same monotonic ratchet.</li>
+</ul>
+<p><strong>Both anticheat tests remain on the skip.</strong> Neither was relaxed to make the split work: the floor must be
+authored as a boss floor in <code>floors.csv</code>, <em>and</em> the submitted event must satisfy the
+<strong>UNCLAMPED</strong> <code>+e.floor === floor</code> equality. The equality is deliberately taken before any clamp,
+so a client cannot claim a boss floor by submitting a number that the server would have pulled into range.</p>
+
+<h2>The spawn countdown was showing 0s while the player waited on the account budget</h2>
+<p><em>Build 0.47.</em> Read this beside <strong>&ldquo;There are two spawn limiters, and the player sees the smaller
+one&rdquo;</strong> above &mdash; the countdown is where that section's arithmetic becomes a number on screen, and it was
+quoting the wrong limiter.</p>
+<p><code>nextInMs</code> chose which clock to quote with <code>credits &lt; occ</code>. That test cannot fire in the case
+that matters:</p>
+<ul>
+  <li><code>occ</code> is the count of the floor's <em>occupied</em> slots. <strong>When a floor's own slots are all dead,
+  <code>occ</code> is 0</strong>, and no non-negative credit count is less than 0.</li>
+  <li>So the expression fell through to the <strong>FLOOR</strong> clock &mdash; and on an idle floor that clock has
+  already elapsed, so it clamps to <strong>0</strong>.</li>
+  <li>The player was waiting on the <strong>account budget</strong> and was being shown <em>0s</em>, on a floor that was
+  not going to produce anything for up to a minute.</li>
+</ul>
+<p>The countdown is now <code>max(floorClock, credits &gt; 0 ? 0 : budgetClock)</code>. The reasoning is the spawn rule
+itself: <strong>a spawn needs BOTH a refilled floor slot and a credit to spend</strong>, so the honest answer is the
+<em>later</em> of the two clocks, and <strong>a credit already in hand imposes no wait at all</strong> &mdash; which is
+why the budget term collapses to 0 rather than to the accrual clock whenever <code>credits &gt; 0</code>.</p>
+<p class="note"><strong>There are two limiters and the screen shows the binding one.</strong> The account budget accrues
+one credit per 60,000&nbsp;ms with cap 10; the floor's own refill runs its own clock off its own last drain. The
+countdown now names whichever of the two the player is actually waiting on, which is the same rule the pool size already
+obeys.</p>
+
+<h2>A leaderboard name froze until the player's SCORE moved</h2>
+<p><em>Build 0.47.</em> <code>lbUpsert</code> is the <strong>only</strong> writer of <code>lb.name</code>, and its two
+early returns fire <em>before</em> the name-resolution block:</p>
+<table>
+  <tr><th>Mode</th><th>Early return when</th></tr>
+  <tr><td class="lbl"><code>max</code></td><td>the incoming score is lower than the stored one</td></tr>
+  <tr><td class="lbl"><code>set</code></td><td>the incoming score is equal to the stored one</td></tr>
+</table>
+<p>Both are correct as score logic and both skip the name. The consequence is exact: <strong>a displayed name is frozen
+at whatever it was the last time that player's score moved.</strong> A renamed player whose score is stable never
+appears under the new name, however many writes go past. <code>/api/name/claim</code> wrote only the <code>names</code>
+registry, so nothing else was going to correct it either.</p>
+
+<h3>The fix is on the rename, and NOT in <code>lbUpsert</code> &mdash; this is a cost decision</h3>
+<p>Hoisting name resolution above the early returns would put
+<code>SELECT name FROM names WHERE steamid = ?</code> on <strong>every quiet fold write</strong> &mdash; the writes that
+currently return early precisely because they have nothing to do. And <code>names</code> is
+<code>PRIMARY KEY(name_lc)</code>: <strong><code>steamid</code> is not indexed</strong>. That query is an un-indexed full
+table scan, placed on the hot path, which is <em>the same pattern already identified on this page as the cause of rising
+read costs</em>. It is the wrong repair even though it is the obvious one.</p>
+<p>The rename does the work instead, once, at the moment the name actually changes:</p>
+<ul>
+  <li><code>/api/name/claim</code> runs <code>UPDATE lb SET name = ? WHERE acct = ? AND name &lt;&gt; ?</code> across the account's board rows.</li>
+  <li>It then <strong>deletes the <code>lb_snap</code> rows for the affected boards</strong>, so the next read recuts them.</li>
+  <li><strong>Gated on the name actually differing</strong> &mdash; the <code>name &lt;&gt; ?</code> clause &mdash; so a
+  no-op rename writes <strong>nothing</strong>. Writes cost roughly <strong>1000&times;</strong> reads
+  (<code>$1.00</code> per million written against <code>$0.001</code> per million read), so a free no-op is not a
+  nicety here.</li>
+</ul>
+<p><strong>The snapshot bust is throttled to once per account per 60&nbsp;s</strong>, held <em>in memory on the Durable
+Object</em>. Without it, a player alternating between two names would force a <strong>global board recut per
+request</strong> &mdash; the bust is cheap to issue and expensive to serve, which is the shape that has to be rate-bound
+rather than merely correct. In-memory is sufficient because the object serves one request at a time and losing the
+throttle on eviction only costs one extra recut. <code>/api/name/claim</code> sits behind the existing rate limiter as
+well; measured, it answers <strong>429 with <code>retry_ms</code> 15000</strong>.</p>
+<p class="note"><strong>Why a bust is needed at all.</strong> <code>lb_snap</code> is recut only when the snapshot passes
+<strong>24&nbsp;h</strong>. Without an explicit delete, a rename would be invisible on the board for up to a day even
+after <code>lb</code> itself carried the new name.</p>
+
 <h2>Changelog</h2>
 <p><strong>2026-08-08 &mdash; the whole encounter is derived server-side, not just the spawn you
 clicked.</strong> <em>LIVE on release since 2026-08-08 (0.42).</em> The two battle extras were rolled by the client
@@ -1570,6 +1654,39 @@ Only SQL Stored data scales with bytes ($0.20/GB-mo over 5&nbsp;GB), ~8.4&nbsp;M
 <strong>Still triage:</strong> the real fix is the server-side inventory (~30&nbsp;KB saves), and the silent-413 hole is
 still open.</p>
   <ul>
+    <li><strong>2026-08-10 &mdash; re-fighting a cleared boss stopped spending a spawn credit (shipped in 0.47).</strong>
+      <code>bossEdge</code> was one flag doing two jobs. It carried <code>floor === _mfB + 1</code> &mdash; &ldquo;the
+      first clear of this boss&rdquo; &mdash; which is load-bearing for the <strong>rate-cap overdraft</strong>, because
+      the <code>_mfB</code> ratchet is monotonic and that is what bounds the overdraft to one per boss per account. It
+      does not belong to the <strong>spawn-credit skip</strong>, whose rule is simply &ldquo;boss floors have no wild
+      slots&rdquo;. So every re-fight of an already-cleared boss debited one of the account's ten credits for a floor
+      with nothing to spawn. Now split into <code>bossFloor</code> (no ratchet clause, gates the credit skip) and
+      <code>bossEdge = bossFloor &amp;&amp; floor === _mfB + 1</code> (gates the overdraft). Both anticheat tests remain
+      on the skip: the authored boss-floor test from <code>floors.csv</code>, and the UNCLAMPED
+      <code>+e.floor === floor</code> equality. New section above.</li>
+    <li><strong>2026-08-10 &mdash; the spawn countdown showed &ldquo;0s&rdquo; while the player was waiting on the account budget (shipped in 0.47).</strong>
+      <code>nextInMs</code> chose its clock with <code>credits &lt; occ</code>. When a floor's own slots are all dead
+      <code>occ</code> is 0, so that test can never fire; the expression fell through to the FLOOR clock, which on an
+      idle floor has already elapsed and clamps to 0. It is now
+      <code>max(floorClock, credits &gt; 0 ? 0 : budgetClock)</code>: a spawn needs BOTH a refilled floor slot and a
+      credit to spend, so the honest answer is the later of the two clocks, and a credit already in hand imposes no
+      wait. There are two limiters &mdash; the account budget (1 per 60&nbsp;s, cap 10) and the floor's own refill
+      &mdash; and the screen now shows the binding one. New section above.</li>
+    <li><strong>2026-08-10 &mdash; a leaderboard name froze until the player's SCORE moved (shipped in 0.47).</strong>
+      <code>lbUpsert</code> is the only writer of <code>lb.name</code> and its two early returns (mode <code>max</code>
+      with a lower score, mode <code>set</code> with an equal score) fire before the name-resolution block, so a
+      displayed name was stuck at whatever it was the last time that account's score changed;
+      <code>/api/name/claim</code> wrote only the <code>names</code> registry. <strong>The fix is on the rename, not in
+      <code>lbUpsert</code></strong>, and deliberately so: hoisting the resolution would add
+      <code>SELECT name FROM names WHERE steamid=?</code> to every quiet fold write, and <code>names</code> is
+      <code>PRIMARY KEY(name_lc)</code> with <code>steamid</code> unindexed &mdash; an un-indexed full table scan on the
+      hot path, the same pattern already identified as the cause of rising read costs. <code>/api/name/claim</code> now
+      runs <code>UPDATE lb SET name=? WHERE acct=? AND name&lt;&gt;?</code> and deletes the <code>lb_snap</code> rows for
+      the affected boards, so a no-op rename writes nothing (writes cost ~1000&times; reads). The snapshot bust is
+      throttled to once per account per 60&nbsp;s, in memory on the Durable Object, because alternating between two
+      names would otherwise force a global board recut per request; the endpoint is also behind the existing rate
+      limiter (measured: 429 with <code>retry_ms</code> 15000). <code>lb_snap</code> is otherwise recut only when the
+      snapshot passes 24&nbsp;h, which is why an explicit bust is needed. New section above.</li>
     <li><strong>2026-08-09 &mdash; the per-floor spawn clock was blind to Incense, so a farmed floor fell behind the budget (LIVE on release since 2026-08-09 (0.45)).</strong> Reports #85 and #87. There are two spawn limiters, not one: the account budget and each floor’s own <code>dead[]</code>, and the player sees the smaller. <code>refillSrv</code> hardcoded 1 per 60,000&nbsp;ms and could not see the boon, so under Incense the account refilled at 2/min while every floor stayed at 1/min. It now runs the budget’s own <code>accrue()</code>/<code>accrueAt()</code> off the same expiry, and a third hardcoded 60,000 in <code>nextInMs</code> went with it. <strong>This page said &ldquo;the spawn budget is one pool&rdquo; and that sentence is why an earlier fix stopped half way</strong> — the section above is rewritten. Verified 9/9, 3/9 on the pre-fix tree.</li>
     <li><strong>2026-08-07 &mdash; alt-tabbing no longer costs a battle (LIVE on release since 2026-08-07 (0.39)).</strong> Reports #44 and #49. Backgrounding fires a keepalive save flush, and the battle credit is keepalive too &mdash; they share a 64&nbsp;KiB browser quota, so the credit could be refused by the browser and all three retries burned while the tab was still hidden. Hidden-tab failures no longer advance the attempt counter (with a wall-clock bound), and the hide flush now yields to a credit in flight. New section above. Verified 7/7.</li>
     <li><strong>2026-08-07 &mdash; every floor entry re-asks for the spawn budget (LIVE on release since 2026-08-07 (0.39)).</strong> Report #40. The server has capped the pool to the shared budget since the 2026-07-29 ruling and does so correctly even for a never-visited floor &mdash; the client was not asking, serving any previously-fetched floor from cache. Measured: 2 credits, 10 spawns shown. Cached pools are now capped locally too, so the boss-den exit and resume paths cannot over-show. New section above. Verified 9/9 and 6/6.</li>
