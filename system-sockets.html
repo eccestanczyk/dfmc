@@ -109,8 +109,51 @@
     inventory, gems and runes come back loose into the bag, and each piece keeps its own enchant scroll.</p>
   </div>
 
+  <div class="danger">
+    <h2>&#9888; Every already-socketed rune scored the same, so the pool ranked by tier and rarity</h2>
+    <p><em>Build 0.47.</em> The auto-optimizer values a rune in its pool with <code>runePct(st2.it)</code>.
+    <strong><code>it</code> is only set on bag-sourced pool entries.</strong> For a stone that is already socketed there
+    is no <code>it</code>, so <code>runePct</code> received <code>undefined</code> and fell through to its
+    <strong>no-curve fallback</strong> &mdash; grade defaulted to <code>Worn</code>, tier defaulted to <code>1</code>
+    &mdash; and returned <strong>the same constant for every socketed rune in the pool</strong>.</p>
+    <p>They all tied. A tie falls through to the <strong>stable pre-sort</strong>, and the pre-sort is
+    <strong>tier-then-grade</strong>. So the optimizer was <strong>literally ranking runes by tier and rarity</strong>
+    &mdash; the two things a rune's value is not made of. A rune's contribution is a percentage read off its own curve;
+    tier and grade feed that curve but do not order it.</p>
+    <p><strong>Measured consequence on a real save:</strong> an <em>Awakened Rune of Ruin T7 Rare</em> worth
+    <strong>19.8%</strong> was <strong>EVICTED</strong>, while an <em>Elder Rune of Ruin T10 Worn</em> worth
+    <strong>18%</strong> was <strong>socketed three times</strong>. The higher tier and the longer name both lost to the
+    lower number, exactly as the fallback dictates.</p>
+    <p><strong>Gems were never affected</strong>, because a gem's valuation already reads name, tier and grade off the
+    entry itself rather than through an <code>it</code> that may not exist. That asymmetry is why an earlier gem-side fix
+    passed its checks and this survived underneath it: the two stone kinds were not being valued by the same code, so
+    proving one correct proved nothing about the other.</p>
+  </div>
+
+  <h2>Reference &mdash; the key shape, the ki convention, and what constrains a fill</h2>
+  <p>Recorded here in one place because the optimizer, the refund contract and the socket UI all depend on it:</p>
+  <table>
+    <tr><th>Fact</th><th>Detail</th></tr>
+    <tr><td class="lbl">Socket key</td><td><code>sk|&lt;name&gt;|&lt;grade&gt;|&lt;tier&gt;|@&lt;slot&gt;|&lt;ki&gt;-&lt;j&gt;</code> &mdash; the flat form of the three-part table above.</td></tr>
+    <tr><td class="lbl"><code>ki</code> convention</td><td><code>0</code> = gem, <code>1</code> = rune, <code>&gt;= 2</code> = scroll. The same comparison the refund branches use.</td></tr>
+    <tr><td class="lbl">Scrolls never move</td><td>No optimizer pass, fill or re-deal relocates a scroll. It rides its item and unfolds back into the item's own key.</td></tr>
+    <tr><td class="lbl">Socket capacity</td><td>Comes from <code>SLOTG</code>, keyed on the host's <strong>GRADE</strong>, <strong>not its tier</strong> &mdash; Void 3/3/3, Rare 1/1/1. This is why a low-tier Void host can out-earn a high-tier Rare one.</td></tr>
+    <tr><td class="lbl"><code>statFits</code></td><td>The stone's stat must match the host's stat, so an <strong>Attack gem cannot enter Defence armour</strong>. Every fill and every re-deal is bounded by this before value is considered at all.</td></tr>
+  </table>
+
   <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-10 &mdash; every already-socketed rune scored identically, so the auto-optimizer ranked its rune pool by tier and rarity (shipped in 0.47).</strong>
+      Runes were valued with <code>runePct(st2.it)</code>, and <code>it</code> is only set on bag-sourced pool entries;
+      for an already-socketed stone it was <code>undefined</code>, so <code>runePct</code> took its no-curve fallback
+      (grade &rarr; <code>Worn</code>, tier &rarr; <code>1</code>) and returned the same constant for all of them. They
+      tied, and the tie fell through to the stable pre-sort, which is tier-then-grade. Measured on a real save: an
+      <em>Awakened Rune of Ruin T7 Rare</em> worth <strong>19.8%</strong> was evicted while an <em>Elder Rune of Ruin
+      T10 Worn</em> worth <strong>18%</strong> was socketed three times. Gems were never affected because they already
+      read name, tier and grade off the entry, which is why an earlier gem fix passed while this stayed broken. The key
+      shape (<code>sk|name|grade|tier|@slot|ki-j</code>), the <code>ki</code> convention (0 gem, 1 rune, &gt;=2 scroll),
+      the grade-keyed <code>SLOTG</code> capacity and the <code>statFits</code> stat-match rule are recorded above at the
+      same time.</li>
     <li><strong>2026-08-09 &mdash; a class switch no longer destroys socketed gems, runes and scrolls (LIVE on release since 2026-08-09 (0.45)).</strong> Reports #90, #91 and #92. <code>switchClass</code> now refunds exactly as <code>equipItem</code> does, reserves <code>1 + gemRuneCountAt(gi)</code> per occupied slot before it moves anything, reads the slot override as truth so it mints nothing, and returns <code>false</code> when it refuses. Both confirmation texts corrected. Page created.</li>
   </ul>
 </div>
