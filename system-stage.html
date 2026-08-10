@@ -46,7 +46,7 @@
     <tr><td class="lbl">Dismantle toast</td><td>Rendered at 1&times; against a 0.36&times; UI, 572px wide on a
       690px viewport. Horizontal overflow made mobile Chrome expand the layout viewport, and
       <code>fitScale</code> did not recompute &mdash; the stage kept its old size inside a bigger
-      viewport, which reads as a permanent resolution shift. <strong>Open.</strong></td></tr>
+      viewport, which reads as a permanent resolution shift. <strong>Still open on mobile.</strong> The desktop half of the same defect &mdash; the overflow scrolling the <em>document</em> instead of expanding the layout viewport &mdash; is closed on dev 2026-08-10; see below.</td></tr>
     <tr><td class="lbl">Devour panel</td><td><code>max-height:88%</code> resolved to 593px on a phone
       against 792px on desktop, so the body scrolled on the phone only. Fixed 2026-08-05 by sizing the
       contents down. See <a href="system-devour.html">Devour</a>.</td></tr>
@@ -54,6 +54,51 @@
       forcing text that drew at 5 CSS px. Fixed 2026-08-05. See
       <a href="system-premium-shop.html">Premium Shop</a>.</td></tr>
   </table>
+
+  <h2>A scrolled document drags the whole stage with it</h2>
+  <p>The stage sits inside a wrapper that fills the window and centres it. That wrapper used to be
+  <code>width:100vw; height:100vh</code> &mdash; ordinary in-flow layout &mdash; which means
+  <strong>if the document scrolls sideways, the entire game slides with it.</strong> The corners go off
+  the edge and the player cannot reach them again. It reads as &ldquo;the game zoomed in and cut the
+  left side off&rdquo;, which is what it was reported as.</p>
+  <p class="note"><strong><code>html, body { overflow:hidden }</code> does NOT stop this.</strong>
+  It suppresses scrollbars and wheel/touch scrolling. It does <em>not</em> stop <em>programmatic</em>
+  scrolling, and it does not stop the browser scrolling the document itself to reveal a newly focused
+  element. One click that moves focus onto anything rendering past the right edge scrolls the page
+  &mdash; and <strong>leaves it there</strong>.</p>
+  <p><strong>Measured 2026-08-10</strong> on D's own save at a 1893&times;993 viewport, forcing
+  <code>documentElement.scrollLeft = 67</code>:</p>
+  <table>
+    <tr><th>&nbsp;</th><th>At rest</th><th>Scrolled 67px</th></tr>
+    <tr><td class="lbl">Stage left edge</td><td>64</td><td><strong>&minus;3</strong></td></tr>
+    <tr><td class="lbl">Stage centre</td><td>946</td><td><strong>879</strong></td></tr>
+    <tr><td class="lbl">Stage right edge</td><td>1829</td><td><strong>1762</strong></td></tr>
+    <tr><td class="lbl">Fullscreen button (<code>position:fixed</code>)</td><td>1845</td><td>1845 &mdash; <strong>unmoved</strong></td></tr>
+  </table>
+  <p>That reproduced the reporter's screenshot to within 1&ndash;3 px, so the mechanism is not inferred.</p>
+  <p class="note"><strong>THE DIAGNOSTIC, and it is the whole trick: a <code>position:fixed</code>
+  element does not move when the document scrolls, but it does grow when the page is zoomed.</strong>
+  The shell's fullscreen button (<code>#__fs</code>, <code>top:10; right:10</code>) is therefore a free
+  ruler on any screenshot. If it sits at the same pixel while the HUD has shifted, the page is
+  <strong>scrolled</strong>. If it has changed size, the page is <strong>zoomed</strong>. Chasing this
+  as a zoom problem costs a session &mdash; browser zoom does not clear a scroll offset, so
+  <kbd>Ctrl</kbd>+/&minus; appears to do nothing and looks like a dead end. <strong>Only a reload
+  clears it</strong>, and no save or server state is ever involved.</p>
+  <h3>What it is now</h3>
+  <ul class="sp-rules">
+    <li>The wrapper is <code>position:fixed; inset:0</code>. It is anchored to the viewport, so it
+      <strong>cannot drift no matter what the document does</strong>. This is the load-bearing half.</li>
+    <li>A shell-level pin in <code>play/index.html</code> resets
+      <code>scrollLeft</code>/<code>scrollTop</code> to 0 on <code>scroll</code> (capturing) and on
+      <code>resize</code>, so no blank strip can appear beside the stage either.</li>
+    <li>Two guards on purpose: <strong>the overlay that overflowed was never identified.</strong> It is
+      transient and was not on screen when the measurements were taken. The guards make the whole class
+      harmless rather than chasing one instance &mdash; which matters, because every
+      <code>position:fixed</code> overlay authored at 1920-canvas widths is a candidate.</li>
+  </ul>
+  <p class="note">Verified by <code>tools/probe_stagepin.py</code>: <strong>4/4 on the fix, 2/4 on
+  0.45</strong>, with two controls (stage centred at rest; the fixed button immobile) passing on
+  <em>both</em> trees, so the flip is real and not a probe that stopped measuring.</p>
 
   <h2>The menu HUD</h2>
   <ul class="sp-rules">
@@ -93,6 +138,7 @@
 
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-08-10 &mdash; the document can no longer scroll, and the stage no longer rides it.</strong> A click that moved focus onto something past the right edge scrolled the page 67px and slid the whole HUD off the left; browser zoom does not reset a scroll offset, so only a reload cleared it. Wrapper is now <code>position:fixed; inset:0</code> plus a shell scroll pin. New section above records the measurements and the <code>position:fixed</code> ruler that tells scroll from zoom. <em>ON DEV &mdash; not yet on release.</em></li>
     <li><strong>2026-08-05 &mdash; item-tile gender glyph raised 16px &rarr; 30px stage</strong> (5.75 &rarr; 10.78 CSS px on a phone). Survey of every gender glyph added above; two surfaces remain under 7 CSS px. <em>LIVE on release since 2026-08-05 (0.32).</em></li>
     <li><strong>2026-08-05 &mdash; page created (LIVE on release since 2026-08-05 (0.32)).</strong> Written after the
       stage/viewport asymmetry produced three defects in one session. Records fitScale, the letterboxed
