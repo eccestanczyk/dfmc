@@ -115,8 +115,11 @@ async function loadHatch(){
 loadEggs(); loadHatch();
 </script>
 <script src="nav.js"></script>
+  <div class="sp-note"><strong>Void Apex eggs sit above this table's floor bands.</strong> On floors 101&ndash;120 the egg grade band is Rare&ndash;Legendary (no Abyssal eggs &mdash; breeding stays the only path above Legendary), and the species mix is far richer: SSR grows from 12% of spawns at floor 101 to 50% at floor 119, taking the SSR share of wild eggs from about 30% to 68%. See <a href="system-void-apex.html">Void Apex</a>. Design settled 2026-08-10; not yet implemented.</div>
+
   <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-10 &mdash; Void Apex egg rules authored.</strong> Grade band Rare&ndash;Legendary with the top-grade share folded into Legendary, a per-floor spawn rarity ramp (<code>codex/apex_spawn_rarity_weights.csv</code>) and re-authored boss egg weights (<code>codex/apex_boss_egg_rarity.csv</code>) replacing the tower's 30/30/20/10/10.</li>
     <li><strong>2026-07-31 &mdash; hatching moved to the server.</strong> The grade is drawn server-side from <code>egg_hatch_weights.csv</code> and told to the client, idempotent on the egg id so an egg can never be re-rolled. An unauthored egg grade hatches nothing.</li>
     <li><em>Backfilled 2026-08-01 &mdash; this page had no changelog section, and the commit that should have added the entry above skipped it silently instead of failing.</em></li>
   </ul>

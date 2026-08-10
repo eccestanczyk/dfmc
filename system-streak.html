@@ -22,6 +22,7 @@
     <li><strong>Losing a battle resets the streak to zero.</strong> You are not removed from the floor &mdash; the team stays put and rebuilds. No forced exit, no floor lock, no return to floor-select.</li>
     <li><strong>Leaving a floor resets the streak to zero &mdash; INTENDED (D ruling, reaffirmed 2026-08-03).</strong> The streak is a property of the floor you are standing on, not a running total you carry. Any change of floor clears it: ascending, descending, the death-descent, and the floor selector alike. The only case that keeps it is a move that lands you back on the floor you started on. In code the streak survives exactly when <code>floorNum</code> is unchanged (<code>streak:(prev.floorNum!==target?0:prev.streak)</code> in the travel path).</li>
     <li><strong>The consequence is deliberate:</strong> stepping off a partly-cleared new floor forfeits that progress and it must be rebuilt from zero. Reported as a bug (report&nbsp;#17, closed <em>wontfix</em>) &mdash; it is the design. The pressure in this game comes from the reset, and a streak that banked across floors would let a player accumulate wins on trivial floors and spend them on hard ones.</li>
+    <li><strong>Above floor 100 the formula does not apply.</strong> In the <a href="system-void-apex.html">Void Apex</a> postgame zone (floors 101&ndash;120) every grind floor takes a flat <strong>30 wins</strong> to open the boss room above it, and the odd/even alternation replaces the every-10th boss rule. Design settled 2026-08-10; not yet implemented.</li>
     <li><strong>Boss floors (every 10th) always require exactly 1 battle</strong> &mdash; the boss fight itself. No wild encounters on boss floors.</li>
     <li><strong>Full HP is restored after every battle,</strong> win or lose. Healing items were removed entirely; attrition exists only within a single battle.</li>
   </ul>
@@ -45,6 +46,7 @@
 
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-08-10 &mdash; the Void Apex threshold override written down.</strong> Floors 101&ndash;120 use a flat 30 wins per grind floor instead of <code>ceil(floor^0.65)</code>, with bosses on every even floor rather than every tenth. Rules and data live on <a href="system-void-apex.html">Void Apex</a>. Design only &mdash; no code yet.</li>
     <li><strong>2026-08-03 &mdash; the reset is now told to the player in-game (LIVE on release since 2026-08-08 (0.42)).</strong> The between-floors loading screen carries a rotating tip pool (<code>LOADING_TIPS</code>, surfaced by <code>transitTip()</code> as the transit subtitle); its first line is <em>"Changing floors resets your streak."</em> The pick is stable for the life of one transit so it cannot reshuffle mid-fade. D spec 2026-08-02.</li>
     <li><strong>2026-08-03 &mdash; the floor-change streak reset written down.</strong> It was always the intent and always the behaviour, but no page said so, so it was raised as a defect (report&nbsp;#17) and re-proposed as work. Closed <em>wontfix</em> on D's ruling and documented here with the code condition, so the next reader does not have to ask again.</li>
   </ul>
