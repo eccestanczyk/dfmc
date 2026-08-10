@@ -206,8 +206,164 @@
   as a pass; and the plaque failed the legibility floor at 7.3 CSS px, which is why the type is 15&ndash;16
   stage px and not the 11 px it started at.</p>
 
+  <h2>Auto-optimize &mdash; four defects, and one behaviour that is not one</h2>
+  <p><em>Build 0.47.</em> The optimizer could lose an enchant scroll, could hand back a loadout weaker than the one it
+  replaced, scored the incumbent on terms it denied every challenger, and could never report a socket row as unchanged.
+  Each is separate; they are listed in the order they cost the player most.</p>
+
+  <p><strong>1. DATA LOSS &mdash; <code>optApply()</code> destroyed enchant scrolls.</strong>
+  <code>equipItem()</code> unfolds an arriving item's <code>it.socks</code> onto its new instance socket key. That is the
+  <em>arriver unfolds</em> half of D ruling other&nbsp;#4, whose other half is the leaver: gems and runes are refunded as
+  loose bag items, and <strong>only the scroll (<code>ki &gt;= 2</code>) folds onto the bag record</strong> &mdash; see
+  <a href="system-sockets.html">Socket Ownership</a>. <code>optApply()</code> performed the leaver half and
+  <strong>never performed the arriver half</strong>. So a scroll that folded onto a bag record when the optimizer
+  unequipped a piece was <strong>destroyed the moment the optimizer equipped it again</strong>: a round trip through the
+  one button lost it, silently, with no refusal and no message. This is the same class of defect as the class-switch bug
+  that destroyed 41 of a player's stones &mdash; a third code path emptying a slot without obeying the contract.</p>
+
+  <p><strong>2. The plan could end WORSE than it started.</strong> Measured on a real save under the ATK objective:
+  <strong>35,887 &rarr; 35,694</strong>, with every gear row reading <em>&ldquo;X &rarr; X&rdquo;</em> &mdash; not one
+  item moved, only stones. The cause is that <code>fillFor</code> always rebuilt a host's sockets <strong>from a clean
+  slate</strong>: the incumbent's existing arrangement was reproduced only by luck, and a slot served earlier could take
+  stones a later slot was already wearing. <code>optOpen</code> then refuses a regressing plan with
+  <em>&ldquo;ALREADY OPTIMAL!&rdquo;</em> while the <em>next</em> click builds a different plan &mdash; which is why the
+  reporting player had to click several times before anything happened.</p>
+  <p>Fixed three ways, and the three are meant to be read together:</p>
+  <table>
+    <tr><th>Change</th><th>Mechanic</th></tr>
+    <tr><td class="lbl">KEEP-WHAT-YOU-WEAR is a candidate</td><td>The incumbent arrangement is entered as a candidate and <strong>evaluated first</strong>. With the existing strict-greater-than acceptance test, every slot then either <em>holds</em> or <em>strictly improves</em>, so <strong>the pass is monotone BY CONSTRUCTION</strong> rather than by luck. A regression is no longer possible to build, so it is no longer something the refusal has to catch.</td></tr>
+    <tr><td class="lbl">Slots are served biggest-host-base-first</td><td>A rune is a <strong>percentage OF ITS HOST</strong>, so the host with the biggest base must pick first &mdash; this is the rearrangement inequality, not a heuristic. <code>statFits</code> keeps each stat's hosts in their own relative order, so <strong>one pass serves every stat</strong> without a per-stat sweep.</td></tr>
+    <tr><td class="lbl">A global re-deal with hosts final</td><td>Once the hosts are settled, the <em>whole</em> loadout is re-dealt under several slot orders and the best kept, with the sweep's own result installed as the baseline so the re-deal cannot lose to it.</td></tr>
+  </table>
+  <p class="note"><strong>For a future session: a SINGLE-HOST release-and-refill is a no-op.</strong>
+  <code>fillFor</code> is deterministic given the free pool, so releasing one host's stones and refilling that host
+  returns exactly what was there. <strong>Only a global re-deal can move a stone between hosts.</strong> Anyone
+  attempting to improve this by iterating one slot at a time will measure no change and conclude wrongly that the pool
+  is already optimal.</p>
+  <p>Results on the same real save: <strong>ATK 35,887 &rarr; 36,160</strong> where it had been losing 193; Overall Power
+  <strong>+440</strong>; DEF <strong>+124</strong>; HP <strong>+2,742</strong>. Plan build time <strong>~142&nbsp;ms</strong>.</p>
+  <p class="note"><strong>KNOWN REMAINING LIMIT, recorded honestly.</strong> Repeated clicks still find a little more:
+  <strong>36,160 &rarr; 36,452 over four runs</strong>. The residual is a genuine <strong>host-by-stone assignment
+  problem across duplicate item instances</strong> &mdash; not a bug in the three changes above. Closing it requires
+  restructuring the plan's bag accounting, which is what <code>consume</code> rides on, so it is a deliberate
+  non-goal for 0.47 rather than an oversight.</p>
+
+  <p><strong>3. The incumbent was scored WITH its enchant scroll and every challenger WITHOUT one.</strong> The socket
+  strip removes only <code>ki</code> 0 and 1, so an incumbent kept its <code>ki &gt;= 2</code> scroll through scoring
+  while a challenger &mdash; arriving with its scroll folded onto its bag record &mdash; was measured bare. A challenger's
+  own <code>ki &gt;= 2</code> scroll is now folded in when it is scored. <strong>It cannot collide with the fill</strong>,
+  which assigns <code>ki</code> 0 and 1 only, so the two never address the same socket key.</p>
+
+  <p><strong>4. <code>sameFill</code> could never be true, so every socket row reported &ldquo;changed&rdquo; forever.</strong>
+  It compared the incumbent's chips using an <strong>identity prefix with no <code>|@gi</code> instance suffix</strong>,
+  although socket keys have been instance-keyed since bug&nbsp;#8. With duplicated items equipped &mdash; two Signets and
+  four Fangs on the reporting save &mdash; the prefix matched <strong>80 keys where 24 belonged to the slot</strong>, so
+  the comparison could not come out equal on any run. The rows were not lying about a change they had made; they were
+  answering a question that had been asked wrongly.</p>
+
+  <div class="sp-note"><strong>NOT A BUG &mdash; record this so it is not reported again: a T4 helmet outranking a T10
+  helmet is CORRECT.</strong> Socket capacity is <strong>GRADE-driven</strong>, via <code>SLOTG</code> &mdash; Void is
+  3/3/3, Rare is 1/1/1 &mdash; so a T4 <em>Void</em> piece carries <strong>six stones</strong> against a T10
+  <em>Rare</em>'s <strong>two</strong>, and genuinely wins. <strong>Tier is not an input to the optimizer's decision, by
+  design.</strong> It scores by real computed stat contribution through the <code>buildItem</code> /
+  <code>itemBase</code> / <code>itemStat</code> chain and the game's own <code>charMetric</code>; the tier is already
+  inside those numbers where it belongs, and adding it as a separate preference would double-count it.</div>
+
+  <h2>The party equipment picker is ordered Level &gt; Grade &gt; Rarity &gt; Codex # &gt; Gender</h2>
+  <p><em>Build 0.47.</em> The creature picker had <strong>no sort at all</strong> and arrived in bag insertion order.
+  The comparator's keys, in order:</p>
+  <table>
+    <tr><th>Key</th><th>Direction</th><th>Note</th></tr>
+    <tr><td class="lbl">Level</td><td>best first</td><td></td></tr>
+    <tr><td class="lbl">Grade</td><td>best first</td><td></td></tr>
+    <tr><td class="lbl">Rarity</td><td>best first</td><td>Ranked off a rarity order using the <strong><code>creatures.csv</code> spelling</strong> &mdash; <code>Common</code>, <code>Uncommon</code>, <code>Rare</code>, <code>Super Rare</code>, <code>Super Super Rare</code>.</td></tr>
+    <tr><td class="lbl">Codex number</td><td>ascending</td><td>The only ascending key.</td></tr>
+    <tr><td class="lbl">Gender</td><td>tie-break only</td><td>Reads <code>monGenderKnown</code>, which can answer <em>unknown</em> &mdash; never <code>monGender</code>, which defaults to <code>M</code> and would invent one.</td></tr>
+    <tr><td class="lbl">Name</td><td>ascending</td><td>Present so the order is <strong>TOTAL</strong> and cannot shuffle between re-renders.</td></tr>
+  </table>
+  <ul class="sp-rules">
+    <li><strong>Rarity explicitly does NOT rank off the RARITY colour map.</strong> That map is keyed on
+    <code>SSR</code>, so using it would silently drop the top two rarities into the unranked bucket &mdash; the two that
+    matter most on this screen.</li>
+    <li><strong>The comparator is gated on both sides being creatures</strong>, so the gear pickers that share this code
+    keep their existing order. The sort is stable, so a comparator that answers 0 for every pair is
+    <strong>byte-identical</strong> to no sort at all.</li>
+  </ul>
+
+  <h2>Soul passives on the equipment window quote the EFFECTIVE value</h2>
+  <p><em>Build 0.47.</em> The passive list led with the raw <code>Effect_S3</code> sentence out of
+  <code>souls.csv</code> and then arrowed to the effective value, so <strong>the first number on screen was the
+  unmultiplied base and it never moved when the soul staged up</strong>. The slot's hover tooltip quoted the raw sentence
+  too, so <strong>one soul showed two different numbers on one screen</strong>.</p>
+  <ul class="sp-rules">
+    <li>Both surfaces now quote the <strong>effective</strong> text.</li>
+    <li>The passive list follows it with the <strong>lever</strong>: stage multiplier &times; grade multiplier = combined.
+    The derivation belongs beside the number, not in front of it.</li>
+    <li><strong>Only the magnitudes <code>parseSoul</code> identified are scaled.</strong> A condition threshold is never
+    scaled, so <em>&ldquo;+5% Defense while above 50% HP&rdquo;</em> cannot become <em>&ldquo;above 77.8% HP&rdquo;</em>
+    &mdash; the same trap this page already records from 2026-08-07, held closed here.</li>
+  </ul>
+
+  <h2>The tier badge moved to the BOTTOM-right of the item tile</h2>
+  <p><em>Build 0.47.</em> The tier roman-numeral badge moved from the top-right corner of the item tile to the
+  <strong>bottom-right</strong>.</p>
+  <div class="sp-note"><strong>This is safe only because of one invariant, and the invariant is what a future change
+  could break.</strong> The badge already living in the bottom-right corner is the <strong>level</strong> badge, and the
+  two are <strong>mutually exclusive by category</strong>: creatures and class souls carry a <em>level</em> and no tier;
+  gear carries a <em>tier</em> and no level. Nothing draws both. Give any item category both a level and a tier &mdash;
+  a levelled weapon, a tiered creature &mdash; and the two badges collide in that corner.</div>
+  <p class="note"><strong>Correction to earlier text on this page.</strong> <em>Every item surface states its tier</em>
+  above describes the plaque as sitting &ldquo;in the top-right corner of the item's own box&rdquo;, and its table lists
+  <em>top-right</em> for the inventory grid tile. That is stale for the item tile as of 0.47; the other surfaces in that
+  table are unchanged. The section is left as written &mdash; this page is append-only.</p>
+
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-08-10 &mdash; auto-optimize: a round trip through the button destroyed enchant scrolls, and the plan could end weaker than it started (shipped in 0.47).</strong>
+      Four defects. <strong>(1)</strong> <code>optApply()</code> never performed the &ldquo;arriver unfolds&rdquo; half of
+      D ruling other&nbsp;#4 that <code>equipItem()</code> does, so a scroll folded onto a bag record when the optimizer
+      unequipped a piece was destroyed the moment it equipped it again &mdash; the same class as the class-switch defect
+      that destroyed 41 stones. <strong>(2)</strong> Measured on a real save under ATK, the plan went
+      <strong>35,887 &rarr; 35,694</strong> with every gear row reading &ldquo;X &rarr; X&rdquo;, because
+      <code>fillFor</code> rebuilt every host from a clean slate and a slot served earlier took stones a later slot was
+      already wearing; <code>optOpen</code> refuses a regressing plan with &ldquo;ALREADY OPTIMAL!&rdquo; while the next
+      click builds a different one, which is why it took several clicks. Fixed by making keep-what-you-wear a candidate
+      evaluated first (with the existing strict-greater-than, the pass is monotone by construction), by serving slots
+      biggest-host-base-first (a rune is a percentage of its host &mdash; rearrangement inequality; <code>statFits</code>
+      keeps each stat's hosts in their own relative order so one pass serves every stat), and by re-dealing the whole
+      loadout under several slot orders with hosts final, baselined on the sweep's own result. Real save: ATK
+      <strong>35,887 &rarr; 36,160</strong>, Overall Power <strong>+440</strong>, DEF <strong>+124</strong>, HP
+      <strong>+2,742</strong>, plan build ~142&nbsp;ms. Known remaining limit: repeated clicks still find a little more
+      (36,160 &rarr; 36,452 over four) &mdash; a host-by-stone assignment problem across duplicate item instances, whose
+      fix needs the plan's bag accounting restructured because <code>consume</code> rides on it.
+      <strong>(3)</strong> The incumbent was scored with its enchant scroll and challengers without, because the socket
+      strip only removes <code>ki</code> 0/1; a challenger's own <code>ki &gt;= 2</code> scroll is now folded in, and it
+      cannot collide with the fill, which assigns <code>ki</code> 0/1 only. <strong>(4)</strong> <code>sameFill</code>
+      compared chips on an identity prefix with no <code>|@gi</code> instance suffix though keys have been
+      instance-keyed since bug&nbsp;#8, matching 80 keys where 24 belonged to the slot on a save with two Signets and
+      four Fangs, so it could never be true and every row reported &ldquo;changed&rdquo; on every run. Also recorded so
+      it is not re-reported: <strong>a T4 helmet outranking a T10 helmet is correct</strong> &mdash; socket capacity is
+      grade-driven via <code>SLOTG</code> and tier is not an input by design. New section above.</li>
+    <li><strong>2026-08-10 &mdash; the party equipment picker is ordered Level &gt; Grade &gt; Rarity &gt; Codex # &gt; Gender (shipped in 0.47).</strong>
+      The creature picker had no sort at all and arrived in bag insertion order. Level, grade and rarity run best-first;
+      codex number ascends; gender breaks ties only and reads <code>monGenderKnown</code> (which can answer
+      &ldquo;unknown&rdquo;) rather than <code>monGender</code> (which defaults to <code>M</code> and would invent one);
+      a name compare ends it so the order is total. Rarity ranks off the <code>creatures.csv</code> spelling
+      (<em>Common, Uncommon, Rare, Super Rare, Super Super Rare</em>) and explicitly <strong>not</strong> the RARITY
+      colour map, whose key is <code>SSR</code> and would silently drop the top two rarities. The comparator is gated on
+      both sides being creatures so the gear pickers sharing that code keep their order &mdash; the sort is stable, so a
+      no-op comparator is byte-identical. New section above.</li>
+    <li><strong>2026-08-10 &mdash; the equipment window's soul passives quote the effective value, not the raw <code>souls.csv</code> constant (shipped in 0.47).</strong>
+      The passive list led with the raw <code>Effect_S3</code> sentence and then arrowed to the effective value, so the
+      first number shown was the unmultiplied base and never moved when the soul staged up; the slot's hover tooltip
+      quoted the raw sentence too, so one soul showed two different numbers on one screen. Both now quote the effective
+      text, and the passive list follows it with the lever (stage &times; grade = combined). Only the magnitudes
+      <code>parseSoul</code> identified are scaled, so a condition threshold is untouched &mdash; &ldquo;+5% Defense
+      while above 50% HP&rdquo; cannot become &ldquo;above 77.8% HP&rdquo;. New section above.</li>
+    <li><strong>2026-08-10 &mdash; the item tile's tier badge moved from the top-right corner to the bottom-right (shipped in 0.47).</strong>
+      Safe only because the badge already in that corner &mdash; the level badge &mdash; is mutually exclusive with it by
+      category: creatures and class souls carry a level and no tier, gear carries a tier and no level. That invariant is
+      recorded above because it is what a future change could break.</li>
     <li><strong>2026-08-08 &mdash; every item surface states its tier as a Roman numeral (D order: &ldquo;I want it everywhere&rdquo;). LIVE on release since 2026-08-08 (0.42).</strong> Five prop sites, four render sites, one plaque. The root cause of two failed earlier attempts was that <code>markup.html</code> carried no tier binding at all &mdash; the <code>tierBadge</code> prop had been populated and unrendered since the inventory was written, so the fault was never occlusion. Probe <code>tools/probe_tierplaque.py</code>: BEFORE 4/7, AFTER 10/10.</li>
     <li><strong>2026-08-07 &mdash; the soul passive text states the effective percentage, and the multiplier moved to the details window (LIVE on release since 2026-08-07 (0.39)).</strong> The screen quoted the <code>souls.csv</code> constant while <code>gearBonus</code> paid stage &times; grade on top of it: measured, <em>+4%</em> on screen against <em>6.22</em> applied. Only magnitudes scale &mdash; the first cut also scaled a condition threshold, turning <em>above 50% HP</em> into <em>above 77.8% HP</em>, which a probe caught. Report #47, D ruling on placement. Verified 9/9 against <code>gearBonus</code>.</li>
     <li><strong>2026-08-07 &mdash; the soul picker is ordered grade &gt; level &gt; line (LIVE on release since 2026-08-07 (0.39)).</strong> It had no order at all: cards came straight off <code>BAG.concat(bagAdd)</code>, so a Divine sat wherever it was hatched. Report #46. Probe <code>tools/probe_soulorder.py</code>, seeded so bag order is not the answer and with a grade tie so the second key has to do work &mdash; BEFORE 5/5 (asserting it is <em>not</em> ordered), AFTER 7/7.</li>
