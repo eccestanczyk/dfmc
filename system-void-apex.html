@@ -110,7 +110,7 @@
 
   <h2>&Uuml;ber keys</h2>
   <ul class="sp-rules">
-    <li>One key type per boss (<code>ITM-UKEY-102</code>&hellip;<code>ITM-UKEY-120</code>). <strong>A grind floor drops only the key for the boss directly above it</strong> &mdash; farm 109 to fight 110. Climbing is what adds new key types to the pool.</li>
+    <li>One key type per boss, authored in <code>codex/items.csv</code> as <code>ITM-UKEY-102</code>&hellip;<code>ITM-UKEY-120</code> (&ldquo;Void Apex Key &mdash; Vargr&rdquo; and so on, tier 10, level 100, art <code>prompt_ready</code>). <strong>A grind floor drops only the key for the boss directly above it</strong> &mdash; farm 109 to fight 110. Climbing is what adds new key types to the pool.</li>
     <li><strong>Consumed on boss entry, not on victory.</strong> A wipe burns the key.</li>
     <li>Per-kill roll, rarity-scaled and normalized like zone keys, <strong>rolled and debited server-side</strong>. Rate: expected <strong>one key per ~12 hours</strong> of Apex play (~360 battles).</li>
     <li><strong>Pure roll &mdash; no pity, no timer, no guaranteed key</strong> (D ruling 2026-08-10). Half of all keys arrive inside ~8.3&nbsp;h; one in ten takes over ~27.6&nbsp;h; one in a hundred over ~55&nbsp;h. There is no guaranteed-key equivalent of the floor-9 zone rule.</li>
@@ -132,8 +132,9 @@
     <tr><td class="lbl">120</td><td>Mutant Eskaton, the Unfinished God</td><td>floor 100</td><td>A10 D10 U10 S6</td><td>39,000</td><td><strong>The Unfinished Work</strong> &mdash; Every 4 rounds the forge rebuilds him: all buffs on your side are stripped and he heals 10% of maximum HP. Landing 25% of his maximum HP in damage inside a single round cancels the next rebuild.</td></tr>
   </table>
   <p style="font-size:13px;color:var(--ink-faint)">HP is budgeted from the live boss anchor (an on-progression party kills a floor-100 boss in ~10 turns at ~490 damage per turn). Apex budgets assume a party doing 2&times; that at floor 102 rising to 5&times; at floor 120, targeting 14&ndash;16 turns throughout &mdash; 2.8&times; the floor-100 boss at the entry and 8&times; at the cap.</p>
-  <p><strong>Loot: no per-boss tables</strong> (D ruling 2026-08-10). Every &uuml;ber boss draws from the same Apex pool as everything else in the zone &mdash; what separates them is only the grade odds on their floor's row. There is no target-farming a particular boss for a particular item; the reason to climb is that the odds get better.</p>
-  <p><strong>Still to author:</strong> the per-boss move retunes and the mutant portrait pass.</p>
+  <p><strong>Still to author:</strong> the per-boss move retunes, the mutant portrait pass, and the &uuml;ber loot tables.</p>
+
+  <div class="sp-note"><strong>Data note &mdash; there is no second copy.</strong> Every Apex table lives in this repo and nowhere else, exactly like the rest of the game data. Dev reads live <code>main</code>, so Apex tables are visible on <code>/dev/</code> as soon as they are committed; release reads the immutable <code>DATA_PIN</code> snapshot, so nothing here can reach live players until a release advances the pin. That is why the design and its data can land in full while the code is still unwritten.</div>
 
   <h2>Server authority</h2>
   <p>The most valuable content in the game is also the first content built server-authoritative end to end: the key drop roll, the key debit on entry, the Apex floor clear, and every &uuml;ber reward are all server-side, granted only against an open server-held boss session. A disconnect pauses and resumes through the deterministic replay; no refund, no offline credit. All five Apex tables ship pinned like every other data file.</p>
@@ -143,7 +144,7 @@
     <li><strong>Placeholder, live now (D ruling 2026-08-10): a black void filled with small gray stars.</strong> No terrain, no horizon, no colour. Procedurally generated, not from the art pipeline &mdash; a stand-in until real Apex art is authored.</li>
     <li>One shared asset set for the whole zone, reused by all twenty floors, exactly as the floor sheet's asset-pool decoupling intends: <code>floors/backgrounds/voidapex.png</code> (1536&times;1024, grind floors), <code>floors/backgrounds/voidapex_boss.png</code> (1024&times;1024, boss arenas), <code>floors/parallax/voidapex_par.png</code> (2304&times;1024).</li>
     <li>Rows 101&ndash;120 exist in <code>codex/floor_assets.csv</code> with zone <em>Void Apex</em>, theme <em>The Starless Void</em>, and <code>BG_Status</code> / <code>Parallax_Status</code> = <code>placeholder</code>.</li>
-    <li><strong>No props</strong> in the Apex &mdash; the void is empty by design. <strong>The ground plate is the same treatment</strong> (D ruling 2026-08-10): <code>floors/ground_plates/voidapex_plate.png</code>, 2560&times;1440, black with small gray stars, so the walkable surface and the backdrop read as one continuous void.</li>
+    <li><strong>No props</strong> in the Apex &mdash; the void is empty by design. <strong>Ground plate not authored</strong>: pending a ruling on whether these floors have a walkable surface at all, or creatures simply hang in the void.</li>
   </ul>
 
   <h2>Rulings log</h2>
@@ -153,8 +154,7 @@
     <li><strong>2026-08-10 &mdash; eggs.</strong> No Abyssal eggs. Higher-rarity eggs made commoner instead, through the spawn mix and the boss egg weights.</li>
     <li><strong>2026-08-10 &mdash; keys.</strong> Pure rolls. No guarantee.</li>
     <li><strong>2026-08-10 &mdash; &uuml;ber bosses.</strong> The ten bosses are mutant returns of the tower's own bosses, in original order, with HP budgets derived from the live boss anchor and one signature rule each.</li>
-    <li><strong>2026-08-10 &mdash; art.</strong> Placeholder background is a black void with gray stars; the ground plate uses the same image treatment.</li>
-    <li><strong>2026-08-10 &mdash; boss loot.</strong> No separate per-boss loot tables. Shared Apex pool, higher grade odds the deeper the boss.</li>
+    <li><strong>2026-08-10 &mdash; art.</strong> Placeholder background is a black void with gray stars.</li>
     <li><strong>2026-08-10 &mdash; wilds.</strong> Floor 119 fully equipped at max grade with optimized items. HP modifiers stay banned on wild creatures.</li>
   </ul>
 
