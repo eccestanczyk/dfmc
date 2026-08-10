@@ -179,12 +179,20 @@ ink reroll exists anywhere in the build</strong>, and three separate facts say s
 <p>The client sentence is removed. <strong>The rule itself is unchanged</strong> &mdash; only the false claim about how
 to invoke it is gone. This is the standing lesson from the class-switch confirmations: <strong>UI text is a claim about a
 code path</strong>, and a price quoted for an action that has no code path is a promise the game will refuse to keep.</p>
-<div class="note"><strong>OPEN &mdash; the second copy of this claim has NOT been removed.</strong> The same sentence
-lives in the codex data file <code>codex/items.csv</code>, in the <code>Effect</code> column of the Scroll rows
-(<code>ITM-0381</code> onward), reading <em>&ldquo;&hellip;; rerollable for 3&times;T Ink&rdquo;</em>. Removing the
-client string fixed the surface the player reads in game; the data file is the second copy and still carries it, so
-anything generated from <code>items.csv</code> &mdash; including this codex &mdash; will keep repeating it until that
-column is edited.</div>
+<div class="note"><strong>There were TWO copies of the claim, and both are now gone.</strong> The second lived in the
+codex data file <code>codex/items.csv</code>, in the <code>Effect</code> column of the Scroll rows
+<code>ITM-0381</code>&ndash;<code>ITM-0390</code> (all ten tiers), reading
+<em>&ldquo;&hellip;; rerollable for 3&times;T Ink&rdquo;</em>. Removed 2026-08-10 as a pure suffix strip: the clause
+contains no comma, quote or newline, so the field stayed unquoted and no other column moved &mdash; verified by
+re-parsing, 606 rows and 13 columns before and after, exactly 10 changed cells, all in <code>Effect</code>, CRLF line
+endings preserved. The Scroll <code>Effect</code> now reads
+<em>&ldquo;random Local enchantment roll &mdash; flat Attack/Defense/HP or item-local % Attack/Defense/HP&rdquo;</em>.
+Nothing parses that clause for a stat &mdash; scroll legality has been judged on the <em>rolled</em> result since the
+2026-07-31 ruling &mdash; so this is a text-only change.
+<br><strong>Adjacent and deliberately left alone:</strong> <code>ITM-0395</code> (the Ink material) authors
+<em>&ldquo;scroll crafting + grading + rerolling&rdquo;</em>. That one is not the false price &mdash; ink genuinely
+buys the replacement scroll, and applying a replacement <em>is</em> the reroll &mdash; but the word invites the same
+misreading and is worth a ruling.</div>
 
 <h2>Changelog</h2>
 <ul>
@@ -196,8 +204,10 @@ column is edited.</div>
   Ink&rdquo;</em>. <strong>No ink reroll was ever built</strong>: the server's roll door for
   <code>kind === 'enchant'</code> charges no ink and has no reroll branch, and the sibling description string for the
   same item already said a scroll can only be replaced, never removed, with no ink claim. The client sentence is removed;
-  the rule is unchanged. <strong>Still open:</strong> the identical claim remains in <code>codex/items.csv</code>, in the
-  <code>Effect</code> column of the Scroll rows (<code>ITM-0381</code> onward). <em>Shipped in 0.47.</em></li>
+  the rule is unchanged. <em>Shipped in 0.47.</em> <strong>The second copy went the same day:</strong> the identical
+  clause in <code>codex/items.csv</code>, <code>Effect</code> column, Scroll rows
+  <code>ITM-0381</code>&ndash;<code>ITM-0390</code>, was stripped 2026-08-10 &mdash; 10 cells, all in
+  <code>Effect</code>, row and column counts and CRLF endings unchanged.</li>
   <li><strong>2026-08-07</strong> &mdash; Dismantle results are a centred list panel instead of a one-line toast, and no popup can widen the document. Measured on a phone, the old yield line drew 963&nbsp;px and pushed the document to 1178, which the browser answers by zooming out &mdash; the &ldquo;resizing the game window&rdquo; in the reports. Six overlays moved off <code>position:fixed</code>, which had been sizing them to the device rather than the stage, and the devour row now shrinks to its box instead of scrolling sideways. D report + #51 + #48. Verified 8/8.</li>
   <li><strong>2026-07-31</strong> &mdash; Socketable refunds: unequipping, swapping or dismantling returns gems and runes to your bag; scrolls stay bound to their item (and die with it on dismantle).</li>
   <li><strong>2026-07-31</strong> &mdash; Scroll legality: judged by the rolled result (flat rolls match like gems; local %, Increased/More, utility and unrolled scrolls fit any host). The stat-match rule taken literally had condemned the whole category.</li>
