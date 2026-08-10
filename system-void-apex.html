@@ -153,11 +153,12 @@
   </table>
 
   <h2>What still needs code</h2>
+  <div class="sp-note"><strong>The server half landed on dev 2026-08-10</strong> (<code>dfmc-client</code> dev <code>74f68de</code>, additive, main untouched). Six places restated the 100-floor tower in code and now read authored data: a named <code>TOP_FLOOR</code> replaces the literal 100 in four floor clamps and the save gate (the three <em>level</em> clamps stay at 100 &mdash; levels really do cap there); <code>chanceTables</code> builds a <code>_bossFloors</code> map from the floors.csv rows it already parses, and both <code>floor % 10 === 0</code> boss tests read it; wild quality's separate six-entry ladder became <code>LEGAL_GRADES</code> so quality can run to Void; item tier is clamped at 10 so the eleventh zone cannot ask for a tier-11 item. <strong>Not end-to-end probed</strong> &mdash; the checks were data-level, and no Apex battle has been run against a real worker. The list below is what remains.</div>
   <p>Four hardcoded assumptions block the Apex. Each is small, and each is a place where today's code restates &ldquo;the tower is 100 floors of 10-floor zones&rdquo; instead of reading it:</p>
   <ul class="sp-rules">
-    <li><strong>Server &mdash; the save gate refuses floors above 100.</strong> <code>floorNum &gt;= 1 &amp;&amp; &lt;= 100</code> rejects an Apex save outright.</li>
-    <li><strong>Server &mdash; <code>floor % 10 === 0</code> in the drop path.</strong> Floor 102 is a boss floor by <code>Is_Boss</code> but not by that test, so boss loot would not fire. The floors table already knows the answer.</li>
-    <li><strong>Server &mdash; enemy quality is capped at Legendary</strong> by a six-entry grade list, and <strong>item tier is the zone index</strong>, so a new eleventh zone asks for tier-11 items that do not exist. Extend the list; clamp the tier at 10.</li>
+    
+    
+    
     <li><strong>Client &mdash; this is the real work.</strong> The 30-win threshold has to replace <code>ceil(floor^0.65)</code> in four places; the every-tenth-floor boss assumption appears in seven; travel is hard-clamped with <code>Math.min(100, target)</code> and the ascend button is disabled at floor 100.</li>
     <li><strong>Client &mdash; wild virtual gear breaks silently above floor 100.</strong> <code>wildTags()</code> derives the tag tier as <code>ceil(floor/10)</code>, which is 11 or 12 in the Apex; no Tag item exists at those tiers, so the lookup misses and every Apex wild would carry <strong>zero</strong> tags with no warning. Clamp the tier at 10. Note also that a wild's tag value is a single implicit scaled by tier and quality grade &mdash; wilds have no gem, rune or enchant slots at all, so quality is the only lever that grows their gear.</li>
   </ul>
@@ -184,6 +185,7 @@
     <li><strong>2026-08-10 &mdash; &uuml;ber bosses.</strong> The ten bosses are mutant returns of the tower's own bosses, in original order, with HP budgets derived from the live boss anchor and one signature rule each.</li>
     <li><strong>2026-08-10 &mdash; art.</strong> Placeholder background is a black void with gray stars; the ground plate uses the same image treatment.</li>
     <li><strong>2026-08-10 &mdash; boss loot.</strong> No separate per-boss loot tables. Shared Apex pool, higher grade odds the deeper the boss.</li>
+    <li><strong>2026-08-10 &mdash; server half on dev.</strong> Floor ceilings, boss detection, the quality ladder and item tier all read authored data now. Client untouched, main untouched, not yet probed.</li>
     <li><strong>2026-08-10 &mdash; drop chances.</strong> <code>drop_chances_by_floor.csv</code> gains rows 101&ndash;120; the roller refuses to pay a floor with no row there.</li>
     <li><strong>2026-08-10 &mdash; data shape.</strong> Apex data extends the existing tables rather than adding parallel ones, so the server reads the new floors with no data-layer change.</li>
     <li><strong>2026-08-10 &mdash; kits.</strong> &Uuml;ber bosses inherit their source kit verbatim; move powers are not raised past the authored 160 band ceiling.</li>
