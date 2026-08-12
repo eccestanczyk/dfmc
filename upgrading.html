@@ -141,6 +141,60 @@ td{border-bottom:1px solid var(--rule);padding:5px 8px;color:var(--ink-dim);font
   not in the CSV is refused outright, so the ladder cannot be shortened from the client. Currency is still
   spent client-side and validated by the save door until inventory moves server-side.</p>
 
+  <h3>The refresh reroll, and why the idem key did not stop it (reports #119 + #125)</h3>
+  <p><strong>Status: ON DEV (0.48), not yet on release.</strong> <strong>Two players found this
+  independently and one used it to put his entire loadout on Primordial.</strong> Fail a grade, press F5
+  before the game next saves, and the materials are back and the next click is a brand new chance
+  &mdash; in the first reporter's words, <em>&ldquo;posso fazer isso ate os upgrades darem certo&rdquo;</em>.
+  It worked on equipment <em>and</em> on class souls.</p>
+  <p><strong>The paragraph above contains the bug, in the phrase &ldquo;of the client's choosing&rdquo;.</strong>
+  Every property this door promised was true of a <em>retry</em> and none of them was true of a
+  <em>second attempt</em>:</p>
+  <ul>
+    <li>the draw is <code>HMAC(SPAWN_SECRET, roll|sid|realm|kind|idem)</code> and cannot be predicted
+    &mdash; but <code>idem</code> is minted fresh by <code>rollIdem()</code> on every click, so a second
+    attempt is a different key and therefore <strong>a different draw</strong>;</li>
+    <li>the materials are debited in the browser and only reach the server on the next save, so a reload
+    puts them back;</li>
+    <li>and <code>upgResolve()</code> called <code>saveRun()</code> on every SUCCESS branch and
+    <strong>not on the failure branch</strong> &mdash; so a failed attempt sat unsaved until some unrelated
+    autosave. That asymmetry is why the exploit was reliable, and it is exactly what both reporters
+    describe: <em>&ldquo;sometimes it consumes the reagents, but most of the time I can try again&rdquo;</em>.
+    Whether the spend stuck depended entirely on whether an autosave happened to land in the window.</li>
+  </ul>
+  <p><strong>The fix is the pattern this file already documents twice.</strong> The creature sex roll is
+  keyed on the creature and the egg roll on the pen and its egg number, both with the note that a fresh key
+  is right only for &ldquo;an attempt that has cost nothing yet&rdquo;. <strong>A grade attempt costs
+  something the moment the server answers</strong>, so it now belongs to the same family:</p>
+  <ol>
+    <li>the draw is keyed on <strong>the target item plus an attempt ordinal the server holds</strong>, not
+    on anything the client mints. The client sends only which item it means (<code>upgTargetId()</code>,
+    which names the <em>instance</em> &mdash; two copies of one item are two separate attempts);</li>
+    <li>the ordinal advances <strong>only once a save has landed since the answer</strong>. Until then the
+    same attempt is replayed, with <code>unsettled:true</code>. A refresh therefore returns the same
+    failure instead of buying a new chance;</li>
+    <li>the attempt is recorded by the server at the moment it answers, so <strong>it exists even if the
+    browser never saves</strong> &mdash; which is precisely what #125's reporter asked for in his own words
+    (<em>&ldquo;save the character right after the upgrade result&rdquo;</em>);</li>
+    <li>and the client now flushes on failure as well as on success, so an honest second attempt always has
+    a settled save behind it.</li>
+  </ol>
+  <p><strong>What counts as the spend landing</strong> is the save version moving past the one current when
+  the roll was answered. The bundle is debited in the same tick the outcome is applied, so any save written
+  after the answer carries it; the version is the cheapest honest evidence available and costs no extra
+  write. <strong>The existing idempotence is untouched</strong> &mdash; a genuine reconnect resending the
+  same key still gets the same answer and is still never charged twice.</p>
+  <p class="note"><strong>Additive on purpose.</strong> A client that sends no item id falls through to the
+  old client-keyed behaviour, because one backend serves both branches and release must keep working. The
+  hole closes for an account the moment its client sends the field, which is at the 0.48 release.
+  <strong>Separately, and it is D's call: fixing the door does not un-grade the items already obtained this
+  way.</strong></p>
+  <p class="foot">Client: <code>upgTargetId()</code>, <code>upgAsk()</code>, <code>upgResolve()</code> in
+  <code>play/app.js</code>. Worker: the <code>/api/roll</code> handler and the <code>roll_att</code> table in
+  <code>src/worker.js</code>. Probe: <code>tools/probe_rollreplay.mjs</code> 15/15, and
+  <strong>11/15 against the build the exploit is live on</strong> &mdash; it drives the real worker and
+  reproduces the reported behaviour (seven attempts, seven different draws, one payment) before fixing it.</p>
+
 
   <h2>What the upgrade panel paints, and in which grade</h2>
   <p class="sp-lead">A successful upgrade replaces the panel's item with the <strong>upgraded</strong> item, so <code>gradeStep()</code> immediately describes the <em>next</em> attempt &mdash; Rare&nbsp;&rarr;&nbsp;Epic. Anything painted from <code>st.toColor</code> after that moment is showing the colour of a grade the item has not reached. Measured before the fix: a Rare item drew <code>rgb(163,53,238)</code>, which is Epic, and the word <em>RARE</em> was printed in the same purple.</p>
@@ -206,6 +260,7 @@ td{border-bottom:1px solid var(--rule);padding:5px 8px;color:var(--ink-dim);font
 
   <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-12 &mdash; a browser refresh could reroll a failed upgrade, and two players had found it (reports #119 + #125). ON DEV (0.48), not yet on release.</strong> The <code>idem</code> key was minted by the client fresh on every click, so a second attempt drew a different number; the materials were debited in the browser and only sent on the next save; and <code>upgResolve()</code> flushed on success but <strong>not on failure</strong>, which is why the window was reliably open. The draw is now keyed on the target item plus a server-held attempt ordinal that advances only once a save has landed, so a refresh replays the same failure rather than buying a new chance; the attempt is recorded when the server answers; and the client flushes on failure too. Covers equipment and class souls, which is the full reach #125 reported. New section &ldquo;The refresh reroll&rdquo; above. Gate <code>tools/probe_rollreplay.mjs</code> 15/15, 11/15 before. <strong>Whether to un-grade what was already obtained this way is a separate decision and D's.</strong></li>
     <li><strong>2026-08-08 &mdash; the forge no longer eats the materials and hangs (reports #58, #60). LIVE on release since 2026-08-08 (0.42).</strong> The roll resolved inside <code>this._timers</code>, which <code>clearTimers()</code> empties and every battle path calls, so a battle event inside the 620&nbsp;ms window destroyed a paid attempt. A paid attempt is now a ticket that survives <code>clearTimers</code>, settles exactly once, is swept if its timer is lost, and is settled &mdash; not cancelled &mdash; by opening or closing the forge. Also fixed in passing: <code>upgBusy</code> alone did not guard re-entry, and three clicks in one tick were measured charging 14 against a 10-Scrap bundle. Probe <code>tools/probe_upghang.py</code>: BEFORE 5/12, AFTER 12/12.</li>
     <li><strong>2026-08-07 &mdash; the upgrade panel paints the grade the item is, and the circle is always there (LIVE on release since 2026-08-07 (0.39)).</strong> A win swaps the panel's item for the upgraded one, so every colour derived from the next step was a tier ahead: a Rare item drew Epic purple, message included. The circle was gated on success, showed no grade colour, and had no aura. Reports #52 and #53. New section above. Verified 9/9, with a before-picture proving both defects.</li>
     <li><strong>2026-08-06 &mdash; the advancement trigger now reaches party creatures, and class souls join the system. LIVE on release since 2026-08-08 (0.42).</strong>
