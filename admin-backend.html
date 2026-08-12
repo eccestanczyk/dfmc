@@ -514,8 +514,69 @@
   <p><strong>Not yet enforcing.</strong> The module exists and is proven; nothing validates against it yet. The design (D): the player dismantles, the client credits immediately &mdash; safe, because a dismantle carries no RNG &mdash; the save rides the next sync, and the server recomputes and validates by <strong>diffing the previous save against the new one</strong>. Items gone from the bag are what was dismantled. A client receipt is never trusted, because a receipt is precisely what an attacker writes.</p>
   <p class="foot">Server: <code>src/dismantle.js</code>. Gate: <code>tools/probe_dismantle_parity.py</code>. Client source of truth transcribed from <code>play/app.js</code> <code>dismYield</code>/<code>breedRates</code>/<code>gradeNum</code>/<code>dismantleDb</code>.</p>
 
+  <h2>Why no automatic report ever arrived &mdash; and how one does now</h2>
+  <p><strong>Status: ON DEV (0.48), not yet on release.</strong> Between 2026-08-04 and 2026-08-12 the
+  automatic reporter filed <strong>zero</strong> readable rows. D noticed it before any tool did
+  (report&nbsp;#124: <em>&ldquo;I haven't seen one of them yet which is odd&rdquo;</em>). There were
+  <strong>two independent causes and either one alone was fatal</strong>, which is why neither showed up as an
+  error: nothing failed, the rows were written exactly as instructed, and the instructions were wrong.</p>
+  <ol>
+    <li><strong>The status word.</strong> The row was written <code>status='open'</code>. Every reader filters
+    <code>status='new'</code> &mdash; <code>/api/feedback/export</code> defaults to it and
+    <code>/api/admin/feedback</code> hardcodes it. Worse, <code>'open'</code> is not in the accepted set of the
+    mark endpoints (<code>['new','processed','wontfix','fixed']</code>), so the row could neither be
+    <em>listed</em> nor <em>closed</em>. It was unreachable in both directions.</li>
+    <li><strong>The object.</strong> This is the load-bearing one, and it is the same defect class as the PvP
+    queue door's 401. <code>src/worker.js</code> defines ONE class: <code>PlayerDO</code> and
+    <code>WorldDO</code> both <code>extends MainDO</code> with empty bodies, so <strong>every table exists in
+    both objects and which one holds the truth is decided by routing, not by schema</strong>.
+    <code>WORLD_PATHS</code> sends <code>/api/feedback</code> and <code>/api/admin/</code> to the WorldDO, so
+    the inbox everyone reads is the WorldDO's <code>feedback</code> table. But every REPORTABLE kind fires on a
+    save, battle or roll path, and those are <em>not</em> world paths &mdash; so <code>flag()</code> &rarr;
+    <code>flagReport()</code> ran inside the <strong>player's own object</strong> and inserted into that
+    object's <code>feedback</code> table. Same schema. Different object. Read by nothing.</li>
+  </ol>
+  <p><strong>The proof was in the live data, not in the reasoning.</strong> The export's <code>counts</code>
+  (<code>GROUP BY kind, status</code>) carried <em>no <code>auto</code> kind at any status</em> after weeks of
+  guards firing, and <code>/api/admin/save-history</code> returned <code>[]</code> for an account on save
+  version 3,525 &mdash; because that door reads the WorldDO's <code>save_hist</code> too.</p>
+
+  <h3>The relay &mdash; how the row crosses objects without a fetch</h3>
+  <p>The raising object <strong>must never call <code>fetch()</code></strong>: an outbound subrequest is one of
+  the lifecycle facts that stops a Durable Object hibernating, and a non-hibernateable object bills at full
+  wall-clock rate &mdash; a ~1000&times; cost difference. So the row is carried out the way ANTICHEAT&nbsp;2
+  already carries a leaderboard write:</p>
+  <ol>
+    <li><code>flagReport()</code> <strong>queues</strong> onto <code>this._autoQ</code> instead of inserting.
+    The per-account-per-kind-per-day dedup row stays where it is raised, because that is where the account's own
+    history lives.</li>
+    <li><code>MainDO.fetch</code> is now a thin wrapper over <code>fetchInner</code> that attaches the queue to
+    the response as the <code>x-ht-autorept</code> header. <strong>A wrapper, not a body annotation</strong>,
+    because a flag can be raised from any of ~180 return sites and a header needs none of them changed &mdash;
+    and a header carries a streamed or non-JSON response unaltered.</li>
+    <li><code>autoRelay()</code> in the Worker strips the header (it never reaches the browser: it names
+    accounts and internal guard kinds) and POSTs to <code>/api/_internal/autorept</code> on the WorldDO under
+    <code>ctx.waitUntil</code>. <strong>The player's save is never delayed by a bug report, and a lost relay
+    costs the report rather than the request it rode on.</strong> Applied at the Worker's own
+    <code>fetch</code>, one place, because a flag can be raised on any route &mdash; world or player.</li>
+    <li>The world door writes the row with <code>status='new'</code> and enforces the forty-a-day inbox
+    ceiling <em>there</em>, because the budget is a property of the inbox: forty accounts each filing their own
+    one-a-day would otherwise bury every real report between them.</li>
+  </ol>
+  <p class="note"><strong>Still true after this change:</strong> raw <code>anomalies</code> rows are still
+  written into the raising object and <code>/api/admin/flags</code> still reads only the WorldDO's, so it
+  still shows only world-path events. The automatic report carries the first detail of the day for its kind,
+  which is the signal; the row behind it stays per-account and is read through
+  <code>GET /api/backup/flags?key=&amp;sid=</code>.</p>
+  <p class="foot">Worker: <code>flagReport()</code>, <code>MainDO.fetch</code>/<code>fetchInner</code>,
+  <code>/api/_internal/autorept</code>, <code>autoRelay()</code> in <code>src/worker.js</code>. Probe:
+  <code>tools/probe_autorept.mjs</code> 18/18 &mdash; <strong>7/18 against the build it replaces</strong>. The
+  probe drives the real worker under <code>wrangler dev --local</code> and asserts against the same export door
+  the feedback pull uses; it re-implements none of the logic it tests.</p>
+
   <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-12 &mdash; the automatic bug reporter had never filed a readable row; both causes fixed (ON DEV (0.48), not yet on release).</strong> Report&nbsp;#124. Rows were written <code>status='open'</code>, which no reader lists and no mark endpoint accepts, <em>and</em> inserted into the raising player's own object while the inbox lives in the WorldDO &mdash; either alone was fatal and neither raised an error. Status is now <code>'new'</code>; the row is queued in the raising object, carried out on the <code>x-ht-autorept</code> response header, and relayed to the WorldDO by the Worker under <code>waitUntil</code>, so no Durable Object gains an outbound fetch and hibernation is unaffected. The forty-a-day ceiling moved to the world door where the table it counts lives; the per-account-per-kind-per-day dedup stayed where the account's history is. New section &ldquo;Why no automatic report ever arrived&rdquo; above records both causes, the live evidence for each, and the relay. <strong>This is why report&nbsp;#122 had to be noticed by D rather than caught by looking</strong> &mdash; every save-path detection since 2026-08-04 was written somewhere no door can read. Probe <code>tools/probe_autorept.mjs</code> 18/18, and 7/18 against the build it replaces.</li>
     <li><strong>2026-08-08 &mdash; per-invocation CPU ceiling set to 500&nbsp;ms on both branches (silent fix, no version bump, D's order).</strong> The account is on Workers Paid, so no daily cap and no platform spend cap applied and every invocation could burn the 30,000&nbsp;ms default. Measured before setting, not guessed: 7 days and 293,918 requests gave P50 0.8&nbsp;ms, P99 15&nbsp;ms, P999 59&nbsp;ms &mdash; but the true max over 169 hours is <strong>156&nbsp;ms</strong>, because the every-minute cron and the nightly R2 mirror sit below the P999 cut and a quantile cannot see them. Headroom is 3.2&times;, not the 8&times; the percentile suggested. Applied first to <code>dfmc-client-dev</code> through the settings API and smoke-tested, then to release; the settings API refused the release worker with error 10214 (latest uploaded version was not the deployed one), which is why it belongs in <code>wrangler.jsonc</code> rather than the dashboard in the first place. New &ldquo;Denial-of-wallet&rdquo; section above records the measurement method and the standing re-measure trigger.</li>
     <li><strong>2026-08-05 &mdash; reports anchored to open time, not send time (LIVE on release since 2026-08-08 (0.42)).</strong> <code>ctx</code> was read when the player pressed send, which with autoplay running is several battles after the moment being reported &mdash; the cause of report&nbsp;#29 arriving stamped <code>screen: resolving</code>. <code>openFeedback()</code> now snapshots the context, and the payload carries <code>openedAt</code>, <code>typedMs</code> and an <code>atSend</code> map holding only the fields that drifted while the report was written.</li>
     <li><strong>2026-08-05 &mdash; screenshots removed from bug reports entirely (D order; LIVE on release since 2026-08-08 (0.42)).</strong> All 33 stored reports were decoded and inspected first: 24 usable frames, 3 flat texture, 6 absent, and the frame taken when the report was written rather than when the bug happened. The payload drops from 63&nbsp;KB to 13.1&nbsp;KB and logs become 96% of it. <code>b.shot</code> is ignored rather than rejected so release clients do not lose reports during the rollout; <code>purgeShots()</code> blanks the stored images once behind a <code>wmeta</code> flag, on the ops door. The new &ldquo;What a bug report actually carries&rdquo; section above is the first time the payload has been written down.</li>
@@ -616,6 +677,10 @@
     <tr><td class="lbl"><code>GET /api/backup/parts?key=&amp;sid=&amp;realm=</code></td><td>Split save parts
       and <code>rejoin_ok</code> &mdash; the stage-2 gate for the save split.</td></tr>
 <tr><td colspan="2"><strong>2026-08-04 &mdash; the detected-but-unenforced flag class reports itself (LIVE on release since 2026-08-08 (0.42)).</strong>
+<span class="note"><strong>CORRECTION 2026-08-12 &mdash; as written below this NEVER WORKED, and the two
+reasons are recorded in &ldquo;Why no automatic report ever arrived&rdquo; further down this page. Read
+that section before trusting this paragraph. <code>status</code> is now <code>'new'</code>, and the row is
+relayed to the WorldDO instead of being inserted where it is raised.</strong></span>
 Fifteen flag kinds now file a bug report into the same inbox as player reports, with
 <code>kind='auto'</code> and <code>status='open'</code>, instead of waiting in the flags door to be found by
 hand. <strong>Written server-side on purpose.</strong> The obvious route was the client's automatic report, and
