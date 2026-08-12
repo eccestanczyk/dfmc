@@ -83,7 +83,47 @@
     <tr><td><code>targetOk</code> / <code>pickTarget</code></td><td>Target legality, shared with the selection highlight.</td></tr>
   </table>
 
+  <h2>Signature mechanics cannot be removed (reports #117 / #118)</h2>
+  <p><strong>Status: ON DEV (0.48), not yet on release.</strong> D's ruling, 2026-08-12:
+  <em>&ldquo;Boss buffs / unique mechanics cannot drop. They need to be permanent for the fight and
+  impossible to remove.&rdquo;</em></p>
+  <p><strong>The engine already promised this and did not keep it.</strong> A boss's unique rule is
+  carried as a status with the <code>sig</code> flag: it is painted with the skull icon, and its own
+  tooltip already reads <em>&ldquo;This cannot be removed.&rdquo;</em> But the predicate that answers
+  &ldquo;is this a buff?&rdquo; returns TRUE for a signature status &mdash; correctly, it <em>is</em>
+  a buff &mdash; and four separate paths acted on that answer without ever asking whether the thing
+  was allowed to be taken:</p>
+  <ul>
+    <li><strong>Remove buffs</strong> stripped it outright.</li>
+    <li><strong>Steal buffs</strong> took it <em>off the boss</em> and put it <em>on the player</em>,
+    so the boss lost its mechanic and the player gained one.</li>
+    <li><strong>Buff shortening</strong> pulled its duration down &mdash; measured 99 turns to 94 in
+    one hit. Shortening is removal with extra steps: a mechanic that expires early did not last
+    &ldquo;permanent for the fight&rdquo;.</li>
+    <li><strong>The Unfinished Work</strong>'s own round rule, which clears the party's buffs, wiped
+    a signature status off a party member too.</li>
+  </ul>
+  <p><strong>Why it was seen only a few times.</strong> Every one of those needs a player carrying a
+  strip, steal or shorten effect. A bare account has none, which is why the report never reproduced
+  and was twice recorded as &ldquo;could not reproduce&rdquo;.</p>
+  <p><strong>The rule now.</strong> One predicate &mdash; <em>is this buff strippable</em> &mdash; is
+  asked at every removal site. A signature status still READS as a buff everywhere else: it shows in
+  the buff row, it satisfies &ldquo;target has a buff&rdquo; conditions, and it is described in
+  tooltips exactly as before. It is simply never a legal <em>target</em> for removal, theft or
+  shortening. <strong>Authored counterplay is untouched</strong> &mdash; Sethek's second rising is
+  still cancelled by killing his escort first (#116), because that is the boss's own written rule
+  rather than a status being taken off him.</p>
+  <p class="foot">Client: <code>isStrippableBuff()</code>, <code>applyFxTo</code> and the
+  <code>SIGFX</code> round rules in <code>play/app.js</code>. Gate:
+  <code>tools/probe_sigperm.py</code> 15/15, and <strong>8/15 against the build it replaces</strong>
+  &mdash; the failing run reproduces all four losses on a real client before fixing any of them, and
+  every check has a control proving ordinary buffs are still removable.</p>
+
   <h2>Changelog</h2>
+
+  <ul>
+    <li><strong>2026-08-12 &mdash; a boss's unique mechanic could be stripped, stolen or shortened (reports #117 / #118). ON DEV (0.48), not yet on release.</strong> D ruled these must be permanent for the fight and impossible to remove. The engine already flagged them and its own tooltip already said so; four paths ignored the flag. New section above records all four, why the report never reproduced, and the single predicate that closes it. Gate 15/15, 8/15 before.</li>
+  </ul>
   <ul class="sp-rules">
     <li><strong>2026-07-28 &mdash; page created, and the buff system rebuilt beneath it.</strong> Previously every positive Attack buff was named <em>Rallied</em> and every positive Defense buff <em>Guarded</em>, and applying one filtered out any existing status of that name. Three consequences, all reported from live play: a move's own Synergy clause overwrote its self buff, so casting <em>Convocation of Storms</em> left the caster at +15% instead of +50%; one creature's buff overwrote another creature's unrelated buff; and the newer cast always won regardless of strength. Fixed by making a status's identity its ability. In the same pass: buffs now combine additively rather than multiplicatively; re-application refreshes duration and keeps the stronger magnitude; a Synergy type gate includes the caster while an "if no X ally" fallback excludes it; and <code>Targets=self</code> moves no longer offer allies as targets.</li>
   </ul>
