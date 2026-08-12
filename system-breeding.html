@@ -199,6 +199,36 @@ dead; test 6 restores it and proves the egg lands exactly once. Test 2 reads the
 of the CSV rather than restating them, and test 4 bounds the 50/50 at three standard deviations of
 the sample the roll rate cap actually permits.</p>
 
+<h2>Adam and Eve &mdash; the soul-bag pair keeper (reports #99 + #100)</h2>
+<p><strong>Status: ON DEV (0.48), not yet on release.</strong> An option in the soul-bag dismantle
+menu, offered in the SOUL BAG ONLY because it is meaningless where there is no line and no gender.
+<strong>It keeps the highest-grade MALE and the highest-grade FEMALE of every advancement line and
+dismantles the rest.</strong> Two keepers per line, not one &mdash; a breeding pair needs both, which
+is the whole point of the name.</p>
+<p><strong>What it refuses to touch</strong>, each a deliberate refusal rather than an omission:</p>
+<ul>
+  <li>a creature whose gender is <strong>not known</strong>. The gender helper defaults to male, and
+  that default must never decide a dismantle &mdash; unknown is its own bucket and everything in it
+  is kept. Wrong in the player's favour is the only acceptable direction here.</li>
+  <li>a creature whose <strong>line cannot be resolved</strong> from <code>creatures.csv</code>. No
+  line, no comparison, no dismantle.</li>
+  <li>anything <strong>in a breeding pen</strong>, which is in use.</li>
+  <li>class souls, eggs and everything the shared bulk-salvage rules already exclude &mdash; it runs
+  through those rules rather than restating them, so every existing exclusion holds for free.</li>
+</ul>
+<p><strong>Ties are broken by level, then by stage</strong>, and the confirmation window says so.
+A tie means the two are interchangeable, but only one survives, so the choice is made on the numbers
+rather than on bag order.</p>
+<p><strong>The confirmation window explains what it does</strong>, which is part of the spec rather
+than a nicety: it names the rule, how many survive across how many lines, how many are being
+dismantled, and every creature it is leaving alone and why. Without that last part a player reads
+&ldquo;keeps the best of each line&rdquo;, finds four Phantoms still in the bag, and files it as a bug.</p>
+<p class="foot">Measured on a real account before shipping: 87 creatures down to 47, exactly the 40
+on the kill list, no creature dismantled while a worse one of its own line and gender survived, a
+second run finding nothing left to do, and the item census changing creature rows only. Client:
+<code>adamEveSplit()</code>, <code>dismTargets</code> mode <code>adameve</code>,
+<code>dismAdamEve</code> in <code>play/app.js</code>.</p>
+
 <h2>Changelog</h2>
 <p><strong>2026-08-08 &mdash; the bred egg's grade and parent line are decided server-side.</strong>
 <em>LIVE on release since 2026-08-08 (0.42).</em> One ask, because they are one decision. The tick still runs
