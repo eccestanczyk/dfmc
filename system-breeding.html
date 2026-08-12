@@ -230,6 +230,14 @@ second run finding nothing left to do, and the item census changing creature row
 <code>dismAdamEve</code> in <code>play/app.js</code>.</p>
 
 <h2>Changelog</h2>
+<p><strong>2026-08-12 &mdash; Adam and Eve, the soul-bag pair keeper (reports #99 + #100).</strong>
+<em>ON DEV (0.48), not yet on release.</em> New section above. Keeps the highest-grade male and the
+highest-grade female of every advancement line and dismantles the rest, behind a confirmation window
+that names the rule, the survivors, the tie-break and everything it is refusing to touch. It never
+dismantles a creature whose gender is unknown, whose line cannot be read, or which is sitting in a
+breeding pen. Verified on a real account before shipping: 87 creatures down to 47, exactly the kill
+list, nothing better destroyed than what survived, and a second run finding nothing left to do.</p>
+
 <p><strong>2026-08-08 &mdash; the bred egg's grade and parent line are decided server-side.</strong>
 <em>LIVE on release since 2026-08-08 (0.42).</em> One ask, because they are one decision. The tick still runs
 locally and still meters Ichor; only the laying waits. A due egg stops its pen rather than stacking
