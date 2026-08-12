@@ -317,8 +317,54 @@
   <em>top-right</em> for the inventory grid tile. That is stale for the item tile as of 0.47; the other surfaces in that
   table are unchanged. The section is left as written &mdash; this page is append-only.</p>
 
+  <h2>Every plaque is bottom-right now, centred on both axes &mdash; and the TAGS finally have one</h2>
+  <p><em>Build 0.48 cycle, dev.</em> Report&nbsp;#129 (D, 2026-08-12): <em>&ldquo;The numeral needs to be centered
+  in its container both vertically and horizontally. Tags are not showing their tier on icons in the equipment menu.
+  The tier numeral needs to be on the bottom right of the item icon image, not top right.&rdquo;</em> Three complaints,
+  and they are three symptoms of the same thing: <strong>0.47 moved ONE of the plaque sites and left the rest where
+  they were</strong>, so the screens stopped agreeing with each other.</p>
+  <p>All of them now sit in the <strong>bottom-right</strong> corner of their own box, and the plate is an
+  <code>inline-flex</code> box that centres whatever numeral it is handed. Centring had never been solved on either
+  axis: <code>line-height:1.45</code> on a 15&nbsp;px font is 21.75&nbsp;px inside a 22&nbsp;px content box, so the
+  glyph sat low, and <code>text-align:center</code> on a <code>min-width</code> plate does not settle a numeral as
+  narrow as <span class="lbl">I</span> against one as wide as <span class="lbl">VIII</span>.</p>
+  <p><strong>And the plaque family gained a sixth site it should always have had.</strong> The creature cards&rsquo;
+  <strong>tag rows</strong> draw the same 72&nbsp;px icon box as the equipment slot rows directly above them, and they
+  carried no plaque &mdash; because <em>neither half of it existed</em>: <code>invMons[].tags[]</code> emitted no
+  <code>hasTier</code> and no <code>tierRoman</code>, and the tile had no badge element and no
+  <code>position:relative</code> to host one. A tag&rsquo;s tier appeared nowhere on that screen; its
+  <code>title</code> tooltip is grade and refine only.</p>
+  <table>
+    <tr><th>Surface</th><th>Prop site</th><th>Position (current)</th></tr>
+    <tr><td class="lbl">Inventory grid tile</td><td><code>invGridProps</code></td><td>bottom-right (moved in 0.47)</td></tr>
+    <tr><td class="lbl">Equipment slot row</td><td><code>invSlots</code></td><td>bottom-right of the 72&nbsp;px icon box</td></tr>
+    <tr><td class="lbl">Creature tag row</td><td><code>invMons[].tags[]</code></td><td>bottom-right of the 72&nbsp;px icon box &mdash; <strong>new</strong></td></tr>
+    <tr><td class="lbl">Equip picker card</td><td><code>eqChoices</code> (slot branch)</td><td>bottom-right of the card</td></tr>
+    <tr><td class="lbl">Socket picker card</td><td><code>eqChoices</code> (sock branch)</td><td>bottom-right of the card</td></tr>
+    <tr><td class="lbl">Victory reward row</td><td><code>rwItems</code></td><td>far right of the row (in-line, not a corner)</td></tr>
+  </table>
+  <p class="note"><strong>Correction, superseding the correction above.</strong> <em>The tier badge moved to the
+  BOTTOM-right of the item tile</em> ends by saying &ldquo;the other surfaces in that table are unchanged&rdquo;.
+  That sentence is now stale in its turn: as of this change every corner site is bottom-right, and the table above is
+  the current one. The two earlier sections stay as written &mdash; this page is append-only.</p>
+  <div class="sp-note"><strong>The collision invariant from 0.47 now applies to one more tile.</strong> The
+  bottom-right corner is shared with the <strong>level</strong> badge, and the two are safe together only because they
+  are mutually exclusive by category &mdash; creatures and class souls carry a level and no tier, gear and tags carry a
+  tier and no level. Give any category both and they collide, on six surfaces instead of five.</div>
+  <p class="note"><strong>What is still not on this tile.</strong> The tag rows show a stat value and their sockets and
+  <em>no item name</em>: <code>nameTier</code> is computed for every tag and bound in no markup. That is a separate
+  question for D, not part of #129.</p>
+
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-08-12 &mdash; #129: the tier plaque is centred, every corner site is bottom-right, and the creature TAG rows have a plaque for the first time (dev, 0.48 cycle).</strong>
+      0.47 moved the inventory tile&rsquo;s badge and left the equipment slot row, the equip picker and the socket picker at
+      top-right, which is the mismatch D was looking at. Centring was never solved on either axis and is now an
+      <code>inline-flex</code> box at all badge sizes. The tag half was a two-sided gap &mdash; <code>invMons[].tags[]</code>
+      emitted no <code>hasTier</code>/<code>tierRoman</code> AND the tile had no badge and no <code>position:relative</code>
+      &mdash; the same dead-prop family as #86 and #128, inverted: nothing computed and nothing bound.
+      Gate: <code>tools/probe_tagtier.py</code> 13/13, 5/13 before, including a forced empty-slot case and a regression
+      pin on the eight gear badges. <strong>Dev only.</strong></li>
     <li><strong>2026-08-10 &mdash; auto-optimize: a round trip through the button destroyed enchant scrolls, and the plan could end weaker than it started (shipped in 0.47).</strong>
       Four defects. <strong>(1)</strong> <code>optApply()</code> never performed the &ldquo;arriver unfolds&rdquo; half of
       D ruling other&nbsp;#4 that <code>equipItem()</code> does, so a scroll folded onto a bag record when the optimizer
