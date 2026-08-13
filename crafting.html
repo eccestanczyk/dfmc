@@ -195,6 +195,15 @@ buys the replacement scroll, and applying a replacement <em>is</em> the reroll &
 misreading and is worth a ruling.</div>
 
 <h2>Changelog</h2>
+<p><strong>2026-08-13 &mdash; scrap what you just made (report #153). ON DEV, not yet on release.</strong>
+An item acquired and dismantled inside one save window was absent from the previous save, so an
+honest craft-and-scrap was refused its yield ("absent-from-prev") &mdash; caught by a player minutes
+after 0.50 shipped. The grant records introduced in 0.50 are exactly the missing verification
+source: an absent-from-prev claim now verifies against the server's own record of the mint,
+identity checked on the fields the grant carries, quantity capped at what was granted, and
+acceptance <em>spends</em> the grant &mdash; one yield per grant, forever, however often a claim replays.
+Forged ids still die where they always did, and the ordinary previously-held path is untouched.
+Gate: <code>tools/probe_dismwindow.mjs</code> 7/7.</p>
 <p><strong>2026-08-13 &mdash; zone keys are recorded grants, and the first-clear key comes from the server (report #143, the keys half). ON DEV, not yet on release.</strong>
 Two defects in one lane: the server-rolled <em>chance</em> key minted an id for the answer but never
 recorded the grant &mdash; it existed for one network hop, then every honestly banked key read
