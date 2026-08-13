@@ -934,7 +934,22 @@ FinalDamage = RawDamage
       <tr><td><span style="color:#ff44cc">Primordial</span></td><td>3</td><td>3</td><td>2</td><td>Flowing energy, subtle distortion</td></tr>
       <tr><td><span style="color:#a855f7;text-shadow:0 0 6px #7c3aed">Void</span></td><td>3</td><td>3</td><td>3</td><td>Dark tendrils, particles, chromatic aberration on hover</td></tr>
     </table>
-    <div class="note note-info"><p><strong>Open decision:</strong> Visual effects scope — item name text only, icon border, full icon treatment, or all of the above?</p></div>
+    <div class="note note-info"><p><strong>RESOLVED &mdash; D, 2026-08-12 (report #128):</strong>
+    Visual effects scope is <strong>all of the above</strong> &mdash; item name text, icon and full icon
+    treatment. Built on dev (0.48) for all three surfaces this section names: inventory, equipment UI
+    and the battle conclusion screen. Only Abyssal and above animate; the six grades below it stay
+    completely static.</p>
+    <p><strong>Two things D ruled at the same time, both of which narrow the work:</strong> the grade
+    <em>border</em> logic is correct as it stands and is left alone, and the equipment screen having
+    no border is deliberate. Item <em>names</em> on the equipment slot rows are also fine as they are
+    &mdash; those rows print art, tier badge and stat and no name, so the name effects land on the item
+    detail panel and the currently-slotted panel, which are the only places on that screen a name
+    appears.</p>
+    <p class="foot">Before this ruling <strong>none of the four effects existed</strong>: the words
+    Abyssal, Divine and Primordial appeared zero times in the client markup and the item tile carried
+    no animation at all, so every item from Worn to Void got the identical static treatment. A grade
+    glow had been computed for every inventory tile since it was written and bound in no markup &mdash;
+    the same dead-prop tell that found #86 and #129.</p></div>
 
     <h3>Modifier scopes</h3>
     <p>Every modifier in the game has one of three scopes, determining what it affects.</p>
