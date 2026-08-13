@@ -230,6 +230,18 @@ second run finding nothing left to do, and the item census changing creature row
 <code>dismAdamEve</code> in <code>play/app.js</code>.</p>
 
 <h2>Changelog</h2>
+<p><strong>2026-08-13 &mdash; the egg award is recorded and settled (the economy BOOK phase's fourth and final brick). ON DEV, not yet on release.</strong>
+The bred-egg award was the last uncredited lane in the economy: the egg entered the bag with no
+record behind it, and the Ichor the pens metered out for it never reached the permanent ledger.
+At the award &mdash; and only on the fresh draw, since every replay answers the stored result verbatim
+&mdash; two records now ride along: the egg is <em>minted</em> with a server id and a grant (origin
+"breed"), so it is sourced from birth and dismantling it verifies against that grant like
+everything else; and its authored settled cost (<code>Ichor_Per_Egg</code>) is <em>booked</em> into the
+permanent ledger, keyed on the ask's own stable id &mdash; the egg is already paid for and survives a
+reload, so the settlement is once-ever by the same key that makes the draw once-ever. With this
+the BOOK phase is complete: every mint and every currency movement is in the permanent record.
+Gate: <code>tools/probe_breedbook.mjs</code> 5/5 &mdash; the last case chains the whole phase in one
+line: mint, spend, same-window verify, dismantle earn.</p>
 <p><strong>2026-08-13 &mdash; pens 4&ndash;6 are premium: 5 / 10 / 15 Wraithgold (D ruling). ON DEV; release keeps the old Ichor prices until the next data-pin advance.</strong>
 The price is the server's: the client names a pen, <code>/api/unlock</code> resolves the authored
 <code>pen_unlocks.csv</code> row (now Currency/Cost aware), judges sequence against the save AND the
