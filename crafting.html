@@ -195,6 +195,16 @@ buys the replacement scroll, and applying a replacement <em>is</em> the reroll &
 misreading and is worth a ruling.</div>
 
 <h2>Changelog</h2>
+<p><strong>2026-08-13 &mdash; zone keys are recorded grants, and the first-clear key comes from the server (report #143, the keys half). ON DEV, not yet on release.</strong>
+Two defects in one lane: the server-rolled <em>chance</em> key minted an id for the answer but never
+recorded the grant &mdash; it existed for one network hop, then every honestly banked key read
+"unsourced" on the next sync; and the <em>first-clear</em> key was a pure client fabrication with no
+record at all. Both now record at grant time, the same way gear and eggs record. The first-clear
+grant is server-side: the battle event carries the claim, the server honours it only on the floor
+directly below an authored boss floor, and <strong>once ever per zone</strong> &mdash; however many times the
+event replays, one key exists. Old clients keep the local mint until 0.50 ships. Gate:
+<code>tools/probe_keygrant.mjs</code> 5/5 on live data (recorded-grant sync, server first-clear,
+once-ever, wrong-floor refusal).</p>
 <p><strong>2026-08-13 &mdash; the forge asks the server first (report #143; the economy BOOK phase's first brick). ON DEV, not yet on release.</strong>
 Crafting previously had no server presence at all: the client resolved the recipe, debited the
 materials locally, and minted the item locally &mdash; which is why 21 of one player's 22 "no grant
