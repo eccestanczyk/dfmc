@@ -356,7 +356,16 @@
   question for D, not part of #129.</p>
 
   <h2>Changelog</h2>
-  <ul class="sp-rules">
+  <p><strong>2026-08-13 &mdash; the party picker tells the truth about its creatures (reports #136 + #137). ON DEV, not yet on release.</strong>
+The currently-slotted mon now carries the same aptitude radar and type badges its challengers carry
+&mdash; same creatures.csv row, same chart, cannot drift &mdash; and every candidate card gained the type
+badges. Candidate levels derive from the creature's own XP instead of the hatch-time "Lv 1" label
+that never updated, and the meta line prints the stage (grade &middot; S# &middot; Lv#), so a Stage-1
+individual can never again read as its line's advanced form. Measured before fixing: all 36 rendered
+cards already matched their record's current-stage art &mdash; the "Stage 1 images" were true Stage-1
+individuals wearing an eternal Lv1 label. Gate: <code>tools/probe_partypick.py</code> 8/8 on the live
+save.</p>
+<ul class="sp-rules">
     <li><strong>2026-08-12 &mdash; #129: the tier plaque is centred, every corner site is bottom-right, and the creature TAG rows have a plaque for the first time (dev, 0.48 cycle).</strong>
       0.47 moved the inventory tile&rsquo;s badge and left the equipment slot row, the equip picker and the socket picker at
       top-right, which is the mismatch D was looking at. Centring was never solved on either axis and is now an
