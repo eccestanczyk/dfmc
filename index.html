@@ -939,6 +939,15 @@ FinalDamage = RawDamage
     treatment. Built on dev (0.48) for all three surfaces this section names: inventory, equipment UI
     and the battle conclusion screen. Only Abyssal and above animate; the six grades below it stay
     completely static.</p>
+    <p><strong>Layer order and the divine loop &mdash; D, 2026-08-13 (report #131), ON DEV:</strong>
+    every effect sits <strong>above the icon backing and below the art</strong> &mdash; the effect layer
+    renders at the bottom of each tile's stack and every art node (item icon, creature portrait, glyph
+    fallback) is positioned above it, on all effect sites including the tag rows, whose icon previously
+    WAS the tile's own background and could never sit above anything. And the <strong>divine sheen loops
+    seamlessly</strong>: its old timeline held off-tile for the last 45% of every cycle, which read as a
+    pause; the hold is removed and the sweep traverses edge to edge continuously, wrap invisible because
+    both endpoints are outside the tile. Verified from the rendered client, not the source
+    (<code>tools/probe_gfxlayer.py</code> 9/9: computed z-order per site plus the live keyframe rule).</p>
     <p><strong>Two things D ruled at the same time, both of which narrow the work:</strong> the grade
     <em>border</em> logic is correct as it stands and is left alone, and the equipment screen having
     no border is deliberate. Item <em>names</em> on the equipment slot rows are also fine as they are
@@ -1798,6 +1807,7 @@ async function loadBalance() {
 }
 </script>
 <h2>Changelog</h2>
+<p><strong>2026-08-13 &mdash; grade effects layer under the art, and the divine sheen loops seamlessly (report #131). ON DEV, not yet on release.</strong> Note in the visual-effects section above.</p>
 <ul>
   <li><strong>2026-07-31</strong> &mdash; Class ultimates are learned at class level 10, authored as <code>Learn_Level</code> in <code>ultimates.csv</code>. The class preview describes the ultimate a line brings before it is unlocked, and the Equipment window shows the CURRENT ultimate with a live figure &mdash; expected damage for the nukes, the rider itself for the others &mdash; or the level it unlocks at while still locked.</li>
   <li><strong>2026-07-31</strong> &mdash; Class ultimates implemented: one ability per class line per stage, once per battle, costing the avatar's action and resolving ahead of every normal action regardless of Speed. Taunt redirects all enemy single-target moves (area moves are the only bypass); vanish blocks single-target targeting without cleansing; retaliation counters and stacks Attack per hit; the echo repeats slotted support abilities team-wide at a stage fraction with half duration and half-up integer rounding. Autoplay gains ULTIMATE &mdash; FIRST TURN / NEVER USE. Mechanics in the battle system section above.</li>
