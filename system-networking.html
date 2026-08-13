@@ -1688,6 +1688,18 @@ sides' values), which is enough to pull the save pair and settle the cause. Noth
 single flag write, still gates nothing.</p>
 
 <h2>Changelog</h2>
+<p><strong>2026-08-13 &mdash; Bait and Incense actually change the clock now (D's live report). ON DEV, not yet on release.</strong>
+Three defects wore one symptom. The two authored constants behind #105's arithmetic &mdash;
+interval = (60s &minus; incense 30s) &times; bait 0.5 &mdash; were never written into the generated tables, so
+the fallbacks silently ran every boon combination at the base 60 seconds. The budget's read-side
+was a legacy fork besides: it never read bait at all and priced the remaining wait with the old
+"incense halves the rate" rule while the accrual ran the new arithmetic &mdash; two clocks, so the
+answered wait shrank at <em>half wall speed</em>, the on-screen pill hit zero early, resynced, and was
+handed a few seconds back, forever. And the floor-refill clock in the enter answer knew about
+incense but not bait. One arithmetic everywhere now, constants authored in the generator, bait on
+every call. Gate: <code>tools/probe_boonclock.mjs</code> 7/7 through the real shop door &mdash; a fresh
+wait measures 14.4s against the authored 15, and three seconds of wall time shorten it by three
+seconds.</p>
 <p><strong>2026-08-13 &mdash; clock skew between devices no longer halts play (reports #150/#151). ON DEV, not yet on release.</strong>
 The save door refuses a body whose timestamp is older than the stored save's &mdash; a wall-clock
 ordering gate that clock skew between two devices trips on every save from the slower one. A live
