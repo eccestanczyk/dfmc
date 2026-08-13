@@ -195,6 +195,16 @@ buys the replacement scroll, and applying a replacement <em>is</em> the reroll &
 misreading and is worth a ruling.</div>
 
 <h2>Changelog</h2>
+<p><strong>2026-08-13 &mdash; the forge asks the server first (report #143; the economy BOOK phase's first brick). ON DEV, not yet on release.</strong>
+Crafting previously had no server presence at all: the client resolved the recipe, debited the
+materials locally, and minted the item locally &mdash; which is why 21 of one player's 22 "no grant
+record" items were recipe outputs. Now <code>/api/craft</code> recomputes the bundle from the same
+authored rows (Materials plus the grading expected-cost ladder times the craft premium), <strong>books
+every currency into the permanent wallet ledger</strong> &mdash; the first non-Wraithgold rows &mdash; and mints
+the items with server-issued uids, which is exactly the grant record the inventory guard checks.
+Replays under the same key answer the same items and book nothing twice. The bench crafts nothing
+when the forge is unreachable. Old clients keep the local path until 0.50 ships. Gates:
+<code>tools/probe_craftdoor.mjs</code> 10/10, <code>tools/probe_craftclient.py</code> 9/9.</p>
 <ul>
   <li><strong>2026-08-10</strong> &mdash; The successful-craft popup paints the item name in its <strong>grade
   colour</strong> and appends a <strong>tier badge</strong> built from the same roman-numeral helper the bag tile uses,
