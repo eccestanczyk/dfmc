@@ -1688,6 +1688,16 @@ sides' values), which is enough to pull the save pair and settle the cause. Noth
 single flag write, still gates nothing.</p>
 
 <h2>Changelog</h2>
+<p><strong>2026-08-13 &mdash; clock skew between devices no longer halts play (reports #150/#151). ON DEV, not yet on release.</strong>
+The save door refuses a body whose timestamp is older than the stored save's &mdash; a wall-clock
+ordering gate that clock skew between two devices trips on every save from the slower one. A live
+player hit it six times running, was halted, reloaded, and was halted again inside four minutes,
+because the reload didn't move his clock. The refusal has always answered <code>server_ts</code> for
+recovery; the client now uses it: save timestamps are <em>account-monotone</em> &mdash; floored at the
+adopted server save's own timestamp on boot, and raised past <code>server_ts</code> whenever a stale
+answer arrives, with an immediate retry that never touches the failure ladder. Bounded at four
+heals so a genuinely broken loop still surfaces. Gate: <code>tools/probe_tsheal.py</code> 5/5,
+including one genuine stale answer healed live.</p>
 <p><strong>2026-08-13 &mdash; the spawn countdown no longer restarts on floor changes (report #141). ON DEV, not yet on release.</strong>
 The floor-enter answer combined two clocks &mdash; the floor's own refill and the account budget &mdash;
 but the floor term ran unconditionally, and a full floor's refill anchor snaps to the moment it
