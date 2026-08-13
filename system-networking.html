@@ -1688,6 +1688,15 @@ sides' values), which is enough to pull the save pair and settle the cause. Noth
 single flag write, still gates nothing.</p>
 
 <h2>Changelog</h2>
+<p><strong>2026-08-13 &mdash; the spawn countdown no longer restarts on floor changes (report #141). ON DEV, not yet on release.</strong>
+The floor-enter answer combined two clocks &mdash; the floor's own refill and the account budget &mdash;
+but the floor term ran unconditionally, and a full floor's refill anchor snaps to the moment it
+fills. Every floor change onto a refilled floor therefore read "next refill in a full window"
+(30 seconds under incense) and drowned out the true budget remainder. Measured before the fix:
+nine spawns alive, nine credits in hand, and the answer said wait a full minute. The floor clock
+now speaks only when the floor is <em>empty</em> &mdash; the one case where it is genuinely the binding
+limit, which is exactly the case the two-clock pairing was built for (#103) and which is
+untouched. Gate: <code>tools/probe_spawnclock.mjs</code> 6/6.</p>
 <p><strong>2026-08-13 &mdash; the save door's worker stamps actually reach the player object now (report #139, and the "(dism 0)" mystery with it). ON DEV, not yet on release.</strong>
 The worker annotates every save with resolved facts the object cannot fetch itself &mdash; the
 advancement requirements from the codex, the priced dismantle allowance &mdash; but the rebuilt body
