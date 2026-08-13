@@ -1688,6 +1688,17 @@ sides' values), which is enough to pull the save pair and settle the cause. Noth
 single flag write, still gates nothing.</p>
 
 <h2>Changelog</h2>
+<p><strong>2026-08-13 &mdash; the ledger ceilings separate watching from taking (reports #140/#145, the four-day canary account). ON DEV, not yet on release.</strong>
+The client credits battle income the instant a fight ends; the server credits it through the
+battle-event pipeline; a save landing in the gap read claim &gt; ceiling and was <em>clamped</em> &mdash;
+an honest fast player was shaved of roughly one flush-window of XP and Ichor per landing, a hundred
+times in four days on one account. Now: inside the authored in-flight envelope
+(<code>ledger_grace.*_clamp</code>: xp 4000 / food 2500 / cls 6000, sized from that account's measured
+honest overs) the flag still fires but the claim is <strong>kept</strong> &mdash; the ratchet self-heals when
+the pipeline credits. Beyond the envelope a distinct <code>*_forged</code> flag fires and the claim clamps,
+so forgery gets nothing and its signal no longer drowns in honest-racer noise. The class level-100
+hard cap is untouched. Gate: <code>tools/probe_ledgerrace.mjs</code> 13/13 (both honest-keep cases and
+both forged-flag kinds were red before the change).</p>
 <p><strong>2026-08-13 &mdash; the dismantle-claim flag names its first bad row (report #133).</strong> <em>ON DEV,
 not yet on release.</em> New section above; the guard's mechanics were previously undocumented and are now
 written down as built (live since 2026-08-03).</p>
