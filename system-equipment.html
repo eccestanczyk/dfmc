@@ -356,7 +356,19 @@
   question for D, not part of #129.</p>
 
   <h2>Changelog</h2>
-  <p><strong>2026-08-13 &mdash; the party picker tells the truth about its creatures (reports #136 + #137). ON DEV, not yet on release.</strong>
+  <p><strong>2026-08-13 &mdash; the auto-optimiser no longer places one stone twice (report #124, with [auto] #138/#142/#144 &mdash; three players' applies refused by the census in one day). ON DEV, not yet on release.</strong>
+The keep candidate wrote a socketed stone into its plan before checking whether the shared pool
+still had the entry backing it &mdash; an earlier slot's fresh fill could take a stone a later slot was
+wearing, and the later slot kept it anyway: the same stone in two sockets, its displaced neighbour
+refunded, one becomes two. Value-ranking made the stolen copy always the higher-graded one, which is
+why the measurements read as free grade upgrades; the census gate caught every bad commit, so
+nothing ever duplicated live &mdash; the cost was the button refusing about four runs in five. The fix:
+the pool entry is claimed <em>first</em>, and a stone another slot already took is simply not kept
+&mdash; the fresh fill wins that socket honestly. Gate: <code>tools/probe_optdup.py</code> &mdash; the
+collision shape injected onto the owner's real save; the unfixed build never lands an apply, the
+fixed build goes 8/8 with every stone conserved by description across two passes and power pinned
+monotone.</p>
+<p><strong>2026-08-13 &mdash; the party picker tells the truth about its creatures (reports #136 + #137). ON DEV, not yet on release.</strong>
 The currently-slotted mon now carries the same aptitude radar and type badges its challengers carry
 &mdash; same creatures.csv row, same chart, cannot drift &mdash; and every candidate card gained the type
 badges. Candidate levels derive from the creature's own XP instead of the hatch-time "Lv 1" label
