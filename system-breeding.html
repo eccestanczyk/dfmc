@@ -230,6 +230,13 @@ second run finding nothing left to do, and the item census changing creature row
 <code>dismAdamEve</code> in <code>play/app.js</code>.</p>
 
 <h2>Changelog</h2>
+<p><strong>2026-08-13 &mdash; pens 4&ndash;6 are premium: 5 / 10 / 15 Wraithgold (D ruling). ON DEV; release keeps the old Ichor prices until the next data-pin advance.</strong>
+The price is the server's: the client names a pen, <code>/api/unlock</code> resolves the authored
+<code>pen_unlocks.csv</code> row (now Currency/Cost aware), judges sequence against the save AND the
+wallet ledger, and spends through the permanent Wraithgold ledger &mdash; one row per pen, forever, so a
+refresh or replay can never charge twice and ownership is provable from the ledger alone. Pens 2&ndash;3
+stay Ichor and client-flow for now (the economy BOOK phase picks them up). Gate:
+<code>tools/probe_unlockpen.mjs</code> 9/9.</p>
 <p><strong>2026-08-12 &mdash; Adam and Eve, the soul-bag pair keeper (reports #99 + #100).</strong>
 <em>ON DEV (0.48), not yet on release.</em> New section above. Keeps the highest-grade male and the
 highest-grade female of every advancement line and dismantles the rest, behind a confirmation window
