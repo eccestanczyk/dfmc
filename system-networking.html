@@ -1673,7 +1673,25 @@ lower a stored position.</p>
 <p><strong>It costs the player nothing.</strong> A spawn credit is spent, and a slot marked dead, only on a CREDITED KILL &mdash; parking a fight does neither, so the creature is still standing on the floor when the player returns. The one recorded refusal on D's account is the opposite order: a fight parked on a slot, that slot later killed for real, and the stale fight then resolving against a corpse &mdash; refused with no reward, which is the correct outcome for a fight that should not have resumed at all.</p>
 <p><strong>Snapshots written before this stamp existed</strong> carry no parked-at time and are judged by the existing rules exactly as before, so nothing breaks mid-rollout. Reproduced on D's own save before fixing: a floor-56 parked fight moved a deepest-floor-95 account to floor 56; after the fix it stays put, and an honest paused fight on the same device still resumes.</p>
 
+<h2>The dismantle claim is verified against the server's own previous save</h2>
+<p>A dismantle pays Ichor, and the claim rides the next save as a queue of dismantled rows. The worker
+prices each row; the player's object then verifies each one against <em>its own previous save</em>: the
+uid must have been held (bag, added items, the two party slots, or a socketed soul's source), must be
+gone now, and its category, grade, tier and quantity must match what was held. A row that fails any of
+these earns nothing &mdash; the dismantle itself is never refused, only its Ichor allowance. This guard is
+watch-only and one flag per account per kind per day.</p>
+<p class="note"><strong>2026-08-13 (report #133, ON DEV):</strong> the flag used to say only
+<em>"4 of 32 unverifiable"</em> &mdash; a count with no WHICH and no WHY, and the count alone ended two
+diagnosis theories in retraction. It now names the first bad row's uid prefix and its reason
+(<code>no-uid</code> / <code>absent-from-prev</code> / <code>still-held</code> / a field mismatch with both
+sides' values), which is enough to pull the save pair and settle the cause. Nothing else changed: same
+single flag write, still gates nothing.</p>
+
 <h2>Changelog</h2>
+<p><strong>2026-08-13 &mdash; the dismantle-claim flag names its first bad row (report #133).</strong> <em>ON DEV,
+not yet on release.</em> New section above; the guard's mechanics were previously undocumented and are now
+written down as built (live since 2026-08-03).</p>
+
 <p><strong>2026-08-08 &mdash; the whole encounter is derived server-side, not just the spawn you
 clicked.</strong> <em>LIVE on release since 2026-08-08 (0.42).</em> The two battle extras were rolled by the client
 and priced against a clamp; they are now a property of the slot, derived on their own lane and shipped
