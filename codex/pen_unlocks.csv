@@ -1,7 +1,7 @@
-Pen,Ichor_Cost,Note
-1,0,Free — available from the first hatch
-2,12000,The canon in-game unlock (system-breeding.html)
-3,60000,Food-gated in this version: ~20h of endgame income
-4,180000,~60h of endgame income
-5,450000,~150h of endgame income
-6,1000000,~330h of endgame income — the long-haul pen
+Pen,Ichor_Cost,Currency,Cost,Note
+1,0,Ichor,0,Free — available from the first hatch
+2,12000,Ichor,12000,The canon in-game unlock (system-breeding.html)
+3,60000,Ichor,60000,Food-gated in this version: ~20h of endgame income
+4,,Wraithgold,5,PREMIUM (D ruling 2026-08-13) — was 180000 Ichor; old clients fall back to the Ichor price until 0.50
+5,,Wraithgold,10,PREMIUM (D ruling 2026-08-13) — was 450000 Ichor
+6,,Wraithgold,15,PREMIUM (D ruling 2026-08-13) — was 1000000 Ichor — the long-haul pen
