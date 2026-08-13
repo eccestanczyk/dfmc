@@ -1688,6 +1688,18 @@ sides' values), which is enough to pull the save pair and settle the cause. Noth
 single flag write, still gates nothing.</p>
 
 <h2>Changelog</h2>
+<p><strong>2026-08-13 &mdash; the save door's worker stamps actually reach the player object now (report #139, and the "(dism 0)" mystery with it). ON DEV, not yet on release.</strong>
+The worker annotates every save with resolved facts the object cannot fetch itself &mdash; the
+advancement requirements from the codex, the priced dismantle allowance &mdash; but the rebuilt body
+carrying those stamps only shipped when the inventory-strip list was non-empty. On every ordinary
+save the original request forwarded instead and every stamp vanished: <em>the advancement ledger
+never verified a single claim</em> (every honest advancement flagged "N of N unverifiable"), and the
+dismantle allowance never reached the Ichor ceiling. The stamped body now ships on every parsed
+save. The verifier also learned two honest shapes it used to reject: a creature hatched and
+advanced inside one flush window (verified against the arriving form's banked XP, recorded as a
+birth), and a chained double-advancement (each verified step becomes the departing form for the
+next). Forged steps, wrong forms and short levels still flag &mdash; now with reasons in the note.
+Gate: <code>tools/probe_advclaim.mjs</code> 9/9.</p>
 <p><strong>2026-08-13 &mdash; the ledger ceilings separate watching from taking (reports #140/#145, the four-day canary account). ON DEV, not yet on release.</strong>
 The client credits battle income the instant a fight ends; the server credits it through the
 battle-event pipeline; a save landing in the gap read claim &gt; ceiling and was <em>clamped</em> &mdash;
