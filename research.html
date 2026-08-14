@@ -695,8 +695,94 @@
   Joshy 2024, arXiv:2401.05451 (OpenSkill); Steamworks user authentication. Measured on this build 2026-08-06 via the
   <code>/api/backup/pvpq</code> door and <code>tools/probe_pvpclock.py</code>.</em></p>
 
+  <h2>10. Asynchronous rated PvP: the arena ladder, surveyed before building one (2026-08-14)</h2>
+  <p><strong>The question.</strong> D has specced Auto PVP: a second ladder beside Competitive PVP where the opponent
+  is a once-daily snapshot of a real account's current loadout, piloted by that account's own autoplay settings
+  (ultimate timing, Prioritize Buffs, Prioritize Debuffs, Targeting); the attacker queues whenever they like, may play
+  manually or on autoplay, and carries a visible attacker rating while a hidden defender rating decides who gets served
+  as their opponent. Commissioned before the build: what did the genre converge on, which parts transfer to this
+  backend, and where the spec already differs from the field &mdash; decision or defect.</p>
+
+  <h3>What the genre converged on</h3>
+  <p>Every large creature- and squad-RPG arena is the same machine: the defender is a <strong>stored team the game's
+  AI pilots</strong>, the attacker plays live against it, and nobody needs to be online to be fought. Summoners War
+  serves each attacker a list of ten candidates around their rank and lets streaks buff the attacker; RAID: Shadow
+  Legends shows a refreshable candidate list (free every 15 minutes), regenerates one attack token per hour to a cap
+  of ten, settles its weekly period at a fixed Monday 08:00&nbsp;UTC, and demotes anyone with fewer than 20 offense
+  battles in the period; AFK Journey caps attacks per day and, when an account has been idle two weeks, hands its
+  defense to house NPCs so the ladder never empties; Marvel Strike Force and SW:GoH use no rating at all &mdash; beat
+  someone and you <em>swap positions</em> &mdash; with rewards paid on a per-player 24-hour timer. Auto-battlers
+  (Super Auto Pets, Backpack Battles, Mechabellum) go one step further and fight recorded ghost builds with no human
+  on either side. Chess correspondence (Chess.com Daily, Lichess) is the one counter-model &mdash; both sides human,
+  moves exchanged over days, rated with Glicko &mdash; and it is the wrong fit here precisely because it needs the
+  defender to act.</p>
+
+  <h3>Rating a fight only one player is present for</h3>
+  <p>The attacker wins most async fights everywhere, because a human beats a script. The field splits on what that
+  does to rating. RAID puts symmetric points on both sides of every battle, so a normal account's defense bleeds
+  points all week and the deficit is treated as a fact of life. SW:GoH's position-swap ladder never penalises a losing
+  attacker at all &mdash; which is why its endgame produced payout-minute sniping and shard chats where top players
+  agree not to attack each other, and why the developers later moved the mode's rewards onto a conventional skill
+  rating. <strong>The Auto PVP spec's split &mdash; a visible rating moved only by your attacks, a hidden rating moved
+  only by your defenses &mdash; is cleaner than either shipped answer</strong>: the ladder number never bleeds while
+  you sleep, the matchmaker still learns exactly how hard your defense is, and neither number can be farmed by the
+  other's failure mode. The field supports the shape; no surveyed game ships it this cleanly. A decision, not a
+  defect.</p>
+  <p>For the update rule itself the small-pool literature is unambiguous: plain Elo needs a K-factor compromise and
+  never says how <em>sure</em> it is; Glicko-2 carries a rating deviation that starts wide (new accounts converge in
+  about ten fights), grows again through inactivity, and gives calibrated win probabilities to match on. TrueSkill's
+  brand is licence-restricted to Microsoft platforms; open equivalents (OpenSkill, already sourced in entry&nbsp;9)
+  and Glicko-2 are free. Seasonal inflation is handled everywhere by a linear squish toward a floor &mdash; Clash
+  Royale's release notes state it outright, <code>new&nbsp;=&nbsp;floor&nbsp;+&nbsp;k&nbsp;&times;&nbsp;(old&nbsp;&minus;&nbsp;floor)</code>
+  with k toggled between 0.25 and 0.75 across seasons &mdash; and each attack should settle as one paired result:
+  attacker's visible rating against that defense's hidden rating, both updated, nothing else moved.</p>
+
+  <h3>Seventeen players is not the problem it looks like</h3>
+  <p>The dead ladder &mdash; nobody to fight, so nobody queues, so there is nobody to fight &mdash; is the documented
+  death of small competitive modes, and the async snapshot is itself the cure: every account with a server save is a
+  standing opponent whether its owner ever queues or not, so this roster is seventeen opponents on day one. What the
+  field adds on top, and the spec should too: serve from a wide rating band and keep a lower-rated tail in the deal
+  (the spec already says so); cap how often the same defense can be served to the same attacker &mdash; at this
+  population roughly twice per defender per day &mdash; and scale rating gain by rating gap so farming the weakest
+  snapshot pays nothing; and settle the week at one fixed UTC instant for everyone. The per-player payout clock is
+  the one prior-art mechanism to refuse outright: in a pool where everyone knows each other it manufactures the
+  sniping and win-trading it produced at scale. Threshold rewards (everyone above a line) beat top-N cutoffs while
+  the roster is this size, and cosmetics-before-power keeps the mode from becoming mandatory grind.</p>
+
+  <h3>Measured against this build</h3>
+  <p>Most of the machine already exists, built for other reasons, and the spec lands on it almost exactly.</p>
+  <table>
+    <tr><th>the spec needs</th><th>what this build already has</th></tr>
+    <tr><td class="lbl">per-battle rating writes, ladder parsed once a day</td><td>the Competitive ladder already works this way: rating settles in the world object at fight end, and the board is cut from it by the daily fold, skip-unchanged. Two more rating columns ride the same rows and the same fold.</td></tr>
+    <tr><td class="lbl">a once-daily defense snapshot of every account's loadout</td><td>the daily fold already holds every account's full save in hand when it runs; the snapshot is one more skip-unchanged row written from data already carried, zero extra per-account hops. The rank pass's crash rules &mdash; bounded keyset pages, a day gate, a write budget, a poison guard &mdash; are the standing pattern any new daily writer inherits.</td></tr>
+    <tr><td class="lbl">defense honours the owner's autoplay settings</td><td>those settings live in the save (<code>settings['battle.*']</code>, sparse over defaults), so the snapshot reads them where it already reads the loadout. The ultimate row extends its existing two values to Turn&nbsp;1&nbsp;/&nbsp;2&nbsp;/&nbsp;3&nbsp;/&nbsp;Never. The defender must be driven by the <em>player</em> autoplay brain &mdash; the wild-battle AI never fires an ultimate by standing ruling.</td></tr>
+    <tr><td class="lbl">a defense log and a notification</td><td>the settings registry already carries a PvP Defense Results notification toggle, waiting for exactly this.</td></tr>
+    <tr><td class="lbl">a result the server can trust with one human present</td><td><strong>the one genuinely new build.</strong> Competitive PvP settles by dual report &mdash; two humans cross-report one fight. Async has a single reporter, so the fight must resolve server-side: the battle engine lifted into a shared deterministic module the worker runs (or re-runs) from a stored seed and the attacker's action list. The ground is prepared &mdash; the battle RNG already accepts a seed, turn order already breaks ties on a seeded key, and the power port set the precedent and the bar: a pure module, parity-gated against the real client to exact equality before it touches anything.</td></tr>
+  </table>
+  <p>Costs stay in the established shape: a replay is a seed plus an action list, small rows; attack tickets bound
+  both the economy and the compute; and a hard turn cap with the tie ruled for the defender is mandatory before any
+  autoplay-vs-autoplay fight exists, because two scripts can stall where a human would concede.</p>
+
+  <p><em>Sources: Com2uS Summoners War arena documentation and the Sky Arena community wiki; Plarium RAID: Shadow
+  Legends Classic Arena support articles; AFK Journey arena wiki; Scopely Marvel Strike Force arena help pages;
+  SWGoH.wiki Squad Arena and Grand Arena Championships, and the CG &ldquo;State of the Galaxy&rdquo; posts on retiring
+  rank-swap rewards; Supercell Clash Royale release notes (trophy reset formulas); Glickman's Glicko-2 specification;
+  Lichess and Chess.com rating documentation; Joshy 2024, arXiv:2401.05451 (OpenSkill); Microsoft TrueSkill licence
+  terms; Cloudflare Workers and Durable Objects CPU-time limits documentation. Measured against this build 2026-08-14:
+  the world-object ladder and daily fold as shipped 2026-07-30/31, the settings registry and save
+  <code>settings</code> block, the seeded battle RNG, and the <code>src/power.js</code> parity port.</em></p>
+
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-08-14 &mdash; tenth entry: asynchronous rated PvP, surveyed before building one.</strong>
+      Commissioned by D's Auto PVP spec: attacker plays live against a once-daily snapshot of a real account's loadout
+      piloted by its own autoplay settings, visible attacker rating, hidden defender rating. The genre's converged
+      machine (AI-piloted stored defenses, candidate lists, attack tokens, fixed weekly cutoffs) transfers almost
+      whole; the split rating is cleaner than anything surveyed and is recorded as a decision. Against this build:
+      the world-object ladder, daily fold, save-side settings and seeded battle RNG already carry most of it, and the
+      one genuinely new build is the battle engine as a shared deterministic module, parity-gated like the power port.
+      Refused from prior art: per-player payout clocks (payout sniping, shard-chat collusion) and symmetric defense
+      rating bleed.</li>
     <li><strong>2026-08-06 &mdash; ninth entry: matchmaking that does not trust a player's clock.</strong>
       Commissioned after a live PvP failure whose cause was a player's PC clock running 3m&nbsp;40s fast
       (<code>age_ms&nbsp;-220103</code> on the ops door). Every freshness and validity test in the matchmaker compared one
