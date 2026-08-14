@@ -141,8 +141,41 @@
     <tr><td class="lbl"><code>statFits</code></td><td>The stone's stat must match the host's stat, so an <strong>Attack gem cannot enter Defence armour</strong>. Every fill and every re-deal is bounded by this before value is considered at all.</td></tr>
   </table>
 
+  <h2>Applying a scroll &mdash; the order of operations</h2>
+  <p><strong>Status: the attempt-key and flush rules below are ON DEV, not yet on release (2026-08-14).</strong>
+  A gem or a rune carries no chance and applies in the same tick it is picked. <strong>A scroll waits for
+  the server</strong>, because its enchant is a chance outcome and chance belongs to the server. The exact
+  order matters, because a scroll is the one socketed thing that is <em>destroyed</em> on replace and can
+  never be removed once applied:</p>
+  <ol>
+    <li><strong>The stat is resolved from the WORN piece, or the pick is refused</strong> (#96). The client
+    never guesses: if the host item or its stat cannot be read, the bench says so and the scroll is
+    untouched. The server then re-resolves the stat from the host it names and prefers its own answer over
+    the client's claim.</li>
+    <li><strong>The server is asked, exactly once.</strong> A single-flight guard plus a 2.5&nbsp;s failure
+    cooldown means clicking a scroll fifty times during an outage sends one request, not fifty; a 10&nbsp;s
+    abort keeps a hung request from wedging the door forever.</li>
+    <li><strong>The draw is keyed on the socket plus the scroll's tier and grade</strong>, with a
+    server-held attempt ordinal &mdash; not on anything the client mints. Until a save lands after the
+    answer, the same attempt is replayed rather than a new one sold. See <em>upgrading.html</em> for the
+    full rule and why <code>host</code> could not serve as that key.</li>
+    <li><strong>An answer that comes back <code>unsettled</code> decides nothing and costs nothing.</strong>
+    The scroll is not consumed; the bench holds and forces a save so the next click gets a real draw.</li>
+    <li><strong>Only then is the scroll consumed.</strong> On an empty socket that happens immediately. On
+    an occupied one the player is asked to confirm first, because the scroll already in the socket is
+    destroyed &mdash; gems and runes return to the bag intact, a replaced scroll does not.</li>
+    <li><strong>The commit forces its own save.</strong> Not the ten-second debounce: the attempt is over
+    and it was paid for, so it settles at network speed. Cancelling the confirmation does <em>not</em>
+    flush &mdash; nothing was consumed, so the attempt stays unsettled and re-picking the same scroll
+    replays it instead of buying a second draw.</li>
+  </ol>
+  <p class="foot">Client: <code>askEnchant()</code> and the socket picker's <code>onPick</code> /
+  <code>onSockConfirmYes</code> in <code>play/app.js</code>. Worker: the <code>/api/roll</code>
+  <code>enchant</code> branch and <code>RK_TARGETED</code> in <code>src/worker.js</code>.</p>
+
   <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-14 &mdash; a refresh could reroll a scroll enchant (spec 004). ON DEV, not yet on release.</strong> The enchant draw was keyed on a client-minted key regenerated on every click, and the client debited the scroll only in the browser, flushing on neither success nor failure &mdash; so a bad enchant, a reload inside the ten-second debounce, and the scroll was back with a different roll. Now keyed on the socket plus the scroll's tier and grade against a server-held attempt ordinal, with an unsettled answer consuming nothing and every real commit forcing its own save. New section &ldquo;Applying a scroll&rdquo; above; full rule in <em>upgrading.html</em>. Gates <code>tools/probe_rollattkey.mjs</code> 12/12 (8/12 before), <code>probe_rollreplay.mjs</code> extended.</li>
     <li><strong>2026-08-10 &mdash; every already-socketed rune scored identically, so the auto-optimizer ranked its rune pool by tier and rarity (shipped in 0.47).</strong>
       Runes were valued with <code>runePct(st2.it)</code>, and <code>it</code> is only set on bag-sourced pool entries;
       for an already-socketed stone it was <code>undefined</code>, so <code>runePct</code> took its no-curve fallback

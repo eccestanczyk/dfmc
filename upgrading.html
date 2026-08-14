@@ -218,6 +218,55 @@ td{border-bottom:1px solid var(--rule);padding:5px 8px;color:var(--ink-dim);font
   <code>tools/probe_upgreplay.py</code> 10/10 &mdash; the real client against the real worker, with the replay
   condition forced by blocking the settle save.</p>
 
+  <h3>The same door on scrolls &mdash; enchant joins the attempt ordinal (2026-08-14)</h3>
+  <p><strong>Status: ON DEV, not yet on release.</strong> Everything above described the rule as if it
+  covered grading. It did not cover <code>enchant</code>, and a scroll is worth <em>more</em> than a grade
+  attempt: it overwrites a socket permanently and can never be removed, only replaced. The scroll door was
+  still keyed on the client's own <code>idem</code>, minted fresh per click, so a bad enchant, a reload
+  before the flush, and the scroll was back with a different draw &mdash; reroll until the enchant is the
+  one you want.</p>
+  <p><strong>The client half was worse here than grading's ever was.</strong> #125 fixed an
+  <em>asymmetry</em>: grading flushed on success but not on failure, so whether the spend stuck depended on
+  an autosave landing. The enchant path flushed on <strong>neither</strong> outcome. There was no race to
+  win &mdash; the reroll window was the full ten-second debounce, every single time.</p>
+  <p><strong>What the attempt is keyed on, and why it is not <code>host</code>.</strong> The obvious
+  candidate was already on the request: <code>host</code>, added for #96 so the server could resolve the
+  enchant's stat from the worn item rather than trust the client's claim. It is unusable as an attempt key,
+  because it is the item's <em>name</em> &mdash; an identity, not an instance. Two slots wearing the same
+  base piece, or the same piece on both creatures, would share one attempt, and enchanting one and then the
+  other before a save would replay the first one's draw onto the second. The client sends the
+  <strong>socket</strong> instead, in the shape <code>upgTargetId()</code> has always used for a socketed
+  target, <strong>plus the scroll's own tier and grade</strong>:</p>
+  <ul>
+    <li><strong>the socket</strong> &mdash; <code>sock:&lt;sockKey&gt;|&lt;ki&gt;-&lt;j&gt;</code>, stable
+    across a reload and naming one physical slot;</li>
+    <li><strong>the scroll kind</strong> &mdash; because the roll's magnitude is a function of tier and
+    grade. The overwrite dialog asks the server <em>before</em> the player confirms, so a cancel leaves an
+    answered attempt with nothing spent behind it. Without this half, re-picking a <em>different</em> scroll
+    on that socket would be handed the cancelled scroll's enchant and its magnitudes. Re-picking the
+    <em>same</em> scroll still replays, which is the anti-reroll rule working: nothing was spent, so nothing
+    new is owed.</li>
+  </ul>
+  <p><strong>The client now settles what it commits.</strong> Applying a scroll forces a save immediately
+  &mdash; on the empty-socket path at the end of the apply, and on the overwrite path when the confirmation
+  is accepted, which is the moment the scroll is actually consumed. Cancelling deliberately does not flush.
+  And an <code>unsettled:true</code> answer now decides nothing and costs nothing on this door exactly as it
+  does on grading: the bench reads &ldquo;SETTLING THE LAST ATTEMPT &mdash; THE SCROLL IS UNTOUCHED&rdquo;,
+  holds 1.5&nbsp;s and forces the flush. Without that, adding enchant to the set would have made things
+  <em>worse</em> than leaving it out &mdash; the client would have consumed a second scroll to apply a draw
+  that had already been taken, which is #135 on a new door.</p>
+  <p><strong><code>egg</code> and <code>sex</code> were deliberately NOT added.</strong> Both already derive
+  from stable server-side identities &mdash; the egg from its pen and egg number, the gender from the
+  creature key, which ignores the draw key altogether &mdash; so a fresh key cannot buy either a new draw.
+  Adding them would regress a door that is already shut.</p>
+  <p class="foot">Client: <code>askEnchant()</code> and the socket picker's <code>onPick</code> /
+  <code>onSockConfirmYes</code> in <code>play/app.js</code>. Worker: <code>RK_TARGETED</code> in the
+  <code>/api/roll</code> handler, <code>src/worker.js</code> &mdash; a membership and key-derivation change
+  only; the ordinal machinery itself is untouched. Probes:
+  <code>tools/probe_rollreplay.mjs</code> extended with the scroll cases (live worker), and
+  <code>tools/probe_rollattkey.mjs</code> 12/12, <strong>8/12 against the build the hole is live on</strong>
+  &mdash; a lift-based twin that runs anywhere node does, so the before/after is reproducible without a
+  sandbox.</p>
 
   <h2>What the upgrade panel paints, and in which grade</h2>
   <p class="sp-lead">A successful upgrade replaces the panel's item with the <strong>upgraded</strong> item, so <code>gradeStep()</code> immediately describes the <em>next</em> attempt &mdash; Rare&nbsp;&rarr;&nbsp;Epic. Anything painted from <code>st.toColor</code> after that moment is showing the colour of a grade the item has not reached. Measured before the fix: a Rare item drew <code>rgb(163,53,238)</code>, which is Epic, and the word <em>RARE</em> was printed in the same purple.</p>
@@ -291,6 +340,7 @@ costs its price exactly once, win or lose, just as the bench charges. The roll a
 was booked. Gate: <code>tools/probe_rollbook.mjs</code> 5/5 &mdash; a craft-door balance bracket
 proves the ledger moved by exactly one authored roll price and nothing more.</p>
 <ul>
+    <li><strong>2026-08-14 &mdash; a browser refresh could reroll a scroll enchant, the same hole #119/#125 closed on grading (spec 004). ON DEV, not yet on release.</strong> <code>enchant</code> was the last roll kind still keyed on the client's own fresh-per-click <code>idem</code>, and it is the highest-value one: a scroll overwrites a socket permanently and can never be removed. The client half was worse than grading's ever was &mdash; #125 fixed an asymmetry (flush on success, not on failure), while the enchant path flushed on <strong>neither</strong>, so the reroll window was the full ten-second debounce every time rather than a race against an autosave. The draw is now keyed on the <strong>socket plus the scroll's tier and grade</strong> with the same server-held ordinal grading uses; the client sends that key, refuses to sell an <code>unsettled</code> replay (which would have consumed a second scroll for a draw already taken &mdash; #135 on a new door), and forces its flush the moment a scroll is actually consumed, on both the empty-socket and overwrite paths. <code>host</code> was rejected as the key because it is a base item <em>name</em>, so two slots wearing the same piece would have shared one attempt. <code>egg</code> and <code>sex</code> deliberately untouched &mdash; both already key on stable server-side identities and adding them would regress a shut door. New section &ldquo;The same door on scrolls&rdquo; above. Gates <code>tools/probe_rollattkey.mjs</code> 12/12 (8/12 before), <code>probe_rollreplay.mjs</code> extended with the scroll cases.</li>
     <li><strong>2026-08-13 &mdash; the client sold replayed grade attempts as fresh ones (report #135). ON DEV, not yet on release.</strong> A standing failure repaid full price for identical losses; a standing success promoted once per click for ten seconds off one draw. Unsettled replays now decide nothing and cost nothing, and every settled outcome forces its save flush. Section note above. Gate <code>tools/probe_upgreplay.py</code> 10/10.</li>
     <li><strong>2026-08-13 &mdash; the refresh-reroll fix broke every OTHER roll kind on untouched accounts (report #130). ON DEV, not yet on release.</strong> The <code>roll_att</code> table was created only on the grade/soul-grade path while the retention cleanup at the door's foot runs for every kind, so a fresh player object's first enchant / starter-gender / egg / breed-rate roll &mdash; and grades from stale pre-0.48 clients &mdash; 500'd after recording the draw. The client shows it as "could not reach the server"; new accounts could not pick starters. Nothing consumed, nothing corrupted; one forge grade permanently unblocked an account, which is why the reporter's own forging kept working. Table now created unconditionally beside the roll-record table. Section note above. Gate <code>tools/probe_rollfresh.mjs</code> 8/8, failing 4/8 before; <code>probe_rollreplay.mjs</code> re-run 15/15.</li>
     <li><strong>2026-08-12 (later the same day) &mdash; THE LOOP WAS REVERTED: IT DUPLICATED ITEMS. Plus the item census that caught it. ON DEV (0.48).</strong> The entry below shipped the loop calling it &ldquo;safe by construction&rdquo;. <strong>That reasoning was wrong.</strong> Measured on D's own save, two runs identical except for <code>optLoopNext</code>: one pass left 45 stones and 45 stones; the looped version left <strong>69</strong>. Twenty-four stones appeared from nowhere (Sublime Onyx T10 Rare 1&rarr;7, Sublime Garnet Common 16&rarr;20) while the socketed count stayed at 44, so every extra copy landed in the bag. <strong>The error:</strong> 0.47 made a single pass monotone in POWER, which says nothing whatever about conserving ITEMS. Re-running plan+apply over its own output is not the same as running it once &mdash; the apply refunds evicted stones into the bag while the next plan re-reads them out of the sockets they are still in. The loop is off until the mechanism is found and a probe fails on it first. <strong>What found it, and it exists because D said so hours earlier</strong> (<em>&ldquo;Duplicating or destroying items? That should not be possible ever&rdquo;</em>): <code>invCensus()</code> counts every item the account holds by name+category+tier+grade on both sides of an apply and ABANDONS the commit if they differ by one, reporting the diff. It walks <code>it.socks</code>, which is the whole point &mdash; both prior data-loss bugs hid there and a census of top-level bag rows would have called the destroyed scroll fine. It is taken BEFORE <code>consume()</code> mutates the module-level bag in place; a reading taken inside the updater is already missing what the plan consumed, which produced a false alarm on the first cut. <strong>Also:</strong> &ldquo;ALREADY OPTIMAL!&rdquo; was true and read as a lie. D reported auto-optimise <em>&ldquo;not putting in def gems at all&rdquo;</em> on prioritize attack; measured, his one spare gem is an exact duplicate of the weakest gem he wears (Sublime Onyx T10 Common, both worth 50) and there was nothing to gain. The message now names the target and the spares it looked at, and a spare that genuinely beats something worn while the pass finds nothing files a report instead of being shrugged off.</li>

@@ -437,6 +437,23 @@
       CSV does not contain is refused <strong>400</strong>. No inventing a cheaper ladder.</td></tr>
     <tr><td class="lbl">Rate ceiling</td><td>Counted in SQL, not memory &mdash; an in-memory throttle dies
       with the isolate.</td><td></td></tr>
+    <tr><td class="lbl">Attempt ordinal<br><span style="font-weight:400">(ON DEV, not on release)</span></td>
+      <td><strong>The row above is true of a RETRY and was never true of a SECOND ATTEMPT.</strong> Because
+      <code>idem</code> is minted by the client fresh on every click, a reload before the spend reached the
+      server bought a different key and therefore a different draw. For the kinds where the server answering
+      <em>is</em> the cost &mdash; <code>grade</code>, <code>soul_grade</code> and, since 2026-08-14,
+      <code>enchant</code> &mdash; the draw key is server-derived instead:
+      <code>srv|&lt;kind&gt;|&lt;realm&gt;|&lt;iid&gt;|&lt;n&gt;</code>, where <code>iid</code> is the target
+      <em>instance</em> the client names and <code>n</code> is an ordinal the object holds. <strong>The
+      ordinal advances only once a save lands on a version higher than the one current when the roll was
+      answered</strong> &mdash; that is what "the spend settled" means, and it is the cheapest honest
+      evidence available because the client debits in the same tick it applies. Until then the same attempt
+      is replayed, flagged <code>replay</code> + <code>unsettled</code>. <strong>A client must never sell an
+      unsettled answer</strong>: it decides nothing and costs nothing, or it charges twice for one draw
+      (#135). <code>egg</code> and <code>sex</code> are deliberately excluded &mdash; both already derive
+      from stable server-side identities, so a fresh key cannot buy them a new draw. <strong>Additive</strong>:
+      a client sending no <code>iid</code> falls through to the old client-keyed behaviour, so one backend
+      serves release and dev at once.</td></tr>
   </table>
   <p>Answered today: <code>grade</code> and <code>soul_grade</code> (success, authored odds, cost, the
   on-failure rule) and <code>breed_rate</code> (Ichor per minute, minutes per egg, Ichor per egg, dismantle
@@ -1688,6 +1705,21 @@ sides' values), which is enough to pull the save pair and settle the cause. Noth
 single flag write, still gates nothing.</p>
 
 <h2>Changelog</h2>
+<p><strong>2026-08-14 &mdash; the roll door's attempt ordinal now covers scrolls, and the boon clock got the probe it never had. ON DEV, not yet on release.</strong>
+Two things, both in the "a fix is not finished until something would catch it breaking" family.
+<strong>The scroll door</strong> was the last roll kind still keyed on a client-minted key, and the highest
+value one &mdash; a scroll overwrites a socket permanently. <code>enchant</code> joins <code>grade</code>
+and <code>soul_grade</code> in the server-derived key set; the roll-door table above now records the whole
+rule, including what a client owes an <code>unsettled</code> answer. Details in <em>upgrading.html</em> and
+<em>system-sockets.html</em>. <strong>The boon clock</strong>, fixed the day before, shipped with no probe
+of its own, and the two probes that already covered the subsystem had been <em>silently dead</em> since
+that fix: both lift worker methods by name into a sandbox, and the change moved the clock onto two new
+helpers (<code>_boonEdges</code>, <code>spawnIvAt</code>) that neither lift list named, so every test after
+the first threw and nobody noticed &mdash; <code>probe_floorclock_boon</code> was scoring 2/9 and
+<code>probe_spawnshare</code> crashed outright. A lift list is a dependency list. Both revived (9/9 and
+9/9), and <code>tools/probe_spawnpeek.mjs</code> added to pin the displayed budget to the spent one across
+all four boon combinations: 8/8, and <strong>4/8 against the build the bug was live on</strong>, where the
+displayed wait reads 40&nbsp;s for what is really a 10&nbsp;s one.</p>
 <p><strong>2026-08-13 &mdash; Bait and Incense actually change the clock now (D's live report). ON DEV, not yet on release.</strong>
 Three defects wore one symptom. The two authored constants behind #105's arithmetic &mdash;
 interval = (60s &minus; incense 30s) &times; bait 0.5 &mdash; were never written into the generated tables, so
