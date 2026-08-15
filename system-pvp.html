@@ -33,7 +33,7 @@
     <tr><td class="lbl">Round timer (PvP)</td><td>30 s</td><td>Both players pick within it. Resolution/animation time does not count.</td></tr>
     <tr><td class="lbl">Personal bank (PvP)</td><td>90 s</td><td>Drawn from only after the 30 s round timer is spent, chess-clock style. Never refills during a game; resets between games of the Bo3.</td></tr>
     <tr><td class="lbl">On expiry</td><td>&mdash;</td><td>The <strong>autoplay AI picks for you</strong> &mdash; the same AI that runs PvE grinding, not "first move in the list." Losing time costs quality, not the game outright.</td></tr>
-    <tr><td class="lbl">Match cap (PvP)</td><td>30 rounds</td><td>Hard cap at ~2&times; the tuned fight length. Tiebreak in order: units remaining &rarr; total remaining HP% &rarr; cumulative damage dealt.</td></tr>
+    <tr><td class="lbl">Damage ramp (PvP)</td><td>&times;1.5 @ 20 &rarr; &times;3 @ 40+</td><td>Replaces the 30-round hard cap and its tiebreak (2026-08-16). From round 20 every hit and every lingering damage tick, both sides, is multiplied: &times;1.5 at 20, &times;2 at 30, &times;2.5 at 35, &times;3 from 40 on and holding. A game ends only on a wipe &mdash; the ramp guarantees one, so no tiebreak is needed or exists. A hot &times;-chip beside the round counter shows the live multiplier from round 20. PvE never ramps. Replays of Competitive games ramp identically &mdash; playback must re-produce the recorded fight.</td></tr>
     <tr><td class="lbl">PvE</td><td><strong>No timer</strong></td><td>Move timers are a PvP-integrity tool; against the AI there is nothing to protect and autoplay already exists for players who want speed. PvE battles instead get full crash-safe resume (below).</td></tr>
   </table>
 
@@ -266,6 +266,12 @@ one that a clean PvE defeat is untouched). Replayer: <code>tools/_r64_patch.py</
 
 <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-16 &mdash; the damage ramp replaces the round cap (DEV, Auto PVP step 3.8).</strong>
+      The 30-round hard cap and its units&nbsp;&rarr;&nbsp;HP%&nbsp;&rarr;&nbsp;damage tiebreak are deleted; from round 20 all damage
+      ramps (&times;1.5/&times;2/&times;2.5/&times;3 at 20/30/35/40+, lingering ticks included, both sides) until a side is wiped.
+      A multiplier chip beside the round counter shows the live factor. Both engines share the one
+      implementation (<code>src/battle_round.js rampMult</code>), so the live fight, the replay and the
+      server's re-simulation can never disagree.</li>
     <li><strong>2026-08-08 (v0.41) &mdash; a reply from a finished match can no longer write, and a PvE fight can
       no longer be mistaken for a PvP one (LIVE on release, 2026-08-08).</strong>
       Reports #64, #65 and #66 &mdash; one player, wedged in combat after a PvP match, signature
