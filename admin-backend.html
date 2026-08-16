@@ -515,7 +515,8 @@
   <p class="foot">Server: <code>src/dismantle.js</code>. Gate: <code>tools/probe_dismantle_parity.py</code>. Client source of truth transcribed from <code>play/app.js</code> <code>dismYield</code>/<code>breedRates</code>/<code>gradeNum</code>/<code>dismantleDb</code>.</p>
 
   <h2>Why no automatic report ever arrived &mdash; and how one does now</h2>
-  <p><strong>Status: ON DEV (0.48), not yet on release.</strong> Between 2026-08-04 and 2026-08-12 the
+  <p><strong>Status: LIVE on release since 2026-08-13 (0.48). Superseded in part by the 2026-08-17 batch
+  below, which is ON DEV and not yet on release.</strong> Between 2026-08-04 and 2026-08-12 the
   automatic reporter filed <strong>zero</strong> readable rows. D noticed it before any tool did
   (report&nbsp;#124: <em>&ldquo;I haven't seen one of them yet which is odd&rdquo;</em>). There were
   <strong>two independent causes and either one alone was fatal</strong>, which is why neither showed up as an
@@ -565,9 +566,97 @@
   </ol>
   <p class="note"><strong>Still true after this change:</strong> raw <code>anomalies</code> rows are still
   written into the raising object and <code>/api/admin/flags</code> still reads only the WorldDO's, so it
-  still shows only world-path events. The automatic report carries the first detail of the day for its kind,
-  which is the signal; the row behind it stays per-account and is read through
-  <code>GET /api/backup/flags?key=&amp;sid=</code>.</p>
+  still shows only world-path events. The row behind a report stays per-account and is read through
+  <code>GET /api/backup/flags?key=&amp;sid=</code>. <strong>The &ldquo;first detail of the day&rdquo; wording
+  above is superseded by the 2026-08-17 batch</strong> &mdash; a report now carries the day's running count
+  and the latest detail, updated in place.</p>
+
+  <h3>Every guard reports itself &mdash; and admin actions leave the inbox (2026-08-17)</h3>
+  <p><strong>Status: ON DEV, not yet on release.</strong> The reporter above shipped with an
+  <strong>allowlist of 19 kinds</strong>. The worker raises <strong>74</strong>. The other 55 wrote an
+  <code>anomalies</code> row and stopped there, so &ldquo;show me the bug reports&rdquo; showed roughly a
+  quarter of what the server had caught &mdash; and the missing three quarters included every kind that
+  matters most for trust: <code>wins_over_ledger</code>, <code>kills_over_ledger</code>,
+  <code>lb_power_over</code>, <code>maxfloor_over</code>, <code>floornum_over</code>,
+  <code>battle_floor_over</code>, <code>boss_overdraft</code>, <code>inv_illegal</code>,
+  <code>breed_claim_bad</code>, <code>unlock_sequence</code>, <code>wallet_drift</code>,
+  <code>wallet_rate</code>, <code>wraithgold_seed</code> and <code>pvp_commit_mismatch</code>. The same list
+  also carried <code>wraithgold_over_grant</code>, which <em>nothing has ever raised</em> &mdash; the same
+  disease pointing the other way, unnoticed for exactly as long.</p>
+  <p><strong>D's ruling, 2026-08-17:</strong> <em>&ldquo;That noise is not normal. Those are bugs.&rdquo;</em>
+  So there is no allowlist, no routine class and no exclusion list. The four kinds a previous session
+  excluded on purpose &mdash; <code>grow_only</code>, <code>dead_slot</code>, <code>rate_cap</code> and the
+  save-size pair &mdash; report like everything else, because a guard firing 237 times on one honest account
+  is a defect to be explained, not background. The sequence is deliberate and it is the whole design:
+  <strong>report everything &rarr; watch live accounts &rarr; only a kind that never fires honestly becomes
+  enforcement.</strong> Nothing here gates anything today.</p>
+  <ul>
+    <li><strong>A map can no longer suppress a detection.</strong> <code>FLAG_WHY</code> is a courtesy: a kind
+    with no description still files, and its body says so. <code>FLAG_CLASS</code> is a sort order: an
+    unclassified kind is <code>system</code>. Neither is a gate. This is the property the allowlist lacked,
+    and it is why the batch is worth more than the 55 kinds it switched on.</li>
+    <li><strong>Class is a sort order, never a verdict.</strong> <code>suspect</code> &mdash; the claim pays
+    more than the ledger can account for, past any in-flight envelope. <code>sync</code> &mdash; two devices,
+    two windows, or a reply that never landed. <code>system</code> &mdash; the build is wrong; the default.
+    A real bug looks exactly like <code>suspect</code>, which is why the watching comes first.</li>
+    <li><strong>One row per account per kind per UTC day, updated in place with the day's running count.</strong>
+    The shape the Auto&nbsp;PVP verify report already proved: &ldquo;237 occurrences&rdquo; in one row is
+    readable where 237 rows are not. Relayed on a widening ladder (1, 2, 5, 10, 25, 50, 100&hellip;) because a
+    relay is a written row and written rows bill at a thousand reads. <strong><code>anomalies</code> is not the
+    counter it looks like</strong> &mdash; <code>flag()</code> collapses repeats to one row a minute &mdash; so
+    the count is kept in memory and seeded on a cold isolate from the count at the last relay, which is on
+    disk. A restart can make the number read low, never high.</li>
+    <li><strong>Status is never rewritten by an update.</strong> If a report has been closed and the guard
+    keeps firing, the next UTC day files a fresh row. Rewriting a closed row back to <code>new</code> would
+    hide that it was ever closed.</li>
+    <li><strong>Budgets are per class</strong> (<code>suspect</code> 400, <code>sync</code> 300,
+    <code>system</code> 300 a day) and an update in place costs nothing against them. The old ceiling was
+    <strong>40 rows a day for the whole inbox, dropped silently</strong> &mdash; survivable at 12 reporting
+    kinds, fatal at 64, because the drops are first-come-first-served and the routine kinds fire first.
+    <strong>A refused report is now itself reported</strong>, one row a day counting up: a reporter that loses
+    reports quietly is the disease this batch exists to cure.</li>
+    <li><strong>Two silent-loss paths in the carrier closed.</strong> It took the first 8 queued rows and cut
+    the encoded header at 6,000 characters &mdash; a cut landing mid-JSON makes <code>autoRelay</code>'s parse
+    throw, which discarded <em>the whole batch</em> with no trace. Rows are now added while they fit, the
+    remainder stays queued for the next response, and audit rows ride ahead of reports.</li>
+  </ul>
+
+  <h3>The permanent account action log (2026-08-17)</h3>
+  <p><strong>Status: ON DEV, not yet on release.</strong> D's ruling: admin and ops actions
+  <em>&ldquo;are legal actions and they need to be permanently recorded on each account when they are
+  taken&rdquo;</em>, and <em>&ldquo;Ops only&rdquo;</em> &mdash; players never see these entries.</p>
+  <p><strong>They were not being recorded permanently, and some history is already gone.</strong> Every one of
+  them wrote an <code>anomalies</code> row and nothing else, and <code>maybeMaintain</code> deletes
+  <code>anomalies</code> at 30 days. Every wipe, rollback, bulk dismantle and restore older than a month had
+  already expired before this was written.</p>
+  <ul>
+    <li><strong>The table lives in the WorldDO</strong>, and that is the design rather than a convenience: an
+    account wipe destroys the player object's tables, and a wipe is precisely the action that must survive
+    being wiped. Central, keyed by account, never pruned &mdash; deliberately absent from
+    <code>maybeMaintain</code> and it must stay absent.</li>
+    <li><strong>The eight call sites did not change.</strong> <code>flagReport()</code> diverts any kind in
+    <code>AUDIT_KINDS</code> to <code>auditLog()</code> before it can reach the inbox, so a one-line
+    <code>this.flag(...)</code> cannot forget to log. Covered: <code>admin_wipe</code>,
+    <code>admin_rollback</code>, <code>admin_bulk_dismantle</code>, <code>admin_lock</code>,
+    <code>admin_unlock</code>, <code>ops_restore</code>, <code>global_wipe</code>,
+    <code>grants_revoked</code>, <code>traffic_block</code>, <code>traffic_clear</code>.</li>
+    <li><strong>World-side actions write straight through</strong> (<code>WorldDO</code> now sets
+    <code>_isWorld</code>); player-side actions ride the same carrier the reports do, ahead of them.</li>
+    <li><strong>Ops-only read:</strong> <code>GET /api/admin/acctlog?sid=&amp;limit=</code>, behind the same
+    steamid allowlist as every other admin door. There is deliberately no player-facing route to it anywhere
+    in the build, and the probe asserts that there is not.</li>
+  </ul>
+  <p class="foot">Worker: <code>AUDIT_KINDS</code>/<code>FLAG_CLASS</code>/<code>FLAG_WHY</code>,
+  <code>flagReport()</code>, <code>auditLog()</code>, <code>ensureAcctLog()</code>,
+  <code>ensureAutoIdx()</code>, <code>budgetDrop()</code>, <code>MainDO.fetch</code>,
+  <code>/api/_internal/autorept</code>, <code>/api/admin/acctlog</code> in <code>src/worker.js</code>. Probe:
+  <code>tools/probe_flagrept.mjs</code> &mdash; <strong>BEFORE 12/12 on the build it replaces, AFTER 25/25</strong>,
+  methods lifted verbatim and run against real SQLite. <strong>That probe had been crashing since
+  2026-08-12</strong>: it asserted <code>flagReport()</code> inserted a row, and the relay above moved the
+  insert to the world door, so every run since threw on <code>rows()[0].status</code> and nothing ran it. It is
+  the fourth gate in this repo found retired the same way (<code>probe_savefacade</code> 14/17,
+  <code>probe_floorclock_boon</code> 2/9, <code>probe_spawnshare</code> crashing). <strong>A lift list is a
+  dependency list.</strong></p>
   <p class="foot">Worker: <code>flagReport()</code>, <code>MainDO.fetch</code>/<code>fetchInner</code>,
   <code>/api/_internal/autorept</code>, <code>autoRelay()</code> in <code>src/worker.js</code>. Probe:
   <code>tools/probe_autorept.mjs</code> 18/18 &mdash; <strong>7/18 against the build it replaces</strong>. The
@@ -576,6 +665,7 @@
 
   <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-17 &mdash; every guard now reports itself, reports carry counts, and admin/ops actions became a permanent per-account log (ON DEV, not yet on release).</strong> D’s order after reading a bug-report pull: <em>&ldquo;Make sure all these flags are being stored as auto bug reports&hellip; Once we are sure they are not catching only bugs they will become our anticheat&rdquo;</em>, then <em>&ldquo;That noise is not normal. Those are bugs&rdquo;</em> and <em>&ldquo;Admin and ops actions are legal actions and they need to be permanently recorded on each account&hellip; Ops only.&rdquo;</em> The allowlist of 19 is gone — all 74 raised kinds report, 64 of them into the inbox and 10 diverted to the new never-pruned <code>acct_log</code> in the WorldDO, read only through <code>GET /api/admin/acctlog</code>. Reports are one row per account per kind per UTC day updated in place with the day’s running count, tagged <code>suspect</code>/<code>sync</code>/<code>system</code> as a sort order rather than a verdict. Budgets are per class and a refused report is itself reported; the carrier no longer cuts its own payload mid-JSON, which used to discard whole batches silently. <strong>Nothing gates anything yet</strong> — enforcement waits on a week of live accounts. Probe <code>tools/probe_flagrept.mjs</code> AFTER 25/25, BEFORE 12/12, and the probe of that name had itself been crashing since 2026-08-12.</li>
     <li><strong>2026-08-12 &mdash; the automatic bug reporter had never filed a readable row; both causes fixed (ON DEV (0.48), not yet on release).</strong> Report&nbsp;#124. Rows were written <code>status='open'</code>, which no reader lists and no mark endpoint accepts, <em>and</em> inserted into the raising player's own object while the inbox lives in the WorldDO &mdash; either alone was fatal and neither raised an error. Status is now <code>'new'</code>; the row is queued in the raising object, carried out on the <code>x-ht-autorept</code> response header, and relayed to the WorldDO by the Worker under <code>waitUntil</code>, so no Durable Object gains an outbound fetch and hibernation is unaffected. The forty-a-day ceiling moved to the world door where the table it counts lives; the per-account-per-kind-per-day dedup stayed where the account's history is. New section &ldquo;Why no automatic report ever arrived&rdquo; above records both causes, the live evidence for each, and the relay. <strong>This is why report&nbsp;#122 had to be noticed by D rather than caught by looking</strong> &mdash; every save-path detection since 2026-08-04 was written somewhere no door can read. Probe <code>tools/probe_autorept.mjs</code> 18/18, and 7/18 against the build it replaces.</li>
     <li><strong>2026-08-08 &mdash; per-invocation CPU ceiling set to 500&nbsp;ms on both branches (silent fix, no version bump, D's order).</strong> The account is on Workers Paid, so no daily cap and no platform spend cap applied and every invocation could burn the 30,000&nbsp;ms default. Measured before setting, not guessed: 7 days and 293,918 requests gave P50 0.8&nbsp;ms, P99 15&nbsp;ms, P999 59&nbsp;ms &mdash; but the true max over 169 hours is <strong>156&nbsp;ms</strong>, because the every-minute cron and the nightly R2 mirror sit below the P999 cut and a quantile cannot see them. Headroom is 3.2&times;, not the 8&times; the percentile suggested. Applied first to <code>dfmc-client-dev</code> through the settings API and smoke-tested, then to release; the settings API refused the release worker with error 10214 (latest uploaded version was not the deployed one), which is why it belongs in <code>wrangler.jsonc</code> rather than the dashboard in the first place. New &ldquo;Denial-of-wallet&rdquo; section above records the measurement method and the standing re-measure trigger.</li>
     <li><strong>2026-08-05 &mdash; reports anchored to open time, not send time (LIVE on release since 2026-08-08 (0.42)).</strong> <code>ctx</code> was read when the player pressed send, which with autoplay running is several battles after the moment being reported &mdash; the cause of report&nbsp;#29 arriving stamped <code>screen: resolving</code>. <code>openFeedback()</code> now snapshots the context, and the payload carries <code>openedAt</code>, <code>typedMs</code> and an <code>atSend</code> map holding only the fields that drifted while the report was written.</li>
