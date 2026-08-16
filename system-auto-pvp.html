@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auto PVP — Herumon Tower</title>
+<link rel="stylesheet" href="theme.css?v=4">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">AUTO PVP</h1></div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; Auto PVP</div>
+  <p class="sp-lead">Asynchronous ranked combat. You attack a <strong>snapshot</strong> of another player's team &mdash; they are not online, they do not need to be, and their side is piloted by their own autoplay settings. Ten attacks a day, matches decided by the server, seasons closed weekly. Competitive PvP (live, double-blind, both players present) is unchanged and lives on its <a href="system-pvp.html" style="color:var(--gold-bright)">own page</a>.</p>
+
+  <h2>The loop</h2>
+  <table>
+    <tr><th>Step</th><th>What happens</th></tr>
+    <tr><td class="lbl">Queue</td><td>Spends one attack and mints a match: the server picks the defender, pins the seed, pins both teams, and starts a 20-minute clock.</td></tr>
+    <tr><td class="lbl">Fight</td><td>Manual or autoplay, exactly like any other battle. The defense is piloted by the defender's own autoplay settings, and Competitive's damage ramp applies.</td></tr>
+    <tr><td class="lbl">Finish</td><td>The server re-simulates the whole fight from the pinned seed and teams. Agreement settles the match; both ratings move.</td></tr>
+    <tr><td class="lbl">Abandon</td><td>A match left unfinished past 20 minutes settles as a <strong>defense win</strong>. The attack is not refunded &mdash; walking away from a bad matchup is not free.</td></tr>
+  </table>
+
+  <h2>Attacks</h2>
+  <ul class="sp-rules">
+    <li><strong>Ten per day</strong>, refilling to ten at the daily reset (00:00 UTC). Nothing banks: unspent attacks do not carry over.</li>
+    <li><strong>At most two attacks on the same defender per day</strong>, so no one can be farmed and no one can farm one soft target.</li>
+    <li>The <strong>premium shop</strong> sells ten more for the current day, 4 Wraithgold. They stack above the daily ten and expire at the same reset.</li>
+    <li>You never choose your opponent. The server picks from players near your hidden defense rating, so matches stay competitive as you climb.</li>
+  </ul>
+
+  <h2>The snapshot</h2>
+  <p>Your defense is a copy of your team taken by the daily fold &mdash; the same team you last saved, with its gear, levels and moves frozen as they were. You fight with your snapshot too, not your live loadout, so both sides of every match are a fixed, knowable thing.</p>
+  <ul class="sp-rules">
+    <li><strong>Your defense fights while you are offline.</strong> It is piloted by your autoplay settings &mdash; ultimate timing, targeting, buff and debuff priority &mdash; so those settings are your defensive strategy, not just a convenience.</li>
+    <li><strong>Re-gearing shows up at the next daily reset</strong>, on both attack and defense. A snapshot is a day's photograph, not a live mirror.</li>
+    <li>An account that has never saved has no snapshot: it cannot be attacked, and it cannot attack.</li>
+  </ul>
+
+  <h2>Rating</h2>
+  <ul class="sp-rules">
+    <li><strong>Glicko-2</strong>, seeded at 1500. Every player carries two ratings: a visible <em>attack</em> rating and a hidden <em>defense</em> rating.</li>
+    <li>Attacking moves your attack rating; being attacked moves only your defense rating. A bad week of defenses cannot drag your visible rank down.</li>
+    <li>The hidden rating is what matchmaking steers by. It is never shown, to you or to anyone else.</li>
+    <li>The ladder shows <strong>what each player last won with</strong> &mdash; their class and the two creatures beside it.</li>
+  </ul>
+
+  <h2>Seasons</h2>
+  <ul class="sp-rules">
+    <li>Seasons close on a fixed <strong>Sunday 00:00 UTC</strong> cutoff, the same clock as the daily reset.</li>
+    <li>Ratings carry over. Closing a season settles the standings and pays the top ten.</li>
+    <li><strong>Rewards are items, by rank: top 1, top 3, top 10.</strong> The current placeholders are incense and bait for the top three and incense through rank ten. A reward requires a match actually played that season &mdash; attack or defense, either counts.</li>
+  </ul>
+
+  <h2>Fair play</h2>
+  <p>Every result is decided by the server, not reported by the client. The fight you watch and the fight the server verifies run <strong>the same code over the same bytes</strong> &mdash; one battle engine, shipped to both sides.</p>
+  <ul class="sp-rules">
+    <li>The defense's moves are never accepted from an attacker's client: the server derives them from the pinned settings, so a weakened defense is a mismatch, not an advantage.</li>
+    <li>Submitted teams are checked field by field against the snapshot pinned at mint &mdash; stats, gear, class, and every move including its effects.</li>
+    <li>A result that fails either check is <strong>recorded and investigated</strong> rather than silently accepted.</li>
+  </ul>
+
+  <h2>Defense log</h2>
+  <p>The PVP screen reports what happened while you were away: how many times your defense was attacked, how many held, and who came at you with what. Controlled by <em>Notifications &rsaquo; PvP Defense Results</em>.</p>
+
+  <h2>Changelog</h2>
+  <ul class="sp-rules">
+    <li><strong>2026-08-16 &mdash; page created; the mode built end to end.</strong> Tickets, matchmaking, server-verified results, Glicko-2 ratings, the last-won-with ladder column, the defense log, weekly seasons and threshold rewards.</li>
+  </ul>
+</div>
+</body>
+</html>
