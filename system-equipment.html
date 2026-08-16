@@ -355,7 +355,46 @@
   <em>no item name</em>: <code>nameTier</code> is computed for every tag and bound in no markup. That is a separate
   question for D, not part of #129.</p>
 
+  <h2>The item census was refusing honest commits &mdash; report&nbsp;#175</h2>
+  <p><strong>Status: ON DEV, not yet on release.</strong> <em>&ldquo;Set auto-optimize to HP. Gear list pop
+  up described the changes and showed that changes would be made. Changes are cancelled every time.&rdquo;</em>
+  Six <code>[auto]</code> rows carried the same failure from four different accounts (#191, #206, #209,
+  #243, #244, #259).</p>
+  <p><strong>The plan was right and the commit was thrown away.</strong> <code>optApply</code> takes an item
+  census before and after and refuses to commit if the totals differ by one &mdash; the guard written after
+  the 0.47 scroll-destruction bug, and it is a good guard. But a stone has TWO homes, and the census read
+  them differently:</p>
+  <ul>
+    <li>Socketed on a worn instance, it is counted from <code>sockOv</code> with its category
+    <strong>derived from the socket index</strong> in the key (0&nbsp;Gem, 1&nbsp;Rune, 2&nbsp;Scroll).</li>
+    <li>Folded into a displaced piece&rsquo;s <code>socks</code> when that piece goes back to the bag, it was
+    counted <strong>straight off the record</strong> &mdash; and a folded record carries no <code>cat</code>
+    field.</li>
+  </ul>
+  <p>So one scroll was <code>Scroll|Fated Scroll|10|Rare</code> in a socket and
+  <code>|Fated Scroll|10|Rare</code> in a fold. Any plan that moved a scroll between the two read as one item
+  destroyed and a different one created, and the whole apply was abandoned.
+  <strong>All six live refusals are scrolls, and all six balance exactly once the empty prefix is ignored
+  &mdash; nothing was ever lost or created.</strong> Scrolls alone, because gems and runes are refunded to
+  the bag as their own rows and those rows carry a category; a scroll is replace-only and travels inside the
+  item it is socketed in.</p>
+  <p><strong>The fix is one derivation shared by both homes</strong> &mdash; the fold now reads its category
+  from the socks entry&rsquo;s own <code>ki</code>, the same 0/1/2 the socket branch reads. The guard keeps
+  its teeth: a commit that really destroys a scroll, and a commit that really duplicates one, are both still
+  refused.</p>
+  <p><strong>This also explains report&nbsp;#187</strong> (<em>&ldquo;it did not replace &hellip; it did not
+  add the socketables that were in my inventory&rdquo;</em>). Both fixes it could have been waiting on were
+  already live when it was filed &mdash; the target/overall-power tie-break landed 2026-08-07 and the
+  one-stone-twice fix landed 2026-08-13 &mdash; and an abandoned apply looks exactly like an optimiser that
+  decided to do nothing. The reporter&rsquo;s own save carries <strong>20 scrolls socketed on worn gear and
+  none in folds</strong>, so any plan that swaps one of those pieces out trips the mismatch. Confirmation on
+  his save is owed before #187 is called closed.</p>
+  <p><em>Client: <code>invCensus()</code> in <code>play/app.js</code>. Gate:
+  <code>tools/probe_optcensus.mjs</code> &mdash; <strong>BEFORE 4/4 on the build it replaces, AFTER
+  9/9</strong>, methods lifted verbatim, and the six live refusals replayed as fixtures.</em></p>
+
   <h2>Changelog</h2>
+  <p><strong>2026-08-17 &mdash; auto-optimize cancelled every run because the item census refused on its own key (ON DEV, not yet on release).</strong> Report&nbsp;#175 and six <code>[auto]</code> rows from four accounts. A stone socketed on a worn instance was counted with a category derived from the socket index; the same stone folded into a displaced piece&rsquo;s <code>socks</code> was counted with none, so a scroll moving between the two homes read as an item destroyed plus a different one created. All six live refusals are scrolls and all six balance exactly once the prefix is ignored. One derivation now, shared by both homes; the guard still refuses a real loss and a real duplication. Probe <code>tools/probe_optcensus.mjs</code> AFTER 9/9, BEFORE 4/4, with the six live diffs replayed as fixtures. New section above.</p>
   <p><strong>2026-08-13 &mdash; the auto-optimiser no longer places one stone twice (report #124, with [auto] #138/#142/#144 &mdash; three players' applies refused by the census in one day). ON DEV, not yet on release.</strong>
 The keep candidate wrote a socketed stone into its plan before checking whether the shared pool
 still had the entry backing it &mdash; an earlier slot's fresh fill could take a stone a later slot was
