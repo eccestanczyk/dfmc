@@ -1,3 +1,4 @@
 SKU,Name,Category,Currency,Cost,Duration_Days,Effect_Kind,Effect_Value,Description,Enabled
 SHOP-001,Incense Burner,Boon,Wraithgold,10,30,spawn_rate,2,Wild creatures return to your floor twice as often. Burns for 30 days.,1
 SHOP-002,Bait,Boon,Wraithgold,10,30,spawn_bait,0.5,Wild creatures return in half the time. Stacks with Incense. Lasts 30 days.,1
+SHOP-003,Auto PVP Attacks,Boon,Wraithgold,4,0,apvp_tickets,10,Ten more Auto PVP attacks. They join today pool even above the daily ten and expire at the daily reset.,1
