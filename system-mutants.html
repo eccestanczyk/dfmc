@@ -56,6 +56,7 @@
   <ul class="sp-rules">
     <li><strong>Cosmetic only</strong> &mdash; grants a medal and a recoloured palette; identical stats, moves, and grade to a normal hatch.</li>
     <li><strong>Codex completion bonus</strong> &mdash; a permanent +0.1% added to all grades at full Codex, accrued +0.01% per completed zone tier; at full completion it roughly doubles the low end and lifts the ceiling to 0.20%.</li>
+    <li><strong>Never dismantled</strong> &mdash; every dismantle door refuses a Mutant (D order 2026-08-21, ON DEV, not yet on release): the creature sheet withholds its dismantle button, the hammer refuses the mark and says why, the by-grade and all-filtered sweeps skip them, Adam and Eve leaves them &mdash; neither dismantled nor a bucket&rsquo;s keeper &mdash; and the server-side ops sweep spares them. crafting.html carries the full mechanics.</li>
     <li><strong>Fusion carries it forward</strong> &mdash; fusing two creatures combines their XP and keeps the higher grade; the result is a Mutant if <em>either</em> parent was one.</li>
   </ul>
 
@@ -76,6 +77,7 @@ var ROWS=[['Worn','#c2ae8b',0.01],['Common','#c2ae8b',0.02],['Uncommon','#1eff00
 
   <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-21 &mdash; Mutants can no longer be dismantled, by any door (D order). ON DEV, not yet on release.</strong> The client&rsquo;s shared yield gate refuses them everywhere &mdash; sheet, hammer, by-grade, all-filtered, Adam and Eve &mdash; and the ops bulk sweep carries its own refusal. Adam and Eve treats a Mutant like a levelled creature: never dismantled and never a bucket&rsquo;s keeper, and its window names how many it is leaving. Gates: <code>tools/probe_dismmutant.py</code> 9/9, <code>tools/probe_dismmutant_ops.py</code> 4/4. Mechanics live on crafting.html.</li>
     <li><strong>2026-08-04 &mdash; the wild-spawn roll now actually uses the table on this page (ON DEV, not
       yet on release).</strong> It did not. <code>deriveSlot</code> was handed <code>mutPctOf()</code>, which
       returned the <em>number of bosses the player had downed</em> (0&ndash;10) and used it as a
