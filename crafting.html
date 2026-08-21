@@ -145,7 +145,7 @@ fetch('codex/dismantle.csv?t='+Date.now()).then(r=>r.text()).then(t=>{
 <div style="max-width:1040px;margin:24px auto 40px;padding:0 16px;font-size:12px;color:#8a7f6c">2026-07-31 &mdash; grade surcharge and grading ladder are tier-scaled; the stale &ldquo;output grade is always Worn&rdquo; line corrected (the forge has offered Worn&ndash;Rare at a derived surcharge since 07-28).</div>
 </div>
 <h2>Mutants are never dismantled</h2>
-<p><strong>D order 2026-08-21 (ON DEV, not yet on release):</strong> every dismantle door refuses a Mutant creature (<code>cat Monster</code> with <code>mut:true</code>). One shared gate does it &mdash; <code>dismYield</code> returns <code>null</code> for a Mutant, the same mechanism that protects class souls &mdash; so every door is covered without its own check: the creature sheet withholds its DISMANTLE button, the hammer refuses the mark with <em>&ldquo;MUTANT &mdash; mutants are never dismantled&rdquo;</em> (never the generic no-salvage toast, which would hide the reason), &ldquo;by grade&rdquo; and &ldquo;all filtered&rdquo; sweeps skip them, Adam and Eve treats them like levelled creatures &mdash; neither dismantled <em>nor</em> a bucket&rsquo;s keeper, spared not favoured, and its window says how many it is leaving &mdash; and <code>execDism</code>&rsquo;s final filter pays nothing for one even if a stale reference forces it into the marked list. The ops door <code>POST /api/backup/dismantle</code> carries its own copy of the refusal, because it is the one dismantle that runs server-side without the client&rsquo;s gate.</p>
+<p><strong>D order 2026-08-21 (LIVE on release since 2026-08-21 (0.58)):</strong> every dismantle door refuses a Mutant creature (<code>cat Monster</code> with <code>mut:true</code>). One shared gate does it &mdash; <code>dismYield</code> returns <code>null</code> for a Mutant, the same mechanism that protects class souls &mdash; so every door is covered without its own check: the creature sheet withholds its DISMANTLE button, the hammer refuses the mark with <em>&ldquo;MUTANT &mdash; mutants are never dismantled&rdquo;</em> (never the generic no-salvage toast, which would hide the reason), &ldquo;by grade&rdquo; and &ldquo;all filtered&rdquo; sweeps skip them, Adam and Eve treats them like levelled creatures &mdash; neither dismantled <em>nor</em> a bucket&rsquo;s keeper, spared not favoured, and its window says how many it is leaving &mdash; and <code>execDism</code>&rsquo;s final filter pays nothing for one even if a stale reference forces it into the marked list. The ops door <code>POST /api/backup/dismantle</code> carries its own copy of the refusal, because it is the one dismantle that runs server-side without the client&rsquo;s gate.</p>
 <p><strong>The server keeps paying a Mutant claim on purpose.</strong> <code>src/dismantle.js</code> &mdash; the Worker&rsquo;s pricing copy &mdash; deliberately does <em>not</em> carry the refusal: a stale release client that still dismantles a Mutant must have its claim verify and pay (additive-only backend rule), and withholding pay would protect nothing anyway &mdash; the destruction happens client-side, so the protection lives client-side. The parity suite pins this as its one allowed divergence (gate B4) so it can never be &ldquo;fixed&rdquo; backwards.</p>
 <p class="foot">Client: the gate in <code>dismYield</code>, the hammer refusal in <code>dismSelToggle</code>, the count and sentence in <code>adamEveSplit</code> and the Adam-and-Eve window, all in <code>play/app.js</code>. Worker: the <code>hit</code> predicate in <code>/api/_internal/bulk_dismantle</code>. Probes: <code>tools/probe_dismmutant.py</code> 9/9 (every client door, on a live save, red 1/9 against the build it replaces), <code>tools/probe_dismmutant_ops.py</code> 4/4 (the ops door, red 2/4 before), <code>tools/probe_dismantle_parity.py</code> 10/10 with the divergence pinned.</p>
 
@@ -200,7 +200,7 @@ buys the replacement scroll, and applying a replacement <em>is</em> the reroll &
 misreading and is worth a ruling.</div>
 
 <h2>Changelog</h2>
-<p><strong>2026-08-21 &mdash; mutants are never dismantled (D order). ON DEV, not yet on release.</strong>
+<p><strong>2026-08-21 &mdash; mutants are never dismantled (D order). LIVE on release since 2026-08-21 (0.58).</strong>
 Every dismantle door now refuses a Mutant creature: the sheet button, the hammer, by-grade, all-filtered,
 Adam and Eve (which counts and names what it is leaving) and the server-side ops sweep. One shared gate
 (<code>dismYield</code> &rarr; <code>null</code>) covers every client door; the ops door carries its own copy.
@@ -208,7 +208,7 @@ The Worker&rsquo;s pricing copy deliberately keeps paying a stale client&rsquo;s
 suite pins that divergence as gate B4. New section &ldquo;Mutants are never dismantled&rdquo; above. Gates:
 <code>probe_dismmutant.py</code> 9/9, <code>probe_dismmutant_ops.py</code> 4/4,
 <code>probe_dismantle_parity.py</code> 10/10.</p>
-<p><strong>2026-08-13 &mdash; dismantle earns are booked (the economy BOOK phase's second brick). ON DEV, not yet on release.</strong>
+<p><strong>2026-08-13 &mdash; dismantle earns are booked (the economy BOOK phase's second brick). LIVE on release since 2026-08-21 (0.58).</strong>
 Every <em>verified</em> dismantle now books its whole authored yield into the permanent wallet ledger
 &mdash; one row per currency, keyed by the item's id, and an item dismantles once ever, so a replayed
 claim books nothing. Both acceptance paths book: an item the previous save carried, and an item
@@ -217,7 +217,7 @@ on balance; the ledgers count for real from the next reset. This also closes the
 spot in the Ichor ceiling for good: the earn is in the permanent record whether or not the ceiling
 ever looks. Gate: <code>tools/probe_dismwindow.mjs</code> 10/10 &mdash; a Worn tier-1 piece books
 exactly its authored 3 Scrap, a scroll its 10 Ink, and the replay books nothing.</p>
-<p><strong>2026-08-13 &mdash; scrap what you just made (report #153). ON DEV, not yet on release.</strong>
+<p><strong>2026-08-13 &mdash; scrap what you just made (report #153). LIVE on release since 2026-08-21 (0.58).</strong>
 An item acquired and dismantled inside one save window was absent from the previous save, so an
 honest craft-and-scrap was refused its yield ("absent-from-prev") &mdash; caught by a player minutes
 after 0.50 shipped. The grant records introduced in 0.50 are exactly the missing verification
@@ -226,7 +226,7 @@ identity checked on the fields the grant carries, quantity capped at what was gr
 acceptance <em>spends</em> the grant &mdash; one yield per grant, forever, however often a claim replays.
 Forged ids still die where they always did, and the ordinary previously-held path is untouched.
 Gate: <code>tools/probe_dismwindow.mjs</code> 7/7.</p>
-<p><strong>2026-08-13 &mdash; zone keys are recorded grants, and the first-clear key comes from the server (report #143, the keys half). ON DEV, not yet on release.</strong>
+<p><strong>2026-08-13 &mdash; zone keys are recorded grants, and the first-clear key comes from the server (report #143, the keys half). LIVE on release since 2026-08-21 (0.58).</strong>
 Two defects in one lane: the server-rolled <em>chance</em> key minted an id for the answer but never
 recorded the grant &mdash; it existed for one network hop, then every honestly banked key read
 "unsourced" on the next sync; and the <em>first-clear</em> key was a pure client fabrication with no
@@ -236,7 +236,7 @@ directly below an authored boss floor, and <strong>once ever per zone</strong> &
 event replays, one key exists. Old clients keep the local mint until 0.50 ships. Gate:
 <code>tools/probe_keygrant.mjs</code> 5/5 on live data (recorded-grant sync, server first-clear,
 once-ever, wrong-floor refusal).</p>
-<p><strong>2026-08-13 &mdash; the forge asks the server first (report #143; the economy BOOK phase's first brick). ON DEV, not yet on release.</strong>
+<p><strong>2026-08-13 &mdash; the forge asks the server first (report #143; the economy BOOK phase's first brick). LIVE on release since 2026-08-21 (0.58).</strong>
 Crafting previously had no server presence at all: the client resolved the recipe, debited the
 materials locally, and minted the item locally &mdash; which is why 21 of one player's 22 "no grant
 record" items were recipe outputs. Now <code>/api/craft</code> recomputes the bundle from the same
