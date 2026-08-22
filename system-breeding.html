@@ -51,6 +51,15 @@
   <p>Every rate in the system keys off one number: <strong>pair grade P</strong>.</p>
   <pre>P = floor( (grade of parent A + grade of parent B) / 2 )</pre>
   <p>Mismatched parents are punished by the floor: a <span style="color:#a855f7">Void</span> paired with a <span style="color:#0070dd">Rare</span> breeds as <span style="color:#e5393f">Abyssal</span> (P&nbsp;=&nbsp;7), not as Void. Climbing the grade ladder means lifting <em>both</em> parents.</p>
+  <p><strong>Where the server gets the two grades.</strong> The start note names only the two parent ids. The server
+  looks each one up in its own item ledger and reads the grade <em>there</em> &mdash; never from the note and never
+  from the uploaded save &mdash; then floors the average exactly as above. Three rules follow: a ledgered parent
+  whose grade is not one of the ten legal grades <em>records nothing</em> (the start is unverifiable and the egg
+  still pays off the claim, flagged, like any other unverifiable start); a pair re-announced unchanged never
+  restarts its wait, but its recorded grade is <em>re-derived on every note</em>, so a wrong record cannot outlive
+  the next battle; and the recorded grade is what the claim uses for the wait, the weights and the settled cost.
+  Gate: <code>tools/probe_breedgrade.mjs</code> 7/7 &mdash; it reads the recorded grade back through the claim
+  door's remaining wait (Void 110, Abyssal 50, Common 18 minutes), which is the one place a sandbox can see it.</p>
 
   <h2>The loop</h2>
   <table>
@@ -230,6 +239,30 @@ second run finding nothing left to do, and the item census changing creature row
 <code>dismAdamEve</code> in <code>play/app.js</code>.</p>
 
 <h2>Changelog</h2>
+<p><strong>2026-08-22 &mdash; every verified pair bred as Worn; fixed, and the eggs it cost are regranted (D order: &ldquo;fix both&rdquo;). LIVE on release since 2026-08-22 (0.59).</strong>
+A player reported Void pairs laying Void &ldquo;almost always&rdquo; while the grades below looked random. The second
+half was a defect: the breed-start ledger looked each parent up by id and read back its id and category
+&mdash; <em>not its grade</em> &mdash; so the floored average of two missing grades was 0, clamped to 1, and every pair
+the server could verify was recorded as a <strong>Worn</strong> pen. The verified claim then drew the egg off the Worn
+row (84% Worn, 12% Common) and booked the Worn price. The lookup lost the grade on 2026-08-18 (when parents stopped
+being read from the save blob), reached release with the 2026-08-21 server batch, and the same day's grandfather
+stamp put every creature into the ledger, so from then on it hit every pair on every account. Measured on release:
+six Primordial pens laid 42 eggs as 34 Worn / 6 Common / 1 Uncommon / 1 Rare (the Worn row exactly); 24/24 Worn on
+a second account; 101 wrong eggs across four accounts in about a day. The odds tables themselves were never wrong
+&mdash; the egg roll and the hatch roll read them correctly &mdash; and Void looking &ldquo;sticky&rdquo; is authored:
+a Void pair rolls a Void egg 78.1% of the time, and Void is the only grade with nowhere to roll up.
+<br><br><strong>The fix</strong> is the paragraph under <em>Pair grade</em> above: the grade rides the lookup, an unknown
+grade records nothing, and an unchanged pair re-derives its recorded grade on every note so every Worn record made
+under the defect heals on the account's next battle without losing any waiting. <strong>The repair</strong> is an ops
+door, <code>/api/backup/breedfix</code> (documented on <em>Admin &amp; backend</em>): for every stored egg draw whose
+recorded pair was Worn <em>and</em> which the ledger verified, it recomputes the real pair grade from the pen's recorded
+parents, re-takes the draw's own keyed lane on the correct row &mdash; same lane, right table, so the answer is the egg
+the player would have been handed &mdash; upgrades the egg in place if it is still unhatched in the bag, regrants a
+fresh egg of that line at that grade if it was hatched or dismantled, books the Ichor the pen actually metered
+against the Worn price the claim booked, and heals the account's running pens. An honest Worn pair, a pen whose pair
+has changed since, or a parent without a legal grade is skipped and named, never guessed. Gates:
+<code>tools/probe_breedgrade.mjs</code> 7/7 (2/7 watched fail on the defect) and
+<code>tools/probe_breedfix.mjs</code> (the incident reproduced end to end on the pre-fix tree, then repaired).</p>
 <p><strong>2026-08-13 &mdash; the breed ledger (D's spec: the client may only say breeding started and ended). ON DEV, not yet on release.</strong>
 The server now owns the whole breeding record. START: the anchor rides battle events carrying the
 pen, the two parent ids and the start time &mdash; nothing else &mdash; and the server validates every
