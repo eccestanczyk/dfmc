@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Shell &amp; Platform Rendering — Herumon Tower</title>
+<link rel="stylesheet" href="theme.css?v=4">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">CLIENT SHELL &amp; PLATFORM RENDERING</h1></div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; Client Shell</div>
+  <p class="sp-lead">How the game fits itself onto a screen. The whole UI is authored on one fixed <strong style="color:var(--ink)">1920&times;1080</strong> canvas and scaled to the device; the shell page around it owns loading, fullscreen, scroll pinning, platform quirks, and pushing every connected client onto a new build. These behaviours live in the hand-maintained shell, not in the generated screens.</p>
+
+  <h2>The stage &amp; text fitting</h2>
+  <ul class="sp-rules">
+    <li><strong>One canvas, one number</strong> &mdash; the stage is a fixed 1920&times;1080 box. On boot and on every resize the client computes <code>fitScale = min(viewportWidth/1920, viewportHeight/1080)</code> and applies it to the stage as CSS <code>zoom</code>. Roughly 0.92 on a desktop monitor, ~0.36 on a phone held landscape.</li>
+    <li><strong>Aspect is preserved</strong> &mdash; one uniform factor for both axes; a mismatched screen letterboxes rather than stretches. Portrait phones letterbox heavily, which is why fullscreen carries an orientation lock (below).</li>
+    <li><strong>Text fitter, horizontal</strong> &mdash; every element styled with text ellipsis is measured after each render; if its text overflows its box by more than 1px, its font shrinks proportionally, floored at <strong>11.5</strong> stage px (one retry step lower at 11). The original size is cached and restored when the text fits again.</li>
+    <li><strong>Text fitter, vertical</strong> &mdash; a fixed-height card marked as a fitbox shrinks <em>all</em> of its text together in 6% steps, down to a floor of <strong>72%</strong> of authored size (min 11 stage px), instead of clipping.</li>
+    <li><strong>Stage units, not screen units</strong> &mdash; all fitter floors are in stage px and render at <code>fitScale</code> of that on screen. Sizes chosen for readability must be chosen in stage units with the phone scale in mind.</li>
+  </ul>
+
+  <h2>Platform: iOS text autosizing (the gate)</h2>
+  <p>iOS Safari inflates font sizes on its own (&ldquo;text autosizing&rdquo;), and it boosts explicitly-set pixel sizes too. That breaks the text fitter's contract &mdash; the size the fitter writes is not the size that renders &mdash; so the fitter measures boosted text, shrinks it, Safari boosts the result, and the cycle repeats on every render. The visible symptom is a warped UI: text bursting out of boxes that are themselves correct. Desktop browsers never autosize, and Chrome on Android stands its boost down on pages with a device-width viewport meta (this page has one), so the fault is iOS-only.</p>
+  <ul class="sp-rules">
+    <li><strong>The fix</strong> &mdash; text autosizing is switched off (<code>text-size-adjust: 100%</code>) so the fitter's number is the rendered number.</li>
+    <li><strong>Gated to iOS by ruling</strong> &mdash; D ruled (2026-08-23) that desktop and Android must not change in any way, so the rule only applies when the shell has tagged the page as iOS. No tag, no rule &mdash; every other platform renders byte-identically to before.</li>
+    <li><strong>The tag</strong> &mdash; set in the shell head, synchronously, before first layout: the platform reports as iPhone/iPad/iPod, <em>or</em> reports as Mac while the device has a multi-touch screen. iPadOS 13+ masquerades as a Mac but keeps its touch points; no real Mac has a touchscreen. Touch-screen Windows laptops and all Android devices report neither form and never match.</li>
+    <li><strong>Third-party iOS browsers are covered</strong> &mdash; Chrome, Firefox and Edge on iOS are WebKit underneath, report Apple platforms, and warp the same way; they get the fix.</li>
+    <li><strong>The future app wrapper inherits it</strong> &mdash; an iOS app shell is a WKWebView: same engine, same platform strings, same tag, nothing to reconfigure.</li>
+    <li><strong>Fails safe</strong> &mdash; an exotic browser reporting neither form gets no tag and renders exactly as today.</li>
+  </ul>
+
+  <h2>Scroll pin</h2>
+  <ul class="sp-rules">
+    <li>The document itself must never scroll, not by one pixel &mdash; a scrolled document slides the centred stage off-screen and takes corner controls with it while fixed-position elements stay put.</li>
+    <li>Two guards: the stage wrapper is viewport-anchored (fixed) so it cannot drift, and the shell resets any document scroll offset to 0 on every scroll and resize event. <code>overflow:hidden</code> alone does not stop programmatic or focus-driven scrolling.</li>
+  </ul>
+
+  <h2>Fullscreen &amp; orientation</h2>
+  <ul class="sp-rules">
+    <li>A fixed corner button toggles fullscreen. On handheld devices only (coarse pointer, no hover &mdash; touch-screen laptops excluded), entering fullscreen also requests a <strong>landscape</strong> orientation lock, because the 16:9 stage letterboxes a portrait phone to a stamp. Exiting fullscreen releases the lock. Platforms without orientation lock (iPadOS Safari) still get fullscreen.</li>
+  </ul>
+
+  <h2>Build watcher</h2>
+  <ul class="sp-rules">
+    <li>Every connected client polls its own environment's build fingerprint every <strong>45s</strong> (release watches release, dev watches dev). On a new build: out of battle the client saves and reloads itself; anywhere a silent reload would cut across live play, the game halts under a full-screen refresh button instead.</li>
+  </ul>
+
+  <h2>Changelog</h2>
+  <ul class="sp-rules">
+    <li><strong>2026-08-23</strong> &mdash; Page created. Documented the stage scale &amp; text fitter, scroll pin, fullscreen/orientation, build watcher; added the iOS text-autosizing gate (new: iOS-only fix for warped text, per D's ruling that desktop and Android must not change).</li>
+  </ul>
+</div>
+
+<script src="admin.js"></script>
+<script src="nav.js"></script>
+</body>
+</html>
