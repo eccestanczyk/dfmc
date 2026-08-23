@@ -673,6 +673,7 @@
 
   <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-23 &mdash; the GM console: password+TOTP operator login at <code>/gm</code>, cached world snapshot, adventure-log extraction (built by Jeff, PREP_GM_CONSOLE.md &sect;8&ndash;&sect;9d; ON DEV (0.61 cycle), not yet on release).</strong> New &ldquo;GM console&rdquo; section above carries the mechanics: ops-key-gated enrollment (inert until the first bootstrap), PBKDF2+TOTP login with per-account lockout and a permanent <code>gm_audit</code> trail, a 12-hour HMAC session with no v1 revocation, <code>gm:&lt;user&gt;</code> identities holding the full <code>/api/admin/*</code> surface, a snapshot data plane that accumulates on the existing nightly backup cycle and serves one cached value, and metadata-only adventure-log rounds into the private backup bucket (turnsLog stripped server-side, 256&nbsp;KiB cap, budgeted R2 writes). Three new ops-key doors joined the table: <code>gmsnap</code>, <code>advlog/list</code>, <code>advlog/get</code>. Gates: <code>tools/probe_gmconsole.py</code>, <code>tools/probe_gmadmin.py</code>, <code>tools/probe_gmsnapshot.py</code>, <code>tools/probe_advlog.py</code>; live smoke on <code>/dev/gm</code> (page 200, unauthenticated doors 401, bootstrap without the key 403).</li>
     <li><strong>2026-08-22 &mdash; the Worn-pen repair door, <code>/api/backup/breedfix</code> (D order &ldquo;fix both&rdquo;). LIVE on release since 2026-08-22 (0.59).</strong> Companion to the breeding fix on <em>Breeding</em>: between the 08-21 server batch and 0.59 every breeding pair the ledger could verify was recorded as Worn and laid eggs off the Worn row. <code>GET /api/backup/breedfix?k=&amp;sid=&amp;realm=</code> is a dry run: it lists every stored egg draw whose recorded pair was Worn <em>and</em> which the ledger verified, with the real pair grade recomputed from the pen's recorded parents' ledger grades, the grade the draw's own keyed lane gives on that row, what would be done, and the Ichor owed (pair price minus the Worn price booked). <code>&amp;apply=1</code> does it: held unhatched eggs are re-graded in place (save and ledger row), hatched or dismantled ones are regranted as a fresh egg of the same line at the pair grade (ledger origin <code>breed</code>, save origin marked <code>repair</code>), the Ichor difference is booked once (source <code>breedfix</code>, keyed on the draw), every running pen's recorded grade is re-derived, the save is written one version up with a fresh timestamp, and the account is flagged <code>ops_breedfix</code>. Each repaired draw is marked in place, so a re-run changes nothing. Skipped and named, never guessed: an honest Worn pair, a pen whose pair changed since the draw, a parent without a legal grade, or a lane that no longer reproduces the stored Worn draw. A player online at apply time can overwrite the written save with their next flush &mdash; apply while the account is idle and re-read the live save afterwards. Gate: <code>tools/probe_breedfix.mjs</code>.</li>
     <li><strong>2026-08-21 &mdash; retention leaves the battle loop: sliced, budgeted, hourly (report #458, D order). LIVE on release since 2026-08-21 (0.58).</strong> The battle credit loop ran the <code>events_seen</code> (7d) and <code>drops_granted</code> (30d) prunes per event, ungated; ~7 days after a heavy day one battle inherited the whole day's expiry in one statement &mdash; 2,193 rows on the write breaker's first live morning, filed as auto report #458. Both prunes moved into <code>maybeMaintain</code> beside the three already there; all five now drain through a shared budget of billed rows per hourly run, announced by a <code>MAINT</code> console line. Replay protection can only run longer during a drain, never shorter. New section &ldquo;The write breaker and the sliced retention&rdquo; above. Gate <code>tools/probe_battleprune.py</code> 6/6, red 3/6 first; six adjacent suites re-run green.</li>
     <li><strong>2026-08-21 &mdash; the ops bulk dismantle spares Mutants, and the shared yield module deliberately does not copy the refusal (D order: &ldquo;all types of dismantle for creatures are ignoring mutants&rdquo;). LIVE on release since 2026-08-21 (0.58).</strong> <code>/api/_internal/bulk_dismantle</code> with <code>scope 'all'</code> now leaves any <code>Monster</code> with <code>mut:true</code> untouched &mdash; it was the one dismantle running server-side without the client&rsquo;s gate. <code>src/dismantle.js</code> keeps paying a Mutant claim on purpose, so a stale release client loses nothing; <code>probe_dismantle_parity.py</code> gate B4 pins that divergence. Ops probe <code>tools/probe_dismmutant_ops.py</code> 4/4, red 2/4 against the build it replaces.</li>
@@ -761,6 +762,39 @@
   <p><strong>Not a cost fix.</strong> The whole stored payload was 1.65&nbsp;MB &mdash; about $0.0003 a month. It was removed because it was not earning its place, and the storage argument that was first offered for it was wrong.</p>
   <p class="foot">Client: <code>openFeedback()</code>, <code>sendFeedback()</code>, <code>feedbackLogs()</code>, <code>feedbackCtx()</code> in <code>play/app.js</code>. Worker: the <code>/api/feedback</code> POST handler, <code>/api/feedback/export</code>, <code>purgeShots()</code> in <code>src/worker.js</code>. Probe: <code>tools/probe_noshot.py</code> 5/5.</p>
 
+  <h2>GM console &mdash; the operator surface at <code>/gm</code></h2>
+  <p><strong>ON DEV (0.61 cycle), not yet on release.</strong> A browser console for operators, served inline by the
+  Worker at <code>/gm</code> (deliberately not under <code>play/</code>), reachable even under maintenance mode. Its
+  auth is fully independent of player sessions.</p>
+  <ul>
+    <li><strong>Enrollment</strong> &mdash; <code>POST /api/gm/bootstrap</code>, ops-key-gated. Creates or re-enrolls a
+      named operator account and re-rolls its TOTP secret; every enrollment is audited. Until the first bootstrap the
+      account table is empty and login is impossible &mdash; the console ships inert.</li>
+    <li><strong>Login</strong> &mdash; password (PBKDF2-SHA256, 100,000 iterations, per-account salt) plus TOTP
+      (RFC&nbsp;6238, 160-bit secret, &plusmn;1 step drift). A per-account fail counter applies a lockout window; every
+      attempt &mdash; unknown user, locked, bad password, bad code, success &mdash; lands in the permanent
+      <code>gm_audit</code> table with timestamp, actor, action and IP.</li>
+    <li><strong>Session</strong> &mdash; <code>ht_gm_session</code> cookie, HMAC-signed with <code>GM_SECRET</code>,
+      12&nbsp;hours, HttpOnly/Secure/SameSite=Lax. v1 has no server-side revocation list &mdash; expiry is the only
+      thing that takes a token away, which is why it is short.</li>
+    <li><strong>Power</strong> &mdash; <code>/api/gm/admin/&lt;action&gt;</code> verifies the GM session, then forwards
+      internally to <code>/api/admin/&lt;action&gt;</code> under the identity <code>gm:&lt;user&gt;</code>; the admin
+      allowlist accepts <code>gm:*</code> alongside <code>ADMIN_STEAMIDS</code>. A GM session therefore holds the
+      <em>full</em> admin surface, and every admin door&rsquo;s own permanent per-account recording applies to it.</li>
+    <li><strong>Snapshot data plane</strong> &mdash; population, floor and power summaries per realm, accumulated
+      <em>during the existing nightly backup cycle</em> (never a new per-account call) and published to one cached
+      value at cycle wrap. <code>GET /api/gm/snapshot</code> (GM session) and <code>GET /api/backup/gmsnap</code>
+      (ops key) both serve the cache, so reading it fifty times a day costs the same as once. Until the first full
+      cycle completes it reports that no snapshot exists yet.</li>
+    <li><strong>Adventure-log extraction</strong> &mdash; an operator starts a round
+      (<code>POST /api/admin/advlog/start</code>, audited). Clients poll the active round id at most hourly and upload
+      once per round: chapters and battle <em>metadata only</em> &mdash; the round-by-round combat text
+      (<code>turnsLog</code>) is stripped server-side regardless of what the client sent, uploads are capped at 2,000
+      battles and 256&nbsp;KiB, and each R2 write passes the shared spend budget first. Files land in the private
+      backup bucket under <code>advlog/&lt;round&gt;/&lt;steamid&gt;.json</code>; a receipt row per account per round
+      records time and size, and the status door reports the count and the last five check-ins.</li>
+  </ul>
+
   <h2>Ops doors &mdash; the complete set</h2>
   <p>Every door below is <strong>read-only</strong> and gated on the ops key at the Worker's session gate,
   which matches on the <em>stripped</em> path so <code>/dev/api/backup/*</code> is gated identically. A wrong
@@ -781,6 +815,12 @@
       write door in this family besides restore, grant, grandfather and revoke.</td></tr>
     <tr><td class="lbl"><code>GET /api/backup/parts?key=&amp;sid=&amp;realm=</code></td><td>Split save parts
       and <code>rejoin_ok</code> &mdash; the stage-2 gate for the save split.</td></tr>
+    <tr><td class="lbl"><code>GET /api/backup/gmsnap?k=</code></td><td>The cached GM snapshot &mdash; the same
+      value <code>/api/gm/snapshot</code> serves, without a GM session.</td></tr>
+    <tr><td class="lbl"><code>GET /api/backup/advlog/list?k=&amp;round=</code></td><td>Steamids that have uploaded
+      for an adventure-log round, paginated by cursor.</td></tr>
+    <tr><td class="lbl"><code>GET /api/backup/advlog/get?k=&amp;round=&amp;sid=</code></td><td>One account&rsquo;s
+      uploaded adventure-log file for the round.</td></tr>
 <tr><td colspan="2"><strong>2026-08-04 &mdash; the detected-but-unenforced flag class reports itself (LIVE on release since 2026-08-08 (0.42)).</strong>
 <span class="note"><strong>CORRECTION 2026-08-12 &mdash; as written below this NEVER WORKED, and the two
 reasons are recorded in &ldquo;Why no automatic report ever arrived&rdquo; further down this page. Read
