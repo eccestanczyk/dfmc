@@ -1110,10 +1110,13 @@ Character total:
     <table>
       <tr><th>Rule</th><th>Detail</th></tr>
       <tr><td>Craft gear</td><td><code>25 &times; tier</code> Scrap produces a Worn item of chosen slot and base type at that tier (T10 = 250 Scrap)</td></tr>
-      <tr><td>Equip requirement — character gear</td><td>Tier N requires character level &ge; (N&minus;1)&times;10 (T1 = level 1, T2 = 10, &hellip; T10 = 90). Gear above the character's level cannot be equipped.</td></tr>
-      <tr><td>Equip requirement — Tags</td><td>Same thresholds against the <em>creature's</em> level. A creature cannot wear a Tag of a higher tier than its own level bracket.</td></tr>
+      <tr><td>Equip requirement — character gear</td><td>Tier N requires <strong>account level</strong> &ge; (N&minus;1)&times;10 (T1 = level 1, T2 = 10, &hellip; T10 = 90) &mdash; <code>items.csv Level_Req</code>, judged against the account level (D ruling 2026-08-25: &ldquo;Account level gates gear&rdquo;; the class level plays no part). Gear above the account's level cannot be equipped.</td></tr>
+      <tr><td>Equip requirement — Tags</td><td>Same thresholds against the <em>creature's</em> level: Tag A/B of Monster I test Monster I's level, Tag A/B of Monster II test Monster II's. A tag slot whose creature slot is empty has no level to test and is not gated (the tag is judged the moment a creature is seated).</td></tr>
+      <tr><td>Gems, runes, scrolls</td><td>Carry the same <code>Level_Req</code> ladder ((tier&minus;1)&times;10) and test the level of the piece's wearer: the account level in character gear, the creature's level in a tag. Socketing and enchanting refuse above level, before anything is consumed or rolled.</td></tr>
+      <tr><td>Already worn above level</td><td>Never unequipped or moved (D ruling 2026-07-28 on anything illegal): the piece &mdash; or the stone or scroll &mdash; stays where it is, <strong>contributes nothing</strong>, and its slot reads <strong>ILLEGAL &middot; LV n</strong> in red until the wearer reaches level n, when it comes alive by itself. The server's power figure applies the same rule, so the board and the sheet agree.</td></tr>
       <tr><td>Enhancement socketing</td><td>Enhancement tier &le; the gear's tier (unchanged)</td></tr>
     </table>
+    <p><em>Level requirements are enforced ON DEV since 2026-08-25, not yet on release &mdash; before that nothing read <code>Level_Req</code> at all. Mechanics in full on <a href="system-equipment.html">Equipment</a>.</em></p>
 
     <p>Any piece of gear can be refined from +1 up to +10, increasing its power. Refinement uses <strong style="color:#c2ae8b">Scrap</strong>, acquired by dismantling equipment. Refined equipment yields more Scrap when dismantled, creating a recycling loop.</p>
     <table>
@@ -1807,6 +1810,7 @@ async function loadBalance() {
 }
 </script>
 <h2>Changelog</h2>
+<p><strong>2026-08-25 &mdash; level requirements are enforced: the account level gates gear, the creature's level gates its tags, and gems, runes and scrolls test the level of the piece they enter (D report + ruling). ON DEV, not yet on release.</strong> The &ldquo;Gear crafting &amp; level requirements&rdquo; table above now states the rule as the build applies it, including what happens to a piece already worn above level (inert, ILLEGAL &middot; LV n, never moved). Full mechanics on <a href="system-equipment.html">Equipment</a>; the socketing half on <a href="system-sockets.html">Sockets</a>; the XP page's player-level note corrected.</p>
 <p><strong>2026-08-13 &mdash; grade effects layer under the art, and the divine sheen loops seamlessly (report #131). ON DEV, not yet on release.</strong> Note in the visual-effects section above.</p>
 <ul>
   <li><strong>2026-07-31</strong> &mdash; Class ultimates are learned at class level 10, authored as <code>Learn_Level</code> in <code>ultimates.csv</code>. The class preview describes the ultimate a line brings before it is unlocked, and the Equipment window shows the CURRENT ultimate with a live figure &mdash; expected damage for the nukes, the rider itself for the others &mdash; or the level it unlocks at while still locked.</li>

@@ -139,6 +139,7 @@
     <tr><td class="lbl">Scrolls never move</td><td>No optimizer pass, fill or re-deal relocates a scroll. It rides its item and unfolds back into the item's own key.</td></tr>
     <tr><td class="lbl">Socket capacity</td><td>Comes from <code>SLOTG</code>, keyed on the host's <strong>GRADE</strong>, <strong>not its tier</strong> &mdash; Void 3/3/3, Rare 1/1/1. This is why a low-tier Void host can out-earn a high-tier Rare one.</td></tr>
     <tr><td class="lbl"><code>statFits</code></td><td>The stone's stat must match the host's stat, so an <strong>Attack gem cannot enter Defence armour</strong>. Every fill and every re-deal is bounded by this before value is considered at all.</td></tr>
+    <tr><td class="lbl"><code>lvlBlock</code> (2026-08-25, ON DEV)</td><td>A gem, rune or scroll carries <code>items.csv Level_Req = (tier&minus;1)&times;10</code> and must not exceed the level of its host's wearer &mdash; the <strong>account level</strong> for character gear, the <strong>creature's level</strong> for a tag. The socket picker greys and refuses it (before any consume or roll), the optimiser's fill skips it, and one already socketed above level is <strong>inert</strong> (red ILLEGAL cell, tip names the level) until the wearer reaches it. Nothing is ever unsocketed on the player's behalf. Detail on <a href="system-equipment.html">Equipment</a>.</td></tr>
   </table>
 
   <h2>Applying a scroll &mdash; the order of operations</h2>
@@ -175,6 +176,7 @@
 
   <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-25 &mdash; gems, runes and scrolls test the level of the piece they enter (D: &ldquo;the same level requirement needs to be true for socketables, scrolls&rdquo;). ON DEV, not yet on release.</strong> Reference row above. Picker greys with LV n and refuses on click before anything is spent; a scroll above level never reaches the roll door; the optimiser never places one; an already-socketed over-level stone is inert, never moved.</li>
     <li><strong>2026-08-14 &mdash; a refresh could reroll a scroll enchant (spec 004). ON DEV, not yet on release.</strong> The enchant draw was keyed on a client-minted key regenerated on every click, and the client debited the scroll only in the browser, flushing on neither success nor failure &mdash; so a bad enchant, a reload inside the ten-second debounce, and the scroll was back with a different roll. Now keyed on the socket plus the scroll's tier and grade against a server-held attempt ordinal, with an unsettled answer consuming nothing and every real commit forcing its own save. New section &ldquo;Applying a scroll&rdquo; above; full rule in <em>upgrading.html</em>. Gates <code>tools/probe_rollattkey.mjs</code> 12/12 (8/12 before), <code>probe_rollreplay.mjs</code> extended.</li>
     <li><strong>2026-08-10 &mdash; every already-socketed rune scored identically, so the auto-optimizer ranked its rune pool by tier and rarity (shipped in 0.47).</strong>
       Runes were valued with <code>runePct(st2.it)</code>, and <code>it</code> is only set on bag-sourced pool entries;
