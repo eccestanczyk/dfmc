@@ -59,13 +59,13 @@ td{border-bottom:1px solid var(--rule);padding:5px 8px;color:var(--ink-dim);font
   <p style="font-size:14px;color:var(--ink-dim)">There is no combining. <strong>Gear grade is raised only by spending resources on an attempt</strong> — Scrap for gear, Dust for gems, Essence for runes, Ink for scrolls, all authored in <code>codex/grading.csv</code> at the item's tier (360 tier-scaled rows, 2026-07-31). A failed attempt consumes the currency and leaves the item exactly as it was; nothing is ever destroyed. Those are the same resources dismantling yields, so every drop feeds the ladder. See the Upgrading page for the full table.</p>
 
 <h2 style="font-family:'Cinzel',serif;font-size:18px;color:var(--gold);margin:24px 0 8px">Dismantling</h2>
-  <p style="font-size:14px;color:var(--ink-dim)">Authored per row in <code>codex/dismantle.csv</code> — 410 rows. Gear: every (grade &times; refinement) pair. Gems / runes / scrolls: every (tier &times; grade) pair. No yield formula.</p>
+  <p style="font-size:14px;color:var(--ink-dim)">Authored per row in <code>codex/dismantle.csv</code> — 515 rows. Gear: every (grade &times; tier) pair. Gems / runes / scrolls / tags: every (tier &times; grade) pair. No yield formula.</p>
   <div class="filters">
     <select id="dcat"><option value="">All categories</option></select>
     <select id="dgrade"><option value="">All grades</option></select>
     <span id="dcount" class="count"></span>
   </div>
-  <table><thead><tr><th>ID</th><th>Category</th><th>Grade</th><th>Tier</th><th>Refine</th><th>Yield</th></tr></thead><tbody id="dtb"><tr><td colspan="6" style="color:var(--ink-faint)">Loading…</td></tr></tbody></table>
+  <table><thead><tr><th>ID</th><th>Category</th><th>Grade</th><th>Tier</th><th>Yield</th></tr></thead><tbody id="dtb"><tr><td colspan="5" style="color:var(--ink-faint)">Loading…</td></tr></tbody></table>
 
   <h2 style="font-family:'Cinzel',serif;font-size:18px;color:var(--gold);margin:24px 0 8px">Scroll rerolling</h2>
   <p style="font-size:14px;color:var(--ink-dim)">There is no separate reroll action and no Ink cost. <strong>Applying another scroll over a socketed one is the reroll</strong> — it draws a fresh class and value from <code>codex/enchants.csv</code>, and the enchantment it replaces is destroyed. Scrolls can never be unsocketed; gems and runes always return to the bag intact.</p>
@@ -131,7 +131,7 @@ function drender(){
   document.getElementById('dcount').textContent=r.length+" / "+DIS.length+" rows";
   document.getElementById('dtb').innerHTML=r.map(x=>{
     const y=MATS.filter(m=>+x[m]>0).map(m=>`<span class="mat">${x[m]} ${m}</span>`).join('')||'<span class="mat">—</span>';
-    return `<tr><td class="rid">${esc(x.Dismantle_ID)}</td><td>${esc(x.Category)}</td><td>${esc(x.Grade)}</td><td>${x.Tier?'T'+esc(x.Tier):'—'}</td><td>${esc(x.Refinement)||'—'}</td><td class="mats">${y}</td></tr>`;
+    return `<tr><td class="rid">${esc(x.Dismantle_ID)}</td><td>${esc(x.Category)}</td><td>${esc(x.Grade)}</td><td>${x.Tier?'T'+esc(x.Tier):'—'}</td><td class="mats">${y}</td></tr>`;
   }).join('')||'<tr><td colspan="6" style="color:var(--ink-faint)">No rows.</td></tr>';
 }
 fetch('codex/dismantle.csv?t='+Date.now()).then(r=>r.text()).then(t=>{

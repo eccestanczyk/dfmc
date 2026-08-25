@@ -435,7 +435,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     <div class="note note-info"><p>Throughput: the refill ceiling is 60 spawns/hour per floor — 2&times; headroom at the ~30 battles/hour endgame anchor, and exact parity for optimized offensive builds approaching 60 battles/hour, which ride the drip on a camped floor. Sustained single-floor farming is throttled at the spawner; speed builds, like everyone else, scale through floor rotation (&approx;10 per floor per pass).</p></div>
     <h3>Wild quality &amp; virtual gear</h3>
     <p>Every wild spawn rolls a <strong style="color:#ede0c4">quality grade</strong> once, at spawn, from the zone-banded weights in <code>codex/wild_quality_weights.csv</code> — floors 1&ndash;9 are all-Worn (&times;0.84), the curve begins at floor 11, and the roll is <strong>capped at Legendary</strong> — Abyssal&ndash;Void quality exists only through breeding and never appears in the wild. The rolled grade sets the creature's quality multiplier (QM) on Attack, Defense, and HP. There is <strong style="color:#ede0c4">no catching</strong> — wild creatures are fought, never taken; their lines enter the roster only through egg drops and hatching.</p>
-    <p>Deep-zone wilds also carry <strong style="color:#ede0c4">virtual gear</strong>: zone 1 none; zones 2&ndash;4 one tag; zones 5&ndash;10 both combat tags. The single tag is Fang when the species' <code>Grade_Attack &ge; Grade_Defense</code>, otherwise Carapace — <strong>never Heart</strong> (HP scales through QM only; wall inflation stays capped at the source). Tag value is the canonical tag implicit at the at-floor tier — no gems, runes, refinement, or item instances; nothing enters the loot tables. Drops, eggs, XP, and Ichor are computed exactly as before — enemy quality never feeds the reward economy.</p>
+    <p>Deep-zone wilds also carry <strong style="color:#ede0c4">virtual gear</strong>: zone 1 none; zones 2&ndash;4 one tag; zones 5&ndash;10 both combat tags. The single tag is Fang when the species' <code>Grade_Attack &ge; Grade_Defense</code>, otherwise Carapace — <strong>never Heart</strong> (HP scales through QM only; wall inflation stays capped at the source). Tag value is the canonical tag implicit at the at-floor tier — no gems, runes, or item instances; nothing enters the loot tables. Drops, eggs, XP, and Ichor are computed exactly as before — enemy quality never feeds the reward economy.</p>
 
     <h3>Streak counter</h3>
     <p>After every battle, a compact rectangle appears mid-screen showing the current streak status as <strong style="color:#ede0c4">X / Y</strong> (battles won / threshold). On a <strong style="color:#4a7a44">win</strong>, X scrolls up to the new count and the text pops in size briefly. On a <strong style="color:#dd5646">loss</strong>, the rectangle visually cracks and X rolls back down through each number to 0. The counter only appears on floors not yet cleared.</p>
@@ -916,7 +916,7 @@ FinalDamage = RawDamage
       <tr><td style="color:#ede0c4">Success chance</td><td>Shared grading ladder: 100 / 90 / 70 / 50 / 35 / 20 / 8 / 3 / <strong>0.5%</strong> into Void — no pity, pure roll every attempt.</td></tr>
       <tr><td style="color:#ede0c4">On failure</td><td>Bundle consumed, soul grade unchanged — no destruction, no downgrade.</td></tr>
     </table>
-    <p style="font-size:13px;color:#c2ae8b">One soul Worn&rarr;Void: expected ~132,000 Scrap + ~8,800 Ichor + ~17,600 each of Dust/Essence/Ink ≈ 880 h of <em>every</em> income stream at once. Because the bundle draws on the same currencies as refinement, gear grading, and enhancement crafting simultaneously, soul grading only becomes rational once those pipelines are saturated — the deliberate terminal sink. A full 8-slot Void soul loadout is a ~7,000 h, multi-year pursuit. Full table on the <a href="upgrading.html" style="color:var(--gold-bright)">Upgrading</a> page.</p>
+    <p style="font-size:13px;color:#c2ae8b">One soul Worn&rarr;Void: expected ~132,000 Scrap + ~8,800 Ichor + ~17,600 each of Dust/Essence/Ink ≈ 880 h of <em>every</em> income stream at once. Because the bundle draws on the same currencies as gear grading and enhancement crafting simultaneously, soul grading only becomes rational once those pipelines are saturated — the deliberate terminal sink. A full 8-slot Void soul loadout is a ~7,000 h, multi-year pursuit. Full table on the <a href="upgrading.html" style="color:var(--gold-bright)">Upgrading</a> page.</p>
 
     <h3>Equipment grades</h3>
     <p>Grade determines how many gem, rune, and enchantment slots a piece of gear has. Equipment is also tiered every 10 character levels. From Abyssal upward, items have visual effects in addition to their color — effects appear on item icons and names in inventory, equipment UI, and the battle conclusion screen.</p>
@@ -964,7 +964,7 @@ FinalDamage = RawDamage
     <p>Every modifier in the game has one of three scopes, determining what it affects.</p>
     <table>
       <tr><th>Scope</th><th>Affects</th><th>Usage</th></tr>
-      <tr><td style="color:#ede0c4">Local</td><td>Only the item it's on — scales that item's own stat contribution</td><td>Default for all character gear modifiers (gems, runes, enchantments, refinement). A rune's +8% on a weapon only multiplies that weapon's base + gems.</td></tr>
+      <tr><td style="color:#ede0c4">Local</td><td>Only the item it's on — scales that item's own stat contribution</td><td>Default for all character gear modifiers (gems, runes, enchantments). A rune's +8% on a weapon only multiplies that weapon's base + gems.</td></tr>
       <tr><td style="color:#ede0c4">Personal</td><td>The bearer as a whole — the character or the specific creature wearing it</td><td>Creature tag modifiers (tags are the exception — all tag modifiers are Personal, affecting the creature's total stats). Some creature souls.</td></tr>
       <tr><td style="color:#ede0c4">Team</td><td>All allies (character + both creatures)</td><td>Some creature souls. Individually weaker per target but multiplied across 3 entities.</td></tr>
     </table>
@@ -1004,14 +1004,13 @@ FinalDamage = RawDamage
     <h3>Modifier pipeline</h3>
     <h4>Character gear (Local by default)</h4>
     <pre>Per item:
-  ItemStat = (BaseImplicit + Σ GemFlats) × (1 + Σ Rune%) × Refinement×
+  ItemStat = (BaseImplicit + Σ GemFlats) × (1 + Σ Rune%)
            + enchantment effects + creature soul effect
 
 Character total:
   ItemStat = (BaseImplicit + Σ gems)
            × (1 + Σ rune increased%)
            × (1 + Σ Local enchant increased%)   // + flat enchants into base band
-           × RefinementMult                      // Local "more"
            × Local soul effect (armour slots)
 
   CharStat = Σ all ItemStats
@@ -1021,14 +1020,12 @@ Character total:
 
   CreatureStat = (Core(level) + Σ TagStats)
                × AxisMult × QM
-               × Π(Tag refinement mores)
                + Σ Team modifiers from character gear souls</pre>
 
     <h4>Creature Tags (Personal scope — all modifiers affect creature's total stats)</h4>
     <pre>CreatureStat = BaseStat(grade, level)
              + Σ gem flats from both tags
              × (1 + Σ rune % from both tags)
-             × Tag₁ Refinement× × Tag₂ Refinement×
              + enchantment effects
              + Σ Team modifiers from character gear souls</pre>
 
@@ -1102,7 +1099,6 @@ Character total:
       <tr><td>Creature soul socket</td><td>Yes</td><td>No</td></tr>
     </table>
 
-    <h3>Refinement</h3>
     <h3>Nothing is useless</h3>
     <p>Every drop has value, however marginal. All gear dismantles into <strong style="color:#c2ae8b">Scrap</strong> (plus Ichor at Rare+), and Scrap crafts the next tier of equipment. All enhancements dismantle into their family material (Dust / Essence / Ink), which crafts and grades the next tier of enhancements. A Worn Rough gem drop at floor 95 is still Dust in the pipeline.</p>
 
@@ -1118,19 +1114,8 @@ Character total:
     </table>
     <p><em>Level requirements are enforced ON DEV since 2026-08-25, not yet on release &mdash; before that nothing read <code>Level_Req</code> at all. Mechanics in full on <a href="system-equipment.html">Equipment</a>.</em></p>
 
-    <p>Any piece of gear can be refined from +1 up to +10, increasing its power. Refinement uses <strong style="color:#c2ae8b">Scrap</strong>, acquired by dismantling equipment. Refined equipment yields more Scrap when dismantled, creating a recycling loop.</p>
-    <table>
-      <tr><th>Rule</th><th>Detail</th></tr>
-      <tr><td>Currency</td><td>Scrap — gained by dismantling gear</td></tr>
-      <tr><td>Cost scaling</td><td>Higher equipment tier and higher current refinement both increase Scrap cost</td></tr>
-      <tr><td>Success chance</td><td>+1&rarr;+10: 100 / 90 / 80 / 65 / 50 / 35 / 20 / 10 / 3 / <strong>1%</strong> — no pity, pure roll every attempt</td></tr>
-      <tr><td>Attempt cost</td><td><code>3 &times; target level &times; item tier</code> Scrap (T10 +10 attempt = 300 Scrap)</td></tr>
-      <tr><td>On failure</td><td>No progress, no destruction — Scrap is consumed but gear is unaffected</td></tr>
-      <tr><td>Dismantling refined gear</td><td>Yields more Scrap than base gear — scales with refinement level</td></tr>
-    </table>
-
     <h3>Grading up</h3>
-    <p>Gear can be upgraded to the next grade (e.g. Rare → Epic) using <strong style="color:#c2ae8b">Scrap</strong> (enhancements pay their family material). Like refinement: failure consumes the currency only, nothing is ever destroyed.</p>
+    <p>Gear can be upgraded to the next grade (e.g. Rare → Epic) using <strong style="color:#c2ae8b">Scrap</strong> (enhancements pay their family material). Failure consumes the currency only; nothing is ever destroyed.</p>
     <table>
       <tr><th>Rule</th><th>Detail</th></tr>
       <tr><td>Currency</td><td>Scrap (gear) &middot; Dust / Essence / Ink (enhancements)</td></tr>
@@ -1170,18 +1155,18 @@ Character total:
     <h4>Progression milestones (per premises)</h4>
     <table>
       <tr><th>Stage</th><th>What the player has</th><th>Effort</th></tr>
-      <tr><td>Level bracket 9/10</td><td>Uncommon+ gear in all 12 slots, key pieces at Rare (first scroll socket), +3 refinement, Uncommon enhancements socketed</td><td>Deterministic — falls out of the leveling journey (~5,200 battles by floor 90)</td></tr>
-      <tr><td>Grade 5 / +5</td><td>Epic key pieces (~11 expected Ichor each), +5 (~23 cumulative expected attempts), Rare enhancements (~45 material each)</td><td>A bit of grind — reachable within weeks of hitting 100</td></tr>
-      <tr><td>Legendary&ndash;Divine, +6&ndash;+8</td><td>Market-relevant gear, the trading tier</td><td>Months; where most endgame players live</td></tr>
-      <tr><td>Primordial / Void, +9 / +10</td><td>The chase</td><td>Year-scale per item for dedicated players (see below)</td></tr>
+      <tr><td>Level bracket 9/10</td><td>Uncommon+ gear in all 12 slots, key pieces at Rare (first scroll socket), Uncommon enhancements socketed</td><td>Deterministic — falls out of the leveling journey (~5,200 battles by floor 90)</td></tr>
+      <tr><td>Grade 5</td><td>Epic key pieces (~11 expected Ichor each), Rare enhancements (~45 material each)</td><td>A bit of grind — reachable within weeks of hitting 100</td></tr>
+      <tr><td>Legendary&ndash;Divine</td><td>Market-relevant gear, the trading tier</td><td>Months; where most endgame players live</td></tr>
+      <tr><td>Primordial / Void</td><td>The chase</td><td>Year-scale per item for dedicated players (see below)</td></tr>
     </table>
     <h4>The endgame chase — expected / lucky / unlucky (no pity)</h4>
-    <p>Success gates are geometric distributions: the spread between a lucky (p10) and unlucky (p90) player on a single gate is ~22&times;. Failure costs currency only — no destruction, no downgrade. Raw chances: <strong>Void 0.5%, +10 refinement 1%</strong>.</p>
+    <p>Success gates are geometric distributions: the spread between a lucky (p10) and unlucky (p90) player on a single gate is ~22&times;. Failure costs currency only — no destruction, no downgrade. Raw chance: <strong>Void 0.5%</strong>.</p>
     <table>
-      <tr><th>One item, Worn&rarr;Void grading</th><th>One item, 0&rarr;+10 refinement</th></tr>
-      <tr><td>Expected ~44,535 Scrap at T10 &asymp; 222&nbsp;h at 30 battles/h (Void gate alone: p10 ~3,573 / expected 34,000 / p90 ~78,092) &mdash; the same hours at every tier by construction</td><td>Expected ~43,700 Scrap &asymp; 290&nbsp;h &middot; +10 gate alone: p10 10, median 69, p90 229 attempts at 300 Scrap each</td></tr>
+      <tr><th>One item, Worn&rarr;Void grading</th></tr>
+      <tr><td>Expected ~44,535 Scrap at T10 &asymp; 222&nbsp;h at 30 battles/h (Void gate alone: p10 ~3,573 / expected 34,000 / p90 ~78,092) &mdash; the same hours at every tier by construction</td></tr>
     </table>
-    <p>A marquee item taken to Void +10 is ~1,200&nbsp;h expected — a year-scale chase at 3&ndash;4&nbsp;h/day, months even on 24/7 autoplay, with honest odds of doubling that. A full 12-slot Void +10 loadout is a multi-year, market-aggregated pursuit; Void enhancements (expected ~282,000 material each) are mythical trade goods. Casuals buy from the market; grinders and lucky rollers supply it — that variance is what gives grade-5+ items real price discovery.</p>
+    <p>A marquee item taken to Void is ~222&nbsp;h expected — a months-scale chase at 3&ndash;4&nbsp;h/day, with honest odds of doubling that. A full 12-slot Void loadout is a multi-year, market-aggregated pursuit; Void enhancements (expected ~282,000 material each) are mythical trade goods. Casuals buy from the market; grinders and lucky rollers supply it — that variance is what gives grade-5+ items real price discovery.</p>
 
     <h3>Monetization model</h3>
     <ul><li>Free to play on Steam</li><li>Microtransactions via Steam / Unity Economy</li><li>Battle pass per season</li><li>Steam takes 5% market fee + configurable game fee (up to ~10%)</li></ul>
@@ -1395,7 +1380,7 @@ Your Backend
       <tr><td><code>codex/floor_assets.csv</code></td><td>100</td><td>Level design pipeline. Per-floor: battle background prompt/path/status, parallax reference, prop assignments, map preview status (empty + populated). Decoupled from floor identity for infinite floor extension.</td></tr>
       <tr><td><code>codex/prop_assets.csv</code></td><td>40</td><td>Zone prop catalog — 3&ndash;4 props + 1 anchor prop per zone, with image prompts and art status.</td></tr>
     </table>
-    <p style="font-size:13px;color:#c2ae8b">Codex pages: <code>floor-codex.html</code> is the zone/floor index (joins floors &rarr; floor_creature_rarity &rarr; creatures by ID) &middot; <code>creature.html?id=DFMC-XXX</code> a single creature &middot; <code>floor.html?num=N</code> and <code>type.html?type=X</code> the floor and type views &middot; <code>reliquary.html</code> filterable item catalog &middot; <code>crafting.html</code> all crafting recipes and costs &middot; <code>upgrading.html</code> refinement and grading success tables &middot; <code>stat-tables.html</code> full numerical tables.</p>
+    <p style="font-size:13px;color:#c2ae8b">Codex pages: <code>floor-codex.html</code> is the zone/floor index (joins floors &rarr; floor_creature_rarity &rarr; creatures by ID) &middot; <code>creature.html?id=DFMC-XXX</code> a single creature &middot; <code>floor.html?num=N</code> and <code>type.html?type=X</code> the floor and type views &middot; <code>reliquary.html</code> filterable item catalog &middot; <code>crafting.html</code> all crafting recipes and costs &middot; <code>upgrading.html</code> grading success tables &middot; <code>stat-tables.html</code> full numerical tables.</p>
     <p style="font-size:13px;color:#c2ae8b">GitHub API edit workflow: <code>GET</code> the file's current SHA, then <code>PUT</code> base64-encoded content <em>with</em> that SHA (omitting it fails). Build CSVs with a real CSV writer, never hand-rolled strings, and validate every row's column count before pushing.</p>
 
     <h3>Grade scale (Worn → Void)</h3>
@@ -1431,7 +1416,7 @@ Your Backend
     <h3>Currencies</h3>
     <table>
       <tr><th>Name</th><th>Use</th></tr>
-      <tr><td><span style="color:#c2ae8b">Scrap</span></td><td>Refinement (+1 to +10 on gear)</td></tr>
+      <tr><td><span style="color:#c2ae8b">Scrap</span></td><td>Gear crafting (25 &times; tier) and gear grading</td></tr>
       <tr><td><span style="color:#c2ae8b">Scrap</span></td><td>Grading gear up the Worn&ndash;Void ladder &mdash; tier-scaled attempt costs (2026-07-31); enhancements grade in Dust / Essence / Ink</td></tr>
       <tr><td>Ichor</td><td>Unified breeding currency — from completing battles and dismantling eggs</td></tr>
       <tr><td><span style="color:#9fe0d0">Wraithgold</span></td><td><strong style="color:#ede0c4">Premium.</strong> Bought with real money — it never drops and no amount of play produces it. Its sinks today are soul-bag expansion and the <a href="system-premium-shop.html" style="color:#9fe0d0">Premium Shop</a>. It is held in a server-owned append-only ledger, not in the save, and a progress wipe never destroys it. PvP ladder and tournament payouts are planned and will be the only earned source that ever exists.</td></tr>
@@ -1810,6 +1795,7 @@ async function loadBalance() {
 }
 </script>
 <h2>Changelog</h2>
+<p><strong>2026-08-25 &mdash; refinement purged from the design (D order: &ldquo;Refinement does not exist and needs to be purged from all text in the game and codex&rdquo;; the mechanic itself was ruled out on 2026-08-10).</strong> The Refinement section, its odds/cost table, the &ldquo;&times; Refinement&rdquo; terms in the modifier pipeline, the +N columns of the progression and endgame-chase tables and every passing mention on this page are gone; Scrap's job is gear crafting and gear grading. Same pass on upgrading, item, crafting, hub, droptables, reliquary, grade, equipment, pvp, checklist, analytics and admin pages. In the game (ON DEV): the item tooltip, the slot rows, the current-item panel and the compare note no longer print &ldquo;Refine +0&rdquo; / &ldquo;&middot; +0&rdquo;, and Scrap's catalogue text reads &ldquo;gear crafting&rdquo;. <code>dismantle.csv</code> keeps its <code>Refinement</code> column as the gear lookup key, fixed at <code>+0</code> by construction; the 1,000 dead <code>+1&hellip;+10</code> rows were removed.</p>
 <p><strong>2026-08-25 &mdash; level requirements are enforced: the account level gates gear, the creature's level gates its tags, and gems, runes and scrolls test the level of the piece they enter (D report + ruling). ON DEV, not yet on release.</strong> The &ldquo;Gear crafting &amp; level requirements&rdquo; table above now states the rule as the build applies it, including what happens to a piece already worn above level (inert, ILLEGAL &middot; LV n, never moved). Full mechanics on <a href="system-equipment.html">Equipment</a>; the socketing half on <a href="system-sockets.html">Sockets</a>; the XP page's player-level note corrected.</p>
 <p><strong>2026-08-13 &mdash; grade effects layer under the art, and the divine sheen loops seamlessly (report #131). ON DEV, not yet on release.</strong> Note in the visual-effects section above.</p>
 <ul>
