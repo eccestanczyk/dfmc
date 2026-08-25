@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Shadow Trader — Herumon Tower</title>
+<link rel="stylesheet" href="theme.css?v=4">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">THE SHADOW TRADER</h1></div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; The Shadow Trader</div>
+  <p class="sp-lead">A weekend-only tab of the Premium Shop. Every week the trader takes <strong>every currency except Wraithgold</strong> and hands back <strong>one</strong> currency &mdash; a different one each week &mdash; at a rate that is <strong>computed from how long each currency takes to earn</strong>, never authored by hand. <em>Status: designed 2026-08-25 (D, report #475); the rate model is built and gated; the shop tab and the trade door are being built. ON DEV when they land, release at D's word.</em></p>
+
+  <h2>The rules (D, 2026-08-25)</h2>
+  <table>
+    <tr><th>Rule</th><th>What it means</th></tr>
+    <tr><td class="lbl">Weekends only</td><td>The tab exists on Saturday and Sunday in the game's day (UTC, the same clock as the daily reset). Monday to Friday the shop shows nothing of him &mdash; no greyed tab, no teaser. A trade posted at the stroke of Monday is refused.</td></tr>
+    <tr><td class="lbl">One currency a week</td><td>Each week has one <em>target</em>: the currency he pays out. Week 0 (the week of Monday 2026-08-24) is Ichor, then Scrap, Dust, Essence, Ink, and round again. He takes every other currency &mdash; Scrap, Ichor, Dust, Essence, Ink &mdash; and never Wraithgold, in or out.</td></tr>
+    <tr><td class="lbl">Rates from acquisition time</td><td>The price of one unit of the week's currency, paid in another, is the ratio of how fast the two are <em>earned</em>, times the trader's cut. Earned means: what a battle yields in expectation, through the same drop and dismantle tables the game runs on. See the model below.</td></tr>
+    <tr><td class="lbl">Self-adjusting</td><td>There is no rate table anywhere. The rate is derived at request time from <code>drop_chances_by_floor.csv</code>, <code>drop_grade_weights.csv</code>, <code>drop_rates.csv</code>, <code>encounter_weights.csv</code>, <code>floors.csv</code>, <code>items.csv</code>, <code>dismantle.csv</code>, <code>breeding.csv</code> and the Ichor-per-kill formula. Raise or lower any of them and the rates follow on the next request &mdash; a balance change can never leave the trader out of step.</td></tr>
+    <tr><td class="lbl">Your economy, not a global one</td><td>The reference floor is the account's own highest wild floor. A floor-100 player and a floor-20 player are quoted the rates that describe what <em>they</em> earn per battle. A boss floor (every tenth, every even Apex floor) has no wild encounters, so it is priced at the wild floor below it.</td></tr>
+    <tr><td class="lbl">The cut</td><td><code>TRADER_PREMIUM = 0.25</code>: you pay time-parity &times; 1.25, i.e. you get back 80% of what the same time would have earned you directly. One constant, in <code>src/trader.js</code>; D's to tune.</td></tr>
+    <tr><td class="lbl">Whole numbers, no remainder</td><td>A trade is quoted as <em>pay P of A, receive G of B</em> with both whole. P is exactly what G costs (rounded up to the unit); a request too small to buy one unit is refused, never partially taken.</td></tr>
+    <tr><td class="lbl">Server-authoritative</td><td>Like every premium purchase: the client asks, the server prices, debits, credits and answers with the new balances, idempotent on the client's key. The client never names a rate.</td></tr>
+  </table>
+
+  <h2>The model &mdash; what one battle yields at floor F</h2>
+  <p>Battles per hour cancel out of every ratio, so &ldquo;acquisition time&rdquo; reduces to <strong>expected units per battle</strong>. One battle at floor F, as the worker runs it:</p>
+  <ul class="sp-rules">
+    <li><strong>Three kills</strong>, each of a rarity drawn from <code>encounter_weights.csv</code> for F.</li>
+    <li><strong>Ichor per kill</strong> = round(2 &times; (1 + F/20) &times; mult[rarity]) &mdash; the battle credit's own formula, mult C 1 / UC 1.5 / R 2.5 / SR 4 / SSR 7.</li>
+    <li><strong>Three lanes per kill</strong> &mdash; gear, enhancement, egg &mdash; each landing with <code>Chance_&lt;rarity&gt;</code> from <code>drop_chances_by_floor.csv</code>.</li>
+    <li>A <strong>gear</strong> drop is uniform over the <code>items.csv</code> bases of the floor's tier among Weapon / Armour / Accessory / Tag, graded by the floor's <code>drop_grade_weights</code> band, and dismantles per <code>dismantle.csv</code> (Gear rows; a Tag also returns Essence).</li>
+    <li>An <strong>enhancement</strong> drop is an even Gem / Rune / Scroll split, graded one band behind (<code>drop_rates.csv Enhancement_Grade_Rule</code>), and dismantles to Dust / Essence / Ink.</li>
+    <li>An <strong>egg</strong> drop is graded by the band clamped at the wild-egg cap and dismantles to <code>breeding.csv Egg_Dismantle_Ichor</code>.</li>
+    <li>Not modelled, on purpose: bosses, first-win bonuses, keys, shop drops &mdash; they are not the steady state a rate should describe.</li>
+  </ul>
+  <p>Then, for the week's target B and any other currency A: <strong>rate(A&rarr;B) = perBattle(A) &divide; perBattle(B) &times; (1 + premium)</strong>, in units of A per one B.</p>
+
+  <h2>Worked numbers (codex as of 2026-08-25, premium 0.25)</h2>
+  <table>
+    <tr><th>Floor</th><th>Scrap / battle</th><th>Ichor / battle</th><th>Dust / battle</th><th>Essence / battle</th><th>Ink / battle</th></tr>
+    <tr><td>1</td><td>0.71</td><td>13.1</td><td>0.088</td><td>0.117</td><td>0.088</td></tr>
+    <tr><td>30</td><td>1.50</td><td>31.6</td><td>0.264</td><td>0.294</td><td>0.264</td></tr>
+    <tr><td>60</td><td>3.45</td><td>59.8</td><td>0.528</td><td>0.588</td><td>0.528</td></tr>
+    <tr><td>90</td><td>6.82</td><td>93.5</td><td>0.98</td><td>1.10</td><td>0.98</td></tr>
+    <tr><td>100</td><td>9.68</td><td>108</td><td>1.31</td><td>1.47</td><td>1.31</td></tr>
+    <tr><td>101</td><td>35.0</td><td>119</td><td>1.50</td><td>1.81</td><td>1.50</td></tr>
+    <tr><td>120</td><td>60.3</td><td>240</td><td>3.43</td><td>3.80</td><td>3.43</td></tr>
+  </table>
+  <p>An Ichor week at floor 100: 1,000 Scrap buys 8,940 Ichor; 10 Dust buys 658 Ichor (time parity would be 82 Ichor per Dust; 66 after the cut). A Dust week at floor 100: one Dust costs about 103 Ichor, or 9.2 Scrap.</p>
+  <p><strong>A note the model surfaced (not changed):</strong> <code>drop_rates.csv</code> says each lane lands &ldquo;exactly 10% per battle (3 kills)&rdquo;, but the authored per-kill chances, mix-weighted on the encounter weights, come to ~6.7% per kill &mdash; about 19% per battle per lane, roughly twice the stated figure. The trader's ratios are unaffected (every drop-fed currency scales together), but the sentence and the table disagree; D's call which is right.</p>
+
+  <h2>The build</h2>
+  <table>
+    <tr><th>Piece</th><th>Where</th><th>State</th></tr>
+    <tr><td class="lbl">Rate model</td><td><code>src/trader.js</code> &mdash; <code>acquisitionPerBattle</code>, <code>traderRates</code>, <code>traderQuote</code>, the rotation, the weekend rule. Pure; the worker and the gate both import it.</td><td>built, gated (<code>tools/probe_trader_model.mjs</code> 10/10: every floor yields every currency, boss floors step down, five weeks name five currencies, weekend rule, rate = parity &times; premium, integer quotes, doubling an authored yield doubles its rate, halving the drop chances halves every drop-fed yield)</td></tr>
+    <tr><td class="lbl">Quote door</td><td><code>GET /api/shop/trader</code> &mdash; open?, week, target, the account's reference floor, per-battle yields, the rates, next opening</td><td>next</td></tr>
+    <tr><td class="lbl">Trade door</td><td><code>POST /api/shop/trade</code> {idem, from, amount} &mdash; weekend-gated, quotes server-side, debits and credits the account's wallet, records a trade allowance so the save door's wallet guards accept the credit, answers the new balances; idempotent on <code>idem</code></td><td>next</td></tr>
+    <tr><td class="lbl">Shop tab</td><td>SHADOW TRADER beside the premium catalogue, weekends only: the week's currency, one row per source currency with its rate and a convert control, the confirm-premium-spend setting honoured</td><td>next; beautifying it is a backlog item (D)</td></tr>
+  </table>
+
+  <h2>Changelog</h2>
+  <ul class="sp-rules">
+    <li><strong>2026-08-25 &mdash; page created; D's design recorded; the rate model built and gated.</strong> Report #475 ("swimming in ichor, maybe give me a way to turn it into other resources at a premium") became the Shadow Trader by D's design the same day.</li>
+  </ul>
+</div>
+</body>
+</html>
