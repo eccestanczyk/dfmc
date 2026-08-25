@@ -191,7 +191,7 @@
   <ul class="sp-rules">
     <li><strong>Placeholder, live now (D ruling 2026-08-10): a black void filled with small gray stars.</strong> No terrain, no horizon, no colour. Procedurally generated, not from the art pipeline &mdash; a stand-in until real Apex art is authored.</li>
     <li>One shared asset set for the whole zone, reused by all twenty floors, exactly as the floor sheet's asset-pool decoupling intends: <code>floors/backgrounds/voidapex.png</code> (1536&times;1024, grind floors), <code>floors/backgrounds/voidapex_boss.png</code> (1024&times;1024, boss arenas), <code>floors/parallax/voidapex_par.png</code> (2304&times;1024).</li>
-    <li>Rows 101&ndash;120 exist in <code>codex/floor_assets.csv</code> with zone <em>Void Apex</em>, theme <em>The Starless Void</em>, and <code>BG_Status</code> / <code>Parallax_Status</code> = <code>placeholder</code>.</li>
+    <li>Rows 101&ndash;120 exist in <code>codex/floor_assets.csv</code> with zone <em>Void Apex</em>, theme <em>The Void Beyond</em>, and <code>BG_Status</code> / <code>Parallax_Status</code> = <code>placeholder</code>.</li>
     <li><strong>No props</strong> in the Apex &mdash; the void is empty by design. <strong>The ground plate is the same treatment</strong> (D ruling 2026-08-10): <code>floors/ground_plates/voidapex_plate.png</code>, 2560&times;1440, black with small gray stars, so the walkable surface and the backdrop read as one continuous void.</li>
   </ul>
 
@@ -272,6 +272,7 @@
 
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-08-25 &mdash; the zone's map name is &ldquo;The Void Beyond&rdquo; (D report #518: &ldquo;starless void does not make sense because there are stars&rdquo;).</strong> <code>floors.csv</code> and <code>floor_assets.csv</code> Visual_Theme on all twenty Apex floors, and this page. The client prints the name from floors.csv, so dev shows it at once and release at the next data pin.</li>
     <li><strong>2026-08-10 &mdash; the 100-floor tower stopped being written into the code in three more places; players were hard-stuck on floor 100 (shipped in <strong>0.46</strong> as a silent hotfix, LIVE on release since 2026-08-10).</strong>
       <code>travel()</code> still clamped its target with <code>Math.min(100, target)</code>. Leaving the Godforge den
       computes 101, the clamp pulled it to 100 &mdash; a boss floor with no wild map &mdash; and the

@@ -99,23 +99,23 @@ Floor,Zone,Encounter_Type,Is_Boss,Boss_Name,Primary_Type,Tier,Visual_Theme,Descr
 98,Flaming Hellscape,Fishing,No,,Construct,Late,Boiling Cistern,An underground reservoir kept at a rolling boil by unknown means.,,20
 99,Flaming Hellscape,Cave,No,,Construct,Late,Emberlit Passage,A narrow tunnel lit only by veins of glowing ember embedded in the rock.,,20
 100,Flaming Hellscape,Cave,Yes,The Godforge,Construct,Late,The Godforge,The tower's deepest known chamber — where its ultimate construct is still being built.,,20
-101,Void Apex,Void,No,,Eldritch,Apex,The Starless Void,Black emptiness scattered with cold stars — anything in the tower can be met here.,,30
-102,Void Apex,Void,Yes,"Mutant Vargr, the Alpha",Eldritch,Apex,The Starless Void,A boss arena adrift in the void.,,30
-103,Void Apex,Void,No,,Eldritch,Apex,The Starless Void,Black emptiness scattered with cold stars — anything in the tower can be met here.,,30
-104,Void Apex,Void,Yes,"Mutant Pelagos, the Trench Warden",Eldritch,Apex,The Starless Void,A boss arena adrift in the void.,,30
-105,Void Apex,Void,No,,Eldritch,Apex,The Starless Void,Black emptiness scattered with cold stars — anything in the tower can be met here.,,30
-106,Void Apex,Void,Yes,"Mutant Sethek, the Ossuary King",Eldritch,Apex,The Starless Void,A boss arena adrift in the void.,,30
-107,Void Apex,Void,No,,Eldritch,Apex,The Starless Void,Black emptiness scattered with cold stars — anything in the tower can be met here.,,30
-108,Void Apex,Void,Yes,"Mutant Mother Vesk, the Broodmother",Eldritch,Apex,The Starless Void,A boss arena adrift in the void.,,30
-109,Void Apex,Void,No,,Eldritch,Apex,The Starless Void,Black emptiness scattered with cold stars — anything in the tower can be met here.,,30
-110,Void Apex,Void,Yes,"Mutant Ostrakon, the Carapace Despot",Eldritch,Apex,The Starless Void,A boss arena adrift in the void.,,30
-111,Void Apex,Void,No,,Eldritch,Apex,The Starless Void,Black emptiness scattered with cold stars — anything in the tower can be met here.,,30
-112,Void Apex,Void,Yes,"Mutant Keraun, the Stormcaller",Eldritch,Apex,The Starless Void,A boss arena adrift in the void.,,30
-113,Void Apex,Void,No,,Eldritch,Apex,The Starless Void,Black emptiness scattered with cold stars — anything in the tower can be met here.,,30
-114,Void Apex,Void,Yes,"Mutant Morast, the Bogfather",Eldritch,Apex,The Starless Void,A boss arena adrift in the void.,,30
-115,Void Apex,Void,No,,Eldritch,Apex,The Starless Void,Black emptiness scattered with cold stars — anything in the tower can be met here.,,30
-116,Void Apex,Void,Yes,"Mutant Teloma, the Bloom Herald",Eldritch,Apex,The Starless Void,A boss arena adrift in the void.,,30
-117,Void Apex,Void,No,,Eldritch,Apex,The Starless Void,Black emptiness scattered with cold stars — anything in the tower can be met here.,,30
-118,Void Apex,Void,Yes,"Mutant Varkolan, the Undying King",Eldritch,Apex,The Starless Void,A boss arena adrift in the void.,,30
-119,Void Apex,Void,No,,Eldritch,Apex,The Starless Void,Black emptiness scattered with cold stars — anything in the tower can be met here.,,30
-120,Void Apex,Void,Yes,"Mutant Eskaton, the Unfinished God",Eldritch,Apex,The Starless Void,A boss arena adrift in the void.,,30
+101,Void Apex,Void,No,,Eldritch,Apex,The Void Beyond,Black emptiness scattered with cold stars — anything in the tower can be met here.,,30
+102,Void Apex,Void,Yes,"Mutant Vargr, the Alpha",Eldritch,Apex,The Void Beyond,A boss arena adrift in the void.,,30
+103,Void Apex,Void,No,,Eldritch,Apex,The Void Beyond,Black emptiness scattered with cold stars — anything in the tower can be met here.,,30
+104,Void Apex,Void,Yes,"Mutant Pelagos, the Trench Warden",Eldritch,Apex,The Void Beyond,A boss arena adrift in the void.,,30
+105,Void Apex,Void,No,,Eldritch,Apex,The Void Beyond,Black emptiness scattered with cold stars — anything in the tower can be met here.,,30
+106,Void Apex,Void,Yes,"Mutant Sethek, the Ossuary King",Eldritch,Apex,The Void Beyond,A boss arena adrift in the void.,,30
+107,Void Apex,Void,No,,Eldritch,Apex,The Void Beyond,Black emptiness scattered with cold stars — anything in the tower can be met here.,,30
+108,Void Apex,Void,Yes,"Mutant Mother Vesk, the Broodmother",Eldritch,Apex,The Void Beyond,A boss arena adrift in the void.,,30
+109,Void Apex,Void,No,,Eldritch,Apex,The Void Beyond,Black emptiness scattered with cold stars — anything in the tower can be met here.,,30
+110,Void Apex,Void,Yes,"Mutant Ostrakon, the Carapace Despot",Eldritch,Apex,The Void Beyond,A boss arena adrift in the void.,,30
+111,Void Apex,Void,No,,Eldritch,Apex,The Void Beyond,Black emptiness scattered with cold stars — anything in the tower can be met here.,,30
+112,Void Apex,Void,Yes,"Mutant Keraun, the Stormcaller",Eldritch,Apex,The Void Beyond,A boss arena adrift in the void.,,30
+113,Void Apex,Void,No,,Eldritch,Apex,The Void Beyond,Black emptiness scattered with cold stars — anything in the tower can be met here.,,30
+114,Void Apex,Void,Yes,"Mutant Morast, the Bogfather",Eldritch,Apex,The Void Beyond,A boss arena adrift in the void.,,30
+115,Void Apex,Void,No,,Eldritch,Apex,The Void Beyond,Black emptiness scattered with cold stars — anything in the tower can be met here.,,30
+116,Void Apex,Void,Yes,"Mutant Teloma, the Bloom Herald",Eldritch,Apex,The Void Beyond,A boss arena adrift in the void.,,30
+117,Void Apex,Void,No,,Eldritch,Apex,The Void Beyond,Black emptiness scattered with cold stars — anything in the tower can be met here.,,30
+118,Void Apex,Void,Yes,"Mutant Varkolan, the Undying King",Eldritch,Apex,The Void Beyond,A boss arena adrift in the void.,,30
+119,Void Apex,Void,No,,Eldritch,Apex,The Void Beyond,Black emptiness scattered with cold stars — anything in the tower can be met here.,,30
+120,Void Apex,Void,Yes,"Mutant Eskaton, the Unfinished God",Eldritch,Apex,The Void Beyond,A boss arena adrift in the void.,,30
