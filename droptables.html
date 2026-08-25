@@ -61,6 +61,7 @@ code{color:var(--gold-bright);}
   <div class="tbl-scroll" id="keys-wrap">LOADING…</div>
   <p><strong>Gates:</strong> a zone's Key cannot drop until the character has banked that zone's <code>Min_Wins</code> wins AND <code>Min_Kills</code> wild kills (<code>zoneWins</code>/<code>zoneKills</code> in the save, counted per zone, wild battles only — a boss win advances neither). Below either gate the roll is skipped entirely.</p>
   <p><strong style="color:var(--gold-bright)">A Key that drops into a full inventory is DESTROYED.</strong> Every grant goes through one shared space check: no free item slot means the drop is discarded, never queued and never held — the victory screen reports only the generic <em>"N drops lost — inventory full"</em> and does not say a Key was among them. Since keys are the rarest item lane in the zone (0.46% per Common kill in Desert Plains, ~1 per 60 battles), a player farming with a full bag can lose several keys without ever knowing. Reported live 2026-08-01 by a player stranded on floor 29 with 235 zone wins and no key; his context snapshot read <code>invCount 80 / invCap 80</code>.</p>
+  <p><strong>The rate (D, 2026-08-25):</strong> one Key expected every four hours of chance at one won battle every 15 seconds, in every zone &mdash; 2,880 kills per Key, split by the rarity ladder, normalised on each zone's encounter mix. The table is generated from that sentence (<code>tools/gen_keyrates.py</code>), never hand-typed.</p>
   <p class="foot">Source: <code>codex/key_drop_rates.csv</code></p>
 </section>
 
@@ -223,6 +224,7 @@ that can be attacked.</p>
 <div class="sp-note"><strong>Floors 101&ndash;120 use their own grade table.</strong> Everything on this page describes the 100-floor tower. The <a href="system-void-apex.html">Void Apex</a> postgame zone rolls from <code>drop_grade_weights.csv</code> itself &mdash; one single-floor band per Apex floor instead: four grades only &mdash; Rare, Epic, Legendary, Abyssal &mdash; with Rare as the floor and Divine, Primordial and Void never dropping. Eggs use the same curve with the Abyssal share folded into Legendary. Design settled 2026-08-10; not yet implemented.</div>
 
 <h2>Changelog</h2>
+  <ul class="sp-rules"><li><strong>2026-08-25 &mdash; Key drop rates re-derived from D's rule (one per four hours at a battle every 15 s; report #533). ON DEV data, release at the next pin.</strong> Grasslands went from a Key every ~4 minutes to every ~4 hours; Apex floor 103 from ~15 hours to 4. First-clear guarantee unchanged.</li></ul>
 <p><strong>2026-08-10 &mdash; Void Apex drop band authored.</strong> Per-floor grade bands for floors 101&ndash;120, added to this page's own table,, ranked Rare through Abyssal, tuned by simulation so an Abyssal drop stays rare at
 the entry (0.1% per drop) and uncommon at the cap (1.5%). The last three grades remain upgrade-only
 everywhere. Full rules on <a href="system-void-apex.html">Void Apex</a>.</p>
