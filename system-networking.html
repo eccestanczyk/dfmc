@@ -1707,6 +1707,15 @@ sides' values), which is enough to pull the save pair and settle the cause. Noth
 single flag write, still gates nothing.</p>
 
 <h2>Changelog</h2>
+<p><strong>2026-08-26 &mdash; the save split's shadow verify was red on <code>pvpSnap</code> and is green again; the save re-measured. ON DEV, not yet on release.</strong>
+The Auto PvP team slice (<code>pvpSnap</code>, ~08-14) was assigned to no split key, so every active
+account's parts failed to rejoin (<code>mismatched: ['pvpSnap']</code>) and stage 2 of the split had been
+silently red for twelve days; one entry in the <code>pvp</code> part, 18/18 live saves round-trip. Measured
+on the stored copies (compact bytes, the ceiling's own measure): the largest account is 266 KB, 79% of it
+inventory, and <strong>37% of it is the creature birth record</strong> (<code>origin</code>: egg, parents,
+pen, floor, stamp) that no screen renders and the server never reads. Options and their measured savings
+are in the client repo's <code>PREP_SAVE_SPLIT.md &sect;1b</code>; nothing about the stored shape changed
+today.</p>
 <p><strong>2026-08-26 &mdash; the tier-1 intent queue drains after its save is acknowledged. ON DEV, not yet on release.</strong>
 The mechanics, since this page did not carry them: every equip and socket change on the client appends one
 intent row <code>{kind, uid, field, prevValue, newValue, ts}</code> to <code>_bufQ</code> (cap 800 rows, oldest
