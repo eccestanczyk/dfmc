@@ -1707,6 +1707,20 @@ sides' values), which is enough to pull the save pair and settle the cause. Noth
 single flag write, still gates nothing.</p>
 
 <h2>Changelog</h2>
+<p><strong>2026-08-26 &mdash; the tier-1 intent queue drains after its save is acknowledged. ON DEV, not yet on release.</strong>
+The mechanics, since this page did not carry them: every equip and socket change on the client appends one
+intent row <code>{kind, uid, field, prevValue, newValue, ts}</code> to <code>_bufQ</code> (cap 800 rows, oldest
+dropped) and settles a debounced <em>equip-change</em> flush; the queue rides the next <code>/api/save</code>, where the
+server verifies each row's <code>newValue</code> against the items it holds in its own previous copy, records a
+verified move on its items row (held state), flags an unverifiable one as <code>tier1_claim_bad</code> (never
+refuses), and deletes the queue from the stored copy. The queue survives a refused (409) save exactly like
+<code>_dismQ</code>/<code>_advQ</code>. What it lacked until today was their drain: on a 200 the client now drops the
+rows that rode that save (keyed on every field plus the row's own stamp, so a row noted while the save was in
+flight stays). Before: every row was resent on every save for the whole session &mdash; 1,282 flag rows in four
+days on seven accounts, the same item 452 times on one, the server re-running its held-state writes per replayed
+row per save, and up to ~95 KB of dead queue inside the payload the 400 KiB size ceiling measures (one account's
+saves measured 287 KB in flight against a 224 KB stored copy). Gate <code>tools/probe_bufq_drain.py</code> 8/8,
+red-first (4/8 on the unfixed tree).</p>
 <p><strong>2026-08-14 &mdash; the roll door's attempt ordinal now covers scrolls, and the boon clock got the probe it never had. ON DEV, not yet on release.</strong>
 Two things, both in the "a fix is not finished until something would catch it breaking" family.
 <strong>The scroll door</strong> was the last roll kind still keyed on a client-minted key, and the highest
