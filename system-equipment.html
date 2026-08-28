@@ -414,6 +414,16 @@
   <p><strong>Never judge on an empty codex.</strong> A row with no <code>Level_Req</code> (or a codex that has not landed yet) reads as no requirement, exactly like the stat-fit rule &mdash; an unreadable requirement never condemns a piece.</p>
 
   <h2>Changelog</h2>
+  <p><strong>2026-08-28 &mdash; a weapon now says its class, always (#603). ON DEV, not yet on release.</strong>
+  Weapons have always been class-locked and the game has always enforced it &mdash; a wrong-class main or off hand is
+  refused, and one already equipped is stripped at boot &mdash; but the item itself never said which class it belonged
+  to, so the only way to find out was to be refused. The detail window now carries a <code>CLASS</code> row beside SLOT
+  and TIER on <em>every</em> weapon, not only on one you cannot use. <code>items.csv</code> has no column called class;
+  its <code>Family</code> column already holds the class line on all 120 weapons and agrees with <code>recipes.csv</code>
+  120/120, no gaps and no disagreements. <strong>The label reads the same field the enforcement reads</strong>
+  (<code>itemsDb.fam</code>, what <code>equipOk</code> gates on), so it can never contradict the refusal. Verified against
+  the rendered screen rather than the payload &mdash; the #109 lesson, where a &ldquo;fixed&rdquo; object turned out to be
+  bound in no markup at all.</p>
   <p><strong>2026-08-28 &mdash; the no-work toast reads &ldquo;ALREADY OPTIMAL&rdquo; (D report #598). ON DEV, not yet on release.</strong>
   The spare-count suffixes (&ldquo;N SPARE STONES BEAT NOTHING YOU WEAR&rdquo; / &ldquo;NO SPARE STONES&rdquo;) are gone from the toast;
   the spare-vs-worn arithmetic behind them stays, because it feeds the self-check that files an auto-report when a strictly better
