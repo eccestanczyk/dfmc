@@ -221,8 +221,35 @@ for b in save.get('advArc', []):
       oldest-first, so first-appearance order is already chronological.</li>
   </ul>
 
+  <h2>The budget &mdash; what happens when the device fills</h2>
+  <p class="sp-lead"><strong>ON DEV, not yet on release.</strong> The archive is capped at
+  <strong>800&nbsp;KiB</strong> and sheds its <em>oldest whole blocks</em> when it exceeds that.</p>
+  <ul>
+    <li><strong>The number is measured, not assumed.</strong> On a real save in a real browser the
+      per-origin store ceiling binary-searches to <strong>5.00&nbsp;MiB</strong>; the slot is written
+      <em>twice</em> (a once-per-session backup copy), so the real per-copy room is ~2.62&nbsp;MB; and
+      everything that is not archive, each part at its own cap, comes to <strong>971&nbsp;KB</strong>
+      &mdash; the save itself ~104&nbsp;KB, <strong>all 120 floors cached ~526&nbsp;KB</strong>, the live
+      500-event window ~47&nbsp;KB, 200 battle rows ~37&nbsp;KB, 25 full battle logs ~257&nbsp;KB. That
+      leaves ~1.65&nbsp;MB, and the budget is half of it.</li>
+    <li><strong>The floor cache is the surprise in that list.</strong> 435&nbsp;B a spawn, ten to a floor,
+      120 floors, and nothing ever prunes it &mdash; the largest single thing on the device outside the log.</li>
+    <li><strong>Two halves.</strong> Ahead of time, the oldest blocks are dropped after each seal. And if
+      the store fills anyway, the save now <em>catches</em> the refusal, sheds oldest blocks and writes
+      again &mdash; it used to swallow that into a console line, so the player kept playing with nothing
+      being stored and no sign of it.</li>
+    <li><strong>Whole blocks only, and never the newest.</strong> A half block is an archive with no day
+      marker at its head, which is the one thing the day index cannot survive.</li>
+    <li><strong>Roughly 22,000 entries, about seven months</strong> at a measured 110 entries a day.</li>
+  </ul>
+
   <h2>Changelog
   <ul>
+    <li><strong>2026-08-28 &mdash; the archive is capped and sheds its oldest history when full.</strong>
+      <strong>ON DEV, NOT YET ON RELEASE.</strong> 800&nbsp;KiB, sized as half the room actually left after
+      measuring the store ceiling and everything else that competes for it. Whole blocks from the oldest
+      end, never the newest, and a full device now sheds and saves instead of failing into a console line
+      nobody reads.</li>
     <li><strong>2026-08-28 &mdash; the log opens on a grid of days, and a day unpacks when you open it.</strong>
       <strong>ON DEV, NOT YET ON RELEASE.</strong> One tile per day &mdash; chapter number, date, entry count
       &mdash; drawn from block headers with no decompression at all; opening a tile unpacks only the blocks

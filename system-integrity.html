@@ -93,6 +93,17 @@
   <p class="foot">Worker: <code>_tableF</code> stamp on the <code>/api/battle</code> pre-pass. Object: <code>tblOk</code> in the battle handler. Probe: <code>tools/probe_battleclaim.py</code> (3/3).</p>
 
   <h2>Changelog</h2>
+  <p><strong>2026-08-28 &mdash; a battle can no longer start against a spawn that is already gone.
+  ON DEV, not yet on release.</strong> A player on floor&nbsp;19 saw <em>&ldquo;Spawn &lsquo;?&rsquo; has no
+  Line_ID in creatures.csv&rdquo;</em>. The data was innocent: that floor's ten creatures resolve on live
+  codex and at the pinned copy release serves, and the server can only pick ids it read from the same
+  table. <strong>Autoplay picks a slot, cues a 650&nbsp;ms pan, and starts the fight on a timeout</strong>
+  &mdash; and any floor sync inside that window replaces the whole pool. The queued start re-checked
+  autoplay, phase and transit but never that the slot was still there. A slot the server reports empty
+  carries no name and no line, so the fight opened against a creature called <em>undefined</em> with a
+  placeholder move set &mdash; the same shape of unresolved unit that once blanked the entire battle
+  screen. The click path could never do this, because a dead slot draws nothing to click; only a stale
+  index reaches it. The target is now checked where it is used, and a moved pool triggers a resync.</p>
   <ul class="sp-rules">
     <li><strong>2026-08-28 &mdash; <code>boss_floor_anomaly</code> judges by the authored boss-floor table (ON DEV, not yet on release), and the detections are one-realm.</strong> The guard tested floor-divisible-by-ten &mdash; the tower's layout as arithmetic &mdash; so every legitimate Void Apex &uuml;ber-boss victory (bosses on even floors) filed an anomaly about correct play. It reads <code>floors.csv Is_Boss</code> now, injected on every battle; a boss event on a grind floor still flags. Gate <code>tools/probe_bossflag.mjs</code> 3/3, red first. Same day the one-game-mode order removed the second realm from every detection's scope.</li>
 <li><strong>2026-08-03 &mdash; a forged high-floor claim can no longer be priced off a floor the account cannot reach (LIVE on release since 2026-08-08 (0.42)).</strong> The spawn table is fetched for the claimed floor and the floor is clamped afterwards, so the tier check ran against a richer floor than the one being paid &mdash; measured at 18&times; XP and 9&times; Ichor. The table now carries the floor it describes and a mismatched one cannot price a kill. Measured after: 1.0&times;.</li>
