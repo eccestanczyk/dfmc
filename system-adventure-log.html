@@ -173,11 +173,43 @@ for b in save.get('advArc', []):
       non-log save. At ~37&nbsp;B per archived event that is roughly 57,000 events. A full store raises
       <code>QuotaExceededError</code>, which the local save path currently swallows into a console warning.</li>
   </ul>
-  <p><strong>Legacy archives have no markers and no headers, and those dates no longer exist</strong> &mdash;
-  they are not reconstructed, only grouped as one &ldquo;Earlier&rdquo; range.</p>
+  <h3>Retrofitting an archive written before the index</h3>
+  <p><strong>The dates were never gone</strong> &mdash; an earlier note on this page said they were, and that
+  was wrong. Every <code>BATTLE</code> and <code>BATTLEROW</code> carries
+  <code>params.id</code>&nbsp;/&nbsp;<code>params.i</code> = <code>'B-' + Date.now().toString(36)</code>, the
+  exact epoch millisecond at which <code>advPush</code> minted the <code>dayKey</code>, and
+  <code>new&nbsp;Date(ms).toDateString()</code> <em>is</em> that same call &mdash; so it reproduces the
+  original key exactly on the device that wrote it.</p>
+  <ul>
+    <li><strong>Anchors.</strong> Battles date themselves exactly. Everything else sits in a chronologically
+      ordered stream between two battles and takes the day of whichever it is <strong>nearer to in elapsed
+      clock time</strong>, wrapped at 24&nbsp;h.</li>
+    <li><strong>Elapsed distance, not clock order.</strong> &ldquo;Is this later than the previous battle?&rdquo;
+      is right 99.3% and wrong on exactly one shape: a session that opens <em>later on the clock</em> than the
+      previous one ended, on the next day (yesterday finished 16:00, today starts 21:00). Clock order cannot
+      tell &ldquo;later today&rdquo; from &ldquo;later tomorrow&rdquo;; elapsed distance can.</li>
+    <li><strong>Measured.</strong> 5,556 entries over 41 days: <strong>100% exact</strong> in Asia/Tokyo,
+      America/Los_Angeles and Pacific/Kiritimati, nothing unresolvable. Control: naive UTC-day arithmetic
+      misplaces <strong>991</strong> battles in Tokyo and <strong>3,973</strong> in Los Angeles.</li>
+    <li><strong>Strictly additive, with a census.</strong> Markers are inserted; nothing is removed, reordered
+      or rewritten, and a count of every non-marker line must match before the heal commits. It runs once,
+      ahead of <code>advArcCompact</code>, and is a no-op once every block carries <code>d</code>.</li>
+    <li><strong>One caveat with no fix.</strong> It reads dates on the device that wrote them, so a player who
+      has <strong>moved timezone</strong> since will see those older days shift by up to one. Nothing detects
+      this and no method can.</li>
+  </ul>
+  <p>Only entries with no battle anywhere before or after them stay undated, and fall to the reader&rsquo;s
+  &ldquo;Earlier&rdquo; tile.</p>
 
   <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-28 &mdash; history written before the index is retrofitted, not abandoned.</strong>
+      <strong>ON DEV, NOT YET ON RELEASE.</strong> This page previously said the dates of pre-index events no
+      longer existed. They do: a battle id is the exact epoch ms of the moment the dayKey was minted, and
+      <code>toDateString()</code> reproduces that key on the device that wrote it; everything else brackets
+      between two battles by elapsed distance. A one-off heal dates the whole archive and writes the markers
+      in permanently, strictly additively and behind a census that refuses to commit if a single line would be
+      lost. 100% exact over 5,556 entries and 41 days in three timezones. Gate 15/15, red-first.</li>
     <li><strong>2026-08-28 &mdash; the archive gains a day index; a per-day view becomes possible.</strong>
       <strong>ON DEV, NOT YET ON RELEASE.</strong> Archived events carried only <code>HH:MM</code> and the date
       lived on a chapter that is dropped as soon as it empties, so the history was one undated stream &mdash;
