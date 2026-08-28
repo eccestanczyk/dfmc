@@ -223,17 +223,22 @@ for b in save.get('advArc', []):
 
   <h2>The budget &mdash; what happens when the device fills</h2>
   <p class="sp-lead"><strong>ON DEV, not yet on release.</strong> The archive is capped at
-  <strong>800&nbsp;KiB</strong> and sheds its <em>oldest whole blocks</em> when it exceeds that.</p>
+  <strong>298&nbsp;KiB</strong> and sheds its <em>oldest whole blocks</em> when it exceeds that.</p>
   <ul>
     <li><strong>The number is measured, not assumed.</strong> On a real save in a real browser the
       per-origin store ceiling binary-searches to <strong>5.00&nbsp;MiB</strong>; the slot is written
       <em>twice</em> (a once-per-session backup copy), so the real per-copy room is ~2.62&nbsp;MB; and
-      everything that is not archive, each part at its own cap, comes to <strong>971&nbsp;KB</strong>
-      &mdash; the save itself ~104&nbsp;KB, <strong>all 120 floors cached ~526&nbsp;KB</strong>, the live
+      everything that is not archive, each part at its own cap, comes to <strong>2.01&nbsp;MB</strong>
+      &mdash; the save itself ~104&nbsp;KB, <strong>all 120 floors cached ~1.56&nbsp;MB</strong>, the live
       500-event window ~47&nbsp;KB, 200 battle rows ~37&nbsp;KB, 25 full battle logs ~257&nbsp;KB. That
-      leaves ~1.65&nbsp;MB, and the budget is half of it.</li>
-    <li><strong>The floor cache is the surprise in that list.</strong> 435&nbsp;B a spawn, ten to a floor,
-      120 floors, and nothing ever prunes it &mdash; the largest single thing on the device outside the log.</li>
+      leaves ~611&nbsp;KB, and the budget is half of it &mdash; roughly 8,200 entries, about ten weeks
+      at a measured 110 entries a day.</li>
+    <li><strong>The floor cache dominates everything.</strong> It is not images &mdash; it is the text of
+      each encounter, and each of a floor's ten slots carries its own creature <em>plus the two battle
+      extras the server sends with it</em>, so a slot is ~1.3&nbsp;KB and a floor ~13&nbsp;KB. Across 120
+      floors that is <strong>1.56&nbsp;MB, sixty per cent of the whole per-copy budget</strong>, larger
+      than everything else put together, and <strong>nothing ever prunes it</strong>. Pruning it is the
+      single change that would give the log its room back.</li>
     <li><strong>Two halves.</strong> Ahead of time, the oldest blocks are dropped after each seal. And if
       the store fills anyway, the save now <em>catches</em> the refusal, sheds oldest blocks and writes
       again &mdash; it used to swallow that into a console line, so the player kept playing with nothing
@@ -246,7 +251,7 @@ for b in save.get('advArc', []):
   <h2>Changelog
   <ul>
     <li><strong>2026-08-28 &mdash; the archive is capped and sheds its oldest history when full.</strong>
-      <strong>ON DEV, NOT YET ON RELEASE.</strong> 800&nbsp;KiB, sized as half the room actually left after
+      <strong>ON DEV, NOT YET ON RELEASE.</strong> 298&nbsp;KiB, sized as half the room actually left after
       measuring the store ceiling and everything else that competes for it. Whole blocks from the oldest
       end, never the newest, and a full device now sheds and saves instead of failing into a console line
       nobody reads.</li>
