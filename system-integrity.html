@@ -93,6 +93,15 @@
   <p class="foot">Worker: <code>_tableF</code> stamp on the <code>/api/battle</code> pre-pass. Object: <code>tblOk</code> in the battle handler. Probe: <code>tools/probe_battleclaim.py</code> (3/3).</p>
 
   <h2>Changelog</h2>
+  <p><strong>2026-08-28 &mdash; the floor cache keeps the last five floors instead of all of them.
+  ON DEV, not yet on release.</strong> The client kept the full encounter for every floor it had ever
+  visited &mdash; each of a floor's ten slots holding its creature <em>and</em> the two battle opponents
+  the server sends with it, so ~13&nbsp;KB a floor and ~1.58&nbsp;MB across a full tower. That was sixty
+  per cent of everything the device is allowed to store, larger than the save and every battle log put
+  together, and nothing had ever removed an entry. <strong>Nothing is lost by dropping one:</strong> the
+  server derives each slot from a keyed hash of account, realm, floor, version, slot and sequence, so it
+  reproduces the identical encounter on demand &mdash; and the game already asks it for the floor's truth
+  every time you arrive. The cache only paints the screen for the moment before that answer lands.</p>
   <p><strong>2026-08-28 &mdash; a battle can no longer start against a spawn that is already gone.
   ON DEV, not yet on release.</strong> A player on floor&nbsp;19 saw <em>&ldquo;Spawn &lsquo;?&rsquo; has no
   Line_ID in creatures.csv&rdquo;</em>. The data was innocent: that floor's ten creatures resolve on live
