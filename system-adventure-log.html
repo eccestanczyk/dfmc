@@ -116,8 +116,14 @@
   tally, never 113 lines.</p>
 
   <h3>Reading the archive</h3>
-  <p><code>advArc</code> rides the save, so <code>/api/backup/export</code> already carries every account's
-  complete history. Each block is <code>{n, z}</code> (gzip, base64) or <code>{n, t}</code> (plain).
+  <p><strong>The archive is DEVICE-LOCAL and does not reach the server.</strong> The Stage&nbsp;4a save diet
+  strips <code>advArc</code>, <code>advChapters</code>, <code>advBattles</code> and <code>floors</code> from
+  every upload &mdash; they were 89% of a real save's bytes, and <code>advArc</code> riding the upload was
+  itself the 2026-08-01 save-ceiling incident (68,560&nbsp;B of a 127,115&nbsp;B save; <code>/api/save</code>
+  refuses over 131,072&nbsp;B). So <code>/api/backup/export</code> does <em>not</em> carry log history, and a
+  new device starts with an empty log. Pulling history off a player is the on-demand advlog extraction round
+  (admin-backend.html &sect;8). Each block is <code>{n, z}</code> (gzip, base64) or <code>{n, t}</code> (plain),
+  plus the day index below.
   Unpack a block's text into events by splitting lines on <code>\n</code> and fields on <code>\x01</code>
   &mdash; <code>ts</code>, <code>TYPE</code>, JSON params:</p>
   <pre>import gzip, base64, json
@@ -126,8 +132,64 @@ for b in save.get('advArc', []):
     for line in txt.split('\n'):
         ts, typ, params = line.split('\x01'); ev = (ts, typ, json.loads(params))</pre>
 
+  <h2>The day index &mdash; how a per-day view is possible at all</h2>
+  <p class="sp-lead"><strong>On DEV, not yet on release.</strong> A packed event carries only
+  <code>ts</code> = <code>HH:MM</code>. The DATE lived on the chapter object, and <code>advTrim</code>
+  <em>drops a chapter the moment its last event is archived</em> &mdash; so the archive was a single
+  undated stream. Nothing was ever lost; the history simply could not be cut into days. That is the whole
+  of &ldquo;the log only shows a day&rdquo;.</p>
+  <ul>
+    <li><strong><code>DAY</code> marker.</strong> <code>advTrim</code> writes
+      <code>{ts:'00:00', type:'DAY', params:{k:&lt;dayKey&gt;, t:&lt;date&gt;, c:&lt;chapter title&gt;}}</code>
+      into the packed stream when the day changes <em>and</em> whenever a fresh block opens. Every event
+      after a marker belongs to that day until the next marker.</li>
+    <li><strong>Every block is self-describing.</strong> The marker at each block head is the load-bearing
+      half: without it a block that opens mid-day loses its leading non-battle events. Measured at 14 of 156
+      on a real-shaped day before the rule was added.</li>
+    <li><strong>Block header, never compressed.</strong> <code>d</code> is the list of dayKeys the block
+      holds; <code>dl</code> is the last day it declared, so the next append knows whether it owes a marker.
+      A day grid is drawn from <code>d</code> across all blocks <strong>with zero decompression</strong>;
+      opening one day decompresses only the blocks whose <code>d</code> lists it (measured: 2 of 5 worst
+      case, 0.7 average over 30 days).</li>
+    <li><strong>Marker is the truth, <code>d</code> is a cache.</strong> A reader that finds them disagreeing
+      trusts the marker and repairs the header.</li>
+    <li><strong><code>advArcCompact</code> re-declares the running day</strong> at the head of every regrouped
+      block. The heal splits blindly by index, so without this it destroys the index it exists to carry.</li>
+    <li><strong>A <code>BATTLEROW</code> is a RECORD, not a log entry.</strong> It is the compacted detail its
+      <code>BATTLE</code> line points at, is looked up by id, and must never be rendered or counted as an
+      event &mdash; doing so double-counts every archived day.</li>
+    <li><strong>NEVER date an event from its battle id.</strong> A <code>battle_id</code> is
+      <code>'B-' + Date.now().toString(36)</code> &mdash; epoch ms, i.e. <strong>UTC</strong> &mdash; while a
+      chapter's <code>dayKey</code> is <code>toDateString()</code>, the device's <strong>LOCAL</strong> date.
+      At UTC+9 a 07:00 battle decodes to the <em>previous</em> day, so id-dating puts every morning on the
+      wrong tile. Id-dating survives only as an approximate rescue for archives written before markers
+      existed, where it is accurate to within one day at the boundary.</li>
+    <li><strong>Cost.</strong> One marker per day plus one per block: <strong>1.9%</strong> of the archive.
+      A marker per moved slice would be a marker per <em>event</em> &mdash; once the live window is full
+      <code>advTrim</code> runs on every event and moves exactly one &mdash; which measured 7.4%, the same
+      shape as the 2026-08-01 gzip-per-single-event mistake.</li>
+    <li><strong>Ceiling.</strong> Web Storage is ~5&nbsp;MiB per origin and the local slot is written twice
+      (a once-per-session <code>_bak</code> copy), so the practical budget is ~2.5&nbsp;MB against a ~102&nbsp;KB
+      non-log save. At ~37&nbsp;B per archived event that is roughly 57,000 events. A full store raises
+      <code>QuotaExceededError</code>, which the local save path currently swallows into a console warning.</li>
+  </ul>
+  <p><strong>Legacy archives have no markers and no headers, and those dates no longer exist</strong> &mdash;
+  they are not reconstructed, only grouped as one &ldquo;Earlier&rdquo; range.</p>
+
   <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-08-28 &mdash; the archive gains a day index; a per-day view becomes possible.</strong>
+      <strong>ON DEV, NOT YET ON RELEASE.</strong> Archived events carried only <code>HH:MM</code> and the date
+      lived on a chapter that is dropped as soon as it empties, so the history was one undated stream &mdash;
+      the reason the log appeared to keep only a day. <code>advTrim</code> now writes a <code>DAY</code> marker
+      on a day change and at every fresh block, and each block header carries <code>d</code> (its dayKeys) and
+      <code>dl</code> (its last declared day), uncompressed, so a day grid draws from headers alone and only the
+      opened day is decompressed. <code>advArcCompact</code> re-declares the running day per regrouped block.
+      Also corrected here: <code>advArc</code> has not ridden the save since the Stage&nbsp;4a diet, so the
+      backup export does <em>not</em> carry log history &mdash; this page claimed it did. Three defects were
+      caught by <code>tools/probe_advday.py</code> before shipping and are written up above: per-slice markers
+      becoming per-event, <code>BATTLEROW</code> counted as an entry, and UTC id-dating against a local dayKey.
+      Gate 10/10, red-first 4/10. Write side only &mdash; no reader surfaces the day index yet.</li>
     <li><strong>2026-08-01 &mdash; the archive packs before it compresses, and rows keep their time.</strong>
       Overflow was gzipped and base64'd the instant it happened, and once the live window is full the overflow is
       exactly one event &mdash; so a 405-event archive was 405 single-line blocks. gzip has nothing to find in a
