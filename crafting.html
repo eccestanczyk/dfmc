@@ -200,6 +200,19 @@ buys the replacement scroll, and applying a replacement <em>is</em> the reroll &
 misreading and is worth a ruling.</div>
 
 <h2>Changelog</h2>
+<p><strong>2026-08-28 &mdash; #623 audited: the All-in math is fair by construction; nothing changed.</strong>
+D: &ldquo;All in seems too generous in terms of when it succeeds.&rdquo; Reviewed against the build: the burst is
+<code>afford = min over the price bundle of floor(ledger-bounded balance / cost)</code> attempts (capped 250), one keyed
+draw of that many lanes, success at the first lane under the row's <code>Success_Pct</code>, charging only the attempts
+used &mdash; distribution-identical, attempt for attempt and coin for coin, to pressing the single upgrade until it lands.
+No compounding, no reroll surface (the draw key is server-advanced per attempt), and no skipped penalty: all 360 grading
+rows author &ldquo;no destruction, grade unchanged&rdquo; on failure, so a burst has nothing to be gentler about. If success
+still reads too frequent, the lever is the authored <code>Success_Pct</code> ladder itself (early rows are 100%) &mdash; a
+balance call on <code>grading.csv</code>/<code>soul_grading.csv</code>. One exposure named while reading: the roll door
+resolves its row from the CLIENT-claimed from/to/tier; honest play gets honest odds, but gear grades are client-held, so a
+forged claim buys high grades at low-grade odds and prices &mdash; recorded with the socket-identity family (#591, Jeff) as
+the enforcement dependency. An empirical distribution run (thousands of harness bursts against the geometric law) is
+specified for a next session if the construction proof is not enough.</p>
 <p><strong>2026-08-21 &mdash; mutants are never dismantled (D order). LIVE on release since 2026-08-21 (0.58).</strong>
 Every dismantle door now refuses a Mutant creature: the sheet button, the hammer, by-grade, all-filtered,
 Adam and Eve (which counts and names what it is leaving) and the server-side ops sweep. One shared gate
