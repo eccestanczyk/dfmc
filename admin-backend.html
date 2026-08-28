@@ -104,12 +104,11 @@
     <tr><td class="lbl">Currencies (Scrap, Ichor, Food) + materials (Dust, Essence, Ink)</td><td>Server</td><td>Cloud Save · Protected</td><td>Batched; immediate on rare gains</td></tr>
     <tr><td class="lbl">Inventory, eggs, creature instances</td><td>Server</td><td>Cloud Save · Protected</td><td>Immediate on craft/grade/hatch/fuse; batched on drops/XP</td></tr>
     <tr><td class="lbl">Character, class levels, playerLevel, Codex</td><td>Server</td><td>Cloud Save · Protected</td><td>Batched</td></tr>
-    <tr><td class="lbl">Hardcore death mark · crypt bag / Bequests</td><td>Server</td><td>Cloud Save · <strong>Private</strong></td><td>Immediate, atomic with death pipeline</td></tr>
-    <tr><td class="lbl">Floor record / PvP rank</td><td>Server</td><td>Leaderboards + Cloud Save</td><td>Personal best / post-match only</td></tr>
+        <tr><td class="lbl">Floor record / PvP rank</td><td>Server</td><td>Leaderboards + Cloud Save</td><td>Personal best / post-match only</td></tr>
     <tr><td class="lbl">Tradeable items &amp; creatures (ownership)</td><td>Steam</td><td>Steam Inventory Service</td><td>Server-minted via publisher key</td></tr>
     <tr><td class="lbl">Autoplay config, keybinds, graphics, UI, exported logs</td><td>Client</td><td>Steam Cloud + local</td><td>Best-effort</td></tr>
   </table>
-  <p>Access classes are the structural wall — a Protected/Private key physically cannot be written by the client SDK. Validation logic is the second layer. Keys are namespaced per realm (<code>eternal.* / hardcore.* / seasonal.* / hcSeasonal.*</code>); Codex and playerLevel are account-wide. State is written as <strong>consolidated documents per realm, not per-field keys</strong> — every extra key per flush is another billed write.</p>
+  <p>Access classes are the structural wall — a Protected/Private key physically cannot be written by the client SDK. Validation logic is the second layer. State is written as <strong>consolidated documents per realm, not per-field keys</strong> — every extra key per flush is another billed write.</p>
 
   <h2>The economy transaction contract</h2>
   <p>Every spend — craft, grade-up, soul grade, breed, enhancement — is the same atomic transaction computed against the <em>server</em> balance. Ordering is the entire guarantee: <strong>check, then atomically debit + grant, else reject whole.</strong> RNG rolls (the grading 100→0.5% ladder) resolve server-side, so a failed roll cannot be re-rolled by save-scumming — the currency is already gone on the server. Costs come from the same authored tables as the GDD (25×tier Scrap crafts, the 1/1/2/3/5/8/12/18/40 Ichor ladder, the five-material soul bundle).</p>
@@ -176,7 +175,7 @@
     <text x="724" y="40" class="hd" text-anchor="middle">IMMEDIATE — own call, flush now</text>
     <text x="724" y="66" class="t2" text-anchor="middle">SSR/SR drop · boss kill · new floor record</text>
     <text x="724" y="88" class="t2" text-anchor="middle">hatch · fuse · advance · craft/grade result</text>
-    <text x="724" y="110" class="t2" text-anchor="middle">hardcore death · any trade — never buffered</text>
+    <text x="724" y="110" class="t2" text-anchor="middle">any trade — never buffered</text>
     <rect x="528" y="136" width="392" height="88" class="bx"/>
     <text x="724" y="160" class="hd" text-anchor="middle">BATCHED — one call per timer</text>
     <text x="724" y="186" class="t2" text-anchor="middle">fodder XP · Food · common drops · codex-seen</text>
@@ -319,39 +318,6 @@
     <text x="470" y="426" class="t2" text-anchor="middle">identical integrity: no peeking, no roll-steering, no forged outcomes.</text>
   </svg>
   <p class="figcap">Fig. 7 — Commit-reveal PvP with single end-of-match verification.</p>
-
-  <h2>Hardcore death — one atomic commit</h2>
-  <p>Death is confirmed server-side (the losing battle is replay-verifiable), then the whole pipeline applies as a single transaction. The death mark lives in a <strong>Private</strong> key the client cannot read, let alone clear; it is written atomically with the Bequest seal, so a wipe without a seal — or a seal without a mark — is structurally impossible. Sealing also transfer-locks the Steam-owned assets into the receiving crypt so nothing can be duped out mid-death. The HC-Seasonal → Hardcore double-migration (the GDD's highest-risk path) is a scheduled, idempotent <em>server</em> job at season end — never client-driven.</p>
-
-  <svg class="diag" viewBox="0 0 940 420" xmlns="http://www.w3.org/2000/svg">
-    <defs><marker id="arG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#c2ae8b"/></marker></defs>
-    <rect x="270" y="20" width="400" height="50" class="bx"/>
-    <text x="470" y="51" text-anchor="middle">losing battle — server replay-verified</text>
-    <line x1="470" y1="70" x2="470" y2="96" class="lnr" marker-end="url(#arG)"/>
-    <rect x="40" y="104" width="860" height="220" class="danger"/>
-    <text x="470" y="130" class="hd" text-anchor="middle">ATOMIC — ALL FIVE OR NOTHING</text>
-    <rect x="60" y="150" width="250" height="66" class="bx2"/>
-    <text x="185" y="176" text-anchor="middle">① fracture class XP</text>
-    <text x="185" y="198" class="sm" text-anchor="middle">→ Soul Gems, rank by XP</text>
-    <rect x="60" y="236" width="250" height="66" class="bx2"/>
-    <text x="185" y="262" text-anchor="middle">② seal Bequest</text>
-    <text x="185" y="284" class="sm" text-anchor="middle">gear + inventory + gems + creatures · transfer-lock Steam assets</text>
-    <rect x="344" y="150" width="250" height="66" class="bx2"/>
-    <text x="469" y="176" text-anchor="middle">③ deliver → crypt bag</text>
-    <text x="469" y="198" class="sm" text-anchor="middle">HC → Eternal now · HCS → season-end job → HC</text>
-    <rect x="344" y="236" width="250" height="66" class="bx2"/>
-    <text x="469" y="262" text-anchor="middle">④ reset character to L1</text>
-    <text x="469" y="284" class="sm" text-anchor="middle">same realm, slot permanent</text>
-    <rect x="628" y="150" width="252" height="152" class="goldbx"/>
-    <text x="754" y="196" text-anchor="middle">⑤ write deathMark</text>
-    <text x="754" y="222" class="t2" text-anchor="middle">PRIVATE key —</text>
-    <text x="754" y="244" class="t2" text-anchor="middle">client cannot read or clear</text>
-    <text x="754" y="266" class="sm" text-anchor="middle">diedOnHardcore · floor · realm · seasonId · time</text>
-    <line x1="470" y1="324" x2="470" y2="352" class="lng" marker-end="url(#arG)"/>
-    <rect x="220" y="360" width="500" height="44" class="ok"/>
-    <text x="470" y="388" text-anchor="middle">single commit — no partial state possible</text>
-  </svg>
-  <p class="figcap">Fig. 8 — Hardcore death pipeline. Test all four realm paths and the season migration independently, per GDD critical risks.</p>
 
   <h2>Steam market &amp; farm accounts</h2>
   <p>The mint is downstream of validation: a Cloud Code transaction confirms the asset was legitimately earned or paid for, <em>then</em> calls Steam GenerateItem with the publisher key and binds the instance ID back to Cloud Save. A faked balance never reaches the mint — the only thing touching the real-money market is the one thing that cannot be spoofed. Every trade path goes through a server-side <strong>transfer lock</strong> with a single-ownership check (in place before the marketplace opens, per GDD critical risks), and every item class carries a config-level <code>tradeable</code> flag so a compromised category can be frozen without a patch.</p>

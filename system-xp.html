@@ -104,7 +104,6 @@
     <tr><td class="lbl">XP source</td><td>Every point of XP the account earns, from every battle, in every realm. Player XP is never split &mdash; it is the raw total.</td></tr>
     <tr><td class="lbl">Curve, levels 1&ndash;100</td><td>Identical to the creature / class curve: <code>10 &times; L^1.75</code>, then <code>234 &times; L &times; 1.16^(L&minus;67)</code>.</td></tr>
     <tr><td class="lbl">Curve, levels 101+</td><td><strong>Flat</strong>. Every level past 100 costs a fixed <code>PLAYER_FLAT_XP = 639,723</code> XP &mdash; the level-90 requirement, held constant. No cap; the counter never stops. Kept as a single tunable constant rather than derived from the curve, so the vanity pace can be retuned without touching the leveling model.</td></tr>
-    <tr><td class="lbl">Hardcore death</td><td>Player level is <strong>not</strong> lost. Characters, creatures, items, and class XP are wiped; the player level is the one number that survives, because it measures the account, not the run.</td></tr>
     <tr><td class="lbl">Grants</td><td>Nothing. Deliberately inert.</td></tr>
   </table>
   <p>Pacing, past 100: at level-100 enemies (<code>10 &times; 100</code> = 1,000 XP per kill) each player level is <strong>~640 battles &asymp; 21&nbsp;h</strong> of autoplay &mdash; roughly one level a fortnight for a steady player, so the counter visibly ticks over instead of freezing. Reaching player level 100 itself takes ~21.6&nbsp;M XP; every level after is a flat ~640&nbsp;k grind, climbing linearly forever instead of exploding. Continuing the level-100 requirement (3.1&nbsp;M, ~105&nbsp;h/level) was rejected as too slow to feel alive.</p>
@@ -115,7 +114,7 @@
     <li><strong>Dying in battle does not forfeit XP</strong> — a fainted creature or downed avatar still receives its full share.</li>
     <li>Each recipient's XP is then scaled by the level gap to the defeated enemy. See <a href="system-level-penalty.html">Level Penalty</a> for the full curve.</li>
   </ul>
-  <div class="sp-note">Hardcore implication: death wipes a character to level&nbsp;1. The relevel to 67 is ~30&nbsp;h of autoplay, but a death at level&nbsp;95+ costs a dedicated player weeks — high stakes by design. See <a href="system-realms.html">Death &amp; Realms</a>.</div>
+  <div class="sp-note">removed-mode implication: death wipes a character to level&nbsp;1. The relevel to 67 is ~30&nbsp;h of autoplay, but a death at level&nbsp;95+ costs a dedicated player weeks — high stakes by design. See <a href="system-realms.html">Death &amp; Realms</a>.</div>
 
   <h2>XP is addressed to a CREATURE, never to a party slot &mdash; LIVE on release since 2026-08-05 (0.32)</h2>
   <p>The party occupies gear slots <code>8</code> and <code>9</code>, and the battle units

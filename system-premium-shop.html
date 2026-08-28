@@ -117,7 +117,7 @@ an item. A grant with nowhere to go waits rather than being destroyed.</p>
   <p>The panel closes three ways: the CLOSE control, and &mdash; since 2026-08-05 &mdash; a tap anywhere on
   the backdrop. The backdrop carries <code>onCloseShop</code> and the window itself carries
   <code>onStopProp</code>, so a tap inside never bubbles out and closes it. This is the same pattern the
-  Crypt Bag popup has always used; the shop backdrop simply carried no handler at all, so a tap outside
+   shop backdrop simply carried no handler at all, so a tap outside
   did nothing. Verified with <code>document.elementFromPoint()</code> at a point derived from the
   backdrop's rect minus the window's &mdash; note that on a phone the stage is letterboxed, so the
   top-left of the SCREEN is page background and is <em>not</em> outside the window.

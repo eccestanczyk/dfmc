@@ -14,71 +14,17 @@
 <div class="topbar"><h1 style="font-family:'Cinzel',serif;">DEATH &amp; REALMS</h1></div>
 <div class="sp-wrap">
   <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; Death &amp; Realms</div>
-  <p class="sp-lead">Every account holds one character in every unlocked realm, each starting at level&nbsp;1. The character slot is permanent &mdash; death never removes or moves it. What death costs depends on the realm. There is no crypt panel in this version: a dead hardcore character's holdings travel as a <strong style="color:var(--ink)">Bequest</strong> and are claimed from a single crypt bag. Everything &mdash; gear, creatures, eggs, Soul Gems &mdash; is an item in one unified inventory.</p>
+  <p class="sp-lead">Herumon Tower has <strong>one realm</strong>. Every account holds one character, one save, one leaderboard presence. Death costs the win streak and nothing else &mdash; characters, creatures and items persist forever.</p>
 
-  <h2>The four realms</h2>
-  <div class="sp-cards">
-    <div class="sp-tile"><h4 style="color:#bda6e8;">Eternal</h4><p>Soft death: stay on the floor, streak resets, character unchanged. Receives every Hardcore death as a claimable <strong>Bequest</strong> (see below), plus Seasonal contents at season end.</p></div>
-    <div class="sp-tile"><h4 style="color:#dd5646;">Hardcore</h4><p>On death the character is wiped to level&nbsp;1 and stays in Hardcore. Its entire loadout &mdash; every item, every creature, one Soul Gem per class it had XP in &mdash; is sealed into a Bequest and sent to Eternal to be claimed.</p></div>
-    <div class="sp-tile"><h4 style="color:#cfa650;">Seasonal</h4><p>Soft death like Eternal. Timed realm; at season end the character migrates to Eternal and its holdings are delivered there.</p></div>
-    <div class="sp-tile"><h4 style="color:#e0803c;">HC Seasonal</h4><p>On death, wiped to level&nbsp;1 in place; the loadout is sealed into a Bequest. At season end all HC Seasonal Bequests are delivered to Hardcore to be claimed there.</p></div>
-  </div>
+  <h2>One game mode</h2>
+  <p>The Hardcore realm, the Seasonal ladders, the HC Season and the crypt bag (Bequest inbox) were <strong>removed on 2026-08-28 by D's order</strong>: &ldquo;Delete hardcore and crypt systems. The game is going to have only 1 game mode.&rdquo; The realm parameter survives in the save and API plumbing as the constant <code>standard</code>; any other value is refused server-side.</p>
 
-  <h2>Death table</h2>
-  <table>
-    <tr><th>Realm</th><th>On death</th><th>Character after</th><th>Bequest sent to</th></tr>
-    <tr><td class="lbl" style="color:#bda6e8;">Eternal</td><td>Soft &mdash; streak resets</td><td>Unchanged</td><td>&mdash;</td></tr>
-    <tr><td class="lbl" style="color:#dd5646;">Hardcore</td><td>Wiped to level 1</td><td>Stays, level 1</td><td>Eternal crypt bag &mdash; immediately</td></tr>
-    <tr><td class="lbl" style="color:#cfa650;">Seasonal</td><td>Soft &mdash; streak resets</td><td>Unchanged</td><td>&mdash;</td></tr>
-    <tr><td class="lbl" style="color:#e0803c;">HC Seasonal</td><td>Wiped to level 1</td><td>Stays, level 1</td><td>Hardcore crypt bag &mdash; only during an HC Seasonal season</td></tr>
-  </table>
-
-  <h2>Soul Gems</h2>
-  <p>When a hardcore character is wiped, one <strong style="color:var(--ink)">Soul Gem</strong> is generated per class it had any XP in and placed inside that death's Bequest. Rank scales with the XP amount. A Soul Gem is an item like any other; consuming it grants that XP to the surviving character's matching class &mdash; softening a wipe without erasing the loss.</p>
-
-  <h2>The crypt bag</h2>
-  <p>Hardcore deaths do not silently deposit loot into a vault. Each death produces one <strong>Bequest</strong> &mdash; a single sealed record of that character at the moment it fell &mdash; delivered to the receiving realm's <strong>crypt bag</strong> to be claimed by hand.</p>
-
-  <h3>The icon</h3>
+  <h2>Changelog</h2>
   <ul class="sp-rules">
-    <li>A <strong>gravestone with a satchel resting in front of it</strong> sits in the top bar of the receiving realm, positioned <strong>between the menu dropdown and the Speed-order button</strong>.</li>
-    <li>It is <strong>hidden entirely</strong> when nothing is pending &mdash; the bar looks normal until a death occurs.</li>
-    <li>When Bequests are waiting it appears with a <strong>count badge</strong>. The badge counts <strong>Bequests (deaths), not items</strong> &mdash; &ldquo;3&rdquo; means three characters to review.</li>
-    <li><strong>Eternal</strong> shows the crypt bag whenever a Bequest is waiting &mdash; it continuously receives Hardcore deaths.</li>
-    <li><strong>Hardcore</strong> shows the crypt bag <strong>only while an HC Seasonal season is active</strong>. HC Seasonal is the sole source that feeds Hardcore, delivering at season end; with no active HC Seasonal season there is nothing to receive, so Hardcore has no crypt bag at all.</li>
-    <li>The icon never appears in a send-only realm (Seasonal, HC Seasonal), nor in a receiving realm with an empty queue.</li>
+    <li><strong>2026-08-28 &mdash; one game mode (D order). ON DEV, not yet on release.</strong> Stage 1: the worker is one-realm &mdash; 54 realm coercions and 13 realm loops collapsed to <code>standard</code>, the hardcore leaderboards dropped, realm validators refuse anything else, <code>hcSeasonActive</code> and <code>bequests</code> left the save door (verified empty on every live account; no hardcore save ever existed, so nothing stored was lost). Stage 2: the client &mdash; the GAME MODE picker, the crypt bag (icon, window, methods, seed data), the hardcore battle/forfeit/PvP guards, <code>defHc</code> and the <code>_hc</code> storage suffix are gone; token census 0 across app, markup and index; the wiped client boots and plays on a live save (probe 5/5). Stage 3: this page and eleven others rewritten; the floor-90 key no longer names its den &ldquo;crypt&rdquo;. Untouched by rule: the Auto PVP weekly season (a separate live system) and the floor-90 den's display name in floors.csv/bosses.csv (lore, pending D's word on a rename).</li>
   </ul>
 
-  <h3>What a Bequest holds</h3>
-  <p>One Bequest is one death, kept whole. Bequests never merge into a shared pile &mdash; multiple deaths stack as <strong>discrete, individually-labelled entries</strong>.</p>
-  <table>
-    <tr><th>Contents</th><th>Detail</th></tr>
-    <tr><td class="lbl">Items</td><td>Everything the character was wearing and carrying &mdash; every equipped and stored item.</td></tr>
-    <tr><td class="lbl">Creatures</td><td>The full party that died with it. (Creatures are items in the unified inventory.)</td></tr>
-    <tr><td class="lbl">Soul Gems</td><td>One per class the character had XP in, ranked by that XP.</td></tr>
-    <tr><td class="lbl">Label</td><td>Class, death level, floor, and timestamp &mdash; so stacked Bequests are told apart at a glance.</td></tr>
-  </table>
-
-  <h3>The claim popup</h3>
-  <ul class="sp-rules">
-    <li>Opens to a <strong>list of Bequests, newest first</strong>. Each is a collapsed row: <code>&#9760; Paladin &middot; Lv&nbsp;87 &middot; Floor&nbsp;91 &middot; 2h ago &middot; 14 items &middot; 3 gems &middot; 5 creatures</code>. Expanding a row reveals the full contents.</li>
-    <li><strong>Claim</strong> per Bequest empties that one; <strong>Claim All</strong> works the whole queue. Claimed contents flow into the single unified inventory.</li>
-    <li>Claiming is <strong>atomic per item, not per Bequest</strong>. If the inventory fills mid-claim, the items that fit are taken and the remainder <strong>stays inside the Bequest</strong>, which remains in the queue showing only what is left.</li>
-  </ul>
-
-  <h3>How stacking is handled</h3>
-  <div class="sp-note"><strong>The crypt bag itself is uncapped; nothing is ever destroyed for lack of room.</strong> Die ten times at level&nbsp;90 and ten labelled Bequests wait patiently, each claimable when space allows. The only pressure the player ever feels is &ldquo;my inventory is full&rdquo; &mdash; never &ldquo;my crypt bag overflowed and I lost the gear.&rdquo; Because claims are per-item and the queue is unbounded, stacking is always safe and never punitive: the unified inventory is the single capacity gate, and a partially-claimed Bequest simply lingers with its remainder until the player makes room.</div>
-
-  <h2>One character at a time</h2>
-  <ul class="sp-rules">
-    <li>The game simulates <strong>one realm character at a time</strong>. Switching realms switches the active character and pauses the previous one entirely.</li>
-    <li>There is no offline progression &mdash; being in-game is the only way to advance. Economy is balanced in battles for this one active character (~30 battles/hour on autoplay).</li>
-    <li>The character slot is permanent in every realm; even a hardcore wipe leaves the character in place at level&nbsp;1.</li>
-  </ul>
-
-  <div class="sp-note">Hardcore stakes scale with the leveling curve: a relevel to 67 is ~30&nbsp;h, but a death at level&nbsp;95+ costs weeks. See <a href="system-xp.html">XP &amp; Leveling</a> for the full curve. In-battle defeat (not permadeath) is covered under <a href="system-streak.html">Win Streak &amp; Floors</a>.</div>
+  <div class="sp-note">Related: <a href="system-networking.html">Networking &amp; Saves</a> for the save door, <a href="system-pvp.html">PvP</a> for the ladder.</div>
 </div>
-<script src="admin.js"></script>
-<script src="nav.js"></script>
 </body>
 </html>

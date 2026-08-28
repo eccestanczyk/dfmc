@@ -170,10 +170,6 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     <p>A creature-collecting competitive turn-based RPG where players climb an ever-ascending tower floor by floor. Each floor is a simple map where the Collector triggers battles until a win threshold opens the portal to the next floor. All metagame systems (breeding, crafting, hatchery) are accessible as UI panels at any time during PvE — no physical base.</p>
     <h3>Game modes</h3>
     <div class="grid-2">
-      <div class="card"><div class="card-title"><span class="pill pill-eternal">Eternal</span></div><div class="card-body" style="margin-top:6px">Soft death. Character stays in realm, no reset. Receives Hardcore deaths as claimable Bequests, and Seasonal holdings at season end.</div></div>
-      <div class="card"><div class="card-title"><span class="pill pill-hc">Hardcore</span></div><div class="card-body" style="margin-top:6px">On death, character is wiped to level 1 and stays in Hardcore. All items, creatures, and class XP (as Soul Gems) are sealed into a Bequest sent to the Eternal crypt bag.</div></div>
-      <div class="card"><div class="card-title"><span class="pill pill-season">Seasonal</span></div><div class="card-body" style="margin-top:6px">Soft death. Timed realm. On season end, character migrates to Eternal; its holdings are delivered there.</div></div>
-      <div class="card"><div class="card-title"><span class="pill pill-hcs">HC Seasonal</span></div><div class="card-body" style="margin-top:6px">On death, character wiped to level 1 and stays in HC Seasonal. Its loadout is sealed into a Bequest; at season end all HC Seasonal Bequests are delivered to the Hardcore crypt bag.</div></div>
     </div>
     <h3>Ladders</h3>
     <ul><li>PvP ladder — ranked 3v3 combat, tracked per season and all-time</li><li>Progress (floor) ladder — highest floor reached, tracked per season and all-time</li></ul>
@@ -210,10 +206,10 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
   <div id="character" class="page">
     <h2>Character system</h2>
     <h3>One character per realm, always</h3>
-    <p>Every account has a character in every realm they have unlocked, starting at level 1. The character slot is permanent — death does not remove or demote the character. On hardcore death, the character is wiped back to level 1 and remains in the same realm. Only their items, creatures, and class XP are lost.</p>
+    <p>Every account has a character in every realm they have unlocked, starting at level 1. The character slot is permanent — death does not remove or demote the character. Only their items, creatures, and class XP are lost.</p>
 
     <h3>Player level, character level, class level</h3>
-    <p>The <strong style="color:#ede0c4">player level</strong> is account-wide and uncapped: it accumulates every point of XP the account ever earns, uses the standard curve to 100, then costs a flat 639,723 XP per level forever (~640 battles, ~21h). It grants nothing — no stats, no unlocks — and is the only progression number that survives hardcore death. Creature, class, and character levels all cap at 100.</p>
+    <p>The <strong style="color:#ede0c4">player level</strong> is account-wide and uncapped: it accumulates every point of XP the account ever earns, uses the standard curve to 100, then costs a flat 639,723 XP per level forever (~640 battles, ~21h). Creature, class, and character levels all cap at 100.</p>
     <p>The character has a <strong style="color:#ede0c4">character level</strong> — a global level aggregated from XP across all classes. Character level scales base stats (HP, stamina, resistances). Each class has its own <strong style="color:#ede0c4">class level</strong> tracked separately, unlocking class-specific bonuses. Switching classes does not reset others. Switching the active class <strong>unequips everything attached to the character</strong> — all 8 gear slots return to inventory (socketed gems, runes, enchantments and attached souls stay on their items); the new class starts bare and is re-equipped from inventory.</p>
     <div class="card"><div class="card-title">XP & level model</div><pre style="margin:8px 0 0">Account
 ├── playerLevel      → all XP ever earned → uncapped, grants nothing (see XP & Leveling)
@@ -250,7 +246,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     </div>
 
     <h4>Class unlocks</h4>
-    <p>All six classes are earnable in-game in the prototype — the three advanced classes ship as DLC post-prototype (the earned path remains). Unlocking a class grants the class + its T1 class weapons (main + off hand) only — never creatures. Class unlocks are <strong>account-wide</strong> — one purchase unlocks the class for the character in every realm — and survive hardcore death (not part of items / creatures / class XP). Costs are farm-time-normalized on the canonical endgame income weights (Scrap &asymp;150&ndash;225/h at endgame after the Ichor&rarr;Scrap fold at 15:1 : Dust/Essence/Ink 20/h) and live in <code>codex/classes.csv</code> (<code>Unlock_Cost</code>):</p>
+    <p>All six classes are earnable in-game in the prototype — the three advanced classes ship as DLC post-prototype (the earned path remains). Unlocking a class grants the class + its T1 class weapons (main + off hand) only — never creatures. Costs are farm-time-normalized on the canonical endgame income weights (Scrap &asymp;150&ndash;225/h at endgame after the Ichor&rarr;Scrap fold at 15:1 : Dust/Essence/Ink 20/h) and live in <code>codex/classes.csv</code> (<code>Unlock_Cost</code>):</p>
     <table>
       <tr><th>Class</th><th>Unlock cost</th><th>Endgame farm time</th><th>Path</th></tr>
       <tr><td>Unpicked starters (Warrior / Mage / Archer)</td><td>100 Scrap each</td><td>~40 min</td><td>Gear dismantling — early-accessible</td></tr>
@@ -274,7 +270,6 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     <div class="note note-info"><p>Additional class lines (pure-wall, balanced-duelist, speed-specialist, etc.) are reserved as possible future content.</p></div>
 
     <h3>Soul gems</h3>
-    <div class="note note-lore"><p>When a hardcore character is demoted, their soul fractures. Each class they trained echoes forward as a Soul Gem, sealed in the death's Bequest for the surviving character to claim.</p></div>
     <p>One Soul Gem is generated per class the character had any XP in. Rank scales with XP amount. Consuming a gem grants that XP to the character's matching class.</p>
     <div class="soul-gem"><div class="gem-rank" style="background:#2d1f00;border:0.5px solid #fbbf2460;color:#fbbf24">S</div><div><div class="gem-name">Soul of the Mage <span style="color:#fbbf24">S</span></div><div class="gem-xp">Grants 999,999 Mage XP on consume</div></div></div>
     <div class="soul-gem"><div class="gem-rank" style="background:#1a1a1a;border:0.5px solid #c2ae8b60;color:#c2ae8b">E</div><div><div class="gem-name">Soul of the Archer <span style="color:#c2ae8b">E</span></div><div class="gem-xp">Grants 250 Archer XP on consume</div></div></div>
@@ -322,7 +317,6 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
       <tr><td>Level 90</td><td>~5,180</td><td>~2 months</td><td>14 days</td><td>7 days</td></tr>
       <tr><td>Level 100</td><td>~20,300</td><td>~7.5 months</td><td>~2 months</td><td>~1 month</td></tr>
     </table>
-    <div class="note note-info"><p><strong>Hardcore implication:</strong> death wipes to level 1 &mdash; the relevel back to 67 is ~30&nbsp;h of autoplay, but a death at level 95+ costs a dedicated player weeks. High stakes by design.</p></div>
 
     <p>There is <strong>no XP multiplier bonus</strong> for fighting creatures above the player&rsquo;s level. The only incentive to push harder content is the higher flat XP that higher-level battles naturally grant (a level-40 battle yields 400 XP in expectation vs 300 at level 30). This keeps the system clean and unexploitable.</p>
 
@@ -494,7 +488,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
 ├── ActionQueue
 ├── AnimationController
 └── BattleResultHandler</pre>
-    <p style="font-size:13px;color:#c2ae8b">Every battle is a deterministic replay — initial state + per-round RNG seed + committed move log, persisted once per round <em>before</em> resolution renders. This buys PvE crash-resume, PvP reconnects, free replays, and hardcore Alt+F4 integrity (battles are resume-only; committed rounds stand; there is no roll to scum). PvE has no move timer. Details: <a href="system-pvp.html" style="color:var(--gold-bright)">PvP, Timers &amp; Persistence</a>.</p>
+    <p style="font-size:13px;color:#c2ae8b">Every battle is a deterministic replay — initial state + per-round RNG seed + committed move log, persisted once per round <em>before</em> resolution renders. PvE has no move timer. Details: <a href="system-pvp.html" style="color:var(--gold-bright)">PvP, Timers &amp; Persistence</a>.</p>
     <h3>Turn structure</h3>
     <p><strong>Simultaneous selection, sequential resolution.</strong> Both sides select actions blind (double-blind). Once locked, all actions resolve in Speed order &mdash; highest Speed acts first. Status effects queued (poison, stun, burn, etc.) resolve after move resolution. This makes Speed the decisive tactical axis: a faster creature can KO a threat before it acts, even if both sides chose to attack the same target.</p>
     <h3>Class ultimates</h3>
@@ -657,25 +651,15 @@ FinalDamage = RawDamage
     <table>
       <tr><th>Realm</th><th>On death</th><th>Character after death</th><th>Items go to</th></tr>
       <tr><td><span class="pill pill-eternal">Eternal</span></td><td>Soft — remain on floor, streak resets</td><td>Unchanged</td><td>—</td></tr>
-      <tr><td><span class="pill pill-hc">Hardcore</span></td><td>Character wiped to level 1</td><td>Stays in Hardcore, level 1</td><td>Eternal crypt bag (Bequest)</td></tr>
-      <tr><td><span class="pill pill-season">Seasonal</span></td><td>Soft — remain on floor, streak resets</td><td>Unchanged</td><td>—</td></tr>
-      <tr><td><span class="pill pill-hcs">HC Seasonal</span></td><td>Character wiped to level 1</td><td>Stays in HC Seasonal, level 1</td><td>Hardcore crypt bag (HC Seasonal only)</td></tr>
     </table>
 
-    <h3>The crypt bag</h3>
-    <p>The crypt bag is a top-bar icon — a gravestone with a satchel — shown between the menu dropdown and the Speed-order button, shown in Eternal whenever a Bequest waits, and in Hardcore only while an HC Seasonal season is active (its sole feeder) — there is no physical base to walk up to. Each hardcore death sends one Bequest to the receiving realm's crypt bag:</p>
     <div class="grid-2">
       <div class="card">
-        <div class="card-title"><span class="pill pill-eternal">Eternal crypt bag</span></div>
-        <div class="card-body" style="margin-top:6px">Accessible via UI in the Eternal realm. Receives items from Hardcore deaths as claimable Bequests. Also receives Seasonal holdings at season end.</div>
       </div>
       <div class="card">
-        <div class="card-title"><span class="pill pill-season">HC Seasonal Bequests</span></div>
-        <div class="card-body" style="margin-top:6px">Accessible via UI in the Seasonal realm. Receives items from HC Seasonal deaths. At season end, all HC Seasonal Bequests are delivered to the Hardcore crypt bag.</div>
       </div>
     </div>
 
-    <h3>What a Bequest holds</h3>
     <ul>
       <li>All equipped gear at time of death</li>
       <li>All inventory items</li>
@@ -684,43 +668,23 @@ FinalDamage = RawDamage
     </ul>
 
     <h3>Season end migration</h3>
-    <div class="flow-box"><div class="flow-box-title" style="color:#60a5fa">Seasonal regular character</div><div class="flow-box-body">Migrates to Eternal realm with season badge</div></div>
     <div class="arrow">↓</div>
-    <div class="flow-box"><div class="flow-box-title" style="color:#a78bfa">Eternal realm</div><div class="flow-box-body">Character arrives; its holdings are delivered to the Eternal crypt bag.</div></div>
     <div style="height:16px"></div>
-    <div class="flow-box"><div class="flow-box-title" style="color:#fbbf24">HC Seasonal character (previously wiped to level 1)</div><div class="flow-box-body">Migrates to Hardcore realm with season badge</div></div>
     <div class="arrow">↓</div>
-    <div class="flow-box"><div class="flow-box-title" style="color:#f87171">Hardcore realm</div><div class="flow-box-body">Character arrives; all HC Seasonal Bequests are delivered to the Hardcore crypt bag.</div></div>
 
-    <h3>Hardcore death pipeline</h3>
     <ol class="phase-list">
-      <li><span class="phase-num">1</span><span>Character dies in Hardcore realm</span></li>
-      <li><span class="phase-num">2</span><span>Character flagged: diedOnHardcore = true, deathFloor and timestamp recorded</span></li>
       <li><span class="phase-num">3</span><span>All class XP converted to soul gems — one per class with any XP, rank by XP amount</span></li>
-      <li><span class="phase-num">4</span><span>All gear, inventory, soul gems, and creatures sealed into a Bequest sent to the Eternal crypt bag</span></li>
-      <li><span class="phase-num">5</span><span>Character reset to level 1, remains in Hardcore realm with death mark on status sheet</span></li>
     </ol>
 
-    <h3>HC Seasonal death pipeline</h3>
     <ol class="phase-list">
-      <li><span class="phase-num">1</span><span>Character dies in HC Seasonal realm</span></li>
-      <li><span class="phase-num">2</span><span>Character flagged: diedOnHardcore = true, deathFloor and timestamp recorded</span></li>
       <li><span class="phase-num">3</span><span>All class XP converted to soul gems — one per class with any XP, rank by XP amount</span></li>
-      <li><span class="phase-num">4</span><span>All gear, inventory, soul gems, and creatures sealed into a Bequest (delivered to Hardcore at season end)</span></li>
-      <li><span class="phase-num">5</span><span>Character reset to level 1, remains in HC Seasonal realm with death mark</span></li>
     </ol>
 
     <h3>Death mark data</h3>
     <pre>CharacterSaveData {
-  bool     diedOnHardcore;
-  string   hardcoreDeathFloor;
-  string   hardcoreRealm;     // "HC" | "HCS"
-  string   hardcoreSeasonId;   // null if not seasonal
-  DateTime hardcoreDeathTime;
 }</pre>
-    <p>Creature instances carry their own <code>diedOnHardcore</code> on the backend record (see Economy &amp; marketplace). The mark is provenance-only and persists through trades — death-marked creatures trade normally.</p>
+The mark is provenance-only and persists through trades — death-marked creatures trade normally.</p>
 
-    <div class="note note-warn"><p>Test all four death pipelines and the season-end migration independently. The HC Seasonal → Hardcore Bequest delivery is the most likely source of data bugs.</p></div>
   </div>
 
   <!-- METAGAME -->
@@ -852,7 +816,6 @@ FinalDamage = RawDamage
     <h3>Codex scope</h3>
     <ul>
       <li>One Codex per account, shared across all realms — seeing a creature in any realm updates the Codex globally</li>
-      <li>Acquired status is realm-specific — owning a creature in Eternal does not mark it as acquired in Hardcore</li>
       <li>The Codex is never wiped on death — it persists permanently and cannot be reset</li>
     </ul>
 
@@ -1179,9 +1142,8 @@ Character total:
 Your Backend
 └── CreatureInstance_8837623 {
       level, moves, stats,
-      diedOnHardcore, breedCount
     }</pre></div>
-    <p><strong>Death-marked creatures are fully tradeable.</strong> <code>diedOnHardcore</code> is a backend instance field and persists across ownership transfers — the mark is provenance-only, with no mechanical effect. On fungible Community Market listings the mark is not visible pre-purchase (instances share one ItemDef listing); in peer-to-peer trade offers it is visible on the instance.</p>
+On fungible Community Market listings the mark is not visible pre-purchase (instances share one ItemDef listing); in peer-to-peer trade offers it is visible on the instance.</p>
     <h3>Item grant flow (server-side only)</h3>
     <ol class="phase-list">
       <li><span class="phase-num">1</span><span>Player completes breed/craft action</span></li>
@@ -1229,16 +1191,11 @@ Your Backend
     </table>
     <h3>ScriptableObject data types</h3>
     <div class="tags">
-      <span class="tag">CharacterData</span><span class="tag">ClassData</span><span class="tag">SoulGemData</span><span class="tag">CreatureData</span><span class="tag">MoveData</span><span class="tag">ItemData</span><span class="tag">FloorData</span><span class="tag">RecipeData</span><span class="tag">SeasonData</span><span class="tag">EncounterTable</span><span class="tag">AdvancementChain</span><span class="tag">LootTable</span><span class="tag">BequestData</span><span class="tag">HatcheryData</span>
     </div>
     <h3>Save system</h3>
     <ul>
-      <li>One character per realm per account — permanent slot, never removed, reset to level 1 on hardcore death</li>
-      <li>Eternal / Hardcore / Seasonal / HC Seasonal are separate realm profiles</li>
-      <li>Each realm has its own crypt bag state (top-bar icon, no physical base)</li>
       <li>Character level and all class levels travel with the character on demotion</li>
       <li>Ladder and trade data: cloud save (anti-cheat)</li>
-      <li>Hardcore death flag persists permanently and cannot be removed</li>
       <li>No offline progression — all simulation requires the game to be open</li>
     </ul>
 
@@ -1280,7 +1237,6 @@ Your Backend
       <li><span class="phase-num">14</span><span><strong style="color:#ede0c4">Metagame UI</strong> — breeding, crafting, hatchery panels</span></li>
       <li><span class="phase-num">15</span><span><strong style="color:#ede0c4">Autoplay</strong> — auto-click creatures, auto-battle, configurable thresholds</span></li>
       <li><span class="phase-num">16</span><span><strong style="color:#ede0c4">Backend authority layer</strong> — the UGS spine before any online system: Steam-native Auth, Cloud Save keys + access classes (Protected/Private), Cloud Code transaction contract + reward validation (turn-count rate cap, sampled deterministic replay), client event buffer + reconciliation, idempotency keys + writeLock. Full spec: <a href="admin-backend.html">Backend, Save &amp; Anti-Cheat</a></span></li>
-      <li><span class="phase-num">17</span><span><strong style="color:#ede0c4">Realms & death pipelines</strong> — all four death paths, crypt bags, soul gems, season migration — one atomic server commit per death (see Backend spec)</span></li>
       <li><span class="phase-num">18</span><span><strong style="color:#ede0c4">PvP & ladders</strong> — matchmaking, relay, leaderboards — commit-reveal rounds, single end-of-match server verification</span></li>
       <li><span class="phase-num">19</span><span><strong style="color:#ede0c4">Steam integration</strong> — Steamworks.NET, inventory, marketplace — server-side mint (publisher key) + transfer lock</span></li>
       <li><span class="phase-num">20</span><span><strong style="color:#ede0c4">Monetization</strong> — economy service, battle pass, item grants</span></li>
@@ -1310,7 +1266,6 @@ Your Backend
         <li><span class="phase-num">10</span><span><strong style="color:#ede0c4">Codex</strong> — creature catalogue, seen/acquired states, stat ranges, move lists, advancement chains</span></li>
         <li><span class="phase-num">11</span><span><strong style="color:#ede0c4">Metagame UI</strong> — breeding, crafting, hatchery — all as in-game UI panels accessible during PvE</span></li>
         <li><span class="phase-num">12</span><span><strong style="color:#ede0c4">Player logging system</strong> — event log and battle log, hooked into existing battle/leveling/item systems, file export for PC and mobile share UI</span></li>
-        <li><span class="phase-num">13</span><span><strong style="color:#ede0c4">Realms & death pipelines</strong> — all four death paths, Bequest delivery, soul gem generation, season migration</span></li>
         <li><span class="phase-num">14</span><span><strong style="color:#ede0c4">PvP & ladders</strong> — matchmaking, relay, leaderboards</span></li>
         <li><span class="phase-num">15</span><span><strong style="color:#ede0c4">Steam integration</strong> — Steamworks.NET, inventory, marketplace</span></li>
         <li><span class="phase-num">16</span><span><strong style="color:#ede0c4">Monetization</strong> — economy service, battle pass, item grants</span></li>
@@ -1321,8 +1276,6 @@ Your Backend
     <h3>Critical risks</h3>
     <div class="note note-risk"><p><strong>PvP anti-cheat</strong> — server-authoritative resolution required. Design this before any PvP work begins.</p></div>
     <div class="note note-risk"><p><strong>Art consistency</strong> — lock style-guide prompt before mass generation.</p></div>
-    <div class="note note-risk"><p><strong>Death pipeline integrity</strong> — four death paths + crypt bag + season migration must all be tested exhaustively. HC Seasonal double-migration is highest risk.</p></div>
-    <div class="note note-warn"><p><strong>Seasonal migration</strong> — Bequest delivery mechanism must be rock solid before launch.</p></div>
     <div class="note note-warn"><p><strong>Trade duplication exploits</strong> — implement transfer lock before marketplace goes live.</p></div>
     <h3>Future features (cut from current scope)</h3>
     <div class="note note-info"><p><strong>Skill trees</strong> — passive skill trees (graph of stat/modifier/keystone nodes, skill points on level-up, respec) for classes and creatures are cut from this iteration. Class and creature power comes from levels, stages, grades, equipment, and souls only. Trees may return as a post-launch depth layer.</p></div>
@@ -1450,7 +1403,6 @@ Your Backend
     <p>The alt-color rare cosmetic variant is called a <strong style="color:#ede0c4">Mutant</strong> in this project. Never "Shiny" — it is easy to slip into by habit; don't.</p>
 
     <h3>Realms (4)</h3>
-    <p>Eternal, Hardcore, Seasonal, HC Seasonal.</p>
 
     <h3>Floor themes (3)</h3>
     <p>Outdoors, Cave, Fishing — purely visual themes, identical mechanics.</p>

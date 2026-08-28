@@ -183,7 +183,6 @@
     <tr><td class="lbl">Purchases and entitlement acks</td><td>Real money gets zero-loss durability regardless of cadence cost. The ack lives in the <em>save</em>, never the ledger &mdash; a ledger-side ack survives a restore and silently loses the purchase</td></tr>
     <tr><td class="lbl">Name claim</td><td>Cross-player uniqueness needs arbitration</td></tr>
     <tr><td class="lbl">PvP actions</td><td>Another player is blocked on it</td></tr>
-    <tr><td class="lbl">Hardcore death</td><td>Irreversible and character-ending</td></tr>
     <tr><td class="lbl">Boss key consumption</td><td>Gates zone progression; a lost call duplicates the key</td></tr>
   </table>
 
@@ -555,7 +554,7 @@
       <td>Stamped <code>{ep, gen}</code> at persist. Resume <em>drops</em> any snapshot that is unstamped, from another
       epoch or generation, or whose floor exceeds the loaded save's <code>maxFloor+1</code>. The unnamespaced
       <code>herumon_battle_v1</code> is deleted on sight &mdash; it once teleported a reborn account to floor 9</td></tr>
-    <tr><td class="lbl"><code>herumon_chain_standard</code><br><code>herumon_chain_hardcore</code></td>
+    <tr><td class="lbl"><code>herumon_chain_standard</code><br><code>herumon_chain_removed-mode</code></td>
       <td>Battle-event hash-chain head</td>
       <td>Cleared on wipe-kick and sign-out. Server-side chains are steamid-keyed, so a foreign head is benign</td></tr>
     <tr><td class="lbl"><code>herumon_mode</code>, <code>herumon_pid</code>, <code>herumon_pvp_net</code>,

@@ -14,7 +14,7 @@
 <div class="topbar"><h1 style="font-family:'Cinzel',serif;">PVP, TIMERS &amp; PERSISTENCE</h1></div>
 <div class="sp-wrap">
   <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; PvP, Timers &amp; Persistence</div>
-  <p class="sp-lead">Ranked 3v3 (avatar + 2 creatures per side), best of 3, team locked at match start, double-blind simultaneous move selection. This page defines the PvP screen, the move timers, how battles survive crashes and disconnects, hardcore quit-out rules, and the leaderboards.</p>
+  <p class="sp-lead">Ranked 3v3 (avatar + 2 creatures per side), best of 3, team locked at match start, double-blind simultaneous move selection. This page defines the PvP screen, the move timers, how battles survive crashes and disconnects, removed-mode quit-out rules, and the leaderboards.</p>
 
   <h2>The PvP Arena screen</h2>
   <p>Entered from the main menu (<strong>PVP ARENA</strong>, between Adventure Log and Game Mode). One screen, four regions:</p>
@@ -38,7 +38,7 @@
   </table>
 
   <h2>Persistence &mdash; battles survive anything</h2>
-  <p>Every battle is a deterministic replay: <code>initial state + per-round RNG seed + committed move log</code>. That single decision buys crash recovery, reconnects, replays, and hardcore integrity all at once.</p>
+  <p>Every battle is a deterministic replay: <code>initial state + per-round RNG seed + committed move log</code>. That single decision buys crash recovery, reconnects, replays, and removed-mode integrity all at once.</p>
   <table>
     <tr><th>Rule</th><th>Detail</th></tr>
     <tr><td class="lbl">Save cadence</td><td>Once per round: both sides' committed choices plus the round's RNG seed are persisted <strong>before the resolution is shown</strong>. One small write per round.</td></tr>
@@ -55,14 +55,13 @@
     <tr><td class="lbl">PvE crash / quit</td><td>Identical outcomes: resume at the current round on next launch. A battle in progress can be resumed but never abandoned.</td></tr>
   </table>
 
-  <h2>Hardcore &amp; Alt+F4</h2>
-  <p>The classic hardcore failure mode is the logout escape: kill the client the instant a fight goes wrong. Turn-based rounds close that door structurally.</p>
+  <h2>removed-mode &amp; Alt+F4</h2>
+  <p>The classic removed-mode failure mode is the logout escape: kill the client the instant a fight goes wrong. Turn-based rounds close that door structurally.</p>
   <table>
     <tr><th>Rule</th><th>Why it holds</th></tr>
     <tr><td class="lbl">Battles are resume-only</td><td>Alt+F4, crash, and power loss are indistinguishable and all lead to the same place: the battle resumes at the top of the current round with the committed seed. Quitting never exits a battle.</td></tr>
     <tr><td class="lbl">Committed rounds stand</td><td>Once both sides' moves are locked, resolution is deterministic and already persisted. If the round that kills the character has committed, the death happens on resume &mdash; watching it or not changes nothing.</td></tr>
     <tr><td class="lbl">No mid-round escape value</td><td>Killing the client <em>before</em> committing a move just returns the player to the same decision with the same information. In a turn-based game there is no "leave the server before the hit lands" &mdash; nothing advances without a committed round.</td></tr>
-    <tr><td class="lbl">Hardcore PvP</td><td>Uses the standard PvP rules above; a hardcore PvP loss is a match loss, not a character death. Permadeath is a PvE-climb stake only.</td></tr>
   </table>
 
   <h2>Competitive integrity</h2>
@@ -178,9 +177,9 @@ that fight is <em>paused</em> and restored afterwards &mdash; it is not forfeite
 <p>The server holds nothing mid-fight: a spawn slot is marked dead only when a kill is <em>credited</em>, so the
 paused enemy is still standing when the player returns, and battle chains are keyed per chain id so a PvP fight
 cannot break a paused PvE chain's continuity.</p>
-<p><strong>HARDCORE refuses the join.</strong> Hardcore already forbids leaving a battle &mdash; forfeit is
-refused there too &mdash; so taking a match out of a live hardcore fight is blocked and the player is told why.
-Queueing itself is unaffected: a hardcore player may queue, and may take the match from anywhere that is not a
+<p><strong>removed-mode refuses the join.</strong> removed-mode already forbids leaving a battle &mdash; forfeit is
+refused there too &mdash; so taking a match out of a live removed-mode fight is blocked and the player is told why.
+Queueing itself is unaffected: a removed-mode player may queue, and may take the match from anywhere that is not a
 live fight.</p>
 
 <h2>Leaderboards</h2>
@@ -301,7 +300,7 @@ one that a clean PvE defeat is untouched). Replayer: <code>tools/_r64_patch.py</
       node go stale &mdash; so two people had to sit on the arena screen together to meet, which is why PvP had
       never matched. The queue now ends only on a match or an explicit CANCEL; a popup that times out returns to
       LOOKING. The elapsed timer moved to the bottom right, left of the turn counter, and keeps counting through a
-      battle. Taking a match parks the PvE fight and closing the PvP result restores it; hardcore refuses the join.
+      battle. Taking a match parks the PvE fight and closing the PvP result restores it; removed-mode refuses the join.
       Also fixed here: a team node that existed but was empty threw inside the join and left the player on the
       splash forever with no message.</li>
   </ul>
