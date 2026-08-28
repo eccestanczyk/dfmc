@@ -201,8 +201,37 @@ for b in save.get('advArc', []):
   <p>Only entries with no battle anywhere before or after them stay undated, and fall to the reader&rsquo;s
   &ldquo;Earlier&rdquo; tile.</p>
 
-  <h2>Changelog</h2>
+  <h2>The day grid &mdash; what the player sees</h2>
+  <p class="sp-lead"><strong>ON DEV, not yet on release.</strong> The log opens on a <strong>grid of tiles,
+  one per day</strong>, newest first. Archived days are included &mdash; which is the whole point, because a
+  day whose events had all been packed away used to disappear from the list entirely, and that is what
+  &ldquo;the log only keeps a day&rdquo; actually was.</p>
   <ul>
+    <li><strong>A tile carries the chapter number, the date and the entry count</strong> and nothing else.</li>
+    <li><strong>The grid costs no decompression.</strong> Tiles are built from block headers alone; the count
+      lives in the header (<code>d</code> is <code>{dayKey: entryCount}</code>) precisely so that a tile does
+      not have to open anything to know its number. A pre-count archive shows a dash rather than a wrong number.</li>
+    <li><strong>Opening a day unpacks only that day</strong> &mdash; the blocks whose header lists it, measured
+      at a worst case of two of five.</li>
+    <li><strong>The chapter number is DERIVED from position, and it has to be.</strong> The stored title is a
+      roman numeral of how many chapters existed when the day began, and emptied chapters are dropped as they
+      archive &mdash; so the counter shrinks and the stored numerals <em>repeat</em>. A full-history grid built
+      on stored titles shows two Chapter&nbsp;IIIs. Position in the day list is stable forever.</li>
+    <li><strong>Order comes from the archive, not from parsing dates.</strong> Chapter slices are appended
+      oldest-first, so first-appearance order is already chronological.</li>
+  </ul>
+
+  <h2>Changelog
+  <ul>
+    <li><strong>2026-08-28 &mdash; the log opens on a grid of days, and a day unpacks when you open it.</strong>
+      <strong>ON DEV, NOT YET ON RELEASE.</strong> One tile per day &mdash; chapter number, date, entry count
+      &mdash; drawn from block headers with no decompression at all; opening a tile unpacks only the blocks
+      holding that day. Archived days appear alongside live ones, so a day no longer vanishes the moment its
+      last event is packed away. The header gained per-day counts so a tile can show one without opening
+      anything, and the chapter number is now derived from position because the stored numerals repeat once
+      emptied chapters start being dropped. One entry formatter serves both a live day and an unpacked one.
+      Verified on the rendered screen, not the payload: six tiles drawn with their counts and dates, newest
+      first, and the oldest &mdash; which exists only in the archive &mdash; opening to 120 entries.</li>
     <li><strong>2026-08-28 &mdash; history written before the index is retrofitted, not abandoned.</strong>
       <strong>ON DEV, NOT YET ON RELEASE.</strong> This page previously said the dates of pre-index events no
       longer existed. They do: a battle id is the exact epoch ms of the moment the dayKey was minted, and
