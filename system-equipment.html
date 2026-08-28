@@ -414,6 +414,15 @@
   <p><strong>Never judge on an empty codex.</strong> A row with no <code>Level_Req</code> (or a codex that has not landed yet) reads as no requirement, exactly like the stat-fit rule &mdash; an unreadable requirement never condemns a piece.</p>
 
   <h2>Changelog</h2>
+  <p><strong>2026-08-28 &mdash; the no-work toast reads &ldquo;ALREADY OPTIMAL&rdquo; (D report #598). ON DEV, not yet on release.</strong>
+  The spare-count suffixes (&ldquo;N SPARE STONES BEAT NOTHING YOU WEAR&rdquo; / &ldquo;NO SPARE STONES&rdquo;) are gone from the toast;
+  the spare-vs-worn arithmetic behind them stays, because it feeds the self-check that files an auto-report when a strictly better
+  spare is ignored &mdash; that branch keeps its own louder message. Same day, conservation re-proven end to end for D's #594: the
+  gate <code>tools/probe_optconserve.py</code> now presses the real APPLY (it had been opening the plan window and measuring an
+  untouched save), and five full open+apply runs on D's live save hold every gem, rune and scroll count by description invariant
+  (95 before, 95 after; the first run committed 67,049 &rarr; 67,470 with three planted better spares placed). The one-pass
+  counterexamples (#513, #575) could not be reproduced from today's live saves &mdash; both accounts reach the fixed point in one
+  apply now; the tripwire keeps filing with pair and plan detail for the next occurrence.</p>
   <p><strong>2026-08-25 &mdash; level requirements enforced: account level gates gear, the creature's level gates its tags, stones and scrolls test their host's level; the tag rows show ILLEGAL / LV n; the server's power figure mirrors it (D report and ruling). ON DEV, not yet on release.</strong> Section above. Gate <code>tools/probe_lvlreq.py</code> 20/20, red first at 3/20 on a level-88 copy of D's save; parity gate green; registry entries in <code>tools/patch_registry.py</code> (APP, MK, SRV).</p>
   <p><strong>2026-08-17 &mdash; auto-optimize cancelled every run because the item census refused on its own key (ON DEV, not yet on release).</strong> Report&nbsp;#175 and six <code>[auto]</code> rows from four accounts. A stone socketed on a worn instance was counted with a category derived from the socket index; the same stone folded into a displaced piece&rsquo;s <code>socks</code> was counted with none, so a scroll moving between the two homes read as an item destroyed plus a different one created. All six live refusals are scrolls and all six balance exactly once the prefix is ignored. One derivation now, shared by both homes; the guard still refuses a real loss and a real duplication. Probe <code>tools/probe_optcensus.mjs</code> AFTER 9/9, BEFORE 4/4, with the six live diffs replayed as fixtures. New section above.</p>
   <p><strong>2026-08-13 &mdash; the auto-optimiser no longer places one stone twice (report #124, with [auto] #138/#142/#144 &mdash; three players' applies refused by the census in one day). ON DEV, not yet on release.</strong>
