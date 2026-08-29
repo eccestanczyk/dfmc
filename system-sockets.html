@@ -175,6 +175,16 @@
   <code>enchant</code> branch and <code>RK_TARGETED</code> in <code>src/worker.js</code>.</p>
 
   <h2>Changelog</h2>
+  <p><strong>2026-08-28 &mdash; Primordial gets rising bubbles, and socketables get their grade effect
+  (#599, #600). ON DEV, not yet on release.</strong> The Primordial background now carries bubbles in its
+  own two colours drifting upward on a seamless loop. It is drawn entirely in the stylesheet, with no
+  element per bubble &mdash; this layer appears on every Primordial tile in the inventory, so a node per
+  bubble would be hundreds of nodes of decoration; the upgrade screen can afford them because it draws a
+  single item. Separately, <strong>socketed gems and runes in the equipment window now carry the same
+  grade background</strong> every other tile has. Both go through the one producer the grade effects have
+  always used, so adding a grade in one place still reaches every screen &mdash; which is the entire point,
+  since the recurring fault in this family has been one screen updated and another not. Reduced-motion
+  settings switch the bubbles off with the rest.</p>
   <ul>
     <li><strong>2026-08-25 &mdash; gems, runes and scrolls test the level of the piece they enter (D: &ldquo;the same level requirement needs to be true for socketables, scrolls&rdquo;). ON DEV, not yet on release.</strong> Reference row above. Picker greys with LV n and refuses on click before anything is spent; a scroll above level never reaches the roll door; the optimiser never places one; an already-socketed over-level stone is inert, never moved.</li>
     <li><strong>2026-08-14 &mdash; a refresh could reroll a scroll enchant (spec 004). ON DEV, not yet on release.</strong> The enchant draw was keyed on a client-minted key regenerated on every click, and the client debited the scroll only in the browser, flushing on neither success nor failure &mdash; so a bad enchant, a reload inside the ten-second debounce, and the scroll was back with a different roll. Now keyed on the socket plus the scroll's tier and grade against a server-held attempt ordinal, with an unsettled answer consuming nothing and every real commit forcing its own save. New section &ldquo;Applying a scroll&rdquo; above; full rule in <em>upgrading.html</em>. Gates <code>tools/probe_rollattkey.mjs</code> 12/12 (8/12 before), <code>probe_rollreplay.mjs</code> extended.</li>
