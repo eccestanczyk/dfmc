@@ -249,8 +249,41 @@ for b in save.get('advArc', []):
     <li><strong>Roughly 22,000 entries, about seven months</strong> at a measured 110 entries a day.</li>
   </ul>
 
+  <h2>How a fight is stored</h2>
+  <p class="sp-lead"><strong>ON DEV, not yet wired.</strong> A fight used to be kept as rendered English
+  in plain JSON &mdash; about <strong>5&nbsp;KB each, and only 25 kept</strong>, which on autoplay is under
+  an hour of history. Packed, a fight is <strong>44&nbsp;bytes</strong>, and every number stored is the
+  number that happened.</p>
+  <ul>
+    <li><strong>Not a replay.</strong> Rebuilding a fight by re-running combat would show damage that never
+      happened once the game is rebalanced. It is also lossy: <strong>three</strong> writers add lines to a
+      fight &mdash; the action, an event's effects, and end-of-round damage-over-time &mdash; and only the
+      first is recorded as structured data.</li>
+    <li><strong>It knows nothing about any sentence.</strong> The lines are built inside the battle module,
+      so hand-written templates would be guessing at shapes that move whenever combat text changes. Instead:
+      pull every run of digits into its own column, split what is left on whitespace, index the words.
+      Re-insert the digits and the line comes back <strong>byte for byte</strong>.</li>
+    <li><strong>Columns must stay columns.</strong> Packing each fight into a self-contained row
+      re-interleaves the words with the digits and costs <strong>430&nbsp;B a fight instead of 45</strong>.
+      The buffer holds two growing streams, not a list of rows.</li>
+    <li><strong>Seal small, compact later.</strong> Cost tracks how much the compressor can see at once
+      &mdash; 269&nbsp;B merging at 64&nbsp;KB, 150 at 128&nbsp;KB, 93 at 256&nbsp;KB, <strong>44 at
+      1&nbsp;MB</strong> &mdash; but waiting to fill a big block would need a big buffer. So seal at
+      32&nbsp;KB and merge lazily, the same shape the archive already uses.</li>
+    <li><strong>It checks its own work.</strong> Every fight is packed, read straight back, and compared
+      line by line; anything that does not match is kept as prose instead. A log must never say something
+      the fight did not.</li>
+  </ul>
+  <p>At 44&nbsp;bytes a fight, 200 fights a day costs <strong>9&nbsp;KB</strong> and a thousand costs
+  <strong>43&nbsp;KB</strong>. A 512&nbsp;KiB budget holds around <strong>12,000 fights</strong>.</p>
+
   <h2>Changelog
   <ul>
+    <li><strong>2026-08-28 &mdash; a fight is stored in 44 bytes instead of 5 KB.</strong>
+      <strong>ON DEV, packer built and gated, not yet wired.</strong> Combat logs were kept as rendered
+      English in plain JSON and only 25 fights survived. The new store keeps every line exactly, knows
+      nothing about any sentence so it cannot go stale when combat text changes, and checks its own work
+      on every fight. 116&times; smaller, so a full day of fights fits where an hour used to.</li>
     <li><strong>2026-08-28 &mdash; the archive is capped and sheds its oldest history when full.</strong>
       <strong>ON DEV, NOT YET ON RELEASE.</strong> 1,029&nbsp;KiB, sized as half the room actually left after
       measuring the store ceiling and everything else that competes for it. Whole blocks from the oldest
