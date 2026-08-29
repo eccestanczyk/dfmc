@@ -93,6 +93,17 @@
   <p class="foot">Worker: <code>_tableF</code> stamp on the <code>/api/battle</code> pre-pass. Object: <code>tblOk</code> in the battle handler. Probe: <code>tools/probe_battleclaim.py</code> (3/3).</p>
 
   <h2>Changelog</h2>
+  <p><strong>2026-08-29 &mdash; two detectors stop flagging the server's own arithmetic. ON DEV, not yet
+  on release.</strong> The currency-rate guard was reporting bulk dismantles as suspicious income: the
+  Ichor burst allowance is 1,500 while one batch pays far more, and the same account in the same hour
+  shows 173 dismantle rows in a single request. <strong>The server had booked that income itself</strong>,
+  so the guard was flagging a payout it had just made; the booked amount now joins the allowance, exactly
+  as the Shadow Trader's credit already did on the line above. The clamping tier is untouched and remains
+  the only one that ever refuses anything. Separately, the egg-claim check flagged pens finishing
+  <strong>one second early on forty minutes</strong> &mdash; three anomalies across three days measured at
+  0.13%, 0.04% and 1.08%, all of them anchor drift and device clock skew. It now allows the greater of
+  sixty seconds or two per cent of the pen, and anything past that still flags and still reports by how
+  much. A detector that cries wolf gets ignored, which is the whole reason both were worth fixing.</p>
   <p><strong>2026-08-28 &mdash; the floor cache keeps the last five floors instead of all of them.
   ON DEV, not yet on release.</strong> The client kept the full encounter for every floor it had ever
   visited &mdash; each of a floor's ten slots holding its creature <em>and</em> the two battle opponents
