@@ -76,6 +76,13 @@ var ROWS=[['Worn','#c2ae8b',0.01],['Common','#c2ae8b',0.02],['Uncommon','#1eff00
 <script src="nav.js"></script>
 
   <h2>Changelog</h2>
+  <p><strong>2026-08-29 &mdash; a mutant is drawn as one in the equipment window too. ON DEV, not yet on
+  release.</strong> A player devoured a same-line mutant into his creature; it turned mutant in battle, but
+  its icon in the equipment window kept the ordinary art. Devour had set the flag correctly and the battle
+  was reading it &mdash; the equipment slot simply never asked. It looked its icon up in the item art table
+  by name, which holds no creatures and knows nothing about mutants, while the resolver used everywhere
+  else has always handled it. Both slot builders now go through that one resolver, so a creature in a slot
+  is drawn the same way a creature is drawn anywhere.</p>
   <ul>
     <li><strong>2026-08-21 &mdash; Mutants can no longer be dismantled, by any door (D order). LIVE on release since 2026-08-21 (0.58).</strong> The client&rsquo;s shared yield gate refuses them everywhere &mdash; sheet, hammer, by-grade, all-filtered, Adam and Eve &mdash; and the ops bulk sweep carries its own refusal. Adam and Eve treats a Mutant like a levelled creature: never dismantled and never a bucket&rsquo;s keeper, and its window names how many it is leaving. Gates: <code>tools/probe_dismmutant.py</code> 9/9, <code>tools/probe_dismmutant_ops.py</code> 4/4. Mechanics live on crafting.html.</li>
     <li><strong>2026-08-04 &mdash; the wild-spawn roll now actually uses the table on this page (ON DEV, not
