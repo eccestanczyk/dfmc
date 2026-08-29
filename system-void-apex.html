@@ -272,6 +272,11 @@
   </ul></div>
 
   <h2>Changelog</h2>
+  <p><strong>2026-08-29 &mdash; a boss key can no longer walk you out of a fight (#630). ON DEV, not yet
+  on release.</strong> Travelling to a boss room already stopped mid-fight and asked whether you meant to
+  forfeit. Using a boss key from the inventory took a second route into the same room &mdash; and that one
+  asked nothing, so a key click abandoned the fight you were in. Both routes now ask the same question,
+  and answering it takes you where you were going.</p>
   <ul class="sp-rules">
     <li><strong>2026-08-28 &mdash; a legitimate &uuml;ber-boss victory no longer files <code>boss_floor_anomaly</code>. ON DEV, not yet on release.</strong> The guard tested <code>floor % 10</code> &mdash; a hardcoded restatement of the tower's layout &mdash; so every boss kill on 102&ndash;118 wrote an anomaly row about correct play (open inbox rows 509/615/621). It now reads the authored boss-floor table that already rides every battle; a boss event on a grind floor still flags. Gate <code>tools/probe_bossflag.mjs</code> 3/3 (red 1/3 before).</li>
     <li><strong>2026-08-27 &mdash; the &uuml;ber-boss egg draws from the Apex pool at the Apex weights (player report via D: an egg &ldquo;from a mon that wasn't even in the fight&rdquo;; D ruling: &ldquo;apex boss is any egg ok&rdquo;). ON DEV, not yet on release.</strong> The server clamps the zone tier to 10 for the <em>item</em> tier and was using that same clamped number to look up the boss-egg pool, so floors 102&ndash;120 drew from Flaming Hellscape's 87 lines at 30/30/20/10/10 and <code>apex_boss_egg_rarity.csv</code> was never read (floor 120 rolled SSR lines at 10% against an authored 50%). Now the pool is the boss's own zone, unclamped, and an Apex boss floor's row supplies the tier weights; tower bosses are byte-for-byte unchanged. Gate <code>tools/probe_apexbossegg.mjs</code> 5/5 on the real worker (red 2/5 before): pool, weights, and every egg equal to the draw recomputed independently from the spawn secret; floor 100 still exact. The wild-kill egg rule (the defeated line's own egg, one of the three server-derived creatures) was audited on the same report and is correct. Mechanics in the Eggs section above.</li>
