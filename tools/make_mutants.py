@@ -24,7 +24,24 @@ def to_rgb(h,s,v):
         out[...,0][m]=rr[m]; out[...,1][m]=gg[m]; out[...,2][m]=bb[m]
     return out
 
-def mutate(path, cid, out_path, seed_key=None):
+def dominant_hue(path):
+    """The hue everything else is measured against. Taken from a line's stage 1 so the cluster
+    split does not move as a creature advances."""
+    img = Image.open(path).convert('RGBA'); arr = np.array(img)
+    rgb = arr[...,:3].astype(np.float32)/255.0; alpha = arr[...,3:]
+    h,s,v = to_hsv(rgb); vis = alpha[...,0] > 40
+    # MIRRORS mutate() EXACTLY, including the 0.15 step-down and the 0.10 give-up. An earlier version
+    # used 0.10 for both and returned a median from the 0.22 mask where mutate() would have widened to
+    # 0.12 - two stage-1 creatures came out different for no reason anyone had asked for. If these two
+    # ever drift apart again, the mutants drift with them.
+    m = (s > 0.22) & vis
+    if m.sum() < 0.15 * max(vis.sum(), 1):
+        m = (s > 0.12) & vis
+    if m.sum() < 0.10 * max(vis.sum(), 1):
+        return None
+    return float(np.median(h[m]))
+
+def mutate(path, cid, out_path, seed_key=None, med_key=None):
     img = Image.open(path).convert('RGBA')
     arr = np.array(img)
     rgb = arr[...,:3].astype(np.float32)/255.0
@@ -59,7 +76,14 @@ def mutate(path, cid, out_path, seed_key=None):
         s2 = np.clip(s*1.15 + 0.05, 0, 1)
         h3, s3 = np.where(vis, h2, h), np.where(vis, s2, s)
     else:
-        med = np.median(h[m])
+        # THE CLUSTER SPLIT IS ALSO PER-IMAGE, AND THAT WAS THE SECOND HALF OF THE DRIFT.
+        # `med` is the dominant hue, and everything within 0.08 of it takes rot_main while everything
+        # else takes rot_sec. Computed per image, two stages of one line whose palettes sit either
+        # side of that boundary get OPPOSITE rotations - INFERNOCHIMERA's three stages are 6 degrees
+        # apart in their own art and came out 171 degrees apart as mutants. Passing the line's
+        # stage-1 median makes the split the same for every stage, so the same colour is treated the
+        # same way all the way up the line. Still deterministic; still a pure function of the art.
+        med = float(med_key) if med_key is not None else np.median(h[m])
         band = np.abs(((h - med + 0.5) % 1.0) - 0.5) < 0.08
         c1 = m & band; c2 = m & ~band
         h3 = h.copy(); s3 = s.copy()
@@ -90,6 +114,14 @@ if __name__ == '__main__':
                 base[r['Line_ID']] = r['ID']
         for r in rows:
             r['Seed_Key'] = base.get(r.get('Line_ID',''), r['ID'])
+        # one cluster split per line, taken from its stage 1
+        med_by_line = {}
+        for r in rows:
+            if str(r.get('Stage','')).strip() == '1' and r.get('Line_ID'):
+                sp = r.get('Image_Path','').strip()
+                if sp and os.path.exists(sp): med_by_line[r['Line_ID']] = dominant_hue(sp)
+        for r in rows:
+            r['Med_Key'] = med_by_line.get(r.get('Line_ID',''))
     done = skipped = 0
     for r in rows:
         p = r.get('Image_Path','').strip()
@@ -97,6 +129,6 @@ if __name__ == '__main__':
             skipped += 1; continue
         op = os.path.join(outdir, r['ID'] + '.webp')
         if os.path.exists(op): done += 1; continue
-        mutate(p, r['ID'], op, seed_key=(r.get('Seed_Key') or r['ID']))   # bosses carry none: they key on their own id, unchanged
+        mutate(p, r['ID'], op, seed_key=(r.get('Seed_Key') or r['ID']), med_key=r.get('Med_Key'))   # bosses carry neither: their own id, their own median, unchanged
         done += 1
     print('mutants generated:', done, '| skipped:', skipped)

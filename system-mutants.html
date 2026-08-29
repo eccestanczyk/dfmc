@@ -76,16 +76,20 @@ var ROWS=[['Worn','#c2ae8b',0.01],['Common','#c2ae8b',0.02],['Uncommon','#1eff00
 <script src="nav.js"></script>
 
   <h2>Changelog</h2>
-  <p><strong>2026-08-29 &mdash; a line's three stages now share one mutant colour.</strong> Charybdis's
-  mutant was orange while its own stage one is pink, and that was true of every line in the game. The
-  recolour is a deterministic hue rotation seeded from the creature's identifier &mdash; and the three
-  stages of a line have three different identifiers, so they were always going to land on three different
-  colours. Measured across the roster: <strong>all 100 lines disagreed, 52 degrees apart on average and 96
-  at the worst</strong>. A mutation belongs to the creature, not to the stage it happens to be standing at,
-  so the palette is now taken from the line's <em>first</em> stage. Keying it that way rather than to the
-  line's name is deliberate: every stage-one mutant already in the game is left <strong>byte for byte
-  identical</strong>, and only the later stages move onto it. Charybdis has gone from 51&deg; to 336&deg;,
-  against its stage one at 333&deg;.</p>
+  <p><strong>2026-08-29 &mdash; every mutant rebuilt from current art, and a line's stages now share one
+  colour.</strong> Two faults, found together. <strong>Fifty-eight mutants predated the art they were made
+  from</strong> &mdash; early creatures whose portraits were redrawn later, whose recolours were never redone
+  &mdash; and they are all rebuilt. And the recolour itself is a deterministic hue rotation that was seeded
+  from each creature's own identifier, so the three stages of a line were always going to land on three
+  different colours: <strong>all 100 lines disagreed, 52 degrees apart on average and 96 at the worst</strong>.
+  The rotation and the cluster split are now both taken from the line's <em>first</em> stage, so a colour is
+  treated the same way all the way up the line. Across the roster the stages of a line now vary by
+  <strong>6 degrees</strong> where their own base art varies by 10. Charybdis has gone from 51&deg; to
+  337&deg;, against its stage one at 333&deg;. Ten boss recolours were checked and were already correct.</p>
+  <p class="sp-note">Sixteen lines still vary more as mutants than their own art does, worst at
+  171&deg;. That is the two-cluster split landing differently on stages whose palettes straddle its
+  boundary, and closing it would be a change to the technique rather than a repair &mdash; left alone
+  deliberately.</p>
   <p><strong>2026-08-29 &mdash; a mutant is drawn as one in the equipment window too. ON DEV, not yet on
   release.</strong> A player devoured a same-line mutant into his creature; it turned mutant in battle, but
   its icon in the equipment window kept the ordinary art. Devour had set the flag correctly and the battle
