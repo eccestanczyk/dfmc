@@ -133,7 +133,7 @@ for b in save.get('advArc', []):
         ts, typ, params = line.split('\x01'); ev = (ts, typ, json.loads(params))</pre>
 
   <h2>The day index &mdash; how a per-day view is possible at all</h2>
-  <p class="sp-lead"><strong>On DEV, not yet on release.</strong> A packed event carries only
+  <p class="sp-lead"><strong>On release since 0.64.</strong> A packed event carries only
   <code>ts</code> = <code>HH:MM</code>. The DATE lived on the chapter object, and <code>advTrim</code>
   <em>drops a chapter the moment its last event is archived</em> &mdash; so the archive was a single
   undated stream. Nothing was ever lost; the history simply could not be cut into days. That is the whole
@@ -202,7 +202,7 @@ for b in save.get('advArc', []):
   &ldquo;Earlier&rdquo; tile.</p>
 
   <h2>The day grid &mdash; what the player sees</h2>
-  <p class="sp-lead"><strong>ON DEV, not yet on release.</strong> The log opens on a <strong>grid of tiles,
+  <p class="sp-lead"><strong>On release since 0.64.</strong> The log opens on a <strong>grid of tiles,
   one per day</strong>, newest first. Archived days are included &mdash; which is the whole point, because a
   day whose events had all been packed away used to disappear from the list entirely, and that is what
   &ldquo;the log only keeps a day&rdquo; actually was.</p>
@@ -222,7 +222,7 @@ for b in save.get('advArc', []):
   </ul>
 
   <h2>The budget &mdash; what happens when the device fills</h2>
-  <p class="sp-lead"><strong>ON DEV, not yet on release.</strong> The archive is capped at
+  <p class="sp-lead"><strong>On release since 0.64.</strong> The archive is capped at
   <strong>1,029&nbsp;KiB</strong> and sheds its <em>oldest whole blocks</em> when it exceeds that.</p>
   <ul>
     <li><strong>The number is measured, not assumed.</strong> On a real save in a real browser the
