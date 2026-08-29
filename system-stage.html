@@ -137,6 +137,15 @@
   <code>tools/probe_shoplist.py</code> &mdash; each measures at a phone viewport, not only at desktop.</p>
 
   <h2>Changelog</h2>
+  <p><strong>2026-08-29 &mdash; a creature's sheet shows the moves it actually knows. ON DEV, not yet on
+  release.</strong> A player noticed his level 93 creature described a move one way when equipped and
+  another way on its own sheet &mdash; the sheet was still printing the first-stage name and text. The
+  sheet is shared with the codex, and the codex deliberately shows every line at stage one because a codex
+  entry owns no creature and so has no level. A creature opened from the bag was using that same
+  &ldquo;no level&rdquo; view even though it was carrying its level and its experience the whole time. It
+  now resolves the ladder at the creature's own level, and experience takes precedence over a stored level
+  &mdash; which matters, because the report came in straight after a devour, and devour is what moves
+  experience. Browsing the codex is unchanged.</p>
   <ul class="sp-rules">
     <li><strong>2026-08-10 &mdash; the document can no longer scroll, and the stage no longer rides it.</strong> A click that moved focus onto something past the right edge scrolled the page 67px and slid the whole HUD off the left; browser zoom does not reset a scroll offset, so only a reload cleared it. Wrapper is now <code>position:fixed; inset:0</code> plus a shell scroll pin. New section above records the measurements and the <code>position:fixed</code> ruler that tells scroll from zoom. <em>ON DEV &mdash; not yet on release.</em></li>
     <li><strong>2026-08-05 &mdash; item-tile gender glyph raised 16px &rarr; 30px stage</strong> (5.75 &rarr; 10.78 CSS px on a phone). Survey of every gender glyph added above; two surfaces remain under 7 CSS px. <em>LIVE on release since 2026-08-05 (0.32).</em></li>
