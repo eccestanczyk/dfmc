@@ -93,6 +93,18 @@
   <p class="foot">Worker: <code>_tableF</code> stamp on the <code>/api/battle</code> pre-pass. Object: <code>tblOk</code> in the battle handler. Probe: <code>tools/probe_battleclaim.py</code> (3/3).</p>
 
   <h2>Changelog</h2>
+  <p><strong>2026-08-29 &mdash; a mass dismantle stops re-reading the whole ledger for every item
+  (#632). ON DEV, not yet on release.</strong> One batch wrote 173 ledger rows against a normal ten an
+  hour, and the question was whether that many rows are needed. <strong>They are</strong> &mdash; each row
+  is keyed to the item that produced it, and that key is the only thing that makes a retry safe; the
+  item's tombstone is explicitly not, because a stone unsocketed and dismantled in one flush has to be
+  re-verified from scratch. Merging them would double-credit a retry that overlapped a previous one.
+  <strong>The cost was never the rows.</strong> Each one scanned the entire ledger to check its key, and
+  summed the whole balance twice &mdash; once to compute and once to check for drift. That is 519 read
+  operations for one dismantle. The batch now takes one scan and carries each currency's balance forward,
+  with the drift check running once per currency at the end: <strong>519 reads become 11</strong>, the
+  same guarantee for a forty-seventh of the work. No index was added, because an index entry is itself a
+  written row on every insert.</p>
   <p><strong>2026-08-29 &mdash; two detectors stop flagging the server's own arithmetic. ON DEV, not yet
   on release.</strong> The currency-rate guard was reporting bulk dismantles as suspicious income: the
   Ichor burst allowance is 1,500 while one batch pays far more, and the same account in the same hour
