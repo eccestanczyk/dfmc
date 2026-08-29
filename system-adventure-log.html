@@ -279,6 +279,15 @@ for b in save.get('advArc', []):
 
   <h2>Changelog
   <ul>
+    <li><strong>2026-08-30 &mdash; fights are recorded again; nothing was being written since 0.64.</strong>
+      <strong>ON RELEASE (0.65).</strong> The store keeps its word dictionary as a lookup rebuilt whenever
+      the saved copy changes. On a save that had never written one there was nothing to notice a change
+      in, so the lookup was never built at all &mdash; and the dictionary is only written once a fight has
+      been recorded, so no save could get itself out of it. Every fight failed to record from the moment
+      the store shipped. Because recording happens before the battle is reported to the server, the whole
+      end-of-fight step went with it: no experience, no ichor, no drops, no victory screen, and another
+      round handed back against an enemy team already down. Nothing in the format changed and no stored
+      history was lost &mdash; the fights from those hours were simply never written.</li>
     <li><strong>2026-08-28 &mdash; the packed store is wired; fights are recorded into it.</strong>
       <strong>ON DEV.</strong> A finished fight no longer puts its prose on the row &mdash; it goes to the
       store, and only the round count stays behind so the fight list never has to open anything to show
