@@ -93,6 +93,15 @@
   <p class="foot">Worker: <code>_tableF</code> stamp on the <code>/api/battle</code> pre-pass. Object: <code>tblOk</code> in the battle handler. Probe: <code>tools/probe_battleclaim.py</code> (3/3).</p>
 
   <h2>Changelog</h2>
+  <p><strong>2026-08-29 &mdash; queuing an ultimate no longer blanks the battle screen (#642). ON DEV,
+  not yet on release.</strong> Choosing a move, going back from the confirmation window to change the
+  hero's, and then picking the ultimate emptied the screen. An ultimate is queued differently from an
+  ordinary move &mdash; it is not one of the four in the kit &mdash; and three places on that screen look a
+  queued move up. Two of them already coped with not finding one; the highlight ring that follows your
+  pointer did not, and clicking a unit to change its move is precisely what puts the pointer there. One
+  failure inside the drawing pass takes the whole screen with it, which is why it went black rather than
+  simply showing nothing. All three now resolve an ultimate properly, so it reads correctly everywhere
+  instead of merely not crashing in the one place it did.</p>
   <p><strong>2026-08-29 &mdash; a battle chain no longer diverges silently (#638). ON DEV, not yet on
   release.</strong> The chain check reported battles arriving on a head the server never issued. The
   account it fired on also sent a stale save and a short codex the same day &mdash; <strong>three
