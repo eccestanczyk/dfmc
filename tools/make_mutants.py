@@ -24,7 +24,7 @@ def to_rgb(h,s,v):
         out[...,0][m]=rr[m]; out[...,1][m]=gg[m]; out[...,2][m]=bb[m]
     return out
 
-def mutate(path, cid, out_path):
+def mutate(path, cid, out_path, seed_key=None):
     img = Image.open(path).convert('RGBA')
     arr = np.array(img)
     rgb = arr[...,:3].astype(np.float32)/255.0
@@ -32,7 +32,19 @@ def mutate(path, cid, out_path):
     h,s,v = to_hsv(rgb)
     vis = alpha[...,0] > 40
 
-    seed = int(hashlib.sha1(cid.encode()).hexdigest()[:8], 16)
+    # SEEDED ON THE LINE'S STAGE-1 ID, NOT ON EACH CREATURE (D 2026-08-29: 'Charybdis stage 3 is a
+    # different mutant colour from its stage 1, which is pink - redo the s3 so that s3 is also the
+    # same pink as s1'). The seed was the creature's OWN id, and a line's three stages have three
+    # different ids, so the three got three different hue rotations BY CONSTRUCTION - STORMFATHER
+    # ran +140, +162 and +215 degrees. Measured across the roster: ALL 100 lines disagreed, 52
+    # degrees apart on average and 96 at worst. A mutation is a trait of the creature, not of the
+    # stage it happens to be standing at.
+    # THE KEY IS STAGE 1's ID AND NOT THE LINE NAME, deliberately: D named S1's pink as the one to
+    # keep, and hashing the line name instead would have moved STORMFATHER to +124 and repainted the
+    # very stage he wants left alone. Keyed this way, every stage-1 mutant is BYTE-IDENTICAL to what
+    # already shipped and only the later stages move onto it. Still deterministic, still reproducible
+    # from the CSV alone.
+    seed = int(hashlib.sha1((seed_key or cid).encode()).hexdigest()[:8], 16)
     rot_main = (120 + seed % 101) / 360.0          # 120..220 deg
     rot_sec  = -(40 + (seed >> 8) % 71) / 360.0    # -40..-110 deg
 
@@ -67,10 +79,17 @@ if __name__ == '__main__':
     mode = sys.argv[2] if len(sys.argv) > 2 else 'creatures'
     os.makedirs(outdir, exist_ok=True)
     if mode == 'bosses':
-        rows = [{'ID': r['Boss_ID'], 'Image_Path': r['Image_Path']}
+        rows = [{'ID': r['Boss_ID'], 'Image_Path': r['Image_Path'], 'Seed_Key': r['Boss_ID']}
                 for r in csv.DictReader(open('codex/bosses.csv'))]
     else:
         rows = list(csv.DictReader(open('codex/creatures.csv')))
+        # every stage of a line adopts the palette of its stage 1
+        base = {}
+        for r in rows:
+            if str(r.get('Stage','')).strip() == '1' and r.get('Line_ID'):
+                base[r['Line_ID']] = r['ID']
+        for r in rows:
+            r['Seed_Key'] = base.get(r.get('Line_ID',''), r['ID'])
     done = skipped = 0
     for r in rows:
         p = r.get('Image_Path','').strip()
@@ -78,6 +97,6 @@ if __name__ == '__main__':
             skipped += 1; continue
         op = os.path.join(outdir, r['ID'] + '.webp')
         if os.path.exists(op): done += 1; continue
-        mutate(p, r['ID'], op)
+        mutate(p, r['ID'], op, seed_key=(r.get('Seed_Key') or r['ID']))   # bosses carry none: they key on their own id, unchanged
         done += 1
     print('mutants generated:', done, '| skipped:', skipped)
