@@ -98,6 +98,12 @@
   </table>
 
   <h2>Changelog</h2>
+  <p><strong>2026-08-29 &mdash; the trader now keeps the hours he was meant to (#628). ON DEV, not yet on
+  release.</strong> He ran Saturday and Sunday by UTC, so on a Friday he simply was not there. The window
+  is now <strong>Friday noon to Monday noon JST</strong> &mdash; three days rather than two. The countdown
+  to his return moved with it; it had been counting to Saturday, which would have named the wrong day for
+  anyone waiting. One rule decides, on the server, and the shop tab appears only when his answer says he
+  is here.</p>
   <ul class="sp-rules">
     <li><strong>2026-08-25 (evening) &mdash; built end to end: the doors, the tab in D's UX, the server making the exchange, the cooldown, the rate class.</strong> ON DEV, release at D's word.</li>
     <li><strong>2026-08-25 (later still) &mdash; the reference floors are 99 and 119, not 100 (a boss floor); the model was SIMULATED through the worker's own pieces at both, 300,000 battles each, and holds within 1% (D: "Did you actually sim this?").</strong> <code>tools/sim_trader.mjs</code>.</li>
