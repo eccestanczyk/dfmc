@@ -93,6 +93,18 @@
   <p class="foot">Worker: <code>_tableF</code> stamp on the <code>/api/battle</code> pre-pass. Object: <code>tblOk</code> in the battle handler. Probe: <code>tools/probe_battleclaim.py</code> (3/3).</p>
 
   <h2>Changelog</h2>
+  <p><strong>2026-08-29 &mdash; a battle chain no longer diverges silently (#638). ON DEV, not yet on
+  release.</strong> The chain check reported battles arriving on a head the server never issued. The
+  account it fired on also sent a stale save and a short codex the same day &mdash; <strong>three
+  detections, one device whose local writes were not landing</strong>. The client advances its chain head
+  and stores it; that store sat in a silent catch, so a device with a full browser store moved the head in
+  memory, failed to write it, and on the next reload sent the old one &mdash; a break on every battle from
+  then on, looking exactly like a forged claim. The head is now <strong>read back to prove it landed</strong>,
+  and if it did not the chain is abandoned so a fresh one starts: one flagged break instead of permanent
+  divergence. <strong>Two things found and not changed:</strong> the check still refuses nothing and
+  overwrites its stored head with whatever arrives, so it repairs itself to the claimant's version; and the
+  answer carries a verdict field the client has never read. Enforcing is a separate decision, because it
+  would refuse credit to a legitimately resumed battle.</p>
   <p><strong>2026-08-29 &mdash; a mass dismantle stops re-reading the whole ledger for every item
   (#632). ON DEV, not yet on release.</strong> One batch wrote 173 ledger rows against a normal ten an
   hour, and the question was whether that many rows are needed. <strong>They are</strong> &mdash; each row
