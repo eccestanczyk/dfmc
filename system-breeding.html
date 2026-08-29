@@ -209,7 +209,7 @@ of the CSV rather than restating them, and test 4 bounds the 50/50 at three stan
 the sample the roll rate cap actually permits.</p>
 
 <h2>Adam and Eve &mdash; the soul-bag pair keeper (reports #99 + #100)</h2>
-<p><strong>Status: ON DEV (0.48), not yet on release.</strong> An option in the soul-bag dismantle
+<p><strong>Status: on release.</strong> An option in the soul-bag dismantle
 menu, offered in the SOUL BAG ONLY because it is meaningless where there is no line and no gender.
 <strong>It keeps the highest-grade MALE and the highest-grade FEMALE of every advancement line and
 dismantles the rest.</strong> Two keepers per line, not one &mdash; a breeding pair needs both, which
@@ -263,7 +263,7 @@ against the Worn price the claim booked, and heals the account's running pens. A
 has changed since, or a parent without a legal grade is skipped and named, never guessed. Gates:
 <code>tools/probe_breedgrade.mjs</code> 7/7 (2/7 watched fail on the defect) and
 <code>tools/probe_breedfix.mjs</code> (the incident reproduced end to end on the pre-fix tree, then repaired).</p>
-<p><strong>2026-08-13 &mdash; the breed ledger (D's spec: the client may only say breeding started and ended). ON DEV, not yet on release.</strong>
+<p><strong>2026-08-13 &mdash; the breed ledger (D's spec: the client may only say breeding started and ended). On release.</strong>
 The server now owns the whole breeding record. START: the anchor rides battle events carrying the
 pen, the two parent ids and the start time &mdash; nothing else &mdash; and the server validates every
 start against its own stored save: both parents present, both creatures, genders opposite (the
@@ -278,7 +278,7 @@ authored wait, so cycles continue without a fresh start. Watch-first like every 
 unverifiable ask still pays out as before, flagged with its reason; enforcement is a later flip.
 Gates: <code>tools/probe_breedledger.mjs</code> 7/7 (real data &mdash; the anchor proof and every
 refusal) and <code>tools/probe_breedledger_unit.mjs</code> 6/6 (the verified branch, transcribed).</p>
-<p><strong>2026-08-13 &mdash; the egg award is recorded and settled (the economy BOOK phase's fourth and final brick). ON DEV, not yet on release.</strong>
+<p><strong>2026-08-13 &mdash; the egg award is recorded and settled (the economy BOOK phase's fourth and final brick). On release.</strong>
 The bred-egg award was the last uncredited lane in the economy: the egg entered the bag with no
 record behind it, and the Ichor the pens metered out for it never reached the permanent ledger.
 At the award &mdash; and only on the fresh draw, since every replay answers the stored result verbatim
@@ -298,7 +298,7 @@ refresh or replay can never charge twice and ownership is provable from the ledg
 stay Ichor and client-flow for now (the economy BOOK phase picks them up). Gate:
 <code>tools/probe_unlockpen.mjs</code> 9/9.</p>
 <p><strong>2026-08-12 &mdash; Adam and Eve, the soul-bag pair keeper (reports #99 + #100).</strong>
-<em>ON DEV (0.48), not yet on release.</em> New section above. Keeps the highest-grade male and the
+<em>on release.</em> New section above. Keeps the highest-grade male and the
 highest-grade female of every advancement line and dismantles the rest, behind a confirmation window
 that names the rule, the survivors, the tie-break and everything it is refusing to touch. It never
 dismantles a creature whose gender is unknown, whose line cannot be read, or which is sitting in a
@@ -313,7 +313,7 @@ entitlements, and lays exactly once when the answer arrives. <code>rollEggGrade(
 AFTER 8/8.</p>
 
 <ul>
-        <li><strong>2026-08-26 &mdash; the bred egg's birth is written by the mint, the hatched creature's by the hatch grant (ON DEV, not yet on release).</strong> When the egg claim verifies against the pen anchor the egg's items row records <code>{src: bred, pen, parents}</code> from the ledger's own sire and dam (pen alone when it did not verify); when that egg hatches, the creature's row records <code>{src: hatched, egg{name, grade, uid}, parents, pen}</code> from the egg's row. Neither is ever overwritten, and neither rides the save any more &mdash; see <em>system-networking</em>.</li>
+        <li><strong>2026-08-26 &mdash; the bred egg's birth is written by the mint, the hatched creature's by the hatch grant (on release).</strong> When the egg claim verifies against the pen anchor the egg's items row records <code>{src: bred, pen, parents}</code> from the ledger's own sire and dam (pen alone when it did not verify); when that egg hatches, the creature's row records <code>{src: hatched, egg{name, grade, uid}, parents, pen}</code> from the egg's row. Neither is ever overwritten, and neither rides the save any more &mdash; see <em>system-networking</em>.</li>
 <li><strong>2026-08-05 &mdash; the DUNECOIL line (Wyrmling &rarr; Neonate &rarr; Sidewinder) is now Serpent + Elemental (D ruling; on DEV immediately, on release at the next DATA_PIN bump).</strong> It carried Serpent alone. Type is not combat maths &mdash; nothing in the client multiplies damage by it &mdash; so the only mechanical consumer of the second slot is <code>breedShareType()</code>, the pair gate on this page, plus the inventory type filters and the displayed type string. The consequence is therefore entirely here: a Wyrmling went from <strong>14 type-compatible species across 4 lines</strong> (BLAZEWYRM, COUATL, ECHIDNA, OUROBOROS) to <strong>62 across 20</strong>, because Elemental is the roster's widest type at 51 rows. The roster median above moved 44 &rarr; 45.5 with it; the tightest is still 11 and the four single-line types are untouched. Recomputed from <code>creatures.csv</code>, not estimated. Note that DUNECOIL and BLAZEWYRM now carry an identical type pair.</li>
     <li><strong>2026-08-05 &mdash; the breeding selector is ordered by grade (LIVE on release since 2026-08-05 (0.32)).</strong> <code>pickCards</code> built straight off <code>breedPool()</code>, which is <code>BAG.concat(bagAdd)</code> &mdash; insertion order &mdash; so the roster picker had no order at all. Now GRADE_ORDER descending, then level, then name, matching the comparator the inventory and dismantle lists already use. Probe: <code>tools/probe_breedorder.py</code>, seeded with a deliberate grade spread laid out so bag order is not grade order (BEFORE 4/4, AFTER 5/5).</li>
     <li><strong>2026-07-31 &mdash; the queued start time is credited, not discarded.</strong> The pen note may carry its start moment; the server clamps it to the window between last contact and now, so a player keeps the seconds a queued note costs them while a backdate buys nothing.</li>

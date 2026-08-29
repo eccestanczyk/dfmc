@@ -93,8 +93,7 @@
   <p class="foot">Worker: <code>_tableF</code> stamp on the <code>/api/battle</code> pre-pass. Object: <code>tblOk</code> in the battle handler. Probe: <code>tools/probe_battleclaim.py</code> (3/3).</p>
 
   <h2>Changelog</h2>
-  <p><strong>2026-08-29 &mdash; queuing an ultimate no longer blanks the battle screen (#642). ON DEV,
-  not yet on release.</strong> Choosing a move, going back from the confirmation window to change the
+  <p><strong>2026-08-29 &mdash; queuing an ultimate no longer blanks the battle screen (#642). On release.</strong> Choosing a move, going back from the confirmation window to change the
   hero's, and then picking the ultimate emptied the screen. An ultimate is queued differently from an
   ordinary move &mdash; it is not one of the four in the kit &mdash; and three places on that screen look a
   queued move up. Two of them already coped with not finding one; the highlight ring that follows your
@@ -115,7 +114,7 @@
   answer carries a verdict field the client has never read. Enforcing is a separate decision, because it
   would refuse credit to a legitimately resumed battle.</p>
   <p><strong>2026-08-29 &mdash; a mass dismantle stops re-reading the whole ledger for every item
-  (#632). ON DEV, not yet on release.</strong> One batch wrote 173 ledger rows against a normal ten an
+  (#632). On release.</strong> One batch wrote 173 ledger rows against a normal ten an
   hour, and the question was whether that many rows are needed. <strong>They are</strong> &mdash; each row
   is keyed to the item that produced it, and that key is the only thing that makes a retry safe; the
   item's tombstone is explicitly not, because a stone unsocketed and dismantled in one flush has to be
@@ -138,7 +137,7 @@
   sixty seconds or two per cent of the pen, and anything past that still flags and still reports by how
   much. A detector that cries wolf gets ignored, which is the whole reason both were worth fixing.</p>
   <p><strong>2026-08-28 &mdash; the floor cache keeps the last five floors instead of all of them.
-  ON DEV, not yet on release.</strong> The client kept the full encounter for every floor it had ever
+  On release.</strong> The client kept the full encounter for every floor it had ever
   visited &mdash; each of a floor's ten slots holding its creature <em>and</em> the two battle opponents
   the server sends with it, so ~13&nbsp;KB a floor and ~1.58&nbsp;MB across a full tower. That was sixty
   per cent of everything the device is allowed to store, larger than the save and every battle log put
@@ -147,7 +146,7 @@
   reproduces the identical encounter on demand &mdash; and the game already asks it for the floor's truth
   every time you arrive. The cache only paints the screen for the moment before that answer lands.</p>
   <p><strong>2026-08-28 &mdash; a battle can no longer start against a spawn that is already gone.
-  ON DEV, not yet on release.</strong> A player on floor&nbsp;19 saw <em>&ldquo;Spawn &lsquo;?&rsquo; has no
+  On release.</strong> A player on floor&nbsp;19 saw <em>&ldquo;Spawn &lsquo;?&rsquo; has no
   Line_ID in creatures.csv&rdquo;</em>. The data was innocent: that floor's ten creatures resolve on live
   codex and at the pinned copy release serves, and the server can only pick ids it read from the same
   table. <strong>Autoplay picks a slot, cues a 650&nbsp;ms pan, and starts the fight on a timeout</strong>
@@ -158,7 +157,7 @@
   screen. The click path could never do this, because a dead slot draws nothing to click; only a stale
   index reaches it. The target is now checked where it is used, and a moved pool triggers a resync.</p>
   <ul class="sp-rules">
-    <li><strong>2026-08-28 &mdash; <code>boss_floor_anomaly</code> judges by the authored boss-floor table (ON DEV, not yet on release), and the detections are one-realm.</strong> The guard tested floor-divisible-by-ten &mdash; the tower's layout as arithmetic &mdash; so every legitimate Void Apex &uuml;ber-boss victory (bosses on even floors) filed an anomaly about correct play. It reads <code>floors.csv Is_Boss</code> now, injected on every battle; a boss event on a grind floor still flags. Gate <code>tools/probe_bossflag.mjs</code> 3/3, red first. Same day the one-game-mode order removed the second realm from every detection's scope.</li>
+    <li><strong>2026-08-28 &mdash; <code>boss_floor_anomaly</code> judges by the authored boss-floor table (On release., and the detections are one-realm.</strong> The guard tested floor-divisible-by-ten &mdash; the tower's layout as arithmetic &mdash; so every legitimate Void Apex &uuml;ber-boss victory (bosses on even floors) filed an anomaly about correct play. It reads <code>floors.csv Is_Boss</code> now, injected on every battle; a boss event on a grind floor still flags. Gate <code>tools/probe_bossflag.mjs</code> 3/3, red first. Same day the one-game-mode order removed the second realm from every detection's scope.</li>
 <li><strong>2026-08-03 &mdash; a forged high-floor claim can no longer be priced off a floor the account cannot reach (LIVE on release since 2026-08-08 (0.42)).</strong> The spawn table is fetched for the claimed floor and the floor is clamped afterwards, so the tier check ran against a richer floor than the one being paid &mdash; measured at 18&times; XP and 9&times; Ichor. The table now carries the floor it describes and a mismatched one cannot price a kill. Measured after: 1.0&times;.</li>
     <li><strong>2026-08-03 &mdash; report #20: a throw in <code>renderVals</code> documented as a whole-screen failure class (fix LIVE on release since 2026-08-08 (0.42)).</strong> An unresolved spawn produced a unit with an undefined name and <code>confirmRows</code> read <code>.length</code> off it, taking every binding on the page down together. Guarded, and the empty-string-vs-undefined trap recorded so the next reproduction does not pass by accident.</li>
     <li><strong>2026-07-30 &mdash; ANTICHEAT&nbsp;2: leaderboards became server-derived.</strong> The client submit route is retired (410); ladder/climb/power are written only by server code from the Elo, the ratchet, and save-time-validated power respectively, relayed Worker-side under <code>waitUntil</code>. Quarantine on breach, server-stamped first-there, keep-best semantics, and the battle-event floor clamp shipped in the same batch. The trust-boundary row above was corrected from the pre-build "UGS Leaderboards" wording to as-built truth.</li>

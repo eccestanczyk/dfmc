@@ -84,7 +84,7 @@
   </table>
 
   <h2>Signature mechanics cannot be removed (reports #117 / #118)</h2>
-  <p><strong>Status: ON DEV (0.48), not yet on release.</strong> D's ruling, 2026-08-12:
+  <p><strong>Status: on release.</strong> D's ruling, 2026-08-12:
   <em>&ldquo;Boss buffs / unique mechanics cannot drop. They need to be permanent for the fight and
   impossible to remove.&rdquo;</em></p>
   <p><strong>The engine already promised this and did not keep it.</strong> A boss's unique rule is
@@ -122,7 +122,7 @@
   <h2>Changelog</h2>
 
   <ul>
-    <li><strong>2026-08-12 &mdash; a boss's unique mechanic could be stripped, stolen or shortened (reports #117 / #118). ON DEV (0.48), not yet on release.</strong> D ruled these must be permanent for the fight and impossible to remove. The engine already flagged them and its own tooltip already said so; four paths ignored the flag. New section above records all four, why the report never reproduced, and the single predicate that closes it. Gate 15/15, 8/15 before.</li>
+    <li><strong>2026-08-12 &mdash; a boss's unique mechanic could be stripped, stolen or shortened (reports #117 / #118). on release.</strong> D ruled these must be permanent for the fight and impossible to remove. The engine already flagged them and its own tooltip already said so; four paths ignored the flag. New section above records all four, why the report never reproduced, and the single predicate that closes it. Gate 15/15, 8/15 before.</li>
   </ul>
   <ul class="sp-rules">
     <li><strong>2026-07-28 &mdash; page created, and the buff system rebuilt beneath it.</strong> Previously every positive Attack buff was named <em>Rallied</em> and every positive Defense buff <em>Guarded</em>, and applying one filtered out any existing status of that name. Three consequences, all reported from live play: a move's own Synergy clause overwrote its self buff, so casting <em>Convocation of Storms</em> left the caster at +15% instead of +50%; one creature's buff overwrote another creature's unrelated buff; and the newer cast always won regardless of strength. Fixed by making a status's identity its ability. In the same pass: buffs now combine additively rather than multiplicatively; re-application refreshes duration and keeps the stronger magnitude; a Synergy type gate includes the caster while an "if no X ally" fallback excludes it; and <code>Targets=self</code> moves no longer offer allies as targets.</li>

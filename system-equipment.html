@@ -415,14 +415,14 @@
 
   <h2>Changelog</h2>
   <p><strong>2026-08-29 &mdash; a focused optimise no longer skips the slots the focus cannot see (#631).
-  ON DEV, not yet on release.</strong> With attack selected, the score cannot tell two candidates apart on
+  On release.</strong> With attack selected, the score cannot tell two candidates apart on
   a slot that carries no attack &mdash; so every candidate tied, the incumbent won, and those slots were
   never dealt at all. That was reported once before and fixed for gear; <strong>the socket re-deal and the
   final accept step both kept scoring on the target alone</strong>, so an armour socket upgrade that raised
   overall power without moving attack was built and then thrown away for not moving attack. All three now
   follow the same rule: the target decides, overall power breaks the tie, a tie keeps what you already
   wear, and neither number may go backwards.</p>
-  <p><strong>2026-08-28 &mdash; a weapon now says its class, always (#603). ON DEV, not yet on release.</strong>
+  <p><strong>2026-08-28 &mdash; a weapon now says its class, always (#603). On release.</strong>
   Weapons have always been class-locked and the game has always enforced it &mdash; a wrong-class main or off hand is
   refused, and one already equipped is stripped at boot &mdash; but the item itself never said which class it belonged
   to, so the only way to find out was to be refused. The detail window now carries a <code>CLASS</code> row beside SLOT
@@ -432,7 +432,7 @@
   (<code>itemsDb.fam</code>, what <code>equipOk</code> gates on), so it can never contradict the refusal. Verified against
   the rendered screen rather than the payload &mdash; the #109 lesson, where a &ldquo;fixed&rdquo; object turned out to be
   bound in no markup at all.</p>
-  <p><strong>2026-08-28 &mdash; the no-work toast reads &ldquo;ALREADY OPTIMAL&rdquo; (D report #598). ON DEV, not yet on release.</strong>
+  <p><strong>2026-08-28 &mdash; the no-work toast reads &ldquo;ALREADY OPTIMAL&rdquo; (D report #598). On release.</strong>
   The spare-count suffixes (&ldquo;N SPARE STONES BEAT NOTHING YOU WEAR&rdquo; / &ldquo;NO SPARE STONES&rdquo;) are gone from the toast;
   the spare-vs-worn arithmetic behind them stays, because it feeds the self-check that files an auto-report when a strictly better
   spare is ignored &mdash; that branch keeps its own louder message. Same day, conservation re-proven end to end for D's #594: the
@@ -441,9 +441,9 @@
   (95 before, 95 after; the first run committed 67,049 &rarr; 67,470 with three planted better spares placed). The one-pass
   counterexamples (#513, #575) could not be reproduced from today's live saves &mdash; both accounts reach the fixed point in one
   apply now; the tripwire keeps filing with pair and plan detail for the next occurrence.</p>
-  <p><strong>2026-08-25 &mdash; level requirements enforced: account level gates gear, the creature's level gates its tags, stones and scrolls test their host's level; the tag rows show ILLEGAL / LV n; the server's power figure mirrors it (D report and ruling). ON DEV, not yet on release.</strong> Section above. Gate <code>tools/probe_lvlreq.py</code> 20/20, red first at 3/20 on a level-88 copy of D's save; parity gate green; registry entries in <code>tools/patch_registry.py</code> (APP, MK, SRV).</p>
-  <p><strong>2026-08-17 &mdash; auto-optimize cancelled every run because the item census refused on its own key (ON DEV, not yet on release).</strong> Report&nbsp;#175 and six <code>[auto]</code> rows from four accounts. A stone socketed on a worn instance was counted with a category derived from the socket index; the same stone folded into a displaced piece&rsquo;s <code>socks</code> was counted with none, so a scroll moving between the two homes read as an item destroyed plus a different one created. All six live refusals are scrolls and all six balance exactly once the prefix is ignored. One derivation now, shared by both homes; the guard still refuses a real loss and a real duplication. Probe <code>tools/probe_optcensus.mjs</code> AFTER 9/9, BEFORE 4/4, with the six live diffs replayed as fixtures. New section above.</p>
-  <p><strong>2026-08-13 &mdash; the auto-optimiser no longer places one stone twice (report #124, with [auto] #138/#142/#144 &mdash; three players' applies refused by the census in one day). ON DEV, not yet on release.</strong>
+  <p><strong>2026-08-25 &mdash; level requirements enforced: account level gates gear, the creature's level gates its tags, stones and scrolls test their host's level; the tag rows show ILLEGAL / LV n; the server's power figure mirrors it (D report and ruling). On release.</strong> Section above. Gate <code>tools/probe_lvlreq.py</code> 20/20, red first at 3/20 on a level-88 copy of D's save; parity gate green; registry entries in <code>tools/patch_registry.py</code> (APP, MK, SRV).</p>
+  <p><strong>2026-08-17 &mdash; auto-optimize cancelled every run because the item census refused on its own key (on release).</strong> Report&nbsp;#175 and six <code>[auto]</code> rows from four accounts. A stone socketed on a worn instance was counted with a category derived from the socket index; the same stone folded into a displaced piece&rsquo;s <code>socks</code> was counted with none, so a scroll moving between the two homes read as an item destroyed plus a different one created. All six live refusals are scrolls and all six balance exactly once the prefix is ignored. One derivation now, shared by both homes; the guard still refuses a real loss and a real duplication. Probe <code>tools/probe_optcensus.mjs</code> AFTER 9/9, BEFORE 4/4, with the six live diffs replayed as fixtures. New section above.</p>
+  <p><strong>2026-08-13 &mdash; the auto-optimiser no longer places one stone twice (report #124, with [auto] #138/#142/#144 &mdash; three players' applies refused by the census in one day). On release.</strong>
 The keep candidate wrote a socketed stone into its plan before checking whether the shared pool
 still had the entry backing it &mdash; an earlier slot's fresh fill could take a stone a later slot was
 wearing, and the later slot kept it anyway: the same stone in two sockets, its displaced neighbour
@@ -455,7 +455,7 @@ the pool entry is claimed <em>first</em>, and a stone another slot already took 
 collision shape injected onto the owner's real save; the unfixed build never lands an apply, the
 fixed build goes 8/8 with every stone conserved by description across two passes and power pinned
 monotone.</p>
-<p><strong>2026-08-13 &mdash; the party picker tells the truth about its creatures (reports #136 + #137). ON DEV, not yet on release.</strong>
+<p><strong>2026-08-13 &mdash; the party picker tells the truth about its creatures (reports #136 + #137). On release.</strong>
 The currently-slotted mon now carries the same aptitude radar and type badges its challengers carry
 &mdash; same creatures.csv row, same chart, cannot drift &mdash; and every candidate card gained the type
 badges. Candidate levels derive from the creature's own XP instead of the hatch-time "Lv 1" label

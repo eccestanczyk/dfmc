@@ -291,12 +291,12 @@ for b in save.get('advArc', []):
       nothing about any sentence so it cannot go stale when combat text changes, and checks its own work
       on every fight. 116&times; smaller, so a full day of fights fits where an hour used to.</li>
     <li><strong>2026-08-28 &mdash; the archive is capped and sheds its oldest history when full.</strong>
-      <strong>ON DEV, NOT YET ON RELEASE.</strong> 1,029&nbsp;KiB, sized as half the room actually left after
+      <strong>ON RELEASE.</strong> 1,029&nbsp;KiB, sized as half the room actually left after
       measuring the store ceiling and everything else that competes for it. Whole blocks from the oldest
       end, never the newest, and a full device now sheds and saves instead of failing into a console line
       nobody reads.</li>
     <li><strong>2026-08-28 &mdash; the log opens on a grid of days, and a day unpacks when you open it.</strong>
-      <strong>ON DEV, NOT YET ON RELEASE.</strong> One tile per day &mdash; chapter number, date, entry count
+      <strong>ON RELEASE.</strong> One tile per day &mdash; chapter number, date, entry count
       &mdash; drawn from block headers with no decompression at all; opening a tile unpacks only the blocks
       holding that day. Archived days appear alongside live ones, so a day no longer vanishes the moment its
       last event is packed away. The header gained per-day counts so a tile can show one without opening
@@ -305,14 +305,14 @@ for b in save.get('advArc', []):
       Verified on the rendered screen, not the payload: six tiles drawn with their counts and dates, newest
       first, and the oldest &mdash; which exists only in the archive &mdash; opening to 120 entries.</li>
     <li><strong>2026-08-28 &mdash; history written before the index is retrofitted, not abandoned.</strong>
-      <strong>ON DEV, NOT YET ON RELEASE.</strong> This page previously said the dates of pre-index events no
+      <strong>ON RELEASE.</strong> This page previously said the dates of pre-index events no
       longer existed. They do: a battle id is the exact epoch ms of the moment the dayKey was minted, and
       <code>toDateString()</code> reproduces that key on the device that wrote it; everything else brackets
       between two battles by elapsed distance. A one-off heal dates the whole archive and writes the markers
       in permanently, strictly additively and behind a census that refuses to commit if a single line would be
       lost. 100% exact over 5,556 entries and 41 days in three timezones. Gate 15/15, red-first.</li>
     <li><strong>2026-08-28 &mdash; the archive gains a day index; a per-day view becomes possible.</strong>
-      <strong>ON DEV, NOT YET ON RELEASE.</strong> Archived events carried only <code>HH:MM</code> and the date
+      <strong>ON RELEASE.</strong> Archived events carried only <code>HH:MM</code> and the date
       lived on a chapter that is dropped as soon as it empties, so the history was one undated stream &mdash;
       the reason the log appeared to keep only a day. <code>advTrim</code> now writes a <code>DAY</code> marker
       on a day change and at every fresh block, and each block header carries <code>d</code> (its dayKeys) and

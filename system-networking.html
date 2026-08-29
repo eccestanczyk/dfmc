@@ -1682,7 +1682,7 @@ the legitimate walk-down, a current device climbing, the pre-existing ceiling ru
 lower a stored position.</p>
 
 <h2>A paused fight is device-local, and it must not outlive the device (report #122)</h2>
-<p><strong>Status: ON DEV (0.48), not yet on release.</strong> D: <em>&ldquo;Logged into my phone and was at level 56. When I logged out I was at level 93 on my pc.&rdquo;</em></p>
+<p><strong>Status: on release.</strong> D: <em>&ldquo;Logged into my phone and was at level 56. When I logged out I was at level 93 on my pc.&rdquo;</em></p>
 <p><strong>Two attempts at this were aimed at the save door and both missed.</strong> His own account's fault log says why: across two hundred recorded anomalies there is no deepest-floor regression, no stale writer and no missing version check. <strong>The server never did anything wrong.</strong> The phone adopted floor 93 correctly &mdash; and then the resume of a PAUSED FIGHT put him back on 56, because a paused fight lives in the device's own storage, survives adoption, and restores the floor number from its own snapshot.</p>
 <p><strong>Every guard on that path looks upward.</strong> A paused fight from a floor the account has never reached is thrown away &mdash; the anti-teleport rule. Nothing looks downward, because a lower floor is perfectly legitimate for a player who walked down. A floor-56 snapshot on a deepest-floor-95 account passes all of them. <strong>And the save that follows is entirely legal:</strong> current version, no regression, nothing to flag &mdash; which is exactly the shape of the evidence, and why no server-side change could ever have fixed it.</p>
 <p><strong>D's ruling, 2026-08-12.</strong> Resuming stays LOCAL &mdash; a server-held fight was considered and rejected on write cost. <em>&ldquo;If you change devices then the fight is dropped; if you come back to an old fight it just doesn't start, it goes directly to the current floor that you were on on the last device.&rdquo;</em> That is what ships: the snapshot now records the moment it was parked, and a boot discards it if the account has been played anywhere else since. The player lands on the floor the last device left them on, which is the floor the adopted save already carries. <strong>Zero server writes &mdash; the whole rule is a comparison of two timestamps the client already holds.</strong></p>
@@ -1706,10 +1706,10 @@ sides' values), which is enough to pull the save pair and settle the cause. Noth
 single flag write, still gates nothing.</p>
 
 <h2>Changelog</h2>
-<ul class="sp-rules"><li><strong>2026-08-28 &mdash; one game mode: the save door is one-realm (D order). ON DEV, not yet on release.</strong> The realm parameter is validated to <code>standard</code> and anything else is refused; <code>hcSeasonActive</code> and <code>bequests</code> left the accepted-field list (verified empty on every live account before removal &mdash; nothing stored was lost, stale fields are simply no longer read); <code>gens</code> answers the one realm. Build record on <a href="system-realms.html">Realms</a>.</li></ul>
-<p><strong>2026-08-26 &mdash; the birth record moves off the save and onto the items row (D, option B). ON DEV, not yet on release.</strong>
+<ul class="sp-rules"><li><strong>2026-08-28 &mdash; one game mode: the save door is one-realm (D order). On release.</strong> The realm parameter is validated to <code>standard</code> and anything else is refused; <code>hcSeasonActive</code> and <code>bequests</code> left the accepted-field list (verified empty on every live account before removal &mdash; nothing stored was lost, stale fields are simply no longer read); <code>gens</code> answers the one realm. Build record on <a href="system-realms.html">Realms</a>.</li></ul>
+<p><strong>2026-08-26 &mdash; the birth record moves off the save and onto the items row (D, option B). On release.</strong>
 Mechanics: every creature and egg record used to carry <code>origin</code> &mdash; <code>{src, ts, egg{name, grade, uid}, parents, pen, floor, mut}</code>, written at hatch/breed, rendered by no screen, read by the server nowhere &mdash; 195 of a soul's 370 bytes and 37% of the largest live save. Now: (1) the save door, before it measures the save's size, moves each record's origin into <code>items.birth</code> once (<em>first record wins, never overwritten</em>) and strips it off the save; (2) a record the items ledger has no row for <strong>keeps</strong> its origin on the save, so provenance is never lost to a coverage gap; (3) the hatch grant writes a hatched creature's birth from the egg's own row (name, grade, and the egg's parents/pen when it was bred) and the bred-egg mint writes the egg's from the pen ledger &mdash; a new creature's birth is the server's fact, not the client's claim; (4) the client's snapshot drops <code>origin</code> from every record it uploads; the live in-memory records are untouched. Measured on the full stack: one live save 178,574 &rarr; 115,513 bytes; the largest account projects 266 KB &rarr; 162 KB on its next save. Gates: <code>tools/probe_nobirth.py</code> 7/7 (red-first), <code>tools/probe_birth_e2e.py</code> 17/17.</p>
-<p><strong>2026-08-26 &mdash; the save split's shadow verify was red on <code>pvpSnap</code> and is green again; the save re-measured. ON DEV, not yet on release.</strong>
+<p><strong>2026-08-26 &mdash; the save split's shadow verify was red on <code>pvpSnap</code> and is green again; the save re-measured. On release.</strong>
 The Auto PvP team slice (<code>pvpSnap</code>, ~08-14) was assigned to no split key, so every active
 account's parts failed to rejoin (<code>mismatched: ['pvpSnap']</code>) and stage 2 of the split had been
 silently red for twelve days; one entry in the <code>pvp</code> part, 18/18 live saves round-trip. Measured
@@ -1718,7 +1718,7 @@ inventory, and <strong>37% of it is the creature birth record</strong> (<code>or
 pen, floor, stamp) that no screen renders and the server never reads. Options and their measured savings
 are in the client repo's <code>PREP_SAVE_SPLIT.md &sect;1b</code>; nothing about the stored shape changed
 today.</p>
-<p><strong>2026-08-26 &mdash; the tier-1 intent queue drains after its save is acknowledged. ON DEV, not yet on release.</strong>
+<p><strong>2026-08-26 &mdash; the tier-1 intent queue drains after its save is acknowledged. On release.</strong>
 The mechanics, since this page did not carry them: every equip and socket change on the client appends one
 intent row <code>{kind, uid, field, prevValue, newValue, ts}</code> to <code>_bufQ</code> (cap 800 rows, oldest
 dropped) and settles a debounced <em>equip-change</em> flush; the queue rides the next <code>/api/save</code>, where the
@@ -1732,7 +1732,7 @@ days on seven accounts, the same item 452 times on one, the server re-running it
 row per save, and up to ~95 KB of dead queue inside the payload the 400 KiB size ceiling measures (one account's
 saves measured 287 KB in flight against a 224 KB stored copy). Gate <code>tools/probe_bufq_drain.py</code> 8/8,
 red-first (4/8 on the unfixed tree).</p>
-<p><strong>2026-08-14 &mdash; the roll door's attempt ordinal now covers scrolls, and the boon clock got the probe it never had. ON DEV, not yet on release.</strong>
+<p><strong>2026-08-14 &mdash; the roll door's attempt ordinal now covers scrolls, and the boon clock got the probe it never had. On release.</strong>
 Two things, both in the "a fix is not finished until something would catch it breaking" family.
 <strong>The scroll door</strong> was the last roll kind still keyed on a client-minted key, and the highest
 value one &mdash; a scroll overwrites a socket permanently. <code>enchant</code> joins <code>grade</code>
@@ -1747,7 +1747,7 @@ the first threw and nobody noticed &mdash; <code>probe_floorclock_boon</code> wa
 9/9), and <code>tools/probe_spawnpeek.mjs</code> added to pin the displayed budget to the spent one across
 all four boon combinations: 8/8, and <strong>4/8 against the build the bug was live on</strong>, where the
 displayed wait reads 40&nbsp;s for what is really a 10&nbsp;s one.</p>
-<p><strong>2026-08-13 &mdash; Bait and Incense actually change the clock now (D's live report). ON DEV, not yet on release.</strong>
+<p><strong>2026-08-13 &mdash; Bait and Incense actually change the clock now (D's live report). On release.</strong>
 Three defects wore one symptom. The two authored constants behind #105's arithmetic &mdash;
 interval = (60s &minus; incense 30s) &times; bait 0.5 &mdash; were never written into the generated tables, so
 the fallbacks silently ran every boon combination at the base 60 seconds. The budget's read-side
@@ -1759,7 +1759,7 @@ incense but not bait. One arithmetic everywhere now, constants authored in the g
 every call. Gate: <code>tools/probe_boonclock.mjs</code> 7/7 through the real shop door &mdash; a fresh
 wait measures 14.4s against the authored 15, and three seconds of wall time shorten it by three
 seconds.</p>
-<p><strong>2026-08-13 &mdash; clock skew between devices no longer halts play (reports #150/#151). ON DEV, not yet on release.</strong>
+<p><strong>2026-08-13 &mdash; clock skew between devices no longer halts play (reports #150/#151). On release.</strong>
 The save door refuses a body whose timestamp is older than the stored save's &mdash; a wall-clock
 ordering gate that clock skew between two devices trips on every save from the slower one. A live
 player hit it six times running, was halted, reloaded, and was halted again inside four minutes,
@@ -1769,7 +1769,7 @@ adopted server save's own timestamp on boot, and raised past <code>server_ts</co
 answer arrives, with an immediate retry that never touches the failure ladder. Bounded at four
 heals so a genuinely broken loop still surfaces. Gate: <code>tools/probe_tsheal.py</code> 5/5,
 including one genuine stale answer healed live.</p>
-<p><strong>2026-08-13 &mdash; the spawn countdown no longer restarts on floor changes (report #141). ON DEV, not yet on release.</strong>
+<p><strong>2026-08-13 &mdash; the spawn countdown no longer restarts on floor changes (report #141). On release.</strong>
 The floor-enter answer combined two clocks &mdash; the floor's own refill and the account budget &mdash;
 but the floor term ran unconditionally, and a full floor's refill anchor snaps to the moment it
 fills. Every floor change onto a refilled floor therefore read "next refill in a full window"
@@ -1778,7 +1778,7 @@ nine spawns alive, nine credits in hand, and the answer said wait a full minute.
 now speaks only when the floor is <em>empty</em> &mdash; the one case where it is genuinely the binding
 limit, which is exactly the case the two-clock pairing was built for (#103) and which is
 untouched. Gate: <code>tools/probe_spawnclock.mjs</code> 6/6.</p>
-<p><strong>2026-08-13 &mdash; the save door's worker stamps actually reach the player object now (report #139, and the "(dism 0)" mystery with it). ON DEV, not yet on release.</strong>
+<p><strong>2026-08-13 &mdash; the save door's worker stamps actually reach the player object now (report #139, and the "(dism 0)" mystery with it). On release.</strong>
 The worker annotates every save with resolved facts the object cannot fetch itself &mdash; the
 advancement requirements from the codex, the priced dismantle allowance &mdash; but the rebuilt body
 carrying those stamps only shipped when the inventory-strip list was non-empty. On every ordinary
@@ -1790,7 +1790,7 @@ advanced inside one flush window (verified against the arriving form's banked XP
 birth), and a chained double-advancement (each verified step becomes the departing form for the
 next). Forged steps, wrong forms and short levels still flag &mdash; now with reasons in the note.
 Gate: <code>tools/probe_advclaim.mjs</code> 9/9.</p>
-<p><strong>2026-08-13 &mdash; the ledger ceilings separate watching from taking (reports #140/#145, the four-day canary account). ON DEV, not yet on release.</strong>
+<p><strong>2026-08-13 &mdash; the ledger ceilings separate watching from taking (reports #140/#145, the four-day canary account). On release.</strong>
 The client credits battle income the instant a fight ends; the server credits it through the
 battle-event pipeline; a save landing in the gap read claim &gt; ceiling and was <em>clamped</em> &mdash;
 an honest fast player was shaved of roughly one flush-window of XP and Ichor per landing, a hundred
@@ -1801,8 +1801,7 @@ the pipeline credits. Beyond the envelope a distinct <code>*_forged</code> flag 
 so forgery gets nothing and its signal no longer drowns in honest-racer noise. The class level-100
 hard cap is untouched. Gate: <code>tools/probe_ledgerrace.mjs</code> 13/13 (both honest-keep cases and
 both forged-flag kinds were red before the change).</p>
-<p><strong>2026-08-13 &mdash; the dismantle-claim flag names its first bad row (report #133).</strong> <em>ON DEV,
-not yet on release.</em> New section above; the guard's mechanics were previously undocumented and are now
+<p><strong>2026-08-13 &mdash; the dismantle-claim flag names its first bad row (report #133).</strong> <em>On release.</em> New section above; the guard's mechanics were previously undocumented and are now
 written down as built (live since 2026-08-03).</p>
 
 <p><strong>2026-08-08 &mdash; the whole encounter is derived server-side, not just the spawn you
