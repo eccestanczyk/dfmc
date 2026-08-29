@@ -279,6 +279,12 @@ for b in save.get('advArc', []):
 
   <h2>Changelog
   <ul>
+    <li><strong>2026-08-28 &mdash; the packed store is wired; fights are recorded into it.</strong>
+      <strong>ON DEV.</strong> A finished fight no longer puts its prose on the row &mdash; it goes to the
+      store, and only the round count stays behind so the fight list never has to open anything to show
+      it. Opening a fight unpacks it once and caches it. Rows still holding prose from before the store
+      existed keep working and migrate as they are rewritten. The 25-fight limit now applies only to
+      those; packed logs are bounded by bytes instead, which is what the cost actually is.</li>
     <li><strong>2026-08-28 &mdash; a fight is stored in 44 bytes instead of 5 KB.</strong>
       <strong>ON DEV, packer built and gated, not yet wired.</strong> Combat logs were kept as rendered
       English in plain JSON and only 25 fights survived. The new store keeps every line exactly, knows
