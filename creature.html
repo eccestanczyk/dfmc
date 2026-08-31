@@ -153,6 +153,7 @@
   <section>
     <h3>Changelog</h3>
     <div class="section-body">
+      <p style="font-size:12px;margin:0 0 6px;"><strong>2026-08-31</strong> &mdash; <strong>The SOUL EQUIP panel was left behind by the 2026-08-05 fix directly above it.</strong> It still printed <code>Power_S&lt;creature stage&gt;</code> for each granted move, which is not how the game resolves one: versions unlock at <code>Level_Learned</code> / <code>Level_Upgrade_V2</code> / <code>_V3</code> and the client picks them with <code>moveVerAt(row, LEVEL)</code>. Stage and version are independent ladders and after the 2026-08-04 stagger they land 22&ndash;29 levels apart on average, so a stage-3 entry advertised numbers the creature does not fire &mdash; Ridgedrake&rsquo;s slot 1 read <em>Rampart Annihilation, 160</em> when a stage-3 Ridgedrake below level 84 is still on <em>Rampart Break, 130</em>, and below 53 on <em>Ram Charge, 95</em>. The panel now prints the whole ladder with its unlock levels, exactly as the MOVES panel does, and states that soul <strong>grade</strong> multiplies the granted power. Found by the consistency audit opened on Arthur Bergamin&rsquo;s report &mdash; this panel is the wiki&rsquo;s answer to the question he asked. DESCRIPTIVE ONLY: no game behaviour changes.</p>
       <p style="font-size:12px;margin:0 0 6px;">2026-08-05 &mdash; <strong>Soul ladder rebased and the grade half repaired.</strong> Soul grade was computed but returned only on the four ability slots, so on the four passive slots <code>grMult</code> defaulted to 1 and upgrading a soul changed nothing (measured on a live save: persDefPct 4.2 at Worn, 4.2 at Void). Grade now reaches the passive path. The combined stage&times;grade surface is rebased to &times;1.00 (S1/Worn) &rarr; &times;2.50 (S3/Void) &mdash; nothing sits below 1 any more &mdash; with grade carrying 2.00&times; and stage 1.25&times;, reversing which lever held the wider range. <em>LIVE on release since 2026-08-05 (0.32).</em></p>
       <p style="font-size:12px;margin:0 0 6px;"><strong>2026-08-05</strong> — The MOVES panel now prints the
       full version ladder for every move: V1 / V2 / V3 with the level each one unlocks, its own name, power
@@ -431,10 +432,30 @@ async function renderMoves(c) {
       '<p style="font-size:11px;color:var(--ink-faint);margin:2px 0 0;">Move versions unlock by LEVEL, not by stage. '
       + 'The highlighted row is the version matching this entry\u2019s stage window \u2014 a creature below the listed level still fires the version above it.</p>');
 
-    // Soul equip: equipping this creature's soul grants its moves to the character
+    // Soul equip: equipping this creature's soul grants its moves to the character.
+    // FINDING 4b (2026-08-31) — THIS PANEL WAS LEFT BEHIND BY THE 2026-08-05 FIX DIRECTLY ABOVE IT.
+    // The MOVES panel was corrected that day because indexing a move by the creature's STAGE is not
+    // how the game resolves one; this panel kept doing exactly that (`Power_S' + stage`). Move
+    // versions unlock at Level_Learned / Level_Upgrade_V2 / _V3 and the client resolves them with
+    // moveVerAt(row, LEVEL) — stage and version are independent ladders that after the 2026-08-04
+    // stagger land 22–29 levels apart on average, so a stage-3 entry advertised V3 numbers a
+    // stage-3 creature below the upgrade level does not fire. Same panel, same bug, one fix late.
+    // It matters more here than above: this panel is the wiki's answer to "what does this mon give
+    // when I equip it in a slot", which is the question the whole 2026-08-31 audit was opened on.
+    const soulVers = m => [1, 2, 3]
+      .map(i => ({ i,
+                   lv: String((i === 1 ? m.Level_Learned : m['Level_Upgrade_V' + i]) || '').trim(),
+                   name: m['Name_S' + i] || m.Name,
+                   pw: m['Power_S' + i] }))
+      .filter(v => v.lv && v.lv !== '-');
     const soulRows = mine.map(m => {
-      const pw = m['Power_S' + stage];
-      const mName = m['Name_S' + stage] || m.Name;
+      const vs = soulVers(m);
+      const ladder = vs.length
+        ? vs.map(v => 'Lv ' + v.lv + ' \u2192 ' + v.name + ' (' + (v.pw === '0' ? 'Status' : v.pw) + ')').join(' \u00b7 ')
+        : '';
+      const v1 = vs[0] || { pw: m.Power_S1, name: m.Name_S1 || m.Name };
+      const pw = ladder || (v1.pw === '0' ? 'Status' : v1.pw);
+      const mName = v1.name;
       return `<tr>
         <td style="font-family:'Cinzel',serif;color:var(--gold);">${escapeHtml(SLOT_NAMES[m.Slot] || m.Slot)}</td>
         <td style="font-weight:600;">${escapeHtml(mName)}</td>
@@ -448,7 +469,7 @@ async function renderMoves(c) {
         <tr><th style="width:104px;">Ability slot</th><th>Granted move</th><th style="width:60px;">Power</th><th style="width:44px;">CD</th><th style="width:110px;">Clauses</th></tr>
         ${soulRows}
       </table>
-      <p style="font-size:11px;color:var(--ink-faint);margin-top:6px;">Values shown at this creature&rsquo;s current stage. Soul strength is <strong>stage &times; the soul&rsquo;s own grade</strong>: stage gives &times;1.00 / &times;1.12 / &times;1.25 and grade gives Worn &times;1.00 &rarr; Void &times;2.00, so the surface runs from &times;1.00 to &times;2.50 and never sits below 1. Full effect text in the MOVES panel above.</p>`;
+      <p style="font-size:11px;color:var(--ink-faint);margin-top:6px;"><strong>Granted moves resolve by LEVEL, not by stage.</strong> Each row lists the whole version ladder with the level that unlocks it &mdash; the character fires the highest version whose level the source creature has reached, exactly as the MOVES panel above describes. Soul <strong>grade</strong> then multiplies the granted move&rsquo;s power (Worn &times;1.00 &rarr; Void &times;2.00); the creature&rsquo;s stage carries &times;1.00 / &times;1.12 / &times;1.25 on passive magnitudes. Corrected 2026-08-31 &mdash; this panel had been indexing power by the creature&rsquo;s stage, which the MOVES panel stopped doing on 2026-08-05.</p>`;
 
     // Armor-slot passives from souls.csv
     try {
