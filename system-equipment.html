@@ -296,7 +296,7 @@
   unmultiplied base and it never moved when the soul staged up</strong>. The slot's hover tooltip quoted the raw sentence
   too, so <strong>one soul showed two different numbers on one screen</strong>.</p>
   <ul class="sp-rules">
-    <li>Both surfaces now quote the <strong>effective</strong> text. <em>2026-08-31 (ON DEV, 0.65):</em> so does the
+    <li>Both surfaces now quote the <strong>effective</strong> text. <em>2026-08-31 (on release, 0.65):</em> so does the
       creature sheet's &ldquo;soul &middot; when slotted in passive armour&rdquo; panel, which was the fourth copy of the
       raw sentence &mdash; it scales by the creature's <strong>stage</strong> and shows &ldquo;&middot; S1/S2&rdquo; so
       you know which stage you are reading; grade stays &times;1.00 there because a creature on the sheet has no
@@ -397,7 +397,7 @@
   <code>tools/probe_optcensus.mjs</code> &mdash; <strong>BEFORE 4/4 on the build it replaces, AFTER
   9/9</strong>, methods lifted verbatim, and the six live refusals replayed as fixtures.</em></p>
 
-  <h2>Level requirements &mdash; what the build enforces (ON DEV since 2026-08-25, not yet on release)</h2>
+  <h2>Level requirements &mdash; what the build enforces (ON DEV since 2026-08-25, LIVE on release since 2026-09-01, 0.65)</h2>
   <p><strong>The rule.</strong> Every equippable row in <code>items.csv</code> carries <code>Level_Req = (tier&minus;1)&times;10</code>: T1 = 1, T2 = 10, &hellip; T9 = 80, T10 = 90 &mdash; gear, tags, gems, runes and scrolls alike. Until 2026-08-25 the only reader of that column coloured a label on the craft bench; a level-1 account could wear full T10. D's ruling the same day: <strong>the ACCOUNT level gates gear</strong> (the number on the HUD, <code>playerLv</code>, uncapped past 100) &mdash; not the class level, which keeps its own job at the 33/66 stage gates.</p>
   <table>
     <tr><th>Slot</th><th>Level tested</th></tr>
@@ -419,8 +419,7 @@
 
   <h2>Changelog</h2>
   <p><strong>2026-09-01 &mdash; three soul passives that never fired now fire, and every &ldquo;your
-  debuffs last longer / hit harder&rdquo; soul now works against enemies. ON DEV (0.65), not yet on
-  release.</strong> Found by the consistency audit opened on a player&rsquo;s report. The catalogue
+  debuffs last longer / hit harder&rdquo; soul now works against enemies. On release (0.65, 2026-09-01).</strong> Found by the consistency audit opened on a player&rsquo;s report. The catalogue
   sentence was read, the equipment window and the details window printed it scaled, and nothing in the
   fight ever applied it: <em>Cenotaph</em> Gloves (&ldquo;your buff-removal effects also deal 5% of
   target max HP&rdquo;), <em>Ashbat</em> Feet (&ldquo;enemy healing received &minus;5% while any ally
@@ -437,7 +436,7 @@
   rounds resolved on the live engine, red before and green after.</p>
   <p><strong>2026-08-31 &mdash; twenty-four &ldquo;allies take &minus;N% damage&rdquo; souls paid exactly double
   their listed value; they now pay what they print. And the creature sheet's soul panel quotes the
-  effective value. ON DEV (0.65), not yet on release.</strong> Found by the consistency audit opened on a
+  effective value. On release (0.65, 2026-09-01).</strong> Found by the consistency audit opened on a
   player's report that the codex, the soul bag and the equipment window gave three different answers. The
   engine's sentence parser carried two rules for the same shape (&ldquo;take &minus;N% damage&rdquo; and
   &ldquo;takes &minus;N% damage&rdquo;, the second a superset of the first added on 2026-07-26), so every
