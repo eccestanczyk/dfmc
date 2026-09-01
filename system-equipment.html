@@ -296,7 +296,11 @@
   unmultiplied base and it never moved when the soul staged up</strong>. The slot's hover tooltip quoted the raw sentence
   too, so <strong>one soul showed two different numbers on one screen</strong>.</p>
   <ul class="sp-rules">
-    <li>Both surfaces now quote the <strong>effective</strong> text.</li>
+    <li>Both surfaces now quote the <strong>effective</strong> text. <em>2026-08-31 (ON DEV, 0.65):</em> so does the
+      creature sheet's &ldquo;soul &middot; when slotted in passive armour&rdquo; panel, which was the fourth copy of the
+      raw sentence &mdash; it scales by the creature's <strong>stage</strong> and shows &ldquo;&middot; S1/S2&rdquo; so
+      you know which stage you are reading; grade stays &times;1.00 there because a creature on the sheet has no
+      soul grade yet.</li>
     <li>The passive list follows it with the <strong>lever</strong>: stage multiplier &times; grade multiplier = combined.
     The derivation belongs beside the number, not in front of it.</li>
     <li><strong>Only the magnitudes <code>parseSoul</code> identified are scaled.</strong> A condition threshold is never
@@ -431,6 +435,22 @@
   turns&rdquo; and &ldquo;your debuffs are +N% more potent&rdquo; soul (about thirty) did nothing
   against enemies. It reads the applier now. Gate: <code>tools/probe_deadsouls.mjs</code>, seventeen
   rounds resolved on the live engine, red before and green after.</p>
+  <p><strong>2026-08-31 &mdash; twenty-four &ldquo;allies take &minus;N% damage&rdquo; souls paid exactly double
+  their listed value; they now pay what they print. And the creature sheet's soul panel quotes the
+  effective value. ON DEV (0.65), not yet on release.</strong> Found by the consistency audit opened on a
+  player's report that the codex, the soul bag and the equipment window gave three different answers. The
+  engine's sentence parser carried two rules for the same shape (&ldquo;take &minus;N% damage&rdquo; and
+  &ldquo;takes &minus;N% damage&rdquo;, the second a superset of the first added on 2026-07-26), so every
+  matching Feet / Team soul was counted twice &mdash; a &minus;5% soul paid 25% at stage 3 / Void against
+  an authored 12.5%, eating half the team damage-taken cap on its own. The same double-count froze the
+  on-screen text at the base number, which is what the player saw. One rule deleted, client and server
+  alike; the one soul that uses the word &ldquo;takes&rdquo; is unchanged. <strong>This is a reduction
+  for anyone wearing one of the twenty-four.</strong> Separately, the creature sheet's &ldquo;soul &middot;
+  when slotted in passive armour&rdquo; panel printed the raw catalogue sentence &mdash; the fourth copy
+  of that defect after 0.47's fix here &mdash; and now scales by the creature's stage with an
+  &ldquo;&middot; S&lt;n&gt;&rdquo; tail. Gates: the parser dumped for all 400 souls before and after
+  (exactly 24 rows change, only that bucket, each to its written number) and the rendered sheet read
+  from the DOM on a booted client.</p>
   <p><strong>2026-08-29 &mdash; a focused optimise no longer skips the slots the focus cannot see (#631).
   On release.</strong> With attack selected, the score cannot tell two candidates apart on
   a slot that carries no attack &mdash; so every candidate tied, the incumbent won, and those slots were
