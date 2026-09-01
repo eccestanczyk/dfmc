@@ -119,9 +119,23 @@
   &mdash; the failing run reproduces all four losses on a real client before fixing any of them, and
   every check has a control proving ordinary buffs are still removable.</p>
 
-  <h2>Changelog</h2>
+  <h2>Thorns &mdash; what is reflected</h2>
+<p>Thorns comes from two places and both follow one rule: a <strong>status</strong> on the unit (a move rider such as Quillhide, carrying
+<code>thornsPct</code>) and the <strong>soul package</strong> (the character&rsquo;s own thorns souls, plus team thorns on every ally).
+Each fires once per hit taken and deals its share straight to the attacker&rsquo;s HP, on the damage line as
+&ldquo;<em>N</em> reflected&rdquo;. Retaliation ultimates are a different mechanic and are not thorns.</p>
+<p><strong>The share is of the hit as the attacker put it out, not of what the unit took</strong> (ON DEV since 2026-09-02, not yet on release).
+The engine computes the hit twice: once for real, and once against its reference defense (<code>10 &times; STAT_SCALE</code>) with every
+defender-side factor left out &mdash; the unit&rsquo;s DEF, conditional soul reductions, marks and wards, shields, the &ldquo;allies take
+&minus;N%&rdquo; souls. Both share the same roll. Thorns reads the second figure, so a tank reflects exactly what a paper target would off the
+same swing. Multi-hit moves sum it per hit.</p>
+<p>Before that date thorns read the damage actually taken. A tank that mitigated a 2,000 hit to 100 reflected 4% of 100 &mdash; the souls were
+only worth carrying on a unit that took no damage, which is the one unit that never got to use them.</p>
+
+<h2>Changelog</h2>
 
   <ul>
+    <li><strong>2026-09-02 &mdash; thorns reflects pre-mitigation damage. ON DEV, not yet on release.</strong> A player reported thorns only paying on tanks that take no damage &mdash; under 100 reflected off a 2k+ creature. Thorns read the damage the unit took after its own defense. Now it reads the hit as the attacker put it out (see the section above); a target at the reference defense is unchanged by construction. Both sources, status and soul package; multi-hit summed per hit; retaliation riders untouched. Engine-shared, so Auto PVP resolves the same way on both sides. A buff to every thorns soul on live saves: dev-first, D&rsquo;s word before release. Oracle <code>tools/probe_thorns.mjs</code> 2/4 before, 7/7 after (tank reflected 4 where paper reflected 70; now 70/70).</li>
     <li><strong>2026-08-12 &mdash; a boss's unique mechanic could be stripped, stolen or shortened (reports #117 / #118). on release.</strong> D ruled these must be permanent for the fight and impossible to remove. The engine already flagged them and its own tooltip already said so; four paths ignored the flag. New section above records all four, why the report never reproduced, and the single predicate that closes it. Gate 15/15, 8/15 before.</li>
   </ul>
   <ul class="sp-rules">
