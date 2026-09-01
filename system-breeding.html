@@ -29,6 +29,27 @@
   </table>
   <div class="note"><strong>What extra pens actually buy.</strong> Not throughput &mdash; Ichor income caps that regardless of pen count. Extra pens buy <strong>parallelism</strong>: several different pairs, types, and grade-ladders running at once, and no idle time while you swap partners. A player with six pens and a player with two pens hatch the same number of Void eggs per hour; the six-pen player is also climbing five other lines while they do it.</p></div>
 
+  <h2>What decides an egg&rsquo;s grade</h2>
+  <p><strong>The parents&rsquo; LEVEL does not matter. Their GRADE does, and nothing else does.</strong>
+  A level&nbsp;100 Worn pair and a level&nbsp;1 Worn pair lay exactly the same eggs. Level is read for
+  experience and for combat; it is never read anywhere on the breeding path.</p>
+  <p>What the server does, in order:</p>
+  <ol>
+    <li>Takes each parent&rsquo;s grade from its <strong>own item ledger</strong> &mdash; never from the
+      client&rsquo;s note and never from the uploaded save.</li>
+    <li>Floors the average of the two: <code>P = max(1, floor((gradeIndex(&#9794;) + gradeIndex(&#9792;)) / 2))</code>.
+      An Epic&nbsp;&times;&nbsp;Worn pair is <code>floor((5+1)/2) = 3</code> &mdash; an <em>Uncommon</em> pen. A mismatched
+      pair always averages down, so two parents of the same grade is the efficient pairing.</li>
+    <li>Uses that pen grade to pick one row of <code>codex/egg_hatch_weights.csv</code>. <strong>The egg&rsquo;s
+      grade is then random within that row</strong> &mdash; the row sets the odds, not the result. A Void pen
+      lays a Void egg 78.1% of the time and can still lay a Worn one at 0.1%.</li>
+  </ol>
+  <p>The same pen grade also sets the wait and the cost out of <code>codex/breeding.csv</code>. The grade is
+  <strong>re-derived every time the pen is written</strong>, not remembered, so correcting a parent&rsquo;s
+  grade heals the pen without restarting the timer. Full odds table under
+  <a href="#" onclick="document.querySelectorAll('h2').forEach(h=>{if(h.textContent.indexOf('Egg grade output')>=0)h.scrollIntoView();});return false;">Egg grade output</a>;
+  the rates are under Rates.</p>
+
   <h2>Choosing a pair</h2>
   <p>The pen has two sockets, <strong>&#9794;</strong> and <strong>&#9792;</strong>. Clicking a socket opens a full-screen roster picker &mdash; it leaves the pen grid rather than crowding it, so the 2&times;3 grid stays intact.</p>
   <table>
@@ -239,6 +260,7 @@ second run finding nothing left to do, and the item census changing creature row
 <code>dismAdamEve</code> in <code>play/app.js</code>.</p>
 
 <h2>Changelog</h2>
+<p><strong>2026-09-01</strong> &mdash; <strong>New section: &ldquo;What decides an egg&rsquo;s grade&rdquo;.</strong> Nothing on this page was wrong &mdash; every pasted rate verifies against <code>codex/breeding.csv</code> and the odds against <code>codex/egg_hatch_weights.csv</code> &mdash; but two questions a player actually asks were not answerable from it. Whether the parents&rsquo; <em>level</em> affects the egg could only be inferred from an absence, and the page never used the word <em>quality</em> at all, so searching for it found nothing. The new section states plainly that level is never read on the breeding path, that grade is, via the floored average, and that the egg&rsquo;s grade is random within the row that average selects. Documentation only &mdash; no code, CSV or <code>DATA_PIN</code> touched, no behaviour changed, and no existing section edited.</p>
 <p><strong>2026-08-22 &mdash; every verified pair bred as Worn; fixed, and the eggs it cost are regranted (D order: &ldquo;fix both&rdquo;). LIVE on release since 2026-08-22 (0.59).</strong>
 A player reported Void pairs laying Void &ldquo;almost always&rdquo; while the grades below looked random. The second
 half was a defect: the breed-start ledger looked each parent up by id and read back its id and category
