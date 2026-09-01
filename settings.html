@@ -28,7 +28,7 @@
   <h2>Layout</h2>
   <ul class="sp-rules">
     <li>Opened from the gear icon on the main HUD. Full-screen overlay, dark parchment-and-iron chrome consistent with the codex aesthetic.</li>
-    <li><strong>Section rail</strong> (left, Cinzel labels): Audio &middot; Display &middot; Battle &amp; Autoplay &middot; Adventure Log &middot; Notifications &middot; Account &amp; Data &middot; Language &amp; Accessibility &middot; Legal &amp; Support.</li>
+    <li><strong>Section rail</strong> (left, Cinzel labels): Audio &middot; Display &middot; Battle &amp; Autoplay &middot; Controls &middot; Adventure Log &middot; Notifications &middot; Account &amp; Data &middot; Language &amp; Accessibility &middot; Legal &amp; Support.</li>
     <li>Control types: <strong>slider</strong> (0&ndash;100), <strong>toggle</strong>, <strong>segmented</strong> (2&ndash;4 exclusive choices), <strong>dropdown</strong>, <strong>action button</strong> (opens dialog/page).</li>
     <li>Footer bar: <strong>Restore Defaults</strong> (per open section, with confirm) and game version/build string.</li>
     <li>Changes apply instantly &mdash; no Save button. Destructive actions always confirm.</li>
@@ -66,6 +66,17 @@
     <tr><td class="lbl">Confirm Premium Spend</td><td>Toggle</td><td>confirm dialog</td><td>On</td></tr>
   </table>
   <p style="font-size:13px;color:var(--ink-faint)">Autoplay never auto-enters boss rooms &mdash; fixed rule, not a setting. See <a href="system-streak.html">Win Streak &amp; Floors</a>.</p>
+
+  <h2>Controls</h2>
+  <p><strong>Status: ON DEV, not yet on release.</strong> Keyboard only &mdash; a touch device has no keys to bind, and the section changes nothing there.</p>
+  <table>
+    <tr><th>Option</th><th>Control</th><th>Values</th><th>Default</th></tr>
+    <tr><td class="lbl">Toggle Autoplay</td><td>Key</td><td>any single character</td><td>A</td></tr>
+    <tr><td class="lbl">Open / Close Equipment</td><td>Key</td><td>any single character</td><td>E</td></tr>
+    <tr><td class="lbl">Open / Close Inventory</td><td>Key</td><td>any single character</td><td>I</td></tr>
+  </table>
+  <p style="font-size:13px;color:var(--ink-faint)">Click a row to arm it, then press the key. <strong>Escape</strong> cancels, <strong>Backspace</strong> or <strong>Delete</strong> unbinds (the row prints an em dash and matches no key). One key belongs to one action: binding a key another row already uses takes it from that row.</p>
+  <p style="font-size:13px;color:var(--ink-faint)"><strong>The rule.</strong> A bound key calls the same thing the on-screen button calls, so the keyboard can never reach a state a click cannot. A key is ignored while a text field has focus, while Ctrl / Cmd / Alt is held (browser shortcuts win), on auto-repeat, and at character creation. Inventory opens the item bag; with the soul bag already open it switches to the item bag rather than closing.</p>
 
   <h2>Adventure Log</h2>
   <table>
@@ -120,6 +131,11 @@
     <tr><td class="lbl">Credits</td><td>Action</td><td>credits screen</td><td>&mdash;</td></tr>
     <tr><td class="lbl">Version</td><td>Static</td><td>version + build string</td><td>&mdash;</td></tr>
   </table>
+
+  <h2>Changelog</h2>
+  <ul>
+    <li><strong>2026-09-02 &mdash; Controls: hotkeys for autoplay, equipment and inventory, bound from Settings. ON DEV, not yet on release.</strong> A player ask (backlog 9.7). A new <em>Controls</em> section with three rebindable rows, defaults <code>A</code> / <code>E</code> / <code>I</code>, documented above. The bindings live in the same per-realm settings store as every other option, so they ride cloud save and <em>Restore Defaults</em> like the rest; no save shape changed and no server call was added. Gate <code>tools/probe_hotkeys.py</code> 6/15 before, 15/15 after.</li>
+  </ul>
 
   <div class="sp-note">All values persist to local settings storage immediately and ride along with cloud save. Per-section "Restore Defaults" resets only the visible section. Nothing in Settings can grant gameplay advantage; PvP pacing is server-controlled.</div>
 </div>
