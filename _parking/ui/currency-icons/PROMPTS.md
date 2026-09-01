@@ -50,3 +50,10 @@ with gothic filigree frame and two sweeping bronze feathered wings, crimson sand
 streaming and glowing inside, painterly, dramatic rim light from the upper left, single
 centred object filling 70% of frame, flat pure black background, no floor, no ground
 shadow, no text, no border.
+
+## wraithgold.png — Wraithgold (chip #9fe0d0, spectral teal; premium currency; added on D's order 2026-09-02)
+Ornate dark-fantasy game icon of a spectral gold coin: a burnished gold-bronze coin embossed
+with a gothic wraith skull, ghost-fire wisps of pale aquamarine flame curling off its rim,
+deep crimson enamel accents, painterly, dramatic rim light from the upper left, single centred
+object filling 70% of frame, flat pure black background, no floor, no ground shadow, no text,
+no border.
