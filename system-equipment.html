@@ -418,6 +418,7 @@
   <p><strong>Never judge on an empty codex.</strong> A row with no <code>Level_Req</code> (or a codex that has not landed yet) reads as no requirement, exactly like the stat-fit rule &mdash; an unreadable requirement never condemns a piece.</p>
 
   <h2>Changelog</h2>
+  <p><strong>2026-09-02 &mdash; the equipment window&rsquo;s header shows the five material counts. ON DEV, not yet on release.</strong> A player ask (backlog 3.9): the inventory header prints Scrap, Ichor, Dust, Essence, Ink and Wraithgold, the equipment window printed nothing, and grading is paid from there. D&rsquo;s ruling: compact chips &mdash; the glyph and the number only, the name on hover, Wraithgold left out because it is premium currency, not a material. Both windows read the one wallet, so the numbers agree by construction. The strip sits between the title group and the INVENTORY button; a very rich wallet wraps it to a second row inside the header rather than growing the header or clipping. Gate <code>tools/probe_eqmat.py</code> 1/7 before, 7/7 after.</p>
   <p><strong>2026-09-01 &mdash; three soul passives that never fired now fire, and every &ldquo;your
   debuffs last longer / hit harder&rdquo; soul now works against enemies. On release (0.65, 2026-09-01).</strong> Found by the consistency audit opened on a player&rsquo;s report. The catalogue
   sentence was read, the equipment window and the details window printed it scaled, and nothing in the
