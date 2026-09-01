@@ -414,6 +414,23 @@
   <p><strong>Never judge on an empty codex.</strong> A row with no <code>Level_Req</code> (or a codex that has not landed yet) reads as no requirement, exactly like the stat-fit rule &mdash; an unreadable requirement never condemns a piece.</p>
 
   <h2>Changelog</h2>
+  <p><strong>2026-09-01 &mdash; three soul passives that never fired now fire, and every &ldquo;your
+  debuffs last longer / hit harder&rdquo; soul now works against enemies. ON DEV (0.65), not yet on
+  release.</strong> Found by the consistency audit opened on a player&rsquo;s report. The catalogue
+  sentence was read, the equipment window and the details window printed it scaled, and nothing in the
+  fight ever applied it: <em>Cenotaph</em> Gloves (&ldquo;your buff-removal effects also deal 5% of
+  target max HP&rdquo;), <em>Ashbat</em> Feet (&ldquo;enemy healing received &minus;5% while any ally
+  is Vampiric&rdquo;) and <em>Inkmantle</em> Head (&ldquo;enemy buffs expire 1 turn sooner when you
+  debuff them&rdquo;). All three are wired: the extra damage lands whenever a strip or a steal actually
+  removes a buff (nothing removed, nothing dealt), the healing cut applies to every enemy heal the way
+  &ldquo;healing received&rdquo; applies to allies (drains and regeneration are outside both), and the
+  shortening applies to the enemy&rsquo;s strippable buffs when an ally&rsquo;s <em>debuff</em> lands
+  on it (a buff you give an enemy is not a debuff). Stage and grade scale them like every other
+  passive. <strong>Separately, and wider:</strong> the fight engine read the applier&rsquo;s soul package
+  off the <em>target</em>, and an enemy has none &mdash; so every &ldquo;your debuffs last +N
+  turns&rdquo; and &ldquo;your debuffs are +N% more potent&rdquo; soul (about thirty) did nothing
+  against enemies. It reads the applier now. Gate: <code>tools/probe_deadsouls.mjs</code>, seventeen
+  rounds resolved on the live engine, red before and green after.</p>
   <p><strong>2026-08-29 &mdash; a focused optimise no longer skips the slots the focus cannot see (#631).
   On release.</strong> With attack selected, the score cannot tell two candidates apart on
   a slot that carries no attack &mdash; so every candidate tied, the incumbent won, and those slots were
