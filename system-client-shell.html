@@ -52,7 +52,16 @@
     <li>Every connected client polls its own environment's build fingerprint every <strong>45s</strong> (release watches release, dev watches dev). On a new build: out of battle the client saves and reloads itself; anywhere a silent reload would cut across live play, the game halts under a full-screen refresh button instead.</li>
   </ul>
 
+  <h2>Opening a unit&rsquo;s sheet in battle</h2>
+  <p><strong>Status: the three-tap route is ON DEV, not yet on release.</strong> Two ways in, one rule for every pointer:</p>
+  <ul class="sp-rules">
+    <li><strong>Hold</strong> a living unit for 450&nbsp;ms (mouse). The release click is swallowed so the hold never also selects or targets.</li>
+    <li><strong>Three taps</strong> on the same living unit, each within 600&nbsp;ms of the last (mouse or touch). The first two still do what a tap does &mdash; select an ally, pick a target &mdash; and the third opens the sheet instead. Taps on two different units never add up.</li>
+  </ul>
+  <p style="font-size:13px;color:var(--ink-faint)">Why two: a phone cannot hold. Touch browsers deliver the compatibility mouse-down and mouse-up together <em>after</em> the finger lifts, so the 450&nbsp;ms timer is cancelled the instant it starts and a phone had no way into a unit&rsquo;s sheet mid-fight. The rule is not device-sniffed; a desktop triple-click reaches the sheet too.</p>
+
   <h2>Changelog</h2>
+  <p><strong>2026-09-02 &mdash; three taps open a battle unit&rsquo;s sheet (backlog 9.9, a player ask). ON DEV, not yet on release.</strong> Documented in the section above. Gate <code>tools/probe_tripletap.py</code> 5/8 before, 8/8 after, driven with a mouse at 1920&times;1080 and with real taps in a touch-emulating browser context.</p>
   <p><strong>2026-08-28 &mdash; the inventory gets the soul bag's condensed filter window (#597).
   On release.</strong> The item side already filtered by kind and grade &mdash; what it
   lacked was somewhere to put the chips, because the FILTERS button and the window it opens were both
