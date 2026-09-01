@@ -75,7 +75,7 @@
     <tr><td class="lbl">Open / Close Equipment</td><td>Key</td><td>any single character</td><td>E</td></tr>
     <tr><td class="lbl">Open / Close Inventory</td><td>Key</td><td>any single character</td><td>I</td></tr>
   </table>
-  <p style="font-size:13px;color:var(--ink-faint)">Click a row to arm it, then press the key. <strong>Escape</strong> cancels, <strong>Backspace</strong> or <strong>Delete</strong> unbinds (the row prints an em dash and matches no key). One key belongs to one action: binding a key another row already uses takes it from that row.</p>
+  <p style="font-size:13px;color:var(--ink-faint)">Click a row to arm it, then press the key. Clicking the armed row again, or <strong>Escape</strong>, cancels; <strong>Backspace</strong> or <strong>Delete</strong> unbinds (the row prints an em dash and matches no key). Space never binds. Closing Settings drops an armed row without binding anything. One key belongs to one action: binding a key another row already uses takes it from that row.</p>
   <p style="font-size:13px;color:var(--ink-faint)"><strong>The rule.</strong> A bound key calls the same thing the on-screen button calls, so the keyboard can never reach a state a click cannot. A key is ignored while a text field has focus, while Ctrl / Cmd / Alt is held (browser shortcuts win), on auto-repeat, and at character creation. Inventory opens the item bag; with the soul bag already open it switches to the item bag rather than closing.</p>
 
   <h2>Adventure Log</h2>
@@ -134,7 +134,7 @@
 
   <h2>Changelog</h2>
   <ul>
-    <li><strong>2026-09-02 &mdash; Controls: hotkeys for autoplay, equipment and inventory, bound from Settings. ON DEV, not yet on release.</strong> A player ask (backlog 9.7). A new <em>Controls</em> section with three rebindable rows, defaults <code>A</code> / <code>E</code> / <code>I</code>, documented above. The bindings live in the same per-realm settings store as every other option, so they ride cloud save and <em>Restore Defaults</em> like the rest; no save shape changed and no server call was added. Gate <code>tools/probe_hotkeys.py</code> 6/15 before, 15/15 after.</li>
+    <li><strong>2026-09-02 &mdash; Controls: hotkeys for autoplay, equipment and inventory, bound from Settings. ON DEV, not yet on release.</strong> A player ask (backlog 9.7). A new <em>Controls</em> section with three rebindable rows, defaults <code>A</code> / <code>E</code> / <code>I</code>, documented above. The bindings live in the same per-realm settings store as every other option, so they ride cloud save and <em>Restore Defaults</em> like the rest; no save shape changed and no server call was added. Gate <code>tools/probe_hotkeys.py</code> 6/15 before, 15/15 after; same-day review gate <code>tools/probe_hotkeys_dom.py</code> (what the player sees and clicks) 6/9 before, 9/9 after &mdash; it caught an armed row surviving a closed Settings window and eating the next letter typed anywhere.</li>
   </ul>
 
   <div class="sp-note">All values persist to local settings storage immediately and ride along with cloud save. Per-section "Restore Defaults" resets only the visible section. Nothing in Settings can grant gameplay advantage; PvP pacing is server-controlled.</div>
