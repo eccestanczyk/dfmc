@@ -1,7 +1,7 @@
 # Lock icons — generation prompts (#721, D 2026-09-03: "Need to generate a new lock icon")
 # Written 2026-09-03. Style anchor: the approved currency icons (_parking/ui/currency-icons) and
 # menu-tile icons — ornate burnished gold-bronze metalwork, deep crimson accents, gothic filigree,
-# painterly, strong rim light, single centred object, flat pure-black background.
+# painterly, strong rim light, single centred object, flat pure bright green chroma-key background (D order 2026-09-03: the black raws could not be keyed on the shadow side).
 # Model: gpt-image-2-2026-04-21, POST /images/generations, 1024x1024, one image per call.
 # Raw art goes to _parking/ui/lock-icon/ for D's approval; remove.bg crops are PAID and run only
 # after approval (PIPELINE.md art-approval gate). NO FLOOR in any image.
@@ -12,12 +12,12 @@
 Ornate dark-fantasy game icon of a heavy padlock, shackle CLOSED, the body burnished gold-bronze
 gothic metalwork engraved with faint filigree and a small skull keyhole plate, deep crimson enamel
 inlay, the shackle thick dark iron, painterly, dramatic rim light from the upper left, single
-centred object filling 70% of frame, flat pure black background, no floor, no ground shadow, no
+centred object filling 70% of frame, flat pure bright green (#00FF00) chroma-key background, no floor, no ground shadow, no
 text, no border.
 
 ## lock_open.png — unlocked
 Ornate dark-fantasy game icon of the same heavy padlock, shackle swung OPEN to the right, the body
 burnished gold-bronze gothic metalwork engraved with faint filigree and a small skull keyhole plate,
 deep crimson enamel inlay, the shackle thick dark iron, painterly, dramatic rim light from the upper
-left, single centred object filling 70% of frame, flat pure black background, no floor, no ground
+left, single centred object filling 70% of frame, flat pure bright green (#00FF00) chroma-key background, no floor, no ground
 shadow, no text, no border.
