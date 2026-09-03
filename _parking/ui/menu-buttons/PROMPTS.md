@@ -49,3 +49,13 @@ Same painterly style, same lighting, flat pure black background outside the plat
 | PREMIUM SHOP | a merchant's scale with stacked coins | scattered coins |
 | REPORT A BUG | a beetle pinned to a parchment | parchment creases |
 | JOIN THE DISCORD CHAT | a heraldic speech-scroll with two crossed horns | speech lines |
+
+# ---- THIRD BATCH (D 2026-09-03, reports #732 and #733). Same method: /images/edits off v2/master.png,
+# same EDIT prompt, three more rows. #732 "Dismantling needs a button and so does filters" - the two
+# remaining text buttons on the inventory window. #733 "the rankings need to be a separate ui from
+# the pvp ui, with a specific menu button" - a fifteenth menu tile.
+
+| label | icon | motif |
+| DISMANTLING | a hammer striking a shattered sword into shards | cracked metal fissures |
+| FILTERS | a funnel with three small crystal facets falling through it | sieve mesh lines |
+| RANKINGS | a laurel-crowned podium with three tiers | ascending step lines |
