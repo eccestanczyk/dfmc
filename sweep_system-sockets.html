@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Socket Ownership — Herumon Tower</title>
+<link rel="stylesheet" href="theme.css?v=4">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+  .danger{border:2px solid #cf4530;background:rgba(207,69,48,.08);padding:16px 20px;margin:26px 0;border-radius:6px}
+  .danger h2{margin-top:0;color:#e0644f}
+  .danger code{color:#ffb4a6}
+  .note{border-left:3px solid #8f8672;padding:4px 0 4px 16px;margin:18px 0;color:#a99e88}
+  table td.no{color:#e0644f}
+  table td.yes{color:#6fbf73}
+</style>
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">SOCKET OWNERSHIP</h1></div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; Socket Ownership</div>
+  <p class="sp-lead">What happens to a gem, a rune or an enchant scroll when the item holding it leaves an equipped slot.
+  <strong style="color:var(--ink)">Three code paths take a piece out of a slot and all three must obey one contract.</strong>
+  Until 0.45 one of them did not, and it destroyed 41 stones for a live player in a single click.
+  Companion page: <a href="system-equipment.html">Equipment &amp; Auto-Optimize</a>.</p>
+
+  <h2>The contract</h2>
+  <table>
+    <tr><th>Rule</th><th>Meaning</th></tr>
+    <tr><td class="lbl">Gems and runes are refunded LOOSE</td><td>They come back to the bag as their own items, one row each, marked <code>unsocketed</code>. They do not travel with the piece.</td></tr>
+    <tr><td class="lbl">An enchant scroll is NOT refunded</td><td>It rides with the item, folded onto that item's own bag record as <code>.socks</code>. A scroll is bound to the piece it was applied to and unfolds when the piece is equipped again.</td></tr>
+    <tr><td class="lbl">The socket entries are deleted</td><td>Every key under that item's prefix is removed from <code>sockOv</code>. A stone is never left addressed to a slot that no longer holds its item.</td></tr>
+    <tr><td class="lbl">Bag room is checked FIRST</td><td><code>invRoomFor()</code> is asked before anything moves, counting the item <em>plus every gem and rune coming back</em>. The check is <code>1 + gemRuneCountAt(gi)</code> per occupied slot &mdash; scrolls are excluded on purpose, because they need no room of their own.</td></tr>
+    <tr><td class="lbl">A refusal is reported upward</td><td>The path returns <code>false</code> rather than half-completing, so a caller cannot announce a change that did not happen.</td></tr>
+  </table>
+  <p>Gems are socket kind <code>0</code>, runes <code>1</code>, scrolls <code>2</code> and above. Every refund branch in the
+  code is written as <code>ki &lt; 2</code> versus <code>ki &gt;= 2</code>, so the split is that one comparison in all three
+  places &mdash; not three separate opinions about which items are refundable.</p>
+
+  <h2>The socket key, and why it is shaped this way</h2>
+  <p>A socketed stone is stored in <code>sockOv</code> under a single flat string:</p>
+  <table>
+    <tr><th>Part</th><th>Source</th><th>Example</th></tr>
+    <tr><td class="lbl">Item identity</td><td><code>optIdentOf()</code> &mdash; <code>sk|name|grade|tier</code></td><td><code>sk|Exalted Signet|Rare|7</code></td></tr>
+    <tr><td class="lbl">Instance</td><td><code>@</code> plus the equipped slot index</td><td><code>|@2</code></td></tr>
+    <tr><td class="lbl">Socket</td><td>kind and position</td><td><code>|0-1</code></td></tr>
+  </table>
+  <p>The <code>@gi</code> half exists because the identity half is not unique: two copies of the same piece at the same grade
+  and tier produce the same identity, and before the instance suffix they shared one set of sockets &mdash; the second copy
+  displayed the first copy's gems. <code>claimLegacySocks()</code> migrates any surviving flat key to its own instance,
+  lowest slot index first, and is idempotent, so re-adopting a save claims to exactly the same keys.</p>
+  <p><strong>The key is deterministic, and that is what makes a mistake survivable.</strong> Nothing random is stored in it.
+  The same item, at the same grade and tier, put back into the same slot index, produces a byte-identical key.</p>
+
+  <h2>The three paths that empty a slot</h2>
+  <table>
+    <tr><th>Path</th><th>Function</th><th>Reached from</th></tr>
+    <tr><td class="lbl">Manual unequip and swap</td><td><code>equipItem()</code></td><td>The equipment screen. The leaver refunds and folds; an arriver carrying <code>.socks</code> unfolds them into the new key</td></tr>
+    <tr><td class="lbl">Auto-optimize</td><td><code>optApply()</code></td><td>OPTIMIZE. Every displaced piece takes the same route, and stones evicted from the plan return loose</td></tr>
+    <tr><td class="lbl">Changing class</td><td><code>switchClass()</code></td><td>Strips all eight character gear slots at once (<code>gi</code> 0&ndash;7: Main Hand, Off Hand, both Accessories, Head, Chest, Gloves, Feet). Creature Tags are not touched</td></tr>
+  </table>
+  <p>A grade promotion is deliberately <em>not</em> on this list: an equipped piece upgraded in place keeps its stones, because
+  <code>optMigrateSockKeys()</code> rewrites its keys from the old identity to the new one. The grade is part of the key, so
+  without that migration a promotion would strand its own sockets.</p>
+
+  <div class="danger">
+    <h2>&#9888; What went wrong &mdash; reports #90, #91 and #92</h2>
+    <p><code>switchClass()</code> was a <strong>third, bare copy</strong> of the unequip logic. It pushed the naked item to the
+    bag and did nothing else: no refund, no fold, no key deletion, no room check. Every stone in all eight slots was left
+    addressed to a slot that no longer held its item. A player lost <strong>41 stones in one click</strong> and filed it three
+    times before the cause was found.</p>
+    <p><strong>There are two doors into that function and only one of them warned.</strong> The SWITCH CLASS button on the
+    equipment screen raises a confirmation; equipping a class soul from the <em>soul bag</em>
+    (<code>itemDetEquip</code> &rarr; <code>equipClassSoul</code> &rarr; <code>switchClass</code>) raises none at all. That is
+    why the repair had to live <em>inside</em> <code>switchClass</code> &mdash; patching either call site would have left the
+    other one destroying stones.</p>
+    <p><strong>Two more defects sat on the same lines.</strong> An emptied slot holds a truthy <code>{name:''}</code>, and the
+    old read fell back to the implicit starter piece whenever the override said empty &mdash; so every switch after the first
+    minted another copy of it, unbounded. And with no room check at all, the path could push the bag past its own cap.</p>
+    <p class="foot">Fixed in 0.45. Gates: <code>tools/probe_classswap_sockets.py</code> (gem, rune and scroll all lost before,
+    PASS after), <code>tools/probe_classswap_dupe.py</code> (bag 2&rarr;4&rarr;6&rarr;8 over four toggles before, flat at 2
+    after), and <code>tools/probe_soulbag_classequip.py</code> against the reporter's own live save (3/6 before, 6/6 after
+    &mdash; 41 of 41 accounted for: 32 refunded loose, 9 folded onto their items).</p>
+  </div>
+
+  <h2>A stranded stone is recoverable &mdash; until the item is graded or dismantled</h2>
+  <p>Because the key is deterministic, a stone orphaned against an empty slot is not lost:</p>
+  <table>
+    <tr><th>Action on the stripped piece</th><th>Orphaned stones</th></tr>
+    <tr><td class="lbl">Re-equip it &mdash; same name, same grade, same tier, <strong>same slot index</strong></td><td class="yes">Recovered. The key regenerates identically and the stones reappear in their sockets</td></tr>
+    <tr><td class="lbl">Grade it first, then re-equip</td><td class="no">Destroyed. The grade is part of the identity, so the new key does not match and nothing migrates an unequipped piece's orphans</td></tr>
+    <tr><td class="lbl">Dismantle it</td><td class="no">Destroyed. The item that owned the key is gone</td></tr>
+  </table>
+  <p>Anyone triaging a report of missing stones should say this before saying anything else, because the window closes the
+  moment the player tidies their inventory. <code>enforceSockStats()</code> reports mismatched sockets and deliberately
+  <em>never</em> writes to <code>sockOv</code> or the bag, so a sweep cannot close the window either.</p>
+
+  <div class="danger">
+    <h2>&#9888; The lesson: UI text is a claim about a code path</h2>
+    <p>Both class-switch confirmations told the player the exact opposite of what the code did. The equipment screen promised
+    that gems, runes and enchants <em>stay socketed</em>; the class soul's detail panel promised sockets and enchantments
+    <em>travelling with their items</em>. Neither was ever true of that path, and that sentence is the reason the player felt
+    safe clicking it &mdash; three times.</p>
+    <p><strong>Any UI text that promises what happens to a player's items must be checked against the code path it describes,
+    not against what the feature was meant to do.</strong> Both strings now name the real behaviour: the gear returns to the
+    inventory, gems and runes come back loose into the bag, and each piece keeps its own enchant scroll.</p>
+  </div>
+
+  <div class="danger">
+    <h2>&#9888; Every already-socketed rune scored the same, so the pool ranked by tier and rarity</h2>
+    <p><em>Build 0.47.</em> The auto-optimizer values a rune in its pool with <code>runePct(st2.it)</code>.
+    <strong><code>it</code> is only set on bag-sourced pool entries.</strong> For a stone that is already socketed there
+    is no <code>it</code>, so <code>runePct</code> received <code>undefined</code> and fell through to its
+    <strong>no-curve fallback</strong> &mdash; grade defaulted to <code>Worn</code>, tier defaulted to <code>1</code>
+    &mdash; and returned <strong>the same constant for every socketed rune in the pool</strong>.</p>
+    <p>They all tied. A tie falls through to the <strong>stable pre-sort</strong>, and the pre-sort is
+    <strong>tier-then-grade</strong>. So the optimizer was <strong>literally ranking runes by tier and rarity</strong>
+    &mdash; the two things a rune's value is not made of. A rune's contribution is a percentage read off its own curve;
+    tier and grade feed that curve but do not order it.</p>
+    <p><strong>Measured consequence on a real save:</strong> an <em>Awakened Rune of Ruin T7 Rare</em> worth
+    <strong>19.8%</strong> was <strong>EVICTED</strong>, while an <em>Elder Rune of Ruin T10 Worn</em> worth
+    <strong>18%</strong> was <strong>socketed three times</strong>. The higher tier and the longer name both lost to the
+    lower number, exactly as the fallback dictates.</p>
+    <p><strong>Gems were never affected</strong>, because a gem's valuation already reads name, tier and grade off the
+    entry itself rather than through an <code>it</code> that may not exist. That asymmetry is why an earlier gem-side fix
+    passed its checks and this survived underneath it: the two stone kinds were not being valued by the same code, so
+    proving one correct proved nothing about the other.</p>
+  </div>
+
+  <h2>Reference &mdash; the key shape, the ki convention, and what constrains a fill</h2>
+  <p>Recorded here in one place because the optimizer, the refund contract and the socket UI all depend on it:</p>
+  <table>
+    <tr><th>Fact</th><th>Detail</th></tr>
+    <tr><td class="lbl">Socket key</td><td><code>sk|&lt;name&gt;|&lt;grade&gt;|&lt;tier&gt;|@&lt;slot&gt;|&lt;ki&gt;-&lt;j&gt;</code> &mdash; the flat form of the three-part table above.</td></tr>
+    <tr><td class="lbl"><code>ki</code> convention</td><td><code>0</code> = gem, <code>1</code> = rune, <code>&gt;= 2</code> = scroll. The same comparison the refund branches use.</td></tr>
+    <tr><td class="lbl">Scrolls never move</td><td>No optimizer pass, fill or re-deal relocates a scroll. It rides its item and unfolds back into the item's own key.</td></tr>
+    <tr><td class="lbl">Socket capacity</td><td>Comes from <code>SLOTG</code>, keyed on the host's <strong>GRADE</strong>, <strong>not its tier</strong> &mdash; Void 3/3/3, Rare 1/1/1. This is why a low-tier Void host can out-earn a high-tier Rare one.</td></tr>
+    <tr><td class="lbl"><code>statFits</code></td><td>The stone's stat must match the host's stat, so an <strong>Attack gem cannot enter Defence armour</strong>. Every fill and every re-deal is bounded by this before value is considered at all.</td></tr>
+    <tr><td class="lbl"><code>lvlBlock</code> (2026-08-25, ON DEV)</td><td>A gem, rune or scroll carries <code>items.csv Level_Req = (tier&minus;1)&times;10</code> and must not exceed the level of its host's wearer &mdash; the <strong>account level</strong> for character gear, the <strong>creature's level</strong> for a tag. The socket picker greys and refuses it (before any consume or roll), the optimiser's fill skips it, and one already socketed above level is <strong>inert</strong> (red ILLEGAL cell, tip names the level) until the wearer reaches it. Nothing is ever unsocketed on the player's behalf. Detail on <a href="system-equipment.html">Equipment</a>.</td></tr>
+  </table>
+
+  <h2>Applying a scroll &mdash; the order of operations</h2>
+  <p><strong>Status: the attempt-key and flush rules below are ON DEV, not yet on release (2026-08-14).</strong>
+  A gem or a rune carries no chance and applies in the same tick it is picked. <strong>A scroll waits for
+  the server</strong>, because its enchant is a chance outcome and chance belongs to the server. The exact
+  order matters, because a scroll is the one socketed thing that is <em>destroyed</em> on replace and can
+  never be removed once applied:</p>
+  <ol>
+    <li><strong>The stat is resolved from the WORN piece, or the pick is refused</strong> (#96). The client
+    never guesses: if the host item or its stat cannot be read, the bench says so and the scroll is
+    untouched. The server then re-resolves the stat from the host it names and prefers its own answer over
+    the client's claim.</li>
+    <li><strong>The server is asked, exactly once.</strong> A single-flight guard plus a 2.5&nbsp;s failure
+    cooldown means clicking a scroll fifty times during an outage sends one request, not fifty; a 10&nbsp;s
+    abort keeps a hung request from wedging the door forever.</li>
+    <li><strong>The draw is keyed on the socket plus the scroll's tier and grade</strong>, with a
+    server-held attempt ordinal &mdash; not on anything the client mints. Until a save lands after the
+    answer, the same attempt is replayed rather than a new one sold. See <em>upgrading.html</em> for the
+    full rule and why <code>host</code> could not serve as that key.</li>
+    <li><strong>An answer that comes back <code>unsettled</code> decides nothing and costs nothing.</strong>
+    The scroll is not consumed; the bench holds and forces a save so the next click gets a real draw.</li>
+    <li><strong>Only then is the scroll consumed.</strong> On an empty socket that happens immediately. On
+    an occupied one the player is asked to confirm first, because the scroll already in the socket is
+    destroyed &mdash; gems and runes return to the bag intact, a replaced scroll does not.</li>
+    <li><strong>The commit forces its own save.</strong> Not the ten-second debounce: the attempt is over
+    and it was paid for, so it settles at network speed. Cancelling the confirmation does <em>not</em>
+    flush &mdash; nothing was consumed, so the attempt stays unsettled and re-picking the same scroll
+    replays it instead of buying a second draw.</li>
+  </ol>
+  <p class="foot">Client: <code>askEnchant()</code> and the socket picker's <code>onPick</code> /
+  <code>onSockConfirmYes</code> in <code>play/app.js</code>. Worker: the <code>/api/roll</code>
+  <code>enchant</code> branch and <code>RK_TARGETED</code> in <code>src/worker.js</code>.</p>
+
+  <h2>Changelog</h2>
+  <p><strong>2026-09-02 &mdash; a socketed gem is valued by what it pays (D ruling: &ldquo;take into consideration the total final stats of the item&rdquo;). LIVE on release since 2026-09-03 (0.69).</strong> The auto-optimiser ranked a socketed gem by a grade-formula lookup while the engine pays the value stored on the stone; runes have ranked off their own curve since the 0.47 entry above, so the two stone kinds were again valued by different code. A gem whose stored value and grade disagreed was called the weakest stone, evicted for a lower-paying spare, and the run ended weaker and was refused. Now a socketed gem ranks by its stored value and a bag gem by what it will pay once socketed; the optimiser's &ldquo;a spare looks better&rdquo; self-check reads the same number. Every gem on D's live loadout already agreed with its grade, so nothing visible changes today; the rule is now the same for both kinds. Gate <code>tools/probe_optpaid.py</code> 5/5 (2/5 before); <code>probe_optgrade</code> re-seeded to pay what its label says, 4/4 (1/4 before).</p>
+  <p><strong>2026-08-28 &mdash; Primordial gets rising bubbles, and socketables get their grade effect
+  (#599, #600). On release.</strong> The Primordial background now carries bubbles in its
+  own two colours drifting upward on a seamless loop. It is drawn entirely in the stylesheet, with no
+  element per bubble &mdash; this layer appears on every Primordial tile in the inventory, so a node per
+  bubble would be hundreds of nodes of decoration; the upgrade screen can afford them because it draws a
+  single item. Separately, <strong>socketed gems and runes in the equipment window now carry the same
+  grade background</strong> every other tile has. Both go through the one producer the grade effects have
+  always used, so adding a grade in one place still reaches every screen &mdash; which is the entire point,
+  since the recurring fault in this family has been one screen updated and another not. Reduced-motion
+  settings switch the bubbles off with the rest.</p>
+  <ul>
+    <li><strong>2026-08-25 &mdash; gems, runes and scrolls test the level of the piece they enter (D: &ldquo;the same level requirement needs to be true for socketables, scrolls&rdquo;). On release.</strong> Reference row above. Picker greys with LV n and refuses on click before anything is spent; a scroll above level never reaches the roll door; the optimiser never places one; an already-socketed over-level stone is inert, never moved.</li>
+    <li><strong>2026-08-14 &mdash; a refresh could reroll a scroll enchant (spec 004). On release.</strong> The enchant draw was keyed on a client-minted key regenerated on every click, and the client debited the scroll only in the browser, flushing on neither success nor failure &mdash; so a bad enchant, a reload inside the ten-second debounce, and the scroll was back with a different roll. Now keyed on the socket plus the scroll's tier and grade against a server-held attempt ordinal, with an unsettled answer consuming nothing and every real commit forcing its own save. New section &ldquo;Applying a scroll&rdquo; above; full rule in <em>upgrading.html</em>. Gates <code>tools/probe_rollattkey.mjs</code> 12/12 (8/12 before), <code>probe_rollreplay.mjs</code> extended.</li>
+    <li><strong>2026-08-10 &mdash; every already-socketed rune scored identically, so the auto-optimizer ranked its rune pool by tier and rarity (shipped in 0.47).</strong>
+      Runes were valued with <code>runePct(st2.it)</code>, and <code>it</code> is only set on bag-sourced pool entries;
+      for an already-socketed stone it was <code>undefined</code>, so <code>runePct</code> took its no-curve fallback
+      (grade &rarr; <code>Worn</code>, tier &rarr; <code>1</code>) and returned the same constant for all of them. They
+      tied, and the tie fell through to the stable pre-sort, which is tier-then-grade. Measured on a real save: an
+      <em>Awakened Rune of Ruin T7 Rare</em> worth <strong>19.8%</strong> was evicted while an <em>Elder Rune of Ruin
+      T10 Worn</em> worth <strong>18%</strong> was socketed three times. Gems were never affected because they already
+      read name, tier and grade off the entry, which is why an earlier gem fix passed while this stayed broken. The key
+      shape (<code>sk|name|grade|tier|@slot|ki-j</code>), the <code>ki</code> convention (0 gem, 1 rune, &gt;=2 scroll),
+      the grade-keyed <code>SLOTG</code> capacity and the <code>statFits</code> stat-match rule are recorded above at the
+      same time.</li>
+    <li><strong>2026-08-09 &mdash; a class switch no longer destroys socketed gems, runes and scrolls (LIVE on release since 2026-08-09 (0.45)).</strong> Reports #90, #91 and #92. <code>switchClass</code> now refunds exactly as <code>equipItem</code> does, reserves <code>1 + gemRuneCountAt(gi)</code> per occupied slot before it moves anything, reads the slot override as truth so it mints nothing, and returns <code>false</code> when it refuses. Both confirmation texts corrected. Page created.</li>
+  </ul>
+</div>
+<script src="admin.js"></script>
+<script src="nav.js"></script>
+</body>
+</html>

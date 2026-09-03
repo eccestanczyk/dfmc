@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PvP, Timers &amp; Persistence — Herumon Tower</title>
+<link rel="stylesheet" href="theme.css?v=4">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">PVP, TIMERS &amp; PERSISTENCE</h1></div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; PvP, Timers &amp; Persistence</div>
+  <p class="sp-lead">Ranked 3v3 (avatar + 2 creatures per side), best of 3, team locked at match start, double-blind simultaneous move selection. This page defines the PvP screen, the move timers, how battles survive crashes and disconnects, removed-mode quit-out rules, and the leaderboards.</p>
+
+  <h2>The PvP Arena screen</h2>
+  <p>Entered from the main menu (<strong>PVP ARENA</strong>, between Adventure Log and Game Mode). One screen, four regions:</p>
+  <table>
+    <tr><th>Region</th><th>Contents</th></tr>
+    <tr><td class="lbl">Rank card (top left)</td><td>Current rank, rating number, season W/L, and placement progress. Ranks reuse the game's own ladder language: <span style="color:#c2ae8b">Worn</span> &rarr; <span style="color:#a855f7">Void</span> &mdash; the ten grade names as ten rank tiers, top of ladder is Void.</td></tr>
+    <tr><td class="lbl">Team lock (center)</td><td>Three sockets: avatar + 2 creatures. This is the roster the queue locks; creatures sitting in breeding pens are ineligible. A team-power summary line sits below the sockets. Locked for the whole Bo3 &mdash; no sideboarding between games.</td></tr>
+    <tr><td class="lbl">Queue button (bottom center)</td><td>One large FIND MATCH button; while queuing it becomes a cancel with elapsed time. Matchmaking pairs by rating, band widening the longer the wait.</td></tr>
+    <tr><td class="lbl">Right rail</td><td>Two tabs: <strong>Leaderboard</strong> (top 100 + your position) and <strong>History</strong> (recent matches, each opening a full replay &mdash; replays are free because battles are deterministic logs, see Persistence).</td></tr>
+  </table>
+
+  <h2>Move timers</h2>
+  <p>Both sides pick all their moves for the round simultaneously; timers exist to bound the round, not each unit. The design follows the banked chess-clock model competitive simulators converged on, sized to our 10&ndash;16-turn fights.</p>
+  <table>
+    <tr><th>Timer</th><th>Value</th><th>Rule</th></tr>
+    <tr><td class="lbl">Round timer (PvP)</td><td>30 s</td><td>Both players pick within it. Resolution/animation time does not count.</td></tr>
+    <tr><td class="lbl">Personal bank (PvP)</td><td>90 s</td><td>Drawn from only after the 30 s round timer is spent, chess-clock style. Never refills during a game; resets between games of the Bo3.</td></tr>
+    <tr><td class="lbl">On expiry</td><td>&mdash;</td><td>The <strong>autoplay AI picks for you</strong> &mdash; the same AI that runs PvE grinding, not "first move in the list." Losing time costs quality, not the game outright.</td></tr>
+    <tr><td class="lbl">Damage ramp (PvP)</td><td>&times;1.5 @ 20 &rarr; &times;3 @ 40+</td><td>Replaces the 30-round hard cap and its tiebreak (2026-08-16). From round 20 every hit and every lingering damage tick, both sides, is multiplied: &times;1.5 at 20, &times;2 at 30, &times;2.5 at 35, &times;3 from 40 on and holding. A game ends only on a wipe &mdash; the ramp guarantees one, so no tiebreak is needed or exists. A hot &times;-chip beside the round counter shows the live multiplier from round 20. PvE never ramps. Replays of Competitive games ramp identically &mdash; playback must re-produce the recorded fight.</td></tr>
+    <tr><td class="lbl">PvE</td><td><strong>No timer</strong></td><td>Move timers are a PvP-integrity tool; against the AI there is nothing to protect and autoplay already exists for players who want speed. PvE battles instead get full crash-safe resume (below).</td></tr>
+  </table>
+
+  <h2>Persistence &mdash; battles survive anything</h2>
+  <p>Every battle is a deterministic replay: <code>initial state + per-round RNG seed + committed move log</code>. That single decision buys crash recovery, reconnects, replays, and removed-mode integrity all at once.</p>
+  <table>
+    <tr><th>Rule</th><th>Detail</th></tr>
+    <tr><td class="lbl">Save cadence</td><td>Once per round: both sides' committed choices plus the round's RNG seed are persisted <strong>before the resolution is shown</strong>. One small write per round.</td></tr>
+    <tr><td class="lbl">PvE crash</td><td>Relaunch resumes the battle at the top of the current round &mdash; same state, same seed. Nothing is lost and nothing rerolls.</td></tr>
+    <tr><td class="lbl">Anti-scum</td><td>Because the seed is committed before results render, killing the game after seeing a bad roll and reloading replays the <em>identical</em> roll. There is no outcome to reroll, ever.</td></tr>
+    <tr><td class="lbl">PvP authority</td><td>Unity Relay is a packet relay, not a simulating server &mdash; both clients run the deterministic sim in lockstep, kept honest by the Competitive-integrity layers below. Reconnecting replays the committed log to the current round.</td></tr>
+  </table>
+
+  <h2>Disconnects</h2>
+  <table>
+    <tr><th>Case</th><th>Rule</th></tr>
+    <tr><td class="lbl">PvP disconnect</td><td>The match does not pause and timers keep burning &mdash; pausing on disconnect is a documented exploit vector (players firewall-drop to buy free thinking time). When your round timer + bank expire, the <strong>autoplay AI plays your side</strong>, exactly as on a timeout.</td></tr>
+    <tr><td class="lbl">Reconnect window</td><td>Reconnect at any point and control returns at the next round. After <strong>5 consecutive fully-AI rounds</strong>, the game is forfeited &mdash; long enough to survive a router reboot, short enough that a rage-quit cannot hold the opponent hostage.</td></tr>
+    <tr><td class="lbl">PvE crash / quit</td><td>Identical outcomes: resume at the current round on next launch. A battle in progress can be resumed but never abandoned.</td></tr>
+  </table>
+
+  <h2>removed-mode &amp; Alt+F4</h2>
+  <p>The classic removed-mode failure mode is the logout escape: kill the client the instant a fight goes wrong. Turn-based rounds close that door structurally.</p>
+  <table>
+    <tr><th>Rule</th><th>Why it holds</th></tr>
+    <tr><td class="lbl">Battles are resume-only</td><td>Alt+F4, crash, and power loss are indistinguishable and all lead to the same place: the battle resumes at the top of the current round with the committed seed. Quitting never exits a battle.</td></tr>
+    <tr><td class="lbl">Committed rounds stand</td><td>Once both sides' moves are locked, resolution is deterministic and already persisted. If the round that kills the character has committed, the death happens on resume &mdash; watching it or not changes nothing.</td></tr>
+    <tr><td class="lbl">No mid-round escape value</td><td>Killing the client <em>before</em> committing a move just returns the player to the same decision with the same information. In a turn-based game there is no "leave the server before the hit lands" &mdash; nothing advances without a committed round.</td></tr>
+  </table>
+
+  <h2>Competitive integrity</h2>
+  <p>Unity Relay forwards packets between two untrusted clients &mdash; there is no simulating server in the loop. Integrity therefore comes from five layers, each cheap because battles are already deterministic replays.</p>
+  <table>
+    <tr><th>Layer</th><th>Mechanism</th></tr>
+    <tr><td class="lbl">1 &middot; Team legality</td><td><strong>Never transmit derived values.</strong> A team submission is inputs only &mdash; creature ID, level, quality, tags with every gem/rune/enchant, gear, souls, moves. The validator recomputes all stats from the committed formulas, so an impossible stat cannot be expressed. Rule checks against codex data: moves &sube; learnset, stage consistent with level, grades 1&ndash;10, gear tier/grade/level-req legal, enhancement tier &le; gear tier, sockets &le; grade allowance, enchant rolls inside authored ranges, weapons class-legal, souls on armour slots only with legal granted moves. Both clients and a Cloud Code function run the identical validator.</td></tr>
+    <tr><td class="lbl">2 &middot; Provenance</td><td>Rules cannot prove an item was earned. The rated queue requires the team to be a subset of the account's <strong>server-known inventory</strong> &mdash; Cloud Save Protected keys ledgered by Cloud Code (UGS Economy was evaluated and rejected in the save-architecture review: 14&times; the per-write cost for the same guarantee) &mdash; the one strictly server-side layer.</td></tr>
+    <tr><td class="lbl">3 &middot; Commit&ndash;reveal rounds</td><td>Double-blind between peers requires it: each round both clients send <code>H(move + nonce)</code>, and reveal only after both commits arrive. A reveal that fails its commit is an instant forfeit. The round's RNG seed is <code>H(revealA &#8214; revealB &#8214; roundN)</code> &mdash; derived from the <em>reveals</em> (nonces included), never from the commits. Seeding from commits is grindable: whoever commits second knows the opponent's commit and can brute-force nonces until the resulting seed rolls in their favour. Seeding from reveals closes it &mdash; the second committer cannot compute the seed without the opponent's still-secret nonce. Residual edge &mdash; refusing to reveal after seeing the opponent's reveal &mdash; is priced out: <strong>a player who commits but fails to reveal within the round window forfeits that round's actions entirely</strong>, and the round counts toward the 5-AI-round forfeit counter. Dodging one bad roll costs a whole silent round. One mechanism provides blindness <em>and</em> unriggable randomness.</td></tr>
+    <tr><td class="lbl">4 &middot; Per-round checksum</td><td>After each resolution both clients exchange a truncated SHA-256 of the canonical battle state (fixed serialization order, RNG cursor included). Match &rarr; continue; mismatch &rarr; escalate to layer 5, never argue locally. Requirement: <strong>battle math is integer / fixed-point with pinned rounding points</strong> (random band as an integer 90&ndash;110 roll /100) &mdash; float math diverges across CPUs and would fabricate desyncs between honest players.</td></tr>
+    <tr><td class="lbl">5 &middot; Replay adjudication</td><td><strong>Every rated match ends with one verification call</strong>: both clients submit signed move logs, a Cloud Code function replays the battle deterministically, and only its verdict posts to the ladder. Checksums are the in-match tripwire (early abort on divergence); the replay is the authority, and at one cheap integer-math replay per match it costs a rounding error next to per-round server resolution (the save-architecture review priced that difference at ~$13k/month at 500k CCU). <strong>Checksums detect; replay decides.</strong> A cheater can desync a match but cannot win one.</td></tr>
+  </table>
+  <p>Per-round input validation runs on both sides regardless: the chosen move is one of the unit's four, its cooldown is legal, the target is legal. Malformed actions die before resolution.</p>
+
+  <h2>Matchmaking &mdash; the server owns it</h2>
+<p><strong>ON RELEASE from build&nbsp;0.36 (2026-08-06). This section replaces the peer-discovery
+queue entirely.</strong> A player presses FIND&nbsp;MATCH and the client posts a
+<em>ticket</em> to <code>POST /api/pvp/mm/queue</code>. From then on it polls <code>/api/pvp/mm/poll</code>
+and renders whatever status comes back. <strong>The client does not read the pool, score candidates, choose an
+opponent, create a match, or hold an identity.</strong> There is no decision left on the client to get wrong.</p>
+
+<h3>Why the old design failed, and why bounding it was not enough</h3>
+<p>The queue used to be peer discovery: every client wrote its own node with <code>ts = its own
+Date.now()</code>, read everyone else's, and judged freshness with <code>myClock &minus; theirClock</code>.
+On 2026-08-06 a player's PC ran 3m&nbsp;40s fast (measured on the ops door as <code>age_ms&nbsp;-220103</code>).
+His client therefore judged every legitimate match to be 220&nbsp;s stale, discarded it, wiped its own pairing
+marker and kept queueing in silence, while his opponent sat out the 28&nbsp;s team wait and was told the
+opponent never readied. Which of the two symptoms appeared depended on which side held the lower player id.
+A first fix stamped timestamps server-side and let the client measure its own drift; that worked, but it left
+the client <em>correcting</em> itself, so a missing header would silently restore the bug. The authority was in
+the wrong place, and that is what this rewrite moves.</p>
+
+<h3>Identity, rating and name are all server-owned</h3>
+<ul>
+  <li><strong>Identity</strong> is <code>acctKey(steamid)</code>, derived from the Steam session the Worker has
+      already signature-verified. The old random <code>localStorage</code> player id is deleted &mdash; a player
+      can no longer name themselves to the matchmaker or write into another player's slot.</li>
+  <li><strong>Rating</strong> is read from the player's own ladder row on the server. It used to be a number the
+      client put in its queue node, which is a matchmaking input a player must never supply about themselves.</li>
+  <li><strong>Name</strong> comes from the <code>names</code> table. It briefly fell back to a client-supplied
+      string when no ladder row existed, which would have let a player queue under someone else's name; caught by
+      running the endpoint, not by reading it.</li>
+  <li><strong>One ticket per account</strong>, enforced by the primary key, so a player can never be in two
+      matches and have to choose.</li>
+</ul>
+
+<h3>Time never crosses the boundary</h3>
+<p>Every deadline the server sends is a <strong>duration remaining</strong> (<code>closesInMs</code>), computed
+against the object's own clock. Nothing in the payload is an absolute timestamp, so there is no comparison left
+for a wrong clock to poison &mdash; the whole failure class is gone by construction rather than bounded.
+Liveness is a server-held <em>lease</em>, not a timestamp the client re-stamps: the ticket carries
+<code>lease_ms</code>, renewed only once it is in its second half.</p>
+
+<h3>Pairing</h3>
+<p>One indexed read of the pool ordered by rating, then a single sweep pairing nearest neighbours oldest-first.
+The band opens with the ticket's <strong>server-measured</strong> age &mdash; 25 points, widening by 25 every two
+seconds, capped at 5000. A match is created by inserting a row whose <code>pair_key</code> carries a
+<code>UNIQUE</code> constraint: <strong>the constraint is the arbiter</strong>, replacing the old
+&ldquo;lower player id creates the match&rdquo; convention, which was a rule two clients agreed on with nothing
+enforcing it.</p>
+
+<h3>The lifecycle, and why nobody can hang</h3>
+<table>
+  <tr><th>phase</th><th>what has to happen</th><th>if it does not</th></tr>
+  <tr><td class="lbl">ready</td><td>both sides press JOIN MATCH within 20&nbsp;s</td><td>the match is cancelled; whoever readied goes straight back into the pool, the other is dropped</td></tr>
+  <tr><td class="lbl">teams</td><td>both teams posted within 30&nbsp;s</td><td>cancelled, same rule</td></tr>
+  <tr><td class="lbl">live</td><td>the server hands both teams down and the battle starts</td><td>&mdash;</td></tr>
+</table>
+<p>Both sides are moved by the server or neither is, so the old failure &mdash; one player waiting 28&nbsp;s and
+being told the opponent never readied while the opponent saw nothing at all &mdash; cannot occur. Cancelling
+also returns the <em>other</em> player to the pool immediately rather than making them wait out a dead window.</p>
+
+<h3>Cadence and cost</h3>
+<p>The poll interval is <strong>dictated by the server</strong> (<code>pollMs</code>, currently 2000&nbsp;ms), so
+load can be shed centrally without shipping a client. It has its own rate bucket (<code>mm</code>, cap&nbsp;60,
+45/min) rather than sharing <code>db</code> with the round exchange and the leaderboards: at a one-second poll the
+old shared bucket refilled at 40/min against 60/min of demand, so a player queueing for two minutes would have
+started answering 429 while the timer kept counting. An ordinary poll <strong>writes zero rows</strong> &mdash;
+the lease renewal is a single conditional <code>UPDATE</code> whose <code>WHERE</code> matches nothing until the
+lease is half spent. Sweep and pass are coalesced to one tick for the whole object, so a thousand players polling
+do not cause a thousand passes. There are no timers, no alarms and no sockets: the object stays hibernatable.</p>
+
+<h3>Failure is visible</h3>
+<p>A matchmaking call that fails says so on screen, and three consecutive failures stop the queue outright rather
+than leaving a timer counting against nothing. That silent shape &mdash; the screen saying LOOKING while the
+server held no ticket at all &mdash; is what made the original bug so hard to see.</p>
+
+<h3>Limits, measured</h3>
+<p>A pass over 1,000 queued takes ~120&nbsp;ms and 5,000 takes ~320&nbsp;ms, both inside the one-second tick;
+20,000 takes ~1.6&nbsp;s, which exceeds it, so passes would stack. Single-object matchmaking is therefore good to
+roughly <strong>5,000 concurrently searching</strong> &mdash; not registered, not online, actively searching at the
+same moment. Above that it must shard by rating band with promotion to a shared overflow object; the design is
+recorded in <code>BACKLOG.md</code> and in <code>research.html</code> entry&nbsp;9, and deliberately not built yet.</p>
+
+<h3>What is NOT server-owned yet</h3>
+<p>Matchmaking is authoritative through to the moment the battle starts. The per-round commit-reveal exchange
+still runs over the <code>/api/db</code> facade under <code>m/&lt;mid&gt;/g&lt;n&gt;/r&lt;n&gt;/&lt;side&gt;</code>,
+now authorised from the match table rather than from a client-written node. That path was audited for the same
+clock disease and is clean: the only timestamp it carried was written and never read, and has been removed.
+Moving the round protocol server-side is the anti-cheat project, not this one.</p>
+
+<h2>Joining out of a PvE battle &mdash; pause, never forfeit</h2>
+<p><strong>ON DEV, not yet on release.</strong> A match can be taken in the middle of a PvE fight. Owner ruling:
+that fight is <em>paused</em> and restored afterwards &mdash; it is not forfeited and nothing is lost.</p>
+<ol>
+  <li>On JOIN, the PvE fight is written to its own snapshot slot as stage <code>park</code>. Parking works from
+      any battle phase, not only the phases that already persist.</li>
+  <li>The PvP match takes the screen. The two fights cannot collide because the snapshot is split by kind
+      (see <em>system-networking.html</em>); before that split, taking a match destroyed the paused fight.</li>
+  <li>When the player closes the PvP result panel, the parked fight is restored &mdash; same round, same units,
+      same floor, same seed.</li>
+</ol>
+<p>The server holds nothing mid-fight: a spawn slot is marked dead only when a kill is <em>credited</em>, so the
+paused enemy is still standing when the player returns, and battle chains are keyed per chain id so a PvP fight
+cannot break a paused PvE chain's continuity.</p>
+<p><strong>removed-mode refuses the join.</strong> removed-mode already forbids leaving a battle &mdash; forfeit is
+refused there too &mdash; so taking a match out of a live removed-mode fight is blocked and the player is told why.
+Queueing itself is unaffected: a removed-mode player may queue, and may take the match from anywhere that is not a
+live fight.</p>
+
+<h2>Leaderboards</h2>
+  <p>Scoped per realm, tracked per season and all-time (all-time = best-ever snapshot). One PvP board, three PvE boards.</p>
+  <table>
+    <tr><th>Board</th><th>Metric</th><th>Notes</th></tr>
+    <tr><td class="lbl">PvP ladder</td><td>Rating (Glicko-2)</td><td>Bo3 results only. Rank tiers named Worn &rarr; Void by rating band. Season reset compresses ratings toward the mean; all-time board keeps peak rating.</td></tr>
+    <tr><td class="lbl">Deepest climb</td><td>Highest floor reached</td><td>The existing progress ladder.</td></tr>
+    <tr><td class="lbl">Longest streak</td><td>Best win streak</td><td>Pairs with the streak/floor-gating system.</td></tr>
+    <tr><td class="lbl">Swiftest ascent</td><td>Shortest in-game time from character creation to first Floor 100 clear</td><td>The speed board; session-time clock, same as everything else.</td></tr>
+  </table>
+</div>
+  <h2>Locking in &mdash; how a round is agreed</h2>
+  <p>Neither player may see the other&rsquo;s moves before choosing. A round is agreed in two phases: each side first writes a <em>hash</em> of its moves, and only once both hashes are present does either reveal the moves themselves. The round then resolves from a seed derived from both sides, so the same pair of inputs always produces the same round.</p>
+  <p><strong>A commit is only real once the server has taken it.</strong> The write is awaited and retried; the player is shown as locked in only after it lands, and if the commit later goes missing from the match record it is sent again. This matters because every downstream step tests for your own commit being present &mdash; including the timeout that resolves a round when the clocks run out. Until v0.34 the client marked itself locked <em>before</em> writing and discarded the result, so a failed write shut three doors at once: it blocked its own retry, the opponent never saw a commit, and the timeout could not fire either. Both players waited forever.</p>
+  <p><strong>The client may never invent an opponent.</strong> A match comes from the queue meeting a real partner or it does not happen. There is no simulated opponent, as a game feature or a testing one, and no fabricated name, rating or lock countdown.</p>
+
+<h2>The match HUD, and what the decree stamp means</h2>
+<p><strong>The round/bank/game readout sits directly under the turn-order button</strong>, on the same centre axis, in one row. It was anchored <code>bottom:648px</code>, which on the 1080 stage puts it mid-screen across the battlefield. It is anchored to the <em>top</em> for the same reason the button is: a bottom anchor moves with every change to the panels below it.</p>
+<p>The band between the button and the creature sprites is about 40 stage pixels and the row was about 43, so its padding is tightened to fit rather than the row being allowed to clip a sprite. That is a measurement, not a taste &mdash; <code>tools/probe_pvpui.py</code> asserts the HUD overlaps nothing else drawn, which is what caught the first placement.</p>
+<h3>The stamp means &ldquo;locked in&rdquo;</h3>
+<ul>
+  <li><strong>No stamp until the moves are committed.</strong> The wax stamp was painted on the decree unconditionally, so the order read as sealed while the player was still choosing it. In PvP the lock is <code>netWait</code> &mdash; the moves are committed and the round is waiting on the opponent.</li>
+  <li><strong>The lock-in button looks pressed once it has been</strong>, reads <em>MOVES LOCKED</em>, and stops inviting a second press. <code>pvpNetCommit()</code> already returned early while <code>netWait</code> was set, so this only makes the screen agree with what the code was doing.</li>
+  <li><strong>Outside PvP there is no frame to show one.</strong> The decree closes the instant <code>lockIn()</code> runs, so the gate is simply false there.</li>
+</ul>
+<p class="foot">Client: <code>confirmLocked</code> and the <code>confirmBtn*</code> values in <code>play/app.js</code>; the HUD and decree in <code>play/markup.html</code>. Probe: <code>tools/probe_pvpui.py</code> &mdash; BEFORE 4/4, AFTER 8/8.</p>
+
+<h2>A late reply from a finished match cannot write</h2>
+<p>Both networked PvP paths &mdash; <code>pvpNetCommit()</code> and <code>pvpNetPoll()</code> &mdash; read
+<code>state.pvp</code> <em>once</em>, at entry, and then await the network. <code>pvpNetCommit</code> retries
+<code>netSet</code> up to three times with 400&nbsp;ms between attempts and then the <code>round</code> announce up
+to three times with 500&nbsp;ms between attempts, so it can be in flight for several seconds. The match can end
+inside that window &mdash; an opponent forfeits, a side is wiped, the Bo3 is decided &mdash; and
+<code>pvpMatchOver()</code> sets <code>pvp:null</code>.</p>
+<p>Every continuation that then resumed wrote with <code>Object.assign({}, p.pvp, {&hellip;})</code>.
+<strong><code>Object.assign</code> ignores a null source</strong>, so the state was not left null: it was
+<em>resurrected</em> as <code>{netWait:false, oppC:false}</code> &mdash; truthy, with no <code>games</code>, no
+<code>opp</code>, no <code>net</code>. Six sites did this.</p>
+<p>The rule now is identity, not presence:</p>
+<ul>
+  <li><code>pvpAlive(mid)</code> answers <em>&ldquo;is the live match still THAT match&rdquo;</em>, comparing
+      <code>state.pvp.net.mid</code> against the id the call was fired under. Not <em>&ldquo;is there a pvp
+      object&rdquo;</em>.</li>
+  <li><code>pvpPatch(mid, patch)</code> returns a React updater that yields <code>null</code> &mdash; a no-op &mdash;
+      when it is not. That is what stops a null <code>pvp</code> being resurrected.</li>
+  <li>Both async paths capture <code>const _mid = v.net.mid</code> at entry. All six writes, both desync forfeits,
+      the opponent-forfeit path and both <code>lockIn()</code> callbacks are guarded by it.</li>
+</ul>
+<p><strong>Why the match does not instead wait for the server before ending</strong> (D's ruling, 2026-08-08).
+Waiting cannot fix this: however long the deadline, a reply can always land one moment after it. Worse, the most
+common reason a match ends is an opponent vanishing, so a match that ends only on a reply would freeze the player
+owed the win &mdash; the exact failure the 2026-08-06 <em>&ldquo;a PvP snapshot is not authority&rdquo;</em> work
+removed. The fix is that a late reply cannot <em>write</em>, not that it is unlikely to arrive.</p>
+
+<h2>A pvp object that is not a match cannot route a fight</h2>
+<p><code>pvpReal(v)</code> is <code>!!(v &amp;&amp; v.opp &amp;&amp; Array.isArray(v.games))</code>. Four things key
+off it, because each one changes what a fight <em>is</em>:</p>
+<ul>
+  <li><code>endRound()</code>'s PvP branch &mdash; otherwise a PvE party wipe entered the Bo3 machinery.</li>
+  <li><code>battleKindNow()</code> &mdash; otherwise a PvE fight was persisted to the <em>PvP</em> localStorage
+      slot, and <code>tryResumeBattle(null)</code> tries <code>'pvp'</code> first, so a reload resumed straight
+      back into it.</li>
+  <li><code>persistBattle()</code>'s slot choice and the battle log's <code>kind</code>.</li>
+</ul>
+<p>A truthy <code>pvp</code> also hides Auto-Battle, which is what players saw first.</p>
+
+<h2>Match end and the round watchdog cannot take the fight down</h2>
+<ul>
+  <li><code>pvpGameEnd()</code> and <code>pvpForfeitWin()</code> build with
+      <code>(v.games || []).concat([&hellip;])</code>, never <code>v.games.push(&hellip;)</code>. A match-end path is
+      the only way out of a fight, so it must not be able to throw on a malformed object.</li>
+  <li><code>endRound()</code>'s catch is a watchdog, and a thrown round is not a live round. If nobody on the
+      player's side can act, it ends the fight and clears the battle snapshot instead of returning the player to
+      <code>'select'</code> with a dead party &mdash; moves visible, none selectable, and the next
+      <code>endRound()</code> throwing in the same place.</li>
+</ul>
+<p class="foot">Client: <code>pvpAlive</code>, <code>pvpPatch</code>, <code>pvpReal</code>,
+<code>pvpNetCommit</code>, <code>pvpNetPoll</code>, <code>pvpGameEnd</code>, <code>pvpForfeitWin</code>,
+<code>persistBattle</code>, <code>battleKindNow</code> and <code>endRound</code> in <code>play/app.js</code>.
+Probe: <code>tools/probe_r64.py</code> (9/9, including a control that a live match still takes its own reply, and
+one that a clean PvE defeat is untouched). Replayer: <code>tools/_r64_patch.py</code>.</p>
+
+<h2>Changelog</h2>
+  <ul class="sp-rules"><li><strong>2026-09-03 &mdash; the rank card and the queue button are one unit (board 6.3, D). LIVE on release since 2026-09-03 (0.69).</strong> Following the convention the established ladder games share &mdash; a rank card (tier colour, rating, tier name) tied to one large action button that carries the verb &mdash; both PvP blocks now take the tier colour from the same ladder on the card border and on the button&rsquo;s border and glow. The Auto PvP block shows its tier name beside its rating (it showed a bare number). Ratings print with a thousands separator. An account with no competitive fight reads UNRATED with an em-dash in grey rather than the 1,472 placeholder. While searching, the same button reads &ldquo;SEARCHING &middot; m:ss &middot; CANCEL&rdquo; and pulses in the tier colour; one click unqueues. Gate <code>tools/probe_pvpentry.py</code> 6/6 (1/6 before) on the painted page; <code>probe_pvpqueue</code> 21/21 unchanged.</li><li><strong>2026-08-28 &mdash; one game mode: the hardcore ladders are gone (D order). On release.</strong> The rank sequence is the three standard boards (ladder, climb, power); the removed realm's queue guard went with its mode. Auto PVP and its weekly season are untouched &mdash; a separate live system. Build record on <a href="system-realms.html">Realms</a>.</li></ul>
+<ul>
+    <li><strong>2026-08-16 &mdash; the damage ramp replaces the round cap (DEV, Auto PVP step 3.8).</strong>
+      The 30-round hard cap and its units&nbsp;&rarr;&nbsp;HP%&nbsp;&rarr;&nbsp;damage tiebreak are deleted; from round 20 all damage
+      ramps (&times;1.5/&times;2/&times;2.5/&times;3 at 20/30/35/40+, lingering ticks included, both sides) until a side is wiped.
+      A multiplier chip beside the round counter shows the live factor. Both engines share the one
+      implementation (<code>src/battle_round.js rampMult</code>), so the live fight, the replay and the
+      server's re-simulation can never disagree.</li>
+    <li><strong>2026-08-08 (v0.41) &mdash; a reply from a finished match can no longer write, and a PvE fight can
+      no longer be mistaken for a PvP one (LIVE on release, 2026-08-08).</strong>
+      Reports #64, #65 and #66 &mdash; one player, wedged in combat after a PvP match, signature
+      <code>endRound error: Cannot read properties of undefined (reading 'push')</code>, with F5 returning him to the
+      same round and only a relog clearing it. Reproduced first (8/8) and the probe then inverted to verify (9/9).
+      Three links in one chain: a late network reply resurrected <code>state.pvp</code> from null into a truthy stub
+      via <code>Object.assign</code>; that stub sent his next PvE fight into the PvP save slot and into the Bo3
+      match-end code; and that code threw on a <code>games</code> array the stub never had, after which the round
+      watchdog handed him back an unplayable <code>'select'</code> every time. Fixed with an identity stamp
+      (<code>pvpAlive</code>/<code>pvpPatch</code>), <code>pvpReal</code> on every branch that decides what a fight
+      is, a match-end path that cannot throw, and a watchdog that ends a fight nobody can act in.</li>
+    <li><strong>2026-08-07 &mdash; the match HUD moves under the turn-order button, and the decree stamp waits for the lock (LIVE on release since 2026-08-07 (0.39)).</strong> Reports #56 and #57. The HUD was anchored mid-screen across the battlefield; the stamp was painted before anything was committed, and the lock-in button gave no sign it had been pressed. New section above. Verified 8/8.</li>
+    <li><strong>2026-08-06 (v0.36) &mdash; matchmaking rewritten server-authoritative.</strong>
+      Peer discovery is deleted. The client posts a ticket and renders status; it no longer reads the pool, picks an
+      opponent, creates a match or holds an identity. Root cause of the 2026-08-06 failure was a player's PC clock
+      running 3m&nbsp;40s fast &mdash; every freshness test compared one machine's clock against a timestamp written
+      by another. Deadlines are now durations, liveness is a server lease, identity is <code>acctKey(steamid)</code>,
+      and rating and name are read server-side. Match creation is arbitrated by a <code>UNIQUE</code> constraint
+      instead of a &ldquo;lower id wins&rdquo; convention. Both sides transition together, so one player can no longer
+      hang while the other is told the opponent never readied. Own rate bucket and a server-dictated 2&nbsp;s cadence;
+      an ordinary poll writes zero rows. Verified: 33/33 against the real matcher and real SQLite, and 9/9 with two
+      real browsers one of which was pinned 220&nbsp;s fast. Untested until release: the Cloudflare router and session
+      seam, which the harness stubs.</li>
+    <li><strong>2026-08-05 (v0.34).</strong> Three fixes. The queue and match record now carry the player&rsquo;s real hero name &mdash; three sites wrote the missing-name fallback <code>Vael</code> hardcoded, so both sides of a real match saw their opponent as Vael. Locking in no longer hangs both players. And the opponent fabricator was deleted along with its name pools and simulated lock countdowns.</li>
+    <li><strong>2026-08-04 &mdash; the queue keeps looking, the timer is always on screen, and a match can be taken out of a PvE fight (LIVE on release since 2026-08-08 (0.42)).</strong>
+      Closing the Arena panel used to kill the queue, which stopped the one-second heartbeat and let the player's
+      node go stale &mdash; so two people had to sit on the arena screen together to meet, which is why PvP had
+      never matched. The queue now ends only on a match or an explicit CANCEL; a popup that times out returns to
+      LOOKING. The elapsed timer moved to the bottom right, left of the turn counter, and keeps counting through a
+      battle. Taking a match parks the PvE fight and closing the PvP result restores it; removed-mode refuses the join.
+      Also fixed here: a team node that existed but was empty threw inside the join and left the player on the
+      splash forever with no message.</li>
+  </ul>
+<script src="admin.js"></script>
+<script src="nav.js"></script>
+</body>
+</html>
