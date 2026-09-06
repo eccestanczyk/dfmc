@@ -10,7 +10,7 @@
 # the cut is a local chroma key (hue key + flood from the border, so enclosed dark regions inside
 # the object are never removed); nothing is wired before D's "approved". NO FLOOR in any image.
 
-## incense_burner.png — Incense Burner (SHOP-001; halves the respawn wait by -30 s, 30 days)
+## incense_burner.png — Incense Burner (SHOP-001; doubles the wild respawn rate, 30 days)
 Ornate dark-fantasy game icon of a small hanging incense burner: a squat burnished gold-bronze
 censer with pierced gothic filigree sides, glowing crimson embers visible through the piercings,
 three short bronze chains gathered to a ring above it, one compact solid curl of pale grey smoke
