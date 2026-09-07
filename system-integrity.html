@@ -101,8 +101,7 @@
   failure inside the drawing pass takes the whole screen with it, which is why it went black rather than
   simply showing nothing. All three now resolve an ultimate properly, so it reads correctly everywhere
   instead of merely not crashing in the one place it did.</p>
-  <p><strong>2026-08-29 &mdash; a battle chain no longer diverges silently (#638). ON DEV, not yet on
-  release.</strong> The chain check reported battles arriving on a head the server never issued. The
+  <p><strong>2026-08-29 &mdash; a battle chain no longer diverges silently (#638). LIVE on release since 2026-09-01 (0.65).</strong> The chain check reported battles arriving on a head the server never issued. The
   account it fired on also sent a stale save and a short codex the same day &mdash; <strong>three
   detections, one device whose local writes were not landing</strong>. The client advances its chain head
   and stores it; that store sat in a silent catch, so a device with a full browser store moved the head in
@@ -125,8 +124,7 @@
   with the drift check running once per currency at the end: <strong>519 reads become 11</strong>, the
   same guarantee for a forty-seventh of the work. No index was added, because an index entry is itself a
   written row on every insert.</p>
-  <p><strong>2026-08-29 &mdash; two detectors stop flagging the server's own arithmetic. ON DEV, not yet
-  on release.</strong> The currency-rate guard was reporting bulk dismantles as suspicious income: the
+  <p><strong>2026-08-29 &mdash; two detectors stop flagging the server's own arithmetic. LIVE on release since 2026-09-01 (0.65).</strong> The currency-rate guard was reporting bulk dismantles as suspicious income: the
   Ichor burst allowance is 1,500 while one batch pays far more, and the same account in the same hour
   shows 173 dismantle rows in a single request. <strong>The server had booked that income itself</strong>,
   so the guard was flagging a payout it had just made; the booked amount now joins the allowance, exactly
