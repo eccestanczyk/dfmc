@@ -26,7 +26,7 @@
   </ul>
 
   <h2>Descending on death</h2>
-  <p><strong>Status: on DEV (0.33), not yet on release.</strong> The <em>On Death</em> battle option (<code>Stay</code> / <code>Go Down</code>, default <code>Go Down</code>) is read in exactly one place &mdash; the autoplay defeat handler. A defeat dismissed by hand never descends, whatever the setting says.</p>
+  <p><strong>Status: LIVE on release since 2026-08-05 (0.33).</strong> The <em>On Death</em> battle option (<code>Stay</code> / <code>Go Down</code>, default <code>Go Down</code>) is read in exactly one place &mdash; the autoplay defeat handler. A defeat dismissed by hand never descends, whatever the setting says.</p>
   <p>With autoplay on, <code>2200ms</code> after the defeat scene appears:</p>
   <ul class="sp-rules">
     <li><strong>Lost to a boss:</strong> no descent. <code>floorNum</code> already reads the pre-boss floor for the whole boss fight (<code>travelToBossRoom()</code> parks it at <code>bf-1</code>), so the floor below the boss is the one already loaded &mdash; the run returns to it. Descending here would have skipped a floor, which it did until 2026-07-31.</li>

@@ -193,7 +193,7 @@
 
   <h2>How a sync is queued</h2>
   <div class="note"><strong>Release status.</strong> Everything in this section is live on <strong>release&nbsp;0.25</strong>
-  except three client changes that are <strong>on DEV only and not yet on release</strong>, marked
+  and the three client changes once marked <span style="color:#e0644f">DEV</span> below have been <strong>LIVE on release since 2026-08-03 (0.26)</strong>:
   <span style="color:#e0644f">DEV</span> below: the <code>hidden</code> coalesce, the non-OK re-arm, and (in the next
   section) the shell writing both run keys. The backend half is identical on both branches &mdash;
   <code>src/worker.js</code> is byte-for-byte the same file on <code>main</code> and <code>dev</code>.</div>
@@ -544,7 +544,7 @@
       <code>sid</code> is the steamid, or <code>anon</code> before <code>/api/me</code> answers</td></tr>
     <tr><td class="lbl"><code>herumon_run_rel_v1</code><br><code>herumon_run_rel_v1_hc</code></td>
       <td>The same adopted save, written in parallel by the shell</td>
-      <td><span style="color:#e0644f">DEV &mdash; on dev only, not yet on release.</span>
+      <td><span style="color:#8fd0a0">LIVE on release since 2026-08-03 (0.26).</span>
       <strong>Legacy, and it must keep being written.</strong> It feeds the first-boot migration for a device that has
       never played. The two formulas are duplicated in <code>play/index.html</code> and <code>play/app.js</code> and must
       stay identical &mdash; <code>tools/probe_runkey.py</code> is the gate. See the root-cause section below for what

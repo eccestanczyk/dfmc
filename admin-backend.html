@@ -697,7 +697,7 @@
   of <code>saves</code> must write the parts before that cutover.</div>
 
   <h2>What a bug report actually carries</h2>
-  <p><strong>Status: on DEV (0.33), not yet on release.</strong> A report is one row in the <code>feedback</code> table of the shared object &mdash; the same SQLite as every save, capped at 10&nbsp;GB. Measured across all 33 stored reports on 2026-08-05, the payload was:</p>
+  <p><strong>Status: LIVE on release since 2026-08-05 (0.33).</strong> A report is one row in the <code>feedback</code> table of the shared object &mdash; the same SQLite as every save, capped at 10&nbsp;GB. Measured across all 33 stored reports on 2026-08-05, the payload was:</p>
   <table>
     <tr><th>Field</th><th>Share</th><th>Average</th><th>What it is</th></tr>
     <tr><td class="lbl"><code>shot</code></td><td>79.2%</td><td>50,066 B</td><td><strong>REMOVED 2026-08-05.</strong> Base64 JPEG, inline.</td></tr>
@@ -710,7 +710,7 @@
   <p>With the screenshot gone a report is <strong>13.1&nbsp;KB</strong> instead of 63&nbsp;KB, and <strong>logs are 96% of what remains</strong> &mdash; they are now the report. Guards unchanged: 20 reports per account per hour, 300 globally per hour, and a same-account/same-wording/same-hour dedupe that hands back the existing id.</p>
 
   <h3>The report is anchored to the moment it was OPENED</h3>
-  <p><strong>Status: on DEV (0.33), not yet on release.</strong> <code>ctx</code> used to be read at <em>send</em> time &mdash; after the player had typed. With autoplay running that is several battles and possibly a floor or two later, so the stamp described a moment the report was not about. Report&nbsp;#29 names the floor-map key count and arrives stamped <code>screen: resolving</code> for exactly this reason.</p>
+  <p><strong>Status: LIVE on release since 2026-08-05 (0.33).</strong> <code>ctx</code> used to be read at <em>send</em> time &mdash; after the player had typed. With autoplay running that is several battles and possibly a floor or two later, so the stamp described a moment the report was not about. Report&nbsp;#29 names the floor-map key count and arrives stamped <code>screen: resolving</code> for exactly this reason.</p>
   <ul>
     <li><code>openFeedback()</code> snapshots <code>feedbackCtx()</code> and a timestamp. That snapshot is what ships as <code>ctx</code>.</li>
     <li><code>openedAt</code> &mdash; ISO timestamp of the moment the reporter was opened.</li>
