@@ -125,8 +125,8 @@
 Each fires once per hit taken and deals its share straight to the attacker&rsquo;s HP, on the damage line as
 &ldquo;<em>N</em> reflected&rdquo;. Retaliation ultimates are a different mechanic and are not thorns.</p>
 <p><strong>The share is of the damage the unit actually lost on the hit</strong> &mdash; after its own defence, and never more than it had left. <strong>(#771, D ruling A, 2026-09-07 &mdash; ON DEV, not yet on release; this retracts the 2026-09-02 rule below.)</strong> The 09-02 rule read the hit as the attacker <em>put it out</em>, before the target&rsquo;s defence, so that a tank reflected as much as a paper target; against an armoured target it did the opposite of its purpose: the floor-108 Talos (Divine, defence 9, its +50% Defense up) sent 15% of a 27k-attack creature&rsquo;s raw output back &mdash; 28,790 &mdash; and killed a 3,862-HP attacker outright for landing a 1,722 hit. Under ruling A that same hit returns 258. Both sources, status and soul package; multi-hit summed; overkill counts only what the unit had. Gate <code>tools/probe_thorns.py</code> 5/5 through the real floor-108 boss party and the shared engine.</p>
-<p><em>Retracted rule, kept for the record (LIVE on release 0.66 until 0.71):</em> the share was of the hit as the attacker put it out. 
-<p>Before that date thorns read the damage actually taken. A tank that mitigated a 2,000 hit to 100 reflected 4% of 100 &mdash; the souls were
+<p><em>Retracted rule, kept for the record (LIVE on release 0.66 until 0.71):</em> the share was of the hit as the attacker put it out &mdash; the engine computed the hit a second time against its reference defence (<code>10 &times; STAT_SCALE</code>) and thorns read that figure, so a tank reflected exactly what a paper target would off the same swing.</p>
+<p>Before 2026-09-02 thorns read the damage actually taken &mdash; the reading ruling A returns to. A tank that mitigated a 2,000 hit to 100 reflected 4% of 100 &mdash; the souls were
 only worth carrying on a unit that took no damage, which is the one unit that never got to use them.</p>
 
 <h2>Changelog</h2>
