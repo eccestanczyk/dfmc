@@ -25,3 +25,18 @@ short deep crimson cord knotted through the hook's eye, painterly, dramatic rim 
 upper left, single centred object filling 70% of frame, flat solid pure green (0,255,0)
 chroma-key background, no green anywhere on the object, no floor, no ground shadow, no text,
 no border.
+
+## apvp_attacks.png — Auto PVP Attacks (SHOP-003; ten more Auto PVP attacks, no duration)
+D's order 2026-09-08, #791: "gen it. Scroll with swords drawn on it ... Background with contrasted
+flat color, dark fantasy, same style." Background: flat pure green again, the same choice and the
+same reason as its two siblings — the object is parchment ivory, gold-bronze, steel and crimson, so
+green appears nowhere on it and the key is clean. (Flat BLACK is the wrong choice for this set: the
+#767 plate cut proved a border flood over near-black leaks into an object's own dark interiors.)
+Ornate dark-fantasy game icon of a partly unrolled parchment scroll: aged ivory parchment with
+darkened frayed edges, wound on two burnished gold-bronze rods with gothic filigree finials, a deep
+crimson silk ribbon and a crimson wax seal at one end, and inked across the open face a bold
+heraldic device of two crossed longswords, their cross-guards and pommels picked out in burnished
+gold and deep crimson; the crossed-sword drawing is the ONLY marking on the parchment — no letters,
+no words, no runes, no numerals; painterly, dramatic rim light from the upper left, single centred
+object filling 70% of frame, flat solid pure green (0,255,0) chroma-key background, no green
+anywhere on the object, no floor, no ground shadow, no text, no border.
