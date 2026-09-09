@@ -94,3 +94,20 @@ touch an approval.
   impact under the status effect - 78 moves. Owning pages: this spec and `vfx.html`.
 - **2026-07-15** - 20-archetype VFX taxonomy locked for all 400 moves, derived from `Effect_S3`
   mechanics and the `VFX_Description` visual verbs.
+
+## Per-stage renditions (2026-09-10)
+
+A move keeps ONE archetype at every stage. What improves when it advances is the rendition,
+not the identity: the renderer takes the stage (1-3) and escalates scale, layer count and
+duration, and for audio the pitch and body.
+
+`VFX_Archetype_S2`, `VFX_Archetype_S3`, `AFX_Archetype_S2`, `AFX_Archetype_S3` are SPARSE
+overrides for the few moves that genuinely become a different effect when they advance.
+**Blank or absent means inherit the base.** Read them defensively. Do not author three
+archetypes per move.
+
+## Keying
+
+`Move_ID` is the key. Never a name: names are display strings, they differ per stage, and a
+lookup keyed on the base name misses at stages 1 and 2 (the live defect found 2026-09-10).
+A miss must fail loudly - never fall back to `generic_impact` silently.
