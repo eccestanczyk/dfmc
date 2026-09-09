@@ -136,15 +136,8 @@
 
 
   <section>
-    <h3>Move Progression</h3>
-    <div class="section-body">
-      <div class="pending-note">Move design not yet started for this line.</div>
-    </div>
-  </section>
-
-  <section>
     <h3>Mutant Variant</h3>
-    <div class="section-body mutant-box">
+    <div class="section-body mutant-box" id="mutant-body">
       <div class="mutant-placeholder">NOT YET<br>GENERATED</div>
       <p class="pending-note">Mutant variant art pending.</p>
     </div>
@@ -153,6 +146,7 @@
   <section>
     <h3>Changelog</h3>
     <div class="section-body">
+      <p style="font-size:12px;margin:0 0 6px;"><strong>2026-09-09</strong> &mdash; <strong>Two hardcoded panels on this page were telling every creature the same lie.</strong> The MUTANT VARIANT box printed <em>NOT YET GENERATED</em> on all 300 pages: it was static markup that nothing ever replaced, while the mutant art has existed for every id in <code>codex/images/mutants/</code> and the &#9763;&nbsp;VIEW MUTANT toggle above was already serving it. The box now renders the real recolour when the file is present and keeps the placeholder only when it is genuinely absent. The MOVE PROGRESSION section, which read <em>&ldquo;move design not yet started for this line&rdquo;</em> on all 300 pages, is removed &mdash; the MOVES panel above it has printed the full V1/V2/V3 ladder with unlock levels since 2026-08-05, so the section was both false and redundant. Reported by D on Nauplius (DFMC-031). DESCRIPTIVE ONLY: no game behaviour changes.</p>
       <p style="font-size:12px;margin:0 0 6px;"><strong>2026-08-31</strong> &mdash; <strong>The SOUL EQUIP panel was left behind by the 2026-08-05 fix directly above it.</strong> It still printed <code>Power_S&lt;creature stage&gt;</code> for each granted move, which is not how the game resolves one: versions unlock at <code>Level_Learned</code> / <code>Level_Upgrade_V2</code> / <code>_V3</code> and the client picks them with <code>moveVerAt(row, LEVEL)</code>. Stage and version are independent ladders and after the 2026-08-04 stagger they land 22&ndash;29 levels apart on average, so a stage-3 entry advertised numbers the creature does not fire &mdash; Ridgedrake&rsquo;s slot 1 read <em>Rampart Annihilation, 160</em> when a stage-3 Ridgedrake below level 84 is still on <em>Rampart Break, 130</em>, and below 53 on <em>Ram Charge, 95</em>. The panel now prints the whole ladder with its unlock levels, exactly as the MOVES panel does, and states that soul <strong>grade</strong> multiplies the granted power. Found by the consistency audit opened on Arthur Bergamin&rsquo;s report &mdash; this panel is the wiki&rsquo;s answer to the question he asked. DESCRIPTIVE ONLY: no game behaviour changes.</p>
       <p style="font-size:12px;margin:0 0 6px;">2026-08-05 &mdash; <strong>Soul ladder rebased and the grade half repaired.</strong> Soul grade was computed but returned only on the four ability slots, so on the four passive slots <code>grMult</code> defaulted to 1 and upgrading a soul changed nothing (measured on a live save: persDefPct 4.2 at Worn, 4.2 at Void). Grade now reaches the passive path. The combined stage&times;grade surface is rebased to &times;1.00 (S1/Worn) &rarr; &times;2.50 (S3/Void) &mdash; nothing sits below 1 any more &mdash; with grade carrying 2.00&times; and stage 1.25&times;, reversing which lever held the wider range. <em>LIVE on release since 2026-08-05 (0.32).</em></p>
       <p style="font-size:12px;margin:0 0 6px;"><strong>2026-08-05</strong> — The MOVES panel now prints the
@@ -304,6 +298,11 @@ async function load() {
     if (c.Image_Path) (async function() {
       const mpath = 'codex/images/mutants/' + c.ID + '.webp';
       try { if (!(await fetch(IMG_BASE + mpath + BUST, { method:'HEAD' })).ok) return; } catch { return; }
+      const mbody = document.getElementById('mutant-body');
+      if (mbody) mbody.innerHTML =
+        '<img class="mutant-art" src="' + IMG_BASE + mpath + BUST + '" alt="' + escapeHtml(c.Name) + ' mutant">'
+        + '<p class="pending-note">Deterministic hue-cluster recolour of the approved art, seeded from the creature id. '
+        + 'Luminance is untouched, so the silhouette and the read of the piece are identical.</p>';
       const wrap = document.getElementById('creature-img-wrap');
       wrap.insertAdjacentHTML('afterend', '<button id="mutant-toggle" class="mutant-toggle">☣ VIEW MUTANT</button>');
       let normalHTML = null;

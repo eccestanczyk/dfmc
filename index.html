@@ -1648,7 +1648,7 @@ async function loadBalance() {
       const rarCol = {'C':'var(--ink-dim)','UC':'#86c377','R':'#4f9fd4','SR':'#c89bf5','SSR':'var(--gold-bright)'}[rarC] || 'var(--ink-dim)';
       return `<tr>
         <td style="font-family:'Cinzel',serif;font-size:13px;font-weight:600;color:var(--ink);white-space:nowrap">
-          <a href="codex/creature.html?id=${r.ID}" style="color:inherit;text-decoration:none;border-bottom:1px solid var(--rule-faint)">${r.Line_ID}</a></td>
+          <a href="creature.html?id=${r.ID}" style="color:inherit;text-decoration:none;border-bottom:1px solid var(--rule-faint)">${r.Line_ID}</a></td>
         <td style="color:${rarCol};font-size:13px;font-weight:600">${rarC}</td>
         <td style="font-size:13px">${r.Home_Zone}</td>
         <td style="font-size:13px">${t2}</td>
@@ -1747,6 +1747,7 @@ async function loadBalance() {
 }
 </script>
 <h2>Changelog</h2>
+<p><strong>2026-09-09 &mdash; three dead panels on the codex pages, found from one report (D). WIKI ONLY.</strong> D read Nauplius (DFMC-031) and saw <em>NOT YET GENERATED</em> where its mutant should be. The MUTANT VARIANT box on <code>creature.html</code> was static markup no code ever filled, so it said that on all 300 creature pages while the art existed for every one of them; it now renders the recolour. The MOVE PROGRESSION box on the same page (<em>&ldquo;move design not yet started&rdquo;</em>, also all 300 pages) is removed &mdash; the MOVES panel above it has printed the full ladder since 2026-08-05. <code>type.html</code> said no move data exists to show type advantages; it now lists, per type, the moves that hit it harder and the moves that boost its allies, read from <code>codex/moves.csv</code>. And the balance table on this page linked every creature to <code>codex/creature.html</code>, which 404s &mdash; corrected to <code>creature.html</code>. DESCRIPTIVE ONLY: no game behaviour changes.</p>
 <p><strong>2026-09-09 &mdash; the inventory and soul bag buttons are almost twice the size (#794, D). ON DEV, not yet on release.</strong> They went from 64 to 120 pixels tall. That is not a chosen number: it is the largest the busier of the two rows can hold, so the soul bag&rsquo;s row now fills all but two pixels of its width. Every button in both windows keeps the same size and the same shape &mdash; nothing is stretched and nothing overlaps. The inventory row holds four buttons rather than seven, so it is less full at the same size. Gate <code>tools/probe_bagbuttons.py</code> 6/6, red 5/6.</p>
 <p><strong>2026-09-09 &mdash; Crafting and the Discord invite leave the main menu (#810 / #811, D). ON DEV, not yet on release.</strong> Crafting is retired for now and its menu button is gone; the Discord invite button is gone too. Neither system was deleted &mdash; the crafting window and the invite link are still in the build, so either can come back as a single menu entry when it is wanted. Every other menu item is untouched. Gate <code>tools/probe_menuretire.py</code> 5/5, red 3/5.</p>
 

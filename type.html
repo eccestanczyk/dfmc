@@ -32,8 +32,8 @@
 
   <section>
     <h3>Moves That Interact With This Type</h3>
-    <div class="section-body">
-      <div class="pending-note">Move design has not started yet — no move data exists to show type advantages or disadvantages against this type.</div>
+    <div class="section-body" id="type-moves">
+      <div class="pending-note">Loading…</div>
     </div>
   </section>
 </main>
@@ -141,6 +141,39 @@ async function load() {
           </a>
         `).join('')
       : `<div class="pending-note">No creatures currently carry this type.</div>`;
+
+    try {
+      const mtext = await fetch("codex/moves.csv?t=" + Date.now()).then(r => r.text());
+      const moves = parseCSV(mtext);
+      const rx = new RegExp('\\b' + type.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b');
+      const lineOf = {};
+      creatures.forEach(c => { if (!lineOf[c.Line_ID] || +c.Stage < +lineOf[c.Line_ID].Stage) lineOf[c.Line_ID] = c; });
+      const named = (m) => {
+        const src = lineOf[m.Line_ID];
+        const label = src ? src.Name : m.Line_ID;
+        const href = src ? `creature.html?id=${escapeHtml(src.ID)}` : null;
+        return href ? `<a href="${href}" style="color:var(--gold);text-decoration:none">${escapeHtml(label)}</a>` : escapeHtml(label);
+      };
+      const live = (v) => v && v.trim() && v.trim() !== '-';
+      const against = moves.filter(m => live(m.Anti) && rx.test(m.Anti));
+      const alongside = moves.filter(m => live(m.Synergy) && rx.test(m.Synergy));
+      const block = (title, rows, field) => rows.length ? `
+        <div style="margin-bottom:14px;">
+          <div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#8a7550;margin-bottom:6px;">${title}</div>
+          ${rows.map(m => `<div style="font-size:13px;color:#e8d9b8;line-height:1.6;">
+              <strong>${escapeHtml(m.Name_S3 || m.Name)}</strong>
+              <span style="color:#8a7550;"> — ${named(m)}</span><br>
+              <span style="color:#b9a988;">${escapeHtml(m[field])}</span>
+            </div>`).join('')}
+        </div>` : '';
+      const html = block(`Stronger against ${escapeHtml(type)}`, against, 'Anti')
+                 + block(`Boosts ${escapeHtml(type)} allies`, alongside, 'Synergy');
+      document.getElementById('type-moves').innerHTML = html
+        || `<div class="pending-note">No move in the catalogue names this type in its synergy or anti clause.</div>`;
+    } catch (e) {
+      document.getElementById('type-moves').innerHTML =
+        `<div class="pending-note">Move data could not be loaded.</div>`;
+    }
 
     document.getElementById('status').style.display = 'none';
     document.getElementById('main').style.display = 'block';

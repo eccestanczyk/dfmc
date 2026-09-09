@@ -283,6 +283,7 @@ table.data-table td.filled{ color:var(--ink); font-style:normal; }
 
 .mutant-box{ display:flex; gap:18px; align-items:center; }
 .mutant-placeholder{ width:100px; height:100px; border:1px dashed var(--rule); display:flex; align-items:center; justify-content:center; color:var(--ink-faint); font-size:12px; text-align:center; font-style:italic; }
+.mutant-art{ width:190px; height:auto; flex:0 0 auto; border:1px solid #7a4a8a; background:var(--surface-2); box-shadow:0 0 12px rgba(163,53,238,0.28); }
 
 .floor-chip-row{ display:flex; flex-wrap:wrap; gap:6px; }
 .floor-chip{
