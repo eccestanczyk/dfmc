@@ -39,6 +39,30 @@ async def main():
         if hrefs:
             r=await pg.evaluate("h=>fetch(h).then(r=>r.status)",hrefs[0])
             if r!=200: fails.append("first balance link returns %s"%r)
+        # Apex markers: the five pages must no longer call a shipped zone unimplemented,
+        # and bosses.html must still render all ten mutant portraits.
+        for page in ["bosses.html","droptables.html","eggs.html","system-streak.html","system-void-apex.html"]:
+            await pg.goto(B+page); await pg.wait_for_timeout(2500)
+            t=await pg.inner_text('body')
+            if page=="system-void-apex.html":
+                # the page quotes its own retired wording in the correction block; check the
+                # two places a reader actually lands instead of the whole body.
+                lead=await pg.inner_text('.sp-lead')
+                status=await pg.eval_on_selector("h2:text('Status') + .sp-note","e=>e.innerText")
+                if "not yet implemented" in lead.lower(): fails.append(page+": lead still says not yet implemented")
+                if "nothing on release" in status.lower(): fails.append(page+": Status still says nothing on release")
+            else:
+                live=t.split("Changelog")[0].split("CHANGELOG")[0]
+                if "not yet implemented" in live.lower(): fails.append(page+": still says not yet implemented")
+            if page=="bosses.html":
+                arts=await pg.eval_on_selector_all('.boss-img-wrap img','e=>e.map(x=>[x.getAttribute("src"),x.naturalWidth])')
+                mut=[a for a in arts if "images/mutants/" in a[0] and a[1]>0]
+                if len(mut)!=10: fails.append("bosses.html mutant portraits: %d of 10"%len(mut))
+        # the virtual-gear caveat is TRUE and must survive
+        await pg.goto(B+"system-void-apex.html"); await pg.wait_for_timeout(2000)
+        if "not yet implementable" not in (await pg.inner_text('body')):
+            fails.append("void-apex: the true virtual-gear caveat was removed")
+
         await br.close()
     print(("FAIL" if fails else "PASS"), "balance links:",len(hrefs))
     [print(" -",f) for f in fails]
