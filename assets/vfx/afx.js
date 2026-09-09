@@ -114,10 +114,14 @@
     }
   };
 
-  function play(archetype, pitch, layer) {
+  /* Stage lowers and thickens the sound the way it grows the picture:
+     stage 1 is thinner and higher, stage 3 heavier and lower. Same recipe. */
+  var STAGE_K = { 1: 1.09, 2: 1.00, 3: 0.92 };
+
+  function play(archetype, pitch, layer, stage) {
     if (muted) return false;
     if (!ac()) return false;
-    var k = PITCH[pitch] || 1, t = ctx.currentTime + 0.001;
+    var k = (PITCH[pitch] || 1) * (STAGE_K[stage] || 1), t = ctx.currentTime + 0.001;
     if (layer && REC[layer]) REC[layer](t, k * 0.9);
     var r = REC[archetype];
     if (!r) return false;
@@ -133,6 +137,7 @@
     mute: function (m) { muted = !!m; },
     isMuted: function () { return muted; },
     ARCHETYPES: Object.keys(REC),
+    STAGE_K: STAGE_K,
     PITCH: PITCH
   };
   root.DFMC_AFX = API;

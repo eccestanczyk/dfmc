@@ -283,16 +283,34 @@
 
   function boxOf(anchor, A, B) { return anchor === 'self' ? A : B; }
 
+  /* Stage escalates the RENDITION, never the identity. One archetype, three sizes:
+     the effect grows, runs a little longer, and gains trailing echo passes. Done here
+     once rather than in each of the twenty archetypes, so adding an archetype gets
+     stage behaviour for free and cannot forget it. */
+  var STAGE = { 1: { s: 0.82, d: 0.85, echo: 0 },
+                2: { s: 1.00, d: 1.00, echo: 1 },
+                3: { s: 1.22, d: 1.15, echo: 2 } };
+
   function spawn(o) {
     var col = TONE[o.color] || TONE.bone,
-        dur = DUR[o.duration] || DUR.standard,
-        s = o.scale || 1;
+        st  = STAGE[o.stage] || STAGE[2],
+        dur = (DUR[o.duration] || DUR.standard) * st.d,
+        s   = (o.scale || 1) * st.s,
+        now = performance.now(),
+        fn  = FX[o.archetype] || FX.generic_impact,
+        i;
     if (o.layer === 'impact') {
-      live.push({ fn: FX.generic_impact, t0: performance.now(), dur: dur, T: TONE.bone,
-                  A: o.from, B: o.to, anchor: 'target', s: s * 0.8 });
+      live.push({ fn: FX.generic_impact, t0: now, dur: dur, T: TONE.bone,
+                  A: o.from, B: o.to, anchor: 'target', s: s * 0.8, a: 1 });
     }
-    live.push({ fn: FX[o.archetype] || FX.generic_impact, t0: performance.now(),
-                dur: dur, T: col, A: o.from, B: o.to, anchor: o.anchor || 'target', s: s });
+    /* echoes first so the main pass paints over them */
+    for (i = st.echo; i >= 1; i--) {
+      live.push({ fn: fn, t0: now - i * dur * 0.13, dur: dur, T: col,
+                  A: o.from, B: o.to, anchor: o.anchor || 'target',
+                  s: s * (1 + i * 0.16), a: 0.30 / i });
+    }
+    live.push({ fn: fn, t0: now, dur: dur, T: col, A: o.from, B: o.to,
+                anchor: o.anchor || 'target', s: s, a: 1 });
   }
 
   function render(g, now) {
@@ -302,6 +320,7 @@
       var tgt = boxOf(e.anchor, e.A, e.B);
       var anchored = e.anchor === 'ground' ? { x: tgt.x, y: tgt.y + tgt.h * 0.42 } : tgt;
       g.save();
+      if (e.a !== undefined && e.a < 1) g.globalAlpha = e.a;
       e.fn(g, Math.max(0, p), e.A, anchored, e.s, e.T);
       g.restore();
     }
@@ -311,7 +330,7 @@
   function clear() { live.length = 0; }
 
   var API = { spawn: spawn, render: render, clear: clear, DUR: DUR, TONE: TONE,
-              PALETTE: BASE, ARCHETYPES: Object.keys(FX), busy: function () { return live.length; } };
+              PALETTE: BASE, ARCHETYPES: Object.keys(FX), STAGE: STAGE, busy: function () { return live.length; } };
   root.DFMC_VFX = API;
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
 })(typeof window !== 'undefined' ? window : this);

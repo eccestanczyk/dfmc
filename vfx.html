@@ -421,10 +421,13 @@ function cast(){
   const [tside,tidx]=pick(legalTargets(selMove,side,0));
   const from=boxOf(side,0), to=boxOf(tside,tidx);
   const stage=+(selCre?selCre.Stage:3);
-  const scale=stage===1?0.85:stage===2?1:1.2;
-  DFMC_VFX.spawn({archetype:v.VFX_Archetype,color:v.VFX_Color,anchor:v.Target_Anchor,
-                  duration:v.Duration_Class,layer:v.VFX_Layer,from,to,scale});
-  DFMC_AFX.play(v.AFX_Archetype,v.AFX_Pitch,v.AFX_Layer);
+  /* sparse per-stage overrides: blank or absent means inherit the base */
+  const pick=(base,s2,s3)=>(stage===3&&s3)||(stage>=2&&s2)||base;
+  const arch=pick(v.VFX_Archetype,v.VFX_Archetype_S2,v.VFX_Archetype_S3);
+  const aarch=pick(v.AFX_Archetype,v.AFX_Archetype_S2,v.AFX_Archetype_S3);
+  DFMC_VFX.spawn({archetype:arch,color:v.VFX_Color,anchor:v.Target_Anchor,
+                  duration:v.Duration_Class,layer:v.VFX_Layer,from,to,stage});
+  DFMC_AFX.play(aarch,v.AFX_Pitch,v.AFX_Layer,stage);
   const cEl=document.getElementById(side).children[0];
   const tEl=document.getElementById(tside).children[tidx];
   if(cEl){ cEl.classList.add('cast'); setTimeout(()=>cEl.classList.remove('cast'),260); }
