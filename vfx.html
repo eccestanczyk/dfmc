@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VFX &amp; AFX Review — Herumon Tower</title>
+<link rel="stylesheet" href="theme.css?v=4">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+:root{
+  --bg:#12100d; --panel:#1a1611; --panel2:#221c14; --line:#3d3122; --line2:#5c462c;
+  --gold:#cfa650; --gold-dim:#8a7038; --ink:#d8cfc0; --ink-dim:#8d8474;
+  --ok:#5a9a52; --warn:#dd5646;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);margin:0;font-family:'Inter',system-ui,sans-serif}
+.wrap{max-width:1500px;margin:0 auto;padding:0 14px 60px}
+
+/* ---- control bar ---- */
+.ctlbar{position:sticky;top:0;z-index:40;display:flex;flex-wrap:wrap;gap:6px;align-items:center;
+  padding:8px 0;background:linear-gradient(var(--bg) 78%,transparent);}
+.btn{font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:.04em;padding:5px 12px;
+  border:1px solid var(--line2);background:var(--panel2);color:var(--gold);cursor:pointer;
+  text-transform:uppercase;transition:all .14s;white-space:nowrap}
+.btn:hover{border-color:var(--warn);color:var(--warn)}
+.btn.on{border-color:var(--ok);color:var(--ok)}
+.btn.ghost{color:var(--ink-dim);border-color:var(--line)}
+.spacer{flex:1}
+.tag{font-size:11px;color:var(--ink-dim);font-family:'Cinzel',serif;letter-spacing:.05em}
+.tag b{color:var(--gold)}
+input[type=range]{width:78px;accent-color:var(--gold)}
+input.txt{background:#0d0b08;border:1px solid var(--line);color:var(--ink);padding:5px 8px;
+  font-size:12px;font-family:inherit;outline:none}
+input.txt:focus{border-color:var(--gold-dim)}
+
+/* ---- stage ---- */
+.stage{position:relative;height:330px;border:1px solid var(--line);background:
+  radial-gradient(120% 90% at 50% 105%, #241d14 0%, #14110c 62%, #0c0a07 100%);
+  display:flex;align-items:flex-end;justify-content:space-between;padding:16px 26px 22px;overflow:hidden}
+.stage:after{content:'';position:absolute;left:0;right:0;bottom:0;height:74px;
+  background:linear-gradient(transparent,#070604);pointer-events:none}
+#fx{position:absolute;inset:0;pointer-events:none;z-index:6}
+.side{display:flex;flex-direction:column;justify-content:flex-end;gap:8px;z-index:4;width:33%}
+.side.enemy{align-items:flex-end}
+.unit{display:flex;align-items:center;gap:9px;transition:transform .16s ease-out;position:relative}
+.side.enemy .unit{flex-direction:row-reverse}
+.unit img{display:block;image-rendering:auto;filter:drop-shadow(0 4px 6px #000)}
+.unit.lead img{width:132px;height:132px;object-fit:contain}
+.unit.bench img{width:74px;height:74px;object-fit:contain;opacity:.82}
+.side.enemy .unit img{transform:scaleX(-1)}
+.nm{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.04em;color:var(--ink-dim);
+  max-width:120px;line-height:1.25}
+.unit.lead .nm{color:var(--gold);font-size:13px}
+.unit .badge{font-size:9px;color:var(--gold-dim);display:block}
+.unit.cast{transform:translateY(-8px) scale(1.04)}
+.unit.hit{animation:jolt .26s}
+@keyframes jolt{0%{transform:translateX(0)}25%{transform:translateX(9px)}55%{transform:translateX(-6px)}100%{transform:translateX(0)}}
+.side.enemy .unit.cast{transform:translateY(-8px) scale(1.04)}
+.vs{align-self:center;font-family:'Cinzel',serif;color:#3b3225;font-size:34px;z-index:2}
+
+/* ---- now playing + review ---- */
+.now{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:9px 12px;border:1px solid var(--line);
+  border-top:0;background:var(--panel);font-size:12px}
+.now .mv{font-family:'Cinzel',serif;color:var(--gold);font-size:14px;letter-spacing:.03em}
+.now .meta{color:var(--ink-dim)}
+.now .chip{border:1px solid var(--line2);padding:2px 7px;font-size:10px;color:var(--ink-dim);
+  text-transform:uppercase;letter-spacing:.05em}
+.desc{padding:0 12px 10px;border:1px solid var(--line);border-top:0;background:var(--panel);
+  color:var(--ink-dim);font-size:12px;font-style:italic;line-height:1.5}
+
+.review{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px 12px;margin-bottom:16px;
+  border:1px solid var(--line);border-top:0;background:var(--panel2)}
+.review textarea{flex:1;min-width:240px;min-height:34px;max-height:120px;background:#0d0b08;
+  border:1px solid var(--line);color:var(--ink);padding:7px 9px;font-family:inherit;font-size:12px;
+  resize:vertical;outline:none}
+.review textarea:focus{border-color:var(--gold-dim)}
+.approve{font-family:'Cinzel',serif;font-size:12px;font-weight:700;letter-spacing:.06em;padding:8px 18px;
+  border:1px solid var(--line2);background:var(--panel);color:var(--ink-dim);cursor:pointer;
+  text-transform:uppercase;transition:all .14s}
+.approve.on{background:#1c2c19;border-color:var(--ok);color:#8fce84}
+.sync{font-size:10px;color:var(--ink-dim);font-family:'Cinzel',serif;letter-spacing:.05em;min-width:64px}
+.sync.err{color:var(--warn)}
+
+/* ---- grid ---- */
+.gridhead{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 8px}
+.gridhead h2{font-family:'Cinzel',serif;font-size:14px;letter-spacing:.12em;color:var(--gold);
+  margin:0;text-transform:uppercase}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(126px,1fr));gap:6px}
+.card{border:1px solid var(--line);background:var(--panel);padding:6px;cursor:pointer;text-align:center;
+  position:relative;transition:border-color .12s,background .12s}
+.card:hover{border-color:var(--gold-dim);background:var(--panel2)}
+.card.sel{border-color:var(--gold);background:#241d13}
+.card img{width:62px;height:62px;object-fit:contain;display:block;margin:0 auto}
+.card .cn{font-family:'Cinzel',serif;font-size:11px;color:var(--ink);line-height:1.25;margin-top:3px;
+  word-break:break-word}
+.card .cs{font-size:9px;color:var(--ink-dim);letter-spacing:.05em}
+.card .tick{position:absolute;top:3px;right:5px;color:var(--ok);font-size:13px;font-weight:700}
+.card .part{position:absolute;top:3px;right:5px;color:var(--gold-dim);font-size:10px}
+
+.moves{grid-column:1/-1;border:1px solid var(--gold-dim);background:#16130e;padding:8px;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:6px}
+.mv-btn{display:flex;gap:8px;align-items:flex-start;line-height:1.3;text-align:left;border:1px solid var(--line);
+  background:var(--panel);padding:7px 9px;cursor:pointer;transition:all .12s}
+.mv-btn:hover{border-color:var(--gold-dim);background:var(--panel2)}
+.mv-btn.sel{border-color:var(--gold);background:#241d13}
+.mv-btn .slot{font-family:'Cinzel',serif;color:var(--gold-dim);font-size:13px;min-width:14px}
+.mv-btn .t1{display:block;font-family:'Cinzel',serif;font-size:12px;color:var(--ink)}
+.mv-btn .t2{display:block;font-size:10px;color:var(--ink-dim);letter-spacing:.03em;margin-top:2px}
+.mv-btn .ok{margin-left:auto;color:var(--ok);font-size:13px}
+.mv-btn .cm{margin-left:auto;color:var(--gold-dim);font-size:11px}
+.hidden{display:none}
+.loading{padding:40px;text-align:center;color:var(--ink-dim);font-family:'Cinzel',serif}
+@media(max-width:760px){
+  .stage{height:250px;padding:10px 12px 16px}
+  .unit.lead img{width:96px;height:96px}
+  .unit.bench img{width:52px;height:52px}
+  .nm{max-width:80px;font-size:10px}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(98px,1fr))}
+}
+</style>
+</head>
+<body>
+<div class="topbar"><h1>VFX &amp; AFX Review</h1></div>
+<div class="wrap">
+
+  <div class="ctlbar">
+    <button class="btn" id="reroll">⟳ Reroll teams</button>
+    <button class="btn on" id="sound">♪ Sound on</button>
+    <input type="range" id="vol" min="0" max="100" value="50" title="Volume">
+    <button class="btn ghost" id="hd">HD art off</button>
+    <span class="spacer"></span>
+    <span class="tag" id="progress">— / —</span>
+    <button class="btn" id="copyBacklog">📋 Backlog (0)</button>
+    <button class="btn" id="clearBacklog">✕ Clear</button>
+    <button class="btn ghost" id="keyBtn" title="Review key — needed to save approvals">🔑 Key</button>
+  </div>
+
+  <div class="stage" id="stage">
+    <div class="side ally" id="ally"></div>
+    <div class="vs">✦</div>
+    <div class="side enemy" id="enemy"></div>
+    <canvas id="fx"></canvas>
+  </div>
+
+  <div class="now" id="now">
+    <span class="mv" id="nowMove">Pick a creature below</span>
+    <span class="meta" id="nowMeta"></span>
+    <span class="spacer"></span>
+    <span class="chip" id="chipArch">—</span>
+    <span class="chip" id="chipAfx">—</span>
+    <span class="chip" id="chipAnchor">—</span>
+  </div>
+  <div class="desc" id="nowDesc"></div>
+
+  <div class="review">
+    <button class="approve" id="approveBtn" disabled>✓ Approve</button>
+    <textarea id="comment" placeholder="Comment on this move's effect — saved to the backlog, copied with it." disabled></textarea>
+    <span class="sync" id="sync"></span>
+  </div>
+
+  <div class="gridhead">
+    <h2>Creatures</h2>
+    <input class="txt" id="search" placeholder="filter by name, line or type" style="min-width:200px">
+    <button class="btn ghost" id="onlyPending">Hide approved</button>
+    <span class="tag" id="gridCount"></span>
+  </div>
+  <div class="grid" id="grid"><div class="loading">Loading codex…</div></div>
+
+</div>
+
+<script src="assets/vfx/vfx.js"></script>
+<script src="assets/vfx/afx.js"></script>
+<script>
+/* ============================================================
+   VFX & AFX review page.
+   Data: codex/creatures.csv, codex/moves.csv, codex/move_vfx.csv
+   Approvals: dfmc-vfx worker (server-side, cross-device).
+   Backlog: localStorage, its own key, never touches approvals.
+   ============================================================ */
+const API   = 'https://dfmc-vfx.duiliovarella.workers.dev';
+const BLKEY = 'dfmc_vfx_backlog';
+const KKEY  = 'dfmc_vfx_key';
+const IMG   = 'codex/thumbs/creatures/color/';
+const ART   = 'codex/images/';
+const CAST_MS = 2000;
+
+/* ---------- csv ---------- */
+function parseCSV(text){
+  const rows=[]; let f='',row=[],q=false;
+  text=text.replace(/\r\n/g,'\n').replace(/\r/g,'\n');
+  for(let i=0;i<text.length;i++){
+    const c=text[i];
+    if(q){ if(c==='"'){ if(text[i+1]==='"'){f+='"';i++;} else q=false; } else f+=c; }
+    else if(c==='"') q=true;
+    else if(c===','){ row.push(f); f=''; }
+    else if(c==='\n'){ row.push(f); f=''; rows.push(row); row=[]; }
+    else f+=c;
+  }
+  if(f.length||row.length){ row.push(f); rows.push(row); }
+  const head=rows.shift();
+  return rows.filter(r=>r.length>1).map(r=>{const o={};head.forEach((h,i)=>o[h.trim()]=(r[i]||'').trim());return o;});
+}
+const bust=u=>u+'?t='+Date.now();
+
+/* ---------- state ---------- */
+let CRE=[], MOV=[], VFX={}, BY_LINE={}, MOVE_BY_ID={};
+let approved=new Set(), pending=new Map(), flushT=null;
+let selCre=null, selMove=null, teams={ally:[],enemy:[]}, turn=0, castT=null;
+let hd=false, onlyPending=false, filter='';
+
+/* ---------- backlog (local, isolated) ---------- */
+const Backlog={
+  all(){ try{return JSON.parse(localStorage.getItem(BLKEY))||{};}catch{return{};} },
+  get(id){ return this.all()[id]||null; },
+  setComment(id,meta,text){
+    const a=this.all();
+    if(!text){ delete a[id]; } else { a[id]={...meta,comment:text,ts:Date.now()}; }
+    localStorage.setItem(BLKEY,JSON.stringify(a)); paintBacklogBtn();
+  },
+  count(){ return Object.keys(this.all()).length; },
+  clear(){ localStorage.removeItem(BLKEY); paintBacklogBtn(); render(); },
+  text(){
+    const a=this.all(), ids=Object.keys(a).sort();
+    if(!ids.length) return 'VFX BACKLOG EMPTY — no comments pending.';
+    let o='VFX / AFX BACKLOG ('+ids.length+' move'+(ids.length!==1?'s':'')+')\n'+'—'.repeat(46)+'\n';
+    for(const id of ids){
+      const e=a[id];
+      o+=`${id}  ${e.creature} — ${e.move}\n`;
+      o+=`  vfx ${e.archetype} / ${e.color} / ${e.anchor} / ${e.duration}   afx ${e.afx} ${e.pitch}`;
+      o+=(e.layer?'   layer '+e.layer:'')+'\n';
+      o+=`  ${e.comment}\n`;
+    }
+    return o.trim();
+  }
+};
+function paintBacklogBtn(){ document.getElementById('copyBacklog').textContent='📋 Backlog ('+Backlog.count()+')'; }
+
+/* ---------- approvals (server) ---------- */
+function key(){ return localStorage.getItem(KKEY)||''; }
+function setSync(t,err){ const s=document.getElementById('sync'); s.textContent=t; s.className='sync'+(err?' err':''); }
+
+async function loadApprovals(){
+  try{
+    const r=await fetch(API+'/approvals',{cache:'no-store'});
+    const j=await r.json();
+    approved=new Set(Object.keys(j.approvals||{}));
+    setSync('');
+  }catch(e){ setSync('offline',true); }
+  paintProgress();
+}
+function queueApproval(id,on){
+  pending.set(id,on);
+  clearTimeout(flushT); flushT=setTimeout(flushApprovals,700);
+  setSync('saving…');
+}
+async function flushApprovals(){
+  if(!pending.size) return;
+  if(!key()){ setSync('no key',true); return; }
+  const items=[...pending].map(([id,on])=>({id,on,by:'D'}));
+  pending.clear();
+  try{
+    const r=await fetch(API+'/approve',{method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+key()},
+      body:JSON.stringify({items})});
+    const j=await r.json();
+    setSync(j.ok?'saved':(j.error||'failed'), !j.ok);
+    if(!j.ok) items.forEach(i=>approved[i.on?'delete':'add'](i.id));
+  }catch(e){ setSync('offline',true); }
+  paintProgress(); render();
+}
+function paintProgress(){
+  document.getElementById('progress').innerHTML='<b>'+approved.size+'</b> / '+MOV.length+' approved';
+}
+
+/* ---------- data ---------- */
+async function boot(){
+  const [c,m,v]=await Promise.all([
+    fetch(bust('codex/creatures.csv')).then(r=>r.text()),
+    fetch(bust('codex/moves.csv')).then(r=>r.text()),
+    fetch(bust('codex/move_vfx.csv')).then(r=>r.text())
+  ]);
+  CRE=parseCSV(c); MOV=parseCSV(m);
+  parseCSV(v).forEach(r=>VFX[r.Move_ID]=r);
+  MOV.forEach(r=>{ MOVE_BY_ID[r.Move_ID]=r; (BY_LINE[r.Line_ID]=BY_LINE[r.Line_ID]||[]).push(r); });
+  Object.values(BY_LINE).forEach(a=>a.sort((x,y)=>(+x.Slot)-(+y.Slot)));
+  await loadApprovals();
+  rerollTeams(); render(); paintBacklogBtn(); sizeCanvas();
+  requestAnimationFrame(frame);
+}
+
+/* ---------- teams ---------- */
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+function rerollTeams(){
+  const pool=CRE.slice(), take=[];
+  while(take.length<6 && pool.length) take.push(pool.splice(Math.floor(Math.random()*pool.length),1)[0]);
+  teams.ally=take.slice(0,3); teams.enemy=take.slice(3,6);
+  if(selCre){ teams.ally[0]=selCre; teams.enemy[0]=selCre; }
+  paintStage();
+}
+function unitEl(cr,lead){
+  const d=document.createElement('div');
+  d.className='unit '+(lead?'lead':'bench');
+  const img=document.createElement('img');
+  img.src=IMG+cr.ID+'.webp'; img.alt=cr.Name; img.loading='lazy';
+  if(lead&&hd){ const big=new Image(); big.onload=()=>{img.src=big.src;}; big.src=ART+cr.ID+'.png'; }
+  const t=document.createElement('div'); t.className='nm';
+  t.innerHTML=cr.Name+'<span class="badge">S'+cr.Stage+' · '+cr.Type_Primary+'</span>';
+  d.appendChild(img); d.appendChild(t);
+  return d;
+}
+function paintStage(){
+  for(const side of ['ally','enemy']){
+    const host=document.getElementById(side); host.innerHTML='';
+    teams[side].forEach((cr,i)=>host.appendChild(unitEl(cr,i===0)));
+  }
+}
+
+/* ---------- geometry ---------- */
+const cv=document.getElementById('fx'), g=cv.getContext('2d');
+function sizeCanvas(){
+  const s=document.getElementById('stage').getBoundingClientRect(), dpr=window.devicePixelRatio||1;
+  cv.width=s.width*dpr; cv.height=s.height*dpr; cv.style.width=s.width+'px'; cv.style.height=s.height+'px';
+  g.setTransform(dpr,0,0,dpr,0,0);
+}
+addEventListener('resize',sizeCanvas);
+function boxOf(side,i){
+  const host=document.getElementById(side), el=host.children[i];
+  if(!el) return {x:0,y:0,w:0,h:0};
+  const s=document.getElementById('stage').getBoundingClientRect(), b=el.getBoundingClientRect();
+  return {x:b.left-s.left+b.width/2, y:b.top-s.top+b.height/2, w:b.width, h:b.height};
+}
+function frame(){
+  g.clearRect(0,0,cv.width,cv.height);
+  DFMC_VFX.render(g,performance.now());
+  requestAnimationFrame(frame);
+}
+
+/* ---------- targeting ---------- */
+function legalTargets(move,casterSide,casterIdx){
+  const kinds=(move.Targets||'enemy').split('+').map(s=>s.trim()).filter(Boolean);
+  const foe=casterSide==='ally'?'enemy':'ally', out=[];
+  for(const k of kinds){
+    if(k==='enemy') for(let i=0;i<teams[foe].length;i++) out.push([foe,i]);
+    else if(k==='self') out.push([casterSide,casterIdx]);
+    else if(k==='ally') for(let i=0;i<teams[casterSide].length;i++) if(i!==casterIdx) out.push([casterSide,i]);
+  }
+  return out.length?out:[[foe,0]];
+}
+
+/* ---------- the loop ---------- */
+function stopLoop(){ clearInterval(castT); castT=null; DFMC_VFX.clear(); }
+function startLoop(){
+  stopLoop(); turn=0; cast(); castT=setInterval(cast,CAST_MS);
+}
+function cast(){
+  if(!selMove) return;
+  const side=turn%2===0?'ally':'enemy'; turn++;
+  const v=VFX[selMove.Move_ID]||{};
+  const [tside,tidx]=pick(legalTargets(selMove,side,0));
+  const from=boxOf(side,0), to=boxOf(tside,tidx);
+  const stage=+(selCre?selCre.Stage:3);
+  const scale=stage===1?0.85:stage===2?1:1.2;
+  DFMC_VFX.spawn({archetype:v.VFX_Archetype,color:v.VFX_Color,anchor:v.Target_Anchor,
+                  duration:v.Duration_Class,layer:v.VFX_Layer,from,to,scale});
+  DFMC_AFX.play(v.AFX_Archetype,v.AFX_Pitch,v.AFX_Layer);
+  const cEl=document.getElementById(side).children[0];
+  const tEl=document.getElementById(tside).children[tidx];
+  if(cEl){ cEl.classList.add('cast'); setTimeout(()=>cEl.classList.remove('cast'),260); }
+  if(tEl&&tEl!==cEl){ setTimeout(()=>{ tEl.classList.remove('hit'); void tEl.offsetWidth; tEl.classList.add('hit'); },
+    (DFMC_VFX.DUR[v.Duration_Class]||600)*0.5); }
+}
+
+/* ---------- selection ---------- */
+function movesFor(cr){
+  if(cr.ID==='CLASS') return [MOVE_BY_ID['M-CLASS-STRIKE']].filter(Boolean);
+  return BY_LINE[cr.Line_ID]||[];
+}
+function moveName(mv,cr){
+  if(cr.ID==='CLASS') return mv.Name;
+  return mv['Name_S'+cr.Stage]||mv.Name;
+}
+function creatureDone(cr){
+  const ms=movesFor(cr); if(!ms.length) return 0;
+  const n=ms.filter(m=>approved.has(m.Move_ID)).length;
+  return n===ms.length?2:(n?1:0);
+}
+function selectMove(cr,mv){
+  selCre=cr; selMove=mv;
+  teams.ally[0]=cr; teams.enemy[0]=cr; paintStage();
+  const v=VFX[mv.Move_ID]||{};
+  document.getElementById('nowMove').textContent=cr.Name+' — '+moveName(mv,cr);
+  document.getElementById('nowMeta').textContent=
+    '  slot '+mv.Slot+' · power '+(mv['Power_S'+(cr.ID==='CLASS'?3:cr.Stage)]||mv.Power_S3)+
+    ' · cd '+mv.Cooldown+' · targets '+(mv.Targets||'enemy');
+  document.getElementById('chipArch').textContent=(v.VFX_Archetype||'—')+(v.VFX_Layer?' + impact':'');
+  document.getElementById('chipAfx').textContent=(v.AFX_Archetype||'—')+' '+(v.AFX_Pitch||'');
+  document.getElementById('chipAnchor').textContent=(v.Target_Anchor||'—')+' · '+(v.Duration_Class||'—')+' · '+(v.VFX_Color||'—');
+  document.getElementById('nowDesc').textContent=v.VFX_Description||'';
+  const ab=document.getElementById('approveBtn'), ta=document.getElementById('comment');
+  ab.disabled=false; ta.disabled=false;
+  paintApprove();
+  const b=Backlog.get(mv.Move_ID); ta.value=b?b.comment:'';
+  startLoop(); render();
+}
+function paintApprove(){
+  const ab=document.getElementById('approveBtn');
+  const on=selMove&&approved.has(selMove.Move_ID);
+  ab.classList.toggle('on',!!on);
+  ab.textContent=on?'✓ Approved':'✓ Approve';
+}
+function toggleApprove(){
+  if(!selMove) return;
+  if(!key()){ document.getElementById('keyBtn').click(); if(!key()){ setSync('key needed',true); return; } }
+  const id=selMove.Move_ID, on=!approved.has(id);
+  on?approved.add(id):approved.delete(id);
+  paintApprove(); paintProgress(); queueApproval(id,on); render();
+}
+
+/* ---------- grid ---------- */
+function visibleCreatures(){
+  const f=filter.toLowerCase();
+  return CRE.filter(cr=>{
+    if(onlyPending && creatureDone(cr)===2) return false;
+    if(!f) return true;
+    const tags=movesFor(cr).map(m=>{const v=VFX[m.Move_ID]||{};return v.VFX_Archetype+' '+v.AFX_Archetype+' '+v.VFX_Color;}).join(' ');
+    return (cr.Name+' '+cr.Line_ID+' '+cr.Type_Primary+' '+cr.Type_Secondary+' '+cr.ID+' '+tags).toLowerCase().includes(f);
+  });
+}
+function gridCols(){
+  const host=document.getElementById('grid');
+  const t=getComputedStyle(host).gridTemplateColumns;
+  const n=t?t.split(' ').filter(Boolean).length:1;
+  return Math.max(1,n);
+}
+function buildCard(cr){
+  const card=document.createElement('div');
+  card.className='card'+(selCre&&selCre.ID===cr.ID?' sel':'');
+  const st=creatureDone(cr);
+  card.innerHTML=
+    (cr.ID==='CLASS'
+      ? '<img src="assets/logo.png" alt="">'
+      : '<img src="'+IMG+cr.ID+'.webp" alt="" loading="lazy">')+
+    '<div class="cn">'+cr.Name+'</div>'+
+    '<div class="cs">'+(cr.ID==='CLASS'?'fallback strike':'S'+cr.Stage+' \u00b7 '+cr.Type_Primary)+'</div>'+
+    (st===2?'<div class="tick">\u2713</div>':st===1?'<div class="part">\u25d0</div>':'');
+  card.onclick=()=>{ selCre=(selCre&&selCre.ID===cr.ID)?null:cr; if(!selCre){stopLoop();selMove=null;} render(); };
+  return card;
+}
+function buildPanel(cr){
+  const panel=document.createElement('div'); panel.className='moves';
+  for(const mv of movesFor(cr)){
+    const v=VFX[mv.Move_ID]||{}, b=Backlog.get(mv.Move_ID);
+    const btn=document.createElement('div');
+    btn.className='mv-btn'+(selMove&&selMove.Move_ID===mv.Move_ID?' sel':'');
+    btn.innerHTML='<span class="slot">'+mv.Slot+'</span><span style="flex:1"><span class="t1">'+moveName(mv,cr)+
+      '</span><span class="t2">'+(v.VFX_Archetype||'\u2014')+' \u00b7 '+(v.AFX_Archetype||'\u2014')+' '+(v.AFX_Pitch||'')+
+      (v.VFX_Layer?' +impact':'')+'</span></span>'+
+      (approved.has(mv.Move_ID)?'<span class="ok">\u2713</span>':(b?'<span class="cm">\u270e</span>':''));
+    btn.onclick=e=>{ e.stopPropagation(); selectMove(cr,mv); };
+    panel.appendChild(btn);
+  }
+  return panel;
+}
+function render(){
+  const host=document.getElementById('grid');
+  const list=[{ID:'CLASS',Name:'Character',Stage:'\u2014',Line_ID:'CLASS',Type_Primary:'Class',Type_Secondary:''}]
+    .concat(visibleCreatures());
+  document.getElementById('gridCount').textContent=list.length+' shown';
+  host.innerHTML='';
+  const cards=list.map(buildCard);
+  cards.forEach(c=>host.appendChild(c));
+  if(selCre){
+    const idx=list.findIndex(c=>c.ID===selCre.ID);
+    if(idx>=0){
+      const cols=gridCols(), at=Math.min(cards.length,(Math.floor(idx/cols)+1)*cols);
+      host.insertBefore(buildPanel(selCre), cards[at]||null);
+    }
+  }
+}
+/* ---------- controls ---------- */
+document.getElementById('reroll').onclick=()=>{ rerollTeams(); };
+document.getElementById('sound').onclick=function(){
+  const on=!DFMC_AFX.isMuted(); DFMC_AFX.mute(on);
+  this.textContent=on?'♪ Sound off':'♪ Sound on'; this.classList.toggle('on',!on);
+  if(!on) DFMC_AFX.unlock();
+};
+document.getElementById('vol').oninput=function(){ DFMC_AFX.setVolume(this.value/100); DFMC_AFX.unlock(); };
+document.getElementById('hd').onclick=function(){
+  hd=!hd; this.textContent='HD art '+(hd?'on':'off'); this.classList.toggle('on',hd); paintStage();
+};
+document.getElementById('approveBtn').onclick=toggleApprove;
+document.getElementById('comment').oninput=function(){
+  if(!selMove) return;
+  const v=VFX[selMove.Move_ID]||{};
+  Backlog.setComment(selMove.Move_ID,{creature:selCre.Name,move:moveName(selMove,selCre),
+    archetype:v.VFX_Archetype,color:v.VFX_Color,anchor:v.Target_Anchor,duration:v.Duration_Class,
+    afx:v.AFX_Archetype,pitch:v.AFX_Pitch,layer:v.VFX_Layer},this.value.trim());
+};
+document.getElementById('copyBacklog').onclick=async function(){
+  const t=Backlog.text();
+  try{ await navigator.clipboard.writeText(t); }
+  catch{ const ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';
+    document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta); }
+  const o=this.textContent; this.textContent='✓ Copied'; setTimeout(()=>this.textContent=o,1400);
+};
+document.getElementById('clearBacklog').onclick=()=>{
+  if(confirm('Clear the VFX backlog?\n\nApprovals are stored on the server and are NOT affected.')) Backlog.clear();
+};
+document.getElementById('keyBtn').onclick=function(){
+  const cur=key();
+  const k=prompt('Review key (needed to save approvals; stored on this device only):',cur);
+  if(k===null) return;
+  k.trim()?localStorage.setItem(KKEY,k.trim()):localStorage.removeItem(KKEY);
+  paintKey(); flushApprovals();
+};
+function paintKey(){
+  const b=document.getElementById('keyBtn');
+  b.textContent=key()?'🔑 Key set':'🔑 Key';
+  b.classList.toggle('on',!!key());
+}
+document.getElementById('search').oninput=function(){ filter=this.value; render(); };
+document.getElementById('onlyPending').onclick=function(){
+  onlyPending=!onlyPending; this.classList.toggle('on',onlyPending);
+  this.textContent=onlyPending?'Showing pending':'Hide approved'; render();
+};
+addEventListener('keydown',e=>{
+  if(/^(INPUT|TEXTAREA)$/.test(e.target.tagName)) return;
+  if(e.key==='a'||e.key==='A'){ toggleApprove(); e.preventDefault(); }
+  if(e.key==='n'||e.key==='N'){ nextPending(); e.preventDefault(); }
+});
+function nextPending(){
+  const order=[{ID:'CLASS',Name:'Character',Stage:'—',Line_ID:'CLASS',Type_Primary:'Class'}].concat(CRE);
+  let start=selCre?order.findIndex(c=>c.ID===selCre.ID):0;
+  for(let n=0;n<order.length;n++){
+    const cr=order[(start+n)%order.length], ms=movesFor(cr);
+    const mv=ms.find(m=>!approved.has(m.Move_ID) && !(selMove&&m.Move_ID===selMove.Move_ID));
+    if(mv){ selectMove(cr,mv);
+      const el=[...document.querySelectorAll('.card')].find(c=>c.querySelector('.cn').textContent===cr.Name);
+      if(el) el.scrollIntoView({block:'center',behavior:'smooth'});
+      return; }
+  }
+}
+['click','keydown','touchstart'].forEach(ev=>addEventListener(ev,()=>DFMC_AFX.unlock(),{once:true}));
+paintKey();
+boot();
+</script>
+<script src="nav.js"></script>
+</body>
+</html>

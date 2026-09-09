@@ -37,6 +37,7 @@
     { href: 'reliquary.html',      label: 'Reliquary' },
     { href: 'eggs.html',           label: 'Eggs' },
   { href: 'classes.html',        label: 'Classes' },
+  { href: 'vfx.html',            label: 'VFX & AFX Review' },
     { href: 'crafting.html',       label: 'Crafting' },
   { href: 'upgrading.html',      label: 'Upgrading' },
   { href: 'stat-tables.html',    label: 'Stat Tables' },
