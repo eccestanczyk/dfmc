@@ -319,6 +319,13 @@ async function boot(){
 
 /* ---------- teams ---------- */
 const pick=a=>a[Math.floor(Math.random()*a.length)];
+const CLASS_LINES=['ARCHER','ASSASSIN','BRUTE','MAGE','PROFESSOR','WARRIOR'];
+const CLSART='codex/images/classes/';
+/* the game's own slot geometry on its 1920x1080 stage (BATTLE scene) */
+const SLOTS={
+  ally :[{left:'23%',bottom:600,size:380},{left:'23%',bottom:110,size:380},{left:'-3%',bottom:300,size:480}],
+  enemy:[{right:'23%',bottom:600,size:380},{right:'23%',bottom:110,size:380},{right:'-3%',bottom:300,size:480}]
+};
 function rerollTeams(){
   const pool=CRE.filter(c=>c.ID&&c.ID!=='CLASS');
   const take=[]; while(take.length<4 && pool.length){ take.push(pool[Math.floor(Math.random()*pool.length)]); }
