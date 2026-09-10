@@ -54,7 +54,7 @@ input.txt:focus{border-color:var(--gold-dim)}
 .unit{position:absolute;isolation:isolate;transition:transform .16s ease-out}
 .unit .shadow{position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);width:230px;height:36px;
   background:radial-gradient(ellipse, rgba(220,120,50,.4), transparent 70%);filter:blur(6px)}
-.unit.hero .shadow{width:290px;background:radial-gradient(ellipse, rgba(185,152,90,.42), transparent 70%)}
+.unit.charslot .shadow{width:290px;background:radial-gradient(ellipse, rgba(185,152,90,.42), transparent 70%)}
 .unit img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
   filter:drop-shadow(0 6px 10px rgba(0,0,0,.65))}
 .side.enemy .unit img{transform:scaleX(-1)}
@@ -342,8 +342,10 @@ function rerollTeams(){
 function unitEl(cr,lead,side,i){
   const p=SLOTS[side][i], hero=(i===2);
   const d=document.createElement('div');
-  d.className='unit '+(lead?'lead ':'')+(hero?'hero ':'')+(i===0?'':'bench');
-  d.style.cssText='width:'+p.size+'px;height:'+p.size+'px;bottom:'+p.bottom+'px;left:'+p.left+'px;';
+  d.className='unit '+(lead?'lead ':'')+(hero?'charslot ':'')+(i===0?'':'bench');
+  /* position stated inline: the site theme owns a .hero rule that made this relative and
+     threw the character 600px up the stage. Never rely on the class alone here. */
+  d.style.cssText='position:absolute;width:'+p.size+'px;height:'+p.size+'px;bottom:'+p.bottom+'px;left:'+p.left+'px;';
   const sh=document.createElement('div'); sh.className='shadow';
   const img=document.createElement('img');
   if(hero){ img.src=CLSART+'CLS-'+cr.id+'-'+cr.st+'.webp'; img.alt=cr.id; }
