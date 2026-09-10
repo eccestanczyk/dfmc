@@ -197,7 +197,8 @@ input.txt:focus{border-color:var(--gold-dim)}
 
 </div>
 
-<script src="assets/vfx/vfx.js"></script>
+<link rel="stylesheet" href="assets/vfx/vfx_fx.css">
+<script src="assets/vfx/vfx_fx.js"></script>
 <script src="assets/vfx/afx.js"></script>
 <script>
 /* ============================================================
@@ -234,6 +235,7 @@ const bust=u=>u+'?t='+Date.now();
 /* ---------- state ---------- */
 let CRE=[], MOV=[], VFX={}, BY_LINE={}, MOVE_BY_ID={};
 let approved=new Set(), pending=new Map(), flushT=null;
+const FX=DFMC_VFX_FX.build(DFMC_VFX_FX.dom), FXHEX=DFMC_VFX_FX.HEX, FXDUR=DFMC_VFX_FX.DURMS;
 let selCre=null, selMove=null, teams={ally:[],enemy:[]}, turn=0, castT=null;
 let hd=false, onlyPending=false, filter='';
 
@@ -400,7 +402,6 @@ function boxOf(side,i){
 }
 function frame(){
   g.clearRect(0,0,cv.width,cv.height);
-  DFMC_VFX.render(g,performance.now());
   requestAnimationFrame(frame);
 }
 
@@ -417,7 +418,8 @@ function legalTargets(move,casterSide,casterIdx){
 }
 
 /* ---------- the loop ---------- */
-function stopLoop(){ clearInterval(castT); castT=null; DFMC_VFX.clear(); }
+function stopLoop(){ clearInterval(castT); castT=null;
+  document.querySelectorAll('#ally .unit>div[style*="z-index:7"],#enemy .unit>div[style*="z-index:7"]').forEach(n=>n.remove()); }
 function startLoop(){
   stopLoop(); turn=0; cast(); castT=setInterval(cast,CAST_MS);
 }
@@ -432,14 +434,24 @@ function cast(){
   const ovr=(base,s2,s3)=>(stage===3&&s3)||(stage>=2&&s2)||base;
   const arch=ovr(v.VFX_Archetype,v.VFX_Archetype_S2,v.VFX_Archetype_S3);
   const aarch=ovr(v.AFX_Archetype,v.AFX_Archetype_S2,v.AFX_Archetype_S3);
-  DFMC_VFX.spawn({archetype:arch,color:v.VFX_Color,anchor:v.Target_Anchor,
-                  duration:v.Duration_Class,layer:v.VFX_Layer,from,to,stage});
-  DFMC_AFX.play(aarch,v.AFX_Pitch,v.AFX_Layer,stage);
   const cEl=document.getElementById(side).children[0];
   const tEl=document.getElementById(tside).children[tidx];
+  /* Draw with the GAME'S renderer, not ours. Whatever is approved here is what
+     players see. No stage escalation: the client does not have it, so neither
+     do we — adding it here would recreate the drift this file exists to kill. */
+  const host=(v.Target_Anchor==='self')?cEl:tEl;
+  const dur=FXDUR[v.Duration_Class]||FXDUR.standard;
+  const fn=FX[arch]||FX.generic_impact;
+  if(host&&fn){
+    const node=fn(FXHEX[v.VFX_Color]||FXHEX.bone, dur, side==='ally'?1:-1);
+    if(node){ const w=document.createElement('div');
+      w.style.cssText='position:absolute;inset:0;pointer-events:none;z-index:7';
+      w.appendChild(node); host.appendChild(w); setTimeout(()=>w.remove(),dur+120); }
+  }
+  DFMC_AFX.play(aarch,v.AFX_Pitch,v.AFX_Layer,stage);
   if(cEl){ cEl.classList.add('cast'); setTimeout(()=>cEl.classList.remove('cast'),260); }
   if(tEl&&tEl!==cEl){ setTimeout(()=>{ tEl.classList.remove('hit'); void tEl.offsetWidth; tEl.classList.add('hit'); },
-    (DFMC_VFX.DUR[v.Duration_Class]||600)*0.5); }
+    (FXDUR[v.Duration_Class]||600)*0.5); }
 }
 
 /* ---------- selection ---------- */
