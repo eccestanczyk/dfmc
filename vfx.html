@@ -303,13 +303,16 @@ function paintProgress(){
 
 /* ---------- data ---------- */
 async function boot(){
-  const [c,m,v]=await Promise.all([
+  /* One source of truth: the effect data now lives on the move row in moves.csv,
+     keyed by Move_ID. move_vfx.csv is no longer read here. */
+  const [c,m]=await Promise.all([
     fetch(bust('codex/creatures.csv')).then(r=>r.text()),
-    fetch(bust('codex/moves.csv')).then(r=>r.text()),
-    fetch(bust('codex/move_vfx.csv')).then(r=>r.text())
+    fetch(bust('codex/moves.csv')).then(r=>r.text())
   ]);
   CRE=parseCSV(c); MOV=parseCSV(m);
-  parseCSV(v).forEach(r=>VFX[r.Move_ID]=r);
+  MOV.forEach(r=>VFX[r.Move_ID]=r);
+  const unresolved=MOV.filter(r=>!(r.VFX_Archetype||'').trim()).map(r=>r.Move_ID);
+  if(unresolved.length) console.error('moves with no VFX archetype:',unresolved.length,unresolved.slice(0,5));
   MOV.forEach(r=>{ MOVE_BY_ID[r.Move_ID]=r; (BY_LINE[r.Line_ID]=BY_LINE[r.Line_ID]||[]).push(r); });
   Object.values(BY_LINE).forEach(a=>a.sort((x,y)=>(+x.Slot)-(+y.Slot)));
   await loadApprovals();
