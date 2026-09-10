@@ -322,9 +322,12 @@ const pick=a=>a[Math.floor(Math.random()*a.length)];
 const CLASS_LINES=['ARCHER','ASSASSIN','BRUTE','MAGE','PROFESSOR','WARRIOR'];
 const CLSART='codex/images/opt/classes/'; /* the class art the game's battle screen uses */
 /* the game's own slot geometry on its 1920x1080 stage (BATTLE scene) */
+/* The client authors these as left:23% / right:-3% on a 1920x1080 stage. Resolved to pixel
+   LEFT here on purpose: a negative percentage `right` did not lay out the far slot where the
+   percentage says, and mixing the two edges is what put both characters on the same side. */
 const SLOTS={
-  ally :[{left:'23%',bottom:600,size:380},{left:'23%',bottom:110,size:380},{left:'-3%',bottom:300,size:480}],
-  enemy:[{right:'23%',bottom:600,size:380},{right:'23%',bottom:110,size:380},{right:'-3%',bottom:300,size:480}]
+  ally :[{left:441.6,bottom:600,size:380},{left:441.6,bottom:110,size:380},{left:-57.6,bottom:300,size:480}],
+  enemy:[{left:1098.4,bottom:600,size:380},{left:1098.4,bottom:110,size:380},{left:1497.6,bottom:300,size:480}]
 };
 function rerollTeams(){
   const pool=CRE.filter(c=>c.ID&&c.ID!=='CLASS');
@@ -340,8 +343,7 @@ function unitEl(cr,lead,side,i){
   const p=SLOTS[side][i], hero=(i===2);
   const d=document.createElement('div');
   d.className='unit '+(lead?'lead ':'')+(hero?'hero ':'')+(i===0?'':'bench');
-  d.style.cssText='width:'+p.size+'px;height:'+p.size+'px;bottom:'+p.bottom+'px;'+
-    (p.left!==undefined?'left:'+p.left+';':'right:'+p.right+';');
+  d.style.cssText='width:'+p.size+'px;height:'+p.size+'px;bottom:'+p.bottom+'px;left:'+p.left+'px;';
   const sh=document.createElement('div'); sh.className='shadow';
   const img=document.createElement('img');
   if(hero){ img.src=CLSART+'CLS-'+cr.id+'-'+cr.st+'.webp'; img.alt=cr.id; }
