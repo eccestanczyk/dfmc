@@ -210,7 +210,7 @@ const API   = 'https://dfmc-vfx.duiliovarella.workers.dev';
 const BLKEY = 'dfmc_vfx_backlog';
 const KKEY  = 'dfmc_vfx_key';
 const IMG   = 'codex/thumbs/creatures/color/';
-const ART   = 'codex/images/';
+const MED   = 'codex/images/med/';      /* the cutouts the game's battle screen uses */
 const CAST_MS = 2000;
 
 /* ---------- csv ---------- */
@@ -320,7 +320,7 @@ async function boot(){
 /* ---------- teams ---------- */
 const pick=a=>a[Math.floor(Math.random()*a.length)];
 const CLASS_LINES=['ARCHER','ASSASSIN','BRUTE','MAGE','PROFESSOR','WARRIOR'];
-const CLSART='codex/images/classes/';
+const CLSART='codex/images/opt/classes/'; /* the class art the game's battle screen uses */
 /* the game's own slot geometry on its 1920x1080 stage (BATTLE scene) */
 const SLOTS={
   ally :[{left:'23%',bottom:600,size:380},{left:'23%',bottom:110,size:380},{left:'-3%',bottom:300,size:480}],
@@ -329,7 +329,8 @@ const SLOTS={
 function rerollTeams(){
   const pool=CRE.filter(c=>c.ID&&c.ID!=='CLASS');
   const take=[]; while(take.length<4 && pool.length){ take.push(pool[Math.floor(Math.random()*pool.length)]); }
-  const cls=()=>CLASS_LINES[Math.floor(Math.random()*CLASS_LINES.length)];
+  const cls=()=>({ id:CLASS_LINES[Math.floor(Math.random()*CLASS_LINES.length)],
+                   st:1+Math.floor(Math.random()*3) });
   teams.ally =[take[0],take[1],cls()];
   teams.enemy=[take[2],take[3],cls()];
   if(selCre){ teams.ally[0]=selCre; teams.enemy[0]=selCre; }
@@ -343,14 +344,13 @@ function unitEl(cr,lead,side,i){
     (p.left!==undefined?'left:'+p.left+';':'right:'+p.right+';');
   const sh=document.createElement('div'); sh.className='shadow';
   const img=document.createElement('img');
-  if(hero){ img.src=CLSART+'CLS-'+cr+'-3.png'; img.alt=cr; }
+  if(hero){ img.src=CLSART+'CLS-'+cr.id+'-'+cr.st+'.webp'; img.alt=cr.id; }
   else{
-    img.src=IMG+cr.ID+'.webp'; img.alt=cr.Name; img.loading='lazy';
-    const big=new Image(); big.onload=()=>{img.src=big.src;}; big.src=ART+cr.ID+'.png';
+    img.src=MED+cr.ID+'.webp'; img.alt=cr.Name; img.loading='lazy';
   }
   const t=document.createElement('div'); t.className='nm';
   t.innerHTML=hero
-    ? cr.charAt(0)+cr.slice(1).toLowerCase()+'<span class="badge">your character</span>'
+    ? cr.id.charAt(0)+cr.id.slice(1).toLowerCase()+'<span class="badge">S'+cr.st+' \u00b7 your character</span>'
     : cr.Name+'<span class="badge">S'+cr.Stage+' \u00b7 '+cr.Type_Primary+'</span>';
   d.appendChild(sh); d.appendChild(img); d.appendChild(t);
   return d;
