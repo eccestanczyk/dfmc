@@ -1,0 +1,19 @@
+/* DFMC battle-effect keyframes, lifted verbatim from play/markup.html.
+   Loaded by BOTH the game client and the codex review page. Do not edit one copy. */
+@keyframes vxDrop { 0% { transform:translateY(-130px); } 62% { transform:translateY(0); } 78% { transform:translateY(-14px); } 92% { transform:translateY(0); opacity:1; } 100% { transform:translateY(0); opacity:0; } }
+@keyframes vxFall { 0% { transform:translateY(-44px); } 90% { opacity:1; } 100% { transform:translateY(34px); opacity:0; } }
+@keyframes vxJabL { 0% { transform:translateX(90px) scaleX(-.35); } 55% { transform:translateX(-46px) scaleX(-1); } 90% { opacity:1; } 100% { transform:translateX(-38px) scaleX(-.9); opacity:0; } }
+@keyframes vxJabR { 0% { transform:translateX(-90px) scaleX(.35); } 55% { transform:translateX(46px) scaleX(1); } 90% { opacity:1; } 100% { transform:translateX(38px) scaleX(.9); opacity:0; } }
+@keyframes vxOut { 0% { transform:translateX(6px); } 88% { opacity:1; } 100% { transform:translateX(92px); opacity:0; } }
+@keyframes vxPulse { 0% { transform:scale(.3); } 60% { transform:scale(1.14); } 88% { transform:scale(1); opacity:1; } 100% { transform:scale(1); opacity:0; } }
+@keyframes vxRise { 0% { transform:translateY(16px); } 90% { opacity:1; } 100% { transform:translateY(-52px); opacity:0; } }
+@keyframes vxRushL { 0% { transform:translateX(150px) scaleX(-1); } 60% { transform:translateX(-24px) scaleX(-1); } 90% { opacity:1; } 100% { transform:translateX(-16px) scaleX(-1); opacity:0; } }
+@keyframes vxRushR { 0% { transform:translateX(-150px); } 60% { transform:translateX(24px); } 90% { opacity:1; } 100% { transform:translateX(16px); opacity:0; } }
+@keyframes vxSlash { 0% { opacity:0; transform:translate(-50%,-50%) scale(.72) rotate(-6deg); } 18% { opacity:1; transform:translate(-50%,-50%) scale(1.06) rotate(0deg); } 100% { opacity:0; transform:translate(-50%,-50%) scale(1.16) rotate(3deg); } }
+@keyframes vxSplitL { 0% { transform:translate(0,0) rotate(0); } 90% { opacity:1; } 100% { transform:translate(-26px,16px) rotate(-16deg); opacity:0; } }
+@keyframes vxSplitR { 0% { transform:translate(0,0) rotate(0); } 90% { opacity:1; } 100% { transform:translate(26px,16px) rotate(14deg); opacity:0; } }
+@keyframes vxStreamL { 0% { transform:translateX(120px) scaleX(-1); } 92% { opacity:1; } 100% { transform:translateX(-140px) scaleX(-1); opacity:0; } }
+@keyframes vxStreamR { 0% { transform:translateX(-120px); } 92% { opacity:1; } 100% { transform:translateX(140px); opacity:0; } }
+@keyframes vxSweep { 0% { transform:translateX(-130%); } 100% { transform:translateX(130%); } }
+@keyframes vxWhip { 0% { transform:rotate(-100deg); } 70% { transform:rotate(38deg); } 90% { opacity:1; } 100% { transform:rotate(30deg); opacity:0; } }
+@keyframes vxWipe { 0% { transform:translateY(0) scaleX(.3); } 90% { opacity:1; } 100% { transform:translateY(-74px) scaleX(1); opacity:0; } }
