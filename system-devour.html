@@ -146,6 +146,23 @@
 
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-09-14 &mdash; devour is a staged sequence, and this page had never described it (#887 / #787, D). LIVE on release since 2026-09-14 (0.80).</strong>
+      The outcomes resolve one at a time in a fixed order &mdash; <strong>experience, then grade, then mutant</strong> &mdash;
+      so a devour that pays all three reads as three beats rather than one sentence. <strong>The food is drawn in and the
+      consumer reacts</strong>; the experience beat streams motes into it and the level line <strong>counts up</strong>,
+      stopping on a level-up flash <em>only if the level actually changed</em>; the grade beat ignites the frame in the new
+      grade&rsquo;s colour and <strong>the grade word replaces the old one with a hard snap</strong>; the mutant beat washes
+      over last and <strong>the art swaps to the mutant variant in place</strong>. Items reuse the same beats &mdash; a pellet
+      plays experience only, a mutagen the mutant only, an essence the grade only &mdash; and there is no separate art path
+      for them. A tap skips to the end state; nothing is decided by the theatre, because the judge banks the outcome before
+      the first frame.
+      <br><strong>It was specified on 2026-09-08 and shipped on 2026-09-13 with no creature in it.</strong> The wiring asked
+      for the consumer&rsquo;s art through a helper that does not exist, so the url was always empty and all three treatments
+      played as coloured rings around an empty box; the mutant art was passed as the empty string outright, so the swap could
+      never happen. <strong>Its gate passed 9/9 the whole time because it read an attribute rather than the paint</strong>
+      &mdash; that gate now asserts the computed animation and the painted art, and a second gate measures pixels, urls and
+      animations for every beat. This page carried no description of the sequence at all until today, which is the other half
+      of how it went unnoticed: <strong>nothing to check the build against.</strong></li>
     <li><strong>2026-08-10 &mdash; the fodder picker is ordered, and it offers only fodder that can change the consumer (shipped in 0.47).</strong>
       Order is <strong>Level &gt; Grade &gt; advancement line &gt; stage &gt; gender &gt; rarity</strong>, ending on a
       name compare so it is total: line is alphabetical because it groups a family together rather than ranking one,
