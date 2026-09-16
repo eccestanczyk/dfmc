@@ -159,7 +159,7 @@ FX-041@t f s1.2 v1.5 | FX-038@t d160 s0.8 | FX-054@u v2 h50 | !flash
 | `z` | draw behind the sprite | in front |
 | `w<pct>` | squash: height as % of the natural height (ground rings, floor pools) | 100 (50 for `@g`/`@ug`) |
 
-Move-level flags are pseudo-layers, once per composition, anywhere in the list:
+Move-level flags are pseudo-layers, once per composition, anywhere in the list - **each flag is its own `|` segment** (`... | !flash | !shake`):
 
 | flag | meaning |
 |---|---|
@@ -189,7 +189,7 @@ ADDS (a second sheet, a user-side cast beat, a ground ring, a flag) and GROWS (s
 never swaps the primary. The move names evolve the same way (Snout Butt -> Skullplate Ram -> Skullplate
 Onslaught) and the effect must read as one family across the three.
 
-**Anchor follows `Target_Anchor`.** `self` moves use only `@u`/`@ug`; `target` moves use `@t`/`@g`, plus a
+**Anchor follows `Target_Anchor`**, which since 2026-09-17 is derived from the move's `Targets`: `self` -> `self`; `enemy`, `ally`, `enemy+ally` -> `target` (the ally IS the target of a heal); `enemy+self`, `self+enemy`, `ally+self` -> `both-sides` (55 rows were re-aimed; they had been anchored by the placeholder's convenience). `self` moves use only `@u`/`@ug`; `target` moves use `@t`/`@g`, plus a
 `@u` cast beat from S2 on; `both-sides` (the drains) hit the target first and answer on the user.
 
 **Colour follows the move, not the creature.** The palette per element (research rule 12) is: fire orange/red
