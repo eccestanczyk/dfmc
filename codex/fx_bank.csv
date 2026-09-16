@@ -1,0 +1,49 @@
+Id,Name,Group,File,Frames,Cols,Frame_W,Frame_H,Source_Blend,Hue,Sat,Colored,Licence,Source
+FX-001,Cinder Burst,explosion,assets/fx/bank/fx-001.webp,24,6,128,128,source-over,25,0.58,yes,CC0-1.0,"Unity Labs Paris Explosion00 (5x5, 25f)"
+FX-002,Ash Detonation,explosion,assets/fx/bank/fx-002.webp,24,6,128,128,source-over,24,0.61,no,CC0-1.0,"Unity Labs Paris Explosion01 (5x5, 25f)"
+FX-003,Pale Detonation,explosion,assets/fx/bank/fx-003.webp,24,6,128,128,source-over,28,0.56,no,CC0-1.0,"Unity Labs Paris Explosion01-light (5x5, 25f)"
+FX-004,Pale Plume,explosion,assets/fx/bank/fx-004.webp,24,6,128,128,source-over,,0,no,CC0-1.0,"Unity Labs Paris Explosion01-light-nofire (5x5, 25f)"
+FX-005,Ash Plume,explosion,assets/fx/bank/fx-005.webp,24,6,128,128,source-over,,0,no,CC0-1.0,"Unity Labs Paris Explosion01-nofire (5x5, 25f)"
+FX-006,Ember Blast,explosion,assets/fx/bank/fx-006.webp,24,6,128,128,source-over,28,0.61,yes,CC0-1.0,"Unity Labs Paris Explosion02 (5x5, 25f)"
+FX-007,"Ember Blast, Greater",explosion,assets/fx/bank/fx-007.webp,24,6,128,128,source-over,30,0.58,yes,CC0-1.0,"Unity Labs Paris Explosion02HD (5x5, 25f)"
+FX-008,Pyre Orb I,fire,assets/fx/bank/fx-008.webp,24,6,128,128,lighter,35,0.97,yes,CC0-1.0,"Unity Labs Paris FireBall01 (8x8, 64f)"
+FX-009,Pyre Orb II,fire,assets/fx/bank/fx-009.webp,24,6,128,128,lighter,26,0.98,yes,CC0-1.0,"Unity Labs Paris FireBall02 (8x8, 64f)"
+FX-010,Pyre Orb III,fire,assets/fx/bank/fx-010.webp,24,6,128,128,lighter,46,0.99,yes,CC0-1.0,"Unity Labs Paris FireBall03 (8x8, 64f)"
+FX-011,Pyre Orb IV,fire,assets/fx/bank/fx-011.webp,24,6,128,128,lighter,29,0.98,yes,CC0-1.0,"Unity Labs Paris FireBall04 (8x8, 64f)"
+FX-012,Standing Flame,flame,assets/fx/bank/fx-012.webp,24,6,64,128,source-over,35,0.83,yes,CC0-1.0,"Unity Labs Paris Flame02 (16x4, 64f)"
+FX-013,Slender Flame,flame,assets/fx/bank/fx-013.webp,24,6,64,128,source-over,35,0.81,yes,CC0-1.0,"Unity Labs Paris Flame03 (16x4, 64f)"
+FX-014,Hollow Flame,flame,assets/fx/bank/fx-014.webp,48,6,64,128,lighter,27,0.97,yes,CC0-1.0,"Unity Labs Paris Flame03-hollow (16x4, 64f)"
+FX-018,Candle Smoke,smoke,assets/fx/bank/fx-018.webp,24,6,51,128,source-over,,0,no,CC0-1.0,"Unity Labs Paris CandleSmoke01 (20x4, 80f)"
+FX-019,Rising Column,smoke,assets/fx/bank/fx-019.webp,24,6,64,128,source-over,,0,no,CC0-1.0,"Unity Labs Paris DiscSmoke01 (16x4, 64f)"
+FX-020,Wisp Smoke I,smoke,assets/fx/bank/fx-020.webp,24,6,128,128,source-over,,0,no,CC0-1.0,"Unity Labs Paris WispySmoke01 (8x8, 64f)"
+FX-021,Wisp Smoke II,smoke,assets/fx/bank/fx-021.webp,24,6,128,128,source-over,,0,no,CC0-1.0,"Unity Labs Paris WispySmoke02 (8x8, 64f)"
+FX-022,Wisp Smoke III,smoke,assets/fx/bank/fx-022.webp,24,6,128,128,source-over,,0,no,CC0-1.0,"Unity Labs Paris WispySmoke03 (8x8, 64f)"
+FX-023,Wisp Smoke IIIb,smoke,assets/fx/bank/fx-023.webp,24,6,128,128,source-over,,0,no,CC0-1.0,"Unity Labs Paris WispySmoke03b (8x8, 64f)"
+FX-028,Frost Burst,ice,assets/fx/bank/fx-028.webp,24,6,127,128,lighter,214,0.96,yes,CC0-1.0,Effekseer EffectMaterials ef_ice01 (24f)
+FX-029,Rime Bloom,ice,assets/fx/bank/fx-029.webp,24,6,105,128,lighter,195,0.92,yes,CC0-1.0,Effekseer EffectMaterials ef_ice02 (24f)
+FX-030,Shatterfrost,ice,assets/fx/bank/fx-030.webp,24,6,121,128,lighter,201,0.92,yes,CC0-1.0,Effekseer EffectMaterials ef_ice03 (24f)
+FX-031,Arc Strike,lightning,assets/fx/bank/fx-031.webp,24,6,128,126,lighter,250,0.96,yes,CC0-1.0,Effekseer EffectMaterials ef_lightning01 (24f)
+FX-032,Thunder Ring,lightning,assets/fx/bank/fx-032.webp,24,6,128,121,lighter,232,0.87,yes,CC0-1.0,Effekseer EffectMaterials ef_lightning02 (24f)
+FX-033,Storm Descent,lightning,assets/fx/bank/fx-033.webp,32,6,80,128,lighter,248,0.9,yes,CC0-1.0,Effekseer EffectMaterials ef_lightning03 (32f)
+FX-034,Sanctified Circle,holy,assets/fx/bank/fx-034.webp,24,6,114,128,lighter,,0,no,CC0-1.0,Effekseer EffectMaterials ef_holy01 (24f)
+FX-035,Gale Vortex,wind,assets/fx/bank/fx-035.webp,24,6,128,127,lighter,103,0.97,yes,CC0-1.0,Effekseer EffectMaterials ef_wind01 (24f)
+FX-036,Cyclone Ring,wind,assets/fx/bank/fx-036.webp,24,6,124,128,lighter,163,0.92,yes,CC0-1.0,Effekseer EffectMaterials ef_wind02 (24f)
+FX-037,Tempest Coil,wind,assets/fx/bank/fx-037.webp,24,6,128,128,lighter,144,0.94,yes,CC0-1.0,Effekseer EffectMaterials ef_wind03 (24f)
+FX-038,Strike Flash,impact,assets/fx/bank/fx-038.webp,7,6,128,128,lighter,178,0.92,yes,CC0-1.0,Effekseer EffectMaterials ef_parts_hit01 (7f)
+FX-039,Shard Burst,impact,assets/fx/bank/fx-039.webp,11,6,128,107,lighter,179,0.95,yes,CC0-1.0,Effekseer EffectMaterials ef_parts_hit02 (11f)
+FX-040,Ember Sphere,explosion,assets/fx/bank/fx-040.webp,24,6,125,128,lighter,38,0.96,yes,CC0-1.0,Effekseer EffectMaterials ef_fire03 (24f)
+FX-041,Crescent Slash,slash,assets/fx/bank/fx-041.webp,26,6,128,128,lighter,203,0.93,yes,CC0-1.0,Effekseer sample library tktk01__Sword7 (26f)
+FX-042,Wide Slash,slash,assets/fx/bank/fx-042.webp,26,6,128,89,lighter,43,0.95,yes,CC0-1.0,Effekseer sample library tktk01__Sword11 (26f)
+FX-043,Spin Slash,slash,assets/fx/bank/fx-043.webp,26,6,128,115,lighter,115,0.96,yes,CC0-1.0,Effekseer sample library tktk01__Sword4 (26f)
+FX-044,Claw Rake,slash,assets/fx/bank/fx-044.webp,26,6,128,89,lighter,0,0.92,no,CC0-1.0,Effekseer sample library tktk02__Claw4 (26f)
+FX-045,Impact Star,impact,assets/fx/bank/fx-045.webp,24,6,128,87,lighter,349,0.83,no,CC0-1.0,Effekseer sample library tktk01__Blow12 (24f)
+FX-046,Heavy Impact,impact,assets/fx/bank/fx-046.webp,24,6,112,128,lighter,1,0.97,yes,CC0-1.0,Effekseer sample library tktk01__Blow2 (24f)
+FX-047,Warded Impact,impact,assets/fx/bank/fx-047.webp,24,6,110,128,lighter,16,0.96,yes,CC0-1.0,Effekseer sample library tktk02__Blow4 (24f)
+FX-048,Piercing Bolt,impact,assets/fx/bank/fx-048.webp,24,6,51,128,lighter,37,0.93,yes,CC0-1.0,Effekseer sample library tktk02__Spear2 (24f)
+FX-049,Water Shard,water,assets/fx/bank/fx-049.webp,26,6,128,122,lighter,196,0.98,yes,CC0-1.0,Effekseer sample library NextSoft01__MagicWater (26f)
+FX-050,Void Bloom,dark,assets/fx/bank/fx-050.webp,26,6,112,128,lighter,315,0.84,yes,CC0-1.0,Effekseer sample library tktk01__Dark3 (26f)
+FX-051,Mending Ring,holy,assets/fx/bank/fx-051.webp,26,6,128,115,lighter,,0,no,CC0-1.0,Effekseer sample library NextSoft01__MagicHeal1 (26f)
+FX-052,Cure Ring,holy,assets/fx/bank/fx-052.webp,26,6,126,128,lighter,180,0.96,yes,CC0-1.0,Effekseer sample library tktk01__Cure6 (26f)
+FX-053,Radiant Burst,holy,assets/fx/bank/fx-053.webp,24,6,118,128,lighter,67,0.97,yes,CC0-1.0,Effekseer sample library tktk02__Light1 (24f)
+FX-054,Empowerment,buff,assets/fx/bank/fx-054.webp,26,6,126,128,lighter,18,0.98,yes,CC0-1.0,Effekseer sample library NextSoft01__PowerUp (26f)
+FX-055,Hex Motes,buff,assets/fx/bank/fx-055.webp,26,6,97,128,lighter,359,0.92,yes,CC0-1.0,Effekseer sample library tktk01__hozyo4 (26f)
