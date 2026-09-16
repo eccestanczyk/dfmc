@@ -1,6 +1,9 @@
 import asyncio, json
+import os
 from playwright.async_api import async_playwright
-U='https://eccestanczyk.github.io/dfmc/vfx.html?admin=1'
+# VFX_URL points this gate at a local copy: VFX_URL=http://127.0.0.1:8123/vfx.html?admin=1
+# python -m http.server 8123 from the repo root. Unset, it still gates the published page.
+U=os.environ.get('VFX_URL') or 'https://eccestanczyk.github.io/dfmc/vfx.html?admin=1'
 KEY=open('REVIEW_KEY.txt').read().strip()
 R=[]
 def chk(n,ok,d=''): R.append(ok); print(('PASS' if ok else 'FAIL'),'|',n,'|',d)

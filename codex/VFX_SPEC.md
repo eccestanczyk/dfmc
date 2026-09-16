@@ -88,6 +88,17 @@ touch an approval.
 
 ## Changelog
 
+- **2026-09-17** - **The 48-sheet VFX bank replaces the placeholder archetypes.** Three columns
+  per move - `FX_S1`, `FX_S2`, `FX_S3` on `codex/move_vfx.csv`, mirrored onto `codex/moves.csv`
+  by `tools/sync_move_vfx.py`; the 18 class ultimates are rows `ULT-<LINE>-<stage>` and carry
+  only `FX_S1`. Manifest `codex/fx_bank.csv`, sheets `assets/fx/bank/*.webp`. The grammar and the
+  budgets are in *Bank compositions* above; `tools/fx_lint.py` is the reference parser and the
+  authoring gate. The renderer is `VFX_BANK` in the client's `play/app.js`, animating the `vxb*`
+  keyframes in `play/markup.html`; `tools/gen_vfx_fx.py --write` lifts it - with `VFX_FX` and every
+  `vx*`/`vxb*` keyframe - into `assets/vfx/vfx_fx.js|css`, so the codex review page `vfx.html`
+  casts through `DFMC_VFX_FX.buildBank(E)` and the archetype columns are only its fallback.
+  `tools/vfx_bank_gate.py` walks all 1221 casts (401 moves x 3 stages + 18 ultimates) on that page.
+  Owning pages: this spec and `vfx.html`.
 - **2026-09-10** - AFX taxonomy added: four columns (`VFX_Layer`, `AFX_Archetype`, `AFX_Layer`,
   `AFX_Pitch`), 10 sound archetypes, browser-synthesised placeholders. `M-CLASS-STRIKE` added as
   row 401 (it was missing from the mapping). Damage-carrying status moves now layer a neutral

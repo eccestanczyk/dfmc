@@ -1,4 +1,8 @@
 import asyncio
+import os
+# VFX_URL points this gate at a local copy: VFX_URL=http://127.0.0.1:8123/vfx.html?admin=1
+# python -m http.server 8123 from the repo root. Unset, it still gates the published page.
+U=os.environ.get('VFX_URL') or 'https://eccestanczyk.github.io/dfmc/vfx.html?admin=1'
 from playwright.async_api import async_playwright
 R=[]
 def chk(n,ok,d=''): R.append(ok); print(('PASS' if ok else 'FAIL'),'|',n,'|',d)
@@ -6,7 +10,7 @@ async def main():
   async with async_playwright() as p:
     b=await p.chromium.launch(); pg=await b.new_page(viewport={'width':1400,'height':1000})
     err=[]; pg.on('pageerror',lambda e:err.append(str(e)))
-    await pg.goto('https://eccestanczyk.github.io/dfmc/vfx.html?admin=1',wait_until='networkidle')
+    await pg.goto(U,wait_until='networkidle')
     await pg.wait_for_timeout(3000)
     # 1: boxOf agrees with the DOM for all six slots
     r=await pg.evaluate("""(()=>{const o=[];
