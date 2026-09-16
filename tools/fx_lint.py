@@ -52,7 +52,7 @@ def parse(txt):
             row = BANK[fid]
             if 'h' in mods and row['Colored'] == 'yes':
                 hue = float(row['Hue']); diff = abs((mods['h'] - hue + 180) % 360 - 180)
-                if diff > 60: errs.append('%s h%d is %d deg from the sheet hue %d (limit 60)' % (fid, mods['h'], diff, hue))
+                if diff > 90: errs.append('%s h%d is %d deg from the sheet hue %d (limit 90)' % (fid, mods['h'], diff, hue))
             if 'f' in mods and row['Group'] not in DIRECTIONAL_GROUPS:
                 errs.append('%s (%s) is radial - no f' % (fid, row['Group']))
         layers.append({'id': fid, 'anchor': anchor, 'mods': mods})

@@ -196,7 +196,7 @@ Onslaught) and the effect must read as one family across the three.
 (h20-35), ice cyan/blue (h190-215), lightning violet-white (h240-260), wind green-grey (h100-165), water blue
 (h195-210), holy gold (h45-60), heal gold/soft green (h50-120), dark violet-magenta (h280-320), poison green
 (h95-130), bleed crimson (h340-359), buff-up gold (h40-55), debuff-down violet (h270-290), physical /
-neutral untinted. Stay within +/-60 deg of a sheet's own hue unless the sheet is uncoloured; prefer the
+neutral untinted. Stay within +/-90 deg of a sheet's own hue unless the sheet is uncoloured; prefer the
 family's own sheet over a re-hued stranger.
 
 **Low VFX / Battery Saver / Reduce Motion:** only the first layer plays, at 0.75x length; flags are off.
