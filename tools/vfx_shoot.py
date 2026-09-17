@@ -47,6 +47,17 @@ def free_port(start=8410):
 
 
 # ---------------------------------------------------------------- the page
+OVERRIDE_JS = r"""
+([id, stage, txt]) => {
+  /* Author a composition WITHOUT touching codex/move_vfx.csv. The review page reads VFX[Move_ID],
+     so a page-level override previews a candidate exactly as the client would draw it - which is
+     how an authoring lane should look at a row before it writes one. Nothing is persisted. */
+  if (!VFX[id]) return false;
+  VFX[id]['FX_S' + stage] = txt;
+  return true;
+}
+"""
+
 CAST_JS = r"""
 ([id, stage, frames]) => {
   const mv = MOVE_BY_ID[id];
@@ -226,14 +237,17 @@ def main():
     ap.add_argument('--census', action='store_true')
     ap.add_argument('--census-stages', default='1,2,3')
     ap.add_argument('--seed', type=int, default=1234, help='teams + floor plate; same seed = same stage')
+    ap.add_argument('--comp', action='append', default=[], metavar='ID=TEXT',
+                    help='preview a candidate composition for ID at --stage without touching the CSV; '
+                         'repeatable. The id is shot in the order given.')
     a = ap.parse_args()
 
     ids = [s.strip() for s in a.ids.split(',') if s.strip()]
     if a.ids_file:
         ids += [l.strip() for l in open(a.ids_file, encoding='utf-8')
                 if l.strip() and not l.startswith('#')]
-    if not ids and not a.census:
-        sys.exit('nothing to do: pass --ids/--ids-file or --census')
+    if not ids and not a.census and not a.comp:
+        sys.exit('nothing to do: pass --ids/--ids-file, --comp or --census')
 
     from playwright.sync_api import sync_playwright
     port = free_port()
@@ -257,6 +271,15 @@ def main():
                 summarise(rows)
                 br.close()
                 return
+
+            for spec in a.comp:
+                mid, _, txt = spec.partition('=')
+                mid = mid.strip()
+                if not pg.evaluate(OVERRIDE_JS, [mid, a.stage, txt]):
+                    sys.exit('--comp: no such move id: ' + mid)
+                if mid not in ids:
+                    ids.append(mid)
+                print('override %s S%d = %s' % (mid, a.stage, txt))
 
             fr = [float(x) for x in a.frames.split(',')]
             box = stage_box(pg)
