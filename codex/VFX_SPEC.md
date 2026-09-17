@@ -88,6 +88,24 @@ touch an approval.
 
 ## Changelog
 
+- **2026-09-17** - **`!flash` is a dark element tint, not a white flash.** D's ruling: "Models can
+  still flash, just not plain white. Dark colors are fine. For instance a damage flash dark red
+  flashing the target art reads great. Probably the same for dark green when it's poison." The
+  mechanism is unchanged - the flag still rides the target's tint wrapper at the impact - but the
+  50 ms `brightness(3)` blowout (`vxbFlash` / `vxbFlashSoft`, both deleted) gives way to the 300 ms
+  `sepia(1) saturate(..) hue-rotate(..)` recolour `vxRedHit` has fired for `melee_slash` since
+  before the bank, generalised into one keyframe per `VFX_Color`: `vxRedHit` (red/crimson),
+  `vxHitRust`, `vxHitGreen`, `vxHitBlue`, `vxHitPurple`, `vxHitBone`, each with a `*Soft` member
+  for the Reduce Flashing setting (same hue, lower saturation - never a brightness change).
+  `hue-rotate` is the element's hue in `VFXHEX` minus 40, because `sepia(1)` lands every sprite at
+  hue 40. **`bone` is the exception**: it is the majority colour (217 moves) and `#d8cfc0` is light,
+  so its keyframe is a dark neutral - no hue rotation, `saturate(0.22)`, `brightness(0.58)`.
+  The element comes from the composition first, the row second: the `h` of the first target-side
+  layer (`@t`/`@g`/`@b`) when one is authored, else the move row's `VFX_Color`; a numeric `h` snaps
+  to the nearest element by circular hue distance and anything unknown falls to bone's dark neutral.
+  Nothing in `move_vfx.csv` changes - no re-authoring is needed for this. Owning pages: this spec
+  and `vfx.html`.
+
 - **2026-09-17** - **The 48-sheet VFX bank replaces the placeholder archetypes.** Three columns
   per move - `FX_S1`, `FX_S2`, `FX_S3` on `codex/move_vfx.csv`, mirrored onto `codex/moves.csv`
   by `tools/sync_move_vfx.py`; the 18 class ultimates are rows `ULT-<LINE>-<stage>` and carry
@@ -174,7 +192,7 @@ Move-level flags are pseudo-layers, once per composition, anywhere in the list -
 
 | flag | meaning |
 |---|---|
-| `!flash` | white hit-flash on every target sprite at the impact, 50 ms. Damaging moves only |
+| `!flash` | hit tint: every target sprite is recoloured a **dark, saturated** version of its own art at the impact, 300 ms, keyed to the element. Damaging moves only. Never white (D 2026-09-17) |
 | `!shake` | stage shake, 4 px decaying over 150 ms. **S3 and ULT only**; honours the Screen Shake and Reduce Motion settings |
 | `!stop` | hit-stop: the target freezes 100/150/200 ms (S1/S2/S3), 250 ms ULT, at the impact |
 

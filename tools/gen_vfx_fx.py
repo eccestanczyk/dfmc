@@ -163,9 +163,11 @@ JS_HEAD = """/* ================================================================
 
 CSS_HEAD = """/* DFMC battle-effect keyframes, lifted verbatim from play/markup.html by
    tools/gen_vfx_fx.py. vx* are the placeholder archetypes, vxb* the 48-sheet bank
-   (vxbStep<frames>x<cols> steps a sheet, vxbLife gates a layer's delay and life,
-   vxbFlash is the !flash hit-flash). Loaded by BOTH the game client and the codex
-   review page. Do not edit one copy. */
+   (vxbStep<frames>x<cols> steps a sheet, vxbLife gates a layer's delay and life).
+   The !flash hit is the vxRedHit / vxHit* family: a dark, element-keyed tint of the
+   target's own art, 300 ms (D 2026-09-17 - it is never white; the old vxbFlash
+   brightness(3) pop is deleted), each with a *Soft member for Reduce Flashing.
+   Loaded by BOTH the game client and the codex review page. Do not edit one copy. */
 """
 
 SLASH = 'assets/ui/vfx/slash.png'

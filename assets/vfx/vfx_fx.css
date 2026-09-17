@@ -1,15 +1,28 @@
 /* DFMC battle-effect keyframes, lifted verbatim from play/markup.html by
    tools/gen_vfx_fx.py. vx* are the placeholder archetypes, vxb* the 48-sheet bank
-   (vxbStep<frames>x<cols> steps a sheet, vxbLife gates a layer's delay and life,
-   vxbFlash is the !flash hit-flash). Loaded by BOTH the game client and the codex
-   review page. Do not edit one copy. */
+   (vxbStep<frames>x<cols> steps a sheet, vxbLife gates a layer's delay and life).
+   The !flash hit is the vxRedHit / vxHit* family: a dark, element-keyed tint of the
+   target's own art, 300 ms (D 2026-09-17 - it is never white; the old vxbFlash
+   brightness(3) pop is deleted), each with a *Soft member for Reduce Flashing.
+   Loaded by BOTH the game client and the codex review page. Do not edit one copy. */
 @keyframes vxDrop { 0% { transform:translateY(-130px); } 62% { transform:translateY(0); } 78% { transform:translateY(-14px); } 92% { transform:translateY(0); opacity:1; } 100% { transform:translateY(0); opacity:0; } }
 @keyframes vxFall { 0% { transform:translateY(-44px); } 90% { opacity:1; } 100% { transform:translateY(34px); opacity:0; } }
+@keyframes vxHitBlue { 0% { filter:none; } 12% { filter:sepia(1) saturate(8) hue-rotate(182deg) brightness(0.96); } 55% { filter:sepia(1) saturate(5.5) hue-rotate(182deg) brightness(0.94); } 100% { filter:none; } }
+@keyframes vxHitBlueSoft { 0% { filter:none; } 12% { filter:sepia(1) saturate(2.8) hue-rotate(182deg) brightness(1); } 55% { filter:sepia(1) saturate(1.9) hue-rotate(182deg) brightness(1); } 100% { filter:none; } }
+@keyframes vxHitBone { 0% { filter:none; } 12% { filter:sepia(1) saturate(0.22) brightness(0.58); } 55% { filter:sepia(1) saturate(0.3) brightness(0.66); } 100% { filter:none; } }
+@keyframes vxHitBoneSoft { 0% { filter:none; } 12% { filter:sepia(1) saturate(0.3) brightness(0.82); } 55% { filter:sepia(1) saturate(0.45) brightness(0.88); } 100% { filter:none; } }
+@keyframes vxHitGreen { 0% { filter:none; } 12% { filter:sepia(1) saturate(8) hue-rotate(94deg) brightness(0.98); } 55% { filter:sepia(1) saturate(5.5) hue-rotate(94deg) brightness(0.96); } 100% { filter:none; } }
+@keyframes vxHitGreenSoft { 0% { filter:none; } 12% { filter:sepia(1) saturate(2.8) hue-rotate(94deg) brightness(1); } 55% { filter:sepia(1) saturate(1.9) hue-rotate(94deg) brightness(1); } 100% { filter:none; } }
+@keyframes vxHitPurple { 0% { filter:none; } 12% { filter:sepia(1) saturate(8) hue-rotate(232deg) brightness(0.96); } 55% { filter:sepia(1) saturate(5.5) hue-rotate(232deg) brightness(0.94); } 100% { filter:none; } }
+@keyframes vxHitPurpleSoft { 0% { filter:none; } 12% { filter:sepia(1) saturate(2.8) hue-rotate(232deg) brightness(1); } 55% { filter:sepia(1) saturate(1.9) hue-rotate(232deg) brightness(1); } 100% { filter:none; } }
+@keyframes vxHitRust { 0% { filter:none; } 12% { filter:sepia(1) saturate(8) hue-rotate(-21deg) brightness(1); } 55% { filter:sepia(1) saturate(5.5) hue-rotate(-21deg) brightness(0.98); } 100% { filter:none; } }
+@keyframes vxHitRustSoft { 0% { filter:none; } 12% { filter:sepia(1) saturate(2.8) hue-rotate(-21deg) brightness(1); } 55% { filter:sepia(1) saturate(1.9) hue-rotate(-21deg) brightness(1); } 100% { filter:none; } }
 @keyframes vxJabL { 0% { transform:translateX(90px) scaleX(-.35); } 55% { transform:translateX(-46px) scaleX(-1); } 90% { opacity:1; } 100% { transform:translateX(-38px) scaleX(-.9); opacity:0; } }
 @keyframes vxJabR { 0% { transform:translateX(-90px) scaleX(.35); } 55% { transform:translateX(46px) scaleX(1); } 90% { opacity:1; } 100% { transform:translateX(38px) scaleX(.9); opacity:0; } }
 @keyframes vxOut { 0% { transform:translateX(6px); } 88% { opacity:1; } 100% { transform:translateX(92px); opacity:0; } }
 @keyframes vxPulse { 0% { transform:scale(.3); } 60% { transform:scale(1.14); } 88% { transform:scale(1); opacity:1; } 100% { transform:scale(1); opacity:0; } }
 @keyframes vxRedHit { 0% { filter:none; } 12% { filter:sepia(1) saturate(9) hue-rotate(-38deg) brightness(1.05); } 55% { filter:sepia(1) saturate(6) hue-rotate(-38deg) brightness(1.02); } 100% { filter:none; } }
+@keyframes vxRedHitSoft { 0% { filter:none; } 12% { filter:sepia(1) saturate(3) hue-rotate(-38deg) brightness(1); } 55% { filter:sepia(1) saturate(2) hue-rotate(-38deg) brightness(1); } 100% { filter:none; } }
 @keyframes vxRing { 0% { transform:scale(.12); } 88% { opacity:1; } 100% { transform:scale(1.5); opacity:0; } }
 @keyframes vxRise { 0% { transform:translateY(16px); } 90% { opacity:1; } 100% { transform:translateY(-52px); opacity:0; } }
 @keyframes vxRushL { 0% { transform:translateX(150px) scaleX(-1); } 60% { transform:translateX(-24px) scaleX(-1); } 90% { opacity:1; } 100% { transform:translateX(-16px) scaleX(-1); opacity:0; } }
@@ -22,8 +35,6 @@
 @keyframes vxSweep { 0% { transform:translateX(-130%); } 100% { transform:translateX(130%); } }
 @keyframes vxWhip { 0% { transform:rotate(-100deg); } 70% { transform:rotate(38deg); } 90% { opacity:1; } 100% { transform:rotate(30deg); opacity:0; } }
 @keyframes vxWipe { 0% { transform:translateY(0) scaleX(.3); } 90% { opacity:1; } 100% { transform:translateY(-74px) scaleX(1); opacity:0; } }
-@keyframes vxbFlash { 0% { filter:brightness(1); } 2% { filter:brightness(3); } 100% { filter:brightness(1); } }
-@keyframes vxbFlashSoft { 0% { filter:brightness(1); } 2% { filter:brightness(1.6); } 100% { filter:brightness(1); } }
 @keyframes vxbLife { 0% { opacity:0; } 0.1% { opacity:1; } 100% { opacity:0; } }
 @keyframes vxbStep11x6 { 0% { transform:translate3d(0%,0%,0); } 9.091% { transform:translate3d(-16.6667%,0%,0); } 18.182% { transform:translate3d(-33.3333%,0%,0); } 27.273% { transform:translate3d(-50%,0%,0); } 36.364% { transform:translate3d(-66.6667%,0%,0); } 45.455% { transform:translate3d(-83.3333%,0%,0); } 54.545% { transform:translate3d(0%,-50%,0); } 63.636% { transform:translate3d(-16.6667%,-50%,0); } 72.727% { transform:translate3d(-33.3333%,-50%,0); } 81.818% { transform:translate3d(-50%,-50%,0); } 90.909% { transform:translate3d(-66.6667%,-50%,0); } 100% { transform:translate3d(-66.6667%,-50%,0); } }
 @keyframes vxbStep24x6 { 0% { transform:translate3d(0%,0%,0); } 4.167% { transform:translate3d(-16.6667%,0%,0); } 8.333% { transform:translate3d(-33.3333%,0%,0); } 12.5% { transform:translate3d(-50%,0%,0); } 16.667% { transform:translate3d(-66.6667%,0%,0); } 20.833% { transform:translate3d(-83.3333%,0%,0); } 25% { transform:translate3d(0%,-25%,0); } 29.167% { transform:translate3d(-16.6667%,-25%,0); } 33.333% { transform:translate3d(-33.3333%,-25%,0); } 37.5% { transform:translate3d(-50%,-25%,0); } 41.667% { transform:translate3d(-66.6667%,-25%,0); } 45.833% { transform:translate3d(-83.3333%,-25%,0); } 50% { transform:translate3d(0%,-50%,0); } 54.167% { transform:translate3d(-16.6667%,-50%,0); } 58.333% { transform:translate3d(-33.3333%,-50%,0); } 62.5% { transform:translate3d(-50%,-50%,0); } 66.667% { transform:translate3d(-66.6667%,-50%,0); } 70.833% { transform:translate3d(-83.3333%,-50%,0); } 75% { transform:translate3d(0%,-75%,0); } 79.167% { transform:translate3d(-16.6667%,-75%,0); } 83.333% { transform:translate3d(-33.3333%,-75%,0); } 87.5% { transform:translate3d(-50%,-75%,0); } 91.667% { transform:translate3d(-66.6667%,-75%,0); } 95.833% { transform:translate3d(-83.3333%,-75%,0); } 100% { transform:translate3d(-83.3333%,-75%,0); } }
