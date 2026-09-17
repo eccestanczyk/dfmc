@@ -88,6 +88,18 @@ touch an approval.
 
 ## Changelog
 
+- **2026-09-17** - **A killing blow now plays on the thing it killed.** D, on the pass-2 artifact:
+  "Some of the abilities are playing ONLY on the caster." Neither the data nor the renderer was at
+  fault - the census through `vfx.html` found 0 compositions asking for a target layer that is not
+  mounted, and 0 non-`self` moves painting no target-side layer. The client's act playback pushes
+  the **post-act** units into state in the same patch as the act, so on the first frame of a lethal
+  cast the target already sits at `hp:0`; the battle scene gated the whole composition - and the
+  `!flash` hit tint, and the hit reaction - on the unit being alive, so a target that this act
+  killed drew nothing while the caster played normally. The composition is now gated on the tile
+  **owning the act** (its caster, or a unit named in the act's targets) rather than on HP. A unit
+  that was already dead *before* the act is never named by it and still draws nothing. Authoring is
+  unaffected - no composition changes, no budget changes. Owning pages: this spec and `vfx.html`.
+
 - **2026-09-17** - **`!flash` is a dark element tint, not a white flash.** D's ruling: "Models can
   still flash, just not plain white. Dark colors are fine. For instance a damage flash dark red
   flashing the target art reads great. Probably the same for dark green when it's poison." The
