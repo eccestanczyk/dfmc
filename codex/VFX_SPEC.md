@@ -88,6 +88,36 @@ touch an approval.
 
 ## Changelog
 
+- **2026-09-17** - **The 12 white sheets are calibrated per element - and the target's saturation
+  leg is proved unreachable inside the grammar.** `k` makes a white sheet colourable, but the hue
+  that LANDS is not the hue authored, so each sheet needs its own token per element rather than the
+  element's hue written straight. `tools/vfx_calibrate.py` measures them: one carrier move
+  (`M-THORNBACK-1`, `Targets` = enemy), one seed, one tile, one scale for all 12 so they are
+  comparable; the composition is a page-level `FX_S3` override, so **no row of `move_vfx.csv` or
+  `moves.csv` is touched**; the scrub lands inside the layer's own `lenMs`; the pixels are the
+  difference against a clean plate of the same paused frame, restricted to where that plate is dark
+  - the layer over the floor and not over the creature, which is the second way to measure the
+  sprite instead of the effect - and the four numbers are read on the top luminance decile. The 84
+  rows are **`codex/VFX_SHEET_TINTS.md`**, which is what the six authoring lanes copy from; the
+  proof sheets are `local-only/vfxshots/tints/tint_FX0NN.png`.
+  **What the run found:** all 84 pairs meet hue (+/-18 deg), lum (<= 55 %) and flat white (0 %), and
+  **not one meets `sat >= 25 %`**. The measured ceiling is 23 % (FX-050 at green) down to 9 %
+  (FX-034), and purple and blue average 2-3 % across all 12 - the `k` chain leaves a white pixel a
+  pale warm yellow, and rotating that to the cool half of the wheel crosses the achromatic axis.
+  The cause is not the art: `saturate(2.4)` is too small a multiplier to open up the chroma
+  `sepia(1)` leaves. `tools/vfx_calibrate.py --filter-check` renders the chain on a literal white
+  div beside the CSS spec matrices - they agree to the last level - and shows that the second
+  filter table in `dfmc-client/docs/vfx-pass2-recipes-2026-09-17.md`, the table the 25 % floor was
+  set from, composed the three matrices and clamped ONCE at the end. A browser clamps its 8-bit
+  buffer BETWEEN filter passes, and the clamp right after `sepia(1)` is what throws the chroma
+  away: `sepia(1) saturate(2.4) hue-rotate(60deg) brightness(.7)` renders rgb(157,178,163), HSL
+  saturation 12 %, where that table records rgb(142,178,106), HSL saturation 32 % - about 3x out.
+  **So a desaturated twin is not the answer to any of the 12** - the chroma is lost in the filter,
+  not in the sheet - and the fix is one number, either `saturate(2.4)` -> `saturate(4)` in the `k`
+  branch of `sheetFilter` (25.8 % reachable) or the grammar's `sat` ceiling 1.5 -> 2.5 (25.6 %).
+  Neither was made here: both are engine/grammar changes and each needs its own review.
+  Owning pages: this spec and `codex/VFX_SHEET_TINTS.md`.
+
 - **2026-09-17** - **The scale ladder is cut to 0.7 / 0.85 / 1.0 / 1.35.** D, answering the pass-2
   artifact's Q1: "a harder cut (0.7 / 0.85 / 1.0 / 1.35)" - S1 / S2 / S3 / ULT. What was wrong: `s`
   is a fraction of the 380 px unit TILE and a creature's opaque art is only ~85 % of that tile, so
