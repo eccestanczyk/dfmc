@@ -275,7 +275,7 @@ the row below**, verbatim, into every layer that uses that sheet at that element
 | red | `k h351 br0.6 sat1.5` | 360° (want 0) | 55% | 51% | 0.0% | 300 |
 | rust | `k h15 br0.75 sat1.5` | 21° (want 19) | 73% | 51% | 0.0% | 300 |
 | bone | `k h40 br0.35 sat0.35` | 38° (want 38) | 15% | 22% | 0.0% | 300 |
-| green | `k h120 sat1.5` | 135° (want 134) | 76% | 49% | 0.0% | 300 |
+| green | `k br1 h120 sat1.5` | 135° (want 134) | 76% | 49% | 0.0% | 300 |
 | blue | `k h225 br0.65 sat1.5` | 222° (want 222) | 61% | 53% | 0.0% | 300 |
 | purple | `k h270 br0.6 sat1.5` | 274° (want 272) | 51% | 51% | 0.0% | 300 |
 | crimson | `k h345 br0.6 sat1.5` | 354° (want 357) | 56% | 51% | 0.0% | 300 |
@@ -287,7 +287,7 @@ the row below**, verbatim, into every layer that uses that sheet at that element
 | red | `k h352 br0.6 sat1.4` | 1° (want 0) | 46% | 53% | 0.0% | 700 |
 | rust | `k h15 br0.7 sat1.5` | 20° (want 19) | 63% | 51% | 0.0% | 700 |
 | bone | `k h40 br0.65 sat0.35` | 38° (want 38) | 15% | 42% | 0.0% | 700 |
-| green | `k h120 sat1.5` | 132° (want 134) | 72% | 52% | 0.0% | 700 |
+| green | `k br1 h120 sat1.5` | 132° (want 134) | 72% | 52% | 0.0% | 700 |
 | blue | `k h225 br0.6 sat1.5` | 223° (want 222) | 50% | 52% | 0.0% | 700 |
 | purple | `k h270 br0.6 sat1.35` | 273° (want 272) | 40% | 53% | 0.0% | 700 |
 | crimson | `k h345 br0.6 sat1.35` | 354° (want 357) | 45% | 53% | 0.0% | 700 |
@@ -299,7 +299,7 @@ the row below**, verbatim, into every layer that uses that sheet at that element
 | red | `k h352 br0.6 sat1.45` | 1° (want 0) | 47% | 53% | 0.0% | 700 |
 | rust | `k h15 br0.7 sat1.5` | 20° (want 19) | 63% | 51% | 0.0% | 700 |
 | bone | `k h40 br0.65 sat0.35` | 38° (want 38) | 15% | 42% | 0.0% | 700 |
-| green | `k h120 sat1.5` | 132° (want 134) | 71% | 52% | 0.0% | 700 |
+| green | `k br1 h120 sat1.5` | 132° (want 134) | 71% | 52% | 0.0% | 700 |
 | blue | `k h225 br0.6 sat1.5` | 223° (want 222) | 50% | 51% | 0.0% | 700 |
 | purple | `k h270 br0.6 sat1.4` | 273° (want 272) | 42% | 53% | 0.0% | 700 |
 | crimson | `k h345 br0.6 sat1.4` | 354° (want 357) | 47% | 53% | 0.0% | 700 |
@@ -308,13 +308,13 @@ the row below**, verbatim, into every layer that uses that sheet at that element
 
 | element | token to write | hue | sat | lum | flat | ms |
 |---|---|---|---|---|---|---|
-| red | `k h353 sat1.5` | 1° (want 0) | 44% | 46% | 0.0% | 700 |
-| rust | `k h15 sat1.5` | 19° (want 19) | 59% | 38% | 0.0% | 700 |
+| red | `k br1 h353 sat1.5` | 1° (want 0) | 44% | 46% | 0.0% | 700 |
+| rust | `k br1 h15 sat1.5` | 19° (want 19) | 59% | 38% | 0.0% | 700 |
 | bone | `k h45 br0.5 sat0.4` | 38° (want 38) | 15% | 17% | 0.0% | 700 |
-| green | `k h120 sat1.5` | 133° (want 134) | 65% | 27% | 0.0% | 700 |
-| blue | `k h225 sat1.5` | 223° (want 222) | 47% | 44% | 0.0% | 700 |
-| purple | `k h270 sat1.5` | 273° (want 272) | 40% | 46% | 0.0% | 700 |
-| crimson | `k h349 sat1.5` | 357° (want 357) | 44% | 46% | 0.0% | 700 |
+| green | `k br1 h120 sat1.5` | 133° (want 134) | 65% | 27% | 0.0% | 700 |
+| blue | `k br1 h225 sat1.5` | 223° (want 222) | 47% | 44% | 0.0% | 700 |
+| purple | `k br1 h270 sat1.5` | 273° (want 272) | 40% | 46% | 0.0% | 700 |
+| crimson | `k br1 h349 sat1.5` | 357° (want 357) | 44% | 46% | 0.0% | 700 |
 
 ### FX-006 — Ember Blast
 
@@ -371,7 +371,7 @@ the row below**, verbatim, into every layer that uses that sheet at that element
 | red | `k h353 br0.55 sat1.5` | 1° (want 0) | 46% | 50% | 0.0% | 700 |
 | rust | `k h15 br0.7 sat1.5` | 19° (want 19) | 66% | 52% | 0.0% | 700 |
 | bone | `k h41 br0.75 sat0.35` | 38° (want 38) | 15% | 50% | 0.0% | 700 |
-| green | `k h120 sat1.5` | 136° (want 134) | 70% | 51% | 0.0% | 700 |
+| green | `k br1 h120 sat1.5` | 136° (want 134) | 70% | 51% | 0.0% | 700 |
 | blue | `k h225 br0.6 sat1.45` | 223° (want 222) | 51% | 53% | 0.0% | 700 |
 | purple | `k h270 br0.55 sat1.5` | 273° (want 272) | 42% | 51% | 0.0% | 700 |
 | crimson | `k h345 br0.55 sat1.5` | 353° (want 357) | 47% | 51% | 0.0% | 700 |
@@ -418,7 +418,7 @@ the row below**, verbatim, into every layer that uses that sheet at that element
 |---|---|---|---|---|---|---|
 | red | `k h10 br0.55 sat1.5` | 5° (want 0) | 37% | 15% | 0.0% | 300 |
 | rust | `k h30 br0.7 sat1.5` | 24° (want 19) | 48% | 15% | 0.0% | 300 |
-| bone | `k h50 sat0.5` | 36° (want 38) | 13% | 20% | 0.0% | 300 |
+| bone | `k br1 h50 sat0.5` | 36° (want 38) | 13% | 20% | 0.0% | 300 |
 | green | `k h108 br0.55 sat1.5` | 128° (want 134) | 38% | 10% | 0.0% | 300 |
 | blue | `k h210 br0.65 sat1.5` | 216° (want 222) | 52% | 17% | 0.0% | 300 |
 | purple | `k h270 br0.4 sat1.5` | 268° (want 272) | 39% | 13% | 0.0% | 300 |
@@ -431,7 +431,7 @@ the row below**, verbatim, into every layer that uses that sheet at that element
 | red | `k h355 br0.7 sat1.5` | 2° (want 0) | 42% | 40% | 0.0% | 300 |
 | rust | `k h15 br0.8 sat1.5` | 19° (want 19) | 56% | 38% | 0.0% | 300 |
 | bone | `k h45 br0.9 sat0.4` | 39° (want 38) | 15% | 38% | 0.0% | 300 |
-| green | `k h120 sat1.5` | 133° (want 134) | 63% | 34% | 0.0% | 300 |
+| green | `k br1 h120 sat1.5` | 133° (want 134) | 63% | 34% | 0.0% | 300 |
 | blue | `k h225 br0.7 sat1.5` | 224° (want 222) | 46% | 40% | 0.0% | 300 |
 | purple | `k h270 br0.9 sat1.5` | 276° (want 272) | 39% | 50% | 0.0% | 300 |
 | crimson | `k h352 br0.65 sat1.5` | 358° (want 357) | 41% | 38% | 0.0% | 300 |
@@ -440,24 +440,24 @@ the row below**, verbatim, into every layer that uses that sheet at that element
 
 | element | token to write | hue | sat | lum | flat | ms |
 |---|---|---|---|---|---|---|
-| red | `k h354 sat1.5` | 2° (want 0) | 46% | 51% | 0.0% | 300 |
-| rust | `k h15 sat1.5` | 19° (want 19) | 58% | 42% | 0.0% | 300 |
+| red | `k br1 h354 sat1.5` | 2° (want 0) | 46% | 51% | 0.0% | 300 |
+| rust | `k br1 h15 sat1.5` | 19° (want 19) | 58% | 42% | 0.0% | 300 |
 | bone | `k h45 br0.65 sat0.4` | 40° (want 38) | 15% | 24% | 0.0% | 300 |
-| green | `k h120 sat1.5` | 133° (want 134) | 65% | 30% | 0.0% | 300 |
-| blue | `k h225 sat1.5` | 223° (want 222) | 49% | 49% | 0.0% | 300 |
-| purple | `k h270 sat1.5` | 273° (want 272) | 43% | 52% | 0.0% | 300 |
-| crimson | `k h351 sat1.5` | 359° (want 357) | 46% | 51% | 0.0% | 300 |
+| green | `k br1 h120 sat1.5` | 133° (want 134) | 65% | 30% | 0.0% | 300 |
+| blue | `k br1 h225 sat1.5` | 223° (want 222) | 49% | 49% | 0.0% | 300 |
+| purple | `k br1 h270 sat1.5` | 273° (want 272) | 43% | 52% | 0.0% | 300 |
+| crimson | `k br1 h351 sat1.5` | 359° (want 357) | 46% | 51% | 0.0% | 300 |
 
 ### FX-021 — Wisp Smoke II
 
 | element | token to write | hue | sat | lum | flat | ms |
 |---|---|---|---|---|---|---|
 | red | `k h355 br0.95 sat1.5` | 2° (want 0) | 43% | 45% | 0.0% | 700 |
-| rust | `k h15 sat1.5` | 19° (want 19) | 57% | 40% | 0.0% | 700 |
-| bone | `k h45 sat0.4` | 40° (want 38) | 15% | 35% | 0.0% | 700 |
-| green | `k h120 sat1.5` | 133° (want 134) | 64% | 29% | 0.0% | 700 |
+| rust | `k br1 h15 sat1.5` | 19° (want 19) | 57% | 40% | 0.0% | 700 |
+| bone | `k br1 h45 sat0.4` | 40° (want 38) | 15% | 35% | 0.0% | 700 |
+| green | `k br1 h120 sat1.5` | 133° (want 134) | 64% | 29% | 0.0% | 700 |
 | blue | `k h225 br0.75 sat1.5` | 224° (want 222) | 46% | 36% | 0.0% | 700 |
-| purple | `k h270 sat1.5` | 274° (want 272) | 39% | 48% | 0.0% | 700 |
+| purple | `k br1 h270 sat1.5` | 274° (want 272) | 39% | 48% | 0.0% | 700 |
 | crimson | `k h352 br0.7 sat1.5` | 359° (want 357) | 42% | 34% | 0.0% | 700 |
 
 ### FX-022 — Wisp Smoke III
@@ -465,9 +465,9 @@ the row below**, verbatim, into every layer that uses that sheet at that element
 | element | token to write | hue | sat | lum | flat | ms |
 |---|---|---|---|---|---|---|
 | red | `k h354 br0.9 sat1.5` | 2° (want 0) | 48% | 51% | 0.0% | 300 |
-| rust | `k h15 sat1.5` | 19° (want 19) | 60% | 47% | 0.0% | 300 |
+| rust | `k br1 h15 sat1.5` | 19° (want 19) | 60% | 47% | 0.0% | 300 |
 | bone | `k h45 br0.55 sat0.4` | 40° (want 38) | 15% | 23% | 0.0% | 300 |
-| green | `k h120 sat1.5` | 133° (want 134) | 65% | 34% | 0.0% | 300 |
+| green | `k br1 h120 sat1.5` | 133° (want 134) | 65% | 34% | 0.0% | 300 |
 | blue | `k h225 br0.95 sat1.5` | 223° (want 222) | 52% | 52% | 0.0% | 300 |
 | purple | `k h270 br0.9 sat1.5` | 273° (want 272) | 44% | 52% | 0.0% | 300 |
 | crimson | `k h350 br0.9 sat1.5` | 358° (want 357) | 48% | 52% | 0.0% | 300 |
@@ -479,7 +479,7 @@ the row below**, verbatim, into every layer that uses that sheet at that element
 | red | `k h0 br0.75 sat1.5` | 4° (want 0) | 42% | 31% | 0.0% | 300 |
 | rust | `k h21 br0.85 sat1.5` | 22° (want 19) | 56% | 29% | 0.0% | 300 |
 | bone | `k h45 br0.7 sat0.45` | 33° (want 38) | 13% | 23% | 0.0% | 300 |
-| green | `k h116 sat1.5` | 130° (want 134) | 57% | 26% | 0.0% | 300 |
+| green | `k br1 h116 sat1.5` | 130° (want 134) | 57% | 26% | 0.0% | 300 |
 | blue | `k h220 br0.75 sat1.5` | 221° (want 222) | 48% | 31% | 0.0% | 300 |
 | purple | `k h270 br0.5 sat1.5` | 271° (want 272) | 39% | 23% | 0.0% | 300 |
 | crimson | `k h0 br0.6 sat1.5` | 3° (want 357) | 41% | 26% | 0.0% | 300 |
@@ -515,7 +515,7 @@ the row below**, verbatim, into every layer that uses that sheet at that element
 | red | `k h352 br0.6 sat1.5` | 0° (want 0) | 46% | 51% | 0.0% | 300 |
 | rust | `k h15 br0.75 sat1.5` | 20° (want 19) | 64% | 51% | 0.0% | 300 |
 | bone | `k h41 br0.8 sat0.35` | 39° (want 38) | 15% | 49% | 0.0% | 300 |
-| green | `k h120 sat1.5` | 133° (want 134) | 67% | 49% | 0.0% | 300 |
+| green | `k br1 h120 sat1.5` | 133° (want 134) | 67% | 49% | 0.0% | 300 |
 | blue | `k h225 br0.65 sat1.5` | 223° (want 222) | 53% | 53% | 0.0% | 300 |
 | purple | `k h270 br0.6 sat1.5` | 273° (want 272) | 42% | 51% | 0.0% | 300 |
 | crimson | `k h345 br0.6 sat1.5` | 354° (want 357) | 47% | 51% | 0.0% | 300 |
@@ -599,7 +599,7 @@ the row below**, verbatim, into every layer that uses that sheet at that element
 | red | `k h351 br0.65 sat1.5` | 360° (want 0) | 47% | 53% | 0.0% | 300 |
 | rust | `k h15 br0.8 sat1.5` | 20° (want 19) | 66% | 52% | 0.0% | 300 |
 | bone | `k h40 br0.6 sat0.35` | 38° (want 38) | 15% | 35% | 0.0% | 300 |
-| green | `k h120 sat1.5` | 132° (want 134) | 66% | 47% | 0.0% | 300 |
+| green | `k br1 h120 sat1.5` | 132° (want 134) | 66% | 47% | 0.0% | 300 |
 | blue | `k h225 br0.7 sat1.35` | 223° (want 222) | 49% | 53% | 0.0% | 300 |
 | purple | `k h270 br0.65 sat1.5` | 273° (want 272) | 43% | 52% | 0.0% | 300 |
 | crimson | `k h345 br0.65 sat1.5` | 354° (want 357) | 49% | 53% | 0.0% | 300 |
@@ -611,7 +611,7 @@ the row below**, verbatim, into every layer that uses that sheet at that element
 | red | `k h352 br0.55 sat1.5` | 0° (want 0) | 48% | 51% | 0.0% | 300 |
 | rust | `k h15 br0.7 sat1.5` | 20° (want 19) | 66% | 51% | 0.0% | 300 |
 | bone | `k h41 br0.65 sat0.35` | 38° (want 38) | 15% | 44% | 0.0% | 300 |
-| green | `k h120 sat1.5` | 136° (want 134) | 72% | 52% | 0.0% | 300 |
+| green | `k br1 h120 sat1.5` | 136° (want 134) | 72% | 52% | 0.0% | 300 |
 | blue | `k h225 br0.6 sat1.4` | 223° (want 222) | 51% | 52% | 0.0% | 300 |
 | purple | `k h270 br0.55 sat1.5` | 273° (want 272) | 45% | 51% | 0.0% | 300 |
 | crimson | `k h345 br0.55 sat1.5` | 354° (want 357) | 49% | 51% | 0.0% | 300 |
@@ -777,35 +777,35 @@ with the per-element **ceiling** above: this is what the art allows, that is wha
 | FX-050 | **74%** | `k h120 br0.65 sat1.5` | 25% |
 | FX-008 | **69%** | `k h120 br0.55 sat1.5` | 25% |
 | FX-001 | **71%** | `k h120 br0.65 sat1.5` | 25% |
-| FX-002 | **76%** | `k h120 sat1.5` | 25% |
-| FX-003 | **72%** | `k h120 sat1.5` | 25% |
-| FX-004 | **71%** | `k h120 sat1.5` | 25% |
-| FX-005 | **65%** | `k h120 sat1.5` | 25% |
+| FX-002 | **76%** | `k br1 h120 sat1.5` | 25% |
+| FX-003 | **72%** | `k br1 h120 sat1.5` | 25% |
+| FX-004 | **71%** | `k br1 h120 sat1.5` | 25% |
+| FX-005 | **65%** | `k br1 h120 sat1.5` | 25% |
 | FX-006 | **77%** | `k h120 br0.85 sat1.5` | 25% |
 | FX-007 | **72%** | `k h120 br0.6 sat1.5` | 25% |
 | FX-009 | **73%** | `k h120 br0.8 sat1.5` | 25% |
 | FX-010 | **75%** | `k h120 br0.6 sat1.5` | 25% |
-| FX-011 | **70%** | `k h120 sat1.5` | 25% |
+| FX-011 | **70%** | `k br1 h120 sat1.5` | 25% |
 | FX-012 | **70%** | `k h120 br0.6 sat1.5` | 25% |
 | FX-013 | **71%** | `k h120 br0.6 sat1.5` | 25% |
 | FX-014 | **71%** | `k h120 br0.9 sat1.5` | 25% |
 | FX-018 | **52%** | `k h210 br0.65 sat1.5` | 25% |
-| FX-019 | **63%** | `k h120 sat1.5` | 25% |
-| FX-020 | **65%** | `k h120 sat1.5` | 25% |
-| FX-021 | **64%** | `k h120 sat1.5` | 25% |
-| FX-022 | **65%** | `k h120 sat1.5` | 25% |
-| FX-023 | **57%** | `k h116 sat1.5` | 25% |
+| FX-019 | **63%** | `k br1 h120 sat1.5` | 25% |
+| FX-020 | **65%** | `k br1 h120 sat1.5` | 25% |
+| FX-021 | **64%** | `k br1 h120 sat1.5` | 25% |
+| FX-022 | **65%** | `k br1 h120 sat1.5` | 25% |
+| FX-023 | **57%** | `k br1 h116 sat1.5` | 25% |
 | FX-028 | **69%** | `k h120 br0.85 sat1.5` | 25% |
 | FX-030 | **68%** | `k h120 br0.6 sat1.5` | 25% |
-| FX-031 | **67%** | `k h120 sat1.5` | 25% |
+| FX-031 | **67%** | `k br1 h120 sat1.5` | 25% |
 | FX-033 | **77%** | `k h120 br0.85 sat1.5` | 25% |
 | FX-035 | **74%** | `k h120 br0.75 sat1.5` | 25% |
 | FX-037 | **65%** | `k h120 br0.75 sat1.5` | 25% |
 | FX-039 | **71%** | `k h120 br0.65 sat1.5` | 25% |
 | FX-040 | **69%** | `k h120 br0.55 sat1.5` | 25% |
 | FX-041 | **68%** | `k h120 br0.55 sat1.5` | 25% |
-| FX-046 | **66%** | `k h120 sat1.5` | 25% |
-| FX-047 | **72%** | `k h120 sat1.5` | 25% |
+| FX-046 | **66%** | `k br1 h120 sat1.5` | 25% |
+| FX-047 | **72%** | `k br1 h120 sat1.5` | 25% |
 | FX-048 | **70%** | `k h120 br0.6 sat1.5` | 25% |
 | FX-049 | **75%** | `k h120 br0.7 sat1.5` | 25% |
 | FX-052 | **67%** | `k h120 br0.55 sat1.5` | 25% |
