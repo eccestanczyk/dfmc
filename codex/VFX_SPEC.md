@@ -88,6 +88,36 @@ touch an approval.
 
 ## Changelog
 
+- **2026-09-18** - **D rejected the pass twice. Three defects, all confirmed in the RUNNING GAME and
+  not on a contact sheet: ultimates drew nothing, layers were far over the rung, and 460 layers were
+  rendering with no brightness reduction at all.** Owning pages: this one (the budget table's new
+  ceiling row, the scale-ladder section) and `codex/move_vfx.csv` (210 rows re-emitted).
+  **(1) "Cataclysm has no effect" was not a data gap - it was a missing field.**
+  `deriveActs` reaches for `ctx.ultMoveFor` and the client never supplied one, so every ultimate
+  resolved through the battle module's own `ultMoveFor`, which built the move WITHOUT `id`. `app.js`
+  turned that into `mvId:''`, `bankFor('')` returned null, and the cast fell through to the archetype
+  path and drew the neutral rune ring - for all 18 ULT rows, on every class, since the bank shipped.
+  The client had a twin of that function which always carried `id`; nothing on the battle path called
+  it. Fixed in `dfmc-client/src/battle_round.js` (`id: r.id`); the field is inert to resolution.
+  Proof: the act log read `Cataclysm [<undefined>]` before and `Cataclysm [ULT-MAGE-3]` after.
+  **(2) TOO BIG - the rung bound the primary and nothing bound the rest.** See the scale-ladder
+  section; 140 layers clamped, Cataclysm's ground layer 992 px -> 432 px.
+  **(3) WHITE - two authoring shapes render with NO dimming and `fx_lint` passes both.**
+  `sheetFilter` emits `br` only when `br` is written. So (a) an uncoloured sheet (`Colored=no`)
+  carrying no `h`, no `k` and no `br` gets the **empty filter string** and the raw near-white sheet is
+  drawn - 195 layers, FX-004 "Pale Plume" measured in game at `filter: none`; and (b) a `Colored=yes`
+  sheet carrying `h` without `k` and without `br` gets **only** `hue-rotate()`, so the hue moves and
+  the glare stays - 265 layers, FX-039 measured at `filter: hue-rotate(43deg)`. Neither is a lint
+  failure: rule 2 exempts `Colored=no` and rule 3 only fires when `k` is present. All 460 now carry
+  their measured `codex/VFX_SHEET_TINTS.md` token for that sheet x element (element = the layer's own
+  `h` snapped to the nearest element where it has one, else the row's `VFX_Color`), which is what this
+  page's colour rules and the lane method's sections 2 and 4 already prescribed. Every token carries
+  `k` + a `br` under 0.55 + the element hue, and `br` is emitted FIRST on that path. Measured after:
+  **0** layers on screen with `filter: none` or a bare `hue-rotate()`, across 33 distinct layers in a
+  full autoplayed fight. **Still D's to rule:** `bone` is 217 of 419 rows and keeps its 0-18 %
+  saturation band, so its token reads as a dark warm neutral (lum ~41 %) rather than a hue. That band
+  is his 2026-09-17 ruling and re-solving it changes the look of half the game.
+
 - **2026-09-17** - **The white list is retired, the tint table covers the whole bank, and a bare
   `Colored=yes` layer is now a lint failure.** Owning pages: this one (Bank compositions - the colour
   rules and the Timing paragraph) and `codex/VFX_SHEET_TINTS.md` (84 rows -> **336**, 48 sheets x 7
@@ -471,6 +501,7 @@ the caster performing it is the point, so there the beat leads by design.
 | layers (sheets, flags not counted) | 1-2 | 2-3 | 3-4 | 4-5 |
 | length, ms (max over layers) | <= 700 | <= 900 | <= 1200 | <= 2000 |
 | primary layer scale (first layer of S1, the same sheet at S2/S3) | 0.55-0.85 | >= S1 | >= S2 | any |
+| **EVERY layer's scale, ceiling (D 2026-09-18)** | **<= 0.7** | **<= 0.85** | **<= 1.0** | **<= 1.35** |
 | `!shake` | no | no | allowed | allowed |
 | first `@t` layer delay | <= 200 ms | | | |
 
@@ -483,6 +514,21 @@ creature's opaque art fills about **85 %** of that tile, so `s1.0` already draws
 the body it is meant to sit on. The rows authored before this ruling ran at 124 / 137 / 165 / 246 percent of
 the body - the effect was the subject and the creature was behind it. At the new ladder S1 reads at ~82 % of
 the body, ULT at ~159 %, and the ULT is the only stage that should ever swallow the sprite.
+
+**The rung is a CEILING for every layer, not a target for the primary alone (D 2026-09-18).** The row
+above is the rule the pass-2 lanes did not have. `docs/vfx-pass2-lane-method-2026-09-17.md` section 5 in
+`dfmc-client` told every lane the opposite - that rescaling a family by the primary's factor
+"legitimately leaves a secondary above the rung" and that this "is section 5 working, not a scale
+error" - so the ladder bound one layer per stage and nothing bound the rest. **That clause is
+overruled.** What it cost, measured in the running client on floor 117 and not on a contact sheet:
+`ULT-MAGE-3` Cataclysm shipped `FX-003@t s2.1`, `FX-007@t s2.6` and `FX-004@g s3.1`, and the ground
+layer drew **992 x 496 CSS px** - 2.6x the 380 px tile, 3.1x the creature's opaque art, and **78 % of a
+1280 px screen** - a pale wash that covered the whole enemy side of the battlefield. 140 layers across
+the bank were above their stage's rung, worst `ULT-ASSASSIN-3 FX-034 s3.4`. Every one is now clamped
+to the rung (floors unchanged: `s >= 0.45`, and a `@u`/`@ug` layer in a composition that also plays on
+the target keeps `0.55 / 0.65 / 0.75`). The same Cataclysm layer now measures **432 px**. Authoring
+rule: put the primary ON the rung, rescale the family by its factor as before, then **clamp anything
+the rescale left above the rung back down to it.**
 
 **Family identity.** Every sheet used at S1 is used again at S2, and every sheet at S2 again at S3. A stage
 ADDS (a second sheet, a user-side cast beat, a ground ring, a flag) and GROWS (scale, hue intensity, `n`); it
