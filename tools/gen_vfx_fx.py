@@ -74,6 +74,23 @@ def lift(lines, name):
     return '\n'.join(('  ' + l if l.strip() else l) for l in body.splitlines())
 
 
+def const_block(lines, name):
+    """A `const <name>=...;` that may run over several lines, lifted verbatim. Used for the hit-tint
+    picker, which is a plain const OUTSIDE the two IIFE renderers - which is exactly how it escaped
+    this generator the first time and left the review page firing a keyframe the client had deleted.
+    A divergence gate only compares what it lifts."""
+    try:
+        start = next(i for i, l in enumerate(lines) if l.startswith('const ' + name + '='))
+    except StopIteration:
+        sys.exit('%s not found in the client - update this generator' % name)
+    depth = 0
+    for i in range(start, len(lines)):
+        depth += lines[i].count('{') - lines[i].count('}')
+        if depth <= 0 and lines[i].rstrip().endswith(';'):
+            return chr(10).join(lines[start:i + 1])
+    sys.exit('%s never closes in the client - update this generator' % name)
+
+
 def one_line(lines, name):
     hit = [l for l in lines if l.startswith('const ' + name + '=')]
     if not hit:
@@ -126,6 +143,14 @@ JS_HEAD = """/* ================================================================
 (function (root) {
   var HEX = %(hex)s;
   var DURMS = %(dur)s;
+
+  /* THE HIT TINT PICKER, lifted verbatim from play/app.js. The !flash hit is a dark, element-keyed
+     tint of the target's own art (D 2026-09-17); the client picks the keyframe with VXHIT_FOR at its
+     cast site and the review page must pick it the same way, off the same table, or the page draws a
+     hit the game does not. Exported below as hitTintFor. */
+%(vxhitc)s
+%(vxhith)s
+%(vxhitfor)s
   /* In the client this is RAWD('%(slash)s') - a raw.githubusercontent URL
      into THIS repo. Here the file is a sibling, so the path is relative to the page. */
   var SLASH_ART = '%(slash)s';
@@ -157,7 +182,8 @@ JS_HEAD = """/* ================================================================
   }
 
   root.DFMC_VFX_FX = { build: build, buildBank: buildBank, dom: dom, HEX: HEX, DURMS: DURMS,
-                       SLASH_ART: SLASH_ART, ARCHETYPES: Object.keys(build(dom)) };
+                       SLASH_ART: SLASH_ART, ARCHETYPES: Object.keys(build(dom)),
+                       hitTintFor: VXHIT_FOR, HITTINT_BY_COLOR: VXHITC, HITTINT_BY_HUE: VXHITH };
 })(typeof window !== 'undefined' ? window : globalThis);
 """
 
@@ -193,9 +219,13 @@ def main():
     bank = lift(lines, 'VFX_BANK')
     hexl = one_line(lines, 'VFXHEX')
     durl = one_line(lines, 'VFXDURMS')
+    vxhitc = const_block(lines, 'VXHITC')
+    vxhith = const_block(lines, 'VXHITH')
+    vxhitfor = const_block(lines, 'VXHIT_FOR')
     kf = keyframes(markup)
 
-    js = JS_HEAD % {'hex': hexl, 'dur': durl, 'fx': fx, 'bank': bank, 'slash': SLASH}
+    js = JS_HEAD % {'hex': hexl, 'dur': durl, 'fx': fx, 'bank': bank, 'slash': SLASH,
+                    'vxhitc': vxhitc, 'vxhith': vxhith, 'vxhitfor': vxhitfor}
     css = CSS_HEAD + '\n'.join(kf[n] for n in sorted(kf)) + '\n'
 
     jsp, cssp = OUT / 'vfx_fx.js', OUT / 'vfx_fx.css'
@@ -206,6 +236,7 @@ def main():
     ok_fx = fx in cur_js
     ok_bank = bank in cur_js
     ok_tab = hexl in cur_js and durl in cur_js
+    ok_hit = all(b in cur_js for b in (vxhitc, vxhith, vxhitfor))
     ok_css = all(kf[n] in cur_css for n in kf)
     miss = [n for n in sorted(kf) if kf[n] not in cur_css]
 
@@ -214,6 +245,7 @@ def main():
     print('VFX_FX body matches copy  : %s' % ok_fx)
     print('VFX_BANK body matches copy: %s' % ok_bank)
     print('colour/duration tables    : %s' % ok_tab)
+    print('hit-tint picker           : %s' % ok_hit)
     print('keyframes match copy      : %s%s' % (ok_css, '' if ok_css else '  missing ' + ', '.join(miss)))
 
     if a.write:
@@ -222,7 +254,7 @@ def main():
         cssp.write_text(css, encoding='utf-8')
         print('--write: wrote %s (%d bytes) and %s (%d bytes)' % (jsp, len(js), cssp, len(css)))
         return 0
-    if not (ok_fx and ok_bank and ok_tab and ok_css):
+    if not (ok_fx and ok_bank and ok_tab and ok_hit and ok_css):
         print('DIVERGED - the client changed and assets/vfx/vfx_fx.* is stale. Regenerate with --write.')
         return 1
     print('OK - the published copy is byte-identical to the client')

@@ -29,6 +29,17 @@
 (function (root) {
   var HEX = {blue:'#18306a',purple:'#3a1a56',crimson:'#600e12',green:'#144820',red:'#6e1212',rust:'#7e3818',bone:'#d8cfc0'};
   var DURMS = {fast:400,standard:600,heavy:800};
+
+  /* THE HIT TINT PICKER, lifted verbatim from play/app.js. The !flash hit is a dark, element-keyed
+     tint of the target's own art (D 2026-09-17); the client picks the keyframe with VXHIT_FOR at its
+     cast site and the review page must pick it the same way, off the same table, or the page draws a
+     hit the game does not. Exported below as hitTintFor. */
+const VXHITC={red:'vxRedHit',crimson:'vxRedHit',rust:'vxHitRust',bone:'vxHitBone',green:'vxHitGreen',blue:'vxHitBlue',purple:'vxHitPurple'};
+const VXHITH=[[0,'vxRedHit'],[19,'vxHitRust'],[38,'vxHitBone'],[134,'vxHitGreen'],[222,'vxHitBlue'],[272,'vxHitPurple'],[357,'vxRedHit']];
+const VXHIT_FOR=(parsed,color)=>{ const t=((parsed&&parsed.layers)||[]).filter(l=>l.anchor==='t'||l.anchor==='g'||l.anchor==='b');
+  const h=t.length?t[0].mods.h:null;
+  if(h!=null){ let best='vxHitBone', bd=1e9; VXHITH.forEach(e=>{ const d=Math.abs((((h-e[0]+180)%360)+360)%360-180); if(d<bd){ bd=d; best=e[1]; } }); return best; }
+  return VXHITC[color]||'vxHitBone'; };
   /* In the client this is RAWD('assets/ui/vfx/slash.png') - a raw.githubusercontent URL
      into THIS repo. Here the file is a sibling, so the path is relative to the page. */
   var SLASH_ART = 'assets/ui/vfx/slash.png';
@@ -145,5 +156,6 @@
   }
 
   root.DFMC_VFX_FX = { build: build, buildBank: buildBank, dom: dom, HEX: HEX, DURMS: DURMS,
-                       SLASH_ART: SLASH_ART, ARCHETYPES: Object.keys(build(dom)) };
+                       SLASH_ART: SLASH_ART, ARCHETYPES: Object.keys(build(dom)),
+                       hitTintFor: VXHIT_FOR, HITTINT_BY_COLOR: VXHITC, HITTINT_BY_HUE: VXHITH };
 })(typeof window !== 'undefined' ? window : globalThis);

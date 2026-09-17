@@ -550,7 +550,13 @@ function castNow(mv, stage, side){
     if(rc.flags.indexOf('!flash')>=0 && tEl){
       const im=tEl.querySelector('img.mon');
       if(im){ im.style.animation='none'; void im.offsetWidth;
-              im.style.animation='vxbFlash 50ms step-end '+Math.round(BANK.impactMs(P))+'ms 1 both'; }
+              /* THE HIT TINT, picked by the CLIENT'S OWN picker (DFMC_VFX_FX.hitTintFor, lifted verbatim
+         from play/app.js by tools/gen_vfx_fx.py). This line used to name vxbFlash, and when D's
+         flash ruling deleted that keyframe the page went on naming it - a deleted keyframe animates
+         nothing, so every !flash composition shot with no hit at all and the contact sheets could
+         not show whether the ruling had landed. Never re-implement the pick here. */
+      im.style.animation=DFMC_VFX_FX.hitTintFor(P, v.VFX_Color)+' 300ms ease-out '+
+        Math.round(BANK.impactMs(P))+'ms 1 both'; }
     }
     if(rc.flags.indexOf('!shake')>=0) bankShake(b.isUlt?8:4, b.isUlt?250:150, Math.round(BANK.impactMs(P)));
   } else {
