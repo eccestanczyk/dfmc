@@ -16,6 +16,12 @@ somewhere near it, never on it, and two runs of the same composition are never t
 After the cast every animation is paused and its currentTime is SET, so a frame is exact and a
 re-shoot after a retune is comparable to the shot before it.
 
+SAME SEED, SAME STAGE. --seed pins the teams and the floor plate (rerollTeams and paintBackdrop
+both draw from Math.random), so a re-shoot after a retune is comparable to the shot before it.
+Two shoots of one sheet at the same seed differ on 0.018% of pixels and by no more than 8 levels
+on any of them - the units' `floaty` idle is an infinite animation paused at whatever phase the
+cast caught it in. Nothing a judgement rests on moves.
+
 WHAT IT CANNOT SEE. !shake and the target's hit-jolt are created inside setTimeout, and
 setTimeout is neutered during the cast so the layer-teardown timer cannot delete the layers
 mid-scrub. Those two read as still frames. Everything drawn by VFX_BANK, and the !flash tint on
@@ -132,6 +138,20 @@ def open_page(pw, port):
     return br, pg
 
 
+SEED_JS = r"""
+(seed) => {
+  /* THE SAME TEAMS AND THE SAME FLOOR, EVERY RUN. rerollTeams() and paintBackdrop() draw from
+     Math.random, so two shoots of the same ids came back with different creatures on a different
+     plate - and a difference you cannot attribute is worse than no shot at all. Math.random is
+     replaced by a seeded LCG for the life of the page, so a re-shoot after a retune is comparable
+     to the shot before it tile for tile. (CAST_JS pins it to 0 for the cast, then restores this.) */
+  let s = seed >>> 0;
+  Math.random = () => { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; };
+  rerollTeams();
+}
+"""
+
+
 def stage_box(pg):
     b = pg.locator('#stage').bounding_box()
     if not b:
@@ -168,7 +188,8 @@ def sheet(shots, out_png, cols, tile_w, title):
 
 def flush(shots, a, ix):
     cols = len(a.frames.split(','))
-    title = '%s  stage %d  frames %s  (%d moves)' % (a.tag, a.stage, a.frames, len(shots) // cols)
+    title = '%s  stage %d  frames %s  seed %d  (%d moves)' % (a.tag, a.stage, a.frames, a.seed,
+                                                                 len(shots) // cols)
     out = os.path.join(a.out, '%s_s%d_%02d.png' % (a.tag, a.stage, ix + 1))
     return sheet(shots, out, cols, a.tile, title)
 
@@ -204,6 +225,7 @@ def main():
     ap.add_argument('--tag', default='sheet')
     ap.add_argument('--census', action='store_true')
     ap.add_argument('--census-stages', default='1,2,3')
+    ap.add_argument('--seed', type=int, default=1234, help='teams + floor plate; same seed = same stage')
     a = ap.parse_args()
 
     ids = [s.strip() for s in a.ids.split(',') if s.strip()]
@@ -224,6 +246,8 @@ def main():
     try:
         with sync_playwright() as pw:
             br, pg = open_page(pw, port)
+            pg.evaluate(SEED_JS, a.seed)
+            pg.wait_for_timeout(900)      # the seeded team's art
             if a.census:
                 stages = [int(s) for s in a.census_stages.split(',')]
                 rows = pg.evaluate(CENSUS_JS, stages)
