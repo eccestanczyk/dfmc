@@ -88,6 +88,20 @@ ELEMENTS = [('red', 0), ('rust', 19), ('bone', 38), ('green', 134),
             ('blue', 222), ('purple', 272), ('crimson', 357)]
 
 HUE_TOL, LUM_MAX, SAT_MIN = 18.0, 55.0, 25.0        # the target, as numbers
+
+# WHICH SHEETS ARE THE WHITE PROBLEM - measured on SCREEN, not on the sheet. The pass-1 list of 12
+# came from sampling every opaque pixel of each .webp: near-white = HSV value >= 225 and HSV
+# saturation <= 0.14, flat white = value >= 250 and saturation <= 0.08, a sheet on the list at
+# white% >= 25. Those thresholds are kept here verbatim so the two lists are comparable; what
+# changes is the POPULATION they are applied to. A sheet's opaque pixels are not what a player sees:
+# the renderer draws the sheet as an <img> over the tile, so a dim halo pixel composites down into
+# the floor and falls out of the painted set entirely, while the white-hot core survives at full
+# value - and the core is both what the eye reads and what the calibration target measures (top
+# luminance decile). A cyan sheet with a white core therefore measures LOW on the sheet and HIGH on
+# the screen. FX-039 Shard Burst is the case that proved it. See --screen-census.
+SCREEN_WHITE = (225 / 255.0, 0.14)                  # (HSV value, HSV saturation) - near-white
+SCREEN_FLAT = (250 / 255.0, 0.08)                   # D's "no flat whites"
+SCREEN_WHITE_IN = 25.0                              # white% at or above this puts a sheet on the list
 LUM_AIM = 53.0                                      # sit just inside it, and spend the rest on chroma
 
 # THE SATURATION CEILING, per element. The leg was a FLOOR and nothing else, so the solver spent
@@ -106,6 +120,17 @@ LUM_AIM = 53.0                                      # sit just inside it, and sp
 SAT_BAND = {                                   # element -> (floor %, ceiling %)
     'bone': (0.0, 18.0),                       # a dim, faintly warm neutral, never a colour
 }
+
+
+BANKROW = {r['Id']: r for r in csv.DictReader(open(ROOT / 'codex' / 'fx_bank.csv', encoding='utf-8'))}
+
+
+def sheet_order(rows):
+    """Every sheet present in `rows`, the 12 of the original white list first and in their own
+    order so the published page does not shuffle under a reader, then the rest in bank order.
+    The table covers the whole bank since 2026-09-17 and SHEETS is no longer all of it."""
+    have = {r['sheet'] for r in rows}
+    return [s for s in SHEETS if s in have] + [s for s in BANKROW if s in have and s not in SHEETS]
 
 
 def band(name):
@@ -145,7 +170,8 @@ HMAP_BR = 0.6                                       # the hue map is read DARK -
 
 # ---------------------------------------------------------------- the page, on top of vfx_shoot's
 CAST_JS = r"""
-([id, stage, txt]) => {
+([id, stage, txt, side]) => {
+  side = side || 'target';
   const mv = MOVE_BY_ID[id];
   if (!mv) return {err: 'no such move: ' + id};
   if (!VFX[id]) return {err: 'no vfx row: ' + id};
@@ -158,10 +184,16 @@ CAST_JS = r"""
   finally { window.setTimeout = _st; Math.random = _rnd; }
   if (!rc) return {err: 'castNow returned null'};
   if (!rc.bank) return {err: 'the parser rejected: ' + txt};
-  if (!rc.onTgt) return {err: 'no target-side layer mounted for: ' + txt};
+  if (side === 'user' ? !rc.onUser : !rc.onTgt)
+    return {err: 'no ' + side + '-side layer mounted for: ' + txt};
   document.getAnimations().forEach(a => { try { a.pause(); } catch (e) {} });
-  const tEl = document.getElementById(rc.tside).children[rc.tidx];
-  const b = tEl.getBoundingClientRect();
+  /* THE CASTER TILE IS A DIFFERENT TILE, NOT A SMALLER ONE. A token solved on the target at s1.4
+     is measured over a footprint the halo dominates; the same token on the caster at s<=0.8 is
+     mostly core, and an achromatic core that additive blending holds near 255 reads as a white
+     spark. So the rig has to be able to clip and measure the CASTER tile too. */
+  const el = side === 'user' ? document.getElementById(rc.side).children[0]
+                             : document.getElementById(rc.tside).children[rc.tidx];
+  const b = el.getBoundingClientRect();
   return {lenMs: rc.lenMs, tile: {x: b.x + scrollX, y: b.y + scrollY, w: b.width, h: b.height}};
 }
 """
@@ -169,6 +201,16 @@ CAST_JS = r"""
 # the layers alone, by class: clearFxNow() also rewrites the units' inline animation style, and the
 # plate has to be the same frame of the same paused idle as the effect shot.
 STRIP_JS = "() => { document.querySelectorAll('#ally .vxb,#enemy .vxb').forEach(n => n.remove()); }"
+
+# THE SPRITE, OUT OF THE WAY. The solver's mask keeps only the pixels where the plate is DARK, which
+# is right when the question is "what colour is this token" - a decile over the whole footprint would
+# otherwise read the creature the layer is lying on. It is wrong when the question is "how white does
+# this sheet paint", because a burst sheet's white-hot core sits exactly where the sprite is and the
+# restriction throws that core away: FX-038, 76% near-white on its own .webp, measures 0% over the
+# floor because only its outer halo is over floor. Hiding the sprite (visibility, not display - the
+# tile must not reflow) makes the whole footprint floor, so the layer is measured entire.
+HIDE_MON_JS = ("(v) => { document.querySelectorAll('#ally .unit img.mon,#enemy .unit img.mon')"
+               ".forEach(i => { i.style.visibility = v ? 'hidden' : ''; }); }")
 
 
 # ---------------------------------------------------------------- the CSS filter chain, in numpy
@@ -296,14 +338,15 @@ def token(h, sat, br):
 
 # ---------------------------------------------------------------- the rig
 class Rig(object):
-    def __init__(self, pg, move, stage, scale, pad):
+    def __init__(self, pg, move, stage, scale, pad, side='target'):
         self.pg, self.move, self.stage, self.scale, self.pad = pg, move, stage, scale, pad
+        self.side = side                       # 'target' -> @t at --scale, 'user' -> @u at --scale
         self.clip = None
         self.casts = 0
 
     def cast(self, fid, mods=''):
-        txt = ('%s@t s%g %s' % (fid, self.scale, mods)).strip()
-        rc = self.pg.evaluate(CAST_JS, [self.move, self.stage, txt])
+        txt = ('%s@%s s%g %s' % (fid, 'u' if self.side == 'user' else 't', self.scale, mods)).strip()
+        rc = self.pg.evaluate(CAST_JS, [self.move, self.stage, txt, self.side])
         if rc.get('err'):
             sys.exit('%s: %s' % (txt, rc['err']))
         self.casts += 1
@@ -321,6 +364,9 @@ class Rig(object):
     def strip(self):
         self.pg.evaluate(STRIP_JS)
 
+    def hide_mon(self, v=True):
+        self.pg.evaluate(HIDE_MON_JS, bool(v))
+
 
 def rgb(png):
     from PIL import Image
@@ -328,24 +374,41 @@ def rgb(png):
 
 
 # ---------------------------------------------------------------- one sheet
-def solve_sheet(rig, fid, elements, plate_max, hue_step, carry=None, verbose=True):
-    # --- where in the layer's own life is it brightest, and which pixels are the layer's
+def frame_and_mask(rig, fid, plate_max, mods='', fractions=(0.3, 0.5, 0.7), min_px=300,
+                   bare=False):
+    """The frame of this layer's own life where it paints most light over the floor, and the pixels
+    that ARE the layer there. Shared by the solver and by the screen census, so both measure the same
+    population the same way: changed against a clean plate of the same paused frame, restricted to
+    where the plate is dark. Returns (ms, mask, effect_png, lenMs) or None."""
     best = None
-    for f in (0.3, 0.5, 0.7):
-        rc = rig.cast(fid)
+    for f in fractions:
+        rc = rig.cast(fid, mods)
         ms = int(round(rc['lenMs'] * f))
+        if bare:
+            rig.hide_mon(True)
         eff = rig.shot(ms)
         rig.strip()
         A, P = rgb(eff), rgb(rig.shot(ms))
+        if bare:
+            rig.hide_mon(False)
         m = (np.abs(A - P).max(2) >= 12 / 255.0) & (P.max(2) <= plate_max)
-        if m.sum() < 300:
+        if m.sum() < min_px:
             continue
         lit = float(A[m].max(1).mean()) * m.sum()
         if best is None or lit > best[0]:
             best = (lit, ms, m, eff, rc['lenMs'])
     if best is None:
+        return None
+    _, ms, mask, eff, lenMs = best
+    return ms, mask, eff, lenMs
+
+
+def solve_sheet(rig, fid, elements, plate_max, hue_step, carry=None, verbose=True):
+    # --- where in the layer's own life is it brightest, and which pixels are the layer's
+    got = frame_and_mask(rig, fid, plate_max)
+    if got is None:
         sys.exit('%s: no pixels of this layer sit over the floor at any fraction of its life' % fid)
-    _, ms, mask, ref_png, lenMs = best
+    ms, mask, ref_png, lenMs = got
     npx = int(mask.sum())
 
     def measure(mods):
@@ -446,6 +509,142 @@ def solve_sheet(rig, fid, elements, plate_max, hue_step, carry=None, verbose=Tru
     return rows, art
 
 
+# ---------------------------------------------------------------- does a token hold at both scales
+def caster_check(pg, a, pairs, scales):
+    """DEFECT 3: a token solved on a TARGET tile at s1.4 does not have to hold on a CASTER tile at
+    s <= 0.8, and `bone` on FX-038 does not - a quiet tan star on the enemy, a small white spark on
+    the caster. The reason is a population one and not a rendering one: at s1.4 the layer's painted
+    pixels are mostly HALO and the halo carries the tint, so the top decile is halo; at s0.75 the
+    same layer is mostly CORE, and the core is the part the chain leaves achromatic and near 255.
+
+    THE LEVER IS `br` AND IT CANNOT BE `sat`, and that is provable before it is shot: `saturate()`
+    scales chroma about the pixel's own luma. A pixel with no chroma has nothing to scale, so no
+    value of `sat` moves an achromatic core off 255 - it can only make an already-coloured pixel
+    more so. `br` is the FIRST primitive on the `k` path, so it is the only one that moves the pixel
+    before `sepia(1)` pins it. The solver never reached for it because its `lum <= 55%` leg was
+    already met on the halo-dominated decile at br0.45.
+
+    Measured with the sprite HIDDEN on both tiles, so the layer is measured entire at every scale
+    and the two are comparable; the solver's own dark-plate mask cannot be used here because at
+    s0.55 on the caster almost none of the layer is over floor."""
+    rows = []
+    for fid, name, tk in pairs:
+        for side, s in scales:
+            rig = Rig(pg, a.move, a.stage, s, a.pad, side=side)
+            got = frame_and_mask(rig, fid, a.plate_max, bare=True, min_px=120)
+            if got is None:
+                rows.append(dict(sheet=fid, element=name, token=tk, side=side, s=s, px=0,
+                                 note='no pixels'))
+                continue
+            ms, mask, _, lenMs = got
+            rig.cast(fid, tk)
+            rig.hide_mon(True)
+            px = rgb(rig.shot(ms))[mask]
+            rig.hide_mon(False)
+            st = stats(px)
+            w, f = white_share(px)
+            rows.append(dict(sheet=fid, element=name, token=tk, side=side, s=s, px=int(mask.sum()),
+                             ms=ms, white=w, flat_all=f, note='', **st))
+    return rows
+
+
+def lever_test(pg, a, fid, tk, side, s, brs, sats):
+    """The two axes, on the same frozen pixels of the same tile, so 'br not sat' is a measurement
+    and not an argument. Returns (br sweep, sat sweep) - each a list of (value, token, stats)."""
+    rig = Rig(pg, a.move, a.stage, s, a.pad, side=side)
+    got = frame_and_mask(rig, fid, a.plate_max, bare=True, min_px=120)
+    if got is None:
+        return [], []
+    ms, mask, _, _ = got
+    h = int(re.search(r'\bh(\d+)', tk).group(1))
+    base_br, base_sat = br_of(tk), float((re.search(r'\bsat([0-9.]+)', tk) or [0, 1]).__getitem__(1))
+
+    def shoot(t):
+        rig.cast(fid, t)
+        rig.hide_mon(True)
+        px = rgb(rig.shot(ms))[mask]
+        rig.hide_mon(False)
+        st = stats(px)
+        st['flat_all'] = white_share(px)[1]
+        return st
+    brw = [(b, token(h, base_sat, b), shoot(token(h, base_sat, b))) for b in brs]
+    stw = [(x, token(h, x, base_br), shoot(token(h, x, base_br))) for x in sats]
+    return brw, stw
+
+
+# ---------------------------------------------------------------- the white list, on screen
+def white_share(px):
+    """near-white% and flat-white% over a set of rendered pixels, on the sheet census's own
+    thresholds so the two lists are comparable."""
+    mx, mn = px.max(1), px.min(1)
+    hsv_s = np.where(mx > 1e-6, (mx - mn) / np.maximum(mx, 1e-6), 0.0)
+    wv, ws = SCREEN_WHITE
+    fv, fs = SCREEN_FLAT
+    return (float(np.mean((mx >= wv) & (hsv_s <= ws)) * 100.0),
+            float(np.mean((mx >= fv) & (hsv_s <= fs)) * 100.0))
+
+
+def decile(px):
+    L0 = (px.max(1) + px.min(1)) / 2.0
+    k = max(1, int(round(len(px) * 0.10)))
+    return px[np.argsort(L0)[-k:]]
+
+
+def webp_white(fid, alpha_min=128):
+    """The pass-1 measurement, reproduced here so the two lists are compared in one run rather than
+    against a number copied out of a document: every OPAQUE pixel of the sheet .webp, near-white and
+    flat-white on the same thresholds. This is the population the old list was derived from."""
+    from PIL import Image
+    p = ROOT / BANKROW[fid]['File']
+    if not p.exists():
+        return None
+    im = np.asarray(Image.open(p).convert('RGBA'), dtype=np.float64)
+    a = im[..., 3] >= alpha_min
+    if a.sum() < 100:
+        return None
+    return white_share(im[..., :3][a] / 255.0)
+
+
+def screen_census(rig, ids, plate_max, verbose=True):
+    """Re-derive the white list from COMPOSITED SCREEN PIXELS.
+
+    The pass-1 list was measured on the sheets. That population is the wrong one twice over: it
+    weights a sheet's huge dim halo equally with its core, and the halo is exactly the part that
+    composites away against a dark floor. So a sheet is cast untinted through the real renderer on
+    the real tile at the real scale, the layer's own pixels are isolated the way the solver isolates
+    them (difference against a clean plate, restricted to where the plate is dark), and the sheet
+    census's own two thresholds are applied to THOSE pixels. `white`/`flat` are over the whole
+    painted set, `dwhite`/`dflat` over the top luminance decile - the same decile the calibration
+    target is scored on, i.e. the core a player actually reads."""
+    out = []
+    for fid in ids:
+        row = dict(sheet=fid, px=0, white=0.0, flat=0.0, dwhite=0.0, dflat=0.0, lum=0.0,
+                   ms=0, lenMs=0, hpx=0, hwhite=0.0, hflat=0.0, note='')
+        for bare, pre in ((True, ''), (False, 'h')):
+            got = frame_and_mask(rig, fid, plate_max, bare=bare)
+            if got is None:
+                row['note'] = 'no pixels over the floor'
+                continue
+            ms, mask, eff, lenMs = got
+            px = rgb(eff)[mask]
+            w, f = white_share(px)
+            if bare:
+                d = decile(px)
+                dw, df = white_share(d)
+                row.update(px=int(mask.sum()), white=w, flat=f, dwhite=dw, dflat=df, ms=ms,
+                           lenMs=lenMs,
+                           lum=float(((d.max(1) + d.min(1)) / 2.0).mean() * 100))
+            else:
+                row.update(hpx=int(mask.sum()), hwhite=w, hflat=f)
+        out.append(row)
+        if verbose:
+            print('  %-8s  whole footprint: px %6d white %5.1f%% flat %5.1f%%  (decile white %5.1f%%'
+                  ' lum %4.1f%%)   sprite-shadowed: px %6d white %5.1f%%'
+                  % (fid, row['px'], row['white'], row['flat'], row['dwhite'], row['lum'],
+                     row['hpx'], row['hwhite']))
+    return out
+
+
 # ---------------------------------------------------------------- output
 def contact(art, out_png, title, cols=4, tile_w=360):
     from PIL import Image, ImageDraw, ImageFont
@@ -504,12 +703,30 @@ def read_md(path):
 
 def write_md(path, rows, a, names, ceil):
     bad = [r for r in rows if not r['ok']]
-    L = ['# The white-sheet tints \u2014 the token that actually lands, per sheet \u00d7 element', '',
+    L = ['# The sheet tints \u2014 the token that actually lands, per sheet \u00d7 element', '',
          '*Measured %s by `tools/vfx_calibrate.py`. Do not hand-edit \u2014 re-run the tool.*' % a.date, '']
-    L += ["D ruled the 12 near-white sheets are kept and re-hued dark per element. The `k` token makes",
+    L += ["D ruled the near-white sheets are kept and re-hued dark per element. The `k` token makes",
           "that possible, but **the hue that lands is not the hue authored** \u2014 every sheet is its own mix",
           "of white core and coloured halo, so do not write `h134` and hope for green. **Copy the token from",
           "the row below**, verbatim, into every layer that uses that sheet at that element.", '']
+    extra = [s for s in sheet_order(rows) if s not in SHEETS]
+    if extra:
+        L += ['> **The table covers the WHOLE BANK since %s, and not the 12 sheets of the white list.**' % a.date,
+              '> Two findings forced that and they are the same finding. **The white list was measured on',
+              '> SHEET pixels and it does not predict the screen.** These sheets are additive-style art: the',
+              '> RGB is near-white almost everywhere and the *intensity* lives in the alpha channel, so',
+              '> "every opaque pixel is near-white" says nothing about what a player sees. Re-measured on',
+              '> composited screen pixels (`--screen-census`), FX-038 Strike Flash falls from 76% near-white',
+              '> to **0%** and FX-034 Sanctified Circle from 96% to **0%**, while FX-041 Crescent Slash, which',
+              '> was never on the list, measures **17% near-white and 14% flat white** \u2014 above four sheets that',
+              '> were. **And what those sheets actually do on screen is not go white: they go BRIGHT IN THEIR',
+              '> OWN HUE.** FX-038 reads cyan at 84% luminance, FX-039 Shard Burst cyan at 77%. A bare',
+              '> `Colored=yes` layer paints the sheet\'s hue, not the move\'s, so a purple move carrying a bare',
+              '> FX-039 renders cyan-white spikes. **Every one of the bank\'s 34 `Colored=yes` sheets has at',
+              '> least one element the \u00b190\u00b0 hue clamp refuses \u2014 121 refused pairs in all** \u2014 and on those the',
+              '> `h<element>` an author would reach for is rejected outright. `k` is the only mechanism that',
+              '> reaches them, and `k` needs a measured token. So the table is the whole bank: %d sheets, not 12.'
+              % len(sheet_order(rows)), '']
     low = [r for r in rows if br_of(r['token']) < 0.5]
     L += ['> **Re-solved %s, after the filter order was fixed.** The first solve of this table put *none*' % a.date,
           '> of the 84 pairs over the saturation leg. That was this tool finding an engine defect rather than a',
@@ -547,6 +764,33 @@ def write_md(path, rows, a, names, ceil):
                   % (n, lo, hi, LUM_MAX),
                   '> **The other six elements were not re-solved and their tokens below are the published ones,',
                   '> carried verbatim** - re-shot for the contact sheets, never re-measured.', '']
+    L += ['> **One token, and no caster-scale variant — measured, %s.** A token is solved on a TARGET' % a.date,
+          '> tile at `s1.4` and a kept caster beat plays at `s0.55-0.75`, so it was put to this tool whether',
+          '> a row that holds on the enemy holds on the caster. It does. `--caster-check` re-measures a',
+          '> published token on the caster tile at s0.55 and s0.75 and on the target tile at s1.4: over 14',
+          '> sheet × element pairs × 3 scales, **hue, saturation, lightness and flat-white agree to within one',
+          '> point** — usually to the decimal. Scaling an `<img>` does not change the distribution of its',
+          '> pixel values, so a statistic taken over the layer is scale-free. **Nothing here needs a second',
+          '> column.** What DOES change with scale is what a viewer reads: at `s1.4` the rays carry the tint',
+          '> and the eye follows them; at `s0.75` the core is most of what is left, and on a banded element',
+          '> the core is by ruling near-neutral, so it reads pale. That is a consequence of the `bone` band,',
+          '> not of the scale, and it is the same at every scale — see the note below.', '']
+    if 'bone' in SAT_BAND:
+        L += ['> **The one thing still open, and it is D\'s to rule: how bright `bone` may be.** Inside a',
+              '> saturation band, `br` is the ONLY lever. `saturate()` scales chroma about a pixel\'s own luma,',
+              '> so it cannot colour a core the band forbids from carrying chroma; `br` is the first primitive',
+              '> on the `k` path and is the only one that moves the pixel before `sepia(1)` fixes it. Shot on',
+              '> `FX-038` + `bone` on the caster tile, brightest 200 painted pixels: the published',
+              '> `k h40 br0.45 sat0.35` puts the core at **lum 49%, max value 0.57** — a pale cream star, no',
+              '> flat white by the measured definition and inside every leg of the target, but the brightest',
+              '> near-neutral thing on a near-black stage. `br0.35` takes the core to **lum 38%, max 0.44** and',
+              '> `br0.3` to **lum 33%, max 0.38**. Every one of those passes today\'s target, so the solver had',
+              '> no reason to go below 0.45 — its `lum ≤ 55%` leg is read on the top DECILE of the painted',
+              '> pixels, which the rays dominate, and a few hundred blown core pixels round to nothing there.',
+              '> **No threshold was invented to close this**: there is no measurement in evidence that says',
+              '> where a neutral stops being quiet and starts being white, and picking one would be taste',
+              '> shipped as a number. The candidate is one edit — `bone` at `br0.35` instead of `br0.45` — and',
+              '> the contact sheets to rule on it are beside this page.', '']
     ex = next((r for r in rows if r['sheet'] == 'FX-038' and r['element'] == 'green'), rows[0])
     L += ['## How to read a row', '',
           '`%s` + `%s` \u2192 write `%s`, i.e. the whole layer is' % (ex['sheet'], ex['element'], ex['token']),
@@ -557,7 +801,7 @@ def write_md(path, rows, a, names, ceil):
           % (a.move, a.stage),
           '  seed **%d**, one layer at **s%g**, no delay, no flags \u2014 the same move, seed, tile and scale for'
           % (a.seed, a.scale),
-          '  all 12 sheets, so the sheets are comparable to each other.',
+          '  every sheet, so the sheets are comparable to each other.',
           "- Scrubbed **inside the layer's own `lenMs`** (fractions 0.3 / 0.5 / 0.7, brightest kept \u2014 the `ms`",
           '  column is the frame the row was read at).',
           '- The pixels measured are the **difference against a clean plate of the same tile**, same paused',
@@ -591,7 +835,7 @@ def write_md(path, rows, a, names, ceil):
               % ', '.join(systemic),
               '> the path rather than of a row, and it is named once here so the per-row marker can stay for',
               '> rows that miss something *else*.', '']
-    for fid in [s for s in SHEETS if any(r['sheet'] == s for r in rows)]:
+    for fid in sheet_order(rows):
         L += ['### %s \u2014 %s' % (fid, names.get(fid, '')), '',
               '| element | token to write | hue | sat | lum | flat | ms |', '|---|---|---|---|---|---|---|']
         for r in [x for x in rows if x['sheet'] == fid]:
@@ -609,7 +853,7 @@ def write_md(path, rows, a, names, ceil):
           '', '**Read the banded columns downwards, not across:** a banded element is deliberately the',
           'quietest column on the page and is not competing with the rest.', '',
           '| sheet | ' + ' | '.join(els) + ' |', '|---' * (len(els) + 1) + '|']
-    for fid in [s for s in SHEETS if any(r['sheet'] == s for r in rows)]:
+    for fid in sheet_order(rows):
         cell = {r['element']: r['sat'] for r in rows if r['sheet'] == fid}
         L.append('| %s | %s |' % (fid, ' | '.join('%.0f%%' % cell.get(e, 0) for e in els)))
     order = sorted(els, key=lambda e: np.mean([r['sat'] for r in rows if r['element'] == e]))
@@ -721,6 +965,108 @@ def filter_check():
           % ('yes' if agree else 'NO - trust the browser, not the model'))
 
 
+def run_caster_check(a, names):
+    pairs = []
+    for r in read_md(a.md):
+        if r['sheet'] in [s.strip() for s in a.sheets.split(',')] \
+                and r['element'] in [x.strip() for x in a.elements.split(',')]:
+            pairs.append((r['sheet'], r['element'], r['token']))
+    if not pairs:
+        sys.exit('no published rows for those --sheets/--elements')
+    scales = [('target', a.scale)] + [('user', float(x)) for x in a.caster_scales.split(',')]
+    from playwright.sync_api import sync_playwright
+    port = VS.free_port(8620)
+    srv = subprocess.Popen([sys.executable, '-m', 'http.server', str(port), '--bind', '127.0.0.1',
+                            '--directory', str(ROOT)],
+                           stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    time.sleep(0.8)
+    try:
+        with sync_playwright() as pw:
+            br, pg = VS.open_page(pw, port)
+            pg.evaluate(VS.SEED_JS, a.seed)
+            pg.wait_for_timeout(900)
+            rows = caster_check(pg, a, pairs, scales)
+            print('%-8s %-8s %-26s %-7s %5s %6s %6s %6s %6s %7s'
+                  % ('sheet', 'element', 'token', 'tile', 's', 'hue', 'sat%', 'lum%', 'flat%', 'white%'))
+            for r in rows:
+                if r.get('note'):
+                    print('%-8s %-8s %-26s %-7s %5g   %s' % (r['sheet'], r['element'], r['token'],
+                                                             r['side'], r['s'], r['note']))
+                    continue
+                bad = r['flat'] > 0 or r['lum'] > LUM_MAX
+                print('%-8s %-8s %-26s %-7s %5g %6.0f %6.0f %6.0f %6.1f %7.1f  %s'
+                      % (r['sheet'], r['element'], r['token'], r['side'], r['s'], r['hue'],
+                         r['sat'], r['lum'], r['flat'], r['white'], 'FAILS' if bad else ''))
+            if a.lever:
+                fid, name, tk = pairs[0]
+                s = float(a.caster_scales.split(',')[0])
+                brw, stw = lever_test(pg, a, fid, tk, 'user', s, BRS[:9],
+                                      [0.0, 0.35, 0.7, 1.0, 1.25, 1.5])
+                print('')
+                print('THE LEVER, on %s %s at the caster tile s%g - same frozen pixels, one axis at a time'
+                      % (fid, name, s))
+                print('  br sweep (sat held at the token\'s):')
+                for v, t, st in brw:
+                    print('    br%-5g %-26s hue %3.0f  sat %3.0f%%  lum %3.0f%%  flat %5.1f%%  %s'
+                          % (v, t, st['hue'], st['sat'], st['lum'], st['flat'],
+                             'ok' if st['flat'] == 0 and st['lum'] <= LUM_MAX else ''))
+                print('  sat sweep (br held at the token\'s):')
+                for v, t, st in stw:
+                    print('    sat%-4g %-26s hue %3.0f  sat %3.0f%%  lum %3.0f%%  flat %5.1f%%  %s'
+                          % (v, t, st['hue'], st['sat'], st['lum'], st['flat'],
+                             'ok' if st['flat'] == 0 and st['lum'] <= LUM_MAX else ''))
+            br.close()
+    finally:
+        srv.terminate()
+
+
+def run_screen_census(a, ids, names):
+    from playwright.sync_api import sync_playwright
+    t0 = time.time()
+    port = VS.free_port(8520)
+    srv = subprocess.Popen([sys.executable, '-m', 'http.server', str(port), '--bind', '127.0.0.1',
+                            '--directory', str(ROOT)],
+                           stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    time.sleep(0.8)
+    try:
+        with sync_playwright() as pw:
+            br, pg = VS.open_page(pw, port)
+            pg.evaluate(VS.SEED_JS, a.seed)
+            pg.wait_for_timeout(900)
+            rig = Rig(pg, a.move, a.stage, a.scale, a.pad)
+            rows = screen_census(rig, ids, a.plate_max)
+            br.close()
+    finally:
+        srv.terminate()
+    rows.sort(key=lambda r: -r['white'])
+    WEBP_WHITE = {}
+    for r in rows:
+        got = webp_white(r['sheet'])
+        if got:
+            WEBP_WHITE[r['sheet']] = got[0]
+            r['webp_white'], r['webp_flat'] = got
+    print('')
+    print('%-8s %-22s %-11s %6s %6s %6s   %6s %6s %6s   %6s'
+          % ('id', 'name', 'group', 'px', 'white%', 'flat%', 'd.wht%', 'd.flt%', 'lum%', 'webp%'))
+    for r in rows:
+        print('%-8s %-22s %-11s %6d %6.1f %6.1f   %6.1f %6.1f %6.1f   %6s'
+              % (r['sheet'], names.get(r['sheet'], '')[:22], BANKROW.get(r['sheet'], {}).get('Group', ''),
+                 r['px'], r['white'], r['flat'], r['dwhite'], r['dflat'], r['lum'],
+                 '%.1f' % WEBP_WHITE[r['sheet']] if r['sheet'] in WEBP_WHITE else '-'))
+    inlist = [r['sheet'] for r in rows if r['white'] >= SCREEN_WHITE_IN]
+    print('')
+    print('on the list at white%% >= %g on SCREEN: %d sheets' % (SCREEN_WHITE_IN, len(inlist)))
+    print('  ' + ' '.join(inlist))
+    print('pass-1 list, measured on the .webp:   %d sheets' % len(SHEETS))
+    print('  ' + ' '.join(SHEETS))
+    print('ENTER: ' + (' '.join(s for s in inlist if s not in SHEETS) or '(none)'))
+    print('LEAVE: ' + (' '.join(s for s in SHEETS if s not in inlist) or '(none)'))
+    if a.census_json:
+        json.dump(rows, open(a.census_json, 'w', encoding='utf-8'), indent=1)
+        print('rows -> %s' % a.census_json)
+    print('%d casts, %.1fs' % (rig.casts, time.time() - t0))
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--sheets', default=','.join(SHEETS))
@@ -740,6 +1086,20 @@ def main():
     ap.add_argument('--date', default=time.strftime('%Y-%m-%d'))
     ap.add_argument('--filter-check', action='store_true',
                     help='render the `k` chain on a white pixel, browser beside the spec matrices')
+    ap.add_argument('--screen-census', action='store_true', dest='screen_census',
+                    help='re-derive the white list from COMPOSITED SCREEN pixels: every sheet of '
+                         'codex/fx_bank.csv cast untinted on the carrier tile and measured the way '
+                         'the solver measures, rather than by sampling the .webp')
+    ap.add_argument('--census-json', default='', dest='census_json',
+                    help='write the --screen-census rows here')
+    ap.add_argument('--caster-check', action='store_true', dest='caster_check',
+                    help='measure the PUBLISHED token of each --sheets x --elements pair on the '
+                         'target tile and again on the caster tile at --caster-scales')
+    ap.add_argument('--caster-scales', default='0.55,0.65,0.75', dest='caster_scales',
+                    help="the pilot lane's caster-beat scale floors, S1/S2/S3")
+    ap.add_argument('--lever', action='store_true',
+                    help='with --caster-check: sweep br and sat separately on the first pair, on '
+                         'the same frozen pixels, so the lever is measured and not argued')
     ap.add_argument('--carry', default='',
                     help='a published VFX_SHEET_TINTS.md: every element NOT in --elements is carried '
                          'from it verbatim - re-shot for the contact sheet, never re-solved')
@@ -754,11 +1114,18 @@ def main():
     if a.from_json:
         rows = json.load(open(a.from_json, encoding='utf-8'))
         ceil = {}
-        for fid in [s for s in SHEETS if any(r['sheet'] == s for r in rows)]:
+        for fid in sheet_order(rows):
             top = max((r for r in rows if r['sheet'] == fid), key=lambda r: r['sat'])
             ceil[fid] = (top['sat'], top['token'])
         print('table -> %s' % write_md(a.md, rows, a, names, ceil))
         return
+
+    if a.caster_check:
+        return run_caster_check(a, names)
+
+    if a.screen_census:
+        ids = [r['Id'] for r in csv.DictReader(open(ROOT / 'codex' / 'fx_bank.csv', encoding='utf-8'))]
+        return run_screen_census(a, ids, names)
 
     ids = [s.strip() for s in a.sheets.split(',') if s.strip()]
     want = [x.strip() for x in a.elements.split(',')]
@@ -766,15 +1133,23 @@ def main():
     if not ids or not els:
         sys.exit('nothing to calibrate')
 
-    # the settled elements, carried off the published page rather than re-solved
-    carry = {}
+    # The settled rows, carried off the published page rather than re-solved. A row is carried when
+    # its ELEMENT is not being solved (the bone re-solve's case) or when its SHEET is not being
+    # solved at all - the second is what lets the table grow to the rest of the bank without
+    # re-shooting, and so without drifting, the 84 pairs the pilot lane has already authored against.
+    carry, whole = {}, []
     if a.carry:
         for r in read_md(a.carry):
-            if r['element'] not in want:
+            if r['sheet'] not in ids:
+                whole.append(r)
+            elif r['element'] not in want:
                 carry.setdefault(r['sheet'], {})[r['element']] = r
-        print('carrying %d rows from %s (elements %s)'
-              % (sum(len(v) for v in carry.values()), a.carry,
-                 ','.join(sorted({r for v in carry.values() for r in v}))))
+        print('carrying %d rows on %d sheets NOT being solved, verbatim and unshot'
+              % (len(whole), len({r['sheet'] for r in whole})))
+        if carry:
+            print('carrying %d more rows on solved sheets (elements %s)'
+                  % (sum(len(v) for v in carry.values()),
+                     ','.join(sorted({r for v in carry.values() for r in v}))))
 
     from playwright.sync_api import sync_playwright
     t0 = time.time()
@@ -805,6 +1180,11 @@ def main():
     finally:
         srv.terminate()
 
+    rows += whole
+    ceil = {}
+    for fid in sheet_order(rows):
+        top = max((r for r in rows if r['sheet'] == fid), key=lambda r: r['sat'])
+        ceil[fid] = (top['sat'], top['token'])
     ok = [r for r in rows if r['ok']]
     print('')
     print('%d/%d sheet x element pairs hit the target; %d miss' % (len(ok), len(rows), len(rows) - len(ok)))

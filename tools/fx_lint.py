@@ -19,6 +19,22 @@ RANGE = {'s': (0.3, 3.5), 'v': (0.3, 4), 'd': (0, 1500), 'n': (1, 4), 'h': (0, 3
 BUDGET = {1: (1, 2, 700), 2: (2, 3, 900), 3: (3, 4, 1200), 'ULT': (4, 5, 2000)}
 DIRECTIONAL_GROUPS = ('slash', 'impact', 'fire', 'lightning', 'water', 'flame', 'smoke')
 
+# THE CASTER BEAT ON A TARGET-ANCHOR MOVE (2026-09-17, the pass-2 calibration lane).
+# D's ruling has two halves and the linter only ever held one. The first - keep the beat only where
+# the caster visibly does something - is a per-move reading and cannot be linted. The SECOND is
+# timing: where a beat is kept on a move that lands on someone else, it must play BEHIND the hit, or
+# the cast still reads as happening on the caster. `both-sides` already encoded exactly this idea
+# (`user >= target + 100`) and target-anchor moves, which are 275 of the 419 rows, had nothing.
+# The numbers are the pilot lane's own published rule, `d = max(160, first_target_layer_d + 120)`:
+# the lag is 20 ms longer than the both-sides one because a both-sides move's user beat is part of
+# the effect (the drain answers on the caster) while this one is an optional flourish and has to
+# read as an answer to a hit that has already landed; the 160 ms floor is there because a target
+# layer at d0 with a beat at d120 still arrives while the hit reaction is starting.
+# ULT rows are EXEMPT: D ruled the 18 ultimates keep their beat and the recipes doc's reason is that
+# an ultimate is spectacle and the caster performing it is the point, so its beat leads by design.
+# The ultimates lane owns their timing.
+CASTER_BEAT_FLOOR, CASTER_BEAT_LAG = 160, 120
+
 
 def parse(txt):
     """-> (layers, flags, errors). layer = dict(id, anchor, mods)."""
@@ -40,10 +56,17 @@ def parse(txt):
         mods = {}
         for t in toks[1:]:
             if t in ('f', 'm', 'z', 'k'):
+                if t in mods: errs.append('%s repeats the %s flag' % (toks[0], t))
                 mods[t] = True; continue
             mm = TOK.match(t)
             if not mm: errs.append('bad token %r in %s' % (t, toks[0])); continue
             k, v = mm.group(1), float(mm.group(2))
+            # A REPEATED MODIFIER IS SILENTLY THE LAST ONE. `... sat0.8 k h40 br0.35 sat0.35` parses,
+            # renders at sat0.35, and reads to a human as if sat0.8 were doing something. That is how a
+            # calibrated token gets pasted on top of an authored one and nobody sees it. Refuse it.
+            if k in mods:
+                errs.append('%s writes %s twice (%s%g then %s%s) - the last one silently wins'
+                            % (toks[0], k, k, mods[k], k, mm.group(2)))
             lo, hi = RANGE[k]
             if not (lo <= v <= hi): errs.append('%s%s out of range %s-%s' % (k, mm.group(2), lo, hi))
             if k in ('d', 'n') and v != int(v): errs.append('%s must be an integer' % k)
@@ -56,6 +79,23 @@ def parse(txt):
             if 'h' in mods and row['Colored'] == 'yes' and 'k' not in mods:
                 hue = float(row['Hue']); diff = abs((mods['h'] - hue + 180) % 360 - 180)
                 if diff > 90: errs.append('%s h%d is %d deg from the sheet hue %d (limit 90)' % (fid, mods['h'], diff, hue))
+            # A BARE `Colored=yes` LAYER PAINTS THE SHEET'S OWN HUE, NOT THE MOVE'S (2026-09-17).
+            # Nothing in the grammar said so and nothing checked it, so 168 rows carry a layer that
+            # ignores the move's element and renders whatever colour the art happens to be: FX-039
+            # is hue 179, so a bare FX-039 on a purple move paints cyan-white spikes (D, on
+            # M-THORNBACK-1). `Colored=no` is not the same case - that sheet has no hue of its own
+            # to impose and a bare layer of it is neutral art, which is a choice an author may make.
+            if row['Colored'] == 'yes' and 'h' not in mods and 'k' not in mods:
+                errs.append('%s is Colored=yes and bare - it paints its own hue %s, not the move\'s. '
+                            'Give it h<element>, or the k token from codex/VFX_SHEET_TINTS.md where '
+                            'the 90 deg clamp refuses that hue' % (fid, row['Hue']))
+            # `br` IS NOT OPTIONAL ON THE `k` PATH - VFX_SPEC.md, the filter-order entry. It is the
+            # FIRST primitive there, and without it sepia(1) clamps the white core at 255 and the
+            # layer stays a pale flash whatever h and sat say. Every token in VFX_SHEET_TINTS.md
+            # carries one; this stops a lane writing `k h40` from memory.
+            if 'k' in mods and 'br' not in mods:
+                errs.append('%s has k without br - br is the first primitive on that path and '
+                            'without it the layer stays a pale flash' % fid)
             if 'f' in mods and row['Group'] not in DIRECTIONAL_GROUPS:
                 errs.append('%s (%s) is radial - no f' % (fid, row['Group']))
         layers.append({'id': fid, 'anchor': anchor, 'mods': mods})
@@ -89,6 +129,14 @@ def check_row(mid, stages, anchor_col, is_ult):
         if tl and min(l['mods'].get('d', 0) for l in tl) > 200: errs.append('S%d: first target layer starts after 200 ms' % st)
         if anchor_col == 'self' and tl: errs.append('S%d: a self move plays on the target' % st)
         if anchor_col in ('target', 'ground') and not tl: errs.append('S%d: a target move plays nothing on the target' % st)
+        if anchor_col in ('target', 'ground') and tl and ul and not is_ult:
+            td = min(l['mods'].get('d', 0) for l in tl)
+            need = max(CASTER_BEAT_FLOOR, td + CASTER_BEAT_LAG)
+            got = min(l['mods'].get('d', 0) for l in ul)
+            if got < need:
+                errs.append('S%d: the caster beat starts at d%d - on a target-anchor move it must '
+                            'start behind the hit, at d%d or later (max(%d, first target layer d%d '
+                            '+ %d))' % (st, got, need, CASTER_BEAT_FLOOR, td, CASTER_BEAT_LAG))
         if anchor_col == 'both-sides':
             if not tl or not ul: errs.append('S%d: a both-sides move needs a target layer AND a user layer' % st)
             elif min(l['mods'].get('d', 0) for l in ul) < min(l['mods'].get('d', 0) for l in tl) + 100:

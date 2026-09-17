@@ -88,6 +88,47 @@ touch an approval.
 
 ## Changelog
 
+- **2026-09-17** - **The white list is retired, the tint table covers the whole bank, and a bare
+  `Colored=yes` layer is now a lint failure.** Owning pages: this one (Bank compositions - the colour
+  rules and the Timing paragraph) and `codex/VFX_SHEET_TINTS.md` (84 rows -> **336**, 48 sheets x 7
+  elements, 336/336 on target). Three things were wrong and they are one thing.
+  **(1) The 12-sheet "white list" was measured on SHEET pixels and does not survive the screen.**
+  These sheets are additive-style art: the RGB is near-white almost everywhere and the intensity is
+  carried in the ALPHA channel, so "% of opaque pixels that are near-white" measures the art's
+  encoding, not the picture. Re-measured on composited screen pixels (`vfx_calibrate.py
+  --screen-census`, every sheet cast untinted on the carrier tile, the layer isolated against a clean
+  plate, the sheet census's own two thresholds): **FX-038 Strike Flash falls 76.2 % -> 0.0 %**,
+  **FX-034 Sanctified Circle 96.1 % -> 0.0 %**, **FX-036 Cyclone Ring 38.6 % -> 0.0 %** - and
+  **FX-041 Crescent Slash, never on the list, measures 17.1 % near-white and 13.5 % flat white**,
+  above four sheets that were. On the old 25 % threshold only **FX-051, FX-043, FX-045, FX-008**
+  survive. **(2) What those sheets do on screen is not go white - they go BRIGHT IN THEIR OWN HUE**,
+  because a bare `Colored=yes` layer paints the sheet's hue and nothing said so: FX-038 reads cyan at
+  84 % luminance, FX-039 Shard Burst cyan at 77 %, which is the cyan-white spikes D saw on a purple
+  `M-THORNBACK-1`. **(3) `h<element>` cannot always answer that**: every one of the bank's **34
+  `Colored=yes` sheets** has at least one element more than 90 deg from its own hue - **121 refused
+  sheet x element pairs** - and the clamp rejects those outright. So the list is not re-drawn, it is
+  **retired**: the table is the whole bank and every layer copies its sheet x element token. 38
+  layer-stages on 18 committed pilot-lane rows carried exactly those refused pairs (FX-039 bone x11
+  and purple x6, FX-041 bone x6, FX-047 blue x5, FX-046 blue x3, FX-001 purple x3, FX-048 purple x3,
+  FX-049 bone x1) and were given their token; **no published token moved**, so nothing else the pilot
+  authored renders differently. `fx_lint` 341 -> 354 failing: the 60 pilot rows stay green and the
+  13 new failures are all ULT rows, whose lane has not run.
+
+- **2026-09-17** - **A caster beat on a `target`-anchor move must answer the hit, and `fx_lint` now
+  says so.** Owning page: this one (the Timing paragraph). `both-sides` already required the user beat
+  to start >= 100 ms after the first target layer; `target`-anchor moves, which are 275 of the 419
+  rows, had no such rule, so nothing stopped a lane leaving `FX-038@u` at `d0` - which is the timing
+  half of D's caster-beat ruling. The linter now requires `d >= max(160, first target layer d + 120)`
+  on every non-ULT `target`-anchor row that keeps a beat; that is the pilot lane's own published rule,
+  uniformly `d160` where the impact is at `d0`. **ULT rows are exempt** - an ultimate keeps its beat
+  and the caster performing it is the point, and the ultimates lane owns their timing. One committed
+  pilot row, `M-SIMOOM-4`, had kept its beat and been left at `d0` against the pilot's own rule; its
+  S2 and S3 beats moved to `d160`, the only pilot cell changed for timing. Two smaller traps closed at
+  the same time: a `k` layer without `br` is refused (`br` is the first primitive on that path and
+  without it the layer stays a pale flash), and **a layer that writes the same modifier twice** is
+  refused (the parser silently takes the last one, which is how a calibrated token gets pasted on top
+  of an authored one with nobody the wiser).
+
 - **2026-09-17** - **`!shake` is declined while a window is open over the stage (#948).** Owning
   page: this one (the `!shake` row in the move-level flag table above). D, from the equipment
   screen on floor 105 with a battle resolving behind it: "when using the menu (equipment,
@@ -412,8 +453,14 @@ Move-level flags are pseudo-layers, once per composition, anywhere in the list -
 
 **Timing.** `t=0` is the cast. The renderer's existing hit reaction (lunge, hit shudder, damage number) is
 untouched; the **first `@t` layer is the impact** and must start by **200 ms** (`d` <= 200) so it lands with
-the number. Layers on the user (`@u`) are the cast beat and start at `d0`. On a `both-sides` move the user-side
-beat starts at least 100 ms AFTER the first target layer.
+the number. Layers on the user (`@u`) are the cast beat. On a **`self`** move the beat IS the effect and starts
+at `d0`. On a **`both-sides`** move the user-side beat starts at least 100 ms AFTER the first target layer.
+On a **`target`** move a caster beat is optional and, where it is kept, it must **answer** the hit rather than
+play with it: it starts at `max(160, first target layer d + 120)` ms, uniformly `d160` where the impact is at
+`d0`. Before 2026-09-17 the caster layer started at or before the target's on all 579 compositions carrying
+both, and that timing is half of why the cast read as happening on the caster. `fx_lint` enforces this on
+every non-ULT `target`-anchor row. **The 18 ULT rows are exempt** — D ruled an ultimate keeps its beat because
+the caster performing it is the point, so there the beat leads by design.
 
 **Length** of a layer = `d + frames / (24 * v) * n * 1000` ms. The composition's length is its longest layer.
 
@@ -452,6 +499,41 @@ Onslaught) and the effect must read as one family across the three.
 neutral untinted. Stay within +/-90 deg of a sheet's own hue unless the sheet is uncoloured **or the layer
 carries `k`** (which discards that hue before the rotation, so the clamp does not apply); prefer the
 family's own sheet over a re-hued stranger.
+
+**A BARE `Colored=yes` LAYER PAINTS ITS OWN HUE, NOT THE MOVE'S** (2026-09-17, the pass-2 calibration
+lane). This was true from the first row and the spec never said it, so it was authored into 168 rows.
+`h` DEFAULTS TO THE SHEET'S OWN COLOUR, which is the art's colour and has nothing to do with the move:
+FX-046 Heavy Impact is hue 1, so a bare layer of it on a `blue` move paints **red**; FX-039 Shard Burst
+is hue 179, so a bare layer of it on a `purple` move paints **cyan-white spikes** — which is what D saw
+on `M-THORNBACK-1`. **So a `Colored=yes` layer must carry `h<element>` or a `k` token, always**, and
+`fx_lint` refuses one that carries neither. `Colored=no` is not the same case: that sheet has no hue of
+its own to impose, and a bare layer of it is neutral art an author may legitimately want.
+
+**Where the +/-90 clamp refuses the element, `k` is the answer and the token is measured, not written.**
+Every one of the bank's **34 `Colored=yes` sheets** has at least one element more than 90 deg from its own
+hue — **121 refused sheet x element pairs** — and on those `h<element>` is rejected outright rather than
+landing near. `k` skips the clamp, and `codex/VFX_SHEET_TINTS.md` now carries a measured token for **every
+sheet in the bank at every element**, not only the near-white ones: copy it verbatim. Do not write your
+own `k h<element> br<n>` — the hue that lands is not the hue authored.
+
+**One token covers every scale.** A token is solved on a target tile at `s1.4` and a caster beat plays at
+`s0.55-0.75`; re-measured on the caster tile at both, 14 sheet x element pairs agree with the target-tile
+row to within one point on hue, saturation, lightness and flat white. Scaling an `<img>` does not change
+the distribution of its pixel values. **There is no caster-scale variant and a layer never needs one** —
+and in particular a caster beat is never made small to hide a tint problem; the pilot lane's `s >= 0.55 /
+0.65 / 0.75` floors exist to stop exactly that, because below them a kept beat is a deletion in all but name.
+
+**ON A BRIGHT SHEET, `h` RECOLOURS BUT DOES NOT SOFTEN — KNOWN, MEASURED, AND NOT YET LINTED.** The
+`Colored=yes` path is `hue-rotate(h − sheetHue) saturate(sat) brightness(br)`: it moves the hue and leaves
+the brightness where the art put it, and `br` is emitted LAST there, where `sepia` has already pinned
+nothing but where the author usually has not written one at all. So `FX-039@t h222` on a blue move renders
+blue-WHITE, not blue (`M-CRUSHMAUL-4`), and `FX-049@t h200` on a bone move renders a bright cyan slash
+(`M-CORALHYDRA-2`). **19 sheets composite at a top-decile luminance above 80 %** (`--screen-census`), and
+**212 rows carry an `h`-without-`k` layer on one of them**, 1 of them in the pilot lane. The remedy is the
+same as everywhere else — the `k` token from `codex/VFX_SHEET_TINTS.md`, which puts `brightness` first —
+and **an authoring lane should prefer the token to a bare `h` on any of those sheets**. It is NOT a lint
+failure yet only because making it one today would fail 212 rows that no lane has reached; it becomes one
+when the last sheet-group lane lands.
 
 **Low VFX / Battery Saver / Reduce Motion:** only the first layer plays, at 0.75x length; flags are off.
 
