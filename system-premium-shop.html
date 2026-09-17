@@ -58,6 +58,7 @@ an item. A grant with nowhere to go waits rather than being destroyed.</p>
 <p>It shows only when the pool is empty and no Incense boon is active, and hides the moment one is burned. Probe: <code>tools/probe_deadprops.py</code> (8/8), which asserts the condition is true before believing the render.</p>
 
 <hr><p class="note">Changelog<br>
+2026-09-17 &mdash; The shop panel is bigger and neither tab scrolls (#958, D: &ldquo;shadow trader window should not have a scroll, make the shop window bigger and resize items inside of it so it never needs to be scrolled&rdquo;). ON DEV. <code>min(1320px,94%)</code> at 94% height, padding <code>24px 36px</code> &mdash; see &ldquo;Panel size and offer layout&rdquo; below. The offer list's 12px gap is deliberately left alone: it is the token a 2026-08-05 registry entry verifies itself at, and that entry pins list-versus-grid, which this report does not touch. The overflow itself was the Shadow Trader tab's, and the rest of the 236 stage px came off its rows (<a href="system-shadow-trader.html">Shadow Trader</a>). The catalogue's own offer sizes are <strong>unchanged</strong> &mdash; the 2026-08-05 phone sizing below still holds row for row. Gate <code>tools/probe_958.py</code> 5/7 red &rarr; 7/7.<br>
 2026-09-06 &mdash; Premium buff icons (board 9.1 / 9.2 / 9.3, D). LIVE on release since 2026-09-08 (0.71). The INCENSE / BAIT text pills are two icon tiles now (see the section below).<br>
 2026-08-05 &mdash; Offers are a LIST, not a grid, and sized for the phone: name 30px, description 21px, buy control 24px with an 18&times;30 pad (D: &ldquo;the items are too small&hellip; mobile friendly font size&rdquo;). Measured, not estimated &mdash; the old name drew at 5.03 CSS px at fitScale 0.36. A tap on the backdrop now closes the panel (D: &ldquo;clicking outside of the window is not closing it&rdquo;); the backdrop had no handler at all. <em>LIVE on release since 2026-08-05 (0.32).</em><br>
 2026-08-03 &mdash; The incense prompt renders at last (P7, LIVE on release). The block had never been rebuilt after its removal, so every investigation into why it did not appear was searching a document that did not contain it.<br>
@@ -108,8 +109,12 @@ an item. A grant with nowhere to go waits rather than being destroyed.</p>
   <h2>Panel size and offer layout</h2>
   <p>The shop was the only panel in the game not on the full-bleed pattern &mdash; a fixed
   <code>520px</code> column while inventory, equipment, breeding and settings are all <code>width:100%</code>.
-  It is <code>min(1180px,94%)</code> at 86% height, and the note and CLOSE are pinned to the bottom so a
-  short catalogue does not leave the footer floating in the middle of an empty panel.</p>
+  It is <code>min(1320px,94%)</code> at 94% height with <code>24px 36px</code> of padding (#958,
+  2026-09-17 &mdash; it was <code>min(1180px,94%)</code> at 86% and <code>34px 40px</code> until the
+  Shadow Trader tab turned out not to fit inside it), and the note and CLOSE are pinned to the bottom so a
+  short catalogue does not leave the footer floating in the middle of an empty panel. 94% of the stage
+  leaves 32 stage px of backdrop above and below, which is the check that keeps a height bump from
+  pushing the panel off the 1080-tall stage.</p>
 
   <p><strong>The offers are a LIST, one row per sku</strong> (<code>display:flex; flex-direction:column;
   gap:12px</code>). They were briefly a responsive grid (<code>auto-fill, minmax(360px,1fr)</code>); that
