@@ -111,13 +111,15 @@ const VXHIT_FOR=(parsed,color)=>{ const t=((parsed&&parsed.layers)||[]).filter(l
         if(!m){ errs.push('bad head token '+JSON.stringify(toks[0])+' (want FX-NNN@u|t|g|ug|b or a !flag)'); return; }
         const fid=m[1], anchor=m[2]; const row=bank?bank[fid]:null; if(bank&&!row) errs.push('unknown sheet '+fid);
         const mods={};
-        toks.slice(1).forEach(t=>{ if(t==='f'||t==='m'||t==='z'){ mods[t]=true; return; }
+        toks.slice(1).forEach(t=>{ if(t==='f'||t==='m'||t==='z'||t==='k'){ mods[t]=true; return; }
           const mm=TOK.exec(t); if(!mm){ errs.push('bad token '+JSON.stringify(t)+' in '+toks[0]); return; }
           const k=mm[1], v=parseFloat(mm[2]), lo=RANGE[k][0], hi=RANGE[k][1];
           if(!(lo<=v&&v<=hi)) errs.push(k+mm[2]+' out of range '+lo+'-'+hi);
           if((k==='d'||k==='n')&&v!==Math.floor(v)) errs.push(k+' must be an integer');
           mods[k]=v; });
-        if(row){ if(mods.h!=null&&row.Colored==='yes'){ const hue=parseFloat(row.Hue)||0; const diff=Math.abs((((mods.h-hue+180)%360)+360)%360-180); if(diff>90) errs.push(fid+' h'+mods.h+' is '+Math.round(diff)+' deg from the sheet hue '+hue+' (limit 90)'); }
+        // the +/-90 clamp protects a COLOURED sheet from being rotated far off its own hue into mud. `k` discards
+        // that hue (sepia(1) first), so with k there is nothing left to protect and the clamp is skipped.
+        if(row){ if(mods.h!=null&&row.Colored==='yes'&&!mods.k){ const hue=parseFloat(row.Hue)||0; const diff=Math.abs((((mods.h-hue+180)%360)+360)%360-180); if(diff>90) errs.push(fid+' h'+mods.h+' is '+Math.round(diff)+' deg from the sheet hue '+hue+' (limit 90)'); }
           if(mods.f&&DIRECTIONAL.indexOf(row.Group)<0) errs.push(fid+' ('+row.Group+') is radial - no f'); }
         layers.push({id:fid, anchor:anchor, mods:mods}); });
       return {layers:layers, flags:flags, errs:errs}; };
@@ -127,8 +129,10 @@ const VXHIT_FOR=(parsed,color)=>{ const t=((parsed&&parsed.layers)||[]).filter(l
     const lengthMs=(parsed,bank,low)=>(low?parsed.layers.slice(0,1):parsed.layers).reduce((a,l)=>Math.max(a,layerMs(l,bank,low)),0);
     // the impact = the first target-side layer's delay (0 when the composition has none)
     const impactMs=parsed=>{ const t=parsed.layers.filter(l=>l.anchor==='t'||l.anchor==='g'||l.anchor==='b'); return t.length?Math.min.apply(null,t.map(l=>l.mods.d||0)):0; };
-    // colour: a Colored sheet rotates from its own hue; an uncoloured one is sepia-tinted first so h means the same on every sheet
-    const sheetFilter=(row,m)=>{ const f=[]; if(m.h!=null){ if(row.Colored==='yes') f.push('hue-rotate('+Math.round(m.h-(parseFloat(row.Hue)||0))+'deg)'); else f.push('sepia(1) saturate(2.4) hue-rotate('+Math.round(m.h-40)+'deg)'); }
+    // colour: a Colored sheet rotates from its own hue; an uncoloured one is sepia-tinted first so h means the same on every sheet.
+    // `k` forces the neutral (sepia) path for THIS layer whatever the sheet's Colored says - hue-rotate returns white
+    // for a white pixel (it moves chroma and white has none), so the near-white sheets can only be recoloured this way.
+    const sheetFilter=(row,m)=>{ const f=[]; if(m.h!=null){ if(row.Colored==='yes'&&!m.k) f.push('hue-rotate('+Math.round(m.h-(parseFloat(row.Hue)||0))+'deg)'); else f.push('sepia(1) saturate(2.4) hue-rotate('+Math.round(m.h-40)+'deg)'); }
       if(m.sat!=null&&m.sat!==1) f.push('saturate('+m.sat+')'); if(m.br!=null&&m.br!==1) f.push('brightness('+m.br+')'); return f.join(' '); };
     /* render(parsed, bank, ctx) -> the layers of ONE unit tile as a list of React elements (empty when none apply).
        ctx: isUser / isTarget (which tile this is), dir (+1 attacker on the left, -1 on the right: f flips and x

@@ -88,6 +88,39 @@ touch an approval.
 
 ## Changelog
 
+- **2026-09-17** - **The scale ladder is cut to 0.7 / 0.85 / 1.0 / 1.35.** D, answering the pass-2
+  artifact's Q1: "a harder cut (0.7 / 0.85 / 1.0 / 1.35)" - S1 / S2 / S3 / ULT. What was wrong: `s`
+  is a fraction of the 380 px unit TILE and a creature's opaque art is only ~85 % of that tile, so
+  `s1.0` already draws the effect at ~118 % of the body; the authored rows were running at 124 /
+  137 / 165 / 246 percent of it and the effect had become the subject. `tools/fx_lint.py` moves its
+  S1 primary-scale band from **0.8-1.2 to 0.55-0.85**, centred on D's 0.7; the monotonic
+  `S1 -> S2 -> S3` growth checks are unchanged, and so is `BUDGET` (layer counts and ms per stage) -
+  D ruled on scale, not on how many sheets or how long they play. **This deliberately puts all 401
+  non-ULT rows of `codex/move_vfx.csv` outside the band**: the linter now fails every one of them,
+  which is the point - it is the gate the six authoring lanes re-author against, not a regression.
+  No row is changed by this entry. Owning pages: this spec and `vfx.html`.
+
+- **2026-09-17** - **`k`: the neutral colourise path, picked per LAYER.** The renderer had two
+  colourise paths chosen by the sheet's `Colored` column - `hue-rotate(h - sheetHue)` for `yes`,
+  `sepia(1) saturate(2.4) hue-rotate(h - 40)` for `no`. What was wrong: **`hue-rotate` on a white
+  pixel returns white** (it moves chroma, and white has none), verified against the spec's own
+  colour matrices, so FX-038 Strike Flash (76 % near-white, 175 uses) and FX-032 Thunder Ring (70 %,
+  27 uses) are both `Colored=yes` and **no `h` an author has ever written has moved them**. The
+  sepia path does colour white, because `sepia(1)` gives the pixel chroma first. `Colored` is a
+  column on the SHEET, so flipping FX-038 to `no` would change all 175 of its uses at once, and
+  FX-055 Hex Motes could never be red in one move and green in another. The fix is one bare layer
+  token, **`k`** (like `f` / `m` / `z`, no argument): take the neutral path for this layer whatever
+  the sheet says. The **+/-90 hue clamp is skipped when `k` is present** - the clamp exists to stop a
+  coloured sheet being rotated far off its own hue into mud, and `sepia(1)` has already discarded
+  that hue; it is unchanged for every layer without `k`. `k` on a sheet that is already `Colored=no`
+  is a **no-op, not an error**. It is also what the two "desaturated twin" follow-ups wanted:
+  FX-055 reaches clean poison green through `k` where the clamp only reached a muddy hue 85 at
+  luminance 27, so **no new sheets are needed**. Pair `k` with `br0.6-0.8`: `k` alone colours the
+  white core but leaves it at 80-96 % luminance, still a flash. Both parsers move together -
+  `VFX_BANK.parse` / `sheetFilter` in the client's `play/app.js` and `tools/fx_lint.py`, which is
+  the reference. No composition changes; the token is inert until a lane writes it. Owning pages:
+  this spec and `vfx.html`.
+
 - **2026-09-17** - **A killing blow now plays on the thing it killed.** D, on the pass-2 artifact:
   "Some of the abilities are playing ONLY on the caster." Neither the data nor the renderer was at
   fault - the census through `vfx.html` found 0 compositions asking for a target layer that is not
@@ -188,7 +221,8 @@ FX-041@t f s1.2 v1.5 | FX-038@t d160 s0.8 | FX-054@u v2 h50 | !flash
 | `v<f>` | playback speed multiplier over the base 24 fps (`v2` plays a 24-frame sheet in 500 ms) | 1.0 |
 | `d<ms>` | start delay from the cast, in ms | 0 |
 | `n<int>` | loop the sheet n times | 1 |
-| `h<deg>` | **absolute** target hue 0-359 (0 red, 30 orange, 50 gold, 120 green, 180 cyan, 210 blue, 270 violet, 300 magenta, 330 rose). The renderer rotates from the sheet's own hue (`Hue` in fx_bank.csv) so `h120` means green on any sheet; on an uncoloured sheet (`Colored` = no) it colourises the mid-tones and keeps the white core white | sheet's own colour |
+| `h<deg>` | **absolute** target hue 0-359 (0 red, 30 orange, 50 gold, 120 green, 180 cyan, 210 blue, 270 violet, 300 magenta, 330 rose). The renderer rotates from the sheet's own hue (`Hue` in fx_bank.csv) so `h120` means green on any sheet; on an uncoloured sheet (`Colored` = no) the pixel is given chroma by `sepia(1)` first, so `h` colours the white core too | sheet's own colour |
+| `k` | **keyed**: force the neutral colourise path for THIS layer whatever the sheet's `Colored` says - `sepia(1) saturate(2.4) hue-rotate(h-40)` instead of `hue-rotate(h - sheetHue)`. Needed on a near-white sheet: **`hue-rotate` on a white pixel returns white** (it moves chroma and white has none), so no `h` moves FX-038 or FX-032 without it. The +/-90 hue clamp is **skipped** with `k` - `sepia(1)` has already discarded the sheet's own hue, so the clamp has nothing to protect. `k` on a sheet that is already `Colored` = no is a **no-op, not an error**. Pair it with `br0.6-0.8`: `k` alone colours the white but leaves it at 80-96 % luminance, still a flash | off |
 | `sat<f>` | saturation multiplier, 0-1.5 (never above 1.5; the research rule is "never above the source") | 1 |
 | `br<f>` | brightness multiplier 0.5-1.6 | 1 |
 | `a<f>` | opacity 0.2-1 | 1 |
@@ -221,9 +255,19 @@ beat starts at least 100 ms AFTER the first target layer.
 |---|---|---|---|---|
 | layers (sheets, flags not counted) | 1-2 | 2-3 | 3-4 | 4-5 |
 | length, ms (max over layers) | <= 700 | <= 900 | <= 1200 | <= 2000 |
-| primary layer scale (first layer of S1, the same sheet at S2/S3) | 0.8-1.2 | >= S1 | >= S2 | any |
+| primary layer scale (first layer of S1, the same sheet at S2/S3) | 0.55-0.85 | >= S1 | >= S2 | any |
 | `!shake` | no | no | allowed | allowed |
 | first `@t` layer delay | <= 200 ms | | | |
+
+**The scale ladder (D, 2026-09-17).** The primary layer's `s` grows **0.7 / 0.85 / 1.0 / 1.35** across
+S1 / S2 / S3 / ULT. The linter pins the S1 rung (0.55-0.85) and the two growth checks; S2 and S3 are held only
+by `>=` so a family may spread its rungs, but 0.85 / 1.0 is the shape to author toward.
+
+The reason the ladder is this low: **`s` is a fraction of the 380 px unit TILE, not of the creature.** A
+creature's opaque art fills about **85 %** of that tile, so `s1.0` already draws the effect at ~**118 %** of
+the body it is meant to sit on. The rows authored before this ruling ran at 124 / 137 / 165 / 246 percent of
+the body - the effect was the subject and the creature was behind it. At the new ladder S1 reads at ~82 % of
+the body, ULT at ~159 %, and the ULT is the only stage that should ever swallow the sprite.
 
 **Family identity.** Every sheet used at S1 is used again at S2, and every sheet at S2 again at S3. A stage
 ADDS (a second sheet, a user-side cast beat, a ground ring, a flag) and GROWS (scale, hue intensity, `n`); it
@@ -237,7 +281,8 @@ Onslaught) and the effect must read as one family across the three.
 (h20-35), ice cyan/blue (h190-215), lightning violet-white (h240-260), wind green-grey (h100-165), water blue
 (h195-210), holy gold (h45-60), heal gold/soft green (h50-120), dark violet-magenta (h280-320), poison green
 (h95-130), bleed crimson (h340-359), buff-up gold (h40-55), debuff-down violet (h270-290), physical /
-neutral untinted. Stay within +/-90 deg of a sheet's own hue unless the sheet is uncoloured; prefer the
+neutral untinted. Stay within +/-90 deg of a sheet's own hue unless the sheet is uncoloured **or the layer
+carries `k`** (which discards that hue before the rotation, so the clamp does not apply); prefer the
 family's own sheet over a re-hued stranger.
 
 **Low VFX / Battery Saver / Reduce Motion:** only the first layer plays, at 0.75x length; flags are off.

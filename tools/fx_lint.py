@@ -39,7 +39,7 @@ def parse(txt):
         if fid not in BANK: errs.append('unknown sheet %s' % fid)
         mods = {}
         for t in toks[1:]:
-            if t in ('f', 'm', 'z'):
+            if t in ('f', 'm', 'z', 'k'):
                 mods[t] = True; continue
             mm = TOK.match(t)
             if not mm: errs.append('bad token %r in %s' % (t, toks[0])); continue
@@ -50,7 +50,10 @@ def parse(txt):
             mods[k] = v
         if fid in BANK:
             row = BANK[fid]
-            if 'h' in mods and row['Colored'] == 'yes':
+            # the +/-90 clamp protects a COLOURED sheet from being rotated far off its own hue into mud.
+            # `k` discards that hue (sepia(1) first), so with k there is nothing left to protect. Mirrors
+            # VFX_BANK.parse in the client's play/app.js, token for token.
+            if 'h' in mods and row['Colored'] == 'yes' and 'k' not in mods:
                 hue = float(row['Hue']); diff = abs((mods['h'] - hue + 180) % 360 - 180)
                 if diff > 90: errs.append('%s h%d is %d deg from the sheet hue %d (limit 90)' % (fid, mods['h'], diff, hue))
             if 'f' in mods and row['Group'] not in DIRECTIONAL_GROUPS:
@@ -102,7 +105,10 @@ def check_row(mid, stages, anchor_col, is_ult):
                 if l['id'] == prim: return l['mods'].get('s', 1.0)
             return None
         s1, s2, s3 = pscale(1), pscale(2), pscale(3)
-        if s1 is not None and not (0.8 <= s1 <= 1.2): errs.append('primary scale at S1 is %s (want 0.8-1.2)' % s1)
+        # D 2026-09-17, the pass-2 artifact Q1: "a harder cut (0.7 / 0.85 / 1.0 / 1.35)" - S1/S2/S3/ULT.
+        # The ladder is a fraction of the 380px TILE and a creature's opaque art is 85% of it, so s1.0 already
+        # draws the effect at ~118% of the body. The band centres on D's 0.7; the growth checks below carry S2/S3.
+        if s1 is not None and not (0.55 <= s1 <= 0.85): errs.append('primary scale at S1 is %s (want 0.55-0.85)' % s1)
         if None not in (s1, s2) and s2 < s1: errs.append('primary scale shrinks S1->S2 (%s -> %s)' % (s1, s2))
         if None not in (s2, s3) and s3 < s2: errs.append('primary scale shrinks S2->S3 (%s -> %s)' % (s2, s3))
     return errs
