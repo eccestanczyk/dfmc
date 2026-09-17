@@ -59,6 +59,11 @@ input.txt:focus{border-color:var(--gold-dim)}
     tile, so every sprite rule here is scoped to .mon - an unscoped `.unit img` put
     object-fit:contain and a mirror transform on the sheets and broke the frame stepping. */
 .unit img.mon{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
+  /* THE CLIENT BOTTOM-ALIGNS ITS SPRITE IN THE TILE (play/app.js, objectPosition/transformOrigin
+     50% 88%). This page defaulted to 50% 50%, which lifted every creature ~17% of a tile higher
+     than the game draws it - so a bank layer centred at top:54% sat ON the art here and floated
+     above the art in the game. The review page must not flatter the composition it is reviewing. */
+  object-position:50% 88%;transform-origin:50% 88%;
   filter:drop-shadow(0 6px 10px rgba(0,0,0,.65))}
 .side.enemy .unit img.mon{transform:scaleX(-1)}
 .unit .nm{position:absolute;top:100%;left:50%;transform:translate(-50%,-100%);margin-top:-4px;
