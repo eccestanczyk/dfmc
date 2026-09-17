@@ -26,7 +26,7 @@ makes them and writes the table.
 THE TARGET, per sheet x element, measured on the TOP LUMINANCE DECILE of the layer's own painted
 pixels:  hue within +/-18 deg of the element hue, HSL lightness <= 55%, flat-white fraction 0%
 (HSV value >= 250 AND HSV saturation <= 0.08), HSL saturation >= 25%.
-Search space is the grammar's own: h 0-359 integer, br 0.5-1.6, sat 0-1.5. `k` is always present.
+Search space is the grammar's own: h 0-359 integer, br 0.3-1.6, sat 0-1.5. `k` is always present.
 
 HOW IT MEASURES - vfx_shoot's method, and this file reuses its server, art routing, page and seeding
 rather than re-growing them:
@@ -62,7 +62,7 @@ reported rgb(142,178,106), and cost this run a whole calibration pass. Shoot it.
 Output: the table on stdout, codex/VFX_SHEET_TINTS.md, and one contact sheet per sheet under --shots
 (the untinted layer plus its 7 calibrated elements) so the table can be looked at and not only read.
 """
-import argparse, csv, io, json, math, os, subprocess, sys, time
+import argparse, csv, io, json, math, os, re, subprocess, sys, time
 import pathlib
 
 import numpy as np
@@ -92,7 +92,10 @@ LUM_AIM = 53.0                                      # sit just inside it, and sp
 # D rejected and does not satisfy the leg it was spent on, so the axis is floored where the row
 # still reads as a colour. Raise it here, with a screenshot, if that judgement is ever revisited.
 SATS = [round(0.8 + i * 0.05, 3) for i in range(15)]        # 0.80 .. 1.50
-BRS = [round(0.5 + i * 0.05, 3) for i in range(11)]         # 0.50 .. 1.00, one shot each
+import fx_lint as FL                    # the grammar's own RANGE - not a third copy of the floor
+BR_MIN = FL.RANGE['br'][0]              # 0.3 since 2026-09-17; it was 0.5, and 52 of 84 pairs sat
+                                        # on the old floor and still could not reach lum <= 55%
+BRS = [round(BR_MIN + i * 0.05, 3) for i in range(15)]      # 0.30 .. 1.00, one shot each
 HMAP_BR = 0.6                                       # the hue map is read DARK - see solve_sheet
 
 
@@ -220,6 +223,13 @@ def score(st, want):
              + max(0.0, st['lum'] - LUM_AIM) * 3.0
              + st['flat'] * 50.0
              + max(0.0, SAT_MIN - st['sat']) * 1.0) + 0.05 * st['sat']
+
+
+def br_of(tk):
+    """the `br` a written token carries, 1.0 when it omits one - so a solved row can be asked
+    whether it is sitting on the grammar's floor."""
+    m = re.search(r'\bbr([0-9.]+)', tk)
+    return float(m.group(1)) if m else 1.0
 
 
 def token(h, sat, br):
@@ -392,6 +402,7 @@ def write_md(path, rows, a, names, ceil):
           "that possible, but **the hue that lands is not the hue authored** \u2014 every sheet is its own mix",
           "of white core and coloured halo, so do not write `h134` and hope for green. **Copy the token from",
           "the row below**, verbatim, into every layer that uses that sheet at that element.", '']
+    low = [r for r in rows if br_of(r['token']) < 0.5]
     L += ['> **Re-solved %s, after the filter order was fixed.** The first solve of this table put *none*' % a.date,
           '> of the 84 pairs over the saturation leg. That was this tool finding an engine defect rather than a',
           '> limit of the art: `sheetFilter` emitted `brightness` **last**, a browser clamps to 8 bits between',
@@ -399,6 +410,14 @@ def write_md(path, rows, a, names, ceil):
           '> pinned \u2014 so every pass after it worked on a pixel whose chroma was gone. `brightness` is now emitted',
           '> **first** on the neutral/sepia path, which moves the pixel off the ceiling before `sepia` runs. The',
           '> tokens below are all re-measured against that chain; any older copy of this page is void.', '']
+    L += ['> **Re-solved again %s, after the `br` floor came down 0.5 \u2192 %g.** The reorder bought the' % (a.date, BR_MIN),
+          '> saturation leg and lost the luminance one: that solve hit the full target on 32 of 84 pairs and',
+          '> all 52 misses were `lum \u2264 %g%%`, every one of them sitting on the old floor with nowhere left to' % LUM_MAX,
+          '> go. The floor is one number in two places - `RANGE` in `tools/fx_lint.py` and in the client\'s',
+          '> `VFX_BANK` parser - and lowering it closed all 52. **%d of the %d tokens below now carry a `br`'
+          % (len(low), len(rows)),
+          '> under 0.5**, so this page is void against any client older than that change: an older parser',
+          '> rejects those rows outright rather than rendering them wrong.', '']
     ex = next((r for r in rows if r['sheet'] == 'FX-038' and r['element'] == 'green'), rows[0])
     L += ['## How to read a row', '',
           '`%s` + `%s` \u2192 write `%s`, i.e. the whole layer is' % (ex['sheet'], ex['element'], ex['token']),
@@ -461,7 +480,8 @@ def write_md(path, rows, a, names, ceil):
                       for e in order), '']
     L += ['## What the grammar cannot reach', '']
     if not bad:
-        L += ['**Nothing.** All %d sheet \u00d7 element pairs hit the target inside `h` 0-359, `br` 0.5-1.6,' % len(rows),
+        L += ['**Nothing.** All %d sheet \u00d7 element pairs hit the target inside `h` 0-359, `br` %g-1.6,'
+              % (len(rows), BR_MIN),
               '`sat` 0-1.5 \u2014 hue on the element, lum \u2264 %g%%, no flat white, sat \u2265 %g%%. No desaturated twin is'
               % (LUM_MAX, SAT_MIN),
               'needed for any of the sheets, no new art, and neither engine lever the first solve proposed',
@@ -479,27 +499,26 @@ def write_md(path, rows, a, names, ceil):
                         r['lum'], r['flat'], ', '.join(r['misses'])))
         L += ['', 'These are the best the shipped grammar produces on those pairs; author from them anyway,',
               'and do not raise a lever to chase one leg without shooting it first.', '']
+        onfloor = [r for r in bad if abs(br_of(r['token']) - BR_MIN) < 1e-9]
         if len(by.get('lum', [])) >= len(bad) * 0.8:
-            L += ['### Why luminance is now the leg that fails, and what it would cost to fix', '',
+            L += ['### Why luminance is the leg that still fails, and what is left of it', '',
                   'The reorder traded one leg for the other. Before it, **0 of %d** pairs met `sat`' % len(rows),
                   'and all met `lum`; after it, **all** meet `sat` and %d miss `lum`.' % len(by.get('lum', [])),
                   '',
                   "`sepia(1)` is not a dimming matrix \u2014 its red row sums to 1.351, so it has *gain*. Darkening",
                   'before it is therefore partly undone by it, and `saturate(2.4)` then pushes the red channel',
-                  'back against 255 on the sheets with the brightest cores. `br` cannot answer that, because the',
-                  'grammar floors it at 0.5 and the solver is already there on every missing row. So on those',
-                  'sheets `lum \u2264 %g%%` is not reachable by any token, exactly the way `sat \u2265 %g%%` was not'
-                  % (LUM_MAX, SAT_MIN),
-                  'reachable before the reorder.', '',
-                  'Two levers would reach it, both outside this tool and both changes to what an author may',
-                  'write, so neither was taken here:', '',
-                  '1. **lower the `br` floor** in the grammar (`RANGE` in `tools/fx_lint.py` and in the client',
-                  "   parser) from 0.5. It is the direct lever and it is one number; and",
-                  '2. **lower `saturate(2.4)`** in the `k` branch of `sheetFilter`. Chroma is no longer scarce \u2014',
-                  '   the rows above reach 33-100% \u2014 so there is room to spend some of it on darkness.', '',
-                  'Both want a look at the contact sheets first: a miss of 5-15 points of lightness on a layer',
-                  'that is correctly hued, fully coloured and free of flat white is a far smaller defect than',
-                  'the white pop this pass set out to remove.', '']
+                  'back against 255 on the sheets with the brightest cores.', '',
+                  "**The `br` floor was the first lever and it has been pulled.** The grammar's floor went",
+                  '0.5 \u2192 %g on 2026-09-17 - `RANGE` in `tools/fx_lint.py` and in the client parser, both -'
+                  % BR_MIN,
+                  'and this solve searched down to it. %d of the %d remaining misses still sit on the new'
+                  % (len(onfloor), len(bad)),
+                  'floor, so on those pairs it is the sheet that is bright and not the token that is timid.', '',
+                  'The lever that is left is **lowering `saturate(2.4)`** in the `k` branch of `sheetFilter`.',
+                  'It is not free: chroma is exactly what the reorder bought and the rows above spend it.',
+                  'Shoot it before taking it. A miss of a few points of lightness on a layer that is correctly',
+                  'hued, fully coloured and free of flat white is a far smaller defect than the white pop this',
+                  'pass set out to remove.', '']
     L += ['## The ceiling, per sheet', '',
           'The highest saturation each sheet reached at any element, and the token that reached it.', '',
           '| sheet | best sat reached | at | floor |', '|---|---|---|---|']

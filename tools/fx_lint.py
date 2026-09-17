@@ -15,7 +15,7 @@ BANK = {r['Id']: r for r in csv.DictReader(open(os.path.join(HERE, 'codex', 'fx_
 FLAGS = ('!flash', '!shake', '!stop')
 TOK = re.compile(r'^(sat|br|s|v|d|n|h|a|r|x|y|w)(-?\d+(?:\.\d+)?)$')
 RANGE = {'s': (0.3, 3.5), 'v': (0.3, 4), 'd': (0, 1500), 'n': (1, 4), 'h': (0, 359), 'sat': (0, 1.5),
-         'br': (0.5, 1.6), 'a': (0.2, 1), 'r': (-360, 360), 'x': (-100, 100), 'y': (-100, 100), 'w': (10, 100)}
+         'br': (0.3, 1.6), 'a': (0.2, 1), 'r': (-360, 360), 'x': (-100, 100), 'y': (-100, 100), 'w': (10, 100)}
 BUDGET = {1: (1, 2, 700), 2: (2, 3, 900), 3: (3, 4, 1200), 'ULT': (4, 5, 2000)}
 DIRECTIONAL_GROUPS = ('slash', 'impact', 'fire', 'lightning', 'water', 'flame', 'smoke')
 

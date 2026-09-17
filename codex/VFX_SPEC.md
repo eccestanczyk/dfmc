@@ -88,6 +88,54 @@ touch an approval.
 
 ## Changelog
 
+- **2026-09-17** - **The `br` floor comes down 0.5 -> 0.3, and the white-sheet tints re-solve
+  32/84 -> 84/84.** Owning pages: this one (the grammar table, `br<f>`) and `codex/VFX_SHEET_TINTS.md`
+  (the tokens themselves, rewritten by the tool). What was wrong: the filter reorder the entry below
+  records bought the saturation leg of the calibration target and lost the luminance one. The solve
+  that followed it hit the full target (hue +/-18 deg, lum <= 55 %, flat white 0 %, sat >= 25 %) on
+  **32 of 84** sheet x element pairs, and **all 52 misses were the `lum <= 55 %` leg and nothing
+  else**. The mechanism: `sepia(1)` is not a dimming matrix - its red row sums to 1.351, so it has
+  gain - and on the neutral path `br` runs BEFORE it, so darkening is partly undone and
+  `saturate(2.4)` then pushes the red channel back toward 255 on the sheets with the brightest
+  cores. `br` is the direct answer to that and the grammar floored it at 0.5, where the solver was
+  already sitting on **every one** of the 52 missing rows. The fix: `RANGE['br']` goes `(0.5, 1.6)`
+  -> `(0.3, 1.6)` in `tools/fx_lint.py` AND in the client's `VFX_BANK` parser (`play/app.js`), in
+  the same batch - the two have to agree or the linter accepts what the renderer rejects, which is
+  the standing failure mode in this area. Both now refuse `br0.29` with the same message and accept
+  `br0.3`. **This only widens what an author may write and nothing already authored changes:** of
+  `codex/move_vfx.csv`'s 419 rows, 139 carry a `br` at all (286 layers of 3883), and the lowest
+  value written anywhere is **0.7** - counted, not assumed. What it buys, measured: the re-solve is
+  **84 of 84**, no leg missed on any pair, and **57 of the 84 published tokens now carry a `br`
+  under the old floor** - so `VFX_SHEET_TINTS.md` is void against any client older than this change,
+  which will reject those rows outright rather than render them wrong. `tools/vfx_calibrate.py` now
+  reads its floor from `fx_lint.RANGE` instead of restating it, and its `br` ladder runs 0.30-1.00.
+  Two things looked at on the contact sheets rather than on the numbers: nothing went muddy or
+  vanished against the dark floor plate at the new depths (FX-034 is the darkest family at lum
+  24-30 and still reads), and **the `bone` element is the one row family the target does not
+  describe properly** - it solves to a fully saturated gold (sat 79-87 % on 11 of the 12 sheets)
+  because the target has a saturation floor and no ceiling, while `bone`'s own hex `#d8cfc0` is a
+  light neutral and its matching hit tint `vxHitBone` is deliberately a dark neutral (measured at
+  3.8 % saturation). Layer and flash disagree on that element; the fix is a per-element saturation
+  ceiling in the solver's target, and it is not taken here.
+- **2026-09-17** - **The hit-tint family measured over real creature art; the filter order does NOT
+  hurt it, and it is left alone.** Owning page: this one (the hit tint, `VXHITC` / `VXHITH` /
+  `VXHIT_FOR` and the `vxRedHit` / `vxHit*` keyframes in `play/markup.html`). The whole family
+  carries `sepia(1) saturate(N) hue-rotate(N) brightness(~1.0)` - the same primitive order that was
+  the entire defect in `sheetFilter`. The presumption was that it bites far less because these
+  filters run over creature art rather than over a white sheet, and a presumption about a filter is
+  what cost this run two passes, so it was shot: 12 family members, 10 approved creature sprites
+  spread across `Type_Primary`, the keyframe text lifted verbatim out of the markup and applied as
+  the real animation paused on its own 12 % and 55 % stops, measured the way `vfx_calibrate.py`
+  measures. Every member lands on the element it is named for - worst hue error 14.8 deg
+  (`vxHitGreenSoft`), 11 of 12 inside 13 deg - at 48-100 % saturation, 22-49 % luminance and 0 %
+  flat white bar `vxHitBlueSoft` at 1.1 %. The A/B on order, same numbers both sides: moving
+  `brightness` to the front changes saturation by **+0.0 points on 8 of the 12**, +0.5 on
+  `vxHitBoneSoft`, and at most **+4.9** (`vxHitPurple`) and +4.1 (`vxHitBlue`); luminance moves at
+  most 0.8 points and hue at most 0.9 deg. On a white sheet the same reorder was worth about **40**
+  points. The reason is the one predicted: `brightness(~1.0)` is not darkening anything, so there is
+  no clamp to escape, and creature art already carries chroma into `sepia(1)`. **Nothing changed.**
+  The two members that would gain ~4-5 points, `vxHitPurple` and `vxHitBlue`, are the only rows worth
+  revisiting and only if that family is ever reopened on its own merits.
 - **2026-09-17** - **The filter order was the whole defect: `brightness` is emitted FIRST on the
   neutral/sepia path.** What was wrong: `VFX_BANK.sheetFilter` built its chain hue ops ->
   `saturate` -> `brightness`, so a `k` layer was handed
@@ -287,7 +335,7 @@ FX-041@t f s1.2 v1.5 | FX-038@t d160 s0.8 | FX-054@u v2 h50 | !flash
 | `h<deg>` | **absolute** target hue 0-359 (0 red, 30 orange, 50 gold, 120 green, 180 cyan, 210 blue, 270 violet, 300 magenta, 330 rose). The renderer rotates from the sheet's own hue (`Hue` in fx_bank.csv) so `h120` means green on any sheet; on an uncoloured sheet (`Colored` = no) the pixel is given chroma by `sepia(1)` first, so `h` colours the white core too - and the hue that LANDS is not the hue authored on a near-white sheet, so **copy the token from `codex/VFX_SHEET_TINTS.md`** rather than writing the element's hue | sheet's own colour |
 | `k` | **keyed**: force the neutral colourise path for THIS layer whatever the sheet's `Colored` says - `brightness(br) sepia(1) saturate(2.4) hue-rotate(h-40) saturate(sat)` instead of `hue-rotate(h - sheetHue) saturate(sat) brightness(br)`. Needed on a near-white sheet: **`hue-rotate` on a white pixel returns white** (it moves chroma and white has none), so no `h` moves FX-038 or FX-032 without it. **`br` is applied FIRST on this path and is not optional** - see the 2026-09-17 filter-order entry; without it `sepia(1)` clamps the white core at 255 and the layer stays a pale flash whatever `h` and `sat` say. The +/-90 hue clamp is **skipped** with `k` - `sepia(1)` has already discarded the sheet's own hue, so the clamp has nothing to protect. `k` on a sheet that is already `Colored` = no is a **no-op, not an error** | off |
 | `sat<f>` | saturation multiplier, 0-1.5 (never above 1.5; the research rule is "never above the source") | 1 |
-| `br<f>` | brightness multiplier 0.5-1.6 | 1 |
+| `br<f>` | brightness multiplier 0.3-1.6. **The floor was 0.5 until 2026-09-17**; it was lowered because on the `k` path `br` is the FIRST primitive and 52 of the 84 calibrated sheet x element pairs sat on the old floor and still could not reach `lum <= 55%` | 1 |
 | `a<f>` | opacity 0.2-1 | 1 |
 | `f` | **directional**: flip horizontally when the attacker is on the right side of the stage. Put it on every slash, rake, bolt, arc and travel sheet; never on bursts, rings, blooms, motes | off |
 | `m` | mirror always (independent of `f`) | off |

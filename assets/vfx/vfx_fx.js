@@ -99,7 +99,7 @@ const VXHIT_FOR=(parsed,color)=>{ const t=((parsed&&parsed.layers)||[]).filter(l
   function buildBank(E) {
     const FLAGS=['!flash','!shake','!stop'];
     const TOK=/^(sat|br|s|v|d|n|h|a|r|x|y|w)(-?\d+(?:\.\d+)?)$/;
-    const RANGE={s:[0.3,3.5],v:[0.3,4],d:[0,1500],n:[1,4],h:[0,359],sat:[0,1.5],br:[0.5,1.6],a:[0.2,1],r:[-360,360],x:[-100,100],y:[-100,100],w:[10,100]};
+    const RANGE={s:[0.3,3.5],v:[0.3,4],d:[0,1500],n:[1,4],h:[0,359],sat:[0,1.5],br:[0.3,1.6],a:[0.2,1],r:[-360,360],x:[-100,100],y:[-100,100],w:[10,100]};
     const DIRECTIONAL=['slash','impact','fire','lightning','water','flame','smoke'];
     // parse(txt, bank) -> {layers:[{id,anchor,mods}], flags:[...], errs:[...]}; errs non-empty = malformed (fx_lint.parse, token for token).
     // bank (Id -> fx_bank.csv row) is optional: without it the sheet-level checks (unknown id, hue distance, f on a radial sheet) are skipped.
