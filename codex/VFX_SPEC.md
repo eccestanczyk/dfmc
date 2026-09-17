@@ -88,6 +88,22 @@ touch an approval.
 
 ## Changelog
 
+- **2026-09-17** - **`!shake` is declined while a window is open over the stage (#948).** Owning
+  page: this one (the `!shake` row in the move-level flag table above). D, from the equipment
+  screen on floor 105 with a battle resolving behind it: "when using the menu (equipment,
+  inventory, soul bag, etc.) the menu shakes when menu shaking vfx occurs. feels like mini bursts
+  of motion blur." The flag animates the **stage root**, and the stage root is not the battle
+  scene - the scene, the HUD and every full-stage window are flat siblings under it, so a shake
+  moved whatever was painted on top. Autoplay resolves battles under an open window, so every S3
+  or ULT cast carrying `!shake` jolted the grid the player was reading. Nothing about the effect
+  itself changes - amplitude, decay, the S3-and-ULT-only budget, the Screen Shake toggle and
+  Reduce Motion are all as they were; this is one more reason to decline, asked at the moment the
+  shake fires rather than when it is scheduled (an ULT arms its impact up to 2 s ahead, and a
+  window opened inside that gap must be covered). A shake already in flight is allowed to finish:
+  it is 150-250 ms, and cancelling a decaying translate snaps the stage. **Authors need do
+  nothing** - no composition changes and no `!shake` becomes illegal. Gate
+  `dfmc-client/tools/probe_948.py` 3/10 -> 10/10.
+
 - **2026-09-17** - **`bone` is a dark neutral, not vivid gold: the calibration target gets a
   per-element saturation CEILING.** Owning pages: this one and `codex/VFX_SHEET_TINTS.md` (the 12
   `bone` tokens, rewritten by the tool). What was wrong: the entry below records the re-solve
@@ -391,7 +407,7 @@ Move-level flags are pseudo-layers, once per composition, anywhere in the list -
 | flag | meaning |
 |---|---|
 | `!flash` | hit tint: every target sprite is recoloured a **dark, saturated** version of its own art at the impact, 300 ms, keyed to the element. Damaging moves only. Never white (D 2026-09-17) |
-| `!shake` | stage shake, 4 px decaying over 150 ms. **S3 and ULT only**; honours the Screen Shake and Reduce Motion settings |
+| `!shake` | stage shake, 4 px decaying over 150 ms. **S3 and ULT only**; honours the Screen Shake and Reduce Motion settings, and **is declined while a window is open over the stage** (#948, 2026-09-17) |
 | `!stop` | hit-stop: the target freezes 100/150/200 ms (S1/S2/S3), 250 ms ULT, at the impact |
 
 **Timing.** `t=0` is the cast. The renderer's existing hit reaction (lunge, hit shudder, damage number) is
