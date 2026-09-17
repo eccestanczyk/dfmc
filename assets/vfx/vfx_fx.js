@@ -132,8 +132,19 @@ const VXHIT_FOR=(parsed,color)=>{ const t=((parsed&&parsed.layers)||[]).filter(l
     // colour: a Colored sheet rotates from its own hue; an uncoloured one is sepia-tinted first so h means the same on every sheet.
     // `k` forces the neutral (sepia) path for THIS layer whatever the sheet's Colored says - hue-rotate returns white
     // for a white pixel (it moves chroma and white has none), so the near-white sheets can only be recoloured this way.
-    const sheetFilter=(row,m)=>{ const f=[]; if(m.h!=null){ if(row.Colored==='yes'&&!m.k) f.push('hue-rotate('+Math.round(m.h-(parseFloat(row.Hue)||0))+'deg)'); else f.push('sepia(1) saturate(2.4) hue-rotate('+Math.round(m.h-40)+'deg)'); }
-      if(m.sat!=null&&m.sat!==1) f.push('saturate('+m.sat+')'); if(m.br!=null&&m.br!==1) f.push('brightness('+m.br+')'); return f.join(' '); };
+    /* ORDER MATTERS ON THE NEUTRAL PATH (2026-09-17). A browser clamps to 8 bits BETWEEN filter primitives, and
+       sepia(1) on a white pixel returns rgb(255,255,239) - two channels already pinned at 255 - so every pass after
+       it works on a pixel whose chroma has already been thrown away. With brightness emitted LAST the calibration
+       could not exceed 20% saturation on any of the 12 white sheets and `k h0` read gold instead of red. Emitted
+       FIRST it moves the pixel off the ceiling before sepia runs and the chroma survives: br0.5 h60 measures 40%
+       saturation where the old order measured 12%, br0.4 sat3 measures 53-59% across the whole wheel. The COLOURED
+       path (Colored=yes without k) keeps the old order deliberately - those sheets carry their own chroma, no
+       sepia pass clamps them, and reordering there would change the look of rows that are fine. */
+    const sheetFilter=(row,m)=>{ const f=[]; const neutral=!(row.Colored==='yes'&&!m.k);
+      if(neutral&&m.br!=null&&m.br!==1) f.push('brightness('+m.br+')');
+      if(m.h!=null){ if(row.Colored==='yes'&&!m.k) f.push('hue-rotate('+Math.round(m.h-(parseFloat(row.Hue)||0))+'deg)'); else f.push('sepia(1) saturate(2.4) hue-rotate('+Math.round(m.h-40)+'deg)'); }
+      if(m.sat!=null&&m.sat!==1) f.push('saturate('+m.sat+')');
+      if(!neutral&&m.br!=null&&m.br!==1) f.push('brightness('+m.br+')'); return f.join(' '); };
     /* render(parsed, bank, ctx) -> the layers of ONE unit tile as a list of React elements (empty when none apply).
        ctx: isUser / isTarget (which tile this is), dir (+1 attacker on the left, -1 on the right: f flips and x
        mirrors with it), lowVfx (first layer only, 0.75x), speed (duration multiplier: fast mode scales, never

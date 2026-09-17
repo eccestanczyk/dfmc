@@ -3,9 +3,17 @@
 
 D ruled: keep the white sheets, re-hue them dark per element. The `k` token makes a white sheet
 colourable (it forces the neutral/sepia path; hue-rotate alone returns white for a white pixel).
-But shooting it proved THE HUE THAT LANDS IS NOT THE HUE AUTHORED - `sepia(1) saturate(2.4)` clips
-channels at 255 before the rotation, and every sheet is its own mix of white core and coloured halo,
-so `h0` reads gold and `h222` reads pale. An authoring lane cannot write h134 and get green.
+But shooting it proved THE HUE THAT LANDS IS NOT THE HUE AUTHORED - every sheet is its own mix of
+white core and coloured halo, so an authoring lane cannot write h134 and hope for green.
+
+RE-SOLVED 2026-09-17 AFTER THE FILTER REORDER. The first run of this tool put 0 of 84 pairs over
+the sat >= 25% leg, and that was the tool finding an ENGINE defect, not a limit of the sheets:
+`sheetFilter` emitted `brightness` LAST, and a browser clamps to 8 bits between filter primitives,
+so sepia(1) returned rgb(255,255,239) on a white pixel - two channels pinned - and every later pass
+worked on a pixel whose chroma was gone. `brightness` now runs FIRST on the neutral path, which
+moves the pixel off the ceiling before sepia and is worth about 40 points of saturation. Everything
+in this file that assumed the old order has moved with it: `br` is no longer a numpy post-pass, it
+is a browser axis (see solve_sheet), and the hue map is read dark rather than at br 1.0.
 
 So each of the 12 near-white sheets needs its own token per element, measured once on that sheet and
 then copied into every row that uses it: 12 x 7 = 84 measurements, not 1221 judgements. This tool
@@ -38,18 +46,18 @@ rather than re-growing them:
      PLATE IS DARK (--plate-max): the layer over the floor, alone. That mask is frozen for the sheet,
      so every token on it is measured on the same pixels.
 
-WHY IT IS MINUTES AND NOT HOURS. The browser is asked for one shot per candidate HUE; `sat` and `br`
-are the last two passes of the chain and they are applied to the measured pixels in numpy to rank the
-grid, so the search costs no screenshots. The browser then verifies the winner and any residual is
-fed back. Every number in the table is a real screenshot measured by rule 5 - none is a prediction.
+WHY IT IS MINUTES AND NOT HOURS. The browser is asked for one shot per candidate HUE and one per
+candidate `br`. `sat` is the LAST primitive in the chain, so it is applied to the measured pixels in
+numpy to rank the sat axis for free, and only the winner is re-shot. Every number in the table is a
+real screenshot measured by rule 5 - none is a prediction.
 
---filter-check renders a literal white div through the `k` chain in the same browser and prints it
-beside the CSS spec matrices. They agree to the last level, which is how the chain in this file is
-known to be right - and it is also how the second filter table in
-dfmc-client/docs/vfx-pass2-recipes-2026-09-17.md was found to be wrong: it reports
-`h100 br0.7` as rgb(142,178,106) where the browser renders rgb(157,178,163). That table is where the
-"saturation >= 25%" leg of the target came from, and it overstates the chroma the `k` path produces
-by roughly 3x. See the "what the grammar cannot reach" section of the page this writes.
+--filter-check renders a literal white div through BOTH orders of the `k` chain in the same browser,
+beside the spec matrices, and prints the saturation each reaches. That is the receipt for the
+reorder: `sepia(1) saturate(2.4) hue-rotate(60deg) brightness(0.7)` renders rgb(157,178,163), HSL
+saturation 12%; `brightness(0.5) sepia(1) saturate(2.4) hue-rotate(60deg)` renders rgb(102,179,76),
+40%. A MODEL OF A RENDERER IS NOT THE RENDERER - the first filter table in
+dfmc-client/docs/vfx-pass2-recipes-2026-09-17.md composed the matrices and clamped once at the end,
+reported rgb(142,178,106), and cost this run a whole calibration pass. Shoot it.
 
 Output: the table on stdout, codex/VFX_SHEET_TINTS.md, and one contact sheet per sheet under --shots
 (the untinted layer plus its 7 calibrated elements) so the table can be looked at and not only read.
@@ -75,6 +83,17 @@ ELEMENTS = [('red', 0), ('rust', 19), ('bone', 38), ('green', 134),
 
 HUE_TOL, LUM_MAX, SAT_MIN = 18.0, 55.0, 25.0        # the target, as numbers
 LUM_AIM = 53.0                                      # sit just inside it, and spend the rest on chroma
+
+# The search axes. `sat` is the LAST pass in the chain, so it is ranked in numpy on pixels already
+# shot; `br` is the FIRST pass since 2026-09-17, so every value of it costs a screenshot.
+# SATS STOPS AT 0.8 ON PURPOSE, though the grammar allows 0. Measured on FX-051 red: the whole
+# 0-1.5 range lets the solver buy 5 points of luminance (71% -> 66%, still outside the 55% leg)
+# for 37 points of chroma (sat 63% -> 26%). That trade turns the layer back into the tinted grey
+# D rejected and does not satisfy the leg it was spent on, so the axis is floored where the row
+# still reads as a colour. Raise it here, with a screenshot, if that judgement is ever revisited.
+SATS = [round(0.8 + i * 0.05, 3) for i in range(15)]        # 0.80 .. 1.50
+BRS = [round(0.5 + i * 0.05, 3) for i in range(11)]         # 0.50 .. 1.00, one shot each
+HMAP_BR = 0.6                                       # the hue map is read DARK - see solve_sheet
 
 
 # ---------------------------------------------------------------- the page, on top of vfx_shoot's
@@ -129,24 +148,29 @@ def hue_mat(deg):
 SAT24 = sat_mat(2.4)
 
 
-def k_chain(px, h):
-    """`sepia(1) saturate(2.4) hue-rotate(h-40)` - the `k` branch of sheetFilter, clamped between
-    passes the way a browser clamps an 8-bit intermediate buffer. --filter-check proves the clamp."""
-    o = np.clip(px @ SEPIA, 0, 1)
+def k_chain(px, h, br=1.0):
+    """`brightness(br) sepia(1) saturate(2.4) hue-rotate(h-40)` - the `k` branch of sheetFilter as it
+    is emitted since 2026-09-17, clamped between passes the way a browser clamps an 8-bit
+    intermediate buffer. BRIGHTNESS IS FIRST and that is the whole point: sepia(1) on a white pixel
+    returns rgb(255,255,239), two channels pinned at 255, and everything after it then works on a
+    pixel whose chroma has already been thrown away. --filter-check renders both orders and shows
+    the gap (12% saturation against 40% on the same hue). Used only by --filter-check; every number
+    in the table is a screenshot."""
+    o = np.clip(px * br, 0, 1)
+    o = np.clip(o @ SEPIA, 0, 1)
     o = np.clip(o @ SAT24, 0, 1)
     return np.clip(o @ hue_mat(round(h) - 40), 0, 1)
 
 
-def tail(px, sat, br):
-    """The last two passes, saturate(sat) then brightness(br) - applied to pixels the browser has
-    already rendered at (h, sat 1, br 1). They come after the hue work and before compositing, and
-    over a dark plate compositing is a scale, so ranking the grid this way costs no screenshots."""
-    o = px
+def tail(px, sat):
+    """THE ONLY pass still applicable after the fact: saturate(sat) is the last primitive in the
+    chain, so it can be applied in numpy to pixels the browser has already rendered at (h, br, sat 1)
+    and the grid is ranked without a screenshot. `br` USED to be here too and no longer can be - it
+    now runs BEFORE sepia(1), so it changes what every later pass sees and has to be a browser axis.
+    That is why this solver shoots a br ladder per element where it used to shoot none."""
     if abs(sat - 1.0) > 1e-9:
-        o = np.clip(o @ sat_mat(sat), 0, 1)
-    if abs(br - 1.0) > 1e-9:
-        o = np.clip(o * br, 0, 1)
-    return o
+        return np.clip(px @ sat_mat(sat), 0, 1)
+    return px
 
 
 # ---------------------------------------------------------------- the four numbers
@@ -241,7 +265,7 @@ def rgb(png):
 
 
 # ---------------------------------------------------------------- one sheet
-def solve_sheet(rig, fid, elements, rounds, plate_max, hue_step, verbose=True):
+def solve_sheet(rig, fid, elements, plate_max, hue_step, verbose=True):
     # --- where in the layer's own life is it brightest, and which pixels are the layer's
     best = None
     for f in (0.3, 0.5, 0.7):
@@ -267,24 +291,25 @@ def solve_sheet(rig, fid, elements, rounds, plate_max, hue_step, verbose=True):
         return rgb(png)[mask], png
 
     # --- the hue the sheet actually lands, per authored h. One shot each; nothing else needs one.
+    # READ AT HMAP_BR, NOT AT br 1.0: brightness is the FIRST pass now, and at br 1.0 sepia(1) still
+    # pins the white core at 255 and the landed hue is the clamped one. The map has to be made in
+    # the regime the tokens are written in, or the walk below aims at a hue no dark token reaches.
     hmap = {}
     for h in range(0, 360, hue_step):
-        px, _ = measure(token(h, 1.0, 1.0))
+        px, _ = measure(token(h, 1.0, HMAP_BR))
         hmap[h] = stats(px)
     if verbose:
         print('  %s  life %dms  scrub %dms  layer-over-floor px %d  hue map %s'
               % (fid, lenMs, ms, npx,
                  ' '.join('%d->%d' % (h, round(hmap[h]['hue'])) for h in sorted(hmap))))
 
-    SATS = [round(0.8 + i * 0.05, 3) for i in range(15)]        # 0.80 .. 1.50
-    BRS = [round(0.5 + i * 0.025, 3) for i in range(21)]        # 0.50 .. 1.00
     rows, art = [], [(ref_png, '%s  NO TINT - what ships today\nlife %d ms, read at %d ms'
                       % (fid, lenMs, ms), False)]
 
     for name, want in elements:
         # the authored h whose LANDED hue is closest, then walk it in with the local gradient
         h = min(hmap, key=lambda x: hue_err(hmap[x]['hue'], want))
-        px, _ = measure(token(h, 1.0, 1.0))
+        px, _ = measure(token(h, 1.0, HMAP_BR))
         base = stats(px)
         for _ in range(3):
             e = ((want - base['hue'] + 180) % 360) - 180
@@ -300,28 +325,26 @@ def solve_sheet(rig, fid, elements, rounds, plate_max, hue_step, verbose=True):
             step = int(round(e / g)) if g > 1e-6 else int(round(e))
             step = max(-40, min(40, step)) or (1 if e > 0 else -1)
             h2 = (h + step) % 360
-            px2, _ = measure(token(h2, 1.0, 1.0))
+            px2, _ = measure(token(h2, 1.0, HMAP_BR))
             s2 = stats(px2)
             if hue_err(s2['hue'], want) >= hue_err(base['hue'], want):
                 break
             h, px, base = h2, px2, s2
 
-        # sat and br are the last two passes: rank the whole grid on the pixels already in hand
-        cand, seen = None, set()
-        for rnd in range(max(1, rounds)):
-            grid = sorted(((score(stats(tail(px, s, b)), want), s, b) for s in SATS for b in BRS),
-                          key=lambda r: -r[0])
-            pickd = next((g for g in grid if (g[1], g[2]) not in seen), grid[0])
-            _, s, b = pickd
-            seen.add((s, b))
-            tk = token(h, s, b)
-            got, png = measure(tk)
+        # THE BR LADDER, IN THE BROWSER. br is the FIRST pass in the chain since 2026-09-17, so it
+        # is no longer a post-pass that can be applied in numpy - it changes what sepia(1) sees and
+        # therefore the whole result. One shot per br; `sat` is still last, so the sat axis is still
+        # free and is ranked on the pixels each shot already returns.
+        cand = None
+        for b in BRS:
+            got, png = measure(token(h, 1.0, b))
+            s = max(SATS, key=lambda x: score(stats(tail(got, x)), want))
+            if abs(s - 1.0) > 1e-9:                      # verify the sat pick in the browser too
+                got, png = measure(token(h, s, b))
             st = stats(got)
             ok = not misses(st, want)
-            if cand is None or (ok and not cand[0]) or (not cand[0] and score(st, want) > score(cand[2], want)):
-                cand = (ok, tk, st, png)
-            if ok:
-                break
+            if cand is None or (ok and not cand[0]) or (ok == cand[0] and score(st, want) > score(cand[2], want)):
+                cand = (ok, token(h, s, b), st, png)
         ok, tk, st, png = cand
         rows.append(dict(sheet=fid, element=name, want=want, token=tk, ok=ok, ms=ms, lenMs=lenMs,
                          px=npx, misses=misses(st, want), **st))
@@ -363,174 +386,180 @@ def contact(art, out_png, title, cols=4, tile_w=360):
 
 def write_md(path, rows, a, names, ceil):
     bad = [r for r in rows if not r['ok']]
-    L = ['# The white-sheet tints — the token that actually lands, per sheet × element', '',
-         '*Measured %s by `tools/vfx_calibrate.py`. Do not hand-edit — re-run the tool.*' % a.date, '']
+    L = ['# The white-sheet tints \u2014 the token that actually lands, per sheet \u00d7 element', '',
+         '*Measured %s by `tools/vfx_calibrate.py`. Do not hand-edit \u2014 re-run the tool.*' % a.date, '']
     L += ["D ruled the 12 near-white sheets are kept and re-hued dark per element. The `k` token makes",
-          "that possible, but **the hue that lands is not the hue authored** — `sepia(1) saturate(2.4)`",
-          "clips channels at 255 before the rotation, and every sheet is its own mix of white core and",
-          "coloured halo. So do not write `h134` and hope for green. **Copy the token from the row below**,",
-          "verbatim, into every layer that uses that sheet at that element.", '']
+          "that possible, but **the hue that lands is not the hue authored** \u2014 every sheet is its own mix",
+          "of white core and coloured halo, so do not write `h134` and hope for green. **Copy the token from",
+          "the row below**, verbatim, into every layer that uses that sheet at that element.", '']
+    L += ['> **Re-solved %s, after the filter order was fixed.** The first solve of this table put *none*' % a.date,
+          '> of the 84 pairs over the saturation leg. That was this tool finding an engine defect rather than a',
+          '> limit of the art: `sheetFilter` emitted `brightness` **last**, a browser clamps to 8 bits between',
+          '> filter primitives, and `sepia(1)` on a white pixel returns rgb(255,255,239) \u2014 two channels already',
+          '> pinned \u2014 so every pass after it worked on a pixel whose chroma was gone. `brightness` is now emitted',
+          '> **first** on the neutral/sepia path, which moves the pixel off the ceiling before `sepia` runs. The',
+          '> tokens below are all re-measured against that chain; any older copy of this page is void.', '']
     ex = next((r for r in rows if r['sheet'] == 'FX-038' and r['element'] == 'green'), rows[0])
     L += ['## How to read a row', '',
-          '`%s` + `%s` → write `%s`, i.e. the whole layer is' % (ex['sheet'], ex['element'], ex['token']),
+          '`%s` + `%s` \u2192 write `%s`, i.e. the whole layer is' % (ex['sheet'], ex['element'], ex['token']),
           '`%s@t s1.0 %s d120`. The measured columns are what that token puts on the screen.'
           % (ex['sheet'], ex['token']), '']
     L += ['## The measurement, so a row can be audited without re-running it', '',
           '- Carrier move **`%s`** (`Targets` = enemy, so the layer lands on the enemy lead), stage **S%d**,'
           % (a.move, a.stage),
-          '  seed **%d**, one layer at **s%g**, no delay, no flags — the same move, seed, tile and scale for'
+          '  seed **%d**, one layer at **s%g**, no delay, no flags \u2014 the same move, seed, tile and scale for'
           % (a.seed, a.scale),
           '  all 12 sheets, so the sheets are comparable to each other.',
-          "- Scrubbed **inside the layer's own `lenMs`** (fractions 0.3 / 0.5 / 0.7, brightest kept — the `ms`",
+          "- Scrubbed **inside the layer's own `lenMs`** (fractions 0.3 / 0.5 / 0.7, brightest kept \u2014 the `ms`",
           '  column is the frame the row was read at).',
           '- The pixels measured are the **difference against a clean plate of the same tile**, same paused',
-          '  frame, **restricted to where the plate is dark** (max channel ≤ %g). That is the layer over the'
+          '  frame, **restricted to where the plate is dark** (max channel \u2264 %g). That is the layer over the'
           % a.plate_max,
           '  floor and not over the creature: a decile taken over the whole footprint picks the brightest',
           '  pixels in it, and once the layer is darkened those are exactly the ones the sprite shines',
           '  through. The mask is frozen per sheet, so two tokens are compared on the same pixels.',
           '- Reported on the **top luminance decile** of that mask: `hue` a chroma-weighted circular mean,',
-          '  `sat` and `lum` HSL, `flat` the share at HSV value ≥ 250 and HSV saturation ≤ 0.08.',
-          '- **Target:** hue within ±%g° · lum ≤ %g%% · flat = 0%% · sat ≥ %g%%.' % (HUE_TOL, LUM_MAX, SAT_MIN),
+          '  `sat` and `lum` HSL, `flat` the share at HSV value \u2265 250 and HSV saturation \u2264 0.08.',
+          '- **Target:** hue within \u00b1%g\u00b0 \u00b7 lum \u2264 %g%% \u00b7 flat = 0%% \u00b7 sat \u2265 %g%%.' % (HUE_TOL, LUM_MAX, SAT_MIN),
+          '- The chain a `k` layer renders through is `brightness(br) sepia(1) saturate(2.4) hue-rotate(h\u221240)',
+          '  saturate(sat)`. `br` is the **first** primitive, so every candidate value of it costs a screenshot',
+          '  here; `sat` is the last, so that axis is ranked on pixels already shot and only the winner is re-shot.',
           '- Element hues (client `VFXHEX`, and the same numbers as `VXHITH`): %s.'
-          % ', '.join('%s %d°' % (n, h) for n, h in ELEMENTS), '']
+          % ', '.join('%s %d\u00b0' % (n, h) for n, h in ELEMENTS), '']
     by = {}
     for r in bad:
         for m in r['misses']:
             by.setdefault(m.split()[0], []).append(r)
-    # a leg that fails on nearly every pair is a property of the path, not of a row - say it once at
-    # the top and keep the per-row marker for the rows that miss something ELSE.
     systemic = [k for k, v in by.items() if len(v) >= len(rows) * 0.9]
     L += ['## The table', '']
     if systemic:
-        L += ['> Every row below meets **hue**, **lum** and **flat white**. Not one meets **sat ≥ %g%%**,'
-              % SAT_MIN,
-              '> on any sheet at any element — that is a ceiling of the `k` path itself and it is measured,',
-              '> named and explained under *What the grammar cannot reach*. The rows are still the best the',
-              '> shipped grammar produces, so author from them.', '']
+        L += ['> Every row below meets the legs not named here. Not one meets **%s** \u2014 that is a property of'
+              % ', '.join(systemic),
+              '> the path rather than of a row, and it is named once here so the per-row marker can stay for',
+              '> rows that miss something *else*.', '']
     for fid in [s for s in SHEETS if any(r['sheet'] == s for r in rows)]:
-        L += ['### %s — %s' % (fid, names.get(fid, '')), '',
+        L += ['### %s \u2014 %s' % (fid, names.get(fid, '')), '',
               '| element | token to write | hue | sat | lum | flat | ms |', '|---|---|---|---|---|---|---|']
         for r in [x for x in rows if x['sheet'] == fid]:
             extra = [m for m in r['misses'] if m.split()[0] not in systemic]
-            L.append('| %s%s | `%s` | %.0f° (want %d) | %.0f%% | %.0f%% | %.1f%% | %d |'
+            L.append('| %s%s | `%s` | %.0f\u00b0 (want %d) | %.0f%% | %.0f%% | %.1f%% | %d |'
                      % (r['element'], ' **MISS: %s**' % ', '.join(extra) if extra else '',
                         r['token'], r['hue'], r['want'], r['sat'], r['lum'], r['flat'], r['ms']))
         L.append('')
+    els = [n for n, _ in ELEMENTS if any(r['element'] == n for r in rows)]
+    L += ['## The saturation reached, every pair', '',
+          'The leg that could not be met at all before the reorder. Read down a column to see how an element',
+          'fares across the sheets; the floor is %g%%.' % SAT_MIN, '',
+          '| sheet | ' + ' | '.join(els) + ' |', '|---' * (len(els) + 1) + '|']
+    for fid in [s for s in SHEETS if any(r['sheet'] == s for r in rows)]:
+        cell = {r['element']: r['sat'] for r in rows if r['sheet'] == fid}
+        L.append('| %s | %s |' % (fid, ' | '.join('%.0f%%' % cell.get(e, 0) for e in els)))
+    order = sorted(els, key=lambda e: np.mean([r['sat'] for r in rows if r['element'] == e]))
+    L += ['',
+          'Per element, mean over the sheets solved: %s.'
+          % ', '.join('**%s %.0f%%**' % (e, np.mean([r['sat'] for r in rows if r['element'] == e]))
+                      for e in order), '']
     L += ['## What the grammar cannot reach', '']
     if not bad:
-        L += ['**Nothing.** All %d sheet × element pairs hit the target inside `h` 0-359, `br` 0.5-1.6,' % len(rows),
-              '`sat` 0-1.5. No desaturated twin is needed for any of the 12 sheets.', '']
+        L += ['**Nothing.** All %d sheet \u00d7 element pairs hit the target inside `h` 0-359, `br` 0.5-1.6,' % len(rows),
+              '`sat` 0-1.5 \u2014 hue on the element, lum \u2264 %g%%, no flat white, sat \u2265 %g%%. No desaturated twin is'
+              % (LUM_MAX, SAT_MIN),
+              'needed for any of the sheets, no new art, and neither engine lever the first solve proposed',
+              '(raising `saturate(2.4)`, or lifting the `sat` ceiling) was required: each was worth about 7',
+              'points of saturation where the filter reorder was worth about 40.', '']
     else:
-        L += ['%d of %d pairs miss. By leg: hue %d · lum %d · flat %d · **sat %d**.'
+        L += ['%d of %d pairs miss. By leg: hue %d \u00b7 lum %d \u00b7 flat %d \u00b7 sat %d.'
               % (len(bad), len(rows), len(by.get('hue', [])), len(by.get('lum', [])),
-                 len(by.get('flat', [])), len(by.get('sat', []))), '']
-        odd = [r for r in bad if [m for m in r['misses'] if m.split()[0] not in systemic]]
-        if odd:
-            L += ['Pairs that miss something other than the systemic leg:', '',
-                  '| sheet | element | best token | hue | sat | lum | flat | misses |',
-                  '|---|---|---|---|---|---|---|---|']
-            for r in odd:
-                L.append('| %s | %s | `%s` | %.0f° | %.0f%% | %.0f%% | %.1f%% | %s |'
-                         % (r['sheet'], r['element'], r['token'], r['hue'], r['sat'], r['lum'],
-                            r['flat'], ', '.join(r['misses'])))
-            L.append('')
-        elif systemic:
-            L += ['**No pair misses hue, lum or flat white.** The whole miss is one leg.', '']
-        if len(by.get('sat', [])) >= len(bad) * 0.8:
-            els = [n for n, _ in ELEMENTS if any(r['element'] == n for r in rows)]
-            L += ['### The saturation actually reached, every pair', '',
-                  'Read down a column to see how far an element is from %g%%.' % SAT_MIN, '',
-                  '| sheet | ' + ' | '.join(els) + ' |', '|---' * (len(els) + 1) + '|']
-            for fid in [s for s in SHEETS if any(r['sheet'] == s for r in rows)]:
-                cell = {r['element']: r['sat'] for r in rows if r['sheet'] == fid}
-                L.append('| %s | %s |' % (fid, ' | '.join('%.0f%%' % cell.get(e, 0) for e in els)))
-            worst = sorted(els, key=lambda e: np.mean([r['sat'] for r in rows if r['element'] == e]))
-            L += ['',
-                  'Per element, mean over the 12 sheets: %s.'
-                  % ', '.join('**%s %.0f%%**' % (e, np.mean([r['sat'] for r in rows if r['element'] == e]))
-                              for e in worst),
-                  'The cool half of the wheel is the worse half: the `k` chain leaves a white pixel a pale',
-                  'warm yellow, and rotating that to blue or purple crosses the achromatic axis, so there is',
-                  'almost no chroma left to darken. `%s` and `%s` are the elements a white sheet cannot carry.'
-                  % (worst[0], worst[1]), '']
-            L += ["**The saturation floor is not a near miss on a few sheets — it is the whole `k` path.**",
-                  'The measured ceiling per sheet is the HSL saturation the layer keeps once it is dark enough',
-                  'to satisfy `lum ≤ %g%%` (below mid-lightness, HSL saturation stops falling with `br`, so this' % LUM_MAX,
-                  'is a true ceiling and not an artefact of how far it was darkened):', '',
-                  '| sheet | best sat reachable | at | needed |', '|---|---|---|---|']
-            for fid, (s, tk) in ceil.items():
-                L.append('| %s | **%.0f%%** | `%s` | %g%% |' % (fid, s, tk, SAT_MIN))
-            L += ['',
-                  'The cause is arithmetic, and it is checkable with `--filter-check`: run a literal white pixel',
-                  'through the `k` chain in a browser and `sepia(1) saturate(2.4) hue-rotate(60deg)` returns',
-                  '**rgb(224,255,233)** — chroma 0.12 — and with `brightness(0.7)` **rgb(157,178,163)**, which is',
-                  'HSL saturation **12%**. The second filter table in',
-                  '`dfmc-client/docs/vfx-pass2-recipes-2026-09-17.md` reports that same filter as rgb(142,178,106),',
-                  'HSL saturation 32%. The browser does not render that. **The ≥25% leg of the target was set from',
-                  'a table that overstates the `k` path\'s chroma by about 3x**, so no token inside `h` 0-359,',
-                  '`br` 0.5-1.6, `sat` 0-1.5 can meet it on any of the 12 sheets.', '',
-                  'What the rows above DO deliver is the other three legs, which are D\'s words: the hue lands on',
-                  'the element, the layer is dark, and the flat white is gone. What they do not deliver is a',
-                  'strongly coloured dark — they read as tinted greys.', '',
-                  '### So: are desaturated twins the answer? No.', '',
-                  'A twin sheet would not help. The chroma is not lost in the sheet, it is lost in the filter:',
-                  '`sepia(1)` gives a white pixel only chroma 0.06 and `saturate(2.4)` is too small a multiplier',
-                  'to open it up. The two cheap fixes both live outside this tool, and both are one number:', '',
-                  '1. **raise the multiplier in the `k` branch of `sheetFilter`** (`assets/vfx/vfx_fx.js` and',
-                  '   the client\'s own copy in `play/app.js`). Swept over the whole hue circle on a white pixel,',
-                  '   with `br` taken to whatever puts it at `lum 55%`: `saturate(2.4)` tops out at **14.5%**,',
-                  '   `saturate(3)` at 18.5%, **`saturate(4)` at 25.8%** — the first value that clears the floor —',
-                  '   and `saturate(5)` at 33.9%; or',
-                  '2. **raise the `sat` ceiling in the grammar** (`RANGE` in `tools/fx_lint.py` and in the',
-                  '   parser). Same sweep, engine left alone: `sat1.5` tops out at **14.5%**, `sat2` at 19.8%,',
-                  '   **`sat2.5` at 25.6%**, `sat3` at 31.9%. This is the same multiplication, moved from the',
-                  '   engine to the author — and it keeps the choice per layer.', '',
-                  'Either is one number. Both would let the tokens above be re-solved by re-running this tool;',
-                  'nothing else about the method or the page would change.', '',
-                  'Both are engine/grammar changes with their own review, so neither was made here. Until one of',
-                  'them lands, **the tokens above are the darkest, most coloured, flat-white-free version of each',
-                  'sheet the shipped grammar can produce** — and they are still a large improvement on the white.']
+                 len(by.get('flat', [])), len(by.get('sat', []))), '',
+              '| sheet | element | best token | hue | want | sat | lum | flat | misses |',
+              '|---|---|---|---|---|---|---|---|---|']
+        for r in bad:
+            L.append('| %s | %s | `%s` | %.0f\u00b0 | %d\u00b0 | %.0f%% | %.0f%% | %.1f%% | %s |'
+                     % (r['sheet'], r['element'], r['token'], r['hue'], r['want'], r['sat'],
+                        r['lum'], r['flat'], ', '.join(r['misses'])))
+        L += ['', 'These are the best the shipped grammar produces on those pairs; author from them anyway,',
+              'and do not raise a lever to chase one leg without shooting it first.', '']
+        if len(by.get('lum', [])) >= len(bad) * 0.8:
+            L += ['### Why luminance is now the leg that fails, and what it would cost to fix', '',
+                  'The reorder traded one leg for the other. Before it, **0 of %d** pairs met `sat`' % len(rows),
+                  'and all met `lum`; after it, **all** meet `sat` and %d miss `lum`.' % len(by.get('lum', [])),
+                  '',
+                  "`sepia(1)` is not a dimming matrix \u2014 its red row sums to 1.351, so it has *gain*. Darkening",
+                  'before it is therefore partly undone by it, and `saturate(2.4)` then pushes the red channel',
+                  'back against 255 on the sheets with the brightest cores. `br` cannot answer that, because the',
+                  'grammar floors it at 0.5 and the solver is already there on every missing row. So on those',
+                  'sheets `lum \u2264 %g%%` is not reachable by any token, exactly the way `sat \u2265 %g%%` was not'
+                  % (LUM_MAX, SAT_MIN),
+                  'reachable before the reorder.', '',
+                  'Two levers would reach it, both outside this tool and both changes to what an author may',
+                  'write, so neither was taken here:', '',
+                  '1. **lower the `br` floor** in the grammar (`RANGE` in `tools/fx_lint.py` and in the client',
+                  "   parser) from 0.5. It is the direct lever and it is one number; and",
+                  '2. **lower `saturate(2.4)`** in the `k` branch of `sheetFilter`. Chroma is no longer scarce \u2014',
+                  '   the rows above reach 33-100% \u2014 so there is room to spend some of it on darkness.', '',
+                  'Both want a look at the contact sheets first: a miss of 5-15 points of lightness on a layer',
+                  'that is correctly hued, fully coloured and free of flat white is a far smaller defect than',
+                  'the white pop this pass set out to remove.', '']
+    L += ['## The ceiling, per sheet', '',
+          'The highest saturation each sheet reached at any element, and the token that reached it.', '',
+          '| sheet | best sat reached | at | floor |', '|---|---|---|---|']
+    for fid, (sv, tk) in ceil.items():
+        L.append('| %s | **%.0f%%** | `%s` | %g%% |' % (fid, sv, tk, SAT_MIN))
+    L += ['',
+          '*A model of a renderer is not the renderer.* The first version of this page was written against a',
+          'filter table that composed the CSS matrices and clamped once at the end; a browser clamps between',
+          'primitives, and that difference was the entire "the `k` path cannot be saturated" finding. Every',
+          'number on this page is a screenshot. `python tools/vfx_calibrate.py --filter-check` renders both',
+          'orders of the chain side by side if it needs settling again.']
     open(path, 'w', encoding='utf-8').write('\n'.join(L) + '\n')
     return path
 
 
 # ---------------------------------------------------------------- the receipt for the chain itself
 def filter_check():
+    """THE RECEIPT FOR THE REORDER, on a literal white div, in a real browser.
+
+    Left: the OLD chain (brightness last) - what shipped until 2026-09-17 and what put the whole
+    calibration under 20% saturation. Right: the NEW chain (brightness first). Same hue, same
+    saturate, same brightness; the only difference is which primitive the browser applies first, and
+    it is worth about 40 points of chroma because sepia(1) pins a white pixel at 255 in two channels
+    and nothing after that can give the chroma back."""
     from playwright.sync_api import sync_playwright
     from PIL import Image
     hs = [0, 90, 100, 120, 200, 216, 330]
+    BR = 0.7
+    css_old = 'sepia(1) saturate(2.4) hue-rotate(%ddeg) brightness(%g)'
+    css_new = 'brightness(%g) sepia(1) saturate(2.4) hue-rotate(%ddeg)'
     html = "<body style='margin:0;background:#000'>"
-    for i, h in enumerate(hs):
-        html += ("<div style='width:40px;height:40px;background:#fff;"
-                 "filter:sepia(1) saturate(2.4) hue-rotate(%ddeg)'></div>" % (h - 40))
-    html += ("<div style='width:40px;height:40px;background:#fff;filter:sepia(1) saturate(2.4) "
-             "hue-rotate(60deg) brightness(0.7)'></div></body>")
+    for h in hs:
+        html += ("<div style='display:flex'>"
+                 "<div style='width:40px;height:40px;background:#fff;filter:%s'></div>"
+                 "<div style='width:40px;height:40px;background:#fff;filter:%s'></div></div>"
+                 % (css_old % (h - 40, BR), css_new % (BR, h - 40)))
+    html += "</body>"
     with sync_playwright() as pw:
         br = pw.chromium.launch(args=['--force-color-profile=srgb'])
-        pg = br.new_page(viewport={'width': 120, 'height': 40 * (len(hs) + 1)}, device_scale_factor=1)
+        pg = br.new_page(viewport={'width': 120, 'height': 40 * len(hs)}, device_scale_factor=1)
         pg.set_content(html)
         a = np.asarray(Image.open(io.BytesIO(pg.screenshot(type='png'))).convert('RGB'))
         br.close()
-    print('the `k` chain: browser vs the CSS spec matrices, on a literal white pixel')
-    w = np.array([[1.0, 1.0, 1.0]])
+    print('the `k` chain on a literal white pixel, br %g - OLD order (brightness last) vs NEW '
+          '(brightness first)' % BR)
+    print('  %-8s %-34s %-34s' % ('token', 'brightness LAST', 'brightness FIRST'))
     for i, h in enumerate(hs):
-        got = a[i * 40 + 20, 20]
-        mine = (k_chain(w, h) * 255).round(0)[0]
-        # the same chain with the intermediate clamps left out - which is the recipes doc's table
-        loose = (np.clip((w @ SEPIA) @ SAT24 @ hue_mat(h - 40), 0, 1) * 255).round(0)[0]
-        print('  k h%-4d browser %-16s clamped-per-pass %-16s no-intermediate-clamp %s  %s'
-              % (h, tuple(int(x) for x in got), tuple(int(x) for x in mine),
-                 tuple(int(x) for x in loose),
-                 'agree' if np.all(np.abs(got - mine) <= 1) else 'DIFFER'))
-    got = a[len(hs) * 40 + 20, 20]
-    st = stats(np.array([got], dtype=np.float64) / 255.0)
-    print('  k h100 br0.7  browser %s  -> hue %.0f sat %.0f%% lum %.0f%%'
-          % (tuple(int(x) for x in got), st['hue'], st['sat'], st['lum']))
-    print('  the recipes doc records that same filter as rgb(142,178,106), hue 90 sat 32 lum 56.')
-    print('  that is the no-intermediate-clamp column: the doc composed the three matrices and clamped')
-    print('  once at the end. A browser clamps an 8-bit buffer BETWEEN filter passes, and the clamp it')
-    print('  applies after sepia(1) is exactly what throws the chroma away.')
+        o = a[i * 40 + 20, 20]
+        n = a[i * 40 + 20, 60]
+        so = stats(np.array([o], dtype=np.float64) / 255.0)
+        sn = stats(np.array([n], dtype=np.float64) / 255.0)
+        print('  k h%-6d %-16s hue %3.0f sat %2.0f%%   %-16s hue %3.0f sat %2.0f%%'
+              % (h, tuple(int(x) for x in o), so['hue'], so['sat'],
+                 tuple(int(x) for x in n), sn['hue'], sn['sat']))
+    # and the matrices, in the new order, against the browser - the model is only ever a cross-check
+    w = np.array([[1.0, 1.0, 1.0]])
+    agree = all(np.all(np.abs(a[i * 40 + 20, 60] - (k_chain(w, h, BR) * 255).round(0)[0]) <= 1)
+                for i, h in enumerate(hs))
+    print('  spec matrices, clamped between passes, reproduce the NEW column: %s'
+          % ('yes' if agree else 'NO - trust the browser, not the model'))
 
 
 def main():
@@ -545,7 +574,6 @@ def main():
     ap.add_argument('--plate-max', type=float, default=0.16, dest='plate_max',
                     help='a pixel is the layer\'s only where the plate under it is this dark')
     ap.add_argument('--hue-step', type=int, default=15, dest='hue_step')
-    ap.add_argument('--rounds', type=int, default=3, help='browser verifications per sheet x element')
     ap.add_argument('--shots', default=str(ROOT.parent / 'local-only' / 'vfxshots' / 'tints'))
     ap.add_argument('--md', default=str(ROOT / 'codex' / 'VFX_SHEET_TINTS.md'))
     ap.add_argument('--no-md', action='store_true')
@@ -592,7 +620,7 @@ def main():
             pg.wait_for_timeout(900)
             rig = Rig(pg, a.move, a.stage, a.scale, a.pad)
             for fid in ids:
-                rs, art = solve_sheet(rig, fid, els, a.rounds, a.plate_max, a.hue_step)
+                rs, art = solve_sheet(rig, fid, els, a.plate_max, a.hue_step)
                 rows += rs
                 top = max(rs, key=lambda r: r['sat'])
                 ceil[fid] = (top['sat'], top['token'])

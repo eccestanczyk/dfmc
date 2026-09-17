@@ -88,6 +88,39 @@ touch an approval.
 
 ## Changelog
 
+- **2026-09-17** - **The filter order was the whole defect: `brightness` is emitted FIRST on the
+  neutral/sepia path.** What was wrong: `VFX_BANK.sheetFilter` built its chain hue ops ->
+  `saturate` -> `brightness`, so a `k` layer was handed
+  `sepia(1) saturate(2.4) hue-rotate(h-40) brightness(br)`. **A browser clamps its 8-bit buffer
+  BETWEEN filter primitives**, and `sepia(1)` on a white pixel returns rgb(255,255,239) - two
+  channels already pinned at 255 - so `saturate` and `hue-rotate` were working on a pixel whose
+  chroma had already been thrown away, and darkening it last could not give the chroma back. That
+  is why the entry below reports 0 of 84 pairs reaching `sat >= 25 %`, why the measured ceiling was
+  20 %, and why `k h0` read gold instead of red. **The fix is the order, not a bigger multiplier and
+  not new art:** on the neutral path only - the `Colored` = no branch and any layer carrying `k` -
+  `brightness` is pushed onto the chain before `sepia(1)`, which moves the pixel off the ceiling
+  first. Measured in a browser on a literal white div: `sepia(1) saturate(2.4) hue-rotate(60deg)
+  brightness(.7)` is rgb(157,178,163), HSL saturation **12 %**; `brightness(.5) sepia(1)
+  saturate(2.4) hue-rotate(60deg)` is rgb(102,179,76), **40 %**; `brightness(.4) sepia(1)
+  saturate(3) hue-rotate(-40deg)` is rgb(211,102,85), hue 8, **59 %**. On the real FX-038 sheet
+  `k h134 br0.5` goes 14 % -> 47 % saturation and `k h0 br0.5` goes hue 44 (gold) -> hue 8 (red).
+  **The coloured path is deliberately unchanged** (`Colored` = yes without `k`, still
+  `hue-rotate` -> `saturate` -> `brightness`): those sheets carry their own chroma, no `sepia` pass
+  clamps them, and reordering there would change the look of rows that are fine. `saturate(2.4)` is
+  unchanged and so are the grammar's `br` (0.5-1.6) and `sat` (0-1.5) ranges - the reorder is worth
+  about 40 points of saturation where those levers are worth about 7, so **neither of the two
+  engine changes the entry below proposed was made**. `tools/fx_lint.py` validates tokens and models
+  no chain, so it does not move; `tools/vfx_calibrate.py` does, because `br` is no longer a post-pass
+  it can apply in numpy - it is now a browser axis, and its `--filter-check` renders both orders side
+  by side. **`codex/VFX_SHEET_TINTS.md` is re-solved against the new chain and every older copy of it
+  is void:** all 84 pairs now meet `sat` (33-100 %, was 0 of 84) and hue and flat white, and **32 of
+  84 meet all four legs**; the 52 that miss all miss `lum <= 55 %` and only that, because `sepia(1)`
+  has gain (its red row sums to 1.351) so darkening before it is partly undone, and `br` is floored
+  at 0.5 by the grammar. That trade - and the two levers that would close it, a lower `br` floor or a
+  smaller `saturate(2.4)` - is written up on that page; neither is taken without D looking at the
+  contact sheets (`local-only/vfxshots/tints/tint_FX0NN.png`). No row of `move_vfx.csv` or
+  `moves.csv` is touched. Owning pages: this spec and `codex/VFX_SHEET_TINTS.md`.
+
 - **2026-09-17** - **The 12 white sheets are calibrated per element - and the target's saturation
   leg is proved unreachable inside the grammar.** `k` makes a white sheet colourable, but the hue
   that LANDS is not the hue authored, so each sheet needs its own token per element rather than the
@@ -251,8 +284,8 @@ FX-041@t f s1.2 v1.5 | FX-038@t d160 s0.8 | FX-054@u v2 h50 | !flash
 | `v<f>` | playback speed multiplier over the base 24 fps (`v2` plays a 24-frame sheet in 500 ms) | 1.0 |
 | `d<ms>` | start delay from the cast, in ms | 0 |
 | `n<int>` | loop the sheet n times | 1 |
-| `h<deg>` | **absolute** target hue 0-359 (0 red, 30 orange, 50 gold, 120 green, 180 cyan, 210 blue, 270 violet, 300 magenta, 330 rose). The renderer rotates from the sheet's own hue (`Hue` in fx_bank.csv) so `h120` means green on any sheet; on an uncoloured sheet (`Colored` = no) the pixel is given chroma by `sepia(1)` first, so `h` colours the white core too | sheet's own colour |
-| `k` | **keyed**: force the neutral colourise path for THIS layer whatever the sheet's `Colored` says - `sepia(1) saturate(2.4) hue-rotate(h-40)` instead of `hue-rotate(h - sheetHue)`. Needed on a near-white sheet: **`hue-rotate` on a white pixel returns white** (it moves chroma and white has none), so no `h` moves FX-038 or FX-032 without it. The +/-90 hue clamp is **skipped** with `k` - `sepia(1)` has already discarded the sheet's own hue, so the clamp has nothing to protect. `k` on a sheet that is already `Colored` = no is a **no-op, not an error**. Pair it with `br0.6-0.8`: `k` alone colours the white but leaves it at 80-96 % luminance, still a flash | off |
+| `h<deg>` | **absolute** target hue 0-359 (0 red, 30 orange, 50 gold, 120 green, 180 cyan, 210 blue, 270 violet, 300 magenta, 330 rose). The renderer rotates from the sheet's own hue (`Hue` in fx_bank.csv) so `h120` means green on any sheet; on an uncoloured sheet (`Colored` = no) the pixel is given chroma by `sepia(1)` first, so `h` colours the white core too - and the hue that LANDS is not the hue authored on a near-white sheet, so **copy the token from `codex/VFX_SHEET_TINTS.md`** rather than writing the element's hue | sheet's own colour |
+| `k` | **keyed**: force the neutral colourise path for THIS layer whatever the sheet's `Colored` says - `brightness(br) sepia(1) saturate(2.4) hue-rotate(h-40) saturate(sat)` instead of `hue-rotate(h - sheetHue) saturate(sat) brightness(br)`. Needed on a near-white sheet: **`hue-rotate` on a white pixel returns white** (it moves chroma and white has none), so no `h` moves FX-038 or FX-032 without it. **`br` is applied FIRST on this path and is not optional** - see the 2026-09-17 filter-order entry; without it `sepia(1)` clamps the white core at 255 and the layer stays a pale flash whatever `h` and `sat` say. The +/-90 hue clamp is **skipped** with `k` - `sepia(1)` has already discarded the sheet's own hue, so the clamp has nothing to protect. `k` on a sheet that is already `Colored` = no is a **no-op, not an error** | off |
 | `sat<f>` | saturation multiplier, 0-1.5 (never above 1.5; the research rule is "never above the source") | 1 |
 | `br<f>` | brightness multiplier 0.5-1.6 | 1 |
 | `a<f>` | opacity 0.2-1 | 1 |
