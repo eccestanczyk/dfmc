@@ -25,8 +25,14 @@ makes them and writes the table.
 
 THE TARGET, per sheet x element, measured on the TOP LUMINANCE DECILE of the layer's own painted
 pixels:  hue within +/-18 deg of the element hue, HSL lightness <= 55%, flat-white fraction 0%
-(HSV value >= 250 AND HSV saturation <= 0.08), HSL saturation >= 25%.
+(HSV value >= 250 AND HSV saturation <= 0.08), and HSL saturation inside the element's BAND.
 Search space is the grammar's own: h 0-359 integer, br 0.3-1.6, sat 0-1.5. `k` is always present.
+
+THE BAND, added 2026-09-17 on D's ruling. The saturation leg used to be a floor and nothing else,
+so the solver spent every point of chroma it could reach. That is right for an element that IS a
+colour and wrong for one that is not: `bone` solved to a fully saturated gold (79-87% on 11 of the
+12 sheets) and it is the DEFAULT element, 217 of the 419 moves. See SAT_BAND - an element listed
+there is solved to sit inside its band, one that is not keeps the bare floor with no ceiling.
 
 HOW IT MEASURES - vfx_shoot's method, and this file reuses its server, art routing, page and seeding
 rather than re-growing them:
@@ -84,6 +90,35 @@ ELEMENTS = [('red', 0), ('rust', 19), ('bone', 38), ('green', 134),
 HUE_TOL, LUM_MAX, SAT_MIN = 18.0, 55.0, 25.0        # the target, as numbers
 LUM_AIM = 53.0                                      # sit just inside it, and spend the rest on chroma
 
+# THE SATURATION CEILING, per element. The leg was a FLOOR and nothing else, so the solver spent
+# everything it had on chroma. `bone` came out of the 84/84 solve at saturation 79-87% on 11 of the
+# 12 sheets - a vivid gold, the loudest tile on its own contact sheet, louder in chroma than the
+# untinted white it replaced. Three things make that wrong and they compound:
+#   1. `bone` is the DEFAULT element, 217 of the 419 moves. A vivid gold there is a uniform gold
+#      wash over half the game's abilities; `bone` is the "no strong element" case and has to read
+#      as restrained.
+#   2. Its own hex is #d8cfc0, a light NEUTRAL. Nothing in the element table asks for gold.
+#   3. `vxHitBone` measures 3.8% saturation over real creature art. Solved against a bare floor the
+#      LAYER flashes vivid gold while the SPRITE tints near-grey - and layer and flash agreeing is
+#      the whole reason the element hue table and VXHITH share their numbers.
+# So: a table, not a special case in a branch, because a later element may want one too. An element
+# absent from here keeps (SAT_MIN, None) - the bare floor, no ceiling, nothing changed.
+SAT_BAND = {                                   # element -> (floor %, ceiling %)
+    'bone': (0.0, 18.0),                       # a dim, faintly warm neutral, never a colour
+}
+
+
+def band(name):
+    return SAT_BAND.get(name, (SAT_MIN, None))
+
+
+def sat_aim(name):
+    """Where inside the band to sit. With no ceiling that is 'as high as the rest of the target
+    allows'. With one it is just UNDER the ceiling and not at zero: hue is a chroma-weighted mean,
+    so a layer with no chroma at all has no measurable hue and would fail the hue leg instead."""
+    lo, hi = band(name)
+    return lo if hi is None else max(lo, hi - 3.0)
+
 # The search axes. `sat` is the LAST pass in the chain, so it is ranked in numpy on pixels already
 # shot; `br` is the FIRST pass since 2026-09-17, so every value of it costs a screenshot.
 # SATS STOPS AT 0.8 ON PURPOSE, though the grammar allows 0. Measured on FX-051 red: the whole
@@ -92,6 +127,15 @@ LUM_AIM = 53.0                                      # sit just inside it, and sp
 # D rejected and does not satisfy the leg it was spent on, so the axis is floored where the row
 # still reads as a colour. Raise it here, with a screenshot, if that judgement is ever revisited.
 SATS = [round(0.8 + i * 0.05, 3) for i in range(15)]        # 0.80 .. 1.50
+# A BANDED element is the case that floor was protecting against, and it wants the opposite: the
+# whole point of a ceiling is that the row must NOT spend chroma, so its axis is the grammar's
+# entire range. It costs nothing - `sat` is the last primitive, so the axis is ranked in numpy on
+# pixels already shot and only the winner is re-shot in the browser.
+SATS_FULL = [round(i * 0.05, 3) for i in range(31)]        # 0.00 .. 1.50
+
+
+def sats_for(name):
+    return SATS if band(name)[1] is None else SATS_FULL
 import fx_lint as FL                    # the grammar's own RANGE - not a third copy of the floor
 BR_MIN = FL.RANGE['br'][0]              # 0.3 since 2026-09-17; it was 0.5, and 52 of 84 pairs sat
                                         # on the old floor and still could not reach lum <= 55%
@@ -204,7 +248,8 @@ def hue_err(a, b):
     return abs(((a - b + 180.0) % 360.0) - 180.0)
 
 
-def misses(st, want):
+def misses(st, want, name=None):
+    lo, hi = band(name) if name is not None else (SAT_MIN, None)
     out = []
     if hue_err(st['hue'], want) > HUE_TOL:
         out.append('hue %.0f deg off' % hue_err(st['hue'], want))
@@ -212,17 +257,25 @@ def misses(st, want):
         out.append('lum %.0f%%' % st['lum'])
     if st['flat'] > 0:
         out.append('flat %.1f%%' % st['flat'])
-    if st['sat'] < SAT_MIN:
-        out.append('sat %.0f%%' % st['sat'])
+    if st['sat'] < lo:
+        out.append('sat %.0f%% under the %g%% floor' % (st['sat'], lo))
+    if hi is not None and st['sat'] > hi:
+        out.append('sat %.0f%% over the %g%% ceiling' % (st['sat'], hi))
     return out
 
 
-def score(st, want):
-    """Rank the grid: get inside hue, flat and lum first, then spend everything left on chroma."""
-    return -(max(0.0, hue_err(st['hue'], want) - 6.0) * 4.0
-             + max(0.0, st['lum'] - LUM_AIM) * 3.0
-             + st['flat'] * 50.0
-             + max(0.0, SAT_MIN - st['sat']) * 1.0) + 0.05 * st['sat']
+def score(st, want, name=None):
+    """Rank the grid: get inside hue, flat and lum first, then spend what is left on chroma - or,
+    for a BANDED element, on getting back down under its ceiling. The ceiling is weighted like the
+    hue leg, because for `bone` it is exactly as much of a ruling as the hue is."""
+    lo, hi = band(name) if name is not None else (SAT_MIN, None)
+    s = -(max(0.0, hue_err(st['hue'], want) - 6.0) * 4.0
+          + max(0.0, st['lum'] - LUM_AIM) * 3.0
+          + st['flat'] * 50.0
+          + max(0.0, lo - st['sat']) * 1.0)
+    if hi is None:
+        return s + 0.05 * st['sat']
+    return s - max(0.0, st['sat'] - hi) * 4.0 - 0.05 * abs(st['sat'] - sat_aim(name))
 
 
 def br_of(tk):
@@ -275,7 +328,7 @@ def rgb(png):
 
 
 # ---------------------------------------------------------------- one sheet
-def solve_sheet(rig, fid, elements, plate_max, hue_step, verbose=True):
+def solve_sheet(rig, fid, elements, plate_max, hue_step, carry=None, verbose=True):
     # --- where in the layer's own life is it brightest, and which pixels are the layer's
     best = None
     for f in (0.3, 0.5, 0.7):
@@ -316,7 +369,31 @@ def solve_sheet(rig, fid, elements, plate_max, hue_step, verbose=True):
     rows, art = [], [(ref_png, '%s  NO TINT - what ships today\nlife %d ms, read at %d ms'
                       % (fid, lenMs, ms), False)]
 
-    for name, want in elements:
+    # CARRIED ROWS ARE RE-SHOT BUT NOT RE-SOLVED. When one element is re-solved the others
+    # are settled and their published tokens must not move, so their token is rendered on
+    # this same rig for the contact sheet - which stays the eight-tile comparison it is
+    # looked at as - while the row itself is the published one, carried verbatim.
+    solving = dict(elements)
+    carry = carry or {}
+    for name, _w in ELEMENTS:
+        if name not in solving:
+            r = carry.get(name)
+            if r is None:
+                continue
+            _, png = measure(r['token'])
+            art.append((png, '%s %s  %s\nhue %.0f (want %d)  sat %.0f  lum %.0f  '
+                             'flat %.1f%s\ncarried, not re-solved'
+                        % (fid, name, r['token'], r['hue'], r['want'], r['sat'],
+                           r['lum'], r['flat'], '' if r['ok'] else '   MISS'),
+                        not r['ok']))
+            rows.append(r)
+            if verbose:
+                print('    %-8s want %3d  %-24s -> hue %5.1f  sat %4.1f  lum %4.1f  '
+                      'flat %4.1f  carried'
+                      % (name, r['want'], r['token'], r['hue'], r['sat'], r['lum'],
+                         r['flat']))
+            continue
+        want = solving[name]
         # the authored h whose LANDED hue is closest, then walk it in with the local gradient
         h = min(hmap, key=lambda x: hue_err(hmap[x]['hue'], want))
         px, _ = measure(token(h, 1.0, HMAP_BR))
@@ -348,23 +425,24 @@ def solve_sheet(rig, fid, elements, plate_max, hue_step, verbose=True):
         cand = None
         for b in BRS:
             got, png = measure(token(h, 1.0, b))
-            s = max(SATS, key=lambda x: score(stats(tail(got, x)), want))
+            s = max(sats_for(name), key=lambda x: score(stats(tail(got, x)), want, name))
             if abs(s - 1.0) > 1e-9:                      # verify the sat pick in the browser too
                 got, png = measure(token(h, s, b))
             st = stats(got)
-            ok = not misses(st, want)
-            if cand is None or (ok and not cand[0]) or (ok == cand[0] and score(st, want) > score(cand[2], want)):
+            ok = not misses(st, want, name)
+            if cand is None or (ok and not cand[0]) or (ok == cand[0]
+                    and score(st, want, name) > score(cand[2], want, name)):
                 cand = (ok, token(h, s, b), st, png)
         ok, tk, st, png = cand
         rows.append(dict(sheet=fid, element=name, want=want, token=tk, ok=ok, ms=ms, lenMs=lenMs,
-                         px=npx, misses=misses(st, want), **st))
+                         px=npx, misses=misses(st, want, name), **st))
         art.append((png, '%s %s  %s\nhue %.0f (want %d)  sat %.0f  lum %.0f  flat %.1f%s'
                     % (fid, name, tk, st['hue'], want, st['sat'], st['lum'], st['flat'],
                        '' if ok else '   MISS'), not ok))
         if verbose:
             print('    %-8s want %3d  %-24s -> hue %5.1f  sat %4.1f  lum %4.1f  flat %4.1f  %s'
                   % (name, want, tk, st['hue'], st['sat'], st['lum'], st['flat'],
-                     'ok' if ok else 'MISS: ' + ', '.join(misses(st, want))))
+                     'ok' if ok else 'MISS: ' + ', '.join(misses(st, want, name))))
     return rows, art
 
 
@@ -394,6 +472,36 @@ def contact(art, out_png, title, cols=4, tile_w=360):
     return out_png
 
 
+MD_HEAD = re.compile(r'^### (FX-\d+)')
+MD_ROW = re.compile(
+    r'^\|\s*([a-z]+)(?:\s+\*\*MISS:\s*([^*]+)\*\*)?\s*\|\s*`([^`]+)`\s*\|'
+    r'\s*([\d.]+)\u00b0 \(want (\d+)\)\s*\|\s*([\d.]+)%\s*\|\s*([\d.]+)%\s*\|'
+    r'\s*([\d.]+)%\s*\|\s*(\d+)\s*\|')
+
+
+def read_md(path):
+    """The rows of a previously published page, back as rows. The table is this tool's own output
+    and every measured column it prints is one this tool wrote, so the page round-trips - which is
+    what lets ONE element be re-solved without re-shooting, or disturbing, the six that are settled.
+    `lenMs`/`px` are not on the page and are not carried; nothing downstream of here reads them."""
+    out, fid = [], None
+    for line in open(path, encoding='utf-8'):
+        h = MD_HEAD.match(line)
+        if h:
+            fid = h.group(1)
+            continue
+        m = MD_ROW.match(line)
+        if m and fid:
+            miss = [x.strip() for x in (m.group(2) or '').split(',') if x.strip()]
+            out.append(dict(sheet=fid, element=m.group(1), token=m.group(3),
+                            hue=float(m.group(4)), want=int(m.group(5)), sat=float(m.group(6)),
+                            lum=float(m.group(7)), flat=float(m.group(8)), ms=int(m.group(9)),
+                            ok=not miss, misses=miss, lenMs=None, px=None, carried=True))
+    if not out:
+        sys.exit('%s: no table rows to carry' % path)
+    return out
+
+
 def write_md(path, rows, a, names, ceil):
     bad = [r for r in rows if not r['ok']]
     L = ['# The white-sheet tints \u2014 the token that actually lands, per sheet \u00d7 element', '',
@@ -418,6 +526,27 @@ def write_md(path, rows, a, names, ceil):
           % (len(low), len(rows)),
           '> under 0.5**, so this page is void against any client older than that change: an older parser',
           '> rejects those rows outright rather than rendering them wrong.', '']
+    cap = [n for n in SAT_BAND if any(r['element'] == n for r in rows)]
+    if cap:
+        for n in cap:
+            lo, hi = SAT_BAND[n]
+            L += ['> **`%s` re-solved %s, and only `%s`: the saturation leg was a floor with no'
+                  % (n, a.date, n),
+                  '> ceiling, and the solver duly spent everything it had on chroma.** That is right for an',
+                  '> element that IS a colour and wrong for one that is not. `%s` had come out a vivid gold -'
+                  % n,
+                  '> 79-87% saturation on 11 of the 12 sheets, the loudest tile on its own contact sheet, and',
+                  '> louder in chroma than the untinted white it was replacing. Three things make that wrong and',
+                  '> they compound: `%s` is the **default** element and carries **217 of the 419 moves**, so a' % n,
+                  '> vivid gold there is a uniform gold wash over half the game; its own hex `#d8cfc0` is a light',
+                  '> **neutral**; and `vxHitBone` measures **3.8%** saturation over real creature art, so the layer',
+                  '> would have flashed gold while the sprite tinted near-grey. Layer and flash agreeing is the',
+                  '> whole reason the element hue table and `VXHITH` share their numbers. The target now carries a',
+                  '> per-element **band** (`SAT_BAND` in the tool, a table and not a branch, because a later',
+                  '> element may want one): `%s` is solved to **%g%% \u2264 sat \u2264 %g%%** with `lum \u2264 %g%%` unchanged.'
+                  % (n, lo, hi, LUM_MAX),
+                  '> **The other six elements were not re-solved and their tokens below are the published ones,',
+                  '> carried verbatim** - re-shot for the contact sheets, never re-measured.', '']
     ex = next((r for r in rows if r['sheet'] == 'FX-038' and r['element'] == 'green'), rows[0])
     L += ['## How to read a row', '',
           '`%s` + `%s` \u2192 write `%s`, i.e. the whole layer is' % (ex['sheet'], ex['element'], ex['token']),
@@ -439,7 +568,13 @@ def write_md(path, rows, a, names, ceil):
           '  through. The mask is frozen per sheet, so two tokens are compared on the same pixels.',
           '- Reported on the **top luminance decile** of that mask: `hue` a chroma-weighted circular mean,',
           '  `sat` and `lum` HSL, `flat` the share at HSV value \u2265 250 and HSV saturation \u2264 0.08.',
-          '- **Target:** hue within \u00b1%g\u00b0 \u00b7 lum \u2264 %g%% \u00b7 flat = 0%% \u00b7 sat \u2265 %g%%.' % (HUE_TOL, LUM_MAX, SAT_MIN),
+          '- **Target:** hue within \u00b1%g\u00b0 \u00b7 lum \u2264 %g%% \u00b7 flat = 0%% \u00b7 sat \u2265 %g%%,'
+          % (HUE_TOL, LUM_MAX, SAT_MIN),
+          '  **except where the element carries a band** \u2014 %s. A banded element is solved to sit *inside*'
+          % (', '.join('`%s` %g\u2013%g%%' % (n, lo, hi) for n, (lo, hi) in sorted(SAT_BAND.items()))
+             or 'none'),
+          '  its band, just under the ceiling rather than at zero, because hue is a chroma-weighted mean and a',
+          '  layer with no chroma has no measurable hue to put on the element.',
           '- The chain a `k` layer renders through is `brightness(br) sepia(1) saturate(2.4) hue-rotate(h\u221240)',
           '  saturate(sat)`. `br` is the **first** primitive, so every candidate value of it costs a screenshot',
           '  here; `sat` is the last, so that axis is ranked on pixels already shot and only the winner is re-shot.',
@@ -468,7 +603,11 @@ def write_md(path, rows, a, names, ceil):
     els = [n for n, _ in ELEMENTS if any(r['element'] == n for r in rows)]
     L += ['## The saturation reached, every pair', '',
           'The leg that could not be met at all before the reorder. Read down a column to see how an element',
-          'fares across the sheets; the floor is %g%%.' % SAT_MIN, '',
+          'fares across the sheets; the floor is %g%% for an unbanded element%s.'
+          % (SAT_MIN,
+             ''.join(', and %s is capped at %g%%' % (n, hi) for n, (lo, hi) in sorted(SAT_BAND.items()))),
+          '', '**Read the banded columns downwards, not across:** a banded element is deliberately the',
+          'quietest column on the page and is not competing with the rest.', '',
           '| sheet | ' + ' | '.join(els) + ' |', '|---' * (len(els) + 1) + '|']
     for fid in [s for s in SHEETS if any(r['sheet'] == s for r in rows)]:
         cell = {r['element']: r['sat'] for r in rows if r['sheet'] == fid}
@@ -519,9 +658,10 @@ def write_md(path, rows, a, names, ceil):
                   'Shoot it before taking it. A miss of a few points of lightness on a layer that is correctly',
                   'hued, fully coloured and free of flat white is a far smaller defect than the white pop this',
                   'pass set out to remove.', '']
-    L += ['## The ceiling, per sheet', '',
-          'The highest saturation each sheet reached at any element, and the token that reached it.', '',
-          '| sheet | best sat reached | at | floor |', '|---|---|---|---|']
+    L += ['## The highest saturation each sheet can reach', '',
+          'The most chroma any element got out of each sheet, and the token that got it. Not to be confused',
+          'with the per-element **ceiling** above: this is what the art allows, that is what a ruling permits.',
+          '', '| sheet | best sat reached | at | floor |', '|---|---|---|---|']
     for fid, (sv, tk) in ceil.items():
         L.append('| %s | **%.0f%%** | `%s` | %g%% |' % (fid, sv, tk, SAT_MIN))
     L += ['',
@@ -600,6 +740,9 @@ def main():
     ap.add_argument('--date', default=time.strftime('%Y-%m-%d'))
     ap.add_argument('--filter-check', action='store_true',
                     help='render the `k` chain on a white pixel, browser beside the spec matrices')
+    ap.add_argument('--carry', default='',
+                    help='a published VFX_SHEET_TINTS.md: every element NOT in --elements is carried '
+                         'from it verbatim - re-shot for the contact sheet, never re-solved')
     ap.add_argument('--from-json', default='', dest='from_json',
                     help='re-write the page from a previous run\'s --json, shooting nothing')
     a = ap.parse_args()
@@ -623,6 +766,16 @@ def main():
     if not ids or not els:
         sys.exit('nothing to calibrate')
 
+    # the settled elements, carried off the published page rather than re-solved
+    carry = {}
+    if a.carry:
+        for r in read_md(a.carry):
+            if r['element'] not in want:
+                carry.setdefault(r['sheet'], {})[r['element']] = r
+        print('carrying %d rows from %s (elements %s)'
+              % (sum(len(v) for v in carry.values()), a.carry,
+                 ','.join(sorted({r for v in carry.values() for r in v}))))
+
     from playwright.sync_api import sync_playwright
     t0 = time.time()
     port = VS.free_port(8520)
@@ -639,7 +792,8 @@ def main():
             pg.wait_for_timeout(900)
             rig = Rig(pg, a.move, a.stage, a.scale, a.pad)
             for fid in ids:
-                rs, art = solve_sheet(rig, fid, els, a.plate_max, a.hue_step)
+                rs, art = solve_sheet(rig, fid, els, a.plate_max, a.hue_step,
+                                      carry=carry.get(fid))
                 rows += rs
                 top = max(rs, key=lambda r: r['sat'])
                 ceil[fid] = (top['sat'], top['token'])

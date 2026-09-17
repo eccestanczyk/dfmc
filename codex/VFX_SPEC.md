@@ -88,6 +88,47 @@ touch an approval.
 
 ## Changelog
 
+- **2026-09-17** - **`bone` is a dark neutral, not vivid gold: the calibration target gets a
+  per-element saturation CEILING.** Owning pages: this one and `codex/VFX_SHEET_TINTS.md` (the 12
+  `bone` tokens, rewritten by the tool). What was wrong: the entry below records the re-solve
+  reaching 84/84, and the colours were right - except `bone`, which landed at HSL saturation
+  **79-87 % on 11 of the 12 sheets** (FX-038: `k h40 br0.65 sat1.5`, sat 86 %, lum 52 %). On its own
+  contact sheet it was the loudest tile of the eight, louder in chroma than the untinted white
+  original it replaces. Three things make that wrong and they compound. **`bone` is the default
+  element and carries 217 of the 419 moves**, so a vivid gold there is a uniform gold wash over half
+  the game's abilities; `bone` is the "no strong element" case and has to read as restrained. Its
+  own hex is `#d8cfc0`, a light **neutral** - nothing in the element table asks for gold. And the
+  hit tint disagrees with the layer: **`vxHitBone` measures 3.8 % saturation over real creature
+  art** (it is the dark-neutral exception the `!flash` entry below records), so a `bone` move would
+  have flashed vivid gold on the layer while the sprite tinted near-grey. Layer and flash agreeing
+  is the whole reason the element hue table and `VXHITH` share their numbers.
+
+  The mechanism was structural and not a bad search: **the target's saturation leg was a floor
+  (`>= 25 %`) with no ceiling**, so the solver correctly spent everything it had on chroma. That is
+  right for an element that IS a colour and wrong for one that is not. The fix: `tools/vfx_calibrate.py`
+  carries a **`SAT_BAND` table**, element -> (floor, ceiling) - a table and not a branch buried in
+  the solver, because a later element may want one. `bone` is banded **0-18 %** with `lum <= 55 %`
+  unchanged; every other element is absent from the table and keeps the bare floor with no ceiling,
+  so **nothing else in the target moved**. Three things follow the band through the tool: `misses`
+  and `score` take the element and weight the ceiling like the hue leg; the `sat` search axis, which
+  is floored at 0.8 for an unbanded element on purpose, opens to the grammar's whole 0-1.5 for a
+  banded one (it costs nothing - `sat` is the last primitive, so that axis is ranked in numpy on
+  pixels already shot); and the solver aims just UNDER the ceiling rather than at zero, because hue
+  is a chroma-weighted mean and a layer with no chroma has no measurable hue to put on the element.
+
+  What it buys, measured: **`bone` re-solves on all 12 sheets to sat 13.6-15.3 %, hue 33.7-38.7 deg
+  (want 38), lum 27.4-50.6 %, flat white 0.0 %** - a dim, faintly warm neutral. The table is
+  **84/84** again with no leg missed on any pair. **Only `bone` was re-solved**: the tool grew a
+  `--carry` that reads a published `VFX_SHEET_TINTS.md` and carries every element not being solved
+  forward verbatim - re-shot on the same rig so the contact sheets stay the eight-tile comparison
+  they are looked at as, never re-measured - and the other six elements' 72 published rows are
+  field-identical to before, checked and not assumed. Nothing in `codex/move_vfx.csv` or
+  `codex/moves.csv` changes; no client change, no engine change, no grammar change - `sat0.35` and
+  `br0.3` were already legal. Judgement recorded and deliberately not acted on: **`green` reaches
+  76 % on FX-038** and 56-74 % elsewhere, well above the 43-51 % of red/blue/crimson, so the element
+  set does not read as one family; only **5 moves** carry `green`, so it is nearly harmless either
+  way and no band was added for it.
+
 - **2026-09-17** - **The `br` floor comes down 0.5 -> 0.3, and the white-sheet tints re-solve
   32/84 -> 84/84.** Owning pages: this one (the grammar table, `br<f>`) and `codex/VFX_SHEET_TINTS.md`
   (the tokens themselves, rewritten by the tool). What was wrong: the filter reorder the entry below

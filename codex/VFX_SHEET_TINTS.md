@@ -19,9 +19,24 @@ the row below**, verbatim, into every layer that uses that sheet at that element
 > saturation leg and lost the luminance one: that solve hit the full target on 32 of 84 pairs and
 > all 52 misses were `lum ≤ 55%`, every one of them sitting on the old floor with nowhere left to
 > go. The floor is one number in two places - `RANGE` in `tools/fx_lint.py` and in the client's
-> `VFX_BANK` parser - and lowering it closed all 52. **57 of the 84 tokens below now carry a `br`
+> `VFX_BANK` parser - and lowering it closed all 52. **67 of the 84 tokens below now carry a `br`
 > under 0.5**, so this page is void against any client older than that change: an older parser
 > rejects those rows outright rather than rendering them wrong.
+
+> **`bone` re-solved 2026-09-17, and only `bone`: the saturation leg was a floor with no
+> ceiling, and the solver duly spent everything it had on chroma.** That is right for an
+> element that IS a colour and wrong for one that is not. `bone` had come out a vivid gold -
+> 79-87% saturation on 11 of the 12 sheets, the loudest tile on its own contact sheet, and
+> louder in chroma than the untinted white it was replacing. Three things make that wrong and
+> they compound: `bone` is the **default** element and carries **217 of the 419 moves**, so a
+> vivid gold there is a uniform gold wash over half the game; its own hex `#d8cfc0` is a light
+> **neutral**; and `vxHitBone` measures **3.8%** saturation over real creature art, so the layer
+> would have flashed gold while the sprite tinted near-grey. Layer and flash agreeing is the
+> whole reason the element hue table and `VXHITH` share their numbers. The target now carries a
+> per-element **band** (`SAT_BAND` in the tool, a table and not a branch, because a later
+> element may want one): `bone` is solved to **0% ≤ sat ≤ 18%** with `lum ≤ 55%` unchanged.
+> **The other six elements were not re-solved and their tokens below are the published ones,
+> carried verbatim** - re-shot for the contact sheets, never re-measured.
 
 ## How to read a row
 
@@ -42,7 +57,10 @@ the row below**, verbatim, into every layer that uses that sheet at that element
   through. The mask is frozen per sheet, so two tokens are compared on the same pixels.
 - Reported on the **top luminance decile** of that mask: `hue` a chroma-weighted circular mean,
   `sat` and `lum` HSL, `flat` the share at HSV value ≥ 250 and HSV saturation ≤ 0.08.
-- **Target:** hue within ±18° · lum ≤ 55% · flat = 0% · sat ≥ 25%.
+- **Target:** hue within ±18° · lum ≤ 55% · flat = 0% · sat ≥ 25%,
+  **except where the element carries a band** — `bone` 0–18%. A banded element is solved to sit *inside*
+  its band, just under the ceiling rather than at zero, because hue is a chroma-weighted mean and a
+  layer with no chroma has no measurable hue to put on the element.
 - The chain a `k` layer renders through is `brightness(br) sepia(1) saturate(2.4) hue-rotate(h−40)
   saturate(sat)`. `br` is the **first** primitive, so every candidate value of it costs a screenshot
   here; `sat` is the last, so that axis is ranked on pixels already shot and only the winner is re-shot.
@@ -56,7 +74,7 @@ the row below**, verbatim, into every layer that uses that sheet at that element
 |---|---|---|---|---|---|---|
 | red | `k h352 br0.3 sat1.5` | 1° (want 0) | 43% | 48% | 0.0% | 542 |
 | rust | `k h15 br0.4 sat1.5` | 20° (want 19) | 65% | 52% | 0.0% | 542 |
-| bone | `k h40 br0.55 sat1.5` | 38° (want 38) | 87% | 53% | 0.0% | 542 |
+| bone | `k h40 br0.35 sat0.35` | 39° (want 38) | 15% | 41% | 0.0% | 542 |
 | green | `k h120 br0.55 sat1.5` | 132° (want 134) | 69% | 51% | 0.0% | 542 |
 | blue | `k h229 br0.3 sat1.5` | 227° (want 222) | 44% | 48% | 0.0% | 542 |
 | purple | `k h259 br0.35 sat0.95` | 261° (want 272) | 30% | 53% | 0.0% | 542 |
@@ -68,7 +86,7 @@ the row below**, verbatim, into every layer that uses that sheet at that element
 |---|---|---|---|---|---|---|
 | red | `k h0 br0.45 sat1.5` | 2° (want 0) | 40% | 27% | 0.0% | 500 |
 | rust | `k h15 br0.5 sat1.5` | 16° (want 19) | 49% | 26% | 0.0% | 500 |
-| bone | `k h45 br0.65 sat1.5` | 42° (want 38) | 64% | 24% | 0.0% | 500 |
+| bone | `k h45 br0.6 sat0.45` | 34° (want 38) | 14% | 27% | 0.0% | 500 |
 | green | `k h117 br0.65 sat1.5` | 132° (want 134) | 56% | 24% | 0.0% | 500 |
 | blue | `k h225 br0.45 sat1.5` | 226° (want 222) | 44% | 28% | 0.0% | 500 |
 | purple | `k h264 br0.5 sat1.5` | 270° (want 272) | 34% | 30% | 0.0% | 500 |
@@ -80,7 +98,7 @@ the row below**, verbatim, into every layer that uses that sheet at that element
 |---|---|---|---|---|---|---|
 | red | `k h352 br0.35 sat1.5` | 0° (want 0) | 44% | 49% | 0.0% | 88 |
 | rust | `k h15 br0.45 sat1.5` | 20° (want 19) | 65% | 51% | 0.0% | 88 |
-| bone | `k h40 br0.65 sat1.5` | 40° (want 38) | 86% | 52% | 0.0% | 88 |
+| bone | `k h40 br0.45 sat0.35` | 38° (want 38) | 15% | 45% | 0.0% | 88 |
 | green | `k h120 br0.65 sat1.5` | 132° (want 134) | 76% | 53% | 0.0% | 88 |
 | blue | `k h225 br0.4 sat1.4` | 223° (want 222) | 51% | 53% | 0.0% | 88 |
 | purple | `k h264 br0.35 sat1.5` | 266° (want 272) | 41% | 50% | 0.0% | 88 |
@@ -92,7 +110,7 @@ the row below**, verbatim, into every layer that uses that sheet at that element
 |---|---|---|---|---|---|---|
 | red | `k h352 br0.35 sat1.45` | 1° (want 0) | 48% | 53% | 0.0% | 300 |
 | rust | `k h15 br0.4 sat1.5` | 20° (want 19) | 62% | 50% | 0.0% | 300 |
-| bone | `k h40 br0.55 sat1.5` | 39° (want 38) | 81% | 50% | 0.0% | 300 |
+| bone | `k h40 br0.4 sat0.35` | 38° (want 38) | 15% | 44% | 0.0% | 300 |
 | green | `k h120 br0.55 sat1.5` | 132° (want 134) | 67% | 49% | 0.0% | 300 |
 | blue | `k h225 br0.35 sat1.5` | 223° (want 222) | 50% | 51% | 0.0% | 300 |
 | purple | `k h261 br0.3 sat1.5` | 263° (want 272) | 38% | 48% | 0.0% | 300 |
@@ -104,7 +122,7 @@ the row below**, verbatim, into every layer that uses that sheet at that element
 |---|---|---|---|---|---|---|
 | red | `k h351 br0.3 sat1.5` | 360° (want 0) | 43% | 48% | 0.0% | 300 |
 | rust | `k h15 br0.4 sat1.5` | 20° (want 19) | 65% | 52% | 0.0% | 300 |
-| bone | `k h40 br0.55 sat1.5` | 39° (want 38) | 86% | 53% | 0.0% | 300 |
+| bone | `k h40 br0.4 sat0.35` | 38° (want 38) | 15% | 46% | 0.0% | 300 |
 | green | `k h120 br0.55 sat1.5` | 132° (want 134) | 69% | 51% | 0.0% | 300 |
 | blue | `k h229 br0.3 sat1.5` | 226° (want 222) | 44% | 47% | 0.0% | 300 |
 | purple | `k h260 br0.3 sat1.5` | 262° (want 272) | 38% | 50% | 0.0% | 300 |
@@ -116,7 +134,7 @@ the row below**, verbatim, into every layer that uses that sheet at that element
 |---|---|---|---|---|---|---|
 | red | `k h352 br0.35 sat1.4` | 1° (want 0) | 46% | 53% | 0.0% | 542 |
 | rust | `k h15 br0.4 sat1.5` | 20° (want 19) | 62% | 50% | 0.0% | 542 |
-| bone | `k h40 br0.55 sat1.5` | 39° (want 38) | 82% | 51% | 0.0% | 542 |
+| bone | `k h40 br0.4 sat0.35` | 38° (want 38) | 15% | 44% | 0.0% | 542 |
 | green | `k h120 br0.55 sat1.5` | 132° (want 134) | 67% | 49% | 0.0% | 542 |
 | blue | `k h225 br0.35 sat1.5` | 223° (want 222) | 51% | 52% | 0.0% | 542 |
 | purple | `k h261 br0.3 sat1.5` | 263° (want 272) | 38% | 48% | 0.0% | 542 |
@@ -128,7 +146,7 @@ the row below**, verbatim, into every layer that uses that sheet at that element
 |---|---|---|---|---|---|---|
 | red | `k h352 br0.3 sat1.5` | 1° (want 0) | 43% | 48% | 0.0% | 758 |
 | rust | `k h15 br0.4 sat1.5` | 20° (want 19) | 65% | 52% | 0.0% | 758 |
-| bone | `k h40 br0.55 sat1.5` | 38° (want 38) | 87% | 53% | 0.0% | 758 |
+| bone | `k h40 br0.35 sat0.35` | 37° (want 38) | 15% | 41% | 0.0% | 758 |
 | green | `k h120 br0.55 sat1.5` | 132° (want 134) | 69% | 51% | 0.0% | 758 |
 | blue | `k h229 br0.3 sat1.5` | 226° (want 222) | 44% | 48% | 0.0% | 758 |
 | purple | `k h259 br0.3 sat1.5` | 260° (want 272) | 38% | 50% | 0.0% | 758 |
@@ -140,7 +158,7 @@ the row below**, verbatim, into every layer that uses that sheet at that element
 |---|---|---|---|---|---|---|
 | red | `k h352 br0.35 sat1.4` | 1° (want 0) | 46% | 53% | 0.0% | 300 |
 | rust | `k h15 br0.4 sat1.5` | 20° (want 19) | 61% | 50% | 0.0% | 300 |
-| bone | `k h40 br0.55 sat1.5` | 39° (want 38) | 80% | 50% | 0.0% | 300 |
+| bone | `k h40 br0.3 sat0.35` | 39° (want 38) | 15% | 33% | 0.0% | 300 |
 | green | `k h120 br0.55 sat1.5` | 132° (want 134) | 67% | 49% | 0.0% | 300 |
 | blue | `k h225 br0.35 sat1.5` | 223° (want 222) | 50% | 51% | 0.0% | 300 |
 | purple | `k h263 br0.3 sat1.5` | 265° (want 272) | 39% | 47% | 0.0% | 300 |
@@ -152,7 +170,7 @@ the row below**, verbatim, into every layer that uses that sheet at that element
 |---|---|---|---|---|---|---|
 | red | `k h352 br0.3 sat1.5` | 1° (want 0) | 43% | 48% | 0.0% | 542 |
 | rust | `k h15 br0.4 sat1.5` | 20° (want 19) | 64% | 52% | 0.0% | 542 |
-| bone | `k h40 br0.55 sat1.5` | 39° (want 38) | 85% | 52% | 0.0% | 542 |
+| bone | `k h40 br0.3 sat0.35` | 38° (want 38) | 15% | 34% | 0.0% | 542 |
 | green | `k h120 br0.55 sat1.5` | 132° (want 134) | 69% | 51% | 0.0% | 542 |
 | blue | `k h229 br0.3 sat1.5` | 226° (want 222) | 44% | 47% | 0.0% | 542 |
 | purple | `k h260 br0.3 sat1.5` | 262° (want 272) | 38% | 49% | 0.0% | 542 |
@@ -164,7 +182,7 @@ the row below**, verbatim, into every layer that uses that sheet at that element
 |---|---|---|---|---|---|---|
 | red | `k h352 br0.4 sat1.5` | 0° (want 0) | 45% | 51% | 0.0% | 500 |
 | rust | `k h15 br0.5 sat1.5` | 19° (want 19) | 65% | 52% | 0.0% | 500 |
-| bone | `k h41 br0.65 sat1.5` | 40° (want 38) | 79% | 49% | 0.0% | 500 |
+| bone | `k h41 br0.55 sat0.35` | 38° (want 38) | 15% | 51% | 0.0% | 500 |
 | green | `k h120 br0.75 sat1.5` | 139° (want 134) | 72% | 52% | 0.0% | 500 |
 | blue | `k h225 br0.4 sat1.5` | 223° (want 222) | 48% | 49% | 0.0% | 500 |
 | purple | `k h266 br0.4 sat1.5` | 268° (want 272) | 43% | 52% | 0.0% | 500 |
@@ -176,7 +194,7 @@ the row below**, verbatim, into every layer that uses that sheet at that element
 |---|---|---|---|---|---|---|
 | red | `k h352 br0.35 sat1.5` | 0° (want 0) | 44% | 48% | 0.0% | 325 |
 | rust | `k h15 br0.45 sat1.5` | 19° (want 19) | 64% | 50% | 0.0% | 325 |
-| bone | `k h40 br0.65 sat1.5` | 40° (want 38) | 86% | 52% | 0.0% | 325 |
+| bone | `k h40 br0.45 sat0.35` | 38° (want 38) | 15% | 45% | 0.0% | 325 |
 | green | `k h120 br0.65 sat1.5` | 132° (want 134) | 74% | 52% | 0.0% | 325 |
 | blue | `k h225 br0.4 sat1.5` | 223° (want 222) | 54% | 53% | 0.0% | 325 |
 | purple | `k h266 br0.35 sat1.5` | 268° (want 272) | 41% | 49% | 0.0% | 325 |
@@ -188,7 +206,7 @@ the row below**, verbatim, into every layer that uses that sheet at that element
 |---|---|---|---|---|---|---|
 | red | `k h352 br0.3 sat1.5` | 1° (want 0) | 43% | 48% | 0.0% | 700 |
 | rust | `k h15 br0.4 sat1.5` | 20° (want 19) | 65% | 52% | 0.0% | 700 |
-| bone | `k h40 br0.55 sat1.5` | 38° (want 38) | 87% | 53% | 0.0% | 700 |
+| bone | `k h40 br0.35 sat0.35` | 38° (want 38) | 15% | 41% | 0.0% | 700 |
 | green | `k h120 br0.55 sat1.5` | 132° (want 134) | 69% | 51% | 0.0% | 700 |
 | blue | `k h229 br0.3 sat1.5` | 227° (want 222) | 44% | 48% | 0.0% | 700 |
 | purple | `k h259 br0.35 sat0.95` | 261° (want 272) | 30% | 53% | 0.0% | 700 |
@@ -197,24 +215,27 @@ the row below**, verbatim, into every layer that uses that sheet at that element
 ## The saturation reached, every pair
 
 The leg that could not be met at all before the reorder. Read down a column to see how an element
-fares across the sheets; the floor is 25%.
+fares across the sheets; the floor is 25% for an unbanded element, and bone is capped at 18%.
+
+**Read the banded columns downwards, not across:** a banded element is deliberately the
+quietest column on the page and is not competing with the rest.
 
 | sheet | red | rust | bone | green | blue | purple | crimson |
 |---|---|---|---|---|---|---|---|
-| FX-051 | 43% | 65% | 87% | 69% | 44% | 30% | 43% |
-| FX-034 | 40% | 49% | 64% | 56% | 44% | 34% | 39% |
-| FX-038 | 44% | 65% | 86% | 76% | 51% | 41% | 45% |
-| FX-032 | 48% | 62% | 81% | 67% | 50% | 38% | 46% |
-| FX-045 | 43% | 65% | 86% | 69% | 44% | 38% | 43% |
-| FX-044 | 46% | 62% | 82% | 67% | 51% | 38% | 45% |
-| FX-043 | 43% | 65% | 87% | 69% | 44% | 38% | 43% |
-| FX-029 | 46% | 61% | 80% | 67% | 50% | 39% | 46% |
-| FX-042 | 43% | 64% | 85% | 69% | 44% | 38% | 43% |
-| FX-036 | 45% | 65% | 79% | 72% | 48% | 43% | 46% |
-| FX-050 | 44% | 64% | 86% | 74% | 54% | 41% | 44% |
-| FX-008 | 43% | 65% | 87% | 69% | 44% | 30% | 43% |
+| FX-051 | 43% | 65% | 15% | 69% | 44% | 30% | 43% |
+| FX-034 | 40% | 49% | 14% | 56% | 44% | 34% | 39% |
+| FX-038 | 44% | 65% | 15% | 76% | 51% | 41% | 45% |
+| FX-032 | 48% | 62% | 15% | 67% | 50% | 38% | 46% |
+| FX-045 | 43% | 65% | 15% | 69% | 44% | 38% | 43% |
+| FX-044 | 46% | 62% | 15% | 67% | 51% | 38% | 45% |
+| FX-043 | 43% | 65% | 15% | 69% | 44% | 38% | 43% |
+| FX-029 | 46% | 61% | 15% | 67% | 50% | 39% | 46% |
+| FX-042 | 43% | 64% | 15% | 69% | 44% | 38% | 43% |
+| FX-036 | 45% | 65% | 15% | 72% | 48% | 43% | 46% |
+| FX-050 | 44% | 64% | 15% | 74% | 54% | 41% | 44% |
+| FX-008 | 43% | 65% | 15% | 69% | 44% | 30% | 43% |
 
-Per element, mean over the sheets solved: **purple 37%**, **crimson 44%**, **red 44%**, **blue 47%**, **rust 63%**, **green 69%**, **bone 82%**.
+Per element, mean over the sheets solved: **bone 15%**, **purple 37%**, **crimson 44%**, **red 44%**, **blue 47%**, **rust 63%**, **green 69%**.
 
 ## What the grammar cannot reach
 
@@ -224,24 +245,25 @@ needed for any of the sheets, no new art, and neither engine lever the first sol
 (raising `saturate(2.4)`, or lifting the `sat` ceiling) was required: each was worth about 7
 points of saturation where the filter reorder was worth about 40.
 
-## The ceiling, per sheet
+## The highest saturation each sheet can reach
 
-The highest saturation each sheet reached at any element, and the token that reached it.
+The most chroma any element got out of each sheet, and the token that got it. Not to be confused
+with the per-element **ceiling** above: this is what the art allows, that is what a ruling permits.
 
 | sheet | best sat reached | at | floor |
 |---|---|---|---|
-| FX-051 | **87%** | `k h40 br0.55 sat1.5` | 25% |
-| FX-034 | **64%** | `k h45 br0.65 sat1.5` | 25% |
-| FX-038 | **86%** | `k h40 br0.65 sat1.5` | 25% |
-| FX-032 | **81%** | `k h40 br0.55 sat1.5` | 25% |
-| FX-045 | **86%** | `k h40 br0.55 sat1.5` | 25% |
-| FX-044 | **82%** | `k h40 br0.55 sat1.5` | 25% |
-| FX-043 | **87%** | `k h40 br0.55 sat1.5` | 25% |
-| FX-029 | **80%** | `k h40 br0.55 sat1.5` | 25% |
-| FX-042 | **85%** | `k h40 br0.55 sat1.5` | 25% |
-| FX-036 | **79%** | `k h41 br0.65 sat1.5` | 25% |
-| FX-050 | **86%** | `k h40 br0.65 sat1.5` | 25% |
-| FX-008 | **87%** | `k h40 br0.55 sat1.5` | 25% |
+| FX-051 | **69%** | `k h120 br0.55 sat1.5` | 25% |
+| FX-034 | **56%** | `k h117 br0.65 sat1.5` | 25% |
+| FX-038 | **76%** | `k h120 br0.65 sat1.5` | 25% |
+| FX-032 | **67%** | `k h120 br0.55 sat1.5` | 25% |
+| FX-045 | **69%** | `k h120 br0.55 sat1.5` | 25% |
+| FX-044 | **67%** | `k h120 br0.55 sat1.5` | 25% |
+| FX-043 | **69%** | `k h120 br0.55 sat1.5` | 25% |
+| FX-029 | **67%** | `k h120 br0.55 sat1.5` | 25% |
+| FX-042 | **69%** | `k h120 br0.55 sat1.5` | 25% |
+| FX-036 | **72%** | `k h120 br0.75 sat1.5` | 25% |
+| FX-050 | **74%** | `k h120 br0.65 sat1.5` | 25% |
+| FX-008 | **69%** | `k h120 br0.55 sat1.5` | 25% |
 
 *A model of a renderer is not the renderer.* The first version of this page was written against a
 filter table that composed the CSS matrices and clamped once at the end; a browser clamps between
