@@ -5,7 +5,7 @@ Patterned on tools/vfx_bank_gate.py, and holding the same line D drew on 2026-09
 is not proof it is right. This one cannot hear anything. What it CAN prove:
 
   * vfx.html and audio.html both boot with zero page errors and zero console errors
-  * every `File` cell in codex/afx_bank.csv (606) and codex/bgm.csv (13) and codex/afx_events.csv (34)
+  * every `File` cell in codex/afx_bank.csv (852) and codex/bgm.csv (10) and codex/afx_events.csv (34)
     actually fetches 200 from the served tree
   * the review page casts through the SAME player the client will (window.DFMC_AFX_BANK), and every
     cast of a row that HAS a composition reaches DFMC_AFX_BANK.play with a PARSED one - read off the
@@ -189,8 +189,10 @@ async def main():
                 'all %d present, %d more authored for events the client does not cue yet'
                 % (len(cued), len(ev) - len(cued)))
 
-            # and the beds the client asks for by name
-            want_tracks = ['hub', 'boss', 'title']
+            # and the beds the client asks for by name. There are TEN, one per zone, and no others
+            # [R D 2026-09-24]: the bed belongs to the zone, not to the screen, so there is nothing
+            # for a hub window, a boss floor or the title screen to swap in.
+            want_tracks = []
             zone_names = [r['Zone'] for r in rows('floors.csv')]
             seen_z = []
             for z in zone_names:
@@ -201,9 +203,9 @@ async def main():
                 ' const bad=ids.filter(i=>!T[i]||!T[i].file);'
                 ' zones.slice(0,10).forEach((z,n)=>{ if(!DFMC_AFX_BANK.trackForZone(z)) bad.push("zone "+z); });'
                 ' return bad;}', [want_tracks, seen_z])
-            chk('hub / boss / title and the ten zone beds all resolve by the names the client uses',
+            chk('the ten zone beds all resolve by the names the client uses, and there are no others',
                 not miss_t, 'missing: %s' % ', '.join(miss_t) if miss_t else
-                'hub, boss, title + %s' % ', '.join(seen_z[:3] + ['...']))
+                'the ten zone beds: %s' % ', '.join(seen_z[:3] + ['...']))
 
             # ---- every asset really is there ----
             await fetch_all(pg, [r['File'] for r in bank], 'afx_bank.csv')
@@ -328,19 +330,22 @@ async def main():
                 'all %d, -shrill %d (expect %d), -both %d, restored %d, "impact" %d'
                 % (filt[0], filt[1], len(bank) - shrill, filt[2], filt[3], filt[4]))
             # the fold, on the page, for all 120 floors
+            # THE BED IS THE FLOOR'S ZONE BED AND NOTHING OVERRIDES IT [R D 2026-09-24]. There is no
+            # boss bed, no hub bed and no title bed: a non-battle screen keeps the zone's bed, a
+            # battle keeps it, and only crossing into another zone changes it.
             fold = await pg2.evaluate("""(()=>{const out=[];
-              for(let f=1;f<=120;f++) out.push([f, zoneOf(f), trackForFloor(f), bossFloor(f)]);
+              for(let f=1;f<=120;f++) out.push([f, zoneOf(f), trackForFloor(f)]);
               return out;})()""")
             zone_ids = [r['Track_ID'] for r in bgm if r['State'] == 'zone']
             wrong = []
-            for f, z, tid, isb in fold:
+            for f, z, tid in fold:
                 want_z = ((f - 101) // 2) + 1 if f >= 101 else ((f - 1) // 10) + 1
-                want = 'boss' if isb else zone_ids[want_z - 1]
+                want = zone_ids[want_z - 1]
                 if z != want_z or tid != want:
                     wrong.append('floor %d -> zone %s / %s (want %s / %s)' % (f, z, tid, want_z, want))
             chk('every floor 1-120 resolves to a bed by the Void Apex fold', not wrong,
                 '%d wrong: %s' % (len(wrong), '; '.join(wrong[:3])) if wrong else
-                'floors 101-120 fold onto the ten zone beds two at a time; 20 boss floors override')
+                'floors 101-120 fold onto the ten zone beds two at a time; nothing overrides a zone bed')
             chk('audio.html: no page errors', not aerr, '; '.join(aerr[:2]))
             chk('audio.html: no console errors', not acerr, '; '.join(acerr[:2]))
             await b.close()

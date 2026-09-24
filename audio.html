@@ -155,7 +155,6 @@ const isClipped=r=>parseFloat(r.Peak_dBFS)>0;
    Floors 101-120 reuse the ten zone beds two floors at a time. The page does NOT re-implement it:
    the player owns the rule, so the page and the game cannot disagree about which bed a floor gets. */
 const zoneOf = f => DFMC_AFX_BANK.zoneFor(f);
-function bossFloor(f){ const r=FLOORS[f-1]; return !!(r && r.Is_Boss==='Yes'); }
 /* The zone INDEX is the player's (zoneFor); the index -> bed step is the player's too
    (trackForZone, matched on the bgm.csv Zone cell). The page supplies only the ordering that turns
    an index into a zone NAME, and it takes that from floors.csv rather than from its own opinion. */
@@ -164,8 +163,11 @@ function zoneNames(){
   for(const r of FLOORS){ if(r.Zone && out.indexOf(r.Zone)<0) out.push(r.Zone); }
   return out;
 }
+/* THE BED IS THE FLOOR'S ZONE BED AND NOTHING ELSE [R D 2026-09-24]. There is no boss bed, no hub
+   bed and no title bed to override it: "every non-battle screen should keep playing the bgm from
+   whichever zone the player is in, and not change the BGM. Only going to a different zone changes it.
+   It shouldn't restart between floors nor at the beginning of battle either." */
 function trackForFloor(f){
-  if(bossFloor(f)) return 'boss';
   const name=zoneNames()[zoneOf(f)-1];
   return name?DFMC_AFX_BANK.trackForZone(name):null;
 }
@@ -183,11 +185,8 @@ function ranges(list){
 function floorsFor(tid){
   const t=BGM.find(r=>r.Track_ID===tid);
   if(!t) return {main:'',apex:''};
-  if(t.State==='boss') return {main:'', apex:''};
-  if(t.State!=='zone') return {main:'', apex:''};
   const all=[], apex=[];
   for(let f=1;f<=FLOORS.length;f++){
-    if(bossFloor(f)) continue;            /* the boss bed overrides on those 20 floors */
     if(trackForFloor(f)!==tid) continue;
     (f>=101?apex:all).push(f);
   }
@@ -269,16 +268,10 @@ function renderBgm(){
         '<th class="num">Len</th><th class="num">KB</th><th></th></tr></thead><tbody>';
   for(const r of rows){
     const f=floorsFor(r.Track_ID);
-    const where=r.State==='zone'?esc(r.Zone)
-      :(r.State==='hub'?'The hub':r.State==='boss'?'Boss floors':'The title screen');
+    const where=esc(r.Zone);
     let floors='<span class="dim">—</span>';
-    if(r.State==='zone'){
-      floors=esc(f.main||'—');
-      if(f.apex) floors+='<br><span class="dim">apex '+esc(f.apex)+'</span>';
-    } else if(r.State==='boss'){
-      const b=[]; for(let i=1;i<=FLOORS.length;i++) if(bossFloor(i)) b.push(i);
-      floors=esc(ranges(b));
-    }
+    floors=esc(f.main||'—');
+    if(f.apex) floors+='<br><span class="dim">apex '+esc(f.apex)+'</span>';
     h+='<tr><td class="mono">'+esc(r.Track_ID)+'</td><td>'+where+'</td><td>'+floors+'</td>'+
        '<td>'+esc(r.Title)+' <span class="dim">— '+esc(r.Author)+'</span><br>'+
        '<a href="'+esc(r.Source_URL)+'" target="_blank" rel="noopener">'+esc(r.Licence)+'</a></td>'+
@@ -360,7 +353,7 @@ function paintFloor(){
                   :('zone '+zoneOf(f));
   document.getElementById('floorOut').innerHTML=
     esc(row.Zone||'?')+' <span class="dim">· '+esc(row.Visual_Theme||'')+'</span> → <b>'+esc(tid||'—')+'</b>'+
-    ' <span class="dim">('+(bossFloor(f)?'boss floor, the boss bed overrides':esc(via))+
+    ' <span class="dim">('+esc(via)+
     (t.Title?' · '+esc(t.Title):'')+')</span>';
   document.getElementById('floorPlay').dataset.track=tid||'';
 }

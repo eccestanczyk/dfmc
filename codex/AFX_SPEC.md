@@ -140,14 +140,28 @@ Files under `assets/afx/cues/<name>.ogg`, copied from the dungeon's authored cue
 would fork them. `Trigger` is the Tower's own sentence: the same recording, a different game's moment.
 `Retrigger_Ms` is the minimum gap between two plays of one event; blank means no limit.
 
-### `codex/bgm.csv` — 13 tracks
+### `codex/bgm.csv` — 10 tracks
 
 `Track_ID, State, Zone, File, Gain, LUFS, Peak_dBFS, Seconds, KB, Title, Author, Source_URL, Licence,
 Notes`
 
-Ten zone beds plus `hub`, `boss` and `title`. `Zone` matches `codex/floors.csv` `Zone` **exactly** and
-is blank for the three that are not zones. `LUFS` and `Peak_dBFS` are measured **in file**; `Gain` is
-the multiplier that lands the file at −29 LUFS at play.
+Ten zone beds and nothing else. `Zone` matches `codex/floors.csv` `Zone` **exactly**; `LUFS` and
+`Peak_dBFS` are measured **in file**; `Gain` is the multiplier that lands the file at −29 LUFS at play.
+
+#### The bed is the zone's, and only a zone change moves it [R D 2026-09-24]
+
+> *"Every non-battle screen: those should keep playing the bgm from whichever zone the player is in,
+> and not change the BGM. Only going to a different zone changes it. It shouldn't restart between
+> floors nor at the beginning of battle either."*
+
+So there is **no hub bed, no boss bed and no title bed** — the three that were ingested on
+2026-09-24 are removed, with their files, and the ten zone beds are the whole table. A screen is not
+a bed: the hub, the shop, the codex, the inventory and the battle all keep whatever the player's
+current zone is playing. Entering a floor does not restart it; entering a battle does not restart
+it; only crossing into a different zone crossfades, 1200 ms in and 900 ms out.
+
+That also means `bgm.csv` has no `State` value but `zone` and no blank `Zone` cell, and `audio.html`
+resolves a floor to a bed by the fold below with nothing allowed to override it.
 
 ### The Void Apex fold [R D 2026-09-24]
 
@@ -164,7 +178,7 @@ zone = floor >= 101 ? ((floor - 101) // 2) + 1
 The climb is heard a second time at four times the speed, which is what the apex is. The dungeon's
 `music_zone_void` bed is **not** ingested and the Tower has no eleventh bed to license.
 
-`boss` overrides the zone bed on the 20 boss floors (10, 20 … 100, then every even floor 102–120).
+Nothing overrides it. A boss floor plays its own zone's bed like every other floor.
 
 ## The player contract — `AFX_BANK`
 
