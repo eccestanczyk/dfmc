@@ -92,6 +92,13 @@ input.txt:focus{border-color:var(--gold-dim)}
 .now .meta{color:var(--ink-dim)}
 .now .chip{border:1px solid var(--line2);padding:2px 7px;font-size:10px;color:var(--ink-dim);
   text-transform:uppercase;letter-spacing:.05em}
+/* An UNAUTHORED sound is not a neutral state and must not look like one - it is the whole point of
+   the AFX run that a row without a composition is visible at a glance. */
+.now .chip.unauth{border-color:var(--warn);color:var(--warn)}
+.now .chip.comp{text-transform:none;letter-spacing:0;font-family:ui-monospace,Menlo,Consolas,monospace;
+  color:var(--ink);max-width:46ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mv-btn .t2 .unauth{color:var(--warn)}
+.mv-btn .t2 .comp{font-family:ui-monospace,Menlo,Consolas,monospace;color:var(--gold-dim)}
 .desc{padding:0 12px 10px;border:1px solid var(--line);border-top:0;background:var(--panel);
   color:var(--ink-dim);font-size:12px;font-style:italic;line-height:1.5}
 
@@ -132,7 +139,8 @@ input.txt:focus{border-color:var(--gold-dim)}
 .mv-btn.sel{border-color:var(--gold);background:#241d13}
 .mv-btn .slot{font-family:'Cinzel',serif;color:var(--gold-dim);font-size:13px;min-width:14px}
 .mv-btn .t1{display:block;font-family:'Cinzel',serif;font-size:12px;color:var(--ink)}
-.mv-btn .t2{display:block;font-size:10px;color:var(--ink-dim);letter-spacing:.03em;margin-top:2px}
+.mv-btn .t2{display:block;font-size:10px;color:var(--ink-dim);letter-spacing:.03em;margin-top:2px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mv-btn .ok{margin-left:auto;color:var(--ok);font-size:13px}
 .mv-btn .cm{margin-left:auto;color:var(--gold-dim);font-size:11px}
 .hidden{display:none}
@@ -214,6 +222,10 @@ input.txt:focus{border-color:var(--gold-dim)}
 <link rel="stylesheet" href="assets/vfx/vfx_fx.css">
 <script src="assets/vfx/vfx_fx.js"></script>
 <script src="assets/vfx/afx.js"></script>
+<!-- THE AFX BANK PLAYER, the client's (assets/vfx/afx_bank.js, lifted by tools/gen_vfx_fx.py the way
+     vfx_fx.js is). afx.js above is now only the FALLBACK: a move with no AFX composition, or one the
+     parser refuses, still gets the placeholder synth. codex/AFX_SPEC.md. -->
+<script src="assets/vfx/afx_bank.js"></script>
 <script>
 /* ============================================================
    VFX & AFX review page.
@@ -227,6 +239,11 @@ const KKEY  = 'dfmc_vfx_key';
 const IMG   = 'codex/thumbs/creatures/color/';
 const MED   = 'codex/images/med/';      /* the cutouts the game's battle screen uses */
 const CAST_MS = 2000;
+/* THE PAGE'S SPEED FACTOR. One number, handed to BOTH renderers - VFX_BANK's ctx.speed and
+   AFX_BANK.play's opts.speed - so the sound cannot drift from the picture it is scoring. The client
+   moves this for its fast-forward; the review page reviews at 1x, because a reviewer judging a 900 ms
+   composition at any other rate is judging something players never hear. */
+const FX_SPEED = 1;
 
 /* ---------- csv ---------- */
 function parseCSV(text){
@@ -256,6 +273,11 @@ let approved=new Set(), pending=new Map(), flushT=null;
 const FX=DFMC_VFX_FX.build(DFMC_VFX_FX.dom), FXHEX=DFMC_VFX_FX.HEX, FXDUR=DFMC_VFX_FX.DURMS;
 const BANK=DFMC_VFX_FX.buildBank(DFMC_VFX_FX.dom);
 let FXBANK={}, ULT=[], ALLROWS=[];
+/* The 606-clip AFX bank, the event cues and the music beds, keyed the way AFX_BANK.load takes them. */
+let AFXBANK={}, AFXEV=[], BGM=[];
+/* WHAT WAS ACTUALLY PLAYED, for tools/afx_gate.py. A gate that only asks "did the page throw?" proves
+   nothing about the sound (D 2026-09-17, on the VFX pass); this is the record it reads instead. */
+const AFXLOG=[]; window.__afxLog=AFXLOG;
 let selCre=null, selMove=null, teams={ally:[],enemy:[]}, turn=0, castT=null;
 let stageSel=0, playT=null, playIx=-1;   /* stageSel 0 = follow the selected creature's stage */
 let hd=false, onlyPending=false, filter='';
@@ -328,12 +350,20 @@ function paintProgress(){
 async function boot(){
   /* One source of truth: the effect data now lives on the move row in moves.csv,
      keyed by Move_ID. move_vfx.csv is no longer read here. */
-  const [c,m,mvx,fbk]=await Promise.all([
+  const [c,m,mvx,fbk,abk,aev,bgm]=await Promise.all([
     fetch(bust('codex/creatures.csv')).then(r=>r.text()),
     fetch(bust('codex/moves.csv')).then(r=>r.text()),
     fetch(bust('codex/move_vfx.csv')).then(r=>r.text()),
-    fetch(bust('codex/fx_bank.csv')).then(r=>r.text())
+    fetch(bust('codex/fx_bank.csv')).then(r=>r.text()),
+    fetch(bust('codex/afx_bank.csv')).then(r=>r.text()),
+    fetch(bust('codex/afx_events.csv')).then(r=>r.text()),
+    fetch(bust('codex/bgm.csv')).then(r=>r.text())
   ]);
+  /* One load() for all three row shapes - the key column says which is which (codex/AFX_SPEC.md). */
+  parseCSV(abk).forEach(r=>{ if(r.Id) AFXBANK[r.Id]=r; });
+  AFXEV=parseCSV(aev).filter(r=>r.Event_ID);
+  BGM=parseCSV(bgm).filter(r=>r.Track_ID);
+  DFMC_AFX_BANK.load(Object.values(AFXBANK).concat(AFXEV,BGM),'');
   CRE=parseCSV(c); MOV=parseCSV(m);
   MOV.forEach(r=>VFX[r.Move_ID]=r);
   /* The 48-sheet manifest, keyed by Id, exactly as the client hands it to VFX_BANK. */
@@ -474,6 +504,26 @@ function bankFor(mvId,stage){
   const p=bankParsed(vr['FX_S'+st]);
   return p?{parsed:p,stage:isUlt?4:st,isUlt:isUlt,row:vr}:null;
 }
+/* ---------- the AFX composition for one move at one stage ---------- */
+/* Same shape as bankFor above, same fallback contract: null means "there is no usable composition",
+   which is a FALLBACK to the placeholder synth, not an error. An unparseable one is warned about once
+   per distinct text and then treated as absent - the verdicts are tools/afx_lint.py's. */
+const _afxCache={};
+function afxFor(mvId,stage){
+  const vr=VFX[mvId]; if(!vr) return null;
+  const isUlt=/^ULT-/.test(String(mvId)), st=isUlt?1:Math.max(1,Math.min(3,+stage||3));
+  const txt=(vr['AFX_S'+st]||'').trim();
+  if(!txt) return null;
+  if(txt in _afxCache) return _afxCache[txt];
+  let out=null;
+  if(Object.keys(AFXBANK).length){
+    const p=DFMC_AFX_BANK.parse(txt);
+    if(p.errs.length){ try{ console.warn('[data] move_vfx.csv: malformed AFX composition "'+txt+'": '+p.errs.join('; ')); }catch(e){} }
+    else out={text:txt,parsed:p,stage:isUlt?4:st,isUlt:isUlt};
+  }
+  return (_afxCache[txt]=out);
+}
+
 /* !shake on the review stage. #stage carries fitStage's scale() inline, so the shake keyframes
    must restate it or the stage would snap to its unscaled 1920px for the duration. */
 function bankShake(px,ms,at){
@@ -530,7 +580,7 @@ function castNow(mv, stage, side){
       /* the client's ctx, tile for tile: @g/@ug and z draw BEHIND the sprite, so that wrapper is
          inserted before the tile's first child - DOM order is the paint order here. */
       const ctx={isUser:t.isUser,isTarget:t.isTarget,dir:dir,stage:b.stage,
-                 tileW:t.el.offsetWidth,lowVfx:false,speed:1,key:'vxb'+ti+'_'};
+                 tileW:t.el.offsetWidth,lowVfx:false,speed:FX_SPEED,key:'vxb'+ti+'_'};
       const front=BANK.render(P,FXBANK,Object.assign({},ctx,{under:false}));
       const back =BANK.render(P,FXBANK,Object.assign({},ctx,{under:true}));
       if(front.length){ const w=document.createElement('div'); w.className='vxb';
@@ -574,8 +624,22 @@ function castNow(mv, stage, side){
         w.appendChild(node); host.appendChild(w); setTimeout(()=>w.remove(),dur+120); }
     }
   }
-  const aarch=((st===3&&v.AFX_Archetype_S3)||(st>=2&&v.AFX_Archetype_S2)||v.AFX_Archetype);
-  DFMC_AFX.play(aarch,v.AFX_Pitch,v.AFX_Layer,st);
+  /* ---------- THE SOUND, in the same order as the picture: the composition first, the placeholder
+     synth only when there is none. Both are driven off ONE speed factor with the VFX above, so what a
+     reviewer hears lands where what they see lands. codex/AFX_SPEC.md § The player contract. ------- */
+  const acomp=afxFor(mv.Move_ID, st);
+  rc.afx=!!acomp; rc.afxLayers=0; rc.afxLenMs=0; rc.afxText=acomp?acomp.text:''; rc.aarch='';
+  if(acomp){
+    const h=DFMC_AFX_BANK.play(acomp.parsed,{speed:FX_SPEED});
+    rc.afxLayers=acomp.parsed.layers.length; rc.afxLenMs=Math.round(h&&h.lenMs||0);
+    AFXLOG.push({id:mv.Move_ID,stage:rc.stage,text:acomp.text,layers:rc.afxLayers,lenMs:rc.afxLenMs,
+                 speed:FX_SPEED,ids:acomp.parsed.layers.map(l=>l.id)});
+    if(AFXLOG.length>4000) AFXLOG.splice(0,2000);
+  } else {
+    const aarch=((st===3&&v.AFX_Archetype_S3)||(st>=2&&v.AFX_Archetype_S2)||v.AFX_Archetype);
+    rc.aarch=aarch||'';
+    DFMC_AFX.play(aarch,v.AFX_Pitch,v.AFX_Layer,st);
+  }
   if(cEl){ cEl.classList.add('cast'); setTimeout(()=>cEl.classList.remove('cast'),260); }
   if(tEl&&tEl!==cEl){ setTimeout(()=>{ tEl.classList.remove('hit'); void tEl.offsetWidth; tEl.classList.add('hit'); },
     rc.bank?Math.round(BANK.impactMs(b.parsed)):(FXDUR[v.Duration_Class]||600)*0.5); }
@@ -627,7 +691,6 @@ function selectMove(cr,mv){
     '  slot '+mv.Slot+' · power '+(mv['Power_S'+(cr.ID==='CLASS'?3:cr.Stage)]||mv.Power_S3)+
     ' · cd '+mv.Cooldown+' · targets '+(mv.Targets||'enemy');
   document.getElementById('chipArch').textContent=(v.VFX_Archetype||'—')+(v.VFX_Layer?' + impact':'');
-  document.getElementById('chipAfx').textContent=(v.AFX_Archetype||'—')+' '+(v.AFX_Pitch||'');
   document.getElementById('chipAnchor').textContent=(v.Target_Anchor||'—')+' · '+(v.Duration_Class||'—')+' · '+(v.VFX_Color||'—');
   paintFxChip();
   document.getElementById('nowDesc').textContent=v.VFX_Description||'';
@@ -647,6 +710,30 @@ function paintFxChip(){
                      (b.parsed.flags.length?' · '+b.parsed.flags.join(' '):''))
                   : ('S'+st+' fallback · '+(v.VFX_Archetype||'—'));
   c.title=b ? (v['FX_S'+(/^ULT-/.test(selMove.Move_ID)?1:st)]||'') : 'no usable composition at this stage';
+  paintAfxChip();
+}
+/* THE SOUND, beside the picture, in the same terms: the composition text itself, or the word
+   UNAUTHORED in the warn colour. The old chip showed the placeholder taxonomy (`thud low`), which
+   reads identically whether a composition exists or not - so it hid exactly the state this run is
+   about. The taxonomy is still in the tooltip, because it is what the fallback synth is playing. */
+function paintAfxChip(){
+  const c=document.getElementById('chipAfx');
+  if(!selMove){ c.textContent='—'; c.className='chip'; c.title=''; return; }
+  const v=VFX[selMove.Move_ID]||{}, isUlt=/^ULT-/.test(selMove.Move_ID);
+  const st=isUlt?1:curStage(), raw=(v['AFX_S'+st]||'').trim(), a=afxFor(selMove.Move_ID,st);
+  const fb='fallback synth: '+(v.AFX_Archetype||'—')+' '+(v.AFX_Pitch||'')+(v.AFX_Layer?' + '+v.AFX_Layer:'');
+  if(a){
+    c.className='chip comp';
+    c.textContent='AFX S'+st+' · '+a.parsed.layers.length+' layer'+(a.parsed.layers.length!==1?'s':'')+
+      ' · '+Math.round(DFMC_AFX_BANK.lengthMs(a.parsed))+'ms · '+a.text;
+    c.title=a.text;
+  } else if(raw){
+    c.className='chip unauth'; c.textContent='AFX S'+st+' malformed';
+    c.title='"'+raw+'" - tools/afx_lint.py refuses it, so the page fell back. '+fb;
+  } else {
+    c.className='chip unauth'; c.textContent='AFX S'+st+' unauthored';
+    c.title='No AFX_S'+st+' composition on this row. '+fb;
+  }
 }
 function paintApprove(){
   const ab=document.getElementById('approveBtn');
@@ -698,9 +785,17 @@ function buildPanel(cr){
     const v=VFX[mv.Move_ID]||{}, b=Backlog.get(mv.Move_ID);
     const btn=document.createElement('div');
     btn.className='mv-btn'+(selMove&&selMove.Move_ID===mv.Move_ID?' sel':'');
+    /* The two compositions side by side, at the stage being reviewed: the picture's FX text and the
+       sound's AFX text, with UNAUTHORED said out loud rather than shown as a dash. */
+    const pst=/^ULT-/.test(mv.Move_ID)?1:curStage();
+    const fxt=(v['FX_S'+pst]||'').trim(), aft=(v['AFX_S'+pst]||'').trim();
+    const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+    const afxBit=aft?('<span class="comp" title="'+esc(aft)+'">'+esc(aft)+'</span>')
+                    :'<span class="unauth">unauthored</span>';
     btn.innerHTML='<span class="slot">'+mv.Slot+'</span><span style="flex:1"><span class="t1">'+moveName(mv,cr)+
-      '</span><span class="t2">'+(v.VFX_Archetype||'\u2014')+' \u00b7 '+(v.AFX_Archetype||'\u2014')+' '+(v.AFX_Pitch||'')+
-      (v.VFX_Layer?' +impact':'')+'</span></span>'+
+      '</span><span class="t2">fx '+(fxt?'<span class="comp" title="'+esc(fxt)+'">'+esc(fxt)+'</span>'
+                                       :'<span class="unauth">unauthored</span>')+
+      ' \u00b7 afx '+afxBit+'</span></span>'+
       (approved.has(mv.Move_ID)?'<span class="ok">\u2713</span>':(b?'<span class="cm">\u270e</span>':''));
     btn.onclick=e=>{ e.stopPropagation(); selectMove(cr,mv); };
     panel.appendChild(btn);
@@ -726,18 +821,23 @@ function render(){
 /* ---------- controls ---------- */
 document.getElementById('reroll').onclick=()=>{ rerollTeams(); };
 document.getElementById('sound').onclick=function(){
-  const on=!DFMC_AFX.isMuted(); DFMC_AFX.mute(on);
+  /* BOTH players, or muting the page would silence the synth and leave the bank playing. */
+  const on=!DFMC_AFX.isMuted(); DFMC_AFX.mute(on); DFMC_AFX_BANK.mute(on);
   this.textContent=on?'♪ Sound off':'♪ Sound on'; this.classList.toggle('on',!on);
-  if(!on) DFMC_AFX.unlock();
+  if(!on){ DFMC_AFX.unlock(); DFMC_AFX_BANK.unlock(); }
 };
-document.getElementById('vol').oninput=function(){ DFMC_AFX.setVolume(this.value/100); DFMC_AFX.unlock(); };
+document.getElementById('vol').oninput=function(){
+  DFMC_AFX.setVolume(this.value/100);
+  DFMC_AFX_BANK.setMix({master:+this.value});
+  DFMC_AFX.unlock(); DFMC_AFX_BANK.unlock();
+};
 document.getElementById('hd').onclick=function(){
   hd=!hd; this.textContent='HD art '+(hd?'on':'off'); this.classList.toggle('on',hd); paintStage();
 };
 document.querySelectorAll('.btn.stg').forEach(b=>{ b.onclick=function(){
   stageSel=+this.dataset.st;
   document.querySelectorAll('.btn.stg').forEach(o=>o.classList.toggle('on',o===this));
-  paintFxChip();
+  paintFxChip(); render();   /* the move panel prints the composition AT THIS STAGE */
   if(playIx>=0){ playAll(false); playAll(true); } else if(selMove) startLoop();
 }; });
 document.getElementById('playAll').onclick=()=>playAll();
@@ -793,7 +893,9 @@ function nextPending(){
       return; }
   }
 }
-['click','keydown','touchstart'].forEach(ev=>addEventListener(ev,()=>DFMC_AFX.unlock(),{once:true}));
+['click','keydown','touchstart'].forEach(ev=>addEventListener(ev,()=>{
+  DFMC_AFX.unlock(); DFMC_AFX_BANK.unlock();
+},{once:true}));
 paintKey();
 boot();
 </script>

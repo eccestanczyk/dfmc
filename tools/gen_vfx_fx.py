@@ -74,6 +74,31 @@ def lift(lines, name):
     return '\n'.join(('  ' + l if l.strip() else l) for l in body.splitlines())
 
 
+def lift_iife(lines, name):
+    """The whole `const <name>=(()=>{ ... })();` block, verbatim, or None when the client has no such
+    block yet. Unlike lift() this makes no assumption about a first line and injects nothing: AFX_BANK
+    is Web Audio, it depends on nothing a page has to supply, so the block travels as it stands and the
+    only added line is the global the page reads it through.
+
+    RETURNS None RATHER THAN EXITING. The AFX data, grammar, linter and review pages landed before the
+    client's player did (codex/AFX_SPEC.md § The player contract), so `assets/vfx/afx_bank.js` ships as
+    a stub that implements the contract. A generator that exits here would turn this gate red for the
+    whole window between the two lanes, which would train everyone to ignore it."""
+    head = 'const %s=(()=>{' % name
+    start = next((i for i, l in enumerate(lines) if l.startswith(head)), None)
+    if start is None:
+        return None
+    depth = 0
+    for i in range(start, len(lines)):
+        depth += lines[i].count('{') - lines[i].count('}')
+        if i > start and depth <= 0:
+            block = '\n'.join(lines[start:i + 1])
+            if not block.rstrip().endswith('})();'):
+                sys.exit('%s does not close with })(); - update this generator' % name)
+            return block
+    sys.exit('%s block never closes in the client - update this generator' % name)
+
+
 def const_block(lines, name):
     """A `const <name>=...;` that may run over several lines, lifted verbatim. Used for the hit-tint
     picker, which is a plain const OUTSIDE the two IIFE renderers - which is exactly how it escaped
@@ -196,6 +221,23 @@ CSS_HEAD = """/* DFMC battle-effect keyframes, lifted verbatim from play/markup.
    Loaded by BOTH the game client and the codex review page. Do not edit one copy. */
 """
 
+AFX_HEAD = """/* ============================================================================
+   GENERATED from play/app.js by tools/gen_vfx_fx.py - the client is the source of truth
+
+   THE AFX BANK PLAYER, lifted verbatim from the client's `const AFX_BANK=(()=>{ ... })();`. The
+   contract is codex/AFX_SPEC.md § The player contract. It is implemented ONCE, in play/app.js, so the
+   sound a reviewer approves on vfx.html / audio.html is the sound a player hears - the same
+   arrangement VFX_BANK has in vfx_fx.js, for the same reason. Do not hand-edit this copy.
+
+     game :  AFX_BANK, inline in play/app.js
+     page :  window.DFMC_AFX_BANK
+   ============================================================================ */
+(function (root) {
+%(afx)s
+  root.DFMC_AFX_BANK = AFX_BANK;
+})(typeof window !== 'undefined' ? window : globalThis);
+"""
+
 SLASH = 'assets/ui/vfx/slash.png'
 
 
@@ -222,15 +264,17 @@ def main():
     vxhitc = const_block(lines, 'VXHITC')
     vxhith = const_block(lines, 'VXHITH')
     vxhitfor = const_block(lines, 'VXHIT_FOR')
+    afx = lift_iife(lines, 'AFX_BANK')
     kf = keyframes(markup)
 
     js = JS_HEAD % {'hex': hexl, 'dur': durl, 'fx': fx, 'bank': bank, 'slash': SLASH,
                     'vxhitc': vxhitc, 'vxhith': vxhith, 'vxhitfor': vxhitfor}
     css = CSS_HEAD + '\n'.join(kf[n] for n in sorted(kf)) + '\n'
 
-    jsp, cssp = OUT / 'vfx_fx.js', OUT / 'vfx_fx.css'
+    jsp, cssp, afxp = OUT / 'vfx_fx.js', OUT / 'vfx_fx.css', OUT / 'afx_bank.js'
     cur_js = jsp.read_text(encoding='utf-8') if jsp.exists() else ''
     cur_css = cssp.read_text(encoding='utf-8') if cssp.exists() else ''
+    cur_afx = afxp.read_text(encoding='utf-8') if afxp.exists() else ''
 
     # Compare only the GENERATED parts, so the header prose above each copy stays editable.
     ok_fx = fx in cur_js
@@ -239,6 +283,9 @@ def main():
     ok_hit = all(b in cur_js for b in (vxhitc, vxhith, vxhitfor))
     ok_css = all(kf[n] in cur_css for n in kf)
     miss = [n for n in sorted(kf) if kf[n] not in cur_css]
+    # The AFX player is only a divergence question once the client has one. Until then the stub stands
+    # and this stays green - see lift_iife.
+    ok_afx = True if afx is None else (afx in cur_afx)
 
     print('client read from          : %s' % src)
     print('keyframes in client       : %d (%d vxb*)' % (len(kf), sum(1 for n in kf if n.startswith('vxb'))))
@@ -247,14 +294,24 @@ def main():
     print('colour/duration tables    : %s' % ok_tab)
     print('hit-tint picker           : %s' % ok_hit)
     print('keyframes match copy      : %s%s' % (ok_css, '' if ok_css else '  missing ' + ', '.join(miss)))
+    print('AFX_BANK in client        : %s' % ('yes, %d lines' % len(afx.splitlines()) if afx else
+                                              'NOT YET - keeping the afx_bank.js stub (codex/AFX_SPEC.md)'))
+    print('AFX_BANK matches copy     : %s' % ('n/a' if afx is None else ok_afx))
 
     if a.write:
         OUT.mkdir(parents=True, exist_ok=True)
         jsp.write_text(js, encoding='utf-8')
         cssp.write_text(css, encoding='utf-8')
         print('--write: wrote %s (%d bytes) and %s (%d bytes)' % (jsp, len(js), cssp, len(css)))
+        if afx is None:
+            print('--write: left %s alone - the client has no AFX_BANK block yet, so the stub stands'
+                  % afxp)
+        else:
+            ajs = AFX_HEAD % {'afx': '\n'.join(('  ' + l if l.strip() else l) for l in afx.splitlines())}
+            afxp.write_text(ajs, encoding='utf-8')
+            print('--write: wrote %s (%d bytes)' % (afxp, len(ajs)))
         return 0
-    if not (ok_fx and ok_bank and ok_tab and ok_hit and ok_css):
+    if not (ok_fx and ok_bank and ok_tab and ok_hit and ok_css and ok_afx):
         print('DIVERGED - the client changed and assets/vfx/vfx_fx.* is stale. Regenerate with --write.')
         return 1
     print('OK - the published copy is byte-identical to the client')

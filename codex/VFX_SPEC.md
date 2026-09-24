@@ -88,6 +88,15 @@ touch an approval.
 
 ## Changelog
 
+- **2026-09-24** - **the sound got its own page.** `codex/AFX_SPEC.md` now owns every sound the
+  Tower makes: the AFX composition grammar (`AFX_S1..AFX_S3` on `codex/move_vfx.csv`, added empty
+  beside `FX_S1..FX_S3` and mirrored onto `moves.csv`), the 606-clip bank, the 13 music beds, the
+  event cues, the `AFX_BANK` player contract and the Void Apex fold. Read the two together: a move's
+  sound is authored against that move's FX composition - `tools/afx_lint.py` pins the composition's
+  main beat to the first `@t`/`@g`/`@b` layer of the `FX_S<stage>` written here, so a change to a
+  picture's timing moves its sound's gate with it. The 10 AFX archetypes below and
+  `AFX_Archetype*`/`AFX_Layer`/`AFX_Pitch` stay exactly as they are: they are the synth FALLBACK now,
+  the same relationship the 20 VFX archetypes have to the sheet bank.
 - **2026-09-18** - **D rejected the pass twice. Three defects, all confirmed in the RUNNING GAME and
   not on a contact sheet: ultimates drew nothing, layers were far over the rung, and 460 layers were
   rendering with no brightness reduction at all.** Owning pages: this one (the budget table's new

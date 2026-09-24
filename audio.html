@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Audio Review — Herumon Tower</title>
+<link rel="stylesheet" href="theme.css?v=4">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+/* The look is vfx.html's, deliberately: the two pages are one review and a reviewer moving between
+   them should not have to re-learn where anything is. */
+:root{
+  --bg:#12100d; --panel:#1a1611; --panel2:#221c14; --line:#3d3122; --line2:#5c462c;
+  --gold:#cfa650; --gold-dim:#8a7038; --ink:#d8cfc0; --ink-dim:#8d8474;
+  --ok:#5a9a52; --warn:#dd5646;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);margin:0;font-family:'Inter',system-ui,sans-serif}
+.wrap{max-width:1500px;margin:0 auto;padding:0 14px 60px}
+
+.ctlbar{position:sticky;top:0;z-index:40;display:flex;flex-wrap:wrap;gap:6px;align-items:center;
+  padding:8px 0;background:linear-gradient(var(--bg) 78%,transparent)}
+.btn{font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:.04em;padding:5px 12px;
+  border:1px solid var(--line2);background:var(--panel2);color:var(--gold);cursor:pointer;
+  text-transform:uppercase;transition:all .14s;white-space:nowrap}
+.btn:hover{border-color:var(--warn);color:var(--warn)}
+.btn.on{border-color:var(--ok);color:var(--ok)}
+.btn.ghost{color:var(--ink-dim);border-color:var(--line)}
+.spacer{flex:1}
+.tag{font-size:11px;color:var(--ink-dim);font-family:'Cinzel',serif;letter-spacing:.05em}
+.tag b{color:var(--gold)}
+input[type=range]{width:78px;accent-color:var(--gold)}
+input.txt{background:#0d0b08;border:1px solid var(--line);color:var(--ink);padding:5px 8px;
+  font-size:12px;font-family:inherit;outline:none}
+input.txt:focus{border-color:var(--gold-dim)}
+
+.note{border:1px solid var(--line);background:var(--panel);padding:10px 12px;margin:0 0 14px;
+  font-size:12px;color:var(--ink-dim);line-height:1.55}
+.note b{color:var(--gold)}
+.note code{font-family:ui-monospace,Menlo,Consolas,monospace;color:var(--ink)}
+h2.sec{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.12em;color:var(--gold);
+  margin:22px 0 8px;text-transform:uppercase}
+
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--gold-dim);text-align:left;padding:7px 8px;border-bottom:1px solid var(--line2);
+  position:sticky;top:44px;background:var(--bg);z-index:20}
+td{padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:hover td{background:var(--panel)}
+td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.mono{font-family:ui-monospace,Menlo,Consolas,monospace}
+.dim{color:var(--ink-dim)}
+a{color:var(--gold-dim)}
+a:hover{color:var(--gold)}
+.flag{display:inline-block;border:1px solid var(--warn);color:var(--warn);font-size:9px;
+  padding:0 4px;letter-spacing:.06em;margin-right:3px}
+.flag.clip{border-color:var(--gold-dim);color:var(--gold-dim)}
+.play{font-family:'Cinzel',serif;font-size:10px;padding:3px 9px;border:1px solid var(--line2);
+  background:var(--panel2);color:var(--gold);cursor:pointer;text-transform:uppercase}
+.play:hover{border-color:var(--gold);color:var(--gold)}
+.play.on{border-color:var(--ok);color:var(--ok)}
+.used{font-size:10px;color:var(--ink-dim);max-width:34ch;display:inline-block;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap;vertical-align:bottom}
+.picker{display:flex;flex-wrap:wrap;gap:10px;align-items:center;border:1px solid var(--line2);
+  background:var(--panel2);padding:10px 12px;margin:0 0 14px}
+.picker input[type=range]{width:300px;max-width:50vw}
+.picker .out{font-family:'Cinzel',serif;color:var(--gold);font-size:13px;letter-spacing:.04em}
+.grp{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.1em;color:var(--gold);
+  text-transform:uppercase;background:#191410;padding:6px 8px;border-bottom:1px solid var(--line2)}
+.hidden{display:none}
+.loading{color:var(--ink-dim);padding:20px 0;font-style:italic}
+</style>
+</head>
+<body>
+<div class="topbar"><h1>Audio Review</h1></div>
+<div class="wrap">
+
+  <div class="ctlbar">
+    <button class="btn tab on" data-tab="bgm">Music beds</button>
+    <button class="btn tab" data-tab="events">Events</button>
+    <button class="btn tab" data-tab="bank">Bank</button>
+    <button class="btn on" id="sound">♪ Sound on</button>
+    <input type="range" id="vol" min="0" max="100" value="60" title="Master volume">
+    <input class="txt" id="search" placeholder="search name, id, group, pack, zone" style="min-width:210px">
+    <button class="btn ghost" id="hideShrill">Hide shrill</button>
+    <button class="btn ghost" id="hideClip">Hide clipped</button>
+    <span class="spacer"></span>
+    <span class="tag" id="counts">—</span>
+    <button class="btn ghost" id="stopAll">■ Stop</button>
+  </div>
+
+  <div class="note">
+    Every sound the Tower makes, played through the client's own player
+    (<code>assets/vfx/afx_bank.js</code>, the contract in <b>codex/AFX_SPEC.md</b>) at the gains the data
+    asks for — a bed at its <code>Gain</code>, an event at its <code>Gain</code>, a bank clip raw at
+    <code>g1</code> so its own measurements are what you hear. Licences and provenance:
+    <a href="codex/AUDIO_LICENCES.md">codex/AUDIO_LICENCES.md</a>. A move's composition is not reviewed
+    here — it is reviewed <a href="vfx.html">against its picture</a>, which is the only place the two
+    can be judged as one thing.
+  </div>
+
+  <div id="tab-bgm">
+    <div class="picker">
+      <span class="tag">Floor</span>
+      <input type="range" id="floor" min="1" max="120" value="1">
+      <input class="txt" id="floorNum" value="1" style="width:56px" inputmode="numeric">
+      <span class="out" id="floorOut">—</span>
+      <button class="play" id="floorPlay">▶ Play the bed this floor gets</button>
+    </div>
+    <div id="bgmHost"><div class="loading">Loading…</div></div>
+  </div>
+
+  <div id="tab-events" class="hidden"><div id="evHost"><div class="loading">Loading…</div></div></div>
+
+  <div id="tab-bank" class="hidden"><div id="bankHost"><div class="loading">Loading…</div></div></div>
+
+</div>
+
+<script src="assets/vfx/afx_bank.js"></script>
+<script>
+/* ============================================================
+   AUDIO REVIEW PAGE.
+   Data: codex/bgm.csv, codex/afx_events.csv, codex/afx_bank.csv,
+         codex/move_vfx.csv (for live Used_In), codex/floors.csv (for the fold).
+   Player: assets/vfx/afx_bank.js - the client's, not a second one.
+   ============================================================ */
+function parseCSV(text){
+  const rows=[]; let f='',row=[],q=false;
+  text=text.replace(/\r\n/g,'\n').replace(/\r/g,'\n');
+  for(let i=0;i<text.length;i++){
+    const c=text[i];
+    if(q){ if(c==='"'){ if(text[i+1]==='"'){f+='"';i++;} else q=false; } else f+=c; }
+    else if(c==='"') q=true;
+    else if(c===','){ row.push(f); f=''; }
+    else if(c==='\n'){ row.push(f); f=''; rows.push(row); row=[]; }
+    else f+=c;
+  }
+  if(f.length||row.length){ row.push(f); rows.push(row); }
+  const head=rows.shift();
+  return rows.filter(r=>r.length>1).map(r=>{const o={};head.forEach((h,i)=>o[h.trim()]=(r[i]||'').trim());return o;});
+}
+const bust=u=>u+'?t='+Date.now();
+const esc=s=>String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+let BGM=[], EV=[], BANK=[], MVX=[], FLOORS=[];
+let USED={};                       /* clip id -> [what uses it] */
+let tab='bgm', filter='', hideShrill=false, hideClip=false;
+let playing=null, playingBtn=null;  /* the one-shot handle, so ■ Stop and a second click both work */
+
+const isShrill=r=>parseFloat(r.Over3k_Pct)>=20;
+const isClipped=r=>parseFloat(r.Peak_dBFS)>0;
+
+/* ---------- the Void Apex fold (codex/AFX_SPEC.md, R D 2026-09-24) ----------
+   Floors 101-120 reuse the ten zone beds two floors at a time. The page does NOT re-implement it:
+   the player owns the rule, so the page and the game cannot disagree about which bed a floor gets. */
+const zoneOf = f => DFMC_AFX_BANK.zoneForFloor(f);
+function bossFloor(f){ const r=FLOORS[f-1]; return !!(r && r.Is_Boss==='Yes'); }
+function trackForFloor(f){
+  if(bossFloor(f)) return 'boss';
+  const zones=BGM.filter(r=>r.State==='zone');
+  const t=zones[zoneOf(f)-1];
+  return t?t.Track_ID:null;
+}
+/* [1,2,3,7,8] -> "1-3, 7-8" */
+function ranges(list){
+  const out=[]; let a=null,b=null;
+  for(const n of list.slice().sort((x,y)=>x-y)){
+    if(a===null){a=b=n;continue;}
+    if(n===b+1){b=n;continue;}
+    out.push(a===b?''+a:a+'-'+b); a=b=n;
+  }
+  if(a!==null) out.push(a===b?''+a:a+'-'+b);
+  return out.join(', ');
+}
+function floorsFor(tid){
+  const t=BGM.find(r=>r.Track_ID===tid);
+  if(!t) return {main:'',apex:''};
+  if(t.State==='boss') return {main:'', apex:''};
+  if(t.State!=='zone') return {main:'', apex:''};
+  const all=[], apex=[];
+  for(let f=1;f<=FLOORS.length;f++){
+    if(bossFloor(f)) continue;            /* the boss bed overrides on those 20 floors */
+    if(trackForFloor(f)!==tid) continue;
+    (f>=101?apex:all).push(f);
+  }
+  return {main:ranges(all), apex:ranges(apex)};
+}
+
+/* ---------- play ---------- */
+function stopAll(){
+  if(playing && playing.stop) { try{ playing.stop(); }catch(e){} }
+  playing=null;
+  DFMC_AFX_BANK.music(null);
+  if(playingBtn){ playingBtn.classList.remove('on'); playingBtn.textContent=playingBtn.dataset.label||'▶'; }
+  playingBtn=null;
+}
+function mark(btn,label){
+  if(playingBtn && playingBtn!==btn){ playingBtn.classList.remove('on'); playingBtn.textContent=playingBtn.dataset.label; }
+  btn.dataset.label=btn.dataset.label||btn.textContent;
+  btn.classList.add('on'); btn.textContent=label||'■ Stop';
+  playingBtn=btn;
+}
+function playTrack(tid,btn){
+  DFMC_AFX_BANK.unlock();
+  if(playingBtn===btn){ stopAll(); return; }
+  stopAll();
+  DFMC_AFX_BANK.music(tid);                    /* loops, crossfades, applies the row's Gain */
+  if(btn) mark(btn);
+}
+function playCue(id,btn){
+  DFMC_AFX_BANK.unlock(); stopAll();
+  const h=DFMC_AFX_BANK.cue(id);
+  playing=h; if(btn){ mark(btn,'▶ …'); setTimeout(()=>{ if(playingBtn===btn) stopAll(); },1400); }
+}
+function playClip(id,btn){
+  DFMC_AFX_BANK.unlock(); stopAll();
+  /* RAW, at g1 and p0: what you hear is what Centroid_Hz / Over3k_Pct / Peak_dBFS describe. A
+     composition's g and p are the author's answer to those numbers and belong on vfx.html. */
+  const h=DFMC_AFX_BANK.play(id,{});
+  playing=h;
+  const row=BANK.find(r=>r.Id===id), ms=row?Math.round(parseFloat(row.Seconds)*1000)+140:900;
+  if(btn){ mark(btn,'▶ …'); setTimeout(()=>{ if(playingBtn===btn) stopAll(); },ms); }
+}
+
+/* ---------- Used_In, computed LIVE ----------
+   afx_bank.csv carries a Used_In column and it is the DUNGEON'S usage record - it describes a
+   different game and is not maintained here. This is the Tower's: which moves name the clip in an
+   AFX_S* cell, plus any event cue that is the same file by name. (Basename, not content: 45 of the
+   606 are byte-identical to cue assets but were renamed on the way into the cue set, so a hash is
+   the only exact answer and a browser is the wrong place to compute 606 of them.) */
+function computeUsed(){
+  USED={};
+  const add=(id,what)=>{ (USED[id]=USED[id]||[]).push(what); };
+  for(const r of MVX){
+    for(const st of [1,2,3]){
+      const txt=(r['AFX_S'+st]||'').trim();
+      if(!txt) continue;
+      const seen={};
+      for(const m of txt.match(/AFX-\d{3}/g)||[]){
+        if(seen[m]) continue; seen[m]=1;
+        add(m,(r.Name||r.Move_ID)+' S'+st);
+      }
+    }
+  }
+  const byBase={};
+  for(const r of BANK) byBase[(r.File||'').split('/').pop()]=r.Id;
+  for(const e of EV){
+    const id=byBase[(e.File||'').split('/').pop()];
+    if(id) add(id,'event '+e.Event_ID);
+  }
+}
+
+/* ---------- render ---------- */
+function match(hay){ return !filter || hay.toLowerCase().includes(filter); }
+
+function renderBgm(){
+  const host=document.getElementById('bgmHost');
+  const rows=BGM.filter(r=>match([r.Track_ID,r.Zone,r.State,r.Title,r.Author].join(' ')));
+  let h='<table><thead><tr><th>Track</th><th>Plays on</th><th>Floors</th><th>Provenance</th>'+
+        '<th class="num">Gain</th><th class="num">LUFS</th><th class="num">Peak</th>'+
+        '<th class="num">Len</th><th class="num">KB</th><th></th></tr></thead><tbody>';
+  for(const r of rows){
+    const f=floorsFor(r.Track_ID);
+    const where=r.State==='zone'?esc(r.Zone)
+      :(r.State==='hub'?'The hub':r.State==='boss'?'Boss floors':'The title screen');
+    let floors='<span class="dim">—</span>';
+    if(r.State==='zone'){
+      floors=esc(f.main||'—');
+      if(f.apex) floors+='<br><span class="dim">apex '+esc(f.apex)+'</span>';
+    } else if(r.State==='boss'){
+      const b=[]; for(let i=1;i<=FLOORS.length;i++) if(bossFloor(i)) b.push(i);
+      floors=esc(ranges(b));
+    }
+    h+='<tr><td class="mono">'+esc(r.Track_ID)+'</td><td>'+where+'</td><td>'+floors+'</td>'+
+       '<td>'+esc(r.Title)+' <span class="dim">— '+esc(r.Author)+'</span><br>'+
+       '<a href="'+esc(r.Source_URL)+'" target="_blank" rel="noopener">'+esc(r.Licence)+'</a></td>'+
+       '<td class="num">'+esc(r.Gain)+'</td><td class="num">'+esc(r.LUFS)+'</td>'+
+       '<td class="num">'+esc(r.Peak_dBFS)+'</td><td class="num">'+esc(r.Seconds)+'s</td>'+
+       '<td class="num">'+esc(r.KB)+'</td>'+
+       '<td><button class="play" data-track="'+esc(r.Track_ID)+'">▶ Play</button></td></tr>';
+  }
+  host.innerHTML=h+'</tbody></table>';
+  host.querySelectorAll('button[data-track]').forEach(b=>{
+    b.onclick=()=>playTrack(b.dataset.track,b);
+  });
+}
+
+function renderEvents(){
+  const host=document.getElementById('evHost');
+  const rows=EV.filter(r=>match([r.Event_ID,r.Category,r.Trigger,r.File].join(' ')));
+  let h='<table><thead><tr><th>Event</th><th>Category</th><th>Trigger</th><th>File</th>'+
+        '<th class="num">Gain</th><th class="num">Retrigger</th><th></th></tr></thead><tbody>';
+  let cat=null;
+  for(const r of rows){
+    if(r.Category!==cat){ cat=r.Category; h+='<tr><td class="grp" colspan="7">'+esc(cat)+'</td></tr>'; }
+    h+='<tr><td class="mono">'+esc(r.Event_ID)+'</td><td class="dim">'+esc(r.Category)+'</td>'+
+       '<td>'+esc(r.Trigger)+'</td><td class="mono dim">'+esc((r.File||'').split('/').pop())+'</td>'+
+       '<td class="num">'+esc(r.Gain)+'</td>'+
+       '<td class="num">'+(r.Retrigger_Ms?esc(r.Retrigger_Ms)+'ms':'<span class="dim">—</span>')+'</td>'+
+       '<td><button class="play" data-cue="'+esc(r.Event_ID)+'">▶ Play</button></td></tr>';
+  }
+  host.innerHTML=h+'</tbody></table>';
+  host.querySelectorAll('button[data-cue]').forEach(b=>{ b.onclick=()=>playCue(b.dataset.cue,b); });
+}
+
+function renderBank(){
+  const host=document.getElementById('bankHost');
+  const rows=BANK.filter(r=>{
+    if(hideShrill && isShrill(r)) return false;
+    if(hideClip && isClipped(r)) return false;
+    return match([r.Id,r.Name,r.Group,r.Pack,(USED[r.Id]||[]).join(' ')].join(' '));
+  });
+  const groups={};
+  for(const r of rows) (groups[r.Group]=groups[r.Group]||[]).push(r);
+  let h='';
+  for(const g of Object.keys(groups).sort()){
+    h+='<h2 class="sec">'+esc(g)+' — '+groups[g].length+'</h2>'+
+       '<table><thead><tr><th>Id</th><th>Name</th><th>Pack</th><th class="num">Len</th>'+
+       '<th class="num">Centroid</th><th class="num">&gt;3kHz</th><th class="num">Peak</th>'+
+       '<th>Flags</th><th>Used in</th><th></th></tr></thead><tbody>';
+    for(const r of groups[g]){
+      const u=USED[r.Id]||[];
+      h+='<tr><td class="mono">'+esc(r.Id)+'</td><td>'+esc(r.Name)+'</td>'+
+         '<td class="dim">'+esc((r.Pack||'').replace(/^Kenney /,''))+'</td>'+
+         '<td class="num">'+esc(r.Seconds)+'s</td>'+
+         '<td class="num">'+esc(r.Centroid_Hz)+'</td><td class="num">'+esc(r.Over3k_Pct)+'%</td>'+
+         '<td class="num">'+esc(r.Peak_dBFS)+'</td><td>'+
+         (isShrill(r)?'<span class="flag">shrill</span>':'')+
+         (isClipped(r)?'<span class="flag clip">clip</span>':'')+
+         '</td><td>'+(u.length?'<span class="used" title="'+esc(u.join(', '))+'">'+esc(u.join(', '))+
+                      '</span>':'<span class="dim">—</span>')+'</td>'+
+         '<td><button class="play" data-clip="'+esc(r.Id)+'">▶</button></td></tr>';
+    }
+    h+='</tbody></table>';
+  }
+  host.innerHTML=h||'<div class="loading">Nothing matches those filters.</div>';
+  host.querySelectorAll('button[data-clip]').forEach(b=>{ b.onclick=()=>playClip(b.dataset.clip,b); });
+}
+
+function paintCounts(){
+  const used=Object.keys(USED).length;
+  document.getElementById('counts').innerHTML=
+    '<b>'+BANK.length+'</b> clips · <b>'+BGM.length+'</b> beds · <b>'+EV.length+'</b> events · '+
+    '<b>'+BANK.filter(isShrill).length+'</b> shrill · <b>'+BANK.filter(isClipped).length+'</b> clipped · '+
+    '<b>'+used+'</b> clips used';
+}
+function paintFloor(){
+  const f=Math.max(1,Math.min(120,+document.getElementById('floor').value||1));
+  document.getElementById('floorNum').value=f;
+  const row=FLOORS[f-1]||{}, tid=trackForFloor(f), t=BGM.find(r=>r.Track_ID===tid)||{};
+  const via=f>=101?('apex fold — zone '+zoneOf(f)+', two floors per bed')
+                  :('zone '+zoneOf(f));
+  document.getElementById('floorOut').innerHTML=
+    esc(row.Zone||'?')+' <span class="dim">· '+esc(row.Visual_Theme||'')+'</span> → <b>'+esc(tid||'—')+'</b>'+
+    ' <span class="dim">('+(bossFloor(f)?'boss floor, the boss bed overrides':esc(via))+
+    (t.Title?' · '+esc(t.Title):'')+')</span>';
+  document.getElementById('floorPlay').dataset.track=tid||'';
+}
+function render(){
+  if(tab==='bgm') renderBgm();
+  else if(tab==='events') renderEvents();
+  else renderBank();
+  paintCounts();
+}
+
+/* ---------- boot ---------- */
+async function boot(){
+  const [bgm,ev,bank,mvx,fl]=await Promise.all([
+    fetch(bust('codex/bgm.csv')).then(r=>r.text()),
+    fetch(bust('codex/afx_events.csv')).then(r=>r.text()),
+    fetch(bust('codex/afx_bank.csv')).then(r=>r.text()),
+    fetch(bust('codex/move_vfx.csv')).then(r=>r.text()),
+    fetch(bust('codex/floors.csv')).then(r=>r.text())
+  ]);
+  BGM=parseCSV(bgm).filter(r=>r.Track_ID);
+  EV=parseCSV(ev).filter(r=>r.Event_ID);
+  BANK=parseCSV(bank).filter(r=>r.Id);
+  MVX=parseCSV(mvx).filter(r=>r.Move_ID);
+  FLOORS=parseCSV(fl).filter(r=>r.Floor);
+  DFMC_AFX_BANK.load(BANK.concat(EV,BGM),'');
+  DFMC_AFX_BANK.setMix({master:+document.getElementById('vol').value});
+  computeUsed();
+  paintFloor(); render();
+  window.__afxReady=true;
+}
+
+/* ---------- controls ---------- */
+document.querySelectorAll('.btn.tab').forEach(b=>{ b.onclick=function(){
+  tab=this.dataset.tab; stopAll();
+  document.querySelectorAll('.btn.tab').forEach(o=>o.classList.toggle('on',o===this));
+  ['bgm','events','bank'].forEach(t=>document.getElementById('tab-'+t).classList.toggle('hidden',t!==tab));
+  render();
+}; });
+document.getElementById('sound').onclick=function(){
+  const on=!DFMC_AFX_BANK.isMuted(); DFMC_AFX_BANK.mute(on);
+  this.textContent=on?'♪ Sound off':'♪ Sound on'; this.classList.toggle('on',!on);
+  if(!on) DFMC_AFX_BANK.unlock();
+};
+document.getElementById('vol').oninput=function(){
+  DFMC_AFX_BANK.setMix({master:+this.value}); DFMC_AFX_BANK.unlock();
+};
+document.getElementById('search').oninput=function(){ filter=this.value.trim().toLowerCase(); render(); };
+document.getElementById('hideShrill').onclick=function(){
+  hideShrill=!hideShrill; this.classList.toggle('on',hideShrill); render();
+};
+document.getElementById('hideClip').onclick=function(){
+  hideClip=!hideClip; this.classList.toggle('on',hideClip); render();
+};
+document.getElementById('stopAll').onclick=stopAll;
+document.getElementById('floor').oninput=paintFloor;
+document.getElementById('floorNum').oninput=function(){
+  const v=Math.max(1,Math.min(120,parseInt(this.value,10)||1));
+  document.getElementById('floor').value=v; paintFloor();
+};
+document.getElementById('floorPlay').onclick=function(){
+  if(this.dataset.track) playTrack(this.dataset.track,this);
+};
+['click','keydown','touchstart'].forEach(ev=>addEventListener(ev,()=>DFMC_AFX_BANK.unlock(),{once:true}));
+boot();
+</script>
+<script src="nav.js"></script>
+</body>
+</html>
