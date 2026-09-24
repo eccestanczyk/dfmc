@@ -1,284 +1,202 @@
 /* ============================================================================
-   GENERATED from play/app.js by tools/gen_vfx_fx.py - the client is the source of truth; this stub
-   stands until the client lane lands
+   GENERATED from play/app.js by tools/gen_vfx_fx.py - the client is the source of truth
 
-   THE AFX BANK PLAYER. ONE IMPLEMENTATION, TWO CONSUMERS - the game and this codex's review pages.
-   The contract is codex/AFX_SPEC.md § The player contract, and it is implemented ONCE, in
-   dfmc-client/play/app.js as `const AFX_BANK=(()=>{ ... })();`. tools/gen_vfx_fx.py lifts that block
-   out of the client into this file as `window.DFMC_AFX_BANK`, exactly the way it lifts VFX_BANK into
-   vfx_fx.js, and for the same reason: when the game and the review page had two implementations,
-   approving an effect on the review page approved something players never got.
+   THE AFX BANK PLAYER, lifted verbatim from the client's `const AFX_BANK=(()=>{ ... })();`. The
+   contract is codex/AFX_SPEC.md § The player contract. It is implemented ONCE, in play/app.js, so the
+   sound a reviewer approves on vfx.html / audio.html is the sound a player hears - the same
+   arrangement VFX_BANK has in vfx_fx.js, for the same reason. Do not hand-edit this copy.
 
-   WHAT THIS FILE IS RIGHT NOW. The client block does not exist yet - the AFX authoring run landed the
-   data, the grammar, the linter and the pages first. So this is a STUB that implements the contract
-   and nothing more, written so the review pages are real (they decode and play the actual .ogg files
-   out of codex/afx_bank.csv, at the gains and pitches a composition asks for) and so the day the
-   client block appears, `python tools/gen_vfx_fx.py --write` overwrites this file and nothing else has
-   to change. The generator looks for the block on every run and keeps this stub, with a message, when
-   it is absent - so the divergence gate does not go red before the implementation exists.
-
-   Do not hand-author behaviour here that the client does not have. Every verdict in parse() is a
-   verdict tools/afx_lint.py also reaches; if the two ever disagree, the sound a reviewer approves is
-   not the sound a player hears.
+     game :  AFX_BANK, inline in play/app.js
+     page :  window.DFMC_AFX_BANK
    ============================================================================ */
 (function (root) {
-  'use strict';
+  const AFX_BANK=(()=>{
+    const TOK=/^(g|p|d|n|i|j)(-?\d+(?:\.\d+)?)$/;
+    const RANGE={g:[0.05,1.5],p:[-12,12],d:[0,2000],n:[1,4],i:[30,600],j:[0,3]};
+    const INT={d:1,n:1,i:1};
+    // groups a MOVE may use; ui / coin / jingle / door belong to the cue set and are refused on a move
+    const MOVE_GROUPS={impact:1,material:1,melee:1,blast:1,arcane:1,machine:1,creature:1,foley:1,footstep:1};
+    const REFUSED={ui:1,coin:1,jingle:1,door:1};
+    const FADE_IN=1200, FADE_OUT=900;   // the crossfade, ms (contract)
+    const num=(v,d0)=>{ const n=parseFloat(v); return (n===n)?n:d0; }; // NaN-safe: a blank cell is the default, never NaN
+    const col=(row,a,b)=>{ if(row==null) return undefined; return (row[a]!==undefined)?row[a]:row[b]; }; // a raw csv row or a registered one
+    /* parse(txt, bank) -> {layers:[{id,g,p,d,n,i,j}], errs:[...]}. errs non-empty = malformed; the verdicts are
+       tools/afx_lint.py's, token for token, for everything a SINGLE composition can decide. The three rules that
+       span cells - family identity (S2/S3 carry S1's first clip), FX/AFX timing alignment, the per-stage layer and
+       length budgets - are the linter's alone: this parser is handed one cell and cannot see the others.
+       bank (Id -> afx_bank.csv row) is optional; without it the clip-level checks (unknown id, group, shrill,
+       clipped) are skipped and the grammar is still judged. */
+    const parse=(txt,bank)=>{ const layers=[], errs=[]; if(bank===undefined) bank=BANK;
+      const known=!!(bank&&Object.keys(bank).length);
+      String(txt==null?'':txt).split('|').forEach(raw=>{ raw=raw.trim(); if(!raw){ errs.push('empty layer'); return; }
+        const toks=raw.split(/\s+/);
+        const m=/^(AFX-\d{3})$/.exec(toks[0]);
+        if(!m){ errs.push('bad head token '+JSON.stringify(toks[0])+' (want AFX-NNN)'); return; }
+        const aid=m[1]; const row=known?bank[aid]:null;
+        if(known&&!row) errs.push('unknown clip '+aid);
+        const mods={}, seen={};
+        toks.slice(1).forEach(t=>{ const mm=TOK.exec(t);
+          if(!mm){ errs.push('bad token '+JSON.stringify(t)+' in '+aid); return; }
+          const k=mm[1], v=parseFloat(mm[2]);
+          if(seen[k]){ errs.push('duplicate token '+k+' in '+aid); return; }
+          seen[k]=1;
+          if(!(RANGE[k][0]<=v&&v<=RANGE[k][1])) errs.push(k+mm[2]+' out of range '+RANGE[k][0]+'-'+RANGE[k][1]);
+          if(INT[k]&&v!==Math.floor(v)) errs.push(k+' must be an integer');
+          mods[k]=v; });
+        const L={id:aid, g:(mods.g==null?1:mods.g), p:(mods.p||0), d:(mods.d||0), n:(mods.n||1), i:(mods.i==null?90:mods.i), j:(mods.j||0)};
+        if(row){ const grp=String(col(row,'Group','group')||'').toLowerCase();
+          if(REFUSED[grp]) errs.push(aid+' is a '+grp+' clip - the cue set owns those, a move may not use one');
+          else if(grp&&!MOVE_GROUPS[grp]) errs.push(aid+' group '+JSON.stringify(grp)+' is not a move group');
+          const o3=num(col(row,'Over3k_Pct','over3k'),0);
+          if(o3>=20&&!(L.p<=-3)) errs.push(aid+' is SHRILL ('+o3+'% over 3 kHz) - needs p<=-3');
+          const pk=num(col(row,'Peak_dBFS','peak'),-99);
+          if(pk>0&&!(L.g<=0.7)) errs.push(aid+' is CLIPPED (peak '+pk+' dBFS) - needs g<=0.7'); }
+        layers.push(L); });
+      /* THE SIMULTANEITY BUDGET. Four layers at g1 inside one 60 ms window is four times the level of one, and
+         the sum is what reaches the bus, not the loudest member. Reported once per cluster, keyed on the
+         cluster's own delays, so a four-layer breach is one error and not four. */
+      const said={};
+      layers.forEach(a=>{ let s=0; const ds=[];
+        layers.forEach(b=>{ if(Math.abs(b.d-a.d)<=60){ s+=b.g; ds.push(b.d); } });
+        if(s>1.6+1e-9){ const key=ds.sort((x,y)=>x-y).join(',');
+          if(!said[key]){ said[key]=1; errs.push('gain sum '+(Math.round(s*100)/100)+' across the layers within 60 ms of d'+a.d+' exceeds 1.6'); } } });
+      return {layers:layers, errs:errs}; };
+    // a layer's end, ms from the cast: d + (n-1)*i + Seconds*1000 / 2^(p/12). Pitching down LENGTHENS the clip.
+    const layerMs=(l,bank)=>{ const row=(bank||BANK)[l.id]; if(!row) return l.d+(l.n-1)*l.i;
+      const sec=num(col(row,'Seconds','seconds'),0);
+      return l.d+(l.n-1)*l.i+sec*1000/Math.pow(2,l.p/12); };
+    const lengthMs=(parsed,bank)=>{ const P=(typeof parsed==='string')?parse(parsed,bank):parsed;
+      return ((P&&P.layers)||[]).reduce((a,l)=>Math.max(a,layerMs(l,bank)),0); };
+    /* THE FOLD RULE [R D 2026-09-24]: floors 101-120 (Void Apex) reuse the ten zone beds two floors at a time,
+       101-102 on zone 1, 119-120 on zone 10. The dungeon's music_zone_void is NOT used up there. Below 101 a
+       zone is ten floors. This lives in the liftable block so the gate can check it on the shipped bytes. */
+    const zoneFor=f=>{ f=+f||0; return f>=101?(Math.floor((f-101)/2)+1):(Math.floor((f-1)/10)+1); };
 
-  /* ---- the grammar (codex/AFX_SPEC.md § The grammar) ---------------------------------------- */
-  var TOK = /^(g|p|d|n|i|j)(-?\d+(?:\.\d+)?)$/;
-  var RANGE = { g: [0.05, 1.5], p: [-12, 12], d: [0, 2000], n: [1, 4], i: [30, 600], j: [0, 3] };
-  var INT = { p: 1, d: 1, n: 1, i: 1, j: 1 };
-  var DEF = { g: 1, p: 0, d: 0, n: 1, i: 90, j: 0 };
-  var MOVE_GROUPS = ['impact', 'material', 'melee', 'blast', 'arcane', 'machine', 'creature', 'foley', 'footstep'];
-  var REFUSED = ['ui', 'coin', 'jingle', 'door'];
-  var SHRILL_OVER3K = 20, SHRILL_MAX_P = -3, CLIP_MAX_G = 0.7;
-
-  /* ---- state ------------------------------------------------------------------------------- */
-  var ctx = null, gMaster = null, gMusic = null, gSfx = null;
-  var mix = { master: 70, music: 60, sfx: 80 }, muted = false;
-  var BANK = {}, EVENTS = {}, TRACKS = {}, BASE = '';
-  var buffers = {}, inflight = {}, warned = {};
-  var lastCue = {}, music = { id: null, src: null, gain: null };
-
-  function taper(pct) { return Math.pow(Math.max(0, Math.min(100, pct)) / 100, 1.6); }
-
-  function ac() {
-    if (!ctx) {
-      var C = root.AudioContext || root.webkitAudioContext;
-      if (!C) return null;
-      ctx = new C();
-      gMaster = ctx.createGain(); gMusic = ctx.createGain(); gSfx = ctx.createGain();
-      gMusic.connect(gMaster); gSfx.connect(gMaster); gMaster.connect(ctx.destination);
-      applyMix();
-    }
-    return ctx;
-  }
-  function applyMix() {
-    if (!gMaster) return;
-    gMaster.gain.value = muted ? 0 : taper(mix.master);
-    gMusic.gain.value = taper(mix.music);
-    gSfx.gain.value = taper(mix.sfx);
-  }
-
-  /* One decode per path, ever, and never two in flight for the same path. A missing file is logged
-     ONCE and then plays nothing - a review page that casts 1200 times must not print 1200 lines. */
-  function buffer(file) {
-    if (buffers[file]) return Promise.resolve(buffers[file]);
-    if (inflight[file]) return inflight[file];
-    var c = ac();
-    if (!c) return Promise.resolve(null);
-    var p = fetch(BASE + file).then(function (r) {
-      if (!r.ok) throw new Error('HTTP ' + r.status);
-      return r.arrayBuffer();
-    }).then(function (ab) {
-      return new Promise(function (res, rej) { c.decodeAudioData(ab, res, rej); });
-    }).then(function (buf) {
-      buffers[file] = buf; delete inflight[file]; return buf;
-    }).catch(function (e) {
-      delete inflight[file];
-      if (!warned[file]) { warned[file] = 1; try { console.warn('[afx] cannot play ' + file + ': ' + e.message); } catch (x) {} }
-      return null;
-    });
-    return (inflight[file] = p);
-  }
-
-  /* ---- parse ------------------------------------------------------------------------------- */
-  function parse(text) {
-    var layers = [], errs = [], parts = String(text == null ? '' : text).split('|'), i, k;
-    for (i = 0; i < parts.length; i++) {
-      var raw = parts[i].trim();
-      if (!raw) { errs.push('empty layer'); continue; }
-      var toks = raw.split(/\s+/);
-      if (!/^AFX-\d{3}$/.test(toks[0])) { errs.push('bad head token "' + toks[0] + '" (want AFX-NNN)'); continue; }
-      var id = toks[0], row = BANK[id], mods = {}, seen = {};
-      if (!row) errs.push('unknown clip ' + id);
-      for (k = 1; k < toks.length; k++) {
-        var m = TOK.exec(toks[k]);
-        if (!m) { errs.push('bad token "' + toks[k] + '" in ' + id); continue; }
-        var key = m[1], v = parseFloat(m[2]);
-        if (seen[key]) errs.push(id + ' writes ' + key + ' twice - the last one silently wins');
-        seen[key] = 1;
-        if (v < RANGE[key][0] || v > RANGE[key][1])
-          errs.push(id + ' ' + key + m[2] + ' out of range ' + RANGE[key][0] + '..' + RANGE[key][1]);
-        if (INT[key] && v !== Math.round(v)) errs.push(id + ' ' + key + ' must be an integer');
-        mods[key] = v;
-      }
-      if (mods.i != null && !(mods.n > 1)) errs.push(id + ' has i without n>1 - nothing to space');
-      if (row) {
-        var over3k = parseFloat(row.Over3k_Pct), peak = parseFloat(row.Peak_dBFS);
-        if (over3k >= SHRILL_OVER3K && (mods.p == null || mods.p > SHRILL_MAX_P))
-          errs.push(id + ' is SHRILL (' + over3k + '% above 3 kHz) and needs p<=' + SHRILL_MAX_P);
-        if (peak > 0 && (mods.g == null || mods.g > CLIP_MAX_G))
-          errs.push(id + ' is CLIPPED (peak ' + peak + ' dBFS) and needs g<=' + CLIP_MAX_G);
-        if (REFUSED.indexOf(row.Group) >= 0)
-          errs.push(id + ' is a ' + row.Group + ' clip - refused on a move');
-        else if (MOVE_GROUPS.indexOf(row.Group) < 0)
-          errs.push(id + ' is group "' + row.Group + '", which is not a move group');
-      }
-      var L = { id: id };
-      for (k in DEF) L[k] = (mods[k] == null ? DEF[k] : mods[k]);
-      layers.push(L);
-    }
-    return { layers: layers, errs: errs };
-  }
-
-  function rate(p) { return Math.pow(2, p / 12); }
-
-  function layerEnd(L, bank) {
-    var row = (bank || BANK)[L.id];
-    var secs = row ? parseFloat(row.Seconds) : 0;
-    return L.d + (L.n - 1) * L.i + (secs * 1000) / rate(L.p);
-  }
-  function lengthMs(parsed, bank) {
-    var ls = (parsed && parsed.layers) || [], out = 0, i;
-    for (i = 0; i < ls.length; i++) out = Math.max(out, layerEnd(ls[i], bank));
-    return out;
-  }
-
-  /* ---- load -------------------------------------------------------------------------------- */
-  /* Takes afx_bank.csv rows, afx_events.csv rows or bgm.csv rows - the row's own key column says
-     which, so a page can hand over all three without three entry points. */
-  function load(rows, base) {
-    if (base != null) BASE = base;
-    (rows || []).forEach(function (r) {
-      if (r.Id) BANK[r.Id] = r;
-      else if (r.Event_ID) EVENTS[r.Event_ID] = { file: r.File, gain: parseFloat(r.Gain) || 1,
-                                                 retriggerMs: parseInt(r.Retrigger_Ms, 10) || 0, row: r };
-      else if (r.Track_ID) TRACKS[r.Track_ID] = { file: r.File, gain: parseFloat(r.Gain) || 1, row: r };
-    });
-    return { clips: Object.keys(BANK).length, events: Object.keys(EVENTS).length, tracks: Object.keys(TRACKS).length };
-  }
-
-  /* ---- play -------------------------------------------------------------------------------- */
-  /* speed scales every d and every i - the client's fast-forward - and NEVER the pitch. */
-  function play(comp, opts) {
-    opts = opts || {};
-    var parsed = (comp && comp.layers) ? comp : parse(comp);
-    var speed = opts.speed > 0 ? opts.speed : 1;
-    var gain = opts.gain == null ? 1 : opts.gain;
-    var c = ac(), nodes = [], timers = [], dead = false;
-    if (!c || !parsed.layers.length) return { stop: function () {}, parsed: parsed, lenMs: lengthMs(parsed) };
-    if (c.state === 'suspended') c.resume();
-
-    parsed.layers.forEach(function (L) {
-      var row = BANK[L.id];
-      if (!row) return;
-      for (var k = 0; k < L.n; k++) {
-        (function (rep) {
-          var at = (L.d + rep * L.i) / speed;
-          var t = setTimeout(function () {
-            if (dead) return;
-            buffer(row.File).then(function (buf) {
-              if (dead || !buf) return;
-              var s = c.createBufferSource(), g = c.createGain();
-              s.buffer = buf;
-              /* j is re-rolled on every play AND every repeat, so a volley never sounds copy-pasted. */
-              var jit = L.j ? (Math.random() * 2 - 1) * L.j : 0;
-              s.playbackRate.value = rate(L.p + jit);
-              g.gain.value = L.g * gain;
-              s.connect(g); g.connect(gSfx);
-              s.start();
-              nodes.push(s);
-            });
-          }, at);
-          timers.push(t);
-        })(k);
-      }
-    });
-    return {
-      parsed: parsed, lenMs: lengthMs(parsed) / speed,
-      stop: function () {
-        dead = true;
-        timers.forEach(clearTimeout);
-        nodes.forEach(function (s) { try { s.stop(); } catch (e) {} });
-      }
-    };
-  }
-
-  /* ---- cue --------------------------------------------------------------------------------- */
-  function cue(id, opts) {
-    opts = opts || {};
-    var e = EVENTS[id];
-    if (!e) {
-      if (!warned['ev:' + id]) { warned['ev:' + id] = 1; try { console.warn('[afx] no such event: ' + id); } catch (x) {} }
-      return { stop: function () {} };
-    }
-    var now = Date.now();
-    if (e.retriggerMs && lastCue[id] && now - lastCue[id] < e.retriggerMs) return { stop: function () {} };
-    lastCue[id] = now;
-    var c = ac(), stopped = false, src = null;
-    if (!c) return { stop: function () {} };
-    if (c.state === 'suspended') c.resume();
-    buffer(e.file).then(function (buf) {
-      if (stopped || !buf) return;
-      var s = c.createBufferSource(), g = c.createGain();
-      s.buffer = buf; g.gain.value = e.gain * (opts.gain == null ? 1 : opts.gain);
-      s.connect(g); g.connect(gSfx); s.start(); src = s;
-    });
-    return { stop: function () { stopped = true; try { src && src.stop(); } catch (x) {} } };
-  }
-
-  /* ---- music ------------------------------------------------------------------------------- */
-  var FADE_IN = 1.2, FADE_OUT = 0.9;
-  function musicPlay(trackId, opts) {
-    opts = opts || {};
-    if (trackId === music.id) return;                 /* the same bed is a no-op, not a restart */
-    var c = ac();
-    if (!c) return;
-    if (c.state === 'suspended') c.resume();
-    if (music.src) {
-      var oldSrc = music.src, oldGain = music.gain, t0 = c.currentTime;
-      try {
-        oldGain.gain.cancelScheduledValues(t0);
-        oldGain.gain.setValueAtTime(oldGain.gain.value, t0);
-        oldGain.gain.linearRampToValueAtTime(0.0001, t0 + FADE_OUT);
-      } catch (e) {}
-      setTimeout(function () { try { oldSrc.stop(); } catch (e) {} }, FADE_OUT * 1000 + 60);
-      music.src = null; music.gain = null;
-    }
-    music.id = trackId || null;
-    if (!trackId) return;
-    var tr = TRACKS[trackId];
-    if (!tr) {
-      if (!warned['tr:' + trackId]) { warned['tr:' + trackId] = 1; try { console.warn('[afx] no such track: ' + trackId); } catch (x) {} }
-      return;
-    }
-    buffer(tr.file).then(function (buf) {
-      if (!buf || music.id !== trackId) return;
-      var s = c.createBufferSource(), g = c.createGain(), t = c.currentTime;
-      s.buffer = buf; s.loop = true;
-      var target = tr.gain * (opts.gain == null ? 1 : opts.gain);
-      g.gain.setValueAtTime(0.0001, t);
-      g.gain.linearRampToValueAtTime(target, t + FADE_IN);
-      s.connect(g); g.connect(gMusic); s.start();
-      music.src = s; music.gain = g;
-    });
-  }
-
-  /* ---- the Void Apex fold (codex/AFX_SPEC.md, R D 2026-09-24) ------------------------------- */
-  /* Floors 101-120 reuse the ten zone beds two floors at a time: the climb heard a second time at
-     four times the speed, which is what the apex is. There is no eleventh bed. */
-  function zoneForFloor(floor) {
-    var f = Math.max(1, Math.min(120, Math.round(+floor || 1)));
-    return f >= 101 ? Math.floor((f - 101) / 2) + 1 : Math.floor((f - 1) / 10) + 1;
-  }
-  function trackForFloor(floor, isBoss) {
-    if (isBoss && TRACKS.boss) return 'boss';
-    var n = zoneForFloor(floor), zones = Object.keys(TRACKS).filter(function (k) {
-      return TRACKS[k].row && TRACKS[k].row.State === 'zone';
-    });
-    return zones[n - 1] || null;
-  }
-
-  root.DFMC_AFX_BANK = {
-    parse: parse, lengthMs: lengthMs, load: load, play: play, cue: cue, music: musicPlay,
-    setMix: function (m) { if (m) { for (var k in m) if (mix[k] != null && m[k] != null) mix[k] = +m[k]; } applyMix(); },
-    getMix: function () { return { master: mix.master, music: mix.music, sfx: mix.sfx }; },
-    unlock: function () { var c = ac(); if (c && c.state === 'suspended') c.resume(); },
-    mute: function (m) { muted = !!m; applyMix(); },
-    isMuted: function () { return muted; },
-    zoneForFloor: zoneForFloor, trackForFloor: trackForFloor,
-    bank: BANK, events: EVENTS, tracks: TRACKS,
-    STUB: true
-  };
+    // ---- registries and the audio graph ---------------------------------------------------------
+    let BANK={}, EVENTS={}, TRACKS={}, BASE='';
+    const mix={master:80, music:60, sfx:90};
+    let muted=false, unlocked=false;
+    let ctx=null, gMaster=null, gMusic=null, gSfx=null;
+    const buf={}, pending={}, warned={}, lastCue={};
+    let cur=null; // the music handle on air
+    const warnOnce=msg=>{ if(warned[msg]) return; warned[msg]=1; try{ console.warn('[afx] '+msg); }catch(e){} };
+    const url=f=>{ f=String(f==null?'':f).replace(/^\.?\//,''); return (/^[a-z]+:\/\//i.test(f)||!BASE)?f:(BASE+f); };
+    const taper=v=>Math.pow(Math.max(0,Math.min(100,num(v,0)))/100,1.6); // (pct/100)^1.6: a slider must not spend half its travel above comfortable
+    const applyMix=()=>{ if(!ctx) return;
+      try{ gMaster.gain.value=muted?0:taper(mix.master); gMusic.gain.value=taper(mix.music); gSfx.gain.value=taper(mix.sfx); }catch(e){} };
+    const ensure=()=>{ if(ctx) return ctx;
+      try{ const AC=(typeof window!=='undefined'&&(window.AudioContext||window.webkitAudioContext))||(typeof AudioContext!=='undefined'?AudioContext:null);
+        if(!AC){ warnOnce('no Web Audio in this browser'); return null; }
+        ctx=new AC();
+        gMaster=ctx.createGain(); gMusic=ctx.createGain(); gSfx=ctx.createGain();
+        gMaster.connect(ctx.destination); gMusic.connect(gMaster); gSfx.connect(gMaster);
+        applyMix(); }catch(e){ ctx=null; warnOnce('cannot open an AudioContext: '+(e&&e.message||e)); }
+      return ctx; };
+    /* load(rows, base, kind): afx_bank.csv, afx_events.csv or bgm.csv, told apart by their own key column so one
+       call site serves all three. base is the URL prefix for File (the client ships its own copies under
+       play/assets/afx|bgm, the codex page reads them from its own tree). Called again with the same kind
+       REPLACES that registry - a reload must not leave a retired id addressable. */
+    const load=(rows,base,kind)=>{ if(base!=null) BASE=String(base);
+      const k0=kind||((rows&&rows.length)?(rows[0].Id?'bank':(rows[0].Event_ID?'events':(rows[0].Track_ID?'bgm':null))):null);
+      const counts=()=>({bank:Object.keys(BANK).length, events:Object.keys(EVENTS).length, tracks:Object.keys(TRACKS).length});
+      if(!k0) return counts();
+      if(k0==='bank') BANK={}; else if(k0==='events') EVENTS={}; else if(k0==='bgm') TRACKS={};
+      (rows||[]).forEach(r=>{ if(!r) return;
+        if(k0==='bank'&&r.Id) BANK[String(r.Id)]={ id:String(r.Id), file:url(r.File), Seconds:num(r.Seconds,0), Group:String(r.Group||'').toLowerCase(),
+          Over3k_Pct:num(r.Over3k_Pct,0), Peak_dBFS:num(r.Peak_dBFS,-99), Name:r.Name||'' };
+        else if(k0==='events'&&r.Event_ID) EVENTS[String(r.Event_ID)]={ id:String(r.Event_ID), file:url(r.File), gain:num(r.Gain,1), retriggerMs:num(r.Retrigger_Ms,0), category:String(r.Category||'') };
+        else if(k0==='bgm'&&r.Track_ID) TRACKS[String(r.Track_ID)]={ id:String(r.Track_ID), file:url(r.File), gain:num(r.Gain,1), state:String(r.State||''), zone:String(r.Zone||''), seconds:num(r.Seconds,0), title:r.Title||'' }; });
+      return counts(); };
+    // one decode per path, ever, and never two in flight for the same path. A miss is ONE console line, not a throw.
+    const decode=path=>{ if(buf[path]) return Promise.resolve(buf[path]);
+      if(pending[path]) return pending[path];
+      const c=ensure(); if(!c||typeof fetch!=='function') return Promise.resolve(null);
+      const p=fetch(path).then(r=>{ if(!r||!r.ok) throw new Error('HTTP '+(r&&r.status)); return r.arrayBuffer(); })
+        .then(ab=>new Promise((res,rej)=>{ let out=null;
+          try{ out=c.decodeAudioData(ab, b=>res(b), e=>rej(e||new Error('decode failed'))); }catch(e){ rej(e); return; }
+          if(out&&typeof out.then==='function') out.then(b=>res(b), e=>rej(e)); }))
+        .then(b=>{ delete pending[path]; if(b) buf[path]=b; return b||null; })
+        .catch(e=>{ delete pending[path]; warnOnce('clip unavailable '+path+': '+(e&&e.message||e)); return null; });
+      pending[path]=p; return p; };
+    // one voice: decode (cached), then start at the scheduled time on the given bus. Returns its own stop.
+    const voice=(path,gain,semis,delayMs,bus)=>{ const c=ensure(); if(!c) return ()=>{};
+      const t0=c.currentTime+Math.max(0,delayMs||0)/1000; let src=null, dead=false;
+      decode(path).then(b=>{ if(dead||!b) return;
+        try{ src=c.createBufferSource(); src.buffer=b; src.playbackRate.value=Math.pow(2,(semis||0)/12);
+          const g=c.createGain(); g.gain.value=Math.max(0,gain); src.connect(g); g.connect(bus);
+          src.start(Math.max(c.currentTime,t0)); }catch(e){ warnOnce('cannot start '+path+': '+(e&&e.message||e)); } });
+      return ()=>{ dead=true; if(src){ try{ src.stop(); }catch(e){} src=null; } }; };
+    /* play(parsed|text, opts) -> {stop()}. opts: speed (the client's fast-forward - it scales every d and i and
+       NEVER the pitch, the same rule VFX_BANK.render follows), gain (an extra multiplier), bank.
+       A malformed or empty composition plays nothing and is not an error at this layer: the linter and the gate
+       are where a bad cell is caught, and a battle must never fail over a data table. */
+    const play=(comp,opts)=>{ opts=opts||{}; const stops=[];
+      const h={ stop(){ while(stops.length){ const s=stops.pop(); try{ s(); }catch(e){} } } };
+      if(muted) return h;
+      const bank=opts.bank||BANK;
+      const P=(typeof comp==='string')?parse(comp,bank):comp;
+      if(!P||!P.layers||!P.layers.length||(P.errs&&P.errs.length)) return h;
+      if(!ensure()) return h;
+      const speed=(opts.speed==null?1:num(opts.speed,1))||1, og=(opts.gain==null?1:num(opts.gain,1));
+      P.layers.forEach(l=>{ const row=bank[l.id]; if(!row||!row.file) return;
+        for(let k=0;k<l.n;k++){
+          const jit=l.j?((Math.random()*2-1)*l.j):0; // re-rolled per repeat, by the grammar
+          stops.push(voice(row.file, l.g*og, l.p+jit, (l.d+k*l.i)*speed, gSfx)); } });
+      return h; };
+    /* cue(id, opts) -> an afx_events.csv row by Event_ID. Retrigger_Ms is a floor on how often one cue may fire,
+       which is what keeps ui.click from turning a held button into a buzz. Unknown id: one console line, silence. */
+    const cue=(id,opts)=>{ opts=opts||{}; if(muted||!id) return null;
+      const e=EVENTS[String(id)];
+      if(!e){ warnOnce('no afx_events.csv row for cue '+id); return null; }
+      const now=Date.now(); const rt=(opts.retriggerMs==null?e.retriggerMs:num(opts.retriggerMs,0))||0;
+      if(rt&&lastCue[e.id]&&(now-lastCue[e.id])<rt) return null;
+      lastCue[e.id]=now;
+      if(!ensure()) return null;
+      const bus=(opts.bus==='music')?gMusic:gSfx;
+      const stop=voice(e.file, e.gain*(opts.gain==null?1:num(opts.gain,1)), num(opts.p,0), num(opts.delay,0), bus);
+      return { stop:stop }; };
+    /* music(trackId|null, opts): crossfade to a bgm.csv track - in over FADE_IN, the outgoing one out over
+       FADE_OUT, looped, the row's Gain applied on the music bus. The SAME id is a no-op, so a screen change
+       that does not change the bed never restarts it; null stops. */
+    const music=(id,opts)=>{ opts=opts||{};
+      const outMs=(opts.fadeOut==null?FADE_OUT:num(opts.fadeOut,FADE_OUT));
+      if(id!=null&&cur&&cur.id===String(id)) return cur;
+      if(!ensure()) return null;
+      const c=ctx;
+      if(cur){ const old=cur; cur=null; old.stopped=true;
+        try{ const gp=old.gain.gain; gp.cancelScheduledValues(c.currentTime); gp.setValueAtTime(gp.value,c.currentTime); gp.linearRampToValueAtTime(0,c.currentTime+outMs/1000); }catch(e){}
+        setTimeout(()=>{ if(old.src){ try{ old.src.stop(); }catch(e){} old.src=null; } }, Math.round(outMs)+80); }
+      if(id==null) return null;
+      const row=TRACKS[String(id)];
+      if(!row||!row.file){ warnOnce('no bgm.csv row for track '+id); return null; }
+      const inMs=(opts.fadeIn==null?FADE_IN:num(opts.fadeIn,FADE_IN));
+      let g=null; try{ g=c.createGain(); g.gain.value=0; g.connect(gMusic); }catch(e){ return null; }
+      const h={ id:String(id), gain:g, src:null, stopped:false, stop(){ this.stopped=true; if(this.src){ try{ this.src.stop(); }catch(e){} this.src=null; } if(cur===this) cur=null; } };
+      cur=h;
+      decode(row.file).then(b=>{ if(!b||h.stopped||cur!==h) return;
+        try{ const s=c.createBufferSource(); s.buffer=b; s.loop=true; s.connect(g); s.start(); h.src=s;
+          g.gain.cancelScheduledValues(c.currentTime); g.gain.setValueAtTime(0,c.currentTime);
+          g.gain.linearRampToValueAtTime(Math.max(0,row.gain),c.currentTime+inMs/1000); }catch(e){ warnOnce('cannot start bed '+row.file+': '+(e&&e.message||e)); } });
+      return h; };
+    const setMix=m=>{ if(m){ if(m.master!=null) mix.master=Math.max(0,Math.min(100,num(m.master,mix.master)));
+        if(m.music!=null) mix.music=Math.max(0,Math.min(100,num(m.music,mix.music)));
+        if(m.sfx!=null) mix.sfx=Math.max(0,Math.min(100,num(m.sfx,mix.sfx))); }
+      applyMix(); return {master:mix.master, music:mix.music, sfx:mix.sfx}; };
+    const getMix=()=>({master:mix.master, music:mix.music, sfx:mix.sfx, muted:muted,
+      gain:{master:muted?0:taper(mix.master), music:taper(mix.music), sfx:taper(mix.sfx)}});
+    // unlock: a browser refuses to start an AudioContext outside a gesture. Call from the first click / keydown / touchstart.
+    const unlock=()=>{ const c=ensure(); if(!c) return false;
+      try{ if(c.state==='suspended'&&typeof c.resume==='function') c.resume(); }catch(e){}
+      unlocked=true; return true; };
+    const mute=v=>{ muted=!!v; applyMix();
+      if(muted&&cur){ const old=cur; cur=null; old.stopped=true; if(old.src){ try{ old.src.stop(); }catch(e){} old.src=null; } }
+      return muted; };
+    const trackForZone=name=>{ const ks=Object.keys(TRACKS); for(let i=0;i<ks.length;i++){ if(TRACKS[ks[i]].zone===String(name)) return TRACKS[ks[i]].id; } return null; };
+    return { parse:parse, layerMs:layerMs, lengthMs:lengthMs, zoneFor:zoneFor, load:load, play:play, cue:cue,
+      music:music, setMix:setMix, getMix:getMix, unlock:unlock, mute:mute, trackForZone:trackForZone,
+      isMuted:()=>muted, isUnlocked:()=>unlocked, playing:()=>(cur&&cur.id)||null,
+      bank:()=>BANK, events:()=>EVENTS, tracks:()=>TRACKS,
+      FADE:{in:FADE_IN, out:FADE_OUT}, RANGE:RANGE, MOVE_GROUPS:MOVE_GROUPS, REFUSED:REFUSED };
+  })();
+  root.DFMC_AFX_BANK = AFX_BANK;
 })(typeof window !== 'undefined' ? window : globalThis);

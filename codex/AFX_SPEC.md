@@ -178,26 +178,42 @@ Self-contained IIFE, no React, no game state. Web Audio, one `AudioContext`, bus
 never more than one decode in flight per path.
 
 ```
-AFX_BANK.parse(text)              -> {layers:[{id,g,p,d,n,i,j}], errs:[...]}   same verdicts as afx_lint.py
-AFX_BANK.lengthMs(parsed, bank)   -> number
-AFX_BANK.load(bankRows, base)     -> register afx_bank.csv rows (Id -> {file, seconds, ...});
-                                     base prefixes `File`. Also takes afx_events.csv and bgm.csv rows.
-AFX_BANK.play(parsed|text, opts)  -> handle {stop()}   opts: {speed = duration multiplier (default 1), gain}
+AFX_BANK.parse(text[, bank])      -> {layers:[{id,g,p,d,n,i,j}], errs:[...]}   same verdicts as afx_lint.py
+AFX_BANK.layerMs(layer[, bank])   -> one layer's end, in ms
+AFX_BANK.lengthMs(parsed|text[, bank]) -> the composition's end, in ms
+AFX_BANK.zoneFor(floor)           -> 1..10, by the Void Apex fold below
+AFX_BANK.trackForZone(zoneName)   -> the bgm.csv Track_ID whose `Zone` cell is that name, or null
+AFX_BANK.load(rows, base, kind)   -> register ONE table. `kind` is 'bank' | 'events' | 'bgm', inferred
+                                     from the first row when omitted; `base` prefixes `File`.
+AFX_BANK.play(parsed|text, opts)  -> handle {stop()}   opts: {speed = duration multiplier (default 1), gain, bank}
 AFX_BANK.cue(id, opts)            -> play an afx_events.csv event by Event_ID, honouring Retrigger_Ms
 AFX_BANK.music(trackId|null,opts) -> crossfade to a bgm.csv track (in 1200 ms, out 900 ms, looped,
                                      Gain applied). null stops. The same id is a no-op.
 AFX_BANK.setMix({master,music,sfx}) / getMix()   0..100 each, tapered (pct/100)^1.6
 AFX_BANK.unlock()                 -> resume the context on the first gesture (click/keydown/touchstart, once)
-AFX_BANK.mute(bool) / isMuted()
+AFX_BANK.mute(bool) / isMuted() / isUnlocked() / playing()
+AFX_BANK.bank() / events() / tracks()   -> the three registries. FUNCTIONS, not properties.
 ```
 
 `speed` scales every `d` and every `i` — the client's fast-forward — and **never** the pitch. A
 missing file logs once to the console, plays nothing, and never throws.
 
-Until the client lane lands, `assets/vfx/afx_bank.js` is a **stub** that implements this contract and
-says so in its header. `tools/gen_vfx_fx.py` looks for the block in the client on every run and keeps
-the stub with a message when it is absent, so the divergence gate does not go red before the
-implementation exists.
+**Three things a consumer gets wrong exactly once**, all three found the day the real player replaced
+the stub, all three on the codex side, because the stub and the client agreed on behaviour and
+disagreed on spelling:
+
+1. `load()` reads the kind off the FIRST row and **replaces** that registry. One mixed array registers
+   the bank and silently drops the cues and the beds — the page looks fine and plays no music at all.
+   Call it three times, once per table.
+2. `bank`, `events` and `tracks` are **functions**. `Object.keys(AFX_BANK.bank)` is `[]`, which reads
+   as an empty bank rather than as a mistake; that is what held `tools/afx_gate.py` at a 45-second
+   timeout on `the page is not playing from the AFX bank`.
+3. `play()` returns a stop handle and **no length**. Ask `lengthMs()` for the length.
+
+**One deliberate asymmetry with the linter.** The client enforces integer `d`, `n` and `i`;
+`tools/afx_lint.py` also requires integer `p` and `j`. The linter is the stricter of the two on
+purpose — nothing that passes lint can surprise the player — and the table above is what an author
+writes to.
 
 ## Consumers
 
@@ -211,8 +227,15 @@ implementation exists.
 
 ## Changelog
 
+- **2026-09-24 (b)** — **the client's player landed and all 419 rows are authored.**
+  `assets/vfx/afx_bank.js` is no longer a stub: `tools/gen_vfx_fx.py --write` lifts the client's real
+  `AFX_BANK` block, and six authoring lanes filled every `AFX_S1..AFX_S3` cell — 173 of the 606
+  clips are in use. Three codex-side fixes travelled with it, all three listed under the contract
+  above, plus one in the generator itself: it compared the RAW lifted block against an indented copy,
+  so its AFX check reported DIVERGED on a file it had just written. A permanently red gate is a gate
+  nobody reads.
 - **2026-09-24** — **the AFX bank arrives.** 606 CC0 clips, 13 music beds and 34 event cues ingested
   from `dfmc-dungeon`; this grammar, `tools/afx_lint.py`, `tools/merge_afx_lanes.py`, the
-  `AFX_S1..AFX_S3` columns (empty), the lifted-player stub, `audio.html` and `tools/afx_gate.py`.
-  The Void Apex fold is D's ruling of the same day. No row is authored yet — that is a lane, and
-  `--allow-empty` is how this state stays green until it starts.
+  `AFX_S1..AFX_S3` columns, a lifted-player stub to stand until the client lane landed, `audio.html`
+  and `tools/afx_gate.py`. The Void Apex fold is D's ruling of the same day. `--allow-empty` is how
+  the pre-authoring state stayed green; it is not needed now and must not be used to hide a gap.

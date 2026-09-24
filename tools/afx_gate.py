@@ -80,17 +80,18 @@ CAST_JS = """async (jobs) => {
 # THE PROBE. A composition the page did not ship, pushed through the page's own player: it must parse
 # with no errors, report a length, and land in __afxLog exactly as an authored row would.
 PROBE_JS = """() => {
-  const ids=Object.keys(DFMC_AFX_BANK.bank);
-  const pick=ids.filter(i=>{const r=DFMC_AFX_BANK.bank[i];
-    return ['impact','material','arcane','blast','melee','machine','foley','footstep','creature']
-      .indexOf(r.Group)>=0;}).slice(0,2);
+  const B=DFMC_AFX_BANK.bank();
+  const pick=Object.keys(B).filter(i=>
+    ['impact','material','arcane','blast','melee','machine','foley','footstep','creature']
+      .indexOf(String(B[i].Group||'').toLowerCase())>=0).slice(0,2);
   if(pick.length<2) return {ok:false, why:'fewer than two move-group clips in the bank'};
   const txt=pick[0]+' g0.6 p-3 | '+pick[1]+' g0.5 p-4 d180 n2 i120 j1';
   const p=DFMC_AFX_BANK.parse(txt);
   const before=window.__afxLog.length;
   const h=DFMC_AFX_BANK.play(p,{speed:1});
   window.__afxLog.push({id:'__probe', stage:0, text:txt, layers:p.layers.length,
-                        lenMs:Math.round(h&&h.lenMs||0), speed:1, ids:p.layers.map(l=>l.id)});
+                        lenMs:Math.round(DFMC_AFX_BANK.lengthMs(p)), speed:1,
+                        ids:p.layers.map(l=>l.id)});
   const rec=window.__afxLog[window.__afxLog.length-1];
   if(h&&h.stop) h.stop();
   return {ok:true, txt:txt, errs:p.errs, layers:p.layers.length, lenMs:rec.lenMs,
@@ -144,7 +145,7 @@ async def main():
             try:
                 await pg.wait_for_function(
                     'typeof ALLROWS!=="undefined" && ALLROWS.length>0 && typeof castNow==="function" '
-                    '&& typeof DFMC_AFX_BANK!=="undefined" && Object.keys(DFMC_AFX_BANK.bank).length>0 '
+                    '&& typeof DFMC_AFX_BANK!=="undefined" && Object.keys(DFMC_AFX_BANK.bank()).length>0 '
                     '&& Array.isArray(window.__afxLog)', timeout=45000)
             except Exception:
                 chk('vfx.html exposes the AFX walk (DFMC_AFX_BANK / __afxLog / castNow)', False,
@@ -155,17 +156,54 @@ async def main():
             await pg.evaluate('DFMC_AFX.mute(true); DFMC_AFX_BANK.mute(true);')   # a gate makes no noise
 
             loaded = await pg.evaluate(
-                '[Object.keys(DFMC_AFX_BANK.bank).length, Object.keys(DFMC_AFX_BANK.events).length, '
-                ' Object.keys(DFMC_AFX_BANK.tracks).length, ALLROWS.length]')
+                '[Object.keys(DFMC_AFX_BANK.bank()).length, Object.keys(DFMC_AFX_BANK.events()).length, '
+                ' Object.keys(DFMC_AFX_BANK.tracks()).length, ALLROWS.length]')
             chk('vfx.html loads the bank, the cues and the beds',
                 loaded[:3] == [len(bank), len(ev), len(bgm)],
                 '%d clips / %d events / %d tracks loaded (csv: %d / %d / %d), %d move rows'
                 % (loaded[0], loaded[1], loaded[2], len(bank), len(ev), len(bgm), loaded[3]))
-            chk('the review page and the client share one player',
-                await pg.evaluate('typeof DFMC_AFX_BANK.parse==="function" && '
-                                  'typeof DFMC_AFX_BANK.play==="function" && '
-                                  'typeof DFMC_AFX_BANK.music==="function" && '
-                                  'typeof DFMC_AFX_BANK.cue==="function"'))
+            # THE WHOLE CONTRACT, name by name (codex/AFX_SPEC.md). A page that calls a method the
+            # lifted player does not have fails at the call site, which is a console error the gate
+            # would only notice if that code path happened to run; this notices it at boot.
+            api = ['parse', 'layerMs', 'lengthMs', 'zoneFor', 'load', 'play', 'cue', 'music',
+                   'setMix', 'getMix', 'unlock', 'mute', 'isMuted', 'trackForZone',
+                   'bank', 'events', 'tracks']
+            have = await pg.evaluate('(names)=>names.filter(n=>typeof DFMC_AFX_BANK[n]!=="function")', api)
+            chk('the review page and the client share one player, whole contract', not have,
+                'missing: %s' % ', '.join(have) if have else '%d methods, lifted, not a stub'
+                % len(api))
+            chk('the lifted player is the client\'s own block, not the stub',
+                not await pg.evaluate('!!DFMC_AFX_BANK.STUB'),
+                'tools/gen_vfx_fx.py --write has run against a client that has the block')
+
+            # EVERY EVENT THE CLIENT CUES MUST RESOLVE. The client names these 20 at its call sites;
+            # a rename on either side is silence in the game and nothing at all on this page.
+            cued = ['ui.click', 'ui.open', 'ui.close', 'ui.deny', 'ui.toast', 'battle.start',
+                    'battle.victory', 'battle.defeat', 'unit.down', 'level_up', 'evolve', 'hatch',
+                    'egg.lay', 'craft.success', 'craft.fail', 'loot', 'shop.buy', 'boss.arrive',
+                    'boss.fell', 'ascend']
+            missing_ev = await pg.evaluate(
+                '(ids)=>{const E=DFMC_AFX_BANK.events(); return ids.filter(i=>!E[i]||!E[i].file);}', cued)
+            chk('every Event_ID the client cues resolves in afx_events.csv (%d)' % len(cued),
+                not missing_ev, 'missing: %s' % ', '.join(missing_ev) if missing_ev else
+                'all %d present, %d more authored for events the client does not cue yet'
+                % (len(cued), len(ev) - len(cued)))
+
+            # and the beds the client asks for by name
+            want_tracks = ['hub', 'boss', 'title']
+            zone_names = [r['Zone'] for r in rows('floors.csv')]
+            seen_z = []
+            for z in zone_names:
+                if z not in seen_z:
+                    seen_z.append(z)
+            miss_t = await pg.evaluate(
+                '([ids, zones])=>{const T=DFMC_AFX_BANK.tracks();'
+                ' const bad=ids.filter(i=>!T[i]||!T[i].file);'
+                ' zones.slice(0,10).forEach((z,n)=>{ if(!DFMC_AFX_BANK.trackForZone(z)) bad.push("zone "+z); });'
+                ' return bad;}', [want_tracks, seen_z])
+            chk('hub / boss / title and the ten zone beds all resolve by the names the client uses',
+                not miss_t, 'missing: %s' % ', '.join(miss_t) if miss_t else
+                'hub, boss, title + %s' % ', '.join(seen_z[:3] + ['...']))
 
             # ---- every asset really is there ----
             await fetch_all(pg, [r['File'] for r in bank], 'afx_bank.csv')

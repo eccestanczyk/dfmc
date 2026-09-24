@@ -359,11 +359,15 @@ async function boot(){
     fetch(bust('codex/afx_events.csv')).then(r=>r.text()),
     fetch(bust('codex/bgm.csv')).then(r=>r.text())
   ]);
-  /* One load() for all three row shapes - the key column says which is which (codex/AFX_SPEC.md). */
+  /* THREE load() CALLS, ONE PER REGISTRY. The client's load() reads the KIND off the first row and
+     REPLACES that registry wholesale, so handing it one mixed array registers the bank and silently
+     drops the cues and the beds - the page would look fine and play no music at all. */
   parseCSV(abk).forEach(r=>{ if(r.Id) AFXBANK[r.Id]=r; });
   AFXEV=parseCSV(aev).filter(r=>r.Event_ID);
   BGM=parseCSV(bgm).filter(r=>r.Track_ID);
-  DFMC_AFX_BANK.load(Object.values(AFXBANK).concat(AFXEV,BGM),'');
+  DFMC_AFX_BANK.load(Object.values(AFXBANK),'','bank');
+  DFMC_AFX_BANK.load(AFXEV,null,'events');
+  DFMC_AFX_BANK.load(BGM,null,'bgm');
   CRE=parseCSV(c); MOV=parseCSV(m);
   MOV.forEach(r=>VFX[r.Move_ID]=r);
   /* The 48-sheet manifest, keyed by Id, exactly as the client hands it to VFX_BANK. */
@@ -517,7 +521,7 @@ function afxFor(mvId,stage){
   if(txt in _afxCache) return _afxCache[txt];
   let out=null;
   if(Object.keys(AFXBANK).length){
-    const p=DFMC_AFX_BANK.parse(txt);
+    const p=DFMC_AFX_BANK.parse(txt);   /* the client's parser, the same verdicts as tools/afx_lint.py */
     if(p.errs.length){ try{ console.warn('[data] move_vfx.csv: malformed AFX composition "'+txt+'": '+p.errs.join('; ')); }catch(e){} }
     else out={text:txt,parsed:p,stage:isUlt?4:st,isUlt:isUlt};
   }
@@ -630,8 +634,9 @@ function castNow(mv, stage, side){
   const acomp=afxFor(mv.Move_ID, st);
   rc.afx=!!acomp; rc.afxLayers=0; rc.afxLenMs=0; rc.afxText=acomp?acomp.text:''; rc.aarch='';
   if(acomp){
-    const h=DFMC_AFX_BANK.play(acomp.parsed,{speed:FX_SPEED});
-    rc.afxLayers=acomp.parsed.layers.length; rc.afxLenMs=Math.round(h&&h.lenMs||0);
+    DFMC_AFX_BANK.play(acomp.parsed,{speed:FX_SPEED});
+    rc.afxLayers=acomp.parsed.layers.length;
+    rc.afxLenMs=Math.round(DFMC_AFX_BANK.lengthMs(acomp.parsed)/FX_SPEED);
     AFXLOG.push({id:mv.Move_ID,stage:rc.stage,text:acomp.text,layers:rc.afxLayers,lenMs:rc.afxLenMs,
                  speed:FX_SPEED,ids:acomp.parsed.layers.map(l=>l.id)});
     if(AFXLOG.length>4000) AFXLOG.splice(0,2000);

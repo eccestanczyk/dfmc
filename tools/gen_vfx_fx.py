@@ -265,6 +265,12 @@ def main():
     vxhith = const_block(lines, 'VXHITH')
     vxhitfor = const_block(lines, 'VXHIT_FOR')
     afx = lift_iife(lines, 'AFX_BANK')
+    # INDENT ONCE, HERE. The written copy is indented into the wrapper below, so comparing the RAW
+    # block against it can never match: the gate reported DIVERGED on a file it had just written
+    # itself, and a gate that is permanently red is a gate nobody reads. lift() has no such split
+    # because it indents inside itself; this path must do the same before either branch uses it.
+    afx_body = None if afx is None else '\n'.join(
+        ('  ' + l if l.strip() else l) for l in afx.splitlines())
     kf = keyframes(markup)
 
     js = JS_HEAD % {'hex': hexl, 'dur': durl, 'fx': fx, 'bank': bank, 'slash': SLASH,
@@ -285,7 +291,7 @@ def main():
     miss = [n for n in sorted(kf) if kf[n] not in cur_css]
     # The AFX player is only a divergence question once the client has one. Until then the stub stands
     # and this stays green - see lift_iife.
-    ok_afx = True if afx is None else (afx in cur_afx)
+    ok_afx = True if afx is None else (afx_body in cur_afx)
 
     print('client read from          : %s' % src)
     print('keyframes in client       : %d (%d vxb*)' % (len(kf), sum(1 for n in kf if n.startswith('vxb'))))
@@ -307,7 +313,7 @@ def main():
             print('--write: left %s alone - the client has no AFX_BANK block yet, so the stub stands'
                   % afxp)
         else:
-            ajs = AFX_HEAD % {'afx': '\n'.join(('  ' + l if l.strip() else l) for l in afx.splitlines())}
+            ajs = AFX_HEAD % {'afx': afx_body}
             afxp.write_text(ajs, encoding='utf-8')
             print('--write: wrote %s (%d bytes)' % (afxp, len(ajs)))
         return 0

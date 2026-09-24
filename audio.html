@@ -154,13 +154,20 @@ const isClipped=r=>parseFloat(r.Peak_dBFS)>0;
 /* ---------- the Void Apex fold (codex/AFX_SPEC.md, R D 2026-09-24) ----------
    Floors 101-120 reuse the ten zone beds two floors at a time. The page does NOT re-implement it:
    the player owns the rule, so the page and the game cannot disagree about which bed a floor gets. */
-const zoneOf = f => DFMC_AFX_BANK.zoneForFloor(f);
+const zoneOf = f => DFMC_AFX_BANK.zoneFor(f);
 function bossFloor(f){ const r=FLOORS[f-1]; return !!(r && r.Is_Boss==='Yes'); }
+/* The zone INDEX is the player's (zoneFor); the index -> bed step is the player's too
+   (trackForZone, matched on the bgm.csv Zone cell). The page supplies only the ordering that turns
+   an index into a zone NAME, and it takes that from floors.csv rather than from its own opinion. */
+function zoneNames(){
+  const out=[];
+  for(const r of FLOORS){ if(r.Zone && out.indexOf(r.Zone)<0) out.push(r.Zone); }
+  return out;
+}
 function trackForFloor(f){
   if(bossFloor(f)) return 'boss';
-  const zones=BGM.filter(r=>r.State==='zone');
-  const t=zones[zoneOf(f)-1];
-  return t?t.Track_ID:null;
+  const name=zoneNames()[zoneOf(f)-1];
+  return name?DFMC_AFX_BANK.trackForZone(name):null;
 }
 /* [1,2,3,7,8] -> "1-3, 7-8" */
 function ranges(list){
@@ -378,7 +385,11 @@ async function boot(){
   BANK=parseCSV(bank).filter(r=>r.Id);
   MVX=parseCSV(mvx).filter(r=>r.Move_ID);
   FLOORS=parseCSV(fl).filter(r=>r.Floor);
-  DFMC_AFX_BANK.load(BANK.concat(EV,BGM),'');
+  /* One call per registry: load() keys off the first row and REPLACES that registry, so a mixed
+     array would register the bank and drop the cues and the beds. */
+  DFMC_AFX_BANK.load(BANK,'','bank');
+  DFMC_AFX_BANK.load(EV,null,'events');
+  DFMC_AFX_BANK.load(BGM,null,'bgm');
   DFMC_AFX_BANK.setMix({master:+document.getElementById('vol').value});
   computeUsed();
   paintFloor(); render();
@@ -395,7 +406,9 @@ document.querySelectorAll('.btn.tab').forEach(b=>{ b.onclick=function(){
 document.getElementById('sound').onclick=function(){
   const on=!DFMC_AFX_BANK.isMuted(); DFMC_AFX_BANK.mute(on);
   this.textContent=on?'♪ Sound off':'♪ Sound on'; this.classList.toggle('on',!on);
-  if(!on) DFMC_AFX_BANK.unlock();
+  /* The client's mute() STOPS the bed on air rather than ducking it, so a Play button left lit
+     would be claiming something is playing when nothing is. */
+  if(on) stopAll(); else DFMC_AFX_BANK.unlock();
 };
 document.getElementById('vol').oninput=function(){
   DFMC_AFX_BANK.setMix({master:+this.value}); DFMC_AFX_BANK.unlock();
