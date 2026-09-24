@@ -146,6 +146,24 @@
 
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-09-25 &mdash; the devour window is one size at every zoom, resolution and aspect ratio (#985, D). On dev for 0.87; not yet on release.</strong>
+      D&rsquo;s rule: <strong>the window must always be the same size, and the same size relative to the rest of the game&rsquo;s UI,
+      whatever the player&rsquo;s zoom, resolution or aspect ratio.</strong> The client shell is a fixed 1920&times;1080 stage scaled
+      as one piece to the viewport (<em>system-client-shell</em>), and every window inside it inherits that rule for free. The
+      devour window did not sit inside it: it was built on 2026-07-30, the stage scale arrived on 2026-08-05, and the window
+      was left after the stage in the unscaled wrapper &mdash; so its 1020px were <em>screen</em> pixels, its 94% / 88% caps
+      read the real viewport, its arrow was 7% of the viewport width and its fodder page was 3 to 8 rows by viewport.
+      Measured against the stage: <strong>53% of the game&rsquo;s width at 1920&times;1080, 84% at 1423&times;687 and 116%
+      &mdash; wider than the whole game &mdash; at 1067&times;487</strong>, where it also cut off fodder rows.
+      <br><strong>Now the window lives inside the stage</strong>, 1020 stage pixels wide with the arrow a fixed 66, so it is
+      the same fraction of the game at every size (0.531 of the stage width, gated at 1920&times;1080, 1423&times;687,
+      1067&times;487 and the 390&times;668 floor). <strong>The fodder page is a constant seven rows</strong> &mdash; not eight,
+      because the browser snaps each 1px border to a whole device pixel under scale, which at the phone floor is ~5 stage
+      pixels a border and pushed eight rows plus the pager past the list box; seven never reach the height cap, so the
+      window is the same height everywhere too. The #787 rule stands: <strong>the list never scrolls and never clips</strong>,
+      and the gate measures the last row inside its box at every size. The devour <em>theatre</em> (the staged sequence
+      above) and a few small overlays still sit after the stage; D has asked for the rule game-wide, and that is a separate
+      decision.</li>
     <li><strong>2026-09-14 &mdash; devour is a staged sequence, and this page had never described it (#887 / #787, D). LIVE on release since 2026-09-14 (0.80).</strong>
       The outcomes resolve one at a time in a fixed order &mdash; <strong>experience, then grade, then mutant</strong> &mdash;
       so a devour that pays all three reads as three beats rather than one sentence. <strong>The food is drawn in and the
