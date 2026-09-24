@@ -241,6 +241,20 @@ writes to.
 
 ## Changelog
 
+- **2026-09-25** — **Cataclysm's explosion is the beat, not a tail** (#983, D: *"low quality and out of
+  sync. It plays after its effect"*). `ULT-MAGE-3 AFX_S1` opened on a punch (AFX-142) at d200 and did not
+  reach an explosion clip until AFX-495 at d900 — 700 ms after the shard burst the lint pins to and 520 ms
+  after the Pale Detonation at d380 — with every blast layer under g0.5, so the boom the player heard was
+  a quiet tail behind a picture that had already finished. `tools/probe_00983.mjs` (client) proves the
+  engine schedules each voice at exactly its authored `d` on the shipped `AFX_BANK`; the lateness was the
+  authored offsets. The three MAGE stages are now one ladder on one clip: AFX-495 Explosion Crunch 000
+  (peak at 1 ms, 84% of its energy under 200 Hz — measured by decoding the ogg in headless Chromium, the
+  bank's own numbers do not carry an attack time) IS the d200 beat at g0.75/0.8/0.85 and p−2/−3/−4, with
+  AFX-121 Impact Mining 004 (73 Hz) as the sub under it, the low-frequency body AFX-526 authored 80–90 ms
+  ahead of the Pale Detonation because its onset lags that much, and the later crunch / thud on the Ember
+  Blast and the ground plume. MAGE-1/2 were re-authored on the same shape so they escalate into it and do
+  not fall behind their own pictures. Client, `vfx.html` and the shipped clips are untouched — every clip
+  already ships under `play/assets/afx`.
 - **2026-09-24 (b)** — **the client's player landed and all 419 rows are authored.**
   `assets/vfx/afx_bank.js` is no longer a stub: `tools/gen_vfx_fx.py --write` lifts the client's real
   `AFX_BANK` block, and six authoring lanes filled every `AFX_S1..AFX_S3` cell — 173 of the 606
