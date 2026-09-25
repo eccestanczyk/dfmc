@@ -65,7 +65,11 @@ input.txt:focus{border-color:var(--gold-dim)}
      above the art in the game. The review page must not flatter the composition it is reviewing. */
   object-position:50% 88%;transform-origin:50% 88%;
   filter:drop-shadow(0 6px 10px rgba(0,0,0,.65))}
-.side.enemy .unit img.mon{transform:scaleX(-1)}
+/* facing mirrors the client's battle rule (play/app.js, `const flip=` in the unit block): creature
+   art faces LEFT as painted and class art faces RIGHT, so an ally creature and an enemy character
+   are mirrored and the other two are drawn as painted. Mirroring the whole enemy side turned
+   every creature on the page the wrong way round. */
+.unit img.mon.flip{transform:scaleX(-1)}
 .unit .nm{position:absolute;top:100%;left:50%;transform:translate(-50%,-100%);margin-top:-4px;
   white-space:nowrap;font-family:'Cinzel',serif;font-weight:700;font-size:20px;letter-spacing:.16em;
   color:#e8e2d6;text-shadow:0 2px 6px #000,0 0 14px rgba(0,0,0,.9)}
@@ -418,7 +422,7 @@ function unitEl(cr,lead,side,i){
      threw the character 600px up the stage. Never rely on the class alone here. */
   d.style.cssText='position:absolute;width:'+p.size+'px;height:'+p.size+'px;bottom:'+p.bottom+'px;left:'+p.left+'px;';
   const sh=document.createElement('div'); sh.className='shadow';
-  const img=document.createElement('img'); img.className='mon';
+  const img=document.createElement('img'); img.className='mon'+((hero?side==='enemy':side==='ally')?' flip':'');
   if(hero){ img.src=CLSART+'CLS-'+cr.id+'-'+cr.st+'.webp'; img.alt=cr.id; }
   else{
     img.src=MED+cr.ID+'.webp'; img.alt=cr.Name; img.loading='lazy';
