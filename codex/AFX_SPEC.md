@@ -56,7 +56,7 @@ AFX-NNN [g<gain>] [p<semitones>] [d<ms>] [n<count>] [i<ms>] [j<semitones>]
 |---|---|---|---|
 | `g` | 0.05 – 1.5 | 1 | gain multiplier on the sfx bus |
 | `p` | −12 – 12 | 0 | pitch in semitones: `playbackRate = 2^(p/12)`, so it shortens or lengthens the clip too |
-| `d` | 0 – 2000 | 0 | delay in ms from the cast |
+| `d` | 0 – 2000 | 0 | delay in ms from the cast to the clip's **hit** — its `Onset_Ms` crossing, not the file's first sample; the player starts the file that much earlier (2026-09-25, #994) |
 | `n` | 1 – 4 | 1 | repeats |
 | `i` | 30 – 600 | 90 | ms between repeats — only meaningful with `n>1` |
 | `j` | 0 – 3 | 0 | random pitch jitter ± semitones, re-rolled on every play and every repeat |
@@ -100,6 +100,16 @@ composition end = max(layer end)
   wind-up would break the pin and keeping it would break the alignment, and no composition could
   satisfy both. A composition of nothing but quiet layers pins its earliest layer.
 
+  **`d` is where the hit lands, and the player makes it so** (2026-09-25, #994). The lint pins `d`; the
+  hit a listener hears is the clip's own attack, `Onset_Ms` into the file, and 72 of the 208 clips a move
+  plays carry more than a frame of it. `AFX_BANK.voice()` therefore starts the file early by
+  `Onset_Ms / 2^(p/12)`, so the −12 dB-re-peak crossing lands on `d` and the pin above is a pin on what
+  is heard. An author never compensates for a clip's lead-in in `d`. When there is no time to pre-roll —
+  `d0` on a clip with lead-in — the player starts now at an offset into the lead-in (at most the onset,
+  never into the hit) under a 5 ms fade. `dfmc-client/tools/afx_sync_audit.py` is the audit: every
+  layer's hit against the picture beat it is authored on, before and after; `codex/afx_sync_audit.csv`
+  is its table.
+
 ### What the bank's own measurements mean for authoring
 
 Worth knowing before picking a clip, because the numbers are not evenly spread:
@@ -134,7 +144,7 @@ paths (`assets/afx/<pack>/<name>.ogg`) that resolve under both this repo and `df
 one id means one recording in all three places.
 
 `Id, Name, Group, File, Seconds, KB, Centroid_Hz, Over3k_Pct, Peak_dBFS, Pack, Licence, Licence_URL,
-Attribution, Source_URL, Used_In, Candidate, LUFS, Play_Peak_dBFS`
+Attribution, Source_URL, Used_In, Candidate, LUFS, Play_Peak_dBFS, Onset_Ms`
 
 `Used_In` is the dungeon's own usage record and is **not** maintained here; `audio.html` computes the
 Tower's usage live from the `AFX_S*` columns and `afx_events.csv` instead.
@@ -147,15 +157,21 @@ of that decode. `Peak_dBFS` stays the dungeon's in-file number — `afx_lint.py`
 it — but it differs from the decode by more than 1 dB on 611 of the 852 rows, so the player's ceiling
 uses `Play_Peak_dBFS`. The player derives the trim (rule 3); nothing else reads these two.
 
+`Onset_Ms` (2026-09-25, #994) is the clip's own attack from the same decode: the first sample whose
+level reaches −12 dB re the clip's peak, in ms from the file's start. A punch is at 0–5 ms; a swell, or a
+file mastered with lead-in, sits 100 ms or more in (the bank's worst in use is 255 ms). The player
+pre-rolls each voice by it so an authored `d` is where the hit lands (the timing rule above);
+`tools/afx_sync_audit.py` reads it against the picture.
+
 ### `codex/afx_events.csv` — everything that is not a move
 
-`Event_ID, Category, Trigger, File, Gain, Retrigger_Ms, Notes, LUFS, Play_Peak_dBFS`
+`Event_ID, Category, Trigger, File, Gain, Retrigger_Ms, Notes, LUFS, Play_Peak_dBFS, Onset_Ms`
 
 Files under `assets/afx/cues/<name>.ogg`, copied from the dungeon's authored cue set with its **tuned
 `Gain` and `Retrigger_Ms`** — those levels were set against the rules above and re-tuning them here
 would fork them. Since 2026-09-25 `Gain` is relative to the −18 LUFS ceiling (rule 3): the cue's clip
 is trimmed to the ceiling first, then `Gain` applies, so `0.5` means 6 dB under it whatever the file
-happens to hold. `LUFS` / `Play_Peak_dBFS` are the same measurements as on the bank. `Trigger` is the Tower's own sentence: the same recording, a different game's moment.
+happens to hold. `LUFS` / `Play_Peak_dBFS` / `Onset_Ms` are the same measurements as on the bank, and a cue is pre-rolled by its onset like a layer. `Trigger` is the Tower's own sentence: the same recording, a different game's moment.
 `Retrigger_Ms` is the minimum gap between two plays of one event; blank means no limit.
 
 ### `codex/bgm.csv` — 10 tracks
@@ -206,8 +222,8 @@ arrangement as `VFX_BANK`, for the same reason: when the game and the review pag
 implementations, approving an effect on the review page approved something players never got.
 
 Self-contained IIFE, no React, no game state. Web Audio, one `AudioContext`, buses
-`master -> music` and `master -> sfx`, decoded buffers cached by file path, decoded on first use,
-never more than one decode in flight per path.
+`master -> music` and `master -> sfx`, decoded buffers cached by file path, decoded on first use or
+by `warm()`, never more than one decode in flight per path.
 
 ```
 AFX_BANK.parse(text[, bank])      -> {layers:[{id,g,p,d,n,i,j}], errs:[...]}   same verdicts as afx_lint.py
@@ -218,6 +234,10 @@ AFX_BANK.trackForZone(zoneName)   -> the bgm.csv Track_ID whose `Zone` cell is t
 AFX_BANK.load(rows, base, kind)   -> register ONE table. `kind` is 'bank' | 'events' | 'bgm', inferred
                                      from the first row when omitted; `base` prefixes `File`.
 AFX_BANK.play(parsed|text, opts)  -> handle {stop()}   opts: {speed = duration multiplier (default 1), gain, bank}
+                                     every layer's HIT lands at d (+k*i) x speed: the file starts early by Onset_Ms / 2^(p/12)
+AFX_BANK.warm(ids|paths)          -> decodes started. Decode a BOUNDED list ahead of its first play (the client: both
+                                     kits, the ultimates and the battle cues at the battle's start). Never the bank.
+AFX_BANK.isWarm(id|path)          -> true once that clip's buffer is cached
 AFX_BANK.cue(id, opts)            -> play an afx_events.csv event by Event_ID, honouring Retrigger_Ms
 AFX_BANK.music(trackId|null,opts) -> crossfade to a bgm.csv track (in 1200 ms, out 900 ms, looped,
                                      Gain applied). null stops. The same id is a no-op.
@@ -229,8 +249,12 @@ AFX_BANK.mute(bool) / isMuted() / isUnlocked() / playing()
 AFX_BANK.bank() / events() / tracks()   -> the three registries. FUNCTIONS, not properties.
 ```
 
-`speed` scales every `d` and every `i` — the client's fast-forward — and **never** the pitch. A
-missing file logs once to the console, plays nothing, and never throws.
+`speed` scales every `d` and every `i` — the client's fast-forward — and **never** the pitch, and
+never the onset pre-roll either: the clip's attack is clip time. A missing file logs once to the
+console, plays nothing, and never throws. **The first play of a clip is late unless it was warmed**:
+`voice()` schedules against the clock before the decode resolves, so a cold clip starts when its
+decode lands. The client warms a fight's clips at its start (`afxWarmBattle`, 2026-09-25); a page
+that plays a composition on a click should `warm()` it on hover or on load.
 
 **Three things a consumer gets wrong exactly once**, all three found the day the real player replaced
 the stub, all three on the codex side, because the stub and the client agreed on behaviour and
@@ -258,9 +282,39 @@ writes to.
 | `audio.html` | all three CSVs: the beds with the fold, the events, the 606 clips with their metrics and flags |
 | `tools/afx_lint.py` | `codex/afx_bank.csv` + the `AFX_S*` and `FX_S*` columns |
 | `tools/afx_gate.py` | both pages, every `File` cell, and a sample of casts |
+| `dfmc-client/tools/afx_measure.py` | every clip, through the client's decoder: writes `LUFS`, `Play_Peak_dBFS`, `Onset_Ms` |
+| `dfmc-client/tools/afx_sync_audit.py` | `Onset_Ms` + the `AFX_S*` / `FX_S*` columns: where each hit lands against its picture beat; writes `codex/afx_sync_audit.csv` |
 
 ## Changelog
 
+- **2026-09-25 (c)** — **the hit lands on the frame: `d` is the hit, and the first cast is no longer
+  cold** (#994, D: *"a lot of the sounds are out of sync with their vfx — this you should be able to fix
+  easily ... You need to be able to see what the sounds actually are ... sound is data."*). Two
+  mechanisms, both measured, both in the player. **(1)** The lint pins a composition's main beat to the
+  picture by its `d`, and the player started the *file* at `d` — but the hit a listener hears is the
+  clip's own attack. `dfmc-client/tools/afx_measure.py` now writes `Onset_Ms` (the first sample at
+  −12 dB re the clip's peak, from the same headless-Chromium decode as `LUFS`): of the 208 clips a move
+  plays, 72 carry an onset past one frame (41.7 ms) and 29 past 100 ms, so **487 of the 1221 authored
+  compositions landed their main beat more than a frame after the picture's contact** — worst 255 ms
+  (AFX-018 Creak 1 at `d0`), on every cast, invisible to a lint that reads `d` alone.
+  `dfmc-client/tools/afx_sync_audit.py` is the audit and `codex/afx_sync_audit.csv` its table (every
+  layer: authored `d`, onset, the picture beat it is authored on, where the hit landed, the delta before
+  and after). `AFX_BANK.voice()` now pre-rolls the file by `Onset_Ms / 2^(p/12)` so the crossing lands
+  at `d`; with no time to pre-roll it starts now at an offset into the lead-in, at most the onset, under
+  a 5 ms fade — 337 compositions carry a `d0` layer with lead-in and take that branch. After: **0 of
+  1221** main beats off by more than a frame, measured on the lifted engine over real Web Audio
+  (`dfmc-client/tools/probe_00994.py`). Not one `AFX_S*` cell was re-authored: the cells were right, the
+  engine read them wrong. The 330 *secondary* loud layers that sit more than a frame from any picture
+  beat by authored `d` are authored tails and wind-ups, not a sync defect this data can prove — they
+  belong to the "more in character" pass, which is D's question. **(2)** The first play of every clip
+  in a session was late by its download + decode (`voice()` schedules before the decode resolves) —
+  most casts, for a player fighting a new party each floor. `AFX_BANK.warm(ids)` decodes a bounded
+  list; the client's `afxWarmBattle` (the twin of the picture's `preloadBank`, at every battle entry:
+  PvE, boss, Auto PvP, competitive) warms both kits' compositions at their stage, the ultimates and the
+  battle cues — 38 files in the probe's fight, never the bank. Measured on the live client through an
+  80 ms route delay: the first cast fetched and landed 80+ ms late before, fetches nothing and lands at
+  0.0 ms after. `assets/vfx/afx_bank.js` re-lifted. Client gate `tools/probe_00994.py`;
+  `tools/probe_00983.mjs` (a) re-aimed from the file start to the hit (6/6 red on the old engine).
 - **2026-09-25 (b)** — **one ceiling for every clip, and the master is a trim** (#993 first paragraph,
   D: *"Some sounds are way louder than the rest. They should all share a max loudness."*; #995, D:
   *"60% is loud and 30% is impossible to hear, seems muted. Go research how other games implement

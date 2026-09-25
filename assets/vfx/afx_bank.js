@@ -130,9 +130,9 @@
       (rows||[]).forEach(r=>{ if(!r) return;
         if(k0==='bank'&&r.Id) BANK[String(r.Id)]={ id:String(r.Id), file:url(r.File), Seconds:num(r.Seconds,0), Group:String(r.Group||'').toLowerCase(),
           Over3k_Pct:num(r.Over3k_Pct,0), Peak_dBFS:num(r.Peak_dBFS,-99), Name:r.Name||'',
-          LUFS:num(r.LUFS,NaN), playPeak:num(r.Play_Peak_dBFS,NaN), norm:normOf(r.LUFS,r.Play_Peak_dBFS) };
+          LUFS:num(r.LUFS,NaN), playPeak:num(r.Play_Peak_dBFS,NaN), norm:normOf(r.LUFS,r.Play_Peak_dBFS), onset:Math.max(0,num(r.Onset_Ms,0)) };
         else if(k0==='events'&&r.Event_ID) EVENTS[String(r.Event_ID)]={ id:String(r.Event_ID), file:url(r.File), gain:num(r.Gain,1), retriggerMs:num(r.Retrigger_Ms,0), category:String(r.Category||''),
-          LUFS:num(r.LUFS,NaN), playPeak:num(r.Play_Peak_dBFS,NaN), norm:normOf(r.LUFS,r.Play_Peak_dBFS) };
+          LUFS:num(r.LUFS,NaN), playPeak:num(r.Play_Peak_dBFS,NaN), norm:normOf(r.LUFS,r.Play_Peak_dBFS), onset:Math.max(0,num(r.Onset_Ms,0)) };
         else if(k0==='bgm'&&r.Track_ID) TRACKS[String(r.Track_ID)]={ id:String(r.Track_ID), file:url(r.File), gain:num(r.Gain,1), state:String(r.State||''), zone:String(r.Zone||''), seconds:num(r.Seconds,0), title:r.Title||'' }; });
       return counts(); };
     // one decode per path, ever, and never two in flight for the same path. A miss is ONE console line, not a throw.
@@ -146,14 +146,40 @@
         .then(b=>{ delete pending[path]; if(b) buf[path]=b; return b||null; })
         .catch(e=>{ delete pending[path]; warnOnce('clip unavailable '+path+': '+(e&&e.message||e)); return null; });
       pending[path]=p; return p; };
-    // one voice: decode (cached), then start at the scheduled time on the given bus. Returns its own stop.
-    const voice=(path,gain,semis,delayMs,bus)=>{ const c=ensure(); if(!c) return ()=>{};
-      const t0=c.currentTime+Math.max(0,delayMs||0)/1000; let src=null, dead=false;
+    /* one voice: decode (cached), then start on the given bus so the clip's HIT lands at the scheduled time.
+       d IS THE HIT, NOT THE FILE START (#994, D 2026-09-25: "a lot of the sounds are out of sync with their
+       vfx ... sound is data"). An author writes d200 to mean "the beat is at 200", afx_lint pins that d to the
+       picture's contact frame, and this voice used to start the FILE at d - so a clip whose own attack sits
+       100 ms into the file (72 of the 208 clips a move plays have an onset past one frame, 29 past 100 ms:
+       Onset_Ms on afx_bank.csv, measured by tools/afx_measure.py) landed its hit 100 ms after the frame it was
+       authored on, on every cast, and no lint could see it. The file now starts EARLY by its onset over the
+       playback rate, so the -12 dB-re-peak crossing lands at d. When there is no time left to pre-roll (d0 on
+       a clip with lead-in, or a cold decode), the lead-in is skipped - at most the onset, never the body of
+       the hit - under a 5 ms fade so the mid-ramp start does not click; whatever lateness remains once the
+       lead-in is gone is a decode that was not warmed, which is what warm() below is for. */
+    const voice=(path,gain,semis,delayMs,bus,onsetMs)=>{ const c=ensure(); if(!c) return ()=>{};
+      const rate=Math.pow(2,(semis||0)/12), lead=Math.max(0,onsetMs||0)/1000/rate;
+      const t0=c.currentTime+Math.max(0,delayMs||0)/1000-lead; let src=null, dead=false;
       decode(path).then(b=>{ if(dead||!b) return;
-        try{ src=c.createBufferSource(); src.buffer=b; src.playbackRate.value=Math.pow(2,(semis||0)/12);
+        try{ src=c.createBufferSource(); src.buffer=b; src.playbackRate.value=rate;
           const g=c.createGain(); g.gain.value=Math.max(0,gain); src.connect(g); g.connect(bus);
-          src.start(Math.max(c.currentTime,t0)); }catch(e){ warnOnce('cannot start '+path+': '+(e&&e.message||e)); } });
+          const now=c.currentTime;
+          if(t0>=now) src.start(t0);
+          else { const skip=Math.min(now-t0,lead)*rate; // file seconds of lead-in there is no time left to play
+            if(skip>0.002){ try{ g.gain.setValueAtTime(0,now); g.gain.linearRampToValueAtTime(Math.max(0,gain),now+0.005); }catch(e2){} }
+            src.start(now, Math.min(skip, Math.max(0,(b.duration||0)))); } }catch(e){ warnOnce('cannot start '+path+': '+(e&&e.message||e)); } });
       return ()=>{ dead=true; if(src){ try{ src.stop(); }catch(e){} src=null; } }; };
+    /* warm(ids|paths) -> how many decodes it started. THE FIRST CAST WAS ALWAYS LATE (#994; the 0.86 board's
+       Q13): voice() takes its time before decode() resolves and starts at max(now, t0), so the first play of
+       every clip in a session landed late by its download plus decode - which, for a player fighting a new
+       party each floor, is most casts. The battle's start calls this with the bounded set the fight can play
+       (afxWarmBattle: both kits' compositions, the ultimates, the battle cues) so the buffers are cached
+       before the first order is given. Never the whole bank: 852 clips at boot is the wrong answer. Muted
+       warms nothing, because play() will play nothing. isWarm answers for a probe or a page. */
+    const fileOf=x=>{ const r=BANK[x]||EVENTS[x]; return r?r.file:(x?String(x):''); };
+    const warm=list=>{ if(muted) return 0; let n=0;
+      (list||[]).forEach(x=>{ const p=fileOf(x); if(!p||buf[p]||pending[p]) return; n++; decode(p); }); return n; };
+    const isWarm=x=>{ const p=fileOf(x); return !!(p&&buf[p]); };
     /* play(parsed|text, opts) -> {stop()}. opts: speed (the client's fast-forward - it scales every d and i and
        NEVER the pitch, the same rule VFX_BANK.render follows), gain (an extra multiplier), bank.
        A malformed or empty composition plays nothing and is not an error at this layer: the linter and the gate
@@ -169,7 +195,7 @@
       P.layers.forEach(l=>{ const row=bank[l.id]; if(!row||!row.file) return;
         for(let k=0;k<l.n;k++){
           const jit=l.j?((Math.random()*2-1)*l.j):0; // re-rolled per repeat, by the grammar
-          stops.push(voice(row.file, l.g*og*(row.norm==null?1:row.norm), l.p+jit, (l.d+k*l.i)*speed, gSfx)); } });
+          stops.push(voice(row.file, l.g*og*(row.norm==null?1:row.norm), l.p+jit, (l.d+k*l.i)*speed, gSfx, row.onset)); } });
       return h; };
     /* cue(id, opts) -> an afx_events.csv row by Event_ID. Retrigger_Ms is a floor on how often one cue may fire,
        which is what keeps ui.click from turning a held button into a buzz. Unknown id: one console line, silence. */
@@ -181,7 +207,7 @@
       lastCue[e.id]=now;
       if(!ensure()) return null;
       const bus=(opts.bus==='music')?gMusic:gSfx;
-      const stop=voice(e.file, e.gain*(opts.gain==null?1:num(opts.gain,1))*(e.norm==null?1:e.norm), num(opts.p,0), num(opts.delay,0), bus);
+      const stop=voice(e.file, e.gain*(opts.gain==null?1:num(opts.gain,1))*(e.norm==null?1:e.norm), num(opts.p,0), num(opts.delay,0), bus, e.onset);
       return { stop:stop }; };
     /* music(trackId|null, opts): crossfade to a bgm.csv track - in over FADE_IN, the outgoing one out over
        FADE_OUT, looped, the row's Gain applied on the music bus. The SAME id is a no-op, so a screen change
@@ -221,7 +247,7 @@
       return muted; };
     const trackForZone=name=>{ const ks=Object.keys(TRACKS); for(let i=0;i<ks.length;i++){ if(TRACKS[ks[i]].zone===String(name)) return TRACKS[ks[i]].id; } return null; };
     return { parse:parse, layerMs:layerMs, lengthMs:lengthMs, zoneFor:zoneFor, load:load, play:play, cue:cue,
-      music:music, setMix:setMix, getMix:getMix, unlock:unlock, mute:mute, trackForZone:trackForZone,
+      music:music, setMix:setMix, getMix:getMix, unlock:unlock, mute:mute, trackForZone:trackForZone, warm:warm, isWarm:isWarm,
       isMuted:()=>muted, isUnlocked:()=>unlocked, playing:()=>(cur&&cur.id)||null,
       bank:()=>BANK, events:()=>EVENTS, tracks:()=>TRACKS,
       normOf:normOf, NORM:{lufs:NORM_LUFS, peak:NORM_PEAK, masterDb:MASTER_DB},

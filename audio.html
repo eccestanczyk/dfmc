@@ -99,7 +99,11 @@ a:hover{color:var(--gold)}
     <code>Play_Peak_dBFS</code> to −18 LUFS, never above −1 dBFS, before any <code>g</code> or
     <code>Gain</code> applies — so what you hear here at <code>g1</code> is the ceiling, and
     <code>Peak_dBFS</code> / <code>Over3k_Pct</code> describe the file under it (codex/AFX_SPEC.md,
-    rule 3). Licences and provenance:
+    rule 3). <b>Since 2026-09-25 (#994) a layer's <code>d</code> is where its hit lands</b>: the bank's
+    <code>Onset_Ms</code> column (the clip's attack, the first sample at −12 dB re its peak, from the same
+    decode) is what the player pre-rolls each voice by, so a clip with 100 ms of lead-in authored at
+    <code>d200</code> hits at 200, not 300 — 487 of the 1221 compositions were more than a frame late that
+    way; <code>codex/afx_sync_audit.csv</code> is the table. Licences and provenance:
     <a href="codex/AUDIO_LICENCES.md">codex/AUDIO_LICENCES.md</a>. A move's composition is not reviewed
     here — it is reviewed <a href="vfx.html">against its picture</a>, which is the only place the two
     can be judged as one thing.
@@ -323,7 +327,7 @@ function renderBank(){
   let h='';
   for(const g of Object.keys(groups).sort()){
     h+='<h2 class="sec">'+esc(g)+' — '+groups[g].length+'</h2>'+
-       '<table><thead><tr><th>Id</th><th>Name</th><th>Pack</th><th class="num">Len</th>'+
+       '<table><thead><tr><th>Id</th><th>Name</th><th>Pack</th><th class="num">Len</th><th class="num">Onset</th>'+
        '<th class="num">Centroid</th><th class="num">&gt;3kHz</th><th class="num">Peak</th>'+
        '<th>Flags</th><th>Used in</th><th></th></tr></thead><tbody>';
     for(const r of groups[g]){
@@ -331,6 +335,7 @@ function renderBank(){
       h+='<tr><td class="mono">'+esc(r.Id)+'</td><td>'+esc(r.Name)+'</td>'+
          '<td class="dim">'+esc((r.Pack||'').replace(/^Kenney /,''))+'</td>'+
          '<td class="num">'+esc(r.Seconds)+'s</td>'+
+         '<td class="num">'+esc(r.Onset_Ms)+'ms</td>'+
          '<td class="num">'+esc(r.Centroid_Hz)+'</td><td class="num">'+esc(r.Over3k_Pct)+'%</td>'+
          '<td class="num">'+esc(r.Peak_dBFS)+'</td><td>'+
          (isShrill(r)?'<span class="flag">shrill</span>':'')+
