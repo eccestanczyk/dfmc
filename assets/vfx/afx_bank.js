@@ -81,9 +81,35 @@
     let cur=null; // the music handle on air
     const warnOnce=msg=>{ if(warned[msg]) return; warned[msg]=1; try{ console.warn('[afx] '+msg); }catch(e){} };
     const url=f=>{ f=String(f==null?'':f).replace(/^\.?\//,''); return (/^[a-z]+:\/\//i.test(f)||!BASE)?f:(BASE+f); };
+    /* THE BUSES ARE LOUDNESS FADERS, THE MASTER IS A BOUNDED TRIM (#995, D 2026-09-25: "60% is loud and 30% is
+       impossible to hear, seems muted. Go research how other games implement these sliders"). Music and sfx keep
+       (pct/100)^1.6: that is Stevens' power law (loudness ~ amplitude^0.6), so the slider reads as PERCENT OF FULL
+       LOUDNESS - 50% is half as loud (-9.6 dB), 30% is -16.7 dB, 10% is -32 dB, 0 is silence - which is the curve the
+       square / cube / dB-linear sliders other games ship all approximate. What was wrong was not that curve: it was
+       the master on the SAME curve under it (master 10 x sfx 30 compounded to -48.7 dB, silence) and, far more, the
+       clips themselves spanning 31 LU at g1 - see normOf below. The OS volume is the real master; this one is a trim,
+       dB-linear over MASTER_DB (-24 dB at the bottom of the travel, 0 dB at 100, 0 = mute) with a linear roll-off to
+       silence under 10% (dr-lex, "Programming Volume Controls"), so any master above 10% costs at most 21.6 dB and
+       sfx 30 under it never lands below -38.3 dB. At the default 80 the master is -4.8 dB (was -3.1). */
     const taper=v=>Math.pow(Math.max(0,Math.min(100,num(v,0)))/100,1.6); // (pct/100)^1.6: a slider must not spend half its travel above comfortable
+    const MASTER_DB=24;
+    const trim=v=>{ v=Math.max(0,Math.min(100,num(v,0))); if(v<=0) return 0;
+      return Math.pow(10,-MASTER_DB*(1-v/100)/20)*Math.min(1,v/10); };
     const applyMix=()=>{ if(!ctx) return;
-      try{ gMaster.gain.value=muted?0:taper(mix.master); gMusic.gain.value=taper(mix.music); gSfx.gain.value=taper(mix.sfx); }catch(e){} };
+      try{ gMaster.gain.value=muted?0:trim(mix.master); gMusic.gain.value=taper(mix.music); gSfx.gain.value=taper(mix.sfx); }catch(e){} };
+    /* ONE CEILING (#993, D 2026-09-25: "Some sounds are way louder than the rest. They should all share a max
+       loudness."). At g1 the shipped bank spanned 30.9 LU (-38.5..-7.7 LUFS integrated) and the cues 26.9 LU, with
+       peaks to +3.7 dBFS - measured through this very decoder by tools/afx_measure.py, which writes `LUFS`
+       (ITU-R BS.1770-4 integrated) and `Play_Peak_dBFS` onto afx_bank.csv and afx_events.csv. normOf turns them into
+       the row's trim: the gain that lands the clip at NORM_LUFS, capped so it never peaks above NORM_PEAK. A short
+       transient that cannot reach -18 LUFS under a -1 dBFS peak sits UNDER the ceiling, which is what a ceiling
+       means: nothing is louder than -18 LUFS, and the bank's spread at g1 is 8.3 LU, the cues' 4.6. Applied in play()
+       and cue() as a factor on the authored g / Gain, so an author's relative mix survives; a row without the columns
+       plays at 1 and nothing else changes. Boost is capped at +24 dB (the largest the bank asks for is +20.5). */
+    const NORM_LUFS=-18, NORM_PEAK=-1;
+    const normOf=(lufs,peak)=>{ lufs=num(lufs,NaN); peak=num(peak,NaN); if(lufs!==lufs) return null;
+      let t=Math.pow(10,(NORM_LUFS-lufs)/20); if(peak===peak) t=Math.min(t,Math.pow(10,(NORM_PEAK-peak)/20));
+      return Math.max(0.05,Math.min(16,t)); };
     const ensure=()=>{ if(ctx) return ctx;
       try{ const AC=(typeof window!=='undefined'&&(window.AudioContext||window.webkitAudioContext))||(typeof AudioContext!=='undefined'?AudioContext:null);
         if(!AC){ warnOnce('no Web Audio in this browser'); return null; }
@@ -103,8 +129,10 @@
       if(k0==='bank') BANK={}; else if(k0==='events') EVENTS={}; else if(k0==='bgm') TRACKS={};
       (rows||[]).forEach(r=>{ if(!r) return;
         if(k0==='bank'&&r.Id) BANK[String(r.Id)]={ id:String(r.Id), file:url(r.File), Seconds:num(r.Seconds,0), Group:String(r.Group||'').toLowerCase(),
-          Over3k_Pct:num(r.Over3k_Pct,0), Peak_dBFS:num(r.Peak_dBFS,-99), Name:r.Name||'' };
-        else if(k0==='events'&&r.Event_ID) EVENTS[String(r.Event_ID)]={ id:String(r.Event_ID), file:url(r.File), gain:num(r.Gain,1), retriggerMs:num(r.Retrigger_Ms,0), category:String(r.Category||'') };
+          Over3k_Pct:num(r.Over3k_Pct,0), Peak_dBFS:num(r.Peak_dBFS,-99), Name:r.Name||'',
+          LUFS:num(r.LUFS,NaN), playPeak:num(r.Play_Peak_dBFS,NaN), norm:normOf(r.LUFS,r.Play_Peak_dBFS) };
+        else if(k0==='events'&&r.Event_ID) EVENTS[String(r.Event_ID)]={ id:String(r.Event_ID), file:url(r.File), gain:num(r.Gain,1), retriggerMs:num(r.Retrigger_Ms,0), category:String(r.Category||''),
+          LUFS:num(r.LUFS,NaN), playPeak:num(r.Play_Peak_dBFS,NaN), norm:normOf(r.LUFS,r.Play_Peak_dBFS) };
         else if(k0==='bgm'&&r.Track_ID) TRACKS[String(r.Track_ID)]={ id:String(r.Track_ID), file:url(r.File), gain:num(r.Gain,1), state:String(r.State||''), zone:String(r.Zone||''), seconds:num(r.Seconds,0), title:r.Title||'' }; });
       return counts(); };
     // one decode per path, ever, and never two in flight for the same path. A miss is ONE console line, not a throw.
@@ -141,7 +169,7 @@
       P.layers.forEach(l=>{ const row=bank[l.id]; if(!row||!row.file) return;
         for(let k=0;k<l.n;k++){
           const jit=l.j?((Math.random()*2-1)*l.j):0; // re-rolled per repeat, by the grammar
-          stops.push(voice(row.file, l.g*og, l.p+jit, (l.d+k*l.i)*speed, gSfx)); } });
+          stops.push(voice(row.file, l.g*og*(row.norm==null?1:row.norm), l.p+jit, (l.d+k*l.i)*speed, gSfx)); } });
       return h; };
     /* cue(id, opts) -> an afx_events.csv row by Event_ID. Retrigger_Ms is a floor on how often one cue may fire,
        which is what keeps ui.click from turning a held button into a buzz. Unknown id: one console line, silence. */
@@ -153,7 +181,7 @@
       lastCue[e.id]=now;
       if(!ensure()) return null;
       const bus=(opts.bus==='music')?gMusic:gSfx;
-      const stop=voice(e.file, e.gain*(opts.gain==null?1:num(opts.gain,1)), num(opts.p,0), num(opts.delay,0), bus);
+      const stop=voice(e.file, e.gain*(opts.gain==null?1:num(opts.gain,1))*(e.norm==null?1:e.norm), num(opts.p,0), num(opts.delay,0), bus);
       return { stop:stop }; };
     /* music(trackId|null, opts): crossfade to a bgm.csv track - in over FADE_IN, the outgoing one out over
        FADE_OUT, looped, the row's Gain applied on the music bus. The SAME id is a no-op, so a screen change
@@ -183,7 +211,7 @@
         if(m.sfx!=null) mix.sfx=Math.max(0,Math.min(100,num(m.sfx,mix.sfx))); }
       applyMix(); return {master:mix.master, music:mix.music, sfx:mix.sfx}; };
     const getMix=()=>({master:mix.master, music:mix.music, sfx:mix.sfx, muted:muted,
-      gain:{master:muted?0:taper(mix.master), music:taper(mix.music), sfx:taper(mix.sfx)}});
+      gain:{master:muted?0:trim(mix.master), music:taper(mix.music), sfx:taper(mix.sfx)}});
     // unlock: a browser refuses to start an AudioContext outside a gesture. Call from the first click / keydown / touchstart.
     const unlock=()=>{ const c=ensure(); if(!c) return false;
       try{ if(c.state==='suspended'&&typeof c.resume==='function') c.resume(); }catch(e){}
@@ -196,6 +224,7 @@
       music:music, setMix:setMix, getMix:getMix, unlock:unlock, mute:mute, trackForZone:trackForZone,
       isMuted:()=>muted, isUnlocked:()=>unlocked, playing:()=>(cur&&cur.id)||null,
       bank:()=>BANK, events:()=>EVENTS, tracks:()=>TRACKS,
+      normOf:normOf, NORM:{lufs:NORM_LUFS, peak:NORM_PEAK, masterDb:MASTER_DB},
       FADE:{in:FADE_IN, out:FADE_OUT}, RANGE:RANGE, MOVE_GROUPS:MOVE_GROUPS, REFUSED:REFUSED };
   })();
   root.DFMC_AFX_BANK = AFX_BANK;

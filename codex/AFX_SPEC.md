@@ -20,9 +20,17 @@ They are the dungeon's, they are D's, and they apply here unchanged.
    `Peak_dBFS > 0` is **CLIPPED**. Pitching down (`p` negative) moves a clip's whole spectrum with it
    by `2^(p/12)`; a gain under 1 takes a clipped clip back under 0 dBFS at playback.
 2. **No words.** No cue may carry a readable phrase.
-3. **Nothing peaks above 0 dBFS.** Music sits far under the cues: the beds are loudness-matched in
-   file and the `Gain` cell finishes the match to −29 LUFS, with nothing in music peaking above
-   −3 dBFS at play.
+3. **Nothing peaks above 0 dBFS, and every clip shares one ceiling** [R D 2026-09-25, #993: *"Some
+   sounds are way louder than the rest. They should all share a max loudness."*]. Music sits far under
+   the cues: the beds are loudness-matched in file and the `Gain` cell finishes the match to −29 LUFS,
+   with nothing in music peaking above −3 dBFS at play. The bank and the cues are matched **by the
+   player**: `AFX_BANK.load()` derives a per-row trim from the measured `LUFS` and `Play_Peak_dBFS`
+   cells — the gain that lands the clip at **−18 LUFS integrated, capped so it never peaks above
+   −1 dBFS** at `g1` — and `play()` / `cue()` multiply it into the authored `g` / `Gain`. A short
+   transient that cannot reach −18 LUFS under a −1 dBFS peak sits under the ceiling; nothing sits
+   above it. −18 LUFS is the level the cues were already sitting near at their median and 11 LU over
+   the beds; −1 dBFS is the peak margin. `tools/afx_measure.py` (client repo) writes both columns from
+   a decode through the client's own decoder.
 4. **Dark fantasy / grimdark.** A sound is coherent with the creature using the move, the move's
    flavour text, and (for a bed) the zone's design. No cheerful chimes, no casino, no sci-fi laser
    reads unless pitched into a drone or rune register. Bless and heal are a low warm swell, not a
@@ -126,18 +134,28 @@ paths (`assets/afx/<pack>/<name>.ogg`) that resolve under both this repo and `df
 one id means one recording in all three places.
 
 `Id, Name, Group, File, Seconds, KB, Centroid_Hz, Over3k_Pct, Peak_dBFS, Pack, Licence, Licence_URL,
-Attribution, Source_URL, Used_In, Candidate`
+Attribution, Source_URL, Used_In, Candidate, LUFS, Play_Peak_dBFS`
 
 `Used_In` is the dungeon's own usage record and is **not** maintained here; `audio.html` computes the
 Tower's usage live from the `AFX_S*` columns and `afx_events.csv` instead.
 
+`LUFS` and `Play_Peak_dBFS` (2026-09-25) are the Tower's own measurements, made by
+`dfmc-client/tools/afx_measure.py` through the client's decoder (headless Chromium `decodeAudioData`
+at 48 kHz): ITU-R BS.1770-4 integrated loudness (K-weighted, 400 ms blocks at 75 % overlap, gated at
+−70 LUFS absolute and −10 LU relative; a clip shorter than one block is one block) and the sample peak
+of that decode. `Peak_dBFS` stays the dungeon's in-file number — `afx_lint.py`'s CLIPPED verdict reads
+it — but it differs from the decode by more than 1 dB on 611 of the 852 rows, so the player's ceiling
+uses `Play_Peak_dBFS`. The player derives the trim (rule 3); nothing else reads these two.
+
 ### `codex/afx_events.csv` — everything that is not a move
 
-`Event_ID, Category, Trigger, File, Gain, Retrigger_Ms, Notes`
+`Event_ID, Category, Trigger, File, Gain, Retrigger_Ms, Notes, LUFS, Play_Peak_dBFS`
 
 Files under `assets/afx/cues/<name>.ogg`, copied from the dungeon's authored cue set with its **tuned
 `Gain` and `Retrigger_Ms`** — those levels were set against the rules above and re-tuning them here
-would fork them. `Trigger` is the Tower's own sentence: the same recording, a different game's moment.
+would fork them. Since 2026-09-25 `Gain` is relative to the −18 LUFS ceiling (rule 3): the cue's clip
+is trimmed to the ceiling first, then `Gain` applies, so `0.5` means 6 dB under it whatever the file
+happens to hold. `LUFS` / `Play_Peak_dBFS` are the same measurements as on the bank. `Trigger` is the Tower's own sentence: the same recording, a different game's moment.
 `Retrigger_Ms` is the minimum gap between two plays of one event; blank means no limit.
 
 ### `codex/bgm.csv` — 10 tracks
@@ -203,7 +221,9 @@ AFX_BANK.play(parsed|text, opts)  -> handle {stop()}   opts: {speed = duration m
 AFX_BANK.cue(id, opts)            -> play an afx_events.csv event by Event_ID, honouring Retrigger_Ms
 AFX_BANK.music(trackId|null,opts) -> crossfade to a bgm.csv track (in 1200 ms, out 900 ms, looped,
                                      Gain applied). null stops. The same id is a no-op.
-AFX_BANK.setMix({master,music,sfx}) / getMix()   0..100 each, tapered (pct/100)^1.6
+AFX_BANK.setMix({master,music,sfx}) / getMix()   0..100 each. music / sfx: (pct/100)^1.6 (loudness-linear);
+                                     master: 0 = mute, else dB-linear -24..0 dB with a linear roll-off under 10%
+AFX_BANK.normOf(lufs, peak)        -> the row trim rule 3 describes (null without a LUFS); NORM = {lufs:-18, peak:-1, masterDb:24}
 AFX_BANK.unlock()                 -> resume the context on the first gesture (click/keydown/touchstart, once)
 AFX_BANK.mute(bool) / isMuted() / isUnlocked() / playing()
 AFX_BANK.bank() / events() / tracks()   -> the three registries. FUNCTIONS, not properties.
@@ -241,6 +261,27 @@ writes to.
 
 ## Changelog
 
+- **2026-09-25 (b)** — **one ceiling for every clip, and the master is a trim** (#993 first paragraph,
+  D: *"Some sounds are way louder than the rest. They should all share a max loudness."*; #995, D:
+  *"60% is loud and 30% is impossible to hear, seems muted. Go research how other games implement
+  these sliders."*). One mechanism. `dfmc-client/tools/afx_measure.py` decoded all 852 bank clips and
+  the 33 cues through the client's own decoder: at `g1` the 208 clips a move can play spanned
+  **30.9 LU** (−38.5..−7.7 LUFS integrated) and the cues 26.9 LU, with peaks to +3.7 dBFS — so "60%"
+  was an impact clip at −8 LUFS and "30%" was a creature clip at −35 LUFS under a `g0.4`; the slider
+  was reporting the clips. The bank and the cues now carry `LUFS` and `Play_Peak_dBFS`, and the player
+  trims every row to **−18 LUFS, never above −1 dBFS** (rule 3): the shipped bank at `g1` is
+  −26.3..−18.0 LUFS (8.3 LU, the peak cap holding 103 short transients under the ceiling), the cues
+  −22.6..−18.0 (4.6 LU); authored `g` / `Gain` cells are untouched and now read as offsets under the
+  ceiling. The slider law: music / sfx keep `(pct/100)^1.6`, which is Stevens' power law — slider % is
+  % of full loudness, 50% is −9.6 dB, 30% −16.7, 10% −32, and the curve the square / cube / dB-linear
+  sliders of other titles approximate — but the master no longer sits on the same curve under them
+  (master 10 × sfx 30 compounded to −48.7 dB): it is a bounded trim, 0 = mute, dB-linear −24..0 dB
+  with a linear roll-off under 10 % (dr-lex, *Programming Volume Controls*), so master 10/30/60/80/100
+  is −21.6/−16.8/−9.6/−4.8/0 dB (was −32/−16.7/−7.1/−3.1/0) and sfx 30 under any master ≥ 10 never
+  lands below −38.3 dB. Neither re-encodes a file. A bus limiter for stacked layers was NOT added:
+  Chromium's `DynamicsCompressorNode` carries a fixed look-ahead and #994 owns timing. The rest of
+  #993 — a soft victory cue, the explosion set, per-creature cries — is asset work and waits on D.
+  Client gate `tools/probe_00995.py` 14/14 (red 4/14); `tools/probe_afxbank.mjs` master pin re-aimed.
 - **2026-09-25** — **Cataclysm's explosion is the beat, not a tail** (#983, D: *"low quality and out of
   sync. It plays after its effect"*). `ULT-MAGE-3 AFX_S1` opened on a punch (AFX-142) at d200 and did not
   reach an explosion clip until AFX-495 at d900 — 700 ms after the shard burst the lint pins to and 520 ms

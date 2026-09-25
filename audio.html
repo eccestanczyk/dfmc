@@ -93,8 +93,13 @@ a:hover{color:var(--gold)}
   <div class="note">
     Every sound the Tower makes, played through the client's own player
     (<code>assets/vfx/afx_bank.js</code>, the contract in <b>codex/AFX_SPEC.md</b>) at the gains the data
-    asks for — a bed at its <code>Gain</code>, an event at its <code>Gain</code>, a bank clip raw at
-    <code>g1</code> so its own measurements are what you hear. Licences and provenance:
+    asks for — a bed at its <code>Gain</code>, an event at its <code>Gain</code>, a bank clip at
+    <code>g1</code>. <b>Since 2026-09-25 every clip shares one ceiling</b> (#993, D: <i>"they should all
+    share a max loudness"</i>): the player trims each row from its measured <code>LUFS</code> /
+    <code>Play_Peak_dBFS</code> to −18 LUFS, never above −1 dBFS, before any <code>g</code> or
+    <code>Gain</code> applies — so what you hear here at <code>g1</code> is the ceiling, and
+    <code>Peak_dBFS</code> / <code>Over3k_Pct</code> describe the file under it (codex/AFX_SPEC.md,
+    rule 3). Licences and provenance:
     <a href="codex/AUDIO_LICENCES.md">codex/AUDIO_LICENCES.md</a>. A move's composition is not reviewed
     here — it is reviewed <a href="vfx.html">against its picture</a>, which is the only place the two
     can be judged as one thing.
@@ -221,8 +226,10 @@ function playCue(id,btn){
 }
 function playClip(id,btn){
   DFMC_AFX_BANK.unlock(); stopAll();
-  /* RAW, at g1 and p0: what you hear is what Centroid_Hz / Over3k_Pct / Peak_dBFS describe. A
-     composition's g and p are the author's answer to those numbers and belong on vfx.html. */
+  /* At g1 and p0, under the ceiling (2026-09-25, #993): the player trims the row to -18 LUFS / -1 dBFS
+     from its LUFS / Play_Peak_dBFS cells, so what you hear is the level a move gets at g1. Centroid_Hz /
+     Over3k_Pct describe the file's spectrum, which the trim does not move. A composition's g and p are
+     the author's answer to those numbers and belong on vfx.html. */
   const h=DFMC_AFX_BANK.play(id,{});
   playing=h;
   const row=BANK.find(r=>r.Id===id), ms=row?Math.round(parseFloat(row.Seconds)*1000)+140:900;
