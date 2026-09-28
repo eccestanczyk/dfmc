@@ -88,6 +88,26 @@ touch an approval.
 
 ## Changelog
 
+- **2026-09-28** - **No VFX on the user unless the user is affected (#1020).** The report: Cataclysm plays a VFX
+  on the USER; an ability should play on its target only, on its user only when the user is also affected, and
+  then as that effect; secondary targets of a side effect should play a VFX matching what they receive. D's
+  order: remove Cataclysm's caster layer, audit every binding, delete the mechanical cases, list the art ones.
+  **Cataclysm:** the layer on the user was not the 0.87 shockwave ring (`FX-032@g`, on the target's feet) but a
+  second FX-032 on the caster, `FX-032@u s1 v1.6 n2`; it is deleted, the four target layers are unchanged.
+  **The audit:** 82 rows / 157 stage cells of `move_vfx.csv` carried a user layer on a move that does not touch
+  its user - 76 `target` rows (ally buffs and heals included: an all-allies stage already draws its `@t` layers
+  on the user, who is one of its targets), the 6 `nuke_aoe` / `nuke_single` ultimates (Shardburst, Stonefall,
+  Cataclysm, Sure Shot, Deadeye, Godpiercer), and 3 `both-sides` rows whose `Targets` is plain `enemy` with a
+  damage-only effect (Slick Strike, Strangling Growth, Mirror Jab), re-aimed to `target`. Each `@u`/`@ug` layer
+  is deleted; an `@b` layer becomes `@t`. Kept, because the user IS affected at that stage: Lightless Carapace
+  S1-S3 and Furnace Belly S2-S3 (the user carries the retaliation ward), Copied Stance S2-S3 (steals a buff),
+  Bloomburst S2-S3 (all allies cleanse). `self` and `both-sides` rows are untouched. **`fx_lint`:** a
+  `target` row with a user layer outside `USER_AFFECTED_1020` fails (79 rows on the old tree, 0 now); the 56
+  stages the deletion took below the layer minimum are pinned in `UNDER_BUDGET_1020` (floor 1) as the
+  re-author queue. `moves.csv` re-synced with `tools/sync_move_vfx.py` (it also carries #963's unsynced `s`
+  cells). Sound untouched. On dev at once; release when `DATA_PIN` advances. Owning pages: this spec and
+  `vfx.html`.
+
 - **2026-09-28** - **The scale ladder goes down one rung: 0.55 / 0.7 / 0.85 / 1.0 (#963), and the
   ASSASSIN and Cataclysm ultimates are re-authored (0.86 board Q7).** The report said "the vfx still
   look too big and low res". D, 0.86 board Q8: "Scale only. Figure out the best way. It looks better
@@ -523,12 +543,12 @@ Move-level flags are pseudo-layers, once per composition, anywhere in the list -
 untouched; the **first `@t` layer is the impact** and must start by **200 ms** (`d` <= 200) so it lands with
 the number. Layers on the user (`@u`) are the cast beat. On a **`self`** move the beat IS the effect and starts
 at `d0`. On a **`both-sides`** move the user-side beat starts at least 100 ms AFTER the first target layer.
-On a **`target`** move a caster beat is optional and, where it is kept, it must **answer** the hit rather than
-play with it: it starts at `max(160, first target layer d + 120)` ms, uniformly `d160` where the impact is at
-`d0`. Before 2026-09-17 the caster layer started at or before the target's on all 579 compositions carrying
-both, and that timing is half of why the cast read as happening on the caster. `fx_lint` enforces this on
-every non-ULT `target`-anchor row. **The 18 ULT rows are exempt** — D ruled an ultimate keeps its beat because
-the caster performing it is the point, so there the beat leads by design.
+On a **`target`** move there is **no layer on the user** (`@u`/`@ug`/`@b`), ULTs included, unless that stage's
+effect touches the user (#1020, D 2026-09-28: an ability plays on its target; on its user only when the user is
+itself affected, and then the layer must read as that effect - a buff looks like a buff). The stages where a
+`target` move does affect its user are pinned in `fx_lint` (`USER_AFFECTED_1020`); there a user layer that is
+kept must still **answer** the hit: it starts at `max(160, first target layer d + 120)` ms. The optional caster
+beat of 2026-09-17 and the ULT exemption from it are superseded.
 
 **Length** of a layer = `d + frames / (24 * v) * n * 1000` ms. The composition's length is its longest layer.
 
@@ -577,8 +597,8 @@ ADDS (a second sheet, a user-side cast beat, a ground ring, a flag) and GROWS (s
 never swaps the primary. The move names evolve the same way (Snout Butt -> Skullplate Ram -> Skullplate
 Onslaught) and the effect must read as one family across the three.
 
-**Anchor follows `Target_Anchor`**, which since 2026-09-17 is derived from the move's `Targets`: `self` -> `self`; `enemy`, `ally`, `enemy+ally` -> `target` (the ally IS the target of a heal); `enemy+self`, `self+enemy`, `ally+self` -> `both-sides` (55 rows were re-aimed; they had been anchored by the placeholder's convenience). `self` moves use only `@u`/`@ug`; `target` moves use `@t`/`@g`, plus a
-`@u` cast beat from S2 on; `both-sides` (the drains) hit the target first and answer on the user.
+**Anchor follows `Target_Anchor`**, which since 2026-09-17 is derived from the move's `Targets`: `self` -> `self`; `enemy`, `ally`, `enemy+ally` -> `target` (the ally IS the target of a heal); `enemy+self`, `self+enemy`, `ally+self` -> `both-sides` (55 rows were re-aimed; they had been anchored by the placeholder's convenience). `self` moves use only `@u`/`@ug`; `target` moves use `@t`/`@g` only
+(no cast beat on the user since #1020); `both-sides` (the drains) hit the target first and answer on the user.
 
 **Colour follows the move, not the creature.** The palette per element (research rule 12) is: fire orange/red
 (h20-35), ice cyan/blue (h190-215), lightning violet-white (h240-260), wind green-grey (h100-165), water blue
