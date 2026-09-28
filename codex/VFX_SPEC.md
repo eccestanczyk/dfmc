@@ -88,6 +88,35 @@ touch an approval.
 
 ## Changelog
 
+- **2026-09-28** - **The scale ladder goes down one rung: 0.55 / 0.7 / 0.85 / 1.0 (#963), and the
+  ASSASSIN and Cataclysm ultimates are re-authored (0.86 board Q7).** The report said "the vfx still
+  look too big and low res". D, 0.86 board Q8: "Scale only. Figure out the best way. It looks better
+  already with smaller sizes." Why "low res" is a SCALE defect: every sheet is a 128 px frame
+  (`codex/fx_bank.csv`) and `s` is a fraction of the 380 px tile, so the old ULT rung drew a layer at
+  513 px, a 4x bilinear upscale, and even S1 was a 2x one. At the new ladder S1 is 209 px (1.6x) and a
+  ULT is the tile, 380 px (3x); at the 1423x687 viewport the report came from (`fitScale` 0.64) an S1
+  layer lands at ~133 device px, about the sheet's own resolution. **Applied mechanically:** every `s`
+  on every layer of all 419 rows (1221 cells, 2845 tokens, nothing else touched) is multiplied by
+  new/old for its stage - x0.786 / x0.824 / x0.85 / x0.741 - rounded to 2 dp and clamped to the new
+  rung, so the family's internal proportions survive. **`tools/fx_lint.py`** gains the check this
+  page has asserted since 2026-09-18 and nothing enforced: `CEIL`, the rung as a ceiling on EVERY
+  layer (the old tree fails 419/419 against it); the S1 primary band moves 0.55-0.85 -> 0.43-0.55;
+  the ULT layer cap moves 4-5 -> 4-6 for the assassin (below). **Smoothing considered and left
+  alone:** the sheets are soft, luma-keyed particle art, so the browser's default bilinear upscale is
+  the right filter - `pixelated` / `crisp-edges` would print the 128 px grid, which is the "low res"
+  look itself, and Chrome has no higher-quality CSS upscaler; the cure is less upscale, which is this
+  entry. **ULT-ASSASSIN (Slip Away / Shadowmeld / Vanish):** after the ceiling clamp all three sat at
+  the rung with 4 / 5 / 5 layers and read as one effect. They now escalate by SIZE and by LAYERS:
+  Slip Away s0.7-0.75, 4 layers, quick (v1.3); Shadowmeld s0.88-0.9, 5 layers, the FX-034 ground
+  sigil added; Vanish on the rung s1, 6 layers (FX-055 Hex Motes added as the dispersing afterglow at
+  d1080), `n2` repeats and `!shake`. **ULT-MAGE-3 Cataclysm:** the ~700 ms opaque tan mass was
+  FX-004@g Pale Plume landing at d1000 on top of a doubled (`n2`) FX-003 Pale Detonation and a
+  br0.3 FX-007. The plume is replaced by an FX-032@g Thunder Ring (a shockwave, not a wash), FX-003
+  plays once, FX-007 is brightened to br0.65 at a0.8 and sped to v1.4 so its smoke tail clears; the
+  audio fixed by #983 is untouched. Contact sheets were read before and after (`tools/vfx_shoot.py`).
+  Shardburst / Stonefall still carry the FX-004@g plume and were not in the order. Owning pages: this
+  spec and `vfx.html`.
+
 - **2026-09-24** - **the sound got its own page.** `codex/AFX_SPEC.md` now owns every sound the
   Tower makes: the AFX composition grammar (`AFX_S1..AFX_S3` on `codex/move_vfx.csv`, added empty
   beside `FX_S1..FX_S3` and mirrored onto `moves.csv`), the 606-clip bank, the 13 music beds, the
@@ -507,22 +536,26 @@ the caster performing it is the point, so there the beat leads by design.
 
 | | S1 | S2 | S3 | ULT |
 |---|---|---|---|---|
-| layers (sheets, flags not counted) | 1-2 | 2-3 | 3-4 | 4-5 |
+| layers (sheets, flags not counted) | 1-2 | 2-3 | 3-4 | 4-6 (6 since #963 / Q7, for the assassin) |
 | length, ms (max over layers) | <= 700 | <= 900 | <= 1200 | <= 2000 |
-| primary layer scale (first layer of S1, the same sheet at S2/S3) | 0.55-0.85 | >= S1 | >= S2 | any |
-| **EVERY layer's scale, ceiling (D 2026-09-18)** | **<= 0.7** | **<= 0.85** | **<= 1.0** | **<= 1.35** |
+| primary layer scale (first layer of S1, the same sheet at S2/S3) | 0.43-0.55 | >= S1 | >= S2 | any |
+| **EVERY layer's scale, ceiling (D 2026-09-18; one rung down by #963, 2026-09-28; linted as `CEIL`)** | **<= 0.55** | **<= 0.7** | **<= 0.85** | **<= 1.0** |
 | `!shake` | no | no | allowed | allowed |
 | first `@t` layer delay | <= 200 ms | | | |
 
-**The scale ladder (D, 2026-09-17).** The primary layer's `s` grows **0.7 / 0.85 / 1.0 / 1.35** across
-S1 / S2 / S3 / ULT. The linter pins the S1 rung (0.55-0.85) and the two growth checks; S2 and S3 are held only
-by `>=` so a family may spread its rungs, but 0.85 / 1.0 is the shape to author toward.
+**The scale ladder (D, 2026-09-17; cut one rung by #963, 2026-09-28).** The primary layer's `s` grows
+**0.55 / 0.7 / 0.85 / 1.0** across S1 / S2 / S3 / ULT (it was 0.7 / 0.85 / 1.0 / 1.35). The linter pins the
+S1 primary (0.43-0.55), the two growth checks, and the rung as a ceiling on every layer; S2 and S3 are held
+only by `>=` so a family may spread its rungs, but 0.7 / 0.85 is the shape to author toward. The second cut
+is about resolution as much as size: every sheet is a 128 px frame, so the old ULT rung (513 px) was a 4x
+upscale; the new one is the tile, 3x, and S1 is 1.6x.
 
 The reason the ladder is this low: **`s` is a fraction of the 380 px unit TILE, not of the creature.** A
 creature's opaque art fills about **85 %** of that tile, so `s1.0` already draws the effect at ~**118 %** of
 the body it is meant to sit on. The rows authored before this ruling ran at 124 / 137 / 165 / 246 percent of
-the body - the effect was the subject and the creature was behind it. At the new ladder S1 reads at ~82 % of
-the body, ULT at ~159 %, and the ULT is the only stage that should ever swallow the sprite.
+the body - the effect was the subject and the creature was behind it. At the 2026-09-17 ladder S1 read at
+~82 % of the body and ULT at ~159 %; at the #963 ladder S1 reads at ~65 % and ULT at ~118 %, and the ULT is
+still the only stage that should ever swallow the sprite.
 
 **The rung is a CEILING for every layer, not a target for the primary alone (D 2026-09-18).** The row
 above is the rule the pass-2 lanes did not have. `docs/vfx-pass2-lane-method-2026-09-17.md` section 5 in

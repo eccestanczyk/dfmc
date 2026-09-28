@@ -16,7 +16,15 @@ FLAGS = ('!flash', '!shake', '!stop')
 TOK = re.compile(r'^(sat|br|s|v|d|n|h|a|r|x|y|w)(-?\d+(?:\.\d+)?)$')
 RANGE = {'s': (0.3, 3.5), 'v': (0.3, 4), 'd': (0, 1500), 'n': (1, 4), 'h': (0, 359), 'sat': (0, 1.5),
          'br': (0.3, 1.6), 'a': (0.2, 1), 'r': (-360, 360), 'x': (-100, 100), 'y': (-100, 100), 'w': (10, 100)}
-BUDGET = {1: (1, 2, 700), 2: (2, 3, 900), 3: (3, 4, 1200), 'ULT': (4, 5, 2000)}
+BUDGET = {1: (1, 2, 700), 2: (2, 3, 900), 3: (3, 4, 1200), 'ULT': (4, 6, 2000)}
+# ULT 4-5 -> 4-6 (D, 0.86 board Q7): the ASSASSIN ultimate needed a sixth layer for Vanish to read louder than
+# Shadowmeld; the cap moved for it, every other ULT still authors 4-5.
+# THE RUNG, ONE PER STAGE, IS A CEILING ON EVERY LAYER (D 2026-09-18) - and was never linted until #963.
+# #963 (D, 0.86 board Q8: "Scale only ... It looks better already with smaller sizes") moved the ladder one
+# rung down, 0.7 / 0.85 / 1.0 / 1.35 -> 0.55 / 0.7 / 0.85 / 1.0: the sheets are 128 px frames and `s` is a
+# fraction of the 380 px tile, so the old ULT rung drew a 513 px layer, a 4x upscale that read as low-res.
+CEIL = {1: 0.55, 2: 0.7, 3: 0.85, 'ULT': 1.0}
+S1_BAND = (0.43, 0.55)   # the primary at S1: the old 0.55-0.85 band x (0.55/0.7), topped by the S1 rung
 DIRECTIONAL_GROUPS = ('slash', 'impact', 'fire', 'lightning', 'water', 'flame', 'smoke')
 
 # THE CASTER BEAT ON A TARGET-ANCHOR MOVE (2026-09-17, the pass-2 calibration lane).
@@ -123,6 +131,11 @@ def check_row(mid, stages, anchor_col, is_ult):
         if not (lo <= len(layers) <= hi): errs.append('S%d has %d sheet layers (want %d-%d)' % (st, len(layers), lo, hi))
         L = max([length(l) for l in layers] or [0])
         if L > ms: errs.append('S%d is %d ms long (limit %d)' % (st, L, ms))
+        cap = CEIL['ULT' if is_ult else st]
+        for l in layers:
+            if l['mods'].get('s', 1.0) > cap + 1e-9:
+                errs.append('S%d: %s s%g is over the %s rung (%g) - the rung is a ceiling on every layer'
+                            % (st, l['id'], l['mods'].get('s', 1.0), 'ULT' if is_ult else 'S%d' % st, cap))
         if '!shake' in flags and not is_ult and st < 3: errs.append('S%d has !shake (S3/ULT only)' % st)
         tl = [l for l in layers if l['anchor'] in ('t', 'g', 'b')]
         ul = [l for l in layers if l['anchor'] in ('u', 'ug')]
@@ -153,10 +166,11 @@ def check_row(mid, stages, anchor_col, is_ult):
                 if l['id'] == prim: return l['mods'].get('s', 1.0)
             return None
         s1, s2, s3 = pscale(1), pscale(2), pscale(3)
-        # D 2026-09-17, the pass-2 artifact Q1: "a harder cut (0.7 / 0.85 / 1.0 / 1.35)" - S1/S2/S3/ULT.
-        # The ladder is a fraction of the 380px TILE and a creature's opaque art is 85% of it, so s1.0 already
-        # draws the effect at ~118% of the body. The band centres on D's 0.7; the growth checks below carry S2/S3.
-        if s1 is not None and not (0.55 <= s1 <= 0.85): errs.append('primary scale at S1 is %s (want 0.55-0.85)' % s1)
+        # D 2026-09-17, the pass-2 artifact Q1: "a harder cut (0.7 / 0.85 / 1.0 / 1.35)" - S1/S2/S3/ULT, cut again
+        # one rung by #963 (0.55 / 0.7 / 0.85 / 1.0). The ladder is a fraction of the 380px TILE and a creature's
+        # opaque art is 85% of it. S1_BAND pins the primary at S1; the growth checks below carry S2/S3.
+        if s1 is not None and not (S1_BAND[0] <= s1 <= S1_BAND[1]):
+            errs.append('primary scale at S1 is %s (want %g-%g)' % (s1, S1_BAND[0], S1_BAND[1]))
         if None not in (s1, s2) and s2 < s1: errs.append('primary scale shrinks S1->S2 (%s -> %s)' % (s1, s2))
         if None not in (s2, s3) and s3 < s2: errs.append('primary scale shrinks S2->S3 (%s -> %s)' % (s2, s3))
     return errs
