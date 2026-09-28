@@ -118,6 +118,7 @@
       <div class="meta-line">RARITY: <b id="c-rarity"></b></div>
       <div class="meta-line">STAGE: <b id="c-stage"></b></div>
       <div class="meta-line">ENCOUNTER: <b id="c-encounter"></b></div>
+      <div class="meta-line" id="c-cry-row" style="display:none;margin-top:8px;">CRY: <b id="c-cry-label"></b><div id="c-cry" style="display:flex;gap:6px;margin-top:5px;flex-wrap:wrap;"></div></div>
       <div class="meta-line" style="margin-top:10px;">FOUND ON FLOORS:</div>
       <div class="floor-chip-row" id="c-floors"></div>
       <div class="evo-line" id="evo-line" style="margin-top:16px;justify-content:center;"></div>
@@ -146,6 +147,7 @@
   <section>
     <h3>Changelog</h3>
     <div class="section-body">
+      <p style="font-size:12px;margin:0 0 6px;"><strong>2026-09-28</strong> &mdash; <strong>Every creature has its own cry (#993).</strong> D: a floor engage "always plays the same high pitch screech". It was one cue, <code>battle.start</code> (<code>floor_arrive.ogg</code>, 96% of its energy above 4 kHz), fired for every fight. The cries follow the old generations' scheme: each LINE has one base cry chosen from its design (a boar grunts, a toad croaks, a serpent hisses, a golem clangs, a ghost moans - 22 kinds, from the Description words and the types; <code>tools/gen_cries.py</code> writes the table), its secondary type colours it (Undead breath, Elemental crackle, Eldritch ring, Horror roughness...), and each STAGE plays it lower (about 3.5 semitones a stage), longer, with more partials, more roughness and a sub-octave - stage 3 is the menacing one. No screech by construction: nothing is synthesized above 3.6 kHz and a 3.8 kHz low-pass closes every cry (worst case 1.8% of energy above 4 kHz, median centroid 463 Hz); each is normalised to the -18 LUFS ceiling and plays at the evolve cue's gain. The game plays the engaged creature's cry on a floor engage (battle.start only as the fallback), the advanced form's cry at the advancement reveal, and a CRY button on the creature sheet. The CRY line above plays all three stages of this line. <em>Client on DEV; this page carries the same synth file.</em></p>
       <p style="font-size:12px;margin:0 0 6px;"><strong>2026-09-09</strong> &mdash; <strong>Two hardcoded panels on this page were telling every creature the same lie.</strong> The MUTANT VARIANT box printed <em>NOT YET GENERATED</em> on all 300 pages: it was static markup that nothing ever replaced, while the mutant art has existed for every id in <code>codex/images/mutants/</code> and the &#9763;&nbsp;VIEW MUTANT toggle above was already serving it. The box now renders the real recolour when the file is present and keeps the placeholder only when it is genuinely absent. The MOVE PROGRESSION section, which read <em>&ldquo;move design not yet started for this line&rdquo;</em> on all 300 pages, is removed &mdash; the MOVES panel above it has printed the full V1/V2/V3 ladder with unlock levels since 2026-08-05, so the section was both false and redundant. Reported by D on Nauplius (DFMC-031). DESCRIPTIVE ONLY: no game behaviour changes.</p>
       <p style="font-size:12px;margin:0 0 6px;"><strong>2026-08-31</strong> &mdash; <strong>The SOUL EQUIP panel was left behind by the 2026-08-05 fix directly above it.</strong> It still printed <code>Power_S&lt;creature stage&gt;</code> for each granted move, which is not how the game resolves one: versions unlock at <code>Level_Learned</code> / <code>Level_Upgrade_V2</code> / <code>_V3</code> and the client picks them with <code>moveVerAt(row, LEVEL)</code>. Stage and version are independent ladders and after the 2026-08-04 stagger they land 22&ndash;29 levels apart on average, so a stage-3 entry advertised numbers the creature does not fire &mdash; Ridgedrake&rsquo;s slot 1 read <em>Rampart Annihilation, 160</em> when a stage-3 Ridgedrake below level 84 is still on <em>Rampart Break, 130</em>, and below 53 on <em>Ram Charge, 95</em>. The panel now prints the whole ladder with its unlock levels, exactly as the MOVES panel does, and states that soul <strong>grade</strong> multiplies the granted power. Found by the consistency audit opened on Arthur Bergamin&rsquo;s report &mdash; this panel is the wiki&rsquo;s answer to the question he asked. DESCRIPTIVE ONLY: no game behaviour changes.</p>
       <p style="font-size:12px;margin:0 0 6px;">2026-08-05 &mdash; <strong>Soul ladder rebased and the grade half repaired.</strong> Soul grade was computed but returned only on the four ability slots, so on the four passive slots <code>grMult</code> defaulted to 1 and upgrading a soul changed nothing (measured on a live save: persDefPct 4.2 at Worn, 4.2 at Void). Grade now reaches the passive path. The combined stage&times;grade surface is rebased to &times;1.00 (S1/Worn) &rarr; &times;2.50 (S3/Void) &mdash; nothing sits below 1 any more &mdash; with grade carrying 2.00&times; and stage 1.25&times;, reversing which lever held the wider range. <em>LIVE on release since 2026-08-05 (0.32).</em></p>
@@ -253,6 +255,7 @@ async function load() {
     document.getElementById('c-rarity').textContent = RARITY_SHORT[c.Rarity] || c.Rarity || '—';
     document.getElementById('c-stage').textContent = c.Stage || '—';
     document.getElementById('c-encounter').textContent = c.Encounter_Type || '—';
+    renderCry(c, creatures);
 
     const tMed = t => `<img class="tt-med" src="assets/types/${encodeURIComponent(t)}.png" alt="">`;
     let typesHtml = `<a class="type-tag" href="type.html?type=${encodeURIComponent(c.Type_Primary)}">${tMed(c.Type_Primary)}${escapeHtml(c.Type_Primary)}</a>`;
@@ -505,6 +508,30 @@ function switchTab(btn, which) {
   });
 }
 load();
+</script>
+<script src="assets/afx/cry_bank.js"></script>
+<script>
+/* #993 p4 (D 2026-09-25): the creature's cry, playable here and in the game's own creature sheet - the same
+   synth file (assets/afx/cry_bank.js, a copy of the client's play/cry_bank.js made by tools/gen_cries.py --site),
+   so this page plays the samples the game plays. All three stages of the line are offered so the ladder can be
+   heard: the same base cry, each stage lower, longer and rougher. */
+let CRY_CTX = null;
+function renderCry(c, all) {
+  const CB = window.CRY_BANK, row = document.getElementById('c-cry-row');
+  if (!CB || !c || !c.Line_ID) { row.style.display = 'none'; return; }
+  row.style.display = '';
+  document.getElementById('c-cry-label').textContent = CB.describe(c).toUpperCase();
+  const line = (all || []).filter(x => x.Line_ID === c.Line_ID).sort((a, b) => (+a.Stage) - (+b.Stage));
+  const box = document.getElementById('c-cry'); box.innerHTML = '';
+  line.forEach(x => {
+    const b = document.createElement('button'); const me = x.ID === c.ID;
+    b.textContent = '\u25B6 ' + x.Name.toUpperCase();
+    b.title = CB.describe(x);
+    b.style.cssText = "font-family:'Cinzel',serif;font-weight:700;font-size:11px;letter-spacing:.06em;padding:4px 10px;cursor:pointer;border-radius:5px;background:#1e1710;color:" + (me ? '#e6c94d' : '#cfa650') + ';border:1px solid ' + (me ? '#e6c94d' : '#5c462c') + ';';
+    b.onclick = () => { try { CRY_CTX = CRY_CTX || new (window.AudioContext || window.webkitAudioContext)(); if (CRY_CTX.state === 'suspended') CRY_CTX.resume(); CB.playOn(CRY_CTX, CRY_CTX.destination, x); } catch (e) {} };
+    box.appendChild(b);
+  });
+}
 </script>
 <script src="admin.js"></script>
 <script>
