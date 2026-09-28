@@ -122,6 +122,35 @@ Worth knowing before picking a clip, because the numbers are not evenly spread:
 - 176 of the 606 are shrill and 128 of those are in `ui`/`coin`/`door`, which a move cannot use
   anyway. The shrill clips that remain are usable pitched down by three semitones or more.
 
+### Character — a move sounds like its creature, its name and its effect (2026-09-28, #994)
+
+D: *"The sounds need to be more in character with their creatures, the move name and effect ... sound is
+data."* Judged by **measurement and by the move's own words**, and applied by
+`dfmc-client/tools/afx_character_pass.py` on `dfmc-client/tools/afx_features.py`'s numbers (length,
+attack, tail, centroid, rolloff, energy under 120 Hz / 120-500 Hz / over 3 kHz / over 8 kHz, flatness,
+tonality, crest, roughness, bursts — the client's own decode). A move is read from its three stage names and
+three effect lines and its line's creature types; the VFX description only for an unambiguous "explodes".
+
+1. **No synthetic boom on a move.** `AFX-495..499` / `525` / `526` (Kenney Sci-fi explosions) are 76-93 %
+   energy under 120 Hz with a pitched sine body; they stay in the bank and off every move. A move whose
+   words explode ends on a **recorded** bang or cannon (`oga-bang`, Over3k < 16 %, centroid < 1 kHz) or a
+   slam; any other move ends on its own settle sound (rock fall, splash, wood break, dry bone crack,
+   ghost moan ...). A move that does not explode does not explode.
+2. **No chiptune blip as the hit of a physical or voiced move.** The Digital Audio / laser register stays
+   for what it is — a hex drone, a rune, lightning — never the contact of a charge, a bite or a croak.
+3. **A named element is heard at every stage** where a clip of it fits the budget: fire, steam, ice,
+   lightning, ooze, water, sand, earth, plant, metal, bone, chitin, wind, spirit (a low drone or a gong
+   counts — rule 4 allows the rune register).
+4. **A voiced move carries a creature voice** (croak, roar, howl, shriek, call, song, wail, hiss, swarm),
+   pitched down — no screech (#993).
+5. **A bite carries a bite, a spit a spit.**
+
+A layer that already answers the move is never replaced: S1's lead (family identity), a layer with `n>1`
+(an authored rhythm), anything in the creature's own material. A replacement keeps the layer's `d / n / i /
+j` and `g` and takes the house hygiene. `codex/afx_character_audit.csv` is the per-move record — the character
+read, the verdict, the rules that fired, every stage before and after; the pass re-run on the codex re-assigns
+nothing (it is a fixpoint), which is what `dfmc-client/tools/probe_00994_character.py` pins.
+
 ### Modes
 
 ```
@@ -169,7 +198,7 @@ pre-rolls each voice by it so an authored `d` is where the hit lands (the timing
 
 Files under `assets/afx/cues/<name>.ogg`, copied from the dungeon's authored cue set with its **tuned
 `Gain` and `Retrigger_Ms`** — those levels were set against the rules above and re-tuning them here
-would fork them. Since 2026-09-25 `Gain` is relative to the −18 LUFS ceiling (rule 3): the cue's clip
+would fork them — except `battle.victory`, re-chosen on its measurements (2026-09-28, #993). Since 2026-09-25 `Gain` is relative to the −18 LUFS ceiling (rule 3): the cue's clip
 is trimmed to the ceiling first, then `Gain` applies, so `0.5` means 6 dB under it whatever the file
 happens to hold. `LUFS` / `Play_Peak_dBFS` / `Onset_Ms` are the same measurements as on the bank, and a cue is pre-rolled by its onset like a layer. `Trigger` is the Tower's own sentence: the same recording, a different game's moment.
 `Retrigger_Ms` is the minimum gap between two plays of one event; blank means no limit.
@@ -287,6 +316,30 @@ writes to.
 
 ## Changelog
 
+- **2026-09-28** — **a move sounds like its creature, and the explosions are recorded ones; the victory
+  is a short soft phrase** (#994 second paragraph, D: *"The sounds need to be more in character with their
+  creatures, the move name and effect"*; #993 paragraphs 2-3: *"The door locking sound on winning a battle
+  is not good. Need a short and soft victory sound."* / *"The explosion sounds are not great. Low quality
+  and annoying."*). Paragraph 4 of #993 (the creature cries) is its own lane. **Measured first:**
+  `dfmc-client/tools/afx_features.py` decodes the 852 clips and 33 cues through the client's decoder and
+  writes what each one *is*. Two synthetic booms, AFX-526 *Low Frequency explosion 001* (113 layers) and
+  AFX-495 *Explosion Crunch 000* (93), carried 206 of the 3012 move layers — 86 % / 76 % of their energy
+  under 120 Hz, 85 % rolloff at 117 / 234 Hz, tonal 0.83 / 0.61: a sine thump a laptop speaker plays as
+  distortion — and 178 of those were on moves that do not explode, most as the last layer of stage 2/3,
+  so nearly every evolved move ended in the same boom. 26 physical or voiced moves hit with a chiptune
+  blip (Ram Charge, Wet Croak, Brine Spit, Drowning Lure). The recordings that fit — 73 creature voices,
+  bone cracks, wet breaks, rock / glass / wood breaks, 15 bangs, slams, the ice set, ghost moans — sat
+  unused. **The pass** (the new *Character* section above, `dfmc-client/tools/afx_character_pass.py`):
+  **292 of 419 rows re-assigned, 127 in character and untouched**; W1 187 boom layers → 0 (explosive moves
+  onto `oga-bang` bangs and cannons, 14 moves; the rest onto their settle sound), W2 26 chiptune leads → 0,
+  W3 258 element placements, W4 63 voices, W5 53 bites / spits; distinct clips on moves 208 → 280, the
+  most-reused clip 113 → 81 layers. Every row still passes `tools/afx_lint.py`; every main beat still lands
+  on its frame (`codex/afx_sync_audit.csv` re-written: 0 out). `codex/afx_character_audit.csv` is the
+  per-move record. **Victory:** `battle.victory` was the dungeon's `floor_gate_open.ogg` — the floor gate
+  unsealing, 1.41 s, crest 22.9 dB, centroid 1387 Hz, 18 % over 3 kHz, noise-like: the "door locking".
+  It is now AFX-377 *Jingles PIZZI 10* at `Gain` 0.4 — four plucked notes rising to the tonic and holding
+  it, 0.80 s, crest 9.8 dB, a 120 ms attack, centroid 394 Hz, 0.3 % over 3 kHz, tonal; not the level-up
+  cue (PIZZI 00, which falls). Gates: `probe_00993.py` 9/9 (red 2/9), `probe_00994_character.py` 7/7 (red 3/7).
 - **2026-09-25 (c)** — **the hit lands on the frame: `d` is the hit, and the first cast is no longer
   cold** (#994, D: *"a lot of the sounds are out of sync with their vfx — this you should be able to fix
   easily ... You need to be able to see what the sounds actually are ... sound is data."*). Two
