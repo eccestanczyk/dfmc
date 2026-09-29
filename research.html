@@ -772,8 +772,39 @@
   the world-object ladder and daily fold as shipped 2026-07-30/31, the settings registry and save
   <code>settings</code> block, the seeded battle RNG, and the <code>src/power.js</code> parity port.</em></p>
 
+  <h2>11. Reviewing a whole project with AI agents (2026-09-29)</h2>
+  <p><strong>The question.</strong> D ordered a full project review of Tower (memory and direction files, repo clutter,
+  code against the codex). Commissioned first: what 2025&ndash;2026 practice says about auditing a whole codebase with a
+  manager and parallel subagent lanes, and what this review should adopt.</p>
+  <ul class="sp-rules">
+    <li><strong>The finder must not grade itself.</strong> Anthropic's Code Review, RepoAudit and Refute-or-Promote all get
+      their precision from a separate pass that tries to disprove each candidate; unverified LLM review sits near 19% F1,
+      mostly false positives.</li>
+    <li><strong>Evidence bar:</strong> a bug claim needs <code>file:line</code> and a concrete failure scenario; otherwise it is
+      a question, not a bug.</li>
+    <li><strong>Correctness first, nits capped,</strong> and three severities: important, nit, pre-existing.</li>
+    <li><strong>Lane briefs need four parts</strong> (objective, return shape, source boundary, stop line); lanes return
+      conclusions only, and state lives in files outside any context window.</li>
+    <li><strong>Pilot one chunk before fanning out</strong>, and size chunks by reading load (a few hundred lines of real
+      logic per pass), not by file.</li>
+    <li><strong>Drift: deterministic first.</strong> Extract identifiers from each codex page and grep the code; spend agent
+      review only on mismatches and high-impact pages, with an authority map naming which page owns each fact.</li>
+    <li><strong>Instruction files cost more than they help when stale:</strong> two 2026 studies found context files do not
+      raise agent success and add 20%+ cost; keep CLAUDE.md under 200 lines, <code>MEMORY.md</code> under its 200-line /
+      25&nbsp;KB load limit, and cut any line whose removal would not cause a mistake.</li>
+    <li><strong>Cleanup is archive-first;</strong> dead-code tools give candidates, not verdicts.</li>
+  </ul>
+  <p>Full source list and the 15 adopted rules: <code>docs/review/research.md</code> in the client repo
+  (<code>dfmc-client</code>, branch <code>dev</code>).</p>
+
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-09-29 &mdash; eleventh entry: reviewing a whole project with AI agents.</strong>
+      Commissioned as P1.1 of the Tower full project review. About twenty 2025&ndash;2026 sources (Anthropic engineering
+      and Claude Code docs, RepoAudit, Refute-or-Promote, LLM code-review benchmarks, AGENTS.md studies, Google and
+      SmartBear review practice). The field agrees that precision comes from a separate refute pass, that drift is
+      caught cheapest by deterministic identifier checks, and that instruction files must be pruned like code. Fifteen
+      rules adopted for the review, kept in <code>docs/review/research.md</code> in the client repo.</li>
     <li><strong>2026-08-14 &mdash; tenth entry: asynchronous rated PvP, surveyed before building one.</strong>
       Commissioned by D's Auto PVP spec: attacker plays live against a once-daily snapshot of a real account's loadout
       piloted by its own autoplay settings, visible attacker rating, hidden defender rating. The genre's converged
