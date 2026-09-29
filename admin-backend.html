@@ -409,10 +409,13 @@
   <h2>Traffic blocks &mdash; the rate limiter's second layer</h2>
   <p>Every authenticated <code>/api/*</code> request is sorted into a <strong>rate class</strong> and spends a
   token from a per-account bucket for that class. The classes and their buckets (<code>src/worker.js</code>,
-  <code>RATE</code>): <code>battle</code> 12&nbsp;/&nbsp;1&nbsp;per&nbsp;min, <code>floor</code> 15&nbsp;/&nbsp;4,
-  <code>save</code> 10&nbsp;/&nbsp;6, <code>save_read</code> 30&nbsp;/&nbsp;30, <code>name</code> 3&nbsp;/&nbsp;0.05,
-  <code>auth</code> 10&nbsp;/&nbsp;10, <code>db</code> 40&nbsp;/&nbsp;20, <code>wallet</code> 12&nbsp;/&nbsp;20, <code>other</code> 20&nbsp;/&nbsp;12, plus a
-  blanket <code>ip_all</code> of 240&nbsp;/&nbsp;120 per address. An empty bucket answers
+  <code>RATE</code>): <code>battle</code> 24&nbsp;/&nbsp;4&nbsp;per&nbsp;min, <code>floor</code> 30&nbsp;/&nbsp;8,
+  <code>save</code> 20&nbsp;/&nbsp;12, <code>save_read</code> 60&nbsp;/&nbsp;60, <code>me</code> 60&nbsp;/&nbsp;60, <code>name</code> 3&nbsp;/&nbsp;0.05,
+  <code>auth</code> 10&nbsp;/&nbsp;10, <code>db</code> 80&nbsp;/&nbsp;40, <code>mm</code> 60&nbsp;/&nbsp;45 (<code>/api/pvp/mm/</code>),
+  <code>pvpm</code> 120&nbsp;/&nbsp;90 (<code>/api/db/m/</code>), <code>wallet</code> 24&nbsp;/&nbsp;40,
+  <code>roll</code> 300&nbsp;/&nbsp;240 (<code>/api/roll</code>, <code>/api/hatch</code>, <code>/api/breed/claim</code>),
+  <code>other</code> 40&nbsp;/&nbsp;24, plus a blanket <code>ip_all</code> of 600&nbsp;/&nbsp;360 per address, checked after the
+  session gate and the per-account bucket (see <a href="system-networking.html">system-networking</a>). An empty bucket answers
   <code>429 {error:'rate'}</code>.</p>
   <div class="note"><strong><code>wallet</code> exists because a generic bucket punished a normal player
   (2026-08-04).</strong> <code>/api/wallet/spend</code> and <code>/api/shop/buy</code> matched no prefix, so
@@ -432,12 +435,12 @@
 
   <p>A refusal also <strong>escalates</strong>. <code>reportBreach</code> posts the (account, class) pair to the
   WorldDO at most once per <code>RATE_FLAG_MS</code> (default 60s); once <code>TRAFFIC_BLOCK_N</code> reports
-  (default <strong>3</strong>) land inside a rolling 10 minutes, <code>traffic_status</code> is set
+  (<strong>50</strong> in the deployed <code>wrangler.jsonc</code> vars; code default 3 where the var is unset) land inside a rolling 10 minutes, <code>traffic_status</code> is set
   <code>blocked=1</code> for that pair and an <code>anomalies</code> row is written. A blocked pair is refused at
   the gate with <code>403 {error:'soft_block'}</code> <em>before any Durable Object wakes</em>. The worker caches
   the block set per isolate for <code>SB_TTL_MS</code> (default 60s), so a change takes up to a minute to be felt.</p>
   <p><strong>Reads are exempt (2026-08-02).</strong> Classes listed in <code>RATE_READ_ONLY</code> &mdash; currently
-  only <code>save_read</code>, i.e. <code>GET /api/save</code> &mdash; are never soft-blocked and never escalate.
+  <code>save_read</code> (<code>GET /api/save</code>) and, since 2026-08-06, <code>me</code> (<code>/api/me</code>) &mdash; are never soft-blocked and never escalate.
   Reading your own save grants nothing, so blocking it prevents no abuse; and because the shell RETRIES that read
   when it fails, escalation on it meant the retry loop fed the counter that produced the block. Nothing may join
   that set which can mutate state or mint a value.</p>
@@ -465,13 +468,15 @@
       refusal. This is the unblock.</td></tr>
     <tr><td class="lbl"><code>POST /api/admin/traffic/block</code></td><td><code>{sid, cls}</code> &mdash; manual
       block, for when the automatic threshold is not what you want to rely on.</td></tr>
-    <tr><td class="lbl"><code>GET /api/admin/flags</code></td><td>The last 200 WorldDO anomalies, which is where
-      <code>traffic_block</code> rows land with their <code>cls xN/10min</code> detail.</td></tr>
+    <tr><td class="lbl"><code>GET /api/admin/flags</code></td><td>WorldDO anomalies, newest first, which is where
+      <code>traffic_block</code> rows land with their <code>cls xN/10min</code> detail. Optional <code>sid</code> and
+      <code>kind</code> filters; <code>limit</code> defaults to 200, max 500. Answers <code>{ok, rows, counts24h}</code>
+      (an object, not a bare array).</td></tr>
   </table>
 
   <h2>Dismantle yield &mdash; the shared table</h2>
   <p><code>src/dismantle.js</code> is a pure module carrying the dismantle yield: <code>dismYield</code>, <code>breedRates</code>, <code>gradeNum</code>, <code>buildDismantleDb</code>, <code>dismTotals</code>. Same contract as <code>src/power.js</code> &mdash; no fetch, no timers, no Durable Object state, safe to import from the Worker and from node, with CSV fetching left to the caller Worker-side and <strong>never</strong> inside a DO.</p>
-  <p><strong>Why it had to exist.</strong> <code>POST /api/backup/dismantle</code> removes rows and credits <strong>nothing</strong>, because the yield lived only in <code>play/app.js</code>. That makes the ops door unusable on a real player: it would delete a pile and pay for none of it. Separately &mdash; <strong>corrected 2026-08-20, this sentence had gone stale</strong> &mdash; <code>foodCeil</code> now carries a priced dismantle allowance: the worker prices each declared row and the player&rsquo;s object verifies it against its own previous save or the item&rsquo;s grant record before a point of allowance is spent (system-networking owns the mechanics; the accepted grant origins were widened to every stamp the server writes on 2026-08-20).</p>
+  <p><strong>Why it had to exist.</strong> <code>POST /api/backup/dismantle</code> used to remove rows and credit <strong>nothing</strong>, because the yield lived only in <code>play/app.js</code>, which made the ops door unusable on a real player: it would delete a pile and pay for none of it. <strong>Since #A4 (D 2026-09-28, on dev):</strong> the Worker prices every removed row with <code>dismYield</code> (forwarded to the object, which never fetches the CSV) and the object credits it through <code>dismCreditRow</code> &mdash; the same priced-credit step <code>/api/dismantle</code> uses, on the same ledger keys, so a uid paid by one door can never be paid again by the other. The door fails closed on a pricing outage, refuses socketed or equipped uids (held-in-socket), still spares Mutants, and replays a retried apply by its <code>idem</code> instead of crediting twice. Separately &mdash; <strong>corrected 2026-08-20, this sentence had gone stale</strong> &mdash; <code>foodCeil</code> now carries a priced dismantle allowance: the worker prices each declared row and the player&rsquo;s object verifies it against its own previous save or the item&rsquo;s grant record before a point of allowance is spent (system-networking owns the mechanics; the accepted grant origins were widened to every stamp the server writes on 2026-08-20).</p>
   <p><strong>Admin grants are sourced from birth (D ruling 2026-08-20, RELEASED IN 0.56).</strong> <code>mintGrant</code> assigns server uids to the payload, books each item into <code>items</code> with origin <code>grant</code>, and every fresh grant writes a permanent <code>acct_log</code> entry through the audited kind <code>admin_grant</code> &mdash; gid, reason and item list. A granted item is checkable and dismantles like anything else; a merely <em>claimed</em> grant reads <code>unsourced</code> and stays refused. Replays log nothing; the original entry is the record.</p>
   <p><strong>The yield is AUTHORED, not computed.</strong> <code>dismantle.csv</code> carries one row per (Category, Grade, Tier) and the module only looks it up; the gear rows keep a fourth key field fixed at <code>+0</code> (a legacy refinement slot &mdash; the mechanic does not exist, and the 1,000 <code>+1&hellip;+10</code> rows were removed 2026-08-25). The ladders are deliberately not smooth; there is no formula to derive and none should be written.</p>
   <table>
@@ -610,10 +615,14 @@
     <code>maybeMaintain</code> and it must stay absent.</li>
     <li><strong>The eight call sites did not change.</strong> <code>flagReport()</code> diverts any kind in
     <code>AUDIT_KINDS</code> to <code>auditLog()</code> before it can reach the inbox, so a one-line
-    <code>this.flag(...)</code> cannot forget to log. Covered: <code>admin_wipe</code>,
+    <code>this.flag(...)</code> cannot forget to log. Covered: <code>admin_grant</code>, <code>admin_wipe</code>,
     <code>admin_rollback</code>, <code>admin_bulk_dismantle</code>, <code>admin_lock</code>,
-    <code>admin_unlock</code>, <code>ops_restore</code>, <code>global_wipe</code>,
-    <code>grants_revoked</code>, <code>traffic_block</code>, <code>traffic_clear</code>.</li>
+    <code>admin_unlock</code>, <code>ops_restore</code>, <code>trade</code>, <code>global_wipe</code>,
+    <code>save_retry</code>, <code>chain_resync</code>, <code>grants_revoked</code>,
+    <code>admin_traffic_block</code>, <code>admin_traffic_clear</code>. (The bare <code>traffic_block</code> kind is the
+    automatic threshold's anomaly and stays a report, not an audit row.) Written straight to the log through
+    <code>auditLog()</code> rather than a flag: <code>admin_rename</code>, <code>sock_migrated</code>,
+    <code>mon_migrated</code>, <code>birth_migrated</code>, <code>birth_recorded</code>.</li>
     <li><strong>World-side actions write straight through</strong> (<code>WorldDO</code> now sets
     <code>_isWorld</code>); player-side actions ride the same carrier the reports do, ahead of them.</li>
     <li><strong>Ops-only read:</strong> <code>GET /api/admin/acctlog?sid=&amp;limit=</code>, behind the same
@@ -638,6 +647,7 @@
   the feedback pull uses; it re-implements none of the logic it tests.</p>
 
   <h2>Changelog</h2>
+  <ul class="sp-rules"><li><strong>2026-09-30 &mdash; review drift fixes: F126, F212, F213, F214, F215, F229, F230, F231, F250, F260, F261, F262, F263 (project review, codex fix lane). Text only; no code changed.</strong> The page body now states what the build does: the ops bulk dismantle prices and credits through <code>dismCreditRow</code> since #A4 (dev); GM login is password only and bootstrap mints no TOTP (#TOTP-removal, 2026-09-28); the rate classes carry today's buckets (<code>ip_all</code> 600/360, plus <code>me</code>, <code>mm</code>, <code>pvpm</code>, <code>roll</code>) and <code>TRAFFIC_BLOCK_N</code> is 50 as deployed; <code>RATE_READ_ONLY</code> holds <code>save_read</code> and <code>me</code>; adventure-log uploads are capped at 1.25&nbsp;MiB, keyed per device, and a round closes itself after 3 days (<code>advlog_until</code>); the ops door list is complete, split into read and write doors; the GM activity panel (<code>dfmc_activity</code>, <code>/api/gm/analytics</code>) is documented; restore writes the save parts through <code>writeSave</code>; the audited kinds list matches <code>AUDIT_KINDS</code> (<code>admin_traffic_block</code>/<code>admin_traffic_clear</code>) plus the direct <code>auditLog</code> kinds; <code>/api/admin/flags</code> takes <code>sid</code>/<code>kind</code>/<code>limit</code> and answers <code>{ok, rows, counts24h}</code>.</li></ul>
   <ul class="sp-rules"><li><strong>2026-09-30 &mdash; GM enrollment holds its own lock (project review F210, D decision &ldquo;fix&rdquo;). On dev.</strong> The ops-key check on GM enrollment no longer depends on the generic request gate, which stands down during maintenance: the enrollment handler and the world object each check the ops key themselves (constant-time), maintenance or not, the same way the backup doors already did. GM usernames containing a dot now keep a working session after login.</li>
 <li><strong>2026-08-28 &mdash; one game mode (D order). On release.</strong> The GM console's realm selector and snapshot report the one realm; the account-reset door resets it alone; the removed death pipeline's section left this page because the pipeline itself left the build. Build record on <a href="system-realms.html">Realms</a>.</li></ul>
 <ul>
@@ -686,16 +696,13 @@
   of it, so restoring a wallet from the ledger mints money. Never send a placeholder payload to a live
   account to test the door &mdash; <code>/api/backup/restore</code> sets the ratchet from
   <code>data.maxFloor</code>, so a stub body resets the account's climb to 1.
-  <br><br><strong>Restore is not a save.</strong> <code>/api/backup/restore</code> writes the
-  <code>saves</code> row and the <code>progress</code> ratchet and nothing else &mdash; it does
-  <em>not</em> add a <code>save_hist</code> version and it does <em>not</em> write
-  <code>save_parts</code>, because <code>writeSaveParts()</code> is called from the save door alone.
-  Two consequences. First, a restored version is invisible to
-  <code>GET /api/backup/history</code>: the ring can top out one version below what
-  <code>export&amp;live=1</code> returns, and that gap is the restore, not a lost write. Second, once
-  the save split cuts reads over to parts, a restore would install a save that no part reflects and
-  the player would load the stale parts instead &mdash; silently discarding the repair. Every writer
-  of <code>saves</code> must write the parts before that cutover.</div>
+  <br><br><strong>Restore is not a save.</strong> <code>/api/backup/restore</code> writes through
+  <code>writeSave</code> &mdash; the one write path since <code>38a310d</code>, which writes the <code>saves</code> row,
+  the <code>save_parts</code> and the parts mark together &mdash; plus the <code>progress</code> ratchet, and it stamps
+  <code>__wipe_epoch</code> in <code>kv</code>. It does <em>not</em> add a <code>save_hist</code> version, so a restored
+  version is invisible to <code>GET /api/backup/history</code>: the ring can top out one version below what
+  <code>export&amp;live=1</code> returns, and that gap is the restore, not a lost write. (The older warning that a restore
+  would install a save no part reflects no longer holds: restore writes the parts.)</div>
 
   <h2>What a bug report actually carries</h2>
   <p><strong>Status: LIVE on release since 2026-08-05 (0.33).</strong> A report is one row in the <code>feedback</code> table of the shared object &mdash; the same SQLite as every save, capped at 10&nbsp;GB. Measured across all 33 stored reports on 2026-08-05, the payload was:</p>
@@ -740,11 +747,14 @@
   auth is fully independent of player sessions.</p>
   <ul>
     <li><strong>Enrollment</strong> &mdash; <code>POST /api/gm/bootstrap</code>, ops-key-gated in its own handler (maintenance or not). Creates or re-enrolls a
-      named operator account and re-rolls its TOTP secret; every enrollment is audited. Until the first bootstrap the
+      named operator account and sets its password; every enrollment is audited. Since 2026-09-28 (#TOTP-removal, Jeff's
+      order) bootstrap mints no TOTP secret and answers <code>{ok, user}</code>; a re-enrolled account keeps whatever
+      <code>totp_secret</code> row it already had, unused. Until the first bootstrap the
       account table is empty and login is impossible &mdash; the console ships inert.</li>
-    <li><strong>Login</strong> &mdash; password (PBKDF2-SHA256, 100,000 iterations, per-account salt) plus TOTP
-      (RFC&nbsp;6238, 160-bit secret, &plusmn;1 step drift). A per-account fail counter applies a lockout window; every
-      attempt &mdash; unknown user, locked, bad password, bad code, success &mdash; lands in the permanent
+    <li><strong>Login</strong> &mdash; password only (PBKDF2-SHA256, 100,000 iterations, per-account salt). The TOTP
+      second factor was removed 2026-09-28 (#TOTP-removal): no code is asked for or checked. A per-account fail counter
+      applies a lockout window (the brute-force defense, since <code>/api/gm/*</code> skips the per-steamid rate limiter);
+      every attempt &mdash; unknown user, locked, bad password, success &mdash; lands in the permanent
       <code>gm_audit</code> table with timestamp, actor, action and IP.</li>
     <li><strong>Session</strong> &mdash; <code>ht_gm_session</code> cookie, HMAC-signed with <code>GM_SECRET</code>,
       12&nbsp;hours, HttpOnly/Secure/SameSite=Lax. v1 has no server-side revocation list &mdash; expiry is the only
@@ -759,19 +769,35 @@
       (ops key) both serve the cache, so reading it fifty times a day costs the same as once. Until the first full
       cycle completes it reports that no snapshot exists yet.</li>
     <li><strong>Adventure-log extraction</strong> &mdash; an operator starts a round
-      (<code>POST /api/admin/advlog/start</code>, audited). Clients poll the active round id at most hourly and upload
-      once per round: chapters and battle <em>metadata only</em> &mdash; the round-by-round combat text
+      (<code>POST /api/admin/advlog/start</code>, audited). The round closes itself: start stamps
+      <code>advlog_until</code> = now + 3&nbsp;days and answers <code>{round, until}</code>; after that the active round reads
+      as none and uploads stop (D2, D ruling 2026-09-04). Clients poll the active round id at most hourly and upload
+      once per round per device: chapters and battle <em>metadata only</em> &mdash; the round-by-round combat text
       (<code>turnsLog</code>) is stripped server-side regardless of what the client sent, uploads are capped at 2,000
-      battles and 256&nbsp;KiB, and each R2 write passes the shared spend budget first. Files land in the private
-      backup bucket under <code>advlog/&lt;round&gt;/&lt;steamid&gt;.json</code>; a receipt row per account per round
+      battles and 1.25&nbsp;MiB (1,310,720 chars; raised by D2 to carry <code>advArc</code>, the gzip+base64 archive blocks
+      holding older history), and each R2 write passes the shared spend budget first. Files land in the private
+      backup bucket under <code>advlog/&lt;round&gt;/&lt;steamid&gt;/&lt;device&gt;.json</code>, one per device so no device
+      overwrites another's; <code>/api/backup/advlog/list</code> also returns <code>devices</code> (sid &rarr; device count); a receipt row per account per round
       records time and size, and the status door reports the count and the last five check-ins.</li>
+    <li><strong>Activity panel</strong> (backlog 12.2, Jeff's order 2026-09-28) &mdash; the Worker writes one Analytics
+      Engine point (binding <code>ACTIVITY_AE</code>, dataset <code>dfmc_activity</code>) per <code>/api/*</code> request that
+      falls in a console class (<code>hatch</code>, <code>roll</code>, <code>battle</code>, <code>save</code> writes,
+      <code>login</code>) or answers an error status; other requests write nothing. The point carries the class, a hashed
+      session cookie (first 8 bytes of SHA-256, never the steamid or raw cookie), the status and the path; the write is
+      fire-and-forget and a missing binding just stops emission. <code>GET /api/gm/analytics</code> (GM session) reads it,
+      plus <code>dfmc_battles</code> and <code>dfmc_wrcost</code>, through the AE SQL API using the Worker secrets
+      <code>CF_ACCOUNT_ID</code> / <code>CF_AE_TOKEN</code>: active players over 5&nbsp;m/1&nbsp;h/24&nbsp;h, requests per class
+      and error rate over the last hour, battles and write cost per system. Cached 60&nbsp;s per isolate; with the secrets
+      unset it answers <code>{ok, note:'Analytics token not set', panels:null}</code>.</li>
   </ul>
 
   <h2>Ops doors &mdash; the complete set</h2>
-  <p>Every door below is <strong>read-only</strong> and gated on the ops key at the Worker's session gate,
+  <p>Every <code>/api/backup/*</code> door is gated on the ops key at the Worker's session gate,
   which matches on the <em>stripped</em> path so <code>/dev/api/backup/*</code> is gated identically. A wrong
   key answers <code>403 forbidden</code> and never wakes an object. Note <code>/api/feedback/export</code>
-  takes <code>k</code>, not <code>key</code>.</p>
+  takes <code>k</code>, not <code>key</code>. Per-account doors act on realm <code>standard</code> whatever
+  <code>realm</code> is passed (one game mode). The first table is the <strong>read</strong> doors; the <strong>write</strong>
+  doors follow it.</p>
   <table>
     <tr><th>Door</th><th>Answers</th></tr>
     <tr><td class="lbl"><code>GET /api/backup/accounts?key=&amp;after=&amp;limit=</code></td><td>The roster
@@ -779,12 +805,18 @@
       steamid, so without this there is no way to enumerate who exists.</td></tr>
     <tr><td class="lbl"><code>GET /api/backup/flags?key=&amp;sid=&amp;kind=&amp;n=</code></td><td>Anomalies
       recorded against the account, plus a histogram by kind.</td></tr>
-    <tr><td class="lbl"><code>GET /api/backup/inv?key=&amp;sid=&amp;realm=</code></td><td>Server-held item
-      rows and tombstones.</td></tr>
+    <tr><td class="lbl"><code>GET /api/backup/inv?key=&amp;sid=</code></td><td>Server-held item
+      rows and tombstones (realm is fixed to <code>standard</code>; a <code>realm</code> param is ignored).</td></tr>
+    <tr><td class="lbl"><code>GET /api/backup/drops?key=&amp;sid=</code></td><td><code>drops_granted</code>: what the server handed out per battle event (pruned at 7 days); optional <code>from</code>/<code>to</code>.</td></tr>
+    <tr><td class="lbl"><code>GET /api/backup/facts?key=&amp;sid=</code></td><td>The server's own record for the account: the ratchet it credited and the xp/Ichor/kills/battles ledger built from credited battles.</td></tr>
+    <tr><td class="lbl"><code>GET /api/backup/history?key=&amp;sid=</code></td><td>The <code>save_hist</code> ring (time-spaced; see <a href="system-networking.html">system-networking</a>).</td></tr>
+    <tr><td class="lbl"><code>GET /api/backup/export?key=&amp;sid=[&amp;live=1]</code></td><td>The stored save; <code>live=1</code> asks the player's own object instead of the R2 mirror.</td></tr>
+    <tr><td class="lbl"><code>GET /api/backup/list?key=&amp;sid=</code></td><td>The account's R2 mirror slots.</td></tr>
+    <tr><td class="lbl"><code>GET /api/backup/pvpq?key=</code></td><td>The PvP matchmaking queue (without <code>end</code>; see the write doors).</td></tr>
     <tr><td class="lbl"><code>GET /api/backup/breedfix?k=&amp;sid=&amp;realm=[&amp;apply=1]</code></td><td>The
       Worn-pen repair (2026-08-22): without <code>apply</code> a read-only plan of every verified egg draw recorded on
-      a Worn pair that was not an honest Worn pair; with it, the repair itself (see the changelog entry). The one
-      write door in this family besides restore, grant, grandfather and revoke.</td></tr>
+      a Worn pair that was not an honest Worn pair; with it, the repair itself (see the changelog entry). Dry by default; a write door only with
+      <code>apply=1</code>.</td></tr>
     <tr><td class="lbl"><code>GET /api/backup/parts?key=&amp;sid=&amp;realm=</code></td><td>Split save parts
       and <code>rejoin_ok</code> &mdash; the stage-2 gate for the save split.</td></tr>
     <tr><td class="lbl"><code>GET /api/backup/gmsnap?k=</code></td><td>The cached GM snapshot &mdash; the same
@@ -793,6 +825,19 @@
       for an adventure-log round, paginated by cursor.</td></tr>
     <tr><td class="lbl"><code>GET /api/backup/advlog/get?k=&amp;round=&amp;sid=</code></td><td>One account&rsquo;s
       uploaded adventure-log file for the round.</td></tr>
+  </table>
+  <p><strong>Write doors.</strong> Each of these changes stored state; the migration and repair doors are dry by
+  default and write only with <code>apply=1</code>.</p>
+  <table>
+    <tr><th>Door</th><th>Writes</th></tr>
+    <tr><td class="lbl"><code>POST /api/backup/restore</code>, <code>/api/backup/recover</code></td><td>Install a save on an account (from a body, or from the R2 mirror).</td></tr>
+    <tr><td class="lbl"><code>POST /api/backup/grant</code>, <code>/grandfather</code>, <code>/revoke</code></td><td>Mint an admin grant; flip the account's <code>unsourced</code> item rows to origin <code>grandfather</code>; revoke entitlement grants.</td></tr>
+    <tr><td class="lbl"><code>POST /api/backup/dismantle</code></td><td>Bulk dismantle, priced and credited since #A4 (see <em>Dismantle yield</em> above).</td></tr>
+    <tr><td class="lbl"><code>GET /api/backup/rollback?sid=&amp;ver=[&amp;apply=1]</code></td><td>Roll the save back to a <code>save_hist</code> version.</td></tr>
+    <tr><td class="lbl"><code>GET /api/backup/sockmig</code>, <code>/monmig</code>, <code>/birthmig</code>, <code>/reparts</code> <code>[&amp;apply=1]</code></td><td>Socket opening balance, creature ledger rows, birth records, and a rewrite of the split save parts.</td></tr>
+    <tr><td class="lbl"><code>GET /api/backup/pvpq?end=&lt;mid&gt;</code></td><td><strong>Force-ends a live PvP match.</strong></td></tr>
+    <tr><td class="lbl"><code>POST /api/backup/sweep</code></td><td>Runs the backup sweep now (the cron's code path).</td></tr>
+    <tr><td class="lbl"><code>POST /api/backup/reverse</code></td><td>Refund reversal; closed until a store is linked (answers <code>refunds_not_wired</code>).</td></tr>
 <tr><td colspan="2"><strong>2026-08-04 &mdash; the detected-but-unenforced flag class reports itself (LIVE on release since 2026-08-08 (0.42)).</strong>
 <span class="note"><strong>CORRECTION 2026-08-12 &mdash; as written below this NEVER WORKED, and the two
 reasons are recorded in &ldquo;Why no automatic report ever arrived&rdquo; further down this page. Read
