@@ -14,9 +14,16 @@
 
 <h2>What is for sale</h2>
 <table><tr><th>SKU</th><th>Name</th><th>Cost</th><th>Duration</th><th>Effect</th></tr>
-<tr><td>SHOP-001</td><td>Incense Burner</td><td>10 Wraithgold</td><td>30 days</td><td>Doubles the wild respawn rate</td></tr></table>
+<tr><td>SHOP-001</td><td>Incense Burner</td><td>10 Wraithgold</td><td>30 days</td><td>Doubles the wild respawn rate</td></tr>
+<tr><td>SHOP-002</td><td>Bait</td><td>10 Wraithgold</td><td>30 days</td><td>Halves the wild respawn interval; stacks with Incense</td></tr>
+<tr><td>SHOP-003</td><td>Auto PVP Attacks</td><td>4 Wraithgold</td><td>none (one-shot)</td><td>+10 Auto PVP attacks for today, even above the daily ten; they expire at the daily reset</td></tr></table>
 <p>The authored respawner gives <strong>one spawn per 60 seconds</strong> while below the cap of ten.
-Incense halves that interval to <strong>30 seconds</strong>. The pool cap is unchanged — the cap is how many
+Incense halves that interval to <strong>30 seconds</strong>. Bait multiplies whatever interval is running by
+0.5: <strong>30 seconds</strong> alone, <strong>15 seconds</strong> with Incense
+(<code>interval = (60 s &minus; incense 30 s) &times; bait 0.5</code>, <code>tables.json spawn_budget</code>). A timed boon
+bought again adds 30 days. Auto PVP Attacks is sold by the same door; the money is spent in the player's
+object and the ten tickets are granted in the world object on the purchase's own idem, so a retry ends at
+exactly +10 once. The pool cap is unchanged — the cap is how many
 creatures can be waiting, not how fast they arrive.</p>
 
 <p>The boon <strong>starts when it is paid for and never reaches backwards</strong>. Credits accrue
@@ -58,6 +65,7 @@ an item. A grant with nowhere to go waits rather than being destroyed.</p>
 <p>It shows only when the pool is empty and no Incense boon is active, and hides the moment one is burned. Probe: <code>tools/probe_deadprops.py</code> (8/8), which asserts the condition is true before believing the render.</p>
 
 <hr><p class="note">Changelog<br>
+2026-09-30 &mdash; review drift fixes: F111, F120. WIKI ONLY. The sale table listed only Incense; it now carries all three enabled SKUs of <code>premium_shop.csv</code> &mdash; Bait (10 Wraithgold, 30 days, interval &times;0.5, 15 s with Incense) and Auto PVP Attacks (4 Wraithgold, +10 tickets until the daily reset). DESCRIPTIVE ONLY.<br>
 2026-09-17 &mdash; The shop panel is bigger and neither tab scrolls (#958, D: &ldquo;shadow trader window should not have a scroll, make the shop window bigger and resize items inside of it so it never needs to be scrolled&rdquo;). ON DEV. <code>min(1320px,94%)</code> at 94% height, padding <code>24px 36px</code> &mdash; see &ldquo;Panel size and offer layout&rdquo; below. The offer list's 12px gap is deliberately left alone: it is the token a 2026-08-05 registry entry verifies itself at, and that entry pins list-versus-grid, which this report does not touch. The overflow itself was the Shadow Trader tab's, and the rest of the 236 stage px came off its rows (<a href="system-shadow-trader.html">Shadow Trader</a>). The catalogue's own offer sizes are <strong>unchanged</strong> &mdash; the 2026-08-05 phone sizing below still holds row for row. Gate <code>tools/probe_958.py</code> 5/7 red &rarr; 7/7.<br>
 2026-09-06 &mdash; Premium buff icons (board 9.1 / 9.2 / 9.3, D). LIVE on release since 2026-09-08 (0.71). The INCENSE / BAIT text pills are two icon tiles now (see the section below).<br>
 2026-08-05 &mdash; Offers are a LIST, not a grid, and sized for the phone: name 30px, description 21px, buy control 24px with an 18&times;30 pad (D: &ldquo;the items are too small&hellip; mobile friendly font size&rdquo;). Measured, not estimated &mdash; the old name drew at 5.03 CSS px at fitScale 0.36. A tap on the backdrop now closes the panel (D: &ldquo;clicking outside of the window is not closing it&rdquo;); the backdrop had no handler at all. <em>LIVE on release since 2026-08-05 (0.32).</em><br>

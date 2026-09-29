@@ -14,15 +14,15 @@
 <div class="topbar"><h1 style="font-family:'Cinzel',serif;">BREEDING</h1></div>
 <div class="sp-wrap">
   <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; Breeding</div>
-  <p class="sp-lead">Breeding is a <strong style="color:var(--ink)">continuous pen</strong>, not a transaction. A pair is placed in a pen and the pen is toggled on; from then on it eats <strong style="color:var(--ink)">Ichor</strong> minute by minute and fills a progress bar. When the bar completes, an egg drops into the inventory and the pen keeps going. Ichor is the only limiter &mdash; it has no other use in the game.</p>
+  <p class="sp-lead">Breeding is a <strong style="color:var(--ink)">continuous pen</strong>, not a transaction. A pair is placed in a pen and the pen starts on its own; from then on it eats <strong style="color:var(--ink)">Ichor</strong> minute by minute and fills a progress bar. When the bar completes, an egg drops into the inventory and the pen keeps going. Ichor is the only limiter &mdash; it has no other use in the game.</p>
 
   <h2>The pen grid</h2>
   <p>Six pens, shown as a 2&times;3 grid. <strong>Pen 1 is unlocked from the start.</strong> <strong>Pens 2&ndash;3 are bought with Ichor; pens 4&ndash;6 are premium, 5 / 10 / 15 Wraithgold</strong> (D ruling 2026-08-13; the July 2026 all-Ichor table is retired). They unlock in order. Costs are authored in <code>codex/pen_unlocks.csv</code> and read by the client &mdash; never hardcoded; if that table cannot load the game halts rather than guess a price. Ichor pens are debited by the client; a Wraithgold pen is sold only by the server&rsquo;s <code>/api/unlock</code>, and the save may never claim more pens than that ledger records.</p>
   <table>
     <tr><th>Pen</th><th>Unlock</th></tr>
     <tr><td class="lbl">1</td><td>Free &mdash; available from the first hatch</td></tr>
-    <tr><td class="lbl">2</td><td><strong>12,000 Ichor</strong> &mdash; roughly 4h of endgame income</td></tr>
-    <tr><td class="lbl">3</td><td><strong>60,000 Ichor</strong> &mdash; ~20h</td></tr>
+    <tr><td class="lbl">2</td><td><strong>12,000 Ichor</strong> &mdash; roughly 25h of endgame income</td></tr>
+    <tr><td class="lbl">3</td><td><strong>60,000 Ichor</strong> &mdash; ~120h</td></tr>
     <tr><td class="lbl">4</td><td><strong>5 Wraithgold</strong> &mdash; premium (was 180,000 Ichor)</td></tr>
     <tr><td class="lbl">5</td><td><strong>10 Wraithgold</strong> &mdash; premium (was 450,000 Ichor)</td></tr>
     <tr><td class="lbl">6</td><td><strong>15 Wraithgold</strong> &mdash; premium (was 1,000,000 Ichor)</td></tr>
@@ -85,9 +85,8 @@
   <h2>The loop</h2>
   <table>
     <tr><th>State</th><th>Behaviour</th></tr>
-    <tr><td class="lbl">Toggle ON</td><td>The pen drains <code>Ichor_Per_Min(P)</code> every minute and fills the bar. P is <strong>locked in at toggle-on</strong>.</td></tr>
+    <tr><td class="lbl">Pair placed</td><td>A pen holding a compatible pair is breeding &mdash; there is no start button and no toggle (0.76). The pen drains <code>Ichor_Per_Min(P)</code> every minute and fills its meter. P is <strong>locked in when the pair lands</strong>.</td></tr>
     <tr><td class="lbl">Bar full</td><td>An egg is sent to the inventory, the bar resets to zero, and the pen <strong>continues automatically</strong> as long as Ichor and inventory space remain.</td></tr>
-    <tr><td class="lbl">Toggle OFF</td><td>Drain stops. Progress is <strong>retained</strong>, not lost.</td></tr>
     <tr><td class="lbl">Egg inventory full</td><td>Drain stops, the bar freezes at its current fill. Nothing is consumed and nothing is lost. Clear an egg and it resumes.</td></tr>
     <tr><td class="lbl">Ichor hits zero</td><td>Same as above: drain stops, bar freezes, pen resumes the moment Ichor arrives.</td></tr>
     <tr><td class="lbl">Removing a parent</td><td><strong>Resets that pen's meter to zero.</strong> This is what stops a player filling a bar on a cheap Worn pair and swapping in two Voids at 99%.</td></tr>
@@ -126,19 +125,21 @@
 
   <h2>Ichor income</h2>
   <p>Ichor comes from combat, and scales with what you killed &mdash; level and rarity both. Per defeated enemy:</p>
-  <pre>Ichor = round( 2 &times; (1 + enemyLevel / 20) &times; RarityMult )
+  <pre>Ichor = round( 2 &times; (1 + enemyLevel / 100) &times; RarityMult )
 
-RarityMult:   C 1.0   UC 1.5   R 2.5   SR 4.0   SSR 7.0</pre>
+RarityMult:   C 1.0   UC 1.1   R 1.2   SR 1.35   SSR 1.5</pre>
+  <p style="font-size:13px;color:var(--ink-dim)">The #772 rebalance (D, 2026-09-10): level term /100 (was /20), ladder in <code>tables.json</code> <code>food_rarity_mult</code>. Enemy level caps at 100, so the Void Apex pays the floor-100 rate.</p>
   <p>A three-enemy battle at the encounter weights in <code>codex/encounter_weights.csv</code> therefore yields:</p>
   <table>
     <tr><th>Floor</th><th>C</th><th>UC</th><th>R</th><th>SR</th><th>SSR</th><th>Expected / battle</th><th>Ichor / hour</th></tr>
-    <tr><td class="lbl">1</td><td style="text-align:center">2</td><td style="text-align:center">3</td><td style="text-align:center">5</td><td style="text-align:center">8</td><td style="text-align:center">15</td><td style="text-align:center">9</td><td style="text-align:center">~280</td></tr>
-    <tr><td class="lbl">25</td><td style="text-align:center">4</td><td style="text-align:center">7</td><td style="text-align:center">11</td><td style="text-align:center">18</td><td style="text-align:center">32</td><td style="text-align:center">25</td><td style="text-align:center">~740</td></tr>
-    <tr><td class="lbl">51</td><td style="text-align:center">7</td><td style="text-align:center">11</td><td style="text-align:center">18</td><td style="text-align:center">28</td><td style="text-align:center">50</td><td style="text-align:center">47</td><td style="text-align:center">~1,420</td></tr>
-    <tr><td class="lbl">75</td><td style="text-align:center">10</td><td style="text-align:center">14</td><td style="text-align:center">24</td><td style="text-align:center">38</td><td style="text-align:center">66</td><td style="text-align:center">72</td><td style="text-align:center">~2,150</td></tr>
-    <tr><td class="lbl">99</td><td style="text-align:center">12</td><td style="text-align:center">18</td><td style="text-align:center">30</td><td style="text-align:center">48</td><td style="text-align:center">83</td><td style="text-align:center">101</td><td style="text-align:center">~3,040</td></tr>
+    <tr><td class="lbl">1</td><td style="text-align:center">2</td><td style="text-align:center">2</td><td style="text-align:center">2</td><td style="text-align:center">3</td><td style="text-align:center">3</td><td style="text-align:center">6.1</td><td style="text-align:center">~180</td></tr>
+    <tr><td class="lbl">25</td><td style="text-align:center">2</td><td style="text-align:center">3</td><td style="text-align:center">3</td><td style="text-align:center">3</td><td style="text-align:center">4</td><td style="text-align:center">7.9</td><td style="text-align:center">~240</td></tr>
+    <tr><td class="lbl">51</td><td style="text-align:center">3</td><td style="text-align:center">3</td><td style="text-align:center">4</td><td style="text-align:center">4</td><td style="text-align:center">5</td><td style="text-align:center">10.4</td><td style="text-align:center">~310</td></tr>
+    <tr><td class="lbl">75</td><td style="text-align:center">4</td><td style="text-align:center">4</td><td style="text-align:center">4</td><td style="text-align:center">5</td><td style="text-align:center">5</td><td style="text-align:center">12.7</td><td style="text-align:center">~380</td></tr>
+    <tr><td class="lbl">99</td><td style="text-align:center">4</td><td style="text-align:center">4</td><td style="text-align:center">5</td><td style="text-align:center">5</td><td style="text-align:center">6</td><td style="text-align:center">14.1</td><td style="text-align:center">~420</td></tr>
+    <tr><td class="lbl">119</td><td style="text-align:center">4</td><td style="text-align:center">4</td><td style="text-align:center">5</td><td style="text-align:center">5</td><td style="text-align:center">6</td><td style="text-align:center">16.3</td><td style="text-align:center">~490</td></tr>
   </table>
-  <p style="font-size:13px;color:var(--ink-dim)">Hourly figures assume ~30 battles/h. SSR encounter odds climb over the run, so deep floors pay Ichor twice over &mdash; higher levels <em>and</em> a richer rarity mix.</p>
+  <p style="font-size:13px;color:var(--ink-dim)">Hourly figures assume ~30 battles/h. Deep floors still pay more &mdash; higher levels and a richer rarity mix &mdash; but the ramp is flat: floor 119 pays under three times floor 1.</p>
 
   <h2>Egg dismantling</h2>
   <p>Unwanted eggs dismantle back into Ichor, keyed to the <strong>egg's</strong> grade (not the pair that made it).</p>
@@ -154,13 +155,13 @@ RarityMult:   C 1.0   UC 1.5   R 2.5   SR 4.0   SSR 7.0</pre>
   <h2>Throughput ceiling</h2>
   <p>Ichor income &mdash; not pen count &mdash; is the hard cap on egg production.</p>
   <table>
-    <tr><th>Scenario (endgame, ~3,040 Ichor/h)</th><th>Result</th></tr>
-    <tr><td class="lbl">Void pair, any number of pens</td><td>~1.06 eggs / hour, ceiling</td></tr>
-    <tr><td class="lbl">Epic pairs</td><td>~7.9 eggs / hour</td></tr>
-    <tr><td class="lbl">Six pens, all Void</td><td>9,360 Ichor/h demanded &mdash; runs at a <strong>32% duty cycle</strong>, starving and resuming</td></tr>
-    <tr><td class="lbl">Six pens, Worn through Legendary</td><td>3,060 Ichor/h &mdash; almost exactly sustainable at floor 99</td></tr>
+    <tr><th>Scenario (endgame, floor 119, ~490 Ichor/h)</th><th>Result</th></tr>
+    <tr><td class="lbl">Void pair, any number of pens</td><td>~0.17 eggs / hour, ceiling</td></tr>
+    <tr><td class="lbl">Epic pairs</td><td>~1.3 eggs / hour</td></tr>
+    <tr><td class="lbl">Six pens, all Void</td><td>9,360 Ichor/h demanded &mdash; runs at a <strong>~5% duty cycle</strong>, starving and resuming</td></tr>
+    <tr><td class="lbl">Six pens, Worn through Legendary</td><td>3,060 Ichor/h demanded &mdash; ~16% duty cycle</td></tr>
   </table>
-  <p>A single Void pen alone eats half of a maxed player's entire Ichor income. That is the intended shape: the top of the ladder is slow by construction, and no amount of pens buys past it.</p>
+  <p>A single Void pen alone (1,560 Ichor/h) eats about three times a maxed player's entire Ichor income. That is the intended shape: the top of the ladder is slow by construction, and no amount of pens buys past it.</p>
 </div>
 <script src="admin.js"></script>
   <h2>Where breeding happens &mdash; anchor and claim</h2>
@@ -260,6 +261,7 @@ second run finding nothing left to do, and the item census changing creature row
 <code>dismAdamEve</code> in <code>play/app.js</code>.</p>
 
 <h2>Changelog</h2>
+<p><strong>2026-09-30 &mdash; review drift fixes: F138, F142. WIKI ONLY.</strong> Ichor income, its per-floor table, the pen-price hours and the Throughput ceiling are restated on the #772 curve the server pays (level/100, ladder 1/1.1/1.2/1.35/1.5); they were still the pre-09-10 numbers (~3,040/h at floor 99, now ~420). The loop table dropped its Toggle ON/OFF rows: since 0.76 a pen with a compatible pair always runs, and the only stop is removing a parent, which zeroes the meter. DESCRIPTIVE ONLY.</p>
 <p><strong>2026-09-30 &mdash; premium pens are only ever what the ledger paid for (F136, F327, full project review). ON DEV.</strong> Two ways past the Wraithgold price are closed. The save carried <code>pensUnlocked</code> as a number that could only grow, with no ceiling: a save claiming six pens was stored, and both the unlock door and the pen note then took that number as ownership, so pens 4&ndash;6 came free. The save door now caps the claim at what the server can vouch for &mdash; the Ichor pens (1&ndash;3, still debited by the client), the highest pen the permanent unlock ledger records as bought, or the count the account already held (a pen owned before the ruling is never taken back) &mdash; and flags anything above it (<code>pen_unpaid</code>). A pen note for a pen the account does not own is refused (<code>pen_unowned</code>). On the client, a lost <code>pen_unlocks.csv</code> used to fall back to the old all-Ichor table and sell pens 4&ndash;6 for Ichor on the spot; the boot now halts on it like every other core table, and with no price table no pen is for sale. The pen price table above is corrected to the 2026-08-13 ruling. Server: <code>penEntitled</code>, <code>penNote</code>, the save door in <code>src/worker.js</code>; client: <code>loadPenCsv</code>, <code>penPrice</code>, <code>unlockPen</code> in <code>play/app.js</code>. Gate: <code>tools/probe_f136_penentitle.py</code>.</p>
 <p><strong>2026-09-30 &mdash; a hatch opens the egg the server holds, and the creature remembers it (F132, F133, full project review). ON DEV.</strong> The server already drew every hatch, but it drew it off the grade the request named and never asked whether the egg was one the account held, so the draw could be pointed at any grade. It now resolves the egg by its own row in the item ledger: the grade the draw uses is that row&rsquo;s grade, never the request&rsquo;s; an egg the ledger holds no live Egg row for hatches nothing and is flagged <code>hatch_unledgered</code>; and the egg row is marked spent (<code>gone_src=hatch</code>) the moment it hatches, so one egg is one creature. Every legitimate egg already carries a row &mdash; drops and bred eggs are written at the grant and the save door adopts every held item on each save &mdash; so no held egg is refused. The same lookup fixes the lineage: hatch ids travel as <code>uid:index</code> and the birth record searched the whole id, found nothing, and wrote every hatched creature with no egg name, no parents and no pen. It now reads the egg&rsquo;s row, so a bred egg&rsquo;s parents and pen reach the creature as the 2026-08-26 entry promised. A replayed id still answers the same creature. Worker: <code>hatchOne</code> in <code>src/worker.js</code>; gate <code>tools/probe_hatchledger.mjs</code>.</p>
 <p><strong>2026-09-17 &mdash; CHOOSE PARENT clears the pen door, and the circle stands on it (#949 D, #954). ON DEV (0.84).</strong> <em>The text.</em> D: &ldquo;the first row of the breeding pen &lsquo;choose a parent&rsquo; text is cut off by the breeding pen door graphic. expected to be like second row where text is above pen doors.&rdquo; Both rows were in fact placed identically: an empty slot&rsquo;s sigil and label were centred on a box that is the whole pen bay, while the door is an overlay that box knows nothing about &mdash; so every one of the six bays put the label on the door line. What differed was the door <em>art</em>. The six gate plates are all 912 wide but 222 to 242 tall, so the row-one plates rise above the label and eat it while the row-two plates sit under it and clear it; nudging row one would have been fixing the symptom. The label is now centred in the stall <em>above</em> the door, from a single measurement sized to clear the tallest plate rather than the average, so all six bays read alike and no future door can put one back on its own rail. It is lifted well clear, and bold, both as D asked. <em>The circle.</em> The alchemical circle leaves the top strip the 2026-09-16 entry put it in and stands on the middle of that bay&rsquo;s door. It keeps the egg&rsquo;s grade colour and the tooltip naming that grade, and it gains a dark backing &mdash; the door is lit timber in the same tonal range as the lower grades and the rune vanished into the grain, and since #879 took the BREEDING word away this circle is the pen&rsquo;s only running-or-stopped readout. The strip stays behind it, empty unless the pen is paused, so the parents below are not resized. Gate <code>tools/probe_pentext.py</code> 0/10 &rarr; 10/10 red-first, measured at 1920&times;911 and 1423&times;687; <code>probe_breedbarn</code> 29/29, its circle check re-aimed from the top strip to the gate and named for #954.</p>

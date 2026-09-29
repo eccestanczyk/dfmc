@@ -23,7 +23,7 @@
     <tr><td class="lbl">One currency a week</td><td>Each week has one <em>target</em>: the currency he pays out. Week 0 (the week of Monday 2026-08-24) is Ichor, then Scrap, Dust, Essence, Ink, and round again. He takes every other currency &mdash; Scrap, Ichor, Dust, Essence, Ink &mdash; and never Wraithgold, in or out.</td></tr>
     <tr><td class="lbl">Rates from acquisition time</td><td>The price of one unit of the week's currency, paid in another, is the ratio of how fast the two are <em>earned</em>, times the trader's cut. Earned means: what a battle yields in expectation, through the same drop and dismantle tables the game runs on. See the model below.</td></tr>
     <tr><td class="lbl">Self-adjusting</td><td>There is no rate table anywhere. The rate is derived at request time from <code>drop_chances_by_floor.csv</code>, <code>drop_grade_weights.csv</code>, <code>drop_rates.csv</code>, <code>encounter_weights.csv</code>, <code>floors.csv</code>, <code>items.csv</code>, <code>dismantle.csv</code>, <code>breeding.csv</code> and the Ichor-per-kill formula. Raise or lower any of them and the rates follow on the next request &mdash; a balance change can never leave the trader out of step.</td></tr>
-    <tr><td class="lbl">One rate for everyone</td><td>D, 2026-08-25: &ldquo;The shadow trader cannot have a dynamic per account rate. It needs to be the same for everyone, and based off endgame playtime.&rdquo; Every rate is computed at one reference floor, <code>TRADER_REFERENCE_FLOOR</code> (the endgame), never at the account's own floor. The two candidate floors are tabled below &mdash; <strong>99 and 119, the wild floors</strong>; 100 and 120 are boss floors with no wild encounters, and the model prices a boss floor at the wild floor below it, so a table headed &ldquo;floor 100&rdquo; was floor 99's numbers (D caught the label 2026-08-25). The constant holds 99 until D picks.</td></tr>
+    <tr><td class="lbl">One rate for everyone</td><td>D, 2026-08-25: &ldquo;The shadow trader cannot have a dynamic per account rate. It needs to be the same for everyone, and based off endgame playtime.&rdquo; Every rate is computed at one reference floor, <code>TRADER_REFERENCE_FLOOR</code> (the endgame), never at the account's own floor. The two candidate floors are tabled below &mdash; <strong>99 and 119, the wild floors</strong>; 100 and 120 are boss floors with no wild encounters, and the model prices a boss floor at the wild floor below it, so a table headed &ldquo;floor 100&rdquo; was floor 99's numbers (D caught the label 2026-08-25). D picked 119 (&ldquo;119 as a base for the shadow trader&rdquo;, 2026-08-25): <code>TRADER_REFERENCE_FLOOR = 119</code>.</td></tr>
     <tr><td class="lbl">The cut</td><td><code>TRADER_PREMIUM = 0.25</code>: you pay time-parity &times; 1.25, i.e. you get back 80% of what the same time would have earned you directly. One constant, in <code>src/trader.js</code>; D's to tune.</td></tr>
     <tr><td class="lbl">Whole numbers, no remainder</td><td>A trade is quoted as <em>pay P of A, receive G of B</em> with both whole. P is exactly what G costs (rounded up to the unit); a request too small to buy one unit is refused, never partially taken.</td></tr>
     <tr><td class="lbl">Server-authoritative</td><td>The client sends <code>lines [{from, amount}]</code> and an idem key, nothing else. The Worker prices every line off the tables; the player's object replays on the key, enforces a 30-second per-account cooldown, validates every line against the <em>stored</em> wallet (a short line refuses with what you hold and what it needs), then <strong>writes the exchange into the stored save itself</strong> (version bumped) and answers the new balances and version &mdash; the client only adopts. The client also saves <em>before</em> asking, so income still only in memory is never overwritten by the adopted wallet. The door sits in the wallet rate class on top of the cooldown.</td></tr>
@@ -34,7 +34,7 @@
   <p>Battles per hour cancel out of every ratio, so &ldquo;acquisition time&rdquo; reduces to <strong>expected units per battle</strong>. One battle at floor F, as the worker runs it:</p>
   <ul class="sp-rules">
     <li><strong>Three kills</strong>, each of a rarity drawn from <code>encounter_weights.csv</code> for F.</li>
-    <li><strong>Ichor per kill</strong> = round(2 &times; (1 + F/20) &times; mult[rarity]) &mdash; the battle credit's own formula, mult C 1 / UC 1.5 / R 2.5 / SR 4 / SSR 7.</li>
+    <li><strong>Ichor per kill</strong> = round(2 &times; (1 + min(100, F)/100) &times; mult[rarity]) &mdash; the battle credit's own formula since #772 (2026-09-10), mult from <code>tables.json</code> <code>food_rarity_mult</code>: C 1 / UC 1.1 / R 1.2 / SR 1.35 / SSR 1.5.</li>
     <li><strong>Three lanes per kill</strong> &mdash; gear, enhancement, egg &mdash; each landing with <code>Chance_&lt;rarity&gt;</code> from <code>drop_chances_by_floor.csv</code>.</li>
     <li>A <strong>gear</strong> drop is uniform over the <code>items.csv</code> bases of the floor's tier among Weapon / Armour / Accessory / Tag, graded by the floor's <code>drop_grade_weights</code> band, and dismantles per <code>dismantle.csv</code> (Gear rows; a Tag also returns Essence).</li>
     <li>An <strong>enhancement</strong> drop is an even Gem / Rune / Scroll split, graded one band behind (<code>drop_rates.csv Enhancement_Grade_Rule</code>), and dismantles to Dust / Essence / Ink.</li>
@@ -43,48 +43,48 @@
   </ul>
   <p>Then, for the week's target B and any other currency A: <strong>rate(A&rarr;B) = perBattle(A) &divide; perBattle(B) &times; (1 + premium)</strong>, in units of A per one B.</p>
 
-  <h2>The reference floor &mdash; 99 and 119, tabled for D (codex as of 2026-08-25, one battle every 15 s)</h2>
-  <p>Per-battle yields at each candidate floor, the time parity of each currency in Ichor (its <em>weight</em>: how many Ichor the same play time earns instead of one unit of it), and the full parity matrix. The trader's cut (&times;1.25) goes on top of any matrix cell. <strong>Simulated, not only modelled:</strong> <code>tools/sim_trader.mjs</code> rolls 300,000 battles at each floor through the worker's own <code>pickGrade</code> and <code>resolveDrop</code>, the real dismantle pricer and the real Ichor formula; the simulated means match the model within 1% at both floors (every currency inside two standard errors).</p>
+  <h2>The reference floor &mdash; 99 and 119, tabled for D (codex as of 2026-09-30, #772 Ichor curve, one battle every 15 s)</h2>
+  <p>Per-battle yields at each candidate floor, the time parity of each currency in Ichor (its <em>weight</em>: how many Ichor the same play time earns instead of one unit of it), and the full parity matrix. The trader's cut (&times;1.25) goes on top of any matrix cell. D picked 119; the constant is 119. Numbers are <code>acquisitionPerBattle</code> in <code>src/trader.js</code> run on the current codex. <em>The 2026-08-25 simulation (<code>tools/sim_trader.mjs</code>, 300,000 battles per floor, within 1% of the model) predates #772 and still carries the old Ichor ladder; its Ichor column is not re-run.</em></p>
   <table>
     <tr><th>Currency</th><th>Floor 99: per battle</th><th>per hour</th><th>weight (Ichor = 1)</th><th>Floor 119: per battle</th><th>per hour</th><th>weight (Ichor = 1)</th></tr>
-    <tr><td>Scrap</td><td>9.68</td><td>2,323</td><td>11.2</td><td>60.3</td><td>14,472</td><td>3.98</td></tr>
-    <tr><td>Ichor</td><td>108.2</td><td>25,961</td><td>1</td><td>239.8</td><td>57,552</td><td>1</td></tr>
-    <tr><td>Dust</td><td>1.31</td><td>315</td><td>82.3</td><td>3.43</td><td>824</td><td>69.9</td></tr>
-    <tr><td>Essence</td><td>1.47</td><td>352</td><td>73.8</td><td>3.80</td><td>911</td><td>63.2</td></tr>
-    <tr><td>Ink</td><td>1.31</td><td>315</td><td>82.3</td><td>3.43</td><td>824</td><td>69.9</td></tr>
+    <tr><td>Scrap</td><td>9.68</td><td>2,323</td><td>2.18</td><td>60.3</td><td>14,472</td><td>0.699</td></tr>
+    <tr><td>Ichor</td><td>21.1</td><td>5,058</td><td>1</td><td>42.2</td><td>10,119</td><td>1</td></tr>
+    <tr><td>Dust</td><td>1.31</td><td>315</td><td>16.0</td><td>3.43</td><td>824</td><td>12.3</td></tr>
+    <tr><td>Essence</td><td>1.47</td><td>352</td><td>14.4</td><td>3.80</td><td>911</td><td>11.1</td></tr>
+    <tr><td>Ink</td><td>1.31</td><td>315</td><td>16.0</td><td>3.43</td><td>824</td><td>12.3</td></tr>
   </table>
   <p><strong>Parity matrix at floor 99</strong> &mdash; units of the row currency for ONE unit of the column currency:</p>
   <table>
     <tr><th></th><th>Scrap</th><th>Ichor</th><th>Dust</th><th>Essence</th><th>Ink</th></tr>
-    <tr><td>Scrap</td><td>&mdash;</td><td>0.089</td><td>7.37</td><td>6.60</td><td>7.37</td></tr>
-    <tr><td>Ichor</td><td>11.2</td><td>&mdash;</td><td>82.3</td><td>73.8</td><td>82.3</td></tr>
-    <tr><td>Dust</td><td>0.136</td><td>0.012</td><td>&mdash;</td><td>0.896</td><td>1.000</td></tr>
-    <tr><td>Essence</td><td>0.152</td><td>0.014</td><td>1.116</td><td>&mdash;</td><td>1.116</td></tr>
-    <tr><td>Ink</td><td>0.136</td><td>0.012</td><td>1.000</td><td>0.896</td><td>&mdash;</td></tr>
+    <tr><td>Scrap</td><td>&mdash;</td><td>0.459</td><td>7.37</td><td>6.60</td><td>7.37</td></tr>
+    <tr><td>Ichor</td><td>2.18</td><td>&mdash;</td><td>16.0</td><td>14.4</td><td>16.0</td></tr>
+    <tr><td>Dust</td><td>0.136</td><td>0.062</td><td>&mdash;</td><td>0.896</td><td>1.00</td></tr>
+    <tr><td>Essence</td><td>0.152</td><td>0.070</td><td>1.12</td><td>&mdash;</td><td>1.12</td></tr>
+    <tr><td>Ink</td><td>0.136</td><td>0.062</td><td>1.00</td><td>0.896</td><td>&mdash;</td></tr>
   </table>
-  <p><strong>Parity matrix at floor 119:</strong></p>
+  <p><strong>Parity matrix at floor 119</strong> (the reference floor):</p>
   <table>
     <tr><th></th><th>Scrap</th><th>Ichor</th><th>Dust</th><th>Essence</th><th>Ink</th></tr>
-    <tr><td>Scrap</td><td>&mdash;</td><td>0.251</td><td>17.6</td><td>15.9</td><td>17.6</td></tr>
-    <tr><td>Ichor</td><td>3.98</td><td>&mdash;</td><td>69.9</td><td>63.2</td><td>69.9</td></tr>
-    <tr><td>Dust</td><td>0.057</td><td>0.014</td><td>&mdash;</td><td>0.904</td><td>1.000</td></tr>
-    <tr><td>Essence</td><td>0.063</td><td>0.016</td><td>1.106</td><td>&mdash;</td><td>1.106</td></tr>
-    <tr><td>Ink</td><td>0.057</td><td>0.014</td><td>1.000</td><td>0.904</td><td>&mdash;</td></tr>
+    <tr><td>Scrap</td><td>&mdash;</td><td>1.43</td><td>17.6</td><td>15.9</td><td>17.6</td></tr>
+    <tr><td>Ichor</td><td>0.699</td><td>&mdash;</td><td>12.3</td><td>11.1</td><td>12.3</td></tr>
+    <tr><td>Dust</td><td>0.057</td><td>0.081</td><td>&mdash;</td><td>0.904</td><td>1.00</td></tr>
+    <tr><td>Essence</td><td>0.063</td><td>0.090</td><td>1.11</td><td>&mdash;</td><td>1.11</td></tr>
+    <tr><td>Ink</td><td>0.057</td><td>0.081</td><td>1.00</td><td>0.904</td><td>&mdash;</td></tr>
   </table>
-  <p>What moves between the two: the Apex band's drop grades push Scrap up 4.4&times; per battle (floor 99 gear dismantles at Worn-to-Rare weights; the Apex band starts at Rare), Ichor 2.2&times; (level 119 kills), the enhancement currencies 2.6&times;. So Scrap is worth 11 Ichor of time at 99 and 4 at 119; Dust, Essence and Ink sit at 82 / 74 / 82 Ichor at 99 and 70 / 63 / 70 at 119; Dust and Ink are always 1:1 and Essence is ~10% cheaper (tags dismantle to Essence as well as Scrap).</p>
+  <p>What moves between the two: the Apex band's drop grades push Scrap up 4.4&times; per battle (floor 99 gear dismantles at Worn-to-Rare weights; the Apex band starts at Rare), Ichor 2.0&times; (Apex spawn mix and egg dismantles; the level term caps at 100), the enhancement currencies 2.6&times;. So Scrap is worth 2.2 Ichor of time at 99 and 0.7 at 119; Dust, Essence and Ink sit at 16 / 14 / 16 Ichor at 99 and 12 / 11 / 12 at 119; Dust and Ink are always 1:1 and Essence is ~10% cheaper (tags dismantle to Essence as well as Scrap).</p>
 
-  <h2>Worked numbers at floor 99 (premium 0.25)</h2>
+  <h2>Worked numbers (premium 0.25)</h2>
   <table>
     <tr><th>Floor</th><th>Scrap / battle</th><th>Ichor / battle</th><th>Dust / battle</th><th>Essence / battle</th><th>Ink / battle</th></tr>
-    <tr><td>1</td><td>0.71</td><td>13.1</td><td>0.088</td><td>0.117</td><td>0.088</td></tr>
-    <tr><td>30</td><td>1.50</td><td>31.6</td><td>0.264</td><td>0.294</td><td>0.264</td></tr>
-    <tr><td>60</td><td>3.45</td><td>59.8</td><td>0.528</td><td>0.588</td><td>0.528</td></tr>
-    <tr><td>90</td><td>6.82</td><td>93.5</td><td>0.98</td><td>1.10</td><td>0.98</td></tr>
-    <tr><td>100</td><td>9.68</td><td>108</td><td>1.31</td><td>1.47</td><td>1.31</td></tr>
-    <tr><td>101</td><td>35.0</td><td>119</td><td>1.50</td><td>1.81</td><td>1.50</td></tr>
-    <tr><td>120</td><td>60.3</td><td>240</td><td>3.43</td><td>3.80</td><td>3.43</td></tr>
+    <tr><td>1</td><td>0.71</td><td>9.87</td><td>0.088</td><td>0.117</td><td>0.088</td></tr>
+    <tr><td>30</td><td>1.50</td><td>12.8</td><td>0.264</td><td>0.294</td><td>0.264</td></tr>
+    <tr><td>60</td><td>3.45</td><td>15.2</td><td>0.528</td><td>0.588</td><td>0.528</td></tr>
+    <tr><td>90</td><td>6.82</td><td>19.8</td><td>0.98</td><td>1.10</td><td>0.98</td></tr>
+    <tr><td>100</td><td>9.68</td><td>21.1</td><td>1.31</td><td>1.47</td><td>1.31</td></tr>
+    <tr><td>101</td><td>35.0</td><td>30.8</td><td>1.50</td><td>1.81</td><td>1.50</td></tr>
+    <tr><td>120</td><td>60.3</td><td>42.2</td><td>3.43</td><td>3.80</td><td>3.43</td></tr>
   </table>
-  <p>An Ichor week at floor 99: 1,000 Scrap buys 8,940 Ichor; 10 Dust buys 658 Ichor (time parity would be 82 Ichor per Dust; 66 after the cut). A Dust week at floor 99: one Dust costs about 103 Ichor, or 9.2 Scrap.</p>
+  <p>An Ichor week at the reference floor 119: 1,000 Scrap buys 559 Ichor; 10 Dust buys 98 Ichor (time parity would be 12.3 Ichor per Dust; 9.8 after the cut). A Dust week at 119: one Dust costs about 15.4 Ichor, or 22 Scrap.</p>
   <p><strong>A note the model surfaced (not changed):</strong> <code>drop_rates.csv</code> says each lane lands &ldquo;exactly 10% per battle (3 kills)&rdquo;, but the authored per-kill chances, mix-weighted on the encounter weights, come to ~6.7% per kill &mdash; about 19% per battle per lane, roughly twice the stated figure. The trader's ratios are unaffected (every drop-fed currency scales together), but the sentence and the table disagree; D's call which is right.</p>
 
   <h2>The build</h2>
@@ -98,6 +98,7 @@
   </table>
 
   <h2>Changelog</h2>
+  <p><strong>2026-09-30 &mdash; review drift fixes: F118, F119. WIKI ONLY.</strong> The model, both yield tables, both parity matrices and the worked numbers are restated on the #772 Ichor curve (level/100, ladder 1/1.1/1.2/1.35/1.5) that <code>src/trader.js</code> has priced with since 2026-09-10; they were the old /20 and 1/1.5/2.5/4/7 numbers (floor-99 Ichor 108.2 per battle, now 21.1). The rules table still said the reference constant held 99; it is 119 (D, 2026-08-25). DESCRIPTIVE ONLY.</p>
   <p><strong>2026-09-17 &mdash; the tab fits the window; no scrollbar (#958, D). ON DEV.</strong> D: &ldquo;shadow trader window should not have a scroll, make the shop window bigger and resize items inside of it so it never needs to be scrolled&rdquo;. The tab laid out at <strong>1162 stage px</strong> inside a panel offering <strong>926</strong> &mdash; over by 236, and since the stage is a fixed 1920&times;1080 box scaled by <code>fitScale</code>, that overflow was present at <em>every</em> viewport, not only the 1423&times;687 it was reported from. Split between the box and its contents: the shared shop panel goes to 94% height and <code>min(1320px,94%)</code> wide with tighter padding (see <a href="system-premium-shop.html">Premium Shop</a>), and each pay row comes down from 135 to ~115 stage px &mdash; padding 14/18 &rarr; 10/16, inner gaps 8 &rarr; 6, and one step off each type size with its currency icon following (title 26 &rarr; 23, rate label 24 &rarr; 21, the <code>y of N</code> footer 18 &rarr; 16); the ACQUIRING line 44 &rarr; 34, the CANCEL / CONFIRM buttons and the tab strip likewise. <strong>Geometry only</strong> &mdash; rates, the weekly target, the cooldown, wallet math and the confirm flow are untouched. Leaves 66 stage px of slack on the tab, 332 on its confirm step. Gate <code>tools/probe_958.py</code> 5/7 red &rarr; 7/7, measured in stage units and carrying an anti-cheat pair so a fit bought by shrinking the controls to nothing would fail; <code>tools/probe_trader_ui.py</code> still 6/6.</p>
   <p><strong>2026-09-07 &mdash; open all week, next week's resource named, currency icons throughout (#770, D). LIVE on release since 2026-09-08 (0.71).</strong> The weekend gate is retired &mdash; the trader is there every day and the Monday rotation is the only cadence; the quote carries next week's resource and the tab says it; every currency in the tab (pay rows, header, ACQUIRING, the confirm window) draws its icon from the shared currency set. Gates: <code>tools/probe_trader_window.mjs</code> (all 168 hours open, rotation turns at the boundary only), <code>tools/probe_trader_e2e.py</code> 23/23 full stack, <code>tools/probe_trader_ui.py</code> 6/6.</p>
   <p><strong>2026-08-29 &mdash; the trader now keeps the hours he was meant to (#628). LIVE on release since 2026-09-01 (0.65).</strong> He ran Saturday and Sunday by UTC, so on a Friday he simply was not there. The window
