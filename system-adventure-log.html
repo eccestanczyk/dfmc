@@ -279,6 +279,17 @@ for b in save.get('advArc', []):
 
   <h2>Changelog
   <ul>
+    <li><strong>2026-09-30 &mdash; the log's readers catch up with the day grid, the archive and the packed store.</strong>
+      <strong>ON DEV.</strong> Four readers were still written for the log as it was before the archive.
+      <em>Back</em> from a fight opened on a day tile now returns to that day; it used to land on an empty,
+      untitled chapter. A fight whose record has moved to the archive (past the newest 200 wild fights)
+      now shows its result, floor, experience and ichor from the entry itself, instead of a blank line
+      reading &ldquo;FLOOR &mdash; &middot; 0 ROUNDS&rdquo;. The oldest live day, which is always half in
+      the archive once the log is full, now opens with both halves, so the entries match the count on its
+      tile. The exports read the whole log: the event log and the complete log include the archive, in
+      order, oldest first, and a fight's export and the complete log carry round detail from the packed
+      store, which they had never read. The complete log's header no longer claims detail is kept for the
+      last 60 battles. Nothing stored changed shape (review C25: F274&ndash;F277).</li>
     <li><strong>2026-08-30 &mdash; fights are recorded again; nothing was being written since 0.64.</strong>
       <strong>ON RELEASE (0.64).</strong> The store keeps its word dictionary as a lookup rebuilt whenever
       the saved copy changes. On a save that had never written one there was nothing to notice a change
