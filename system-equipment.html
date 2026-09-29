@@ -54,10 +54,10 @@
   <p class="foot">Client: <code>gearBonus()</code>, <code>freezeGear()</code>, <code>optBuildPlan()</code>, <code>optScore()</code>, <code>optApply()</code> in <code>play/app.js</code></p>
 
   <h2>The soul picker</h2>
-  <p class="sp-lead"><strong>Ordered grade &gt; level &gt; line.</strong> The list built its cards straight off <code>BAG.concat(bagAdd)</code> &mdash; insertion order &mdash; so a Divine sat wherever it happened to have been hatched and the player had to hunt for it. It now sorts by <code>GRADE_ORDER</code> descending, then level descending, then line, then name.</p>
+  <p class="sp-lead"><strong>Ordered level &gt; grade &gt; line.</strong> The list built its cards straight off <code>BAG.concat(bagAdd)</code> &mdash; insertion order &mdash; so a Divine sat wherever it happened to have been hatched and the player had to hunt for it. It now sorts by level descending, then <code>GRADE_ORDER</code> descending, then line, then name (D 2026-08-19, revising the first grade-first order the same day the soul bag was revised).</p>
   <ul class="sp-rules">
-    <li><strong>Line is the third key, not the first.</strong> Grade decides the slot, level decides between equals, and the line only groups what is otherwise identical. Name breaks the final tie so the order cannot shuffle between re-renders on equal creatures.</li>
-    <li><strong>Same comparator shape as the breeding picker and the inventory</strong>, which is the point: three lists that order creatures should not each invent their own order. The breeding selector had this exact defect on 2026-08-05.</li>
+    <li><strong>Line is the third key, not the first.</strong> Level leads, because a levelled creature is the one thing here that cannot be replaced by rolling again; grade decides between equals, and the line only groups what is otherwise identical. Name breaks the final tie so the order cannot shuffle between re-renders on equal creatures.</li>
+    <li><strong>The picker follows the soul bag</strong> (<code>soulSort</code>: rank, then level, then grade, then line) rather than keeping a second answer. <strong>The breeding partner picker deliberately still leads with grade</strong>: <code>pairP()</code> floors the average of the two parents&rsquo; grades, so grade is the lever on that screen (its own D ruling, 2026-08-05).</li>
     <li><strong><code>BAG</code> is copied before sorting.</strong> It is not React state, and the bag's own order is its identity &mdash; sorting it in place would reorder the inventory as a side effect of opening a picker.</li>
   </ul>
   <ul class="sp-rules">
@@ -121,7 +121,7 @@
       were added 2026-08-05: both were already priced (Key on the tier ladder, Tag by grade and tier)
       and the button was hidden by a category whitelist alone. Bulk sweep still never touches a Key
       &mdash; a key is the gate on a boss fight, so it goes one at a time, as a deliberate act.</td></tr>
-    <tr><td class="lbl">GO TO FLOOR <em>n</em></td><td>Keys only, and only when the floor is unlocked
+    <tr><td class="lbl">ENTER THE FLOOR <em>n</em> BOSS</td><td>Keys only, and only when the floor is unlocked
       (<code>maxFloor &ge; keyFloor &minus; 1</code>). When the floor is locked the button is
       <strong>absent</strong>, not present and refusing.</td></tr>
     <tr><td class="lbl">EQUIP / UPGRADE</td><td>Unchanged &mdash; gear, tags and slottables route to the
@@ -135,8 +135,9 @@
   <p class="note"><strong>The boss route does not chain across a transit.</strong>
   <code>enterBossRoom()</code> derives its target from <code>bossFloor()</code>, which reads the
   <em>current</em> floor, so it can only be called once the player is already in that boss's decade.
-  If they are, the boss room opens directly; otherwise they are taken to the boss's approach floor and
-  enter by the normal door. Travel is asynchronous and this area produced the orphaned-veil softlock on
+  If they are, the boss room opens directly; otherwise <code>travelToBossRoom()</code> parks them on the
+  boss's approach floor and opens the den in the same move, so the button always lands in the boss room
+  (see <a href="bosses.html">Bosses</a>). Travel is asynchronous and this area produced the orphaned-veil softlock on
   2026-08-04, so nothing is sequenced across it. Probe: <code>tools/probe_itemdet.py</code>.
   <em>LIVE on release since 2026-08-05 (0.32).</em></p>
 
@@ -427,6 +428,7 @@
   <p>The weights other than the opener 0.5 are the 0.88 bug run&rsquo;s proposal, on D&rsquo;s board for a ruling. Gate: <code>tools/probe_soulpower.py</code> seats every one of the 310 passive souls in <code>souls.csv</code> and asserts each moves POWER, more at Void than at Worn, identically on client and leaderboard.</p>
 
   <h2>Changelog</h2>
+  <p><strong>2026-09-30 &mdash; review drift fixes: F324, F335. Codex only.</strong> The page caught up with the code; no rule changed. <strong>F324:</strong> the key button in item details is labelled ENTER THE FLOOR <em>n</em> BOSS and always lands in the den via <code>travelToBossRoom()</code> (c1a972a, same day as the first build); the page still described GO TO FLOOR <em>n</em> and a walk in from the approach floor. <strong>F335:</strong> the soul picker sorts level &gt; grade &gt; line (D 2026-08-19), following the soul bag; the breeding partner picker still leads with grade.</p>
   <p><strong>2026-09-30 &mdash; a key door survives the forfeit question, and the item comparison builds the candidate as equipping would (client review F321 / F322). ON DEV.</strong> Opening a boss key in a fight asks to forfeit; after YES the trip was retried without the key's approach rule, so a player who had reached the approach floor but not the boss floor lost the fight and went nowhere. The retry now carries the key's rule. The item-details comparison scored the candidate as its bare base but the worn piece with the slot's LOCAL soul multiplier; the soul stays on the slot, so the candidate is now scored under it too, with its own folded scrolls (the worn gems and runes go back to the bag and are not counted for it). The NEW figure is what the slot would read after EQUIP.</p>
   <p><strong>2026-09-30 &mdash; a cancelled auto-optimize really changes nothing (client review F151). ON DEV.</strong> The item census gate refuses an optimisation whose item count would not balance and says <em>OPTIMIZE CANCELLED &mdash; NOTHING WAS CHANGED</em>. That was not true of the base bag: the gear and stones the plan took from it were removed before the census ran, and the refusal never put them back, so the next save made the loss permanent. A refused commit now restores the bag exactly as it was before the click. Gate: <code>tools/probe_review_c13c09.mjs</code>.</p>
   <p><strong>2026-09-30 &mdash; the leaderboard reads the class stage you have accepted, and buff-duration souls sit in their own bucket (client review F145 / F149). ON DEV.</strong> Since #102 the POWER sheet builds the avatar from the <em>acknowledged</em> class stage, <code>min(level stage, clsAdv)</code>, but the leaderboard figure (<code>src/power.js</code>) still took the stage from class level alone: a player past class level 33 or 66 who had not clicked the stage-up ranked about 5% above the POWER on his own sheet (MAGE, class Lv40, not advanced: sheet 8,573, board 9,023). The server now reads the saved <code>clsAdv</code> the same way. Separately, &ldquo;your buffs last +1 turn&rdquo; souls (Herne Gloves) were filed server-side under debuff duration; they now land in the buff-duration bucket as on the client (#127). No weight changed, so that half moves no number today. Rankings move only for players holding an unaccepted stage-up. Gate <code>tools/probe_power_clsadv.py</code> 4/10 &rarr; 10/10; <code>tools/probe_soulpower.py</code> 11/11.</p>
