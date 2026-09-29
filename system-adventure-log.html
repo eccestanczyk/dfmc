@@ -20,15 +20,15 @@
   <ul class="sp-rules">
     <li>The log is an <strong>append-only event stream</strong>, not stored prose. Each entry is a compact record: <code>{timestamp, event_type, param_ids[]}</code> &mdash; e.g. <code>{t, HATCH, DFMC-042}</code>, <code>{t, ADVANCE, DFMC-044 &rarr; DFMC-045}</code>, <code>{t, FLOOR_CLEAR, 17}</code>.</li>
     <li>Display text is <strong>rendered at view time</strong> from string templates plus codex CSV data. Renaming a creature or rewording a template retroactively fixes the entire history.</li>
-    <li>Cost per event: ~50&ndash;100 bytes. A heavy player producing 500 events/day for a full year is ~180k events &asymp; 15&ndash;20&nbsp;MB in SQLite &mdash; negligible.</li>
-    <li>Storage: one local SQLite database, append-only, indexed on date. No server round-trips to read the log.</li>
+    <li>Cost per event: ~68 bytes live, ~7 bytes once archived (Storage budget, below).</li>
+    <li>Storage: device-local, inside the local save JSON in <code>localStorage</code>. The newest events live expanded in <code>advChapters</code> (newest-first, one chapter per day, <code>advPush</code> / <code>advTrim</code>); older ones are packed into gzip <code>advArc</code> blocks with a day index. There is no database. No server round-trips to read the log.</li>
   </ul>
 
   <h2>Chapters</h2>
   <ul class="sp-rules">
-    <li>Chapters are <strong>dated views, not separate documents</strong>. A chapter is simply a date-range query (<code>WHERE ts BETWEEN x AND y</code>) against the single event table.</li>
+    <li>Chapters are <strong>days of the one event stream, not separate documents</strong>. A live day is an <code>advChapters</code> entry; an older day is found through the archive&rsquo;s day index and unpacked from its <code>advArc</code> block.</li>
     <li>The chapter list UI shows one entry per active day (or per zone milestone on the same screen). Opening a chapter loads <strong>only that chapter's events, paginated</strong> &mdash; the full history is never held in memory.</li>
-    <li>Because chapters are queries, they cost nothing extra to store and can be re-cut later (per-day, per-zone, per-season) without touching the data.</li>
+    <li>Because chapters are slices of the stream, they cost nothing extra to store and can be re-cut later without touching the data.</li>
   </ul>
 
   <h2>Event types</h2>
@@ -67,7 +67,7 @@
   <ul class="sp-rules">
     <li>Battles are <strong>not deterministic</strong>, so full turn-by-turn data must be recorded &mdash; there is no seed-replay shortcut.</li>
     <li>The adventure log itself holds only a <strong>battle summary row</strong>: participants, result, turn count, rewards, and a <code>battle_id</code>.</li>
-    <li>Full detail lives in a <strong>separate table keyed by battle_id</strong>: an array of compact turn-action structs <code>{actor_id, move_id, target_id, damage, flags}</code> at ~20&ndash;40 bytes each. A 30-turn battle &asymp; 1&ndash;3&nbsp;KB raw.</li>
+    <li>Full detail is the fight&rsquo;s own log lines, <strong>packed by <code>blAppend</code> against a word dictionary</strong> (<code>blW</code> words, <code>blS</code> labels) into pending streams keyed by <code>battle_id</code> &mdash; about 44 bytes a fight. See <em>How a fight is stored</em>, below.</li>
     <li>Each battle's turn array is serialized and <strong>gzip-compressed as one blob</strong> (3&ndash;5&times; reduction) before storage. Nothing is decompressed until requested.</li>
   </ul>
 
@@ -95,15 +95,15 @@
     <li>After compaction, the Battle Log button on an old wild battle shows the summary card with a "detail expired" state instead of turn-by-turn text.</li>
   </ul>
 
-  <h2>Storage budget &mdash; compress, never discard</h2>
-  <p><strong>Nothing is ever deleted.</strong> Every event and every battle's numbers are kept for the life
-  of the account, because they are balancing data to be pulled off real players. What changes with age is
-  how they are <em>stored</em>.</p>
+  <h2>Storage budget &mdash; compress first, shed only at the cap</h2>
+  <p><strong>Nothing is deleted until the archive is full.</strong> Every event and every battle's numbers are kept,
+  because they are balancing data to be pulled off real players; what changes with age is how they are <em>stored</em>.
+  The archive is capped at 1,029&nbsp;KiB and sheds its oldest whole blocks past that (<em>The budget</em>, below).</p>
   <table>
     <tr><th>Age</th><th>Form</th><th>Cost</th></tr>
     <tr><td class="lbl">Newest 500 events</td><td>Expanded in <code>advChapters</code>, rendered in the log window</td><td>~68 bytes each</td></tr>
     <tr><td class="lbl">Older events</td><td>Packed one-per-line and gzipped into <code>advArc</code> blocks (base64). Falls back to the plain packed string where <code>CompressionStream</code> is unavailable &mdash; still complete, just larger</td><td><strong>~7 bytes each</strong>, a ~10&times; cut</td></tr>
-    <tr><td class="lbl">Newest 25 battles</td><td>Full round-by-round log, last 10 rounds</td><td>~5 KB each</td></tr>
+    <tr><td class="lbl">Newest 25 battles (legacy saves only)</td><td>Full round-by-round rendered log, last 10 rounds &mdash; only fights written before the packed store; new fights are packed (<em>How a fight is stored</em>)</td><td>~5 KB each</td></tr>
     <tr><td class="lbl">Battles 26&ndash;200</td><td>Compact row: result, floor, XP, Food, participants. The prose goes, the numbers stay</td><td>~290 bytes each</td></tr>
     <tr><td class="lbl">Older battles</td><td>Archived into <code>advArc</code> as <code>BATTLEROW</code> entries. The chapter line falls back to the BATTLE event's own stub</td><td>~7 bytes each</td></tr>
   </table>
@@ -171,7 +171,7 @@ for b in save.get('advArc', []):
     <li><strong>Ceiling.</strong> Web Storage is ~5&nbsp;MiB per origin and the local slot is written twice
       (a once-per-session <code>_bak</code> copy), so the practical budget is ~2.5&nbsp;MB against a ~102&nbsp;KB
       non-log save. At ~37&nbsp;B per archived event that is roughly 57,000 events. A full store raises
-      <code>QuotaExceededError</code>, which the local save path currently swallows into a console warning.</li>
+      <code>QuotaExceededError</code>; the save path catches it, sheds the oldest archive blocks and writes again (<em>The budget</em>, below).</li>
   </ul>
   <h3>Retrofitting an archive written before the index</h3>
   <p><strong>The dates were never gone</strong> &mdash; an earlier note on this page said they were, and that
@@ -246,11 +246,11 @@ for b in save.get('advArc', []):
       being stored and no sign of it.</li>
     <li><strong>Whole blocks only, and never the newest.</strong> A half block is an archive with no day
       marker at its head, which is the one thing the day index cannot survive.</li>
-    <li><strong>Roughly 22,000 entries, about seven months</strong> at a measured 110 entries a day.</li>
+    <li><strong>Roughly 28,000 entries, about nine months</strong> at a measured 110 entries a day (the figure above; <code>ADV_ARC_BUDGET</code>).</li>
   </ul>
 
   <h2>How a fight is stored</h2>
-  <p class="sp-lead"><strong>ON DEV, not yet wired.</strong> A fight used to be kept as rendered English
+  <p class="sp-lead"><strong>On release since 0.64 (abfb7fa).</strong> A fight used to be kept as rendered English
   in plain JSON &mdash; about <strong>5&nbsp;KB each, and only 25 kept</strong>, which on autoplay is under
   an hour of history. Packed, a fight is <strong>44&nbsp;bytes</strong>, and every number stored is the
   number that happened.</p>
@@ -279,6 +279,7 @@ for b in save.get('advArc', []):
 
   <h2>Changelog
   <ul>
+    <li><strong>2026-09-30 &mdash; review drift fixes: F284, F285. WIKI ONLY.</strong> The Architecture, Chapters and Battle Logs sections still described a SQLite database, <code>WHERE ts</code> chapter queries and turn-action structs; the log is local save JSON (<code>advChapters</code> plus gzip <code>advArc</code> blocks with a day index) and fights are packed against a word dictionary. Storage budget said nothing is ever deleted while the archive is capped and sheds oldest blocks; the Ceiling bullet said the quota error is swallowed while the save now catches it and sheds; the 25-battle row is legacy-only; the second budget figure (22,000 / seven months) now matches the first (28,000 / nine months); <em>How a fight is stored</em> is on release, not ON DEV. DESCRIPTIVE ONLY.</li>
     <li><strong>2026-09-30 &mdash; the log's readers catch up with the day grid, the archive and the packed store.</strong>
       <strong>ON DEV.</strong> Four readers were still written for the log as it was before the archive.
       <em>Back</em> from a fight opened on a day tile now returns to that day; it used to land on an empty,
