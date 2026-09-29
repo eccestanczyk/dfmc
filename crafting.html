@@ -200,6 +200,17 @@ buys the replacement scroll, and applying a replacement <em>is</em> the reroll &
 misreading and is worth a ruling.</div>
 
 <h2>Changelog</h2>
+<p><strong>2026-09-30 &mdash; a dismantled key is priced from the server&rsquo;s own record; a blocked dismantle tells the server nothing (client review F122&ndash;F124). On dev.</strong>
+A Key&rsquo;s yield follows its floor, and the server read that floor from the <em>claim</em>: a row carrying
+<code>keyFloor:100</code>, or a Grasslands Key renamed Flaming Hellscape Key, paid 60 Scrap instead of 6, on the dismantle
+call and on the save-door queue alike, because the object compared only cat/grade/tier/qty. The priced row is now rebuilt
+from the wire fields alone, a key&rsquo;s floor comes from <code>items.csv</code> by name, and a key claim whose name is not the
+one the server holds is refused (<code>held-mismatch</code> / <code>grant-mismatch</code>). The same lookup prices the Void Apex
+keys (<code>ITM-UKEY-*</code>) at their Floor 10x the way the client always did &mdash; they were paying the floor-10 price.
+Client side, the dismantle call and the claim queue used to fire <em>before</em> the gem/rune refund room check, so a
+dismantle blocked for bag room left the item in the bag with its yield already booked; nothing reaches the server now until
+the room check passes. Gate <code>tools/probe_dismforge.py</code> red 4/10 &rarr; green 10/10 (the painted client plus the real
+worker). Honest yields do not move.</p>
 <p><strong>2026-08-28 &mdash; the grade anchor: forged upgrade claims are refused (the #623 exposure, D: &ldquo;very serious. Fix it&rdquo;). On release.</strong>
 The grade and soul-grade roll doors resolved odds and price from the client-claimed from/to/tier. The server now keeps its
 own per-item record: the first roll on an item id sets the anchor (from the grant row when one exists; otherwise the claim
