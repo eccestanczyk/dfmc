@@ -268,6 +268,9 @@ AFX_BANK.warm(ids|paths)          -> decodes started. Decode a BOUNDED list ahea
                                      kits, the ultimates and the battle cues at the battle's start). Never the bank.
 AFX_BANK.isWarm(id|path)          -> true once that clip's buffer is cached
 AFX_BANK.cue(id, opts)            -> play an afx_events.csv event by Event_ID, honouring Retrigger_Ms
+AFX_BANK.pcm(key, make, gain)     -> handle {stop} | null. A SYNTHESIZED voice on the sfx bus: make() returns Float32Array
+                                     samples at 48 kHz, rendered once per key and cached beside the decoded clips, so the
+                                     sliders, mute and the one ceiling apply. null when muted or without a context.
 AFX_BANK.music(trackId|null,opts) -> crossfade to a bgm.csv track (in 1200 ms, out 900 ms, looped,
                                      Gain applied). null stops. The same id is a no-op.
 AFX_BANK.setMix({master,music,sfx}) / getMix()   0..100 each. music / sfx: (pct/100)^1.6 (loudness-linear);
@@ -284,6 +287,13 @@ console, plays nothing, and never throws. **The first play of a clip is late unl
 `voice()` schedules against the clock before the decode resolves, so a cold clip starts when its
 decode lands. The client warms a fight's clips at its start (`afxWarmBattle`, 2026-09-25); a page
 that plays a composition on a click should `warm()` it on hover or on load.
+
+**Creature cries go through `pcm()`, not the bank** (#993 p4, 2026-09-28). `play/cry_bank.js` (loaded beside
+`app.js`, build as cache key) synthesizes one cry per creature: a base cry per LINE, a menace ladder per STAGE,
+capped under 4 kHz and normalised to the -18 LUFS ceiling. The client plays one when a battle engages (the
+lead enemy, in place of the old `battle.start` cue), at an evolution reveal (the advanced form), and from the
+creature's codex entry. A cry the synth cannot give (not loaded yet, no row) returns null and the caller
+keeps its old cue, so nothing goes silent.
 
 **Three things a consumer gets wrong exactly once**, all three found the day the real player replaced
 the stub, all three on the codex side, because the stub and the client agreed on behaviour and
@@ -306,7 +316,7 @@ writes to.
 
 | who | reads |
 |---|---|
-| the client | `AFX_BANK` inline in `play/app.js`; the three CSVs shipped under `play/codex/` |
+| the client | `AFX_BANK` inline in `play/app.js`; the three CSVs fetched from the codex at the client's `DATA_REF` pin (`getq('afx_bank.csv')`, `afx_events.csv`, `bgm.csv`) — there is no `play/codex/` copy; `play/cry_bank.js` for the cries |
 | `vfx.html` | `assets/vfx/afx_bank.js`; plays `AFX_S<stage>` in sync with `FX_S<stage>`, falls back to the `DFMC_AFX` synth when the composition is empty |
 | `audio.html` | all three CSVs: the beds with the fold, the events, the 606 clips with their metrics and flags |
 | `tools/afx_lint.py` | `codex/afx_bank.csv` + the `AFX_S*` and `FX_S*` columns |
@@ -316,6 +326,10 @@ writes to.
 
 ## Changelog
 
+- **2026-09-30** — **review drift fixes: F348, F349.** WIKI ONLY. The lifted `assets/vfx/afx_bank.js` was
+  regenerated (`tools/gen_vfx_fx.py --write`): it predated `pcm()` (4fb8f38) and held the lift gate red. The
+  player contract now lists `pcm()` and the creature cries; Consumers said the CSVs ship under `play/codex/`,
+  which does not exist — the client fetches them from the codex at `DATA_REF`. DESCRIPTIVE ONLY.
 - **2026-09-28** — **a move sounds like its creature, and the explosions are recorded ones; the victory
   is a short soft phrase** (#994 second paragraph, D: *"The sounds need to be more in character with their
   creatures, the move name and effect"*; #993 paragraphs 2-3: *"The door locking sound on winning a battle

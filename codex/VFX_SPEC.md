@@ -88,6 +88,10 @@ touch an approval.
 
 ## Changelog
 
+- **2026-09-30** - **review drift fixes: F350.** WIKI ONLY. The `!shake` flag row said 4 px over 150 ms for
+  every shake; an ULT shakes 8 px over 250 ms (`bankShake(isUlt?8:4, isUlt?250:150)`, since 51a576c), which the
+  #948 entry already implied (150-250 ms). DESCRIPTIVE ONLY.
+
 - **2026-09-28** - **No VFX on the user unless the user is affected (#1020).** The report: Cataclysm plays a VFX
   on the USER; an ability should play on its target only, on its user only when the user is also affected, and
   then as that effect; secondary targets of a side effect should play a VFX matching what they receive. D's
@@ -536,7 +540,7 @@ Move-level flags are pseudo-layers, once per composition, anywhere in the list -
 | flag | meaning |
 |---|---|
 | `!flash` | hit tint: every target sprite is recoloured a **dark, saturated** version of its own art at the impact, 300 ms, keyed to the element. Damaging moves only. Never white (D 2026-09-17) |
-| `!shake` | stage shake, 4 px decaying over 150 ms. **S3 and ULT only**; honours the Screen Shake and Reduce Motion settings, and **is declined while a window is open over the stage** (#948, 2026-09-17) |
+| `!shake` | stage shake, decaying: 4 px over 150 ms on an S3, 8 px over 250 ms on an ULT. **S3 and ULT only**; honours the Screen Shake and Reduce Motion settings, and **is declined while a window is open over the stage** (#948, 2026-09-17) |
 | `!stop` | hit-stop: the target freezes 100/150/200 ms (S1/S2/S3), 250 ms ULT, at the impact |
 
 **Timing.** `t=0` is the cast. The renderer's existing hit reaction (lunge, hit shudder, damage number) is

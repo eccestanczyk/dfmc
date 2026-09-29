@@ -227,7 +227,8 @@
       let g=null; try{ g=c.createGain(); g.gain.value=0; g.connect(gMusic); }catch(e){ return null; }
       const h={ id:String(id), gain:g, src:null, stopped:false, stop(){ this.stopped=true; if(this.src){ try{ this.src.stop(); }catch(e){} this.src=null; } if(cur===this) cur=null; } };
       cur=h;
-      decode(row.file).then(b=>{ if(!b||h.stopped||cur!==h) return;
+      decode(row.file).then(b=>{ if(!b&&cur===h){ cur=null; h.stopped=true; try{ g.disconnect(); }catch(e){} return; } /* F347: a failed load is not the playing bed - the next music(id) tries again */
+        if(!b||h.stopped||cur!==h) return;
         try{ const s=c.createBufferSource(); s.buffer=b; s.loop=true; s.connect(g); s.start(); h.src=s;
           g.gain.cancelScheduledValues(c.currentTime); g.gain.setValueAtTime(0,c.currentTime);
           g.gain.linearRampToValueAtTime(Math.max(0,row.gain),c.currentTime+inMs/1000); }catch(e){ warnOnce('cannot start bed '+row.file+': '+(e&&e.message||e)); } });
@@ -245,8 +246,19 @@
     const mute=v=>{ muted=!!v; applyMix();
       if(muted&&cur){ const old=cur; cur=null; old.stopped=true; if(old.src){ try{ old.src.stop(); }catch(e){} old.src=null; } }
       return muted; };
+    /* pcm(key, make, gain) -> {stop}|null. A SYNTHESIZED voice on the sfx bus (#993 p4, the creature cries of
+       play/cry_bank.js): make() returns Float32Array samples at 48 kHz, rendered once per key and kept as a buffer
+       beside the decoded clips, so the sliders, the mute and the one ceiling apply to a cry exactly as to a cue.
+       The samples arrive already at NORM_LUFS; gain is the cue-level trim on top. */
+    const pcm=(key,make,gain)=>{ if(muted||!key||typeof make!=='function') return null; const c=ensure(); if(!c) return null;
+      const k='pcm:'+key; let b=buf[k];
+      if(!b){ let x=null; try{ x=make(); }catch(e){ warnOnce('cry '+key+' did not render: '+(e&&e.message||e)); return null; }
+        if(!x||!x.length) return null;
+        try{ b=c.createBuffer(1,x.length,48000); if(b.copyToChannel) b.copyToChannel(x,0); else b.getChannelData(0).set(x); buf[k]=b; }catch(e){ warnOnce('cannot buffer cry '+key); return null; } }
+      let src=null; try{ src=c.createBufferSource(); src.buffer=b; const g=c.createGain(); g.gain.value=Math.max(0,num(gain,1)); src.connect(g); g.connect(gSfx); src.start(); }catch(e){ return null; }
+      return { stop:()=>{ try{ src.stop(); }catch(e){} } }; };
     const trackForZone=name=>{ const ks=Object.keys(TRACKS); for(let i=0;i<ks.length;i++){ if(TRACKS[ks[i]].zone===String(name)) return TRACKS[ks[i]].id; } return null; };
-    return { parse:parse, layerMs:layerMs, lengthMs:lengthMs, zoneFor:zoneFor, load:load, play:play, cue:cue,
+    return { parse:parse, layerMs:layerMs, lengthMs:lengthMs, zoneFor:zoneFor, load:load, play:play, cue:cue, pcm:pcm,
       music:music, setMix:setMix, getMix:getMix, unlock:unlock, mute:mute, trackForZone:trackForZone, warm:warm, isWarm:isWarm,
       isMuted:()=>muted, isUnlocked:()=>unlocked, playing:()=>(cur&&cur.id)||null,
       bank:()=>BANK, events:()=>EVENTS, tracks:()=>TRACKS,
