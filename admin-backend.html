@@ -638,7 +638,8 @@
   the feedback pull uses; it re-implements none of the logic it tests.</p>
 
   <h2>Changelog</h2>
-  <ul class="sp-rules"><li><strong>2026-08-28 &mdash; one game mode (D order). On release.</strong> The GM console's realm selector and snapshot report the one realm; the account-reset door resets it alone; the removed death pipeline's section left this page because the pipeline itself left the build. Build record on <a href="system-realms.html">Realms</a>.</li></ul>
+  <ul class="sp-rules"><li><strong>2026-09-30 &mdash; GM enrollment holds its own lock (project review F210, D decision &ldquo;fix&rdquo;). On dev.</strong> The ops-key check on GM enrollment no longer depends on the generic request gate, which stands down during maintenance: the enrollment handler and the world object each check the ops key themselves (constant-time), maintenance or not, the same way the backup doors already did. GM usernames containing a dot now keep a working session after login.</li>
+<li><strong>2026-08-28 &mdash; one game mode (D order). On release.</strong> The GM console's realm selector and snapshot report the one realm; the account-reset door resets it alone; the removed death pipeline's section left this page because the pipeline itself left the build. Build record on <a href="system-realms.html">Realms</a>.</li></ul>
 <ul>
     <li><strong>2026-08-26 &mdash; birth records on the items row, and two doors (on release).</strong> <code>items.birth</code> holds each creature's and egg's birth record (see <em>system-networking</em>); <code>/api/backup/inv</code> now shows it per row; <code>/api/backup/birthmig?k=&amp;sid=&amp;realm=</code> reports what a STORED copy would record, strip and keep, and <code>&amp;apply=1</code> does it through the save facade (ver bumps by one, so it is for accounts that are not playing &mdash; a playing account migrates itself on its next save). One audit line per save that moved records (<code>birth_recorded</code>) and per migration (<code>birth_migrated</code>).</li>
     <li><strong>2026-08-26 &mdash; two detectors say what they saw (on release).</strong> <code>wr_rate_anomaly</code> names the request, the object class and the account (three rows &mdash; 174/195/228 rows &mdash; had reached the operator as &ldquo;rows this hour&rdquo; with no object, and could not be attributed); <code>breed_claim_bad</code>'s <em>elapsed</em> row says by how many seconds of the pen's authored wait the claim was early (the reason word in the answer stays <em>elapsed</em>). Why: twelve <em>elapsed</em> rows on one account in the day after the pen-anchor fix reached release, all on pens that were running before it &mdash; a verified claim advances <code>started</code> by one wait from the OLD anchor, so a pen anchored late stays late for as long as the pair runs. The delta is the number a re-anchor tolerance would need; measured first.</li>
@@ -738,7 +739,7 @@
   Worker at <code>/gm</code> (deliberately not under <code>play/</code>), reachable even under maintenance mode. Its
   auth is fully independent of player sessions.</p>
   <ul>
-    <li><strong>Enrollment</strong> &mdash; <code>POST /api/gm/bootstrap</code>, ops-key-gated. Creates or re-enrolls a
+    <li><strong>Enrollment</strong> &mdash; <code>POST /api/gm/bootstrap</code>, ops-key-gated in its own handler (maintenance or not). Creates or re-enrolls a
       named operator account and re-rolls its TOTP secret; every enrollment is audited. Until the first bootstrap the
       account table is empty and login is impossible &mdash; the console ships inert.</li>
     <li><strong>Login</strong> &mdash; password (PBKDF2-SHA256, 100,000 iterations, per-account salt) plus TOTP
