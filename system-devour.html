@@ -20,6 +20,7 @@
   <ul class="sp-rules">
     <li><strong>Soul bag:</strong> open a creature's sheet &mdash; <strong>&dagger; DEVOUR</strong> sits beside DISMANTLE. That creature is the consumer.</li>
     <li><strong>Equipment window:</strong> click an equipped creature's slot &mdash; <strong>&dagger; DEVOUR</strong> sits under ATTEMPT UPGRADE. The equipped creature is the consumer, and its gains (level, grade&nbsp;&rarr;&nbsp;QM, mutant) re-derive the party immediately.</li>
+    <li><strong>Soul-socket picker:</strong> open a gear slot's soul picker while the socket holds a creature &mdash; <strong>&dagger; DEVOUR</strong> is offered there too (D 2026-08-06). The creature socketed as that soul is the consumer, resolved live from <code>soulOv[gi].src</code>, so a socketed soul can be levelled without unsocketing it. An empty socket or a class soul has no source creature, and the button is not shown.</li>
     <li>The panel shows the <strong>consumer on the left</strong> with the arrow pointing <em>at</em> it, and the fodder slot on the right. Clicking the slot opens the picker.</li>
     <li><strong>The main view fits without scrolling; only the fodder PICKER scrolls</strong>, because that one is a list of every eligible creature in the bag and no layout fits 100+ rows. Sized from measurement: the two cards are <code>min-height:276px</code> with <code>11px</code> padding, the body has <code>16px 24px</code> padding and a <code>12px</code> gap, and the preview line is <code>15px/1.35</code>. Body content is <strong>359&ndash;380px</strong> against a panel that caps at 593px on a phone, so there is real room before a scrollbar can return. <em>LIVE on release since 2026-08-05 (0.32).</em></li>
     <li><strong>Why the phone scrolled and the desktop did not.</strong> The overlay is <code>position:fixed</code>, which escapes the stage’s CSS <code>zoom</code>, so its <code>max-height:88%</code> resolves against the REAL viewport rather than the 1080-tall stage: 88% of 674px = 593px on a phone against 792px on a 900px desktop. Every other size in this panel is a stage unit. Any fixed-position overlay in this build has the same asymmetry &mdash; measure it at a phone viewport, not just at desktop.</li>
@@ -72,7 +73,7 @@
   <h2>Engine reference</h2>
   <table>
     <tr><th>Function</th><th>Responsibility</th></tr>
-    <tr><td><code>dvOpenBag</code> / <code>dvOpenSlot</code></td><td>Entry points from the creature sheet and the equipped-creature slot picker; both enforce the battle-phase gate.</td></tr>
+    <tr><td><code>dvOpenBag</code> / <code>dvOpenSlot</code> / <code>dvOpenSoul</code></td><td>Entry points from the creature sheet, the equipped-creature slot picker, and the soul-socket picker (a socket holding a creature); all three enforce the battle-phase gate.</td></tr>
     <tr><td><code>dvChoices</code></td><td>The fodder pool: visible soul-bag creatures + consumables, consumer excluded, consumables first.</td></tr>
     <tr><td><code>dvSpeciesId</code></td><td>Species identity: the codex row (imgId, name fallback). Same row = same species.</td></tr>
     <tr><td><code>dvJudge</code></td><td>The single outcome judgement shared by preview and execution.</td></tr>
@@ -146,6 +147,7 @@
 
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-09-30 &mdash; review drift fixes: F166, F167. Codex only.</strong> The page caught up with the build; no rule changed. <strong>F166:</strong> the third entry point, DEVOUR on the soul-socket picker (<code>dvOpenSoul</code>, D 2026-08-06), is now listed under <em>Where it lives</em> and in the engine reference. <strong>F167:</strong> the 2026-09-25 entry below says the devour theatre still sat after the stage; Q11 (0.87, see <a href="system-client-shell.html">Client shell</a> 2026-09-28) has since moved the theatre, the breed toast, the dismantle-done panel and the breed message inside <code>#vxbStage</code>, so the theatre is stage-sized like the window.</li>
     <li><strong>2026-09-25 &mdash; the devour window is one size at every zoom, resolution and aspect ratio (#985, D). Shipped in 0.87.</strong>
       D&rsquo;s rule: <strong>the window must always be the same size, and the same size relative to the rest of the game&rsquo;s UI,
       whatever the player&rsquo;s zoom, resolution or aspect ratio.</strong> The client shell is a fixed 1920&times;1080 stage scaled
