@@ -200,6 +200,11 @@ buys the replacement scroll, and applying a replacement <em>is</em> the reroll &
 misreading and is worth a ruling.</div>
 
 <h2>Changelog</h2>
+<p><strong>2026-09-30 &mdash; MAX crafts at most 50, and a refused craft says why (client review F114). On dev.</strong>
+The server forges 1 to 50 of a recipe per call, but MAX asked for everything the wallet could pay, so a big wallet
+(e.g. 2,000 Scrap on a 25-Scrap recipe = 80) was refused every time. MAX is now capped at 50. Every refusal also read
+<em>COULD NOT REACH THE FORGE</em>; a refusal the server answered now reads <em>THE FORGE REFUSED: &lt;reason&gt;</em>, and only
+a forge that did not answer says it could not be reached. Nothing is crafted or spent on either. Gate: <code>tools/probe_review_c13c09.mjs</code>.</p>
 <p><strong>2026-09-30 &mdash; a dismantled key is priced from the server&rsquo;s own record; a blocked dismantle tells the server nothing (client review F122&ndash;F124). On dev.</strong>
 A Key&rsquo;s yield follows its floor, and the server read that floor from the <em>claim</em>: a row carrying
 <code>keyFloor:100</code>, or a Grasslands Key renamed Flaming Hellscape Key, paid 60 Scrap instead of 6, on the dismantle
