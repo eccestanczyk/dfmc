@@ -200,6 +200,8 @@ buys the replacement scroll, and applying a replacement <em>is</em> the reroll &
 misreading and is worth a ruling.</div>
 
 <h2>Changelog</h2>
+<p><strong>2026-09-30 &mdash; review P6 Q3 (settled half): the forge reports an overdraft. ON DEV. WATCH-ONLY.</strong>
+When a craft would book any currency of its bundle past zero, the craft door writes a <code>craft_overdraft</code> anomaly row naming the recipe, the quantity and each short currency with what was held and what was booked. Nothing is refused and the booking is unchanged &mdash; the ledger still records the spend; whether the door then refuses is D&rsquo;s open Q3, after a week of live flag data. An idem replay does not flag twice. Probe <code>tools/probe_worlddoors.py</code>.</p>
 <p><strong>2026-09-30 &mdash; review drift fixes: F127, F155, F329. Codex only.</strong>
 The page caught up with the code; no rule changed. <strong>F155:</strong> scroll rolls name <code>scroll_bands.csv</code> as the source of the value (scroll tier band, scroll grade K); only the class comes from <code>enchants.csv</code>, and the host no longer changes the number. <strong>F127:</strong> the item lock is named as a second client/server dismantle divergence beside the mutant rule (not yet pinned by the parity suite). <strong>F329:</strong> the dismantle-result panel reads a fixed five-currency map; the claim that a new currency appears untouched is withdrawn.</p>
 <p><strong>2026-09-30 &mdash; MAX crafts at most 50, and a refused craft says why (client review F114). On dev.</strong>
