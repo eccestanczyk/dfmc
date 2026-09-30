@@ -14,7 +14,7 @@
 <div class="topbar"><h1 style="font-family:'Cinzel',serif;">&dagger; DEVOUR</h1></div>
 <div class="sp-wrap">
   <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; Devour</div>
-  <p class="sp-lead">One creature consumes another &mdash; or a Devour item &mdash; and takes what was worth keeping. The fodder's XP <strong>always</strong> transfers in full. Grade and mutant status transfer too, but <strong>only between the same species</strong>. The fodder is destroyed permanently: its uid is burned and nothing recovers it.</p>
+  <p class="sp-lead">One creature consumes another &mdash; or a Devour item &mdash; and takes what was worth keeping. The fodder's XP <strong>always</strong> transfers in full. Grade and mutant status transfer too, but <strong>only within the same line</strong>. The fodder is destroyed permanently: its uid is burned and nothing recovers it.</p>
 
   <h2>Where it lives</h2>
   <ul class="sp-rules">
@@ -147,6 +147,7 @@
 
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-09-30 &mdash; review fixes F162, F163, F164 (client, lane P). On dev.</strong> <strong>F162:</strong> a fodder that lives in the base bag is taken out before the devour commits; when the commit then failed (the consumer moved or changed underneath), the fodder stayed destroyed and the consumer unchanged, and the next save made it permanent. A devour that does not commit now puts the fodder back (a stack gets its count back) and says THE TARGET MOVED &mdash; NOTHING WAS CONSUMED, which is now true. <strong>F163:</strong> a devour into a socketed soul&rsquo;s creature now re-derives the party, like every other soul-slot change. <strong>F164:</strong> the preview said <em>different species &mdash; only XP transfers</em> where the rule is the LINE; it says <em>different line</em>, and the lead paragraph above no longer says &ldquo;same species&rdquo;. Gate <code>tools/probe_review_lanep.mjs</code>.</li>
     <li><strong>2026-09-30 &mdash; review drift fixes: F166, F167. Codex only.</strong> The page caught up with the build; no rule changed. <strong>F166:</strong> the third entry point, DEVOUR on the soul-socket picker (<code>dvOpenSoul</code>, D 2026-08-06), is now listed under <em>Where it lives</em> and in the engine reference. <strong>F167:</strong> the 2026-09-25 entry below says the devour theatre still sat after the stage; Q11 (0.87, see <a href="system-client-shell.html">Client shell</a> 2026-09-28) has since moved the theatre, the breed toast, the dismantle-done panel and the breed message inside <code>#vxbStage</code>, so the theatre is stage-sized like the window.</li>
     <li><strong>2026-09-25 &mdash; the devour window is one size at every zoom, resolution and aspect ratio (#985, D). Shipped in 0.87.</strong>
       D&rsquo;s rule: <strong>the window must always be the same size, and the same size relative to the rest of the game&rsquo;s UI,
