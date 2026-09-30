@@ -223,7 +223,15 @@ a bed: the hub, the shop, the codex, the inventory and the battle all keep whate
 current zone is playing. Entering a floor does not restart it; entering a battle does not restart
 it; only crossing into a different zone crossfades, 1200 ms in and 900 ms out.
 
-That also means `bgm.csv` has no `State` value but `zone` and no blank `Zone` cell, and `audio.html`
+**Amended 2026-10-01 (#1041, D: *"bosses are still using the old generic creature sound. remove it. Need a
+boss battle song"*)**: one exception. `bgm.csv` carries a `State=boss` row (blank `Zone`, `assets/bgm/boss.wav`,
+synthesized by dfmc-client `tools/afx_boss_bgm.py`, nothing to licence). The client selects it while
+`inBossFight` holds - `bintro` through `resolving` - and drops it for the zone bed when the fight ends, under
+the victory and the `boss.fell` cue; a table without the row keeps the zone bed. Hub, title and every screen
+stay on the zone rule, and the same report retired the last `battle.start` a boss rang: a boss has no
+creatures.csv row and so no cry, and the cry fallback had kept the 12 kHz screech on every boss opening.
+
+That also meant, until #1041, that `bgm.csv` had no `State` value but `zone` and no blank `Zone` cell, and `audio.html`
 resolves a floor to a bed by the fold below with nothing allowed to override it.
 
 ### The Void Apex fold [R D 2026-09-24]

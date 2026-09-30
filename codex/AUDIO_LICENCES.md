@@ -88,7 +88,7 @@ Considered and refused, so nobody re-sources them: Kenney Voiceover Pack and Voi
 (Fighter) — spoken words, against the standing **No words** rule. Incompetech / Kevin MacLeod —
 CC-BY 4.0, which needs a credit line this site has nowhere to put.
 
-## The music beds — 10 tracks, OpenGameArt, every one CC0 1.0
+## The music beds — 10 zone tracks (OpenGameArt, every one CC0 1.0) and one synthesized boss bed
 
 `codex/bgm.csv` + `assets/bgm/<slug>.ogg`. **Ten tracks, one per zone, and no others** — the `hub`,
 `boss` and `title` beds ingested on 2026-09-24 were removed the same day under D's ruling that the
@@ -99,6 +99,14 @@ dedication was read off each OpenGameArt node page's own licence field
 is cut to a 60–120 s seamless loop, low-passed per zone and loudness-matched in file, with the
 `Gain` cell finishing the match to −29 LUFS at play. The uncut originals are ~136 MB and are not
 committed to any repo; `dfmc-dungeon tools/audio/zone-beds.mjs --fetch` re-downloads them.
+
+**Since 2026-10-01 (#1041, D: *"Need a boss battle song"*) there is one bed that is not a zone's:**
+`boss.wav`, `State=boss`, blank `Zone`. It is synthesized from numbers by dfmc-client
+`tools/afx_boss_bgm.py` (seed 1041; D minor, 150 BPM, 16 bars, seamless by construction) the way the
+creature cries are - no third-party work in it, so nothing to licence and nothing to credit. WAV rather
+than OGG because the dev machine has no Vorbis / Opus encoder (16-bit mono, 24 kHz, 1.2 MB, under the
+beds' 8 kHz line). The client plays it for exactly as long as a boss fight is on; every other screen
+keeps the zone rule above.
 
 | Track | Plays on | Title | Author | Licence | Source |
 | --- | --- | --- | --- | --- | --- |
@@ -144,7 +152,7 @@ the project (no third-party licence at all).
 | `floor_gear_drop.ogg` | `floor.gear_drop` | Kenney "rpg-audio" dropLeather.ogg (CC0) |
 | `floor_item.ogg` | `floor.item` | Kenney "rpg-audio" handleSmallLeather.ogg (CC0) |
 | `hub_bank.ogg` | `hub.bank` | Kenney "rpg-audio" handleCoins2.ogg (CC0) |
-| `hub_devour.ogg` | `hub.devour` | Kenney "sci-fi-sounds" slime_001.ogg (CC0) |
+| `hub_devour.ogg` | `hub.devour` | Since 2026-10-01 (#1035): bank clip AFX-615 "Eat 02", 80 CC0 creature SFX (OpenGameArt, CC0). Was Kenney "sci-fi-sounds" slime_001.ogg (CC0), the 4.7 s gurgle D heard as water |
 | `hub_revive.ogg` | `hub.revive` | Kenney "music-jingles" jingles_STEEL03.ogg (CC0) |
 | `move_stairs.ogg` | `move.stairs` | Kenney "rpg-audio" doorClose_1.ogg (CC0) |
 | `pen_start.ogg` | `pen.start` | Kenney "interface-sounds" toggle_001.ogg (CC0) |

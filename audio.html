@@ -104,7 +104,14 @@ a:hover{color:var(--gold)}
     decode) is what the player pre-rolls each voice by, so a clip with 100 ms of lead-in authored at
     <code>d200</code> hits at 200, not 300 — 487 of the 1221 compositions were more than a frame late that
     way; <code>codex/afx_sync_audit.csv</code> is the table. <b>Since 2026-09-28 (#994, #993) a move sounds like its creature, its name and its effect</b>, judged on each clip's measured features: the two synthetic sci-fi booms (AFX-495 / AFX-526, 206 move layers, most of them a boom at the end of a move that does not explode) are off every move — an explosive move ends on a recorded bang, any other on its own settle sound — no physical or voiced move hits with a chiptune blip, a named element is heard at every stage, a voiced move carries a creature voice and a bite a bite; 292 of 419 rows re-assigned, per-move record in <code>codex/afx_character_audit.csv</code> (codex/AFX_SPEC.md, <i>Character</i>). The <code>battle.victory</code> event is a short soft pizzicato phrase (AFX-377, 0.80 s), no longer the floor gate's latch. Licences and provenance:
-    <a href="codex/AUDIO_LICENCES.md">codex/AUDIO_LICENCES.md</a>. A move's composition is not reviewed
+    <a href="codex/AUDIO_LICENCES.md">codex/AUDIO_LICENCES.md</a>. <b>Since 2026-10-01 (#1041) a boss fight has a bed of
+    its own</b> (D: <i>"Need a boss battle song"</i>) — <code>bgm.csv</code>'s <code>State=boss</code> row,
+    <code>assets/bgm/boss.wav</code>, synthesized by dfmc-client <code>tools/afx_boss_bgm.py</code> with nothing to
+    licence; the client plays it for exactly as long as the fight is on and returns to the zone bed after, so
+    every other screen keeps the 2026-09-24 zone rule. The same report retired the last generic creature sound a
+    boss rang: a boss has no cry, and the cry fallback had kept <code>battle.start</code> (the 12 kHz screech) on
+    every boss opening. <b>Since 2026-10-01 (#1035) the devour cue is a bite</b> — bank clip AFX-615 Eat 02, 0.39 s,
+    rung twice — not the dungeon's 4.7 s gurgle D heard as water. A move's composition is not reviewed
     here — it is reviewed <a href="vfx.html">against its picture</a>, which is the only place the two
     can be judged as one thing.
   </div>
@@ -175,7 +182,10 @@ function zoneNames(){
 /* THE BED IS THE FLOOR'S ZONE BED AND NOTHING ELSE [R D 2026-09-24]. There is no boss bed, no hub
    bed and no title bed to override it: "every non-battle screen should keep playing the bgm from
    whichever zone the player is in, and not change the BGM. Only going to a different zone changes it.
-   It shouldn't restart between floors nor at the beginning of battle either." */
+   It shouldn't restart between floors nor at the beginning of battle either."
+   AMENDED 2026-10-01 (#1041, D: "Need a boss battle song"): the one exception is the boss bed - bgm.csv's
+   State=boss row, which the client plays while inBossFight holds and drops for the zone bed after. It is a
+   FIGHT state, not a floor, so the floor -> bed step below stays the zone's; the row is in the beds table. */
 function trackForFloor(f){
   const name=zoneNames()[zoneOf(f)-1];
   return name?DFMC_AFX_BANK.trackForZone(name):null;
