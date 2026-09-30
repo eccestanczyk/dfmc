@@ -48,6 +48,7 @@
   pair uses two fixed account-scoped keys for the same reason &mdash; the answer is identical every
   time the screen is opened, whichever class is chosen. <code>ensureUids()</code> now runs
   <em>before</em> <code>ensureGenders()</code> on load, since the backfill keys on uid.</p>
+  <p>2026-09-30 (F135, ON DEV): a creature the server itself sexed at hatch or breed claim answers that stored sex here; the draw above is only for keys with no sexed ledger row, such as the two starters.</p>
   <div class="sp-note"><strong>One request for a whole bag.</strong> A 126-creature backfill costs one
   call, not 126. If the server does not answer, <strong>nothing is written</strong>: a creature simply
   keeps no gender, and <code>monGender()</code> already reads <code>M</code> for a missing value rather
