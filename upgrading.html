@@ -128,7 +128,7 @@ td{border-bottom:1px solid var(--rule);padding:5px 8px;color:var(--ink-dim);font
   connection or an impatient second tap can never re-roll an attempt or charge for it twice. A step that is
   not in the CSV is refused outright, so the ladder cannot be shortened from the client. Currency is still
   spent client-side and validated by the save door until inventory moves server-side.</p>
-  <p><strong>One click is up to ten attempts (B2 7.5, 2026-09-28; ON DEV, not on release).</strong> A plain
+  <p><strong>One click is up to ten attempts (B2 7.5, 2026-09-28; ON DEV, LIVE on release since 2026-10-01 (0.88).).</strong> A plain
   ATTEMPT sends <code>batch10:true</code>: the server draws up to 10 real attempts in the one keyed call, bounded by
   the wallet the client claims (<code>have</code>, held to what the stored save allows) and capped at 10. The draws
   are scanned in order and stop at the first success; a loss burns every lane it drew. The click is charged
