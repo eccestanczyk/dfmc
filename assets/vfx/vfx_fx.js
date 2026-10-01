@@ -68,7 +68,6 @@ const VXHIT_FOR=(parsed,color)=>{ const t=((parsed&&parsed.layers)||[]).filter(l
     const burst=(c,d)=>[0,60,120,180,240,300].map(a2=>shard(c,d,a2));
     const ringEl=(c,d)=>null; // impact-hit circle removed per design — no expanding ring on attacks or support
     const chevs=(c,d,up)=>W([0,1,2].map(i=>E('div',{key:i,style:{position:'absolute',left:(30+i*18)+'%',top:'40%'}},E('div',{style:{width:'26px',height:'26px',background:c,clipPath:up?'polygon(50% 0,100% 100%,50% 72%,0 100%)':'polygon(50% 100%,100% 0,50% 28%,0 0)',animation:(up?'vxRise ':'vxFall ')+d+'ms ease-out both',animationDelay:(i*60)+'ms'}}))));
-    const bar=(c,d,delay)=>E('div',{key:'b'+delay,style:{position:'absolute',inset:0,display:'flex',alignItems:'center',justifyContent:'center',transform:'rotate(-38deg)'}},E('div',{style:{width:'120%',height:'10px',background:c,clipPath:'polygon(0 50%,6% 0,94% 0,100% 50%,94% 100%,6% 100%)',animation:'vxSweep '+d+'ms ease-in both',animationDelay:delay+'ms'}}));
     const streaks=(c,d,dir,n,delayStep)=>[...Array(n)].map((_,i)=>E('div',{key:i,style:{position:'absolute',top:(38+i*9)+'%',left:0,right:0}},E('div',{style:{width:(50-i*8)+'px',height:'7px',background:c,animation:(dir>0?'vxStreamR ':'vxStreamL ')+d+'ms ease-out both',animationDelay:(i*(delayStep||55))+'ms'}})));
     return {
       generic_impact:(c,d)=>W([ringEl(c,d)].concat(burst(c,d))),
@@ -107,8 +106,8 @@ const VXHIT_FOR=(parsed,color)=>{ const t=((parsed&&parsed.layers)||[]).filter(l
       String(txt==null?'':txt).split('|').forEach(raw=>{ raw=raw.trim(); if(!raw){ errs.push('empty layer'); return; }
         const toks=raw.split(/\s+/);
         if(FLAGS.indexOf(toks[0])>=0){ if(toks.length>1) errs.push('flag '+toks[0]+' takes no modifiers'); if(flags.indexOf(toks[0])>=0) errs.push('flag '+toks[0]+' repeated'); flags.push(toks[0]); return; }
-        const m=/^(FX-\d{3})@(u|t|g|ug|b)$/.exec(toks[0]);
-        if(!m){ errs.push('bad head token '+JSON.stringify(toks[0])+' (want FX-NNN@u|t|g|ug|b or a !flag)'); return; }
+        const m=/^(FX-\d{3})@(u|t|g|ug|b|a)$/.exec(toks[0]);
+        if(!m){ errs.push('bad head token '+JSON.stringify(toks[0])+' (want FX-NNN@u|t|g|ug|b|a or a !flag)'); return; }
         const fid=m[1], anchor=m[2]; const row=bank?bank[fid]:null; if(bank&&!row) errs.push('unknown sheet '+fid);
         const mods={};
         toks.slice(1).forEach(t=>{ if(t==='f'||t==='m'||t==='z'||t==='k'){ mods[t]=true; return; }
@@ -158,7 +157,8 @@ const VXHIT_FOR=(parsed,color)=>{ const t=((parsed&&parsed.layers)||[]).filter(l
       const out=[];
       layers.forEach((l,i)=>{ const a=l.anchor, m=l.mods;
         const onUser=(a==='u'||a==='ug'||a==='b'), onTgt=(a==='t'||a==='g'||a==='b');
-        if(!((onUser&&ctx.isUser)||(onTgt&&ctx.isTarget))) return;
+        /* VFX-USER (D 2026-10-01, Bug Run 0.89 Q6 "Bloomburst needs the ally cleanse vfx"): `@a` plays on every living unit on the USER'S side, the user included (ctx.isAlly) - the engine's own allies set, so an all-allies cleanse draws on each ally it washes, not on the caster alone. */
+        if(!((onUser&&ctx.isUser)||(onTgt&&ctx.isTarget)||(a==='a'&&ctx.isAlly))) return;
         const ground=(a==='g'||a==='ug'); if(!!ctx.under!==(ground||!!m.z)) return;
         const row=bank[l.id]; const F=+row.Frames, C=+row.Cols||6, R=Math.ceil(F/C), fw=+row.Frame_W, fh=+row.Frame_H, M=Math.max(fw,fh);
         const v=(m.v||1)*(low?1.33:1), n=m.n||1, d=Math.round((m.d||0)*speed), iter=Math.round(F/(24*v)*1000*speed), total=iter*n;

@@ -49,8 +49,18 @@ CASTER_BEAT_FLOOR, CASTER_BEAT_LAG = 160, 120
 # move lands on someone else) carries no `@u`/`@ug`/`@b` layer at any stage, ULT rows included, unless that stage's
 # effect touches the user - the stages pinned in USER_AFFECTED_1020, whose art is on the #1020 review list.
 # The drains and self moves (`both-sides` / `self`) affect the user by definition and are not touched here.
-USER_AFFECTED_1020 = {'M-VOIDSHELL-4': {1, 2, 3}, 'M-MOLOCH-3': {2, 3}, 'M-DOPPELGANGER-3': {2, 3},
-                      'M-BRAMBLEFAWN-1': {2, 3}}
+USER_AFFECTED_1020 = {'M-VOIDSHELL-4': {1, 2, 3}, 'M-MOLOCH-3': {2, 3}, 'M-DOPPELGANGER-3': {2, 3}}
+# THE USER'S ALLIES (VFX-USER, D 2026-10-01, Bug Run 0.89 Q6: "Bloomburst needs the ally cleanse vfx"). `@a` plays on
+# every living unit on the user's side, the user included - the engine's own `allies` set. Bloomburst S2-S3 cleanse
+# ALL allies, so its cleanse layer moved from `@u` (the user alone) to `@a`. An `@a` layer is legal only on a stage
+# pinned here: the stages whose effect lands on the user's whole side.
+ALLIES_AFFECTED = {'M-BRAMBLEFAWN-1': {2, 3}}
+# BOTH-SIDES STAGES THAT DO NOT TOUCH THE USER (VFX-USER, same ruling: "Gecko just uses an attack on me that had a VFX
+# on him without any effect on himself. Recheck all moves."). The #1020 audit skipped `both-sides` rows as drains by
+# definition; 24 of them were not (a damage bonus read off the user's state, or a mark on the target) and were
+# re-anchored to `target`. These rows stay `both-sides` because their later stages DO touch the user, but the
+# pinned stage does not: it is linted as a `target` stage (no user layer).
+TARGET_ONLY_STAGES = {'M-ANZU-1': {1}, 'M-SPECULUM-3': {1}, 'M-ANZU-4': {1}, 'M-WYCHROOT-3': {1}}
 # Deleting the caster layer took these stages below the BUDGET minimum. The minimum still holds for every other
 # stage (and for any new authoring); these are waived to >= 1 layer and are the #1020 re-author queue - each
 # needs a target-side layer drawn, which the #1020 lane was told not to do. Remove a pair once it is re-authored.
@@ -69,6 +79,10 @@ UNDER_BUDGET_1020 = {
     ('M-WISPMAW-3', 2), ('M-WISPMAW-3', 3), ('M-WYCHROOT-1', 2), ('M-WYCHROOT-1', 3), ('M-YGGDRASIL-4', 3),
     ('ULT-ARCHER-1', 1), ('ULT-MAGE-1', 1),
 }
+# VFX-USER (D 2026-10-01): deleting the user layers of the 24 re-anchored both-sides rows took 7 more stages below
+# the minimum. Same waiver, same queue: the later under-minimum lanes draw their target-side layers.
+UNDER_BUDGET_1020 |= {('M-ZARATAN-2', 3), ('M-DEVOUT-2', 2), ('M-DEVOUT-2', 3), ('M-GUSTWING-1', 2),
+                      ('M-GUSTWING-1', 3), ('M-ANZU-2', 2), ('M-ANZU-2', 3)}
 
 
 def parse(txt):
@@ -83,9 +97,9 @@ def parse(txt):
             if len(toks) > 1: errs.append('flag %s takes no modifiers' % toks[0])
             if toks[0] in flags: errs.append('flag %s repeated' % toks[0])
             flags.append(toks[0]); continue
-        m = re.match(r'^(FX-\d{3})@(u|t|g|ug|b)$', toks[0])
+        m = re.match(r'^(FX-\d{3})@(u|t|g|ug|b|a)$', toks[0])
         if not m:
-            errs.append('bad head token %r (want FX-NNN@u|t|g|ug|b or a !flag)' % toks[0]); continue
+            errs.append('bad head token %r (want FX-NNN@u|t|g|ug|b|a or a !flag)' % toks[0]); continue
         fid, anchor = m.group(1), m.group(2)
         if fid not in BANK: errs.append('unknown sheet %s' % fid)
         mods = {}
@@ -166,15 +180,20 @@ def check_row(mid, stages, anchor_col, is_ult):
                             % (st, l['id'], l['mods'].get('s', 1.0), 'ULT' if is_ult else 'S%d' % st, cap))
         if '!shake' in flags and not is_ult and st < 3: errs.append('S%d has !shake (S3/ULT only)' % st)
         tl = [l for l in layers if l['anchor'] in ('t', 'g', 'b')]
-        ul = [l for l in layers if l['anchor'] in ('u', 'ug')]
+        ul = [l for l in layers if l['anchor'] in ('u', 'ug', 'a')]
         if tl and min(l['mods'].get('d', 0) for l in tl) > 200: errs.append('S%d: first target layer starts after 200 ms' % st)
-        if anchor_col in ('target', 'ground') and st not in USER_AFFECTED_1020.get(mid, ()):
+        ac = 'target' if (anchor_col == 'both-sides' and st in TARGET_ONLY_STAGES.get(mid, ())) else anchor_col
+        on_allies = [l['id'] + '@a' for l in layers if l['anchor'] == 'a']
+        if on_allies and st not in ALLIES_AFFECTED.get(mid, ()):
+            errs.append('S%d: %s play on the user\'s allies, and this stage does not affect them (VFX-USER)'
+                        % (st, ' '.join(on_allies)))
+        if ac in ('target', 'ground') and st not in USER_AFFECTED_1020.get(mid, ()):
             on_user = [l['id'] + '@' + l['anchor'] for l in layers if l['anchor'] in ('u', 'ug', 'b')]
             if on_user: errs.append('S%d: %s play on the user, and this move does not affect its user (#1020)'
                                     % (st, ' '.join(on_user)))
-        if anchor_col == 'self' and tl: errs.append('S%d: a self move plays on the target' % st)
-        if anchor_col in ('target', 'ground') and not tl: errs.append('S%d: a target move plays nothing on the target' % st)
-        if anchor_col in ('target', 'ground') and tl and ul and not is_ult:
+        if ac == 'self' and tl: errs.append('S%d: a self move plays on the target' % st)
+        if ac in ('target', 'ground') and not tl: errs.append('S%d: a target move plays nothing on the target' % st)
+        if ac in ('target', 'ground') and tl and ul and not is_ult:
             td = min(l['mods'].get('d', 0) for l in tl)
             need = max(CASTER_BEAT_FLOOR, td + CASTER_BEAT_LAG)
             got = min(l['mods'].get('d', 0) for l in ul)
@@ -182,11 +201,11 @@ def check_row(mid, stages, anchor_col, is_ult):
                 errs.append('S%d: the caster beat starts at d%d - on a target-anchor move it must '
                             'start behind the hit, at d%d or later (max(%d, first target layer d%d '
                             '+ %d))' % (st, got, need, CASTER_BEAT_FLOOR, td, CASTER_BEAT_LAG))
-        if anchor_col == 'both-sides':
+        if ac == 'both-sides':
             if not tl or not ul: errs.append('S%d: a both-sides move needs a target layer AND a user layer' % st)
             elif min(l['mods'].get('d', 0) for l in ul) < min(l['mods'].get('d', 0) for l in tl) + 100:
                 errs.append('S%d: both-sides user beat must start >= 100 ms after the target beat' % st)
-        if '!flash' in flags and anchor_col == 'self': errs.append('S%d: !flash on a self move' % st)
+        if '!flash' in flags and ac == 'self': errs.append('S%d: !flash on a self move' % st)
     if not is_ult and all(s in parsed for s in (1, 2, 3)):
         ids = {s: {l['id'] for l in parsed[s][0]} for s in (1, 2, 3)}
         if not ids[1] <= ids[2]: errs.append('family: S1 sheets %s missing at S2' % sorted(ids[1] - ids[2]))

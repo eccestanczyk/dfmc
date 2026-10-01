@@ -124,7 +124,7 @@ def fx_anchor(fx_txt):
         raw = raw.strip()
         if not raw or raw.startswith('!'):
             continue
-        m = re.match(r'^FX-\d{3}@(u|t|g|ug|b)\b', raw)
+        m = re.match(r'^FX-\d{3}@(u|t|g|ug|b|a)\b', raw)
         if not m:
             continue
         d = 0

@@ -88,6 +88,39 @@ touch an approval.
 
 ## Changelog
 
+- **2026-10-01** - **No VFX on an unaffected user, round two, and the cleanse on every ally (VFX-USER, D's
+  Bug Run 0.89 board Q6: "Re-author all ... Bloomburst needs the ally cleanse vfx ... Gecko just uses an attack
+  on me that had a VFX on him without any effect on himself. Recheck all moves.").** **The Gecko:** its attack
+  is Basking Fury (`M-DUSKSCALE-2`, "+25% more if user is above 70% HP") - a `both-sides` row, and #1020 skipped
+  every `both-sides` row as a drain by definition. **The recheck** read every stage cell that draws on the user
+  (`@u`/`@ug`/`@b`) against its `Effect_S*`: 24 `both-sides` rows (72 cells) touch only the target - 20 a damage
+  bonus read off the user's state (acted first, Speed, HP, a Defense buff held) and 4 a mark on the target
+  (Web Larder, Arterial Map, Scent of Endings, Bait the Hole). They are re-anchored to `target` and their user
+  layers deleted (`Targets` is untouched - it is gameplay). 4 more rows touch the user only from S2 on, and
+  their S1 user layer is deleted: The Wind That Was First, What It Reflects, Unbroken Gale, Sap Drink - pinned
+  in `fx_lint.TARGET_ONLY_STAGES`. 76 cells in all. 7 of them fell below the layer minimum and join
+  `UNDER_BUDGET_1020` (the later under-minimum lanes draw them). `self` and the remaining `both-sides` rows
+  (drains, self-damage, self buffs, debuff transfers, Launch Ball consuming the user's buff) all touch the user.
+  **New anchor `@a`:** every living unit on the user's side, the user included (the engine's own `allies`
+  set). Legal only on the stages in `fx_lint.ALLIES_AFFECTED`. **The four kept user layers, reviewed:**
+  *Lightless Carapace* - the user's candle smoke read as smoke, not a ward; it is now FX-052 (a ring that
+  assembles from fragments and closes) forming on the user, violet, at S1 too (S1 is the same ward and drew
+  nothing on its user), with the S2 ward sigil at the feet kept and FX-047 (Warded Impact) behind it at S3.
+  *Furnace Belly* - a standing flame ON the user read as the user burning; it is now the same closing ring in
+  ember orange, with a squashed flame ring at the feet at S3 (a fire ward, not a fire). *Copied Stance* -
+  FX-054 Empowerment converges onto the user: it reads as something drawn in. Unchanged. *Bloomburst* - the
+  cleanse ring moves from `@u` to `@a` so each ally it washes draws it, and S3 adds a violet wisp lifting off
+  each ally (the debuff washed away); the S3 green sanctified ring under the ENEMY (which reads as healing the
+  enemy) is removed to stay inside the S3 budget. References: shield gain is a barrier that closes AROUND the
+  unit (Pokemon Protect / Spiky Shield, WoW Power Word: Shield), buff steal travels target -> caster and
+  converges (WoW Spellsteal), a cleanse lifts dark motes off each ally under a light (FF Esuna, Pokemon Heal
+  Bell). **Client:** `VFX_BANK` parses `@a` and draws it on `ctx.isAlly`; `view()` hands the bank to a
+  bystander ally only when the composition carries `@a` (dfmc-client dev, gate `tools/probe_vfxuser.py`).
+  `assets/vfx/vfx_fx.js` regenerated; `vfx.html` casts `@a` on the caster's whole side. **Order:** the data
+  needs that client - an older client refuses `@a` and draws nothing for Bloomburst - so `DATA_PIN` moves
+  only after the client merge. Sound cues timed to the deleted user layers are untouched (noted, not owed
+  here). Owning pages: this spec and `vfx.html`.
+
 - **2026-09-30** - **review drift fixes: F350.** WIKI ONLY. The `!shake` flag row said 4 px over 150 ms for
   every shake; an ULT shakes 8 px over 250 ms (`bankShake(isUlt?8:4, isUlt?250:150)`, since 51a576c), which the
   #948 entry already implied (150-250 ms). DESCRIPTIVE ONLY.
@@ -518,6 +551,7 @@ FX-041@t f s1.2 v1.5 | FX-038@t d160 s0.8 | FX-054@u v2 h50 | !flash
 | `FX-NNN@g` | play at the **target's feet**: bottom-anchored, drawn behind the sprite, squashed to 50 % height (a ring in fake perspective) | - |
 | `FX-NNN@ug` | same, at the user's feet | - |
 | `FX-NNN@b` | play on user AND every target (one layer, two tiles) | - |
+| `FX-NNN@a` | play on **every living unit on the user's side**, the user included (an all-allies effect: Bloomburst's cleanse). Only on the stages pinned in `fx_lint.ALLIES_AFFECTED` (2026-10-01) | - |
 | `s<f>` | scale. 1.0 = the sheet's frame is as wide as the unit tile (the 128 px sprite box) | 1.0 |
 | `v<f>` | playback speed multiplier over the base 24 fps (`v2` plays a 24-frame sheet in 500 ms) | 1.0 |
 | `d<ms>` | start delay from the cast, in ms | 0 |
@@ -603,6 +637,9 @@ Onslaught) and the effect must read as one family across the three.
 
 **Anchor follows `Target_Anchor`**, which since 2026-09-17 is derived from the move's `Targets`: `self` -> `self`; `enemy`, `ally`, `enemy+ally` -> `target` (the ally IS the target of a heal); `enemy+self`, `self+enemy`, `ally+self` -> `both-sides` (55 rows were re-aimed; they had been anchored by the placeholder's convenience). `self` moves use only `@u`/`@ug`; `target` moves use `@t`/`@g` only
 (no cast beat on the user since #1020); `both-sides` (the drains) hit the target first and answer on the user.
+A move whose `Targets` names `self` only because its effect READS the user's state (a damage bonus "if user
+acted first") does not touch its user and is anchored `target` (2026-10-01, 24 rows); a `both-sides` row with
+one stage that touches only the target pins that stage in `fx_lint.TARGET_ONLY_STAGES`.
 
 **Colour follows the move, not the creature.** The palette per element (research rule 12) is: fire orange/red
 (h20-35), ice cyan/blue (h190-215), lightning violet-white (h240-260), wind green-grey (h100-165), water blue

@@ -575,19 +575,24 @@ function castNow(mv, stage, side){
             wantUser:false, wantTgt:false, onUser:0, onTgt:0, back:0, arch:''};
   clearFxNow();
   if(b){
-    const P=b.parsed, U=['u','ug','b'], T=['t','g','b'];
+    const P=b.parsed, U=['u','ug','b','a'], T=['t','g','b'];
     const live=P.layers.filter(l=>FXBANK[l.id]);
     rc.flags=P.flags.slice();
     rc.lenMs=Math.round(BANK.lengthMs(P,FXBANK,false));
     rc.wantUser=live.some(l=>U.indexOf(l.anchor)>=0);
     rc.wantTgt =live.some(l=>T.indexOf(l.anchor)>=0);
     const tiles=[], made=[];
-    if(cEl) tiles.push({el:cEl,isUser:true,isTarget:cEl===tEl});
-    if(tEl&&tEl!==cEl) tiles.push({el:tEl,isUser:false,isTarget:true});
+    const ownSide=document.getElementById(side).children;
+    if(cEl) tiles.push({el:cEl,isUser:true,isTarget:cEl===tEl,isAlly:true});
+    if(tEl&&tEl!==cEl) tiles.push({el:tEl,isUser:false,isTarget:true,isAlly:tside===side});
+    /* VFX-USER (2026-10-01): an `@a` layer plays on every unit on the user's side, the user included -
+       the client hands the bank to those tiles only when the composition carries one, and so does this page. */
+    if(live.some(l=>l.anchor==='a')) for(let i=0;i<ownSide.length;i++){ const el=ownSide[i];
+      if(el!==cEl&&el!==tEl) tiles.push({el:el,isUser:false,isTarget:false,isAlly:true}); }
     tiles.forEach((t,ti)=>{
       /* the client's ctx, tile for tile: @g/@ug and z draw BEHIND the sprite, so that wrapper is
          inserted before the tile's first child - DOM order is the paint order here. */
-      const ctx={isUser:t.isUser,isTarget:t.isTarget,dir:dir,stage:b.stage,
+      const ctx={isUser:t.isUser,isTarget:t.isTarget,isAlly:t.isAlly,dir:dir,stage:b.stage,
                  tileW:t.el.offsetWidth,lowVfx:false,speed:FX_SPEED,key:'vxb'+ti+'_'};
       const front=BANK.render(P,FXBANK,Object.assign({},ctx,{under:false}));
       const back =BANK.render(P,FXBANK,Object.assign({},ctx,{under:true}));
