@@ -88,6 +88,25 @@ touch an approval.
 
 ## Changelog
 
+- **2026-10-01** - **The mage ultimate's plume is gone from all three stages, and Cataclysm burns (D, Herumon
+  Tower Rulings board row `plume`, default vetoed with a note: "add some fire to cataclysm. Currently it is just a
+  smoke cloud. And add meteors falling down, you can take the meteor we made for the meteor trap in Herumon
+  Dungeon").** *Shardburst* (`ULT-MAGE-1`) and *Stonefall* (`ULT-MAGE-2`) lose the FX-004@g Pale Plume and take
+  the FX-032@g Thunder Ring Cataclysm got in 0.87, same tint and speed, on the same beat the plume had (d680 /
+  d900), sized **s0.7 / s0.85 / s1** across S1 / S2 / S3. *Cataclysm* read as smoke because its FX-007 Ember Blast
+  wore the bone token (`sat0.35`), which takes the fire out of a sheet whose first half IS fire: it now wears the
+  measured rust token (`k h15 br0.4 sat1.5`), an FX-012 Standing Flame burns on the target from d480, and a new
+  bank sheet drops three meteors on it. **FX-056 Meteor Fall** (`fx_bank.csv`, group fire, 24 frames x 6 columns,
+  frame 192 x 256) is Herumon Dungeon's meteor trap (`dfmc-dungeon/play/index.html`, the meteor theatre, #179 /
+  #185: an FX-009 sphere under one FX-013 tail in #b0231c, falling straight down on an accelerating ease) rebuilt
+  the #1052 way: `tools/make_meteor_sheet.py` PRE-BAKES the fall into the frames, so the client steps it like any
+  other bank sheet - no renderer change, no filter keyframe. The centre rock lands on frame 5 (208 ms, with the
+  impact beat), the others on 9 and 12, each in the fire half of FX-006 and a short FX-012 flame. Same owner, and
+  the source art is the bank's own CC0 Unity Labs sheets. The layer is `FX-056@t s1 y-10 h29` - h29 is the sheet's
+  own hue, so it draws as baked; FX-056 has no row in `VFX_SHEET_TINTS.md` yet (re-run `tools/vfx_calibrate.py
+  --sheets FX-056` before another move re-hues it). Cataclysm is 6 layers, 1533 ms. `vfx_bank_gate.py` now pins
+  49 sheets. Contact sheets before / after (`tools/vfx_shoot.py`) were read. Owning pages: this spec and `vfx.html`.
+
 - **2026-10-01** - **The thin stages drawn back up, second half - the waiver is empty (VFX-THIN-B, D's Bug Run
   0.89 board Q6: "Re-author all ... You should do research on effects for other games for similar
   abilities/effects ... Recheck all moves.").** The other 31 cells of `UNDER_BUDGET_1020` (Soulspark S3 on, by

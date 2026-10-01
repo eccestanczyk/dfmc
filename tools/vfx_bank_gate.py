@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """VFX BANK GATE for the codex review page (D 2026-09-17).
 
+GATE EDIT (D 2026-10-01, Rulings board row `plume`): the bank pin moves 48 -> 49 for FX-056 Meteor Fall,
+the baked meteor sheet Cataclysm draws; every other check is unchanged.
+
 vfx.html must draw every move's effect from the SAME bank renderer the client draws it with
 (assets/vfx/vfx_fx.js -> DFMC_VFX_FX.buildBank, generated from play/app.js by
 tools/gen_vfx_fx.py). This gate proves it, cast by cast:
@@ -127,13 +130,13 @@ async def main():
             await pg.evaluate('DFMC_AFX.mute(true)')            # a gate makes no noise
             n_rows, n_bank, n_ult, n_grid = await pg.evaluate(
                 '[ALLROWS.length, Object.keys(FXBANK).length, ULT.length, document.querySelectorAll("#grid .card").length]')
-            chk('page boots: rows / sheets / ULT rows / grid cards', n_rows == 419 and n_bank == 48 and n_ult == 18 and n_grid == 301,
+            chk('page boots: rows / sheets / ULT rows / grid cards', n_rows == 419 and n_bank == 49 and n_ult == 18 and n_grid == 301,
                 '%d rows, %d sheets, %d ULT, %d cards' % (n_rows, n_bank, n_ult, n_grid))
             chk('the review page and the client share one renderer',
                 await pg.evaluate('typeof DFMC_VFX_FX.buildBank==="function" && typeof BANK.parse==="function" && typeof BANK.render==="function"'))
             chk('the 4 move buttons still open', await pg.evaluate(
                 '(()=>{document.querySelectorAll("#grid .card")[5].click();return document.querySelectorAll(".mv-btn").length})()') == 4)
-            # the 48 sheets are warmed before anything is timed
+            # the 49 sheets (48 + FX-056 Meteor Fall, D 2026-10-01 Rulings row `plume`) are warmed before anything is timed
             try:
                 await pg.wait_for_function('[...document.images].filter(i=>i.src.indexOf("/fx/bank/")>=0).every(i=>i.complete&&i.naturalWidth>0)', timeout=30000)
             except Exception:

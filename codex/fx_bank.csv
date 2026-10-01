@@ -47,3 +47,4 @@ FX-052,Cure Ring,holy,assets/fx/bank/fx-052.webp,26,6,126,128,lighter,180,0.96,y
 FX-053,Radiant Burst,holy,assets/fx/bank/fx-053.webp,24,6,118,128,lighter,67,0.97,yes,CC0-1.0,Effekseer sample library tktk02__Light1 (24f)
 FX-054,Empowerment,buff,assets/fx/bank/fx-054.webp,26,6,126,128,lighter,18,0.98,yes,CC0-1.0,Effekseer sample library NextSoft01__PowerUp (26f)
 FX-055,Hex Motes,buff,assets/fx/bank/fx-055.webp,26,6,97,128,lighter,359,0.92,yes,CC0-1.0,Effekseer sample library tktk01__hozyo4 (26f)
+FX-056,Meteor Fall,fire,assets/fx/bank/fx-056.webp,24,6,192,256,source-over,29,0.62,yes,CC0-1.0,"Baked by tools/make_meteor_sheet.py from FX-009 + FX-013 + FX-006 + FX-012 (Unity Labs Paris), after Herumon Dungeon's meteor trap (dfmc-dungeon play/index.html, meteor theatre) (24f)"
