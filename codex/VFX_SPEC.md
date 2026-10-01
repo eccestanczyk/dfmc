@@ -88,6 +88,36 @@ touch an approval.
 
 ## Changelog
 
+- **2026-10-01** - **The thin stages drawn back up, first half (VFX-THIN-A, D's Bug Run 0.89 board Q6: "Re-author
+  all ... You should do research on effects for other games for similar abilities/effects ... Recheck all
+  moves.").** The `UNDER_BUDGET_1020` queue (63 cells left under the layer minimum by #1020 and VFX-USER) sorted
+  by move id; the first 32 cells drew target-side or ground layers from the existing bank and left the waiver.
+  No user layer was added anywhere; the ladder, the family rule (S1 ⊆ S2 ⊆ S3) and every existing layer's tint
+  are kept - the new layers carry the row's own hue from `VFX_SHEET_TINTS.md`. **Hits** (references: the per-hit
+  spark of Pokemon's multi-strike moves and FF's hit flecks; Persona's shatter on a mirror break; Monster
+  Hunter's part-break shards for armour pierced): *Stormfeather Volley* S2-S3 a Strike Flash per feather
+  (FX-038 n3); *Swarm Surge* S2 the dust cloud arrives a stage early, S3 a flash per sting (FX-038 n4);
+  *Refraction Lance* S2 the Radiant Burst, S3 crystal shards for the Defense it ignores (FX-039);
+  *Heartstone Beam* S2 Radiant Burst, S3 gem shards (FX-039); *Prayer Strike* S2-S3 the forelimb rake
+  (FX-044), S3 a Strike Flash; *Perfect Reflection* S2 the Shatterfrost a stage early, S3 a violet flash as
+  one silhouette falls; *Horned Judgment* S2 the ground impact, S3 a green Radiant Burst (the antler blaze);
+  *Sky Lacerate* S2-S3 a second crescent cutting down across the wide slash (the cross of Aerial Ace / Air
+  Slash), S3 a gale burst; *Gemfire Bolt* S2 the Thunder Ring, S3 a violet slender flame; *Soulspark* S2 the
+  pale flame mote (FX-013). **Debuffs** (a marker that settles on the victim, Pokemon's stat-drop motes):
+  *Weeping Mist* S2 and *Last Knot* S2-S3 Hex Motes; *Acid Dribble* S3 green shards etched off (Defense down).
+  **Ally buffs** (a barrier closing around the unit - Pokemon Protect, WoW Power Word: Shield; a rising aura
+  for attack - Bulk Up, Swords Dance; wind streams for speed - Tailwind): *Mourning Veil* S2 the Warded
+  Impact a stage early, S3 the closing Cure Ring; *Eye of the Funnel* S2-S3 the closing ring, S3 bone debris;
+  *Tailwind* S2 the lifted dust a stage early, S3 Empowerment converging; *Wild Command* S2 the Hex Motes a
+  stage early, S3 a green standing-flame aura rising; *Bog Benediction* S3 the Sanctified Circle under the
+  healed ally. Cells: Stormfeather Volley S2-S3, Weeping Mist S2, Mourning Veil S2-S3, Refraction Lance S2-S3,
+  Prayer Strike S2-S3, Perfect Reflection S2-S3, Eye of the Funnel S2-S3, Last Knot S2-S3, Heartstone Beam
+  S2-S3, Acid Dribble S3, Sky Lacerate S2-S3, Tailwind S2-S3, Horned Judgment S2-S3, Wild Command S2-S3, Bog
+  Benediction S3, Swarm Surge S2-S3, Gemfire Bolt S2-S3, Soulspark S2. Every cell was shot on `vfx.html` with
+  `tools/vfx_shoot.py` and looked at (Wild Command's first aura, a Rising Column, read as two smoke blobs and
+  was replaced). The other 31 cells (Soulspark S3 on) are VFX-THIN-B's. `moves.csv` re-synced; `DATA_PIN`
+  does not move. fx_lint 0 failing / 419, vfx_bank_gate 8/8.
+
 - **2026-10-01** - **No VFX on an unaffected user, round two, and the cleanse on every ally (VFX-USER, D's
   Bug Run 0.89 board Q6: "Re-author all ... Bloomburst needs the ally cleanse vfx ... Gecko just uses an attack
   on me that had a VFX on him without any effect on himself. Recheck all moves.").** **The Gecko:** its attack

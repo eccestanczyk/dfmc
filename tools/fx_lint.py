@@ -65,13 +65,7 @@ TARGET_ONLY_STAGES = {'M-ANZU-1': {1}, 'M-SPECULUM-3': {1}, 'M-ANZU-4': {1}, 'M-
 # stage (and for any new authoring); these are waived to >= 1 layer and are the #1020 re-author queue - each
 # needs a target-side layer drawn, which the #1020 lane was told not to do. Remove a pair once it is re-authored.
 UNDER_BUDGET_1020 = {
-    ('M-BRINEFROG-3', 2), ('M-CENOTAPH-4', 2), ('M-CENOTAPH-4', 3), ('M-CRYSTALWRAITH-2', 2),
-    ('M-CRYSTALWRAITH-2', 3), ('M-DOPPELGANGER-1', 2), ('M-DOPPELGANGER-1', 3), ('M-GALEHOWL-4', 2),
-    ('M-GALEHOWL-4', 3), ('M-GARROTE-1', 2), ('M-GARROTE-1', 3), ('M-GEMBORN-1', 2), ('M-GEMBORN-1', 3),
-    ('M-GLOOMGRUB-2', 3), ('M-GUSTWING-4', 2), ('M-GUSTWING-4', 3), ('M-HERNE-1', 2), ('M-HERNE-1', 3),
-    ('M-HERNE-4', 2), ('M-HERNE-4', 3), ('M-LICHFROG-3', 3), ('M-LOCUST-2', 2), ('M-LOCUST-2', 3),
-    ('M-PHYLACTERY-1', 2), ('M-PHYLACTERY-1', 3), ('M-PHYLACTERY-2', 2), ('M-PHYLACTERY-2', 3),
-    ('M-PLAGUECARRIER-3', 2), ('M-PLAGUECARRIER-3', 3), ('M-PYRIEL-1', 2), ('M-ROTFLY-1', 2),
+    ('M-PHYLACTERY-2', 3), ('M-PLAGUECARRIER-3', 2), ('M-PLAGUECARRIER-3', 3), ('M-PYRIEL-1', 2), ('M-ROTFLY-1', 2),
     ('M-ROTFLY-1', 3), ('M-ROTFLY-2', 3), ('M-SALTJAW-3', 2), ('M-STORMCROW-1', 2), ('M-STORMFATHER-1', 2),
     ('M-STORMFATHER-2', 2), ('M-THORNHUSK-2', 2), ('M-THORNHUSK-2', 3), ('M-THUNDERMOTH-1', 2),
     ('M-THUNDERMOTH-1', 3), ('M-THUNDERMOTH-2', 2), ('M-THUNDERMOTH-2', 3), ('M-THUNDERMOTH-3', 2),
@@ -81,8 +75,10 @@ UNDER_BUDGET_1020 = {
 }
 # VFX-USER (D 2026-10-01): deleting the user layers of the 24 re-anchored both-sides rows took 7 more stages below
 # the minimum. Same waiver, same queue: the later under-minimum lanes draw their target-side layers.
-UNDER_BUDGET_1020 |= {('M-ZARATAN-2', 3), ('M-DEVOUT-2', 2), ('M-DEVOUT-2', 3), ('M-GUSTWING-1', 2),
-                      ('M-GUSTWING-1', 3), ('M-ANZU-2', 2), ('M-ANZU-2', 3)}
+UNDER_BUDGET_1020 |= {('M-ZARATAN-2', 3)}
+# VFX-THIN-A (D 2026-10-01, Bug Run 0.89 Q6: "Re-author all ... Recheck all moves."): the first half of the queue by
+# move id - 32 cells, M-ANZU-2 S2 to M-PHYLACTERY-2 S2 - drew their target-side layers and left the waiver. The rest
+# (M-PHYLACTERY-2 S3 on) is VFX-THIN-B's.
 
 
 def parse(txt):
