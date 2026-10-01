@@ -1,7 +1,7 @@
 Param,Value,Notes
 Gear_Guaranteed_Per_Kill,1,Base: uniform pick among Weapon/Armour/Accessory bases; tier = at-floor tier (boss floor).
-Gear_Grade_Band_Rule,one_band_ahead,Roll drop_grade_weights one floor band AHEAD of the boss's band; the final band clamps to itself. Divine+ never drops.
-Egg_Guaranteed_Per_Kill,1,"One egg of a line NATIVE to the zone (creatures.csv Home_Zone), Stage-1 egg — evolution intact."
+Gear_Grade_Band_Rule,one_band_ahead,"Roll drop_grade_weights one floor band AHEAD of the boss's band. The band after 91-100 is the first Apex row, so the floor-100 boss rolls floor 101's row; Apex rows are one floor wide, so an Apex boss reads the next floor and floor 120 clamps to itself. Divine+ never drops."
+Egg_Guaranteed_Per_Kill,1,"One Stage-1 egg of any line that spawns on the zone's floors (floor_creature_rarity.csv; any stage counts), the egg is the line's Stage-1 — evolution intact."
 Egg_Line_Weighting,rarity_appearance,"Native lines weighted by the canonical tier chances 30/30/20/10/10 (C/UC/R/SR/SSR), normalized over tiers present in the zone."
 Egg_Grade_Rule,floor_band_capped_legendary,Roll drop_grade_weights for the boss's floor band; results above Legendary clamp to Legendary (wild-egg cap). Breeding remains the only Divine+/Void path.
 Delivery,conclusion_screen,All boss loot delivered on the battle-conclusion screen straight to inventory.
