@@ -147,6 +147,7 @@
   <section>
     <h3>Changelog</h3>
     <div class="section-body">
+      <p style="font-size:12px;margin:0 0 6px;"><strong>2026-10-01</strong> &mdash; <strong>Move versions in the codex follow the game, stage by stage (MOVEVER).</strong> D, Rulings board card <code>movever</code>: "codex should show the correct version for each creature stage. The game should be the source of truth and the wiki should follow." The game resolves a move by LEVEL (<code>moveVerAt</code>: V3 at <code>Level_Upgrade_V3</code>, V2 at <code>_V2</code>, else V1). The in-game codex sheet, which owns no creature and so no level, printed V1 for every stage forever; this page highlighted <code>V&lt;stage&gt;</code>. Neither is what the game fires. A stage is now a level window &mdash; from the previous stage's <code>Evolve_Level</code> (the advance fires at level &ge; it) to one level before its own, the final stage to the cap. <strong>In game:</strong> the codex sheet resolves each move at the window's first level (or its <code>Level_Learned</code>, if later) with the same <code>moveVerAt</code> the battle uses, shows that version's name, power and effect, and its Empowers line lists only the upgrades still ahead with their levels; a move learned after the stage reads LEARNS LV n. <strong>Here:</strong> every version the game fires inside this stage is highlighted, with the levels it fires at ("this stage: Lv a&ndash;b"). Probe <code>probe_movever</code> walks every creature &times; stage-window level &times; learned slot (36,372 points): game vs in-game codex 85.9% &rarr; 100%, game vs this page 67.9% &rarr; 100%. <em>In-game half on DEV; this page live on push.</em></p>
       <p style="font-size:12px;margin:0 0 6px;"><strong>2026-10-01</strong> &mdash; <strong>Every cry shares one maximum length (Bug Run 0.89 Q2).</strong> D: "Are they sharing the same max length? It's ok to be shorter, but they should never be too long." They shared none: a cry was as long as its syllables made it, 0.38&ndash;1.28&nbsp;s (stage 1 median 0.54&nbsp;s, stage 2 0.65&nbsp;s, stage 3 0.93&nbsp;s). The synth now caps every cry at <code>CRY_BANK.MAX_S</code> = 1.2&nbsp;s, the stage-3 90th percentile rounded down: 289 of the 300 are untouched, the 11 longest stage-3 tails (Dagon, Slagworm, Simoom, Voidsiphon, Vigil, Sporewhale, Rusalka, Garrote, Moloch, Sibyl, Magmacrawler) lose at most 0.08&nbsp;s of release under a 60&nbsp;ms fade, and stage 3 still outlasts stage 2. A cry engaged at the start of a fight has ended before the intro's second beat and long before the first order. The game caps again at playback as a guard. The play button here plays the capped cry.</p>
       <p style="font-size:12px;margin:0 0 6px;"><strong>2026-09-28</strong> &mdash; <strong>Every creature has its own cry (#993).</strong> D: a floor engage "always plays the same high pitch screech". It was one cue, <code>battle.start</code> (<code>floor_arrive.ogg</code>, 96% of its energy above 4 kHz), fired for every fight. The cries follow the old generations' scheme: each LINE has one base cry chosen from its design (a boar grunts, a toad croaks, a serpent hisses, a golem clangs, a ghost moans - 22 kinds, from the Description words and the types; <code>tools/gen_cries.py</code> writes the table), its secondary type colours it (Undead breath, Elemental crackle, Eldritch ring, Horror roughness...), and each STAGE plays it lower (about 3.5 semitones a stage), longer, with more partials, more roughness and a sub-octave - stage 3 is the menacing one. No screech by construction: nothing is synthesized above 3.6 kHz and a 3.8 kHz low-pass closes every cry (worst case 1.8% of energy above 4 kHz, median centroid 463 Hz); each is normalised to the -18 LUFS ceiling and plays at the evolve cue's gain. The game plays the engaged creature's cry on a floor engage (battle.start only as the fallback), the advanced form's cry at the advancement reveal, and a CRY button on the creature sheet. The CRY line above plays all three stages of this line. <em>Client on DEV; this page carries the same synth file.</em></p>
       <p style="font-size:12px;margin:0 0 6px;"><strong>2026-09-09</strong> &mdash; <strong>Two hardcoded panels on this page were telling every creature the same lie.</strong> The MUTANT VARIANT box printed <em>NOT YET GENERATED</em> on all 300 pages: it was static markup that nothing ever replaced, while the mutant art has existed for every id in <code>codex/images/mutants/</code> and the &#9763;&nbsp;VIEW MUTANT toggle above was already serving it. The box now renders the real recolour when the file is present and keeps the placeholder only when it is genuinely absent. The MOVE PROGRESSION section, which read <em>&ldquo;move design not yet started for this line&rdquo;</em> on all 300 pages, is removed &mdash; the MOVES panel above it has printed the full V1/V2/V3 ladder with unlock levels since 2026-08-05, so the section was both false and redundant. Reported by D on Nauplius (DFMC-031). DESCRIPTIVE ONLY: no game behaviour changes.</p>
@@ -371,7 +372,7 @@ async function load() {
     if (prev) prevArrow.href = `creature.html?id=${prev.ID}`; else prevArrow.classList.add('disabled');
     if (next) nextArrow.href = `creature.html?id=${next.ID}`; else nextArrow.classList.add('disabled');
 
-    renderMoves(c);
+    renderMoves(c, lineMembers);
 
 
     document.getElementById('status').style.display = 'none';
@@ -381,11 +382,20 @@ async function load() {
     document.getElementById('status').textContent = 'LOAD FAILED: ' + err.message;
   }
 }
-async function renderMoves(c) {
+async function renderMoves(c, lineMembers) {
   try {
     const res = await fetch('codex/moves.csv?t=' + Date.now());
     const rows = parseCSV(await res.text());
     const stage = parseInt(c.Stage) || 3;
+    // MOVEVER (D, Rulings board card `movever`, 2026-10-01: "the game should be the source of truth and the
+    // wiki should follow"). This panel highlighted V<stage>, which is not what the game fires: the client
+    // resolves a move with moveVerAt(row, LEVEL) - V3 at Level_Upgrade_V3, V2 at _V2, else V1 - and a stage
+    // is a LEVEL WINDOW: from the previous stage's Evolve_Level (the advance fires at lvl >= Evolve_Level)
+    // to one level before its own; the final stage runs to the cap. A row is highlighted when the game fires
+    // that version at some level of this window, and it says which levels.
+    const prevStage = (lineMembers || []).find(x => (parseInt(x.Stage) || 1) === stage - 1);
+    const winLo = (prevStage && parseInt(prevStage.Evolve_Level)) || 1;
+    const winHi = (String(c.Evolves_To || '').trim() && parseInt(c.Evolve_Level)) ? parseInt(c.Evolve_Level) - 1 : Infinity;
     const mine = rows.filter(m => m.Line_ID === c.Line_ID).sort((a,b) => parseInt(a.Slot)-parseInt(b.Slot));
     if (!mine.length) { document.getElementById('moves-panel').innerHTML = '<span style="color:var(--ink-faded);font-size:13px;font-style:italic;">No moves catalogued yet.</span>'; return; }
     document.getElementById('moves-panel').innerHTML = mine.map(m => {
@@ -404,9 +414,14 @@ async function renderMoves(c) {
         pw:   m['Power_S' + i],
         fx:   m['Effect_S' + i]
       })).filter(v => v.lv !== null);
-      const cur = String(stage);
+      // the level band in which the game fires each version (moveVerAt), clipped to this stage's window
+      const N = k => { const v = LV(k); return v === null ? Infinity : (parseFloat(v) || Infinity); };
+      const learned = N('Level_Learned') === Infinity ? 1 : N('Level_Learned'), up2 = N('Level_Upgrade_V2'), up3 = N('Level_Upgrade_V3');
+      const band = i => i === 1 ? [learned, Math.min(up2, up3) - 1] : (i === 2 ? [Math.max(learned, up2), up3 - 1] : [Math.max(learned, up3), Infinity]);
+      const inStage = i => { const b = band(i), a = Math.max(b[0], winLo), z = Math.min(b[1], winHi); return a <= z ? [a, z] : null; };
       const rows = vers.map(v => {
-        const on = String(v.i) === cur;   // the version that matches this entry's stage window
+        const sw = inStage(v.i), on = !!sw;   // the game fires this version at some level of this entry's stage
+        const swTxt = sw ? (' \u00b7 this stage: Lv ' + sw[0] + (sw[1] === Infinity ? '+' : (sw[1] > sw[0] ? '\u2013' + sw[1] : ''))) : '';
         return `<div style="display:grid;grid-template-columns:34px 62px 1fr;gap:8px;align-items:baseline;
                   padding:5px 7px;border-left:2px solid ${on ? 'var(--gold)' : 'transparent'};
                   background:${on ? 'rgba(184,152,90,.07)' : 'transparent'};">
@@ -414,7 +429,7 @@ async function renderMoves(c) {
           <span style="font-size:11px;color:var(--ink-faint);">Lv ${escapeHtml(v.lv)}</span>
           <span>
             <span style="font-weight:600;font-size:12.5px;color:${on ? 'var(--ink)' : 'var(--ink-faded)'};">${escapeHtml(v.name)}</span>
-            <span style="font-size:11px;color:var(--ink-faint);"> · ${v.pw === '0' ? 'STATUS' : 'PWR ' + escapeHtml(v.pw)}</span>
+            <span style="font-size:11px;color:var(--ink-faint);"> · ${v.pw === '0' ? 'STATUS' : 'PWR ' + escapeHtml(v.pw)}</span>${on ? `<span style="font-size:11px;color:var(--gold);">${swTxt}</span>` : ''}
             <div style="font-size:11.5px;color:var(--ink-faded);margin-top:2px;">${escapeHtml(v.fx)}</div>
           </span>
         </div>`;
@@ -433,7 +448,8 @@ async function renderMoves(c) {
     }).join('');
     document.getElementById('moves-panel').insertAdjacentHTML('beforeend',
       '<p style="font-size:11px;color:var(--ink-faint);margin:2px 0 0;">Move versions unlock by LEVEL, not by stage. '
-      + 'The highlighted row is the version matching this entry\u2019s stage window \u2014 a creature below the listed level still fires the version above it.</p>');
+      + 'This stage runs Lv ' + winLo + (winHi === Infinity ? '+' : '\u2013' + winHi) + '; the highlighted rows are the versions the game fires inside it, with the levels at which it fires each. '
+      + 'A move with no highlighted row is learned after this stage.</p>');
 
     // Soul equip: equipping this creature's soul grants its moves to the character.
     // FINDING 4b (2026-08-31) — THIS PANEL WAS LEFT BEHIND BY THE 2026-08-05 FIX DIRECTLY ABOVE IT.
