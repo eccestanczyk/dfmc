@@ -64,21 +64,13 @@ TARGET_ONLY_STAGES = {'M-ANZU-1': {1}, 'M-SPECULUM-3': {1}, 'M-ANZU-4': {1}, 'M-
 # Deleting the caster layer took these stages below the BUDGET minimum. The minimum still holds for every other
 # stage (and for any new authoring); these are waived to >= 1 layer and are the #1020 re-author queue - each
 # needs a target-side layer drawn, which the #1020 lane was told not to do. Remove a pair once it is re-authored.
-UNDER_BUDGET_1020 = {
-    ('M-PHYLACTERY-2', 3), ('M-PLAGUECARRIER-3', 2), ('M-PLAGUECARRIER-3', 3), ('M-PYRIEL-1', 2), ('M-ROTFLY-1', 2),
-    ('M-ROTFLY-1', 3), ('M-ROTFLY-2', 3), ('M-SALTJAW-3', 2), ('M-STORMCROW-1', 2), ('M-STORMFATHER-1', 2),
-    ('M-STORMFATHER-2', 2), ('M-THORNHUSK-2', 2), ('M-THORNHUSK-2', 3), ('M-THUNDERMOTH-1', 2),
-    ('M-THUNDERMOTH-1', 3), ('M-THUNDERMOTH-2', 2), ('M-THUNDERMOTH-2', 3), ('M-THUNDERMOTH-3', 2),
-    ('M-THUNDERMOTH-3', 3), ('M-VESPERA-1', 2), ('M-VESPERA-1', 3), ('M-VESPERA-3', 3), ('M-VOLTMANTLE-1', 2),
-    ('M-WISPMAW-3', 2), ('M-WISPMAW-3', 3), ('M-WYCHROOT-1', 2), ('M-WYCHROOT-1', 3), ('M-YGGDRASIL-4', 3),
-    ('ULT-ARCHER-1', 1), ('ULT-MAGE-1', 1),
-}
+UNDER_BUDGET_1020 = set()
 # VFX-USER (D 2026-10-01): deleting the user layers of the 24 re-anchored both-sides rows took 7 more stages below
-# the minimum. Same waiver, same queue: the later under-minimum lanes draw their target-side layers.
-UNDER_BUDGET_1020 |= {('M-ZARATAN-2', 3)}
+# the minimum (M-ZARATAN-2 S3 among them). Same waiver, same queue.
 # VFX-THIN-A (D 2026-10-01, Bug Run 0.89 Q6: "Re-author all ... Recheck all moves."): the first half of the queue by
-# move id - 32 cells, M-ANZU-2 S2 to M-PHYLACTERY-2 S2 - drew their target-side layers and left the waiver. The rest
-# (M-PHYLACTERY-2 S3 on) is VFX-THIN-B's.
+# move id - 32 cells, M-ANZU-2 S2 to M-PHYLACTERY-2 S2 - drew their target-side layers and left the waiver.
+# VFX-THIN-B (same ruling): the other 31, M-PHYLACTERY-2 S3 to ULT-MAGE-1, drew theirs. The queue is empty; the
+# set stays so a future deletion that leaves a stage thin has the one place to say so - and must be drawn back up.
 
 
 def parse(txt):

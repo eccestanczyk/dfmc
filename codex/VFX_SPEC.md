@@ -88,6 +88,38 @@ touch an approval.
 
 ## Changelog
 
+- **2026-10-01** - **The thin stages drawn back up, second half - the waiver is empty (VFX-THIN-B, D's Bug Run
+  0.89 board Q6: "Re-author all ... You should do research on effects for other games for similar
+  abilities/effects ... Recheck all moves.").** The other 31 cells of `UNDER_BUDGET_1020` (Soulspark S3 on, by
+  move id, plus Weight of Ages S3 from VFX-USER and the two ultimates) drew target-side or ground layers from the
+  existing bank, same method as the first half: no user layer, the ladder and the family rule (S1 ⊆ S2 ⊆ S3)
+  kept, each new layer in the tint the row's existing layers already draw (`VFX_SHEET_TINTS.md`). Where an S3
+  sheet was the obvious next beat, S2 gets it a stage early. **Hits** (Pokemon's per-hit spark on multi-strikes;
+  Monster Hunter's part-break shards for armour pierced; a ground plume as a swarm lands - Attack Order):
+  *Soulspark* S3 a pale Strike Flash as the mote lands; *Before There Was Light* S2 the Piercing Bolt through
+  the Defense it ignores; *Lightning Spear* S2 and *Bite* S2 the Shard Burst a stage early; *Stormcrown* S2 the
+  Heavy Impact; *Megavolt Delivery* S2 the Arc Strike; *Thorn Volley* S2 green splinter shards (Splinters
+  starts at S2), S3 a Strike Flash per spine (FX-038 n3); *Reanimating Sting* S3 a green flash at the
+  puncture; *Dust Zap* S2 the shards, S3 a violet Arc Strike as the dust ignites; *Coronation Swarm* S2-S3 the
+  brood comes down as a green ground plume (a Strike Flash inside the Ember Sphere was shot first and could
+  not be seen - replaced). **DoTs and debuffs** (the marker that settles on the victim - Pokemon's stat-drop
+  motes, Infestation's wrap): *Release the Colony* S2 the green wisp a stage early, S3 a Tempest Coil as the
+  tide wraps the target; *Blightswarm* S2 the ground plume, S3 Hex Motes (Larval Rot); *I Am the Storm* S2 Hex
+  Motes (Struck Twice and Speed down start at S2); *Overload Flash* S2 the afterimage smoke a stage early, S3
+  Hex Motes (Attack down); *EM Pulse* S2 the motes a stage early, S3 a Thunder Ring - the pulse; *Mesmer
+  Light* S2 the motes, S3 a pulsing Mending Ring (Hypnosis's rings); *Strangleroots* S2 the Sanctified Circle
+  a stage early, S3 Hex Motes (Rootbound). **Ally** (a rising aura for attack - Bulk Up; the sanctified circle
+  under a heal): *Queen's Decree* S3 a Standing Flame rising; *Sap of Ages* S3 the Sanctified Circle under the
+  healed ally. **Ground**: *Weight of Ages* S3 shard debris thrown up by the step. **Ultimates** (to 4 layers):
+  *Sure Shot* a rust Heavy Impact ring as the arrow lands; *Shardburst* a Shatterfrost under the Shard Burst.
+  Cells: Soulspark S3, Release the Colony S2-S3, Before There Was Light S2, Blightswarm S2-S3, Reanimating
+  Sting S3, Bite S2, Stormcrown S2, I Am the Storm S2, Lightning Spear S2, Thorn Volley S2-S3, Overload Flash
+  S2-S3, Dust Zap S2-S3, EM Pulse S2-S3, Coronation Swarm S2-S3, Queen's Decree S3, Megavolt Delivery S2,
+  Mesmer Light S2-S3, Strangleroots S2-S3, Sap of Ages S3, Weight of Ages S3, Sure Shot, Shardburst. Every cell
+  shot on `vfx.html` with `tools/vfx_shoot.py` and looked at; Coronation Swarm replaced, Shardburst and Weight of
+  Ages retimed / scaled after the look. `UNDER_BUDGET_1020` is now empty: the per-stage layer minimum holds for
+  every stage again. `moves.csv` re-synced; `DATA_PIN` does not move. fx_lint 0 failing / 419.
+
 - **2026-10-01** - **The thin stages drawn back up, first half (VFX-THIN-A, D's Bug Run 0.89 board Q6: "Re-author
   all ... You should do research on effects for other games for similar abilities/effects ... Recheck all
   moves.").** The `UNDER_BUDGET_1020` queue (63 cells left under the layer minimum by #1020 and VFX-USER) sorted
