@@ -110,7 +110,7 @@ S-EMBERCLAW-FEET,EMBERCLAW,Feet,Team,Rare,Allies' burn-type effects deal +6%.
 S-ZARATAN-HEAD,ZARATAN,Head,Personal,Rare,+7% Defense.
 S-ZARATAN-CHEST,ZARATAN,Chest,Local,Rare,This armour's Defense ×1.45.
 S-ZARATAN-GLOVES,ZARATAN,Gloves,Personal,Rare,Attackers that hit you take 5% of their damage back.
-S-ZARATAN-FEET,ZARATAN,Feet,Team,Rare,Allies +6% Defense while you are above 50% HP.
+S-ZARATAN-FEET,ZARATAN,Feet,Team,Rare,Allies +6% Defense while above 50% HP.
 S-MARID-HEAD,MARID,Head,Personal,Super Rare,+7% Attack on the first turn.
 S-MARID-CHEST,MARID,Chest,Personal,Super Rare,+8% HP.
 S-MARID-GLOVES,MARID,Gloves,Local,Super Rare,This item's Defense contribution ×1.52.
