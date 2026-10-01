@@ -194,7 +194,7 @@ S-VOIDSHELL-FEET,VOIDSHELL,Feet,Team,Rare,Allies take -4% damage from Spectral a
 S-TALOS-HEAD,TALOS,Head,Personal,Super Rare,+7% Defense.
 S-TALOS-CHEST,TALOS,Chest,Local,Super Rare,This armour's Defense ×1.52.
 S-TALOS-GLOVES,TALOS,Gloves,Personal,Super Rare,Attackers that hit you take 5% of their damage back.
-S-TALOS-FEET,TALOS,Feet,Team,Super Rare,Allies take -5% damage while you are above 50% HP.
+S-TALOS-FEET,TALOS,Feet,Team,Super Rare,Allies take -5% damage while above 50% HP.
 S-MAGMACRAWLER-HEAD,MAGMACRAWLER,Head,Personal,Super Super Rare,+8% Attack vs targets with a damage-over-time effect.
 S-MAGMACRAWLER-CHEST,MAGMACRAWLER,Chest,Local,Super Super Rare,This armour's Defense ×1.60.
 S-MAGMACRAWLER-GLOVES,MAGMACRAWLER,Gloves,Personal,Super Super Rare,Your damage-over-time effects deal +10%.
@@ -354,7 +354,7 @@ S-NOSFERATU-FEET,NOSFERATU,Feet,Team,Super Rare,Vampiric allies' attacks that he
 S-PHYLACTERY-HEAD,PHYLACTERY,Head,Personal,Super Rare,+7% Defense.
 S-PHYLACTERY-CHEST,PHYLACTERY,Chest,Local,Super Rare,This armour's Defense ×1.52.
 S-PHYLACTERY-GLOVES,PHYLACTERY,Gloves,Personal,Super Rare,Your debuffs last +1 turn.
-S-PHYLACTERY-FEET,PHYLACTERY,Feet,Team,Super Rare,The first ally to drop below 25% HP each battle takes -8% damage for 2t.
+S-PHYLACTERY-FEET,PHYLACTERY,Feet,Team,Super Rare,Allies take -8% damage while below 25% HP.
 S-SPECULUM-HEAD,SPECULUM,Head,Personal,Super Super Rare,Enemy Attack debuffs you apply are +8% more potent.
 S-SPECULUM-CHEST,SPECULUM,Chest,Personal,Super Super Rare,+8% HP.
 S-SPECULUM-GLOVES,SPECULUM,Gloves,Personal,Super Super Rare,Your buff-copy and buff-steal effects last +1 turn.
@@ -390,7 +390,7 @@ S-IGNIFER-FEET,IGNIFER,Feet,Team,Super Rare,Allies' burn-type effects last +1 tu
 S-VIGIL-HEAD,VIGIL,Head,Personal,Super Rare,+7% Defense while you did not attack last turn.
 S-VIGIL-CHEST,VIGIL,Chest,Local,Super Rare,This armour's Defense ×1.52.
 S-VIGIL-GLOVES,VIGIL,Gloves,Personal,Super Rare,+7% Attack the turn after an ally was damaged.
-S-VIGIL-FEET,VIGIL,Feet,Team,Super Rare,Allies take -5% damage while you are above 50% HP.
+S-VIGIL-FEET,VIGIL,Feet,Team,Super Rare,Allies take -5% damage while above 50% HP.
 S-PYRIEL-HEAD,PYRIEL,Head,Personal,Super Super Rare,Your damage-over-time effects are +10% more potent.
 S-PYRIEL-CHEST,PYRIEL,Chest,Personal,Super Super Rare,+9% HP.
 S-PYRIEL-GLOVES,PYRIEL,Gloves,Local,Super Super Rare,This item's Defense contribution ×1.60.
