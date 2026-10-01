@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Herumon Tower</title>
+<link rel="stylesheet" href="theme.css?v=4">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+.pending-banner{ max-width:900px; margin:18px auto 0; padding:10px 16px; border:1px dashed var(--gold-dim); background:rgba(207,166,80,0.06);
+  font-family:'Cinzel',serif; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold-bright); text-align:center; }
+.ph{ background:rgba(207,166,80,0.14); color:var(--gold-bright); padding:0 4px; border-radius:3px; font-family:monospace; font-size:12.5px; }
+.sp-wrap ol li, .sp-wrap ul li{ font-size:14px; color:var(--ink-dim); line-height:1.6; margin:3px 0; }
+.sp-wrap td{ font-size:13.5px; vertical-align:top; }
+</style>
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">PRIVACY POLICY</h1></div>
+<div class="pending-banner">Draft &mdash; bracketed fields await the company details and legal review</div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="hub.html">Hub</a> &rsaquo; <a href="settings.html">Settings</a> &rsaquo; Privacy Policy</div>
+  <p class="sp-lead">What Herumon Tower collects about you, why, who else sees it, how long it is kept, and what you can ask us to do with it. It describes what the game's server code actually does today; when that changes, this page changes first. <strong>Effective date:</strong> <span class="ph">[EFFECTIVE DATE]</span>. Opened from <em>Settings &rsaquo; Legal &amp; Support &rsaquo; Privacy Policy</em>. The rules for using the game are in the <a href="terms.html">Terms of Service</a>.</p>
+
+  <h2>1. Who is responsible</h2>
+  <p>The controller of your data is <span class="ph">[LEGAL ENTITY NAME]</span>, <span class="ph">[REGISTERED ADDRESS]</span>. Contact for anything in this policy: <span class="ph">[PRIVACY CONTACT EMAIL]</span>, or <em>Contact Support</em> in the game.</p>
+  <ul>
+    <li>EU representative (GDPR Art. 27): <span class="ph">[EU REPRESENTATIVE NAME AND ADDRESS]</span></li>
+    <li>UK representative (UK GDPR Art. 27): <span class="ph">[UK REPRESENTATIVE NAME AND ADDRESS]</span></li>
+    <li>Data protection officer / Brazil <em>encarregado</em>: <span class="ph">[DPO NAME AND CONTACT, or &ldquo;not appointed&rdquo; with the reason]</span></li>
+  </ul>
+
+  <h2>2. What we collect, and why</h2>
+  <table>
+    <tr><th>Data</th><th>Where it comes from</th><th>Why</th><th>Legal basis (GDPR / LGPD)</th></tr>
+    <tr><td class="lbl">Your <strong>Steam ID</strong> (a 17-digit number)</td><td>Steam, when you sign in. We never see your Steam password, e-mail or payment details; we do not call the Steam Web API for your profile.</td><td>It is your account: every save, purchase and report is filed under it.</td><td>Contract &mdash; we cannot run your account without it.</td></tr>
+    <tr><td class="lbl"><strong>Character name</strong></td><td>You, at character creation.</td><td>Shown to other players on leaderboards and in PvP.</td><td>Contract.</td></tr>
+    <tr><td class="lbl"><strong>Game save and history</strong>: progress, creatures, items, currencies, settings, the Adventure Log, recent earlier versions of the save</td><td>The game, as you play.</td><td>To keep your progress, check it for cheating, and roll it back if a bug damages it.</td><td>Contract; legitimate interest (preventing cheating and fraud).</td></tr>
+    <tr><td class="lbl"><strong>Wraithgold ledger</strong> and purchase records</td><td>The game.</td><td>To know what you own and what you paid for, and to never charge twice.</td><td>Contract; legal obligation (records of sales, once sales open).</td></tr>
+    <tr><td class="lbl"><strong>PvP and leaderboard records</strong>: your team snapshot, scores, ranks, match results</td><td>The game.</td><td>Other players fight a snapshot of your team in Auto PVP; boards are public.</td><td>Contract.</td></tr>
+    <tr><td class="lbl"><strong>Session token</strong></td><td>Created at sign-in, kept in the <code>ht_session</code> cookie.</td><td>Keeps you signed in.</td><td>Contract; strictly necessary storage.</td></tr>
+    <tr><td class="lbl"><strong>IP address</strong></td><td>Every request.</td><td>Counted in memory to stop one address flooding the server. If an address goes over the limit, it is written to a traffic log with the time and the page asked for, and may be flagged for review.</td><td>Legitimate interest (security).</td></tr>
+    <tr><td class="lbl"><strong>Bug reports</strong>: your text, its category, the state of the game when you filed it, a recent play log, the build, your browser's user-agent string, your Steam ID</td><td>You, when you send a report; and the game itself, which files an automatic report when it detects a fault on your side.</td><td>To find and fix bugs.</td><td>Legitimate interest (fixing the game); contract for reports you ask us to act on.</td></tr>
+    <tr><td class="lbl"><strong>Adventure Log uploads</strong> and a random <strong>device ID</strong></td><td>The game. The device ID is a random string made by your browser the first time you play; it says nothing about the device itself.</td><td>Your Adventure Log chapters are copied to the server so a log written on one device is not lost to another; the device ID keeps each device's copy apart.</td><td>Contract.</td></tr>
+    <tr><td class="lbl"><strong>Server metrics</strong>: which kind of request was made, its result and a shortened one-way hash of the session; for battles against wild creatures, your Steam ID with the floor, turns and rewards</td><td>The server.</td><td>To see load and cost, and to balance the game. This is our own server's log, not a third-party analytics or advertising service.</td><td>Legitimate interest (running and balancing the game).</td></tr>
+    <tr><td class="lbl"><strong>Anti-cheat observations</strong></td><td>The server, when a save or request breaks the game's rules.</td><td>To keep rankings and the economy fair.</td><td>Legitimate interest (preventing cheating and fraud).</td></tr>
+  </table>
+  <p>We do <strong>not</strong> collect your real name, e-mail, address, phone number, location, contacts or payment card. We use <strong>no third-party analytics, advertising or tracking</strong> in the game, and nothing follows you to other sites; the <em>Analytics</em> switch in Settings records your choice in advance, and anything ever added must honour it. We do not sell or share your data for advertising, and we make no decisions about you by automated means that have legal or similarly significant effects; the anti-cheat checks reject invalid game actions and a person reviews any action on an account.</p>
+
+  <h2>3. Storage on your device</h2>
+  <p>The game stores data in your browser so it works; none of it is used for tracking, so no consent banner is shown (EU ePrivacy Directive Art. 5(3) exempts storage strictly necessary for a service you asked for).</p>
+  <ul>
+    <li><code>ht_session</code> cookie &mdash; your sign-in session, HttpOnly, sent only to the game server.</li>
+    <li>Browser local storage &mdash; a copy of your save for fast loading, your settings, the random device ID, and a short device play log used in bug reports.</li>
+    <li>This codex website keeps an optional admin flag and page caches in local storage, and registers a service worker so pages refresh quickly.</li>
+  </ul>
+
+  <h2>4. Who else handles your data</h2>
+  <table>
+    <tr><th>Who</th><th>What for</th><th>Where</th></tr>
+    <tr><td class="lbl">Cloudflare, Inc.</td><td>Hosts the game server and its storage; every request passes through it.</td><td>Global network; USA</td></tr>
+    <tr><td class="lbl">Valve Corporation (Steam)</td><td>Sign-in. Valve's own <a href="https://store.steampowered.com/privacy_agreement/" target="_blank" rel="noopener noreferrer">privacy policy</a> covers what Steam does.</td><td>USA</td></tr>
+    <tr><td class="lbl">GitHub, Inc.</td><td>Hosts this codex site; bug reports are copied into a private development repository so they can be worked on.</td><td>USA</td></tr>
+    <tr><td class="lbl">Google (Google Fonts)</td><td>The codex site loads its typefaces from Google, which receives your IP address when a page opens.</td><td>USA</td></tr>
+    <tr><td class="lbl">Other players</td><td>See your character name, leaderboard scores and ranks, and your Auto PVP team.</td><td>&mdash;</td></tr>
+  </table>
+  <p>We will disclose data to authorities only where the law requires it. If the game or its company is sold, the data goes with it under this policy.</p>
+  <p><strong>Transfers outside your country.</strong> Our providers are in the United States. Transfers from the EU, UK and Brazil rely on <span class="ph">[TRANSFER MECHANISM &mdash; e.g. EU-US Data Privacy Framework certification of each provider, or Standard Contractual Clauses]</span>. For players in Japan, the providers' countries and safeguards are listed above, as APPI Art. 28 requires.</p>
+
+  <h2>5. How long we keep it</h2>
+  <table>
+    <tr><th>Data</th><th>Kept</th></tr>
+    <tr><td class="lbl">Account, save, ledger, leaderboard and PvP records</td><td>While the account exists; deleted when you delete the account, except purchase records the law requires us to keep (<span class="ph">[RECORD-KEEPING PERIOD, per tax law of GOVERNING LAW]</span>).</td></tr>
+    <tr><td class="lbl">Earlier versions of your save</td><td>A short rolling history, for repairs.</td></tr>
+    <tr><td class="lbl">Disaster-recovery backups</td><td>A copy of each save in a five-day ring: each day's copy is overwritten five days later.</td></tr>
+    <tr><td class="lbl">Session</td><td>90 days, or until you sign out.</td></tr>
+    <tr><td class="lbl">IP addresses in the traffic log</td><td>7 days. An address flagged for review is kept with the flag until the flag is cleared; <span class="ph">[FLAG RETENTION PERIOD]</span>.</td></tr>
+    <tr><td class="lbl">Adventure Log uploads</td><td>While the account exists. Today they have no automatic expiry.</td></tr>
+    <tr><td class="lbl">Server metrics</td><td>For Cloudflare Analytics Engine's retention period, after which Cloudflare discards them.</td></tr>
+    <tr><td class="lbl">Bug reports</td><td>Until the problem is resolved, then <span class="ph">[REPORT RETENTION PERIOD]</span>. Today reports have no automatic expiry; setting one is on our backlog.</td></tr>
+  </table>
+
+  <h2>6. Your rights</h2>
+  <p>Depending on where you live (EU/EEA, UK, Brazil, Japan, California and elsewhere) you can ask us to:</p>
+  <ul>
+    <li><strong>see</strong> the data we hold about you, and get a copy;</li>
+    <li><strong>take it with you</strong> &mdash; <em>Settings &rsaquo; Account &amp; Data &rsaquo; Export My Data</em> downloads your save as JSON straight away; ask us for the rest;</li>
+    <li><strong>correct</strong> it (for example your character name);</li>
+    <li><strong>delete</strong> it &mdash; there is no delete button in the game yet; ask through <em>Contact Support</em> or <span class="ph">[PRIVACY CONTACT EMAIL]</span> and we delete the account and its data by hand, including its backups, reports and Adventure Log uploads (the in-game <em>Reset Progress</em> wipes progress only and is not a deletion);</li>
+    <li><strong>object</strong> to, or <strong>restrict</strong>, processing based on legitimate interest;</li>
+    <li>withdraw any consent you gave, without affecting what came before.</li>
+  </ul>
+  <p>We answer within one month (GDPR) or the shorter period your law sets, and we will not treat you differently for using these rights. You can also complain to your data protection authority &mdash; for example your EU national authority, the UK ICO, Brazil's ANPD, or Japan's Personal Information Protection Commission. We do not sell personal information and do not respond to &ldquo;Do Not Track&rdquo; signals differently, because we do no tracking for them to switch off.</p>
+
+  <h2>7. Children</h2>
+  <p>The game is not directed at children under 13, and we do not knowingly collect data from them. <span class="ph">[AGE GATE &mdash; not built yet; see the backlog entry]</span>. If you believe a child under 13 (or under the digital-consent age in your country) has an account, tell us and we will delete it.</p>
+
+  <h2>8. Security</h2>
+  <p>Traffic is encrypted (HTTPS). Sessions are random tokens checked on the server; saves live in a per-player database object that only the server can write. No system is perfect; if a breach puts your data at risk we will tell you and the authorities as the law requires.</p>
+
+  <h2>9. Changes</h2>
+  <p>When this policy changes in a way that matters, the game tells you before the change takes effect. Each version is dated, and the changelog below lists what changed.</p>
+
+  <h2>Changelog</h2>
+  <ul>
+    <li><strong>2026-10-01 &mdash; first draft (D, Rulings board card <em>settings</em>; lane LEGAL). WIKI ONLY &mdash; NOT REVIEWED BY COUNSEL.</strong> The Settings row <em>Privacy Policy</em> opened this page and it was 404. Every data claim was checked against the server code (<code>dfmc-client/src/worker.js</code>, 2026-10-01): Steam OpenID only, no profile fetch; <code>ht_session</code> cookie, 90-day session; per-IP rate limits with over-limit addresses kept 7 days in the world object's traffic log; reports store text, context, play log, build and user-agent, and screenshots have been dropped since 2026-08-05; Adventure Log uploads to R2 under a client-minted device id; the R2 save mirror is a five-slot daily ring; Analytics Engine carries request classes and, for PvE battles, the Steam ID; no third-party analytics, ads or payment processor. Bracketed fields are company information that does not exist yet; D's ruling put filling them in and a counsel review on the backlog (<em>Legal review of privacy/terms/credits</em>).</li>
+  </ul>
+</div>
+<script src="admin.js"></script>
+<script src="nav.js"></script>
+</body>
+</html>
