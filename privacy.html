@@ -72,14 +72,14 @@
   <h2>5. How long we keep it</h2>
   <table>
     <tr><th>Data</th><th>Kept</th></tr>
-    <tr><td class="lbl">Account, save, ledger, leaderboard and PvP records</td><td>While the account exists; deleted when you delete the account, except purchase records the law requires us to keep (<span class="ph">[RECORD-KEEPING PERIOD, per tax law of GOVERNING LAW]</span>).</td></tr>
+    <tr><td class="lbl">Account, save, ledger, leaderboard and PvP records</td><td>While the account exists; deleted 7 days after you ask to delete the account, except purchase records the law requires us to keep, which stay without your account attached (<span class="ph">[RECORD-KEEPING PERIOD, per tax law of GOVERNING LAW]</span>).</td></tr>
     <tr><td class="lbl">Earlier versions of your save</td><td>A short rolling history, for repairs.</td></tr>
-    <tr><td class="lbl">Disaster-recovery backups</td><td>A copy of each save in a five-day ring: each day's copy is overwritten five days later.</td></tr>
+    <tr><td class="lbl">Disaster-recovery backups</td><td>A copy of each save in a five-day ring: each day's copy is overwritten five days later. Deleting the account deletes its copies.</td></tr>
     <tr><td class="lbl">Session</td><td>90 days, or until you sign out.</td></tr>
     <tr><td class="lbl">IP addresses in the traffic log</td><td>7 days. An address flagged for review is kept with the flag until the flag is cleared; <span class="ph">[FLAG RETENTION PERIOD]</span>.</td></tr>
-    <tr><td class="lbl">Adventure Log uploads</td><td>While the account exists. Today they have no automatic expiry.</td></tr>
+    <tr><td class="lbl">Adventure Log uploads</td><td>While the account exists; deleted with the account. Today they have no other automatic expiry.</td></tr>
     <tr><td class="lbl">Server metrics</td><td>For Cloudflare Analytics Engine's retention period, after which Cloudflare discards them.</td></tr>
-    <tr><td class="lbl">Bug reports</td><td>Until the problem is resolved, then <span class="ph">[REPORT RETENTION PERIOD]</span>. Today reports have no automatic expiry; setting one is on our backlog.</td></tr>
+    <tr><td class="lbl">Bug reports</td><td>Until the problem is resolved, then <span class="ph">[REPORT RETENTION PERIOD]</span>. Today reports have no automatic expiry; setting one is on our backlog. When you delete the account, a report keeps its text but loses your account, play log, context and browser details.</td></tr>
   </table>
 
   <h2>6. Your rights</h2>
@@ -88,10 +88,17 @@
     <li><strong>see</strong> the data we hold about you, and get a copy;</li>
     <li><strong>take it with you</strong> &mdash; <em>Settings &rsaquo; Account &amp; Data &rsaquo; Export My Data</em> downloads your save as JSON straight away; ask us for the rest;</li>
     <li><strong>correct</strong> it (for example your character name);</li>
-    <li><strong>delete</strong> it &mdash; there is no delete button in the game yet; ask through <em>Contact Support</em> or <span class="ph">[PRIVACY CONTACT EMAIL]</span> and we delete the account and its data by hand, including its backups, reports and Adventure Log uploads (the in-game <em>Reset Progress</em> wipes progress only and is not a deletion);</li>
+    <li><strong>delete</strong> it &mdash; <em>Settings &rsaquo; Account &amp; Data &rsaquo; Delete Account</em>, or from a browser through <a href="delete-account.html">delete-account.html</a> (see <em>Deleting your account</em> below); you can also ask through <em>Contact Support</em> or <span class="ph">[PRIVACY CONTACT EMAIL]</span>. The in-game <em>Reset Progress</em> wipes progress only and is not a deletion;</li>
     <li><strong>object</strong> to, or <strong>restrict</strong>, processing based on legitimate interest;</li>
     <li>withdraw any consent you gave, without affecting what came before.</li>
   </ul>
+  <h3>Deleting your account</h3>
+  <p>Confirming <em>Delete Account</em> (typing <strong>DELETE</strong>) signs you out on every device and schedules the deletion <strong>7 days</strong> later. If you sign in during those 7 days the game shows the date and offers <em>Cancel deletion</em>, which restores everything as it was. After the 7 days the account is deleted for good, within a day:</p>
+  <ul>
+    <li><strong>deleted:</strong> the save and its history, every ledger and inventory record, Wraithgold and every other currency (bought or earned &mdash; it is not refunded), creatures, gear and pens, linked sign-ins, your name, your rows on every leaderboard and PvP ladder, your defence team, the five-day backup copies of your save, and your Adventure Log uploads;</li>
+    <li><strong>kept without your account:</strong> the text of bug reports you sent (their play log, context and browser details are deleted), security flags and traffic-log rows (your Steam ID is removed from them), and a minimal receipt of each purchase (what, when, the amount and the store's reference, with no account attached), because tax and refund law requires it (<span class="ph">[RECORD-KEEPING PERIOD, per tax law of GOVERNING LAW]</span>).</li>
+  </ul>
+  <p>Signing in with the same Steam account afterwards starts a brand-new account.</p>
   <p>We answer within one month (GDPR) or the shorter period your law sets, and we will not treat you differently for using these rights. You can also complain to your data protection authority &mdash; for example your EU national authority, the UK ICO, Brazil's ANPD, or Japan's Personal Information Protection Commission. We do not sell personal information and do not respond to &ldquo;Do Not Track&rdquo; signals differently, because we do no tracking for them to switch off.</p>
 
   <h2>7. Children</h2>
@@ -105,6 +112,7 @@
 
   <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-10-01 &mdash; deletion is in the game (D, Rulings board card <em>settings</em>; lane DELETE). WIKI + dev; the server half needs main + deploy. NOT REVIEWED BY COUNSEL.</strong> &sect;6 said there was no delete button. There is: <em>Delete Account</em> in Settings and the web page <a href="delete-account.html">delete-account.html</a> (Google Play requires a way outside the app). New sub-section <em>Deleting your account</em> lists the 7-day window, what is deleted and what is kept anonymised, checked against <code>dfmc-client/src/worker.js</code> (<code>delPurge</code>, <code>deleteSweep</code>); &sect;5 retention rows updated to match.</li>
     <li><strong>2026-10-01 &mdash; first draft (D, Rulings board card <em>settings</em>; lane LEGAL). WIKI ONLY &mdash; NOT REVIEWED BY COUNSEL.</strong> The Settings row <em>Privacy Policy</em> opened this page and it was 404. Every data claim was checked against the server code (<code>dfmc-client/src/worker.js</code>, 2026-10-01): Steam OpenID only, no profile fetch; <code>ht_session</code> cookie, 90-day session; per-IP rate limits with over-limit addresses kept 7 days in the world object's traffic log; reports store text, context, play log, build and user-agent, and screenshots have been dropped since 2026-08-05; Adventure Log uploads to R2 under a client-minted device id; the R2 save mirror is a five-slot daily ring; Analytics Engine carries request classes and, for PvE battles, the Steam ID; no third-party analytics, ads or payment processor. Bracketed fields are company information that does not exist yet; D's ruling put filling them in and a counsel review on the backlog (<em>Legal review of privacy/terms/credits</em>).</li>
   </ul>
 </div>

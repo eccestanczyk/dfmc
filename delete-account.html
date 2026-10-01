@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delete Your Account — Herumon Tower</title>
+<link rel="stylesheet" href="theme.css?v=4">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+.ph{ background:rgba(207,166,80,0.14); color:var(--gold-bright); padding:0 4px; border-radius:3px; font-family:monospace; font-size:12.5px; }
+.sp-wrap ol li, .sp-wrap ul li{ font-size:14px; color:var(--ink-dim); line-height:1.6; margin:3px 0; }
+.del-go{ display:inline-block; margin:8px 0 4px; padding:12px 22px; border-radius:8px; font-family:'Cinzel',serif; font-weight:700; letter-spacing:.1em;
+  background:linear-gradient(180deg,#c0392b,#7a1408); color:#f0e6d0; text-decoration:none; }
+</style>
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">DELETE YOUR ACCOUNT</h1></div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="hub.html">Hub</a> &rsaquo; <a href="settings.html">Settings</a> &rsaquo; <a href="privacy.html">Privacy Policy</a> &rsaquo; Delete Your Account</div>
+  <p class="sp-lead">How to delete your Herumon Tower account and everything it holds, from inside the game or from any browser. This page is the deletion link the app stores ask for. The full list of what is deleted and what is kept is in the <a href="privacy.html">Privacy Policy</a>, &sect;6 <em>Deleting your account</em>.</p>
+
+  <h2>From a browser</h2>
+  <p>The button opens the game and goes straight to the deletion dialog. If you are not signed in, sign in through Steam first, then press the button again.</p>
+  <p><a class="del-go" href="https://playdfmc.com/?delete=1">DELETE MY ACCOUNT</a></p>
+
+  <h2>From inside the game</h2>
+  <ol>
+    <li>Open <em>Settings</em> (the cogwheel), then <em>Account &amp; Data</em>.</li>
+    <li>Press <em>Delete Account</em>. The first dialog lists what will be deleted. Press <strong>CONTINUE</strong>.</li>
+    <li>Type <strong>DELETE</strong> and press <strong>DELETE ACCOUNT</strong>.</li>
+  </ol>
+
+  <h2>What happens next</h2>
+  <ul>
+    <li>You are signed out on every device at once, and the deletion is scheduled for <strong>7 days</strong> later.</li>
+    <li>If you sign in during those 7 days, the game shows <em>Deletion scheduled on &lt;date&gt;</em>. <strong>CANCEL DELETION</strong> keeps the account exactly as it was. <strong>CONTINUE</strong> signs you out again, and the deletion stays scheduled.</li>
+    <li>After the 7 days, the account is deleted within a day and cannot be recovered. Wraithgold you bought is deleted with it and is not refunded.</li>
+    <li>If you sign in with the same Steam account afterwards, you start a brand-new account.</li>
+  </ul>
+  <p>If you cannot sign in, write to <span class="ph">[PRIVACY CONTACT EMAIL]</span> with your Steam profile link and we delete the account for you.</p>
+
+  <h2>Changelog</h2>
+  <ul>
+    <li><strong>2026-10-01 &mdash; first version (D, Rulings board card <em>settings</em>; lane DELETE). WIKI + dev; the server half needs main + deploy.</strong> Google Play requires an account-deletion link outside the app, and this page is it. The button opens the game's <code>?delete=1</code> route on playdfmc.com, which runs the same two-step Settings flow (<code>dfmc-client/play/app.js</code>).</li>
+  </ul>
+</div>
+<script src="admin.js"></script>
+<script src="nav.js"></script>
+</body>
+</html>
