@@ -34,6 +34,14 @@ const CAP_HZ=3600;          // no partial is summed above this
 const LP_HZ=3800;           // final 4th-order low-pass
 const NORM_LUFS=-18, NORM_PEAK=-1;
 const CRY_GAIN=0.5;         // on the sfx bus: the evolve cue's own gain, so a cry sits with the cues, not over them
+/* ONE MAXIMUM (Bug Run 0.89 Q2, D 2026-10-01: "Are they sharing the same max length? It's ok to be shorter, but
+   they should never be too long"). Before this a cry was as long as its syllables made it - 0.38 s to 1.28 s, with
+   no ceiling. MAX_S is the stage-3 90th percentile (1.21 s) rounded down: the 289 cries under it are untouched to
+   the sample, the 11 longest stage-3 tails (three-syllable gurgle / clang, one-breath moan / song) lose at most
+   0.08 s of release, and a cry engaged at t=0 has ended before the intro's second beat (1.75 s) and long before
+   the first order (3.65 s). A cry over it is cut at MAX_S under a 60 ms cosine fade (no click); stage 3 still
+   outlasts stage 2 (longest 1.09 s). The client's cryPlay caps again at playback as a guard. */
+const MAX_S=1.2, CAP_FADE_S=0.06;
 
 /* THE BASE CRIES. f0 Hz at stage 1 before the line offset; harm = partial count; tilt = 1/k^tilt roll-off;
    duty = pulse-wave weighting (gen-1's duty cycle - 0.5 is hollow/square, 0.125 thin/nasal); F = two formant
@@ -258,7 +266,7 @@ const render=P=>{
   const R=rng(P.seed^(P.stage*0x9E3779B1));
   const syls=[]; let t=0;
   for(let i=0;i<P.syl;i++){ const d=P.ms*P.rhythm[i%5]*(i===P.syl-1&&P.syl>1?1.25:1); syls.push({t0:t,d:d,st:(P.steps?P.steps[i%P.steps.length]:(i?P.sylSt[i%5]:0))}); t+=d+P.gap; }
-  const total=Math.ceil((t-P.gap+40)*SR/1000); const out=new Float32Array(total);
+  const natural=Math.ceil((t-P.gap+40)*SR/1000), total=Math.min(natural,Math.round(MAX_S*SR)); const out=new Float32Array(total);
   const bp=biquad('bp',Math.sqrt(P.band[0]*P.band[1]),Math.max(0.5,Math.sqrt(P.band[0]*P.band[1])/(P.band[1]-P.band[0])));
   const hs=biquad('bp',1800,1.2);
   const ck=biquad('bp',1500,2.5);
@@ -300,7 +308,8 @@ const render=P=>{
   // THE CAP: high-pass 70 Hz, two 3.8 kHz low-pass stages (4th order), a 10 ms tail fade
   const h1=biquad('hp',70,0.707), l1=biquad('lp',LP_HZ,0.541), l2=biquad('lp',LP_HZ,1.307);
   for(let n=0;n<total;n++) out[n]=run(l2,run(l1,run(h1,out[n])));
-  const fade=Math.round(0.01*SR); for(let i=0;i<fade;i++) out[total-1-i]*=i/fade;
+  if(total<natural){ const cf=Math.round(CAP_FADE_S*SR); for(let i=0;i<cf;i++) out[total-1-i]*=0.5-0.5*Math.cos(Math.PI*i/cf); } // over MAX_S: a release, not a chop
+  else { const fade=Math.round(0.01*SR); for(let i=0;i<fade;i++) out[total-1-i]*=i/fade; }
   const m=measure(out); let g=Math.pow(10,(NORM_LUFS-m.lufs)/20); if(m.peak>0) g=Math.min(g,Math.pow(10,NORM_PEAK/20)/m.peak);
   for(let n=0;n<total;n++) out[n]*=g;
   return out; };
@@ -335,7 +344,7 @@ const playOn=(ctx,dest,row,gain)=>{ const x=samples(row); if(!ctx||!x) return ()
   const b=ctx.createBuffer(1,x.length,SR); if(b.copyToChannel) b.copyToChannel(x,0); else b.getChannelData(0).set(x);
   const s=ctx.createBufferSource(), g=ctx.createGain(); g.gain.value=(gain==null?CRY_GAIN:gain); s.buffer=b; s.connect(g); g.connect(dest||ctx.destination); s.start();
   return ()=>{ try{ s.stop(); }catch(e){} }; };
-const API={ SR:SR, CAP_HZ:CAP_HZ, LP_HZ:LP_HZ, NORM:{lufs:NORM_LUFS,peak:NORM_PEAK}, GAIN:CRY_GAIN,
+const API={ SR:SR, CAP_HZ:CAP_HZ, LP_HZ:LP_HZ, MAX_S:MAX_S, NORM:{lufs:NORM_LUFS,peak:NORM_PEAK}, GAIN:CRY_GAIN,
   KINDS:KINDS, MODS:MODS, TYPE_KIND:TYPE_KIND, LINES:LINES, spec:spec, render:render, measure:measure, samples:samples, keyOf:keyOf, describe:describe, playOn:playOn };
 if(typeof module!=='undefined'&&module.exports) module.exports=API;
 if(root) root.CRY_BANK=API;
