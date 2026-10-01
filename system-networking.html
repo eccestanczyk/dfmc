@@ -309,7 +309,8 @@
   between two clients can be trusted, so none is made.</p>
   <p>Two server-side gates remain behind this and are unchanged: a write whose <code>ts</code> precedes the
   stored one is rejected 409 <em>stale</em>, and a write whose <code>playerXp</code> is under half the
-  stored value is rejected 409 <em>xp regression flagged</em>. <code>maxFloor</code> is grow-only at the save door
+  stored value is <strong>no longer refused</strong> (2026-10-01, xp409): it lands, the stored XP is kept by the grow-only
+  rule and handed back in <code>srv</code>, and <code>xp_regress_halved</code> is flagged. <code>maxFloor</code> is grow-only at the save door
   (<code>maxfloor_regress</code>, below), and a <code>floorNum</code> that moves down in the same write as a regressed
   <code>maxFloor</code> is held at the stored position (<code>floornum_stale_writer</code>, #114); the login rule above
   keeps a stale client from proposing either in the first place.</p>
@@ -370,17 +371,19 @@
       minus the server-written excess <code>_ovX</code> / <code>_ovF</code>, what the ledger never credited) plus what the ledger credited since the last
       accepted save's stamp (<code>_ledX</code> / <code>_ledF</code>) plus grace (<code>ledger_grace</code>: 2,500 XP,
       300 Ichor). A save with no stamp gets the flat form <code>max(previous stored value, ledger + grace)</code> once.
-      The Ichor ceiling also adds the verified dismantle allowance (and any unconsumed trade allowance). A claim over
-      the ceiling but within the clamp band (<code>xp_clamp</code> 4,000 XP, <code>food_clamp</code> 5,000 Ichor) is
+      The Ichor ceiling also adds the verified dismantle allowance (and any unconsumed trade allowance). <strong>XP has no kept band</strong> (2026-10-01, xp409): any
+      <code>playerXp</code> claim over the ceiling is clamped to it (never below the value already stored) and reported in
+      <code>srv</code>; a claim <em>under</em> the credited total is lifted to it. An Ichor claim over
+      the ceiling but within the clamp band (<code>food_clamp</code> 5,000 Ichor) is
       <strong>kept</strong> and flagged, and its excess is stamped, so the next save is not measured from it: the band
       is one band in total, never one per save. Beyond the band it is forged-scale, clamped to the ceiling (never below
-      the value already stored) and reported back in <code>srv</code>.</td><td><code>xp_over_ledger</code>, <code>ichor_over_ledger</code> (kept), <code>xp_forged</code>,
+      the value already stored) and reported back in <code>srv</code>.</td><td><code>xp_over_ledger</code> (clamped), <code>ichor_over_ledger</code> (kept), <code>xp_forged</code>,
       <code>ichor_forged</code> (clamped)</td></tr>
     <tr><td class="lbl">Class XP ceiling</td><td><code>classXp</code> is hard-capped at <code>class_max_xp</code>
       (18,464,128, the level-100 cumulative total; <code>classxp_over_cap</code>), then held to the same delta ceiling
-      against the ledger's class credit (<code>_ledC</code>, grace 2,500; excess <code>_ovC</code>, as above). Within <code>cls_clamp</code> (6,000) over the
-      ceiling it is kept and flagged; beyond it is clamped and reported back in <code>srv</code>
-      (shipped 2026-08-01).</td><td><code>classxp_over_cap</code>, <code>classxp_over_ledger</code> (kept),
+      against the ledger's class credit (<code>_ledC</code>, grace 2,500; excess <code>_ovC</code>, as above). Any claim over the
+      ceiling is clamped and reported back in <code>srv</code>, and a claim under the credited total is lifted to it
+      (shipped 2026-08-01; the <code>cls_clamp</code> kept band removed 2026-10-01, xp409).</td><td><code>classxp_over_cap</code>, <code>classxp_over_ledger</code> (clamped),
       <code>classxp_forged</code> (clamped)</td></tr>
     <tr><td class="lbl">Wraithgold is overwritten, not clamped</td><td><strong>Changed 2026-08-02 &mdash; the clamp is
       deleted.</strong> <code>wgCeil</code> and the <code>wraithgold_over_grant</code> flag no longer exist. A ceiling on a
@@ -397,7 +400,11 @@
       record of blocks already bought, so nobody loses any) and owned by the server after that. The client earns a cap only
       through <code>/api/wallet/spend</code>, so whatever the blob claims is advisory. <em>Note for live accounts:</em> from
       first touch the server's number wins, so a blob holding a cap the server never recorded is corrected
-      <em>downward</em>.</td><td>reported in <code>srv{}</code></td></tr>
+      <em>downward</em>. <strong>The soul bag is counted against that cap</strong> (2026-10-01, soulcap): soul-category rows
+      in <code>bag</code>+<code>bagAdd</code>, minus hatched-hidden eggs, plus one class soul per owned class. A save may not
+      hold more souls than the server cap, or, on an account already over it, more than it already held; new souls past
+      that are stripped newest first. The breed-egg roll on a full bag mints nothing (409 <code>soul_bag_full</code>).</td><td>reported in <code>srv{}</code>
+      (<code>soulStripped</code>); <code>soul_over_cap</code></td></tr>
     <tr><td class="lbl">One line per build</td><td>A repeated <code>imgId</code> across <code>equipOv</code> is flagged.
       <strong>Visibility only, deliberately not a refusal</strong> &mdash; live saves already hold the violation and
       rejecting would lock those accounts out of their own progress to punish them for a hole the client left open. The
@@ -1797,6 +1804,7 @@ single flag write, still gates nothing.</p>
 
 <h2>Changelog</h2>
 <ul class="sp-rules">
+<li><strong>2026-10-01 &mdash; the save door owns XP and the soul bag cap (dfmc-client, Rulings board cards <code>xp409</code> and <code>soulcap</code>; D: &ldquo;ANTICHEAT AND SERVER AUTHORITATIVE. Client can&rsquo;t rule EVER&rdquo;). On dev; needs main + deploy.</strong> (1) XP: a save under half the stored <code>playerXp</code> is no longer refused 409 (an honest stale phone was halted); the grow-only merge keeps the server value and <code>srv</code> tells the device. The XP kept bands (<code>xp_clamp</code>, <code>cls_clamp</code>) are gone: <code>playerXp</code> and <code>classXp</code> over credited&nbsp;+&nbsp;grace are clamped and told; a claim under the credited total is lifted to it, so a clamped racer is made whole by the battle door&rsquo;s own credit. Ichor&rsquo;s band is unchanged. (2) Soul bag: no server door counted souls, and the client judged room against its own blob cap, so accounts whose blob cap ran ahead of <code>slot_caps</code> filled past the paid cap and, once the client adopted the server cap (2026-09-30), read &ldquo;bag full&rdquo; every session. The save door now counts souls against the server cap and strips new souls past it (<code>soul_over_cap</code>, <code>srv.soulStripped</code>); an account already over keeps what it holds but cannot grow; the breed-egg roll refuses on a full bag (409 <code>soul_bag_full</code>). Gate <code>tools/probe_authdoors.mjs</code> 5/15 &rarr; 15/15.</li>
 <li><strong>2026-10-01 &mdash; a background tab stops paying for calls that prove nothing (dfmc-client 0.89, Bug Run board Q10/Q11).</strong> On dev. Autoplay in a hidden tab runs exactly as before; three requests go. (1) The 60&nbsp;s <code>/api/me</code> heartbeat now skips a minute in which any same-origin <code>/api/</code> response already came back ok &mdash; battle and save traffic prove the connection as well as it did. It still fires when the window has been API-silent for a minute, always fires while paused or after a miss (the recovery path), and <code>__HT_CONNCHECK</code>, <code>online</code> and tab-return are never gated, so a failed request still pauses within one round-trip. (2) The update watcher no longer polls <code>/__build</code> while <code>document.hidden</code>; the tab-return re-check reads it, and a new build still reloads or prompts on return. (3) The Google Fonts <code>preconnect</code> lines left in the markup head are gone &mdash; the fonts are self-hosted, so they opened an unused connection to Google on every boot. Pinned by <code>tools/probe_net_bg.py</code> (6/10 before, 10/10 after).</li>
 <li><strong>2026-10-01 &mdash; the drought pill counts down without re-rendering the screen (dfmc-client 0.89 carry-over s4.2, PREP_PERFORMANCE &sect; 1.1).</strong> On dev. While a floor is starved the pill&rsquo;s &ldquo;NEXT IN Ns&rdquo; ticked by a 1 s <code>setState</code> on a key nothing read, so the whole template re-rendered every second for one number. The seconds are a ref&rsquo;d span the tick writes directly; the pill still shows and hides on the spawn-budget state, and the resync cadence (nextInMs, the 1.5 s &rarr; spawnIv backoff) is unchanged. Gate: tools/probe_perf_2.py, template commits over 5 s idle 5 &rarr; 0, the pill still counting.</li>
 <li><strong>2026-09-30 &mdash; a merged account&rsquo;s own Steam ID resolves to the account it was merged into (dfmc-client review lane W, the F224/F228 follow-up).</strong> On dev. <code>/api/account/resolve</code>&rsquo;s legacy fallback answered a bare steamid with itself when it had no <code>idx</code> row, and a pre-link Steam account never has one, so after a merge the loser&rsquo;s own Steam ID still resolved to the wiped loser (F224 re-points only the claims that exist). The fallback now asks that account&rsquo;s object for the outcome <code>merge_lose</code> stores (F228, kv <code>merge_out:&lt;winner&gt;:standard</code>, new internal <code>/api/_internal/merged_to</code>) and answers the winner, following a winner that was itself merged later (at most four hops, a cycle stops). An unmerged steamid still resolves to itself. Gate: <code>tools/probe_lanew_relay.py</code> 8/8 (5/8 on the tree before).</li>
