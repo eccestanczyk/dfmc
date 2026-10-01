@@ -48,11 +48,9 @@
   <h2>Display</h2>
   <table>
     <tr><th>Option</th><th>Control</th><th>Values</th><th>Default</th></tr>
-    <tr><td class="lbl">Graphics Quality</td><td>Segmented</td><td>Low / Medium / High</td><td>Medium</td></tr>
-    <tr><td class="lbl">Frame Rate</td><td>Segmented</td><td>30 / 60 / 120</td><td>60</td></tr>
+    <tr><td class="lbl">Frame Rate</td><td>Segmented</td><td>30 / 60 / Max &mdash; caps the animation loop; Max follows the display (a stored 120 reads as Max)</td><td>60</td></tr>
     <tr><td class="lbl">Battery Saver</td><td>Toggle</td><td>caps 30 fps, reduces VFX</td><td>Off</td></tr>
     <tr><td class="lbl">Screen Shake</td><td>Toggle</td><td>on/off</td><td>On</td></tr>
-    <tr><td class="lbl">Damage Numbers</td><td>Segmented</td><td>Off / Compact / Full</td><td>Full</td></tr>
     <tr><td class="lbl">VFX Intensity</td><td>Segmented</td><td>Low / Standard</td><td>Standard</td></tr>
     <tr><td class="lbl">Keep Screen Awake</td><td>Toggle</td><td>stops the screen sleeping while the game is open; shown only where the browser has the Wake Lock API; never runs in the background</td><td>Off</td></tr>
   </table>
@@ -70,8 +68,7 @@
     <tr><td class="lbl">Prioritize Buffs</td><td>Toggle</td><td>use a ready buff/support move before damage</td><td>Off</td></tr>
     <tr><td class="lbl">Prioritize Debuffs</td><td>Toggle</td><td>use a ready debuff move before damage</td><td>Off</td></tr>
     <tr><td class="lbl">Streak Counter</td><td>Toggle</td><td>show/hide post-battle counter</td><td>On</td></tr>
-    <tr><td class="lbl">Confirm Advancements</td><td>Toggle</td><td>confirm dialog before advancing</td><td>On</td></tr>
-    <tr><td class="lbl">Confirm Premium Spend</td><td>Toggle</td><td>confirm dialog</td><td>On</td></tr>
+    <tr><td class="lbl">Confirm Premium Spend</td><td>Static</td><td><em>Coming</em> &mdash; one confirm before every Wraithgold spend is not built yet</td><td>&mdash;</td></tr>
   </table>
   <p style="font-size:13px;color:var(--ink-faint)">Autoplay never auto-enters boss rooms &mdash; fixed rule, not a setting. See <a href="system-streak.html">Win Streak &amp; Floors</a>. What On Death, Out of Keys, Targeting, Optimize For, Ultimate and the Prioritize rows do is on <a href="system-autoplay.html">Autoplay</a>.</p>
 
@@ -92,20 +89,17 @@
   <h2>Adventure Log</h2>
   <table>
     <tr><th>Option</th><th>Control</th><th>Values</th><th>Default</th></tr>
-    <tr><td class="lbl">Wild Battle Detail Retention</td><td>Segmented</td><td>7 / 30 / 90 days</td><td>30 days</td></tr>
-    <tr><td class="lbl">Clear Wild Battle Detail Now</td><td>Action</td><td>confirm dialog; frees storage</td><td>&mdash;</td></tr>
+    <tr><td class="lbl">Battle Detail Storage</td><td>Static</td><td><em>Automatic</em> &mdash; the newest 512 KB of round-by-round detail is kept (BL_BUDGET); older wild fights keep result, floor and rewards</td><td>&mdash;</td></tr>
   </table>
   <p style="font-size:13px;color:var(--ink-faint)">Boss and PvP battle detail is always kept; chapter history is never deleted. See <a href="system-adventure-log.html">Adventure Log</a>.</p>
 
   <h2>Notifications</h2>
   <table>
     <tr><th>Option</th><th>Control</th><th>Values</th><th>Default</th></tr>
-    <tr><td class="lbl">Egg Ready to Hatch</td><td>Toggle</td><td>push</td><td>On</td></tr>
-    <tr><td class="lbl">Breeding Complete</td><td>Toggle</td><td>push</td><td>On</td></tr>
-    <tr><td class="lbl">PvP Defense Results</td><td>Toggle</td><td>push</td><td>On</td></tr>
-    <tr><td class="lbl">Season Ending Soon</td><td>Toggle</td><td>push</td><td>On</td></tr>
-    <tr><td class="lbl">Daily Reset</td><td>Toggle</td><td>push</td><td>Off</td></tr>
-    <tr><td class="lbl">Quiet Hours</td><td>Dropdown</td><td>Off / custom time range</td><td>Off</td></tr>
+    <tr><td class="lbl">Breeding Complete</td><td>Toggle</td><td>the in-game banner when a pen lays an egg</td><td>On</td></tr>
+    <tr><td class="lbl">PvP Defense Results</td><td>Toggle</td><td>the in-game note of how the defense did while away</td><td>On</td></tr>
+    <tr><td class="lbl">Season Ending Soon</td><td>Static</td><td><em>Coming</em> &mdash; needs push notifications</td><td>&mdash;</td></tr>
+    <tr><td class="lbl">Daily Reset</td><td>Static</td><td><em>Coming</em> &mdash; needs push notifications</td><td>&mdash;</td></tr>
   </table>
 
   <h2>Account &amp; Data</h2>
@@ -113,40 +107,39 @@
     <tr><th>Option</th><th>Control</th><th>Values</th><th>Default</th></tr>
     <tr><td class="lbl">Sign Out</td><td>Action</td><td>saves the climb, ends the session, returns to sign-in</td><td>&mdash;</td></tr>
     <tr><td class="lbl">Player Name</td><td>Static</td><td>set at character creation; no rename in game (D ruling 2026-08-17) &mdash; an admin renames via <code>/api/admin/rename</code></td><td>&mdash;</td></tr>
-    <tr><td class="lbl">Link Account</td><td>Action</td><td>platform account linking</td><td>&mdash;</td></tr>
-    <tr><td class="lbl">Cloud Save</td><td>Toggle + status</td><td>on/off, shows last sync time</td><td>On</td></tr>
-    <tr><td class="lbl">Server / Region</td><td>Dropdown</td><td>region list</td><td>auto</td></tr>
-    <tr><td class="lbl">Restore Purchases</td><td>Action</td><td>store restore flow</td><td>&mdash;</td></tr>
-    <tr><td class="lbl">Export My Data</td><td>Action</td><td>data download request</td><td>&mdash;</td></tr>
+    <tr><td class="lbl">Link Account</td><td>Static</td><td><em>Coming</em> &mdash; with Google / Apple / Discord sign-in</td><td>&mdash;</td></tr>
+    <tr><td class="lbl">Cloud Save</td><td>Static (live)</td><td>the time of the last save the server acknowledged; cannot be switched off &mdash; the server owns the save</td><td>&mdash;</td></tr>
+    <tr><td class="lbl">Restore Purchases</td><td>Static</td><td><em>Coming</em> &mdash; with the app-store builds</td><td>&mdash;</td></tr>
+    <tr><td class="lbl">Export My Data</td><td>Action</td><td>downloads this save as a JSON file, built in the client (no server read)</td><td>&mdash;</td></tr>
     <tr><td class="lbl">Reset Progress (New Game)</td><td>Action</td><td>wipes this save, back to Floor 1, Lv 1</td><td>&mdash;</td></tr>
-    <tr><td class="lbl">Delete Account</td><td>Action</td><td>double confirm + grace period</td><td>&mdash;</td></tr>
+    <tr><td class="lbl">Delete Account</td><td>Static</td><td><em>Coming</em> &mdash; no server door yet; until then an admin deletes on request through Contact Support</td><td>&mdash;</td></tr>
   </table>
 
   <h2>Language &amp; Accessibility</h2>
   <table>
     <tr><th>Option</th><th>Control</th><th>Values</th><th>Default</th></tr>
-    <tr><td class="lbl">Language</td><td>Dropdown</td><td>supported locales</td><td>system</td></tr>
-    <tr><td class="lbl">Text Size</td><td>Segmented</td><td>Small / Standard / Large</td><td>Standard</td></tr>
-    <tr><td class="lbl">Colorblind Mode</td><td>Dropdown</td><td>Off / Deuteranopia / Protanopia / Tritanopia</td><td>Off</td></tr>
+    <tr><td class="lbl">Language</td><td>Static</td><td><em>English</em> &mdash; more languages coming</td><td>&mdash;</td></tr>
+    <tr><td class="lbl">Text Size</td><td>Static</td><td><em>Coming</em> &mdash; the whole stage scales with the window today</td><td>&mdash;</td></tr>
+    <tr><td class="lbl">Colorblind Mode</td><td>Static</td><td><em>Coming</em> &mdash; needs a second palette</td><td>&mdash;</td></tr>
     <tr><td class="lbl">Reduce Motion</td><td>Toggle</td><td>disables shake, parallax, heavy transitions</td><td>Off</td></tr>
     <tr><td class="lbl">Reduce Flashing</td><td>Toggle</td><td>dampens hit-flash and strobe VFX</td><td>Off</td></tr>
-    <tr><td class="lbl">Haptics</td><td>Toggle</td><td>vibration feedback</td><td>On</td></tr>
   </table>
 
   <h2>Legal &amp; Support</h2>
   <table>
     <tr><th>Option</th><th>Control</th><th>Values</th><th>Default</th></tr>
-    <tr><td class="lbl">Help &amp; FAQ</td><td>Action</td><td>opens support page</td><td>&mdash;</td></tr>
-    <tr><td class="lbl">Contact Support</td><td>Action</td><td>support ticket flow</td><td>&mdash;</td></tr>
-    <tr><td class="lbl">Analytics</td><td>Toggle</td><td>opt in/out of usage analytics</td><td>On (opt-out)</td></tr>
-    <tr><td class="lbl">Privacy Policy</td><td>Action</td><td>opens document</td><td>&mdash;</td></tr>
-    <tr><td class="lbl">Terms of Service</td><td>Action</td><td>opens document</td><td>&mdash;</td></tr>
-    <tr><td class="lbl">Credits</td><td>Action</td><td>credits screen</td><td>&mdash;</td></tr>
+    <tr><td class="lbl">Help &amp; FAQ</td><td>Action</td><td>opens <code>help.html</code> on this site in a new tab</td><td>&mdash;</td></tr>
+    <tr><td class="lbl">Contact Support</td><td>Action</td><td>closes Settings and opens the in-game report form</td><td>&mdash;</td></tr>
+    <tr><td class="lbl">Analytics</td><td>Toggle</td><td>records the opt-out in the save; no usage analytics are collected today, and any that ever are must honour it</td><td>On (opt-out)</td></tr>
+    <tr><td class="lbl">Privacy Policy</td><td>Action</td><td>opens <code>privacy.html</code> on this site in a new tab</td><td>&mdash;</td></tr>
+    <tr><td class="lbl">Terms of Service</td><td>Action</td><td>opens <code>terms.html</code> on this site in a new tab</td><td>&mdash;</td></tr>
+    <tr><td class="lbl">Credits</td><td>Action</td><td>opens <code>credits.html</code> on this site in a new tab</td><td>&mdash;</td></tr>
     <tr><td class="lbl">Version</td><td>Static</td><td>the running build from <code>version.json</code> (the same string as the footer)</td><td>&mdash;</td></tr>
   </table>
 
   <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-10-01 &mdash; every row does what it says, or says it is coming (D, Rulings board card <em>settings</em>; client, lane SETTINGS). On dev.</strong> 17 controls had no reader and 8 action rows answered &ldquo;(Mock &mdash; not wired)&rdquo;. Wired: Frame Rate (30 / 60 / Max, a cap on the animation loop) and Battery Saver&rsquo;s 30 fps cap; Cloud Save prints the last acknowledged save; Export My Data downloads the save as JSON; Help, Privacy, Terms and Credits open their pages on this site (written by the docs lane); Contact Support opens the report form. Removed as not fitting the game: Graphics Quality, Damage Numbers, Confirm Advancements, Clear Wild Battle Detail Now, Egg Ready to Hatch, Quiet Hours, Server / Region, Haptics. Shown as <em>Coming</em>: Link Account, Restore Purchases, Delete Account, Season Ending Soon, Daily Reset, Text Size, Colorblind Mode, Confirm Premium Spend; Language reads English. Gate <code>tools/probe_settings.py</code>.</li>
     <li><strong>2026-09-30 &mdash; review fixes F304, F311, F312 (client, lane P). On dev.</strong> Legal &amp; Support &rsaquo; Version printed a hardcoded <em>v0.5</em>; it prints the running build, as the footer does. <em>Restore Defaults</em> on the Display section now lets go of (or takes) the screen wake lock at once &mdash; a held lock used to survive the reset until the page was hidden. The Autochallenge Boss &mdash; Out of Keys description lost a half-deleted sentence from a removed mode that contradicted the Go Down default. Gate <code>tools/probe_review_lanep.mjs</code>.</li>
     <li><strong>2026-09-30 &mdash; review drift fixes: F297, F315, F316, F317. WIKI ONLY.</strong> The tables now match <code>SETTINGS_SCHEMA</code>: Audio defaults Music 60 / Sound Effects 90 plus Mute All Sound (the 09-24 change had reached only this changelog); On Death defaults to Go Down; Battle &amp; Autoplay gains Stop Advancing After a Loss, Out of Keys, Targeting, Optimize For, Ultimate and both Prioritize rows; Display gains Keep Screen Awake; Account &amp; Data gains Sign Out and Reset Progress, and Player Name is a static row (renaming is admin-only, D 2026-08-17), not a rename dialog. The Pending Approval banner is replaced: the menu has been live since 0.67. DESCRIPTIVE ONLY.</li>
     <li><strong>2026-09-30 &mdash; Audio: Mute All Sound off brings the zone music back, and a bed that fails to load does not silence the zone (client review F346 / F347). ON DEV.</strong> Muting tears the zone bed down; unmuting only restored the mix, so the music stayed off until the next zone change. Unmuting now starts the zone bed again. A bed whose file failed to load (a network blip) was kept as the playing bed, so nothing tried again; the failed load is now dropped, so the next time the bed is asked for (unmute, returning to the tab, re-entering the zone) it loads again.</li>
