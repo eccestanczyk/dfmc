@@ -88,6 +88,28 @@ touch an approval.
 
 ## Changelog
 
+- **2026-10-22** - **Twenty-two rows recoloured to their element, and Lightless Carapace no longer hexes an enemy it
+  does not touch (T14, D's Tower rulings form 2026-10-18: "Recolour to the element"; Bug Run 0.89-4 board Q7, found
+  by VFX-THIN-A/B).** The thin-stage lanes matched every NEW layer to the colour the row already drew, and the row
+  itself was already off its element, so the whole row stayed wrong and the hit tint followed it: `bone` rows drawn
+  green (Release the Colony, Blightswarm, Coronation Swarm, Mesmer Light, Strangleroots, Reanimating Sting) or
+  purple/blue (Mourning Veil, Perfect Reflection, Megavolt Delivery, Dust Zap, Stormcrown, I Am the Storm, Bite,
+  Thorn Volley), `blue` rows drawn green (Sky Lacerate, Wild Command, Bog Benediction) or bone (Queen's Decree, Sap of
+  Ages, Weight of Ages), `rust` rows drawn bone/blue (Refraction Lance, Lightning Spear). The element of a move IS
+  its `VFX_Color` (there is no other Element column, and the per-element palette above keys off it); none of the
+  22 had a wrong `VFX_Color`, only wrong layers. Every layer of every stage of the 22 rows now carries, verbatim, the
+  sheet x element token `VFX_SHEET_TINTS.md` measured for (its sheet, the row's `VFX_Color`) - the bare `br1.4`
+  Sanctified Circles on Strangleroots and Stormcrown and the coloured-path `h200` Pale Plume on Bite S3 included, so
+  no layer is left painting a stranger's hue. Sheets, anchors, scale, delay, flip and flags are untouched; the rung
+  and the family rule hold. The colours named in the two VFX-THIN entries below ("green flash", "violet Arc
+  Strike", "green ground plume") are superseded by this one where they fall on these rows. **Lightless Carapace**
+  (`M-VOIDSHELL-4`, "the next creature to hit the user gains Dimmed") drew Hex Motes on the enemy at cast while
+  nothing happened to that enemy - the hex lands on whoever hits the user, later, if at all. The `FX-055@t` layer
+  is removed from all three stages and the row is re-anchored `target` -> `self` (the VFX-USER precedent: the anchor
+  is VFX data, `Targets` is gameplay and untouched), so the cast reads as the ward it is - the Cure Ring, Sanctified
+  Circle and Warded Impact on the user stay. `fx_lint`: 419 rows, 0 failing. Client gate:
+  `dfmc-client/tools/probe_t14_vfx_element.py`, red 31/96 on the old codex, green 96/96. Reaches players when
+  `DATA_PIN` next advances.
 - **2026-10-01** - **The mage ultimate's plume is gone from all three stages, and Cataclysm burns (D, Herumon
   Tower Rulings board row `plume`, default vetoed with a note: "add some fire to cataclysm. Currently it is just a
   smoke cloud. And add meteors falling down, you can take the meteor we made for the meteor trap in Herumon
