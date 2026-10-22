@@ -2,6 +2,7 @@ System,Floor,Label,Anchor,Page,Note
 class_soul,1,Class soul,eq-soul-slot,index.html,Handed out at creation; its UPGRADE opens with the souls rung (T6 part 1: D "class soul earlier - at the beginning")
 hatch_all,8,Hatch All,inv-hatch-all,eggs.html,Single hatch is open from floor 1 (B1 ruling 2026-09-09)
 dismantle_all,8,Dismantle All,inv-dismantle,item.html,Single dismantle is open from floor 1 (B1 ruling 2026-09-09)
+autoplay,6,Autoplay,autoplay,index.html,The AUTOPLAY button on the floor; the scripted opening (T6 part 4) ends here - floors 1-5 are played by hand
 souls,12,Souls,menu-souls,system-equipment.html,The soul bag + the soul slot on equipment + the class soul's upgrade
 devour,12,Devour,sheet-devour,system-devour.html,
 auto_pvp,15,Auto PvP,menu-pvp,system-auto-pvp.html,The arena window and its MATCHMAKING (auto) queue
