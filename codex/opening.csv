@@ -3,7 +3,7 @@ Floor,Beat,Category,Family,Tier,Grade,Selection,Item_ID,Anchor,Label,Page,Note
 1,first_fight_ult,,,,,,,bt-ultimate,The ultimate plate,index.html,
 1,first_fight_order,,,,,,,bt-order,Turn order,index.html,Who acts first
 1,weapon_drop,Weapon,Main Hand,1,Common,class_weapon,,eq-weapon-slot,Equip the weapon,system-equipment.html,GUARANTEED: a T1 main-hand weapon of the account's class line (saves.charSoul -> items.csv Family); credited on the first victory with the ratchet past floor 1
-2,materials_drop,Material,Ichor,,,currency,ITM-0392,eq-upgrade,Upgrade the weapon,upgrading.html,GUARANTEED materials for one attempt - a wallet credit; Selection currency is not built yet (the drop path mints items only) - the arrow still points at the upgrade door
+2,materials_drop,Material,Scrap,,,currency,ITM-0391,eq-upgrade,Upgrade the weapon,upgrading.html,GUARANTEED materials for one attempt - a SERVER wallet credit on the first floor-2 clear: exactly one first upgrade attempt of the weapon_drop weapon priced from grading.csv (Gear T1 Common->Uncommon = 1 Scrap); Family names that currency
 3,gem_drop,Gem,,1,Common,random_family,,eq-socket,Socket the gem,system-equipment.html,GUARANTEED: a T1 gem of a uniform family; credited on the first victory with the ratchet past floor 3
 4,single_hatch,Egg,,,Worn,lowest_rarity_tie_random,,hatch-yes,Hatch the egg,eggs.html,GUARANTEED: the egg of the weakest named kill of that victory; the single hatch is open from floor 1 (B1)
 5,single_dismantle,,,,,,,item-dismantle,Dismantle a piece,item.html,No item: the arrow points at DISMANTLE on an item's sheet; the single dismantle is open from floor 1 (B1)
