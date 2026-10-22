@@ -1,0 +1,15 @@
+System,Floor,Label,Anchor,Page,Note
+class_soul,1,Class soul,eq-soul-slot,index.html,Handed out at creation; its UPGRADE opens with the souls rung (T6 part 1: D "class soul earlier - at the beginning")
+hatch_all,8,Hatch All,inv-hatch-all,eggs.html,Single hatch is open from floor 1 (B1 ruling 2026-09-09)
+dismantle_all,8,Dismantle All,inv-dismantle,item.html,Single dismantle is open from floor 1 (B1 ruling 2026-09-09)
+souls,12,Souls,menu-souls,system-equipment.html,The soul bag + the soul slot on equipment + the class soul's upgrade
+devour,12,Devour,sheet-devour,system-devour.html,
+auto_pvp,15,Auto PvP,menu-pvp,system-auto-pvp.html,The arena window and its MATCHMAKING (auto) queue
+auto_optimise,20,Auto-optimise,eq-optimise,system-equipment.html,
+breeding,25,Breeding,menu-breed,system-breeding.html,The pens; eggs still drop and wait in the bag
+scrolls,30,Scrolls + enchanting,eq-scroll,upgrading.html,
+grading,40,Grading,inv-grading,upgrading.html,Enhancement grading (Gem / Rune / Scroll); gear grading is taught in the scripted opening
+upgrade_all,40,Upgrade All,upg-all-in,upgrading.html,
+trader,40,Shadow Trader,shop-trader-tab,system-shadow-trader.html,
+classes,50,Buy classes,cls-buy,index.html,Class unlocks table on index.html
+competitive_pvp,60,Competitive PvP,pvp-find-match,system-pvp.html,
