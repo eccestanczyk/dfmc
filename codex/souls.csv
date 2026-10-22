@@ -22,7 +22,7 @@ S-NIGHTMARE-FEET,NIGHTMARE,Feet,Team,Uncommon,Allies deal +5% on the first turn.
 S-GOLGOTH-HEAD,GOLGOTH,Head,Personal,Uncommon,+6% Defense.
 S-GOLGOTH-CHEST,GOLGOTH,Chest,Local,Uncommon,This armour's Defense ×1.40.
 S-GOLGOTH-GLOVES,GOLGOTH,Gloves,Personal,Uncommon,+6% Attack while below 50% HP.
-S-GOLGOTH-FEET,GOLGOTH,Feet,Team,Uncommon,Allies take -4% damage from damage-over-time.
+S-GOLGOTH-FEET,GOLGOTH,Feet,Team,Uncommon,Allies take -12% damage from damage-over-time.
 S-WYCHROOT-HEAD,WYCHROOT,Head,Personal,Uncommon,Healing you receive +10%.
 S-WYCHROOT-CHEST,WYCHROOT,Chest,Local,Uncommon,This armour's Defense ×1.40.
 S-WYCHROOT-GLOVES,WYCHROOT,Gloves,Personal,Uncommon,Your damage-over-time effects deal +7%.
@@ -98,7 +98,7 @@ S-FATA-FEET,FATA,Feet,Team,Common,Allies take -3% damage on the first turn.
 S-SIMOOM-HEAD,SIMOOM,Head,Personal,Uncommon,Debuffs on you expire 12% sooner.
 S-SIMOOM-CHEST,SIMOOM,Chest,Local,Uncommon,This armour's Defense ×1.40.
 S-SIMOOM-GLOVES,SIMOOM,Gloves,Personal,Uncommon,+6% Defense.
-S-SIMOOM-FEET,SIMOOM,Feet,Team,Uncommon,Allies take -4% damage from damage-over-time.
+S-SIMOOM-FEET,SIMOOM,Feet,Team,Uncommon,Allies take -12% damage from damage-over-time.
 S-ECHIDNA-HEAD,ECHIDNA,Head,Personal,Uncommon,Your damage-over-time effects deal +7%.
 S-ECHIDNA-CHEST,ECHIDNA,Chest,Personal,Uncommon,+6% HP.
 S-ECHIDNA-GLOVES,ECHIDNA,Gloves,Local,Uncommon,This item's Defense contribution ×1.40.
@@ -242,7 +242,7 @@ S-STORMFATHER-FEET,STORMFATHER,Feet,Team,Super Super Rare,Elemental and Dragon a
 S-BOGHOPPER-HEAD,BOGHOPPER,Head,Personal,Common,+5% Defense while you have a Defense buff.
 S-BOGHOPPER-CHEST,BOGHOPPER,Chest,Local,Common,This armour's Defense ×1.35.
 S-BOGHOPPER-GLOVES,BOGHOPPER,Gloves,Personal,Common,+5% Attack the turn after gaining a Defense buff.
-S-BOGHOPPER-FEET,BOGHOPPER,Feet,Team,Common,Allies take -3% damage from damage-over-time.
+S-BOGHOPPER-FEET,BOGHOPPER,Feet,Team,Common,Allies take -9% damage from damage-over-time.
 S-MIRENEWT-HEAD,MIRENEWT,Head,Personal,Common,Enemy Attack debuffs you apply are +6% more potent.
 S-MIRENEWT-CHEST,MIRENEWT,Chest,Personal,Common,+5% HP.
 S-MIRENEWT-GLOVES,MIRENEWT,Gloves,Personal,Common,Debuffs on you expire 10% sooner.
@@ -366,7 +366,7 @@ S-CINDERSHARD-FEET,CINDERSHARD,Feet,Team,Common,Allies' bleed effects deal +4%.
 S-ASHWALKER-HEAD,ASHWALKER,Head,Personal,Common,Debuffs on you expire 10% sooner.
 S-ASHWALKER-CHEST,ASHWALKER,Chest,Local,Common,This armour's Defense ×1.35.
 S-ASHWALKER-GLOVES,ASHWALKER,Gloves,Personal,Common,+5% Defense.
-S-ASHWALKER-FEET,ASHWALKER,Feet,Team,Common,Allies take -3% damage from damage-over-time.
+S-ASHWALKER-FEET,ASHWALKER,Feet,Team,Common,Allies take -9% damage from damage-over-time.
 S-MOLOCH-HEAD,MOLOCH,Head,Personal,Uncommon,+6% Defense.
 S-MOLOCH-CHEST,MOLOCH,Chest,Local,Uncommon,This armour's Defense ×1.40.
 S-MOLOCH-GLOVES,MOLOCH,Gloves,Personal,Uncommon,Attackers that hit you take 5% of their damage back.
