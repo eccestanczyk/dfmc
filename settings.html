@@ -28,7 +28,7 @@
   <h2>Layout</h2>
   <ul class="sp-rules">
     <li>Opened from the gear icon on the main HUD. Full-screen overlay, dark parchment-and-iron chrome consistent with the codex aesthetic.</li>
-    <li><strong>Section rail</strong> (left, Cinzel labels): Audio &middot; Display &middot; Battle &amp; Autoplay &middot; Controls &middot; Adventure Log &middot; Notifications &middot; Account &amp; Data &middot; Language &amp; Accessibility &middot; Legal &amp; Support.</li>
+    <li><strong>Section rail</strong> (left, Cinzel labels): Audio &middot; Display &middot; Battle &amp; Autoplay &middot; Controls &middot; Tutorials &middot; Notices &middot; Notifications &middot; Account &amp; Data &middot; Language &amp; Accessibility &middot; Legal &amp; Support.</li>
     <li>Control types: <strong>slider</strong> (0&ndash;100), <strong>toggle</strong>, <strong>segmented</strong> (2&ndash;4 exclusive choices), <strong>dropdown</strong>, <strong>action button</strong> (opens dialog/page).</li>
     <li>Footer bar: <strong>Restore Defaults</strong> (per open section, with confirm) and game version/build string.</li>
     <li>Changes apply instantly &mdash; no Save button. Destructive actions always confirm.</li>
@@ -94,12 +94,13 @@
   </table>
   <p style="font-size:13px;color:var(--ink-faint)">An arrow points at each system the floor you reach opens, until you click it once. It never blocks play. The ladder and the arrows: <a href="index.html">index &gt; System unlocks</a>.</p>
 
-  <h2>Adventure Log</h2>
+  <h2>Notices</h2>
   <table>
     <tr><th>Option</th><th>Control</th><th>Values</th><th>Default</th></tr>
-    <tr><td class="lbl">Battle Detail Storage</td><td>Static</td><td><em>Automatic</em> &mdash; the newest 512 KB of round-by-round detail is kept (BL_BUDGET); older wild fights keep result, floor and rewards</td><td>&mdash;</td></tr>
+    <tr><td class="lbl">The Letter</td><td>Action</td><td>Once the floor-101 letter has been shown (<code>ftue.letter101</code>): opens it again</td><td>&mdash;</td></tr>
+    <tr><td class="lbl">&lt;system&gt;</td><td>Static</td><td>One row per system whose unlock arrow has been clicked (<code>ftue[&lt;system&gt;]</code>): &ldquo;&lt;system&gt; opened at floor N.&rdquo;, the floor from <code>unlocks.csv</code></td><td>Floor N</td></tr>
   </table>
-  <p style="font-size:13px;color:var(--ink-faint)">Retired 2026-10-22 (D, T31-2): the player-side Adventure Log is leaving the game; the action log is kept server side only (<a href="system-networking.html">Networking</a>).</p>
+  <p style="font-size:13px;color:var(--ink-faint)">Replaced the Adventure Log section 2026-10-22 (D, T31-2: the player-side log is retired; the action log is kept server side only). Derived from the tutorial flags, never stored: no save key, and a cleared arrow (Tutorials &gt; RESET) takes its row with it until it is clicked again. With none yet the section reads <em>No notices yet</em>.</p>
 
   <h2>Notifications</h2>
   <table>
@@ -147,6 +148,7 @@
 
   <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-10-22 &mdash; Notices replaces the Adventure Log section (ADVLOG-OUT, client half (D, Tower rulings form card T31-2; dfmc-client lane advlog-client). On dev.)</strong> The Battle Detail Storage row left with the log. NOTICES lists what players used to re-read from it: The Letter (re-opens the floor-101 letter) and one row per opened system. The section rail now also names Tutorials, which it had missed.</li>
     <li><strong>2026-10-22 &mdash; Tutorials (T6 part 3, D, Tower rulings form card T6: "Tutorials can be turned off at the settings menu, and specific tutorials can be re-engaged from the settings menu"). On dev.</strong> A new section between Controls and Adventure Log: <em>Tutorial Arrows</em> (toggle, default on) hides every unlock arrow; one <em>Reset: &lt;system&gt;</em> action row per system already open clears that system's <code>ftue</code> flag so its arrow returns. The rows ride SETTINGS_SCHEMA like every other row (the section's options are built from the unlock ladder at read time). Gate: <code>tools/probe_t6c_ftue.py</code> 33/33.</li>
     <li><strong>2026-10-01 &mdash; Delete Account deletes the account (D, Rulings board card <em>settings</em>; lane DELETE). On dev; the server half needs main + deploy.</strong> The row was a static <em>Coming</em> with no server door. It is a danger action now: the first dialog lists what goes, the second takes the typed word <strong>DELETE</strong>, and <code>POST /api/account/delete</code> schedules the deletion 7 days out and signs out every device. A sign-in inside the 7 days boots to <em>Deletion scheduled on &lt;date&gt;</em> with <strong>CANCEL DELETION</strong> (restores everything untouched) and <strong>CONTINUE</strong> (signs out; the deletion stands); until one is chosen every other server door answers 423. After the window the daily sweep purges the account: see <a href="privacy.html">Privacy Policy</a> &sect;6 for what goes and what is kept. A web link for players outside the game is <a href="delete-account.html">delete-account.html</a>. Gate <code>tools/probe_delete.py</code> 23/23.</li>
     <li><strong>2026-10-01 &mdash; Legal &amp; Support: the four document rows have pages to open (D, Rulings board card <em>settings</em>; lane LEGAL). WIKI ONLY.</strong> Help &amp; FAQ, Privacy Policy, Terms of Service and Credits opened <a href="help.html">help.html</a>, <a href="privacy.html">privacy.html</a>, <a href="terms.html">terms.html</a> and <a href="credits.html">credits.html</a> on this site, and all four were 404. They exist now. The privacy policy describes what the server actually stores, checked against <code>src/worker.js</code>; the privacy and terms pages carry bracketed placeholders for company details that do not exist yet, and a counsel review of both is on the backlog. Still not built, and required before the store releases: the in-game <em>Delete Account</em> door (Apple 5.1.1(v), Google Play account-deletion policy), an age screen, and odds shown before any paid random draw.</li>
