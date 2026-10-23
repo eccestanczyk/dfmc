@@ -382,18 +382,18 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
 
     <table>
       <tr><th>Level</th><th>XP required</th><th>XP/battle (expected, on-level)</th><th>Battles (on-level)</th></tr>
-      <tr><td>1</td><td>10</td><td>10</td><td>1</td></tr>
-      <tr><td>10</td><td>562</td><td>100</td><td>6</td></tr>
-      <tr><td>20</td><td>1,889</td><td>200</td><td>9</td></tr>
-      <tr><td>30</td><td>3,857</td><td>300</td><td>13</td></tr>
-      <tr><td>40</td><td>6,382</td><td>400</td><td>16</td></tr>
-      <tr><td>50</td><td>9,410</td><td>500</td><td>19</td></tr>
-      <tr><td>60</td><td>12,902</td><td>600</td><td>22</td></tr>
-      <tr><td>66</td><td>15,283</td><td>660</td><td>23</td></tr>
-      <tr><td>70</td><td>25,202</td><td>700</td><td>36</td></tr>
-      <tr><td>80</td><td>128,635</td><td>800</td><td>161</td></tr>
-      <tr><td>90</td><td>634,152</td><td>900</td><td>711</td></tr>
-      <tr><td>99</td><td>2,676,127</td><td>990</td><td>2,703</td></tr>
+      <tr><td>1</td><td><span data-csv="XPCurve.csv#1#XP_To_Next">10</span></td><td>10</td><td>1</td></tr>
+      <tr><td>10</td><td><span data-csv="XPCurve.csv#10#XP_To_Next">562</span></td><td>100</td><td>6</td></tr>
+      <tr><td>20</td><td><span data-csv="XPCurve.csv#20#XP_To_Next" data-csv-fmt="g">1,891</span></td><td>200</td><td>9</td></tr>
+      <tr><td>30</td><td><span data-csv="XPCurve.csv#30#XP_To_Next" data-csv-fmt="g">3,846</span></td><td>300</td><td>13</td></tr>
+      <tr><td>40</td><td><span data-csv="XPCurve.csv#40#XP_To_Next" data-csv-fmt="g">6,362</span></td><td>400</td><td>16</td></tr>
+      <tr><td>50</td><td><span data-csv="XPCurve.csv#50#XP_To_Next" data-csv-fmt="g">9,402</span></td><td>500</td><td>19</td></tr>
+      <tr><td>60</td><td><span data-csv="XPCurve.csv#60#XP_To_Next" data-csv-fmt="g">12,935</span></td><td>600</td><td>22</td></tr>
+      <tr><td>66</td><td><span data-csv="XPCurve.csv#66#XP_To_Next" data-csv-fmt="g">15,283</span></td><td>660</td><td>23</td></tr>
+      <tr><td>70</td><td><span data-csv="XPCurve.csv#70#XP_To_Next" data-csv-fmt="g">17,478</span></td><td>700</td><td>36</td></tr>
+      <tr><td>80</td><td><span data-csv="XPCurve.csv#80#XP_To_Next" data-csv-fmt="g">29,517</span></td><td>800</td><td>161</td></tr>
+      <tr><td>90</td><td><span data-csv="XPCurve.csv#90#XP_To_Next" data-csv-fmt="g">64,889</span></td><td>900</td><td>711</td></tr>
+      <tr><td>99</td><td><span data-csv="XPCurve.csv#99#XP_To_Next" data-csv-fmt="g">164,264</span></td><td>990</td><td>2,703</td></tr>
     </table>
   </div>
 
@@ -918,15 +918,15 @@ The mark is provenance-only and persists through trades — death-marked creatur
     <table>
       <tr><th>Grade</th><th>Gems</th><th>Runes</th><th>Enchantments</th><th>Visual effect</th></tr>
       <tr><td><span style="color:#c2ae8b">Worn</span></td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-      <tr><td><span style="color:#c2ae8b">Common</span></td><td>1</td><td>—</td><td>—</td><td>—</td></tr>
-      <tr><td><span style="color:#1eff00">Uncommon</span></td><td>1</td><td>1</td><td>—</td><td>—</td></tr>
-      <tr><td><span style="color:#0070dd">Rare</span></td><td>1</td><td>1</td><td>1</td><td>—</td></tr>
-      <tr><td><span style="color:#a335ee">Epic</span></td><td>2</td><td>1</td><td>1</td><td>—</td></tr>
-      <tr><td><span style="color:#ff8000">Legendary</span></td><td>2</td><td>2</td><td>1</td><td>—</td></tr>
-      <tr><td><span style="color:#e5393f">Abyssal</span></td><td>2</td><td>2</td><td>2</td><td>Shadow wave rolling down over a dim red glow</td></tr>
-      <tr><td><span style="color:#00ffe0">Divine</span></td><td>3</td><td>2</td><td>2</td><td>Tiny light-green stars, blinking</td></tr>
-      <tr><td><span style="color:#ff44cc">Primordial</span></td><td>3</td><td>3</td><td>2</td><td>Flowing energy, subtle distortion</td></tr>
-      <tr><td><span style="color:#a855f7;text-shadow:0 0 6px #7c3aed">Void</span></td><td>3</td><td>3</td><td>3</td><td>Dark tendrils, particles, chromatic aberration on hover</td></tr>
+      <tr><td><span style="color:#c2ae8b">Common</span></td><td><span data-csv="grade_ladder.csv#Common#Gem_Sockets">1</span></td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><td><span style="color:#1eff00">Uncommon</span></td><td><span data-csv="grade_ladder.csv#Uncommon#Gem_Sockets">1</span></td><td><span data-csv="grade_ladder.csv#Uncommon#Rune_Sockets">1</span></td><td>—</td><td>—</td></tr>
+      <tr><td><span style="color:#0070dd">Rare</span></td><td><span data-csv="grade_ladder.csv#Rare#Gem_Sockets">1</span></td><td><span data-csv="grade_ladder.csv#Rare#Rune_Sockets">1</span></td><td><span data-csv="grade_ladder.csv#Rare#Scroll_Sockets">1</span></td><td>—</td></tr>
+      <tr><td><span style="color:#a335ee">Epic</span></td><td><span data-csv="grade_ladder.csv#Epic#Gem_Sockets">2</span></td><td><span data-csv="grade_ladder.csv#Epic#Rune_Sockets">1</span></td><td><span data-csv="grade_ladder.csv#Epic#Scroll_Sockets">1</span></td><td>—</td></tr>
+      <tr><td><span style="color:#ff8000">Legendary</span></td><td><span data-csv="grade_ladder.csv#Legendary#Gem_Sockets">2</span></td><td><span data-csv="grade_ladder.csv#Legendary#Rune_Sockets">2</span></td><td><span data-csv="grade_ladder.csv#Legendary#Scroll_Sockets">1</span></td><td>—</td></tr>
+      <tr><td><span style="color:#e5393f">Abyssal</span></td><td><span data-csv="grade_ladder.csv#Abyssal#Gem_Sockets">2</span></td><td><span data-csv="grade_ladder.csv#Abyssal#Rune_Sockets">2</span></td><td><span data-csv="grade_ladder.csv#Abyssal#Scroll_Sockets">2</span></td><td>Shadow wave rolling down over a dim red glow</td></tr>
+      <tr><td><span style="color:#00ffe0">Divine</span></td><td><span data-csv="grade_ladder.csv#Divine#Gem_Sockets">3</span></td><td><span data-csv="grade_ladder.csv#Divine#Rune_Sockets">2</span></td><td><span data-csv="grade_ladder.csv#Divine#Scroll_Sockets">2</span></td><td>Tiny light-green stars, blinking</td></tr>
+      <tr><td><span style="color:#ff44cc">Primordial</span></td><td><span data-csv="grade_ladder.csv#Primordial#Gem_Sockets">3</span></td><td><span data-csv="grade_ladder.csv#Primordial#Rune_Sockets">3</span></td><td><span data-csv="grade_ladder.csv#Primordial#Scroll_Sockets">2</span></td><td>Flowing energy, subtle distortion</td></tr>
+      <tr><td><span style="color:#a855f7;text-shadow:0 0 6px #7c3aed">Void</span></td><td><span data-csv="grade_ladder.csv#Void#Gem_Sockets">3</span></td><td><span data-csv="grade_ladder.csv#Void#Rune_Sockets">3</span></td><td><span data-csv="grade_ladder.csv#Void#Scroll_Sockets">3</span></td><td>Dark tendrils, particles, chromatic aberration on hover</td></tr>
     </table>
     <div class="note note-info"><p><strong>RESOLVED &mdash; D, 2026-08-12 (report #128):</strong>
     Visual effects scope is <strong>all of the above</strong> &mdash; item name text, icon and full icon
@@ -1045,16 +1045,16 @@ Character total:
     <p>3 art identities per hand per class; within an art band, higher tiers take a prefix and reuse the band's image. Art bands: T1&ndash;T3 (stage-1 weapon) &middot; T4&ndash;T6 (stage-2) &middot; T7&ndash;T10 (stage-3). Craft cost follows the universal gear rule, 25 &times; Tier Scrap (output Worn; grade up via Ichor). Example shown on the Warrior main hand — the pattern is identical for all 12 hands.</p>
     <table>
       <tr><th>Tier</th><th>Name</th><th>Level req</th><th>Craft cost</th></tr>
-      <tr><td>T1</td><td>Arming Sword</td><td>1</td><td>25 Scrap</td></tr>
-      <tr><td>T2</td><td>Veteran's Arming Sword</td><td>10</td><td>50 Scrap</td></tr>
-      <tr><td>T3</td><td>Champion's Arming Sword</td><td>20</td><td>75 Scrap</td></tr>
-      <tr><td>T4</td><td>Longsword</td><td>30</td><td>100 Scrap</td></tr>
-      <tr><td>T5</td><td>Veteran's Longsword</td><td>40</td><td>125 Scrap</td></tr>
-      <tr><td>T6</td><td>Champion's Longsword</td><td>50</td><td>150 Scrap</td></tr>
-      <tr><td>T7</td><td>Great Morningstar</td><td>60</td><td>175 Scrap</td></tr>
-      <tr><td>T8</td><td>Veteran's Great Morningstar</td><td>70</td><td>200 Scrap</td></tr>
-      <tr><td>T9</td><td>Champion's Great Morningstar</td><td>80</td><td>225 Scrap</td></tr>
-      <tr><td>T10</td><td>Tyrant's Great Morningstar</td><td>90</td><td>250 Scrap</td></tr>
+      <tr><td>T1</td><td>Arming Sword</td><td><span data-csv="recipes.csv#Tier=1&Category=Scroll#Level_Req">1</span></td><td>25 Scrap</td></tr>
+      <tr><td>T2</td><td>Veteran's Arming Sword</td><td><span data-csv="recipes.csv#Tier=2&Category=Scroll#Level_Req">10</span></td><td>50 Scrap</td></tr>
+      <tr><td>T3</td><td>Champion's Arming Sword</td><td><span data-csv="recipes.csv#Tier=3&Category=Scroll#Level_Req">20</span></td><td>75 Scrap</td></tr>
+      <tr><td>T4</td><td>Longsword</td><td><span data-csv="recipes.csv#Tier=4&Category=Scroll#Level_Req">30</span></td><td>100 Scrap</td></tr>
+      <tr><td>T5</td><td>Veteran's Longsword</td><td><span data-csv="recipes.csv#Tier=5&Category=Scroll#Level_Req">40</span></td><td>125 Scrap</td></tr>
+      <tr><td>T6</td><td>Champion's Longsword</td><td><span data-csv="recipes.csv#Tier=6&Category=Scroll#Level_Req">50</span></td><td>150 Scrap</td></tr>
+      <tr><td>T7</td><td>Great Morningstar</td><td><span data-csv="recipes.csv#Tier=7&Category=Scroll#Level_Req">60</span></td><td>175 Scrap</td></tr>
+      <tr><td>T8</td><td>Veteran's Great Morningstar</td><td><span data-csv="recipes.csv#Tier=8&Category=Scroll#Level_Req">70</span></td><td>200 Scrap</td></tr>
+      <tr><td>T9</td><td>Champion's Great Morningstar</td><td><span data-csv="recipes.csv#Tier=9&Category=Scroll#Level_Req">80</span></td><td>225 Scrap</td></tr>
+      <tr><td>T10</td><td>Tyrant's Great Morningstar</td><td><span data-csv="recipes.csv#Tier=10&Category=Scroll#Level_Req">90</span></td><td>250 Scrap</td></tr>
     </table>
     <h4>Main hand implicit — flat Attack per tier &times; grade (16.5 &times; T &times; GF, strictly increasing per tier and grade)</h4>
     <div class='scroll'><table><tr><th>Grade \ Tier</th><th>T1</th><th>T2</th><th>T3</th><th>T4</th><th>T5</th><th>T6</th><th>T7</th><th>T8</th><th>T9</th><th>T10</th></tr><tr><td style="color:#c2ae8b;white-space:nowrap">Worn</td><td style="text-align:center">17</td><td style="text-align:center">33</td><td style="text-align:center">50</td><td style="text-align:center">66</td><td style="text-align:center">83</td><td style="text-align:center">99</td><td style="text-align:center">116</td><td style="text-align:center">132</td><td style="text-align:center">149</td><td style="text-align:center">165</td></tr><tr><td style="color:#c2ae8b;white-space:nowrap">Common</td><td style="text-align:center">18</td><td style="text-align:center">37</td><td style="text-align:center">55</td><td style="text-align:center">74</td><td style="text-align:center">92</td><td style="text-align:center">111</td><td style="text-align:center">129</td><td style="text-align:center">148</td><td style="text-align:center">166</td><td style="text-align:center">185</td></tr><tr><td style="color:#1eff00;white-space:nowrap">Uncommon</td><td style="text-align:center">20</td><td style="text-align:center">41</td><td style="text-align:center">61</td><td style="text-align:center">82</td><td style="text-align:center">102</td><td style="text-align:center">123</td><td style="text-align:center">143</td><td style="text-align:center">164</td><td style="text-align:center">184</td><td style="text-align:center">205</td></tr><tr><td style="color:#0070dd;white-space:nowrap">Rare</td><td style="text-align:center">22</td><td style="text-align:center">45</td><td style="text-align:center">67</td><td style="text-align:center">90</td><td style="text-align:center">112</td><td style="text-align:center">135</td><td style="text-align:center">157</td><td style="text-align:center">180</td><td style="text-align:center">202</td><td style="text-align:center">224</td></tr><tr><td style="color:#a335ee;white-space:nowrap">Epic</td><td style="text-align:center">24</td><td style="text-align:center">49</td><td style="text-align:center">73</td><td style="text-align:center">98</td><td style="text-align:center">122</td><td style="text-align:center">147</td><td style="text-align:center">171</td><td style="text-align:center">195</td><td style="text-align:center">220</td><td style="text-align:center">244</td></tr><tr><td style="color:#ff8000;white-space:nowrap">Legendary</td><td style="text-align:center">26</td><td style="text-align:center">53</td><td style="text-align:center">79</td><td style="text-align:center">106</td><td style="text-align:center">132</td><td style="text-align:center">158</td><td style="text-align:center">185</td><td style="text-align:center">211</td><td style="text-align:center">238</td><td style="text-align:center">264</td></tr><tr><td style="color:#e5393f;white-space:nowrap">Abyssal</td><td style="text-align:center">28</td><td style="text-align:center">57</td><td style="text-align:center">85</td><td style="text-align:center">114</td><td style="text-align:center">142</td><td style="text-align:center">170</td><td style="text-align:center">199</td><td style="text-align:center">227</td><td style="text-align:center">255</td><td style="text-align:center">284</td></tr><tr><td style="color:#00ffe0;white-space:nowrap">Divine</td><td style="text-align:center">30</td><td style="text-align:center">61</td><td style="text-align:center">91</td><td style="text-align:center">121</td><td style="text-align:center">152</td><td style="text-align:center">182</td><td style="text-align:center">213</td><td style="text-align:center">243</td><td style="text-align:center">273</td><td style="text-align:center">304</td></tr><tr><td style="color:#ff44cc;white-space:nowrap">Primordial</td><td style="text-align:center">32</td><td style="text-align:center">65</td><td style="text-align:center">97</td><td style="text-align:center">129</td><td style="text-align:center">162</td><td style="text-align:center">194</td><td style="text-align:center">226</td><td style="text-align:center">259</td><td style="text-align:center">291</td><td style="text-align:center">323</td></tr><tr><td style="color:#a855f7;white-space:nowrap">Void</td><td style="text-align:center">34</td><td style="text-align:center">69</td><td style="text-align:center">103</td><td style="text-align:center">137</td><td style="text-align:center">172</td><td style="text-align:center">206</td><td style="text-align:center">240</td><td style="text-align:center">275</td><td style="text-align:center">309</td><td style="text-align:center">343</td></tr></table></div>
@@ -1778,6 +1778,7 @@ async function loadBalance() {
 }
 </script>
 <h2>Changelog</h2>
+<p><strong>2026-10-23 &mdash; the codex pages read their numbers from the CSVs (dfmc-client backlog C17, ruling 11.9: &ldquo;the permanent fix is that the pages read the CSVs instead of quoting them&rdquo;). WIKI ONLY; no game code changed.</strong> A number a page quoted from a codex CSV was typed in by hand, so every CSV edit left the page wrong until a lane noticed. Now such a number is a <code>&lt;span data-csv="file.csv#row#Column"&gt;</code> and <code>csv-bind.js</code> fills it from the CSV when the page loads; the typed value stays as the fallback and is underlined as stale when the CSV cannot be read. <code>tools/codex_numbers.py</code> is the inventory (every static table number it can tie to a CSV cell, with the CSV row and column), the converter and the gate: a page that pastes a bound number, or a span whose row or column is gone, fails it (the dfmc-client gate run calls it). This pass bound 476 numbers on six pages (upgrading 225, Void Apex 120, stat tables 50, this page 46, breeding 30, PvP 5) and all six are converted. 11 were wrong against their CSV before: on this page the XP-required column of the levelling table at levels 20&ndash;99 still showed the curve from before the C1 re-ramp (level 99: 2,676,127 shown, 164,264 in <code>XPCurve.csv</code>), and two Void Apex Epic weights were 0.1 point off. The battles column next to it is computed, not a CSV cell, and is not bound.</p>
 <p><strong>2026-10-23 &mdash; an arrow caption moves when something renders under it later (dfmc-client lane gate-hygiene, follows screen review finding 8). Dev build now; release with the next ritual.</strong> The caption&rsquo;s spot was measured once per target position and kept, so content drawn after it (the equipment stat boxes, a late data file) or a caption that grew after it (the fonts landing) never moved it: at 1600&times;900 CLASS SOUL sat on the HP / ATK numbers with its second line past the left edge. The kept spot is now re-checked every 0.6 s and the caption moves as soon as something lies under it; a change of the caption&rsquo;s own size re-places it too, and it stays inside the window as well as the stage. Gate <code>tools/probe_b9_ftuecap.py</code> (now in every gate run, 8 landscape viewports, 96/96; 72/96 before).</p>
 <p><strong>2026-10-23 &mdash; Battle: the HP bar drains hit by hit on a multi-hit move (lane small-fixes-1, follows B17).</strong> On dev since 2026-10-23. Display only, nothing about damage changed. Since B17 every hit of a multi-hit floats its own number, but the target&rsquo;s HP bar still fell to its final value the moment the act began. The bar now steps down with each hit: one segment per engine hit, each the HP that hit took, leaves on that hit&rsquo;s beat (the same clock as the numbers), and the bar ends exactly where the engine put it. A single hit is unchanged. Gate <code>tools/probe_hpdrain.py</code>.</p>
 <p><strong>2026-10-23 &mdash; Wild virtual gear: the sockets read items.csv, not a copied formula (lane wild-runes, finding of C4; D: &ldquo;The csvs need to be the source of all truth. Hardcoded NEVER.&rdquo;).</strong> On dev since 2026-10-23. A wild&rsquo;s (and an authored-grade boss&rsquo;s) tag sockets were priced by a formula in code: gems 4.5&times;T&times;GF and runes 12%+1.2%&times;(g&minus;1)+0.6%&times;T, the curve C4 retired when it moved the player rune to 6%+3%&times;(g&minus;1)+0.6%&times;T in <code>items.csv</code>. The client and the T4 balance sim now read the Gem and Rune rows of the tag&rsquo;s stat at its tier (the player&rsquo;s own gem price with its grade-step floor, the rune&rsquo;s Effect curve), and the sim reads the tag coefficient from the Tag row too. Wilds below Epic carry a smaller rune %, Epic and up a larger one; T4 holds on the same saves (PvE medians 5 / 6 / 4 / 4, wins 100 / 93 / 89 / 100%, unchanged). Gate: <code>tools/probe_wild_runes.py</code> 61/61 (5/61 before).</p>
@@ -1843,6 +1844,7 @@ async function loadBalance() {
   <li><strong>2026-07-28</strong> &mdash; Buff stacking rewritten and documented on its own page: a status is identified by its ability, different abilities stack additively, one ability never stacks with itself, and re-application refreshes duration while keeping the stronger magnitude. Also: a Synergy type gate includes the caster when the caster is of that type, while an "if no X ally" fallback tests other allies only; and <code>Targets=self</code> moves no longer offer allies in target selection. See <a href="system-status-effects.html">Status Effects &amp; Buff Stacking</a>.</li>
 </ul>
 <script src="admin.js"></script>
+<script src="csv-bind.js"></script>
 <script src="nav.js"></script>
 </body>
 </html>
