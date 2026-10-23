@@ -334,6 +334,22 @@ writes to.
 
 ## Changelog
 
+- **2026-10-23** — **the sound follows two pictures that moved, and the four new lines get the character
+  pass** (#994; probe census round 5). Two rows broke the timing pin after their FX changed under them.
+  *Lightless Carapace* (`M-VOIDSHELL-4`) lost its d0 Hex Motes on 2026-10-22 (VFX_SPEC, T14), so its
+  picture starts on the ward at d160 while AFX-430 Low Random still opened at d0, g0.8 — 160 ms early on
+  all three stages: AFX-430 now sits at **d160**, on the ward, and the later layers are unchanged.
+  *Cataclysm* (`ULT-MAGE-3`) gained the FX-056 Meteor Fall at d0 on 2026-10-01 (PLUME), so its picture
+  starts at d0 while its first loud layer was the d200 bang: the meteors' descent now has its own sound,
+  **AFX-791 Fire 1 g0.55 p-2 at d0** (a recorded fire, 377 Hz), and the d200 bang stays on the centre
+  rock's landing (frame 5, 208 ms). The ult stays at five layers: the last tail, AFX-121 g0.5 p-5 d1000,
+  is dropped. The four lines of 2026-10 (Jackanape, Goliath, Tyrannos, Charnelmass) had never been through
+  the 2026-09-28 character pass: re-run on the whole codex it re-assigned **8 moves** (Branch Pounce, Jeer,
+  Bone Crunch, Snap, Bellow, Engulf, Bone Spit, Ooze Slap — W3 element, W4 voice, W5 bite/spit) and
+  `afx_character_audit.csv` now carries all 435 rows (was 419); `afx_sync_audit.csv` and `moves.csv` were
+  regenerated (`afx_sync_audit.py --write`, `sync_move_vfx.py`). `afx_lint`: 435 rows, 0 failing (was 2).
+  Client gates: `tools/probe_00994.py` 11/11 (red 9/11), `tools/probe_00994_character.py` 7/7 (red 4/7);
+  the one new clip (AFX-734 Bfh 1 wood breaking 02) ships via `tools/sync_afx_assets.py`.
 - **2026-09-30** — **review drift fixes: F348, F349.** WIKI ONLY. The lifted `assets/vfx/afx_bank.js` was
   regenerated (`tools/gen_vfx_fx.py --write`): it predated `pcm()` (4fb8f38) and held the lift gate red. The
   player contract now lists `pcm()` and the creature cries; Consumers said the CSVs ship under `play/codex/`,

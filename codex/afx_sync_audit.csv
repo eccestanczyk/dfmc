@@ -98,11 +98,11 @@ M-BRAMBLEFAWN-1,Bloomburst,1,1,1,AFX-765,Bang 07,main,0.7,1,0,24.5,0,24.5,24.5,0
 M-BRAMBLEFAWN-1,Bloomburst,1,2,1,AFX-126,Impact Plank medium 004,quiet,0.45,0,0,0.0,0,0.0,0.0,0.0
 M-BRAMBLEFAWN-1,Bloomburst,2,1,1,AFX-765,Bang 07,main,0.7,-2,0,29.2,0,29.2,29.2,0.0
 M-BRAMBLEFAWN-1,Bloomburst,2,2,1,AFX-012,Cloth 1,quiet,0.5,-4,200,139.9,160,339.9,179.9,40.0
-M-BRAMBLEFAWN-1,Bloomburst,2,3,1,AFX-845,Leaves 02,quiet,0.45,-5,360,1.3,240,361.3,121.3,120.0
+M-BRAMBLEFAWN-1,Bloomburst,2,3,1,AFX-845,Leaves 02,quiet,0.45,-5,360,1.3,160,361.3,201.3,200.0
 M-BRAMBLEFAWN-1,Bloomburst,3,1,1,AFX-765,Bang 07,main,0.7,-2,0,29.2,0,29.2,29.2,0.0
 M-BRAMBLEFAWN-1,Bloomburst,3,2,1,AFX-012,Cloth 1,quiet,0.5,-4,200,139.9,160,339.9,179.9,40.0
-M-BRAMBLEFAWN-1,Bloomburst,3,3,1,AFX-845,Leaves 02,quiet,0.45,-5,360,1.3,240,361.3,121.3,120.0
-M-BRAMBLEFAWN-1,Bloomburst,3,4,1,AFX-762,Bang 04,loud,0.55,-1,400,12.7,240,412.7,172.7,160.0
+M-BRAMBLEFAWN-1,Bloomburst,3,3,1,AFX-845,Leaves 02,quiet,0.45,-5,360,1.3,160,361.3,201.3,200.0
+M-BRAMBLEFAWN-1,Bloomburst,3,4,1,AFX-762,Bang 04,loud,0.55,-1,400,12.7,160,412.7,252.7,240.0
 M-BRAMBLEFAWN-2,Thorn Flick,1,1,1,AFX-173,Impact Wood light 001,main,0.7,0,0,0.0,0,0.0,0.0,0.0
 M-BRAMBLEFAWN-2,Thorn Flick,2,1,1,AFX-173,Impact Wood light 001,main,0.7,0,0,0.0,0,0.0,0.0,0.0
 M-BRAMBLEFAWN-2,Thorn Flick,2,2,1,AFX-014,Cloth 3,quiet,0.45,-2,160,67.3,180,227.3,47.3,-20.0
@@ -112,10 +112,10 @@ M-BRAMBLEFAWN-2,Thorn Flick,3,3,1,AFX-816,Deep Break 8,quiet,0.4,-5,240,260.3,26
 M-BRAMBLEFAWN-3,Verdant Ward,1,1,1,AFX-014,Cloth 3,main,0.8,-4,0,75.6,0,75.6,75.6,0.0
 M-BRAMBLEFAWN-3,Verdant Ward,1,2,1,AFX-735,Bfh 1 wood breaking 03,quiet,0.45,-4,0,25.2,0,25.2,25.2,0.0
 M-BRAMBLEFAWN-3,Verdant Ward,2,1,1,AFX-014,Cloth 3,main,0.8,-4,0,75.6,0,75.6,75.6,0.0
-M-BRAMBLEFAWN-3,Verdant Ward,2,2,1,AFX-503,Force Field 003,quiet,0.5,-2,120,43.8,160,163.8,3.8,-40.0
+M-BRAMBLEFAWN-3,Verdant Ward,2,2,1,AFX-503,Force Field 003,quiet,0.5,-2,120,43.8,180,163.8,-16.2,-60.0
 M-BRAMBLEFAWN-3,Verdant Ward,2,3,1,AFX-844,Leaves 01,quiet,0.45,-4,300,64.3,180,364.3,184.3,120.0
 M-BRAMBLEFAWN-3,Verdant Ward,3,1,1,AFX-014,Cloth 3,main,0.85,-4,0,75.6,0,75.6,75.6,0.0
-M-BRAMBLEFAWN-3,Verdant Ward,3,2,1,AFX-503,Force Field 003,quiet,0.5,-4,150,49.1,160,199.1,39.1,-10.0
+M-BRAMBLEFAWN-3,Verdant Ward,3,2,1,AFX-503,Force Field 003,quiet,0.5,-4,150,49.1,180,199.1,19.1,-30.0
 M-BRAMBLEFAWN-3,Verdant Ward,3,3,1,AFX-844,Leaves 01,quiet,0.5,-4,300,64.3,340,364.3,24.3,-40.0
 M-BRAMBLEFAWN-3,Verdant Ward,3,3,2,AFX-844,Leaves 01,quiet,0.5,-4,440,64.3,340,504.3,164.3,100.0
 M-BRAMBLEFAWN-3,Verdant Ward,3,4,1,AFX-778,Gong 02,quiet,0.45,1,420,18.9,340,438.9,98.9,80.0
@@ -197,7 +197,7 @@ M-WYCHROOT-1,Strangleroots,2,1,1,AFX-124,Impact Plank medium 002,main,0.7,-2,0,0
 M-WYCHROOT-1,Strangleroots,2,2,1,AFX-020,Creak 3,quiet,0.45,-2,160,86.4,160,246.4,86.4,0.0
 M-WYCHROOT-1,Strangleroots,3,1,1,AFX-124,Impact Plank medium 002,main,0.7,-2,0,0.0,0,0.0,0.0,0.0
 M-WYCHROOT-1,Strangleroots,3,2,1,AFX-020,Creak 3,quiet,0.45,-2,160,86.4,160,246.4,86.4,0.0
-M-WYCHROOT-1,Strangleroots,3,3,1,AFX-811,Deep Break 3,quiet,0.5,-2,300,198.7,160,498.7,338.7,140.0
+M-WYCHROOT-1,Strangleroots,3,3,1,AFX-811,Deep Break 3,quiet,0.5,-2,300,198.7,300,498.7,198.7,0.0
 M-WYCHROOT-2,Root Lash,1,1,1,AFX-012,Cloth 1,main,1.0,-3,0,132.0,0,132.0,132.0,0.0
 M-WYCHROOT-2,Root Lash,1,2,1,AFX-176,Impact Wood light 004,loud,0.6,-3,160,0.0,0,160.0,160.0,160.0
 M-WYCHROOT-2,Root Lash,2,1,1,AFX-012,Cloth 1,main,1.0,-3,0,132.0,0,132.0,132.0,0.0
@@ -208,7 +208,7 @@ M-WYCHROOT-2,Root Lash,3,2,1,AFX-176,Impact Wood light 004,loud,0.7,-4,160,0.0,1
 M-WYCHROOT-2,Root Lash,3,3,1,AFX-172,Impact Wood light 000,loud,0.55,-5,300,0.0,200,300.0,100.0,100.0
 M-WYCHROOT-2,Root Lash,3,4,1,AFX-785,Slam 02,quiet,0.45,-4,480,55.4,200,535.4,335.4,280.0
 M-WYCHROOT-3,Sap Drink,1,1,1,AFX-177,Impact Wood medium 000,main,0.6,-4,0,0.0,0,0.0,0.0,0.0
-M-WYCHROOT-3,Sap Drink,1,2,1,AFX-018,Creak 1,quiet,0.45,-2,140,202.0,150,342.0,192.0,-10.0
+M-WYCHROOT-3,Sap Drink,1,2,1,AFX-018,Creak 1,quiet,0.45,-2,140,202.0,0,342.0,342.0,140.0
 M-WYCHROOT-3,Sap Drink,2,1,1,AFX-177,Impact Wood medium 000,main,0.6,-4,0,0.0,0,0.0,0.0,0.0
 M-WYCHROOT-3,Sap Drink,2,2,1,AFX-018,Creak 1,quiet,0.45,-2,140,202.0,150,342.0,192.0,-10.0
 M-WYCHROOT-3,Sap Drink,2,3,1,AFX-672,Slime 02,quiet,0.5,-4,280,46.6,150,326.6,176.6,130.0
@@ -228,12 +228,12 @@ M-WYCHROOT-4,Barkskin,3,4,1,AFX-124,Impact Plank medium 002,loud,0.55,-2,380,0.0
 M-GARROTE-1,Last Knot,1,1,1,AFX-043,Handle Small Leather,main,0.9,-5,0,168.2,0,168.2,168.2,0.0
 M-GARROTE-1,Last Knot,1,2,1,AFX-014,Cloth 3,quiet,0.5,-4,120,75.6,0,195.6,195.6,120.0
 M-GARROTE-1,Last Knot,2,1,1,AFX-043,Handle Small Leather,main,0.9,-5,0,168.2,0,168.2,168.2,0.0
-M-GARROTE-1,Last Knot,2,2,1,AFX-014,Cloth 3,quiet,0.5,-4,120,75.6,160,195.6,35.6,-40.0
-M-GARROTE-1,Last Knot,2,3,1,AFX-020,Creak 3,loud,0.55,-5,260,102.8,160,362.8,202.8,100.0
+M-GARROTE-1,Last Knot,2,2,1,AFX-014,Cloth 3,quiet,0.5,-4,120,75.6,200,195.6,-4.4,-80.0
+M-GARROTE-1,Last Knot,2,3,1,AFX-020,Creak 3,loud,0.55,-5,260,102.8,200,362.8,162.8,60.0
 M-GARROTE-1,Last Knot,3,1,1,AFX-043,Handle Small Leather,main,0.9,-5,0,168.2,0,168.2,168.2,0.0
-M-GARROTE-1,Last Knot,3,2,1,AFX-014,Cloth 3,quiet,0.5,-4,120,75.6,160,195.6,35.6,-40.0
-M-GARROTE-1,Last Knot,3,3,1,AFX-020,Creak 3,loud,0.55,-5,260,102.8,200,362.8,162.8,60.0
-M-GARROTE-1,Last Knot,3,4,1,AFX-816,Deep Break 8,loud,0.55,-4,300,245.7,200,545.7,345.7,100.0
+M-GARROTE-1,Last Knot,3,2,1,AFX-014,Cloth 3,quiet,0.5,-4,120,75.6,200,195.6,-4.4,-80.0
+M-GARROTE-1,Last Knot,3,3,1,AFX-020,Creak 3,loud,0.55,-5,260,102.8,240,362.8,122.8,20.0
+M-GARROTE-1,Last Knot,3,4,1,AFX-816,Deep Break 8,loud,0.55,-4,300,245.7,240,545.7,305.7,60.0
 M-GARROTE-2,Gallows Drop,1,1,1,AFX-153,Impact Soft heavy 001,main,0.7,-2,0,1.1,0,1.1,1.1,0.0
 M-GARROTE-2,Gallows Drop,2,1,1,AFX-153,Impact Soft heavy 001,main,0.7,-2,0,1.1,0,1.1,1.1,0.0
 M-GARROTE-2,Gallows Drop,2,2,1,AFX-012,Cloth 1,quiet,0.45,-2,160,124.6,140,284.6,144.6,20.0
@@ -256,7 +256,7 @@ M-GARROTE-4,Wire Whip,2,1,1,AFX-082,Impact Generic light 000,main,0.7,0,0,0.0,0,
 M-GARROTE-4,Wire Whip,2,2,1,AFX-166,Impact Tin medium 004,quiet,0.45,-1,160,0.0,140,160.0,20.0,20.0
 M-GARROTE-4,Wire Whip,3,1,1,AFX-082,Impact Generic light 000,main,0.7,0,0,0.0,0,0.0,0.0,0.0
 M-GARROTE-4,Wire Whip,3,2,1,AFX-166,Impact Tin medium 004,quiet,0.45,-1,160,0.0,160,160.0,0.0,0.0
-M-GARROTE-4,Wire Whip,3,3,1,AFX-785,Slam 02,quiet,0.45,-5,240,58.7,220,298.7,78.7,20.0
+M-GARROTE-4,Wire Whip,3,3,1,AFX-785,Slam 02,quiet,0.45,-5,240,58.7,200,298.7,98.7,40.0
 M-GALLOWSBIRD-1,Funeral Wind,1,1,1,AFX-154,Impact Soft heavy 002,main,0.7,-2,0,1.1,0,1.1,1.1,0.0
 M-GALLOWSBIRD-1,Funeral Wind,2,1,1,AFX-154,Impact Soft heavy 002,main,0.7,-2,0,1.1,0,1.1,1.1,0.0
 M-GALLOWSBIRD-1,Funeral Wind,2,2,1,AFX-852,Dragonflap (cut 1.4s of 2.4s),quiet,0.4,5,120,122.1,140,242.1,102.1,-20.0
@@ -307,7 +307,7 @@ M-HERNE-3,Sovereign's Bloom,1,1,1,AFX-447,Phaser Up 3,main,0.8,-5,0,113.5,0,113.
 M-HERNE-3,Sovereign's Bloom,1,2,1,AFX-845,Leaves 02,quiet,0.45,-4,0,1.3,0,1.3,1.3,0.0
 M-HERNE-3,Sovereign's Bloom,2,1,1,AFX-447,Phaser Up 3,main,0.8,-5,0,113.5,0,113.5,113.5,0.0
 M-HERNE-3,Sovereign's Bloom,2,2,1,AFX-431,Low Three Tone,quiet,0.5,0,60,101.0,100,161.0,61.0,-40.0
-M-HERNE-3,Sovereign's Bloom,2,3,1,AFX-180,Impact Wood medium 003,quiet,0.4,-3,300,0.0,160,300.0,140.0,140.0
+M-HERNE-3,Sovereign's Bloom,2,3,1,AFX-180,Impact Wood medium 003,quiet,0.4,-3,300,0.0,100,300.0,200.0,200.0
 M-HERNE-3,Sovereign's Bloom,3,1,1,AFX-447,Phaser Up 3,main,0.8,-5,0,113.5,0,113.5,113.5,0.0
 M-HERNE-3,Sovereign's Bloom,3,2,1,AFX-431,Low Three Tone,quiet,0.5,0,60,101.0,100,161.0,61.0,-40.0
 M-HERNE-3,Sovereign's Bloom,3,3,1,AFX-180,Impact Wood medium 003,quiet,0.4,-3,300,0.0,300,300.0,0.0,0.0
@@ -315,9 +315,9 @@ M-HERNE-3,Sovereign's Bloom,3,4,1,AFX-500,Force Field 000,quiet,0.45,-4,380,47.9
 M-HERNE-4,Wild Command,1,1,1,AFX-623,Howl,main,0.7,-3,0,33.3,0,33.3,33.3,0.0
 M-HERNE-4,Wild Command,2,1,1,AFX-623,Howl,main,0.7,-3,0,33.3,0,33.3,33.3,0.0
 M-HERNE-4,Wild Command,2,2,1,AFX-509,Impact Metal 004,quiet,0.4,-4,80,0.0,0,80.0,80.0,80.0
-M-HERNE-4,Wild Command,2,3,1,AFX-012,Cloth 1,quiet,0.45,-4,240,139.9,160,379.9,219.9,80.0
+M-HERNE-4,Wild Command,2,3,1,AFX-012,Cloth 1,quiet,0.45,-4,240,139.9,200,379.9,179.9,40.0
 M-HERNE-4,Wild Command,3,1,1,AFX-623,Howl,main,0.7,-3,0,33.3,0,33.3,33.3,0.0
-M-HERNE-4,Wild Command,3,2,1,AFX-509,Impact Metal 004,quiet,0.4,-4,80,0.0,0,80.0,80.0,80.0
+M-HERNE-4,Wild Command,3,2,1,AFX-509,Impact Metal 004,quiet,0.4,-4,80,0.0,120,80.0,-40.0,-40.0
 M-HERNE-4,Wild Command,3,3,1,AFX-012,Cloth 1,quiet,0.45,-4,240,139.9,300,379.9,79.9,-60.0
 M-HERNE-4,Wild Command,3,4,1,AFX-431,Low Three Tone,quiet,0.5,0,420,101.0,300,521.0,221.0,120.0
 M-TIDECRAWLER-1,Barnacle Grind,1,1,1,AFX-118,Impact Mining 001,main,0.6,0,0,1.0,0,1.0,1.0,0.0
@@ -328,20 +328,20 @@ M-TIDECRAWLER-1,Barnacle Grind,3,2,1,AFX-442,Phaser Down 1,loud,0.6,-3,140,140.3
 M-TIDECRAWLER-1,Barnacle Grind,3,3,1,AFX-507,Impact Metal 002,loud,0.6,-2,280,0.0,260,280.0,20.0,20.0
 M-TIDECRAWLER-1,Barnacle Grind,3,4,1,AFX-696,Splash 02,quiet,0.5,-3,380,38.1,260,418.1,158.1,120.0
 M-TIDECRAWLER-2,Scuttle Strike,1,1,1,AFX-011,Chop,main,0.7,-3,0,59.5,0,59.5,59.5,0.0
-M-TIDECRAWLER-2,Scuttle Strike,1,2,1,AFX-847,Stone 01,quiet,0.45,-2,140,53.9,160,193.9,33.9,-20.0
-M-TIDECRAWLER-2,Scuttle Strike,1,2,2,AFX-847,Stone 01,quiet,0.45,-2,230,53.9,160,283.9,123.9,70.0
+M-TIDECRAWLER-2,Scuttle Strike,1,2,1,AFX-847,Stone 01,quiet,0.45,-2,140,53.9,0,193.9,193.9,140.0
+M-TIDECRAWLER-2,Scuttle Strike,1,2,2,AFX-847,Stone 01,quiet,0.45,-2,230,53.9,0,283.9,283.9,230.0
 M-TIDECRAWLER-2,Scuttle Strike,2,1,1,AFX-011,Chop,main,0.7,-3,0,59.5,0,59.5,59.5,0.0
 M-TIDECRAWLER-2,Scuttle Strike,2,2,1,AFX-847,Stone 01,quiet,0.5,-2,140,53.9,150,193.9,43.9,-10.0
-M-TIDECRAWLER-2,Scuttle Strike,2,2,2,AFX-847,Stone 01,quiet,0.5,-2,230,53.9,260,283.9,23.9,-30.0
-M-TIDECRAWLER-2,Scuttle Strike,2,2,3,AFX-847,Stone 01,quiet,0.5,-2,320,53.9,260,373.9,113.9,60.0
-M-TIDECRAWLER-2,Scuttle Strike,2,3,1,AFX-696,Splash 02,loud,0.55,-3,320,38.1,260,358.1,98.1,60.0
+M-TIDECRAWLER-2,Scuttle Strike,2,2,2,AFX-847,Stone 01,quiet,0.5,-2,230,53.9,150,283.9,133.9,80.0
+M-TIDECRAWLER-2,Scuttle Strike,2,2,3,AFX-847,Stone 01,quiet,0.5,-2,320,53.9,150,373.9,223.9,170.0
+M-TIDECRAWLER-2,Scuttle Strike,2,3,1,AFX-696,Splash 02,loud,0.55,-3,320,38.1,150,358.1,208.1,170.0
 M-TIDECRAWLER-2,Scuttle Strike,3,1,1,AFX-011,Chop,main,0.7,-4,0,63.0,0,63.0,63.0,0.0
 M-TIDECRAWLER-2,Scuttle Strike,3,2,1,AFX-847,Stone 01,quiet,0.5,-3,140,57.1,160,197.1,37.1,-20.0
 M-TIDECRAWLER-2,Scuttle Strike,3,2,2,AFX-847,Stone 01,quiet,0.5,-3,230,57.1,200,287.1,87.1,30.0
-M-TIDECRAWLER-2,Scuttle Strike,3,2,3,AFX-847,Stone 01,quiet,0.5,-3,320,57.1,300,377.1,77.1,20.0
-M-TIDECRAWLER-2,Scuttle Strike,3,2,4,AFX-847,Stone 01,quiet,0.5,-3,410,57.1,300,467.1,167.1,110.0
-M-TIDECRAWLER-2,Scuttle Strike,3,3,1,AFX-843,Gravel,loud,0.6,-4,320,76.9,300,396.9,96.9,20.0
-M-TIDECRAWLER-2,Scuttle Strike,3,4,1,AFX-703,Splash 09,quiet,0.5,-2,460,13.5,300,473.5,173.5,160.0
+M-TIDECRAWLER-2,Scuttle Strike,3,2,3,AFX-847,Stone 01,quiet,0.5,-3,320,57.1,200,377.1,177.1,120.0
+M-TIDECRAWLER-2,Scuttle Strike,3,2,4,AFX-847,Stone 01,quiet,0.5,-3,410,57.1,200,467.1,267.1,210.0
+M-TIDECRAWLER-2,Scuttle Strike,3,3,1,AFX-843,Gravel,loud,0.6,-4,320,76.9,200,396.9,196.9,120.0
+M-TIDECRAWLER-2,Scuttle Strike,3,4,1,AFX-703,Splash 09,quiet,0.5,-2,460,13.5,200,473.5,273.5,260.0
 M-TIDECRAWLER-3,Pincer Snip,1,1,1,AFX-046,Knife Slice 2,main,0.7,-5,0,26.7,0,26.7,26.7,0.0
 M-TIDECRAWLER-3,Pincer Snip,1,2,1,AFX-704,Splash 10,loud,0.6,-4,150,32.8,0,182.8,182.8,150.0
 M-TIDECRAWLER-3,Pincer Snip,2,1,1,AFX-046,Knife Slice 2,main,0.7,-5,0,26.7,0,26.7,26.7,0.0
@@ -374,15 +374,15 @@ M-SALTJAW-2,Salt Wound,1,1,1,AFX-698,Splash 04,main,0.6,2,0,21.4,0,21.4,21.4,0.0
 M-SALTJAW-2,Salt Wound,2,1,1,AFX-698,Splash 04,main,0.6,-2,0,26.9,0,26.9,26.9,0.0
 M-SALTJAW-2,Salt Wound,2,2,1,AFX-156,Impact Soft heavy 004,quiet,0.5,-2,150,1.1,160,151.1,-8.9,-10.0
 M-SALTJAW-2,Salt Wound,3,1,1,AFX-698,Splash 04,main,0.6,-3,0,28.5,0,28.5,28.5,0.0
-M-SALTJAW-2,Salt Wound,3,2,1,AFX-156,Impact Soft heavy 004,quiet,0.5,-2,150,1.1,160,151.1,-8.9,-10.0
+M-SALTJAW-2,Salt Wound,3,2,1,AFX-156,Impact Soft heavy 004,quiet,0.5,-2,150,1.1,180,151.1,-28.9,-30.0
 M-SALTJAW-2,Salt Wound,3,3,1,AFX-694,Slime 10,loud,0.6,-4,300,128.5,320,428.5,108.5,-20.0
 M-SALTJAW-3,Bite,1,1,1,AFX-148,Impact Punch medium 001,main,0.7,-3,0,20.2,0,20.2,20.2,0.0
 M-SALTJAW-3,Bite,1,2,1,AFX-809,Deep Break 10,quiet,0.45,0,0,71.0,0,71.0,71.0,0.0
 M-SALTJAW-3,Bite,2,1,1,AFX-148,Impact Punch medium 001,main,0.7,-3,0,20.2,0,20.2,20.2,0.0
-M-SALTJAW-3,Bite,2,2,1,AFX-615,Eat 02,loud,0.6,-3,140,59.5,160,199.5,39.5,-20.0
+M-SALTJAW-3,Bite,2,2,1,AFX-615,Eat 02,loud,0.6,-3,140,59.5,200,199.5,-0.5,-60.0
 M-SALTJAW-3,Bite,2,3,1,AFX-836,8,quiet,0.45,-4,0,0.0,0,0.0,0.0,0.0
 M-SALTJAW-3,Bite,3,1,1,AFX-148,Impact Punch medium 001,main,0.7,-3,0,20.2,0,20.2,20.2,0.0
-M-SALTJAW-3,Bite,3,2,1,AFX-615,Eat 02,loud,0.6,-3,140,59.5,160,199.5,39.5,-20.0
+M-SALTJAW-3,Bite,3,2,1,AFX-615,Eat 02,loud,0.6,-3,140,59.5,200,199.5,-0.5,-60.0
 M-SALTJAW-3,Bite,3,3,1,AFX-808,Deep Break 1,quiet,0.5,-3,300,23.8,260,323.8,63.8,40.0
 M-SALTJAW-4,Thrash,1,1,1,AFX-153,Impact Soft heavy 001,main,0.6,-2,0,1.1,0,1.1,1.1,0.0
 M-SALTJAW-4,Thrash,1,1,2,AFX-153,Impact Soft heavy 001,loud,0.6,-2,90,1.1,0,91.1,91.1,90.0
@@ -415,10 +415,10 @@ M-BRINEFROG-2,Brine Spit,3,4,1,AFX-429,Low Down,quiet,0.5,-2,340,157.1,260,497.1
 M-BRINEFROG-3,Weeping Mist,1,1,1,AFX-430,Low Random,main,0.8,-2,0,107.8,0,107.8,107.8,0.0
 M-BRINEFROG-3,Weeping Mist,1,2,1,AFX-681,Bubble 02,quiet,0.5,-4,160,81.9,0,241.9,241.9,160.0
 M-BRINEFROG-3,Weeping Mist,2,1,1,AFX-430,Low Random,main,0.8,-2,0,107.8,0,107.8,107.8,0.0
-M-BRINEFROG-3,Weeping Mist,2,2,1,AFX-687,Slime 03,quiet,0.5,-5,160,216.2,160,376.2,216.2,0.0
-M-BRINEFROG-3,Weeping Mist,2,3,1,AFX-754,Water boiling (cut 1.2s of 4.5s),quiet,0.5,5,260,0.0,160,260.0,100.0,100.0
+M-BRINEFROG-3,Weeping Mist,2,2,1,AFX-687,Slime 03,quiet,0.5,-5,160,216.2,150,376.2,226.2,10.0
+M-BRINEFROG-3,Weeping Mist,2,3,1,AFX-754,Water boiling (cut 1.2s of 4.5s),quiet,0.5,5,260,0.0,150,260.0,110.0,110.0
 M-BRINEFROG-3,Weeping Mist,3,1,1,AFX-430,Low Random,main,0.8,-2,0,107.8,0,107.8,107.8,0.0
-M-BRINEFROG-3,Weeping Mist,3,2,1,AFX-687,Slime 03,quiet,0.5,-5,160,216.2,160,376.2,216.2,0.0
+M-BRINEFROG-3,Weeping Mist,3,2,1,AFX-687,Slime 03,quiet,0.5,-5,160,216.2,180,376.2,196.2,-20.0
 M-BRINEFROG-3,Weeping Mist,3,3,1,AFX-754,Water boiling (cut 1.2s of 4.5s),quiet,0.5,-1,300,0.0,240,300.0,60.0,60.0
 M-BRINEFROG-3,Weeping Mist,3,4,1,AFX-501,Force Field 001,quiet,0.5,-2,340,41.5,240,381.5,141.5,100.0
 M-BRINEFROG-4,Puff Up,1,1,1,AFX-020,Creak 3,main,0.85,-5,0,102.8,0,102.8,102.8,0.0
@@ -474,10 +474,10 @@ M-CRESTMANTIS-4,Boiling Point,3,3,1,AFX-754,Water boiling (cut 1.2s of 4.5s),lou
 M-CRESTMANTIS-4,Boiling Point,3,4,1,AFX-791,Fire 1 0 (cut 0.9s at 1s of 3.5s),quiet,0.5,-3,420,19.0,400,439.0,39.0,20.0
 M-RUSALKA-1,Grief Surge,1,1,1,AFX-155,Impact Soft heavy 003,main,0.7,-2,0,1.1,0,1.1,1.1,0.0
 M-RUSALKA-1,Grief Surge,2,1,1,AFX-155,Impact Soft heavy 003,main,0.7,-2,0,1.1,0,1.1,1.1,0.0
-M-RUSALKA-1,Grief Surge,2,2,1,AFX-698,Splash 04,loud,0.6,0,160,24.0,160,184.0,24.0,0.0
+M-RUSALKA-1,Grief Surge,2,2,1,AFX-698,Splash 04,loud,0.6,0,160,24.0,150,184.0,34.0,10.0
 M-RUSALKA-1,Grief Surge,2,3,1,AFX-758,Weird 03 (cut 1.2s of 3.5s),quiet,0.45,0,0,0.0,0,0.0,0.0,0.0
 M-RUSALKA-1,Grief Surge,3,1,1,AFX-155,Impact Soft heavy 003,main,0.7,-2,0,1.1,0,1.1,1.1,0.0
-M-RUSALKA-1,Grief Surge,3,2,1,AFX-698,Splash 04,loud,0.6,-2,160,26.9,160,186.9,26.9,0.0
+M-RUSALKA-1,Grief Surge,3,2,1,AFX-698,Splash 04,loud,0.6,-2,160,26.9,170,186.9,16.9,-10.0
 M-RUSALKA-1,Grief Surge,3,3,1,AFX-703,Splash 09,loud,0.55,-2,300,13.5,320,313.5,-6.5,-20.0
 M-RUSALKA-1,Grief Surge,3,4,1,AFX-758,Weird 03 (cut 1.2s of 3.5s),quiet,0.45,0,0,0.0,0,0.0,0.0,0.0
 M-RUSALKA-2,Undertow Touch,1,1,1,AFX-159,Impact Soft medium 002,main,0.7,0,0,1.0,0,1.0,1.0,0.0
@@ -504,7 +504,7 @@ M-RUSALKA-4,Mendtide,3,2,1,AFX-503,Force Field 003,quiet,0.45,-2,100,43.8,160,14
 M-RUSALKA-4,Mendtide,3,3,1,AFX-703,Splash 09,loud,0.55,-2,180,13.5,160,193.5,33.5,20.0
 M-RUSALKA-4,Mendtide,3,4,1,AFX-698,Splash 04,loud,0.6,-2,400,26.9,360,426.9,66.9,40.0
 M-BULWARK-1,Fortress Slam,1,1,1,AFX-128,Impact Plate heavy 001,main,0.7,-3,0,0.0,0,0.0,0.0,0.0
-M-BULWARK-1,Fortress Slam,1,2,1,AFX-131,Impact Plate heavy 004,quiet,0.5,0,160,0.0,120,160.0,40.0,40.0
+M-BULWARK-1,Fortress Slam,1,2,1,AFX-131,Impact Plate heavy 004,quiet,0.5,0,160,0.0,0,160.0,160.0,160.0
 M-BULWARK-1,Fortress Slam,2,1,1,AFX-128,Impact Plate heavy 001,main,0.7,-3,0,0.0,0,0.0,0.0,0.0
 M-BULWARK-1,Fortress Slam,2,2,1,AFX-131,Impact Plate heavy 004,loud,0.55,-1,160,0.0,160,160.0,0.0,0.0
 M-BULWARK-1,Fortress Slam,2,3,1,AFX-753,Rolling,quiet,0.5,3,300,1.7,160,301.7,141.7,140.0
@@ -551,7 +551,7 @@ M-NETHEREEL-3,Phase Bite,1,1,1,AFX-104,Impact Metal heavy 002,main,0.6,-4,0,0.0,
 M-NETHEREEL-3,Phase Bite,1,2,1,AFX-437,Phase Jump 1,quiet,0.5,-3,100,145.1,0,245.1,245.1,100.0
 M-NETHEREEL-3,Phase Bite,2,1,1,AFX-104,Impact Metal heavy 002,main,0.6,-4,0,0.0,0,0.0,0.0,0.0
 M-NETHEREEL-3,Phase Bite,2,2,1,AFX-437,Phase Jump 1,quiet,0.5,-3,120,145.1,150,265.1,115.1,-30.0
-M-NETHEREEL-3,Phase Bite,2,3,1,AFX-677,Slime 07,quiet,0.5,-4,260,16.4,160,276.4,116.4,100.0
+M-NETHEREEL-3,Phase Bite,2,3,1,AFX-677,Slime 07,quiet,0.5,-4,260,16.4,150,276.4,126.4,110.0
 M-NETHEREEL-3,Phase Bite,3,1,1,AFX-104,Impact Metal heavy 002,main,0.6,-5,0,0.0,0,0.0,0.0,0.0
 M-NETHEREEL-3,Phase Bite,3,2,1,AFX-437,Phase Jump 1,quiet,0.5,-4,130,153.7,160,283.7,123.7,-30.0
 M-NETHEREEL-3,Phase Bite,3,3,1,AFX-677,Slime 07,loud,0.55,-5,280,17.4,300,297.4,-2.6,-20.0
@@ -680,10 +680,10 @@ M-DUSKSCALE-1,Twilight Maw,3,3,1,AFX-739,Ambient 03 (cut 1.2s of 7.0s),quiet,0.5
 M-DUSKSCALE-1,Twilight Maw,3,4,1,AFX-820,Wet Break 2,quiet,0.45,-3,0,77.3,0,77.3,77.3,0.0
 M-DUSKSCALE-2,Basking Fury,1,1,1,AFX-150,Impact Punch medium 003,main,0.7,-3,0,23.8,0,23.8,23.8,0.0
 M-DUSKSCALE-2,Basking Fury,2,1,1,AFX-150,Impact Punch medium 003,main,0.7,-3,0,23.8,0,23.8,23.8,0.0
-M-DUSKSCALE-2,Basking Fury,2,2,1,AFX-037,Footstep 06,quiet,0.4,-3,160,5.9,120,165.9,45.9,40.0
+M-DUSKSCALE-2,Basking Fury,2,2,1,AFX-037,Footstep 06,quiet,0.4,-3,160,5.9,200,165.9,-34.1,-40.0
 M-DUSKSCALE-2,Basking Fury,2,2,2,AFX-037,Footstep 06,quiet,0.4,-3,260,5.9,200,265.9,65.9,60.0
 M-DUSKSCALE-2,Basking Fury,3,1,1,AFX-150,Impact Punch medium 003,main,0.7,-3,0,23.8,0,23.8,23.8,0.0
-M-DUSKSCALE-2,Basking Fury,3,2,1,AFX-037,Footstep 06,quiet,0.4,-3,160,5.9,120,165.9,45.9,40.0
+M-DUSKSCALE-2,Basking Fury,3,2,1,AFX-037,Footstep 06,quiet,0.4,-3,160,5.9,200,165.9,-34.1,-40.0
 M-DUSKSCALE-2,Basking Fury,3,2,2,AFX-037,Footstep 06,quiet,0.4,-3,260,5.9,280,265.9,-14.1,-20.0
 M-DUSKSCALE-2,Basking Fury,3,3,1,AFX-785,Slam 02,quiet,0.5,-4,300,55.4,280,355.4,75.4,20.0
 M-DUSKSCALE-3,Tail Sweep,1,1,1,AFX-013,Cloth 2,main,1.0,-4,0,132.3,0,132.3,132.3,0.0
@@ -748,9 +748,9 @@ M-DUNECOIL-2,Constrict,3,3,1,AFX-816,Deep Break 8,quiet,0.5,-3,300,231.9,200,531
 M-DUNECOIL-3,Ambush Strike,1,1,1,AFX-151,Impact Punch medium 004,main,0.7,-3,0,27.4,0,27.4,27.4,0.0
 M-DUNECOIL-3,Ambush Strike,1,2,1,AFX-843,Gravel,quiet,0.45,-3,0,72.5,0,72.5,72.5,0.0
 M-DUNECOIL-3,Ambush Strike,2,1,1,AFX-151,Impact Punch medium 004,main,0.7,-3,0,27.4,0,27.4,27.4,0.0
-M-DUNECOIL-3,Ambush Strike,2,2,1,AFX-843,Gravel,quiet,0.5,-3,160,72.5,140,232.5,92.5,20.0
+M-DUNECOIL-3,Ambush Strike,2,2,1,AFX-843,Gravel,quiet,0.5,-3,160,72.5,120,232.5,112.5,40.0
 M-DUNECOIL-3,Ambush Strike,3,1,1,AFX-151,Impact Punch medium 004,main,0.7,-3,0,27.4,0,27.4,27.4,0.0
-M-DUNECOIL-3,Ambush Strike,3,2,1,AFX-843,Gravel,quiet,0.5,-3,160,72.5,140,232.5,92.5,20.0
+M-DUNECOIL-3,Ambush Strike,3,2,1,AFX-843,Gravel,quiet,0.5,-3,160,72.5,120,232.5,112.5,40.0
 M-DUNECOIL-3,Ambush Strike,3,3,1,AFX-851,Sand spell,quiet,0.5,-1,300,87.9,240,387.9,147.9,60.0
 M-DUNECOIL-4,Sand Swim,1,1,1,AFX-851,Sand spell,main,0.6,5,0,62.2,0,62.2,62.2,0.0
 M-DUNECOIL-4,Sand Swim,2,1,1,AFX-851,Sand spell,main,0.6,0,0,83.0,0,83.0,83.0,0.0
@@ -770,24 +770,24 @@ M-FATA-1,Dream of Water,3,4,1,AFX-843,Gravel,quiet,0.5,-4,340,76.9,300,416.9,116
 M-FATA-2,Double Image,1,1,1,AFX-148,Impact Punch medium 001,main,0.7,-2,0,19.1,0,19.1,19.1,0.0
 M-FATA-2,Double Image,1,1,2,AFX-148,Impact Punch medium 001,loud,0.7,-2,140,19.1,180,159.1,-20.9,-40.0
 M-FATA-2,Double Image,2,1,1,AFX-148,Impact Punch medium 001,main,0.7,-2,0,19.1,0,19.1,19.1,0.0
-M-FATA-2,Double Image,2,1,2,AFX-148,Impact Punch medium 001,loud,0.7,-2,140,19.1,160,159.1,-0.9,-20.0
-M-FATA-2,Double Image,2,2,1,AFX-084,Impact Generic light 002,quiet,0.4,-1,160,0.0,160,160.0,0.0,0.0
+M-FATA-2,Double Image,2,1,2,AFX-148,Impact Punch medium 001,loud,0.7,-2,140,19.1,200,159.1,-40.9,-60.0
+M-FATA-2,Double Image,2,2,1,AFX-084,Impact Generic light 002,quiet,0.4,-1,160,0.0,200,160.0,-40.0,-40.0
 M-FATA-2,Double Image,2,2,2,AFX-084,Impact Generic light 002,quiet,0.4,-1,300,0.0,200,300.0,100.0,100.0
 M-FATA-2,Double Image,3,1,1,AFX-148,Impact Punch medium 001,main,0.7,-2,0,19.1,0,19.1,19.1,0.0
-M-FATA-2,Double Image,3,1,2,AFX-148,Impact Punch medium 001,loud,0.7,-2,140,19.1,160,159.1,-0.9,-20.0
-M-FATA-2,Double Image,3,2,1,AFX-084,Impact Generic light 002,quiet,0.4,-1,160,0.0,160,160.0,0.0,0.0
+M-FATA-2,Double Image,3,1,2,AFX-148,Impact Punch medium 001,loud,0.7,-2,140,19.1,200,159.1,-40.9,-60.0
+M-FATA-2,Double Image,3,2,1,AFX-084,Impact Generic light 002,quiet,0.4,-1,160,0.0,200,160.0,-40.0,-40.0
 M-FATA-2,Double Image,3,2,2,AFX-084,Impact Generic light 002,quiet,0.4,-1,300,0.0,200,300.0,100.0,100.0
 M-FATA-2,Double Image,3,3,1,AFX-786,Slam 03,quiet,0.5,-4,340,47.9,400,387.9,-12.1,-60.0
 M-FATA-3,Mirage Claw,1,1,1,AFX-028,Draw Knife 2,main,1.3,-5,0,82.8,0,82.8,82.8,0.0
-M-FATA-3,Mirage Claw,1,2,1,AFX-083,Impact Generic light 001,loud,0.6,-3,150,0.0,160,150.0,-10.0,-10.0
+M-FATA-3,Mirage Claw,1,2,1,AFX-083,Impact Generic light 001,loud,0.6,-3,150,0.0,0,150.0,150.0,150.0
 M-FATA-3,Mirage Claw,2,1,1,AFX-028,Draw Knife 2,main,1.3,-5,0,82.8,0,82.8,82.8,0.0
 M-FATA-3,Mirage Claw,2,2,1,AFX-083,Impact Generic light 001,loud,0.65,-3,150,0.0,160,150.0,-10.0,-10.0
-M-FATA-3,Mirage Claw,2,3,1,AFX-437,Phase Jump 1,quiet,0.5,-4,280,153.7,260,433.7,173.7,20.0
+M-FATA-3,Mirage Claw,2,3,1,AFX-437,Phase Jump 1,quiet,0.5,-4,280,153.7,160,433.7,273.7,120.0
 M-FATA-3,Mirage Claw,3,1,1,AFX-028,Draw Knife 2,main,1.3,-6,0,87.7,0,87.7,87.7,0.0
 M-FATA-3,Mirage Claw,3,2,1,AFX-083,Impact Generic light 001,loud,0.7,-4,150,0.0,160,150.0,-10.0,-10.0
 M-FATA-3,Mirage Claw,3,3,1,AFX-437,Phase Jump 1,loud,0.55,-5,280,162.9,300,442.9,142.9,-20.0
-M-FATA-3,Mirage Claw,3,3,2,AFX-437,Phase Jump 1,loud,0.55,-5,420,162.9,380,582.9,202.9,40.0
-M-FATA-3,Mirage Claw,3,4,1,AFX-785,Slam 02,quiet,0.45,-4,440,55.4,380,495.4,115.4,60.0
+M-FATA-3,Mirage Claw,3,3,2,AFX-437,Phase Jump 1,loud,0.55,-5,420,162.9,300,582.9,282.9,120.0
+M-FATA-3,Mirage Claw,3,4,1,AFX-785,Slam 02,quiet,0.45,-4,440,55.4,300,495.4,195.4,140.0
 M-FATA-4,Heat Haze,1,1,1,AFX-444,Phaser Down 3,main,0.8,-2,0,96.5,0,96.5,96.5,0.0
 M-FATA-4,Heat Haze,1,2,1,AFX-792,Flame 0,quiet,0.45,0,0,69.0,0,69.0,69.0,0.0
 M-FATA-4,Heat Haze,2,1,1,AFX-444,Phaser Down 3,main,0.8,-2,0,96.5,0,96.5,96.5,0.0
@@ -826,10 +826,10 @@ M-SIMOOM-3,Reform,3,4,1,AFX-843,Gravel,quiet,0.5,-4,420,76.9,180,496.9,316.9,240
 M-SIMOOM-4,Stormwall,1,1,1,AFX-012,Cloth 1,main,0.7,-3,0,132.0,0,132.0,132.0,0.0
 M-SIMOOM-4,Stormwall,1,2,1,AFX-510,Laser Large 000,quiet,0.45,0,0,1.0,0,1.0,1.0,0.0
 M-SIMOOM-4,Stormwall,2,1,1,AFX-012,Cloth 1,main,0.7,-3,0,132.0,0,132.0,132.0,0.0
-M-SIMOOM-4,Stormwall,2,2,1,AFX-851,Sand spell,loud,0.55,3,180,69.8,160,249.8,89.8,20.0
+M-SIMOOM-4,Stormwall,2,2,1,AFX-851,Sand spell,loud,0.55,3,180,69.8,120,249.8,129.8,60.0
 M-SIMOOM-4,Stormwall,2,3,1,AFX-511,Laser Large 001,quiet,0.45,0,0,1.0,0,1.0,1.0,0.0
 M-SIMOOM-4,Stormwall,3,1,1,AFX-012,Cloth 1,main,0.7,-3,0,132.0,0,132.0,132.0,0.0
-M-SIMOOM-4,Stormwall,3,2,1,AFX-851,Sand spell,loud,0.6,-3,180,98.7,160,278.7,118.7,20.0
+M-SIMOOM-4,Stormwall,3,2,1,AFX-851,Sand spell,loud,0.6,-3,180,98.7,200,278.7,78.7,-20.0
 M-SIMOOM-4,Stormwall,3,3,1,AFX-784,Slam 01,quiet,0.5,-3,320,11.9,200,331.9,131.9,120.0
 M-ECHIDNA-1,Thousand Fangs,1,1,1,AFX-741,Machine 02,main,0.55,-3,0,1.2,0,1.2,1.2,0.0
 M-ECHIDNA-1,Thousand Fangs,1,2,1,AFX-157,Impact Soft medium 000,loud,0.55,-4,80,1.3,90,81.3,-8.7,-10.0
@@ -909,11 +909,11 @@ M-EMBERCLAW-2,Killing Heat,3,4,1,AFX-811,Deep Break 3,quiet,0.4,-4,320,223.0,300
 M-EMBERCLAW-3,Sear Swipe,1,1,1,AFX-509,Impact Metal 004,main,0.85,-2,0,0.0,0,0.0,0.0,0.0
 M-EMBERCLAW-3,Sear Swipe,1,2,1,AFX-792,Flame 0,quiet,0.5,-3,200,82.1,0,282.1,282.1,200.0
 M-EMBERCLAW-3,Sear Swipe,2,1,1,AFX-509,Impact Metal 004,main,0.85,-2,0,0.0,0,0.0,0.0,0.0
-M-EMBERCLAW-3,Sear Swipe,2,2,1,AFX-502,Force Field 002,quiet,0.45,-1,100,40.3,160,140.3,-19.7,-60.0
-M-EMBERCLAW-3,Sear Swipe,2,3,1,AFX-792,Flame 0,quiet,0.5,-3,200,82.1,160,282.1,122.1,40.0
+M-EMBERCLAW-3,Sear Swipe,2,2,1,AFX-502,Force Field 002,quiet,0.45,-1,100,40.3,0,140.3,140.3,100.0
+M-EMBERCLAW-3,Sear Swipe,2,3,1,AFX-792,Flame 0,quiet,0.5,-3,200,82.1,240,282.1,42.1,-40.0
 M-EMBERCLAW-3,Sear Swipe,3,1,1,AFX-509,Impact Metal 004,main,0.85,-2,0,0.0,0,0.0,0.0,0.0
-M-EMBERCLAW-3,Sear Swipe,3,2,1,AFX-502,Force Field 002,quiet,0.45,-1,100,40.3,160,140.3,-19.7,-60.0
-M-EMBERCLAW-3,Sear Swipe,3,3,1,AFX-792,Flame 0,quiet,0.5,-3,200,82.1,160,282.1,122.1,40.0
+M-EMBERCLAW-3,Sear Swipe,3,2,1,AFX-502,Force Field 002,quiet,0.45,-1,100,40.3,0,140.3,140.3,100.0
+M-EMBERCLAW-3,Sear Swipe,3,3,1,AFX-792,Flame 0,quiet,0.5,-3,200,82.1,240,282.1,42.1,-40.0
 M-EMBERCLAW-3,Sear Swipe,3,4,1,AFX-786,Slam 03,quiet,0.5,-3,400,45.2,360,445.2,85.2,40.0
 M-EMBERCLAW-4,Kindle,1,1,1,AFX-446,Phaser Up 2,main,0.8,-5,0,114.8,0,114.8,114.8,0.0
 M-EMBERCLAW-4,Kindle,1,2,1,AFX-792,Flame 0,quiet,0.5,-4,200,86.9,0,286.9,286.9,200.0
@@ -931,14 +931,14 @@ M-ZARATAN-1,Continental Roll,3,1,1,AFX-119,Impact Mining 002,main,0.6,-1,0,0.0,0
 M-ZARATAN-1,Continental Roll,3,2,1,AFX-524,Laser Small 004,loud,0.6,-6,160,0.0,160,160.0,0.0,0.0
 M-ZARATAN-1,Continental Roll,3,3,1,AFX-723,Bfh 1 rock falling 01,loud,0.55,-5,220,299.0,160,519.0,359.0,60.0
 M-ZARATAN-2,Weight of Ages,1,1,1,AFX-074,Footstep wood 002,main,0.7,-4,0,1.3,0,1.3,1.3,0.0
-M-ZARATAN-2,Weight of Ages,1,2,1,AFX-129,Impact Plate heavy 002,loud,0.6,-3,140,0.0,160,140.0,-20.0,-20.0
+M-ZARATAN-2,Weight of Ages,1,2,1,AFX-129,Impact Plate heavy 002,loud,0.6,-3,140,0.0,0,140.0,140.0,140.0
 M-ZARATAN-2,Weight of Ages,2,1,1,AFX-074,Footstep wood 002,main,0.7,-4,0,1.3,0,1.3,1.3,0.0
 M-ZARATAN-2,Weight of Ages,2,2,1,AFX-129,Impact Plate heavy 002,loud,0.65,-3,140,0.0,150,140.0,-10.0,-10.0
 M-ZARATAN-2,Weight of Ages,2,3,1,AFX-117,Impact Mining 000,quiet,0.5,0,200,0.0,150,200.0,50.0,50.0
 M-ZARATAN-2,Weight of Ages,3,1,1,AFX-074,Footstep wood 002,main,0.7,-5,0,1.3,0,1.3,1.3,0.0
 M-ZARATAN-2,Weight of Ages,3,2,1,AFX-129,Impact Plate heavy 002,loud,0.7,-4,140,0.0,150,140.0,-10.0,-10.0
-M-ZARATAN-2,Weight of Ages,3,3,1,AFX-117,Impact Mining 000,loud,0.55,-2,200,0.0,150,200.0,50.0,50.0
-M-ZARATAN-2,Weight of Ages,3,4,1,AFX-811,Deep Break 3,loud,0.6,-4,300,223.0,260,523.0,263.0,40.0
+M-ZARATAN-2,Weight of Ages,3,3,1,AFX-117,Impact Mining 000,loud,0.55,-2,200,0.0,180,200.0,20.0,20.0
+M-ZARATAN-2,Weight of Ages,3,4,1,AFX-811,Deep Break 3,loud,0.6,-4,300,223.0,180,523.0,343.0,120.0
 M-ZARATAN-3,Ruin Shrug,1,1,1,AFX-130,Impact Plate heavy 003,main,0.7,-1,0,1.1,0,1.1,1.1,0.0
 M-ZARATAN-3,Ruin Shrug,2,1,1,AFX-130,Impact Plate heavy 003,main,0.7,-1,0,1.1,0,1.1,1.1,0.0
 M-ZARATAN-3,Ruin Shrug,2,2,1,AFX-724,Bfh 1 rock falling 02,loud,0.55,-2,150,7.9,150,157.9,7.9,0.0
@@ -1035,8 +1035,8 @@ M-GLOOMGRUB-2,Acid Dribble,2,1,1,AFX-694,Slime 10,main,0.65,-4,0,128.5,0,128.5,1
 M-GLOOMGRUB-2,Acid Dribble,2,2,1,AFX-754,Water boiling (cut 1.2s of 4.5s),loud,0.55,3,160,0.0,120,160.0,40.0,40.0
 M-GLOOMGRUB-2,Acid Dribble,2,3,1,AFX-639,Spit 01,quiet,0.45,-4,0,69.3,0,69.3,69.3,0.0
 M-GLOOMGRUB-2,Acid Dribble,3,1,1,AFX-694,Slime 10,main,0.65,-4,0,128.5,0,128.5,128.5,0.0
-M-GLOOMGRUB-2,Acid Dribble,3,2,1,AFX-754,Water boiling (cut 1.2s of 4.5s),loud,0.55,-2,160,0.0,160,160.0,0.0,0.0
-M-GLOOMGRUB-2,Acid Dribble,3,3,1,AFX-640,Spit 02,quiet,0.5,-3,280,97.5,160,377.5,217.5,120.0
+M-GLOOMGRUB-2,Acid Dribble,3,2,1,AFX-754,Water boiling (cut 1.2s of 4.5s),loud,0.55,-2,160,0.0,120,160.0,40.0,40.0
+M-GLOOMGRUB-2,Acid Dribble,3,3,1,AFX-640,Spit 02,quiet,0.5,-3,280,97.5,240,377.5,137.5,40.0
 M-GLOOMGRUB-3,Corrosive Burst,1,1,1,AFX-687,Slime 03,main,0.7,-5,0,216.2,0,216.2,216.2,0.0
 M-GLOOMGRUB-3,Corrosive Burst,1,2,1,AFX-690,Slime 06,quiet,0.5,-3,140,114.2,0,254.2,254.2,140.0
 M-GLOOMGRUB-3,Corrosive Burst,2,1,1,AFX-687,Slime 03,main,0.7,-5,0,216.2,0,216.2,216.2,0.0
@@ -1071,15 +1071,15 @@ M-THORNHUSK-2,Thorn Volley,1,1,2,AFX-175,Impact Wood light 003,loud,0.7,-2,90,0.
 M-THORNHUSK-2,Thorn Volley,1,1,3,AFX-175,Impact Wood light 003,loud,0.7,-2,180,0.0,90,180.0,90.0,90.0
 M-THORNHUSK-2,Thorn Volley,2,1,1,AFX-175,Impact Wood light 003,main,0.7,-2,0,0.0,0,0.0,0.0,0.0
 M-THORNHUSK-2,Thorn Volley,2,1,2,AFX-175,Impact Wood light 003,loud,0.7,-2,90,0.0,90,90.0,0.0,0.0
-M-THORNHUSK-2,Thorn Volley,2,1,3,AFX-175,Impact Wood light 003,loud,0.7,-2,180,0.0,160,180.0,20.0,20.0
-M-THORNHUSK-2,Thorn Volley,2,2,1,AFX-165,Impact Tin medium 003,quiet,0.45,-2,140,0.0,160,140.0,-20.0,-20.0
-M-THORNHUSK-2,Thorn Volley,2,2,2,AFX-165,Impact Tin medium 003,quiet,0.45,-2,230,0.0,160,230.0,70.0,70.0
+M-THORNHUSK-2,Thorn Volley,2,1,3,AFX-175,Impact Wood light 003,loud,0.7,-2,180,0.0,200,180.0,-20.0,-20.0
+M-THORNHUSK-2,Thorn Volley,2,2,1,AFX-165,Impact Tin medium 003,quiet,0.45,-2,140,0.0,90,140.0,50.0,50.0
+M-THORNHUSK-2,Thorn Volley,2,2,2,AFX-165,Impact Tin medium 003,quiet,0.45,-2,230,0.0,200,230.0,30.0,30.0
 M-THORNHUSK-2,Thorn Volley,3,1,1,AFX-175,Impact Wood light 003,main,0.7,-2,0,0.0,0,0.0,0.0,0.0
 M-THORNHUSK-2,Thorn Volley,3,1,2,AFX-175,Impact Wood light 003,loud,0.7,-2,90,0.0,90,90.0,0.0,0.0
 M-THORNHUSK-2,Thorn Volley,3,1,3,AFX-175,Impact Wood light 003,loud,0.7,-2,180,0.0,180,180.0,0.0,0.0
-M-THORNHUSK-2,Thorn Volley,3,2,1,AFX-165,Impact Tin medium 003,quiet,0.45,-2,140,0.0,160,140.0,-20.0,-20.0
-M-THORNHUSK-2,Thorn Volley,3,2,2,AFX-165,Impact Tin medium 003,quiet,0.45,-2,230,0.0,200,230.0,30.0,30.0
-M-THORNHUSK-2,Thorn Volley,3,3,1,AFX-736,Bfh 1 wood breaking 04,quiet,0.45,-4,320,59.2,200,379.2,179.2,120.0
+M-THORNHUSK-2,Thorn Volley,3,2,1,AFX-165,Impact Tin medium 003,quiet,0.45,-2,140,0.0,150,140.0,-10.0,-10.0
+M-THORNHUSK-2,Thorn Volley,3,2,2,AFX-165,Impact Tin medium 003,quiet,0.45,-2,230,0.0,240,230.0,-10.0,-10.0
+M-THORNHUSK-2,Thorn Volley,3,3,1,AFX-736,Bfh 1 wood breaking 04,quiet,0.45,-4,320,59.2,240,379.2,139.2,80.0
 M-THORNHUSK-3,Branch Jab,1,1,1,AFX-176,Impact Wood light 004,main,0.7,0,0,0.0,0,0.0,0.0,0.0
 M-THORNHUSK-3,Branch Jab,2,1,1,AFX-176,Impact Wood light 004,main,0.7,0,0,0.0,0,0.0,0.0,0.0
 M-THORNHUSK-3,Branch Jab,2,2,1,AFX-159,Impact Soft medium 002,quiet,0.45,0,120,1.0,120,121.0,1.0,0.0
@@ -1121,12 +1121,12 @@ M-SPOREFLY-4,Carrier Swarm,1,1,3,AFX-013,Cloth 2,quiet,0.5,-5,180,140.2,0,320.2,
 M-SPOREFLY-4,Carrier Swarm,1,2,1,AFX-608,Bug 01,quiet,0.45,-4,0,107.1,0,107.1,107.1,0.0
 M-SPOREFLY-4,Carrier Swarm,2,1,1,AFX-013,Cloth 2,main,0.5,-5,0,140.2,0,140.2,140.2,0.0
 M-SPOREFLY-4,Carrier Swarm,2,1,2,AFX-013,Cloth 2,quiet,0.5,-5,90,140.2,120,230.2,110.2,-30.0
-M-SPOREFLY-4,Carrier Swarm,2,1,3,AFX-013,Cloth 2,quiet,0.5,-5,180,140.2,160,320.2,160.2,20.0
+M-SPOREFLY-4,Carrier Swarm,2,1,3,AFX-013,Cloth 2,quiet,0.5,-5,180,140.2,120,320.2,200.2,60.0
 M-SPOREFLY-4,Carrier Swarm,2,2,1,AFX-608,Bug 01,quiet,0.4,-6,140,120.2,120,260.2,140.2,20.0
-M-SPOREFLY-4,Carrier Swarm,2,3,1,AFX-430,Low Random,quiet,0.5,-4,300,121.0,160,421.0,261.0,140.0
+M-SPOREFLY-4,Carrier Swarm,2,3,1,AFX-430,Low Random,quiet,0.5,-4,300,121.0,120,421.0,301.0,180.0
 M-SPOREFLY-4,Carrier Swarm,3,1,1,AFX-013,Cloth 2,main,0.5,-5,0,140.2,0,140.2,140.2,0.0
 M-SPOREFLY-4,Carrier Swarm,3,1,2,AFX-013,Cloth 2,quiet,0.5,-5,90,140.2,120,230.2,110.2,-30.0
-M-SPOREFLY-4,Carrier Swarm,3,1,3,AFX-013,Cloth 2,quiet,0.5,-5,180,140.2,160,320.2,160.2,20.0
+M-SPOREFLY-4,Carrier Swarm,3,1,3,AFX-013,Cloth 2,quiet,0.5,-5,180,140.2,120,320.2,200.2,60.0
 M-SPOREFLY-4,Carrier Swarm,3,2,1,AFX-608,Bug 01,quiet,0.4,-6,140,120.2,120,260.2,140.2,20.0
 M-SPOREFLY-4,Carrier Swarm,3,3,1,AFX-430,Low Random,quiet,0.5,-4,300,121.0,300,421.0,121.0,0.0
 M-SPOREFLY-4,Carrier Swarm,3,4,1,AFX-502,Force Field 002,quiet,0.45,-3,400,45.2,300,445.2,145.2,100.0
@@ -1219,21 +1219,21 @@ M-PLAGUECARRIER-3,Release the Colony,1,1,3,AFX-165,Impact Tin medium 003,loud,0.
 M-PLAGUECARRIER-3,Release the Colony,1,1,4,AFX-165,Impact Tin medium 003,loud,0.6,-2,300,0.0,0,300.0,300.0,300.0
 M-PLAGUECARRIER-3,Release the Colony,1,2,1,AFX-611,Bug 04,quiet,0.45,-4,0,69.3,0,69.3,69.3,0.0
 M-PLAGUECARRIER-3,Release the Colony,2,1,1,AFX-165,Impact Tin medium 003,main,0.6,-2,0,0.0,0,0.0,0.0,0.0
-M-PLAGUECARRIER-3,Release the Colony,2,1,2,AFX-165,Impact Tin medium 003,loud,0.6,-2,100,0.0,160,100.0,-60.0,-60.0
-M-PLAGUECARRIER-3,Release the Colony,2,1,3,AFX-165,Impact Tin medium 003,loud,0.6,-2,200,0.0,160,200.0,40.0,40.0
-M-PLAGUECARRIER-3,Release the Colony,2,1,4,AFX-165,Impact Tin medium 003,loud,0.6,-2,300,0.0,160,300.0,140.0,140.0
-M-PLAGUECARRIER-3,Release the Colony,2,2,1,AFX-611,Bug 04,quiet,0.45,-4,180,69.3,160,249.3,89.3,20.0
+M-PLAGUECARRIER-3,Release the Colony,2,1,2,AFX-165,Impact Tin medium 003,loud,0.6,-2,100,0.0,0,100.0,100.0,100.0
+M-PLAGUECARRIER-3,Release the Colony,2,1,3,AFX-165,Impact Tin medium 003,loud,0.6,-2,200,0.0,200,200.0,0.0,0.0
+M-PLAGUECARRIER-3,Release the Colony,2,1,4,AFX-165,Impact Tin medium 003,loud,0.6,-2,300,0.0,200,300.0,100.0,100.0
+M-PLAGUECARRIER-3,Release the Colony,2,2,1,AFX-611,Bug 04,quiet,0.45,-4,180,69.3,200,249.3,49.3,-20.0
 M-PLAGUECARRIER-3,Release the Colony,2,3,1,AFX-690,Slime 06,quiet,0.45,-3,0,114.2,0,114.2,114.2,0.0
 M-PLAGUECARRIER-3,Release the Colony,3,1,1,AFX-165,Impact Tin medium 003,main,0.6,-2,0,0.0,0,0.0,0.0,0.0
-M-PLAGUECARRIER-3,Release the Colony,3,1,2,AFX-165,Impact Tin medium 003,loud,0.6,-2,100,0.0,160,100.0,-60.0,-60.0
+M-PLAGUECARRIER-3,Release the Colony,3,1,2,AFX-165,Impact Tin medium 003,loud,0.6,-2,100,0.0,120,100.0,-20.0,-20.0
 M-PLAGUECARRIER-3,Release the Colony,3,1,3,AFX-165,Impact Tin medium 003,loud,0.6,-2,200,0.0,200,200.0,0.0,0.0
 M-PLAGUECARRIER-3,Release the Colony,3,1,4,AFX-165,Impact Tin medium 003,loud,0.6,-2,300,0.0,200,300.0,100.0,100.0
-M-PLAGUECARRIER-3,Release the Colony,3,2,1,AFX-672,Slime 02,quiet,0.45,-3,180,44.0,160,224.0,64.0,20.0
+M-PLAGUECARRIER-3,Release the Colony,3,2,1,AFX-672,Slime 02,quiet,0.45,-3,180,44.0,200,224.0,24.0,-20.0
 M-PLAGUECARRIER-3,Release the Colony,3,3,1,AFX-608,Bug 01,quiet,0.45,-4,320,107.1,200,427.1,227.1,120.0
 M-PLAGUECARRIER-4,Host's Gift,1,1,1,AFX-505,Impact Metal 000,main,0.7,-4,0,0.0,0,0.0,0.0,0.0
 M-PLAGUECARRIER-4,Host's Gift,2,1,1,AFX-505,Impact Metal 000,main,0.7,-4,0,0.0,0,0.0,0.0,0.0
-M-PLAGUECARRIER-4,Host's Gift,2,2,1,AFX-677,Slime 07,quiet,0.5,-4,240,16.4,160,256.4,96.4,80.0
-M-PLAGUECARRIER-4,Host's Gift,2,3,1,AFX-449,Phaser Up 5,quiet,0.45,-5,420,120.1,160,540.1,380.1,260.0
+M-PLAGUECARRIER-4,Host's Gift,2,2,1,AFX-677,Slime 07,quiet,0.5,-4,240,16.4,120,256.4,136.4,120.0
+M-PLAGUECARRIER-4,Host's Gift,2,3,1,AFX-449,Phaser Up 5,quiet,0.45,-5,420,120.1,120,540.1,420.1,300.0
 M-PLAGUECARRIER-4,Host's Gift,3,1,1,AFX-505,Impact Metal 000,main,0.7,-4,0,0.0,0,0.0,0.0,0.0
 M-PLAGUECARRIER-4,Host's Gift,3,2,1,AFX-677,Slime 07,quiet,0.5,-4,240,16.4,300,256.4,-43.6,-60.0
 M-PLAGUECARRIER-4,Host's Gift,3,3,1,AFX-501,Force Field 001,quiet,0.45,-3,380,44.0,300,424.0,124.0,80.0
@@ -1251,11 +1251,11 @@ M-DEVOUT-2,Prayer Strike,1,1,1,AFX-086,Impact Generic light 004,quiet,0.5,-2,0,0
 M-DEVOUT-2,Prayer Strike,1,2,1,AFX-082,Impact Generic light 000,main,0.55,-3,0,0.0,0,0.0,0.0,0.0
 M-DEVOUT-2,Prayer Strike,2,1,1,AFX-086,Impact Generic light 004,quiet,0.5,-3,0,0.0,0,0.0,0.0,0.0
 M-DEVOUT-2,Prayer Strike,2,2,1,AFX-082,Impact Generic light 000,main,0.55,-4,0,0.0,0,0.0,0.0,0.0
-M-DEVOUT-2,Prayer Strike,2,3,1,AFX-014,Cloth 3,quiet,0.45,-2,240,67.3,160,307.3,147.3,80.0
+M-DEVOUT-2,Prayer Strike,2,3,1,AFX-014,Cloth 3,quiet,0.45,-2,240,67.3,80,307.3,227.3,160.0
 M-DEVOUT-2,Prayer Strike,3,1,1,AFX-086,Impact Generic light 004,quiet,0.5,-4,0,0.0,0,0.0,0.0,0.0
 M-DEVOUT-2,Prayer Strike,3,2,1,AFX-082,Impact Generic light 000,main,0.55,-5,0,0.0,0,0.0,0.0,0.0
-M-DEVOUT-2,Prayer Strike,3,3,1,AFX-014,Cloth 3,quiet,0.45,-3,250,71.4,300,321.4,21.4,-50.0
-M-DEVOUT-2,Prayer Strike,3,4,1,AFX-144,Impact Punch heavy 002,quiet,0.5,-4,400,21.4,300,421.4,121.4,100.0
+M-DEVOUT-2,Prayer Strike,3,3,1,AFX-014,Cloth 3,quiet,0.45,-3,250,71.4,220,321.4,101.4,30.0
+M-DEVOUT-2,Prayer Strike,3,4,1,AFX-144,Impact Punch heavy 002,quiet,0.5,-4,400,21.4,220,421.4,201.4,180.0
 M-DEVOUT-3,Between Blinks,1,1,1,AFX-443,Phaser Down 2,main,0.75,-2,0,65.1,0,65.1,65.1,0.0
 M-DEVOUT-3,Between Blinks,2,1,1,AFX-443,Phaser Down 2,main,0.75,-2,0,65.1,0,65.1,65.1,0.0
 M-DEVOUT-3,Between Blinks,2,2,1,AFX-015,Cloth 4,quiet,0.4,-2,150,34.8,160,184.8,24.8,-10.0
@@ -1292,10 +1292,10 @@ M-LOCUST-2,Swarm Surge,2,3,1,AFX-611,Bug 04,quiet,0.45,-4,0,69.3,0,69.3,69.3,0.0
 M-LOCUST-2,Swarm Surge,3,1,1,AFX-157,Impact Soft medium 000,main,0.7,-2,0,1.1,0,1.1,1.1,0.0
 M-LOCUST-2,Swarm Surge,3,1,2,AFX-157,Impact Soft medium 000,loud,0.7,-2,110,1.1,90,111.1,21.1,20.0
 M-LOCUST-2,Swarm Surge,3,1,3,AFX-157,Impact Soft medium 000,loud,0.7,-2,220,1.1,200,221.1,21.1,20.0
-M-LOCUST-2,Swarm Surge,3,1,4,AFX-157,Impact Soft medium 000,loud,0.7,-2,330,1.1,270,331.1,61.1,60.0
-M-LOCUST-2,Swarm Surge,3,2,1,AFX-015,Cloth 4,quiet,0.45,-3,160,36.9,160,196.9,36.9,0.0
+M-LOCUST-2,Swarm Surge,3,1,4,AFX-157,Impact Soft medium 000,loud,0.7,-2,330,1.1,330,331.1,1.1,0.0
+M-LOCUST-2,Swarm Surge,3,2,1,AFX-015,Cloth 4,quiet,0.45,-3,160,36.9,150,196.9,46.9,10.0
 M-LOCUST-2,Swarm Surge,3,2,2,AFX-015,Cloth 4,quiet,0.45,-3,270,36.9,270,306.9,36.9,0.0
-M-LOCUST-2,Swarm Surge,3,3,1,AFX-810,Deep Break 2,quiet,0.5,-4,340,110.9,270,450.9,180.9,70.0
+M-LOCUST-2,Swarm Surge,3,3,1,AFX-810,Deep Break 2,quiet,0.5,-4,340,110.9,330,450.9,120.9,10.0
 M-LOCUST-2,Swarm Surge,3,4,1,AFX-611,Bug 04,quiet,0.45,-4,0,69.3,0,69.3,69.3,0.0
 M-LOCUST-3,Strip Field,1,1,1,AFX-063,Footstep grass 001,main,0.6,-2,0,0.0,0,0.0,0.0,0.0
 M-LOCUST-3,Strip Field,1,1,2,AFX-063,Footstep grass 001,loud,0.6,-2,90,0.0,0,90.0,90.0,90.0
@@ -1317,9 +1317,9 @@ M-LOCUST-4,Devour,3,3,1,AFX-827,Wet Break 9,loud,0.55,-4,260,58.0,300,318.0,18.0
 M-VESPERA-1,Coronation Swarm,1,1,1,AFX-154,Impact Soft heavy 002,main,0.7,-6,0,1.4,0,1.4,1.4,0.0
 M-VESPERA-1,Coronation Swarm,1,2,1,AFX-608,Bug 01,quiet,0.45,-4,0,107.1,0,107.1,107.1,0.0
 M-VESPERA-1,Coronation Swarm,2,1,1,AFX-154,Impact Soft heavy 002,main,0.7,-6,0,1.4,0,1.4,1.4,0.0
-M-VESPERA-1,Coronation Swarm,2,2,1,AFX-608,Bug 01,quiet,0.45,-4,120,107.1,160,227.1,67.1,-40.0
+M-VESPERA-1,Coronation Swarm,2,2,1,AFX-608,Bug 01,quiet,0.45,-4,120,107.1,0,227.1,227.1,120.0
 M-VESPERA-1,Coronation Swarm,3,1,1,AFX-154,Impact Soft heavy 002,main,0.7,-6,0,1.4,0,1.4,1.4,0.0
-M-VESPERA-1,Coronation Swarm,3,2,1,AFX-608,Bug 01,quiet,0.5,-4,160,107.1,160,267.1,107.1,0.0
+M-VESPERA-1,Coronation Swarm,3,2,1,AFX-608,Bug 01,quiet,0.5,-4,160,107.1,200,267.1,67.1,-40.0
 M-VESPERA-1,Coronation Swarm,3,3,1,AFX-822,Wet Break 4,quiet,0.5,-5,240,66.7,200,306.7,106.7,40.0
 M-VESPERA-2,Sting,1,1,1,AFX-741,Machine 02,main,0.55,-3,0,1.2,0,1.2,1.2,0.0
 M-VESPERA-2,Sting,1,2,1,AFX-835,7,loud,0.55,-4,80,1.3,0,81.3,81.3,80.0
@@ -1337,8 +1337,8 @@ M-VESPERA-3,Queen's Decree,2,2,1,AFX-507,Impact Metal 002,quiet,0.45,-4,100,0.0,
 M-VESPERA-3,Queen's Decree,2,3,1,AFX-609,Bug 02,quiet,0.4,-4,140,39.1,120,179.1,59.1,20.0
 M-VESPERA-3,Queen's Decree,3,1,1,AFX-778,Gong 02,main,0.8,-3,0,23.8,0,23.8,23.8,0.0
 M-VESPERA-3,Queen's Decree,3,2,1,AFX-507,Impact Metal 002,quiet,0.45,-4,100,0.0,120,100.0,-20.0,-20.0
-M-VESPERA-3,Queen's Decree,3,3,1,AFX-609,Bug 02,quiet,0.45,-4,260,39.1,280,299.1,19.1,-20.0
-M-VESPERA-3,Queen's Decree,3,4,1,AFX-503,Force Field 003,quiet,0.45,-3,420,46.4,280,466.4,186.4,140.0
+M-VESPERA-3,Queen's Decree,3,3,1,AFX-609,Bug 02,quiet,0.45,-4,260,39.1,200,299.1,99.1,60.0
+M-VESPERA-3,Queen's Decree,3,4,1,AFX-503,Force Field 003,quiet,0.45,-3,420,46.4,200,466.4,266.4,220.0
 M-VESPERA-4,Spore Brood,1,1,1,AFX-741,Machine 02,main,0.55,-3,0,1.2,0,1.2,1.2,0.0
 M-VESPERA-4,Spore Brood,1,2,1,AFX-693,Slime 09,quiet,0.5,-2,150,116.7,0,266.7,266.7,150.0
 M-VESPERA-4,Spore Brood,2,1,1,AFX-741,Machine 02,main,0.55,-3,0,1.2,0,1.2,1.2,0.0
@@ -1375,8 +1375,8 @@ M-YGGDRASIL-4,Sap of Ages,2,2,1,AFX-672,Slime 02,quiet,0.4,-5,80,49.4,120,129.4,
 M-YGGDRASIL-4,Sap of Ages,2,3,1,AFX-506,Impact Metal 001,quiet,0.45,-4,200,0.0,120,200.0,80.0,80.0
 M-YGGDRASIL-4,Sap of Ages,3,1,1,AFX-471,Tone 1,main,0.8,-5,0,118.8,0,118.8,118.8,0.0
 M-YGGDRASIL-4,Sap of Ages,3,2,1,AFX-613,Burble 02,quiet,0.4,-5,80,89.4,120,169.4,49.4,-40.0
-M-YGGDRASIL-4,Sap of Ages,3,3,1,AFX-506,Impact Metal 001,quiet,0.45,-4,200,0.0,240,200.0,-40.0,-40.0
-M-YGGDRASIL-4,Sap of Ages,3,4,1,AFX-500,Force Field 000,quiet,0.45,-3,380,45.2,240,425.2,185.2,140.0
+M-YGGDRASIL-4,Sap of Ages,3,3,1,AFX-506,Impact Metal 001,quiet,0.45,-4,200,0.0,200,200.0,0.0,0.0
+M-YGGDRASIL-4,Sap of Ages,3,4,1,AFX-500,Force Field 000,quiet,0.45,-3,380,45.2,200,425.2,225.2,180.0
 M-CLIFFPINCER-1,Sheer Face Slam,1,1,1,AFX-128,Impact Plate heavy 001,main,0.6,-4,0,0.0,0,0.0,0.0,0.0
 M-CLIFFPINCER-1,Sheer Face Slam,1,2,1,AFX-832,4,loud,0.6,-5,120,1.3,0,121.3,121.3,120.0
 M-CLIFFPINCER-1,Sheer Face Slam,2,1,1,AFX-128,Impact Plate heavy 001,main,0.6,-4,0,0.0,0,0.0,0.0,0.0
@@ -1388,9 +1388,9 @@ M-CLIFFPINCER-1,Sheer Face Slam,3,3,1,AFX-119,Impact Mining 002,loud,0.6,-2,280,
 M-CLIFFPINCER-1,Sheer Face Slam,3,4,1,AFX-832,4,loud,0.55,-4,320,1.3,200,321.3,121.3,120.0
 M-CLIFFPINCER-2,Drop Ambush,1,1,1,AFX-127,Impact Plate heavy 000,main,0.7,-3,0,0.0,0,0.0,0.0,0.0
 M-CLIFFPINCER-2,Drop Ambush,2,1,1,AFX-127,Impact Plate heavy 000,main,0.7,-3,0,0.0,0,0.0,0.0,0.0
-M-CLIFFPINCER-2,Drop Ambush,2,2,1,AFX-166,Impact Tin medium 004,quiet,0.45,-2,160,0.0,160,160.0,0.0,0.0
+M-CLIFFPINCER-2,Drop Ambush,2,2,1,AFX-166,Impact Tin medium 004,quiet,0.45,-2,160,0.0,140,160.0,20.0,20.0
 M-CLIFFPINCER-2,Drop Ambush,3,1,1,AFX-127,Impact Plate heavy 000,main,0.7,-3,0,0.0,0,0.0,0.0,0.0
-M-CLIFFPINCER-2,Drop Ambush,3,2,1,AFX-166,Impact Tin medium 004,quiet,0.45,-2,160,0.0,160,160.0,0.0,0.0
+M-CLIFFPINCER-2,Drop Ambush,3,2,1,AFX-166,Impact Tin medium 004,quiet,0.45,-2,160,0.0,140,160.0,20.0,20.0
 M-CLIFFPINCER-2,Drop Ambush,3,3,1,AFX-724,Bfh 1 rock falling 02,loud,0.55,-3,300,8.3,240,308.3,68.3,60.0
 M-CLIFFPINCER-3,Pincer Crush,1,1,1,AFX-011,Chop,main,0.7,-4,0,63.0,0,63.0,63.0,0.0
 M-CLIFFPINCER-3,Pincer Crush,1,2,1,AFX-145,Impact Punch heavy 003,loud,0.6,-3,150,20.2,0,170.2,170.2,150.0
@@ -1667,12 +1667,12 @@ M-VOIDSHELL-3,Nullpinch,3,1,1,AFX-789,Slam 06,main,0.6,-4,0,15.1,0,15.1,15.1,0.0
 M-VOIDSHELL-3,Nullpinch,3,2,1,AFX-159,Impact Soft medium 002,loud,0.55,-5,110,1.3,160,111.3,-48.7,-50.0
 M-VOIDSHELL-3,Nullpinch,3,3,1,AFX-501,Force Field 001,quiet,0.45,-3,200,44.0,200,244.0,44.0,0.0
 M-VOIDSHELL-3,Nullpinch,3,4,1,AFX-155,Impact Soft heavy 003,quiet,0.5,-4,420,1.3,200,421.3,221.3,220.0
-M-VOIDSHELL-4,Lightless Carapace,1,1,1,AFX-430,Low Random,main,0.8,-2,0,107.8,0,107.8,107.8,0.0
-M-VOIDSHELL-4,Lightless Carapace,1,2,1,AFX-833,5,quiet,0.5,-4,160,0.0,0,160.0,160.0,160.0
-M-VOIDSHELL-4,Lightless Carapace,2,1,1,AFX-430,Low Random,main,0.8,-2,0,107.8,0,107.8,107.8,0.0
+M-VOIDSHELL-4,Lightless Carapace,1,1,1,AFX-430,Low Random,main,0.8,-2,160,107.8,160,267.8,107.8,0.0
+M-VOIDSHELL-4,Lightless Carapace,1,2,1,AFX-833,5,quiet,0.5,-4,160,0.0,160,160.0,0.0,0.0
+M-VOIDSHELL-4,Lightless Carapace,2,1,1,AFX-430,Low Random,main,0.8,-2,160,107.8,160,267.8,107.8,0.0
 M-VOIDSHELL-4,Lightless Carapace,2,2,1,AFX-835,7,quiet,0.5,-4,160,1.3,160,161.3,1.3,0.0
 M-VOIDSHELL-4,Lightless Carapace,2,3,1,AFX-444,Phaser Down 3,quiet,0.5,-4,280,108.4,160,388.4,228.4,120.0
-M-VOIDSHELL-4,Lightless Carapace,3,1,1,AFX-430,Low Random,main,0.8,-2,0,107.8,0,107.8,107.8,0.0
+M-VOIDSHELL-4,Lightless Carapace,3,1,1,AFX-430,Low Random,main,0.8,-2,160,107.8,160,267.8,107.8,0.0
 M-VOIDSHELL-4,Lightless Carapace,3,2,1,AFX-835,7,quiet,0.5,-4,160,1.3,160,161.3,1.3,0.0
 M-VOIDSHELL-4,Lightless Carapace,3,3,1,AFX-444,Phaser Down 3,quiet,0.5,-4,280,108.4,200,388.4,188.4,80.0
 M-VOIDSHELL-4,Lightless Carapace,3,4,1,AFX-501,Force Field 001,quiet,0.5,-2,340,41.5,200,381.5,181.5,140.0
@@ -1718,7 +1718,7 @@ M-MAGMACRAWLER-2,Magma Vent,2,1,1,AFX-687,Slime 03,main,0.7,-5,0,216.2,0,216.2,2
 M-MAGMACRAWLER-2,Magma Vent,2,2,1,AFX-507,Impact Metal 002,loud,0.6,-2,160,0.0,150,160.0,10.0,10.0
 M-MAGMACRAWLER-2,Magma Vent,2,3,1,AFX-791,Fire 1 0 (cut 0.9s at 1s of 3.5s),loud,0.55,0,300,16.0,150,316.0,166.0,150.0
 M-MAGMACRAWLER-2,Magma Vent,3,1,1,AFX-687,Slime 03,main,0.7,-5,0,216.2,0,216.2,216.2,0.0
-M-MAGMACRAWLER-2,Magma Vent,3,2,1,AFX-507,Impact Metal 002,loud,0.6,-2,160,0.0,160,160.0,0.0,0.0
+M-MAGMACRAWLER-2,Magma Vent,3,2,1,AFX-507,Impact Metal 002,loud,0.6,-2,160,0.0,150,160.0,10.0,10.0
 M-MAGMACRAWLER-2,Magma Vent,3,3,1,AFX-791,Fire 1 0 (cut 0.9s at 1s of 3.5s),loud,0.6,-3,300,19.0,200,319.0,119.0,100.0
 M-MAGMACRAWLER-2,Magma Vent,3,4,1,AFX-431,Low Three Tone,quiet,0.5,-3,340,120.1,200,460.1,260.1,140.0
 M-MAGMACRAWLER-3,Obsidian Edge,1,1,1,AFX-089,Impact Glass heavy 002,main,0.6,-4,0,0.0,0,0.0,0.0,0.0
@@ -1743,14 +1743,14 @@ M-MAGMACRAWLER-4,Cooling Shell,3,2,1,AFX-158,Impact Soft medium 001,loud,0.6,-4,
 M-MAGMACRAWLER-4,Cooling Shell,3,3,1,AFX-500,Force Field 000,quiet,0.5,-4,220,47.9,200,267.9,67.9,20.0
 M-MAGMACRAWLER-4,Cooling Shell,3,4,1,AFX-835,7,quiet,0.45,-4,200,1.3,200,201.3,1.3,0.0
 M-GUSTWING-1,Sky Lacerate,1,1,1,AFX-442,Phaser Down 1,main,0.85,-5,0,157.5,0,157.5,157.5,0.0
-M-GUSTWING-1,Sky Lacerate,1,2,1,AFX-152,Impact Soft heavy 000,quiet,0.5,-4,240,1.3,160,241.3,81.3,80.0
+M-GUSTWING-1,Sky Lacerate,1,2,1,AFX-152,Impact Soft heavy 000,quiet,0.5,-4,240,1.3,0,241.3,241.3,240.0
 M-GUSTWING-1,Sky Lacerate,2,1,1,AFX-442,Phaser Down 1,main,0.85,-5,0,157.5,0,157.5,157.5,0.0
-M-GUSTWING-1,Sky Lacerate,2,2,1,AFX-852,Dragonflap (cut 1.4s of 2.4s),quiet,0.45,5,100,122.1,160,222.1,62.1,-60.0
-M-GUSTWING-1,Sky Lacerate,2,3,1,AFX-152,Impact Soft heavy 000,quiet,0.5,-4,240,1.3,300,241.3,-58.7,-60.0
+M-GUSTWING-1,Sky Lacerate,2,2,1,AFX-852,Dragonflap (cut 1.4s of 2.4s),quiet,0.45,5,100,122.1,120,222.1,102.1,-20.0
+M-GUSTWING-1,Sky Lacerate,2,3,1,AFX-152,Impact Soft heavy 000,quiet,0.5,-4,240,1.3,120,241.3,121.3,120.0
 M-GUSTWING-1,Sky Lacerate,3,1,1,AFX-442,Phaser Down 1,main,0.85,-5,0,157.5,0,157.5,157.5,0.0
-M-GUSTWING-1,Sky Lacerate,3,2,1,AFX-852,Dragonflap (cut 1.4s of 2.4s),quiet,0.5,1,100,153.9,160,253.9,93.9,-60.0
-M-GUSTWING-1,Sky Lacerate,3,3,1,AFX-152,Impact Soft heavy 000,quiet,0.5,-4,240,1.3,300,241.3,-58.7,-60.0
-M-GUSTWING-1,Sky Lacerate,3,4,1,AFX-796,Wind 2 (cut 1s at 8.5s of 60.0s),loud,0.55,-3,400,11.9,420,411.9,-8.1,-20.0
+M-GUSTWING-1,Sky Lacerate,3,2,1,AFX-852,Dragonflap (cut 1.4s of 2.4s),quiet,0.5,1,100,153.9,120,253.9,133.9,-20.0
+M-GUSTWING-1,Sky Lacerate,3,3,1,AFX-152,Impact Soft heavy 000,quiet,0.5,-4,240,1.3,240,241.3,1.3,0.0
+M-GUSTWING-1,Sky Lacerate,3,4,1,AFX-796,Wind 2 (cut 1s at 8.5s of 60.0s),loud,0.55,-3,400,11.9,240,411.9,171.9,160.0
 M-GUSTWING-2,Scissor Dive,1,1,1,AFX-013,Cloth 2,main,0.6,-2,0,117.9,0,117.9,117.9,0.0
 M-GUSTWING-2,Scissor Dive,1,1,2,AFX-013,Cloth 2,loud,0.6,-2,120,117.9,0,237.9,237.9,120.0
 M-GUSTWING-2,Scissor Dive,2,1,1,AFX-013,Cloth 2,main,0.6,-2,0,117.9,0,117.9,117.9,0.0
@@ -1762,25 +1762,25 @@ M-GUSTWING-2,Scissor Dive,3,2,1,AFX-852,Dragonflap (cut 1.4s of 2.4s),loud,0.55,
 M-GUSTWING-2,Scissor Dive,3,3,1,AFX-148,Impact Punch medium 001,loud,0.55,-4,210,21.4,200,231.4,31.4,10.0
 M-GUSTWING-2,Scissor Dive,3,4,1,AFX-085,Impact Generic light 003,quiet,0.45,-3,540,0.0,420,540.0,120.0,120.0
 M-GUSTWING-3,Wind Shear,1,1,1,AFX-015,Cloth 4,main,1.0,-3,0,36.9,0,36.9,36.9,0.0
-M-GUSTWING-3,Wind Shear,1,2,1,AFX-796,Wind 2 (cut 1s at 8.5s of 60.0s),loud,0.55,5,140,7.5,180,147.5,-32.5,-40.0
+M-GUSTWING-3,Wind Shear,1,2,1,AFX-796,Wind 2 (cut 1s at 8.5s of 60.0s),loud,0.55,5,140,7.5,0,147.5,147.5,140.0
 M-GUSTWING-3,Wind Shear,2,1,1,AFX-015,Cloth 4,main,1.0,-3,0,36.9,0,36.9,36.9,0.0
-M-GUSTWING-3,Wind Shear,2,2,1,AFX-796,Wind 2 (cut 1s at 8.5s of 60.0s),loud,0.6,2,180,8.9,180,188.9,8.9,0.0
+M-GUSTWING-3,Wind Shear,2,2,1,AFX-796,Wind 2 (cut 1s at 8.5s of 60.0s),loud,0.6,2,180,8.9,260,188.9,-71.1,-80.0
 M-GUSTWING-3,Wind Shear,2,3,1,AFX-046,Knife Slice 2,quiet,0.5,-5,260,26.7,260,286.7,26.7,0.0
 M-GUSTWING-3,Wind Shear,3,1,1,AFX-015,Cloth 4,main,1.0,-4,0,39.1,0,39.1,39.1,0.0
-M-GUSTWING-3,Wind Shear,3,2,1,AFX-852,Dragonflap (cut 1.4s of 2.4s),quiet,0.45,3,100,137.1,180,237.1,57.1,-80.0
-M-GUSTWING-3,Wind Shear,3,3,1,AFX-796,Wind 2 (cut 1s at 8.5s of 60.0s),loud,0.6,1,180,9.4,180,189.4,9.4,0.0
+M-GUSTWING-3,Wind Shear,3,2,1,AFX-852,Dragonflap (cut 1.4s of 2.4s),quiet,0.45,3,100,137.1,0,237.1,237.1,100.0
+M-GUSTWING-3,Wind Shear,3,3,1,AFX-796,Wind 2 (cut 1s at 8.5s of 60.0s),loud,0.6,1,180,9.4,260,189.4,-70.6,-80.0
 M-GUSTWING-3,Wind Shear,3,4,1,AFX-046,Knife Slice 2,loud,0.55,-6,260,28.3,260,288.3,28.3,0.0
 M-GUSTWING-4,Tailwind,1,1,1,AFX-798,Wind 4 (cut 1s at 8.5s of 60.0s),main,0.7,2,0,7.1,0,7.1,7.1,0.0
 M-GUSTWING-4,Tailwind,2,1,1,AFX-798,Wind 4 (cut 1s at 8.5s of 60.0s),main,0.7,2,0,7.1,0,7.1,7.1,0.0
-M-GUSTWING-4,Tailwind,2,2,1,AFX-852,Dragonflap (cut 1.4s of 2.4s),quiet,0.4,5,140,122.1,160,262.1,102.1,-20.0
+M-GUSTWING-4,Tailwind,2,2,1,AFX-852,Dragonflap (cut 1.4s of 2.4s),quiet,0.4,5,140,122.1,240,262.1,22.1,-100.0
 M-GUSTWING-4,Tailwind,3,1,1,AFX-798,Wind 4 (cut 1s at 8.5s of 60.0s),main,0.7,1,0,7.6,0,7.6,7.6,0.0
 M-GUSTWING-4,Tailwind,3,2,1,AFX-852,Dragonflap (cut 1.4s of 2.4s),quiet,0.45,2,180,145.2,160,325.2,165.2,20.0
 M-GUSTWING-4,Tailwind,3,3,1,AFX-430,Low Random,quiet,0.45,-4,300,121.0,340,421.0,81.0,-40.0
 M-STORMCROW-1,Stormcrown,1,1,1,AFX-437,Phase Jump 1,main,0.8,-2,0,136.9,0,136.9,136.9,0.0
 M-STORMCROW-1,Stormcrown,2,1,1,AFX-437,Phase Jump 1,main,0.8,-2,0,136.9,0,136.9,136.9,0.0
-M-STORMCROW-1,Stormcrown,2,2,1,AFX-115,Impact Metal medium 003,quiet,0.5,-2,150,0.0,160,150.0,-10.0,-10.0
+M-STORMCROW-1,Stormcrown,2,2,1,AFX-115,Impact Metal medium 003,quiet,0.5,-2,150,0.0,200,150.0,-50.0,-50.0
 M-STORMCROW-1,Stormcrown,3,1,1,AFX-437,Phase Jump 1,main,0.8,-2,0,136.9,0,136.9,136.9,0.0
-M-STORMCROW-1,Stormcrown,3,2,1,AFX-115,Impact Metal medium 003,quiet,0.5,-2,150,0.0,160,150.0,-10.0,-10.0
+M-STORMCROW-1,Stormcrown,3,2,1,AFX-115,Impact Metal medium 003,quiet,0.5,-2,150,0.0,200,150.0,-50.0,-50.0
 M-STORMCROW-1,Stormcrown,3,3,1,AFX-784,Slam 01,quiet,0.5,-3,300,11.9,200,311.9,111.9,100.0
 M-STORMCROW-2,Ball Lightning,1,1,1,AFX-438,Phase Jump 2,main,0.8,-2,0,86.4,0,86.4,86.4,0.0
 M-STORMCROW-2,Ball Lightning,1,2,1,AFX-657,Monster 10,quiet,0.45,-2,0,21.3,0,21.3,21.3,0.0
@@ -1808,12 +1808,12 @@ M-STORMCROW-4,Thundercall,3,4,1,AFX-784,Slam 01,loud,0.55,-3,400,11.9,360,411.9,
 M-THUNDERMOTH-1,Overload Flash,1,1,1,AFX-442,Phaser Down 1,main,0.85,-2,0,132.5,0,132.5,132.5,0.0
 M-THUNDERMOTH-1,Overload Flash,1,2,1,AFX-509,Impact Metal 004,loud,0.6,-2,140,0.0,0,140.0,140.0,140.0
 M-THUNDERMOTH-1,Overload Flash,2,1,1,AFX-442,Phaser Down 1,main,0.85,-2,0,132.5,0,132.5,132.5,0.0
-M-THUNDERMOTH-1,Overload Flash,2,2,1,AFX-509,Impact Metal 004,loud,0.6,-2,140,0.0,160,140.0,-20.0,-20.0
-M-THUNDERMOTH-1,Overload Flash,2,3,1,AFX-430,Low Random,loud,0.55,-3,260,114.2,160,374.2,214.2,100.0
+M-THUNDERMOTH-1,Overload Flash,2,2,1,AFX-509,Impact Metal 004,loud,0.6,-2,140,0.0,200,140.0,-60.0,-60.0
+M-THUNDERMOTH-1,Overload Flash,2,3,1,AFX-430,Low Random,loud,0.55,-3,260,114.2,200,374.2,174.2,60.0
 M-THUNDERMOTH-1,Overload Flash,3,1,1,AFX-442,Phaser Down 1,main,0.85,-2,0,132.5,0,132.5,132.5,0.0
-M-THUNDERMOTH-1,Overload Flash,3,2,1,AFX-509,Impact Metal 004,loud,0.6,-2,140,0.0,160,140.0,-20.0,-20.0
-M-THUNDERMOTH-1,Overload Flash,3,3,1,AFX-430,Low Random,loud,0.55,-3,260,114.2,200,374.2,174.2,60.0
-M-THUNDERMOTH-1,Overload Flash,3,4,1,AFX-429,Low Down,quiet,0.5,-2,340,157.1,200,497.1,297.1,140.0
+M-THUNDERMOTH-1,Overload Flash,3,2,1,AFX-509,Impact Metal 004,loud,0.6,-2,140,0.0,200,140.0,-60.0,-60.0
+M-THUNDERMOTH-1,Overload Flash,3,3,1,AFX-430,Low Random,loud,0.55,-3,260,114.2,300,374.2,74.2,-40.0
+M-THUNDERMOTH-1,Overload Flash,3,4,1,AFX-429,Low Down,quiet,0.5,-2,340,157.1,300,497.1,197.1,40.0
 M-THUNDERMOTH-2,Dust Zap,1,1,1,AFX-044,Handle Small Leather 2,main,1.4,-5,0,170.9,0,170.9,170.9,0.0
 M-THUNDERMOTH-2,Dust Zap,1,2,1,AFX-092,Impact Glass light 000,loud,0.6,-5,150,0.0,0,150.0,150.0,150.0
 M-THUNDERMOTH-2,Dust Zap,2,1,1,AFX-044,Handle Small Leather 2,main,1.4,-5,0,170.9,0,170.9,170.9,0.0
@@ -1821,7 +1821,7 @@ M-THUNDERMOTH-2,Dust Zap,2,2,1,AFX-092,Impact Glass light 000,loud,0.65,-5,150,0
 M-THUNDERMOTH-2,Dust Zap,2,2,2,AFX-092,Impact Glass light 000,loud,0.65,-5,240,0.0,160,240.0,80.0,80.0
 M-THUNDERMOTH-2,Dust Zap,2,3,1,AFX-511,Laser Large 001,loud,0.6,-2,280,1.1,160,281.1,121.1,120.0
 M-THUNDERMOTH-2,Dust Zap,3,1,1,AFX-044,Handle Small Leather 2,main,1.4,-6,0,181.0,0,181.0,181.0,0.0
-M-THUNDERMOTH-2,Dust Zap,3,2,1,AFX-475,Zap 2,quiet,0.45,4,80,60.3,0,140.3,140.3,80.0
+M-THUNDERMOTH-2,Dust Zap,3,2,1,AFX-475,Zap 2,quiet,0.45,4,80,60.3,100,140.3,40.3,-20.0
 M-THUNDERMOTH-2,Dust Zap,3,3,1,AFX-092,Impact Glass light 000,loud,0.7,-5,150,0.0,160,150.0,-10.0,-10.0
 M-THUNDERMOTH-2,Dust Zap,3,3,2,AFX-092,Impact Glass light 000,loud,0.7,-5,240,0.0,160,240.0,80.0,80.0
 M-THUNDERMOTH-2,Dust Zap,3,3,3,AFX-092,Impact Glass light 000,loud,0.7,-5,330,0.0,160,330.0,170.0,170.0
@@ -1829,7 +1829,7 @@ M-THUNDERMOTH-2,Dust Zap,3,4,1,AFX-792,Flame 0,loud,0.65,-3,280,82.1,160,362.1,2
 M-THUNDERMOTH-3,EM Pulse,1,1,1,AFX-500,Force Field 000,main,0.8,2,0,33.9,0,33.9,33.9,0.0
 M-THUNDERMOTH-3,EM Pulse,1,2,1,AFX-510,Laser Large 000,quiet,0.45,0,0,1.0,0,1.0,1.0,0.0
 M-THUNDERMOTH-3,EM Pulse,2,1,1,AFX-500,Force Field 000,main,0.8,2,0,33.9,0,33.9,33.9,0.0
-M-THUNDERMOTH-3,EM Pulse,2,2,1,AFX-430,Low Random,loud,0.55,-3,200,114.2,160,314.2,154.2,40.0
+M-THUNDERMOTH-3,EM Pulse,2,2,1,AFX-430,Low Random,loud,0.55,-3,200,114.2,200,314.2,114.2,0.0
 M-THUNDERMOTH-3,EM Pulse,3,1,1,AFX-500,Force Field 000,main,0.8,2,0,33.9,0,33.9,33.9,0.0
 M-THUNDERMOTH-3,EM Pulse,3,2,1,AFX-430,Low Random,loud,0.55,-3,200,114.2,200,314.2,114.2,0.0
 M-THUNDERMOTH-3,EM Pulse,3,3,1,AFX-431,Low Three Tone,quiet,0.5,-2,320,113.4,200,433.4,233.4,120.0
@@ -1854,9 +1854,9 @@ M-ROC-2,Boulder Drop,3,2,1,AFX-430,Low Random,loud,0.6,-4,200,121.0,160,321.0,16
 M-ROC-2,Boulder Drop,3,3,1,AFX-723,Bfh 1 rock falling 01,loud,0.55,-3,320,266.4,340,586.4,246.4,-20.0
 M-ROC-3,Hunting Stoop,1,1,1,AFX-151,Impact Punch medium 004,main,0.7,-3,0,27.4,0,27.4,27.4,0.0
 M-ROC-3,Hunting Stoop,2,1,1,AFX-151,Impact Punch medium 004,main,0.7,-3,0,27.4,0,27.4,27.4,0.0
-M-ROC-3,Hunting Stoop,2,2,1,AFX-852,Dragonflap (cut 1.4s of 2.4s),quiet,0.45,5,120,122.1,180,242.1,62.1,-60.0
+M-ROC-3,Hunting Stoop,2,2,1,AFX-852,Dragonflap (cut 1.4s of 2.4s),quiet,0.45,5,120,122.1,200,242.1,42.1,-80.0
 M-ROC-3,Hunting Stoop,3,1,1,AFX-151,Impact Punch medium 004,main,0.7,-3,0,27.4,0,27.4,27.4,0.0
-M-ROC-3,Hunting Stoop,3,2,1,AFX-852,Dragonflap (cut 1.4s of 2.4s),quiet,0.5,2,160,145.2,180,305.2,125.2,-20.0
+M-ROC-3,Hunting Stoop,3,2,1,AFX-852,Dragonflap (cut 1.4s of 2.4s),quiet,0.5,2,160,145.2,200,305.2,105.2,-40.0
 M-ROC-3,Hunting Stoop,3,3,1,AFX-843,Gravel,quiet,0.5,-3,300,72.5,360,372.5,12.5,-60.0
 M-ROC-4,Talon Snatch,1,1,1,AFX-029,Draw Knife 3,main,1.0,-5,0,172.2,0,172.2,172.2,0.0
 M-ROC-4,Talon Snatch,1,2,1,AFX-144,Impact Punch heavy 002,loud,0.65,-3,170,20.2,0,190.2,190.2,170.0
@@ -1900,13 +1900,13 @@ M-GALEHOWL-4,Eye of the Funnel,2,1,1,AFX-430,Low Random,main,0.6,-3,0,114.2,0,11
 M-GALEHOWL-4,Eye of the Funnel,2,2,1,AFX-012,Cloth 1,quiet,0.5,-2,160,124.6,160,284.6,124.6,0.0
 M-GALEHOWL-4,Eye of the Funnel,3,1,1,AFX-430,Low Random,main,0.6,-3,0,114.2,0,114.2,114.2,0.0
 M-GALEHOWL-4,Eye of the Funnel,3,2,1,AFX-012,Cloth 1,quiet,0.5,-2,160,124.6,160,284.6,124.6,0.0
-M-GALEHOWL-4,Eye of the Funnel,3,3,1,AFX-505,Impact Metal 000,quiet,0.5,-4,360,0.0,360,360.0,0.0,0.0
+M-GALEHOWL-4,Eye of the Funnel,3,3,1,AFX-505,Impact Metal 000,quiet,0.5,-4,360,0.0,280,360.0,80.0,80.0
 M-VOLTMANTLE-1,Megavolt Delivery,1,1,1,AFX-142,Impact Punch heavy 000,main,0.6,-5,0,30.7,0,30.7,30.7,0.0
 M-VOLTMANTLE-1,Megavolt Delivery,1,2,1,AFX-510,Laser Large 000,quiet,0.45,0,0,1.0,0,1.0,1.0,0.0
 M-VOLTMANTLE-1,Megavolt Delivery,2,1,1,AFX-142,Impact Punch heavy 000,main,0.6,-5,0,30.7,0,30.7,30.7,0.0
-M-VOLTMANTLE-1,Megavolt Delivery,2,2,1,AFX-429,Low Down,loud,0.55,-2,160,157.1,160,317.1,157.1,0.0
+M-VOLTMANTLE-1,Megavolt Delivery,2,2,1,AFX-429,Low Down,loud,0.55,-2,160,157.1,220,317.1,97.1,-60.0
 M-VOLTMANTLE-1,Megavolt Delivery,3,1,1,AFX-142,Impact Punch heavy 000,main,0.6,-5,0,30.7,0,30.7,30.7,0.0
-M-VOLTMANTLE-1,Megavolt Delivery,3,2,1,AFX-429,Low Down,loud,0.55,-2,160,157.1,160,317.1,157.1,0.0
+M-VOLTMANTLE-1,Megavolt Delivery,3,2,1,AFX-429,Low Down,loud,0.55,-2,160,157.1,220,317.1,97.1,-60.0
 M-VOLTMANTLE-1,Megavolt Delivery,3,3,1,AFX-784,Slam 01,loud,0.55,-3,240,11.9,220,251.9,31.9,20.0
 M-VOLTMANTLE-2,Discharge Sweep,1,1,1,AFX-147,Impact Punch medium 000,main,0.6,-3,0,21.4,0,21.4,21.4,0.0
 M-VOLTMANTLE-2,Discharge Sweep,1,2,1,AFX-510,Laser Large 000,quiet,0.45,0,0,1.0,0,1.0,1.0,0.0
@@ -1918,9 +1918,9 @@ M-VOLTMANTLE-2,Discharge Sweep,3,3,1,AFX-784,Slam 01,quiet,0.5,-3,380,11.9,380,3
 M-VOLTMANTLE-3,Volt Graze,1,1,1,AFX-113,Impact Metal medium 001,main,0.55,-1,0,0.0,0,0.0,0.0,0.0
 M-VOLTMANTLE-3,Volt Graze,1,2,1,AFX-510,Laser Large 000,quiet,0.45,0,0,1.0,0,1.0,1.0,0.0
 M-VOLTMANTLE-3,Volt Graze,2,1,1,AFX-113,Impact Metal medium 001,main,0.55,-1,0,0.0,0,0.0,0.0,0.0
-M-VOLTMANTLE-3,Volt Graze,2,2,1,AFX-443,Phaser Down 2,quiet,0.45,-2,180,65.1,180,245.1,65.1,0.0
+M-VOLTMANTLE-3,Volt Graze,2,2,1,AFX-443,Phaser Down 2,quiet,0.45,-2,180,65.1,200,245.1,45.1,-20.0
 M-VOLTMANTLE-3,Volt Graze,3,1,1,AFX-113,Impact Metal medium 001,main,0.55,-1,0,0.0,0,0.0,0.0,0.0
-M-VOLTMANTLE-3,Volt Graze,3,2,1,AFX-443,Phaser Down 2,quiet,0.45,-2,180,65.1,180,245.1,65.1,0.0
+M-VOLTMANTLE-3,Volt Graze,3,2,1,AFX-443,Phaser Down 2,quiet,0.45,-2,180,65.1,200,245.1,45.1,-20.0
 M-VOLTMANTLE-3,Volt Graze,3,3,1,AFX-157,Impact Soft medium 000,quiet,0.5,-4,260,1.3,200,261.3,61.3,60.0
 M-VOLTMANTLE-4,Thermal Ride,1,1,1,AFX-086,Impact Generic light 004,main,0.6,-3,0,0.0,0,0.0,0.0,0.0
 M-VOLTMANTLE-4,Thermal Ride,1,2,1,AFX-797,Wind 3 (cut 1s at 8.5s of 60.0s),quiet,0.5,5,140,6.7,0,146.7,146.7,140.0
@@ -2017,23 +2017,23 @@ M-ANZU-1,The Wind That Was First,3,2,1,AFX-012,Cloth 1,quiet,0.5,-4,180,139.9,18
 M-ANZU-1,The Wind That Was First,3,3,1,AFX-431,Low Three Tone,quiet,0.5,-3,260,120.1,180,380.1,200.1,80.0
 M-ANZU-2,Stormfeather Volley,1,1,1,AFX-443,Phaser Down 2,main,0.5,-3,0,69.0,0,69.0,69.0,0.0
 M-ANZU-2,Stormfeather Volley,1,1,2,AFX-443,Phaser Down 2,quiet,0.5,-3,140,69.0,90,209.0,119.0,50.0
-M-ANZU-2,Stormfeather Volley,1,2,1,AFX-172,Impact Wood light 000,quiet,0.5,-3,160,0.0,200,160.0,-40.0,-40.0
+M-ANZU-2,Stormfeather Volley,1,2,1,AFX-172,Impact Wood light 000,quiet,0.5,-3,160,0.0,90,160.0,70.0,70.0
 M-ANZU-2,Stormfeather Volley,2,1,1,AFX-443,Phaser Down 2,main,0.5,-3,0,69.0,0,69.0,69.0,0.0
-M-ANZU-2,Stormfeather Volley,2,1,2,AFX-443,Phaser Down 2,quiet,0.5,-3,130,69.0,90,199.0,109.0,40.0
-M-ANZU-2,Stormfeather Volley,2,1,3,AFX-443,Phaser Down 2,quiet,0.5,-3,260,69.0,300,329.0,29.0,-40.0
+M-ANZU-2,Stormfeather Volley,2,1,2,AFX-443,Phaser Down 2,quiet,0.5,-3,130,69.0,150,199.0,49.0,-20.0
+M-ANZU-2,Stormfeather Volley,2,1,3,AFX-443,Phaser Down 2,quiet,0.5,-3,260,69.0,240,329.0,89.0,20.0
 M-ANZU-2,Stormfeather Volley,2,2,1,AFX-172,Impact Wood light 000,quiet,0.5,-4,170,0.0,180,170.0,-10.0,-10.0
-M-ANZU-2,Stormfeather Volley,2,3,1,AFX-122,Impact Plank medium 000,quiet,0.5,-2,280,0.0,300,280.0,-20.0,-20.0
+M-ANZU-2,Stormfeather Volley,2,3,1,AFX-122,Impact Plank medium 000,quiet,0.5,-2,280,0.0,240,280.0,40.0,40.0
 M-ANZU-2,Stormfeather Volley,3,1,1,AFX-443,Phaser Down 2,main,0.5,-4,0,73.1,0,73.1,73.1,0.0
 M-ANZU-2,Stormfeather Volley,3,1,2,AFX-443,Phaser Down 2,quiet,0.5,-4,130,73.1,120,203.1,83.1,10.0
-M-ANZU-2,Stormfeather Volley,3,1,3,AFX-443,Phaser Down 2,quiet,0.5,-4,260,73.1,300,333.1,33.1,-40.0
+M-ANZU-2,Stormfeather Volley,3,1,3,AFX-443,Phaser Down 2,quiet,0.5,-4,260,73.1,240,333.1,93.1,20.0
 M-ANZU-2,Stormfeather Volley,3,2,1,AFX-172,Impact Wood light 000,quiet,0.5,-5,180,0.0,180,180.0,0.0,0.0
-M-ANZU-2,Stormfeather Volley,3,3,1,AFX-122,Impact Plank medium 000,quiet,0.5,-3,300,0.0,300,300.0,0.0,0.0
-M-ANZU-2,Stormfeather Volley,3,4,1,AFX-784,Slam 01,quiet,0.4,-5,480,13.3,300,493.3,193.3,180.0
+M-ANZU-2,Stormfeather Volley,3,3,1,AFX-122,Impact Plank medium 000,quiet,0.5,-3,300,0.0,240,300.0,60.0,60.0
+M-ANZU-2,Stormfeather Volley,3,4,1,AFX-784,Slam 01,quiet,0.4,-5,480,13.3,240,493.3,253.3,240.0
 M-ANZU-3,First Wind,1,1,1,AFX-116,Impact Metal medium 004,main,0.55,-1,0,0.0,0,0.0,0.0,0.0
 M-ANZU-3,First Wind,2,1,1,AFX-116,Impact Metal medium 004,main,0.55,-1,0,0.0,0,0.0,0.0,0.0
 M-ANZU-3,First Wind,2,2,1,AFX-852,Dragonflap (cut 1.4s of 2.4s),quiet,0.4,4,60,129.4,0,189.4,189.4,60.0
 M-ANZU-3,First Wind,3,1,1,AFX-116,Impact Metal medium 004,main,0.55,-1,0,0.0,0,0.0,0.0,0.0
-M-ANZU-3,First Wind,3,2,1,AFX-852,Dragonflap (cut 1.4s of 2.4s),quiet,0.45,2,200,145.2,160,345.2,185.2,40.0
+M-ANZU-3,First Wind,3,2,1,AFX-852,Dragonflap (cut 1.4s of 2.4s),quiet,0.45,2,200,145.2,120,345.2,225.2,80.0
 M-ANZU-3,First Wind,3,3,1,AFX-159,Impact Soft medium 002,quiet,0.5,-3,240,1.2,300,241.2,-58.8,-60.0
 M-ANZU-4,Unbroken Gale,1,1,1,AFX-472,Two Tone 1,main,0.55,-2,0,126.8,0,126.8,126.8,0.0
 M-ANZU-4,Unbroken Gale,1,2,1,AFX-797,Wind 3 (cut 1s at 8.5s of 60.0s),quiet,0.5,4,60,7.1,0,67.1,67.1,60.0
@@ -2047,15 +2047,15 @@ M-ANZU-4,Unbroken Gale,3,4,1,AFX-852,Dragonflap (cut 1.4s of 2.4s),quiet,0.4,4,3
 M-STORMFATHER-1,I Am the Storm,1,1,1,AFX-154,Impact Soft heavy 002,main,0.6,-5,0,1.3,0,1.3,1.3,0.0
 M-STORMFATHER-1,I Am the Storm,1,2,1,AFX-511,Laser Large 001,quiet,0.45,0,0,1.0,0,1.0,1.0,0.0
 M-STORMFATHER-1,I Am the Storm,2,1,1,AFX-154,Impact Soft heavy 002,main,0.6,-5,0,1.3,0,1.3,1.3,0.0
-M-STORMFATHER-1,I Am the Storm,2,2,1,AFX-422,Laser 3,quiet,0.45,0,160,103.0,160,263.0,103.0,0.0
+M-STORMFATHER-1,I Am the Storm,2,2,1,AFX-422,Laser 3,quiet,0.45,0,160,103.0,90,263.0,173.0,70.0
 M-STORMFATHER-1,I Am the Storm,3,1,1,AFX-154,Impact Soft heavy 002,main,0.6,-5,0,1.3,0,1.3,1.3,0.0
-M-STORMFATHER-1,I Am the Storm,3,2,1,AFX-422,Laser 3,quiet,0.45,0,160,103.0,160,263.0,103.0,0.0
+M-STORMFATHER-1,I Am the Storm,3,2,1,AFX-422,Laser 3,quiet,0.45,0,160,103.0,90,263.0,173.0,70.0
 M-STORMFATHER-1,I Am the Storm,3,3,1,AFX-810,Deep Break 2,loud,0.55,-3,240,104.7,240,344.7,104.7,0.0
 M-STORMFATHER-2,Lightning Spear,1,1,1,AFX-506,Impact Metal 001,main,0.7,-2,0,0.0,0,0.0,0.0,0.0
 M-STORMFATHER-2,Lightning Spear,1,2,1,AFX-516,Laser Retro 001,quiet,0.5,-3,60,0.0,0,60.0,60.0,60.0
 M-STORMFATHER-2,Lightning Spear,2,1,1,AFX-506,Impact Metal 001,main,0.7,-3,0,0.0,0,0.0,0.0,0.0
 M-STORMFATHER-2,Lightning Spear,2,2,1,AFX-516,Laser Retro 001,quiet,0.5,-4,70,0.0,0,70.0,70.0,70.0
-M-STORMFATHER-2,Lightning Spear,2,3,1,AFX-784,Slam 01,quiet,0.45,-4,200,12.6,160,212.6,52.6,40.0
+M-STORMFATHER-2,Lightning Spear,2,3,1,AFX-784,Slam 01,quiet,0.45,-4,200,12.6,240,212.6,-27.4,-40.0
 M-STORMFATHER-2,Lightning Spear,3,1,1,AFX-506,Impact Metal 001,main,0.7,-4,0,0.0,0,0.0,0.0,0.0
 M-STORMFATHER-2,Lightning Spear,3,2,1,AFX-800,Rain thunder (cut 1.6s at 22s of 44.4s),quiet,0.5,2,60,7.1,0,67.1,67.1,60.0
 M-STORMFATHER-2,Lightning Spear,3,3,1,AFX-784,Slam 01,quiet,0.45,-5,220,13.3,240,233.3,-6.7,-20.0
@@ -2121,7 +2121,7 @@ M-MIRENEWT-2,Slick Strike,1,1,1,AFX-043,Handle Small Leather,quiet,0.5,-2,0,141.
 M-MIRENEWT-2,Slick Strike,1,2,1,AFX-157,Impact Soft medium 000,main,0.55,-3,0,1.2,0,1.2,1.2,0.0
 M-MIRENEWT-2,Slick Strike,2,1,1,AFX-043,Handle Small Leather,quiet,0.5,-3,0,149.8,0,149.8,149.8,0.0
 M-MIRENEWT-2,Slick Strike,2,2,1,AFX-157,Impact Soft medium 000,main,0.55,-4,0,1.3,0,1.3,1.3,0.0
-M-MIRENEWT-2,Slick Strike,2,3,1,AFX-693,Slime 09,loud,0.55,-4,250,131.0,140,381.0,241.0,110.0
+M-MIRENEWT-2,Slick Strike,2,3,1,AFX-693,Slime 09,loud,0.55,-4,250,131.0,120,381.0,261.0,130.0
 M-MIRENEWT-2,Slick Strike,3,1,1,AFX-043,Handle Small Leather,quiet,0.5,-4,0,158.8,0,158.8,158.8,0.0
 M-MIRENEWT-2,Slick Strike,3,2,1,AFX-157,Impact Soft medium 000,main,0.55,-5,0,1.3,0,1.3,1.3,0.0
 M-MIRENEWT-2,Slick Strike,3,3,1,AFX-693,Slime 09,loud,0.6,-5,260,138.8,240,398.8,158.8,20.0
@@ -2144,10 +2144,10 @@ M-MIRENEWT-4,Skinshed,3,4,1,AFX-500,Force Field 000,quiet,0.45,-3,400,45.2,240,4
 M-ROTFLY-1,Blightswarm,1,1,1,AFX-149,Impact Punch medium 002,main,0.55,-3,0,27.4,0,27.4,27.4,0.0
 M-ROTFLY-1,Blightswarm,1,2,1,AFX-609,Bug 02,quiet,0.45,-4,0,39.1,0,39.1,39.1,0.0
 M-ROTFLY-1,Blightswarm,2,1,1,AFX-149,Impact Punch medium 002,main,0.55,-3,0,27.4,0,27.4,27.4,0.0
-M-ROTFLY-1,Blightswarm,2,2,1,AFX-609,Bug 02,quiet,0.45,-4,160,39.1,160,199.1,39.1,0.0
+M-ROTFLY-1,Blightswarm,2,2,1,AFX-609,Bug 02,quiet,0.45,-4,160,39.1,200,199.1,-0.9,-40.0
 M-ROTFLY-1,Blightswarm,2,3,1,AFX-613,Burble 02,quiet,0.45,0,0,67.0,0,67.0,67.0,0.0
 M-ROTFLY-1,Blightswarm,3,1,1,AFX-149,Impact Punch medium 002,main,0.55,-3,0,27.4,0,27.4,27.4,0.0
-M-ROTFLY-1,Blightswarm,3,2,1,AFX-613,Burble 02,quiet,0.45,-4,160,84.4,160,244.4,84.4,0.0
+M-ROTFLY-1,Blightswarm,3,2,1,AFX-613,Burble 02,quiet,0.45,-4,160,84.4,200,244.4,44.4,-40.0
 M-ROTFLY-1,Blightswarm,3,3,1,AFX-609,Bug 02,quiet,0.45,-4,240,39.1,200,279.1,79.1,40.0
 M-ROTFLY-2,Reanimating Sting,1,1,1,AFX-114,Impact Metal medium 002,main,0.55,-3,0,0.0,0,0.0,0.0,0.0
 M-ROTFLY-2,Reanimating Sting,1,2,1,AFX-836,8,quiet,0.45,-4,0,0.0,0,0.0,0.0,0.0
@@ -2155,7 +2155,7 @@ M-ROTFLY-2,Reanimating Sting,2,1,1,AFX-114,Impact Metal medium 002,main,0.55,-3,
 M-ROTFLY-2,Reanimating Sting,2,2,1,AFX-835,7,quiet,0.45,-4,120,1.3,120,121.3,1.3,0.0
 M-ROTFLY-2,Reanimating Sting,3,1,1,AFX-114,Impact Metal medium 002,main,0.55,-3,0,0.0,0,0.0,0.0,0.0
 M-ROTFLY-2,Reanimating Sting,3,2,1,AFX-835,7,quiet,0.45,-4,120,1.3,120,121.3,1.3,0.0
-M-ROTFLY-2,Reanimating Sting,3,3,1,AFX-843,Gravel,quiet,0.45,-4,200,76.9,160,276.9,116.9,40.0
+M-ROTFLY-2,Reanimating Sting,3,3,1,AFX-843,Gravel,quiet,0.45,-4,200,76.9,120,276.9,156.9,80.0
 M-ROTFLY-3,Corpse Nip,1,1,1,AFX-011,Chop,main,0.55,-3,0,59.5,0,59.5,59.5,0.0
 M-ROTFLY-3,Corpse Nip,1,2,1,AFX-827,Wet Break 9,quiet,0.45,-4,0,58.0,0,58.0,58.0,0.0
 M-ROTFLY-3,Corpse Nip,2,1,1,AFX-011,Chop,main,0.55,-3,0,59.5,0,59.5,59.5,0.0
@@ -2198,11 +2198,11 @@ M-LICHFROG-3,Bog Benediction,1,1,1,AFX-778,Gong 02,main,0.8,5,0,15.0,0,15.0,15.0
 M-LICHFROG-3,Bog Benediction,1,2,1,AFX-672,Slime 02,quiet,0.45,0,0,37.0,0,37.0,37.0,0.0
 M-LICHFROG-3,Bog Benediction,2,1,1,AFX-778,Gong 02,main,0.8,0,0,20.0,0,20.0,20.0,0.0
 M-LICHFROG-3,Bog Benediction,2,2,1,AFX-160,Impact Soft medium 003,quiet,0.45,-3,120,1.2,140,121.2,-18.8,-20.0
-M-LICHFROG-3,Bog Benediction,2,3,1,AFX-678,Slime 08,quiet,0.5,-5,260,101.4,260,361.4,101.4,0.0
+M-LICHFROG-3,Bog Benediction,2,3,1,AFX-678,Slime 08,quiet,0.5,-5,260,101.4,140,361.4,221.4,120.0
 M-LICHFROG-3,Bog Benediction,3,1,1,AFX-778,Gong 02,main,0.8,-3,0,23.8,0,23.8,23.8,0.0
 M-LICHFROG-3,Bog Benediction,3,2,1,AFX-160,Impact Soft medium 003,quiet,0.45,-3,120,1.2,140,121.2,-18.8,-20.0
-M-LICHFROG-3,Bog Benediction,3,3,1,AFX-678,Slime 08,quiet,0.5,-5,260,101.4,260,361.4,101.4,0.0
-M-LICHFROG-3,Bog Benediction,3,4,1,AFX-502,Force Field 002,quiet,0.45,-3,400,45.2,260,445.2,185.2,140.0
+M-LICHFROG-3,Bog Benediction,3,3,1,AFX-678,Slime 08,quiet,0.5,-5,260,101.4,140,361.4,221.4,120.0
+M-LICHFROG-3,Bog Benediction,3,4,1,AFX-502,Force Field 002,quiet,0.45,-3,400,45.2,140,445.2,305.2,260.0
 M-LICHFROG-4,Deathcroak,1,1,1,AFX-619,Grunt 02,main,0.85,-2,0,66.2,0,66.2,66.2,0.0
 M-LICHFROG-4,Deathcroak,1,2,1,AFX-814,Deep Break 6,quiet,0.45,0,0,254.0,0,254.0,254.0,0.0
 M-LICHFROG-4,Deathcroak,2,1,1,AFX-619,Grunt 02,main,0.85,-2,0,66.2,0,66.2,66.2,0.0
@@ -2225,9 +2225,9 @@ M-WISPMAW-2,Lure Flick,3,2,1,AFX-634,Monster 06,quiet,0.45,-2,200,106.6,200,306.
 M-WISPMAW-2,Lure Flick,3,3,1,AFX-157,Impact Soft medium 000,quiet,0.5,-3,300,1.2,300,301.2,1.2,0.0
 M-WISPMAW-3,Mesmer Light,1,1,1,AFX-438,Phase Jump 2,main,0.5,-3,0,91.6,0,91.6,91.6,0.0
 M-WISPMAW-3,Mesmer Light,2,1,1,AFX-438,Phase Jump 2,main,0.5,-3,0,91.6,0,91.6,91.6,0.0
-M-WISPMAW-3,Mesmer Light,2,2,1,AFX-430,Low Random,quiet,0.45,-3,160,114.2,160,274.2,114.2,0.0
+M-WISPMAW-3,Mesmer Light,2,2,1,AFX-430,Low Random,quiet,0.45,-3,160,114.2,200,274.2,74.2,-40.0
 M-WISPMAW-3,Mesmer Light,3,1,1,AFX-438,Phase Jump 2,main,0.5,-3,0,91.6,0,91.6,91.6,0.0
-M-WISPMAW-3,Mesmer Light,3,2,1,AFX-430,Low Random,quiet,0.45,-3,160,114.2,160,274.2,114.2,0.0
+M-WISPMAW-3,Mesmer Light,3,2,1,AFX-430,Low Random,quiet,0.45,-3,160,114.2,200,274.2,74.2,-40.0
 M-WISPMAW-3,Mesmer Light,3,3,1,AFX-472,Two Tone 1,quiet,0.4,-3,240,134.4,200,374.4,174.4,40.0
 M-WISPMAW-4,Lantern of the Lost,1,1,1,AFX-623,Howl,main,0.7,-2,0,31.4,0,31.4,31.4,0.0
 M-WISPMAW-4,Lantern of the Lost,2,1,1,AFX-623,Howl,main,0.7,-2,0,31.4,0,31.4,31.4,0.0
@@ -2311,12 +2311,12 @@ M-GALLOWVINE-1,Marionette Harvest,3,2,4,AFX-161,Impact Soft medium 004,loud,0.7,
 M-GALLOWVINE-1,Marionette Harvest,3,3,1,AFX-430,Low Random,loud,0.55,-7,340,143.8,220,483.8,263.8,120.0
 M-GALLOWVINE-1,Marionette Harvest,3,4,1,AFX-735,Bfh 1 wood breaking 03,loud,0.6,-4,320,25.2,220,345.2,125.2,100.0
 M-GALLOWVINE-2,Strangling Growth,1,1,1,AFX-019,Creak 2,main,0.55,-1,0,38.1,0,38.1,38.1,0.0
-M-GALLOWVINE-2,Strangling Growth,1,2,1,AFX-014,Cloth 3,quiet,0.45,-2,200,67.3,140,267.3,127.3,60.0
+M-GALLOWVINE-2,Strangling Growth,1,2,1,AFX-014,Cloth 3,quiet,0.45,-2,200,67.3,0,267.3,267.3,200.0
 M-GALLOWVINE-2,Strangling Growth,2,1,1,AFX-019,Creak 2,main,0.55,-3,0,42.8,0,42.8,42.8,0.0
-M-GALLOWVINE-2,Strangling Growth,2,2,1,AFX-014,Cloth 3,quiet,0.45,-3,210,71.4,140,281.4,141.4,70.0
-M-GALLOWVINE-2,Strangling Growth,2,3,1,AFX-172,Impact Wood light 000,quiet,0.5,-4,380,0.0,140,380.0,240.0,240.0
+M-GALLOWVINE-2,Strangling Growth,2,2,1,AFX-014,Cloth 3,quiet,0.45,-3,210,71.4,120,281.4,161.4,90.0
+M-GALLOWVINE-2,Strangling Growth,2,3,1,AFX-172,Impact Wood light 000,quiet,0.5,-4,380,0.0,120,380.0,260.0,260.0
 M-GALLOWVINE-2,Strangling Growth,3,1,1,AFX-019,Creak 2,main,0.55,-4,0,45.4,0,45.4,45.4,0.0
-M-GALLOWVINE-2,Strangling Growth,3,2,1,AFX-014,Cloth 3,quiet,0.45,-4,220,75.6,220,295.6,75.6,0.0
+M-GALLOWVINE-2,Strangling Growth,3,2,1,AFX-014,Cloth 3,quiet,0.45,-4,220,75.6,260,295.6,35.6,-40.0
 M-GALLOWVINE-2,Strangling Growth,3,3,1,AFX-172,Impact Wood light 000,quiet,0.5,-5,390,0.0,260,390.0,130.0,130.0
 M-GALLOWVINE-2,Strangling Growth,3,4,1,AFX-124,Impact Plank medium 002,quiet,0.45,-3,560,0.0,260,560.0,300.0,300.0
 M-GALLOWVINE-3,Tendril Snap,1,1,1,AFX-014,Cloth 3,main,1.0,-3,0,71.4,0,71.4,71.4,0.0
@@ -2396,9 +2396,9 @@ M-CENOTAPH-3,Unwritten,3,2,1,AFX-012,Cloth 1,quiet,0.45,-4,200,139.9,200,339.9,1
 M-CENOTAPH-3,Unwritten,3,3,1,AFX-431,Low Three Tone,quiet,0.45,-2,280,113.4,200,393.4,193.4,80.0
 M-CENOTAPH-4,Mourning Veil,1,1,1,AFX-444,Phaser Down 3,main,0.5,-4,0,108.4,0,108.4,108.4,0.0
 M-CENOTAPH-4,Mourning Veil,2,1,1,AFX-444,Phaser Down 3,main,0.5,-4,0,108.4,0,108.4,108.4,0.0
-M-CENOTAPH-4,Mourning Veil,2,2,1,AFX-013,Cloth 2,quiet,0.45,-4,160,132.3,160,292.3,132.3,0.0
+M-CENOTAPH-4,Mourning Veil,2,2,1,AFX-013,Cloth 2,quiet,0.45,-4,160,132.3,180,292.3,112.3,-20.0
 M-CENOTAPH-4,Mourning Veil,3,1,1,AFX-444,Phaser Down 3,main,0.5,-4,0,108.4,0,108.4,108.4,0.0
-M-CENOTAPH-4,Mourning Veil,3,2,1,AFX-013,Cloth 2,quiet,0.45,-4,160,132.3,160,292.3,132.3,0.0
+M-CENOTAPH-4,Mourning Veil,3,2,1,AFX-013,Cloth 2,quiet,0.45,-4,160,132.3,200,292.3,92.3,-40.0
 M-CENOTAPH-4,Mourning Veil,3,3,1,AFX-429,Low Down,quiet,0.45,-5,240,186.9,200,426.9,226.9,40.0
 M-GLOOMCAP-1,Sporefall,1,1,1,AFX-014,Cloth 3,main,0.7,-2,0,67.3,0,67.3,67.3,0.0
 M-GLOOMCAP-1,Sporefall,1,2,1,AFX-690,Slime 06,loud,0.6,-3,160,114.2,0,274.2,274.2,160.0
@@ -2561,9 +2561,9 @@ M-VERTIGO-4,Wrong Angles,3,3,1,AFX-430,Low Random,loud,0.55,-4,300,121.0,340,421
 M-VERTIGO-4,Wrong Angles,3,4,1,AFX-431,Low Three Tone,quiet,0.5,-2,360,113.4,340,473.4,133.4,20.0
 M-LAMPYRE-1,Vanishing Strike,1,1,1,AFX-149,Impact Punch medium 002,main,0.6,-3,0,27.4,0,27.4,27.4,0.0
 M-LAMPYRE-1,Vanishing Strike,2,1,1,AFX-149,Impact Punch medium 002,main,0.6,-3,0,27.4,0,27.4,27.4,0.0
-M-LAMPYRE-1,Vanishing Strike,2,2,1,AFX-439,Phase Jump 3,quiet,0.45,-3,160,84.4,160,244.4,84.4,0.0
+M-LAMPYRE-1,Vanishing Strike,2,2,1,AFX-439,Phase Jump 3,quiet,0.45,-3,160,84.4,180,244.4,64.4,-20.0
 M-LAMPYRE-1,Vanishing Strike,3,1,1,AFX-149,Impact Punch medium 002,main,0.6,-3,0,27.4,0,27.4,27.4,0.0
-M-LAMPYRE-1,Vanishing Strike,3,2,1,AFX-439,Phase Jump 3,quiet,0.45,-3,160,84.4,160,244.4,84.4,0.0
+M-LAMPYRE-1,Vanishing Strike,3,2,1,AFX-439,Phase Jump 3,quiet,0.45,-3,160,84.4,180,244.4,64.4,-20.0
 M-LAMPYRE-1,Vanishing Strike,3,3,1,AFX-816,Deep Break 8,quiet,0.5,-3,240,231.9,180,471.9,291.9,60.0
 M-LAMPYRE-2,Traceflash,1,1,1,AFX-084,Impact Generic light 002,main,0.55,-1,0,0.0,0,0.0,0.0,0.0
 M-LAMPYRE-2,Traceflash,2,1,1,AFX-084,Impact Generic light 002,main,0.55,-1,0,0.0,0,0.0,0.0,0.0
@@ -2640,7 +2640,7 @@ M-RIFTANGLER-4,Bait the Hole,2,1,1,AFX-659,Monster 12,main,0.5,-5,0,74.8,0,74.8,
 M-RIFTANGLER-4,Bait the Hole,2,2,1,AFX-429,Low Down,quiet,0.45,-4,160,176.4,160,336.4,176.4,0.0
 M-RIFTANGLER-4,Bait the Hole,3,1,1,AFX-659,Monster 12,main,0.5,-5,0,74.8,0,74.8,74.8,0.0
 M-RIFTANGLER-4,Bait the Hole,3,2,1,AFX-429,Low Down,quiet,0.45,-4,180,176.4,180,356.4,176.4,0.0
-M-RIFTANGLER-4,Bait the Hole,3,3,1,AFX-841,Qubodup Ghost Moan 04 (cut 1.4s of 5.0s),quiet,0.5,1,260,539.9,240,799.9,559.9,20.0
+M-RIFTANGLER-4,Bait the Hole,3,3,1,AFX-841,Qubodup Ghost Moan 04 (cut 1.4s of 5.0s),quiet,0.5,1,260,539.9,180,799.9,619.9,80.0
 M-MYCELIUM-1,Hyphal Sting,1,1,1,AFX-115,Impact Metal medium 003,main,0.55,-2,0,0.0,0,0.0,0.0,0.0
 M-MYCELIUM-1,Hyphal Sting,1,2,1,AFX-835,7,quiet,0.45,-4,0,1.3,0,1.3,1.3,0.0
 M-MYCELIUM-1,Hyphal Sting,2,1,1,AFX-115,Impact Metal medium 003,main,0.55,-2,0,0.0,0,0.0,0.0,0.0
@@ -2717,9 +2717,9 @@ M-CRYSTALWRAITH-2,Refraction Lance,2,1,1,AFX-789,Slam 06,main,0.6,-4,0,15.1,0,15
 M-CRYSTALWRAITH-2,Refraction Lance,2,2,1,AFX-090,Impact Glass heavy 003,quiet,0.5,-5,150,0.0,160,150.0,-10.0,-10.0
 M-CRYSTALWRAITH-2,Refraction Lance,2,3,1,AFX-100,Impact Glass medium 003,quiet,0.45,-4,300,0.0,160,300.0,140.0,140.0
 M-CRYSTALWRAITH-2,Refraction Lance,3,1,1,AFX-789,Slam 06,main,0.6,-5,0,16.0,0,16.0,16.0,0.0
-M-CRYSTALWRAITH-2,Refraction Lance,3,2,1,AFX-090,Impact Glass heavy 003,quiet,0.5,-5,160,0.0,160,160.0,0.0,0.0
-M-CRYSTALWRAITH-2,Refraction Lance,3,3,1,AFX-100,Impact Glass medium 003,quiet,0.45,-5,310,0.0,200,310.0,110.0,110.0
-M-CRYSTALWRAITH-2,Refraction Lance,3,4,1,AFX-507,Impact Metal 002,quiet,0.5,-4,480,0.0,200,480.0,280.0,280.0
+M-CRYSTALWRAITH-2,Refraction Lance,3,2,1,AFX-090,Impact Glass heavy 003,quiet,0.5,-5,160,0.0,200,160.0,-40.0,-40.0
+M-CRYSTALWRAITH-2,Refraction Lance,3,3,1,AFX-100,Impact Glass medium 003,quiet,0.45,-5,310,0.0,240,310.0,70.0,70.0
+M-CRYSTALWRAITH-2,Refraction Lance,3,4,1,AFX-507,Impact Metal 002,quiet,0.5,-4,480,0.0,240,480.0,240.0,240.0
 M-CRYSTALWRAITH-3,Shardflick,1,1,1,AFX-092,Impact Glass light 000,main,0.6,-4,0,0.0,0,0.0,0.0,0.0
 M-CRYSTALWRAITH-3,Shardflick,1,2,1,AFX-709,Bfh 1 glass breaking 02,quiet,0.5,-4,100,2.5,0,102.5,102.5,100.0
 M-CRYSTALWRAITH-3,Shardflick,2,1,1,AFX-092,Impact Glass light 000,main,0.6,-4,0,0.0,0,0.0,0.0,0.0
@@ -2775,8 +2775,8 @@ M-GEMBORN-1,Heartstone Beam,1,1,1,AFX-098,Impact Glass medium 001,main,0.55,-3,0
 M-GEMBORN-1,Heartstone Beam,2,1,1,AFX-098,Impact Glass medium 001,main,0.55,-3,0,0.0,0,0.0,0.0,0.0
 M-GEMBORN-1,Heartstone Beam,2,2,1,AFX-474,Zap 1,quiet,0.45,0,160,114.0,160,274.0,114.0,0.0
 M-GEMBORN-1,Heartstone Beam,3,1,1,AFX-098,Impact Glass medium 001,main,0.55,-3,0,0.0,0,0.0,0.0,0.0
-M-GEMBORN-1,Heartstone Beam,3,2,1,AFX-474,Zap 1,quiet,0.45,0,160,114.0,160,274.0,114.0,0.0
-M-GEMBORN-1,Heartstone Beam,3,3,1,AFX-786,Slam 03,quiet,0.5,-3,240,45.2,200,285.2,85.2,40.0
+M-GEMBORN-1,Heartstone Beam,3,2,1,AFX-474,Zap 1,quiet,0.45,0,160,114.0,200,274.0,74.0,-40.0
+M-GEMBORN-1,Heartstone Beam,3,3,1,AFX-786,Slam 03,quiet,0.5,-3,240,45.2,260,285.2,25.2,-20.0
 M-GEMBORN-2,Facet Jab,1,1,1,AFX-087,Impact Glass heavy 000,main,0.55,-2,0,0.0,0,0.0,0.0,0.0
 M-GEMBORN-2,Facet Jab,2,1,1,AFX-087,Impact Glass heavy 000,main,0.55,-2,0,0.0,0,0.0,0.0,0.0
 M-GEMBORN-2,Facet Jab,2,2,1,AFX-092,Impact Glass light 000,quiet,0.45,-2,140,0.0,140,140.0,0.0,0.0
@@ -2823,7 +2823,7 @@ M-BLOODCARVER-3,Incision,3,3,1,AFX-153,Impact Soft heavy 001,quiet,0.5,-5,290,1.
 M-BLOODCARVER-3,Incision,3,4,1,AFX-694,Slime 10,loud,0.6,-4,450,128.5,200,578.5,378.5,250.0
 M-BLOODCARVER-4,Arterial Map,1,1,1,AFX-030,Drop Leather,main,0.5,-3,0,77.3,0,77.3,77.3,0.0
 M-BLOODCARVER-4,Arterial Map,2,1,1,AFX-030,Drop Leather,main,0.5,-3,0,77.3,0,77.3,77.3,0.0
-M-BLOODCARVER-4,Arterial Map,2,2,1,AFX-442,Phaser Down 1,quiet,0.45,-4,180,148.7,180,328.7,148.7,0.0
+M-BLOODCARVER-4,Arterial Map,2,2,1,AFX-442,Phaser Down 1,quiet,0.45,-4,180,148.7,200,328.7,128.7,-20.0
 M-BLOODCARVER-4,Arterial Map,3,1,1,AFX-030,Drop Leather,main,0.5,-3,0,77.3,0,77.3,77.3,0.0
 M-BLOODCARVER-4,Arterial Map,3,2,1,AFX-442,Phaser Down 1,quiet,0.45,-4,200,148.7,200,348.7,148.7,0.0
 M-BLOODCARVER-4,Arterial Map,3,3,1,AFX-429,Low Down,quiet,0.45,-4,280,176.4,240,456.4,216.4,40.0
@@ -2885,7 +2885,7 @@ M-VOIDHOUND-2,Devour Vitality,3,4,1,AFX-840,Qubodup Ghost Moan 03 (cut 1.4s of 5
 M-VOIDHOUND-3,Predestined Bite,1,1,1,AFX-011,Chop,main,0.55,-2,0,56.1,0,56.1,56.1,0.0
 M-VOIDHOUND-3,Predestined Bite,1,2,1,AFX-809,Deep Break 10,quiet,0.45,0,0,71.0,0,71.0,71.0,0.0
 M-VOIDHOUND-3,Predestined Bite,2,1,1,AFX-011,Chop,main,0.55,-2,0,56.1,0,56.1,56.1,0.0
-M-VOIDHOUND-3,Predestined Bite,2,2,1,AFX-615,Eat 02,loud,0.55,-3,180,59.5,180,239.5,59.5,0.0
+M-VOIDHOUND-3,Predestined Bite,2,2,1,AFX-615,Eat 02,loud,0.55,-3,180,59.5,200,239.5,39.5,-20.0
 M-VOIDHOUND-3,Predestined Bite,3,1,1,AFX-011,Chop,main,0.55,-2,0,56.1,0,56.1,56.1,0.0
 M-VOIDHOUND-3,Predestined Bite,3,2,1,AFX-615,Eat 02,loud,0.55,-3,200,59.5,200,259.5,59.5,0.0
 M-VOIDHOUND-3,Predestined Bite,3,3,1,AFX-817,Deep Break 9,quiet,0.5,-2,280,104.4,200,384.4,184.4,80.0
@@ -2893,24 +2893,24 @@ M-VOIDHOUND-4,Scent of Endings,1,1,1,AFX-020,Creak 3,main,0.45,-5,0,102.8,0,102.
 M-VOIDHOUND-4,Scent of Endings,2,1,1,AFX-020,Creak 3,main,0.45,-5,0,102.8,0,102.8,102.8,0.0
 M-VOIDHOUND-4,Scent of Endings,2,2,1,AFX-429,Low Down,quiet,0.45,-5,140,186.9,140,326.9,186.9,0.0
 M-VOIDHOUND-4,Scent of Endings,3,1,1,AFX-020,Creak 3,main,0.45,-5,0,102.8,0,102.8,102.8,0.0
-M-VOIDHOUND-4,Scent of Endings,3,2,1,AFX-429,Low Down,quiet,0.45,-5,180,186.9,180,366.9,186.9,0.0
+M-VOIDHOUND-4,Scent of Endings,3,2,1,AFX-429,Low Down,quiet,0.45,-5,180,186.9,160,366.9,206.9,20.0
 M-VOIDHOUND-4,Scent of Endings,3,3,1,AFX-431,Low Three Tone,quiet,0.4,-4,260,127.3,200,387.3,187.3,60.0
 M-DOPPELGANGER-1,Perfect Reflection,1,1,1,AFX-139,Impact Plate medium 002,main,0.55,-3,0,0.0,0,0.0,0.0,0.0
 M-DOPPELGANGER-1,Perfect Reflection,2,1,1,AFX-139,Impact Plate medium 002,main,0.55,-3,0,0.0,0,0.0,0.0,0.0
-M-DOPPELGANGER-1,Perfect Reflection,2,2,1,AFX-137,Impact Plate medium 000,quiet,0.5,-3,160,0.0,160,160.0,0.0,0.0
+M-DOPPELGANGER-1,Perfect Reflection,2,2,1,AFX-137,Impact Plate medium 000,quiet,0.5,-3,160,0.0,180,160.0,-20.0,-20.0
 M-DOPPELGANGER-1,Perfect Reflection,3,1,1,AFX-139,Impact Plate medium 002,main,0.55,-3,0,0.0,0,0.0,0.0,0.0
-M-DOPPELGANGER-1,Perfect Reflection,3,2,1,AFX-137,Impact Plate medium 000,quiet,0.5,-3,160,0.0,160,160.0,0.0,0.0
+M-DOPPELGANGER-1,Perfect Reflection,3,2,1,AFX-137,Impact Plate medium 000,quiet,0.5,-3,160,0.0,200,160.0,-40.0,-40.0
 M-DOPPELGANGER-1,Perfect Reflection,3,3,1,AFX-811,Deep Break 3,quiet,0.5,-3,240,210.5,200,450.5,250.5,40.0
 M-DOPPELGANGER-2,Mirror Jab,1,1,1,AFX-712,Bfh 1 glass breaking 05,main,0.5,-4,0,3.8,0,3.8,3.8,0.0
-M-DOPPELGANGER-2,Mirror Jab,1,2,1,AFX-149,Impact Punch medium 002,quiet,0.5,-3,140,27.4,160,167.4,7.4,-20.0
+M-DOPPELGANGER-2,Mirror Jab,1,2,1,AFX-149,Impact Punch medium 002,quiet,0.5,-3,140,27.4,0,167.4,167.4,140.0
 M-DOPPELGANGER-2,Mirror Jab,2,1,1,AFX-712,Bfh 1 glass breaking 05,main,0.5,-4,0,3.8,0,3.8,3.8,0.0
 M-DOPPELGANGER-2,Mirror Jab,2,2,1,AFX-149,Impact Punch medium 002,quiet,0.5,-4,150,29.0,140,179.0,39.0,10.0
-M-DOPPELGANGER-2,Mirror Jab,2,2,2,AFX-149,Impact Punch medium 002,quiet,0.5,-4,340,29.0,240,369.0,129.0,100.0
+M-DOPPELGANGER-2,Mirror Jab,2,2,2,AFX-149,Impact Punch medium 002,quiet,0.5,-4,340,29.0,140,369.0,229.0,200.0
 M-DOPPELGANGER-2,Mirror Jab,3,1,1,AFX-712,Bfh 1 glass breaking 05,main,0.5,-5,0,4.0,0,4.0,4.0,0.0
 M-DOPPELGANGER-2,Mirror Jab,3,2,1,AFX-149,Impact Punch medium 002,quiet,0.5,-5,160,30.7,160,190.7,30.7,0.0
-M-DOPPELGANGER-2,Mirror Jab,3,2,2,AFX-149,Impact Punch medium 002,quiet,0.5,-5,360,30.7,260,390.7,130.7,100.0
-M-DOPPELGANGER-2,Mirror Jab,3,3,1,AFX-438,Phase Jump 2,quiet,0.45,-4,340,97.0,260,437.0,177.0,80.0
-M-DOPPELGANGER-2,Mirror Jab,3,4,1,AFX-155,Impact Soft heavy 003,quiet,0.45,-4,520,1.3,260,521.3,261.3,260.0
+M-DOPPELGANGER-2,Mirror Jab,3,2,2,AFX-149,Impact Punch medium 002,quiet,0.5,-5,360,30.7,200,390.7,190.7,160.0
+M-DOPPELGANGER-2,Mirror Jab,3,3,1,AFX-438,Phase Jump 2,quiet,0.45,-4,340,97.0,200,437.0,237.0,140.0
+M-DOPPELGANGER-2,Mirror Jab,3,4,1,AFX-155,Impact Soft heavy 003,quiet,0.45,-4,520,1.3,200,521.3,321.3,320.0
 M-DOPPELGANGER-3,Copied Stance,1,1,1,AFX-140,Impact Plate medium 003,main,0.5,-3,0,0.0,0,0.0,0.0,0.0
 M-DOPPELGANGER-3,Copied Stance,2,1,1,AFX-140,Impact Plate medium 003,main,0.5,-3,0,0.0,0,0.0,0.0,0.0
 M-DOPPELGANGER-3,Copied Stance,2,2,1,AFX-014,Cloth 3,quiet,0.45,-3,160,71.4,160,231.4,71.4,0.0
@@ -2960,13 +2960,13 @@ M-PHYLACTERY-1,Gemfire Bolt,1,2,1,AFX-511,Laser Large 001,quiet,0.45,0,0,1.0,0,1
 M-PHYLACTERY-1,Gemfire Bolt,2,1,1,AFX-100,Impact Glass medium 003,main,0.55,-3,0,0.0,0,0.0,0.0,0.0
 M-PHYLACTERY-1,Gemfire Bolt,2,2,1,AFX-511,Laser Large 001,quiet,0.5,-2,160,1.1,160,161.1,1.1,0.0
 M-PHYLACTERY-1,Gemfire Bolt,3,1,1,AFX-100,Impact Glass medium 003,main,0.55,-3,0,0.0,0,0.0,0.0,0.0
-M-PHYLACTERY-1,Gemfire Bolt,3,2,1,AFX-474,Zap 1,loud,0.55,-3,160,135.6,160,295.6,135.6,0.0
-M-PHYLACTERY-1,Gemfire Bolt,3,3,1,AFX-792,Flame 0,loud,0.6,-3,240,82.1,200,322.1,122.1,40.0
+M-PHYLACTERY-1,Gemfire Bolt,3,2,1,AFX-474,Zap 1,loud,0.55,-3,160,135.6,200,295.6,95.6,-40.0
+M-PHYLACTERY-1,Gemfire Bolt,3,3,1,AFX-792,Flame 0,loud,0.6,-3,240,82.1,260,322.1,62.1,-20.0
 M-PHYLACTERY-2,Soulspark,1,1,1,AFX-096,Impact Glass light 004,main,0.55,-2,0,0.0,0,0.0,0.0,0.0
 M-PHYLACTERY-2,Soulspark,2,1,1,AFX-096,Impact Glass light 004,main,0.55,-2,0,0.0,0,0.0,0.0,0.0
 M-PHYLACTERY-2,Soulspark,2,2,1,AFX-438,Phase Jump 2,quiet,0.45,-2,160,86.4,160,246.4,86.4,0.0
 M-PHYLACTERY-2,Soulspark,3,1,1,AFX-096,Impact Glass light 004,main,0.55,-2,0,0.0,0,0.0,0.0,0.0
-M-PHYLACTERY-2,Soulspark,3,2,1,AFX-438,Phase Jump 2,quiet,0.45,-2,160,86.4,160,246.4,86.4,0.0
+M-PHYLACTERY-2,Soulspark,3,2,1,AFX-438,Phase Jump 2,quiet,0.45,-2,160,86.4,200,246.4,46.4,-40.0
 M-PHYLACTERY-2,Soulspark,3,3,1,AFX-158,Impact Soft medium 001,quiet,0.5,-3,240,1.2,200,241.2,41.2,40.0
 M-PHYLACTERY-3,Leaden Curse,1,1,1,AFX-524,Laser Small 004,main,0.85,-4,0,0.0,0,0.0,0.0,0.0
 M-PHYLACTERY-3,Leaden Curse,1,2,1,AFX-505,Impact Metal 000,loud,0.6,-2,160,0.0,0,160.0,160.0,160.0
@@ -3000,7 +3000,7 @@ M-SPECULUM-2,Backwards Cut,3,1,1,AFX-090,Impact Glass heavy 003,main,0.55,-2,0,0
 M-SPECULUM-2,Backwards Cut,3,2,1,AFX-418,High Down,quiet,0.45,-5,200,128.1,200,328.1,128.1,0.0
 M-SPECULUM-2,Backwards Cut,3,3,1,AFX-157,Impact Soft medium 000,quiet,0.5,-3,280,1.2,260,281.2,21.2,20.0
 M-SPECULUM-3,What It Reflects,1,1,1,AFX-438,Phase Jump 2,main,0.8,-2,0,86.4,0,86.4,86.4,0.0
-M-SPECULUM-3,What It Reflects,1,2,1,AFX-097,Impact Glass medium 000,loud,0.55,-3,160,0.0,140,160.0,20.0,20.0
+M-SPECULUM-3,What It Reflects,1,2,1,AFX-097,Impact Glass medium 000,loud,0.55,-3,160,0.0,0,160.0,160.0,160.0
 M-SPECULUM-3,What It Reflects,2,1,1,AFX-438,Phase Jump 2,main,0.8,-2,0,86.4,0,86.4,86.4,0.0
 M-SPECULUM-3,What It Reflects,2,2,1,AFX-097,Impact Glass medium 000,loud,0.55,-3,160,0.0,160,160.0,0.0,0.0
 M-SPECULUM-3,What It Reflects,2,3,1,AFX-430,Low Random,loud,0.55,-4,300,121.0,200,421.0,221.0,100.0
@@ -3021,7 +3021,7 @@ M-CINDERSHARD-1,Calving Burst,1,1,1,AFX-087,Impact Glass heavy 000,main,0.6,-5,0
 M-CINDERSHARD-1,Calving Burst,1,2,1,AFX-509,Impact Metal 004,loud,0.6,-4,140,0.0,0,140.0,140.0,140.0
 M-CINDERSHARD-1,Calving Burst,2,1,1,AFX-087,Impact Glass heavy 000,main,0.6,-5,0,0.0,0,0.0,0.0,0.0
 M-CINDERSHARD-1,Calving Burst,2,2,1,AFX-509,Impact Metal 004,loud,0.6,-4,140,0.0,140,140.0,0.0,0.0
-M-CINDERSHARD-1,Calving Burst,2,3,1,AFX-430,Low Random,loud,0.55,-5,280,128.1,160,408.1,248.1,120.0
+M-CINDERSHARD-1,Calving Burst,2,3,1,AFX-430,Low Random,loud,0.55,-5,280,128.1,140,408.1,268.1,140.0
 M-CINDERSHARD-1,Calving Burst,3,1,1,AFX-087,Impact Glass heavy 000,main,0.6,-5,0,0.0,0,0.0,0.0,0.0
 M-CINDERSHARD-1,Calving Burst,3,2,1,AFX-509,Impact Metal 004,loud,0.6,-4,140,0.0,140,140.0,0.0,0.0
 M-CINDERSHARD-1,Calving Burst,3,3,1,AFX-430,Low Random,loud,0.55,-5,280,128.1,200,408.1,208.1,80.0
@@ -3318,10 +3318,10 @@ M-VIGIL-4,Protocol Shield,3,3,1,AFX-431,Low Three Tone,quiet,0.45,-3,220,120.1,2
 M-PYRIEL-1,Before There Was Light,1,1,1,AFX-505,Impact Metal 000,main,0.7,-3,0,0.0,0,0.0,0.0,0.0
 M-PYRIEL-1,Before There Was Light,1,2,1,AFX-429,Low Down,quiet,0.45,-1,60,148.3,0,208.3,208.3,60.0
 M-PYRIEL-1,Before There Was Light,2,1,1,AFX-505,Impact Metal 000,main,0.7,-4,0,0.0,0,0.0,0.0,0.0
-M-PYRIEL-1,Before There Was Light,2,2,1,AFX-429,Low Down,quiet,0.45,-3,140,166.5,160,306.5,146.5,-20.0
-M-PYRIEL-1,Before There Was Light,2,3,1,AFX-793,Fire (cut 0.9s at 11s of 29.3s),quiet,0.5,1,300,170.8,160,470.8,310.8,140.0
+M-PYRIEL-1,Before There Was Light,2,2,1,AFX-429,Low Down,quiet,0.45,-3,140,166.5,220,306.5,86.5,-80.0
+M-PYRIEL-1,Before There Was Light,2,3,1,AFX-793,Fire (cut 0.9s at 11s of 29.3s),quiet,0.5,1,300,170.8,220,470.8,250.8,80.0
 M-PYRIEL-1,Before There Was Light,3,1,1,AFX-505,Impact Metal 000,main,0.7,-5,0,0.0,0,0.0,0.0,0.0
-M-PYRIEL-1,Before There Was Light,3,2,1,AFX-429,Low Down,quiet,0.45,-4,150,176.4,160,326.4,166.4,-10.0
+M-PYRIEL-1,Before There Was Light,3,2,1,AFX-429,Low Down,quiet,0.45,-4,150,176.4,220,326.4,106.4,-70.0
 M-PYRIEL-1,Before There Was Light,3,3,1,AFX-793,Fire (cut 0.9s at 11s of 29.3s),loud,0.55,-3,300,215.2,220,515.2,295.2,80.0
 M-PYRIEL-1,Before There Was Light,3,4,1,AFX-791,Fire 1 0 (cut 0.9s at 1s of 3.5s),quiet,0.5,-3,420,19.0,420,439.0,19.0,0.0
 M-PYRIEL-2,Primordial Spark,1,1,1,AFX-131,Impact Plate heavy 004,main,0.6,-3,0,0.0,0,0.0,0.0,0.0
@@ -3376,6 +3376,144 @@ M-DEMIURGE-4,Design Flaw,3,1,1,AFX-440,Phase Jump 4,main,0.8,-2,0,119.0,0,119.0,
 M-DEMIURGE-4,Design Flaw,3,2,1,AFX-507,Impact Metal 002,loud,0.6,-3,180,0.0,160,180.0,20.0,20.0
 M-DEMIURGE-4,Design Flaw,3,3,1,AFX-430,Low Random,loud,0.55,-4,300,121.0,220,421.0,201.0,80.0
 M-DEMIURGE-4,Design Flaw,3,4,1,AFX-501,Force Field 001,quiet,0.5,-2,360,41.5,220,401.5,181.5,140.0
+M-JACKANAPE-1,Branch Pounce,1,1,1,AFX-429,Low Down,main,0.9,-2,0,157.1,0,157.1,157.1,0.0
+M-JACKANAPE-1,Branch Pounce,1,2,1,AFX-126,Impact Plank medium 004,quiet,0.45,0,0,0.0,0,0.0,0.0,0.0
+M-JACKANAPE-1,Branch Pounce,2,1,1,AFX-429,Low Down,main,0.9,-2,0,157.1,0,157.1,157.1,0.0
+M-JACKANAPE-1,Branch Pounce,2,2,1,AFX-734,Bfh 1 wood breaking 02,quiet,0.4,-5,120,44.0,160,164.0,4.0,-40.0
+M-JACKANAPE-1,Branch Pounce,2,3,1,AFX-152,Impact Soft heavy 000,loud,0.6,-4,240,1.3,160,241.3,81.3,80.0
+M-JACKANAPE-1,Branch Pounce,3,1,1,AFX-429,Low Down,main,0.9,-2,0,157.1,0,157.1,157.1,0.0
+M-JACKANAPE-1,Branch Pounce,3,2,1,AFX-734,Bfh 1 wood breaking 02,quiet,0.4,-5,120,44.0,160,164.0,4.0,-40.0
+M-JACKANAPE-1,Branch Pounce,3,3,1,AFX-152,Impact Soft heavy 000,loud,0.6,-4,240,1.3,160,241.3,81.3,80.0
+M-JACKANAPE-1,Branch Pounce,3,4,1,AFX-739,Ambient 03 (cut 1.2s of 7.0s),loud,0.55,0,380,0.0,160,380.0,220.0,220.0
+M-JACKANAPE-2,Jeer,1,1,1,AFX-072,Footstep wood 000,main,0.55,-2,0,1.1,0,1.1,1.1,0.0
+M-JACKANAPE-2,Jeer,1,1,2,AFX-072,Footstep wood 000,loud,0.55,-2,90,1.1,0,91.1,91.1,90.0
+M-JACKANAPE-2,Jeer,1,1,3,AFX-072,Footstep wood 000,loud,0.55,-2,180,1.1,0,181.1,181.1,180.0
+M-JACKANAPE-2,Jeer,1,2,1,AFX-430,Low Random,loud,0.7,-2,160,107.8,0,267.8,267.8,160.0
+M-JACKANAPE-2,Jeer,2,1,1,AFX-072,Footstep wood 000,main,0.55,-2,0,1.1,0,1.1,1.1,0.0
+M-JACKANAPE-2,Jeer,2,1,2,AFX-072,Footstep wood 000,loud,0.55,-2,90,1.1,160,91.1,-68.9,-70.0
+M-JACKANAPE-2,Jeer,2,1,3,AFX-072,Footstep wood 000,loud,0.55,-2,180,1.1,160,181.1,21.1,20.0
+M-JACKANAPE-2,Jeer,2,2,1,AFX-430,Low Random,loud,0.7,-2,160,107.8,160,267.8,107.8,0.0
+M-JACKANAPE-2,Jeer,2,3,1,AFX-619,Grunt 02,quiet,0.5,-4,300,74.3,160,374.3,214.3,140.0
+M-JACKANAPE-2,Jeer,3,1,1,AFX-072,Footstep wood 000,main,0.6,-2,0,1.1,0,1.1,1.1,0.0
+M-JACKANAPE-2,Jeer,3,1,2,AFX-072,Footstep wood 000,loud,0.6,-2,90,1.1,160,91.1,-68.9,-70.0
+M-JACKANAPE-2,Jeer,3,1,3,AFX-072,Footstep wood 000,loud,0.6,-2,180,1.1,160,181.1,21.1,20.0
+M-JACKANAPE-2,Jeer,3,1,4,AFX-072,Footstep wood 000,loud,0.6,-2,270,1.1,280,271.1,-8.9,-10.0
+M-JACKANAPE-2,Jeer,3,2,1,AFX-430,Low Random,loud,0.7,-2,160,107.8,160,267.8,107.8,0.0
+M-JACKANAPE-2,Jeer,3,3,1,AFX-619,Grunt 02,quiet,0.5,-4,300,74.3,280,374.3,94.3,20.0
+M-JACKANAPE-2,Jeer,3,4,1,AFX-786,Slam 03,quiet,0.5,-2,360,42.7,280,402.7,122.7,80.0
+M-JACKANAPE-3,Pickpocket,1,1,1,AFX-160,Impact Soft medium 003,main,0.7,0,0,1.0,0,1.0,1.0,0.0
+M-JACKANAPE-3,Pickpocket,2,1,1,AFX-160,Impact Soft medium 003,main,0.7,0,0,1.0,0,1.0,1.0,0.0
+M-JACKANAPE-3,Pickpocket,2,2,1,AFX-442,Phaser Down 1,quiet,0.45,-3,160,140.3,160,300.3,140.3,0.0
+M-JACKANAPE-3,Pickpocket,3,1,1,AFX-160,Impact Soft medium 003,main,0.7,0,0,1.0,0,1.0,1.0,0.0
+M-JACKANAPE-3,Pickpocket,3,2,1,AFX-442,Phaser Down 1,quiet,0.45,-3,160,140.3,160,300.3,140.3,0.0
+M-JACKANAPE-3,Pickpocket,3,3,1,AFX-429,Low Down,quiet,0.45,-5,220,186.9,160,406.9,246.9,60.0
+M-JACKANAPE-4,Scamper,1,1,1,AFX-429,Low Down,main,0.8,-2,0,157.1,0,157.1,157.1,0.0
+M-JACKANAPE-4,Scamper,2,1,1,AFX-429,Low Down,main,0.8,-2,0,157.1,0,157.1,157.1,0.0
+M-JACKANAPE-4,Scamper,2,2,1,AFX-680,Bubble 01,quiet,0.45,-3,160,73.7,160,233.7,73.7,0.0
+M-JACKANAPE-4,Scamper,3,1,1,AFX-429,Low Down,main,0.8,-2,0,157.1,0,157.1,157.1,0.0
+M-JACKANAPE-4,Scamper,3,2,1,AFX-680,Bubble 01,quiet,0.45,-3,160,73.7,160,233.7,73.7,0.0
+M-JACKANAPE-4,Scamper,3,3,1,AFX-430,Low Random,quiet,0.45,-4,300,121.0,320,421.0,101.0,-20.0
+M-GOLIATH-1,Hammerfist,1,1,1,AFX-131,Impact Plate heavy 004,main,0.7,-6,0,0.0,0,0.0,0.0,0.0
+M-GOLIATH-1,Hammerfist,1,2,1,AFX-786,Slam 03,quiet,0.45,0,0,38.0,0,38.0,38.0,0.0
+M-GOLIATH-1,Hammerfist,2,1,1,AFX-131,Impact Plate heavy 004,main,0.7,-6,0,0.0,0,0.0,0.0,0.0
+M-GOLIATH-1,Hammerfist,2,2,1,AFX-119,Impact Mining 002,quiet,0.5,-4,160,0.0,150,160.0,10.0,10.0
+M-GOLIATH-1,Hammerfist,3,1,1,AFX-131,Impact Plate heavy 004,main,0.7,-6,0,0.0,0,0.0,0.0,0.0
+M-GOLIATH-1,Hammerfist,3,2,1,AFX-119,Impact Mining 002,quiet,0.5,-4,160,0.0,150,160.0,10.0,10.0
+M-GOLIATH-1,Hammerfist,3,3,1,AFX-725,Bfh 1 rock falling 03,quiet,0.5,-6,280,284.3,220,564.3,344.3,60.0
+M-GOLIATH-2,Knuckle Slam,1,1,1,AFX-128,Impact Plate heavy 001,main,0.7,-3,0,0.0,0,0.0,0.0,0.0
+M-GOLIATH-2,Knuckle Slam,1,2,1,AFX-730,Bfh 1 rock falling 08,quiet,0.45,-4,0,3.8,0,3.8,3.8,0.0
+M-GOLIATH-2,Knuckle Slam,2,1,1,AFX-128,Impact Plate heavy 001,main,0.7,-3,0,0.0,0,0.0,0.0,0.0
+M-GOLIATH-2,Knuckle Slam,2,2,1,AFX-117,Impact Mining 000,quiet,0.5,-2,140,0.0,140,140.0,0.0,0.0
+M-GOLIATH-2,Knuckle Slam,3,1,1,AFX-128,Impact Plate heavy 001,main,0.7,-3,0,0.0,0,0.0,0.0,0.0
+M-GOLIATH-2,Knuckle Slam,3,2,1,AFX-117,Impact Mining 000,quiet,0.5,-2,140,0.0,140,140.0,0.0,0.0
+M-GOLIATH-2,Knuckle Slam,3,3,1,AFX-723,Bfh 1 rock falling 01,quiet,0.5,-3,320,266.4,220,586.4,366.4,100.0
+M-GOLIATH-3,Backhand,1,1,1,AFX-129,Impact Plate heavy 002,main,0.7,-3,0,0.0,0,0.0,0.0,0.0
+M-GOLIATH-3,Backhand,1,2,1,AFX-730,Bfh 1 rock falling 08,quiet,0.45,-4,0,3.8,0,3.8,3.8,0.0
+M-GOLIATH-3,Backhand,2,1,1,AFX-129,Impact Plate heavy 002,main,0.7,-3,0,0.0,0,0.0,0.0,0.0
+M-GOLIATH-3,Backhand,2,2,1,AFX-121,Impact Mining 004,quiet,0.5,-2,150,1.1,150,151.1,1.1,0.0
+M-GOLIATH-3,Backhand,3,1,1,AFX-129,Impact Plate heavy 002,main,0.7,-3,0,0.0,0,0.0,0.0,0.0
+M-GOLIATH-3,Backhand,3,2,1,AFX-121,Impact Mining 004,quiet,0.5,-2,150,1.1,150,151.1,1.1,0.0
+M-GOLIATH-3,Backhand,3,3,1,AFX-753,Rolling,quiet,0.5,-2,300,2.2,230,302.2,72.2,70.0
+M-GOLIATH-4,Chest Beat,1,1,1,AFX-130,Impact Plate heavy 003,main,0.7,-4,0,1.3,0,1.3,1.3,0.0
+M-GOLIATH-4,Chest Beat,1,2,1,AFX-732,Bfh 1 rock hit 01,quiet,0.45,-4,0,1.3,0,1.3,1.3,0.0
+M-GOLIATH-4,Chest Beat,2,1,1,AFX-130,Impact Plate heavy 003,main,0.7,-4,0,1.3,0,1.3,1.3,0.0
+M-GOLIATH-4,Chest Beat,2,2,1,AFX-119,Impact Mining 002,loud,0.55,-1,150,0.0,160,150.0,-10.0,-10.0
+M-GOLIATH-4,Chest Beat,2,3,1,AFX-753,Rolling,quiet,0.45,2,250,1.8,160,251.8,91.8,90.0
+M-GOLIATH-4,Chest Beat,3,1,1,AFX-130,Impact Plate heavy 003,main,0.7,-5,0,1.3,0,1.3,1.3,0.0
+M-GOLIATH-4,Chest Beat,3,2,1,AFX-119,Impact Mining 002,loud,0.6,-2,150,0.0,160,150.0,-10.0,-10.0
+M-GOLIATH-4,Chest Beat,3,3,1,AFX-753,Rolling,quiet,0.5,-2,250,2.2,160,252.2,92.2,90.0
+M-GOLIATH-4,Chest Beat,3,4,1,AFX-723,Bfh 1 rock falling 01,loud,0.6,-3,350,266.4,160,616.4,456.4,190.0
+M-TYRANNOS-1,Tail Sweep,1,1,1,AFX-155,Impact Soft heavy 003,main,0.7,-6,0,1.4,0,1.4,1.4,0.0
+M-TYRANNOS-1,Tail Sweep,1,2,1,AFX-847,Stone 01,quiet,0.45,0,0,48.0,0,48.0,48.0,0.0
+M-TYRANNOS-1,Tail Sweep,2,1,1,AFX-155,Impact Soft heavy 003,main,0.7,-6,0,1.4,0,1.4,1.4,0.0
+M-TYRANNOS-1,Tail Sweep,2,2,1,AFX-725,Bfh 1 rock falling 03,quiet,0.45,-4,120,253.2,160,373.2,213.2,-40.0
+M-TYRANNOS-1,Tail Sweep,3,1,1,AFX-155,Impact Soft heavy 003,main,0.7,-6,0,1.4,0,1.4,1.4,0.0
+M-TYRANNOS-1,Tail Sweep,3,2,1,AFX-852,Dragonflap (cut 1.4s of 2.4s),quiet,0.5,1,160,153.9,160,313.9,153.9,0.0
+M-TYRANNOS-1,Tail Sweep,3,3,1,AFX-725,Bfh 1 rock falling 03,quiet,0.5,-5,250,268.3,160,518.3,358.3,90.0
+M-TYRANNOS-2,Bone Crunch,1,1,1,AFX-754,Water boiling (cut 1.2s of 4.5s),main,0.7,6,0,0.0,0,0.0,0.0,0.0
+M-TYRANNOS-2,Bone Crunch,1,2,1,AFX-827,Wet Break 9,quiet,0.45,-4,0,58.0,0,58.0,58.0,0.0
+M-TYRANNOS-2,Bone Crunch,2,1,1,AFX-754,Water boiling (cut 1.2s of 4.5s),main,0.7,1,0,0.0,0,0.0,0.0,0.0
+M-TYRANNOS-2,Bone Crunch,2,2,1,AFX-817,Deep Break 9,quiet,0.5,-4,160,117.2,140,277.2,137.2,20.0
+M-TYRANNOS-2,Bone Crunch,3,1,1,AFX-754,Water boiling (cut 1.2s of 4.5s),main,0.7,-2,0,0.0,0,0.0,0.0,0.0
+M-TYRANNOS-2,Bone Crunch,3,2,1,AFX-821,Wet Break 3,quiet,0.5,-4,160,171.3,140,331.3,191.3,20.0
+M-TYRANNOS-2,Bone Crunch,3,3,1,AFX-786,Slam 03,quiet,0.5,-3,320,45.2,420,365.2,-54.8,-100.0
+M-TYRANNOS-2,Bone Crunch,3,4,1,AFX-815,Deep Break 7,quiet,0.45,0,0,74.0,0,74.0,74.0,0.0
+M-TYRANNOS-3,Snap,1,1,1,AFX-086,Impact Generic light 004,main,0.7,0,0,0.0,0,0.0,0.0,0.0
+M-TYRANNOS-3,Snap,1,1,2,AFX-086,Impact Generic light 004,loud,0.7,0,70,0.0,0,70.0,70.0,70.0
+M-TYRANNOS-3,Snap,1,1,3,AFX-086,Impact Generic light 004,loud,0.7,0,140,0.0,0,140.0,140.0,140.0
+M-TYRANNOS-3,Snap,1,2,1,AFX-817,Deep Break 9,quiet,0.45,0,0,93.0,0,93.0,93.0,0.0
+M-TYRANNOS-3,Snap,2,1,1,AFX-086,Impact Generic light 004,main,0.7,0,0,0.0,0,0.0,0.0,0.0
+M-TYRANNOS-3,Snap,2,1,2,AFX-086,Impact Generic light 004,loud,0.7,0,70,0.0,0,70.0,70.0,70.0
+M-TYRANNOS-3,Snap,2,1,3,AFX-086,Impact Generic light 004,loud,0.7,0,140,0.0,200,140.0,-60.0,-60.0
+M-TYRANNOS-3,Snap,2,2,1,AFX-173,Impact Wood light 001,quiet,0.45,-1,130,0.0,200,130.0,-70.0,-70.0
+M-TYRANNOS-3,Snap,2,2,2,AFX-173,Impact Wood light 001,quiet,0.45,-1,200,0.0,200,200.0,0.0,0.0
+M-TYRANNOS-3,Snap,2,3,1,AFX-821,Wet Break 3,quiet,0.45,-4,0,171.3,0,171.3,171.3,0.0
+M-TYRANNOS-3,Snap,3,1,1,AFX-086,Impact Generic light 004,main,0.7,0,0,0.0,0,0.0,0.0,0.0
+M-TYRANNOS-3,Snap,3,1,2,AFX-086,Impact Generic light 004,loud,0.7,0,70,0.0,90,70.0,-20.0,-20.0
+M-TYRANNOS-3,Snap,3,1,3,AFX-086,Impact Generic light 004,loud,0.7,0,140,0.0,90,140.0,50.0,50.0
+M-TYRANNOS-3,Snap,3,2,1,AFX-173,Impact Wood light 001,quiet,0.45,-1,130,0.0,90,130.0,40.0,40.0
+M-TYRANNOS-3,Snap,3,2,2,AFX-173,Impact Wood light 001,quiet,0.45,-1,200,0.0,240,200.0,-40.0,-40.0
+M-TYRANNOS-3,Snap,3,3,1,AFX-785,Slam 02,quiet,0.45,-4,280,55.4,240,335.4,95.4,40.0
+M-TYRANNOS-3,Snap,3,4,1,AFX-821,Wet Break 3,quiet,0.45,-4,0,171.3,0,171.3,171.3,0.0
+M-TYRANNOS-4,Bellow,1,1,1,AFX-797,Wind 3 (cut 1s at 8.5s of 60.0s),main,0.6,2,0,8.0,0,8.0,8.0,0.0
+M-TYRANNOS-4,Bellow,1,2,1,AFX-643,Troll 02,quiet,0.45,-2,0,180.7,0,180.7,180.7,0.0
+M-TYRANNOS-4,Bellow,2,1,1,AFX-797,Wind 3 (cut 1s at 8.5s of 60.0s),main,0.6,2,0,8.0,0,8.0,8.0,0.0
+M-TYRANNOS-4,Bellow,2,2,1,AFX-504,Force Field 004,quiet,0.45,-2,100,41.5,160,141.5,-18.5,-60.0
+M-TYRANNOS-4,Bellow,2,3,1,AFX-642,Troll 01,quiet,0.45,-5,200,64.1,160,264.1,104.1,40.0
+M-TYRANNOS-4,Bellow,3,1,1,AFX-797,Wind 3 (cut 1s at 8.5s of 60.0s),main,0.6,1,0,8.5,0,8.5,8.5,0.0
+M-TYRANNOS-4,Bellow,3,2,1,AFX-504,Force Field 004,quiet,0.45,-2,100,41.5,160,141.5,-18.5,-60.0
+M-TYRANNOS-4,Bellow,3,3,1,AFX-637,Roar 02,quiet,0.45,-5,200,170.9,160,370.9,210.9,40.0
+M-TYRANNOS-4,Bellow,3,4,1,AFX-852,Dragonflap (cut 1.4s of 2.4s),quiet,0.45,3,420,137.1,360,557.1,197.1,60.0
+M-CHARNELMASS-1,Engulf,1,1,1,AFX-149,Impact Punch medium 002,main,0.55,-3,0,27.4,0,27.4,27.4,0.0
+M-CHARNELMASS-1,Engulf,1,2,1,AFX-690,Slime 06,quiet,0.45,-4,0,121.0,0,121.0,121.0,0.0
+M-CHARNELMASS-1,Engulf,2,1,1,AFX-149,Impact Punch medium 002,main,0.55,-3,0,27.4,0,27.4,27.4,0.0
+M-CHARNELMASS-1,Engulf,2,2,1,AFX-609,Bug 02,quiet,0.45,-4,160,39.1,200,199.1,-0.9,-40.0
+M-CHARNELMASS-1,Engulf,2,3,1,AFX-613,Burble 02,quiet,0.45,0,0,67.0,0,67.0,67.0,0.0
+M-CHARNELMASS-1,Engulf,3,1,1,AFX-149,Impact Punch medium 002,main,0.55,-3,0,27.4,0,27.4,27.4,0.0
+M-CHARNELMASS-1,Engulf,3,2,1,AFX-613,Burble 02,quiet,0.45,-4,160,84.4,200,244.4,44.4,-40.0
+M-CHARNELMASS-1,Engulf,3,3,1,AFX-609,Bug 02,quiet,0.45,-4,240,39.1,200,279.1,79.1,40.0
+M-CHARNELMASS-2,Bone Spit,1,1,1,AFX-114,Impact Metal medium 002,main,0.55,-3,0,0.0,0,0.0,0.0,0.0
+M-CHARNELMASS-2,Bone Spit,1,2,1,AFX-836,8,quiet,0.45,-4,0,0.0,0,0.0,0.0,0.0
+M-CHARNELMASS-2,Bone Spit,2,1,1,AFX-114,Impact Metal medium 002,main,0.55,-3,0,0.0,0,0.0,0.0,0.0
+M-CHARNELMASS-2,Bone Spit,2,2,1,AFX-640,Spit 02,quiet,0.45,-4,120,103.3,120,223.3,103.3,0.0
+M-CHARNELMASS-2,Bone Spit,2,3,1,AFX-832,4,quiet,0.45,-3,0,1.2,0,1.2,1.2,0.0
+M-CHARNELMASS-2,Bone Spit,3,1,1,AFX-114,Impact Metal medium 002,main,0.55,-3,0,0.0,0,0.0,0.0,0.0
+M-CHARNELMASS-2,Bone Spit,3,2,1,AFX-639,Spit 01,quiet,0.45,-4,120,69.3,120,189.3,69.3,0.0
+M-CHARNELMASS-2,Bone Spit,3,3,1,AFX-814,Deep Break 6,quiet,0.45,-4,200,320.0,120,520.0,400.0,80.0
+M-CHARNELMASS-3,Ooze Slap,1,1,1,AFX-011,Chop,main,0.55,-3,0,59.5,0,59.5,59.5,0.0
+M-CHARNELMASS-3,Ooze Slap,1,2,1,AFX-690,Slime 06,quiet,0.45,-4,0,121.0,0,121.0,121.0,0.0
+M-CHARNELMASS-3,Ooze Slap,2,1,1,AFX-011,Chop,main,0.55,-3,0,59.5,0,59.5,59.5,0.0
+M-CHARNELMASS-3,Ooze Slap,2,2,1,AFX-681,Bubble 02,loud,0.55,-3,120,77.3,120,197.3,77.3,0.0
+M-CHARNELMASS-3,Ooze Slap,3,1,1,AFX-011,Chop,main,0.55,-3,0,59.5,0,59.5,59.5,0.0
+M-CHARNELMASS-3,Ooze Slap,3,2,1,AFX-615,Eat 02,loud,0.55,-3,120,59.5,120,179.5,59.5,0.0
+M-CHARNELMASS-3,Ooze Slap,3,3,1,AFX-681,Bubble 02,quiet,0.5,-2,240,73.0,240,313.0,73.0,0.0
+M-CHARNELMASS-4,Seep,1,1,1,AFX-159,Impact Soft medium 002,main,0.5,-3,0,1.2,0,1.2,1.2,0.0
+M-CHARNELMASS-4,Seep,1,2,1,AFX-681,Bubble 02,quiet,0.45,0,0,65.0,0,65.0,65.0,0.0
+M-CHARNELMASS-4,Seep,2,1,1,AFX-159,Impact Soft medium 002,main,0.5,-3,0,1.2,0,1.2,1.2,0.0
+M-CHARNELMASS-4,Seep,2,2,1,AFX-677,Slime 07,quiet,0.45,-4,120,16.4,120,136.4,16.4,0.0
+M-CHARNELMASS-4,Seep,3,1,1,AFX-159,Impact Soft medium 002,main,0.5,-3,0,1.2,0,1.2,1.2,0.0
+M-CHARNELMASS-4,Seep,3,2,1,AFX-677,Slime 07,quiet,0.45,-4,120,16.4,120,136.4,16.4,0.0
+M-CHARNELMASS-4,Seep,3,3,1,AFX-429,Low Down,quiet,0.45,-4,200,176.4,200,376.4,176.4,0.0
 M-CLASS-STRIKE,Strike,1,1,1,AFX-029,Draw Knife 3,main,1.0,-4,0,162.5,0,162.5,162.5,0.0
 M-CLASS-STRIKE,Strike,1,2,1,AFX-147,Impact Punch medium 000,loud,0.6,-3,130,21.4,0,151.4,151.4,130.0
 M-CLASS-STRIKE,Strike,2,1,1,AFX-029,Draw Knife 3,main,1.0,-4,0,162.5,0,162.5,162.5,0.0
@@ -3411,24 +3549,24 @@ ULT-MAGE-2,Stonefall,1,2,1,AFX-121,Impact Mining 004,loud,0.65,-1,200,1.1,200,20
 ULT-MAGE-2,Stonefall,1,3,1,AFX-723,Bfh 1 rock falling 01,loud,0.55,-3,340,266.4,400,606.4,206.4,-60.0
 ULT-MAGE-2,Stonefall,1,4,1,AFX-725,Bfh 1 rock falling 03,quiet,0.5,-6,640,284.3,640,924.3,284.3,0.0
 ULT-MAGE-2,Stonefall,1,5,1,AFX-121,Impact Mining 004,quiet,0.45,-4,900,1.3,900,901.3,1.3,0.0
-ULT-MAGE-3,Cataclysm,1,1,1,AFX-766,Bang 08,main,0.7,-4,200,92.0,200,292.0,92.0,0.0
-ULT-MAGE-3,Cataclysm,1,2,1,AFX-121,Impact Mining 004,loud,0.7,-2,200,1.1,200,201.1,1.1,0.0
-ULT-MAGE-3,Cataclysm,1,3,1,AFX-762,Bang 04,loud,0.6,-2,300,13.5,290,313.5,23.5,10.0
-ULT-MAGE-3,Cataclysm,1,4,1,AFX-766,Bang 08,loud,0.55,-7,720,109.4,700,829.4,129.4,20.0
-ULT-MAGE-3,Cataclysm,1,5,1,AFX-121,Impact Mining 004,quiet,0.5,-5,1000,1.3,700,1001.3,301.3,300.0
+ULT-MAGE-3,Cataclysm,1,1,1,AFX-791,Fire 1 0 (cut 0.9s at 1s of 3.5s),main,0.55,-2,0,18.0,0,18.0,18.0,0.0
+ULT-MAGE-3,Cataclysm,1,2,1,AFX-766,Bang 08,loud,0.7,-4,200,92.0,200,292.0,92.0,0.0
+ULT-MAGE-3,Cataclysm,1,3,1,AFX-121,Impact Mining 004,loud,0.7,-2,200,1.1,200,201.1,1.1,0.0
+ULT-MAGE-3,Cataclysm,1,4,1,AFX-762,Bang 04,loud,0.6,-2,300,13.5,290,313.5,23.5,10.0
+ULT-MAGE-3,Cataclysm,1,5,1,AFX-766,Bang 08,loud,0.55,-7,720,109.4,700,829.4,129.4,20.0
 ULT-ARCHER-1,Sure Shot,1,1,1,AFX-506,Impact Metal 001,main,0.7,-5,200,0.0,200,200.0,0.0,0.0
-ULT-ARCHER-1,Sure Shot,1,2,1,AFX-029,Draw Knife 3,quiet,0.45,-2,0,144.8,0,144.8,144.8,0.0
+ULT-ARCHER-1,Sure Shot,1,2,1,AFX-029,Draw Knife 3,quiet,0.45,-2,0,144.8,200,144.8,-55.2,-200.0
 ULT-ARCHER-1,Sure Shot,1,3,1,AFX-115,Impact Metal medium 003,quiet,0.5,-5,620,0.0,660,620.0,-40.0,-40.0
 ULT-ARCHER-1,Sure Shot,1,4,1,AFX-507,Impact Metal 002,quiet,0.5,-5,900,0.0,660,900.0,240.0,240.0
 ULT-ARCHER-1,Sure Shot,1,5,1,AFX-785,Slam 02,quiet,0.4,-4,1240,55.4,660,1295.4,635.4,580.0
 ULT-ARCHER-2,Deadeye,1,1,1,AFX-506,Impact Metal 001,main,0.7,-6,200,0.0,200,200.0,0.0,0.0
-ULT-ARCHER-2,Deadeye,1,2,1,AFX-029,Draw Knife 3,quiet,0.45,-3,0,153.4,0,153.4,153.4,0.0
+ULT-ARCHER-2,Deadeye,1,2,1,AFX-029,Draw Knife 3,quiet,0.45,-3,0,153.4,200,153.4,-46.6,-200.0
 ULT-ARCHER-2,Deadeye,1,3,1,AFX-115,Impact Metal medium 003,quiet,0.5,-6,640,0.0,720,640.0,-80.0,-80.0
 ULT-ARCHER-2,Deadeye,1,4,1,AFX-507,Impact Metal 002,quiet,0.5,-6,960,0.0,980,960.0,-20.0,-20.0
 ULT-ARCHER-2,Deadeye,1,5,1,AFX-822,Wet Break 4,quiet,0.45,-5,1200,66.7,980,1266.7,286.7,220.0
 ULT-ARCHER-3,Godpiercer,1,1,1,AFX-506,Impact Metal 001,main,0.7,-6,180,0.0,180,180.0,0.0,0.0
 ULT-ARCHER-3,Godpiercer,1,1,2,AFX-506,Impact Metal 001,loud,0.7,-6,410,0.0,520,410.0,-110.0,-110.0
-ULT-ARCHER-3,Godpiercer,1,2,1,AFX-029,Draw Knife 3,quiet,0.45,-3,0,153.4,0,153.4,153.4,0.0
+ULT-ARCHER-3,Godpiercer,1,2,1,AFX-029,Draw Knife 3,quiet,0.45,-3,0,153.4,180,153.4,-26.6,-180.0
 ULT-ARCHER-3,Godpiercer,1,2,2,AFX-029,Draw Knife 3,quiet,0.45,-3,160,153.4,180,313.4,133.4,-20.0
 ULT-ARCHER-3,Godpiercer,1,3,1,AFX-810,Deep Break 2,quiet,0.5,-3,660,104.7,610,764.7,154.7,50.0
 ULT-ARCHER-3,Godpiercer,1,4,1,AFX-507,Impact Metal 002,quiet,0.5,-7,1000,0.0,1060,1000.0,-60.0,-60.0
