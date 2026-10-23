@@ -706,7 +706,9 @@ def gen_soul_grading():
 
 
 def qm(i):
-    """src/power.js:169 qmOf: 0.8 + 0.04 x (grade index + 1)."""
+    """src/power.js:169 qmOf: 0.8 + 0.04 x (grade index + 1); since hardcode-sweep (2026-10-23) codex grade_ladder.csv Quality_Mult."""
+    if re.search(r'T\.qm && T\.qm\[grade\]', client_file('src/power.js')):
+        return float(grades()[i]['Quality_Mult'])
     m = re.search(r'const qmOf = \(grade\) => \{[^}]*return i < 0 \? 1 : ([\d.]+) \+ ([\d.]+) \* \(i \+ 1\); \};', client_file('src/power.js'))
     if not m:
         raise ValueError('src/power.js: qmOf not found')
