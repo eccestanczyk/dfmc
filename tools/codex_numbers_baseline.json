@@ -1,0 +1,4 @@
+{
+ "left": {},
+ "note": "C17: bound-but-unconverted table numbers per page; only the count may fall. Convert with tools/codex_numbers.py --convert PAGE, then --baseline."
+}
