@@ -1,0 +1,13 @@
+Badge_ID,Name,Kind,Arg,Hover
+FLOOR_10,Floor 10,floor,10,Reached floor 10 of the Tower.
+FLOOR_30,Floor 30,floor,30,Reached floor 30 of the Tower.
+FLOOR_60,Floor 60,floor,60,Reached floor 60 of the Tower.
+FLOOR_100,Floor 100,floor,100,Reached floor 100 of the Tower.
+FLOOR_120,Floor 120,floor,120,Reached floor 120 - the top of the Void Apex.
+MASTERY_WARRIOR,Warrior Mastery,mastery,WARRIOR,Raised the Warrior class to its level cap.
+MASTERY_MAGE,Mage Mastery,mastery,MAGE,Raised the Mage class to its level cap.
+MASTERY_ARCHER,Archer Mastery,mastery,ARCHER,Raised the Archer class to its level cap.
+MASTERY_ASSASSIN,Assassin Mastery,mastery,ASSASSIN,Raised the Assassin class to its level cap.
+MASTERY_BRUTE,Brute Mastery,mastery,BRUTE,Raised the Brute class to its level cap.
+MASTERY_PROFESSOR,Professor Mastery,mastery,PROFESSOR,Raised the Professor class to its level cap.
+VOID_COMPLETIONIST,Void Completionist,void_all,,Owned a Void-grade creature of every evolutionary line (any stage).
