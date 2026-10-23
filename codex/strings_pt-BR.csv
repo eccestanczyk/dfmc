@@ -1,0 +1,335 @@
+Key,Text,Context
+m_turn_your_phone_sideways,,Turn your phone sideways
+m_herumon_tower_plays_in_landscape,,Herumon Tower plays in landscape.
+m_if_it_does_not_turn_switch_off_you,,"If it does not turn, switch off your phone's rotation lock."
+m_speed_order,,SPEED ORDER
+m_round,,ROUND
+m_streak,,STREAK
+m_ready,,✓ READY
+m_hover_the_skull,,HOVER THE SKULL
+m_this_boss_has_a_unique_mechanic_re,,This boss has a unique mechanic. Read it before you fight.
+m_combat_log,,☰ COMBAT LOG
+m_forfeit,,⚑ FORFEIT
+m_forfeit_the_battle,,⚑ FORFEIT THE BATTLE?
+m_forfeit_2,,FORFEIT
+m_keep_fighting,,KEEP FIGHTING
+m_duration,,Duration
+m_select_target,,◎ SELECT TARGET
+m_back,,← BACK
+m_decree_of_battle,,⁂ DECREE OF BATTLE ⁂
+m_combat_log_2,,COMBAT LOG
+m_this_encounter_click_outside_to_cl,,this encounter · click outside to close
+m_breeding,,BREEDING
+m_equipment,,EQUIPMENT
+m_filters,,FILTERS
+m_done,,DONE
+m_tap_the,,Tap the
+m_you_want_then_confirm_once,,"you want, then confirm once."
+m_selected,,selected ·
+m_lit_grades_are_dismantled_u2014_th,,Lit grades are dismantled \u2014 the number is what they lose. Dark grades are left alone \u2014 the number is what is being kept.
+m_salvage,,SALVAGE
+m_nothing_left_to_buy,,Nothing left to buy.
+m_current_capacity,,Current capacity:
+m_slots,,slots
+m_add_to_cart,,Add to Cart
+m_account,,ACCOUNT
+m_power,,POWER
+m_x,,“
+m_x_2,,”
+m_builds,,☰ BUILDS
+m_x_3,, · 
+m_creatures_souls_and_scrolls_untouc,," ·  creatures, souls and scrolls untouched"
+m_sockets,,sockets:
+m_slot_s_unchanged,,slot(s) unchanged
+m_confirm,,CONFIRM
+m_saved_builds,,SAVED BUILDS ·
+m_the_server_keeps_your_builds_apply,,The server keeps your builds. Applying one moves your own pieces back into place; a piece you no longer hold is skipped and named here.
+m_no_build_slots_for_this_class,,No build slots for this class.
+m_apply,,APPLY
+m_rename,,RENAME
+m_delete,,DELETE
+m_classes,,CLASSES ▾
+m_class_lv,,Class Lv
+m_to_next,,· to next
+m_gem,,GEM
+m_rune,,RUNE
+m_illegal,,ILLEGAL
+m_empty,,— Empty
+m_no_soul_slotted,,NO SOUL SLOTTED
+m_soul_crystals,,SOUL CRYSTALS
+m_a_character_soul_is_always_bound_i,,A character soul is always bound — it can be exchanged but never removed. Warrior is the default soul.
+m_devour,,† DEVOUR
+m_available,,AVAILABLE
+m_clear,,CLEAR
+m_no_soul_in_your_bag_matches_that_c,,NO SOUL IN YOUR BAG MATCHES THAT. CLEAR A FILTER TO SEE MORE.
+m_socketed,,SOCKETED:
+m_no_items_in_inventory_fit_this_slo,,No items in inventory fit this slot.
+m_scroll,,✦ SCROLL ·
+m_inscribed_upon,,INSCRIBED UPON
+m_band,,BAND
+m_roll_again,,ROLL AGAIN ·
+m_destroys,,DESTROYS
+m_keep_this_roll,,KEEP THIS ROLL
+m_the_next_scroll_unfurls,,THE NEXT SCROLL UNFURLS…
+m_no_scrolls_left_to_roll,,NO SCROLLS LEFT TO ROLL
+m_replace_socketable,,⚠ REPLACE SOCKETABLE
+m_socketing,,Socketing
+m_will,,will
+m_destroy,,DESTROY
+m_the_currently_slotted,,the currently slotted
+m_this_cannot_be_undone,,. This cannot be undone.
+m_replace_destroy,,REPLACE & DESTROY
+m_worn_totals_include_anything_socke,,Worn totals include anything socketed. Slot counts are gem + rune + scroll.
+m_upgrade,,▲ UPGRADE
+m_codex,,CODEX
+m_boss_drops_next_boss_floor,,"BOSS DROPS · NEXT BOSS, FLOOR"
+m_every_boss_kill_drops,,Every boss kill drops
+m_piece_of_gear_and,,piece of gear and
+m_egg_the_gear_grade_is_rolled,,egg. The gear grade is rolled
+m_egg_line_by_rarity,,Egg line by rarity:
+m_click_skip_hold_fast,,CLICK · SKIP    HOLD · FAST
+m_skip_all,,SKIP ALL
+m_egg,,Egg
+m_hatch_grade_chances,,HATCH GRADE CHANCES
+m_mutant,,Mutant
+m_alternate_colour_cosmetic,,alternate colour · cosmetic
+m_not_yet,,NOT YET
+m_floor_map,,FLOOR MAP
+m_boss_keys,,BOSS KEYS
+m_cry,,CRY
+m_devour_2,,DEVOUR
+m_experience,,EXPERIENCE
+m_aptitude,,APTITUDE
+m_moves,,MOVES
+m_advancement_line,,ADVANCEMENT LINE
+m_game_settings,,GAME SETTINGS
+m_restore_defaults,,RESTORE DEFAULTS —
+m_choose_parent,,CHOOSE PARENT
+m_extra_pens_buy_parallelism_not_thr,,"extra pens buy parallelism, not throughput"
+m_dlc,,DLC
+m_dlc_expansion,,DLC EXPANSION
+m_available_with_the_menagerie_expan,,Available with the Menagerie expansion
+m_pens,,‹ PENS
+m_grows_stronger,,GROWS STRONGER
+m_reached_level,,REACHED LEVEL
+m_victory,,VICTORY
+m_win_streak,,WIN STREAK
+m_you_have_cleared_floor,,✦ YOU HAVE CLEARED FLOOR
+m_experience_earned,,EXPERIENCE EARNED
+m_spoils,,SPOILS
+m_continue,,CONTINUE →
+m_is_changing,,is changing…
+m_became,,became
+m_you_were,,YOU WERE
+m_defeated,,DEFEATED
+m_streak_broken,,STREAK BROKEN
+m_choose_your_quarry,,CHOOSE YOUR QUARRY
+m_the_abyss_deepens,,THE ABYSS DEEPENS
+m_the_infinite_abyss,,THE INFINITE ABYSS
+m_battles_in_a_row_to_sink_one_floor,,battles in a row to sink one floor deeper. The number never stops.
+m_lose_once_and_the_abyss_throws_you,,Lose once and the Abyss throws you back to 121. Only a death does: leave or reload and your number waits for you.
+m_every_floor_deeper_every_monster_g,,"Every floor deeper, every monster grows 1% stronger, compounding. Here:"
+m_monsters_and_rewards_are_always_fl,,"Monsters and rewards are always floor 119's. This is a challenge, not a farm."
+m_your_deepest_floor_goes_on_the_ran,,Your deepest floor goes on the rankings. Deepest:
+m_fold_the_letter,,FOLD THE LETTER
+m_the_skull_beat_you,,THE SKULL BEAT YOU
+m_every_apex_boss_past_floor_100_car,,Every Apex boss past floor 100 carries a skull status like this one. Hover it in battle to read the mechanic before you commit.
+m_floor_boss_lair,,FLOOR BOSS LAIR
+m_hp,,HP
+m_signature,,Signature:
+m_spoils_2,,Spoils
+m_boss_keys_2,,⚿ BOSS KEYS
+m_energy_gathers_at_the_platform,,Energy gathers at the platform…
+m_the_alpha_reforms,,THE ALPHA REFORMS
+m_return,,← RETURN
+m_ascend,,↑ ASCEND
+m_scene,,SCENE
+m_read_more_in_the_codex,,READ MORE IN THE CODEX ›
+m_pvp_arena,,PVP ARENA
+m_auto_pvp,,AUTO PVP
+m_rating,,RATING
+m_matchmaking,,MATCHMAKING
+m_your_defense_is_your,,. Your defense is your
+m_daily_snapshot,,daily snapshot
+m_re_gearing_shows_up_on_defense_at,,— re-gearing shows up on defense at the next reset.
+m_x_4,,×
+m_competitive_pvp,,COMPETITIVE PVP
+m_loading,,Loading…
+m_best_floor,,BEST FLOOR
+m_ratings,,RATINGS
+m_party_daily,,PARTY (DAILY)
+m_not_yet_posted,,Not yet posted
+m_badges,,BADGES
+m_no_badges_yet,,No badges yet
+m_bank,,BANK
+m_orders_sealed_waiting_for_opponent,,ORDERS SEALED — WAITING FOR OPPONENT
+m_opponent_found,,OPPONENT FOUND
+m_best_of_3_team_locked_double_blind,,BEST OF 3 · TEAM LOCKED · DOUBLE-BLIND PICKS
+m_arena_match,,ARENA MATCH
+m_arena_battles_grant_no_spoils_expe,,"Arena battles grant no spoils, experience, or streak — rating alone."
+m_exit_replay,,EXIT REPLAY
+m_replay_complete,,REPLAY COMPLETE
+m_deterministic_playback_identical_t,,"deterministic playback — identical to the match, every roll"
+m_back_to_arena,,BACK TO ARENA
+m_match_found,,MATCH FOUND!
+m_join_match,,⚔ JOIN MATCH
+m_premium_shop,,PREMIUM SHOP
+m_classes_2,,CLASSES
+m_max,,✦ MAX
+m_class_t1_weapons_no_creatures,,Class + T1 weapons. No creatures.
+m_active,,✦ ACTIVE
+m_switch,,SWITCH
+m_unlock,,UNLOCK ·
+m_not_purchasable,,NOT PURCHASABLE
+m_unlocks_are_account_wide_and_perma,,Unlocks are account-wide and permanent. Switching unequips all 8 gear slots back to the inventory — sockets stay on their items.
+m_before_you_climb,,Before you climb
+m_how_old_are_you,,How old are you?
+m_asked_once_your_account_keeps_only,,"Asked once. Your account keeps only whether you are old enough to play here, never the number itself. See the Privacy Policy under Settings › Legal & Support."
+m_herumon_tower_is_not_available_to,,Herumon Tower is not available to players under
+m_no_account_is_kept_for_you_the_sig,,"No account is kept for you. The sign-in you used has been signed out, and anything it created is deleted within seven days. Questions go to the address on the Privacy Policy."
+m_leave,,LEAVE
+m_choose_your_path,,Choose your Path
+m_each_path_starts_with_the_two_crea,,Each path starts with the two creatures and two weapons shown. Choose one to begin.
+m_the_tower_stirs_loading_class_data,,The tower stirs… (loading class data)
+m_the_other_classes_unlock_later_in,,"The other classes unlock later, in the Classes window."
+m_name_your_champion,,Name your champion
+m_3_16_letters_a_z_digits_spaces_or,,"3–16 letters (A–Z), digits, spaces, - or _. Names are unique, and it is one name per account."
+m_stage_1,,· STAGE 1
+m_worn_lv_1,,Worn · Lv 1 ·
+m_starter_weapons_tier_1,,STARTER WEAPONS · TIER 1
+m_enter_the_tower,,ENTER THE TOWER ✦
+m_enter_a_name_to_continue,,ENTER A NAME TO CONTINUE
+m_burn_incense_to_get_more_spawns,,BURN INCENSE TO GET MORE SPAWNS
+m_add_bait_to_halve_the_wait,,ADD BAIT TO HALVE THE WAIT
+m_bug_report_sent,,BUG REPORT SENT!
+m_report_a_bug,,REPORT A BUG
+m_every_attempt_spends_the_resource,,Every attempt spends the resource. There is no refund for the ones that fail.
+m_upgrade_2,,UPGRADE
+m_a_failed_attempt_spends_the_resour,,A failed attempt spends the resource and changes nothing else.
+m_consumer,,CONSUMER
+m_mutant_2,,MUTANT
+m_will_be_consumed,,WILL BE CONSUMED
+m_select_fodder,,SELECT FODDER
+m_a_creature_or_a_devour_item_from_t,,"A creature, or a Devour item from the soul bag"
+m_back_2,,‹ BACK
+m_select_fodder_it_will_be_consumed,,SELECT FODDER — it will be consumed
+m_prev,,‹ PREV
+m_next,,NEXT ›
+m_nothing_in_the_soul_bag_can_be_con,,Nothing in the soul bag can be consumed.
+m_level_up,,LEVEL UP
+m_tap_to_skip,,TAP TO SKIP
+m_no_salvage_value,,NO SALVAGE VALUE
+m_understood,,UNDERSTOOD
+set_audio,,Audio
+set_audio_master_label,,Master Volume
+set_audio_music_label,,Music
+set_audio_sfx_label,,Sound Effects
+set_audio_ui_label,,UI Sounds
+set_audio_mute_label,,Mute All Sound
+set_audio_mutebg_label,,Mute in Background
+set_display,,Display
+set_display_fps_label,,Frame Rate
+set_display_fps_desc,,Caps how often the screen animates. Max follows the display.
+set_display_fullscreen_label,,Fullscreen
+set_display_fullscreen_desc,,Fill the screen with the game. Esc also leaves.
+set_display_battery_label,,Battery Saver
+set_display_battery_desc,,"Caps 30 fps, reduces VFX."
+set_display_shake_label,,Screen Shake
+set_display_vfx_label,,VFX Intensity
+set_display_wakelock_label,,Keep Screen Awake
+set_display_wakelock_desc,,"Stops the screen sleeping while the game is open, so autoplay keeps running. Uses more battery. Does not run while the browser is in the background — no browser permits that."
+set_battle,,Battle & Autoplay
+set_battle_note,,"Autoplay never auto-enters boss rooms — fixed rule, not a setting."
+set_battle_autofloor_label,,Auto-Advance Floors
+set_battle_stoploss_label,,Stop Advancing After a Loss
+set_battle_stoploss_desc,,A lost battle switches Auto-Advance Floors off. Re-enable it manually.
+set_battle_ondeath_label,,On Death
+set_battle_bossoutkeys_label,,Autochallenge Boss — Out of Keys
+set_battle_bossoutkeys_desc,,What Autochallenge Boss does when the last boss key is spent.
+set_battle_targeting_label,,Targeting
+set_battle_targeting_desc,,How autoplay picks the enemy for damaging moves (current HP).
+set_battle_opttarget_label,,Optimize For
+set_battle_opttarget_desc,,"What Auto-Optimize maximises when it rebuilds your loadout. Overall Power blends attack, defence and health."
+set_battle_ult_label,,Ultimate
+set_battle_ult_desc,,"The round autoplay first fires the ultimate. If it cannot fire there, it retries every round after."
+set_battle_priobuff_label,,Prioritize Buffs
+set_battle_priobuff_desc,,Before damage: use a ready buff/support move first.
+set_battle_priodebuff_label,,Prioritize Debuffs
+set_battle_priodebuff_desc,,Before damage: use a ready debuff move first.
+set_battle_streak_label,,Streak Counter
+set_battle_streak_desc,,Show the post-battle counter.
+set_battle_confspend_label,,Confirm Premium Spend
+set_battle_confspend_desc,,One confirm before every Wraithgold spend is not built yet.
+set_controls,,Controls
+set_controls_note,,Keyboard only — a touch device has no keys to bind. Binding a key that another action already uses takes it from that action.
+set_controls_kauto_label,,Toggle Autoplay
+set_controls_kauto_desc,,Does exactly what the AUTOPLAY button does.
+set_controls_kequip_label,,Open / Close Equipment
+set_controls_kinv_label,,Open / Close Inventory
+set_controls_kinv_desc,,"With the soul bag open, opens the item bag."
+set_controls_klock_label,,Lock / Unlock Hovered
+set_controls_klock_desc,,Hover a creature or item in either bag and press it. Does exactly what the LOCK button does.
+set_tutorials,,Tutorials
+set_tutorials_note,,"An arrow points at each system the floor you reach opens, until you click it once. It never blocks play."
+set_tutorials_arrows_label,,Tutorial Arrows
+set_tutorials_arrows_desc,,Show the arrow on each newly opened system until its control is clicked once.
+set_notices,,Notices
+set_notices_note,,The floor-101 letter and each system the climb has opened. The action log is kept on the server.
+set_notices_history_label,,Download My History
+set_notices_history_desc,,"Saves the server's record of this account - every currency earned and spent, item grants, battle drops, trades - as a JSON file."
+set_notices_history_csv_label,,Download My History (CSV)
+set_notices_history_csv_desc,,The same record as a spreadsheet file.
+set_notices_none_label,,No notices yet
+set_notices_none_desc,,They appear as the climb opens systems.
+set_notif,,Notifications
+set_notif_breedc_label,,Breeding Complete
+set_notif_breedc_desc,,The in-game banner when a pen lays an egg.
+set_notif_pvp_label,,PvP Defense Results
+set_notif_pvp_desc,,The in-game note of how your defense did while you were away.
+set_notif_season_label,,Season Ending Soon
+set_notif_season_desc,,Push notifications are not built yet.
+set_notif_daily_label,,Daily Reset
+set_notif_daily_desc,,Push notifications are not built yet.
+set_account,,Account & Data
+set_account_logout_label,,Sign Out
+set_account_logout_desc,,"Saves your climb, ends this session and returns to the sign-in screen."
+set_account_name_label,,Player Name
+set_account_name_desc,,Contact an admin to change it.
+set_account_link_label,,Link Account
+set_account_cloud_label,,Cloud Save
+set_account_cloud_desc,,Your climb is saved to the server as you play. It cannot be turned off.
+set_account_restore_label,,Restore Purchases
+set_account_restore_desc,,Arrives with the app-store builds.
+set_account_export_label,,Export My Data
+set_account_export_desc,,Downloads everything this save holds as a JSON file.
+set_account_reset_label,,Reset Progress (New Game)
+set_account_reset_desc,,"Wipes this save and starts fresh at Floor 1, Lv 1."
+set_account_delete_label,,Delete Account
+set_account_delete_desc,,Deletes this account 7 days after you confirm. Signing in before then can cancel it.
+set_lang,,Language & Accessibility
+set_lang_language_label,,Language
+set_lang_language_desc,,Auto follows the language this device is set to. Anything not yet translated reads in English.
+set_lang_textsize_label,,Text Size
+set_lang_textsize_desc,,The whole screen scales with the window today.
+set_lang_colorblind_label,,Colorblind Mode
+set_lang_motion_label,,Reduce Motion
+set_lang_motion_desc,,"Disables shake, parallax, heavy transitions."
+set_lang_flashing_label,,Reduce Flashing
+set_lang_flashing_desc,,Dampens hit-flash and strobe VFX.
+set_legal,,Legal & Support
+set_legal_help_label,,Help & FAQ
+set_legal_help_desc,,Opens the help page in a new tab.
+set_legal_contact_label,,Contact Support
+set_legal_contact_desc,,Opens the report form - it reaches the team directly.
+set_legal_analytics_label,,Analytics
+set_legal_analytics_desc,,No usage analytics are collected today. Off records your opt-out for any that ever are.
+set_legal_privacy_label,,Privacy Policy
+set_legal_privacy_desc,,Opens in a new tab.
+set_legal_terms_label,,Terms of Service
+set_legal_terms_desc,,Opens in a new tab.
+set_legal_credits_label,,Credits
+set_legal_credits_desc,,Opens in a new tab.
+set_legal_version_label,,Version
+set_press_key,,PRESS A KEY
+set_locked_tip,,Cannot be disabled for Epic and above.
+set_lang_auto,,Auto (device)
