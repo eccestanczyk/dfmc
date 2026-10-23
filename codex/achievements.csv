@@ -1,0 +1,10 @@
+Ach_ID,Steam_API_Name,Name,Kind,Arg,Hidden,Description
+FLOOR_10,FLOOR_10,The First Gate,badge,FLOOR_10,0,Reach floor 10 of the Tower.
+FLOOR_30,FLOOR_30,Thirty Up,badge,FLOOR_30,0,Reach floor 30 of the Tower.
+FLOOR_60,FLOOR_60,Past the Halfway Mark,badge,FLOOR_60,0,Reach floor 60 of the Tower.
+FLOOR_100,FLOOR_100,The Summit That Was,badge,FLOOR_100,0,Reach floor 100 of the Tower.
+FLOOR_120,FLOOR_120,The Top of the Void,badge,FLOOR_120,1,Reach floor 120 - the top of the Void Apex.
+CODEX_300,CODEX_300,Field Notes,codex,300,0,Acquire 300 creatures in the Codex.
+MUTANT_HATCH,MUTANT_HATCH,Not In The Codex,mutant_hatch,,1,Hatch a mutant.
+FIRST_VOID,FIRST_VOID,A Grade Beyond,void_grade,,0,Own your first Void-grade creature.
+VOID_COMPLETIONIST,VOID_COMPLETIONIST,Void Completionist,badge,VOID_COMPLETIONIST,1,Own a Void-grade creature of every evolutionary line.
