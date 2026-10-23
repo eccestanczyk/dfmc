@@ -21,26 +21,33 @@ m_combat_log_2,,COMBAT LOG
 m_this_encounter_click_outside_to_cl,,this encounter · click outside to close
 m_breeding,,BREEDING
 m_equipment,,EQUIPMENT
+m_dismantling,,DISMANTLING
 m_filters,,FILTERS
 m_done,,DONE
+m_new,,NEW
 m_tap_the,,Tap the
 m_you_want_then_confirm_once,,"you want, then confirm once."
 m_selected,,selected ·
-m_lit_grades_are_dismantled_u2014_th,,Lit grades are dismantled \u2014 the number is what they lose. Dark grades are left alone \u2014 the number is what is being kept.
+m_items,,items
+m_back_2,,BACK
+m_dismantle,,DISMANTLE
 m_salvage,,SALVAGE
+m_close,,CLOSE
 m_nothing_left_to_buy,,Nothing left to buy.
 m_current_capacity,,Current capacity:
 m_slots,,slots
 m_add_to_cart,,Add to Cart
+m_continue,,CONTINUE
 m_account,,ACCOUNT
+m_lv,,Lv
 m_power,,POWER
 m_x,,“
 m_x_2,,”
 m_builds,,☰ BUILDS
 m_x_3,, · 
-m_creatures_souls_and_scrolls_untouc,," ·  creatures, souls and scrolls untouched"
 m_sockets,,sockets:
 m_slot_s_unchanged,,slot(s) unchanged
+m_cancel,,CANCEL
 m_confirm,,CONFIRM
 m_saved_builds,,SAVED BUILDS ·
 m_the_server_keeps_your_builds_apply,,The server keeps your builds. Applying one moves your own pieces back into place; a piece you no longer hold is skipped and named here.
@@ -48,11 +55,14 @@ m_no_build_slots_for_this_class,,No build slots for this class.
 m_apply,,APPLY
 m_rename,,RENAME
 m_delete,,DELETE
+m_inventory,,INVENTORY
+m_soul_bag,,SOUL BAG
 m_classes,,CLASSES ▾
 m_class_lv,,Class Lv
 m_to_next,,· to next
 m_gem,,GEM
 m_rune,,RUNE
+m_scroll,,SCROLL
 m_illegal,,ILLEGAL
 m_empty,,— Empty
 m_no_soul_slotted,,NO SOUL SLOTTED
@@ -63,8 +73,7 @@ m_available,,AVAILABLE
 m_clear,,CLEAR
 m_no_soul_in_your_bag_matches_that_c,,NO SOUL IN YOUR BAG MATCHES THAT. CLEAR A FILTER TO SEE MORE.
 m_socketed,,SOCKETED:
-m_no_items_in_inventory_fit_this_slo,,No items in inventory fit this slot.
-m_scroll,,✦ SCROLL ·
+m_scroll_2,,✦ SCROLL ·
 m_inscribed_upon,,INSCRIBED UPON
 m_band,,BAND
 m_roll_again,,ROLL AGAIN ·
@@ -79,8 +88,11 @@ m_destroy,,DESTROY
 m_the_currently_slotted,,the currently slotted
 m_this_cannot_be_undone,,. This cannot be undone.
 m_replace_destroy,,REPLACE & DESTROY
-m_worn_totals_include_anything_socke,,Worn totals include anything socketed. Slot counts are gem + rune + scroll.
+m_compared_with_what_you_wear,,COMPARED WITH WHAT YOU WEAR
+m_this_item,,This item
 m_upgrade,,▲ UPGRADE
+m_dismantle_2,,⚒ DISMANTLE
+m_dismantles_for,,Dismantles for
 m_codex,,CODEX
 m_boss_drops_next_boss_floor,,"BOSS DROPS · NEXT BOSS, FLOOR"
 m_every_boss_kill_drops,,Every boss kill drops
@@ -94,6 +106,7 @@ m_hatch_grade_chances,,HATCH GRADE CHANCES
 m_mutant,,Mutant
 m_alternate_colour_cosmetic,,alternate colour · cosmetic
 m_not_yet,,NOT YET
+m_hatch,,HATCH
 m_floor_map,,FLOOR MAP
 m_boss_keys,,BOSS KEYS
 m_cry,,CRY
@@ -117,7 +130,7 @@ m_win_streak,,WIN STREAK
 m_you_have_cleared_floor,,✦ YOU HAVE CLEARED FLOOR
 m_experience_earned,,EXPERIENCE EARNED
 m_spoils,,SPOILS
-m_continue,,CONTINUE →
+m_continue_2,,CONTINUE →
 m_is_changing,,is changing…
 m_became,,became
 m_you_were,,YOU WERE
@@ -126,14 +139,16 @@ m_streak_broken,,STREAK BROKEN
 m_choose_your_quarry,,CHOOSE YOUR QUARRY
 m_the_abyss_deepens,,THE ABYSS DEEPENS
 m_the_infinite_abyss,,THE INFINITE ABYSS
+m_win,,Win
 m_battles_in_a_row_to_sink_one_floor,,battles in a row to sink one floor deeper. The number never stops.
-m_lose_once_and_the_abyss_throws_you,,Lose once and the Abyss throws you back to 121. Only a death does: leave or reload and your number waits for you.
 m_every_floor_deeper_every_monster_g,,"Every floor deeper, every monster grows 1% stronger, compounding. Here:"
 m_monsters_and_rewards_are_always_fl,,"Monsters and rewards are always floor 119's. This is a challenge, not a farm."
 m_your_deepest_floor_goes_on_the_ran,,Your deepest floor goes on the rankings. Deepest:
 m_fold_the_letter,,FOLD THE LETTER
 m_the_skull_beat_you,,THE SKULL BEAT YOU
 m_every_apex_boss_past_floor_100_car,,Every Apex boss past floor 100 carries a skull status like this one. Hover it in battle to read the mechanic before you commit.
+m_ok,,OK
+m_x_4,,·
 m_floor_boss_lair,,FLOOR BOSS LAIR
 m_hp,,HP
 m_signature,,Signature:
@@ -146,13 +161,15 @@ m_ascend,,↑ ASCEND
 m_scene,,SCENE
 m_read_more_in_the_codex,,READ MORE IN THE CODEX ›
 m_pvp_arena,,PVP ARENA
+m_rankings,,RANKINGS
 m_auto_pvp,,AUTO PVP
 m_rating,,RATING
+m_autoplay,,AUTOPLAY 
 m_matchmaking,,MATCHMAKING
 m_your_defense_is_your,,. Your defense is your
 m_daily_snapshot,,daily snapshot
 m_re_gearing_shows_up_on_defense_at,,— re-gearing shows up on defense at the next reset.
-m_x_4,,×
+m_x_5,,×
 m_competitive_pvp,,COMPETITIVE PVP
 m_loading,,Loading…
 m_best_floor,,BEST FLOOR
@@ -176,12 +193,10 @@ m_join_match,,⚔ JOIN MATCH
 m_premium_shop,,PREMIUM SHOP
 m_classes_2,,CLASSES
 m_max,,✦ MAX
-m_class_t1_weapons_no_creatures,,Class + T1 weapons. No creatures.
 m_active,,✦ ACTIVE
 m_switch,,SWITCH
 m_unlock,,UNLOCK ·
 m_not_purchasable,,NOT PURCHASABLE
-m_unlocks_are_account_wide_and_perma,,Unlocks are account-wide and permanent. Switching unequips all 8 gear slots back to the inventory — sockets stay on their items.
 m_before_you_climb,,Before you climb
 m_how_old_are_you,,How old are you?
 m_asked_once_your_account_keeps_only,,"Asked once. Your account keeps only whether you are old enough to play here, never the number itself. See the Privacy Policy under Settings › Legal & Support."
@@ -189,11 +204,9 @@ m_herumon_tower_is_not_available_to,,Herumon Tower is not available to players u
 m_no_account_is_kept_for_you_the_sig,,"No account is kept for you. The sign-in you used has been signed out, and anything it created is deleted within seven days. Questions go to the address on the Privacy Policy."
 m_leave,,LEAVE
 m_choose_your_path,,Choose your Path
-m_each_path_starts_with_the_two_crea,,Each path starts with the two creatures and two weapons shown. Choose one to begin.
 m_the_tower_stirs_loading_class_data,,The tower stirs… (loading class data)
 m_the_other_classes_unlock_later_in,,"The other classes unlock later, in the Classes window."
 m_name_your_champion,,Name your champion
-m_3_16_letters_a_z_digits_spaces_or,,"3–16 letters (A–Z), digits, spaces, - or _. Names are unique, and it is one name per account."
 m_stage_1,,· STAGE 1
 m_worn_lv_1,,Worn · Lv 1 ·
 m_starter_weapons_tier_1,,STARTER WEAPONS · TIER 1
@@ -203,6 +216,7 @@ m_burn_incense_to_get_more_spawns,,BURN INCENSE TO GET MORE SPAWNS
 m_add_bait_to_halve_the_wait,,ADD BAIT TO HALVE THE WAIT
 m_bug_report_sent,,BUG REPORT SENT!
 m_report_a_bug,,REPORT A BUG
+m_all_in,,ALL-IN
 m_every_attempt_spends_the_resource,,Every attempt spends the resource. There is no refund for the ones that fail.
 m_upgrade_2,,UPGRADE
 m_a_failed_attempt_spends_the_resour,,A failed attempt spends the resource and changes nothing else.
@@ -210,8 +224,7 @@ m_consumer,,CONSUMER
 m_mutant_2,,MUTANT
 m_will_be_consumed,,WILL BE CONSUMED
 m_select_fodder,,SELECT FODDER
-m_a_creature_or_a_devour_item_from_t,,"A creature, or a Devour item from the soul bag"
-m_back_2,,‹ BACK
+m_back_3,,‹ BACK
 m_select_fodder_it_will_be_consumed,,SELECT FODDER — it will be consumed
 m_prev,,‹ PREV
 m_next,,NEXT ›
@@ -330,6 +343,5 @@ set_legal_terms_desc,,Opens in a new tab.
 set_legal_credits_label,,Credits
 set_legal_credits_desc,,Opens in a new tab.
 set_legal_version_label,,Version
-set_press_key,,PRESS A KEY
 set_locked_tip,,Cannot be disabled for Epic and above.
 set_lang_auto,,Auto (device)
