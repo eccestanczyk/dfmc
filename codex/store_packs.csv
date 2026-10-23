@@ -1,0 +1,4 @@
+SKU,Name,Stores,Currency,Units,Price_Cents,Price_Currency,Steam_ItemID,Description,Enabled
+WG-0100,Pouch of Wraithgold,steam,Wraithgold,100,99,USD,9101,100 Wraithgold.,1
+WG-0550,Purse of Wraithgold,steam,Wraithgold,550,499,USD,9102,550 Wraithgold (500 + 50 bonus).,1
+WG-1200,Chest of Wraithgold,steam,Wraithgold,1200,999,USD,9103,1200 Wraithgold (1000 + 200 bonus).,1
