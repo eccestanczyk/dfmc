@@ -399,3 +399,19 @@ S-DEMIURGE-HEAD,DEMIURGE,Head,Personal,Super Super Rare,+8% Attack vs debuffed t
 S-DEMIURGE-CHEST,DEMIURGE,Chest,Local,Super Super Rare,This armour's Defense ×1.60.
 S-DEMIURGE-GLOVES,DEMIURGE,Gloves,Personal,Super Super Rare,Your debuffs are +10% more potent.
 S-DEMIURGE-FEET,DEMIURGE,Feet,Team,Super Super Rare,Allies' debuffs on enemies are +12% more potent.
+S-JACKANAPE-HEAD,JACKANAPE,Head,Personal,Super Super Rare,+8% Attack vs targets with reduced Speed stages.
+S-JACKANAPE-CHEST,JACKANAPE,Chest,Personal,Super Super Rare,+8% HP.
+S-JACKANAPE-GLOVES,JACKANAPE,Gloves,Local,Super Super Rare,This item's Defense contribution ×1.60.
+S-JACKANAPE-FEET,JACKANAPE,Feet,Team,Super Super Rare,Fey and Beast allies deal +7%.
+S-GOLIATH-HEAD,GOLIATH,Head,Personal,Super Super Rare,+10% Defense.
+S-GOLIATH-CHEST,GOLIATH,Chest,Local,Super Super Rare,This armour's Defense ×1.60.
+S-GOLIATH-GLOVES,GOLIATH,Gloves,Personal,Super Super Rare,+8% Attack while below 50% HP.
+S-GOLIATH-FEET,GOLIATH,Feet,Team,Super Super Rare,Allies +4% Defense.
+S-TYRANNOS-HEAD,TYRANNOS,Head,Personal,Super Super Rare,+7% Attack at or above 70% HP.
+S-TYRANNOS-CHEST,TYRANNOS,Chest,Local,Super Super Rare,This armour's Defense ×1.60.
+S-TYRANNOS-GLOVES,TYRANNOS,Gloves,Personal,Super Super Rare,Your damage-over-time effects deal +8%.
+S-TYRANNOS-FEET,TYRANNOS,Feet,Team,Super Super Rare,Reptile and Dragon allies deal +7%.
+S-CHARNELMASS-HEAD,CHARNELMASS,Head,Personal,Uncommon,Your damage-over-time effects deal +6%.
+S-CHARNELMASS-CHEST,CHARNELMASS,Chest,Local,Uncommon,This armour's Defense ×1.40.
+S-CHARNELMASS-GLOVES,CHARNELMASS,Gloves,Personal,Uncommon,+6% Defense.
+S-CHARNELMASS-FEET,CHARNELMASS,Feet,Team,Uncommon,Ooze and Undead allies +5% Defense.
