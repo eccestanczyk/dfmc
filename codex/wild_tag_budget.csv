@@ -1,0 +1,5 @@
+Level_Lo,Level_Hi,Coef,GF_Grade,Notes
+1,10,0,Worn,"A wild enemy that carries no virtual gear (no ng) fights with Coef x T x GF(GF_Grade) flat Attack, T = its level tier min(10, floor((L-1)/10)+1), GF from grade_ladder.csv. Nothing below level 11."
+11,30,27,Common,
+31,60,27,Uncommon,
+61,999,27,Rare,

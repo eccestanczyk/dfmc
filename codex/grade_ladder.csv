@@ -1,0 +1,11 @@
+Grade,Order,GF,Gem_Sockets,Rune_Sockets,Scroll_Sockets,Quality_Mult,Notes
+Worn,0,1.00,0,0,0,0.84,"GF multiplies every N x T x GF Effect in items.csv; the socket columns are how many Gem / Rune / Scroll (enchant) sockets a piece of this grade holds; Quality_Mult is a creature's quality multiplier (QM) on Attack, Defense and HP, never Speed. Player gear, wild virtual gear, the server power fold and the sims read this table."
+Common,1,1.12,1,0,0,0.88,
+Uncommon,2,1.24,1,1,0,0.92,
+Rare,3,1.36,1,1,1,0.96,
+Epic,4,1.48,2,1,1,1.00,
+Legendary,5,1.60,2,2,1,1.04,
+Abyssal,6,1.72,2,2,2,1.08,
+Divine,7,1.84,3,2,2,1.12,
+Primordial,8,1.96,3,3,2,1.16,
+Void,9,2.08,3,3,3,1.20,
