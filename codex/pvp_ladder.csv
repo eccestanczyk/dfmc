@@ -1,0 +1,8 @@
+Key,Value,Note
+hide_after_days,7,T33: a player stops showing on the PvP rankings after this many days without a played match (Auto PvP: an attack that settled; Competitive: a finished match)
+decay_pct,5,T33: rating decay per idle week (percent of the rating)
+decay_from_week,2,T33: the first idle week that decays (week 1 hides only; week 2 is the first 5%)
+thin_week_players,10,T46: a week with fewer players than this (distinct attackers with a settled match) is a thin week
+thin_week_pay_mult,0.5,T46: a thin week pays this share of every reward's days and no medal
+chal_code_ttl_min,60,B16: a challenge code expires this many minutes after it is minted
+chal_code_len,6,B16: characters in a challenge code
