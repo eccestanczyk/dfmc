@@ -288,16 +288,18 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     <div class="note note-info"><p>The three advanced unlocks cost equal endgame farm time but diverge in when they become realistically affordable — a soft unlock ordering without hard gates. Ichor is excluded (breeding-only economy).</p></div>
 
     <h4>Stat progression by stage</h4>
-    <table>
+    <!-- gen:class-stages -->
+<table>
       <tr><th>Class line</th><th>Stage 1 (A/D/S)</th><th>Stage 2 (A/D/S)</th><th>Stage 3 (A/D/S)</th><th>Access</th></tr>
-      <tr><td>Warrior → Knight → Paladin</td><td>4 / 6 / 2</td><td>5 / 8 / 3</td><td>6 / 10 / 4</td><td>Starter</td></tr>
-      <tr><td>Mage → Sorcerer → Archon</td><td>6 / 1 / 5</td><td>8 / 2 / 6</td><td>10 / 2 / 8</td><td>Starter</td></tr>
-      <tr><td>Archer → Ranger → Hawkeye</td><td>5 / 2 / 5</td><td>7 / 2 / 7</td><td>8 / 3 / 9</td><td>Starter</td></tr>
-      <tr><td>Brute → Warlord → Titan</td><td>5 / 5 / 2</td><td>7 / 7 / 2</td><td>9 / 8 / 3</td><td>Unlock — 750 Scrap</td></tr>
-      <tr><td>Assassin → Stalker → Nightblade</td><td>6 / 1 / 5</td><td>7 / 2 / 7</td><td>9 / 2 / 9</td><td>Unlock — 750 Scrap</td></tr>
-      <tr><td>Professor → Sage → Prophet</td><td>2 / 5 / 5</td><td>2 / 7 / 7</td><td>3 / 8 / 9</td><td>Unlock — 100 Ink</td></tr>
+      <tr><td>Warrior &rarr; Knight &rarr; Paladin</td><td><span data-csv="classes.csv#CLS-WARRIOR-1#Grade_Attack">4</span> / <span data-csv="classes.csv#CLS-WARRIOR-1#Grade_Defense">6</span> / <span data-csv="classes.csv#CLS-WARRIOR-1#Grade_Speed">2</span></td><td><span data-csv="classes.csv#CLS-WARRIOR-2#Grade_Attack">5</span> / <span data-csv="classes.csv#CLS-WARRIOR-2#Grade_Defense">8</span> / <span data-csv="classes.csv#CLS-WARRIOR-2#Grade_Speed">3</span></td><td><span data-csv="classes.csv#CLS-WARRIOR-3#Grade_Attack">6</span> / <span data-csv="classes.csv#CLS-WARRIOR-3#Grade_Defense">10</span> / <span data-csv="classes.csv#CLS-WARRIOR-3#Grade_Speed">4</span></td><td>Starter</td></tr>
+      <tr><td>Mage &rarr; Sorcerer &rarr; Archon</td><td><span data-csv="classes.csv#CLS-MAGE-1#Grade_Attack">6</span> / <span data-csv="classes.csv#CLS-MAGE-1#Grade_Defense">1</span> / <span data-csv="classes.csv#CLS-MAGE-1#Grade_Speed">5</span></td><td><span data-csv="classes.csv#CLS-MAGE-2#Grade_Attack">8</span> / <span data-csv="classes.csv#CLS-MAGE-2#Grade_Defense">2</span> / <span data-csv="classes.csv#CLS-MAGE-2#Grade_Speed">6</span></td><td><span data-csv="classes.csv#CLS-MAGE-3#Grade_Attack">10</span> / <span data-csv="classes.csv#CLS-MAGE-3#Grade_Defense">2</span> / <span data-csv="classes.csv#CLS-MAGE-3#Grade_Speed">8</span></td><td>Starter</td></tr>
+      <tr><td>Archer &rarr; Ranger &rarr; Hawkeye</td><td><span data-csv="classes.csv#CLS-ARCHER-1#Grade_Attack">5</span> / <span data-csv="classes.csv#CLS-ARCHER-1#Grade_Defense">2</span> / <span data-csv="classes.csv#CLS-ARCHER-1#Grade_Speed">5</span></td><td><span data-csv="classes.csv#CLS-ARCHER-2#Grade_Attack">7</span> / <span data-csv="classes.csv#CLS-ARCHER-2#Grade_Defense">3</span> / <span data-csv="classes.csv#CLS-ARCHER-2#Grade_Speed">6</span></td><td><span data-csv="classes.csv#CLS-ARCHER-3#Grade_Attack">8</span> / <span data-csv="classes.csv#CLS-ARCHER-3#Grade_Defense">4</span> / <span data-csv="classes.csv#CLS-ARCHER-3#Grade_Speed">8</span></td><td>Starter</td></tr>
+      <tr><td>Brute &rarr; Warlord &rarr; Titan</td><td><span data-csv="classes.csv#CLS-BRUTE-1#Grade_Attack">5</span> / <span data-csv="classes.csv#CLS-BRUTE-1#Grade_Defense">5</span> / <span data-csv="classes.csv#CLS-BRUTE-1#Grade_Speed">2</span></td><td><span data-csv="classes.csv#CLS-BRUTE-2#Grade_Attack">7</span> / <span data-csv="classes.csv#CLS-BRUTE-2#Grade_Defense">7</span> / <span data-csv="classes.csv#CLS-BRUTE-2#Grade_Speed">2</span></td><td><span data-csv="classes.csv#CLS-BRUTE-3#Grade_Attack">9</span> / <span data-csv="classes.csv#CLS-BRUTE-3#Grade_Defense">8</span> / <span data-csv="classes.csv#CLS-BRUTE-3#Grade_Speed">3</span></td><td>Unlock &mdash; <span data-csv="classes.csv#CLS-BRUTE-1#Unlock_Cost">750 Scrap</span></td></tr>
+      <tr><td>Assassin &rarr; Stalker &rarr; Nightblade</td><td><span data-csv="classes.csv#CLS-ASSASSIN-1#Grade_Attack">6</span> / <span data-csv="classes.csv#CLS-ASSASSIN-1#Grade_Defense">1</span> / <span data-csv="classes.csv#CLS-ASSASSIN-1#Grade_Speed">5</span></td><td><span data-csv="classes.csv#CLS-ASSASSIN-2#Grade_Attack">7</span> / <span data-csv="classes.csv#CLS-ASSASSIN-2#Grade_Defense">2</span> / <span data-csv="classes.csv#CLS-ASSASSIN-2#Grade_Speed">7</span></td><td><span data-csv="classes.csv#CLS-ASSASSIN-3#Grade_Attack">9</span> / <span data-csv="classes.csv#CLS-ASSASSIN-3#Grade_Defense">2</span> / <span data-csv="classes.csv#CLS-ASSASSIN-3#Grade_Speed">9</span></td><td>Unlock &mdash; <span data-csv="classes.csv#CLS-ASSASSIN-1#Unlock_Cost">750 Scrap</span></td></tr>
+      <tr><td>Professor &rarr; Sage &rarr; Prophet</td><td><span data-csv="classes.csv#CLS-PROFESSOR-1#Grade_Attack">2</span> / <span data-csv="classes.csv#CLS-PROFESSOR-1#Grade_Defense">5</span> / <span data-csv="classes.csv#CLS-PROFESSOR-1#Grade_Speed">5</span></td><td><span data-csv="classes.csv#CLS-PROFESSOR-2#Grade_Attack">2</span> / <span data-csv="classes.csv#CLS-PROFESSOR-2#Grade_Defense">7</span> / <span data-csv="classes.csv#CLS-PROFESSOR-2#Grade_Speed">7</span></td><td><span data-csv="classes.csv#CLS-PROFESSOR-3#Grade_Attack">3</span> / <span data-csv="classes.csv#CLS-PROFESSOR-3#Grade_Defense">8</span> / <span data-csv="classes.csv#CLS-PROFESSOR-3#Grade_Speed">9</span></td><td>Unlock &mdash; <span data-csv="classes.csv#CLS-PROFESSOR-1#Unlock_Cost">100 Ink</span></td></tr>
     </table>
-    <div class="note note-info"><p><strong>Class stats are multipliers, not pools.</strong> A class stage stat feeds <code>AxisMult = (3 &times; stat + 5) / 20</code> and multiplies the summed item stats for that axis — Paladin Def 10 means &times;1.75 on all armour Defense; Mage Def 2 means &times;0.55. The character has no innate stat pool beyond a flat +10 Attack / +10 Defense floor applied after all multipliers (July 2026); gear provides everything else. Same curve as creature axis grades.</p></div>
+<!-- /gen:class-stages -->
+    <div class="note note-info"><p><strong>Class stats are multipliers, not pools.</strong> A class stage stat feeds <code>AxisMult = (3 &times; stat + 5) / 8</code> and multiplies the summed item stats for that axis — Paladin Def 10 means &times;1.75 on all armour Defense; Mage Def 2 means &times;0.55. The character has no innate stat pool beyond a flat +10 Attack / +10 Defense floor applied after all multipliers (July 2026); gear provides everything else. Same curve as creature axis grades.</p></div>
     <div class="note note-info"><p>Additional class lines (pure-wall, balanced-duelist, speed-specialist, etc.) are reserved as possible future content.</p></div>
 
     <h3>Soul gems</h3>
@@ -353,14 +355,16 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
 
     <h3>Zone creature level distribution</h3>
 
-    <p>Creatures on each floor spawn within &plusmn;3 levels of the zone&rsquo;s base level, following a symmetric bell distribution. The weighted average XP per battle equals <code>10 &times; zone_level</code> exactly, preserving the timing math above.</p>
+    <p>Creatures on each floor spawn within &plusmn;3 levels of the zone&rsquo;s base level, following a symmetric bell distribution. The offsets are symmetric, so the mean enemy level is the zone&rsquo;s base level.</p>
 
-    <table>
+    <!-- gen:level-offsets -->
+<table>
       <tr><th>Offset from zone level</th><th>&minus;3</th><th>&minus;2</th><th>&minus;1</th><th>0</th><th>+1</th><th>+2</th><th>+3</th></tr>
       <tr><td>Spawn rate</td><td>3%</td><td>7%</td><td>12%</td><td>56%</td><td>12%</td><td>7%</td><td>3%</td></tr>
     </table>
 
-    <div class="note note-info"><p><strong>Average preservation:</strong> &Sigma;(rate &times; offset) = 0.03(&minus;3) + 0.07(&minus;2) + 0.12(&minus;1) + 0.56(0) + 0.12(+1) + 0.07(+2) + 0.03(+3) = 0. Level offsets cancel; with the rarity normalization above, average XP per battle = 10 &times; zone_level (average per kill: 10&frasl;3 &times; zone_level).</p></div>
+    <div class="note note-info"><p><strong>Average preservation:</strong> &Sigma;(rate &times; offset) = 0.03(&minus;3) + 0.07(&minus;2) + 0.12(&minus;1) + 0.56(0) + 0.12(+1) + 0.07(+2) + 0.03(+3) = 0. Level offsets cancel: the mean enemy level is the zone&rsquo;s base level. What a battle at that level pays is the reference table above (expected XP of three on-level kills), not a flat multiple of the zone level. Offsets: <code>src/worker.js</code> deriveSlot <code>OFF</code>; generated by <code>tools/codex_tables.py</code>.</p></div>
+<!-- /gen:level-offsets -->
 
     <h3>Zone progression estimate</h3>
 
@@ -580,19 +584,21 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     </table>
     <p style="font-size:13px;color:#c2ae8b">Naked-creature numbers are identical to the previous flat-base model (<code>Core &times; AxisMult</code>; the <code>(grade&times;30+50)</code> curve was exact under the pre-2026-07-26 model (<code>k</code> 1.6 with <code>axisMult</code> = (3g+5)/20) and two shipped balance changes have moved it since: <code>43112a0</code> 2026-07-26 took <code>axisMult</code> to (3g+5)/8 and <code>k</code> to 1.0, and <code>da53dc7</code> 2026-08-02 (D order) took <code>k</code> to 0.60) — all existing creature tuning carries over unchanged. What changed: Tag stats now scale with the creature's axis multiplier, and character stats are a pure product of gear &times; class.</p>
     <h4>Creature base stats at level 100 (Core &times; AxisMult, no tags, before quality multiplier)</h4>
-    <table>
+    <!-- gen:creature-base -->
+<table>
       <tr><th>Grade</th><th>Off / Def / Utl</th><th>Speed (flat)</th><th>HP (at this Def grade)</th></tr>
-      <tr><td>1</td><td>562</td><td>1</td><td>1,780</td></tr>
+      <tr><td>1</td><td>563</td><td>1</td><td>1,780</td></tr>
       <tr><td>2</td><td>773</td><td>2</td><td>2,076</td></tr>
       <tr><td>3</td><td>984</td><td>3</td><td>2,373</td></tr>
       <tr><td>4</td><td>1,195</td><td>4</td><td>2,669</td></tr>
       <tr><td>5</td><td>1,406</td><td>5</td><td>2,966</td></tr>
-      <tr><td>6</td><td>1,617</td><td>6</td><td>3,262</td></tr>
+      <tr><td>6</td><td>1,617</td><td>6</td><td>3,263</td></tr>
       <tr><td>7</td><td>1,828</td><td>7</td><td>3,559</td></tr>
       <tr><td>8</td><td>2,039</td><td>8</td><td>3,856</td></tr>
       <tr><td>9</td><td>2,250</td><td>9</td><td>4,152</td></tr>
       <tr><td>10</td><td>2,461</td><td>10</td><td>4,449</td></tr>
     </table>
+<!-- /gen:creature-base -->
     <h4>Move power bands</h4>
     <table>
       <tr><th>Band</th><th>Power</th><th>Cooldown</th></tr>
@@ -1785,6 +1791,7 @@ async function loadBalance() {
 }
 </script>
 <h2>Changelog</h2>
+<p><strong>2026-10-23 &mdash; C17 part 3 (dfmc-client lane c17-gen-2): the creature base stats, the level-offset table and the class stage stats are generated. WIKI ONLY; no game code changed.</strong> <code>tools/codex_tables.py</code> now runs <code>src/power.js</code>&rsquo;s own <code>coreOf</code> / <code>axisMult</code> / <code>hpFor</code> under node for the level-100 creature table (grade 1 Off/Def/Utl 562 &rarr; 563, Math.round of 562.5; grade 6 HP 3,262 &rarr; 3,263), reads deriveSlot <code>OFF</code> for the offset table, and binds every class stage stat to <code>classes.csv</code> (Ranger read 7 / 2 / 7, the CSV says 7 / 3 / 6; Hawkeye 8 / 3 / 9 &rarr; 8 / 4 / 8). The &ldquo;average preservation&rdquo; note no longer claims XP per battle = 10 &times; zone level (retired by C1); the class-stat note&rsquo;s AxisMult reads /8, as <code>src/power.js:172</code> does.</p>
 <p><strong>2026-10-23 &mdash; the computed tables are generated from the CSVs (dfmc-client backlog C17 part 2, lane c17-gen). WIKI ONLY; no game code changed.</strong> Part 1 bound the XP reference table&rsquo;s XP_To_Next to XPCurve.csv but left the <em>Battles (on-level)</em> column dividing the retired curve: level 99 read 2,703 battles where the C1 curve needs 166. Now the XP/battle column is the expected XP of one wild on-level battle as the server pays it (3 enemies, tier on encounter_weights.csv, level on deriveSlot&rsquo;s &minus;3..+3 offsets, XPCurve.csv XP_Kill), the battles column is XP_To_Next over it rounded up, and the zone estimate sums that per level at 109 battles/h (tools/sim_econ.mjs; the old table assumed ~30/h). The main-hand implicit grid is generated too (it matched). The weapon tier table&rsquo;s level reqs read items.csv (they read the retired recipes.csv) and its craft costs are bound. 17 + 31 numbers were wrong before. tables marked <code>&lt;!-- gen:NAME --&gt;</code> are generated by <code>tools/codex_tables.py</code> from the CSVs with the engine&rsquo;s own formulas (each generator cites the engine line it ports); its <code>--check</code> is a dfmc-client gate, so a CSV edit without <code>--write</code> fails the gates.</p>
 <p><strong>2026-10-23 &mdash; the codex pages read their numbers from the CSVs (dfmc-client backlog C17, ruling 11.9: &ldquo;the permanent fix is that the pages read the CSVs instead of quoting them&rdquo;). WIKI ONLY; no game code changed.</strong> A number a page quoted from a codex CSV was typed in by hand, so every CSV edit left the page wrong until a lane noticed. Now such a number is a <code>&lt;span data-csv="file.csv#row#Column"&gt;</code> and <code>csv-bind.js</code> fills it from the CSV when the page loads; the typed value stays as the fallback and is underlined as stale when the CSV cannot be read. <code>tools/codex_numbers.py</code> is the inventory (every static table number it can tie to a CSV cell, with the CSV row and column), the converter and the gate: a page that pastes a bound number, or a span whose row or column is gone, fails it (the dfmc-client gate run calls it). This pass bound 476 numbers on six pages (upgrading 225, Void Apex 120, stat tables 50, this page 46, breeding 30, PvP 5) and all six are converted. 11 were wrong against their CSV before: on this page the XP-required column of the levelling table at levels 20&ndash;99 still showed the curve from before the C1 re-ramp (level 99: 2,676,127 shown, 164,264 in <code>XPCurve.csv</code>), and two Void Apex Epic weights were 0.1 point off. The battles column next to it is computed, not a CSV cell, and is not bound.</p>
 <p><strong>2026-10-23 &mdash; an arrow caption moves when something renders under it later (dfmc-client lane gate-hygiene, follows screen review finding 8). Dev build now; release with the next ritual.</strong> The caption&rsquo;s spot was measured once per target position and kept, so content drawn after it (the equipment stat boxes, a late data file) or a caption that grew after it (the fonts landing) never moved it: at 1600&times;900 CLASS SOUL sat on the HP / ATK numbers with its second line past the left edge. The kept spot is now re-checked every 0.6 s and the caption moves as soon as something lies under it; a change of the caption&rsquo;s own size re-places it too, and it stays inside the window as well as the stage. Gate <code>tools/probe_b9_ftuecap.py</code> (now in every gate run, 8 landscape viewports, 96/96; 72/96 before).</p>
