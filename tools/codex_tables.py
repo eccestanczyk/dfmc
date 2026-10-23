@@ -28,6 +28,11 @@ tools/sim_econ.mjs loadTables), the creature base stats (src/power.js coreOf/axi
 breeding, mutants (src/worker.js MUTANT_CHANCE and the two Codex-bonus caps), the stat-tables pools, income and quality
 row, the soul-grading ladder and the prose figures that restate them.
 
+Part 4 (lane a8-s5-c17-tail, 2026-10-23) adds the GDD's codex-file row counts, the class ultimates (ultimates.csv, on index
+and classes), the move budget, Ichor, advancement and level bands, zones, encounter weights, the XP formulas and player
+level, soul strength (play/app.js SOUL_STAGE_MULT), the PvP timers (src/tables.json pvp_live, src/battle_round.js
+rampMult), the portal-streak table and every sentence that still restated the retired ~30 battles/h.
+
 Engine constants are READ from the client, never typed here: the enemy level offsets from src/worker.js deriveSlot,
 the XP penalty from src/tables.json, the battles/hour from tools/sim_econ.mjs.
 """
@@ -708,6 +713,461 @@ def gen_qm_row(lead):
     return f
 
 
+# ------------------------------------------------------------------------------------------------- C17 part 4 (lane a8-s5-c17-tail)
+def _num(v):
+    """a CSV number as the page shows it: 50.0 -> 50, 32.32 -> 32.32"""
+    x = float(v)
+    return ('%d' % x) if x == int(x) else ('%s' % v).rstrip('0').rstrip('.')
+
+
+def _pct_span(ref, v):
+    """a percent cell bound to one CSV cell: the fmt makes csv-bind render the CSV value exactly as written here"""
+    x = float(v)
+    return span(ref, _num(v) + '%', 'd0,%' if x == int(x) else '%')
+
+
+def _runs(ns):
+    """[10,20,...,100,102,...,120] -> '10, 20, &hellip; 100' and '102, 104, &hellip; 120' (arithmetic runs)"""
+    ns = sorted(ns); out = []; i = 0
+    while i < len(ns):
+        j = i + 1
+        if j < len(ns):
+            d = ns[j] - ns[i]
+            while j + 1 < len(ns) and ns[j + 1] - ns[j] == d:
+                j += 1
+            run = ns[i:j + 1]
+        else:
+            run = ns[i:i + 1]
+        out.append(', '.join(map(str, run)) if len(run) <= 3 else '%d, %d, &hellip; %d' % (run[0], run[1], run[-1]))
+        i += len(run)
+    return out
+
+
+def _lines():
+    """creatures.csv grouped by Line_ID: {line: {stage: row}} in file order"""
+    by = {}
+    for r in rows('creatures.csv'):
+        by.setdefault(r['Line_ID'], {})[int(r['Stage'])] = r
+    return by
+
+
+RARITY_ORDER = ['Common', 'Uncommon', 'Rare', 'Super Rare', 'Super Super Rare']
+
+
+def gen_codex_files():
+    """index.html 'Codex data': every Rows cell is len() of that CSV's data rows, every breakdown is counted from the CSV."""
+    n = lambda f: len(rows(f))
+    L = _lines(); nl = len(L); st = sorted({k for v in L.values() for k in v})
+    fcr = rows('floor_creature_rarity.csv')
+    per = {}
+    for r in fcr:
+        per[int(r['Floor'])] = per.get(int(r['Floor']), 0) + 1
+    grp = {}
+    for f, c in per.items():
+        grp[c] = grp.get(c, 0) + 1
+    f1 = [r['Rarity_Tier'] for r in fcr if r['Floor'] == '1']
+    slots = '/'.join('%d%s' % (f1.count(t), t) for t in RAR5 if f1.count(t))
+    fcr_b = ' + '.join('%d floors &times; %d slots' % (grp[c], c) for c in sorted(grp, key=lambda c: -grp[c]))
+    nboss_fl = [int(r['Floor']) for r in rows('floors.csv') if r['Is_Boss'] == 'Yes']
+    bfl = sorted(int(r['Floor']) for r in rows('bosses.csv'))
+    it = rows('items.csv')
+    cat = lambda c: [r for r in it if r['Category'] == c]
+    fam = lambda c: sorted({r['Family'] for r in cat(c)})
+    tiers = lambda c: len({r['Tier'] for r in cat(c)})
+    ends = lambda c: (cat(c)[0]['Name'].split()[0], [r for r in cat(c) if r['Tier'] == str(max(int(x['Tier']) for x in cat(c)))][0]['Name'].split()[0])
+    wp = cat('Weapon')
+    items_b = ('gems (%d types &times; %d tiers: %s &rarr; %s), runes (%d&times;%d: %s &rarr; %s), scrolls (%d: %s &rarr; %s), class weapons '
+               '(%d lines &times; %d hands &times; %d tiers = %d pieces, %d art identities), armour (%d slots &times; %d named pieces = %d), '
+               'accessories (%d&times;%d), tags (%d&times;%d), zone keys (%d), materials (%d), eggs (%d)') % (
+        len(fam('Gem')), tiers('Gem'), ends('Gem')[0], ends('Gem')[1], len(fam('Rune')), tiers('Rune'), ends('Rune')[0], ends('Rune')[1],
+        tiers('Scroll'), ends('Scroll')[0], ends('Scroll')[1], len(fam('Weapon')), len({r['Slot'] for r in wp}), tiers('Weapon'), len(wp),
+        len({r['Image_Path'] for r in wp}), len(fam('Armour')), tiers('Armour'), len(cat('Armour')), len(fam('Accessory')), tiers('Accessory'),
+        len(fam('Tag')), tiers('Tag'), len(cat('Key')), len(cat('Material')), len(cat('Egg')))
+    mv = rows('moves.csv'); mlines = [r for r in mv if r['Line_ID'] != 'CLASS']
+    mper = len(mlines) // len({r['Line_ID'] for r in mlines})
+    cls_row = [i + 1 for i, r in enumerate(mv) if r['Line_ID'] == 'CLASS'][0]
+    bands = '/'.join(str(p) for p in sorted({int(r['Power_S3']) for r in mlines}))
+    so = rows('souls.csv'); sper = len(so) // len({r['Line_ID'] for r in so})
+    wins = max(int(r['Win']) for r in rows('first_win_drops.csv'))
+    nz = len({r['Zone'] for r in rows('wild_quality_weights.csv')})
+    D = dict(nl=nl, ns=len(st), last='%03d' % n('creatures.csv'), fcr_b=fcr_b, slots=slots, wild=len(per), nboss=len(nboss_fl),
+             bruns=', then '.join(_runs(bfl)), nb=n('bosses.csv'), items_b=items_b, mper=mper, cls_row=cls_row, bands=bands, sper=sper,
+             wins=wins, nz=nz)
+    R = [
+        ('creatures.csv', '%d<br>(%d lines &times; %d stages)' % (n('creatures.csv'), nl, len(st)),
+         'Full creature roster, one row per advancement stage. Columns: <code>ID, Line_ID, Stage, Name, Type_Primary, Type_Secondary, Type_Tertiary, Background_Key, Rarity, Floor_Found, Encounter_Type, Evolves_From, Evolves_To, Evolve_Level, Grade_Attack, Grade_Defense, Grade_Utility, Grade_Speed, Description, Image_Prompt, Image_Path, Home_Zone, Art_Status, BG_Status, Option_Slots, Sync_Status</code>. IDs run <code>DFMC-001</code>&hellip;<code>DFMC-{last}</code>, assigned per line then stage (line&nbsp;k &rarr; <code>3k-2 / 3k-1 / 3k</code>). <code>Sync_Status</code> tracks game-import state (<code>not_imported</code> / <code>synced</code> / <code>needs_reimport</code>): once a creature is imported into the game, any later change to it flips it to <code>needs_reimport</code> and it&rsquo;s tagged with an amber <code>⟳</code> cue in the admin codex, so only altered creatures are re-imported rather than the whole roster.'),
+        ('floors.csv', '%d' % n('floors.csv'), 'The %d floors (%d boss floors). Columns: <code>Floor, Zone, Encounter_Type, Is_Boss, Boss_Name, Primary_Type, Tier, Visual_Theme, Description, Cover_Image_Path, Wins_To_Clear</code>.' % (n('floors.csv'), len(nboss_fl))),
+        ('floor_creature_rarity.csv', '%s<br>(%s)' % (g(len(fcr)), fcr_b),
+         'The wild-encounter table. Each of the {wild} wild floors maps its tier-slots ({slots} on a base floor) to a <code>Creature_ID</code>. Columns: <code>Floor, Creature_ID, Rarity_Tier</code>. Stage per slot computed <strong style="color:#ede0c4">per line</strong> from each line&rsquo;s <code>Evolve_Level</code> (mixed stages per floor &mdash; see level bands below). Boss floors carry no rows &mdash; those are defined in <code>codex/bosses.csv</code>. <strong style="color:#ede0c4">Regenerate this whenever <code>creatures.csv</code> IDs change</strong> &mdash; the index joins the two by ID.'),
+        ('bosses.csv', '%d<br>(1 per boss floor)' % n('bosses.csv'),
+         'Zone-boss definitions, one per boss floor ({bruns}). Columns: <code>Floor, Zone, Boss_Name, Boss_Character, Active_Creature_1, Active_Creature_2, Difficulty_Index, Notes, Boss_ID, Boss_Type_Primary, Boss_Type_Secondary, Boss_Level, Boss_Quality_Grade, Grade_Attack, Grade_Defense, Grade_Utility, Grade_Speed, Move_1..4, Kit_Synergy, Description, Image_Prompt, Image_Path, Art_Status, BG_Status</code>. All {nb} bosses fully designed &mdash; humanoid boss characters with movesets borrowed from their zone&rsquo;s creature lines (S3 magnitudes, slot order: signature / secondary damage / support &times;2), 2 SR actives from the zone&rsquo;s floors; bosses carry no reserves. Rendered at <a href="bosses.html" style="color:var(--gold-bright)">bosses.html</a>.'),
+        ('encounter_weights.csv', '%d' % n('encounter_weights.csv'), 'Per-floor odds of an encounter rolling into each tier; SSR/SR odds scale up over the run (see &ldquo;Encounter weights&rdquo; below).'),
+        ('maptypes.csv', '%d' % n('maptypes.csv'), 'Tileset / map-restyle definitions for floor-art generation.'),
+        ('items.csv', '%d' % n('items.csv'), 'Full item catalog &mdash; {items_b}. Gear tier prefixes retired &mdash; every weapon and armour tier is a distinct named piece. Columns: <code>Item_ID, Category, Family, Slot, Name, Tier, Level_Req, Effect, Flavor_Text, Image_Prompt, Image_Path, Art_Status</code>.'),
+        ('moves.csv', '%d' % n('moves.csv'), 'Complete move table &mdash; {nl} lines &times; {mper} moves. Columns: Move_ID (M-{{LINE}}-{{slot}}), Line_ID, Slot, Name, Name_S1/S2/S3 (stage-progressive move names), Power_S1/S2/S3, Cooldown, Effect_S1/S2/S3, Synergy, Anti, VFX_Description. Powers use bands {bands} at S3; S2 &asymp; 80%, S1 &asymp; 60%., Targets (derived, machine-readable: union of effect-clause sides across stages &mdash; enemy / self / ally, joined with +; display text remains authoritative for counts and amounts), Level_Learned, Level_Upgrade_V2, Level_Upgrade_V3 (per-line learn/upgrade schedule derived from advancement levels). Row {cls_row} is <code>M-CLASS-STRIKE</code> (Line_ID <code>CLASS</code>, Slot 0) &mdash; the character&rsquo;s no-souls fallback; excluded from per-line invariants and schedule regeneration'),
+        ('souls.csv', '%d' % n('souls.csv'), 'Soul passive table &mdash; {nl} lines &times; {sper} armor slots (Head/Chest/Gloves/Feet). Columns: Soul_ID (S-{{LINE}}-{{SLOT}}), Line_ID, Gear_Slot, Scope (Local/Personal/Team), Rarity, Effect_S3 &mdash; despite the name, the authored value is the <strong>Stage-1</strong> magnitude; stages multiply upward (S1 <code>&times;1.00</code>, S2 <code>&times;1.12</code>, S3 <code>&times;1.25</code>). Ability-slot souls (MH/OH/Acc1/Acc2) grant moves instead &mdash; see moves.csv.'),
+        ('breeding.csv', '%d' % n('breeding.csv'), 'Breeding economy per pair grade. Columns: Grade_Num, Grade, Ichor_Per_Min, Minutes_Per_Egg, Ichor_Per_Egg, Egg_Dismantle_Ichor (the last keyed to egg grade, not pair grade).'),
+        ('wild_quality_weights.csv', '%d' % n('wild_quality_weights.csv'), 'Zone-banded quality-grade weights for wild spawns (Worn&ndash;Void columns, {nz} zones, per-band rows). Floors 1&ndash;9 all-Worn; curve begins floor 11. Rolled once at spawn; sets the wild QM and the virtual-tag grade context.'),
+        ('first_win_drops.csv', '%d' % n('first_win_drops.csv'), 'Guaranteed bonus drops for the first {wins} wild-battle wins (boss wins excluded from the counter). All grants spawn Worn T1. Selection rules: fixed Item_ID, random family, complement of win 1, or lowest-rarity enemy egg (random among ties).'),
+        ('drop_rates.csv', '%d' % n('drop_rates.csv'), 'Drop roll rules &mdash; points to <code>drop_chances_by_floor.csv</code> for chances, plus family notes and the enhancement grade-band rule. Prototypes and the game read from the tables; no hardcoding.'),
+        ('drop_chances_by_floor.csv', '%d' % n('drop_chances_by_floor.csv'), 'Per-kill drop chance by floor and rarity &mdash; one independent roll each for gear, enhancement, and egg. Value ladder &times;1/1.5/2.5/4/7 normalized per floor against encounter weights: each family lands exactly 10% per battle everywhere. Boss floors zeroed (no wilds).'),
+        ('drop_grade_weights.csv', '%d' % n('drop_grade_weights.csv'), 'Gear-drop grade weights per floor band (%d bands; mirrors Stat &amp; Equipment Tables &sect;15). Divine, Primordial and Void never drop.' % len({(r['Floor_Lo'], r['Floor_Hi']) for r in rows('drop_grade_weights.csv')})),
+        ('key_drop_rates.csv', '%d' % n('key_drop_rates.csv'), 'Per-creature boss-Key drop chances by rarity and zone, with each zone&rsquo;s <code>Key_Item_ID</code> &mdash; one expected Key per minimum-win zone journey.'),
+        ('boss_loot.csv', '%d' % n('boss_loot.csv'), 'Guaranteed boss drops &mdash; one piece of equipment (grade one band ahead) and one native Stage-1 egg (rarity-weighted, Legendary-capped). Delivered on the conclusion screen.'),
+        ('floor_assets.csv', '%d' % n('floor_assets.csv'), 'Level design pipeline. Per-floor: battle background prompt/path/status, parallax reference, prop assignments, map preview status (empty + populated). Decoupled from floor identity for infinite floor extension.'),
+        ('prop_assets.csv', '%d' % n('prop_assets.csv'), 'Zone prop catalog &mdash; 3&ndash;4 props + 1 anchor prop per zone, with image prompts and art status.'),
+    ]
+    out = ['<table>', '      <tr><th>File</th><th>Rows</th><th>Contents</th></tr>']
+    for f, rc, txt in R:
+        out.append('      <tr><td><code>codex/%s</code></td><td>%s</td><td>%s</td></tr>' % (f, rc, txt.format(**D) if '{' in txt else txt))
+    out.append('    </table>')
+    out.append('    <p class="gen-note">Row counts and breakdowns counted from the CSVs by <code>tools/codex_tables.py</code> (codex-files).</p>')
+    return '\n'.join(out)
+
+
+def gen_ultimates():
+    """ultimates.csv: one row per line per stage; every power / percent / duration is a binding on its cell."""
+    by = {}
+    for r in rows('ultimates.csv'):
+        by.setdefault(r['Line_ID'], {})[int(r['Stage'])] = r
+    out = ['<table>', '<tr><th>Line</th><th>S1 / S2 / S3</th><th>Effect</th></tr>']
+    for line, st in by.items():
+        b = lambda k, c: span('ultimates.csv#%s#%s' % (st[k]['Ult_ID'], c), st[k][c])
+        tri = lambda c: ' / '.join(b(k, c) for k in (1, 2, 3))
+        kind = st[1]['Kind']
+        if kind == 'taunt':
+            eff = ('Taunt for the round. S2 adds +%s%% Defense for the rest of the battle; S3 adds %s%% of maximum HP healed per hit taken this round.'
+                   % (b(2, 'Mag_Pct'), b(3, 'Heal_Pct')))
+        elif kind == 'nuke_aoe':
+            eff = 'Strikes every enemy. Power %s <em>per target</em>.' % tri('Power')
+        elif kind == 'nuke_single':
+            eff = 'Strikes one enemy. Power %s.' % tri('Power')
+        elif kind == 'retaliate':
+            eff = ('Retaliation stance for the round: each hit taken answers with a %s power counter and raises Attack %s%% for the rest of the battle, '
+                   'capped at +%s%%.' % (tri('Counter_Power'), tri('Stack_Pct'), tri('Stack_Cap')))
+        elif kind == 'echo':
+            fr = [int(st[k]['Fraction_Pct']) for k in (1, 2, 3)]
+            eff = ('Echo: every support ability in the hero&rsquo;s soul slots fires at once on the whole party, the hero included &mdash; self-only and ally-type '
+                   'abilities alike, and the type gate does not apply. Bonuses land at %s%% strength (a +50%% buff becomes %s) and durations are halved, '
+                   'rounded up. Whole-number effects of one step round away to nothing at %s%%.' % (
+                       tri('Fraction_Pct'), ' / '.join('+%d%%' % jsround(50 * f / 100) for f in fr), b(1, 'Fraction_Pct')))
+        elif kind == 'vanish':
+            eff = 'Untargetable by single-target moves for %s rounds.' % tri('Dur_Rounds')
+        else:
+            raise ValueError('ultimates.csv: no wording for Kind %s' % kind)
+        names = ' / '.join(st[k]['Name'].replace("'", '&rsquo;') for k in (1, 2, 3))
+        out.append('<tr><td style="color:#ede0c4">%s</td><td>%s</td><td>%s</td></tr>' % (line, names, eff))
+    out.append('</table>')
+    return '\n'.join(out)
+
+
+def gen_moves_budget():
+    """moves.csv: moves per line, the move count and the S3 power bands; DPT = Power / (1 + Cooldown) on those bands."""
+    mv = [r for r in rows('moves.csv') if r['Line_ID'] != 'CLASS']
+    nl = len({r['Line_ID'] for r in mv}); per = len(mv) // nl
+    bands = sorted({int(r['Power_S3']) for r in mv})
+    light, std, heavy, nuke = [b for b in bands if b][:4]
+    dpt = lambda p, cd: g(jsround(p / (1 + cd)))
+    return '\n'.join([
+        '    <p>Every creature line has exactly <strong>%d fixed moves</strong> &mdash; no move customization (creature customization is Tags/equipment only). '
+        'Moves persist across the 3 advancement stages, growing stronger: Stage 2 &asymp; 80%% of Stage 3 power with reduced effect magnitudes; Stage 1 &asymp; 60%% '
+        'power with one effect component removed. All %d moves are catalogued in <code>codex/moves.csv</code> (%d lines &times; %d).</p>' % (per, len(mv), nl, per),
+        '    <table>',
+        '      <tr><th>Budget rule</th><th>Detail</th></tr>',
+        '      <tr><td>Damage-per-turn proxy</td><td><code>DPT = Power / (1 + Cooldown)</code>, anchored at Standard %d @ CD0 = %s. Heavy %d @ CD2 = %s, '
+        'Nuke %d @ CD3 = %s &mdash; the DPT deficit is the headroom that pays for rider effects.</td></tr>' % (std, dpt(std, 0), heavy, dpt(heavy, 2), nuke, dpt(nuke, 3)),
+        '      <tr><td>Riders</td><td>%d-power carries one named debuff at CD2; %d-power carries a strong debuff or second component at CD3&ndash;4; %d-power can carry '
+        'a strong effect at CD0&ndash;1; 0-power status moves carry very strong effects at CD1&ndash;4.</td></tr>' % (heavy, nuke, light),
+        '      <tr><td>Buff stacking</td><td>A status is identified by the <strong>ability</strong> that applied it. Two different abilities stack and their magnitudes '
+        '<strong>add</strong> (+50% and +15% is +65%); one ability never stacks with itself, and re-applying it refreshes duration and keeps the stronger magnitude. '
+        'Full rules, including Synergy-clause self-inclusion and targeting: <a href="system-status-effects.html">Status Effects &amp; Buff Stacking</a>.</td></tr>',
+        '      <tr><td>Named debuffs only</td><td>No generic statuses. Every buff/debuff is named and owned by one move (e.g. <em>Mothervenom</em> belongs to Echidna&rsquo;s '
+        'Viper Spit). Families: Shred (&minus;Def), Sap (&minus;Off), Mire (&minus;Speed stages), named DoTs, Marks (+damage taken), and rare action-denial.</td></tr>',
+        '      <tr><td>NO TYPE CHART</td><td>There is no global type-effectiveness matrix and never will be. All type interaction lives inside individual moves: '
+        '<strong>Synergy</strong> clauses &mdash; a move is empowered by allied types in one of three ways: (a) an ally of a certain type <em>on the field</em> boosts the '
+        'move (+20&ndash;50% band); (b) the move is stronger when it <em>targets</em> an ally of a certain type (buffs/heals, +20&ndash;50% band); or (c) the move '
+        '<em>gains an added effect</em> when used on an ally of a certain type and <strong>Anti</strong> clauses (bonus vs specific target types, +30&ndash;60% band, '
+        'thematically justified). Every type appears as both a synergy-giver and an anti-target.</td></tr>',
+        '      <tr><td>Kit shape by stat profile</td><td>Strikers (A8&ndash;10): spam &rarr; utility-lite &rarr; Heavy CD2 &rarr; Nuke CD3&ndash;4 signature. Walls (D8&ndash;10): '
+        'Def buffs, reflection, chip. Utility (U8&ndash;10): strong named debuffs/buffs, the game&rsquo;s few heals (7 healers game-wide), damage held to Light/Standard. '
+        'Speed (S8&ndash;10): first-strike riders and momentum.</td></tr>',
+        '      <tr><td>Speed stages</td><td>In-battle Speed buffs/debuffs are the only thing that modifies turn order. They are temporary stages (&plusmn;1, &plusmn;2), never gear.</td></tr>',
+        '    </table>',
+        '    <p class="gen-note">Move counts and the power bands (%s at S3) counted from <code>codex/moves.csv</code>; DPT computed on them. The cooldown anchors, rider '
+        'and kit rules are design text. Generated by <code>tools/codex_tables.py</code>.</p>' % ' / '.join(map(str, bands))])
+
+
+def gen_ichor():
+    """index.html Ichor: the kill formula and rarity mults (src/trader.js ichorKill, src/tables.json food_rarity_mult), hourly income at
+    BATTLES_PER_HOUR, and breeding.csv's dismantle and pen cells as bindings."""
+    bph = battles_per_hour(); enc = {int(r['Floor']): r for r in rows('encounter_weights.csv')}
+    fm = json.loads(client_file('src/tables.json'))['food_rarity_mult']
+    hr = lambda F: g(jsround(_ichor_per(F, enc) * bph / 10) * 10)
+    br = rows('breeding.csv'); b = lambda r, c: span('breeding.csv#%s#%s' % (r['Grade_Num'], c), g(int(float(r[c]))), 'g' if float(r[c]) >= 1000 else None)
+    w, v = br[0], br[-1]
+    top = max(F for F in enc if F <= 119 and sum(float(enc[F]['Weight_' + k] or 0) for k in RAR5))
+    inc = _ichor_per(top, enc) * bph
+    return '\n'.join([
+        '    <table>',
+        '      <tr><th>Source</th><th>How it yields Ichor</th></tr>',
+        '      <tr><td>Combat</td><td>Per defeated enemy: <code>round(2 &times; (1 + min(100, enemyLevel) / 100) &times; RarityMult)</code> &mdash; RarityMult %s. '
+        'Roughly %s Ichor/h at floor 1, %s at floor 25, %s at floor 99 (deep floors pay more: higher levels <em>and</em> richer SSR/SR encounter odds).</td></tr>' % (
+            ' / '.join('%s %s' % (k, fx(fm[k], 2 if fm[k] * 10 != int(fm[k] * 10) else 1)) for k in RAR5), hr(1), hr(25), hr(99)),
+        '      <tr><td>Egg dismantling</td><td>Keyed to egg grade &mdash; %s (%s &rarr; %s). Tuned against the hatch-weight matrix to always return 27&ndash;30%% of what a pen '
+        'would spend breeding that grade: a refund on a bad roll, never an engine.</td></tr>' % (' / '.join(b(r, 'Egg_Dismantle_Ichor') for r in br), w['Grade'], v['Grade']),
+        '    </table>',
+        '    <p>Pen drain, egg duration, and Ichor-per-egg are authored per pair grade in <code>codex/breeding.csv</code> &mdash; %s %s Ichor/min / %s min / %s Ichor, up to '
+        '%s %s Ichor/min / %s min / %s Ichor. A single %s pen eats %s%% of a floor-%d player&rsquo;s kill Ichor (~%s/h), and that income buys ~%s %s eggs per hour no matter '
+        'how many pens are owned. Full rules: <a href="system-breeding.html" style="color:var(--gold-bright)">Breeding</a>.</p>' % (
+            w['Grade'], b(w, 'Ichor_Per_Min'), b(w, 'Minutes_Per_Egg'), b(w, 'Ichor_Per_Egg'), v['Grade'], b(v, 'Ichor_Per_Min'), b(v, 'Minutes_Per_Egg'),
+            b(v, 'Ichor_Per_Egg'), v['Grade'], g(jsround(float(v['Ichor_Per_Min']) * 60 / inc * 100)), top, g(jsround(inc / 10) * 10),
+            fx(inc / float(v['Ichor_Per_Egg']), 1), v['Grade']),
+        '    <p class="gen-note">Kill Ichor at %d battles/h (dfmc-client <code>tools/sim_econ.mjs</code> BATTLES_PER_HOUR) on <code>encounter_weights.csv</code>, rounded to 10. '
+        'Generated by <code>tools/codex_tables.py</code>.</p>' % bph])
+
+
+def gen_adv_bands():
+    """creatures.csv: per line rarity, Stage 1 and Stage 2 Evolve_Level ranges."""
+    L = _lines(); out = ['<table>', '      <tr><th>Rarity</th><th>Lines</th><th>S1 &rarr; S2</th><th>S2 &rarr; S3</th></tr>']
+    for rar in RARITY_ORDER:
+        ls = [v for v in L.values() if v[1]['Rarity'] == rar]
+        e1 = [int(v[1]['Evolve_Level']) for v in ls]; e2 = [int(v[2]['Evolve_Level']) for v in ls]
+        out.append('      <tr><td>%s</td><td>%d</td><td>Lv %d&ndash;%d</td><td>Lv %d&ndash;%d</td></tr>' % (rar, len(ls), min(e1), max(e1), min(e2), max(e2)))
+    out.append('    </table>')
+    return '\n'.join(out)
+
+
+def gen_zones():
+    """floors.csv, base tower (floors 1-100): each zone's floor range and Primary_Type."""
+    z = {}
+    for r in rows('floors.csv'):
+        if int(r['Floor']) <= 100:
+            z.setdefault(r['Zone'], []).append(r)
+    out = ['<table>', '      <tr><th>Floors</th><th>Zone</th><th>Primary type(s)</th></tr>']
+    for name, fl in z.items():
+        types = []
+        for r in fl:
+            if r['Primary_Type'] and r['Primary_Type'] not in types:
+                types.append(r['Primary_Type'])
+        out.append('      <tr><td>%s&ndash;%s</td><td>%s</td><td>%s</td></tr>' % (fl[0]['Floor'], fl[-1]['Floor'], name, ' / '.join(types)))
+    out.append('    </table>')
+    return '\n'.join(out)
+
+
+def gen_level_bands():
+    """floor_creature_rarity.csv joined to creatures.csv: the floors (1-100) each stage actually appears on; creatures.csv line rarity split."""
+    cr = {r['ID']: r for r in rows('creatures.csv')}; L = _lines()
+    fl = {1: [], 2: [], 3: []}
+    for r in rows('floor_creature_rarity.csv'):
+        F = int(r['Floor'])
+        if F <= 100:
+            fl[int(cr[r['Creature_ID']]['Stage'])].append(F)
+    e = lambda rar, k: [int(v[k]['Evolve_Level']) for v in L.values() if v[1]['Rarity'] == rar]
+    late1 = max(RARITY_ORDER, key=lambda rar: max(e(rar, 1)))
+    ab = {'Common': 'Commons', 'Uncommon': 'Uncommons', 'Rare': 'Rares', 'Super Rare': 'SR lines', 'Super Super Rare': 'SSR lines'}
+    cnt = [(rar, sum(1 for v in L.values() if v[1]['Rarity'] == rar)) for rar in RARITY_ORDER]
+    full = all(len(v) == 3 for v in L.values())
+    return '\n'.join([
+        '    <table>',
+        '      <tr><th>Band (reference)</th><th>Nominal floors</th><th>Actual wild spread</th></tr>',
+        '      <tr><td>Infant (Stage 1)</td><td>1&ndash;33</td><td>Floors %d&ndash;%d (%s hold S1 latest)</td></tr>' % (min(fl[1]), max(fl[1]), ab[late1]),
+        '      <tr><td>Advanced (Stage 2)</td><td>34&ndash;66</td><td>Floors %d&ndash;%d (Commons reach S2 by ~%d)</td></tr>' % (min(fl[2]), max(fl[2]), min(e('Common', 1))),
+        '      <tr><td>Final (Stage 3)</td><td>67&ndash;100</td><td>Floors %d&ndash;%d (Commons reach S3 by ~%d)</td></tr>' % (min(fl[3]), max(fl[3]), min(e('Common', 2))),
+        '    </table>',
+        '    <p style="font-size:13px;color:#c2ae8b">All %d creature lines are full 3-stage%s. Rarity (C/UC/R/SR/SSR) is a fixed property of the <em>line</em>, independent '
+        'of stage, since every creature on a given floor is necessarily the same stage. %d lines split: %s. Spread counted from <code>floor_creature_rarity.csv</code> '
+        '(floors 1&ndash;100) by <code>tools/codex_tables.py</code>.</p>' % (
+            len(L), ' &mdash; no exceptions' if full else '', len(L), ', '.join('%d %s' % (c, r) for r, c in cnt))])
+
+
+ENC_FLOORS = [1, 51, 99]
+
+
+def gen_enc_weights():
+    """encounter_weights.csv at the first wild floor, the middle zone's first wild floor and the last base wild floor: each cell a binding."""
+    out = ['<table>', '      <tr><th>Floor</th><th>Common</th><th>Uncommon</th><th>Rare</th><th>Super Rare</th><th>Super Super Rare</th></tr>']
+    enc = {int(r['Floor']): r for r in rows('encounter_weights.csv')}
+    for F in ENC_FLOORS:
+        out.append('      <tr><td>%d</td>%s</tr>' % (F, ''.join('<td>%s</td>' % _pct_span('encounter_weights.csv#%d#Weight_%s' % (F, k), enc[F]['Weight_' + k]) for k in RAR5)))
+    out.append('    </table>')
+    return '\n'.join(out)
+
+
+# --- system-xp
+def gen_xp_formulas():
+    cur = {int(r['Level']): r for r in rows('XPCurve.csv')}
+    top = max(cur); poly = 66
+    gr = lambda L: float(cur[L]['XP_To_Next']) / float(cur[L - 1]['XP_To_Next']) - 1
+    dev = max(abs(xp_on_level(L) / (10 * L) - 1) for L in range(10, top + 1))
+    lo = min(int(cur[1]['XP_Kill_' + t]) for t in RAR5)
+    flat = int(cur[top]['XP_Account_Flat'])
+    return '\n'.join([
+        '<table>',
+        '    <tr><th>Quantity</th><th>Expression</th></tr>',
+        '    <tr><td class="lbl">XP required, levels 1&ndash;%d</td><td><code>10 &times; L^1.75</code></td></tr>' % poly,
+        '    <tr><td class="lbl">XP required, levels %d&ndash;%d</td><td>The rows of <code>XPCurve.csv</code>: per-level growth ramps from %s%% at %d to %s%% at %d (C1, 2026-10-23)</td></tr>' % (
+            poly + 1, top, fx(gr(poly + 1) * 100, 1), poly + 1, fx(gr(top - 1) * 100, 1), top - 1),
+        '    <tr><td class="lbl">XP required, player level %d+</td><td><code>XPCurve.csv</code> row %d <code>XP_Account_Flat</code> = %s &mdash; flat forever (player level only; creatures and classes cap at %d)</td></tr>' % (
+            top + 1, top, span('XPCurve.csv#%d#XP_Account_Flat' % top, g(flat), 'g'), top),
+        '    <tr><td class="lbl">XP per kill</td><td><strong>Not a formula &mdash; a table.</strong> <code>XP_Kill_&lt;tier&gt;</code> in <code>codex/XPCurve.csv</code>, indexed by the <em>enemy&rsquo;s</em> level, '
+        'on the game-wide value ladder <code>C&nbsp;1.0 / UC&nbsp;1.5 / R&nbsp;2.5 / SR&nbsp;4.0 / SSR&nbsp;7.0</code> (level&nbsp;1 floored at %s&nbsp;XP). Client <code>xpKill()</code> and server '
+        '<code>TABLES.xp_kill</code> read the same %d rows; no multiplier is applied on top</td></tr>' % (span('XPCurve.csv#1#XP_Kill_C', str(lo)), len(cur)),
+        '    <tr><td class="lbl">XP per battle</td><td>The sum over the battle&rsquo;s <strong>3 kills</strong>. Because <code>encounter_weights.csv</code> is tuned per floor against that same ladder, '
+        'a full battle on floor&nbsp;<code>L</code> averages <code>&asymp; 10 &times; L</code> &mdash; within <strong>&plusmn;%s%%</strong> from level&nbsp;10 up (floor&nbsp;%d: %s against %s). '
+        'Below level&nbsp;10 the %s-XP floor lifts it above the line</td></tr>' % (fx(dev * 100, 1), top, fx(xp_on_level(top), 1), g(10 * top), lo),
+        '    <tr><td class="lbl">Battles per level</td><td><code>XP_To_Next(L) &divide; XP-per-battle(L)</code>: %s at level&nbsp;1, %s at %d, %s at %d, %s at %d. Exact per-level values in the table below</td></tr>' % (
+            g(battles_for_level(1)), g(battles_for_level(poly)), poly, g(battles_for_level(poly + 1)), poly + 1, g(battles_for_level(top - 1)), top - 1),
+        '  </table>',
+        '  <p class="gen-note">Computed from <code>codex/XPCurve.csv</code> and the on-level battle of <code>tools/codex_tables.py</code> (xp-formulas).</p>'])
+
+
+def gen_xp_player():
+    cur = {int(r['Level']): r for r in rows('XPCurve.csv')}
+    top = max(cur); flat = int(cur[top]['XP_Account_Flat']); prev = int(cur[top - 1]['XP_To_Next'])
+    return '\n'.join([
+        '<table>',
+        '    <tr><th>Property</th><th>Rule</th></tr>',
+        '    <tr><td class="lbl">XP source</td><td>Every point of XP the account earns, from every battle, in every realm. Player XP is never split &mdash; it is the raw total.</td></tr>',
+        '    <tr><td class="lbl">Curve, levels 1&ndash;%d</td><td>Identical to the creature / class curve: the rows of <code>XPCurve.csv</code> (<code>10 &times; L^1.75</code> to 66, then the C1 ramp). '
+        'There is no formula fallback: with no curve loaded the account reads level 1, as a creature does.</td></tr>' % top,
+        '    <tr><td class="lbl">Curve, levels %d+</td><td><strong>Flat</strong>. Every level past %d costs <code>XP_Account_Flat</code> (row %d of <code>XPCurve.csv</code>) = <strong>%s</strong> XP: '
+        'the C1 ramp continued one step past %d (+%s%% on the %s of %d&rarr;%d), then held constant. No cap; the counter never stops. It is codex data so the vanity pace can be retuned '
+        'without touching the leveling model; a DATA_PIN older than the column continues the curve&rsquo;s own %d&rarr;%d growth one step instead (never a constant in the client).</td></tr>' % (
+            top + 1, top, top, span('XPCurve.csv#%d#XP_Account_Flat' % top, g(flat), 'g'), top - 1, fx((flat / prev - 1) * 100, 2),
+            span('XPCurve.csv#%d#XP_To_Next' % (top - 1), g(prev), 'g'), top - 1, top, top - 2, top - 1),
+        '    <tr><td class="lbl">Grants</td><td>Nothing. Deliberately inert.</td></tr>',
+        '  </table>'])
+
+
+def gen_xp_milestone_note():
+    bph = battles_per_hour()
+    return ('<p style="font-size:12px;color:var(--ink-faint)">*At ~<span id="xpBph">%d</span> battles/hour on autoplay &mdash; the economy simulator&rsquo;s figure '
+            '(dfmc-client <code>tools/sim_econ.mjs</code> BATTLES_PER_HOUR), about %s&nbsp;s per battle. Generated by <code>tools/codex_tables.py</code>.</p>' % (bph, fx(3600 / bph, 0)))
+
+
+# --- system-equipment
+def soul_stage_mults():
+    """play/app.js:259 SOUL_STAGE_MULT - [0, S1, S2, S3]."""
+    m = re.search(r'const SOUL_STAGE_MULT = \[([\d., ]+)\];', client_file('play/app.js'))
+    if not m:
+        raise ValueError('play/app.js: SOUL_STAGE_MULT not found')
+    return [float(x) for x in m.group(1).split(',')]
+
+
+SOUL_ROWS = ['Worn', 'Rare', 'Legendary', 'Divine', 'Void']
+
+
+def gen_soul_strength():
+    sm = soul_stage_mults(); G = [x['Grade'] for x in grades()]
+    out = ['<table>', '    <tr><th>Creature quality grade</th><th>Stage 1</th><th>Stage 2</th><th>Stage 3</th></tr>']
+    for gname in SOUL_ROWS:
+        q = soul_mult(G.index(gname))
+        out.append('    <tr><td class="lbl">%s &times;%s</td>%s</tr>' % (gname, fx(q, 2), ''.join('<td>&times;%s</td>' % fx(q * sm[s], 2) for s in (1, 2, 3))))
+    out.append('  </table>')
+    out.append('  <p class="gen-note">Stage &times; grade: <code>play/app.js</code> SOUL_STAGE_MULT &times; <code>src/power.js</code> soulMultOf (<code>1 + (1/9) &times; grade index</code>). '
+               'Generated by <code>tools/codex_tables.py</code>.</p>')
+    return '\n'.join(out)
+
+
+# --- system-pvp
+def pvp_timers():
+    """src/tables.json pvp_live (round_ms, bank_ms; read by src/worker.js:2325 MM_ROUND_MS / MM_BANK_MS) and src/battle_round.js:459 rampMult."""
+    pl = json.loads(client_file('src/tables.json'))['pvp_live']
+    m = re.search(r'function rampMult\(round\) \{ return (.*?); \}', client_file('src/battle_round.js'))
+    if not m:
+        raise ValueError('src/battle_round.js: rampMult not found')
+    steps = [(int(r), float(x)) for r, x in re.findall(r'round >= (\d+) \? ([\d.]+)', m.group(1))]
+    return pl['round_ms'] // 1000, pl['bank_ms'] // 1000, sorted(steps)
+
+
+def gen_pvp_timers():
+    rs, bs, steps = pvp_timers()
+    xm = lambda x: ('%d' % x) if x == int(x) else ('%s' % x)
+    first, last = steps[0], steps[-1]
+    return '\n'.join([
+        '<table>',
+        '    <tr><th>Timer</th><th>Value</th><th>Rule</th></tr>',
+        '    <tr><td class="lbl">Round timer (PvP)</td><td>%d s</td><td>Both players pick within it. Resolution/animation time does not count.</td></tr>' % rs,
+        '    <tr><td class="lbl">Personal bank (PvP)</td><td>%d s</td><td>Drawn from only after the %d s round timer is spent, chess-clock style. Never refills during a game; resets between games of the Bo3.</td></tr>' % (bs, rs),
+        '    <tr><td class="lbl">On expiry</td><td>&mdash;</td><td>The <strong>autoplay AI picks for you</strong> &mdash; the same AI that runs PvE grinding, not &ldquo;first move in the list.&rdquo; Losing time costs quality, not the game outright.</td></tr>',
+        '    <tr><td class="lbl">Damage ramp (PvP)</td><td>&times;%s @ %d &rarr; &times;%s @ %d+</td><td>Replaces the 30-round hard cap and its tiebreak (2026-08-16). From round %d every hit and every lingering '
+        'damage tick, both sides, is multiplied: %s from %d on and holding. A game ends only on a wipe &mdash; the ramp guarantees one, so no tiebreak is needed or exists. A hot &times;-chip beside '
+        'the round counter shows the live multiplier from round %d. PvE never ramps. Replays of Competitive games ramp identically &mdash; playback must re-produce the recorded fight.</td></tr>' % (
+            xm(first[1]), first[0], xm(last[1]), last[0], first[0], ', '.join('&times;%s at %d' % (xm(x), r) for r, x in steps[:-1]) + ', &times;%s' % xm(last[1]), last[0], first[0]),
+        '    <tr><td class="lbl">PvE</td><td><strong>No timer</strong></td><td>Move timers are a PvP-integrity tool; against the AI there is nothing to protect and autoplay already exists for players who want speed. PvE battles instead get full crash-safe resume (below).</td></tr>',
+        '  </table>',
+        '  <p class="gen-note">Timers: dfmc-client <code>src/tables.json</code> <code>pvp_live</code> (read by <code>src/worker.js</code> MM_ROUND_MS / MM_BANK_MS); ramp: <code>src/battle_round.js</code> '
+        '<code>rampMult</code>. Generated by <code>tools/codex_tables.py</code>.</p>'])
+
+
+# --- the battles/hour prose (the retired "~30 battles/h" anchor)
+def bph_txt():
+    return '~%d battles/h' % battles_per_hour()
+
+
+BPH_SRC = 'the economy simulator&rsquo;s figure, dfmc-client <code>tools/sim_econ.mjs</code> BATTLES_PER_HOUR'
+
+
+def gen_bph_prose(tpl):
+    """a sentence that restates BATTLES_PER_HOUR; {bph} is bph_txt(), {n} the bare number."""
+    return lambda: tpl.format(bph=bph_txt(), n=battles_per_hour(), src=BPH_SRC)
+
+
+def spawn_budget():
+    return json.loads(client_file('src/tables.json'))['spawn_budget']
+
+
+def gen_spawn_note():
+    sb = spawn_budget(); bph = battles_per_hour()
+    return ('<div class="note note-info"><p>Throughput: the refill ceiling is %d spawns/hour per floor (<code>src/tables.json</code> <code>spawn_budget</code>, %d banked) '
+            '&mdash; %s&times; the %s autoplay pace (%s), so an autoplay player camping one floor rides the drip. Sustained single-floor farming is throttled at the spawner; '
+            'speed builds, like everyone else, scale through floor rotation (&approx;%d per floor per pass).</p></div>' % (
+                sb['per_hour'], sb['cap'], fx(sb['per_hour'] / bph, 2), bph_txt(), BPH_SRC, sb['cap']))
+
+
+def gen_chase():
+    """index.html 'endgame chase': gen_grading_prose's T10 Worn->Void expectation; the Void gate's p10 / p90 are the geometric
+    distribution's quantiles (attempts = ln(1-q) / ln(1-p)) x the attempt cost."""
+    bph = battles_per_hour(); F = ref_floor(); a = acq(F); cg, ce, div = grading_totals(); sh = a['Scrap'] * bph
+    vg = [r for r in rows('grading.csv') if r['Tier'] == '10' and r['Category'] == 'Gear' and r['To_Grade'] == grades()[-1]['Grade']][0]
+    c = float(vg['Cost'].split()[0]); p = float(vg['Success_Pct']) / 100
+    q = lambda x: g(jsround(c * math.log(1 - x) / math.log(1 - p)))
+    return '\n'.join([
+        '<table>',
+        '      <tr><th>One item, Worn&rarr;Void grading</th></tr>',
+        '      <tr><td>Expected ~%s Scrap at T10 &asymp; %s&nbsp;h at floor %d (%s Scrap/h at %d battles/h) (Void gate alone: p10 ~%s / expected %s / p90 ~%s)</td></tr>' % (
+            g(jsround(cg)), fx(cg / sh, 1), F, g(jsround(sh)), bph, q(0.1), g(jsround(c / p)), q(0.9)),
+        '    </table>',
+        '    <p>A marquee item taken to Void is ~%s&nbsp;h expected at floor %d, with honest odds of doubling that on a bad run. A full 12-slot Void loadout is a long, market-aggregated pursuit; '
+        'Void enhancements (expected ~%s material each) are rare trade goods. Casuals buy from the market; grinders and lucky rollers supply it &mdash; that variance is what gives grade-5+ items '
+        'real price discovery. Hours at %s (%s); generated by <code>tools/codex_tables.py</code>.</p>' % (fx(cg / sh, 1), F, g(jsround(ce)), bph_txt(), BPH_SRC)])
+
+
+def portal_battles(n, p):
+    """expected battles to string together n consecutive wins at win rate p (a loss resets the streak): (1 - p^n) / ((1 - p) p^n)."""
+    return (1 - p ** n) / ((1 - p) * p ** n)
+
+
+PORTAL_FLOORS = [9, 25, 55, 99]
+PORTAL_P = [0.95, 0.90, 0.85, 0.80, 0.70]
+
+
+def gen_portal():
+    """analytics.html: floors.csv Wins_To_Clear is the streak that opens the portal; expected battles is portal_battles()."""
+    fl = {int(r['Floor']): r for r in rows('floors.csv')}
+    n = lambda F: int(fl[F]['Wins_To_Clear'])
+    out = ['<table>', '    <tr><th>Win rate p</th>%s</tr>' % ''.join('<th>Floor %d (streak %s)</th>' % (F, n(F)) for F in PORTAL_FLOORS)]
+    for i, p in enumerate(PORTAL_P):
+        cells = ['~%s%s' % (g(jsround(portal_battles(n(F), p))), ' battles' if (i == 0 and j == 0) else '') for j, F in enumerate(PORTAL_FLOORS)]
+        out.append('    <tr><td class="lbl">%d%%</td>%s</tr>' % (jsround(p * 100), ''.join('<td>%s</td>' % c for c in cells)))
+    out.append('  </table>')
+    deep = PORTAL_FLOORS[-1]; bph = battles_per_hour()
+    out.append('  <p class="figcap">Expected battles to open the portal, by on-floor win rate: <code>(1 &minus; p^n) / ((1 &minus; p) p^n)</code> for a streak of n = '
+               '<code>floors.csv</code> Wins_To_Clear. At %s (%s), 90%% &asymp; %s h per deep clear (floor %d); 80%% &asymp; %s h. Boss floors bypass this (always 1 battle, key-gated). '
+               'Generated by <code>tools/codex_tables.py</code>.</p>' % (bph_txt(), BPH_SRC, fx(portal_battles(n(deep), 0.9) / bph, 1), deep, fx(portal_battles(n(deep), 0.8) / bph, 1)))
+    return '\n'.join(out)
+
+
 # ------------------------------------------------------------------------------------------------- registry
 GENS = [
     # (name, page, generator)
@@ -746,6 +1206,28 @@ GENS = [
     ('up-soul-grading', 'upgrading.html', gen_soul_grading),
     ('up-qm-row', 'upgrading.html', gen_qm_row(None)),
     ('st-qm-row', 'stat-tables.html', gen_qm_row(None)),
+    # C17 part 4 (lane a8-s5-c17-tail, 2026-10-23)
+    ('codex-files', 'index.html', gen_codex_files),
+    ('ultimates', 'index.html', gen_ultimates),
+    ('cls-ultimates', 'classes.html', gen_ultimates),
+    ('moves-budget', 'index.html', gen_moves_budget),
+    ('ichor', 'index.html', gen_ichor),
+    ('adv-bands', 'index.html', gen_adv_bands),
+    ('zones', 'index.html', gen_zones),
+    ('level-bands', 'index.html', gen_level_bands),
+    ('enc-weights', 'index.html', gen_enc_weights),
+    ('xp-formulas', 'system-xp.html', gen_xp_formulas),
+    ('xp-player', 'system-xp.html', gen_xp_player),
+    ('xp-milestone-note', 'system-xp.html', gen_xp_milestone_note),
+    ('soul-strength', 'system-equipment.html', gen_soul_strength),
+    ('pvp-timers', 'system-pvp.html', gen_pvp_timers),
+    ('spawn-note', 'index.html', gen_spawn_note),
+    ('chase', 'index.html', gen_chase),
+    ('bph-realm', 'index.html', gen_bph_prose('All economy balancing is denominated in battles for this one active character ({bph} on autoplay, {src}).')),
+    ('bph-econ', 'index.html', gen_bph_prose('All progression currencies flow from battles, denominated in battles ({bph} on autoplay, single active character; {src}).')),
+    ('bph-integrity', 'system-integrity.html', gen_bph_prose('Rewards credited per flush are capped by elapsed real time (autoplay runs {bph}, {src}; the cap leaves headroom above it).')),
+    ('bph-anchor', 'analytics.html', gen_bph_prose('The GDD already denominates the whole economy in battles ({bph} endgame, {src}).')),
+    ('portal', 'analytics.html', gen_portal),
 ]
 
 NUMRE = re.compile(r'-?\d[\d,]*(?:\.\d+)?')
