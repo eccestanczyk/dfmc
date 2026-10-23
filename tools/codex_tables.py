@@ -452,7 +452,14 @@ def power_fns():
     """src/power.js:18 STAT_SCALE and :171-173 coreOf / axisMult / hpFor, lifted verbatim and evaluated under node."""
     src = client_file('src/power.js')
     lines = []
-    for pat in (r'const STAT_SCALE = [^;]+;', r'const coreOf = [^;]+;', r'const axisMult = [^;]+;', r'const hpFor = [^;]+;'):
+    # hardcode-2 (2026-10-23): power.js no longer types STAT_SCALE or the formula coefficients - it reads codex
+    # stat_model.csv into T.sm. The lift hands it the same table; a client that predates the move still lifts its literal.
+    first = r'const STAT_SCALE = [^;]+;'
+    if re.search(r'const SM = T\.sm[^;]*;', src):
+        sm = dict((r['Key'].strip(), float(r['Value'])) for r in rows('stat_model.csv') if (r.get('Key') or '').strip() and (r.get('Value') or '').strip())
+        lines.append('const T = { sm: %s };' % json.dumps(sm))
+        first = r'const SM = T\.sm[^;]*;'
+    for pat in (first, r'const coreOf = [^;]+;', r'const axisMult = [^;]+;', r'const hpFor = [^;]+;'):
         m = re.search(pat, src)
         if not m:
             raise ValueError('src/power.js: %s not found' % pat)
@@ -626,11 +633,16 @@ def gen_st_pools():
     out.append('</table></div>')
     # the example: src/power.js:416 a = ((charAtk + CHAR_CORE x coreOf(L)) x axisMult(off) x (1 + inc%)) x (1 + CHAR_RISK x ..) + CHAR_FLOOR) x clsSoulMult
     src = client_file('src/power.js')
-    core_k = float(re.search(r'CHAR_CORE = ([\d.]+)', src).group(1))
-    if float(re.search(r'CHAR_RISK = ([\d.]+)', src).group(1)):
-        raise ValueError('src/power.js CHAR_RISK is not 0 - the example line assumes it is')
+    if re.search(r'const SM = T\.sm', src):  # hardcode-2: power.js reads codex stat_model.csv, so the example does too
+        sm = dict((r['Key'].strip(), float(r['Value'])) for r in rows('stat_model.csv') if (r.get('Key') or '').strip() and (r.get('Value') or '').strip())
+        core_k, risk, ss, fl = sm['Char_Core'], sm['Char_Risk'], sm['Stat_Scale'], sm['Char_Floor']
+    else:
+        core_k = float(re.search(r'CHAR_CORE = ([\d.]+)', src).group(1)); risk = float(re.search(r'CHAR_RISK = ([\d.]+)', src).group(1))
+        ss = float(re.search(r'const STAT_SCALE = ([\d.]+)', src).group(1)); fl = 25
+    if risk:
+        raise ValueError('CHAR_RISK is not 0 - the example line assumes it is')
     core100 = power_fns()['1']['core']
-    floor_ = jsround(25 * float(re.search(r'const STAT_SCALE = ([\d.]+)', src).group(1)))
+    floor_ = jsround(fl * ss)
     cls = {(r['Line_ID'], r['Stage']): r for r in rows('classes.csv')}
     a3, a2 = cls[('MAGE', '3')], cls[('MAGE', '2')]
     v = pool(POOL_ATK, 10, G.index('Void'))

@@ -1,0 +1,5 @@
+Floor_From,HP_Mult,Notes
+1,0.6,"A wild monster's max HP multiplier from this floor up to the next row (C1, D 2026-10-22). Bosses and their companions are not wild and keep x1. Read by src/battle.js wildHpMult, installed by the caller with setRules."
+50,0.7,
+90,1.0,
+110,1.2,

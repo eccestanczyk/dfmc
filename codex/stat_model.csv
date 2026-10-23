@@ -1,0 +1,27 @@
+Key,Value,Notes
+Stat_Scale,7.5,"The July 2026 magnitude rework constant: every Attack, Defense, HP and damage term multiplies it. Read by the client, src/battle.js (installed with setRules), src/power.js, src/apvp_sim.js and the sims; nothing types it."
+Core_K,0.6,"Level core of a stat: Core_K x Stat_Scale x (L + Core_L0)."
+Core_L0,25,"Level offset of the core."
+Axis_A,3,"Class/creature rating multiplier of a grade g: (Axis_A x g + Axis_B) / Axis_D."
+Axis_B,5,
+Axis_D,8,
+HP_L_K,4,"Max HP: (HP_L_K x L + HP_L0) x (HP_D0 + Defense grade) / HP_Div x Stat_Scale."
+HP_L0,35,
+HP_D0,5,
+HP_Div,11,
+Char_Core,0.25,"A real character's share of the level core on Attack and Defense."
+Char_Risk,0,"Attack bonus per Defense grade below 6 on a character (0 = off)."
+Char_HP,1.5,"A character's HP multiplier."
+Char_HP_Squish,0,"Extra character HP per Defense grade below 6 (0 = off)."
+Char_Floor,25,"Innate character Attack and Defense floor, round(Char_Floor x Stat_Scale), added after the class and increased-% multipliers."
+Cls_Soul_Top,1.2,"The class soul multiplier at the top of its ladder: 1 + (Cls_Soul_Top - 1) x i / n."
+Def_Floor,10,"Damage: the defense floor and the reference defense, Def_Floor x Stat_Scale."
+Dmg_Lv_K,2,"Damage: ((Dmg_Lv_K x L / Dmg_Lv_Div + Dmg_Lv_Add) x power x sqrt(atk / def)) / (Dmg_Div / Stat_Scale) + (Dmg_Flat_K x Stat_Scale + atk / Dmg_Atk_Div) / hits."
+Dmg_Lv_Div,5,
+Dmg_Lv_Add,2,
+Dmg_Div,130,
+Dmg_Flat_K,2,
+Dmg_Atk_Div,50,
+Heal_Frac,0.12,"A plain heal move restores Heal_Frac x max HP, before heal amplifiers."
+Tithe_Step,0.12,"Tithe: +Tithe_Step Attack multiplier per stack."
+APVP_HP_Mult,1.5,"Auto PvP and live PvP: every unit's max HP x APVP_HP_Mult (C1, D 2026-10-22)."
