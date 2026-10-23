@@ -1,16 +1,16 @@
 System,Floor,Label,Anchor,Via,Ready,Line,Page,Note
-class_soul,1,Class soul,eq-soul-slot,,,The soul your class gave you. Click it to see what it does.,index.html,Handed out at creation; its UPGRADE opens with the souls rung (T6 part 1: D "class soul earlier - at the beginning")
-hatch_all,8,Hatch All,inv-hatch-all,,eggs,Hatches every egg in the bag in one go.,eggs.html,Single hatch is open from floor 1 (B1 ruling 2026-09-09)
-dismantle_all,8,Dismantle All,inv-dismantle,,dismantle,Breaks many pieces into materials in one go.,item.html,Single dismantle is open from floor 1 (B1 ruling 2026-09-09)
+class_soul,1,Class soul,eq-soul-slot,menu>menu-equip,,The soul your class gave you. Click it to see what it does.,index.html,"Handed out at creation; its UPGRADE opens with the souls rung (T6 part 1: D ""class soul earlier - at the beginning"")"
+hatch_all,8,Hatch All,inv-hatch-all,menu>menu-souls,eggs,Hatches every egg in the bag in one go.,eggs.html,Single hatch is open from floor 1 (B1 ruling 2026-09-09)
+dismantle_all,8,Dismantle All,inv-dismantle,menu>menu-inv,dismantle,Breaks many pieces into materials in one go.,item.html,Single dismantle is open from floor 1 (B1 ruling 2026-09-09)
 autoplay,6,Autoplay,autoplay,,,,index.html,The AUTOPLAY button on the floor; the scripted opening (T6 part 4) ends here - floors 1-5 are played by hand
-souls,12,Souls,menu-souls,,soul,Souls live in their own bag. Seat one on gear for its power.,system-equipment.html,The soul bag + the soul slot on equipment + the class soul's upgrade
-devour,12,Devour,sheet-devour,,,,system-devour.html,
-auto_pvp,15,Auto PvP,menu-pvp,,,Queue your team against other players' teams.,system-auto-pvp.html,The arena window and its MATCHMAKING (auto) queue
-auto_optimise,20,Auto-optimise,eq-optimise,,gear,Wears the strongest pieces in your bag for you.,system-equipment.html,
-breeding,25,Breeding,menu-breed,,pair,Two creatures in a pen make eggs over time.,system-breeding.html,The pens; eggs still drop and wait in the bag
-scrolls,30,Scrolls + enchanting,bag-scroll,,scroll_target,,upgrading.html,
-grading,40,Grading,inv-grading,,,,upgrading.html,Enhancement grading (Gem / Rune / Scroll); gear grading is taught in the scripted opening
-upgrade_all,40,Upgrade All,upg-all-in,,,,upgrading.html,
-trader,40,Shadow Trader,shop-trader-tab,,,Stock changes over time. Come back for new wares.,system-shadow-trader.html,
-classes,50,Buy classes,cls-buy,,,,index.html,Class unlocks table on index.html
-competitive_pvp,60,Competitive PvP,pvp-find-match,,,,system-pvp.html,
+souls,12,Souls,menu-souls,menu,soul,Souls live in their own bag. Seat one on gear for its power.,system-equipment.html,The soul bag + the soul slot on equipment + the class soul's upgrade
+devour,12,Devour,sheet-devour,menu>menu-souls>bag-soul,,,system-devour.html,
+auto_pvp,15,Auto PvP,menu-pvp,menu,,Queue your team against other players' teams.,system-auto-pvp.html,The arena window and its MATCHMAKING (auto) queue
+auto_optimise,20,Auto-optimise,eq-optimise,menu>menu-equip,gear,Wears the strongest pieces in your bag for you.,system-equipment.html,
+breeding,25,Breeding,menu-breed,menu,pair,Two creatures in a pen make eggs over time.,system-breeding.html,The pens; eggs still drop and wait in the bag
+scrolls,30,Scrolls + enchanting,bag-scroll,menu>menu-inv,scroll_target,,upgrading.html,
+grading,40,Grading,inv-grading,menu>menu-inv>inv-dismantle,,,upgrading.html,Enhancement grading (Gem / Rune / Scroll); gear grading is taught in the scripted opening
+upgrade_all,40,Upgrade All,upg-all-in,menu>menu-equip>eq-weapon-slot>eq-upgrade,,,upgrading.html,
+trader,40,Shadow Trader,shop-trader-tab,menu>menu-shop,,Stock changes over time. Come back for new wares.,system-shadow-trader.html,
+classes,50,Buy classes,cls-buy,menu>menu-equip>eq-classes,,,index.html,Class unlocks table on index.html
+competitive_pvp,60,Competitive PvP,pvp-find-match,menu>menu-pvp,,,system-pvp.html,
