@@ -88,6 +88,19 @@ touch an approval.
 
 ## Changelog
 
+- **2026-10-23** - **Particles on ability mouseover (C12, ruling 10.6).** ON DEV. Hovering (or pressing) a move on the
+  battle move panel raises 12 motes inside that button: the motion is the move's category - offensive sparks rise
+  fast, support motes drift up, debuff motes sink - and the colour is the move's own `VFX_Color`, so the hover
+  previews the cast's element. Transform/opacity keyframes only (the 0.89 aura rule: composited, no repaint); none
+  under Low VFX (Settings VFX Low, Battery Saver, Reduce Motion, OS reduced motion). Client `moveHoverFx`.
+- **2026-10-23** - **`!stop` is a hit-hold, and vfx.html reviews under Low VFX (C10).** No game change. The flag
+  table said the target "freezes" at the impact; the client has always HELD the target's own hit reaction by an
+  animation-delay of impact + 100/150/200/250 ms, with nothing else on the stage stopped. The table now says that.
+  vfx.html gains a **Low VFX** toggle, the one other player condition the bank reads (the game's Low VFX, Battery
+  Saver, Reduce Motion or the OS query): it hands `lowVfx` to VFX_BANK as the client does and drops the flags. No
+  speed toggle, because the game has no speed: `speedF()` returns 1.
+- **2026-10-23** - **creature.html links here (C13).** The MOVES heading opens `vfx.html?id=<ID>` on that
+  creature (ruling 10.3).
 - **2026-10-22** - **Twenty-two rows recoloured to their element, and Lightless Carapace no longer hexes an enemy it
   does not touch (T14, D's Tower rulings form 2026-10-18: "Recolour to the element"; Bug Run 0.89-4 board Q7, found
   by VFX-THIN-A/B).** The thin-stage lanes matched every NEW layer to the colour the row already drew, and the row
@@ -678,7 +691,7 @@ Move-level flags are pseudo-layers, once per composition, anywhere in the list -
 |---|---|
 | `!flash` | hit tint: every target sprite is recoloured a **dark, saturated** version of its own art at the impact, 300 ms, keyed to the element. Damaging moves only. Never white (D 2026-09-17) |
 | `!shake` | stage shake, decaying: 4 px over 150 ms on an S3, 8 px over 250 ms on an ULT. **S3 and ULT only**; honours the Screen Shake and Reduce Motion settings, and **is declined while a window is open over the stage** (#948, 2026-09-17) |
-| `!stop` | hit-stop: the target freezes 100/150/200 ms (S1/S2/S3), 250 ms ULT, at the impact |
+| `!stop` | hit-hold: the target's own hit reaction (hitjolt) is **held** by an animation-delay of impact + 100/150/200 ms (S1/S2/S3), 250 ms ULT, so the sprite stands still through the impact and jolts after. Not a frame freeze - nothing else on the stage stops, the attacker is never held, and the reaction itself is untouched (play/app.js `_stopMs`, `bankStopMs`). Off under Low VFX. vfx.html does not draw the hold (it has no hit reaction) - judge `!stop` in the game (C10, 2026-10-23) |
 
 **Timing.** `t=0` is the cast. The renderer's existing hit reaction (lunge, hit shudder, damage number) is
 untouched; the **first `@t` layer is the impact** and must start by **200 ms** (`d` <= 200) so it lands with
