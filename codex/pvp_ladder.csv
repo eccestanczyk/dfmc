@@ -6,3 +6,4 @@ thin_week_players,10,T46: a week with fewer players than this (distinct attacker
 thin_week_pay_mult,0.5,T46: a thin week pays this share of every reward's days and no medal
 chal_code_ttl_min,60,B16: a challenge code expires this many minutes after it is minted
 chal_code_len,6,B16: characters in a challenge code
+apvp_daily,10,"Auto PvP: attack tickets every account holds at each UTC midnight (refill-to, not add). hardcode-3: was typed in src/apvp.js"

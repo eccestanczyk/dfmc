@@ -675,6 +675,10 @@ def gen_class_stages():
 
 def soul_mult(i):
     """src/power.js:188 soul grade multiplier: 1 + (1/9) x grade index (Worn 0)."""
+    # hardcode-3 (2026-10-23): power.js reads the step from codex stat_model.csv Soul_Grade_Step; an older client lifts its literal
+    if "return 1 + smOf('Soul_Grade_Step') * i" in client_file('src/power.js'):
+        st = dict((r['Key'].strip(), r['Value']) for r in rows('stat_model.csv') if (r.get('Key') or '').strip())
+        return 1 + float(st['Soul_Grade_Step']) * i
     m = re.search(r'return 1 \+ \(1 / (\d+)\) \* i; \};', client_file('src/power.js'))
     if not m:
         raise ValueError('src/power.js: soul grade multiplier not found')

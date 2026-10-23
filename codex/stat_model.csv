@@ -25,3 +25,22 @@ Dmg_Atk_Div,50,
 Heal_Frac,0.12,"A plain heal move restores Heal_Frac x max HP, before heal amplifiers."
 Tithe_Step,0.12,"Tithe: +Tithe_Step Attack multiplier per stack."
 APVP_HP_Mult,1.5,"Auto PvP and live PvP: every unit's max HP x APVP_HP_Mult (C1, D 2026-10-22)."
+Status_Slagbite_Def,0.22,Slagbite / Fracture: the target's Defense multiplier falls by this (additive inside the 0.3-2.5 status band). hardcode-3: was typed in src/battle.js and play/app.js statusMult.
+Status_Gravechill_Atk,0.18,Gravechill: the target's Attack multiplier falls by this.
+Status_Gravechill_Spd,2,Gravechill: Speed points lost.
+Status_Cinch_Spd,3,Cinch: Speed points lost.
+Status_Doomrune_Dmg,0.18,Doomrune (no payload): damage taken rises by this.
+Status_Warded_Dmg,0.18,Warded (no payload): damage taken falls by this.
+Sig_Sealed_Gate_Frac,0.08,Pelagos (floor 104) Sealed Gate: a single hit below this share of his max HP is reduced to zero.
+Sig_Ossuary_Rise_Frac,0.4,Sethek (floor 106) Ossuary Rebirth: he stands back up at this share of max HP.
+Sig_Carapace_Hits,5,Ostrakon (floor 110) Carapace Layers: separate damaging hits in one round that open the wall for the fight.
+Sig_Carapace_Cut,0.25,Ostrakon: the damage share a hit deals while the wall holds (75% reduced).
+Sig_Forge_Every,4,Eskaton (floor 120) The Unfinished Work: the forge rebuilds him every this many rounds.
+Sig_Forge_Cancel_Frac,0.25,"Eskaton: damage inside one round, as a share of his max HP, that cancels the next rebuild."
+Sig_Forge_Heal_Frac,0.1,Eskaton: a rebuild heals this share of his max HP.
+Boss_HP_K,5,A boss row with no Boss_HP: max HP = (Boss_HP_K x floor + Boss_HP_L0) x Stat_Scale. Boss_HP stays canonical.
+Boss_HP_L0,150,
+Soul_Grade_Step,0.1111111111111111,A soul's own grade: SoulMult = 1 + Soul_Grade_Step x grade index (Worn x1.00 -> Void x2.00). The decimal is the exact double of 1/9.
+Abyss_Stat_Step,1.01,The abyss past floor 120: every enemy stat x Abyss_Stat_Step per abyss floor above the first.
+Class_Stage_2_Lv,33,The class line reaches stage 2 at this class level (D ruling 2026-07-27).
+Class_Stage_3_Lv,66,The class line reaches stage 3 at this class level.
