@@ -283,7 +283,7 @@ set_controls_kinv_desc,"With the soul bag open, opens the item bag.",settings: r
 set_controls_klock_label,Lock / Unlock Hovered,settings: row label
 set_controls_klock_desc,Hover a creature or item in either bag and press it. Does exactly what the LOCK button does.,settings: row description
 set_controls_kstrip_label,Taskbar Mode,settings: row label (Steam build only)
-set_controls_kstrip_desc,Shrinks the game to a strip above the taskbar. Does exactly what the TASKBAR MODE menu button does.,settings: row description (Steam build only)
+set_controls_kstrip_desc,Shrinks the game to a strip above the taskbar. Does exactly what the TASKBAR MODE menu button does. On a controller through Steam Input hold View / Back for one second.,settings: row description (Steam build only)
 set_tutorials,Tutorials,settings: section name
 set_tutorials_note,"An arrow points at each system the floor you reach opens, until you click it once. It never blocks play.",settings: section note
 set_tutorials_arrows_label,Tutorial Arrows,settings: row label
