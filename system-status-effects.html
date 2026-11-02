@@ -43,7 +43,22 @@
     <li><strong>Damage taken</strong> follows the same additive rule and the same 0.30&ndash;2.50 clamp, summed over the target's statuses at hit time.</li>
     <li>Because deltas sum, a buff and a debuff on one stat cancel point for point: +50% and &minus;30% is &times;1.20.</li>
   </ul>
-  <p>Legacy named statuses that carry no numeric payload contribute fixed deltas: <em>Slagbite</em> and <em>Fracture</em> &minus;22% Defense, <em>Gravechill</em> &minus;18% Attack and &minus;2 Speed, <em>Cinch</em> &minus;3 Speed, <em>Doomrune</em> +18% damage taken, <em>Warded</em> &minus;18% damage taken.</p>
+  <p>Legacy named statuses that carry no numeric payload contribute fixed deltas: <em>Slagbite</em> and <em>Fracture</em> &minus;<span data-csv="stat_model.csv#Status_Slagbite_Def#Value" data-csv-fmt="x100,d0,%">22%</span> Defense, <em>Gravechill</em> &minus;<span data-csv="stat_model.csv#Status_Gravechill_Atk#Value" data-csv-fmt="x100,d0,%">18%</span> Attack and &minus;<span data-csv="stat_model.csv#Status_Gravechill_Spd#Value" data-csv-fmt="d0">2</span> Speed, <em>Cinch</em> &minus;<span data-csv="stat_model.csv#Status_Cinch_Spd#Value" data-csv-fmt="d0">3</span> Speed, <em>Doomrune</em> +<span data-csv="stat_model.csv#Status_Doomrune_Dmg#Value" data-csv-fmt="x100,d0,%">18%</span> damage taken, <em>Warded</em> &minus;<span data-csv="stat_model.csv#Status_Warded_Dmg#Value" data-csv-fmt="x100,d0,%">18%</span> damage taken (the <code>Status_*</code> rows of <code>codex/stat_model.csv</code>, which the game reads; the numbers on this page are filled from that file).</p>
+
+  <h2>The named statuses</h2>
+  <p>Most statuses are built from a move&rsquo;s own text (<em>+50% Attack, 3t</em>) and carry that move&rsquo;s name. A handful of riders are named effects the engine knows by name; this is what each one does to the unit carrying it.</p>
+  <table>
+    <tr><th>Status</th><th>Family</th><th>Effect while it lasts</th></tr>
+    <tr><td class="lbl">Slagbite, Fracture</td><td>Defense down</td><td>Takes more damage from every hit (the Defense delta above).</td></tr>
+    <tr><td class="lbl">Scorchrot</td><td>Damage over time</td><td>Loses 6% of max HP at the end of each of its turns.</td></tr>
+    <tr><td class="lbl">Necrovenom, Mothervenom, Graveleech</td><td>Damage over time</td><td>Loses 5% of max HP at the end of each of its turns.</td></tr>
+    <tr><td class="lbl">Doomrune</td><td>Mark</td><td>Takes more damage from every source (the damage-taken delta above).</td></tr>
+    <tr><td class="lbl">Gravechill</td><td>Attack down, slower</td><td>Hits softer and acts later.</td></tr>
+    <tr><td class="lbl">Cinch, Slowed</td><td>Slower</td><td>Acts later in the turn order.</td></tr>
+    <tr><td class="lbl">Bind</td><td>Stun</td><td>Skips its action while bound.</td></tr>
+    <tr><td class="lbl">Warded, Guarded, Hastened, Blessed, Rallied</td><td>Buffs</td><td>Protective or empowering effects granted by allies; <em>Warded</em> lowers damage taken by the delta above.</td></tr>
+  </table>
+  <p class="foot">The family of each name is the <code>STATUS_ITYPE</code> map and the per-turn fractions the <code>DOT</code> map, both in <code>src/battle.js</code>, built into <code>play/battle_module.js</code>; they pick the chip icon and the tooltip family too.</p>
 
   <h2>Synergy clauses and the caster</h2>
   <p>A move's Synergy clause is a second buff clause gated on creature type. Two rules govern whether the caster is included:</p>
@@ -134,6 +149,7 @@ only worth carrying on a unit that took no damage, which is the one unit that ne
 <h2>Changelog</h2>
 
   <ul>
+    <li><strong>2026-11-03 &mdash; codex review (dfmc-client lane codexreview-a; D 2026-11-03 &ldquo;review the codex, clean it up, update whatever needs updating&rdquo;). WIKI ONLY.</strong> The six legacy deltas were pasted numbers; the game has read them from <code>stat_model.csv</code> since hardcode-3 (2026-10-23), so the page now fills them from that file (<code>csv-bind.js</code>). A player-facing table of the named statuses (what Scorchrot, Doomrune, Bind and the rest do) was missing and is added from the engine&rsquo;s own status map. Stacking, clamps, targeting and the signature rule re-checked against <code>statusMult</code> at dev HEAD: unchanged (0.30&ndash;2.50 clamp, additive deltas).</li>
     <li><strong>2026-09-30 &mdash; six moves' conditional riders fire again (review F6-004, S2). Client parser; dev.</strong> The moves.csv effect parser tested a catch-all for rider sentences (<em>if target already has X, extend it Nt</em>; <em>if target has X, also &hellip;</em>; <em>Fungal/Undead ally(ies) +N%</em> and <em>if no X ally, self +N%</em>; <em>if the user was not hit last turn, also +N%</em>; <em>consumes the mark</em>) before the rules that build the engine payloads, so each sentence was filed as an unread note and the battle engine (which has implemented all five riders since 2026-07-24) never saw them, PvE and PvP alike. The rider rules now match first. Affected: Dusting of Quiet Rot (M-SPOREFLY-3) extends Infected; Patient Carriers (M-SPOREFLY-4) buffs Fungal allies; Vesper Brood (M-VESPERA-4) adds the Defense cut on a Venom Bloom target; Dance of the Hanged (M-GALLOWVINE-4) buffs Undead allies or falls back to self; The Hunt Ends All (M-VOIDHOUND-1) consumes Death-Marked; Deathless Orders (M-VIGIL-3) adds its not-hit Attack buff. No authored number changed; every other move's parse is identical (all 401 rows diffed).</li>
     <li><strong>2026-09-30 &mdash; review drift fixes: F077. Codex only.</strong> The <em>Signature mechanics cannot be removed</em> footnote pointed at <code>applyFxTo</code> in <code>play/app.js</code>, a dead twin with no caller since 3.7; it now names the live <code>src/battle_round.js</code> / <code>play/battle_module.js</code> path. No rule changed.</li>
     <li><strong>2026-09-07 &mdash; thorns reflects the damage actually dealt (#771, D ruling A; retracts the 09-02 rule). LIVE on release since 2026-09-08 (0.71).</strong> The floor-108 Talos&rsquo;s 15% thorns one-shot a 3,862-HP attacker for a 1,722 hit because the share was taken from the attacker&rsquo;s raw output (28,790); it now returns 15% of what Talos lost (258), never more than it had left. Both sources.</li>
@@ -145,6 +161,7 @@ only worth carrying on a unit that took no damage, which is the one unit that ne
   </ul>
 </div>
 <script src="admin.js"></script>
+<script src="csv-bind.js"></script>
 <script src="nav.js"></script>
 </body>
 </html>

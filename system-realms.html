@@ -15,7 +15,7 @@
 <div class="topbar"><h1 style="font-family:'Cinzel',serif;">DEATH &amp; REALMS</h1></div>
 <div class="sp-wrap">
   <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; Death &amp; Realms</div>
-  <p class="sp-lead">Herumon Tower has <strong>one realm</strong>. Every account holds one character, one save, one leaderboard presence. Death costs the win streak and nothing else &mdash; characters, creatures and items persist forever.</p>
+  <p class="sp-lead">Herumon Tower has <strong>one realm</strong>. Every account holds one character, one save, one leaderboard presence. Death costs the win streak and nothing else &mdash; characters, creatures and items persist forever. (Autoplay can be set to step down one floor after a defeat &mdash; <em>On Death: Go Down</em>, its default &mdash; but that is your own setting, not a penalty; see <a href="system-autoplay.html">Autoplay</a>.)</p>
 
   <h2>One game mode</h2>
   <p><strong>SCOPE, D 2026-08-28 (correcting an over-reach):</strong> &ldquo;crypt&rdquo; here means <strong>the Bequest inbox &mdash; the mechanism by which items crossed from Hardcore back into the standard league</strong>, and nothing else. It does <em>not</em> mean the floor-90 den, whose name is <strong>The Undying Crypt</strong> (Varkolan, the Undying King, and its Void Apex twin on floor&nbsp;118). That is a place in the game and it stays, in <code>floors.csv</code>, <code>bosses.csv</code> and everywhere the game names it. The floor-90 key&rsquo;s description and art prompt were stripped of the den name on this reading and have been <strong>restored</strong>; no art was regenerated, so nothing else follows from it.</p>
@@ -23,6 +23,7 @@
 
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-11-03 &mdash; codex review (dfmc-client lane codexreview-a; D 2026-11-03 &ldquo;review the codex, clean it up, update whatever needs updating&rdquo;). WIKI ONLY.</strong> Checked against the worker at dev HEAD: the realm is still the constant <code>standard</code> on every door, and nothing hardcore, crypt-bag or HC-season survives in the server; the only &ldquo;season&rdquo; left anywhere is the Auto PvP weekly settle (see <a href="system-auto-pvp.html">Auto PvP</a>). The lead now names the autoplay <em>On Death</em> step-down so &ldquo;nothing else&rdquo; cannot be read as a contradiction, and the page carries the shared nav like every other system page.</li>
     <li><strong>2026-08-28 &mdash; the wipe broke the interface on dev, and it is fixed.</strong> Stage&nbsp;2 deleted
       the crypt-bag block and took the <code>agoStr</code> time formatter with it &mdash; but that helper had
       <strong>two</strong> callers and only one was crypt. The other is the PvP history list, which the same order marks
@@ -37,5 +38,6 @@
 
   <div class="sp-note">Related: <a href="system-networking.html">Networking &amp; Saves</a> for the save door, <a href="system-pvp.html">PvP</a> for the ladder.</div>
 </div>
+<script src="nav.js"></script>
 </body>
 </html>

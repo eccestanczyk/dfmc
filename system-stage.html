@@ -21,7 +21,7 @@
 
   <h2>fitScale</h2>
   <p>The stage carries <code>zoom: fitScale</code>, where
-  <code>fitScale = min(innerWidth/1920, innerHeight/1080)</code>, recomputed on <code>resize</code>.</p>
+  <code>fitScale = min((innerWidth &minus; safe-area left &minus; right)/1920, (innerHeight &minus; safe-area top &minus; bottom)/1080)</code>, recomputed on <code>resize</code>; on a desktop the safe-area insets are zero and it is the plain minimum of the two ratios. The whole stage scales as one piece &mdash; there is no separate text-scale token (the <code>--txs</code> text scale tried in 0.92 came out under D&rsquo;s T57 ruling of 2026-11-02, &ldquo;no text scaling!&rdquo;).</p>
   <table>
     <tr><th>Device</th><th>fitScale</th><th>Stage drawn at</th></tr>
     <tr><td class="lbl">Desktop 1600&times;900</td><td>0.833</td><td>1600&times;900 &mdash; fills exactly</td></tr>
@@ -79,7 +79,7 @@
   <p class="note"><strong>THE DIAGNOSTIC, and it is the whole trick: a <code>position:fixed</code>
   element does not move when the document scrolls, but it does grow when the page is zoomed.</strong>
   The shell's fullscreen button (<code>#__fs</code>, <code>top:10; right:10</code>) is therefore a free
-  ruler on any screenshot. If it sits at the same pixel while the HUD has shifted, the page is
+  ruler on any screenshot. <em>Since T55 (2026-11-02) the fullscreen toggle lives inside the MENU hud, right of the plate, and the floating <code>#__fs</code> hides whenever that hud is mounted &mdash; so the ruler is only there on the sign-in gate, the loader and the evolution screen. Elsewhere compare the stage&rsquo;s own left edge against the viewport: a scrolled page moves it, a zoomed page resizes it.</em> If it sits at the same pixel while the HUD has shifted, the page is
   <strong>scrolled</strong>. If it has changed size, the page is <strong>zoomed</strong>. Chasing this
   as a zoom problem costs a session &mdash; browser zoom does not clear a scroll offset, so
   <kbd>Ctrl</kbd>+/&minus; appears to do nothing and looks like a dead end. <strong>Only a reload
@@ -104,7 +104,7 @@
   <ul class="sp-rules">
     <li>The button sits <strong>flush in the stage's top-left corner</strong> &mdash;
       <code>left:0; top:0</code> on its host &mdash; and is <strong>rectangular</strong>,
-      <code>border-radius:0</code>. It measures 143&times;56 stage px. It was previously inset
+      <code>border-radius:0</code>. It is 64 stage px tall; since T55 (2026-11-02) a 48px round fullscreen toggle sits to its right in the same row, and every window header keeps a band clear for both (title margin 258 stage px). It was previously inset
       <code>24,8</code> with <code>border-radius:999px</code>, a pill. (D, 2026-08-05.)</li>
     <li>Its dropdown is 1780px wide plus 18px padding = 1816px, so it fits the 1920px stage with the
       host at <code>left:0</code>. Moving the host any further right narrows that margin.</li>
@@ -137,6 +137,7 @@
   <code>tools/probe_shoplist.py</code> &mdash; each measures at a phone viewport, not only at desktop.</p>
 
   <h2>Changelog</h2>
+  <p><strong>2026-11-03 &mdash; codex review (dfmc-client lane codexreview-a; D 2026-11-03 &ldquo;review the codex, clean it up, update whatever needs updating&rdquo;). WIKI ONLY.</strong> The fitScale formula now shows the safe-area insets the client subtracts (phones with a notch), and says there is no text-scale token after T57. The scroll-vs-zoom diagnostic relied on the floating fullscreen button, which T55 moved into the MENU hud; the note says where the ruler still exists and what to compare elsewhere. The MENU plate&rsquo;s stated size read 143&times;56; the button is 64 stage px tall with the 48px toggle beside it. The glyph survey and the measured tables stay as the dated measurements they are.</p>
   <p><strong>2026-08-29 &mdash; a creature's sheet shows the moves it actually knows. LIVE on release since 2026-09-01 (0.65).</strong> A player noticed his level 93 creature described a move one way when equipped and
   another way on its own sheet &mdash; the sheet was still printing the first-stage name and text. The
   sheet is shared with the codex, and the codex deliberately shows every line at stage one because a codex
