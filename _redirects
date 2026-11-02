@@ -1,0 +1,2 @@
+# codex.playdfmc.com (Workers static assets): html_handling is "none", so the root needs a rule. Pages serves index.html at /.
+/ /index.html 200

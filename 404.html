@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HERUMON TOWER — CODEX — not found</title>
+<link rel="stylesheet" href="theme.css?v=4">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+  .nf { max-width: 640px; margin: 10vh auto 0; padding: 0 24px; text-align: center; }
+  .nf h1 { font-size: 28px; letter-spacing: .08em; margin: 0 0 12px; }
+  .nf p { opacity: .85; line-height: 1.6; }
+  .nf code { font-size: 13px; word-break: break-all; }
+</style>
+</head>
+<body>
+<!-- codex.playdfmc.com answers this page (status 404) for any path that is not a file; wrangler.jsonc
+     not_found_handling "404-page". GitHub Pages serves its own 404. -->
+<div class="nf">
+  <h1>NOT FOUND</h1>
+  <p>No codex page at <code id="nf-path"></code>.</p>
+  <p><a href="hub.html">The codex hub</a> lists every page; <a href="creature-codex.html">the creature codex</a>,
+     <a href="floor-codex.html">the floor codex</a> and <a href="index.html">the design document</a> are the big ones.</p>
+</div>
+<script>document.getElementById('nf-path').textContent = location.pathname + location.search;</script>
+<script src="nav.js"></script>
+</body>
+</html>

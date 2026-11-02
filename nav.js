@@ -6,6 +6,16 @@
    ============================================================ */
 
 (function(){
+  // ---- the GitHub Pages copy forwards to the game's domain (2026-11-03, board N5 / card T70; D: "Codex goes to
+  // the website!") ---- the codex is served from https://codex.playdfmc.com/ (wrangler.jsonc, tools/deploy_codex.sh).
+  // Pages keeps serving the tree (the dev client reads csv from it; old links keep working) but a page opened there
+  // goes to the same path on the new host, search and hash intact. pages-redirect.js is this same check for the
+  // eight pages that do not load nav.js - keep the two identical.
+  if (location.hostname === 'eccestanczyk.github.io') {
+    location.replace('https://codex.playdfmc.com' + location.pathname.replace(/^\/dfmc(?=\/|$)/, '') + location.search + location.hash);
+    return;
+  }
+
   // ---- always-fresh content ----
   // GitHub Pages serves everything with `cache-control: max-age=600` and gives
   // us no way to change that, so the browser happily shows a 10-minute-stale

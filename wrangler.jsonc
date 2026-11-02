@@ -1,0 +1,24 @@
+{
+  // THE CODEX SITE ON THE GAME'S DOMAIN (2026-11-03, board N5 / rulings card T70; D 2026-11-03: "Codex goes to the
+  // website!"). The ~55 pages, their csv, thumbs and images are a Cloudflare Worker with static assets, no script:
+  // https://codex.playdfmc.com/ (custom domain on the playdfmc.com zone, same account as tools/cf_wrangler.sh in
+  // dfmc-client). GitHub Pages (eccestanczyk.github.io/dfmc) keeps serving the same tree and every page there
+  // forwards to the same path here (nav.js / pages-redirect.js) - the dev client's csv reads still go to Pages.
+  //
+  // The assets directory is NOT this checkout: the checkout is sparse (codex/images, floors and _parking are not on
+  // disk), so tools/deploy_codex.sh exports `git archive HEAD` minus the trees nobody serves into _site/ and deploys
+  // that. .assetsignore (archived with the tree) is the second filter. Deploy:
+  //     bash tools/deploy_codex.sh          (from this repo; calls dfmc-client/tools/cf_wrangler.sh for the token)
+  // Platform limits: 20,000 files, 25 MiB per file. ~5,300 files / ~800 MiB today (ground plates are the webp set;
+  // the png masters and codex/images/originals are not served, exactly as the Pages workflow filters them).
+  "name": "dfmc-codex",
+  "compatibility_date": "2026-07-01",
+  "assets": {
+    "directory": "./_site",
+    "not_found_handling": "404-page",
+    // "none": the pages link each other and the game links them as `<page>.html`; every other mode answers
+    // `/hub.html` with a 307 to `/hub`. `/` is served by _redirects (-> index.html, as on Pages).
+    "html_handling": "none"
+  },
+  "routes": [ { "pattern": "codex.playdfmc.com", "custom_domain": true } ]
+}

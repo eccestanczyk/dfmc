@@ -1,0 +1,21 @@
+# What codex.playdfmc.com does NOT serve (wrangler reads this at the assets root; tools/deploy_codex.sh archives
+# it into _site/ with the tree). The same filter the GitHub Pages workflow applies, plus the repo plumbing
+# nobody links to. gitignore syntax: `floors/ground_plates/*.png` is the png masters only - the 1080/*.webp
+# set the pages load stays.
+.git
+.github
+.claude
+.wrangler
+.gitignore
+.assetsignore
+wrangler.jsonc
+_parking
+_site
+archive
+tools
+scripts
+__pycache__
+codex/images/originals
+floors/ground_plates/*.png
+*.py
+/*.md
