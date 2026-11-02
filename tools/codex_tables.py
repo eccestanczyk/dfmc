@@ -1024,7 +1024,7 @@ def gen_xp_formulas():
         '<table>',
         '    <tr><th>Quantity</th><th>Expression</th></tr>',
         '    <tr><td class="lbl">XP required, levels 1&ndash;%d</td><td><code>10 &times; L^1.75</code></td></tr>' % poly,
-        '    <tr><td class="lbl">XP required, levels %d&ndash;%d</td><td>The rows of <code>XPCurve.csv</code>: per-level growth ramps from %s%% at %d to %s%% at %d (C1, 2026-10-23)</td></tr>' % (
+        '    <tr><td class="lbl">XP required, levels %d&ndash;%d</td><td>The rows of <code>XPCurve.csv</code>: per-level growth ramps from %s%% at %d to %s%% at %d (C1, 2026-10-23; the ramp&rsquo;s end +12%% &rarr; +16%% by D&rsquo;s T53 ruling, 2026-11-02)</td></tr>' % (
             poly + 1, top, fx(gr(poly + 1) * 100, 1), poly + 1, fx(gr(top - 1) * 100, 1), top - 1),
         '    <tr><td class="lbl">XP required, player level %d+</td><td><code>XPCurve.csv</code> row %d <code>XP_Account_Flat</code> = %s &mdash; flat forever (player level only; creatures and classes cap at %d)</td></tr>' % (
             top + 1, top, span('XPCurve.csv#%d#XP_Account_Flat' % top, g(flat), 'g'), top),
