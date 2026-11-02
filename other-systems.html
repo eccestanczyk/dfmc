@@ -39,10 +39,15 @@
 </div>
 
 <div class="sys-wrap">
-  <p class="sys-intro">Mechanics that sit outside the core loop &mdash; how experience, penalties, and progression math actually resolve. Each entry is a self-contained rules page.</p>
+  <p class="sys-intro">Every rules page in one place &mdash; progression, combat, accounts, breeding, PvP, the shell. Each entry is a self-contained page: player-facing text first, implementation notes after.</p>
 
   <div class="sys-section-label">Progression</div>
   <div class="sys-grid">
+    <a class="sys-card" href="system-unlocks.html">
+      <div class="tag">Rules</div>
+      <h2>System Unlocks</h2>
+      <p>Which floor opens which system (codex/unlocks.csv), the scripted opening on floors 1&ndash;5, and the one arrow per rung.</p>
+    </a>
     <a class="sys-card" href="system-level-penalty.html">
       <div class="ic">&#9878;</div>
       <h2>Level Penalty</h2>
@@ -86,6 +91,16 @@
       <div class="ic">&#9876;</div>
       <h2>PvP, Timers &amp; Persistence</h2>
       <p>Arena screen, move timers, crash/disconnect handling, removed-mode quit rules, leaderboards.</p>
+    </a>
+    <a class="sys-card" href="system-profiles.html">
+      <div class="tag">Rules</div>
+      <h2>Profiles, Badges &amp; Achievements</h2>
+      <p>The public profile opened from the rankings, the 14 server-awarded badges, and the Steam achievements the same facts unlock.</p>
+    </a>
+    <a class="sys-card" href="system-premium-shop.html">
+      <div class="tag">Rules</div>
+      <h2>Premium Shop &amp; Wraithgold</h2>
+      <p>Timed boons, extra Auto PVP attacks, the premium pens; the server-owned Wraithgold ledger. Real-money purchases are not open yet.</p>
     </a>
     <a class="sys-card" href="system-realms.html">
       <div class="ic">&#128123;</div>
@@ -166,9 +181,31 @@
       <h2>Client Shell &amp; Platform Rendering</h2>
       <p>The 1920&times;1080 stage and how it scales to any screen &mdash; the fit factor, the text fitter, the scroll pin, fullscreen &amp; orientation, the build watcher, and per-platform rendering rules (iOS).</p>
     </a>
+    <a class="sys-card" href="system-accounts.html">
+      <div class="tag">Rules</div>
+      <h2>Accounts &amp; Sign-in</h2>
+      <p>Steam, Google and Discord sign-in, Link Account, the one-window rule, the per-account reset (T61), export and the 7-day deletion.</p>
+    </a>
+    <a class="sys-card" href="system-feedback.html">
+      <div class="tag">Rules</div>
+      <h2>The Report Panel</h2>
+      <p>Bug, suggestion or other from inside the game; what rides along with a report and what happens to it.</p>
+    </a>
   </div>
 
-  <!-- Records & History: the Adventure Log card was removed 2026-10-22 (D, T31-2: the player-side log is retired; the action log is server side only). -->
+  <div class="sys-section-label">Records &amp; History</div>
+  <div class="sys-grid">
+    <a class="sys-card" href="system-adventure-log.html">
+      <div class="tag">Retired</div>
+      <h2>Adventure Log (retired)</h2>
+      <p>The player-side log was retired 2026-10-22 (D, T31-2); the action log is server side only. Kept as the record of the system.</p>
+    </a>
+    <a class="sys-card" href="crafting.html#archive">
+      <div class="tag">Removed</div>
+      <h2>Crafting (removed)</h2>
+      <p>Removed from the game 2026-10-01 (D, card <code>craft</code>). Materials feed <a href="upgrading.html">Upgrading</a> now; the page is the record.</p>
+    </a>
+  </div>
 </div>
 
 <script src="admin.js"></script>

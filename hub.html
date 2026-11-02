@@ -41,6 +41,11 @@
 .hub-card p{ font-size:13px; color:var(--ink-dim); font-style:italic; line-height:1.4; margin:0; }
 .hub-card:hover h2{ color:var(--blood-bright); }
 .hub-card.admin-only{ display:none; }
+.hub-list{ list-style:none; margin:0; padding:0; columns:2; column-gap:28px; }
+.hub-list li{ break-inside:avoid; margin:0 0 7px; font-size:13px; color:var(--ink-dim); line-height:1.4; }
+.hub-list a{ font-family:'Cinzel',serif; font-weight:600; font-size:13px; color:var(--gold-bright); text-decoration:none; }
+.hub-list a:hover{ color:var(--blood-bright); }
+@media (max-width:640px){ .hub-list{ columns:1; } }
 .admin-mode .hub-card.admin-only{ display:flex; border-style:dashed; }
 </style>
 </head>
@@ -62,7 +67,7 @@
 
   <p style="font-family:'Cinzel',serif;font-size:14px;color:var(--ink-dim);text-align:center;line-height:1.6;max-width:680px;margin:18px auto 26px;">
     <span style="display:block;color:var(--ink);font-weight:600;margin-bottom:6px;">A dark-fantasy, creature-collecting, competitive turn-based RPG.</span>
-    <span style="font-style:italic;">In this prototype: climb 100 floors; hatch, breed, and advance 300 monsters; upgrade equipment; and tune your builds to reach the top of the leaderboards. Auto-mode takes the grind out of leveling &mdash; but to compete, you sharpen your own strategies and outplay other players head-to-head.</span>
+    <span style="font-style:italic;">In this prototype: climb the 100 floors and the Void Apex above them; hatch, breed, and advance 300 monsters; upgrade equipment; and tune your builds to reach the top of the leaderboards. Auto-mode takes the grind out of leveling &mdash; but to compete, you sharpen your own strategies and outplay other players head-to-head.</span>
   </p>
 
   <div class="hub-section-label">Codex</div>
@@ -85,7 +90,7 @@
     <a class="hub-card" href="floor-codex.html">
       <div class="hub-icon">🗺</div>
       <h2>Floor Map</h2>
-      <p>100 floors across 10 zones. Encounters, bosses, and creatures by depth.</p>
+      <p>100 floors across 10 zones, then the Void Apex to 120. Encounters, bosses, and creatures by depth.</p>
     </a>
     <a class="hub-card" href="bosses.html">
       <div class="hub-icon">👑</div>
@@ -95,7 +100,7 @@
     <a class="hub-card" href="reliquary.html">
       <div class="hub-icon">⚱</div>
       <h2>Reliquary</h2>
-      <p>Equipment, souls, and artifacts.</p>
+      <p>Equipment, souls, and artifacts. Each item has its own page.</p>
     </a>
       <a class="hub-card" href="classes.html">
         <div class="hub-icon">🛡️</div>
@@ -112,10 +117,20 @@
         <h2>Upgrading</h2>
         <p>Grading, enhancement — costs and odds</p>
       </a>
-    <a class="hub-card" href="crafting.html">
-      <div class="hub-icon">🔨</div>
-      <h2>Crafting</h2>
-      <p>Gear crafting, enhancement socketing, and material loops.</p>
+    <a class="hub-card" href="eggs.html">
+      
+      <h2>Eggs</h2>
+      <p>Egg types, hatch weights by grade, and where each egg drops.</p>
+    </a>
+    <a class="hub-card" href="type-glossary.html">
+      
+      <h2>Type Glossary</h2>
+      <p>The creature types, their matchups and what each one means in a fight.</p>
+    </a>
+    <a class="hub-card" href="system-unlocks.html">
+      
+      <h2>System Unlocks</h2>
+      <p>Which floor opens which system, the scripted opening, and the arrows.</p>
     </a>
   </div>
 
@@ -138,15 +153,71 @@
     <a class="hub-card" href="checklist.html">
       <div class="hub-icon">☑</div>
       <h2>Implementation Checklist</h2>
-      <p>17-phase Unity build tracker.</p>
+      <p>The original Unity-era build tracker. Superseded by the web client; kept as history.</p>
     </a>
     <a class="hub-card" href="other-systems.html">
       <div class="hub-icon">⚙</div>
       <h2>Other Systems</h2>
-      <p>Level penalty, XP, streaks, and other rules that sit outside the core loop.</p>
+      <p>Every rules page: progression, combat, accounts, breeding, PvP, the shell. One card per system.</p>
+    </a>
+    <a class="hub-card" href="research.html">
+      <h2>Research</h2>
+      <p>Outside evidence measured against what the build does, entry by entry.</p>
+    </a>
+    <a class="hub-card" href="move-icons.html">
+      <h2>Move Effect Icons</h2>
+      <p>The icon set every move tip and effect badge draws from.</p>
+    </a>
+    <a class="hub-card" href="floor-assets.html">
+      <h2>Floor Assets</h2>
+      <p>Floor plates and backgrounds by zone, with their approval state.</p>
+    </a>
+    <a class="hub-card" href="crafting.html#archive">
+      <h2>Crafting (archived)</h2>
+      <p>Removed from the game 2026-10-01. The record of the system; materials now feed <em>Upgrading</em>.</p>
     </a>
   </div>
 
+
+  <div class="hub-section-label">Systems</div>
+  <ul class="hub-list">
+    <li><a href="system-unlocks.html">System Unlocks</a> &mdash; which floor opens which system; the opening and the arrows.</li>
+    <li><a href="system-xp.html">XP &amp; Leveling</a> &mdash; per-level XP, the account level, time-to-level bands.</li>
+    <li><a href="system-level-penalty.html">Level Penalty</a> &mdash; XP scaled by the level gap to the enemy.</li>
+    <li><a href="system-streak.html">Win Streak &amp; Floors</a> &mdash; streak thresholds, portal gating, loss reset.</li>
+    <li><a href="system-grade.html">Grade Multiplier</a> &mdash; the shared stat multiplier by creature grade.</li>
+    <li><a href="system-gender.html">Gender</a> &mdash; 50/50 on hatch, permanent, server-rolled.</li>
+    <li><a href="system-mutants.html">Mutant Variants</a> &mdash; rare cosmetic roll odds.</li>
+    <li><a href="system-status-effects.html">Status Effects</a> &mdash; buff identity, stacking, Synergy, targeting.</li>
+    <li><a href="system-party.html">The Active Party</a> &mdash; avatar plus two creature slots.</li>
+    <li><a href="system-equipment.html">Equipment &amp; Auto-Optimize</a> &mdash; the gear lock and the optimizer.</li>
+    <li><a href="system-sockets.html">Socket Ownership</a> &mdash; gems, runes and scrolls when an item leaves a slot.</li>
+    <li><a href="system-devour.html">Devour</a> &mdash; consume one creature into another.</li>
+    <li><a href="system-breeding.html">Breeding</a> &mdash; six pens, Food drain, pair grade, the egg economy.</li>
+    <li><a href="system-autoplay.html">Autoplay &amp; Transits</a> &mdash; the auto-engage loop and floor transits.</li>
+    <li><a href="system-realms.html">Death &amp; Realms</a> &mdash; the death pipelines and the removed inbox.</li>
+    <li><a href="system-pvp.html">PvP &amp; Leaderboards</a> &mdash; arena, move timers, persistence, the rankings window.</li>
+    <li><a href="system-auto-pvp.html">Auto PVP</a> &mdash; attack a snapshot, defend offline, Glicko-2.</li>
+    <li><a href="system-profiles.html">Profiles, Badges &amp; Achievements</a> &mdash; the public profile, badges.csv, Steam achievements.</li>
+    <li><a href="system-shadow-trader.html">The Shadow Trader</a> &mdash; the weekend currency exchange.</li>
+    <li><a href="system-premium-shop.html">Premium Shop &amp; Wraithgold</a> &mdash; boons, extra attacks, pens; purchases not open yet.</li>
+    <li><a href="system-void-apex.html">Void Apex</a> &mdash; floors 101&ndash;120, &uuml;ber bosses, consumable keys.</li>
+    <li><a href="system-accounts.html">Accounts &amp; Sign-in</a> &mdash; providers, linking, reset, export, deletion.</li>
+    <li><a href="system-feedback.html">The Report Panel</a> &mdash; the in-game bug / suggestion form.</li>
+    <li><a href="system-client-shell.html">Client Shell &amp; Platform</a> &mdash; the stage, fullscreen, the build watcher, Taskbar mode, the Dimensional Rift.</li>
+    <li><a href="system-stage.html">The Stage</a> &mdash; the fixed 1920&times;1080 box and fitScale.</li>
+    <li><a href="system-networking.html">Networking Architecture</a> &mdash; endpoints, write paths, the trust boundary.</li>
+    <li><a href="system-integrity.html">Save, Economy &amp; Anti-Cheat</a> &mdash; authority split, accrual caps, replay verification.</li>
+    <li><a href="system-adventure-log.html">Adventure Log (retired)</a> &mdash; the player-side log, retired 2026-10-22; record only.</li>
+  </ul>
+
+  <div class="hub-section-label">Tutorials</div>
+  <div class="hub-grid">
+    <a class="hub-card" href="tutorials/index.html">
+      <h2>Tutorials</h2>
+      <p>Step-by-step guides to the climb, the pens, the bags and the arena. Written page by page as the tutorial lanes land.</p>
+    </a>
+  </div>
 
   <div class="hub-section-label">Settings</div>
   <div class="hub-grid">
@@ -161,10 +232,18 @@
       <h2>Help &amp; FAQ</h2>
       <p>Player questions answered, each linked to the page that owns the rule.</p>
     </a>
+    <a class="hub-card" href="system-accounts.html">
+      <h2>Accounts &amp; Sign-in</h2>
+      <p>Steam, Google and Discord sign-in, linking logins, the per-account reset, export and deletion.</p>
+    </a>
+    <a class="hub-card" href="system-feedback.html">
+      <h2>The Report Panel</h2>
+      <p>Report a bug or a suggestion from inside the game, and what rides along with it.</p>
+    </a>
     <a class="hub-card" href="privacy.html" style="border-style:dashed;">
       <div class="hub-icon">&#128274;</div>
       <h2>Privacy &amp; Terms</h2>
-      <p>What the game stores about players, and why &mdash; a draft awaiting company details and legal review. The Terms of Service and the account deletion page are linked from it.</p>
+      <p>What the game stores about players, and why &mdash; a draft awaiting company details and legal review. The <a href="terms.html" style="color:inherit">Terms of Service</a> and the <a href="delete-account.html" style="color:inherit">account deletion page</a> are linked from it.</p>
     </a>
     <a class="hub-card" href="credits.html">
       <div class="hub-icon">&#127881;</div>
@@ -204,6 +283,14 @@
       <div class="hub-icon">📥</div>
       <h2>Feedback Pipeline</h2>
       <p>Community intake, AI ticket clustering, triage console, and the creature rating system.</p>
+    </a>
+    <a class="hub-card admin-only" href="pending-art.html">
+      <h2>Pending Art</h2>
+      <p>Creature art awaiting approval.</p>
+    </a>
+    <a class="hub-card admin-only" href="pending-crop.html">
+      <h2>Pending Crop</h2>
+      <p>Art awaiting background removal.</p>
     </a>
   </div>
 
