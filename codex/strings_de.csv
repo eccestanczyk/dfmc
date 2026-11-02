@@ -566,3 +566,5 @@ unl_breeding,Zwei Kreaturen in einem Gehege legen mit der Zeit Eier.,unlocks.csv
 unl_trader,Das Angebot wechselt mit der Zeit. Schau wieder vorbei für neue Waren.,unlocks.csv trader Line (the unlock lesson line; edit both)
 unl_transfer,"Der Riss nach Herumon Dungeon ist offen. Schick eine Kreatur hindurch: eine Kopie, kostenlos, einmal. Sie kommt auf Stufe 1 an und behält ihren Grad.",unlocks.csv transfer Line (the unlock lesson line; edit both)
 m_unl_generic,Geöffnet auf Etage {f}. Klick einmal darauf, um zu beginnen.,app: unlock lesson: the generic line when unlocks.csv has no Line
+portal_sealed_win,VERSIEGELT · NOCH 1 SIEG,"app: floor portal: sealed, one win left (#1142)"
+portal_sealed_wins,VERSIEGELT · NOCH {n} SIEGE,"app: floor portal: sealed, {n} wins left (#1142)"

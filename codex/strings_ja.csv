@@ -566,3 +566,5 @@ unl_breeding,囲いに入れた2体のクリーチャーが、時間とともに
 unl_trader,品揃えは時間とともに変わります。また覗きに来てください。,unlocks.csv trader Line (the unlock lesson line; edit both)
 unl_transfer,Herumon Dungeonへの裂け目が開きました。クリーチャーを1体送れます（コピー・無料・1回のみ）。レベル1で到着し、グレードは引き継がれます。,unlocks.csv transfer Line (the unlock lesson line; edit both)
 m_unl_generic,{f}階で解放。一度クリックして始めましょう。,app: unlock lesson: the generic line when unlocks.csv has no Line
+portal_sealed_win,封印中 · あと1勝,"app: floor portal: sealed, one win left (#1142)"
+portal_sealed_wins,封印中 · あと{n}勝,"app: floor portal: sealed, {n} wins left (#1142)"
