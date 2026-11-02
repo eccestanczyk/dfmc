@@ -40,6 +40,7 @@
 
   const LINKS = [
     { href: 'hub.html',            label: 'Home' },
+    { href: 'tutorials/index.html', label: 'Tutorials' },
     { href: 'creature-codex.html', label: 'Creature Codex' },
     { href: 'type-glossary.html',  label: 'Type Glossary' },
     { href: 'floor-codex.html',    label: 'Floor Map' },
@@ -48,7 +49,6 @@
     { href: 'eggs.html',           label: 'Eggs' },
   { href: 'classes.html',        label: 'Classes' },
   { href: 'vfx.html',            label: 'VFX & AFX Review' },
-    { href: 'crafting.html',       label: 'Crafting' },
   { href: 'upgrading.html',      label: 'Upgrading' },
   { href: 'stat-tables.html',    label: 'Stat Tables' },
   { href: 'droptables.html',     label: 'Droptables' },
