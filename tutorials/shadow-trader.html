@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<base href="../">
+<title>The Shadow Trader &mdash; Tutorial &mdash; Herumon Tower</title>
+<link rel="stylesheet" href="theme.css?v=4">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+.tut-step{margin:34px 0}
+.tut-step h2{display:flex;align-items:center;gap:14px}
+.tut-n{flex:none;width:38px;height:38px;border-radius:50%;background:#c8402e;color:#fff;font:700 20px/38px 'Cinzel',serif;text-align:center}
+.tut-step p{font-size:17px;line-height:1.55;max-width:960px}
+.tut-step img{display:block;width:100%;max-width:960px;border:1px solid var(--rule);background:#0a0810}
+.tut-next{margin-top:40px;display:flex;gap:18px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">THE SHADOW TRADER</h1></div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="tutorials/index.html">Tutorials</a> &rsaquo; The Shadow Trader</div>
+  <p class="sp-lead">The Shadow Trader is a tab of the Premium Shop. Each week he pays out one currency and takes every other one except Wraithgold, at rates computed from how long each takes to earn. What he pays in turns over on Monday 00:00 UTC.</p>
+  <div class="tut-step" id="step-1">
+    <h2><span class="tut-n">1</span>Open the tab</h2>
+    <p>Open the PREMIUM SHOP from the menu and click the SHADOW TRADER tab at the top right of the counter.</p>
+    <img src="tutorials/img/shadow-trader/01.webp" width="1440" height="810" alt="Step 1: Open the tab" loading="lazy">
+  </div>
+  <div class="tut-step" id="step-2">
+    <h2><span class="tut-n">2</span>This week&#x27;s target and the rates</h2>
+    <p>The line at the top says what he pays in this week and what comes next week. Each row is one currency you can hand over, with its rate; drag a slider to choose how much, and ACQUIRING shows what you get back.</p>
+    <img src="tutorials/img/shadow-trader/02.webp" width="1440" height="810" alt="Step 2: This week&#x27;s target and the rates" loading="lazy">
+  </div>
+  <div class="tut-step" id="step-3">
+    <h2><span class="tut-n">3</span>Confirm the trade</h2>
+    <p>Set your amounts and click CONFIRM. The server books the trade at the quoted rate - what you handed over is gone, and the target currency lands in your wallet at once.</p>
+    <img src="tutorials/img/shadow-trader/03.webp" width="1440" height="810" alt="Step 3: Confirm the trade" loading="lazy">
+  </div>
+
+  <div class="tut-next"><a href="tutorials/classes.html">&larr; Classes and class souls</a><a href="tutorials/auto-pvp.html">Auto PvP &rarr;</a></div>
+  <p style="font-size:13px;color:var(--ink-faint);margin-top:36px">Screenshots are taken from the live game by <code>tools/tutorial_shots_b.py</code> (dfmc-client) and regenerated after interface changes. The rules behind each screen: <a href="system-shadow-trader.html">system-shadow-trader</a>, <a href="system-premium-shop.html">system-premium-shop</a>.</p>
+</div>
+<script src="nav.js"></script>
+</body>
+</html>

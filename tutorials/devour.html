@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<base href="../">
+<title>Devour &mdash; Tutorial &mdash; Herumon Tower</title>
+<link rel="stylesheet" href="theme.css?v=4">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+.tut-step{margin:34px 0}
+.tut-step h2{display:flex;align-items:center;gap:14px}
+.tut-n{flex:none;width:38px;height:38px;border-radius:50%;background:#c8402e;color:#fff;font:700 20px/38px 'Cinzel',serif;text-align:center}
+.tut-step p{font-size:17px;line-height:1.55;max-width:960px}
+.tut-step img{display:block;width:100%;max-width:960px;border:1px solid var(--rule);background:#0a0810}
+.tut-next{margin-top:40px;display:flex;gap:18px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">DEVOUR</h1></div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="tutorials/index.html">Tutorials</a> &rsaquo; Devour</div>
+  <p class="sp-lead">Devour lets one creature consume another (or a Devour item) and take what was worth keeping: the fodder's XP always transfers in full, grade and mutant status transfer only within the same line, and the fodder is gone for good.</p>
+  <div class="tut-step" id="step-1">
+    <h2><span class="tut-n">1</span>Open the consumer&#x27;s sheet</h2>
+    <p>Open a creature from the Soul Bag or the Inventory. DEVOUR sits in its header beside LOCK and DISMANTLE - this creature is the one that eats. It opens at floor 12.</p>
+    <img src="tutorials/img/devour/01.webp" width="1440" height="810" alt="Step 1: Open the consumer&#x27;s sheet" loading="lazy">
+  </div>
+  <div class="tut-step" id="step-2">
+    <h2><span class="tut-n">2</span>Pick the fodder</h2>
+    <p>The consumer stands on the left. Click SELECT FODDER to choose what it eats: another creature, or a Devour item from the Soul Bag.</p>
+    <img src="tutorials/img/devour/02.webp" width="1440" height="810" alt="Step 2: Pick the fodder" loading="lazy">
+  </div>
+  <div class="tut-step" id="step-3">
+    <h2><span class="tut-n">3</span>Choose from the list</h2>
+    <p>Every creature you could feed is listed with its grade and level; the ones in your party are greyed EQUIPPED and cannot be eaten. Click one to pick it.</p>
+    <img src="tutorials/img/devour/03.webp" width="1440" height="810" alt="Step 3: Choose from the list" loading="lazy">
+  </div>
+  <div class="tut-step" id="step-4">
+    <h2><span class="tut-n">4</span>Confirm</h2>
+    <p>With both sides filled, the panel says what will transfer. Click DEVOUR to finish - the fodder is destroyed permanently, so read the line first.</p>
+    <img src="tutorials/img/devour/04.webp" width="1440" height="810" alt="Step 4: Confirm" loading="lazy">
+  </div>
+
+  <div class="tut-next"><a href="tutorials/breeding.html">&larr; Breeding</a><a href="tutorials/mutants.html">Mutants &rarr;</a></div>
+  <p style="font-size:13px;color:var(--ink-faint);margin-top:36px">Screenshots are taken from the live game by <code>tools/tutorial_shots_b.py</code> (dfmc-client) and regenerated after interface changes. The rules behind each screen: <a href="system-devour.html">system-devour</a>.</p>
+</div>
+<script src="nav.js"></script>
+</body>
+</html>
