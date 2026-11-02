@@ -380,3 +380,11 @@ chal_wait_note,Waiting in the Competitive queue for your challenger · {t},app: 
 chal_wait_off_note,"Off: they attack your defense instead, as an Auto PvP match.",app: pvp challenge by code (B16)
 chal_expired_mine,Your code has expired. Make a new one.,app: pvp challenge by code (B16)
 chal_band,waiting for the player with your code {c},app: pvp challenge by code (B16)
+m_send_to_herumon_dungeon,SEND TO HERUMON DUNGEON,markup+app: creature sheet: T48 transfer action (Steam shell only)
+m_confirm_send,CONFIRM SEND,"app: creature sheet: T48 transfer action, armed"
+m_sent,SENT,markup: creature sheet: T48 transfer action after the send
+m_a_copy_travels_to_herumon_dungeon_it_cannot_come_back_once_per_creature,A copy travels to Herumon Dungeon. It cannot come back. Once per creature.,markup: creature sheet: T48 confirm line (D's words)
+m_dimensional_traveler_levels,Dimensional traveler levels,"app: creature sheet: T48 traveler line, ""Dimensional traveler levels - Tower 76, Dungeon 12"""
+m_tower,Tower,"app: creature sheet: T48 traveler line, this game"
+m_dungeon,Dungeon,"app: creature sheet: T48 traveler line, the other game"
+m_the_send_did_not_go_through,The send did not go through,app: creature sheet: T48 send error
