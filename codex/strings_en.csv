@@ -568,3 +568,4 @@ unl_transfer,"The rift to Herumon Dungeon is open. Send a creature through: a co
 m_unl_generic,Opened at floor {f}. Click it once to begin.,app: unlock lesson: the generic line when unlocks.csv has no Line
 portal_sealed_win,SEALED · 1 MORE WIN,app: floor portal: sealed with one win left (#1142)
 portal_sealed_wins,SEALED · {n} MORE WINS,app: floor portal: sealed with {n} wins left (#1142)
+m_mkt_paid,"Bought with Wraithgold, or hatched or grown from something that was. It stays in the Tower.","app: STEAM MARKET (paidflag, D11): refusal not_exportable reason paid"

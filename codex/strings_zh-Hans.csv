@@ -568,3 +568,4 @@ unl_transfer,通往 Herumon Dungeon 的裂隙已开启。可送一只生物过�
 m_unl_generic,第{f}层开放。点击一次即可开始。,app: unlock lesson: the generic line when unlocks.csv has no Line
 portal_sealed_win,已封印 · 还需1胜,"app: floor portal: sealed, one win left (#1142)"
 portal_sealed_wins,已封印 · 还需{n}胜,"app: floor portal: sealed, {n} wins left (#1142)"
+m_mkt_paid,用 Wraithgold 购买，或由购买之物孵化或成长而来。它只能留在高塔中。,"app: STEAM MARKET (paidflag, D11): refusal not_exportable reason paid"

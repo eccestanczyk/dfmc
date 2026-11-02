@@ -568,3 +568,4 @@ unl_transfer,"Der Riss nach Herumon Dungeon ist offen. Schick eine Kreatur hindu
 m_unl_generic,Geöffnet auf Etage {f}. Klick einmal darauf, um zu beginnen.,app: unlock lesson: the generic line when unlocks.csv has no Line
 portal_sealed_win,VERSIEGELT · NOCH 1 SIEG,"app: floor portal: sealed, one win left (#1142)"
 portal_sealed_wins,VERSIEGELT · NOCH {n} SIEGE,"app: floor portal: sealed, {n} wins left (#1142)"
+m_mkt_paid,Mit Wraithgold gekauft oder aus etwas Gekauftem geschlüpft oder gewachsen. Es bleibt im Turm.,"app: STEAM MARKET (paidflag, D11): refusal not_exportable reason paid"

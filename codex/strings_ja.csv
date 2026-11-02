@@ -568,3 +568,4 @@ unl_transfer,Herumon Dungeonへの裂け目が開きました。クリーチャ�
 m_unl_generic,{f}階で解放。一度クリックして始めましょう。,app: unlock lesson: the generic line when unlocks.csv has no Line
 portal_sealed_win,封印中 · あと1勝,"app: floor portal: sealed, one win left (#1142)"
 portal_sealed_wins,封印中 · あと{n}勝,"app: floor portal: sealed, {n} wins left (#1142)"
+m_mkt_paid,Wraithgoldで購入したもの、またはそこから孵化・成長したものです。タワーに残ります。,"app: STEAM MARKET (paidflag, D11): refusal not_exportable reason paid"

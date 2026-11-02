@@ -568,3 +568,4 @@ unl_transfer,"A fenda para Herumon Dungeon está aberta. Envie uma criatura: uma
 m_unl_generic,Aberto no andar {f}. Clique uma vez para começar.,app: unlock lesson: the generic line when unlocks.csv has no Line
 portal_sealed_win,SELADO · FALTA 1 VITÓRIA,app: floor portal: sealed with one win left (#1142)
 portal_sealed_wins,SELADO · FALTAM {n} VITÓRIAS,app: floor portal: sealed with {n} wins left (#1142)
+m_mkt_paid,"Comprado com Wraithgold, ou chocado ou criado a partir de algo que foi. Fica na Torre.","app: STEAM MARKET (paidflag, D11): refusal not_exportable reason paid"
