@@ -17,10 +17,10 @@
   <p class="sp-lead">Every creature has a quality grade from Worn to Void. Grade applies one shared multiplier to a creature's stats &mdash; identical across every species &mdash; so grade is a clean, universal power axis independent of type or role.</p>
 
   <h2>The multiplier</h2>
-  <p>Base stats come from axis grade + level. That base is then scaled by the quality multiplier:</p>
-  <p style="text-align:center;font-size:16px;"><code>QM = 0.80 + 0.04 &times; qualityGrade</code></p>
+  <p>Base stats come from axis grade + level. That base is then scaled by the quality multiplier, the <code>Quality_Mult</code> column of <code>codex/grade_ladder.csv</code> &mdash; the game reads that column at boot, nothing is typed into the client:</p>
+  <p style="text-align:center;font-size:16px;"><code>QM = 0.84 + 0.04 &times; step</code> &nbsp; (Worn = step 0 &hellip; Void = step 9)</p>
   <ul class="sp-rules">
-    <li>Applies to <strong>Attack, Defense, Utility, and HP</strong>.</li>
+    <li>Applies to <strong>Attack, Defense and HP</strong>. Utility is an axis grade shown on the creature sheet; no multiplier touches it.</li>
     <li><strong>Never applies to Speed</strong> &mdash; Speed equals axis grade flat (1&ndash;10), with no quality, level, or gear scaling.</li>
     <li>Grade is rolled at hatch, weighted by egg grade (up to 4 grades above the egg, any grade below — see the Eggs codex), and is the same for all species: a Void creature and a Worn creature of the same axis grades differ only by this multiplier.</li>
   </ul>
@@ -31,12 +31,22 @@
     <tbody id="gBody"></tbody>
   </table>
   <div class="sp-chart"><canvas id="gChart" width="760" height="260"></canvas></div>
-  <p style="font-size:13px;color:var(--ink-faint)">Range spans ×0.84 (Worn) to ×1.20 (Void) &mdash; a <strong style="color:var(--ink)">43% spread</strong> from floor to ceiling. Epic (grade&nbsp;5) is the ×1.00 anchor.</p>
+  <p style="font-size:13px;color:var(--ink-faint)">Range spans ×<span data-csv="grade_ladder.csv#Worn#Quality_Mult" data-csv-fmt="d2">0.84</span> (Worn) to ×<span data-csv="grade_ladder.csv#Void#Quality_Mult" data-csv-fmt="d2">1.20</span> (Void) &mdash; a <strong style="color:var(--ink)">43% spread</strong> from floor to ceiling. Epic (grade&nbsp;5) is the ×1.00 anchor.</p>
+
+  <h2>Grade on gear</h2>
+  <p>Items carry the same ten grades, and on a piece of gear the grade does two things, both read from the same <code>grade_ladder.csv</code> row:</p>
+  <ul class="sp-rules">
+    <li><strong>It multiplies the piece&rsquo;s stat.</strong> Every item effect in <code>items.csv</code> is written <em>N &times; T &times; GF</em> &mdash; a base number, times the tier (I&ndash;X), times the grade factor <code>GF</code>: &times;<span data-csv="grade_ladder.csv#Worn#GF" data-csv-fmt="d2">1.00</span> at Worn, &times;<span data-csv="grade_ladder.csv#Epic#GF" data-csv-fmt="d2">1.48</span> at Epic, &times;<span data-csv="grade_ladder.csv#Void#GF" data-csv-fmt="d2">2.08</span> at Void. A Void piece pays a little over twice what the same piece pays at Worn.</li>
+    <li><strong>It sets how many sockets the piece holds.</strong> A Worn piece has none; a Rare piece holds <span data-csv="grade_ladder.csv#Rare#Gem_Sockets">1</span> gem, <span data-csv="grade_ladder.csv#Rare#Rune_Sockets">1</span> rune and <span data-csv="grade_ladder.csv#Rare#Scroll_Sockets">1</span> scroll socket; a Void piece <span data-csv="grade_ladder.csv#Void#Gem_Sockets">3</span>&nbsp;/&nbsp;<span data-csv="grade_ladder.csv#Void#Rune_Sockets">3</span>&nbsp;/&nbsp;<span data-csv="grade_ladder.csv#Void#Scroll_Sockets">3</span>. Sockets follow the grade, never the tier &mdash; see <a href="system-sockets.html">Sockets</a>.</li>
+    <li><strong>Gear grade is raised at the upgrade bench</strong>, one grade at a time, with a success chance that falls as the grade rises (a failed attempt spends the cost and leaves the piece as it was) &mdash; the odds and costs are on <a href="upgrading.html">Upgrading</a>. A creature&rsquo;s grade is rolled once at hatch and never changes.</li>
+    <li><strong>Souls have their own grade multiplier</strong>, applied to the passive or move they lend; it is tabled under <em>Soul strength</em> on <a href="system-equipment.html">Equipment</a>.</li>
+  </ul>
 
   <div class="sp-note">Grade is one of two independent gear/creature power axes. It differs from axis grade (which shapes a creature's stat <em>distribution</em>). Full numerical stat tables live in the <a href="stat-tables.html">Stat &amp; Equipment Tables</a>.</div>
 </div>
 
 <h2>Changelog</h2>
+<p><strong>2026-11-03 &mdash; codex review (dfmc-client lane codexreview-a; D 2026-11-03 &ldquo;review the codex, clean it up, update whatever needs updating&rdquo;). WIKI ONLY.</strong> The multiplier was listed on Attack, Defense, Utility and HP; the game applies it to Attack, Defense and HP only (<code>play/app.js</code> unit attack / defence folds and <code>hpFor &times; qm</code>; <code>src/power.js</code> the same) &mdash; Utility is an axis grade shown on the sheet, nothing multiplies it. The formula is now written against <code>codex/grade_ladder.csv</code> <code>Quality_Mult</code>, which the client loads at boot (<code>qmDb</code>) instead of a typed constant; the two endpoints bind via csv-bind. New section <em>Grade on gear</em>: a piece&rsquo;s grade is the GF multiplier on its stat and the number of sockets it holds (same table, <code>GF</code> and the three socket columns), so the page covers both things the word &ldquo;grade&rdquo; means in the game.</p>
 <p><strong>2026-10-01 &mdash; the Divine twinkle is a baked sprite (dfmc-client 0.89 carry-over s4.6, PREP_PERFORMANCE &sect; 3.3). LIVE on release since 2026-10-23 (0.89); the look is on the board for D.</strong> The Divine grade effect drew eight radial-gradient sparkles on the tile and on two pseudo-layers, and animated their <code>background-size</code> from 3% to 7% with a fade, which repainted every Divine tile every frame &mdash; a full bag multiplied it (28 tiles ran at 47.8 fps under 6&times; CPU throttle). The same eight dot positions per layer are baked into one sprite strip of 16 frames &times; 3 rows (<code>tools/make_perf_tiles.py</code>, drawn in code, deterministic) and the CSS steps through the frames and back, all three layers on one 5.2 s clock with whole-step phase offsets, so a tile repaints one small blit about three times a second instead of 24 gradients sixty times a second (60.1 fps on the same bag). What changes for the eye: the dots grow and brighten in 16 steps rather than continuously, and the three layers no longer beat against each other at 5.2/6.9/4.4 s. Gate <code>tools/probe_perf_6.py</code>.</p>
 <p><strong>2026-09-14 &mdash; the grade effect plays behind the soul slot&rsquo;s creature icon (#894, D). LIVE on release since 2026-09-14 (0.80).</strong> The equipment row already played it in two places, on the gear item&rsquo;s own icon and behind the soul readout; the soul&rsquo;s creature icon sits between those two and never had it. It takes the SAME props off the SAME row, so there is no second opinion about which grades glow, and the art takes z-index 1 so the effect stays behind it. The gate&rsquo;s oracle is the game&rsquo;s own <code>gfxHas()</code> per row rather than a list of grades, so if the set that carries an effect ever changes, the expectation moves with it.</p>
 <p><strong>2026-09-05 &mdash; All-In plays out its attempts (board 3.7, D). LIVE on release since 2026-09-06 (0.70).</strong> The server still decides the whole burst in one keyed draw and books the spend before anything moves; what changed is the show. Each attempt now takes the alchemic circle in turn with a counter: the circle winds up with the bubbles, then the verdict &mdash; a fail stops it with a jolt, drops the item, etches cracks that deepen with the streak, puffs smoke and heats the circle&rsquo;s rim from gold toward red; the deciding success flashes, sends a light column up behind the circle and sparks out in the new grade&rsquo;s colour, lifts the item and re-tints the circle (Divine and up dim the window and turn slow rays first). Out of resources lands the same way in red. One click skips the attempt on stage, click-and-hold runs the rest fast, and closing early lands on the usual result line. Single attempts are unchanged.</p>
@@ -66,6 +76,7 @@ function qm(g){ return 0.80+0.04*g; }
   });
 })();
 </script>
+<script src="csv-bind.js"></script>
 <script src="admin.js"></script>
 <script src="nav.js"></script>
 </body>

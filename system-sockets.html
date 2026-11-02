@@ -27,6 +27,23 @@
   Until 0.45 one of them did not, and it destroyed 41 stones for a live player in a single click.
   Companion page: <a href="system-equipment.html">Equipment &amp; Auto-Optimize</a>.</p>
 
+  <h2>Sockets at a glance &mdash; the player&rsquo;s view</h2>
+  <p>A piece of gear or a creature tag can carry three kinds of socketed item. How many of each it holds depends on its <strong>grade</strong>, never its tier: a Worn piece has no sockets, a Rare piece holds <span data-csv="grade_ladder.csv#Rare#Gem_Sockets">1</span> gem, <span data-csv="grade_ladder.csv#Rare#Rune_Sockets">1</span> rune and <span data-csv="grade_ladder.csv#Rare#Scroll_Sockets">1</span> scroll, a Void piece <span data-csv="grade_ladder.csv#Void#Gem_Sockets">3</span> / <span data-csv="grade_ladder.csv#Void#Rune_Sockets">3</span> / <span data-csv="grade_ladder.csv#Void#Scroll_Sockets">3</span> (<code>codex/grade_ladder.csv</code>; the full ladder is on <a href="system-grade.html">Grade</a>).</p>
+  <table>
+    <tr><th>Socketed item</th><th>What it does</th><th>Taking it out again</th></tr>
+    <tr><td class="lbl">Gem</td><td>Adds a <strong>flat</strong> amount of the piece&rsquo;s own stat. Applies the moment it is placed.</td><td>Comes back to your bag intact whenever the piece leaves its slot, or when you swap another gem in.</td></tr>
+    <tr><td class="lbl">Rune</td><td>Adds a <strong>percentage</strong> of the piece&rsquo;s stat (&ldquo;increased&rdquo;). Applies the moment it is placed.</td><td>Same as a gem: it returns loose to the bag.</td></tr>
+    <tr><td class="lbl">Enchant scroll</td><td>Rolls an <strong>enchantment</strong> onto the piece. The scroll&rsquo;s tier sets the band the number is drawn from and its grade how high in that band it tends to land; the server makes the draw. Tables under the scroll rework on <a href="system-equipment.html">Equipment</a>.</td><td><strong>Never.</strong> A scroll is bound to the piece it was applied to: it stays on it through unequip, class changes and grade promotions, and the only way to change it is to apply another scroll over it, which destroys the old one.</td></tr>
+  </table>
+  <ul class="sp-rules">
+    <li><strong>The stat has to match.</strong> An Attack gem or rune only goes into an Attack piece; a Defence stone only into Defence gear. The socket picker only offers stones that fit.</li>
+    <li><strong>Level requirement.</strong> A gem, rune or scroll of tier T needs level (T&minus;1)&times;10 (T1 = 1): your account level for character gear, the creature&rsquo;s level for a tag. The picker greys an over-level stone and refuses it before anything is spent; one already in place above level simply counts for nothing until the level is reached.</li>
+    <li><strong>Leaving a slot.</strong> Unequipping a piece, letting Auto-Optimize displace it or changing class all do the same thing: the piece goes to the bag, its gems and runes come back loose beside it, and its scroll stays on it. The bag needs room for the piece <em>and</em> every gem and rune coming back, or nothing moves.</li>
+    <li><strong>Promoting a worn piece</strong> at the upgrade bench keeps every stone in place.</li>
+    <li><strong>Dismantling</strong> a piece takes its scroll with it; its gems and runes are not in it any more &mdash; they came back to the bag when it was unequipped.</li>
+  </ul>
+  <p class="note">Everything below this line is the implementation record: the ownership contract the three unequip paths obey, the socket key, the 0.45 incident that produced the contract, and the exact order a scroll is applied in.</p>
+
   <h2>The contract</h2>
   <table>
     <tr><th>Rule</th><th>Meaning</th></tr>
@@ -139,7 +156,7 @@
     <tr><td class="lbl">Scrolls never move</td><td>No optimizer pass, fill or re-deal relocates a scroll. It rides its item and unfolds back into the item's own key.</td></tr>
     <tr><td class="lbl">Socket capacity</td><td>Comes from <code>SLOTG</code>, keyed on the host's <strong>GRADE</strong>, <strong>not its tier</strong> &mdash; Void 3/3/3, Rare 1/1/1. This is why a low-tier Void host can out-earn a high-tier Rare one.</td></tr>
     <tr><td class="lbl"><code>statFits</code></td><td>The stone's stat must match the host's stat, so an <strong>Attack gem cannot enter Defence armour</strong>. Every fill and every re-deal is bounded by this before value is considered at all.</td></tr>
-    <tr><td class="lbl"><code>lvlBlock</code> (2026-08-25, ON DEV)</td><td>A gem, rune or scroll carries <code>items.csv Level_Req = (tier&minus;1)&times;10</code> and must not exceed the level of its host's wearer &mdash; the <strong>account level</strong> for character gear, the <strong>creature's level</strong> for a tag. The socket picker greys and refuses it (before any consume or roll), the optimiser's fill skips it, and one already socketed above level is <strong>inert</strong> (red ILLEGAL cell, tip names the level) until the wearer reaches it. Nothing is ever unsocketed on the player's behalf. Detail on <a href="system-equipment.html">Equipment</a>.</td></tr>
+    <tr><td class="lbl"><code>lvlBlock</code> (2026-08-25; LIVE on release since 2026-09-01, 0.65)</td><td>A gem, rune or scroll carries <code>items.csv Level_Req = (tier&minus;1)&times;10</code> and must not exceed the level of its host's wearer &mdash; the <strong>account level</strong> for character gear, the <strong>creature's level</strong> for a tag. The socket picker greys and refuses it (before any consume or roll), the optimiser's fill skips it, and one already socketed above level is <strong>inert</strong> (red ILLEGAL cell, tip names the level) until the wearer reaches it. Nothing is ever unsocketed on the player's behalf. Detail on <a href="system-equipment.html">Equipment</a>.</td></tr>
   </table>
 
   <h2>Applying a scroll &mdash; the order of operations</h2>
@@ -175,6 +192,8 @@
   <code>enchant</code> branch and <code>RK_TARGETED</code> in <code>src/worker.js</code>.</p>
 
   <h2>Changelog</h2>
+  <p class="note">Status key: every entry dated on or before 2026-11-02 is LIVE on release (0.92, 2026-11-02); an &ldquo;On dev&rdquo; or &ldquo;held for release&rdquo; note inside one of those entries is the status on the day it was written.</p>
+  <p><strong>2026-11-03 &mdash; codex review (dfmc-client lane codexreview-a; D 2026-11-03 &ldquo;review the codex, clean it up, update whatever needs updating&rdquo;). WIKI ONLY.</strong> The page opened straight into the ownership contract and the 0.45 post-mortem, with nothing a player could read first. New section <em>Sockets at a glance</em> ahead of the implementation record: the three socketed kinds, what each does and what happens when it comes out, the socket counts per grade bound to <code>codex/grade_ladder.csv</code> via csv-bind, the stat-match rule, the level requirement, the unequip / promotion / dismantle outcomes. The level rule&rsquo;s status was still &ldquo;ON DEV&rdquo; from 2026-08-25; it has been live since 0.65. Status key added above the changelog. No mechanic changed.</p>
   <p><strong>2026-10-23 &mdash; a socketed scroll keeps its enchant roll (dfmc-client lane loadout-bugs, server). On dev.</strong> The <code>/api/roll</code> enchant draw answered the enchant and its value but kept it only by attempt; the sock row then seated the server&rsquo;s bag record of the scroll (name, grade, tier, uid) and the client adopted a socket that had lost its roll. The server now writes the draw on the scroll&rsquo;s own record (<code>ench_rec</code>, by the scroll&rsquo;s uid; a later draw on the same scroll replaces it) and the seated record carries it. Gate <code>tools/probe_loadout_srv.py</code>.</p>
   <p><strong>2026-10-23 &mdash; one socket, one save (dfmc-client lane loadout-bugs, client). On dev.</strong> Applying a scroll flushed before the commit that queues the loadout row, so the socket claim and the move went out on two saves and the scroll blinked out of the socket between the two answers. The flush now waits for that commit: one save, one answer. Gate <code>tools/probe_loadout_srv.py</code>.</p>
   <p><strong>2026-10-23 &mdash; hardcode-sweep: socket counts per grade read <code>codex/grade_ladder.csv</code>.</strong> The Gem / Rune / Scroll socket table (Worn 0/0/0 &rarr; Void 3/3/3) was typed in <code>play/app.js</code>, <code>src/power.js</code> and <code>tools/sim_t4.mjs</code>; it is the <code>Gem_Sockets</code> / <code>Rune_Sockets</code> / <code>Scroll_Sockets</code> columns now, the same counts. See stat-tables.html changelog.</p>
@@ -214,6 +233,7 @@
     <li><strong>2026-08-09 &mdash; a class switch no longer destroys socketed gems, runes and scrolls (LIVE on release since 2026-08-09 (0.45)).</strong> Reports #90, #91 and #92. <code>switchClass</code> now refunds exactly as <code>equipItem</code> does, reserves <code>1 + gemRuneCountAt(gi)</code> per occupied slot before it moves anything, reads the slot override as truth so it mints nothing, and returns <code>false</code> when it refuses. Both confirmation texts corrected. Page created.</li>
   </ul>
 </div>
+<script src="csv-bind.js"></script>
 <script src="admin.js"></script>
 <script src="nav.js"></script>
 </body>
