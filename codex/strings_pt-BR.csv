@@ -301,8 +301,6 @@ set_notif_breedc_label,Criação Concluída,settings: row label
 set_notif_breedc_desc,O aviso no jogo quando um viveiro põe um ovo.,settings: row description
 set_notif_pvp_label,Resultados da Defesa PvP,settings: row label
 set_notif_pvp_desc,A nota no jogo de como sua defesa se saiu enquanto você esteve fora.,settings: row description
-set_notif_season_label,Temporada Perto do Fim,settings: row label
-set_notif_season_desc,Notificações push ainda não foram construídas.,settings: row description
 set_notif_daily_label,Reset Diário,settings: row label
 set_notif_daily_desc,Notificações push ainda não foram construídas.,settings: row description
 set_account,Conta e Dados,settings: section name

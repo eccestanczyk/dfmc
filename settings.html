@@ -109,7 +109,6 @@
     <tr><th>Option</th><th>Control</th><th>Values</th><th>Default</th></tr>
     <tr><td class="lbl">Breeding Complete</td><td>Toggle</td><td>the in-game banner when a pen lays an egg</td><td>On</td></tr>
     <tr><td class="lbl">PvP Defense Results</td><td>Toggle</td><td>the in-game note of how the defense did while away</td><td>On</td></tr>
-    <tr><td class="lbl">Season Ending Soon</td><td>Static</td><td><em>Coming</em> &mdash; needs push notifications</td><td>&mdash;</td></tr>
     <tr><td class="lbl">Daily Reset</td><td>Static</td><td><em>Coming</em> &mdash; needs push notifications</td><td>&mdash;</td></tr>
   </table>
 
@@ -150,6 +149,7 @@
 
   <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-11-03 &mdash; Season Ending Soon is gone (dfmc-client lane codexfinds; codexreview-a&rsquo;s find, D 2026-11-03 &ldquo;make sure it&rsquo;s coherent with the current state of the game&rdquo;).</strong> T33 removed seasons, so the Notifications row that waited on push notifications for a season&rsquo;s end left the game, with its two strings (<code>set_notif_season_label</code>, <code>set_notif_season_desc</code>, en and pt-BR). No server notification type existed for it.</li>
     <li><strong>2026-11-03 &mdash; the Account rows match the live game (D 2026-11-03 codex review; dfmc-client lane codexreview-b). WIKI ONLY.</strong> Link Account is a live segmented row fed by <code>/api/auth/providers</code> (lane googlebtn), not <em>Coming</em>; Reset Progress has the T61 full scope; Text Size is removed (T57), not coming. Help &amp; FAQ and the new <a href="system-accounts.html">Accounts &amp; Sign-in</a> page are the player-facing text.</li>
     <li><strong>2026-11-02 &mdash; Portugu&ecirc;s (Brasil) is translated (rulings card T63 item 5; dfmc-client lane ptbr). Codex data only, no client change.</strong> Every Settings section name, row label, description and note has its pt-BR text (<code>codex/strings_pt-BR.csv</code>, 381/381 keys), so a device set to Portuguese, or the Idioma row set to Portugu&ecirc;s (Brasil), reads this window in Portuguese. The terms, the register and the gate counts: system-client-shell.html, &ldquo;Language &amp; the string table&rdquo;.</li>
     <li><strong>2026-10-23 &mdash; Language is a real control (C22, D T47-5; dfmc-client lane c22-l10n). On dev.</strong> The static &ldquo;More languages are coming&rdquo; row is a picker: Auto (device) follows the device&rsquo;s language, or pick English / any language in <code>codex/locales.csv</code>; stored as the prefs key <code>lang.language</code>. Every Settings label and description now reads through the string table (<code>codex/strings_en.csv</code>, keys <code>set_&lt;section&gt;_&lt;row&gt;_label</code> / <code>_desc</code>), so a translation covers this window. The table, its gate and what it covers: system-client-shell.html, &ldquo;Language &amp; the string table&rdquo;.</li>

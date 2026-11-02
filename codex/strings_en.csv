@@ -301,8 +301,6 @@ set_notif_breedc_label,Breeding Complete,settings: row label
 set_notif_breedc_desc,The in-game banner when a pen lays an egg.,settings: row description
 set_notif_pvp_label,PvP Defense Results,settings: row label
 set_notif_pvp_desc,The in-game note of how your defense did while you were away.,settings: row description
-set_notif_season_label,Season Ending Soon,settings: row label
-set_notif_season_desc,Push notifications are not built yet.,settings: row description
 set_notif_daily_label,Daily Reset,settings: row label
 set_notif_daily_desc,Push notifications are not built yet.,settings: row description
 set_account,Account & Data,settings: section name
