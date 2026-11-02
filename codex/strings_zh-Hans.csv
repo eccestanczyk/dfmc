@@ -430,7 +430,7 @@ ach_void_completionist_desc,拥有每条进化路线的虚空品级生物。,ach
 shop_packs_title,WRAITHGOLD 礼包,app: premium shop: heading of the real-money pack grid (S7)
 shop_store_unreachable,无法连接商店。,app: premium shop: /api/store/catalogue failed
 shop_store_loading,商店加载中...,app: premium shop: pack grid loading
-shop_store_soon,商店即将开放。Wraithgold 礼包将通过 Steam 客户端出售。,app: premium shop: catalogue enabled:false (STORE_ENABLED off)
+shop_store_soon,商店即将开放。Wraithgold 礼包将通过 Steam 客户端出售。商店将随 Steam 版发布一同开放；已付费购买的 Wraithgold 将予以保留。,app: premium shop: catalogue enabled:false (STORE_ENABLED off)
 shop_buy_in_steam,请在 Steam 客户端中购买。Wraithgold 礼包通过 Steam 出售；网页版仅显示价格。,app: premium shop: web build line under the pack grid (no buy action)
 shop_pack_buy,购买,app: premium shop: pack buy plaque (Steam shell only)
 shop_pack_pending,等待 Steam 响应...,app: premium shop: pack plaque + note while the Steam overlay is open

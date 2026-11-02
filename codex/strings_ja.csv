@@ -430,7 +430,7 @@ ach_void_completionist_desc,全ての進化ラインでヴォイドグレード�
 shop_packs_title,Wraithgoldパック,app: premium shop: heading of the real-money pack grid (S7)
 shop_store_unreachable,ストアに接続できませんでした。,app: premium shop: /api/store/catalogue failed
 shop_store_loading,ストアを読み込み中...,app: premium shop: pack grid loading
-shop_store_soon,ストアは近日オープン予定です。WraithgoldパックはSteamクライアントで販売されます。,app: premium shop: catalogue enabled:false (STORE_ENABLED off)
+shop_store_soon,ストアは近日オープン予定です。WraithgoldパックはSteamクライアントで販売されます。ストアはSteam版の発売と同時にオープンします。購入済みのWraithgoldはそのまま保持されます。,app: premium shop: catalogue enabled:false (STORE_ENABLED off)
 shop_buy_in_steam,Steamクライアントで購入してください。WraithgoldパックはSteamで販売されます。このWeb版では価格のみ表示します。,app: premium shop: web build line under the pack grid (no buy action)
 shop_pack_buy,購入,app: premium shop: pack buy plaque (Steam shell only)
 shop_pack_pending,Steamを待機中...,app: premium shop: pack plaque + note while the Steam overlay is open

@@ -430,7 +430,7 @@ ach_void_completionist_desc,Tenha uma criatura de grau Vazio de cada linha evolu
 shop_packs_title,PACOTES DE WRAITHGOLD,app: premium shop: heading of the real-money pack grid (S7)
 shop_store_unreachable,Não foi possível acessar a loja.,app: premium shop: /api/store/catalogue failed
 shop_store_loading,Carregando a loja...,app: premium shop: pack grid loading
-shop_store_soon,A loja abre em breve. Os pacotes de Wraithgold serão vendidos pelo cliente Steam.,app: premium shop: catalogue enabled:false (STORE_ENABLED off)
+shop_store_soon,A loja abre em breve. Os pacotes de Wraithgold serão vendidos pelo cliente Steam. A loja abre com o lançamento na Steam; o Wraithgold que você já pagou é mantido.,app: premium shop: catalogue enabled:false (STORE_ENABLED off)
 shop_buy_in_steam,Compre no cliente Steam. Os pacotes de Wraithgold são vendidos pela Steam; esta versão web mostra os preços.,app: premium shop: web build line under the pack grid (no buy action)
 shop_pack_buy,COMPRAR,app: premium shop: pack buy plaque (Steam shell only)
 shop_pack_pending,AGUARDANDO A STEAM...,app: premium shop: pack plaque + note while the Steam overlay is open

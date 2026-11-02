@@ -430,7 +430,7 @@ ach_void_completionist_desc,Besitze eine Kreatur vom Grad Leere aus jeder Entwic
 shop_packs_title,WRAITHGOLD-PAKETE,app: premium shop: heading of the real-money pack grid (S7)
 shop_store_unreachable,Shop nicht erreichbar.,app: premium shop: /api/store/catalogue failed
 shop_store_loading,Shop wird geladen...,app: premium shop: pack grid loading
-shop_store_soon,Der Shop öffnet bald. Wraithgold-Pakete werden über den Steam-Client verkauft.,app: premium shop: catalogue enabled:false (STORE_ENABLED off)
+shop_store_soon,Der Shop öffnet bald. Wraithgold-Pakete werden über den Steam-Client verkauft. Der Shop öffnet mit dem Steam-Release; bereits bezahltes Wraithgold bleibt erhalten.,app: premium shop: catalogue enabled:false (STORE_ENABLED off)
 shop_buy_in_steam,Kaufe im Steam-Client. Wraithgold-Pakete werden über Steam verkauft; diese Webversion zeigt die Preise.,app: premium shop: web build line under the pack grid (no buy action)
 shop_pack_buy,KAUFEN,app: premium shop: pack buy plaque (Steam shell only)
 shop_pack_pending,WARTE AUF STEAM...,app: premium shop: pack plaque + note while the Steam overlay is open

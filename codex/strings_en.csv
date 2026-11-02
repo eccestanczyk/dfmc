@@ -430,7 +430,7 @@ ach_void_completionist_desc,Own a Void-grade creature of every evolutionary line
 shop_packs_title,WRAITHGOLD PACKS,app: premium shop: heading of the real-money pack grid (S7)
 shop_store_unreachable,Could not reach the store.,app: premium shop: /api/store/catalogue failed
 shop_store_loading,Loading the store...,app: premium shop: pack grid loading
-shop_store_soon,The store opens soon. Wraithgold packs will be sold through the Steam client.,app: premium shop: catalogue enabled:false (STORE_ENABLED off)
+shop_store_soon,The store opens soon. Wraithgold packs will be sold through the Steam client. The store opens with the Steam release; Wraithgold you have already paid for is kept.,app: premium shop: catalogue enabled:false (STORE_ENABLED off)
 shop_buy_in_steam,Buy in the Steam client. Wraithgold packs are sold through Steam; this web build shows the prices.,app: premium shop: web build line under the pack grid (no buy action)
 shop_pack_buy,BUY,app: premium shop: pack buy plaque (Steam shell only)
 shop_pack_pending,WAITING FOR STEAM...,app: premium shop: pack plaque + note while the Steam overlay is open

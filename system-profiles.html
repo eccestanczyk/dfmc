@@ -74,6 +74,7 @@
 
   <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-11-03 &mdash; profile card phone check (board B15b; dfmc-client lane tail2).</strong> On dev. The card was measured on a touch phone at 390x844 and 844x390 (Android and iPhone UAs, simulated notch / home-bar insets) and at 1280x800: it sits inside the safe box with nothing overflowing at every size. The one miss was the close button, 32x32 stage px (about 11 CSS px on a landscape phone) &mdash; now the house 44x44 close target, the name row clearing it. Gate dfmc-client <code>tools/probe_b15b_phone.py</code> 8/12 &rarr; 12/12.</li>
     <li><strong>2026-11-03 &mdash; page written (D 2026-11-03: &ldquo;add whatever sections and systems we have in the game but not on the codex&rdquo;; dfmc-client lane codexreview-b). WIKI ONLY, no game behaviour.</strong> badges.csv (14 badges incl. DIMENSIONAL_TRAVELER, T48) and achievements.csv (9 Steam achievements) had no page; the public profile (B15) was described only in system-pvp.html and the networking page. Player-facing text first, the doors after.</li>
   </ul>
 </div>
