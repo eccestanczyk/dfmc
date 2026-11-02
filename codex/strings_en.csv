@@ -411,21 +411,33 @@ m_hidden_until_earned,Hidden until you earn it.,app: trophy wall: a hidden achie
 m_the_achievement_list_could_not_be_read,The achievement list could not be read.,markup: trophy wall: achievements.csv failed
 m_your_earned_achievements_could_not_be_read,Your earned achievements could not be read right now.,markup: trophy wall: the server door failed
 m_the_same_trophies_unlock_on_steam,The same trophies unlock on Steam when you play through the Steam client.,markup: trophy wall: footer
-ach_FLOOR_10_name,The First Gate,achievements.csv FLOOR_10 Name
-ach_FLOOR_10_desc,Reach floor 10 of the Tower.,achievements.csv FLOOR_10 Description
-ach_FLOOR_30_name,Thirty Up,achievements.csv FLOOR_30 Name
-ach_FLOOR_30_desc,Reach floor 30 of the Tower.,achievements.csv FLOOR_30 Description
-ach_FLOOR_60_name,Past the Halfway Mark,achievements.csv FLOOR_60 Name
-ach_FLOOR_60_desc,Reach floor 60 of the Tower.,achievements.csv FLOOR_60 Description
-ach_FLOOR_100_name,The Summit That Was,achievements.csv FLOOR_100 Name
-ach_FLOOR_100_desc,Reach floor 100 of the Tower.,achievements.csv FLOOR_100 Description
-ach_FLOOR_120_name,The Top of the Void,achievements.csv FLOOR_120 Name
-ach_FLOOR_120_desc,Reach floor 120 - the top of the Void Apex.,achievements.csv FLOOR_120 Description
-ach_CODEX_300_name,Field Notes,achievements.csv CODEX_300 Name
-ach_CODEX_300_desc,Acquire 300 creatures in the Codex.,achievements.csv CODEX_300 Description
-ach_MUTANT_HATCH_name,Not In The Codex,achievements.csv MUTANT_HATCH Name
-ach_MUTANT_HATCH_desc,Hatch a mutant.,achievements.csv MUTANT_HATCH Description
-ach_FIRST_VOID_name,A Grade Beyond,achievements.csv FIRST_VOID Name
-ach_FIRST_VOID_desc,Own your first Void-grade creature.,achievements.csv FIRST_VOID Description
-ach_VOID_COMPLETIONIST_name,Void Completionist,achievements.csv VOID_COMPLETIONIST Name
-ach_VOID_COMPLETIONIST_desc,Own a Void-grade creature of every evolutionary line.,achievements.csv VOID_COMPLETIONIST Description
+ach_floor_10_name,The First Gate,achievements.csv FLOOR_10 Name
+ach_floor_10_desc,Reach floor 10 of the Tower.,achievements.csv FLOOR_10 Description
+ach_floor_30_name,Thirty Up,achievements.csv FLOOR_30 Name
+ach_floor_30_desc,Reach floor 30 of the Tower.,achievements.csv FLOOR_30 Description
+ach_floor_60_name,Past the Halfway Mark,achievements.csv FLOOR_60 Name
+ach_floor_60_desc,Reach floor 60 of the Tower.,achievements.csv FLOOR_60 Description
+ach_floor_100_name,The Summit That Was,achievements.csv FLOOR_100 Name
+ach_floor_100_desc,Reach floor 100 of the Tower.,achievements.csv FLOOR_100 Description
+ach_floor_120_name,The Top of the Void,achievements.csv FLOOR_120 Name
+ach_floor_120_desc,Reach floor 120 - the top of the Void Apex.,achievements.csv FLOOR_120 Description
+ach_codex_300_name,Field Notes,achievements.csv CODEX_300 Name
+ach_codex_300_desc,Acquire 300 creatures in the Codex.,achievements.csv CODEX_300 Description
+ach_mutant_hatch_name,Not In The Codex,achievements.csv MUTANT_HATCH Name
+ach_mutant_hatch_desc,Hatch a mutant.,achievements.csv MUTANT_HATCH Description
+ach_first_void_name,A Grade Beyond,achievements.csv FIRST_VOID Name
+ach_first_void_desc,Own your first Void-grade creature.,achievements.csv FIRST_VOID Description
+ach_void_completionist_name,Void Completionist,achievements.csv VOID_COMPLETIONIST Name
+ach_void_completionist_desc,Own a Void-grade creature of every evolutionary line.,achievements.csv VOID_COMPLETIONIST Description
+shop_packs_title,WRAITHGOLD PACKS,app: premium shop: heading of the real-money pack grid (S7)
+shop_store_unreachable,Could not reach the store.,app: premium shop: /api/store/catalogue failed
+shop_store_loading,Loading the store...,app: premium shop: pack grid loading
+shop_store_soon,The store opens soon. Wraithgold packs will be sold through the Steam client.,app: premium shop: catalogue enabled:false (STORE_ENABLED off)
+shop_buy_in_steam,Buy in the Steam client. Wraithgold packs are sold through Steam; this web build shows the prices.,app: premium shop: web build line under the pack grid (no buy action)
+shop_pack_buy,BUY,app: premium shop: pack buy plaque (Steam shell only)
+shop_pack_pending,WAITING FOR STEAM...,app: premium shop: pack plaque + note while the Steam overlay is open
+shop_pack_opening,Opening the Steam purchase...,app: premium shop: note while init runs
+shop_pack_done,Purchase complete. The Wraithgold is in your wallet.,app: premium shop: note after finalize granted
+shop_pack_declined,The purchase was declined in Steam. Nothing was charged.,app: premium shop: note after a declined overlay
+shop_pack_failed,The purchase did not go through. Nothing was charged.,app: premium shop: note after a failed purchase
+shop_last_purchase,Last purchase,"app: premium shop: receipt line prefix (""Last purchase: 550 Wraithgold · WG-0550 · time"")"

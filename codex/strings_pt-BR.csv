@@ -403,21 +403,33 @@ m_hidden_until_earned,Oculto até você conquistá-lo.,app: trophy wall: a hidde
 m_the_achievement_list_could_not_be_read,A lista de conquistas não pôde ser lida.,markup: trophy wall: achievements.csv failed
 m_your_earned_achievements_could_not_be_read,Suas conquistas não puderam ser lidas agora.,markup: trophy wall: the server door failed
 m_the_same_trophies_unlock_on_steam,Os mesmos troféus são desbloqueados na Steam quando você joga pelo cliente Steam.,markup: trophy wall: footer
-ach_FLOOR_10_name,O Primeiro Portão,achievements.csv FLOOR_10 Name
-ach_FLOOR_10_desc,Alcance o andar 10 da Torre.,achievements.csv FLOOR_10 Description
-ach_FLOOR_30_name,Trinta Acima,achievements.csv FLOOR_30 Name
-ach_FLOOR_30_desc,Alcance o andar 30 da Torre.,achievements.csv FLOOR_30 Description
-ach_FLOOR_60_name,Além da Metade,achievements.csv FLOOR_60 Name
-ach_FLOOR_60_desc,Alcance o andar 60 da Torre.,achievements.csv FLOOR_60 Description
-ach_FLOOR_100_name,O Cume Que Foi,achievements.csv FLOOR_100 Name
-ach_FLOOR_100_desc,Alcance o andar 100 da Torre.,achievements.csv FLOOR_100 Description
-ach_FLOOR_120_name,O Topo do Vazio,achievements.csv FLOOR_120 Name
-ach_FLOOR_120_desc,Alcance o andar 120 - o topo do Ápice do Vazio.,achievements.csv FLOOR_120 Description
-ach_CODEX_300_name,Notas de Campo,achievements.csv CODEX_300 Name
-ach_CODEX_300_desc,Adquira 300 criaturas no Códex.,achievements.csv CODEX_300 Description
-ach_MUTANT_HATCH_name,Fora do Códex,achievements.csv MUTANT_HATCH Name
-ach_MUTANT_HATCH_desc,Choque um mutante.,achievements.csv MUTANT_HATCH Description
-ach_FIRST_VOID_name,Um Grau Além,achievements.csv FIRST_VOID Name
-ach_FIRST_VOID_desc,Tenha sua primeira criatura de grau Vazio.,achievements.csv FIRST_VOID Description
-ach_VOID_COMPLETIONIST_name,Completista do Vazio,achievements.csv VOID_COMPLETIONIST Name
-ach_VOID_COMPLETIONIST_desc,Tenha uma criatura de grau Vazio de cada linha evolutiva.,achievements.csv VOID_COMPLETIONIST Description
+ach_floor_10_name,O Primeiro Portão,achievements.csv FLOOR_10 Name
+ach_floor_10_desc,Alcance o andar 10 da Torre.,achievements.csv FLOOR_10 Description
+ach_floor_30_name,Trinta Acima,achievements.csv FLOOR_30 Name
+ach_floor_30_desc,Alcance o andar 30 da Torre.,achievements.csv FLOOR_30 Description
+ach_floor_60_name,Além da Metade,achievements.csv FLOOR_60 Name
+ach_floor_60_desc,Alcance o andar 60 da Torre.,achievements.csv FLOOR_60 Description
+ach_floor_100_name,O Cume Que Foi,achievements.csv FLOOR_100 Name
+ach_floor_100_desc,Alcance o andar 100 da Torre.,achievements.csv FLOOR_100 Description
+ach_floor_120_name,O Topo do Vazio,achievements.csv FLOOR_120 Name
+ach_floor_120_desc,Alcance o andar 120 - o topo do Ápice do Vazio.,achievements.csv FLOOR_120 Description
+ach_codex_300_name,Notas de Campo,achievements.csv CODEX_300 Name
+ach_codex_300_desc,Adquira 300 criaturas no Códex.,achievements.csv CODEX_300 Description
+ach_mutant_hatch_name,Fora do Códex,achievements.csv MUTANT_HATCH Name
+ach_mutant_hatch_desc,Choque um mutante.,achievements.csv MUTANT_HATCH Description
+ach_first_void_name,Um Grau Além,achievements.csv FIRST_VOID Name
+ach_first_void_desc,Tenha sua primeira criatura de grau Vazio.,achievements.csv FIRST_VOID Description
+ach_void_completionist_name,Completista do Vazio,achievements.csv VOID_COMPLETIONIST Name
+ach_void_completionist_desc,Tenha uma criatura de grau Vazio de cada linha evolutiva.,achievements.csv VOID_COMPLETIONIST Description
+shop_packs_title,PACOTES DE WRAITHGOLD,app: premium shop: heading of the real-money pack grid (S7)
+shop_store_unreachable,Não foi possível acessar a loja.,app: premium shop: /api/store/catalogue failed
+shop_store_loading,Carregando a loja...,app: premium shop: pack grid loading
+shop_store_soon,A loja abre em breve. Os pacotes de Wraithgold serão vendidos pelo cliente Steam.,app: premium shop: catalogue enabled:false (STORE_ENABLED off)
+shop_buy_in_steam,Compre no cliente Steam. Os pacotes de Wraithgold são vendidos pela Steam; esta versão web mostra os preços.,app: premium shop: web build line under the pack grid (no buy action)
+shop_pack_buy,COMPRAR,app: premium shop: pack buy plaque (Steam shell only)
+shop_pack_pending,AGUARDANDO A STEAM...,app: premium shop: pack plaque + note while the Steam overlay is open
+shop_pack_opening,Abrindo a compra na Steam...,app: premium shop: note while init runs
+shop_pack_done,Compra concluída. O Wraithgold está na sua carteira.,app: premium shop: note after finalize granted
+shop_pack_declined,A compra foi recusada na Steam. Nada foi cobrado.,app: premium shop: note after a declined overlay
+shop_pack_failed,A compra não foi concluída. Nada foi cobrado.,app: premium shop: note after a failed purchase
+shop_last_purchase,Última compra,"app: premium shop: receipt line prefix (""Last purchase: 550 Wraithgold · WG-0550 · time"")"
