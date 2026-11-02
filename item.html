@@ -45,7 +45,7 @@ table.item-table td:first-child{ color:var(--ink); font-weight:600; }
       <div class="item-implicit"><span>Implicit / Effect</span><div id="item-implicit-text"></div></div>
     </div>
     <div class="item-section"><h3>Tier Progression</h3><div class="item-section-body">
-      <table class="item-table"><thead><tr><th>Art</th><th>Tier</th><th>Name</th><th>Level Req</th><th>Craft Cost</th></tr></thead><tbody id="tier-table"></tbody></table>
+      <table class="item-table"><thead><tr><th>Art</th><th>Tier</th><th>Name</th><th>Level Req</th></tr></thead><tbody id="tier-table"></tbody></table>
     </div></div>
     <div class="item-section" id="implicit-grid-section"><h3>Implicit Values (Tier × Grade)</h3><div class="item-section-body">
       <div id="implicit-grid-note" style="font-size:12px;color:var(--ink-dim);margin-bottom:8px"></div>
@@ -119,7 +119,7 @@ function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replac
     if(g.label) tierBody.innerHTML+=`<tr><td colspan="5" style="color:var(--gold);font-family:Cinzel,serif;font-size:12px;letter-spacing:1px;padding-top:10px">${g.label.toUpperCase()}</td></tr>`;
     g.rows.forEach(r=>{const t=parseInt(r.Tier)||0;
       const ip=r.Image_Path?`<img class="tier-art" src="${IMG_BASE+r.Image_Path}?t=${Date.now()}" alt="" loading="lazy">`:'<span class="tbd">—</span>';
-      tierBody.innerHTML+=`<tr><td class="art-cell">${ip}</td><td>T${t}</td><td>${esc(r.Name)}</td><td>${r.Level_Req?'Lv '+esc(r.Level_Req):'<span class="tbd">—</span>'}</td><td>${craftMult*t} ${craftMat}</td></tr>`;});
+      tierBody.innerHTML+=`<tr><td class="art-cell">${ip}</td><td>T${t}</td><td>${esc(r.Name)}</td><td>${r.Level_Req?'Lv '+esc(r.Level_Req):'<span class="tbd">—</span>'}</td></tr>`; /* codexreview-b 2026-11-03: the Craft Cost column is gone - crafting was removed 2026-10-01 */});
   });
   // Implicit value grid (tier x grade)
   (function(){
