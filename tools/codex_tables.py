@@ -561,12 +561,17 @@ def mutant_chance():
     """src/worker.js:1503 MUTANT_CHANCE (percent) and cxMutBonusOf / cxVoidBonusOf: Math.min(cap, rate x done)."""
     src = client_file('src/worker.js')
     m = re.search(r'const MUTANT_CHANCE = \{([^}]+)\}', src)
-    z = re.search(r'cxMutBonusOf\(sid, realm, zc\) \{.*?return Math\.min\(([\d.]+), ([\d.]+) \* done\);', src, re.S)
-    v = re.search(r'cxVoidBonusOf\(sid, realm\) \{.*?return Math\.min\(([\d.]+), ([\d.]+) \* done\);', src, re.S)
+    z = re.search(r'cxMutBonusOf\(sid, realm, zc\) \{.*?return Math\.min\(([\w.]+), ([\d.]+) \* done\);', src, re.S)
+    v = re.search(r'cxVoidBonusOf\(sid, realm\) \{.*?return Math\.min\(([\w.]+), ([\d.]+) \* done\);', src, re.S)
     if not (m and z and v):
         raise ValueError('src/worker.js: MUTANT_CHANCE / cxMutBonusOf / cxVoidBonusOf not found')
     ch = {k: float(x) for k, x in re.findall(r'(\w+):\s*([\d.]+)', m.group(1))}
-    return ch, (float(z.group(1)), float(z.group(2))), (float(v.group(1)), float(v.group(2)))
+    def num(t):   # MUTCAP 2026-11-03 (lane codexfinds): the cap is the named constant CX_MUT_CAP now, read off its const line
+        if re.match(r'^[\d.]+$', t): return float(t)
+        c = re.search(r'const %s = ([\d.]+);' % re.escape(t), src)
+        if not c: raise ValueError('src/worker.js: const %s not found' % t)
+        return float(c.group(1))
+    return ch, (num(z.group(1)), float(z.group(2))), (num(v.group(1)), float(v.group(2)))
 
 
 def gen_mut_chance():
