@@ -1,0 +1,568 @@
+Key,Text,Context
+m_turn_your_phone_sideways,请横置手机,markup: shell: rotate prompt
+m_herumon_tower_plays_in_landscape,Herumon Tower 需横屏游玩。,markup: shell: rotate prompt
+m_if_it_does_not_turn_switch_off_you,如果画面没有旋转，请关闭手机的屏幕旋转锁定。,markup: shell: rotate prompt
+m_speed_order,速度顺序,markup: battle HUD
+m_round,回合,markup: battle HUD
+m_streak,连胜,markup: battle HUD
+m_ready,✓ 就绪,markup: battle HUD
+m_hover_the_skull,悬停骷髅查看,markup: battle HUD
+m_this_boss_has_a_unique_mechanic_re,该首领拥有独特机制，战斗前请先阅读。,markup: battle HUD
+m_combat_log,☰ 战斗日志,markup: battle HUD
+m_forfeit,⚑ 认输,markup: battle HUD
+m_forfeit_the_battle,⚑ 放弃本场战斗？,markup: battle HUD
+m_forfeit_2,认输,markup: battle HUD
+m_keep_fighting,继续战斗,markup: battle HUD
+m_duration,持续时间,markup: battle HUD
+m_select_target,◎ 选择目标,markup: battle HUD
+m_back,← 返回,markup: battle HUD
+m_decree_of_battle,⁂ 战斗法令 ⁂,markup: battle HUD
+m_combat_log_2,战斗日志,markup: battle HUD
+m_this_encounter_click_outside_to_cl,本场遭遇 · 点击外部关闭,markup: battle HUD
+m_breeding,繁育,markup: menu / dismantling
+m_equipment,装备,markup: menu / dismantling
+m_dismantling,分解,markup: menu / dismantling
+m_filters,筛选,markup: menu / dismantling
+m_done,完成,markup: menu / dismantling
+m_new,新,markup: menu / dismantling
+m_tap_the,点选,markup: menu / dismantling
+m_you_want_then_confirm_once,你想要的物品，然后确认一次。,markup: menu / dismantling
+m_selected,已选 ·,markup: menu / dismantling
+m_items,件物品,markup: menu / dismantling
+m_back_2,返回,markup: menu / dismantling
+m_dismantle,分解,markup: menu / dismantling
+m_salvage,回收,markup: menu / dismantling
+m_close,关闭,markup: shop: slot purchase
+m_nothing_left_to_buy,已无可购买的商品。,markup: shop: slot purchase
+m_current_capacity,当前容量：,markup: shop: slot purchase
+m_slots,个栏位,markup: shop: slot purchase
+m_add_to_cart,加入购物车,markup: shop: slot purchase
+m_continue,继续,markup: shop: slot purchase
+m_account,账号,markup: equipment
+m_lv,Lv,markup: equipment
+m_power,战力,markup: equipment
+m_x,“,markup: equipment
+m_x_2,”,markup: equipment
+m_builds,☰ 配装,markup: equipment
+m_x_3, · ,markup: equipment
+m_sockets,镶孔：,markup: equipment
+m_slot_s_unchanged,个栏位未变,markup: equipment
+m_cancel,取消,markup: equipment
+m_confirm,确认,markup: equipment
+m_saved_builds,已存配装 ·,markup: equipment
+m_the_server_keeps_your_builds_apply,配装保存在服务器上。应用配装会把你自己的装备放回原位；已不在你手中的装备会被跳过，并在此列出。,markup: equipment
+m_no_build_slots_for_this_class,该职业没有配装栏位。,markup: equipment
+m_apply,应用,markup: equipment
+m_rename,重命名,markup: equipment
+m_delete,删除,markup: equipment
+m_inventory,背包,markup: equipment
+m_soul_bag,魂袋,markup: equipment
+m_classes,职业 ▾,markup: equipment
+m_class_lv,职业等级,markup: equipment
+m_to_next,· 距下一级,markup: equipment
+m_gem,宝石,markup: equipment
+m_rune,符文,markup: equipment
+m_scroll,卷轴,markup: equipment
+m_illegal,不可用,markup: equipment
+m_empty,— 空,markup: equipment
+m_no_soul_slotted,未装备魂,markup: equipment
+m_soul_crystals,魂晶,markup: equipment
+m_a_character_soul_is_always_bound_i,角色魂始终处于绑定状态——可以替换，但无法卸下。默认魂为战士。,markup: equipment
+m_devour,† 吞噬,markup: equipment
+m_available,可用,markup: equipment
+m_clear,清除,markup: equipment
+m_no_soul_in_your_bag_matches_that_c,魂袋中没有符合条件的魂。清除一个筛选条件以查看更多。,markup: equipment
+m_socketed,已镶嵌：,markup: equipment
+m_scroll_2,✦ 卷轴 ·,markup: equipment
+m_inscribed_upon,铭刻于,markup: equipment
+m_band,档位,markup: equipment
+m_roll_again,重新随机 ·,markup: equipment
+m_destroys,将摧毁,markup: equipment
+m_keep_this_roll,保留此结果,markup: equipment
+m_the_next_scroll_unfurls,下一张卷轴展开中…,markup: equipment
+m_no_scrolls_left_to_roll,没有可用于随机的卷轴,markup: equipment
+m_replace_socketable,⚠ 替换镶嵌物,markup: equipment
+m_socketing,镶嵌,markup: equipment
+m_will,将会,markup: equipment
+m_destroy,摧毁,markup: equipment
+m_the_currently_slotted,当前镶嵌的,markup: equipment
+m_this_cannot_be_undone,。此操作无法撤销。,markup: equipment
+m_replace_destroy,替换并摧毁,markup: equipment
+m_compared_with_what_you_wear,与当前穿戴对比,markup: equipment
+m_this_item,此物品,markup: equipment
+m_upgrade,▲ 强化,markup: equipment
+m_dismantle_2,⚒ 分解,markup: equipment
+m_dismantles_for,分解可得,markup: equipment
+m_codex,图鉴,markup: codex / boss drops
+m_boss_drops_next_boss_floor,首领掉落 · 下一个首领位于层,markup: codex / boss drops
+m_every_boss_kill_drops,每次击杀首领掉落,markup: codex / boss drops
+m_piece_of_gear_and,件装备和,markup: codex / boss drops
+m_egg_the_gear_grade_is_rolled,个蛋。装备品级随机决定,markup: codex / boss drops
+m_egg_line_by_rarity,各稀有度的蛋：,markup: codex / boss drops
+m_click_skip_hold_fast,点击 · 跳过    按住 · 快进,markup: hatch
+m_skip_all,全部跳过,markup: hatch
+m_egg,蛋,markup: hatch
+m_hatch_grade_chances,孵化品级概率,markup: hatch
+m_mutant,变异,markup: hatch
+m_alternate_colour_cosmetic,异色 · 外观,markup: hatch
+m_not_yet,尚未就绪,markup: hatch
+m_hatch,孵化,markup: hatch
+m_floor_map,楼层地图,markup: floor map
+m_boss_keys,首领钥匙,markup: floor map
+m_cry,叫声,markup: creature sheet
+m_devour_2,吞噬,markup: creature sheet
+m_experience,经验,markup: creature sheet
+m_aptitude,资质,markup: creature sheet
+m_moves,招式,markup: creature sheet
+m_advancement_line,进阶路线,markup: creature sheet
+m_game_settings,游戏设置,markup: settings
+m_restore_defaults,恢复默认 —,markup: settings
+m_choose_parent,选择亲代,markup: breeding
+m_extra_pens_buy_parallelism_not_thr,额外的繁育栏提升的是并行数量，而非总产量,markup: breeding
+m_dlc,DLC,markup: breeding
+m_dlc_expansion,DLC 扩展包,markup: breeding
+m_available_with_the_menagerie_expan,需要 Menagerie 扩展包,markup: breeding
+m_pens,‹ 繁育栏,markup: breeding
+m_grows_stronger,变得更强了,markup: level up / victory / defeat
+m_reached_level,达到等级,markup: level up / victory / defeat
+m_victory,胜利,markup: level up / victory / defeat
+m_win_streak,连胜,markup: level up / victory / defeat
+m_you_have_cleared_floor,✦ 你已通关楼层,markup: level up / victory / defeat
+m_experience_earned,获得经验,markup: level up / victory / defeat
+m_spoils,战利品,markup: level up / victory / defeat
+m_continue_2,继续 →,markup: level up / victory / defeat
+m_is_changing,正在变化…,markup: level up / victory / defeat
+m_became,变成了,markup: level up / victory / defeat
+m_you_were,你被,markup: level up / victory / defeat
+m_defeated,击败了,markup: level up / victory / defeat
+m_streak_broken,连胜中断,markup: level up / victory / defeat
+m_choose_your_quarry,选择你的猎物,markup: quarry / abyss
+m_the_abyss_deepens,深渊加深,markup: quarry / abyss
+m_the_infinite_abyss,无尽深渊,markup: quarry / abyss
+m_win,连胜,markup: quarry / abyss
+m_battles_in_a_row_to_sink_one_floor,场即可再下沉一层。层数永无止境。,markup: quarry / abyss
+m_every_floor_deeper_every_monster_g,每深入一层，所有怪物都会强化 1%，效果叠乘。当前：,markup: quarry / abyss
+m_monsters_and_rewards_are_always_fl,怪物与奖励始终按第 119 层计算。这里是挑战，不是刷取之地。,markup: quarry / abyss
+m_your_deepest_floor_goes_on_the_ran,你到达的最深层数将计入排行榜。最深：,markup: quarry / abyss
+m_fold_the_letter,折起信件,markup: letters
+m_the_skull_beat_you,骷髅击败了你,markup: letters
+m_every_apex_boss_past_floor_100_car,第 100 层以后的每个巅峰首领都带有类似的骷髅状态。战斗中悬停查看其机制，再决定出手。,markup: letters
+m_ok,确定,markup: letters
+m_x_4,·,markup: floor HUD / boss lair
+m_floor_boss_lair,楼层首领巢穴,markup: floor HUD / boss lair
+m_hp,HP,markup: floor HUD / boss lair
+m_signature,招牌技：,markup: floor HUD / boss lair
+m_spoils_2,战利品,markup: floor HUD / boss lair
+m_boss_keys_2,⚿ 首领钥匙,markup: floor HUD / boss lair
+m_energy_gathers_at_the_platform,能量正在平台上汇聚…,markup: floor HUD / boss lair
+m_the_alpha_reforms,头领重生,markup: floor HUD / boss lair
+m_return,← 返回,markup: floor HUD / boss lair
+m_ascend,↑ 上行,markup: floor HUD / boss lair
+m_scene,场景,markup: floor HUD / boss lair
+m_read_more_in_the_codex,在图鉴中查看更多 ›,markup: floor HUD / boss lair
+m_pvp_arena,PvP 竞技场,markup: pvp
+m_rankings,排行榜,markup: pvp
+m_auto_pvp,自动 PvP,markup: pvp
+m_rating,评分,markup: pvp
+m_autoplay,自动战斗 ,markup: pvp
+m_matchmaking,匹配,markup: pvp
+m_your_defense_is_your,。你的防守阵容取自你的,markup: pvp
+m_daily_snapshot,每日快照,markup: pvp
+m_re_gearing_shows_up_on_defense_at,——更换装备将在下次重置时体现在防守阵容中。,markup: pvp
+m_x_5,×,markup: pvp
+m_competitive_pvp,竞技 PvP,markup: pvp
+m_loading,加载中…,markup: pvp
+m_best_floor,最高层数,markup: pvp
+m_ratings,评分,markup: pvp
+m_party_daily,队伍（每日）,markup: pvp
+m_not_yet_posted,尚未发布,markup: pvp
+m_badges,徽章,markup: pvp
+m_no_badges_yet,暂无徽章,markup: pvp
+m_bank,储备,markup: pvp
+m_orders_sealed_waiting_for_opponent,指令已封存——等待对手,markup: pvp
+m_opponent_found,已找到对手,markup: pvp
+m_best_of_3_team_locked_double_blind,三局两胜 · 队伍锁定 · 双盲选择,markup: pvp
+m_arena_match,竞技场对战,markup: pvp
+m_arena_battles_grant_no_spoils_expe,竞技场战斗不提供战利品、经验或连胜——只计评分。,markup: pvp
+m_exit_replay,退出回放,markup: pvp
+m_replay_complete,回放结束,markup: pvp
+m_deterministic_playback_identical_t,确定性回放——与原对战完全一致，每次判定皆相同,markup: pvp
+m_back_to_arena,返回竞技场,markup: pvp
+m_match_found,匹配成功！,markup: pvp
+m_join_match,⚔ 加入对战,markup: pvp
+m_premium_shop,高级商店,markup: premium shop
+m_classes_2,职业,markup: classes
+m_max,✦ 满级,markup: classes
+m_active,✦ 使用中,markup: classes
+m_switch,切换,markup: classes
+m_unlock,解锁 ·,markup: classes
+m_not_purchasable,不可购买,markup: classes
+m_before_you_climb,攀登之前,markup: creation
+m_how_old_are_you,你的年龄是？,markup: creation
+m_asked_once_your_account_keeps_only,仅询问一次。你的账号只会记录你是否达到游玩年龄，绝不保存具体数字。详见 设置 › 法律与支持 中的隐私政策。,markup: creation
+m_herumon_tower_is_not_available_to,Herumon Tower 不向以下年龄的玩家开放：未满,markup: creation
+m_no_account_is_kept_for_you_the_sig,系统不会为你保留账号。你使用的登录方式已被登出，由其创建的所有内容将在七天内删除。如有疑问，请联系隐私政策中列出的地址。,markup: creation
+m_leave,离开,markup: creation
+m_choose_your_path,选择你的道路,markup: creation
+m_the_tower_stirs_loading_class_data,高塔苏醒中…（正在加载职业数据）,markup: creation
+m_the_other_classes_unlock_later_in,其他职业稍后可在职业窗口中解锁。,markup: creation
+m_name_your_champion,为你的勇者命名,markup: creation
+m_stage_1,· 阶段 1,markup: creation
+m_worn_lv_1,破旧 · Lv 1 ·,markup: creation
+m_starter_weapons_tier_1,初始武器 · 1 阶,markup: creation
+m_enter_the_tower,进入高塔 ✦,markup: creation
+m_enter_a_name_to_continue,请输入名字以继续,markup: creation
+m_burn_incense_to_get_more_spawns,焚香以吸引更多生物出现,markup: autoplay
+m_add_bait_to_halve_the_wait,放置诱饵，等待时间减半,markup: autoplay
+m_bug_report_sent,问题报告已发送！,markup: bug report
+m_report_a_bug,报告问题,markup: bug report
+m_all_in,全部投入,markup: upgrade
+m_every_attempt_spends_the_resource,每次尝试都会消耗资源。失败的尝试不予返还。,markup: upgrade
+m_upgrade_2,强化,markup: upgrade
+m_a_failed_attempt_spends_the_resour,失败的尝试会消耗资源，但不会产生其他变化。,markup: upgrade
+m_consumer,吞噬者,markup: devour
+m_mutant_2,变异,markup: devour
+m_will_be_consumed,将被吞噬,markup: devour
+m_select_fodder,选择素材,markup: devour
+m_back_3,‹ 返回,markup: devour
+m_select_fodder_it_will_be_consumed,选择素材——它将被吞噬,markup: devour
+m_prev,‹ 上一页,markup: devour
+m_next,下一页 ›,markup: devour
+m_nothing_in_the_soul_bag_can_be_con,魂袋中没有可吞噬的魂。,markup: devour
+m_level_up,升级,markup: misc
+m_tap_to_skip,点击跳过,markup: misc
+m_no_salvage_value,无回收价值,markup: misc
+m_understood,知道了,markup: misc
+set_audio,音频,settings: section name
+set_audio_master_label,主音量,settings: row label
+set_audio_music_label,音乐,settings: row label
+set_audio_sfx_label,音效,settings: row label
+set_audio_ui_label,界面音效,settings: row label
+set_audio_mute_label,全部静音,settings: row label
+set_audio_mutebg_label,后台时静音,settings: row label
+set_display,显示,settings: section name
+set_display_fps_label,帧率,settings: row label
+set_display_fps_desc,限制画面动画的刷新频率。最高值跟随显示器。,settings: row description
+set_display_fullscreen_label,全屏,settings: row label
+set_display_fullscreen_desc,让游戏铺满屏幕。按 Esc 也可退出。,settings: row description
+set_display_battery_label,省电模式,settings: row label
+set_display_battery_desc,限制为 30 fps，降低特效。,settings: row description
+set_display_shake_label,屏幕震动,settings: row label
+set_display_vfx_label,特效强度,settings: row label
+set_display_wakelock_label,保持屏幕常亮,settings: row label
+set_display_wakelock_desc,游戏开启时阻止屏幕休眠，让自动战斗持续运行。会消耗更多电量。浏览器处于后台时无效——任何浏览器都不允许这样做。,settings: row description
+set_battle,战斗与自动战斗,settings: section name
+set_battle_note,自动战斗永远不会自动进入首领房间——这是固定规则，不是设置项。,settings: section note
+set_battle_autofloor_label,自动推进楼层,settings: row label
+set_battle_stoploss_label,战败后停止推进,settings: row label
+set_battle_stoploss_desc,战斗失败会关闭“自动推进楼层”，需手动重新开启。,settings: row description
+set_battle_ondeath_label,阵亡时,settings: row label
+set_battle_bossoutkeys_label,自动挑战首领——钥匙耗尽,settings: row label
+set_battle_bossoutkeys_desc,最后一把首领钥匙用完后，自动挑战首领的处理方式。,settings: row description
+set_battle_targeting_label,目标选择,settings: row label
+set_battle_targeting_desc,自动战斗为伤害招式选择敌人的方式（按当前 HP）。,settings: row description
+set_battle_opttarget_label,优化目标,settings: row label
+set_battle_opttarget_desc,一键优化重组配装时优先提升的属性。综合战力兼顾攻击、防御和生命。,settings: row description
+set_battle_ult_label,终极技,settings: row label
+set_battle_ult_desc,自动战斗首次释放终极技的回合。若该回合无法释放，之后每回合都会重试。,settings: row description
+set_battle_priobuff_label,优先增益,settings: row label
+set_battle_priobuff_desc,造成伤害前：优先使用已就绪的增益/辅助招式。,settings: row description
+set_battle_priodebuff_label,优先减益,settings: row label
+set_battle_priodebuff_desc,造成伤害前：优先使用已就绪的减益招式。,settings: row description
+set_battle_streak_label,连胜计数,settings: row label
+set_battle_streak_desc,显示战斗结束后的计数。,settings: row description
+set_battle_confspend_label,确认付费消耗,settings: row label
+set_battle_confspend_desc,每次消耗 Wraithgold 前的确认功能尚未开发。,settings: row description
+set_controls,操作,settings: section name
+set_controls_note,仅限键盘——触屏设备没有可绑定的按键。绑定一个已被其他操作占用的按键时，会将其从该操作中移除。,settings: section note
+set_controls_kauto_label,开关自动战斗,settings: row label
+set_controls_kauto_desc,效果与“自动战斗”按钮完全相同。,settings: row description
+set_controls_kequip_label,打开/关闭装备,settings: row label
+set_controls_kinv_label,打开/关闭背包,settings: row label
+set_controls_kinv_desc,魂袋打开时，改为打开物品袋。,settings: row description
+set_controls_klock_label,锁定/解锁悬停对象,settings: row label
+set_controls_klock_desc,将鼠标悬停在任一袋中的生物或物品上并按下此键。效果与“锁定”按钮完全相同。,settings: row description
+set_controls_kstrip_label,任务栏模式,settings: row label (Steam build only)
+set_controls_kstrip_desc,将游戏缩小为任务栏上方的长条。效果与菜单中的“任务栏模式”按钮完全相同。,settings: row description (Steam build only)
+set_tutorials,教程,settings: section name
+set_tutorials_note,每当你到达的楼层开放一个系统，都会有箭头指向它，直到你点击一次为止。箭头不会妨碍游戏。,settings: section note
+set_tutorials_arrows_label,教程箭头,settings: row label
+set_tutorials_arrows_desc,在每个新开放的系统上显示箭头，直到其按钮被点击一次。,settings: row description
+set_notices,通知记录,settings: section name
+set_notices_note,第 101 层的信件，以及攀登过程中开放的各个系统。操作日志保存在服务器上。,settings: section note
+set_notices_history_label,下载我的历史记录,settings: row label
+set_notices_history_desc,将服务器上该账号的记录——所有货币的获取与消耗、物品发放、战斗掉落、交易——保存为 JSON 文件。,settings: row description
+set_notices_history_csv_label,下载我的历史记录（CSV）,settings: row label
+set_notices_history_csv_desc,相同的记录，以电子表格文件形式保存。,settings: row description
+set_notices_none_label,暂无通知,settings: row label
+set_notices_none_desc,攀登中开放新系统时会显示在这里。,settings: row description
+set_notif,推送通知,settings: section name
+set_notif_breedc_label,繁育完成,settings: row label
+set_notif_breedc_desc,繁育栏产出蛋时的游戏内横幅。,settings: row description
+set_notif_pvp_label,PvP 防守结果,settings: row label
+set_notif_pvp_desc,你离线期间防守表现的游戏内提示。,settings: row description
+set_notif_daily_label,每日重置,settings: row label
+set_notif_daily_desc,推送通知功能尚未开发。,settings: row description
+set_account,账号与数据,settings: section name
+set_account_logout_label,退出登录,settings: row label
+set_account_logout_desc,保存你的攀登进度，结束本次会话并返回登录界面。,settings: row description
+set_account_name_label,玩家名称,settings: row label
+set_account_name_desc,如需修改，请联系管理员。,settings: row description
+set_account_link_label,关联账号,settings: row label
+set_account_cloud_label,云存档,settings: row label
+set_account_cloud_desc,游戏过程中，你的进度会自动保存到服务器。此功能无法关闭。,settings: row description
+set_account_restore_label,恢复购买,settings: row label
+set_account_restore_desc,将随应用商店版本推出。,settings: row description
+set_account_export_label,导出我的数据,settings: row label
+set_account_export_desc,将此存档的全部内容下载为 JSON 文件。,settings: row description
+set_account_reset_label,重置进度（新游戏）,settings: row label
+set_account_reset_desc,清除此存档，从第 1 层、Lv 1 重新开始。,settings: row description
+set_account_delete_label,删除账号,settings: row label
+set_account_delete_desc,确认后 7 天删除此账号。在此之前登录可取消删除。,settings: row description
+set_lang,语言与辅助功能,settings: section name
+set_lang_language_label,语言,settings: row label
+set_lang_language_desc,“自动”会跟随本设备的语言设置。尚未翻译的内容将以英文显示。,settings: row description
+set_lang_textsize_label,文字大小,settings: row label
+set_lang_textsize_desc,目前整个画面会随窗口大小缩放。,settings: row description
+set_lang_colorblind_label,色盲模式,settings: row label
+set_lang_motion_label,减少动态效果,settings: row label
+set_lang_motion_desc,关闭震动、视差和强烈的转场效果。,settings: row description
+set_lang_flashing_label,减少闪烁,settings: row label
+set_lang_flashing_desc,减弱受击闪光和频闪特效。,settings: row description
+set_legal,法律与支持,settings: section name
+set_legal_help_label,帮助与常见问题,settings: row label
+set_legal_help_desc,在新标签页中打开帮助页面。,settings: row description
+set_legal_contact_label,联系客服,settings: row label
+set_legal_contact_desc,打开报告表单——直接送达开发团队。,settings: row description
+set_legal_analytics_label,数据分析,settings: row label
+set_legal_analytics_desc,目前不收集任何使用数据。关闭后，将为今后可能的收集记录你的拒绝选择。,settings: row description
+set_legal_privacy_label,隐私政策,settings: row label
+set_legal_privacy_desc,在新标签页中打开。,settings: row description
+set_legal_terms_label,服务条款,settings: row label
+set_legal_terms_desc,在新标签页中打开。,settings: row description
+set_legal_credits_label,制作人员,settings: row label
+set_legal_credits_desc,在新标签页中打开。,settings: row description
+set_legal_version_label,版本,settings: row label
+set_locked_tip,史诗及以上品质无法关闭。,settings: tooltip of a locked toggle
+set_lang_auto,自动（跟随设备）,settings: Language row - follow the device language
+chal_btn,挑战,markup: pvp challenge by code (B16)
+chal_title,挑战码对战,markup: pvp challenge by code (B16)
+chal_make_h,生成挑战码,markup: pvp challenge by code (B16)
+chal_make_blurb,把挑战码发给一名玩家。如果你等待对方，就会实时对战；否则对方将攻击你的防守阵容。,markup: pvp challenge by code (B16)
+chal_wait,实时等待对方,markup: pvp challenge by code (B16)
+chal_enter_h,输入挑战码,markup: pvp challenge by code (B16)
+chal_enter_blurb,收到了其他玩家的挑战码？若对方正在等待你，则实时对战；否则将对其防守阵容发起一次自动 PvP 攻击。,markup: pvp challenge by code (B16)
+chal_go,开战,markup: pvp challenge by code (B16)
+chal_err_own,这是你自己的挑战码。请将它发给其他玩家。,app: pvp challenge by code (B16)
+chal_err_expired,挑战码不存在或已过期。请索取新的挑战码。,app: pvp challenge by code (B16)
+chal_err_cap,你今天已攻击该玩家两次。请明天再试。,app: pvp challenge by code (B16)
+chal_err_nodef,该玩家未在实时等待，且尚未保存防守阵容。,app: pvp challenge by code (B16)
+chal_err_tickets,你今日的攻击次数已用完。对方未在等待的挑战码需消耗一次攻击次数。,app: pvp challenge by code (B16)
+chal_err_noteam,你的队伍读取自最近一次存档。请先玩一会儿让游戏存档，然后再试。,app: pvp challenge by code (B16)
+chal_err_locked,挑战功能将在第 {f} 层开放。,app: pvp challenge by code (B16)
+chal_err_generic,服务器拒绝了此操作（{e}）。,app: pvp challenge by code (B16)
+chal_err_net,无法连接到服务器。,app: pvp challenge by code (B16)
+chal_err_busy,请先完成当前的战斗。,app: pvp challenge by code (B16)
+chal_err_done,该挑战已经进行过了。,app: pvp challenge by code (B16)
+chal_bad_len,挑战码由 {n} 位字母和数字组成。,app: pvp challenge by code (B16)
+chal_bad_code,请检查挑战码后重试。,app: pvp challenge by code (B16)
+chal_sending,正在发送挑战码…,app: pvp challenge by code (B16)
+chal_valid_until,有效期至 {t},app: pvp challenge by code (B16)
+chal_new_code,新挑战码,app: pvp challenge by code (B16)
+chal_make_btn,生成挑战码,app: pvp challenge by code (B16)
+chal_copy,复制,app: pvp challenge by code (B16)
+chal_copied,已复制,app: pvp challenge by code (B16)
+chal_on,开,app: pvp challenge by code (B16)
+chal_off,关,app: pvp challenge by code (B16)
+chal_wait_note,正在竞技队列中等待你的挑战者 · {t},app: pvp challenge by code (B16)
+chal_wait_off_note,关闭：对方将改为攻击你的防守阵容，以自动 PvP 对战进行。,app: pvp challenge by code (B16)
+chal_expired_mine,你的挑战码已过期。请生成新的挑战码。,app: pvp challenge by code (B16)
+chal_band,正在等待持有你挑战码 {c} 的玩家,app: pvp challenge by code (B16)
+m_send_to_herumon_dungeon,送往 Herumon Dungeon,markup+app: creature sheet: T48 transfer action (Steam shell only)
+m_confirm_send,确认传送,"app: creature sheet: T48 transfer action, armed"
+m_sent,已传送,markup: creature sheet: T48 transfer action after the send
+m_a_copy_travels_to_herumon_dungeon_it_cannot_come_back_once_per_creature,将有一个副本前往 Herumon Dungeon，且无法返回。每只生物仅限一次。,markup: creature sheet: T48 confirm line (D's words)
+m_dimensional_traveler_levels,次元旅者等级,"app: creature sheet: T48 traveler line, ""Dimensional traveler levels - Tower 76, Dungeon 12"""
+m_tower,高塔,"app: creature sheet: T48 traveler line, this game"
+m_dungeon,地牢,"app: creature sheet: T48 traveler line, the other game"
+m_the_send_did_not_go_through,传送失败,app: creature sheet: T48 send error
+gate_the_tower_keeps_your_climb,高塔会在所有设备间保存你的攀登进度。,index.html: sign-in gate: tagline
+gate_sign_in_through_steam,通过 Steam 登录,index.html: sign-in gate: provider door
+gate_sign_in_with_google,使用 Google 登录,index.html: sign-in gate: provider door
+gate_sign_in_with_discord,使用 Discord 登录,index.html: sign-in gate: provider door
+gate_sign_in_with_apple,使用 Apple 登录,index.html: sign-in gate: provider door
+gate_your_sign_in_secures,登录可保护你的存档和 PvP 排名。,index.html: sign-in gate: footnote
+m_dimensional_rift,次元裂隙,markup: menu tile label (baked in the plate) + rift window title: T48 transfer
+m_send_through_the_rift,送入裂隙,"app: creature sheet: T48 transfer action (web + Steam shell), was SEND TO HERUMON DUNGEON"
+m_a_copy_goes_through_the_rift_to_herumon_dungeon_free_once_per_creature,一个副本将穿过裂隙前往 Herumon Dungeon：免费，每只生物仅限一次。它抵达时为 1 级，保留品级与变异状态。高塔中的原生物仍归你所有。不会有任何东西返回。,app+markup: creature sheet confirm line + rift window: T48 rules (D 2026-11-02/03)
+m_the_rift_opens_in_the_steam_client,裂隙需在 Steam 客户端中开启。Steam 版 Herumon Tower 可传送生物；在这里你只能观看。,app+markup: creature sheet + rift window on the web build: T48 transfer needs the Steam shell
+m_world_traveler,世界旅者,"app: creature sheet + rift window: T48 mark, ""World traveler - Tower · Dungeon"" (D 2026-11-02)"
+m_world_travelers,世界旅者,markup: rift window: the sent creatures list header
+m_a_tear_between_the_tower_and_herumon_dungeon,高塔与 Herumon Dungeon 之间的一道裂缝。,markup: rift window: the intro line
+m_open_a_creatures_sheet_from_the_inventory_and_choose_send_through_the_rift,从背包中打开生物详情，选择“送入裂隙”。仅限从高塔到地牢：裂隙是单向的。,markup: rift window: how to send
+m_no_creature_has_crossed_yet,尚无生物穿越。,markup: rift window: empty travelers list
+m_trophy_wall,荣誉墙,markup: trophy wall: title
+m_earned,已获得,markup/app: trophy wall: the earned count label and the earned tile state
+m_not_yet_earned,尚未获得,app: trophy wall: tile state
+m_hidden_achievement,???,app: trophy wall: a hidden achievement not yet earned
+m_hidden_until_earned,获得后解锁内容。,app: trophy wall: a hidden achievement's description
+m_the_achievement_list_could_not_be_read,无法读取成就列表。,markup: trophy wall: achievements.csv failed
+m_your_earned_achievements_could_not_be_read,暂时无法读取你已获得的成就。,markup: trophy wall: the server door failed
+m_the_same_trophies_unlock_on_steam,通过 Steam 客户端游玩时，相同的成就也会在 Steam 上解锁。,markup: trophy wall: footer
+ach_floor_10_name,第一道门,achievements.csv FLOOR_10 Name
+ach_floor_10_desc,到达高塔第 10 层。,achievements.csv FLOOR_10 Description
+ach_floor_30_name,三十层之上,achievements.csv FLOOR_30 Name
+ach_floor_30_desc,到达高塔第 30 层。,achievements.csv FLOOR_30 Description
+ach_floor_60_name,越过半程,achievements.csv FLOOR_60 Name
+ach_floor_60_desc,到达高塔第 60 层。,achievements.csv FLOOR_60 Description
+ach_floor_100_name,昔日之巅,achievements.csv FLOOR_100 Name
+ach_floor_100_desc,到达高塔第 100 层。,achievements.csv FLOOR_100 Description
+ach_floor_120_name,虚空之顶,achievements.csv FLOOR_120 Name
+ach_floor_120_desc,到达第 120 层——虚空之巅的顶点。,achievements.csv FLOOR_120 Description
+ach_codex_300_name,野外笔记,achievements.csv CODEX_300 Name
+ach_codex_300_desc,在图鉴中收录 300 种生物。,achievements.csv CODEX_300 Description
+ach_mutant_hatch_name,图鉴之外,achievements.csv MUTANT_HATCH Name
+ach_mutant_hatch_desc,孵化一只变异生物。,achievements.csv MUTANT_HATCH Description
+ach_first_void_name,超越品级,achievements.csv FIRST_VOID Name
+ach_first_void_desc,获得你的第一只虚空品级生物。,achievements.csv FIRST_VOID Description
+ach_void_completionist_name,虚空收藏家,achievements.csv VOID_COMPLETIONIST Name
+ach_void_completionist_desc,拥有每条进化路线的虚空品级生物。,achievements.csv VOID_COMPLETIONIST Description
+shop_packs_title,WRAITHGOLD 礼包,app: premium shop: heading of the real-money pack grid (S7)
+shop_store_unreachable,无法连接商店。,app: premium shop: /api/store/catalogue failed
+shop_store_loading,商店加载中...,app: premium shop: pack grid loading
+shop_store_soon,商店即将开放。Wraithgold 礼包将通过 Steam 客户端出售。,app: premium shop: catalogue enabled:false (STORE_ENABLED off)
+shop_buy_in_steam,请在 Steam 客户端中购买。Wraithgold 礼包通过 Steam 出售；网页版仅显示价格。,app: premium shop: web build line under the pack grid (no buy action)
+shop_pack_buy,购买,app: premium shop: pack buy plaque (Steam shell only)
+shop_pack_pending,等待 Steam 响应...,app: premium shop: pack plaque + note while the Steam overlay is open
+shop_pack_opening,正在打开 Steam 购买页面...,app: premium shop: note while init runs
+shop_pack_done,购买完成。Wraithgold 已存入你的钱包。,app: premium shop: note after finalize granted
+shop_pack_declined,购买在 Steam 中被拒绝，未产生任何扣款。,app: premium shop: note after a declined overlay
+shop_pack_failed,购买未完成，未产生任何扣款。,app: premium shop: note after a failed purchase
+shop_last_purchase,上次购买,"app: premium shop: receipt line prefix (""Last purchase: 550 Wraithgold · WG-0550 · time"")"
+m_list_on_steam_market,上架 Steam 市场,"app: STEAM MARKET (marketui, board S1): creature sheet + item detail action"
+m_confirm_listing,确认上架,"app: STEAM MARKET (marketui, board S1): the armed action"
+m_steam_client_only,仅限 Steam 客户端,"markup: STEAM MARKET (marketui, board S1): the web build draws LIST disabled"
+m_mkt_rules_creature,该生物将离开你的存档，成为 Steam 物品。你可以在 Steam 社区市场出售它（游戏手续费 {fee}%）。只要仍归你所有，可随时导入回游戏。限制：每天 {per} 次上架；账号注册须超过 {days} 天。,"app: STEAM MARKET (marketui, board S1): confirm line; {fee} {per} {days} from GET /api/market/exports"
+m_mkt_rules_piece,该装备将离开你的存档，成为 Steam 物品。你可以在 Steam 社区市场出售它（游戏手续费 {fee}%）。只要仍归你所有，可随时导入回游戏。限制：每天 {per} 次上架；账号注册须超过 {days} 天。,"app: STEAM MARKET (marketui, board S1): confirm line for gear; {fee} {per} {days} from GET /api/market/exports"
+m_mkt_sign_in,请登录后使用 Steam 市场。,"app: STEAM MARKET (marketui, board S1): refusal 401"
+m_mkt_unconfigured,Steam 市场尚未配置。,"app: STEAM MARKET (marketui, board S1): refusal 503 market_unconfigured"
+m_mkt_session_young,你的账号注册时间过短，无法上架：{days}/{min_days} 天。,"app: STEAM MARKET (marketui, board S1): refusal session_young"
+m_mkt_export_cap,已达每日上架上限（{today}/{per_day}）。请明天再试。,"app: STEAM MARKET (marketui, board S1): refusal export_cap"
+m_mkt_equipped,它在你的队伍中或正被穿戴。请先卸下。,"app: STEAM MARKET (marketui, board S1): refusal equipped"
+m_mkt_in_pen,它在繁育栏中。请先取出。,"app: STEAM MARKET (marketui, board S1): refusal in_pen"
+m_mkt_locked,它已被锁定。请先解锁。,"app: STEAM MARKET (marketui, board S1): refusal locked"
+m_mkt_not_exportable,此物品无法上架 Steam 市场。蛋、消耗品和魂只能留在高塔中。,"app: STEAM MARKET (marketui, board S1): refusal not_exportable"
+m_mkt_unknown_def,此物品尚无对应的 Steam 物品。,"app: STEAM MARKET (marketui, board S1): refusal unknown_def"
+m_mkt_no_steam_identity,请使用 Steam 登录以使用市场。,"app: STEAM MARKET (marketui, board S1): refusal no_steam_identity"
+m_mkt_bag_full,你的背包已满（{inv}/{cap}）。请先腾出空间。,"app: STEAM MARKET (marketui, board S1): import refusal bag_full"
+m_mkt_no_props,该 Steam 物品并非来自 Herumon Tower。,"app: STEAM MARKET (marketui, board S1): import refusal no_props"
+m_mkt_bad_id,这不是有效的 Steam 物品 ID。,"app: STEAM MARKET (marketui, board S1): import refusal steam_item_id / a bad field"
+m_mkt_not_in_steam_inventory,该物品不在你的 Steam 库存中。,"app: STEAM MARKET (marketui, board S1): import refusal not_owned"
+m_mkt_not_owned,该物品已不在你的存档中。,"app: STEAM MARKET (marketui, board S1): export refusal not_owned"
+m_mkt_steam_failed_import,Steam 未响应，物品仍在 Steam 上。,"app: STEAM MARKET (marketui, board S1): import refusal steam_failed"
+m_mkt_steam_failed,Steam 未响应，物品已退回你的背包。,"app: STEAM MARKET (marketui, board S1): export refusal steam_failed (the row is released)"
+m_mkt_no_answer,市场未响应（{code}）。,"app: STEAM MARKET (marketui, board S1): any other refusal"
+m_mkt_listed,已上 Steam——请在社区市场出售,"app: STEAM MARKET (marketui, board S1): toast after a 200 export"
+m_mkt_imported,{name} 已回到你的背包。,"app: STEAM MARKET (marketui, board S1): line after a 200 import"
+m_mkt_st_reserved,传输中,"app: STEAM MARKET (marketui, board S1): ledger status reserved"
+m_mkt_st_exported,在 Steam 上,"app: STEAM MARKET (marketui, board S1): ledger status exported"
+m_mkt_st_released,已退回背包,"app: STEAM MARKET (marketui, board S1): ledger status released"
+m_mkt_st_importing,导入中,"app: STEAM MARKET (marketui, board S1): ledger status importing"
+m_mkt_st_imported,已导入,"app: STEAM MARKET (marketui, board S1): ledger status imported"
+m_mkt_st_import_failed,导入失败,"app: STEAM MARKET (marketui, board S1): ledger status import_failed"
+m_mkt_dir_import,导入,"app: STEAM MARKET (marketui, board S1): ledger row direction"
+m_mkt_dir_export,导出,"app: STEAM MARKET (marketui, board S1): ledger row direction"
+m_mkt_fee_line,游戏手续费 {fee}% · 每天 {per} 次上架 · 账号注册超过 {days} 天,"app: STEAM MARKET (marketui, board S1): window rules line"
+m_mkt_import_btn,导入,"app: STEAM MARKET (marketui, board S1): import button"
+m_steam_market,STEAM 市场,"markup: STEAM MARKET (marketui, board S1): menu tile label (baked in the plate) + window title"
+m_the_steam_market_opens_with_the_steam_release,Steam 市场将随 Steam 版本发售开放,"markup: STEAM MARKET (marketui, board S1): the window while GET /api/market/exports answers 404"
+m_mkt_tab_exports,导出记录,"markup: STEAM MARKET (marketui, board S1): tab"
+m_mkt_tab_import,导入,"markup: STEAM MARKET (marketui, board S1): tab"
+m_open_the_community_market,打开社区市场,"markup: STEAM MARKET (marketui, board S1): Steam overlay (shell) / link (web)"
+m_open_your_steam_inventory,打开 Steam 库存,"markup: STEAM MARKET (marketui, board S1): Steam overlay (shell) / link (web)"
+m_mkt_how_to_list,打开生物详情或装备详情，选择“上架 Steam 市场”。它将离开你的存档，成为可在社区市场出售的 Steam 物品。,"markup: STEAM MARKET (marketui, board S1): EXPORTS tab"
+m_mkt_no_listings_yet,尚未上架任何物品。,"markup: STEAM MARKET (marketui, board S1): EXPORTS tab, empty"
+m_mkt_how_to_import,买到了物品，或想取回自己的？在 Steam 库存中找到它的 Steam 物品 ID，在此输入即可导入背包。,"markup: STEAM MARKET (marketui, board S1): IMPORT tab"
+m_abyss_lose_once,只要输一次，深渊就会把你打回第 121 层。只有阵亡才会如此：离开或重新加载时，你的层数会保留。,markup: quarry / abyss
+m_auto_optimize_btn,⚙ 一键优化,markup: equipment
+m_auto_optimize_preview,一键优化 · 预览,markup: equipment: auto-optimize
+m_autoplay_hud,自动战斗 ,markup: floor HUD: autoplay pill
+m_class_t1_no_creatures,职业 + 1 阶武器。不含生物。,markup: classes
+m_class_unlocks_note,解锁对整个账号永久生效。切换职业会将全部 8 个装备栏的装备卸回背包——镶嵌物保留在各自的装备上。,markup: classes
+m_currently_slotted,当前装备,markup: equipment: slot picker
+m_devour_pick_hint,一只生物，或魂袋中的吞噬道具,markup: devour
+m_dismantle_btn,⚒ 分解,markup: menu / dismantling
+m_each_path_starts,每条道路都以图中所示的两只生物和两把武器开始。选择一条开始冒险。,markup: creation
+m_equip_dot,装备 ·,"markup: equipment: slot picker title, the slot name follows"
+m_equipped_now,当前装备的队伍,"markup: pvp: follows ""You attack with the team you have"""
+m_feedback_attached,你最近的游戏记录以及游戏抛出的所有错误都会自动附上。,markup: feedback
+m_feedback_thanks,谢谢——报告已连同你最近的游戏记录和错误记录一并提交。,markup: feedback
+m_lit_grades_are_dismantled,点亮的品级会被分解——数字表示将失去的数量。未点亮的品级不受影响——数字表示保留的数量。,markup: menu / dismantling
+m_name_rules,3–16 个字符，可使用字母（A–Z）、数字、空格、- 或 _。名称不可重复，每个账号仅限一个名称。,markup: creation: name
+m_no_entries_yet,暂无记录,markup: pvp: rankings
+m_no_items_fit_slot,背包中没有适合此栏位的物品。,markup: equipment: slot picker
+m_opt_untouched, ·  生物、魂和卷轴保持不变,markup: equipment: auto-optimize (joined after the bag note)
+m_purchase_successful,购买成功,markup: shop: slot purchase
+m_seconds_to_join,秒内加入——无论如何队列都会继续匹配,markup: pvp: queue
+m_select_more,继续选择,markup: menu / dismantling
+m_soul_when_slotted,魂 · 镶入被动护甲时,markup: soul card
+m_wg_purchases_not_live,Alpha 测试期间暂未开放 Wraithgold 购买。栏位在此存档中永久有效。,markup: shop: slot purchase
+m_worn_totals_note,穿戴总计包含所有镶嵌物。栏位数 = 宝石 + 符文 + 卷轴。,markup: equipment: stats
+m_yes_dismantle,⚒ 确认分解,markup: menu / dismantling
+m_you_attack_with_team,你将使用,"markup: pvp: the coloured ""equipped now"" follows"
+m_leave_the_abyss,离开深渊,app: floor HUD: back portal inside the Abyss
+m_descend,↓ 下行,app: floor HUD: back portal
+m_floor_n,第 {n} 层,app: floor HUD: back portal floor number
+m_boss_den,首领巢穴,app: floor HUD: ascend portal before a boss floor
+m_summit,塔顶,app: floor HUD: ascend portal on the top floor
+m_abyss_streak,深渊连胜,app: floor HUD: streak label inside the Abyss
+m_ascending,上行中,app: floor transit title
+m_descending,下行中,app: floor transit title
+m_inv_usage,{cnt} / {cap} 栏位,app: inventory / soul bag header: slots used
+m_dim_tiers,个阶级,"app: dismantling: ""N tiers picked"""
+m_dim_grades,个品级,"app: dismantling: ""N grades picked"""
+set_press_a_key,请按下按键,settings: a key row waiting for the new key
+set_dlg_restore_title,恢复默认,settings: confirm dialog (restore)
+set_dlg_restore_button,恢复,settings: confirm dialog (restore)
+set_dlg_logout_title,退出登录,settings: confirm dialog (logout)
+set_dlg_logout_body,系统会先将你的攀登进度保存到服务器，然后此设备退出登录并返回登录界面。不会丢失任何内容——重新登录即可恢复一切。,settings: confirm dialog (logout)
+set_dlg_logout_button,退出登录,settings: confirm dialog (logout)
+set_dlg_resetsave_title,重置进度,settings: confirm dialog (resetsave)
+set_dlg_resetsave_body,清除此存档，从第 1 层、Lv 1 开始新游戏？生物、装备和楼层进度都将被清空。此操作无法撤销。,settings: confirm dialog (resetsave)
+set_dlg_resetsave_button,重置并重新开始,settings: confirm dialog (resetsave)
+set_dlg_delete1_title,删除账号,settings: confirm dialog (delete1)
+set_dlg_delete1_body,这将删除账号及其包含的一切：存档、生物、装备、所有货币（包括你购买的 Wraithgold）、排行榜与 PvP 排名，以及你的名称。删除将在你确认后 7 天执行；在此之前登录可取消。你发送的问题报告将在与账号解除关联后保留。,settings: confirm dialog (delete1)
+set_dlg_delete1_button,继续,settings: confirm dialog (delete1)
+set_dlg_delete2_title,确认删除,settings: confirm dialog (delete2)
+set_dlg_delete2_button,删除账号,settings: confirm dialog (delete2)
+set_dlg_restore_body,将“{section}”中的所有选项恢复为默认值？其他分类不受影响。,settings: confirm dialog (restore); {section} is the section name
+set_dlg_delete2_body,请在下方输入 DELETE，然后点击“删除账号”。所有设备都将退出登录。,settings: confirm dialog (delete2); DELETE is the word the player types - keep it in English
+set_val_max,最高,settings: option value
+set_val_low,低,settings: option value
+set_val_standard,标准,settings: option value
+set_val_stay,停留,settings: option value
+set_val_go_down,下行,settings: option value
+set_val_go_up,上行,settings: option value
+set_val_lowest_health,生命最低,settings: option value
+set_val_highest_health,生命最高,settings: option value
+set_val_random,随机,settings: option value
+set_val_overall_power,综合战力,settings: option value
+set_val_atk,攻击,settings: option value
+set_val_def,防御,settings: option value
+set_val_hp,HP,settings: option value
+set_val_turn_1,第 1 回合,settings: option value
+set_val_turn_2,第 2 回合,settings: option value
+set_val_turn_3,第 3 回合,settings: option value
+set_val_never_use,从不使用,settings: option value
+set_val_coming,即将推出,settings: option value
+set_val_set_at_character_creation,创建角色时设定,settings: option value
+unl_class_soul,你的职业赐予你的魂。点击查看它的效果。,unlocks.csv class_soul Line (the unlock lesson line; edit both)
+unl_hatch_all,一次孵化背包里的所有蛋。,unlocks.csv hatch_all Line (the unlock lesson line; edit both)
+unl_dismantle_all,一次将多件装备分解为材料。,unlocks.csv dismantle_all Line (the unlock lesson line; edit both)
+unl_souls,魂存放在专属背包中。将魂镶入装备即可获得其力量。,unlocks.csv souls Line (the unlock lesson line; edit both)
+unl_auto_pvp,让你的队伍排队对战其他玩家的队伍。,unlocks.csv auto_pvp Line (the unlock lesson line; edit both)
+unl_auto_optimise,自动为你穿上背包中最强的装备。,unlocks.csv auto_optimise Line (the unlock lesson line; edit both)
+unl_breeding,圈舍中的两只生物会随时间产蛋。,unlocks.csv breeding Line (the unlock lesson line; edit both)
+unl_trader,商品会随时间更换。记得回来看看新货。,unlocks.csv trader Line (the unlock lesson line; edit both)
+unl_transfer,通往 Herumon Dungeon 的裂隙已开启。可送一只生物过去：复制品、免费、仅一次。它以1级抵达，并保留其品级。,unlocks.csv transfer Line (the unlock lesson line; edit both)
+m_unl_generic,第{f}层开放。点击一次即可开始。,app: unlock lesson: the generic line when unlocks.csv has no Line

@@ -1,0 +1,40 @@
+Term,en,ja,de,zh-Hans,pt-BR,Note
+game,Herumon Tower,Herumon Tower,Herumon Tower,Herumon Tower,Herumon Tower,proper name - never translated
+dungeon,Herumon Dungeon,Herumon Dungeon,Herumon Dungeon,Herumon Dungeon,Herumon Dungeon,proper name - never translated
+wraithgold,Wraithgold,Wraithgold,Wraithgold,Wraithgold,Wraithgold,premium currency - proper name; never translated (Steam store packs carry it)
+steam,Steam,Steam,Steam,Steam,Steam,platform - never translated
+ichor,Ichor,イコル,Ichor,灵液,Icor,currency
+scrap,Scrap,スクラップ,Schrott,废料,Sucata,material
+dust,Dust,ダスト,Staub,尘晶,Pó,material
+essence,Essence,エッセンス,Essenz,精华,Essência,material
+ink,Ink,インク,Tinte,墨,Tinta,material
+soul,soul,ソウル,Seele,魂,alma,the creature a player carries; plural souls = ソウル / Seelen / 魂 / almas
+creature,creature,クリーチャー,Kreatur,生物,criatura,
+egg,egg,タマゴ,Ei,蛋,ovo,
+floor,floor,階,Etage,层,andar,"tower floor; Floor 12 = 12階 / Etage 12 / 第12层 / Andar 12"
+void_apex,Void Apex,ヴォイド・エイペックス,Void Apex,虚空之巅,Ápice do Vazio,the floor-118 ring
+rift,Dimensional Rift,次元の裂け目,Dimensionsriss,次元裂隙,Fenda Dimensional,
+grade_worn,Worn,ボロ,Abgenutzt,破旧,Gasto,grade
+grade_common,Common,コモン,Gewöhnlich,普通,Comum,grade
+grade_uncommon,Uncommon,アンコモン,Ungewöhnlich,优秀,Incomum,grade
+grade_rare,Rare,レア,Selten,稀有,Raro,grade
+grade_epic,Epic,エピック,Episch,史诗,Épico,grade
+grade_legendary,Legendary,レジェンダリー,Legendär,传说,Lendário,grade
+grade_abyssal,Abyssal,アビサル,Abyssal,深渊,Abissal,grade
+grade_divine,Divine,ディバイン,Göttlich,神圣,Divino,grade
+grade_primordial,Primordial,プライモーディアル,Urzeitlich,太古,Primordial,grade
+grade_void,Void,ヴォイド,Leere,虚空,Vazio,grade
+class_warrior,Warrior,ウォリアー,Krieger,战士,Guerreiro,class
+class_archer,Archer,アーチャー,Bogenschütze,弓手,Arqueiro,class
+class_assassin,Assassin,アサシン,Assassine,刺客,Assassino,class
+class_brute,Brute,ブルート,Rohling,蛮兵,Bruto,class
+class_mage,Mage,メイジ,Magier,法师,Mago,class
+class_professor,Professor,プロフェッサー,Professor,教授,Professor,class
+ascend,ASCEND,上昇,AUFSTIEG,上行,ASCENDER,go up the tower
+descend,DESCEND,下降,ABSTIEG,下行,DESCER,go down the tower
+streak,STREAK,連勝,SERIE,连胜,SEQUÊNCIA,win streak
+upgrade,UPGRADE,強化,AUFWERTEN,强化,MELHORAR,
+gear,gear,装備,Ausrüstung,装备,equipamento,
+build,build,ビルド,Build,配装,build,a saved equipment set
+boss,boss,ボス,Boss,首领,chefe,
+pvp,PvP,PvP,PvP,PvP,PvP,

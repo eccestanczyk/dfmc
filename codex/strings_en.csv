@@ -483,3 +483,88 @@ m_open_your_steam_inventory,OPEN YOUR STEAM INVENTORY,"markup: STEAM MARKET (mar
 m_mkt_how_to_list,Open a creature's sheet or a gear piece's details and choose LIST ON STEAM MARKET. It leaves your save and becomes a Steam item you can sell on the Community Market.,"markup: STEAM MARKET (marketui, board S1): EXPORTS tab"
 m_mkt_no_listings_yet,Nothing listed yet.,"markup: STEAM MARKET (marketui, board S1): EXPORTS tab, empty"
 m_mkt_how_to_import,"Bought one, or want yours back? Find its Steam item id in your Steam inventory, enter it here and import it into your bag.","markup: STEAM MARKET (marketui, board S1): IMPORT tab"
+m_abyss_lose_once,Lose once and the Abyss throws you back to 121. Only a death does: leave or reload and your number waits for you.,markup: quarry / abyss
+m_auto_optimize_btn,⚙ AUTO-OPTIMIZE,markup: equipment
+m_auto_optimize_preview,AUTO-OPTIMIZE · PREVIEW,markup: equipment: auto-optimize
+m_autoplay_hud,AUTOPLAY ,markup: floor HUD: autoplay pill
+m_class_t1_no_creatures,Class + T1 weapons. No creatures.,markup: classes
+m_class_unlocks_note,Unlocks are account-wide and permanent. Switching unequips all 8 gear slots back to the inventory — sockets stay on their items.,markup: classes
+m_currently_slotted,CURRENTLY SLOTTED,markup: equipment: slot picker
+m_devour_pick_hint,"A creature, or a Devour item from the soul bag",markup: devour
+m_dismantle_btn,⚒ DISMANTLE,markup: menu / dismantling
+m_each_path_starts,Each path starts with the two creatures and two weapons shown. Choose one to begin.,markup: creation
+m_equip_dot,EQUIP ·,"markup: equipment: slot picker title, the slot name follows"
+m_equipped_now,equipped now,"markup: pvp: follows ""You attack with the team you have"""
+m_feedback_attached,Your recent play and any errors the game has thrown are attached automatically.,markup: feedback
+m_feedback_thanks,Thank you — it went in with your recent play and any errors on record.,markup: feedback
+m_lit_grades_are_dismantled,Lit grades are dismantled — the number is what they lose. Dark grades are left alone — the number is what is being kept.,markup: menu / dismantling
+m_name_rules,"3–16 letters (A–Z), digits, spaces, - or _. Names are unique, and it is one name per account.",markup: creation: name
+m_no_entries_yet,NO ENTRIES YET,markup: pvp: rankings
+m_no_items_fit_slot,No items in inventory fit this slot.,markup: equipment: slot picker
+m_opt_untouched," ·  creatures, souls and scrolls untouched",markup: equipment: auto-optimize (joined after the bag note)
+m_purchase_successful,PURCHASE SUCCESSFUL,markup: shop: slot purchase
+m_seconds_to_join,SECONDS TO JOIN — THE QUEUE KEEPS LOOKING EITHER WAY,markup: pvp: queue
+m_select_more,SELECT MORE,markup: menu / dismantling
+m_soul_when_slotted,SOUL · WHEN SLOTTED IN PASSIVE ARMOUR,markup: soul card
+m_wg_purchases_not_live,Wraithgold purchases are not live during the alpha. Slots are permanent for this save.,markup: shop: slot purchase
+m_worn_totals_note,Worn totals include anything socketed. Slot counts are gem + rune + scroll.,markup: equipment: stats
+m_yes_dismantle,"⚒ YES, DISMANTLE",markup: menu / dismantling
+m_you_attack_with_team,You attack with the team you have,"markup: pvp: the coloured ""equipped now"" follows"
+m_leave_the_abyss,LEAVE THE ABYSS,app: floor HUD: back portal inside the Abyss
+m_descend,↓ DESCEND,app: floor HUD: back portal
+m_floor_n,FLOOR {n},app: floor HUD: back portal floor number
+m_boss_den,BOSS DEN,app: floor HUD: ascend portal before a boss floor
+m_summit,SUMMIT,app: floor HUD: ascend portal on the top floor
+m_abyss_streak,ABYSS STREAK,app: floor HUD: streak label inside the Abyss
+m_ascending,ASCENDING,app: floor transit title
+m_descending,DESCENDING,app: floor transit title
+m_inv_usage,{cnt} / {cap} slots,app: inventory / soul bag header: slots used
+m_dim_tiers,tiers,"app: dismantling: ""N tiers picked"""
+m_dim_grades,grades,"app: dismantling: ""N grades picked"""
+set_press_a_key,PRESS A KEY,settings: a key row waiting for the new key
+set_dlg_restore_title,RESTORE DEFAULTS,settings: confirm dialog (restore)
+set_dlg_restore_button,RESTORE,settings: confirm dialog (restore)
+set_dlg_logout_title,SIGN OUT,settings: confirm dialog (logout)
+set_dlg_logout_body,"Your climb is saved to the server first, then this device is signed out and returns to the sign-in screen. Nothing is lost — signing back in restores everything.",settings: confirm dialog (logout)
+set_dlg_logout_button,SIGN OUT,settings: confirm dialog (logout)
+set_dlg_resetsave_title,RESET PROGRESS,settings: confirm dialog (resetsave)
+set_dlg_resetsave_body,"Wipe this save and start a new game from Floor 1, Lv 1? Creatures, gear, and floor progress are cleared. This cannot be undone.",settings: confirm dialog (resetsave)
+set_dlg_resetsave_button,RESET & RESTART,settings: confirm dialog (resetsave)
+set_dlg_delete1_title,DELETE ACCOUNT,settings: confirm dialog (delete1)
+set_dlg_delete1_body,"This deletes the account and everything it holds: the save, creatures, gear, every currency including Wraithgold you bought, your leaderboard and PvP standing, and your name. It happens 7 days after you confirm; signing in before then lets you cancel. Bug reports you sent are kept without your account.",settings: confirm dialog (delete1)
+set_dlg_delete1_button,CONTINUE,settings: confirm dialog (delete1)
+set_dlg_delete2_title,CONFIRM DELETION,settings: confirm dialog (delete2)
+set_dlg_delete2_button,DELETE ACCOUNT,settings: confirm dialog (delete2)
+set_dlg_restore_body,Reset every option in “{section}” to its default value? Other sections are untouched.,settings: confirm dialog (restore); {section} is the section name
+set_dlg_delete2_body,"Type DELETE below, then press DELETE ACCOUNT. Every device is signed out.",settings: confirm dialog (delete2); DELETE is the word the player types - keep it in English
+set_val_max,Max,settings: option value
+set_val_low,Low,settings: option value
+set_val_standard,Standard,settings: option value
+set_val_stay,Stay,settings: option value
+set_val_go_down,Go Down,settings: option value
+set_val_go_up,Go Up,settings: option value
+set_val_lowest_health,Lowest Health,settings: option value
+set_val_highest_health,Highest Health,settings: option value
+set_val_random,Random,settings: option value
+set_val_overall_power,Overall Power,settings: option value
+set_val_atk,ATK,settings: option value
+set_val_def,DEF,settings: option value
+set_val_hp,HP,settings: option value
+set_val_turn_1,Turn 1,settings: option value
+set_val_turn_2,Turn 2,settings: option value
+set_val_turn_3,Turn 3,settings: option value
+set_val_never_use,Never Use,settings: option value
+set_val_coming,Coming,settings: option value
+set_val_set_at_character_creation,Set at character creation,settings: option value
+unl_class_soul,The soul your class gave you. Click it to see what it does.,unlocks.csv class_soul Line (the unlock lesson line; edit both)
+unl_hatch_all,Hatches every egg in the bag in one go.,unlocks.csv hatch_all Line (the unlock lesson line; edit both)
+unl_dismantle_all,Breaks many pieces into materials in one go.,unlocks.csv dismantle_all Line (the unlock lesson line; edit both)
+unl_souls,Souls live in their own bag. Seat one on gear for its power.,unlocks.csv souls Line (the unlock lesson line; edit both)
+unl_auto_pvp,Queue your team against other players' teams.,unlocks.csv auto_pvp Line (the unlock lesson line; edit both)
+unl_auto_optimise,Wears the strongest pieces in your bag for you.,unlocks.csv auto_optimise Line (the unlock lesson line; edit both)
+unl_breeding,Two creatures in a pen make eggs over time.,unlocks.csv breeding Line (the unlock lesson line; edit both)
+unl_trader,Stock changes over time. Come back for new wares.,unlocks.csv trader Line (the unlock lesson line; edit both)
+unl_transfer,"The rift to Herumon Dungeon is open. Send a creature through: a copy, free, once. It arrives at level 1 and keeps its grade.",unlocks.csv transfer Line (the unlock lesson line; edit both)
+m_unl_generic,Opened at floor {f}. Click it once to begin.,app: unlock lesson: the generic line when unlocks.csv has no Line
+portal_sealed_win,SEALED · 1 MORE WIN,app: floor portal: sealed, one win left (#1142)
+portal_sealed_wins,SEALED · {n} MORE WINS,app: floor portal: sealed, {n} wins left (#1142)

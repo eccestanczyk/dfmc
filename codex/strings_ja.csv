@@ -1,0 +1,568 @@
+Key,Text,Context
+m_turn_your_phone_sideways,スマホを横向きにしてください,markup: shell: rotate prompt
+m_herumon_tower_plays_in_landscape,Herumon Towerは横画面でプレイします。,markup: shell: rotate prompt
+m_if_it_does_not_turn_switch_off_you,回転しない場合は、画面の回転ロックをオフにしてください。,markup: shell: rotate prompt
+m_speed_order,行動順,markup: battle HUD
+m_round,ラウンド,markup: battle HUD
+m_streak,連勝,markup: battle HUD
+m_ready,✓ 準備完了,markup: battle HUD
+m_hover_the_skull,ドクロにカーソルを,markup: battle HUD
+m_this_boss_has_a_unique_mechanic_re,このボスには固有のギミックがあります。戦う前に確認しましょう。,markup: battle HUD
+m_combat_log,☰ 戦闘ログ,markup: battle HUD
+m_forfeit,⚑ 降参,markup: battle HUD
+m_forfeit_the_battle,⚑ 降参しますか？,markup: battle HUD
+m_forfeit_2,降参,markup: battle HUD
+m_keep_fighting,戦闘を続ける,markup: battle HUD
+m_duration,持続,markup: battle HUD
+m_select_target,◎ 対象を選択,markup: battle HUD
+m_back,← 戻る,markup: battle HUD
+m_decree_of_battle,⁂ 戦いの布告 ⁂,markup: battle HUD
+m_combat_log_2,戦闘ログ,markup: battle HUD
+m_this_encounter_click_outside_to_cl,この戦闘 · 外側をクリックで閉じる,markup: battle HUD
+m_breeding,交配,markup: menu / dismantling
+m_equipment,装備,markup: menu / dismantling
+m_dismantling,分解,markup: menu / dismantling
+m_filters,フィルター,markup: menu / dismantling
+m_done,完了,markup: menu / dismantling
+m_new,NEW,markup: menu / dismantling
+m_tap_the,タップして,markup: menu / dismantling
+m_you_want_then_confirm_once,を選び、最後に一度だけ確定。,markup: menu / dismantling
+m_selected,選択中 ·,markup: menu / dismantling
+m_items,個,markup: menu / dismantling
+m_back_2,戻る,markup: menu / dismantling
+m_dismantle,分解,markup: menu / dismantling
+m_salvage,回収,markup: menu / dismantling
+m_close,閉じる,markup: shop: slot purchase
+m_nothing_left_to_buy,購入できるものはありません。,markup: shop: slot purchase
+m_current_capacity,現在の容量:,markup: shop: slot purchase
+m_slots,枠,markup: shop: slot purchase
+m_add_to_cart,カートに追加,markup: shop: slot purchase
+m_continue,続ける,markup: shop: slot purchase
+m_account,アカウント,markup: equipment
+m_lv,Lv,markup: equipment
+m_power,戦力,markup: equipment
+m_x,「,markup: equipment
+m_x_2,」,markup: equipment
+m_builds,☰ ビルド,markup: equipment
+m_x_3, · ,markup: equipment
+m_sockets,ソケット:,markup: equipment
+m_slot_s_unchanged,枠は変更なし,markup: equipment
+m_cancel,キャンセル,markup: equipment
+m_confirm,確定,markup: equipment
+m_saved_builds,保存済みビルド ·,markup: equipment
+m_the_server_keeps_your_builds_apply,ビルドはサーバーに保存されます。適用すると手持ちの装備が元の位置に戻ります。所持していない装備はスキップされ、ここに表示されます。,markup: equipment
+m_no_build_slots_for_this_class,このクラスのビルド枠はありません。,markup: equipment
+m_apply,適用,markup: equipment
+m_rename,名前変更,markup: equipment
+m_delete,削除,markup: equipment
+m_inventory,インベントリ,markup: equipment
+m_soul_bag,ソウルバッグ,markup: equipment
+m_classes,クラス ▾,markup: equipment
+m_class_lv,クラスLv,markup: equipment
+m_to_next,· 次まで,markup: equipment
+m_gem,ジェム,markup: equipment
+m_rune,ルーン,markup: equipment
+m_scroll,スクロール,markup: equipment
+m_illegal,不正,markup: equipment
+m_empty,— 空き,markup: equipment
+m_no_soul_slotted,ソウル未装着,markup: equipment
+m_soul_crystals,ソウルクリスタル,markup: equipment
+m_a_character_soul_is_always_bound_i,キャラクターのソウルは常に結び付いています。交換はできますが、外すことはできません。初期ソウルはウォリアーです。,markup: equipment
+m_devour,† 捕食,markup: equipment
+m_available,使用可能,markup: equipment
+m_clear,クリア,markup: equipment
+m_no_soul_in_your_bag_matches_that_c,条件に合うソウルがバッグにありません。フィルターを外してください。,markup: equipment
+m_socketed,装着中:,markup: equipment
+m_scroll_2,✦ スクロール ·,markup: equipment
+m_inscribed_upon,刻印先,markup: equipment
+m_band,帯,markup: equipment
+m_roll_again,再抽選 ·,markup: equipment
+m_destroys,破壊,markup: equipment
+m_keep_this_roll,この結果にする,markup: equipment
+m_the_next_scroll_unfurls,次のスクロールが開かれる…,markup: equipment
+m_no_scrolls_left_to_roll,抽選できるスクロールがありません,markup: equipment
+m_replace_socketable,⚠ ソケット品の置き換え,markup: equipment
+m_socketing,装着:,markup: equipment
+m_will,→,markup: equipment
+m_destroy,破壊:,markup: equipment
+m_the_currently_slotted,現在装着中の,markup: equipment
+m_this_cannot_be_undone,。元に戻せません。,markup: equipment
+m_replace_destroy,置き換えて破壊,markup: equipment
+m_compared_with_what_you_wear,現在の装備との比較,markup: equipment
+m_this_item,このアイテム,markup: equipment
+m_upgrade,▲ 強化,markup: equipment
+m_dismantle_2,⚒ 分解,markup: equipment
+m_dismantles_for,分解で入手:,markup: equipment
+m_codex,コーデックス,markup: codex / boss drops
+m_boss_drops_next_boss_floor,ボスドロップ · 次のボス、階,markup: codex / boss drops
+m_every_boss_kill_drops,ボス撃破ごとに,markup: codex / boss drops
+m_piece_of_gear_and,個の装備と,markup: codex / boss drops
+m_egg_the_gear_grade_is_rolled,個のタマゴを入手。装備のグレードは抽選,markup: codex / boss drops
+m_egg_line_by_rarity,レア度別タマゴ:,markup: codex / boss drops
+m_click_skip_hold_fast,クリック · スキップ    長押し · 早送り,markup: hatch
+m_skip_all,全てスキップ,markup: hatch
+m_egg,タマゴ,markup: hatch
+m_hatch_grade_chances,孵化グレード確率,markup: hatch
+m_mutant,ミュータント,markup: hatch
+m_alternate_colour_cosmetic,色違い · 見た目のみ,markup: hatch
+m_not_yet,まだ早い,markup: hatch
+m_hatch,孵化,markup: hatch
+m_floor_map,フロアマップ,markup: floor map
+m_boss_keys,ボスの鍵,markup: floor map
+m_cry,鳴き声,markup: creature sheet
+m_devour_2,捕食,markup: creature sheet
+m_experience,経験値,markup: creature sheet
+m_aptitude,適性,markup: creature sheet
+m_moves,技,markup: creature sheet
+m_advancement_line,進化ライン,markup: creature sheet
+m_game_settings,ゲーム設定,markup: settings
+m_restore_defaults,初期設定に戻す —,markup: settings
+m_choose_parent,親を選択,markup: breeding
+m_extra_pens_buy_parallelism_not_thr,囲いを増やすと同時進行数が増えますが、速度は上がりません,markup: breeding
+m_dlc,DLC,markup: breeding
+m_dlc_expansion,DLC拡張,markup: breeding
+m_available_with_the_menagerie_expan,Menagerie拡張で利用可能,markup: breeding
+m_pens,‹ 囲い,markup: breeding
+m_grows_stronger,がさらに強くなった,markup: level up / victory / defeat
+m_reached_level,レベル到達,markup: level up / victory / defeat
+m_victory,勝利,markup: level up / victory / defeat
+m_win_streak,連勝,markup: level up / victory / defeat
+m_you_have_cleared_floor,✦ 踏破した階,markup: level up / victory / defeat
+m_experience_earned,獲得経験値,markup: level up / victory / defeat
+m_spoils,戦利品,markup: level up / victory / defeat
+m_continue_2,続ける →,markup: level up / victory / defeat
+m_is_changing,が変化している…,markup: level up / victory / defeat
+m_became,は姿を変えた →,markup: level up / victory / defeat
+m_you_were,あなたは,markup: level up / victory / defeat
+m_defeated,敗北した,markup: level up / victory / defeat
+m_streak_broken,連勝が途切れた,markup: level up / victory / defeat
+m_choose_your_quarry,獲物を選べ,markup: quarry / abyss
+m_the_abyss_deepens,深淵が深まる,markup: quarry / abyss
+m_the_infinite_abyss,無限の深淵,markup: quarry / abyss
+m_win,連続で,markup: quarry / abyss
+m_battles_in_a_row_to_sink_one_floor,勝すると1階深く沈む。数字に上限はない。,markup: quarry / abyss
+m_every_floor_deeper_every_monster_g,1階深くなるごとに、全モンスターが1%強化（累積）。現在:,markup: quarry / abyss
+m_monsters_and_rewards_are_always_fl,モンスターと報酬は常に119階のもの。稼ぎ場ではなく挑戦の場です。,markup: quarry / abyss
+m_your_deepest_floor_goes_on_the_ran,最深到達階がランキングに載ります。最深:,markup: quarry / abyss
+m_fold_the_letter,手紙をたたむ,markup: letters
+m_the_skull_beat_you,ドクロに敗れた,markup: letters
+m_every_apex_boss_past_floor_100_car,100階以降のApexボスは全て、このようなドクロ状態を持っています。戦闘中にカーソルを合わせ、挑む前にギミックを確認しましょう。,markup: letters
+m_ok,OK,markup: letters
+m_x_4,·,markup: floor HUD / boss lair
+m_floor_boss_lair,階層ボスの巣,markup: floor HUD / boss lair
+m_hp,HP,markup: floor HUD / boss lair
+m_signature,固有技:,markup: floor HUD / boss lair
+m_spoils_2,戦利品,markup: floor HUD / boss lair
+m_boss_keys_2,⚿ ボスの鍵,markup: floor HUD / boss lair
+m_energy_gathers_at_the_platform,台座にエネルギーが集まっていく…,markup: floor HUD / boss lair
+m_the_alpha_reforms,アルファが再生する,markup: floor HUD / boss lair
+m_return,← 戻る,markup: floor HUD / boss lair
+m_ascend,↑ 上昇,markup: floor HUD / boss lair
+m_scene,シーン,markup: floor HUD / boss lair
+m_read_more_in_the_codex,コーデックスで詳しく ›,markup: floor HUD / boss lair
+m_pvp_arena,PvPアリーナ,markup: pvp
+m_rankings,ランキング,markup: pvp
+m_auto_pvp,オートPvP,markup: pvp
+m_rating,レート,markup: pvp
+m_autoplay,オート ,markup: pvp
+m_matchmaking,マッチング,markup: pvp
+m_your_defense_is_your,。防衛には,markup: pvp
+m_daily_snapshot,毎日のスナップショット,markup: pvp
+m_re_gearing_shows_up_on_defense_at,が使われます — 装備変更は次のリセット後に防衛へ反映されます。,markup: pvp
+m_x_5,×,markup: pvp
+m_competitive_pvp,ランクPvP,markup: pvp
+m_loading,読み込み中…,markup: pvp
+m_best_floor,最高到達階,markup: pvp
+m_ratings,レート,markup: pvp
+m_party_daily,パーティ（毎日）,markup: pvp
+m_not_yet_posted,未登録,markup: pvp
+m_badges,バッジ,markup: pvp
+m_no_badges_yet,バッジなし,markup: pvp
+m_bank,バンク,markup: pvp
+m_orders_sealed_waiting_for_opponent,指示確定 — 相手を待っています,markup: pvp
+m_opponent_found,対戦相手が見つかった,markup: pvp
+m_best_of_3_team_locked_double_blind,3本先取 · チーム固定 · 同時秘密選択,markup: pvp
+m_arena_match,アリーナ対戦,markup: pvp
+m_arena_battles_grant_no_spoils_expe,アリーナ戦では戦利品・経験値・連勝は得られません。レートのみ変動します。,markup: pvp
+m_exit_replay,リプレイ終了,markup: pvp
+m_replay_complete,リプレイ完了,markup: pvp
+m_deterministic_playback_identical_t,完全再現 — 全ての判定が実際の対戦と同一,markup: pvp
+m_back_to_arena,アリーナへ戻る,markup: pvp
+m_match_found,マッチング成立！,markup: pvp
+m_join_match,⚔ 対戦に参加,markup: pvp
+m_premium_shop,プレミアムショップ,markup: premium shop
+m_classes_2,クラス,markup: classes
+m_max,✦ 最大,markup: classes
+m_active,✦ 使用中,markup: classes
+m_switch,切替,markup: classes
+m_unlock,解放 ·,markup: classes
+m_not_purchasable,購入不可,markup: classes
+m_before_you_climb,登る前に,markup: creation
+m_how_old_are_you,年齢を教えてください,markup: creation
+m_asked_once_your_account_keeps_only,確認は一度だけです。アカウントには年齢そのものではなく、プレイ可能な年齢かどうかのみ保存されます。詳しくは「設定 › 法務とサポート」のプライバシーポリシーをご覧ください。,markup: creation
+m_herumon_tower_is_not_available_to,Herumon Towerは次の年齢未満の方はご利用いただけません:,markup: creation
+m_no_account_is_kept_for_you_the_sig,アカウントは作成されません。使用したサインインはサインアウトされ、作成されたデータは7日以内に削除されます。お問い合わせはプライバシーポリシー記載のアドレスまで。,markup: creation
+m_leave,退出,markup: creation
+m_choose_your_path,道を選べ,markup: creation
+m_the_tower_stirs_loading_class_data,塔がうごめく…（クラスデータ読み込み中）,markup: creation
+m_the_other_classes_unlock_later_in,他のクラスは後でクラス画面から解放できます。,markup: creation
+m_name_your_champion,勇者の名前,markup: creation
+m_stage_1,· ステージ1,markup: creation
+m_worn_lv_1,ボロ · Lv 1 ·,markup: creation
+m_starter_weapons_tier_1,初期武器 · ティア1,markup: creation
+m_enter_the_tower,塔へ入る ✦,markup: creation
+m_enter_a_name_to_continue,名前を入力してください,markup: creation
+m_burn_incense_to_get_more_spawns,お香を焚いて出現数アップ,markup: autoplay
+m_add_bait_to_halve_the_wait,エサで待ち時間を半減,markup: autoplay
+m_bug_report_sent,バグ報告を送信しました！,markup: bug report
+m_report_a_bug,バグを報告,markup: bug report
+m_all_in,全投入,markup: upgrade
+m_every_attempt_spends_the_resource,挑戦ごとに素材を消費します。失敗しても返却されません。,markup: upgrade
+m_upgrade_2,強化,markup: upgrade
+m_a_failed_attempt_spends_the_resour,失敗すると素材のみ消費され、他は何も変わりません。,markup: upgrade
+m_consumer,捕食者,markup: devour
+m_mutant_2,ミュータント,markup: devour
+m_will_be_consumed,消費されます,markup: devour
+m_select_fodder,素材を選択,markup: devour
+m_back_3,‹ 戻る,markup: devour
+m_select_fodder_it_will_be_consumed,素材を選択 — 消費されます,markup: devour
+m_prev,‹ 前へ,markup: devour
+m_next,次へ ›,markup: devour
+m_nothing_in_the_soul_bag_can_be_con,ソウルバッグに消費できるものがありません。,markup: devour
+m_level_up,レベルアップ,markup: misc
+m_tap_to_skip,タップでスキップ,markup: misc
+m_no_salvage_value,回収価値なし,markup: misc
+m_understood,了解,markup: misc
+set_audio,サウンド,settings: section name
+set_audio_master_label,マスター音量,settings: row label
+set_audio_music_label,BGM,settings: row label
+set_audio_sfx_label,効果音,settings: row label
+set_audio_ui_label,UI効果音,settings: row label
+set_audio_mute_label,全てミュート,settings: row label
+set_audio_mutebg_label,バックグラウンド時にミュート,settings: row label
+set_display,画面,settings: section name
+set_display_fps_label,フレームレート,settings: row label
+set_display_fps_desc,画面の更新頻度を制限します。最大はディスプレイに従います。,settings: row description
+set_display_fullscreen_label,フルスクリーン,settings: row label
+set_display_fullscreen_desc,ゲームを画面いっぱいに表示します。Escでも解除できます。,settings: row description
+set_display_battery_label,省電力モード,settings: row label
+set_display_battery_desc,30fpsに制限し、エフェクトを減らします。,settings: row description
+set_display_shake_label,画面の揺れ,settings: row label
+set_display_vfx_label,エフェクト強度,settings: row label
+set_display_wakelock_label,スリープしない,settings: row label
+set_display_wakelock_desc,ゲーム中は画面をスリープさせず、オートプレイを継続します。バッテリー消費が増えます。ブラウザがバックグラウンドの間は動作しません（どのブラウザも許可していません）。,settings: row description
+set_battle,バトルとオート,settings: section name
+set_battle_note,オートプレイはボス部屋に自動で入りません — 設定ではなく固定ルールです。,settings: section note
+set_battle_autofloor_label,自動で階を進む,settings: row label
+set_battle_stoploss_label,敗北後に自動進行を停止,settings: row label
+set_battle_stoploss_desc,敗北すると「自動で階を進む」がオフになります。再度手動でオンにしてください。,settings: row description
+set_battle_ondeath_label,全滅時,settings: row label
+set_battle_bossoutkeys_label,ボス自動挑戦 — 鍵切れ時,settings: row label
+set_battle_bossoutkeys_desc,最後のボスの鍵を使い切ったときのボス自動挑戦の動作です。,settings: row description
+set_battle_targeting_label,ターゲット,settings: row label
+set_battle_targeting_desc,攻撃技の対象をオートプレイがどう選ぶかを設定します（現在HP基準）。,settings: row description
+set_battle_opttarget_label,最適化対象,settings: row label
+set_battle_opttarget_desc,自動最適化で装備を組み直すときに最大化する項目です。総合戦力は攻撃・防御・HPを合算します。,settings: row description
+set_battle_ult_label,必殺技,settings: row label
+set_battle_ult_desc,オートプレイが最初に必殺技を使うラウンドです。使えない場合は以降毎ラウンド再試行します。,settings: row description
+set_battle_priobuff_label,バフ優先,settings: row label
+set_battle_priobuff_desc,攻撃の前に、使用可能なバフ/サポート技を先に使います。,settings: row description
+set_battle_priodebuff_label,デバフ優先,settings: row label
+set_battle_priodebuff_desc,攻撃の前に、使用可能なデバフ技を先に使います。,settings: row description
+set_battle_streak_label,連勝カウンター,settings: row label
+set_battle_streak_desc,戦闘後のカウンターを表示します。,settings: row description
+set_battle_confspend_label,プレミアム消費の確認,settings: row label
+set_battle_confspend_desc,Wraithgold消費前の確認機能はまだ実装されていません。,settings: row description
+set_controls,操作,settings: section name
+set_controls_note,キーボード専用です。タッチ端末には割り当てるキーがありません。他の操作で使用中のキーを割り当てると、そちらから外れます。,settings: section note
+set_controls_kauto_label,オート切替,settings: row label
+set_controls_kauto_desc,オートボタンと同じ動作をします。,settings: row description
+set_controls_kequip_label,装備を開く/閉じる,settings: row label
+set_controls_kinv_label,インベントリを開く/閉じる,settings: row label
+set_controls_kinv_desc,ソウルバッグを開いている場合は、アイテムバッグを開きます。,settings: row description
+set_controls_klock_label,カーソル先をロック/解除,settings: row label
+set_controls_klock_desc,どちらかのバッグでクリーチャーやアイテムにカーソルを合わせて押します。ロックボタンと同じ動作をします。,settings: row description
+set_controls_kstrip_label,タスクバーモード,settings: row label (Steam build only)
+set_controls_kstrip_desc,ゲームをタスクバー上の細い帯に縮小します。メニューのタスクバーモードボタンと同じ動作をします。,settings: row description (Steam build only)
+set_tutorials,チュートリアル,settings: section name
+set_tutorials_note,到達した階で解放されたシステムを、一度クリックするまで矢印で示します。プレイを妨げることはありません。,settings: section note
+set_tutorials_arrows_label,チュートリアル矢印,settings: row label
+set_tutorials_arrows_desc,新しく解放されたシステムに、一度クリックするまで矢印を表示します。,settings: row description
+set_notices,お知らせ,settings: section name
+set_notices_note,101階の手紙と、登頂で解放された各システムです。行動ログはサーバーに保存されています。,settings: section note
+set_notices_history_label,履歴をダウンロード,settings: row label
+set_notices_history_desc,このアカウントのサーバー記録（獲得・消費した通貨、アイテム付与、戦闘ドロップ、取引）をJSONファイルで保存します。,settings: row description
+set_notices_history_csv_label,履歴をダウンロード（CSV）,settings: row label
+set_notices_history_csv_desc,同じ記録を表計算ファイルで保存します。,settings: row description
+set_notices_none_label,お知らせはありません,settings: row label
+set_notices_none_desc,登頂でシステムが解放されると表示されます。,settings: row description
+set_notif,通知,settings: section name
+set_notif_breedc_label,交配完了,settings: row label
+set_notif_breedc_desc,囲いでタマゴが産まれたときのゲーム内バナーです。,settings: row description
+set_notif_pvp_label,PvP防衛結果,settings: row label
+set_notif_pvp_desc,不在中の防衛結果を知らせるゲーム内通知です。,settings: row description
+set_notif_daily_label,デイリーリセット,settings: row label
+set_notif_daily_desc,プッシュ通知はまだ実装されていません。,settings: row description
+set_account,アカウントとデータ,settings: section name
+set_account_logout_label,サインアウト,settings: row label
+set_account_logout_desc,進行状況を保存してセッションを終了し、サインイン画面に戻ります。,settings: row description
+set_account_name_label,プレイヤー名,settings: row label
+set_account_name_desc,変更は管理者にお問い合わせください。,settings: row description
+set_account_link_label,アカウント連携,settings: row label
+set_account_cloud_label,クラウドセーブ,settings: row label
+set_account_cloud_desc,進行状況はプレイ中にサーバーへ保存されます。オフにはできません。,settings: row description
+set_account_restore_label,購入の復元,settings: row label
+set_account_restore_desc,アプリストア版で対応予定です。,settings: row description
+set_account_export_label,データをエクスポート,settings: row label
+set_account_export_desc,このセーブの全データをJSONファイルでダウンロードします。,settings: row description
+set_account_reset_label,進行リセット（ニューゲーム）,settings: row label
+set_account_reset_desc,このセーブを消去し、1階・Lv 1から始め直します。,settings: row description
+set_account_delete_label,アカウント削除,settings: row label
+set_account_delete_desc,確定から7日後にアカウントを削除します。それまでにサインインすると取り消せます。,settings: row description
+set_lang,言語とアクセシビリティ,settings: section name
+set_lang_language_label,言語,settings: row label
+set_lang_language_desc,自動の場合は端末の言語設定に従います。未翻訳の部分は英語で表示されます。,settings: row description
+set_lang_textsize_label,文字サイズ,settings: row label
+set_lang_textsize_desc,現在は画面全体がウィンドウに合わせて拡大縮小されます。,settings: row description
+set_lang_colorblind_label,色覚サポート,settings: row label
+set_lang_motion_label,動きを減らす,settings: row label
+set_lang_motion_desc,揺れ、視差効果、激しい画面切替を無効にします。,settings: row description
+set_lang_flashing_label,点滅を減らす,settings: row label
+set_lang_flashing_desc,ヒット時の発光や点滅エフェクトを抑えます。,settings: row description
+set_legal,法務とサポート,settings: section name
+set_legal_help_label,ヘルプとFAQ,settings: row label
+set_legal_help_desc,ヘルプページを新しいタブで開きます。,settings: row description
+set_legal_contact_label,サポートに連絡,settings: row label
+set_legal_contact_desc,報告フォームを開きます。チームに直接届きます。,settings: row description
+set_legal_analytics_label,利用状況の分析,settings: row label
+set_legal_analytics_desc,現在、利用状況の分析データは収集していません。オフにすると、今後収集する場合のオプトアウトとして記録されます。,settings: row description
+set_legal_privacy_label,プライバシーポリシー,settings: row label
+set_legal_privacy_desc,新しいタブで開きます。,settings: row description
+set_legal_terms_label,利用規約,settings: row label
+set_legal_terms_desc,新しいタブで開きます。,settings: row description
+set_legal_credits_label,クレジット,settings: row label
+set_legal_credits_desc,新しいタブで開きます。,settings: row description
+set_legal_version_label,バージョン,settings: row label
+set_locked_tip,エピック以上では無効にできません。,settings: tooltip of a locked toggle
+set_lang_auto,自動（端末）,settings: Language row - follow the device language
+chal_btn,挑戦,markup: pvp challenge by code (B16)
+chal_title,コードで挑戦,markup: pvp challenge by code (B16)
+chal_make_h,コードを作成,markup: pvp challenge by code (B16)
+chal_make_blurb,コードを1人のプレイヤーに渡しましょう。待機していればリアルタイム対戦、いなければ相手があなたの防衛を攻撃します。,markup: pvp challenge by code (B16)
+chal_wait,リアルタイムで待つ,markup: pvp challenge by code (B16)
+chal_enter_h,コードを入力,markup: pvp challenge by code (B16)
+chal_enter_blurb,プレイヤーからコードをもらいましたか？相手が待機中ならリアルタイム対戦、そうでなければ相手の防衛にオートPvPで1回攻撃します。,markup: pvp challenge by code (B16)
+chal_go,戦う,markup: pvp challenge by code (B16)
+chal_err_own,これはあなた自身のコードです。他のプレイヤーに渡してください。,app: pvp challenge by code (B16)
+chal_err_expired,コードが存在しないか、期限切れです。新しいコードをもらってください。,app: pvp challenge by code (B16)
+chal_err_cap,このプレイヤーには今日すでに2回攻撃しています。明日また挑戦してください。,app: pvp challenge by code (B16)
+chal_err_nodef,このプレイヤーは待機しておらず、防衛もまだ保存されていません。,app: pvp challenge by code (B16)
+chal_err_tickets,今日の攻撃回数を使い切りました。持ち主が待機していないコードは攻撃1回分を消費します。,app: pvp challenge by code (B16)
+chal_err_noteam,チームは最後のセーブから読み込まれます。少しプレイしてセーブされてから再度お試しください。,app: pvp challenge by code (B16)
+chal_err_locked,挑戦は{f}階で解放されます。,app: pvp challenge by code (B16)
+chal_err_generic,サーバーに拒否されました（{e}）。,app: pvp challenge by code (B16)
+chal_err_net,サーバーに接続できませんでした。,app: pvp challenge by code (B16)
+chal_err_busy,まず現在の戦闘を終えてください。,app: pvp challenge by code (B16)
+chal_err_done,この挑戦はすでに対戦済みです。,app: pvp challenge by code (B16)
+chal_bad_len,コードは{n}文字の英数字です。,app: pvp challenge by code (B16)
+chal_bad_code,コードを確認して再度お試しください。,app: pvp challenge by code (B16)
+chal_sending,コードを送信中…,app: pvp challenge by code (B16)
+chal_valid_until,有効期限: {t},app: pvp challenge by code (B16)
+chal_new_code,新しいコード,app: pvp challenge by code (B16)
+chal_make_btn,コードを作成,app: pvp challenge by code (B16)
+chal_copy,コピー,app: pvp challenge by code (B16)
+chal_copied,コピー済み,app: pvp challenge by code (B16)
+chal_on,オン,app: pvp challenge by code (B16)
+chal_off,オフ,app: pvp challenge by code (B16)
+chal_wait_note,ランク戦キューで挑戦者を待機中 · {t},app: pvp challenge by code (B16)
+chal_wait_off_note,オフ: 相手はオートPvPであなたの防衛を攻撃します。,app: pvp challenge by code (B16)
+chal_expired_mine,あなたのコードは期限切れです。新しく作成してください。,app: pvp challenge by code (B16)
+chal_band,コード{c}を持つプレイヤーを待機中,app: pvp challenge by code (B16)
+m_send_to_herumon_dungeon,Herumon Dungeonへ送る,markup+app: creature sheet: T48 transfer action (Steam shell only)
+m_confirm_send,送信を確定,"app: creature sheet: T48 transfer action, armed"
+m_sent,送信済み,markup: creature sheet: T48 transfer action after the send
+m_a_copy_travels_to_herumon_dungeon_it_cannot_come_back_once_per_creature,コピーがHerumon Dungeonへ旅立ちます。戻ってくることはありません。クリーチャー1体につき1回まで。,markup: creature sheet: T48 confirm line (D's words)
+m_dimensional_traveler_levels,次元旅行者のレベル,"app: creature sheet: T48 traveler line, ""Dimensional traveler levels - Tower 76, Dungeon 12"""
+m_tower,タワー,"app: creature sheet: T48 traveler line, this game"
+m_dungeon,ダンジョン,"app: creature sheet: T48 traveler line, the other game"
+m_the_send_did_not_go_through,送信できませんでした,app: creature sheet: T48 send error
+gate_the_tower_keeps_your_climb,塔はどのデバイスでも登頂の記録を保持します。,index.html: sign-in gate: tagline
+gate_sign_in_through_steam,Steamでサインイン,index.html: sign-in gate: provider door
+gate_sign_in_with_google,Googleでサインイン,index.html: sign-in gate: provider door
+gate_sign_in_with_discord,Discordでサインイン,index.html: sign-in gate: provider door
+gate_sign_in_with_apple,Appleでサインイン,index.html: sign-in gate: provider door
+gate_your_sign_in_secures,サインインでセーブデータとPvPの順位が守られます。,index.html: sign-in gate: footnote
+m_dimensional_rift,次元の裂け目,markup: menu tile label (baked in the plate) + rift window title: T48 transfer
+m_send_through_the_rift,裂け目へ送る,"app: creature sheet: T48 transfer action (web + Steam shell), was SEND TO HERUMON DUNGEON"
+m_a_copy_goes_through_the_rift_to_herumon_dungeon_free_once_per_creature,コピーが裂け目を通ってHerumon Dungeonへ向かいます。無料、クリーチャー1体につき1回まで。レベル1で到着し、グレードとミュータント状態は引き継がれます。元のクリーチャーはタワーに残ります。戻ってくるものはありません。,app+markup: creature sheet confirm line + rift window: T48 rules (D 2026-11-02/03)
+m_the_rift_opens_in_the_steam_client,裂け目はSteamクライアントで開きます。Steam版Herumon Towerからクリーチャーを送れます。ここでは覗くことしかできません。,app+markup: creature sheet + rift window on the web build: T48 transfer needs the Steam shell
+m_world_traveler,世界旅行者,"app: creature sheet + rift window: T48 mark, ""World traveler - Tower · Dungeon"" (D 2026-11-02)"
+m_world_travelers,世界旅行者,markup: rift window: the sent creatures list header
+m_a_tear_between_the_tower_and_herumon_dungeon,タワーとHerumon Dungeonの間に生じた裂け目。,markup: rift window: the intro line
+m_open_a_creatures_sheet_from_the_inventory_and_choose_send_through_the_rift,インベントリからクリーチャーの詳細を開き、「裂け目へ送る」を選びます。タワーからダンジョンへの一方通行です。,markup: rift window: how to send
+m_no_creature_has_crossed_yet,まだ渡ったクリーチャーはいません。,markup: rift window: empty travelers list
+m_trophy_wall,トロフィーウォール,markup: trophy wall: title
+m_earned,獲得済み,markup/app: trophy wall: the earned count label and the earned tile state
+m_not_yet_earned,未獲得,app: trophy wall: tile state
+m_hidden_achievement,？？？,app: trophy wall: a hidden achievement not yet earned
+m_hidden_until_earned,獲得するまで非表示です。,app: trophy wall: a hidden achievement's description
+m_the_achievement_list_could_not_be_read,実績リストを読み込めませんでした。,markup: trophy wall: achievements.csv failed
+m_your_earned_achievements_could_not_be_read,獲得済み実績を現在読み込めません。,markup: trophy wall: the server door failed
+m_the_same_trophies_unlock_on_steam,Steamクライアントでプレイすると、同じトロフィーがSteamでも解除されます。,markup: trophy wall: footer
+ach_floor_10_name,最初の門,achievements.csv FLOOR_10 Name
+ach_floor_10_desc,タワーの10階に到達する。,achievements.csv FLOOR_10 Description
+ach_floor_30_name,三十階の高み,achievements.csv FLOOR_30 Name
+ach_floor_30_desc,タワーの30階に到達する。,achievements.csv FLOOR_30 Description
+ach_floor_60_name,折り返しの先へ,achievements.csv FLOOR_60 Name
+ach_floor_60_desc,タワーの60階に到達する。,achievements.csv FLOOR_60 Description
+ach_floor_100_name,かつての頂,achievements.csv FLOOR_100 Name
+ach_floor_100_desc,タワーの100階に到達する。,achievements.csv FLOOR_100 Description
+ach_floor_120_name,ヴォイドの頂上,achievements.csv FLOOR_120 Name
+ach_floor_120_desc,120階（ヴォイド・エイペックスの頂上）に到達する。,achievements.csv FLOOR_120 Description
+ach_codex_300_name,フィールドノート,achievements.csv CODEX_300 Name
+ach_codex_300_desc,コーデックスでクリーチャーを300体入手する。,achievements.csv CODEX_300 Description
+ach_mutant_hatch_name,図鑑にない姿,achievements.csv MUTANT_HATCH Name
+ach_mutant_hatch_desc,ミュータントを孵化させる。,achievements.csv MUTANT_HATCH Description
+ach_first_void_name,常識を超えたグレード,achievements.csv FIRST_VOID Name
+ach_first_void_desc,初めてヴォイドグレードのクリーチャーを所持する。,achievements.csv FIRST_VOID Description
+ach_void_completionist_name,ヴォイド・コンプリート,achievements.csv VOID_COMPLETIONIST Name
+ach_void_completionist_desc,全ての進化ラインでヴォイドグレードのクリーチャーを所持する。,achievements.csv VOID_COMPLETIONIST Description
+shop_packs_title,Wraithgoldパック,app: premium shop: heading of the real-money pack grid (S7)
+shop_store_unreachable,ストアに接続できませんでした。,app: premium shop: /api/store/catalogue failed
+shop_store_loading,ストアを読み込み中...,app: premium shop: pack grid loading
+shop_store_soon,ストアは近日オープン予定です。WraithgoldパックはSteamクライアントで販売されます。,app: premium shop: catalogue enabled:false (STORE_ENABLED off)
+shop_buy_in_steam,Steamクライアントで購入してください。WraithgoldパックはSteamで販売されます。このWeb版では価格のみ表示します。,app: premium shop: web build line under the pack grid (no buy action)
+shop_pack_buy,購入,app: premium shop: pack buy plaque (Steam shell only)
+shop_pack_pending,Steamを待機中...,app: premium shop: pack plaque + note while the Steam overlay is open
+shop_pack_opening,Steamの購入画面を開いています...,app: premium shop: note while init runs
+shop_pack_done,購入完了。Wraithgoldがウォレットに追加されました。,app: premium shop: note after finalize granted
+shop_pack_declined,Steamで購入が拒否されました。請求は発生していません。,app: premium shop: note after a declined overlay
+shop_pack_failed,購入できませんでした。請求は発生していません。,app: premium shop: note after a failed purchase
+shop_last_purchase,最終購入,"app: premium shop: receipt line prefix (""Last purchase: 550 Wraithgold · WG-0550 · time"")"
+m_list_on_steam_market,Steamマーケットに出品,"app: STEAM MARKET (marketui, board S1): creature sheet + item detail action"
+m_confirm_listing,出品を確定,"app: STEAM MARKET (marketui, board S1): the armed action"
+m_steam_client_only,Steamクライアント専用,"markup: STEAM MARKET (marketui, board S1): the web build draws LIST disabled"
+m_mkt_rules_creature,クリーチャーはセーブから離れ、Steamアイテムになります。Steamコミュニティマーケットで売却できます（ゲーム手数料{fee}%）。所持している間はいつでもインポートで戻せます。上限: 1日{per}件まで、アカウント作成から{days}日超が必要です。,"app: STEAM MARKET (marketui, board S1): confirm line; {fee} {per} {days} from GET /api/market/exports"
+m_mkt_rules_piece,装備はセーブから離れ、Steamアイテムになります。Steamコミュニティマーケットで売却できます（ゲーム手数料{fee}%）。所持している間はいつでもインポートで戻せます。上限: 1日{per}件まで、アカウント作成から{days}日超が必要です。,"app: STEAM MARKET (marketui, board S1): confirm line for gear; {fee} {per} {days} from GET /api/market/exports"
+m_mkt_sign_in,Steamマーケットを使うにはサインインしてください。,"app: STEAM MARKET (marketui, board S1): refusal 401"
+m_mkt_unconfigured,Steamマーケットはまだ準備中です。,"app: STEAM MARKET (marketui, board S1): refusal 503 market_unconfigured"
+m_mkt_session_young,アカウント作成から日が浅いため出品できません: {days}/{min_days}日。,"app: STEAM MARKET (marketui, board S1): refusal session_young"
+m_mkt_export_cap,1日の出品上限に達しました（{today}/{per_day}）。明日また試してください。,"app: STEAM MARKET (marketui, board S1): refusal export_cap"
+m_mkt_equipped,パーティ編成中か装備中です。先に外してください。,"app: STEAM MARKET (marketui, board S1): refusal equipped"
+m_mkt_in_pen,交配の囲いにいます。先に出してください。,"app: STEAM MARKET (marketui, board S1): refusal in_pen"
+m_mkt_locked,ロックされています。先に解除してください。,"app: STEAM MARKET (marketui, board S1): refusal locked"
+m_mkt_not_exportable,Steamマーケットに出せません。タマゴ、消耗品、ソウルはタワーに残ります。,"app: STEAM MARKET (marketui, board S1): refusal not_exportable"
+m_mkt_unknown_def,これにはまだSteamアイテムがありません。,"app: STEAM MARKET (marketui, board S1): refusal unknown_def"
+m_mkt_no_steam_identity,マーケットを使うにはSteamでサインインしてください。,"app: STEAM MARKET (marketui, board S1): refusal no_steam_identity"
+m_mkt_bag_full,バッグがいっぱいです（{inv}/{cap}）。先に空きを作ってください。,"app: STEAM MARKET (marketui, board S1): import refusal bag_full"
+m_mkt_no_props,そのSteamアイテムはHerumon Towerのものではありません。,"app: STEAM MARKET (marketui, board S1): import refusal no_props"
+m_mkt_bad_id,SteamアイテムIDではありません。,"app: STEAM MARKET (marketui, board S1): import refusal steam_item_id / a bad field"
+m_mkt_not_in_steam_inventory,そのアイテムはSteamインベントリにありません。,"app: STEAM MARKET (marketui, board S1): import refusal not_owned"
+m_mkt_not_owned,すでにセーブにありません。,"app: STEAM MARKET (marketui, board S1): export refusal not_owned"
+m_mkt_steam_failed_import,Steamから応答がありません。アイテムはSteamに残っています。,"app: STEAM MARKET (marketui, board S1): import refusal steam_failed"
+m_mkt_steam_failed,Steamから応答がありません。バッグに戻りました。,"app: STEAM MARKET (marketui, board S1): export refusal steam_failed (the row is released)"
+m_mkt_no_answer,マーケットから応答がありません（{code}）。,"app: STEAM MARKET (marketui, board S1): any other refusal"
+m_mkt_listed,Steamへ移動 — コミュニティマーケットで売却できます,"app: STEAM MARKET (marketui, board S1): toast after a 200 export"
+m_mkt_imported,{name}がバッグに戻りました。,"app: STEAM MARKET (marketui, board S1): line after a 200 import"
+m_mkt_st_reserved,転送中,"app: STEAM MARKET (marketui, board S1): ledger status reserved"
+m_mkt_st_exported,Steam上,"app: STEAM MARKET (marketui, board S1): ledger status exported"
+m_mkt_st_released,バッグに戻った,"app: STEAM MARKET (marketui, board S1): ledger status released"
+m_mkt_st_importing,インポート中,"app: STEAM MARKET (marketui, board S1): ledger status importing"
+m_mkt_st_imported,インポート済み,"app: STEAM MARKET (marketui, board S1): ledger status imported"
+m_mkt_st_import_failed,インポート失敗,"app: STEAM MARKET (marketui, board S1): ledger status import_failed"
+m_mkt_dir_import,インポート,"app: STEAM MARKET (marketui, board S1): ledger row direction"
+m_mkt_dir_export,エクスポート,"app: STEAM MARKET (marketui, board S1): ledger row direction"
+m_mkt_fee_line,ゲーム手数料{fee}% · 1日{per}件まで · アカウント作成{days}日超,"app: STEAM MARKET (marketui, board S1): window rules line"
+m_mkt_import_btn,インポート,"app: STEAM MARKET (marketui, board S1): import button"
+m_steam_market,Steamマーケット,"markup: STEAM MARKET (marketui, board S1): menu tile label (baked in the plate) + window title"
+m_the_steam_market_opens_with_the_steam_release,SteamマーケットはSteam版リリースと同時に開始します,"markup: STEAM MARKET (marketui, board S1): the window while GET /api/market/exports answers 404"
+m_mkt_tab_exports,エクスポート,"markup: STEAM MARKET (marketui, board S1): tab"
+m_mkt_tab_import,インポート,"markup: STEAM MARKET (marketui, board S1): tab"
+m_open_the_community_market,コミュニティマーケットを開く,"markup: STEAM MARKET (marketui, board S1): Steam overlay (shell) / link (web)"
+m_open_your_steam_inventory,Steamインベントリを開く,"markup: STEAM MARKET (marketui, board S1): Steam overlay (shell) / link (web)"
+m_mkt_how_to_list,クリーチャーの詳細か装備の詳細を開き、「Steamマーケットに出品」を選びます。セーブから離れ、コミュニティマーケットで売却できるSteamアイテムになります。,"markup: STEAM MARKET (marketui, board S1): EXPORTS tab"
+m_mkt_no_listings_yet,まだ出品はありません。,"markup: STEAM MARKET (marketui, board S1): EXPORTS tab, empty"
+m_mkt_how_to_import,購入した、または自分のものを戻したいですか？SteamインベントリでSteamアイテムIDを確認し、ここに入力してバッグにインポートしましょう。,"markup: STEAM MARKET (marketui, board S1): IMPORT tab"
+m_abyss_lose_once,一度でも負けると深淵は121階まで押し戻す。戻されるのは敗北時のみ。離脱やリロードでは数字はそのまま残る。,markup: quarry / abyss
+m_auto_optimize_btn,⚙ 自動最適化,markup: equipment
+m_auto_optimize_preview,自動最適化 · プレビュー,markup: equipment: auto-optimize
+m_autoplay_hud,オート ,markup: floor HUD: autoplay pill
+m_class_t1_no_creatures,クラス＋T1武器。クリーチャーは含みません。,markup: classes
+m_class_unlocks_note,解放はアカウント共通で永続です。切り替えると8つの装備枠が全てインベントリに戻ります。ソケット品はアイテムに付いたままです。,markup: classes
+m_currently_slotted,現在装着中,markup: equipment: slot picker
+m_devour_pick_hint,クリーチャー、またはソウルバッグの捕食アイテム,markup: devour
+m_dismantle_btn,⚒ 分解,markup: menu / dismantling
+m_each_path_starts,各道は表示された2体のクリーチャーと2つの武器から始まります。1つ選んでください。,markup: creation
+m_equip_dot,装備 ·,"markup: equipment: slot picker title, the slot name follows"
+m_equipped_now,現在の装備,"markup: pvp: follows ""You attack with the team you have"""
+m_feedback_attached,最近のプレイ内容と発生したエラーが自動で添付されます。,markup: feedback
+m_feedback_thanks,ありがとうございます。最近のプレイ内容とエラー記録と共に送信しました。,markup: feedback
+m_lit_grades_are_dismantled,明るいグレードは分解されます（数字は失う数）。暗いグレードはそのままです（数字は残る数）。,markup: menu / dismantling
+m_name_rules,3〜16文字の英字（A–Z）、数字、スペース、-、_が使えます。名前は重複不可で、1アカウントにつき1つです。,markup: creation: name
+m_no_entries_yet,記録なし,markup: pvp: rankings
+m_no_items_fit_slot,この枠に合うアイテムがインベントリにありません。,markup: equipment: slot picker
+m_opt_untouched, · クリーチャー、ソウル、スクロールは変更なし,markup: equipment: auto-optimize (joined after the bag note)
+m_purchase_successful,購入完了,markup: shop: slot purchase
+m_seconds_to_join,秒以内に参加 — どちらにせよキューは検索を続けます,markup: pvp: queue
+m_select_more,さらに選択,markup: menu / dismantling
+m_soul_when_slotted,ソウル · パッシブ防具に装着時,markup: soul card
+m_wg_purchases_not_live,アルファ期間中はWraithgoldの購入はできません。枠はこのセーブで永続です。,markup: shop: slot purchase
+m_worn_totals_note,装備合計にはソケット品も含まれます。枠数はジェム＋ルーン＋スクロールです。,markup: equipment: stats
+m_yes_dismantle,⚒ 分解する,markup: menu / dismantling
+m_you_attack_with_team,攻撃に使うチーム:,"markup: pvp: the coloured ""equipped now"" follows"
+m_leave_the_abyss,深淵を去る,app: floor HUD: back portal inside the Abyss
+m_descend,↓ 下降,app: floor HUD: back portal
+m_floor_n,{n}階,app: floor HUD: back portal floor number
+m_boss_den,ボスの巣,app: floor HUD: ascend portal before a boss floor
+m_summit,頂上,app: floor HUD: ascend portal on the top floor
+m_abyss_streak,深淵の連勝,app: floor HUD: streak label inside the Abyss
+m_ascending,上昇中,app: floor transit title
+m_descending,下降中,app: floor transit title
+m_inv_usage,{cnt} / {cap} 枠,app: inventory / soul bag header: slots used
+m_dim_tiers,ティア,"app: dismantling: ""N tiers picked"""
+m_dim_grades,グレード,"app: dismantling: ""N grades picked"""
+set_press_a_key,キーを押してください,settings: a key row waiting for the new key
+set_dlg_restore_title,初期設定に戻す,settings: confirm dialog (restore)
+set_dlg_restore_button,戻す,settings: confirm dialog (restore)
+set_dlg_logout_title,サインアウト,settings: confirm dialog (logout)
+set_dlg_logout_body,進行状況をサーバーに保存した後、この端末をサインアウトしてサインイン画面に戻ります。データは失われません。再度サインインすれば全て復元されます。,settings: confirm dialog (logout)
+set_dlg_logout_button,サインアウト,settings: confirm dialog (logout)
+set_dlg_resetsave_title,進行リセット,settings: confirm dialog (resetsave)
+set_dlg_resetsave_body,このセーブを消去し、1階・Lv 1からニューゲームを始めますか？クリーチャー、装備、階の進行状況が消去されます。元に戻せません。,settings: confirm dialog (resetsave)
+set_dlg_resetsave_button,リセットして再開,settings: confirm dialog (resetsave)
+set_dlg_delete1_title,アカウント削除,settings: confirm dialog (delete1)
+set_dlg_delete1_body,アカウントとその全データを削除します: セーブ、クリーチャー、装備、購入したWraithgoldを含む全通貨、ランキングとPvPの順位、名前。削除は確定から7日後に行われ、それまでにサインインすれば取り消せます。送信したバグ報告はアカウントと切り離して保管されます。,settings: confirm dialog (delete1)
+set_dlg_delete1_button,続ける,settings: confirm dialog (delete1)
+set_dlg_delete2_title,削除の確認,settings: confirm dialog (delete2)
+set_dlg_delete2_button,アカウント削除,settings: confirm dialog (delete2)
+set_dlg_restore_body,「{section}」の全項目を初期値に戻しますか？他のセクションは変更されません。,settings: confirm dialog (restore); {section} is the section name
+set_dlg_delete2_body,下にDELETEと入力し、「アカウント削除」を押してください。全ての端末からサインアウトされます。,settings: confirm dialog (delete2); DELETE is the word the player types - keep it in English
+set_val_max,最大,settings: option value
+set_val_low,低,settings: option value
+set_val_standard,標準,settings: option value
+set_val_stay,留まる,settings: option value
+set_val_go_down,下の階へ,settings: option value
+set_val_go_up,上の階へ,settings: option value
+set_val_lowest_health,HP最小,settings: option value
+set_val_highest_health,HP最大,settings: option value
+set_val_random,ランダム,settings: option value
+set_val_overall_power,総合戦力,settings: option value
+set_val_atk,攻撃,settings: option value
+set_val_def,防御,settings: option value
+set_val_hp,HP,settings: option value
+set_val_turn_1,1ターン目,settings: option value
+set_val_turn_2,2ターン目,settings: option value
+set_val_turn_3,3ターン目,settings: option value
+set_val_never_use,使わない,settings: option value
+set_val_coming,近日対応,settings: option value
+set_val_set_at_character_creation,キャラクター作成時に設定,settings: option value
+unl_class_soul,クラスから授かったソウル。クリックで効果を確認できます。,unlocks.csv class_soul Line (the unlock lesson line; edit both)
+unl_hatch_all,所持しているタマゴをまとめて孵化します。,unlocks.csv hatch_all Line (the unlock lesson line; edit both)
+unl_dismantle_all,複数の装備をまとめて素材に分解します。,unlocks.csv dismantle_all Line (the unlock lesson line; edit both)
+unl_souls,ソウルは専用のバッグに入ります。装備にセットすると力を発揮します。,unlocks.csv souls Line (the unlock lesson line; edit both)
+unl_auto_pvp,自分のチームで他プレイヤーのチームと対戦します。,unlocks.csv auto_pvp Line (the unlock lesson line; edit both)
+unl_auto_optimise,バッグ内で最も強い装備を自動で身につけます。,unlocks.csv auto_optimise Line (the unlock lesson line; edit both)
+unl_breeding,囲いに入れた2体のクリーチャーが、時間とともにタマゴを産みます。,unlocks.csv breeding Line (the unlock lesson line; edit both)
+unl_trader,品揃えは時間とともに変わります。また覗きに来てください。,unlocks.csv trader Line (the unlock lesson line; edit both)
+unl_transfer,Herumon Dungeonへの裂け目が開きました。クリーチャーを1体送れます（コピー・無料・1回のみ）。レベル1で到着し、グレードは引き継がれます。,unlocks.csv transfer Line (the unlock lesson line; edit both)
+m_unl_generic,{f}階で解放。一度クリックして始めましょう。,app: unlock lesson: the generic line when unlocks.csv has no Line

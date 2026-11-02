@@ -378,6 +378,14 @@ chal_wait_note,Aguardando seu desafiante na fila Competitiva · {t},app: pvp cha
 chal_wait_off_note,"Desligado: ele ataca sua defesa, como uma partida de Auto PvP.",app: pvp challenge by code (B16)
 chal_expired_mine,Seu código expirou. Crie um novo.,app: pvp challenge by code (B16)
 chal_band,aguardando o jogador com o seu código {c},app: pvp challenge by code (B16)
+m_send_to_herumon_dungeon,ENVIAR PARA HERUMON DUNGEON,markup+app: creature sheet: T48 transfer action (Steam shell only)
+m_confirm_send,CONFIRMAR ENVIO,"app: creature sheet: T48 transfer action, armed"
+m_sent,ENVIADO,markup: creature sheet: T48 transfer action after the send
+m_a_copy_travels_to_herumon_dungeon_it_cannot_come_back_once_per_creature,Uma cópia viaja para Herumon Dungeon. Ela não pode voltar. Uma vez por criatura.,markup: creature sheet: T48 confirm line (D's words)
+m_dimensional_traveler_levels,Níveis do viajante dimensional,"app: creature sheet: T48 traveler line, ""Dimensional traveler levels - Tower 76, Dungeon 12"""
+m_tower,Torre,"app: creature sheet: T48 traveler line, this game"
+m_dungeon,Dungeon,"app: creature sheet: T48 traveler line, the other game"
+m_the_send_did_not_go_through,O envio não foi concluído,app: creature sheet: T48 send error
 gate_the_tower_keeps_your_climb,A torre guarda a sua escalada em todos os dispositivos.,index.html: sign-in gate: tagline
 gate_sign_in_through_steam,ENTRAR COM A STEAM,index.html: sign-in gate: provider door
 gate_sign_in_with_google,ENTRAR COM O GOOGLE,index.html: sign-in gate: provider door
@@ -475,3 +483,88 @@ m_open_your_steam_inventory,ABRIR SEU INVENTÁRIO STEAM,"markup: STEAM MARKET (m
 m_mkt_how_to_list,Abra a ficha de uma criatura ou os detalhes de uma peça e escolha ANUNCIAR NO MERCADO STEAM. Ela sai do seu save e vira um item Steam que você pode vender no Mercado da Comunidade.,"markup: STEAM MARKET (marketui, board S1): EXPORTS tab"
 m_mkt_no_listings_yet,Nada anunciado ainda.,"markup: STEAM MARKET (marketui, board S1): EXPORTS tab, empty"
 m_mkt_how_to_import,"Comprou um ou quer o seu de volta? Ache o id do item no seu inventário Steam, digite aqui e importe para a sua bolsa.","markup: STEAM MARKET (marketui, board S1): IMPORT tab"
+m_abyss_lose_once,Perca uma vez e o Abismo te joga de volta ao 121. Só a morte faz isso: saia ou recarregue e o seu número espera por você.,markup: quarry / abyss
+m_auto_optimize_btn,⚙ OTIMIZAR AUTO,markup: equipment
+m_auto_optimize_preview,OTIMIZAR AUTO · PRÉVIA,markup: equipment: auto-optimize
+m_autoplay_hud,AUTOPLAY ,markup: floor HUD: autoplay pill
+m_class_t1_no_creatures,Classe + armas T1. Sem criaturas.,markup: classes
+m_class_unlocks_note,Os desbloqueios valem para a conta toda e são permanentes. Trocar de classe devolve os 8 espaços de equipamento ao inventário — os encaixes ficam nos itens.,markup: classes
+m_currently_slotted,ENCAIXADO AGORA,markup: equipment: slot picker
+m_devour_pick_hint,"Uma criatura, ou um item de Devorar da bolsa de almas",markup: devour
+m_dismantle_btn,⚒ DESMONTAR,markup: menu / dismantling
+m_each_path_starts,Cada caminho começa com as duas criaturas e as duas armas mostradas. Escolha um para começar.,markup: creation
+m_equip_dot,EQUIPAR ·,"markup: equipment: slot picker title, the slot name follows"
+m_equipped_now,equipado agora,"markup: pvp: follows ""You attack with the team you have"""
+m_feedback_attached,Sua partida recente e os erros que o jogo registrou são anexados automaticamente.,markup: feedback
+m_feedback_thanks,Obrigado — foi enviado com sua partida recente e os erros registrados.,markup: feedback
+m_lit_grades_are_dismantled,Graus acesos são desmontados — o número é o que eles perdem. Graus apagados ficam intactos — o número é o que é mantido.,markup: menu / dismantling
+m_name_rules,"3–16 letras (A–Z), dígitos, espaços, - ou _. Os nomes são únicos, e é um nome por conta.",markup: creation: name
+m_no_entries_yet,NENHUMA ENTRADA AINDA,markup: pvp: rankings
+m_no_items_fit_slot,Nenhum item do inventário serve neste espaço.,markup: equipment: slot picker
+m_opt_untouched," ·  criaturas, almas e pergaminhos intactos",markup: equipment: auto-optimize (joined after the bag note)
+m_purchase_successful,COMPRA CONCLUÍDA,markup: shop: slot purchase
+m_seconds_to_join,SEGUNDOS PARA ENTRAR — A FILA CONTINUA PROCURANDO DE QUALQUER FORMA,markup: pvp: queue
+m_select_more,SELECIONAR MAIS,markup: menu / dismantling
+m_soul_when_slotted,ALMA · QUANDO ENCAIXADA NA ARMADURA PASSIVA,markup: soul card
+m_wg_purchases_not_live,Compras de Wraithgold não estão ativas durante o alpha. Os espaços são permanentes neste save.,markup: shop: slot purchase
+m_worn_totals_note,Os totais equipados incluem tudo o que está encaixado. Os espaços são gema + runa + pergaminho.,markup: equipment: stats
+m_yes_dismantle,"⚒ SIM, DESMONTAR",markup: menu / dismantling
+m_you_attack_with_team,Você ataca com o time que tem,"markup: pvp: the coloured ""equipped now"" follows"
+m_leave_the_abyss,SAIR DO ABISMO,app: floor HUD: back portal inside the Abyss
+m_descend,↓ DESCER,app: floor HUD: back portal
+m_floor_n,ANDAR {n},app: floor HUD: back portal floor number
+m_boss_den,COVIL DO CHEFE,app: floor HUD: ascend portal before a boss floor
+m_summit,CUME,app: floor HUD: ascend portal on the top floor
+m_abyss_streak,SEQUÊNCIA DO ABISMO,app: floor HUD: streak label inside the Abyss
+m_ascending,ASCENDENDO,app: floor transit title
+m_descending,DESCENDO,app: floor transit title
+m_inv_usage,{cnt} / {cap} espaços,app: inventory / soul bag header: slots used
+m_dim_tiers,níveis,"app: dismantling: ""N tiers picked"""
+m_dim_grades,graus,"app: dismantling: ""N grades picked"""
+set_press_a_key,PRESSIONE UMA TECLA,settings: a key row waiting for the new key
+set_dlg_restore_title,RESTAURAR PADRÕES,settings: confirm dialog (restore)
+set_dlg_restore_button,RESTAURAR,settings: confirm dialog (restore)
+set_dlg_logout_title,SAIR DA CONTA,settings: confirm dialog (logout)
+set_dlg_logout_body,"Sua escalada é salva no servidor primeiro, depois este dispositivo sai da conta e volta para a tela de login. Nada se perde — ao entrar de novo, tudo é restaurado.",settings: confirm dialog (logout)
+set_dlg_logout_button,SAIR DA CONTA,settings: confirm dialog (logout)
+set_dlg_resetsave_title,REINICIAR PROGRESSO,settings: confirm dialog (resetsave)
+set_dlg_resetsave_body,"Apagar este save e começar um novo jogo do Andar 1, Nv 1? Criaturas, equipamentos e progresso de andares são apagados. Isso não pode ser desfeito.",settings: confirm dialog (resetsave)
+set_dlg_resetsave_button,REINICIAR E RECOMEÇAR,settings: confirm dialog (resetsave)
+set_dlg_delete1_title,EXCLUIR CONTA,settings: confirm dialog (delete1)
+set_dlg_delete1_body,"Isso exclui a conta e tudo o que ela contém: o save, criaturas, equipamentos, todas as moedas incluindo o Wraithgold que você comprou, sua posição no ranking e no PvP, e seu nome. Acontece 7 dias depois que você confirmar; entrar antes disso permite cancelar. Os relatos de bug que você enviou são mantidos sem a sua conta.",settings: confirm dialog (delete1)
+set_dlg_delete1_button,CONTINUAR,settings: confirm dialog (delete1)
+set_dlg_delete2_title,CONFIRMAR EXCLUSÃO,settings: confirm dialog (delete2)
+set_dlg_delete2_button,EXCLUIR CONTA,settings: confirm dialog (delete2)
+set_dlg_restore_body,Redefinir todas as opções de “{section}” para o valor padrão? As outras seções não são alteradas.,settings: confirm dialog (restore); {section} is the section name
+set_dlg_delete2_body,Digite DELETE abaixo e depois pressione EXCLUIR CONTA. Todos os dispositivos saem da conta.,settings: confirm dialog (delete2); DELETE is the word the player types - keep it in English
+set_val_max,Máx,settings: option value
+set_val_low,Baixo,settings: option value
+set_val_standard,Padrão,settings: option value
+set_val_stay,Ficar,settings: option value
+set_val_go_down,Descer,settings: option value
+set_val_go_up,Subir,settings: option value
+set_val_lowest_health,Menor Vida,settings: option value
+set_val_highest_health,Maior Vida,settings: option value
+set_val_random,Aleatório,settings: option value
+set_val_overall_power,Poder Geral,settings: option value
+set_val_atk,ATQ,settings: option value
+set_val_def,DEF,settings: option value
+set_val_hp,PV,settings: option value
+set_val_turn_1,Turno 1,settings: option value
+set_val_turn_2,Turno 2,settings: option value
+set_val_turn_3,Turno 3,settings: option value
+set_val_never_use,Nunca Usar,settings: option value
+set_val_coming,Em breve,settings: option value
+set_val_set_at_character_creation,Definido na criação do personagem,settings: option value
+unl_class_soul,A alma que sua classe lhe deu. Clique nela para ver o que ela faz.,unlocks.csv class_soul Line (the unlock lesson line; edit both)
+unl_hatch_all,Choca todos os ovos da bolsa de uma vez.,unlocks.csv hatch_all Line (the unlock lesson line; edit both)
+unl_dismantle_all,Desmonta várias peças em materiais de uma vez.,unlocks.csv dismantle_all Line (the unlock lesson line; edit both)
+unl_souls,As almas ficam em uma bolsa própria. Coloque uma no equipamento para usar seu poder.,unlocks.csv souls Line (the unlock lesson line; edit both)
+unl_auto_pvp,Coloque sua equipe na fila contra as equipes de outros jogadores.,unlocks.csv auto_pvp Line (the unlock lesson line; edit both)
+unl_auto_optimise,Equipa para você as peças mais fortes da sua bolsa.,unlocks.csv auto_optimise Line (the unlock lesson line; edit both)
+unl_breeding,Duas criaturas em um cercado produzem ovos com o tempo.,unlocks.csv breeding Line (the unlock lesson line; edit both)
+unl_trader,O estoque muda com o tempo. Volte para ver novas mercadorias.,unlocks.csv trader Line (the unlock lesson line; edit both)
+unl_transfer,"A fenda para Herumon Dungeon está aberta. Envie uma criatura: uma cópia, grátis, uma vez. Ela chega no nível 1 e mantém seu grau.",unlocks.csv transfer Line (the unlock lesson line; edit both)
+m_unl_generic,Aberto no andar {f}. Clique uma vez para começar.,app: unlock lesson: the generic line when unlocks.csv has no Line
+portal_sealed_win,SELADO · FALTA 1 VITÓRIA,app: floor portal: sealed, one win left (#1142)
+portal_sealed_wins,SELADO · FALTAM {n} VITÓRIAS,app: floor portal: sealed, {n} wins left (#1142)

@@ -1,0 +1,568 @@
+Key,Text,Context
+m_turn_your_phone_sideways,Dreh dein Handy quer,markup: shell: rotate prompt
+m_herumon_tower_plays_in_landscape,Herumon Tower wird im Querformat gespielt.,markup: shell: rotate prompt
+m_if_it_does_not_turn_switch_off_you,"Dreht sich nichts, schalte die Rotationssperre deines Handys aus.",markup: shell: rotate prompt
+m_speed_order,ZUGFOLGE,markup: battle HUD
+m_round,RUNDE,markup: battle HUD
+m_streak,SERIE,markup: battle HUD
+m_ready,✓ BEREIT,markup: battle HUD
+m_hover_the_skull,ZEIG AUF DEN SCHÄDEL,markup: battle HUD
+m_this_boss_has_a_unique_mechanic_re,Dieser Boss hat eine besondere Mechanik. Lies sie vor dem Kampf.,markup: battle HUD
+m_combat_log,☰ KAMPFLOG,markup: battle HUD
+m_forfeit,⚑ AUFGEBEN,markup: battle HUD
+m_forfeit_the_battle,⚑ KAMPF AUFGEBEN?,markup: battle HUD
+m_forfeit_2,AUFGEBEN,markup: battle HUD
+m_keep_fighting,WEITERKÄMPFEN,markup: battle HUD
+m_duration,Dauer,markup: battle HUD
+m_select_target,◎ ZIEL WÄHLEN,markup: battle HUD
+m_back,← ZURÜCK,markup: battle HUD
+m_decree_of_battle,⁂ KAMPFERLASS ⁂,markup: battle HUD
+m_combat_log_2,KAMPFLOG,markup: battle HUD
+m_this_encounter_click_outside_to_cl,diese Begegnung · außerhalb klicken zum Schließen,markup: battle HUD
+m_breeding,ZUCHT,markup: menu / dismantling
+m_equipment,AUSRÜSTUNG,markup: menu / dismantling
+m_dismantling,ZERLEGEN,markup: menu / dismantling
+m_filters,FILTER,markup: menu / dismantling
+m_done,FERTIG,markup: menu / dismantling
+m_new,NEU,markup: menu / dismantling
+m_tap_the,Tippe die,markup: menu / dismantling
+m_you_want_then_confirm_once,"an, die du willst, und bestätige einmal.",markup: menu / dismantling
+m_selected,ausgewählt ·,markup: menu / dismantling
+m_items,Gegenstände,markup: menu / dismantling
+m_back_2,ZURÜCK,markup: menu / dismantling
+m_dismantle,ZERLEGEN,markup: menu / dismantling
+m_salvage,VERWERTEN,markup: menu / dismantling
+m_close,SCHLIESSEN,markup: shop: slot purchase
+m_nothing_left_to_buy,Nichts mehr zu kaufen.,markup: shop: slot purchase
+m_current_capacity,Aktuelle Kapazität:,markup: shop: slot purchase
+m_slots,Plätze,markup: shop: slot purchase
+m_add_to_cart,In den Warenkorb,markup: shop: slot purchase
+m_continue,WEITER,markup: shop: slot purchase
+m_account,KONTO,markup: equipment
+m_lv,Lv,markup: equipment
+m_power,MACHT,markup: equipment
+m_x,„,markup: equipment
+m_x_2,“,markup: equipment
+m_builds,☰ BUILDS,markup: equipment
+m_x_3, · ,markup: equipment
+m_sockets,Sockel:,markup: equipment
+m_slot_s_unchanged,Platz/Plätze unverändert,markup: equipment
+m_cancel,ABBRECHEN,markup: equipment
+m_confirm,BESTÄTIGEN,markup: equipment
+m_saved_builds,GESPEICHERTE BUILDS ·,markup: equipment
+m_the_server_keeps_your_builds_apply,"Der Server speichert deine Builds. Beim Anwenden kommen deine eigenen Teile zurück an ihren Platz; ein Teil, das du nicht mehr hast, wird übersprungen und hier genannt.",markup: equipment
+m_no_build_slots_for_this_class,Keine Build-Plätze für diese Klasse.,markup: equipment
+m_apply,ANWENDEN,markup: equipment
+m_rename,UMBENENNEN,markup: equipment
+m_delete,LÖSCHEN,markup: equipment
+m_inventory,INVENTAR,markup: equipment
+m_soul_bag,SEELENBEUTEL,markup: equipment
+m_classes,KLASSEN ▾,markup: equipment
+m_class_lv,Klassen-Lv,markup: equipment
+m_to_next,· bis zur nächsten,markup: equipment
+m_gem,JUWEL,markup: equipment
+m_rune,RUNE,markup: equipment
+m_scroll,SCHRIFTROLLE,markup: equipment
+m_illegal,UNZULÄSSIG,markup: equipment
+m_empty,— Leer,markup: equipment
+m_no_soul_slotted,KEINE SEELE EINGESETZT,markup: equipment
+m_soul_crystals,SEELENKRISTALLE,markup: equipment
+m_a_character_soul_is_always_bound_i,"Eine Charakterseele ist immer gebunden — sie kann getauscht, aber nie entfernt werden. Krieger ist die Standardseele.",markup: equipment
+m_devour,† VERSCHLINGEN,markup: equipment
+m_available,VERFÜGBAR,markup: equipment
+m_clear,LEEREN,markup: equipment
+m_no_soul_in_your_bag_matches_that_c,"KEINE SEELE IN DEINEM BEUTEL PASST DAZU. ENTFERNE EINEN FILTER, UM MEHR ZU SEHEN.",markup: equipment
+m_socketed,EINGESETZT:,markup: equipment
+m_scroll_2,✦ SCHRIFTROLLE ·,markup: equipment
+m_inscribed_upon,EINGESCHRIEBEN AUF,markup: equipment
+m_band,BAND,markup: equipment
+m_roll_again,NEU WÜRFELN ·,markup: equipment
+m_destroys,ZERSTÖRT,markup: equipment
+m_keep_this_roll,WURF BEHALTEN,markup: equipment
+m_the_next_scroll_unfurls,DIE NÄCHSTE SCHRIFTROLLE ENTROLLT SICH…,markup: equipment
+m_no_scrolls_left_to_roll,KEINE SCHRIFTROLLEN MEHR ZUM WÜRFELN,markup: equipment
+m_replace_socketable,⚠ SOCKELTEIL ERSETZEN,markup: equipment
+m_socketing,Beim Einsetzen von,markup: equipment
+m_will,wird,markup: equipment
+m_destroy,ZERSTÖRT:,markup: equipment
+m_the_currently_slotted,das aktuell eingesetzte,markup: equipment
+m_this_cannot_be_undone,. Das ist endgültig.,markup: equipment
+m_replace_destroy,ERSETZEN & ZERSTÖREN,markup: equipment
+m_compared_with_what_you_wear,IM VERGLEICH ZU DEINER AUSRÜSTUNG,markup: equipment
+m_this_item,Dieser Gegenstand,markup: equipment
+m_upgrade,▲ AUFWERTEN,markup: equipment
+m_dismantle_2,⚒ ZERLEGEN,markup: equipment
+m_dismantles_for,Zerlegen ergibt,markup: equipment
+m_codex,KODEX,markup: codex / boss drops
+m_boss_drops_next_boss_floor,"BOSSBEUTE · NÄCHSTER BOSS, ETAGE",markup: codex / boss drops
+m_every_boss_kill_drops,Jeder besiegte Boss lässt,markup: codex / boss drops
+m_piece_of_gear_and,Ausrüstungsteil und,markup: codex / boss drops
+m_egg_the_gear_grade_is_rolled,Ei fallen. Der Ausrüstungsgrad wird ausgewürfelt,markup: codex / boss drops
+m_egg_line_by_rarity,Ei-Linie nach Seltenheit:,markup: codex / boss drops
+m_click_skip_hold_fast,KLICK · ÜBERSPRINGEN    HALTEN · SCHNELL,markup: hatch
+m_skip_all,ALLE ÜBERSPRINGEN,markup: hatch
+m_egg,Ei,markup: hatch
+m_hatch_grade_chances,SCHLÜPF-GRADCHANCEN,markup: hatch
+m_mutant,Mutant,markup: hatch
+m_alternate_colour_cosmetic,andere Farbe · kosmetisch,markup: hatch
+m_not_yet,NOCH NICHT,markup: hatch
+m_hatch,AUSBRÜTEN,markup: hatch
+m_floor_map,ETAGENKARTE,markup: floor map
+m_boss_keys,BOSSSCHLÜSSEL,markup: floor map
+m_cry,SCHREI,markup: creature sheet
+m_devour_2,VERSCHLINGEN,markup: creature sheet
+m_experience,ERFAHRUNG,markup: creature sheet
+m_aptitude,BEGABUNG,markup: creature sheet
+m_moves,ATTACKEN,markup: creature sheet
+m_advancement_line,ENTWICKLUNGSLINIE,markup: creature sheet
+m_game_settings,SPIELEINSTELLUNGEN,markup: settings
+m_restore_defaults,STANDARD WIEDERHERSTELLEN —,markup: settings
+m_choose_parent,ELTERNTEIL WÄHLEN,markup: breeding
+m_extra_pens_buy_parallelism_not_thr,"mehr Gehege bringen Parallelität, nicht mehr Durchsatz",markup: breeding
+m_dlc,DLC,markup: breeding
+m_dlc_expansion,DLC-ERWEITERUNG,markup: breeding
+m_available_with_the_menagerie_expan,Verfügbar mit der Menagerie-Erweiterung,markup: breeding
+m_pens,‹ GEHEGE,markup: breeding
+m_grows_stronger,WIRD STÄRKER,markup: level up / victory / defeat
+m_reached_level,ERREICHT STUFE,markup: level up / victory / defeat
+m_victory,SIEG,markup: level up / victory / defeat
+m_win_streak,SIEGESSERIE,markup: level up / victory / defeat
+m_you_have_cleared_floor,✦ GESCHAFFT: ETAGE,markup: level up / victory / defeat
+m_experience_earned,ERHALTENE ERFAHRUNG,markup: level up / victory / defeat
+m_spoils,BEUTE,markup: level up / victory / defeat
+m_continue_2,WEITER →,markup: level up / victory / defeat
+m_is_changing,verwandelt sich…,markup: level up / victory / defeat
+m_became,wurde zu,markup: level up / victory / defeat
+m_you_were,DU WURDEST,markup: level up / victory / defeat
+m_defeated,BESIEGT,markup: level up / victory / defeat
+m_streak_broken,SERIE GERISSEN,markup: level up / victory / defeat
+m_choose_your_quarry,WÄHLE DEINE BEUTE,markup: quarry / abyss
+m_the_abyss_deepens,DER ABGRUND VERTIEFT SICH,markup: quarry / abyss
+m_the_infinite_abyss,DER ENDLOSE ABGRUND,markup: quarry / abyss
+m_win,Gewinne,markup: quarry / abyss
+m_battles_in_a_row_to_sink_one_floor,"Kämpfe in Folge, um eine Etage tiefer zu sinken. Die Zahl endet nie.",markup: quarry / abyss
+m_every_floor_deeper_every_monster_g,"Mit jeder Etage tiefer wird jedes Monster 1 % stärker, kumulativ. Hier:",markup: quarry / abyss
+m_monsters_and_rewards_are_always_fl,"Monster und Belohnungen sind immer die von Etage 119. Das ist eine Herausforderung, keine Farm.",markup: quarry / abyss
+m_your_deepest_floor_goes_on_the_ran,Deine tiefste Etage kommt in die Rangliste. Tiefste:,markup: quarry / abyss
+m_fold_the_letter,BRIEF FALTEN,markup: letters
+m_the_skull_beat_you,DER SCHÄDEL HAT DICH BESIEGT,markup: letters
+m_every_apex_boss_past_floor_100_car,"Jeder Apex-Boss über Etage 100 trägt einen Schädelstatus wie diesen. Zeig im Kampf darauf, um die Mechanik zu lesen, bevor du dich festlegst.",markup: letters
+m_ok,OK,markup: letters
+m_x_4,·,markup: floor HUD / boss lair
+m_floor_boss_lair,BOSSHORT DER ETAGE,markup: floor HUD / boss lair
+m_hp,LP,markup: floor HUD / boss lair
+m_signature,Signatur:,markup: floor HUD / boss lair
+m_spoils_2,Beute,markup: floor HUD / boss lair
+m_boss_keys_2,⚿ BOSSSCHLÜSSEL,markup: floor HUD / boss lair
+m_energy_gathers_at_the_platform,Energie sammelt sich an der Plattform…,markup: floor HUD / boss lair
+m_the_alpha_reforms,DER ALPHA FORMT SICH NEU,markup: floor HUD / boss lair
+m_return,← ZURÜCK,markup: floor HUD / boss lair
+m_ascend,↑ AUFSTIEG,markup: floor HUD / boss lair
+m_scene,SZENE,markup: floor HUD / boss lair
+m_read_more_in_the_codex,MEHR IM KODEX ›,markup: floor HUD / boss lair
+m_pvp_arena,PVP-ARENA,markup: pvp
+m_rankings,RANGLISTE,markup: pvp
+m_auto_pvp,AUTO-PVP,markup: pvp
+m_rating,WERTUNG,markup: pvp
+m_autoplay,AUTOPLAY ,markup: pvp
+m_matchmaking,PARTNERSUCHE,markup: pvp
+m_your_defense_is_your,. Deine Verteidigung ist dein,markup: pvp
+m_daily_snapshot,täglicher Schnappschuss,markup: pvp
+m_re_gearing_shows_up_on_defense_at,— neue Ausrüstung wirkt in der Verteidigung erst ab dem nächsten Reset.,markup: pvp
+m_x_5,×,markup: pvp
+m_competitive_pvp,RANGLISTEN-PVP,markup: pvp
+m_loading,Lädt…,markup: pvp
+m_best_floor,BESTE ETAGE,markup: pvp
+m_ratings,WERTUNGEN,markup: pvp
+m_party_daily,TRUPP (TÄGLICH),markup: pvp
+m_not_yet_posted,Noch nicht eingereicht,markup: pvp
+m_badges,ABZEICHEN,markup: pvp
+m_no_badges_yet,Noch keine Abzeichen,markup: pvp
+m_bank,BANK,markup: pvp
+m_orders_sealed_waiting_for_opponent,BEFEHLE VERSIEGELT — WARTE AUF GEGNER,markup: pvp
+m_opponent_found,GEGNER GEFUNDEN,markup: pvp
+m_best_of_3_team_locked_double_blind,BEST OF 3 · TEAM FIXIERT · VERDECKTE WAHL,markup: pvp
+m_arena_match,ARENAKAMPF,markup: pvp
+m_arena_battles_grant_no_spoils_expe,"Arenakämpfe geben keine Beute, Erfahrung oder Serie — nur Wertung.",markup: pvp
+m_exit_replay,WIEDERGABE BEENDEN,markup: pvp
+m_replay_complete,WIEDERGABE BEENDET,markup: pvp
+m_deterministic_playback_identical_t,"deterministische Wiedergabe — identisch zum Kampf, jeder Wurf",markup: pvp
+m_back_to_arena,ZUR ARENA,markup: pvp
+m_match_found,KAMPF GEFUNDEN!,markup: pvp
+m_join_match,⚔ BEITRETEN,markup: pvp
+m_premium_shop,PREMIUM-SHOP,markup: premium shop
+m_classes_2,KLASSEN,markup: classes
+m_max,✦ MAX,markup: classes
+m_active,✦ AKTIV,markup: classes
+m_switch,WECHSELN,markup: classes
+m_unlock,FREISCHALTEN ·,markup: classes
+m_not_purchasable,NICHT KÄUFLICH,markup: classes
+m_before_you_climb,Bevor du aufsteigst,markup: creation
+m_how_old_are_you,Wie alt bist du?,markup: creation
+m_asked_once_your_account_keeps_only,"Nur einmal gefragt. Dein Konto speichert nur, ob du alt genug zum Spielen bist, nie die Zahl selbst. Siehe die Datenschutzerklärung unter Einstellungen › Rechtliches & Support.",markup: creation
+m_herumon_tower_is_not_available_to,Herumon Tower ist nicht verfügbar für Spieler unter,markup: creation
+m_no_account_is_kept_for_you_the_sig,"Für dich wird kein Konto gespeichert. Die verwendete Anmeldung wurde abgemeldet, und alles, was dabei entstand, wird innerhalb von sieben Tagen gelöscht. Fragen an die Adresse in der Datenschutzerklärung.",markup: creation
+m_leave,VERLASSEN,markup: creation
+m_choose_your_path,Wähle deinen Pfad,markup: creation
+m_the_tower_stirs_loading_class_data,Der Turm regt sich… (Klassendaten werden geladen),markup: creation
+m_the_other_classes_unlock_later_in,Die anderen Klassen schaltest du später im Klassenfenster frei.,markup: creation
+m_name_your_champion,Benenne deinen Champion,markup: creation
+m_stage_1,· STUFE 1,markup: creation
+m_worn_lv_1,Abgenutzt · Lv 1 ·,markup: creation
+m_starter_weapons_tier_1,STARTWAFFEN · STUFE 1,markup: creation
+m_enter_the_tower,BETRITT DEN TURM ✦,markup: creation
+m_enter_a_name_to_continue,GIB EINEN NAMEN EIN,markup: creation
+m_burn_incense_to_get_more_spawns,VERBRENNE WEIHRAUCH FÜR MEHR SPAWNS,markup: autoplay
+m_add_bait_to_halve_the_wait,KÖDER HALBIERT DIE WARTEZEIT,markup: autoplay
+m_bug_report_sent,FEHLERBERICHT GESENDET!,markup: bug report
+m_report_a_bug,FEHLER MELDEN,markup: bug report
+m_all_in,ALL-IN,markup: upgrade
+m_every_attempt_spends_the_resource,Jeder Versuch verbraucht die Ressource. Fehlversuche werden nicht erstattet.,markup: upgrade
+m_upgrade_2,AUFWERTEN,markup: upgrade
+m_a_failed_attempt_spends_the_resour,Ein Fehlversuch verbraucht die Ressource und ändert sonst nichts.,markup: upgrade
+m_consumer,VERSCHLINGER,markup: devour
+m_mutant_2,MUTANT,markup: devour
+m_will_be_consumed,WIRD VERSCHLUNGEN,markup: devour
+m_select_fodder,FUTTER WÄHLEN,markup: devour
+m_back_3,‹ ZURÜCK,markup: devour
+m_select_fodder_it_will_be_consumed,FUTTER WÄHLEN — es wird verschlungen,markup: devour
+m_prev,‹ ZURÜCK,markup: devour
+m_next,WEITER ›,markup: devour
+m_nothing_in_the_soul_bag_can_be_con,Nichts im Seelenbeutel kann verschlungen werden.,markup: devour
+m_level_up,STUFENAUFSTIEG,markup: misc
+m_tap_to_skip,TIPPEN ZUM ÜBERSPRINGEN,markup: misc
+m_no_salvage_value,KEIN VERWERTUNGSWERT,markup: misc
+m_understood,VERSTANDEN,markup: misc
+set_audio,Audio,settings: section name
+set_audio_master_label,Gesamtlautstärke,settings: row label
+set_audio_music_label,Musik,settings: row label
+set_audio_sfx_label,Soundeffekte,settings: row label
+set_audio_ui_label,UI-Sounds,settings: row label
+set_audio_mute_label,Alles stummschalten,settings: row label
+set_audio_mutebg_label,Im Hintergrund stumm,settings: row label
+set_display,Anzeige,settings: section name
+set_display_fps_label,Bildrate,settings: row label
+set_display_fps_desc,"Begrenzt, wie oft der Bildschirm animiert. Max folgt dem Display.",settings: row description
+set_display_fullscreen_label,Vollbild,settings: row label
+set_display_fullscreen_desc,Das Spiel füllt den Bildschirm. Esc beendet es auch.,settings: row description
+set_display_battery_label,Energiesparen,settings: row label
+set_display_battery_desc,"Begrenzt auf 30 fps, weniger VFX.",settings: row description
+set_display_shake_label,Bildschirmwackeln,settings: row label
+set_display_vfx_label,VFX-Intensität,settings: row label
+set_display_wakelock_label,Bildschirm wach halten,settings: row label
+set_display_wakelock_desc,"Verhindert, dass der Bildschirm bei offenem Spiel ausgeht, damit Autoplay weiterläuft. Braucht mehr Akku. Wirkt nicht, solange der Browser im Hintergrund ist — das erlaubt kein Browser.",settings: row description
+set_battle,Kampf & Autoplay,settings: section name
+set_battle_note,"Autoplay betritt nie selbst Bossräume — feste Regel, keine Einstellung.",settings: section note
+set_battle_autofloor_label,Etagen automatisch wechseln,settings: row label
+set_battle_stoploss_label,Nach Niederlage anhalten,settings: row label
+set_battle_stoploss_desc,Ein verlorener Kampf schaltet „Etagen automatisch wechseln“ aus. Schalte es manuell wieder ein.,settings: row description
+set_battle_ondeath_label,Bei Tod,settings: row label
+set_battle_bossoutkeys_label,Auto-Bosskampf — keine Schlüssel,settings: row label
+set_battle_bossoutkeys_desc,"Was der Auto-Bosskampf tut, wenn der letzte Bossschlüssel verbraucht ist.",settings: row description
+set_battle_targeting_label,Zielwahl,settings: row label
+set_battle_targeting_desc,Wie Autoplay den Gegner für Schadensattacken wählt (aktuelle LP).,settings: row description
+set_battle_opttarget_label,Optimieren für,settings: row label
+set_battle_opttarget_desc,"Was Auto-Optimieren maximiert, wenn es deine Ausrüstung neu zusammenstellt. Gesamtmacht vereint Angriff, Verteidigung und Leben.",settings: row description
+set_battle_ult_label,Ultimative,settings: row label
+set_battle_ult_desc,"Die Runde, in der Autoplay die Ultimative zuerst einsetzt. Geht es dort nicht, versucht es jede Runde danach erneut.",settings: row description
+set_battle_priobuff_label,Buffs bevorzugen,settings: row label
+set_battle_priobuff_desc,Vor Schaden: zuerst eine bereite Buff-/Support-Attacke nutzen.,settings: row description
+set_battle_priodebuff_label,Debuffs bevorzugen,settings: row label
+set_battle_priodebuff_desc,Vor Schaden: zuerst eine bereite Debuff-Attacke nutzen.,settings: row description
+set_battle_streak_label,Serienzähler,settings: row label
+set_battle_streak_desc,Zeigt den Zähler nach dem Kampf.,settings: row description
+set_battle_confspend_label,Premiumausgaben bestätigen,settings: row label
+set_battle_confspend_desc,Eine Bestätigung vor jeder Wraithgold-Ausgabe gibt es noch nicht.,settings: row description
+set_controls,Steuerung,settings: section name
+set_controls_note,"Nur Tastatur — ein Touch-Gerät hat keine Tasten zum Belegen. Belegst du eine Taste, die schon eine andere Aktion nutzt, wird sie ihr entzogen.",settings: section note
+set_controls_kauto_label,Autoplay umschalten,settings: row label
+set_controls_kauto_desc,"Macht genau das, was die AUTOPLAY-Taste macht.",settings: row description
+set_controls_kequip_label,Ausrüstung öffnen / schließen,settings: row label
+set_controls_kinv_label,Inventar öffnen / schließen,settings: row label
+set_controls_kinv_desc,"Ist der Seelenbeutel offen, öffnet es den Gegenstandsbeutel.",settings: row description
+set_controls_klock_label,Markiertes sperren / entsperren,settings: row label
+set_controls_klock_desc,"Zeig auf eine Kreatur oder einen Gegenstand in einem der Beutel und drück die Taste. Macht genau das, was die SPERREN-Taste macht.",settings: row description
+set_controls_kstrip_label,Taskleistenmodus,settings: row label (Steam build only)
+set_controls_kstrip_desc,"Verkleinert das Spiel zu einem Streifen über der Taskleiste. Macht genau das, was die Menütaste TASKLEISTENMODUS macht.",settings: row description (Steam build only)
+set_tutorials,Tutorials,settings: section name
+set_tutorials_note,"Ein Pfeil zeigt auf jedes System, das eine erreichte Etage öffnet, bis du es einmal anklickst. Er blockiert nie das Spiel.",settings: section note
+set_tutorials_arrows_label,Tutorial-Pfeile,settings: row label
+set_tutorials_arrows_desc,"Zeigt den Pfeil bei jedem neu geöffneten System, bis sein Bedienelement einmal angeklickt wurde.",settings: row description
+set_notices,Hinweise,settings: section name
+set_notices_note,"Der Brief von Etage 101 und jedes System, das der Aufstieg geöffnet hat. Das Aktionsprotokoll liegt auf dem Server.",settings: section note
+set_notices_history_label,Meinen Verlauf herunterladen,settings: row label
+set_notices_history_desc,"Speichert die Serveraufzeichnung dieses Kontos - jede verdiente und ausgegebene Währung, Gegenstandsvergaben, Kampfbeute, Tauschgeschäfte - als JSON-Datei.",settings: row description
+set_notices_history_csv_label,Meinen Verlauf herunterladen (CSV),settings: row label
+set_notices_history_csv_desc,Dieselbe Aufzeichnung als Tabellendatei.,settings: row description
+set_notices_none_label,Noch keine Hinweise,settings: row label
+set_notices_none_desc,"Sie erscheinen, wenn der Aufstieg Systeme öffnet.",settings: row description
+set_notif,Benachrichtigungen,settings: section name
+set_notif_breedc_label,Zucht abgeschlossen,settings: row label
+set_notif_breedc_desc,"Das Banner im Spiel, wenn ein Gehege ein Ei legt.",settings: row description
+set_notif_pvp_label,PvP-Verteidigungsergebnisse,settings: row label
+set_notif_pvp_desc,"Der Hinweis im Spiel, wie deine Verteidigung in deiner Abwesenheit lief.",settings: row description
+set_notif_daily_label,Täglicher Reset,settings: row label
+set_notif_daily_desc,Push-Benachrichtigungen gibt es noch nicht.,settings: row description
+set_account,Konto & Daten,settings: section name
+set_account_logout_label,Abmelden,settings: row label
+set_account_logout_desc,"Speichert deinen Aufstieg, beendet diese Sitzung und kehrt zum Anmeldebildschirm zurück.",settings: row description
+set_account_name_label,Spielername,settings: row label
+set_account_name_desc,"Wende dich an einen Admin, um ihn zu ändern.",settings: row description
+set_account_link_label,Konto verknüpfen,settings: row label
+set_account_cloud_label,Cloud-Speicher,settings: row label
+set_account_cloud_desc,Dein Aufstieg wird beim Spielen auf dem Server gespeichert. Das lässt sich nicht abschalten.,settings: row description
+set_account_restore_label,Käufe wiederherstellen,settings: row label
+set_account_restore_desc,Kommt mit den App-Store-Versionen.,settings: row description
+set_account_export_label,Meine Daten exportieren,settings: row label
+set_account_export_desc,"Lädt alles, was dieser Spielstand enthält, als JSON-Datei herunter.",settings: row description
+set_account_reset_label,Fortschritt zurücksetzen (Neues Spiel),settings: row label
+set_account_reset_desc,"Löscht diesen Spielstand und beginnt neu auf Etage 1, Lv 1.",settings: row description
+set_account_delete_label,Konto löschen,settings: row label
+set_account_delete_desc,"Löscht dieses Konto 7 Tage nach deiner Bestätigung. Wenn du dich vorher anmeldest, kannst du es abbrechen.",settings: row description
+set_lang,Sprache & Barrierefreiheit,settings: section name
+set_lang_language_label,Sprache,settings: row label
+set_lang_language_desc,Auto folgt der Sprache dieses Geräts. Noch nicht Übersetztes erscheint auf Englisch.,settings: row description
+set_lang_textsize_label,Textgröße,settings: row label
+set_lang_textsize_desc,Derzeit skaliert der ganze Bildschirm mit dem Fenster.,settings: row description
+set_lang_colorblind_label,Farbenblind-Modus,settings: row label
+set_lang_motion_label,Bewegung reduzieren,settings: row label
+set_lang_motion_desc,"Deaktiviert Wackeln, Parallaxe und starke Übergänge.",settings: row description
+set_lang_flashing_label,Blitzen reduzieren,settings: row label
+set_lang_flashing_desc,Dämpft Trefferblitze und Stroboskop-VFX.,settings: row description
+set_legal,Rechtliches & Support,settings: section name
+set_legal_help_label,Hilfe & FAQ,settings: row label
+set_legal_help_desc,Öffnet die Hilfeseite in einem neuen Tab.,settings: row description
+set_legal_contact_label,Support kontaktieren,settings: row label
+set_legal_contact_desc,Öffnet das Meldeformular - es erreicht direkt das Team.,settings: row description
+set_legal_analytics_label,Analysen,settings: row label
+set_legal_analytics_desc,Derzeit werden keine Nutzungsanalysen erhoben. Aus speichert deinen Widerspruch für alle künftigen.,settings: row description
+set_legal_privacy_label,Datenschutzerklärung,settings: row label
+set_legal_privacy_desc,Öffnet sich in einem neuen Tab.,settings: row description
+set_legal_terms_label,Nutzungsbedingungen,settings: row label
+set_legal_terms_desc,Öffnet sich in einem neuen Tab.,settings: row description
+set_legal_credits_label,Mitwirkende,settings: row label
+set_legal_credits_desc,Öffnet sich in einem neuen Tab.,settings: row description
+set_legal_version_label,Version,settings: row label
+set_locked_tip,Ab Episch nicht abschaltbar.,settings: tooltip of a locked toggle
+set_lang_auto,Auto (Gerät),settings: Language row - follow the device language
+chal_btn,HERAUSFORDERN,markup: pvp challenge by code (B16)
+chal_title,HERAUSFORDERUNG PER CODE,markup: pvp challenge by code (B16)
+chal_make_h,CODE ERSTELLEN,markup: pvp challenge by code (B16)
+chal_make_blurb,"Gib den Code einem Spieler. Wartest du auf ihn, kämpft ihr live. Wenn nicht, greift er deine Verteidigung an.",markup: pvp challenge by code (B16)
+chal_wait,LIVE AUF IHN WARTEN,markup: pvp challenge by code (B16)
+chal_enter_h,CODE EINGEBEN,markup: pvp challenge by code (B16)
+chal_enter_blurb,"Code von einem Spieler bekommen? Live, wenn er auf dich wartet, sonst ein Auto-PvP-Angriff auf seine Verteidigung.",markup: pvp challenge by code (B16)
+chal_go,KÄMPFEN,markup: pvp challenge by code (B16)
+chal_err_own,Das ist dein eigener Code. Gib ihn einem anderen Spieler.,app: pvp challenge by code (B16)
+chal_err_expired,Diesen Code gibt es nicht oder er ist abgelaufen. Frag nach einem neuen.,app: pvp challenge by code (B16)
+chal_err_cap,Du hast diesen Spieler heute schon zweimal angegriffen. Versuch es morgen wieder.,app: pvp challenge by code (B16)
+chal_err_nodef,Dieser Spieler wartet nicht live und hat noch keine Verteidigung gespeichert.,app: pvp challenge by code (B16)
+chal_err_tickets,"Deine täglichen Angriffe sind verbraucht. Ein Code, auf den sein Besitzer nicht wartet, kostet einen Angriff.",app: pvp challenge by code (B16)
+chal_err_noteam,"Dein Team wird aus deinem letzten Spielstand gelesen. Spiel ein wenig, damit das Spiel speichert, und versuch es dann erneut.",app: pvp challenge by code (B16)
+chal_err_locked,Herausforderungen öffnen auf Etage {f}.,app: pvp challenge by code (B16)
+chal_err_generic,Der Server hat das abgelehnt ({e}).,app: pvp challenge by code (B16)
+chal_err_net,Server nicht erreichbar.,app: pvp challenge by code (B16)
+chal_err_busy,Beende zuerst deinen laufenden Kampf.,app: pvp challenge by code (B16)
+chal_err_done,Diese Herausforderung wurde schon gespielt.,app: pvp challenge by code (B16)
+chal_bad_len,Ein Code hat {n} Buchstaben und Ziffern.,app: pvp challenge by code (B16)
+chal_bad_code,Prüf den Code und versuch es erneut.,app: pvp challenge by code (B16)
+chal_sending,Code wird gesendet…,app: pvp challenge by code (B16)
+chal_valid_until,Gültig bis {t},app: pvp challenge by code (B16)
+chal_new_code,NEUER CODE,app: pvp challenge by code (B16)
+chal_make_btn,CODE ERSTELLEN,app: pvp challenge by code (B16)
+chal_copy,KOPIEREN,app: pvp challenge by code (B16)
+chal_copied,KOPIERT,app: pvp challenge by code (B16)
+chal_on,AN,app: pvp challenge by code (B16)
+chal_off,AUS,app: pvp challenge by code (B16)
+chal_wait_note,Warte in der Ranglisten-Warteschlange auf deinen Herausforderer · {t},app: pvp challenge by code (B16)
+chal_wait_off_note,"Aus: Er greift stattdessen deine Verteidigung an, als Auto-PvP-Kampf.",app: pvp challenge by code (B16)
+chal_expired_mine,Dein Code ist abgelaufen. Erstelle einen neuen.,app: pvp challenge by code (B16)
+chal_band,warte auf den Spieler mit deinem Code {c},app: pvp challenge by code (B16)
+m_send_to_herumon_dungeon,NACH HERUMON DUNGEON SENDEN,markup+app: creature sheet: T48 transfer action (Steam shell only)
+m_confirm_send,SENDEN BESTÄTIGEN,"app: creature sheet: T48 transfer action, armed"
+m_sent,GESENDET,markup: creature sheet: T48 transfer action after the send
+m_a_copy_travels_to_herumon_dungeon_it_cannot_come_back_once_per_creature,Eine Kopie reist nach Herumon Dungeon. Sie kann nicht zurück. Einmal pro Kreatur.,markup: creature sheet: T48 confirm line (D's words)
+m_dimensional_traveler_levels,Stufen des Dimensionsreisenden,"app: creature sheet: T48 traveler line, ""Dimensional traveler levels - Tower 76, Dungeon 12"""
+m_tower,Turm,"app: creature sheet: T48 traveler line, this game"
+m_dungeon,Dungeon,"app: creature sheet: T48 traveler line, the other game"
+m_the_send_did_not_go_through,Das Senden ist fehlgeschlagen,app: creature sheet: T48 send error
+gate_the_tower_keeps_your_climb,Der Turm bewahrt deinen Aufstieg auf jedem Gerät.,index.html: sign-in gate: tagline
+gate_sign_in_through_steam,ÜBER STEAM ANMELDEN,index.html: sign-in gate: provider door
+gate_sign_in_with_google,MIT GOOGLE ANMELDEN,index.html: sign-in gate: provider door
+gate_sign_in_with_discord,MIT DISCORD ANMELDEN,index.html: sign-in gate: provider door
+gate_sign_in_with_apple,MIT APPLE ANMELDEN,index.html: sign-in gate: provider door
+gate_your_sign_in_secures,Deine Anmeldung sichert deine Spielstände und deinen PvP-Rang.,index.html: sign-in gate: footnote
+m_dimensional_rift,DIMENSIONSRISS,markup: menu tile label (baked in the plate) + rift window title: T48 transfer
+m_send_through_the_rift,DURCH DEN RISS SENDEN,"app: creature sheet: T48 transfer action (web + Steam shell), was SEND TO HERUMON DUNGEON"
+m_a_copy_goes_through_the_rift_to_herumon_dungeon_free_once_per_creature,"Eine Kopie geht durch den Riss nach Herumon Dungeon: kostenlos, einmal pro Kreatur. Sie kommt auf Stufe 1 an und behält Grad und Mutantenstatus. Der Turm behält deine. Nichts kommt zurück.",app+markup: creature sheet confirm line + rift window: T48 rules (D 2026-11-02/03)
+m_the_rift_opens_in_the_steam_client,Der Riss öffnet sich im Steam-Client. Herumon Tower auf Steam sendet Kreaturen hindurch; hier kannst du nur hineinsehen.,app+markup: creature sheet + rift window on the web build: T48 transfer needs the Steam shell
+m_world_traveler,Weltenreisender,"app: creature sheet + rift window: T48 mark, ""World traveler - Tower · Dungeon"" (D 2026-11-02)"
+m_world_travelers,WELTENREISENDE,markup: rift window: the sent creatures list header
+m_a_tear_between_the_tower_and_herumon_dungeon,Ein Riss zwischen dem Turm und Herumon Dungeon.,markup: rift window: the intro line
+m_open_a_creatures_sheet_from_the_inventory_and_choose_send_through_the_rift,Öffne das Blatt einer Kreatur im Inventar und wähle DURCH DEN RISS SENDEN. Nur vom Turm zum Dungeon: Der Riss geht nur in eine Richtung.,markup: rift window: how to send
+m_no_creature_has_crossed_yet,Noch keine Kreatur ist hindurchgegangen.,markup: rift window: empty travelers list
+m_trophy_wall,Trophäenwand,markup: trophy wall: title
+m_earned,Erhalten,markup/app: trophy wall: the earned count label and the earned tile state
+m_not_yet_earned,Noch nicht erhalten,app: trophy wall: tile state
+m_hidden_achievement,???,app: trophy wall: a hidden achievement not yet earned
+m_hidden_until_earned,"Verborgen, bis du sie erhältst.",app: trophy wall: a hidden achievement's description
+m_the_achievement_list_could_not_be_read,Die Erfolgsliste konnte nicht gelesen werden.,markup: trophy wall: achievements.csv failed
+m_your_earned_achievements_could_not_be_read,Deine erhaltenen Erfolge konnten gerade nicht gelesen werden.,markup: trophy wall: the server door failed
+m_the_same_trophies_unlock_on_steam,"Dieselben Trophäen werden auf Steam freigeschaltet, wenn du über den Steam-Client spielst.",markup: trophy wall: footer
+ach_floor_10_name,Das erste Tor,achievements.csv FLOOR_10 Name
+ach_floor_10_desc,Erreiche Etage 10 des Turms.,achievements.csv FLOOR_10 Description
+ach_floor_30_name,Dreißig hoch,achievements.csv FLOOR_30 Name
+ach_floor_30_desc,Erreiche Etage 30 des Turms.,achievements.csv FLOOR_30 Description
+ach_floor_60_name,Über die Hälfte,achievements.csv FLOOR_60 Name
+ach_floor_60_desc,Erreiche Etage 60 des Turms.,achievements.csv FLOOR_60 Description
+ach_floor_100_name,Der einstige Gipfel,achievements.csv FLOOR_100 Name
+ach_floor_100_desc,Erreiche Etage 100 des Turms.,achievements.csv FLOOR_100 Description
+ach_floor_120_name,Die Spitze der Leere,achievements.csv FLOOR_120 Name
+ach_floor_120_desc,Erreiche Etage 120 - die Spitze des Void Apex.,achievements.csv FLOOR_120 Description
+ach_codex_300_name,Feldnotizen,achievements.csv CODEX_300 Name
+ach_codex_300_desc,Erhalte 300 Kreaturen im Kodex.,achievements.csv CODEX_300 Description
+ach_mutant_hatch_name,Nicht im Kodex,achievements.csv MUTANT_HATCH Name
+ach_mutant_hatch_desc,Brüte einen Mutanten aus.,achievements.csv MUTANT_HATCH Description
+ach_first_void_name,Ein Grad darüber hinaus,achievements.csv FIRST_VOID Name
+ach_first_void_desc,Besitze deine erste Kreatur vom Grad Leere.,achievements.csv FIRST_VOID Description
+ach_void_completionist_name,Leere-Komplettist,achievements.csv VOID_COMPLETIONIST Name
+ach_void_completionist_desc,Besitze eine Kreatur vom Grad Leere aus jeder Entwicklungslinie.,achievements.csv VOID_COMPLETIONIST Description
+shop_packs_title,WRAITHGOLD-PAKETE,app: premium shop: heading of the real-money pack grid (S7)
+shop_store_unreachable,Shop nicht erreichbar.,app: premium shop: /api/store/catalogue failed
+shop_store_loading,Shop wird geladen...,app: premium shop: pack grid loading
+shop_store_soon,Der Shop öffnet bald. Wraithgold-Pakete werden über den Steam-Client verkauft.,app: premium shop: catalogue enabled:false (STORE_ENABLED off)
+shop_buy_in_steam,Kaufe im Steam-Client. Wraithgold-Pakete werden über Steam verkauft; diese Webversion zeigt die Preise.,app: premium shop: web build line under the pack grid (no buy action)
+shop_pack_buy,KAUFEN,app: premium shop: pack buy plaque (Steam shell only)
+shop_pack_pending,WARTE AUF STEAM...,app: premium shop: pack plaque + note while the Steam overlay is open
+shop_pack_opening,Steam-Kauf wird geöffnet...,app: premium shop: note while init runs
+shop_pack_done,Kauf abgeschlossen. Das Wraithgold ist in deiner Börse.,app: premium shop: note after finalize granted
+shop_pack_declined,Der Kauf wurde in Steam abgelehnt. Nichts wurde berechnet.,app: premium shop: note after a declined overlay
+shop_pack_failed,Der Kauf ist fehlgeschlagen. Nichts wurde berechnet.,app: premium shop: note after a failed purchase
+shop_last_purchase,Letzter Kauf,"app: premium shop: receipt line prefix (""Last purchase: 550 Wraithgold · WG-0550 · time"")"
+m_list_on_steam_market,AUF DEM STEAM-MARKT ANBIETEN,"app: STEAM MARKET (marketui, board S1): creature sheet + item detail action"
+m_confirm_listing,ANGEBOT BESTÄTIGEN,"app: STEAM MARKET (marketui, board S1): the armed action"
+m_steam_client_only,Nur im Steam-Client,"markup: STEAM MARKET (marketui, board S1): the web build draws LIST disabled"
+m_mkt_rules_creature,"Die Kreatur verlässt deinen Spielstand und wird ein Steam-Gegenstand. Verkaufe sie auf dem Steam-Communitymarkt (Spielgebühr {fee} %). Hol sie jederzeit zurück, solange du sie besitzt. Limits: {per} Angebote pro Tag; dein Konto muss älter als {days} Tage sein.","app: STEAM MARKET (marketui, board S1): confirm line; {fee} {per} {days} from GET /api/market/exports"
+m_mkt_rules_piece,"Das Teil verlässt deinen Spielstand und wird ein Steam-Gegenstand. Verkaufe es auf dem Steam-Communitymarkt (Spielgebühr {fee} %). Hol es jederzeit zurück, solange du es besitzt. Limits: {per} Angebote pro Tag; dein Konto muss älter als {days} Tage sein.","app: STEAM MARKET (marketui, board S1): confirm line for gear; {fee} {per} {days} from GET /api/market/exports"
+m_mkt_sign_in,"Melde dich an, um den Steam-Markt zu nutzen.","app: STEAM MARKET (marketui, board S1): refusal 401"
+m_mkt_unconfigured,Der Steam-Markt ist noch nicht eingerichtet.,"app: STEAM MARKET (marketui, board S1): refusal 503 market_unconfigured"
+m_mkt_session_young,Dein Konto ist zu neu für Angebote: {days} von {min_days} Tagen.,"app: STEAM MARKET (marketui, board S1): refusal session_young"
+m_mkt_export_cap,Tageslimit für Angebote erreicht ({today} von {per_day}). Versuch es morgen wieder.,"app: STEAM MARKET (marketui, board S1): refusal export_cap"
+m_mkt_equipped,Es ist in deinem Trupp oder angelegt. Nimm es zuerst ab.,"app: STEAM MARKET (marketui, board S1): refusal equipped"
+m_mkt_in_pen,Es ist in einem Zuchtgehege. Nimm es zuerst heraus.,"app: STEAM MARKET (marketui, board S1): refusal in_pen"
+m_mkt_locked,Es ist gesperrt. Entsperre es zuerst.,"app: STEAM MARKET (marketui, board S1): refusal locked"
+m_mkt_not_exportable,"Das kann nicht auf den Steam-Markt. Eier, Verbrauchsgüter und Seelen bleiben im Turm.","app: STEAM MARKET (marketui, board S1): refusal not_exportable"
+m_mkt_unknown_def,Dafür gibt es noch keinen Steam-Gegenstand.,"app: STEAM MARKET (marketui, board S1): refusal unknown_def"
+m_mkt_no_steam_identity,"Melde dich mit Steam an, um den Markt zu nutzen.","app: STEAM MARKET (marketui, board S1): refusal no_steam_identity"
+m_mkt_bag_full,Dein Beutel ist voll ({inv} von {cap}). Schaffe zuerst Platz.,"app: STEAM MARKET (marketui, board S1): import refusal bag_full"
+m_mkt_no_props,Dieser Steam-Gegenstand stammt nicht aus Herumon Tower.,"app: STEAM MARKET (marketui, board S1): import refusal no_props"
+m_mkt_bad_id,Das ist keine Steam-Gegenstands-ID.,"app: STEAM MARKET (marketui, board S1): import refusal steam_item_id / a bad field"
+m_mkt_not_in_steam_inventory,Dieser Gegenstand ist nicht in deinem Steam-Inventar.,"app: STEAM MARKET (marketui, board S1): import refusal not_owned"
+m_mkt_not_owned,Das ist nicht mehr in deinem Spielstand.,"app: STEAM MARKET (marketui, board S1): export refusal not_owned"
+m_mkt_steam_failed_import,"Steam hat nicht geantwortet, der Gegenstand ist noch auf Steam.","app: STEAM MARKET (marketui, board S1): import refusal steam_failed"
+m_mkt_steam_failed,"Steam hat nicht geantwortet, es ist wieder in deinem Beutel.","app: STEAM MARKET (marketui, board S1): export refusal steam_failed (the row is released)"
+m_mkt_no_answer,Der Markt hat nicht geantwortet ({code}).,"app: STEAM MARKET (marketui, board S1): any other refusal"
+m_mkt_listed,AUF STEAM — VERKAUFE ES AUF DEM COMMUNITYMARKT,"app: STEAM MARKET (marketui, board S1): toast after a 200 export"
+m_mkt_imported,{name} ist wieder in deinem Beutel.,"app: STEAM MARKET (marketui, board S1): line after a 200 import"
+m_mkt_st_reserved,UNTERWEGS,"app: STEAM MARKET (marketui, board S1): ledger status reserved"
+m_mkt_st_exported,AUF STEAM,"app: STEAM MARKET (marketui, board S1): ledger status exported"
+m_mkt_st_released,WIEDER IM BEUTEL,"app: STEAM MARKET (marketui, board S1): ledger status released"
+m_mkt_st_importing,WIRD IMPORTIERT,"app: STEAM MARKET (marketui, board S1): ledger status importing"
+m_mkt_st_imported,IMPORTIERT,"app: STEAM MARKET (marketui, board S1): ledger status imported"
+m_mkt_st_import_failed,IMPORT FEHLGESCHLAGEN,"app: STEAM MARKET (marketui, board S1): ledger status import_failed"
+m_mkt_dir_import,IMPORT,"app: STEAM MARKET (marketui, board S1): ledger row direction"
+m_mkt_dir_export,EXPORT,"app: STEAM MARKET (marketui, board S1): ledger row direction"
+m_mkt_fee_line,Spielgebühr {fee} % · {per} Angebote pro Tag · Konto älter als {days} Tage,"app: STEAM MARKET (marketui, board S1): window rules line"
+m_mkt_import_btn,IMPORTIEREN,"app: STEAM MARKET (marketui, board S1): import button"
+m_steam_market,STEAM-MARKT,"markup: STEAM MARKET (marketui, board S1): menu tile label (baked in the plate) + window title"
+m_the_steam_market_opens_with_the_steam_release,Der Steam-Markt öffnet mit dem Steam-Release,"markup: STEAM MARKET (marketui, board S1): the window while GET /api/market/exports answers 404"
+m_mkt_tab_exports,EXPORTE,"markup: STEAM MARKET (marketui, board S1): tab"
+m_mkt_tab_import,IMPORT,"markup: STEAM MARKET (marketui, board S1): tab"
+m_open_the_community_market,COMMUNITYMARKT ÖFFNEN,"markup: STEAM MARKET (marketui, board S1): Steam overlay (shell) / link (web)"
+m_open_your_steam_inventory,STEAM-INVENTAR ÖFFNEN,"markup: STEAM MARKET (marketui, board S1): Steam overlay (shell) / link (web)"
+m_mkt_how_to_list,"Öffne das Blatt einer Kreatur oder die Details eines Ausrüstungsteils und wähle AUF DEM STEAM-MARKT ANBIETEN. Es verlässt deinen Spielstand und wird ein Steam-Gegenstand, den du auf dem Communitymarkt verkaufen kannst.","markup: STEAM MARKET (marketui, board S1): EXPORTS tab"
+m_mkt_no_listings_yet,Noch nichts angeboten.,"markup: STEAM MARKET (marketui, board S1): EXPORTS tab, empty"
+m_mkt_how_to_import,"Eins gekauft oder willst deins zurück? Such seine Steam-Gegenstands-ID in deinem Steam-Inventar, gib sie hier ein und importiere es in deinen Beutel.","markup: STEAM MARKET (marketui, board S1): IMPORT tab"
+m_abyss_lose_once,"Verlierst du einmal, wirft dich der Abgrund auf 121 zurück. Nur ein Tod zählt: Verlässt du ihn oder lädst neu, wartet deine Zahl auf dich.",markup: quarry / abyss
+m_auto_optimize_btn,⚙ AUTO-OPTIMIEREN,markup: equipment
+m_auto_optimize_preview,AUTO-OPTIMIEREN · VORSCHAU,markup: equipment: auto-optimize
+m_autoplay_hud,AUTOPLAY ,markup: floor HUD: autoplay pill
+m_class_t1_no_creatures,Klasse + T1-Waffen. Keine Kreaturen.,markup: classes
+m_class_unlocks_note,Freischaltungen gelten kontoweit und dauerhaft. Ein Wechsel legt alle 8 Ausrüstungsplätze zurück ins Inventar — Sockel bleiben an ihren Gegenständen.,markup: classes
+m_currently_slotted,AKTUELL EINGESETZT,markup: equipment: slot picker
+m_devour_pick_hint,Eine Kreatur oder ein Verschlingen-Gegenstand aus dem Seelenbeutel,markup: devour
+m_dismantle_btn,⚒ ZERLEGEN,markup: menu / dismantling
+m_each_path_starts,"Jeder Pfad beginnt mit den zwei gezeigten Kreaturen und Waffen. Wähle einen, um zu beginnen.",markup: creation
+m_equip_dot,ANLEGEN ·,"markup: equipment: slot picker title, the slot name follows"
+m_equipped_now,jetzt ausgerüstet,"markup: pvp: follows ""You attack with the team you have"""
+m_feedback_attached,Dein letztes Spielgeschehen und alle Fehler des Spiels werden automatisch angehängt.,markup: feedback
+m_feedback_thanks,Danke — es wurde mit deinem letzten Spielgeschehen und allen erfassten Fehlern gesendet.,markup: feedback
+m_lit_grades_are_dismantled,"Leuchtende Grade werden zerlegt — die Zahl ist, was sie verlieren. Dunkle Grade bleiben unberührt — die Zahl ist, was behalten wird.",markup: menu / dismantling
+m_name_rules,"3–16 Buchstaben (A–Z), Ziffern, Leerzeichen, - oder _. Namen sind einzigartig, ein Name pro Konto.",markup: creation: name
+m_no_entries_yet,NOCH KEINE EINTRÄGE,markup: pvp: rankings
+m_no_items_fit_slot,Kein Gegenstand im Inventar passt in diesen Platz.,markup: equipment: slot picker
+m_opt_untouched," ·  Kreaturen, Seelen und Schriftrollen bleiben unberührt",markup: equipment: auto-optimize (joined after the bag note)
+m_purchase_successful,KAUF ERFOLGREICH,markup: shop: slot purchase
+m_seconds_to_join,SEKUNDEN ZUM BEITRETEN — DIE SUCHE LÄUFT SO ODER SO WEITER,markup: pvp: queue
+m_select_more,MEHR WÄHLEN,markup: menu / dismantling
+m_soul_when_slotted,SEELE · EINGESETZT IN PASSIVER RÜSTUNG,markup: soul card
+m_wg_purchases_not_live,Wraithgold-Käufe sind in der Alpha nicht aktiv. Plätze sind für diesen Spielstand dauerhaft.,markup: shop: slot purchase
+m_worn_totals_note,Angelegte Summen enthalten alles Eingesetzte. Platzzahlen sind Juwel + Rune + Schriftrolle.,markup: equipment: stats
+m_yes_dismantle,"⚒ JA, ZERLEGEN",markup: menu / dismantling
+m_you_attack_with_team,"Du greifst mit dem Team an, das du","markup: pvp: the coloured ""equipped now"" follows"
+m_leave_the_abyss,ABGRUND VERLASSEN,app: floor HUD: back portal inside the Abyss
+m_descend,↓ ABSTIEG,app: floor HUD: back portal
+m_floor_n,ETAGE {n},app: floor HUD: back portal floor number
+m_boss_den,BOSSHÖHLE,app: floor HUD: ascend portal before a boss floor
+m_summit,GIPFEL,app: floor HUD: ascend portal on the top floor
+m_abyss_streak,ABGRUNDSERIE,app: floor HUD: streak label inside the Abyss
+m_ascending,AUFSTIEG,app: floor transit title
+m_descending,ABSTIEG,app: floor transit title
+m_inv_usage,{cnt} / {cap} Plätze,app: inventory / soul bag header: slots used
+m_dim_tiers,Stufen,"app: dismantling: ""N tiers picked"""
+m_dim_grades,Grade,"app: dismantling: ""N grades picked"""
+set_press_a_key,DRÜCK EINE TASTE,settings: a key row waiting for the new key
+set_dlg_restore_title,STANDARD WIEDERHERSTELLEN,settings: confirm dialog (restore)
+set_dlg_restore_button,ZURÜCKSETZEN,settings: confirm dialog (restore)
+set_dlg_logout_title,ABMELDEN,settings: confirm dialog (logout)
+set_dlg_logout_body,"Dein Aufstieg wird zuerst auf dem Server gespeichert, dann wird dieses Gerät abgemeldet und kehrt zum Anmeldebildschirm zurück. Nichts geht verloren — wenn du dich wieder anmeldest, ist alles wieder da.",settings: confirm dialog (logout)
+set_dlg_logout_button,ABMELDEN,settings: confirm dialog (logout)
+set_dlg_resetsave_title,FORTSCHRITT ZURÜCKSETZEN,settings: confirm dialog (resetsave)
+set_dlg_resetsave_body,"Diesen Spielstand löschen und ein neues Spiel auf Etage 1, Lv 1 beginnen? Kreaturen, Ausrüstung und Etagenfortschritt werden gelöscht. Das ist endgültig.",settings: confirm dialog (resetsave)
+set_dlg_resetsave_button,ZURÜCKSETZEN & NEU STARTEN,settings: confirm dialog (resetsave)
+set_dlg_delete1_title,KONTO LÖSCHEN,settings: confirm dialog (delete1)
+set_dlg_delete1_body,"Damit werden das Konto und alles darin gelöscht: der Spielstand, Kreaturen, Ausrüstung, jede Währung einschließlich gekauftem Wraithgold, deine Ranglisten- und PvP-Platzierung und dein Name. Das geschieht 7 Tage nach deiner Bestätigung; meldest du dich vorher an, kannst du es abbrechen. Gesendete Fehlerberichte bleiben ohne dein Konto erhalten.",settings: confirm dialog (delete1)
+set_dlg_delete1_button,WEITER,settings: confirm dialog (delete1)
+set_dlg_delete2_title,LÖSCHEN BESTÄTIGEN,settings: confirm dialog (delete2)
+set_dlg_delete2_button,KONTO LÖSCHEN,settings: confirm dialog (delete2)
+set_dlg_restore_body,Alle Optionen in „{section}“ auf den Standardwert zurücksetzen? Andere Bereiche bleiben unberührt.,settings: confirm dialog (restore); {section} is the section name
+set_dlg_delete2_body,Gib unten DELETE ein und drück dann KONTO LÖSCHEN. Alle Geräte werden abgemeldet.,settings: confirm dialog (delete2); DELETE is the word the player types - keep it in English
+set_val_max,Max,settings: option value
+set_val_low,Niedrig,settings: option value
+set_val_standard,Standard,settings: option value
+set_val_stay,Bleiben,settings: option value
+set_val_go_down,Absteigen,settings: option value
+set_val_go_up,Aufsteigen,settings: option value
+set_val_lowest_health,Wenigste LP,settings: option value
+set_val_highest_health,Meiste LP,settings: option value
+set_val_random,Zufällig,settings: option value
+set_val_overall_power,Gesamtmacht,settings: option value
+set_val_atk,ANG,settings: option value
+set_val_def,VER,settings: option value
+set_val_hp,LP,settings: option value
+set_val_turn_1,Runde 1,settings: option value
+set_val_turn_2,Runde 2,settings: option value
+set_val_turn_3,Runde 3,settings: option value
+set_val_never_use,Nie einsetzen,settings: option value
+set_val_coming,Kommt bald,settings: option value
+set_val_set_at_character_creation,Bei Erstellung festgelegt,settings: option value
+unl_class_soul,"Die Seele, die dir deine Klasse gab. Klick sie an, um zu sehen, was sie tut.",unlocks.csv class_soul Line (the unlock lesson line; edit both)
+unl_hatch_all,Brütet alle Eier im Beutel auf einmal aus.,unlocks.csv hatch_all Line (the unlock lesson line; edit both)
+unl_dismantle_all,Zerlegt viele Teile auf einmal in Materialien.,unlocks.csv dismantle_all Line (the unlock lesson line; edit both)
+unl_souls,"Seelen haben ihren eigenen Beutel. Setz eine in Ausrüstung ein, um ihre Kraft zu nutzen.",unlocks.csv souls Line (the unlock lesson line; edit both)
+unl_auto_pvp,Schick dein Team gegen die Teams anderer Spieler in die Warteschlange.,unlocks.csv auto_pvp Line (the unlock lesson line; edit both)
+unl_auto_optimise,Legt dir automatisch die stärksten Teile aus deinem Beutel an.,unlocks.csv auto_optimise Line (the unlock lesson line; edit both)
+unl_breeding,Zwei Kreaturen in einem Gehege legen mit der Zeit Eier.,unlocks.csv breeding Line (the unlock lesson line; edit both)
+unl_trader,Das Angebot wechselt mit der Zeit. Schau wieder vorbei für neue Waren.,unlocks.csv trader Line (the unlock lesson line; edit both)
+unl_transfer,"Der Riss nach Herumon Dungeon ist offen. Schick eine Kreatur hindurch: eine Kopie, kostenlos, einmal. Sie kommt auf Stufe 1 an und behält ihren Grad.",unlocks.csv transfer Line (the unlock lesson line; edit both)
+m_unl_generic,Geöffnet auf Etage {f}. Klick einmal darauf, um zu beginnen.,app: unlock lesson: the generic line when unlocks.csv has no Line
