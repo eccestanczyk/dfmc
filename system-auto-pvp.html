@@ -15,7 +15,7 @@
 <div class="topbar"><h1 style="font-family:'Cinzel',serif;">AUTO PVP</h1></div>
 <div class="sp-wrap">
   <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; Auto PVP</div>
-  <p class="sp-lead">Asynchronous ranked combat. You attack a <strong>snapshot</strong> of another player's team &mdash; they are not online, they do not need to be, and their side is piloted by their own autoplay settings. Ten attacks a day, matches decided by the server, seasons closed weekly. Competitive PvP (live, double-blind, both players present) is unchanged and lives on its <a href="system-pvp.html" style="color:var(--gold-bright)">own page</a>.</p>
+  <p class="sp-lead">Asynchronous ranked combat. You attack a <strong>snapshot</strong> of another player's team &mdash; they are not online, they do not need to be, and their side is piloted by their own autoplay settings. Opens at floor <span data-csv="unlocks.csv#System=auto_pvp#Floor">15</span>. <span data-csv="pvp_ladder.csv#apvp_daily#Value">10</span> attacks a day, matches decided by the server, standings cut every week for pay &mdash; there are no seasons, and nothing ever resets your rating. Competitive PvP (live, double-blind, both players present) is unchanged and lives on its <a href="system-pvp.html" style="color:var(--gold-bright)">own page</a>.</p>
 
   <h2>The loop</h2>
   <table>
@@ -28,9 +28,9 @@
 
   <h2>Attacks</h2>
   <ul class="sp-rules">
-    <li><strong>Ten per day</strong>, refilling to ten at the daily reset (00:00 UTC). Nothing banks: unspent attacks do not carry over.</li>
+    <li><strong><span data-csv="pvp_ladder.csv#apvp_daily#Value">10</span> per day</strong>, refilling to that number at the daily reset (00:00 UTC; <code>pvp_ladder.csv apvp_daily</code>). Nothing banks: unspent attacks do not carry over.</li>
     <li><strong>At most two attacks on the same defender per day</strong>, so no one can be farmed and no one can farm one soft target.</li>
-    <li>The <strong>premium shop</strong> sells ten more for the current day, 4 Wraithgold. They stack above the daily ten and expire at the same reset.</li>
+    <li>The <strong>premium shop</strong> sells <span data-csv="premium_shop.csv#SKU=SHOP-003#Effect_Value">10</span> more for the current day, <span data-csv="premium_shop.csv#SKU=SHOP-003#Cost">4</span> Wraithgold (<code>premium_shop.csv</code> SHOP-003). They stack above the daily ten and expire at the same reset.</li>
     <li>You never choose your opponent. The server picks from players near your hidden defense rating, so matches stay competitive as you climb.</li>
   </ul>
 
@@ -50,12 +50,17 @@
     <li>The ladder shows <strong>what each player last won with</strong> &mdash; their class and the two creatures beside it.</li>
   </ul>
 
-  <h2>Seasons</h2>
+  <h2>Weeks, pay and inactivity</h2>
+  <p>There are no seasons (D, Tower rulings T33, 2026-10-22). The ladder runs on <strong>weeks</strong>: the week closes on a fixed <strong>Sunday 00:00 UTC</strong> cutoff, the same clock as the daily reset, the standings are cut, the top ten are paid, and every rating carries on unchanged &mdash; nothing resets.</p>
   <ul class="sp-rules">
-    <li>Seasons close on a fixed <strong>Sunday 00:00 UTC</strong> cutoff, the same clock as the daily reset.</li>
-    <li>Ratings carry over. Closing a season settles the standings and pays the top ten.</li>
-    <li><strong>Rewards are items, by rank: top 1, top 3, top 10.</strong> The current placeholders are incense and bait for the top three and incense through rank ten. <strong>A week&rsquo;s reward requires at least one match you attacked in that week</strong> &mdash; no match, no reward for that week. Defending does not count, and neither does a voided match.</li>
+    <li><strong>Pay by rank</strong> (<code>codex/pvp_weekly_pay.csv</code>): rank <span data-csv="pvp_weekly_pay.csv#Tier=champion&Item=incense#Rank_Max">1</span> gets incense and bait for <span data-csv="pvp_weekly_pay.csv#Tier=champion&Item=incense#Days">30</span> days plus the week&rsquo;s medal; ranks 2&ndash;<span data-csv="pvp_weekly_pay.csv#Tier=top3&Item=incense#Rank_Max">3</span> incense and bait for <span data-csv="pvp_weekly_pay.csv#Tier=top3&Item=incense#Days">30</span> days; ranks 4&ndash;<span data-csv="pvp_weekly_pay.csv#Tier=top10&Item=incense#Rank_Max">10</span> incense for <span data-csv="pvp_weekly_pay.csv#Tier=top10&Item=incense#Days">30</span> days. The items arrive as timed boons on the account.</li>
+    <li><strong>You are paid only if you played that week</strong>: at least one attack of yours that settled and was not voided. Defending does not count.</li>
+    <li><strong>A thin week pays half.</strong> A week in which fewer than <span data-csv="pvp_ladder.csv#thin_week_players#Value">10</span> players attacked pays <span data-csv="pvp_ladder.csv#thin_week_pay_mult#Value" data-csv-fmt="x100,%">50%</span> of every reward&rsquo;s days and no medal (T46).</li>
+    <li><strong>Inactivity hides you</strong>: after <span data-csv="pvp_ladder.csv#hide_after_days#Value">7</span> days without a settled attack you leave the Auto PvP board. From idle week <span data-csv="pvp_ladder.csv#decay_from_week#Value">2</span> each full idle week takes <span data-csv="pvp_ladder.csv#decay_pct#Value" data-csv-fmt="%">5%</span> off your rating, down to the starting 1500 and never below it. Your next attack starts from the decayed rating and puts you back on the board.</li>
   </ul>
+
+  <h2>Challenge by code</h2>
+  <p>From the arena header, <strong>CHALLENGE</strong> lets you hand one player a code. If they are waiting for you live, the two of you get a Competitive match; if they are not, entering their code is <strong>one Auto PvP attack on their defense</strong> &mdash; same ticket, same limit of two attacks per defender per day, the same server replay and settle. Details and every refusal line on <a href="system-pvp.html">PvP</a>.</p>
 
   <h2>Fair play</h2>
   <p>Every result is decided by the server, not reported by the client. The fight you watch and the fight the server verifies run <strong>the same code over the same bytes</strong> &mdash; one battle engine, shipped to both sides.</p>
@@ -71,6 +76,7 @@
 
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-11-03 &mdash; codex review (dfmc-client lane codexreview-a; D 2026-11-03 &ldquo;review the codex&hellip;&rdquo;). WIKI ONLY.</strong> The &ldquo;Seasons&rdquo; section is gone: the page now describes the weekly cut the way the game runs it (T33: there are no seasons; pay by rank from <code>pvp_weekly_pay.csv</code>, a thin week pays half with no medal, T46; inactivity hides after 7 days and decays 5% a week from week 2 down to 1500), with every number read from <code>pvp_ladder.csv</code> / <code>pvp_weekly_pay.csv</code> / <code>premium_shop.csv</code> / <code>unlocks.csv</code> through csv-bind; the unlock floor is stated; a Challenge by code section points at the B16 rule on the PvP page; the page gets the shared nav like every other system page.</li>
     <li><strong>2026-10-22 &mdash; the queue is never empty: the defender pool, the power window and the TOWER ECHO (Tower rulings form card T6 part 5, D 2026-10-18; 0.89-4 board card Q15 "Queue never empty").</strong> LIVE on release since 2026-10-23 (0.89). Every account whose best floor (the server's ratchet, now written on the daily defense snapshot as <code>maxf</code>) has reached the Auto PvP rung and whose fold built a defense team is in the defender pool - the server's own snapshot, never the attacker's client; a snapshot below the rung is never served. The mint is power-filtered: the Worker computes the attacker's power from his stored save (<code>src/power.js computePower</code>, the T8 rule - the same number the fold wrote on every defender's snapshot) and the pick stays inside a window of &times;1.25 around it, widening to &times;1.5 and &times;2 when the pool is thin; the rating band then picks inside the window as before. When no human stands in the widest window the match is against a <strong>TOWER ECHO</strong>: a house team the Worker builds from the codex for the attacker's ratchet floor (a class line, a level around the floor, two companions native to the floor band from creatures.csv, built by the same <code>src/team.js</code> slice every human defense is built by, stood at the T4 wild-HP band for that floor), seeded by attacker + day + idem so the same attacker meets varied but reproducible echoes. An echo match costs the attack, runs and settles like any other (replay, forfeit, expiry) and carries <code>bot:1</code> on the row and the response - but writes no ladder result for any human: no rating or W/L move for the attacker, no row for the house, no season credit for that week. The arena card names the defender TOWER ECHO [ECHO]. An unreadable attacker power, or a Worker that carried no echo (codex tables missing), keeps the old unfiltered pick, so a missing table never empties the queue. Gate: <code>tools/probe_t6e_tower_echo.py</code> 13/23 &rarr; 23/23 on a local worker (ratchet 10 / 15 fixtures, a level-1 and a level-90 attacker). Full entry on system-pvp.</li>
     <li><strong>2026-10-22 &mdash; the attacker's Targeting is pinned at the mint (Tower rulings form card T13 remainder, D 2026-10-18: &ldquo;Follow Targeting in autoplay&rdquo;). LIVE on release since 2026-10-23 (0.89).</strong> The match row now carries the attacker's autoplay Targeting beside his team, read from his stored save like the defender's settings are read by the daily fold, so when a queued attack's target dies earlier in the round the attacker's side re-aims by it on the client and in the server's replay alike; the defense's pin was already there (T13). Matches minted before this keep the first enemy in line on the attacker's side. Full entry on <a href="system-pvp.html">system-pvp</a>; the rule itself on <a href="system-autoplay.html">system-autoplay</a>.</li>
     <li><strong>2026-10-01 &mdash; the server builds both teams from the saved roster (D ruling, Rulings board: row teamstats, &ldquo;SERVER AUTHORITATIVE, EVERYTHING&rdquo;). LIVE on release since 2026-10-23 (0.89).</strong> The pinned teams used to be a team summary the game client wrote into the save (stats, gear package, moves and their effects); the attacker's at the mint, the defender's at the daily fold. One edit of that summary before a save was a forged team the server then verified a fight against. Both are now built on the server from what the save holds &mdash; class, gear, souls, the equipped creatures and their XP &mdash; against the codex tables: the stat and gear math is the one the power board uses, and the move list and move effects are the game's own code, kept identical by a build check. Honest teams are unchanged, number for number; a forged summary changes nothing. Nothing changes for players; an older client keeps working. Defense teams pinned before the deploy are replaced at the next daily fold.</li>
@@ -84,5 +90,8 @@
     <li><strong>2026-08-16 &mdash; page created; the mode built end to end.</strong> Tickets, matchmaking, server-verified results, Glicko-2 ratings, the last-won-with ladder column, the defense log, weekly seasons and threshold rewards.</li>
   </ul>
 </div>
+<script src="csv-bind.js"></script>
+<script src="admin.js"></script>
+<script src="nav.js"></script>
 </body>
 </html>
