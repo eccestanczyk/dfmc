@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profiles, Badges & Achievements — Herumon Tower</title>
+<link rel="stylesheet" href="theme.css?v=4">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">PROFILES, BADGES &amp; ACHIEVEMENTS</h1></div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="hub.html">Hub</a> &rsaquo; <a href="other-systems.html">Other Systems</a> &rsaquo; Profiles, Badges & Achievements</div>
+  <p class="sp-lead">Every player has a public profile, and every profile carries the badges the account has earned. Badges are the server's: it awards them when the fact becomes true in a save it accepted, and nothing on the device can mint one. On Steam the same facts also unlock Steam achievements.</p>
+
+  <h2>The profile</h2>
+  <ul class="sp-rules">
+    <li><strong>Open it from the rankings</strong> &mdash; click a name on any leaderboard (<a href="system-pvp.html">PvP, timers &amp; leaderboards</a>) and the profile opens over the board.</li>
+    <li><strong>What it shows</strong> &mdash; the avatar (your Steam avatar when you signed in through Steam), the character's name and class, the active party, the highest floor, the PvP rating, the team's power, and the badge row.</li>
+    <li><strong>Read-only and public</strong> &mdash; anyone on the board can see it; it writes nothing and mints nothing. There is no profile text to edit.</li>
+  </ul>
+
+  <h2>Badges</h2>
+  <p>The badge list is <code>codex/badges.csv</code>. Each is awarded once, when the server sees the fact in your save; a badge the server has not awarded does not exist, whatever the device thinks. A <a href="system-accounts.html">Reset Progress</a> wipes them with the rest of the climb (T61).</p>
+  <table>
+    <tr><th>Badge</th><th>Earned by</th><th>Kind</th></tr>
+    <tbody>
+      <tr><td class="lbl">Floor 10</td><td>Reached floor 10 of the Tower.</td><td>floor</td></tr>
+      <tr><td class="lbl">Floor 30</td><td>Reached floor 30 of the Tower.</td><td>floor</td></tr>
+      <tr><td class="lbl">Floor 60</td><td>Reached floor 60 of the Tower.</td><td>floor</td></tr>
+      <tr><td class="lbl">Floor 100</td><td>Reached floor 100 of the Tower.</td><td>floor</td></tr>
+      <tr><td class="lbl">Floor 120</td><td>Reached floor 120 - the top of the Void Apex.</td><td>floor</td></tr>
+      <tr><td class="lbl">Warrior Mastery</td><td>Raised the Warrior class to its level cap.</td><td>mastery</td></tr>
+      <tr><td class="lbl">Mage Mastery</td><td>Raised the Mage class to its level cap.</td><td>mastery</td></tr>
+      <tr><td class="lbl">Archer Mastery</td><td>Raised the Archer class to its level cap.</td><td>mastery</td></tr>
+      <tr><td class="lbl">Assassin Mastery</td><td>Raised the Assassin class to its level cap.</td><td>mastery</td></tr>
+      <tr><td class="lbl">Brute Mastery</td><td>Raised the Brute class to its level cap.</td><td>mastery</td></tr>
+      <tr><td class="lbl">Professor Mastery</td><td>Raised the Professor class to its level cap.</td><td>mastery</td></tr>
+      <tr><td class="lbl">Void Completionist</td><td>Owned a Void-grade creature of every evolutionary line (any stage).</td><td>void_all</td></tr>
+      <tr><td class="lbl">Dimensional Traveler</td><td>A creature sent to Herumon Dungeon reached level 50 there.</td><td>traveler</td></tr>
+    </tbody>
+  </table>
+  <div class="sp-note"><strong>Dimensional Traveler</strong> is the one badge earned outside the Tower: a creature you sent through the <a href="system-client-shell.html">Dimensional Rift</a> reaching level 50 in Herumon Dungeon. The Dungeon reports it back; the Tower awards it (T48, 2026-11-03).</div>
+
+  <h2>Steam achievements</h2>
+  <p>On the Steam build the same server-side facts unlock achievements (<code>codex/achievements.csv</code>, pushed through <code>/api/steam/achievements</code>). Most are badges under another name; three are not badges at all. Hidden ones do not show their description on Steam until earned.</p>
+  <table>
+    <tr><th>Achievement</th><th>Condition</th><th>On Steam</th></tr>
+    <tbody>
+      <tr><td class="lbl">The First Gate</td><td>Reach floor 10 of the Tower.</td><td>shown</td></tr>
+      <tr><td class="lbl">Thirty Up</td><td>Reach floor 30 of the Tower.</td><td>shown</td></tr>
+      <tr><td class="lbl">Past the Halfway Mark</td><td>Reach floor 60 of the Tower.</td><td>shown</td></tr>
+      <tr><td class="lbl">The Summit That Was</td><td>Reach floor 100 of the Tower.</td><td>shown</td></tr>
+      <tr><td class="lbl">The Top of the Void</td><td>Reach floor 120 - the top of the Void Apex.</td><td>hidden</td></tr>
+      <tr><td class="lbl">Field Notes</td><td>Acquire 300 creatures in the Codex.</td><td>shown</td></tr>
+      <tr><td class="lbl">Not In The Codex</td><td>Hatch a mutant.</td><td>hidden</td></tr>
+      <tr><td class="lbl">A Grade Beyond</td><td>Own your first Void-grade creature.</td><td>shown</td></tr>
+      <tr><td class="lbl">Void Completionist</td><td>Own a Void-grade creature of every evolutionary line.</td><td>hidden</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Player level</h2>
+  <p>The account-wide player level on the profile is cosmetic and uncapped; it is a separate ladder from creature, class and character level and is described on <a href="system-xp.html">XP &amp; Leveling</a>.</p>
+
+  <h2>Implementation notes</h2>
+  <ul>
+    <li>Profile read: <code>GET /api/profile/&lt;name&gt;</code> (B15) &mdash; a WORLD path, 0 writes. Client <code>profileOpen(name)</code> fills <code>state.profileView</code> (<code>profName, profCls, profParty, profFloor, profRate, profPower, profBadges</code>).</li>
+    <li>Badge rows and their holder counters live in the world object (<code>badges</code>, <code>badge_counts</code>) and go with the boards on a wipe or a T61 reset. <code>/api/_internal/badges_of</code> is the ops read.</li>
+    <li>Avatars: the Steam avatar URL is checked by <code>STEAM_AV_OK</code> before it is drawn.</li>
+  </ul>
+
+  <h2>Changelog</h2>
+  <ul>
+    <li><strong>2026-11-03 &mdash; page written (D 2026-11-03: &ldquo;add whatever sections and systems we have in the game but not on the codex&rdquo;; dfmc-client lane codexreview-b). WIKI ONLY, no game behaviour.</strong> badges.csv (14 badges incl. DIMENSIONAL_TRAVELER, T48) and achievements.csv (9 Steam achievements) had no page; the public profile (B15) was described only in system-pvp.html and the networking page. Player-facing text first, the doors after.</li>
+  </ul>
+</div>
+<script src="admin.js"></script>
+<script src="nav.js"></script>
+</body>
+</html>

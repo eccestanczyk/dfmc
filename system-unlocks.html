@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>System Unlocks — Herumon Tower</title>
+<link rel="stylesheet" href="theme.css?v=4">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">SYSTEM UNLOCKS</h1></div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="hub.html">Hub</a> &rsaquo; <a href="other-systems.html">Other Systems</a> &rsaquo; System Unlocks</div>
+  <p class="sp-lead">Systems open one at a time as you climb. Each rung of the ladder is a floor: beat it and the system's control appears, with one arrow pointing at it until you click it once. Nothing is hidden behind money or time &mdash; the Tower alone opens the game.</p>
+
+  <h2>The ladder</h2>
+  <p>The table is <code>codex/unlocks.csv</code>, which the client reads at boot; the floor numbers here are the game's. Single hatch and single dismantle are open from floor 1 (ruling 2026-09-09), and the soul bag window is open from floor 1 so eggs can hatch (2026-10-23).</p>
+  <table>
+    <tr><th>Floor</th><th>Opens</th><th>What it is</th><th>Page</th></tr>
+    <tbody>
+      <tr><td class="lbl">1</td><td>Class soul</td><td>The soul your class gave you. Click it to see what it does.</td><td><a href="index.html">index</a></td></tr>
+      <tr><td class="lbl">8</td><td>Hatch All</td><td>Hatches every egg in the bag in one go.</td><td><a href="eggs.html">eggs</a></td></tr>
+      <tr><td class="lbl">8</td><td>Dismantle All</td><td>Breaks many pieces into materials in one go.</td><td><a href="item.html">item</a></td></tr>
+      <tr><td class="lbl">6</td><td>Autoplay</td><td>The AUTOPLAY button on the floor</td><td><a href="index.html">index</a></td></tr>
+      <tr><td class="lbl">12</td><td>Souls</td><td>Souls live in their own bag. Seat one on gear for its power.</td><td><a href="system-equipment.html">equipment</a></td></tr>
+      <tr><td class="lbl">12</td><td>Devour</td><td></td><td><a href="system-devour.html">devour</a></td></tr>
+      <tr><td class="lbl">15</td><td>Auto PvP</td><td>Queue your team against other players&#x27; teams.</td><td><a href="system-auto-pvp.html">auto-pvp</a></td></tr>
+      <tr><td class="lbl">20</td><td>Auto-optimise</td><td>Wears the strongest pieces in your bag for you.</td><td><a href="system-equipment.html">equipment</a></td></tr>
+      <tr><td class="lbl">25</td><td>Breeding</td><td>Two creatures in a pen make eggs over time.</td><td><a href="system-breeding.html">breeding</a></td></tr>
+      <tr><td class="lbl">30</td><td>Scrolls + enchanting</td><td></td><td><a href="upgrading.html">upgrading</a></td></tr>
+      <tr><td class="lbl">40</td><td>Grading</td><td>Enhancement grading</td><td><a href="upgrading.html">upgrading</a></td></tr>
+      <tr><td class="lbl">40</td><td>Upgrade All</td><td></td><td><a href="upgrading.html">upgrading</a></td></tr>
+      <tr><td class="lbl">40</td><td>Shadow Trader</td><td>Stock changes over time. Come back for new wares.</td><td><a href="system-shadow-trader.html">shadow-trader</a></td></tr>
+      <tr><td class="lbl">50</td><td>Buy classes</td><td>Class unlocks table on index.html</td><td><a href="index.html">index</a></td></tr>
+      <tr><td class="lbl">60</td><td>Competitive PvP</td><td></td><td><a href="system-pvp.html">pvp</a></td></tr>
+      <tr><td class="lbl">100</td><td>Dimensional Rift</td><td>The rift to Herumon Dungeon is open. Send a creature through: a copy, free, once. It arrives at level 1 and keeps its grade.</td><td><a href="system-client-shell.html">client-shell</a></td></tr>
+    </tbody>
+  </table>
+
+  <h2>The opening and the arrows</h2>
+  <ul class="sp-rules">
+    <li><strong>Floors 1&ndash;5 are played by hand</strong> &mdash; the scripted opening (T6 part 4) teaches the fight, the portal and gear grading; <strong>Autoplay</strong> opens at floor 6 and the opening ends there.</li>
+    <li><strong>One arrow per rung</strong> (T6 part 3) &mdash; when a system opens, an arrow with its label points at the control, follows it across windows, and goes away the first time you click that control. It never blocks play.</li>
+    <li><strong>A locked control is shown locked</strong>, with the floor that opens it, so you know what is coming.</li>
+    <li><strong>The class soul is yours from creation</strong> &mdash; its UPGRADE opens with the souls rung at floor 12 (D: &ldquo;class soul earlier &mdash; at the beginning&rdquo;).</li>
+    <li><strong>Breeding pens</strong> open with Ichor, not floors, once breeding itself is open at 25 (<code>codex/pen_unlocks.csv</code>, <a href="system-breeding.html">Breeding</a>).</li>
+  </ul>
+
+  <h2>Implementation notes</h2>
+  <ul>
+    <li><code>UNLOCK_SYSTEMS</code> in <code>play/app.js</code> is the key list (<code>class_soul, hatch_all, dismantle_all, souls, devour, auto_pvp, auto_optimise, breeding, scrolls, grading, upgrade_all, trader, classes, competitive_pvp, autoplay</code> + <code>transfer</code>); the markup binds <code>lk.&lt;key&gt;</code> before the csv loads (T6 part 1).</li>
+    <li>Columns: <code>Anchor</code> is the control the arrow points at, <code>Via</code> the window path to it, <code>Ready</code> the condition besides the floor (an egg in the bag, a soul, a pair), <code>Line</code> the one-line tip.</li>
+    <li>The floor is judged on the server's save; the client only paints the lock. <code>POST /api/unlock</code> is the door for the paid class unlocks on <a href="classes.html">Classes</a>, not for this ladder.</li>
+  </ul>
+
+  <h2>Changelog</h2>
+  <ul>
+    <li><strong>2026-11-03 &mdash; page written (D 2026-11-03: &ldquo;add whatever sections and systems we have in the game but not on the codex&rdquo;; dfmc-client lane codexreview-b). WIKI ONLY, no game behaviour.</strong> The unlock ladder (codex/unlocks.csv, T6 parts 1-4, 2026-10-22/23; the transfer rung T48 2026-11-03) was described only inside index.html &sect; Character system. One page for the ladder, the opening and the arrows.</li>
+  </ul>
+</div>
+<script src="admin.js"></script>
+<script src="nav.js"></script>
+</body>
+</html>

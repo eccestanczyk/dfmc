@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Accounts & Sign-in — Herumon Tower</title>
+<link rel="stylesheet" href="theme.css?v=4">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">ACCOUNTS &amp; SIGN-IN</h1></div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="hub.html">Hub</a> &rsaquo; <a href="other-systems.html">Other Systems</a> &rsaquo; Accounts & Sign-in</div>
+  <p class="sp-lead">Your account is the login you sign in with. The server mints it the first time that login arrives, holds every save it ever accepts, and is the only side that decides what the account owns. The game never stores a password of yours and never sees one: every sign-in goes through the provider's own page.</p>
+
+  <h2>Signing in</h2>
+  <ul class="sp-rules">
+    <li><strong>One door per provider.</strong> The sign-in gate shows a button for every provider the server has configured: <strong>Steam</strong> always, and <strong>Google</strong>, <strong>Discord</strong> and <strong>Apple</strong> when their keys are set (0.93: Steam, Google and Discord are configured; Apple appears the day its key does). The list comes from the server (<code>/api/auth/providers</code>), so the gate never offers a door that does not open.</li>
+    <li><strong>The Steam client signs you in by itself.</strong> Inside the Steam download the shell hands the server a Steam session ticket; there is no page to visit. The web build at playdfmc.com uses Steam's own sign-in page.</li>
+    <li><strong>Your identity is the provider's id</strong> (Steam ID, Google subject, Discord id). That id is the account; the name you pick for your character is a separate thing (below).</li>
+    <li><strong>Sign Out</strong> (Settings &rsaquo; Account &amp; Data) saves the climb, ends the session and returns to the gate.</li>
+  </ul>
+
+  <h2>One climb, several logins</h2>
+  <p><strong>Link Account</strong> (Settings &rsaquo; Account &amp; Data) shows every configured provider; a gold one is linked. Linking lets a second login open <em>this same climb</em>: sign in later with Google or Discord and you land on the same save, the same creatures, the same Wraithgold. A link is made from inside a signed-in session, so nobody can attach a login to your account without being in it.</p>
+  <div class="sp-note">If the login you link already has a climb of its own, the two accounts are <strong>merged</strong>, and a merge is not a reset: the server keeps one of the two climbs and records what the other one held. Decide which login is the main one before you link.</div>
+
+  <h2>One window owns the save</h2>
+  <p>Only one window may write your save at a time. Opening the game in a second tab, window or device hands ownership to the newer one and the older one stops with <em>&ldquo;This window no longer owns your save&rdquo;</em>. Nothing is lost: the save the server holds is the last one it accepted. Close the extra window and reload the one you want to keep playing in (<a href="system-networking.html">Networking</a> has the mechanism, the ownership epoch).</p>
+
+  <h2>Your character's name</h2>
+  <ul class="sp-rules">
+    <li>Chosen at character creation and <strong>claimed on the server</strong>: the name is trimmed, runs of spaces collapse to one, it is checked against the name filter, and a name another player holds is refused before the climb starts.</li>
+    <li>Inside the Steam client the field is pre-filled from your Steam persona, folded to the allowed character set; you can change it.</li>
+    <li>There is no rename in game. A name that needs changing is a <a href="system-feedback.html">report</a>; it is done by hand.</li>
+  </ul>
+
+  <h2>Reset, export, delete</h2>
+  <table>
+    <tr><th>Control</th><th>What it does</th></tr>
+    <tbody>
+      <tr><td class="lbl">Export My Data</td><td>Downloads your save as a JSON file. Everything else the server holds about you is listed in the <a href="privacy.html">Privacy Policy</a>.</td></tr>
+      <tr><td class="lbl">Reset Progress (New Game)</td><td><strong>Resets everything</strong> (T61, D 2026-11-02: &ldquo;per account reset should RESET everything&rdquo;): creatures, gear, floor, badges, boards, ratings, bought bag slots, boons, pending trades &mdash; the climb starts again at Floor 1, Lv 1 with a new character. Two things stay: the <strong>login itself</strong>, and any <strong>Wraithgold you paid real money for</strong> (paid money is never deleted by a reset &mdash; T3). Free or earned Wraithgold goes with the rest.</td></tr>
+      <tr><td class="lbl">Delete Account</td><td>Two steps &mdash; what goes, then the typed word <strong>DELETE</strong>. The account is marked for deletion <strong>7 days</strong> out and every device is signed out; signing in before the day offers to cancel. After it, the account and every linked login are gone. <a href="delete-account.html">delete-account.html</a> is the same flow from a browser.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Where the documents live</h2>
+  <p>Settings &rsaquo; Legal &amp; Support opens this site &mdash; <strong>codex.playdfmc.com</strong> &mdash; for <a href="help.html">Help &amp; FAQ</a>, the <a href="privacy.html">Privacy Policy</a>, the <a href="terms.html">Terms of Service</a> and the <a href="credits.html">Credits</a> (the old GitHub Pages address forwards here).</p>
+
+  <h2>Implementation notes</h2>
+  <ul>
+    <li>Doors: <code>GET /api/auth/providers</code> (the gate's list), <code>/api/auth/steam</code> + <code>/callback</code> (web), <code>/api/auth/steam/ticket</code> (the Steam shell), <code>/api/account/identities</code>, <code>/api/account/link</code>, <code>/api/account/merge</code>, <code>/api/account/reset</code>, <code>/api/account/delete</code> and <code>/delete/cancel</code>, <code>/api/logout</code>, <code>/api/me</code>, <code>/api/name/claim</code>.</li>
+    <li>The client reads the provider list once at boot (<code>window.__HT_AUTHP</code>); the Link Account row's segments are that list.</li>
+    <li>Reset scope: <code>src/worker.js</code> T61 block &mdash; every realm-scoped table goes, the <code>wallet_ledger</code> keeps rows with <code>prov LIKE 'paid_%'</code>, the identity rows stay. Probe <code>tools/probe_t61_resetall.py</code>.</li>
+    <li>Deletion: <code>POST /api/account/delete</code> with <code>{confirm:'DELETE'}</code>; the save is flushed first so a cancel inside the 7 days restores it whole.</li>
+  </ul>
+
+  <h2>Changelog</h2>
+  <ul>
+    <li><strong>2026-11-03 &mdash; page written (D 2026-11-03: &ldquo;add whatever sections and systems we have in the game but not on the codex&rdquo;; dfmc-client lane codexreview-b). WIKI ONLY, no game behaviour.</strong> Sign-in by every configured provider (Steam, Google, Discord; Apple when keyed; lane googlebtn, board N1), Link Account, the one-window rule, the name claim, Export / Reset (T61 full scope, T3 paid Wraithgold stays) / Delete (7 days), and the codex host move (lane codexhost, board N5). Nothing here was on any page before; help.html and settings.html link here.</li>
+  </ul>
+</div>
+<script src="admin.js"></script>
+<script src="nav.js"></script>
+</body>
+</html>
