@@ -870,7 +870,8 @@ def gen_ultimates():
                    'rounded up. Whole-number effects of one step round away to nothing at %s%%.' % (
                        tri('Fraction_Pct'), ' / '.join('+%d%%' % jsround(50 * f / 100) for f in fr), b(1, 'Fraction_Pct')))
         elif kind == 'vanish':
-            eff = 'Untargetable by single-target moves for %s rounds.' % tri('Dur_Rounds')
+            # T54 (D 2026-11-02): the strike comes first, then the vanish
+            eff = 'Strikes one enemy. Power %s, then untargetable by single-target moves for %s rounds.' % (tri('Power'), tri('Dur_Rounds'))
         else:
             raise ValueError('ultimates.csv: no wording for Kind %s' % kind)
         names = ' / '.join(st[k]['Name'].replace("'", '&rsquo;') for k in (1, 2, 3))
