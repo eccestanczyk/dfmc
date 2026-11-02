@@ -1,347 +1,382 @@
 Key,Text,Context
-m_turn_your_phone_sideways,,Turn your phone sideways
-m_herumon_tower_plays_in_landscape,,Herumon Tower plays in landscape.
-m_if_it_does_not_turn_switch_off_you,,"If it does not turn, switch off your phone's rotation lock."
-m_speed_order,,SPEED ORDER
-m_round,,ROUND
-m_streak,,STREAK
-m_ready,,✓ READY
-m_hover_the_skull,,HOVER THE SKULL
-m_this_boss_has_a_unique_mechanic_re,,This boss has a unique mechanic. Read it before you fight.
-m_combat_log,,☰ COMBAT LOG
-m_forfeit,,⚑ FORFEIT
-m_forfeit_the_battle,,⚑ FORFEIT THE BATTLE?
-m_forfeit_2,,FORFEIT
-m_keep_fighting,,KEEP FIGHTING
-m_duration,,Duration
-m_select_target,,◎ SELECT TARGET
-m_back,,← BACK
-m_decree_of_battle,,⁂ DECREE OF BATTLE ⁂
-m_combat_log_2,,COMBAT LOG
-m_this_encounter_click_outside_to_cl,,this encounter · click outside to close
-m_breeding,,BREEDING
-m_equipment,,EQUIPMENT
-m_dismantling,,DISMANTLING
-m_filters,,FILTERS
-m_done,,DONE
-m_new,,NEW
-m_tap_the,,Tap the
-m_you_want_then_confirm_once,,"you want, then confirm once."
-m_selected,,selected ·
-m_items,,items
-m_back_2,,BACK
-m_dismantle,,DISMANTLE
-m_salvage,,SALVAGE
-m_close,,CLOSE
-m_nothing_left_to_buy,,Nothing left to buy.
-m_current_capacity,,Current capacity:
-m_slots,,slots
-m_add_to_cart,,Add to Cart
-m_continue,,CONTINUE
-m_account,,ACCOUNT
-m_lv,,Lv
-m_power,,POWER
-m_x,,“
-m_x_2,,”
-m_builds,,☰ BUILDS
-m_x_3,, · 
-m_sockets,,sockets:
-m_slot_s_unchanged,,slot(s) unchanged
-m_cancel,,CANCEL
-m_confirm,,CONFIRM
-m_saved_builds,,SAVED BUILDS ·
-m_the_server_keeps_your_builds_apply,,The server keeps your builds. Applying one moves your own pieces back into place; a piece you no longer hold is skipped and named here.
-m_no_build_slots_for_this_class,,No build slots for this class.
-m_apply,,APPLY
-m_rename,,RENAME
-m_delete,,DELETE
-m_inventory,,INVENTORY
-m_soul_bag,,SOUL BAG
-m_classes,,CLASSES ▾
-m_class_lv,,Class Lv
-m_to_next,,· to next
-m_gem,,GEM
-m_rune,,RUNE
-m_scroll,,SCROLL
-m_illegal,,ILLEGAL
-m_empty,,— Empty
-m_no_soul_slotted,,NO SOUL SLOTTED
-m_soul_crystals,,SOUL CRYSTALS
-m_a_character_soul_is_always_bound_i,,A character soul is always bound — it can be exchanged but never removed. Warrior is the default soul.
-m_devour,,† DEVOUR
-m_available,,AVAILABLE
-m_clear,,CLEAR
-m_no_soul_in_your_bag_matches_that_c,,NO SOUL IN YOUR BAG MATCHES THAT. CLEAR A FILTER TO SEE MORE.
-m_socketed,,SOCKETED:
-m_scroll_2,,✦ SCROLL ·
-m_inscribed_upon,,INSCRIBED UPON
-m_band,,BAND
-m_roll_again,,ROLL AGAIN ·
-m_destroys,,DESTROYS
-m_keep_this_roll,,KEEP THIS ROLL
-m_the_next_scroll_unfurls,,THE NEXT SCROLL UNFURLS…
-m_no_scrolls_left_to_roll,,NO SCROLLS LEFT TO ROLL
-m_replace_socketable,,⚠ REPLACE SOCKETABLE
-m_socketing,,Socketing
-m_will,,will
-m_destroy,,DESTROY
-m_the_currently_slotted,,the currently slotted
-m_this_cannot_be_undone,,. This cannot be undone.
-m_replace_destroy,,REPLACE & DESTROY
-m_compared_with_what_you_wear,,COMPARED WITH WHAT YOU WEAR
-m_this_item,,This item
-m_upgrade,,▲ UPGRADE
-m_dismantle_2,,⚒ DISMANTLE
-m_dismantles_for,,Dismantles for
-m_codex,,CODEX
-m_boss_drops_next_boss_floor,,"BOSS DROPS · NEXT BOSS, FLOOR"
-m_every_boss_kill_drops,,Every boss kill drops
-m_piece_of_gear_and,,piece of gear and
-m_egg_the_gear_grade_is_rolled,,egg. The gear grade is rolled
-m_egg_line_by_rarity,,Egg line by rarity:
-m_click_skip_hold_fast,,CLICK · SKIP    HOLD · FAST
-m_skip_all,,SKIP ALL
-m_egg,,Egg
-m_hatch_grade_chances,,HATCH GRADE CHANCES
-m_mutant,,Mutant
-m_alternate_colour_cosmetic,,alternate colour · cosmetic
-m_not_yet,,NOT YET
-m_hatch,,HATCH
-m_floor_map,,FLOOR MAP
-m_boss_keys,,BOSS KEYS
-m_cry,,CRY
-m_devour_2,,DEVOUR
-m_experience,,EXPERIENCE
-m_aptitude,,APTITUDE
-m_moves,,MOVES
-m_advancement_line,,ADVANCEMENT LINE
-m_game_settings,,GAME SETTINGS
-m_restore_defaults,,RESTORE DEFAULTS —
-m_choose_parent,,CHOOSE PARENT
-m_extra_pens_buy_parallelism_not_thr,,"extra pens buy parallelism, not throughput"
-m_dlc,,DLC
-m_dlc_expansion,,DLC EXPANSION
-m_available_with_the_menagerie_expan,,Available with the Menagerie expansion
-m_pens,,‹ PENS
-m_grows_stronger,,GROWS STRONGER
-m_reached_level,,REACHED LEVEL
-m_victory,,VICTORY
-m_win_streak,,WIN STREAK
-m_you_have_cleared_floor,,✦ YOU HAVE CLEARED FLOOR
-m_experience_earned,,EXPERIENCE EARNED
-m_spoils,,SPOILS
-m_continue_2,,CONTINUE →
-m_is_changing,,is changing…
-m_became,,became
-m_you_were,,YOU WERE
-m_defeated,,DEFEATED
-m_streak_broken,,STREAK BROKEN
-m_choose_your_quarry,,CHOOSE YOUR QUARRY
-m_the_abyss_deepens,,THE ABYSS DEEPENS
-m_the_infinite_abyss,,THE INFINITE ABYSS
-m_win,,Win
-m_battles_in_a_row_to_sink_one_floor,,battles in a row to sink one floor deeper. The number never stops.
-m_every_floor_deeper_every_monster_g,,"Every floor deeper, every monster grows 1% stronger, compounding. Here:"
-m_monsters_and_rewards_are_always_fl,,"Monsters and rewards are always floor 119's. This is a challenge, not a farm."
-m_your_deepest_floor_goes_on_the_ran,,Your deepest floor goes on the rankings. Deepest:
-m_fold_the_letter,,FOLD THE LETTER
-m_the_skull_beat_you,,THE SKULL BEAT YOU
-m_every_apex_boss_past_floor_100_car,,Every Apex boss past floor 100 carries a skull status like this one. Hover it in battle to read the mechanic before you commit.
-m_ok,,OK
-m_x_4,,·
-m_floor_boss_lair,,FLOOR BOSS LAIR
-m_hp,,HP
-m_signature,,Signature:
-m_spoils_2,,Spoils
-m_boss_keys_2,,⚿ BOSS KEYS
-m_energy_gathers_at_the_platform,,Energy gathers at the platform…
-m_the_alpha_reforms,,THE ALPHA REFORMS
-m_return,,← RETURN
-m_ascend,,↑ ASCEND
-m_scene,,SCENE
-m_read_more_in_the_codex,,READ MORE IN THE CODEX ›
-m_pvp_arena,,PVP ARENA
-m_rankings,,RANKINGS
-m_auto_pvp,,AUTO PVP
-m_rating,,RATING
-m_autoplay,,AUTOPLAY 
-m_matchmaking,,MATCHMAKING
-m_your_defense_is_your,,. Your defense is your
-m_daily_snapshot,,daily snapshot
-m_re_gearing_shows_up_on_defense_at,,— re-gearing shows up on defense at the next reset.
-m_x_5,,×
-m_competitive_pvp,,COMPETITIVE PVP
-m_loading,,Loading…
-m_best_floor,,BEST FLOOR
-m_ratings,,RATINGS
-m_party_daily,,PARTY (DAILY)
-m_not_yet_posted,,Not yet posted
-m_badges,,BADGES
-m_no_badges_yet,,No badges yet
-m_bank,,BANK
-m_orders_sealed_waiting_for_opponent,,ORDERS SEALED — WAITING FOR OPPONENT
-m_opponent_found,,OPPONENT FOUND
-m_best_of_3_team_locked_double_blind,,BEST OF 3 · TEAM LOCKED · DOUBLE-BLIND PICKS
-m_arena_match,,ARENA MATCH
-m_arena_battles_grant_no_spoils_expe,,"Arena battles grant no spoils, experience, or streak — rating alone."
-m_exit_replay,,EXIT REPLAY
-m_replay_complete,,REPLAY COMPLETE
-m_deterministic_playback_identical_t,,"deterministic playback — identical to the match, every roll"
-m_back_to_arena,,BACK TO ARENA
-m_match_found,,MATCH FOUND!
-m_join_match,,⚔ JOIN MATCH
-m_premium_shop,,PREMIUM SHOP
-m_classes_2,,CLASSES
-m_max,,✦ MAX
-m_active,,✦ ACTIVE
-m_switch,,SWITCH
-m_unlock,,UNLOCK ·
-m_not_purchasable,,NOT PURCHASABLE
-m_before_you_climb,,Before you climb
-m_how_old_are_you,,How old are you?
-m_asked_once_your_account_keeps_only,,"Asked once. Your account keeps only whether you are old enough to play here, never the number itself. See the Privacy Policy under Settings › Legal & Support."
-m_herumon_tower_is_not_available_to,,Herumon Tower is not available to players under
-m_no_account_is_kept_for_you_the_sig,,"No account is kept for you. The sign-in you used has been signed out, and anything it created is deleted within seven days. Questions go to the address on the Privacy Policy."
-m_leave,,LEAVE
-m_choose_your_path,,Choose your Path
-m_the_tower_stirs_loading_class_data,,The tower stirs… (loading class data)
-m_the_other_classes_unlock_later_in,,"The other classes unlock later, in the Classes window."
-m_name_your_champion,,Name your champion
-m_stage_1,,· STAGE 1
-m_worn_lv_1,,Worn · Lv 1 ·
-m_starter_weapons_tier_1,,STARTER WEAPONS · TIER 1
-m_enter_the_tower,,ENTER THE TOWER ✦
-m_enter_a_name_to_continue,,ENTER A NAME TO CONTINUE
-m_burn_incense_to_get_more_spawns,,BURN INCENSE TO GET MORE SPAWNS
-m_add_bait_to_halve_the_wait,,ADD BAIT TO HALVE THE WAIT
-m_bug_report_sent,,BUG REPORT SENT!
-m_report_a_bug,,REPORT A BUG
-m_all_in,,ALL-IN
-m_every_attempt_spends_the_resource,,Every attempt spends the resource. There is no refund for the ones that fail.
-m_upgrade_2,,UPGRADE
-m_a_failed_attempt_spends_the_resour,,A failed attempt spends the resource and changes nothing else.
-m_consumer,,CONSUMER
-m_mutant_2,,MUTANT
-m_will_be_consumed,,WILL BE CONSUMED
-m_select_fodder,,SELECT FODDER
-m_back_3,,‹ BACK
-m_select_fodder_it_will_be_consumed,,SELECT FODDER — it will be consumed
-m_prev,,‹ PREV
-m_next,,NEXT ›
-m_nothing_in_the_soul_bag_can_be_con,,Nothing in the soul bag can be consumed.
-m_level_up,,LEVEL UP
-m_tap_to_skip,,TAP TO SKIP
-m_no_salvage_value,,NO SALVAGE VALUE
-m_understood,,UNDERSTOOD
-set_audio,,Audio
-set_audio_master_label,,Master Volume
-set_audio_music_label,,Music
-set_audio_sfx_label,,Sound Effects
-set_audio_ui_label,,UI Sounds
-set_audio_mute_label,,Mute All Sound
-set_audio_mutebg_label,,Mute in Background
-set_display,,Display
-set_display_fps_label,,Frame Rate
-set_display_fps_desc,,Caps how often the screen animates. Max follows the display.
-set_display_fullscreen_label,,Fullscreen
-set_display_fullscreen_desc,,Fill the screen with the game. Esc also leaves.
-set_display_battery_label,,Battery Saver
-set_display_battery_desc,,"Caps 30 fps, reduces VFX."
-set_display_shake_label,,Screen Shake
-set_display_vfx_label,,VFX Intensity
-set_display_wakelock_label,,Keep Screen Awake
-set_display_wakelock_desc,,"Stops the screen sleeping while the game is open, so autoplay keeps running. Uses more battery. Does not run while the browser is in the background — no browser permits that."
-set_battle,,Battle & Autoplay
-set_battle_note,,"Autoplay never auto-enters boss rooms — fixed rule, not a setting."
-set_battle_autofloor_label,,Auto-Advance Floors
-set_battle_stoploss_label,,Stop Advancing After a Loss
-set_battle_stoploss_desc,,A lost battle switches Auto-Advance Floors off. Re-enable it manually.
-set_battle_ondeath_label,,On Death
-set_battle_bossoutkeys_label,,Autochallenge Boss — Out of Keys
-set_battle_bossoutkeys_desc,,What Autochallenge Boss does when the last boss key is spent.
-set_battle_targeting_label,,Targeting
-set_battle_targeting_desc,,How autoplay picks the enemy for damaging moves (current HP).
-set_battle_opttarget_label,,Optimize For
-set_battle_opttarget_desc,,"What Auto-Optimize maximises when it rebuilds your loadout. Overall Power blends attack, defence and health."
-set_battle_ult_label,,Ultimate
-set_battle_ult_desc,,"The round autoplay first fires the ultimate. If it cannot fire there, it retries every round after."
-set_battle_priobuff_label,,Prioritize Buffs
-set_battle_priobuff_desc,,Before damage: use a ready buff/support move first.
-set_battle_priodebuff_label,,Prioritize Debuffs
-set_battle_priodebuff_desc,,Before damage: use a ready debuff move first.
-set_battle_streak_label,,Streak Counter
-set_battle_streak_desc,,Show the post-battle counter.
-set_battle_confspend_label,,Confirm Premium Spend
-set_battle_confspend_desc,,One confirm before every Wraithgold spend is not built yet.
-set_controls,,Controls
-set_controls_note,,Keyboard only — a touch device has no keys to bind. Binding a key that another action already uses takes it from that action.
-set_controls_kauto_label,,Toggle Autoplay
-set_controls_kauto_desc,,Does exactly what the AUTOPLAY button does.
-set_controls_kequip_label,,Open / Close Equipment
-set_controls_kinv_label,,Open / Close Inventory
-set_controls_kinv_desc,,"With the soul bag open, opens the item bag."
-set_controls_klock_label,,Lock / Unlock Hovered
-set_controls_klock_desc,,Hover a creature or item in either bag and press it. Does exactly what the LOCK button does.
-set_tutorials,,Tutorials
-set_tutorials_note,,"An arrow points at each system the floor you reach opens, until you click it once. It never blocks play."
-set_tutorials_arrows_label,,Tutorial Arrows
-set_tutorials_arrows_desc,,Show the arrow on each newly opened system until its control is clicked once.
-set_notices,,Notices
-set_notices_note,,The floor-101 letter and each system the climb has opened. The action log is kept on the server.
-set_notices_history_label,,Download My History
-set_notices_history_desc,,"Saves the server's record of this account - every currency earned and spent, item grants, battle drops, trades - as a JSON file."
-set_notices_history_csv_label,,Download My History (CSV)
-set_notices_history_csv_desc,,The same record as a spreadsheet file.
-set_notices_none_label,,No notices yet
-set_notices_none_desc,,They appear as the climb opens systems.
-set_notif,,Notifications
-set_notif_breedc_label,,Breeding Complete
-set_notif_breedc_desc,,The in-game banner when a pen lays an egg.
-set_notif_pvp_label,,PvP Defense Results
-set_notif_pvp_desc,,The in-game note of how your defense did while you were away.
-set_notif_season_label,,Season Ending Soon
-set_notif_season_desc,,Push notifications are not built yet.
-set_notif_daily_label,,Daily Reset
-set_notif_daily_desc,,Push notifications are not built yet.
-set_account,,Account & Data
-set_account_logout_label,,Sign Out
-set_account_logout_desc,,"Saves your climb, ends this session and returns to the sign-in screen."
-set_account_name_label,,Player Name
-set_account_name_desc,,Contact an admin to change it.
-set_account_link_label,,Link Account
-set_account_cloud_label,,Cloud Save
-set_account_cloud_desc,,Your climb is saved to the server as you play. It cannot be turned off.
-set_account_restore_label,,Restore Purchases
-set_account_restore_desc,,Arrives with the app-store builds.
-set_account_export_label,,Export My Data
-set_account_export_desc,,Downloads everything this save holds as a JSON file.
-set_account_reset_label,,Reset Progress (New Game)
-set_account_reset_desc,,"Wipes this save and starts fresh at Floor 1, Lv 1."
-set_account_delete_label,,Delete Account
-set_account_delete_desc,,Deletes this account 7 days after you confirm. Signing in before then can cancel it.
-set_lang,,Language & Accessibility
-set_lang_language_label,,Language
-set_lang_language_desc,,Auto follows the language this device is set to. Anything not yet translated reads in English.
-set_lang_textsize_label,,Text Size
-set_lang_textsize_desc,,The whole screen scales with the window today.
-set_lang_colorblind_label,,Colorblind Mode
-set_lang_motion_label,,Reduce Motion
-set_lang_motion_desc,,"Disables shake, parallax, heavy transitions."
-set_lang_flashing_label,,Reduce Flashing
-set_lang_flashing_desc,,Dampens hit-flash and strobe VFX.
-set_legal,,Legal & Support
-set_legal_help_label,,Help & FAQ
-set_legal_help_desc,,Opens the help page in a new tab.
-set_legal_contact_label,,Contact Support
-set_legal_contact_desc,,Opens the report form - it reaches the team directly.
-set_legal_analytics_label,,Analytics
-set_legal_analytics_desc,,No usage analytics are collected today. Off records your opt-out for any that ever are.
-set_legal_privacy_label,,Privacy Policy
-set_legal_privacy_desc,,Opens in a new tab.
-set_legal_terms_label,,Terms of Service
-set_legal_terms_desc,,Opens in a new tab.
-set_legal_credits_label,,Credits
-set_legal_credits_desc,,Opens in a new tab.
-set_legal_version_label,,Version
-set_locked_tip,,Cannot be disabled for Epic and above.
-set_lang_auto,,Auto (device)
+m_turn_your_phone_sideways,Vire o celular de lado,markup: shell: rotate prompt
+m_herumon_tower_plays_in_landscape,Herumon Tower é jogado na horizontal.,markup: shell: rotate prompt
+m_if_it_does_not_turn_switch_off_you,"Se a tela não girar, desative o bloqueio de rotação do celular.",markup: shell: rotate prompt
+m_speed_order,ORDEM DE VELOCIDADE,markup: battle HUD
+m_round,RODADA,markup: battle HUD
+m_streak,SEQUÊNCIA,markup: battle HUD
+m_ready,✓ PRONTO,markup: battle HUD
+m_hover_the_skull,PASSE O MOUSE NA CAVEIRA,markup: battle HUD
+m_this_boss_has_a_unique_mechanic_re,Este chefe tem uma mecânica única. Leia antes de lutar.,markup: battle HUD
+m_combat_log,☰ REGISTRO DE COMBATE,markup: battle HUD
+m_forfeit,⚑ DESISTIR,markup: battle HUD
+m_forfeit_the_battle,⚑ DESISTIR DA BATALHA?,markup: battle HUD
+m_forfeit_2,DESISTIR,markup: battle HUD
+m_keep_fighting,CONTINUAR LUTANDO,markup: battle HUD
+m_duration,Duração,markup: battle HUD
+m_select_target,◎ ESCOLHER ALVO,markup: battle HUD
+m_back,← VOLTAR,markup: battle HUD
+m_decree_of_battle,⁂ DECRETO DE BATALHA ⁂,markup: battle HUD
+m_combat_log_2,REGISTRO DE COMBATE,markup: battle HUD
+m_this_encounter_click_outside_to_cl,este encontro · clique fora para fechar,markup: battle HUD
+m_breeding,CRIAÇÃO,markup: menu / dismantling
+m_equipment,EQUIPAMENTO,markup: menu / dismantling
+m_dismantling,DESMONTE,markup: menu / dismantling
+m_filters,FILTROS,markup: menu / dismantling
+m_done,PRONTO,markup: menu / dismantling
+m_new,NOVO,markup: menu / dismantling
+m_tap_the,Toque nos,markup: menu / dismantling
+m_you_want_then_confirm_once,que quiser e confirme uma vez.,markup: menu / dismantling
+m_selected,selecionados ·,markup: menu / dismantling
+m_items,itens,markup: menu / dismantling
+m_back_2,VOLTAR,markup: menu / dismantling
+m_dismantle,DESMONTAR,markup: menu / dismantling
+m_salvage,RECICLAR,markup: menu / dismantling
+m_close,FECHAR,markup: shop: slot purchase
+m_nothing_left_to_buy,Nada mais para comprar.,markup: shop: slot purchase
+m_current_capacity,Capacidade atual:,markup: shop: slot purchase
+m_slots,espaços,markup: shop: slot purchase
+m_add_to_cart,Adicionar ao Carrinho,markup: shop: slot purchase
+m_continue,CONTINUAR,markup: shop: slot purchase
+m_account,CONTA,markup: equipment
+m_lv,Nv,markup: equipment
+m_power,PODER,markup: equipment
+m_x,“,markup: equipment
+m_x_2,”,markup: equipment
+m_builds,☰ BUILDS,markup: equipment
+m_x_3, · ,markup: equipment
+m_sockets,encaixes:,markup: equipment
+m_slot_s_unchanged,espaço(s) sem alteração,markup: equipment
+m_cancel,CANCELAR,markup: equipment
+m_confirm,CONFIRMAR,markup: equipment
+m_saved_builds,BUILDS SALVAS ·,markup: equipment
+m_the_server_keeps_your_builds_apply,O servidor guarda suas builds. Aplicar uma devolve suas próprias peças ao lugar; uma peça que você não tem mais é pulada e listada aqui.,markup: equipment
+m_no_build_slots_for_this_class,Nenhum espaço de build para esta classe.,markup: equipment
+m_apply,APLICAR,markup: equipment
+m_rename,RENOMEAR,markup: equipment
+m_delete,EXCLUIR,markup: equipment
+m_inventory,INVENTÁRIO,markup: equipment
+m_soul_bag,BOLSA DE ALMAS,markup: equipment
+m_classes,CLASSES ▾,markup: equipment
+m_class_lv,Nv de Classe,markup: equipment
+m_to_next,· para o próximo,markup: equipment
+m_gem,GEMA,markup: equipment
+m_rune,RUNA,markup: equipment
+m_scroll,PERGAMINHO,markup: equipment
+m_illegal,ILEGAL,markup: equipment
+m_empty,— Vazio,markup: equipment
+m_no_soul_slotted,NENHUMA ALMA ENCAIXADA,markup: equipment
+m_soul_crystals,CRISTAIS DE ALMA,markup: equipment
+m_a_character_soul_is_always_bound_i,"Uma alma de personagem está sempre vinculada — pode ser trocada, mas nunca removida. Warrior é a alma padrão.",markup: equipment
+m_devour,† DEVORAR,markup: equipment
+m_available,DISPONÍVEL,markup: equipment
+m_clear,LIMPAR,markup: equipment
+m_no_soul_in_your_bag_matches_that_c,NENHUMA ALMA NA SUA BOLSA CORRESPONDE. LIMPE UM FILTRO PARA VER MAIS.,markup: equipment
+m_socketed,ENCAIXADO:,markup: equipment
+m_scroll_2,✦ PERGAMINHO ·,markup: equipment
+m_inscribed_upon,INSCRITO EM,markup: equipment
+m_band,FAIXA,markup: equipment
+m_roll_again,ROLAR DE NOVO ·,markup: equipment
+m_destroys,DESTRÓI,markup: equipment
+m_keep_this_roll,MANTER ESTA ROLAGEM,markup: equipment
+m_the_next_scroll_unfurls,O PRÓXIMO PERGAMINHO SE ABRE…,markup: equipment
+m_no_scrolls_left_to_roll,NENHUM PERGAMINHO RESTANTE,markup: equipment
+m_replace_socketable,⚠ SUBSTITUIR ENCAIXÁVEL,markup: equipment
+m_socketing,Encaixar,markup: equipment
+m_will,vai,markup: equipment
+m_destroy,DESTRUIR,markup: equipment
+m_the_currently_slotted,o que já está encaixado:,markup: equipment
+m_this_cannot_be_undone,. Isso não pode ser desfeito.,markup: equipment
+m_replace_destroy,SUBSTITUIR E DESTRUIR,markup: equipment
+m_compared_with_what_you_wear,COMPARADO COM O QUE VOCÊ USA,markup: equipment
+m_this_item,Este item,markup: equipment
+m_upgrade,▲ APRIMORAR,markup: equipment
+m_dismantle_2,⚒ DESMONTAR,markup: equipment
+m_dismantles_for,Desmonta por,markup: equipment
+m_codex,CÓDICE,markup: codex / boss drops
+m_boss_drops_next_boss_floor,"RECOMPENSAS DO CHEFE · PRÓXIMO CHEFE, ANDAR",markup: codex / boss drops
+m_every_boss_kill_drops,Cada chefe derrotado deixa,markup: codex / boss drops
+m_piece_of_gear_and,peça de equipamento e,markup: codex / boss drops
+m_egg_the_gear_grade_is_rolled,ovo. O grau do equipamento é sorteado,markup: codex / boss drops
+m_egg_line_by_rarity,Linha de ovos por raridade:,markup: codex / boss drops
+m_click_skip_hold_fast,CLIQUE · PULAR    SEGURE · RÁPIDO,markup: hatch
+m_skip_all,PULAR TUDO,markup: hatch
+m_egg,Ovo,markup: hatch
+m_hatch_grade_chances,CHANCES DE GRAU AO CHOCAR,markup: hatch
+m_mutant,Mutante,markup: hatch
+m_alternate_colour_cosmetic,cor alternativa · cosmético,markup: hatch
+m_not_yet,AINDA NÃO,markup: hatch
+m_hatch,CHOCAR,markup: hatch
+m_floor_map,MAPA DO ANDAR,markup: floor map
+m_boss_keys,CHAVES DE CHEFE,markup: floor map
+m_cry,GRITO,markup: creature sheet
+m_devour_2,DEVORAR,markup: creature sheet
+m_experience,EXPERIÊNCIA,markup: creature sheet
+m_aptitude,APTIDÃO,markup: creature sheet
+m_moves,GOLPES,markup: creature sheet
+m_advancement_line,LINHA DE EVOLUÇÃO,markup: creature sheet
+m_game_settings,CONFIGURAÇÕES DO JOGO,markup: settings
+m_restore_defaults,RESTAURAR PADRÕES —,markup: settings
+m_choose_parent,ESCOLHER GENITOR,markup: breeding
+m_extra_pens_buy_parallelism_not_thr,"viveiros extras dão paralelismo, não velocidade",markup: breeding
+m_dlc,DLC,markup: breeding
+m_dlc_expansion,EXPANSÃO DLC,markup: breeding
+m_available_with_the_menagerie_expan,Disponível com a expansão Menagerie,markup: breeding
+m_pens,‹ VIVEIROS,markup: breeding
+m_grows_stronger,FICA MAIS FORTE,markup: level up / victory / defeat
+m_reached_level,ALCANÇOU O NÍVEL,markup: level up / victory / defeat
+m_victory,VITÓRIA,markup: level up / victory / defeat
+m_win_streak,SEQUÊNCIA DE VITÓRIAS,markup: level up / victory / defeat
+m_you_have_cleared_floor,✦ VOCÊ LIMPOU O ANDAR,markup: level up / victory / defeat
+m_experience_earned,EXPERIÊNCIA OBTIDA,markup: level up / victory / defeat
+m_spoils,ESPÓLIOS,markup: level up / victory / defeat
+m_continue_2,CONTINUAR →,markup: level up / victory / defeat
+m_is_changing,está mudando…,markup: level up / victory / defeat
+m_became,se tornou,markup: level up / victory / defeat
+m_you_were,VOCÊ FOI,markup: level up / victory / defeat
+m_defeated,DERROTADO,markup: level up / victory / defeat
+m_streak_broken,SEQUÊNCIA QUEBRADA,markup: level up / victory / defeat
+m_choose_your_quarry,ESCOLHA SUA PRESA,markup: quarry / abyss
+m_the_abyss_deepens,O ABISMO SE APROFUNDA,markup: quarry / abyss
+m_the_infinite_abyss,O ABISMO INFINITO,markup: quarry / abyss
+m_win,Vença,markup: quarry / abyss
+m_battles_in_a_row_to_sink_one_floor,batalhas seguidas para afundar um andar. O número nunca para.,markup: quarry / abyss
+m_every_floor_deeper_every_monster_g,"A cada andar mais fundo, cada monstro fica 1% mais forte, de forma composta. Aqui:",markup: quarry / abyss
+m_monsters_and_rewards_are_always_fl,"Monstros e recompensas são sempre os do andar 119. Isto é um desafio, não uma fazenda.",markup: quarry / abyss
+m_your_deepest_floor_goes_on_the_ran,Seu andar mais fundo vai para o ranking. Mais fundo:,markup: quarry / abyss
+m_fold_the_letter,DOBRAR A CARTA,markup: letters
+m_the_skull_beat_you,A CAVEIRA VENCEU VOCÊ,markup: letters
+m_every_apex_boss_past_floor_100_car,Todo chefe Apex acima do andar 100 carrega um status de caveira como este. Passe o mouse nele em batalha para ler a mecânica antes de se comprometer.,markup: letters
+m_ok,OK,markup: letters
+m_x_4,·,markup: floor HUD / boss lair
+m_floor_boss_lair,COVIL DO CHEFE DO ANDAR,markup: floor HUD / boss lair
+m_hp,PV,markup: floor HUD / boss lair
+m_signature,Assinatura:,markup: floor HUD / boss lair
+m_spoils_2,Espólios,markup: floor HUD / boss lair
+m_boss_keys_2,⚿ CHAVES DE CHEFE,markup: floor HUD / boss lair
+m_energy_gathers_at_the_platform,A energia se reúne na plataforma…,markup: floor HUD / boss lair
+m_the_alpha_reforms,O ALFA SE RECOMPÕE,markup: floor HUD / boss lair
+m_return,← RETORNAR,markup: floor HUD / boss lair
+m_ascend,↑ ASCENDER,markup: floor HUD / boss lair
+m_scene,CENA,markup: floor HUD / boss lair
+m_read_more_in_the_codex,LEIA MAIS NO CÓDICE ›,markup: floor HUD / boss lair
+m_pvp_arena,ARENA PVP,markup: pvp
+m_rankings,RANKING,markup: pvp
+m_auto_pvp,AUTO PVP,markup: pvp
+m_rating,RATING,markup: pvp
+m_autoplay,AUTOPLAY ,markup: pvp
+m_matchmaking,PAREAMENTO,markup: pvp
+m_your_defense_is_your,. Sua defesa é o seu,markup: pvp
+m_daily_snapshot,registro diário,markup: pvp
+m_re_gearing_shows_up_on_defense_at,— trocar de equipamento só vale na defesa após o próximo reset.,markup: pvp
+m_x_5,×,markup: pvp
+m_competitive_pvp,PVP COMPETITIVO,markup: pvp
+m_loading,Carregando…,markup: pvp
+m_best_floor,MELHOR ANDAR,markup: pvp
+m_ratings,RATINGS,markup: pvp
+m_party_daily,EQUIPE (DIÁRIO),markup: pvp
+m_not_yet_posted,Ainda não publicado,markup: pvp
+m_badges,INSÍGNIAS,markup: pvp
+m_no_badges_yet,Nenhuma insígnia ainda,markup: pvp
+m_bank,BANCO,markup: pvp
+m_orders_sealed_waiting_for_opponent,ORDENS SELADAS — AGUARDANDO O OPONENTE,markup: pvp
+m_opponent_found,OPONENTE ENCONTRADO,markup: pvp
+m_best_of_3_team_locked_double_blind,MELHOR DE 3 · EQUIPE TRAVADA · ESCOLHAS ÀS CEGAS,markup: pvp
+m_arena_match,PARTIDA DE ARENA,markup: pvp
+m_arena_battles_grant_no_spoils_expe,"Batalhas de arena não dão espólios, experiência nem sequência — apenas rating.",markup: pvp
+m_exit_replay,SAIR DO REPLAY,markup: pvp
+m_replay_complete,REPLAY CONCLUÍDO,markup: pvp
+m_deterministic_playback_identical_t,"reprodução determinística — idêntica à partida, em cada rolagem",markup: pvp
+m_back_to_arena,VOLTAR À ARENA,markup: pvp
+m_match_found,PARTIDA ENCONTRADA!,markup: pvp
+m_join_match,⚔ ENTRAR NA PARTIDA,markup: pvp
+m_premium_shop,LOJA PREMIUM,markup: premium shop
+m_classes_2,CLASSES,markup: classes
+m_max,✦ MÁX,markup: classes
+m_active,✦ ATIVA,markup: classes
+m_switch,TROCAR,markup: classes
+m_unlock,DESBLOQUEAR ·,markup: classes
+m_not_purchasable,NÃO COMPRÁVEL,markup: classes
+m_before_you_climb,Antes de subir,markup: creation
+m_how_old_are_you,Quantos anos você tem?,markup: creation
+m_asked_once_your_account_keeps_only,"Perguntado uma única vez. Sua conta guarda apenas se você tem idade para jogar aqui, nunca o número em si. Veja a Política de Privacidade em Configurações › Legal e Suporte.",markup: creation
+m_herumon_tower_is_not_available_to,Herumon Tower não está disponível para jogadores com menos de,markup: creation
+m_no_account_is_kept_for_you_the_sig,"Nenhuma conta é mantida para você. O login usado foi desconectado, e tudo o que ele criou é apagado em sete dias. Dúvidas vão para o endereço na Política de Privacidade.",markup: creation
+m_leave,SAIR,markup: creation
+m_choose_your_path,Escolha seu Caminho,markup: creation
+m_the_tower_stirs_loading_class_data,A torre desperta… (carregando as classes),markup: creation
+m_the_other_classes_unlock_later_in,"As outras classes são desbloqueadas depois, na janela Classes.",markup: creation
+m_name_your_champion,Dê um nome ao seu campeão,markup: creation
+m_stage_1,· ESTÁGIO 1,markup: creation
+m_worn_lv_1,Equipado · Nv 1 ·,markup: creation
+m_starter_weapons_tier_1,ARMAS INICIAIS · TIER 1,markup: creation
+m_enter_the_tower,ENTRAR NA TORRE ✦,markup: creation
+m_enter_a_name_to_continue,DIGITE UM NOME PARA CONTINUAR,markup: creation
+m_burn_incense_to_get_more_spawns,QUEIME INCENSO PARA MAIS APARIÇÕES,markup: autoplay
+m_add_bait_to_halve_the_wait,ISCA REDUZ A ESPERA PELA METADE,markup: autoplay
+m_bug_report_sent,RELATÓRIO DE BUG ENVIADO!,markup: bug report
+m_report_a_bug,RELATAR UM BUG,markup: bug report
+m_all_in,TUDO OU NADA,markup: upgrade
+m_every_attempt_spends_the_resource,Cada tentativa gasta o recurso. Não há reembolso pelas que falham.,markup: upgrade
+m_upgrade_2,APRIMORAR,markup: upgrade
+m_a_failed_attempt_spends_the_resour,Uma tentativa falha gasta o recurso e não muda mais nada.,markup: upgrade
+m_consumer,CONSUMIDOR,markup: devour
+m_mutant_2,MUTANTE,markup: devour
+m_will_be_consumed,SERÁ CONSUMIDO,markup: devour
+m_select_fodder,ESCOLHA A OFERENDA,markup: devour
+m_back_3,‹ VOLTAR,markup: devour
+m_select_fodder_it_will_be_consumed,ESCOLHA A OFERENDA — ela será consumida,markup: devour
+m_prev,‹ ANTERIOR,markup: devour
+m_next,PRÓXIMO ›,markup: devour
+m_nothing_in_the_soul_bag_can_be_con,Nada na bolsa de almas pode ser consumido.,markup: devour
+m_level_up,SUBIU DE NÍVEL,markup: misc
+m_tap_to_skip,TOQUE PARA PULAR,markup: misc
+m_no_salvage_value,SEM VALOR DE RECICLAGEM,markup: misc
+m_understood,ENTENDIDO,markup: misc
+set_audio,Áudio,settings: section name
+set_audio_master_label,Volume Geral,settings: row label
+set_audio_music_label,Música,settings: row label
+set_audio_sfx_label,Efeitos Sonoros,settings: row label
+set_audio_ui_label,Sons da Interface,settings: row label
+set_audio_mute_label,Silenciar Tudo,settings: row label
+set_audio_mutebg_label,Silenciar em Segundo Plano,settings: row label
+set_display,Tela,settings: section name
+set_display_fps_label,Taxa de Quadros,settings: row label
+set_display_fps_desc,Limita a frequência das animações da tela. Máx segue o monitor.,settings: row description
+set_display_fullscreen_label,Tela Cheia,settings: row label
+set_display_fullscreen_desc,Preenche a tela com o jogo. Esc também sai.,settings: row description
+set_display_battery_label,Economia de Bateria,settings: row label
+set_display_battery_desc,Limita a 30 fps e reduz os efeitos visuais.,settings: row description
+set_display_shake_label,Tremor de Tela,settings: row label
+set_display_vfx_label,Intensidade dos Efeitos,settings: row label
+set_display_wakelock_label,Manter a Tela Acesa,settings: row label
+set_display_wakelock_desc,"Impede a tela de apagar enquanto o jogo está aberto, para o autoplay continuar. Gasta mais bateria. Não funciona com o navegador em segundo plano — nenhum navegador permite isso.",settings: row description
+set_battle,Batalha e Autoplay,settings: section name
+set_battle_note,"O autoplay nunca entra sozinho em salas de chefe — regra fixa, não uma configuração.",settings: section note
+set_battle_autofloor_label,Avançar Andares Automaticamente,settings: row label
+set_battle_stoploss_label,Parar de Avançar Após Derrota,settings: row label
+set_battle_stoploss_desc,Uma batalha perdida desliga Avançar Andares Automaticamente. Reative manualmente.,settings: row description
+set_battle_ondeath_label,Ao Morrer,settings: row label
+set_battle_bossoutkeys_label,Desafiar Chefe Automaticamente — Sem Chaves,settings: row label
+set_battle_bossoutkeys_desc,O que Desafiar Chefe Automaticamente faz quando a última chave de chefe é gasta.,settings: row description
+set_battle_targeting_label,Mira,settings: row label
+set_battle_targeting_desc,Como o autoplay escolhe o inimigo dos golpes de dano (PV atual).,settings: row description
+set_battle_opttarget_label,Otimizar Para,settings: row label
+set_battle_opttarget_desc,"O que a Otimização Automática maximiza ao refazer seu conjunto. Poder Geral combina ataque, defesa e vida.",settings: row description
+set_battle_ult_label,Supremo,settings: row label
+set_battle_ult_desc,"A rodada em que o autoplay dispara o golpe supremo pela primeira vez. Se não puder ali, tenta de novo a cada rodada seguinte.",settings: row description
+set_battle_priobuff_label,Priorizar Bônus,settings: row label
+set_battle_priobuff_desc,Antes do dano: usa primeiro um golpe de bônus/suporte pronto.,settings: row description
+set_battle_priodebuff_label,Priorizar Penalidades,settings: row label
+set_battle_priodebuff_desc,Antes do dano: usa primeiro um golpe de penalidade pronto.,settings: row description
+set_battle_streak_label,Contador de Sequência,settings: row label
+set_battle_streak_desc,Mostra o contador após a batalha.,settings: row description
+set_battle_confspend_label,Confirmar Gasto Premium,settings: row label
+set_battle_confspend_desc,Uma confirmação antes de cada gasto de Wraithgold ainda não foi construída.,settings: row description
+set_controls,Controles,settings: section name
+set_controls_note,Somente teclado — um dispositivo de toque não tem teclas para atribuir. Atribuir uma tecla que outra ação já usa a tira daquela ação.,settings: section note
+set_controls_kauto_label,Alternar Autoplay,settings: row label
+set_controls_kauto_desc,Faz exatamente o que o botão AUTOPLAY faz.,settings: row description
+set_controls_kequip_label,Abrir / Fechar Equipamento,settings: row label
+set_controls_kinv_label,Abrir / Fechar Inventário,settings: row label
+set_controls_kinv_desc,"Com a bolsa de almas aberta, abre a bolsa de itens.",settings: row description
+set_controls_klock_label,Travar / Destravar Sob o Cursor,settings: row label
+set_controls_klock_desc,Passe o mouse sobre uma criatura ou item em qualquer bolsa e pressione. Faz exatamente o que o botão TRAVAR faz.,settings: row description
+set_controls_kstrip_label,Taskbar Mode,settings: row label (Steam build only)
+set_controls_kstrip_desc,Encolhe o jogo em uma faixa acima da barra de tarefas. Faz exatamente o que o botão TASKBAR MODE do menu faz.,settings: row description (Steam build only)
+set_tutorials,Tutoriais,settings: section name
+set_tutorials_note,"Uma seta aponta para cada sistema que o andar alcançado abre, até você clicar nele uma vez. Nunca bloqueia o jogo.",settings: section note
+set_tutorials_arrows_label,Setas de Tutorial,settings: row label
+set_tutorials_arrows_desc,Mostra a seta em cada sistema recém-aberto até seu controle ser clicado uma vez.,settings: row description
+set_notices,Avisos,settings: section name
+set_notices_note,A carta do andar 101 e cada sistema que a subida abriu. O registro de ações fica no servidor.,settings: section note
+set_notices_history_label,Baixar Meu Histórico,settings: row label
+set_notices_history_desc,"Salva o registro do servidor desta conta - cada moeda ganha e gasta, itens concedidos, recompensas de batalha, trocas - como um arquivo JSON.",settings: row description
+set_notices_history_csv_label,Baixar Meu Histórico (CSV),settings: row label
+set_notices_history_csv_desc,O mesmo registro como um arquivo de planilha.,settings: row description
+set_notices_none_label,Nenhum aviso ainda,settings: row label
+set_notices_none_desc,Eles aparecem conforme a subida abre sistemas.,settings: row description
+set_notif,Notificações,settings: section name
+set_notif_breedc_label,Criação Concluída,settings: row label
+set_notif_breedc_desc,O aviso no jogo quando um viveiro põe um ovo.,settings: row description
+set_notif_pvp_label,Resultados da Defesa PvP,settings: row label
+set_notif_pvp_desc,A nota no jogo de como sua defesa se saiu enquanto você esteve fora.,settings: row description
+set_notif_season_label,Temporada Perto do Fim,settings: row label
+set_notif_season_desc,Notificações push ainda não foram construídas.,settings: row description
+set_notif_daily_label,Reset Diário,settings: row label
+set_notif_daily_desc,Notificações push ainda não foram construídas.,settings: row description
+set_account,Conta e Dados,settings: section name
+set_account_logout_label,Sair da Conta,settings: row label
+set_account_logout_desc,"Salva sua subida, encerra esta sessão e volta à tela de login.",settings: row description
+set_account_name_label,Nome do Jogador,settings: row label
+set_account_name_desc,Fale com um administrador para alterá-lo.,settings: row description
+set_account_link_label,Vincular Conta,settings: row label
+set_account_cloud_label,Salvamento na Nuvem,settings: row label
+set_account_cloud_desc,Sua subida é salva no servidor enquanto você joga. Não pode ser desligado.,settings: row description
+set_account_restore_label,Restaurar Compras,settings: row label
+set_account_restore_desc,Chega com as versões das lojas de aplicativos.,settings: row description
+set_account_export_label,Exportar Meus Dados,settings: row label
+set_account_export_desc,Baixa tudo o que este save contém como um arquivo JSON.,settings: row description
+set_account_reset_label,Reiniciar Progresso (Novo Jogo),settings: row label
+set_account_reset_desc,"Apaga este save e recomeça no Andar 1, Nv 1.",settings: row description
+set_account_delete_label,Excluir Conta,settings: row label
+set_account_delete_desc,Exclui esta conta 7 dias após a confirmação. Entrar antes disso pode cancelar.,settings: row description
+set_lang,Idioma e Acessibilidade,settings: section name
+set_lang_language_label,Idioma,settings: row label
+set_lang_language_desc,Auto segue o idioma configurado neste dispositivo. O que ainda não foi traduzido aparece em inglês.,settings: row description
+set_lang_textsize_label,Tamanho do Texto,settings: row label
+set_lang_textsize_desc,Hoje a tela inteira escala com a janela.,settings: row description
+set_lang_colorblind_label,Modo Daltônico,settings: row label
+set_lang_motion_label,Reduzir Movimento,settings: row label
+set_lang_motion_desc,"Desativa tremor, paralaxe e transições pesadas.",settings: row description
+set_lang_flashing_label,Reduzir Piscadas,settings: row label
+set_lang_flashing_desc,Atenua o flash de acerto e os efeitos estroboscópicos.,settings: row description
+set_legal,Legal e Suporte,settings: section name
+set_legal_help_label,Ajuda e Perguntas Frequentes,settings: row label
+set_legal_help_desc,Abre a página de ajuda em uma nova aba.,settings: row description
+set_legal_contact_label,Falar com o Suporte,settings: row label
+set_legal_contact_desc,Abre o formulário de relato - ele chega direto à equipe.,settings: row description
+set_legal_analytics_label,Análise de Uso,settings: row label
+set_legal_analytics_desc,Nenhum dado de uso é coletado hoje. Desligado registra sua recusa para qualquer coleta futura.,settings: row description
+set_legal_privacy_label,Política de Privacidade,settings: row label
+set_legal_privacy_desc,Abre em uma nova aba.,settings: row description
+set_legal_terms_label,Termos de Serviço,settings: row label
+set_legal_terms_desc,Abre em uma nova aba.,settings: row description
+set_legal_credits_label,Créditos,settings: row label
+set_legal_credits_desc,Abre em uma nova aba.,settings: row description
+set_legal_version_label,Versão,settings: row label
+set_locked_tip,Não pode ser desativado de Épico para cima.,settings: tooltip of a locked toggle
+set_lang_auto,Auto (dispositivo),settings: Language row - follow the device language
+chal_btn,DESAFIAR,markup: pvp challenge by code (B16)
+chal_title,DESAFIO POR CÓDIGO,markup: pvp challenge by code (B16)
+chal_make_h,CRIAR UM CÓDIGO,markup: pvp challenge by code (B16)
+chal_make_blurb,"Dê o código a um jogador. Se você esperar por ele, a luta é ao vivo. Se não, ele ataca sua defesa.",markup: pvp challenge by code (B16)
+chal_wait,ESPERAR AO VIVO,markup: pvp challenge by code (B16)
+chal_enter_h,INSERIR UM CÓDIGO,markup: pvp challenge by code (B16)
+chal_enter_blurb,"Recebeu um código de um jogador? Ao vivo se ele estiver esperando você; senão, um ataque Auto PvP à defesa dele.",markup: pvp challenge by code (B16)
+chal_go,LUTAR,markup: pvp challenge by code (B16)
+chal_err_own,Esse é o seu próprio código. Dê-o a outro jogador.,app: pvp challenge by code (B16)
+chal_err_expired,Código inexistente ou expirado. Peça um novo.,app: pvp challenge by code (B16)
+chal_err_cap,Você já atacou este jogador duas vezes hoje. Tente de novo amanhã.,app: pvp challenge by code (B16)
+chal_err_nodef,Este jogador não está esperando ao vivo e ainda não tem defesa salva.,app: pvp challenge by code (B16)
+chal_err_tickets,Seus ataques diários acabaram. Um código cujo dono não está esperando custa um ataque.,app: pvp challenge by code (B16)
+chal_err_noteam,Sua equipe é lida do seu último save. Jogue um pouco para o jogo salvar e tente de novo.,app: pvp challenge by code (B16)
+chal_err_locked,Desafios abrem no andar {f}.,app: pvp challenge by code (B16)
+chal_err_generic,O servidor recusou isto ({e}).,app: pvp challenge by code (B16)
+chal_err_net,Não foi possível alcançar o servidor.,app: pvp challenge by code (B16)
+chal_err_busy,Termine primeiro a luta em que você está.,app: pvp challenge by code (B16)
+chal_err_done,Esse desafio já foi jogado.,app: pvp challenge by code (B16)
+chal_bad_len,Um código tem {n} letras e dígitos.,app: pvp challenge by code (B16)
+chal_bad_code,Verifique o código e tente de novo.,app: pvp challenge by code (B16)
+chal_sending,Enviando o código…,app: pvp challenge by code (B16)
+chal_valid_until,Válido até {t},app: pvp challenge by code (B16)
+chal_new_code,NOVO CÓDIGO,app: pvp challenge by code (B16)
+chal_make_btn,CRIAR UM CÓDIGO,app: pvp challenge by code (B16)
+chal_copy,COPIAR,app: pvp challenge by code (B16)
+chal_copied,COPIADO,app: pvp challenge by code (B16)
+chal_on,LIGADO,app: pvp challenge by code (B16)
+chal_off,DESLIGADO,app: pvp challenge by code (B16)
+chal_wait_note,Aguardando seu desafiante na fila Competitiva · {t},app: pvp challenge by code (B16)
+chal_wait_off_note,"Desligado: ele ataca sua defesa, como uma partida de Auto PvP.",app: pvp challenge by code (B16)
+chal_expired_mine,Seu código expirou. Crie um novo.,app: pvp challenge by code (B16)
+chal_band,aguardando o jogador com o seu código {c},app: pvp challenge by code (B16)
