@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<base href="../">
+<title>The party &mdash; Tutorial &mdash; Herumon Tower</title>
+<link rel="stylesheet" href="theme.css?v=4">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+.tut-step{margin:34px 0}
+.tut-step h2{display:flex;align-items:center;gap:14px}
+.tut-n{flex:none;width:38px;height:38px;border-radius:50%;background:#c8402e;color:#fff;font:700 20px/38px 'Cinzel',serif;text-align:center}
+.tut-step p{font-size:17px;line-height:1.55;max-width:960px}
+.tut-step img{display:block;width:100%;max-width:960px;border:1px solid var(--rule);background:#0a0810}
+.tut-next{margin-top:40px;display:flex;gap:18px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">THE PARTY</h1></div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="tutorials/index.html">Tutorials</a> &rsaquo; The party</div>
+  <p class="sp-lead">Your party is your character plus two creatures. Creatures live in the soul bag; the two you seat fight at your side and share the gear screen with you.</p>
+  <div class="tut-step" id="step-1">
+    <h2><span class="tut-n">1</span>Your two creatures</h2>
+    <p>The lower half of MENU > EQUIPMENT is your party (1): each creature with its level, stats, moves and its own gear rows.</p>
+    <img src="tutorials/img/party/01.webp" width="1440" height="810" alt="Step 1: Your two creatures" loading="lazy">
+  </div>
+  <div class="tut-step" id="step-2">
+    <h2><span class="tut-n">2</span>Seat a creature</h2>
+    <p>Click a creature's panel: the one seated now is under CURRENTLY SLOTTED (1) and every other creature in your soul bag is under AVAILABLE (2) - click one to seat it in that slot instead. A party slot is never empty: a creature can only be replaced, not removed.</p>
+    <img src="tutorials/img/party/02.webp" width="1440" height="810" alt="Step 2: Seat a creature" loading="lazy">
+  </div>
+  <div class="tut-step" id="step-3">
+    <h2><span class="tut-n">3</span>Souls on gear</h2>
+    <p>Every gear row ends in a soul slot (1): a creature from the soul bag seated there lends its power - a move or a passive - to the character. The soul slots open at floor 12.</p>
+    <img src="tutorials/img/party/03.webp" width="1440" height="810" alt="Step 3: Souls on gear" loading="lazy">
+  </div>
+  <div class="tut-step" id="step-4">
+    <h2><span class="tut-n">4</span>The class soul</h2>
+    <p>Your class soul (1) is handed out at creation; click it to see what it does and to upgrade it once the souls rung is open.</p>
+    <img src="tutorials/img/party/04.webp" width="1440" height="810" alt="Step 4: The class soul" loading="lazy">
+  </div>
+
+  <div class="tut-next"><a href="tutorials/eggs.html">&larr; Eggs and hatching</a><a href="tutorials/upgrading.html">Upgrading, sockets and scrolls &rarr;</a></div>
+  <p style="font-size:13px;color:var(--ink-faint);margin-top:36px">Screenshots are taken from the live game by <code>tools/tutorial_shots.py</code> (dfmc-client) and regenerated after interface changes. The rules behind each screen: <a href="system-party.html">system-party</a>, <a href="system-equipment.html">system-equipment</a>.</p>
+</div>
+<script src="nav.js"></script>
+</body>
+</html>

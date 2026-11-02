@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<base href="../">
+<title>Inventory and equipment &mdash; Tutorial &mdash; Herumon Tower</title>
+<link rel="stylesheet" href="theme.css?v=4">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+.tut-step{margin:34px 0}
+.tut-step h2{display:flex;align-items:center;gap:14px}
+.tut-n{flex:none;width:38px;height:38px;border-radius:50%;background:#c8402e;color:#fff;font:700 20px/38px 'Cinzel',serif;text-align:center}
+.tut-step p{font-size:17px;line-height:1.55;max-width:960px}
+.tut-step img{display:block;width:100%;max-width:960px;border:1px solid var(--rule);background:#0a0810}
+.tut-next{margin-top:40px;display:flex;gap:18px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">INVENTORY AND EQUIPMENT</h1></div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="tutorials/index.html">Tutorials</a> &rsaquo; Inventory and equipment</div>
+  <p class="sp-lead">Everything that drops lands in your bag. Gear goes on your character from the Equipment screen; what you do not need is broken into materials.</p>
+  <div class="tut-step" id="step-1">
+    <h2><span class="tut-n">1</span>The bag</h2>
+    <p>MENU > INVENTORY: every item is a tile (1). FILTERS (2) narrows the grid; DISMANTLING (3) opens the breaker.</p>
+    <img src="tutorials/img/inventory/01.webp" width="1440" height="810" alt="Step 1: The bag" loading="lazy">
+  </div>
+  <div class="tut-step" id="step-2">
+    <h2><span class="tut-n">2</span>Read an item</h2>
+    <p>Click a tile to read the piece. LOCK (1) keeps it out of Dismantle All and Auto-optimize; DISMANTLE (2) breaks this one piece into materials.</p>
+    <img src="tutorials/img/inventory/02.webp" width="1440" height="810" alt="Step 2: Read an item" loading="lazy">
+  </div>
+  <div class="tut-step" id="step-3">
+    <h2><span class="tut-n">3</span>The Equipment screen</h2>
+    <p>MENU > EQUIPMENT: your character's gear slots (1), each with its gem, rune and scroll sockets. AUTO-OPTIMIZE (2) wears the strongest legal pieces from your bag; BUILDS (3) saves a set to come back to.</p>
+    <img src="tutorials/img/inventory/03.webp" width="1440" height="810" alt="Step 3: The Equipment screen" loading="lazy">
+  </div>
+  <div class="tut-step" id="step-4">
+    <h2><span class="tut-n">4</span>Equip and unequip</h2>
+    <p>Click a slot: the piece in it is under CURRENTLY SLOTTED (1) - click it to take it off - and everything else in your bag that fits is under AVAILABLE (2); click one to wear it instead.</p>
+    <img src="tutorials/img/inventory/04.webp" width="1440" height="810" alt="Step 4: Equip and unequip" loading="lazy">
+  </div>
+  <div class="tut-step" id="step-5">
+    <h2><span class="tut-n">5</span>The ILLEGAL mark</h2>
+    <p>A red ILLEGAL mark (1) means a worn piece no longer fits - the reason is next to it: LV 30 is a piece above your level, MAGE ONLY a weapon of another class, WRONG SLOT a piece in the wrong place. It stays on until you swap it; Auto-optimize never picks an illegal piece.</p>
+    <img src="tutorials/img/inventory/05.webp" width="1440" height="810" alt="Step 5: The ILLEGAL mark" loading="lazy">
+  </div>
+  <div class="tut-step" id="step-6">
+    <h2><span class="tut-n">6</span>Dismantling</h2>
+    <p>DISMANTLING breaks gear into Scrap and materials, four ways (1): everything the current filters show, every piece of the grades you pick, every piece of the tiers you pick, or pieces you mark one by one with the hammer cursor. Locked pieces are never touched.</p>
+    <img src="tutorials/img/inventory/06.webp" width="1440" height="810" alt="Step 6: Dismantling" loading="lazy">
+  </div>
+
+  <div class="tut-next"><a href="tutorials/floors.html">&larr; Floors and the Floor Map</a><a href="tutorials/eggs.html">Eggs and hatching &rarr;</a></div>
+  <p style="font-size:13px;color:var(--ink-faint);margin-top:36px">Screenshots are taken from the live game by <code>tools/tutorial_shots.py</code> (dfmc-client) and regenerated after interface changes. The rules behind each screen: <a href="system-equipment.html">system-equipment</a>, <a href="item.html">item</a>, <a href="reliquary.html">reliquary</a>.</p>
+</div>
+<script src="nav.js"></script>
+</body>
+</html>
