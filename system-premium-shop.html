@@ -14,9 +14,9 @@
 
 <h2>What is for sale</h2>
 <table><tr><th>SKU</th><th>Name</th><th>Cost</th><th>Duration</th><th>Effect</th></tr>
-<tr><td>SHOP-001</td><td>Incense Burner</td><td>10 Wraithgold</td><td>30 days</td><td>Doubles the wild respawn rate</td></tr>
-<tr><td>SHOP-002</td><td>Bait</td><td>10 Wraithgold</td><td>30 days</td><td>Halves the wild respawn interval; stacks with Incense</td></tr>
-<tr><td>SHOP-003</td><td>Auto PVP Attacks</td><td>4 Wraithgold</td><td>none (one-shot)</td><td>+10 Auto PVP attacks for today, even above the daily ten; they expire at the daily reset</td></tr></table>
+<tr><td>SHOP-001</td><td>Incense Burner</td><td><span data-csv="premium_shop.csv#SKU=SHOP-001#Cost">10</span> Wraithgold</td><td><span data-csv="premium_shop.csv#SKU=SHOP-001#Duration_Days">30</span> days</td><td>Doubles the wild respawn rate</td></tr>
+<tr><td>SHOP-002</td><td>Bait</td><td><span data-csv="premium_shop.csv#SKU=SHOP-002#Cost">10</span> Wraithgold</td><td><span data-csv="premium_shop.csv#SKU=SHOP-002#Duration_Days">30</span> days</td><td>Halves the wild respawn interval; stacks with Incense</td></tr>
+<tr><td>SHOP-003</td><td>Auto PVP Attacks</td><td><span data-csv="premium_shop.csv#SKU=SHOP-003#Cost">4</span> Wraithgold</td><td>none (one-shot)</td><td>+10 Auto PVP attacks for today, even above the daily ten; they expire at the daily reset</td></tr></table>
 <p>The authored respawner gives <strong>one spawn per 60 seconds</strong> while below the cap of ten.
 Incense halves that interval to <strong>30 seconds</strong>. Bait multiplies whatever interval is running by
 0.5: <strong>30 seconds</strong> alone, <strong>15 seconds</strong> with Incense
@@ -51,8 +51,7 @@ single transaction. A repeated key returns the original answer rather than charg
 <p>Wraithgold is held in an append-only ledger. The balance is the sum of its entries; there is no
 authoritative balance stored anywhere else. Every entry carries its provenance, so paid, granted and
 promotional units stay distinguishable — that distinction cannot be reconstructed once units mix.</p>
-<p><strong>A progress wipe does not touch it.</strong> Resetting a realm clears saves and progress; currency
-that was paid for survives.</p>
+<p><strong>Paid Wraithgold survives a reset.</strong> A per-account reset (Settings; T61, D 2026-11-02: &ldquo;per account reset should RESET everything&rdquo;) clears the save and every ledger row that was earned or granted, and keeps every row that was paid for (<code>paid_*</code>). The full wipe of 2026-10 (T37) was the exception by D&rsquo;s order: it took everything, entitlements included.</p>
 
 <h2>Item grants</h2>
 <p>Items owed to a player — compensation, purchases, promotions — are minted server-side and stay
@@ -83,6 +82,7 @@ touch; a new account&rsquo;s ledger is empty and its wallet reads 0 until a purc
 ran until 2026-11-02; accounts that already hold that row keep it &mdash; nothing is clawed back. The shop&rsquo;s info line
 (<code>info.csv</code> row <code>shop</code>) says what Wraithgold is and that it is bought here.</p>
 <hr><p class="note">Changelog<br>
+2026-11-03 &mdash; codex review (dfmc-client lane codexreview-a; D 2026-11-03 &ldquo;review the codex, clean it up, update whatever needs updating&rdquo;). WIKI ONLY. The three prices and the two durations in the table bind to <code>codex/premium_shop.csv</code> (csv-bind) instead of being pasted; the wipe paragraph said &ldquo;resetting a realm&rdquo; never touches the wallet &mdash; it now states the T61 rule (paid rows survive a per-account reset, earned and granted rows do not) and the T37 full wipe. Catalogue (three SKUs, Enabled=1), the 402 / idempotency contract, D5 provenance and <code>STORE_ENABLED</code> unset re-checked against dev 0.93.<br>
 2026-11-02 &mdash; T56 (D, Tower rulings card T56 &ldquo;the shop never says where Wraithgold comes from&rdquo;: &ldquo;NO ONE STARTS WITH WRAITHGOLD. it is premium currency bought from the shop&rdquo;; dfmc-client lane wgseed). On dev. The 100 Wraithgold account-creation grant is over: <code>economy_params.csv</code> <code>WG_Seed</code> 100 &rarr; 0, the worker&rsquo;s alpha-grant flag is off and <code>wgEnsureSeed</code> books nothing when the grant is 0, so a fresh account&rsquo;s first save no longer seeds a row and its wallet reads 0 on every touch. The client no longer raises a new hero&rsquo;s wallet to the seed at creation or on save adoption (the server&rsquo;s ledger took it back on the next save anyway), and the Buy plate&rsquo;s copy no longer promises a grant or a Steam date. The Premium Shop info line (<code>info.csv</code> <code>shop</code>) now opens with &ldquo;Wraithgold is the premium currency. It is bought here in the shop; no one starts with any.&rdquo; Accounts holding the old seed row keep it. The hub&rsquo;s slot-pricing note no longer says every account is credited 100. Gate <code>tools/probe_t56_wgseed.py</code> (dfmc-client, worker rig) 5/19 &rarr; 19/19.<br>
 2026-10-23 &mdash; Boon tile touch hold (dfmc-client lane probe-triage-4; board 9.1-9.3). On dev. A finger held on the Incense or Bait floor tile shows its plate; lifting the finger folds it and opens nothing. The plate had come back and stuck open: after the release the browser fires the touch&rsquo;s compat mouse-enter, which re-opened it, and the click that ends the touch was eaten by the hold guard. That click now folds the plate. Gate <code>tools/probe_boontiles.py</code> 19/19.<br>
 2026-10-23 &mdash; D5 (T37: &ldquo;purchasing systems through steam and mobile stores &hellip; the priority is steam&rdquo;; dfmc-client lane d5-purchasing). On dev, OFF (<code>STORE_ENABLED</code> unset). The ledger&rsquo;s provenance is one fixed vocabulary (paid_web / paid_steam / paid_ios / paid_android / granted / promo, plus earned, spent, refund, legacy, transfer); older free-text tags were migrated once and kept as detail. A roll priced in a purchasable currency is refused (D11). Steam MicroTxn order, finalize and refund revoke built against a mock; the catalogue is the new <code>codex/store_packs.csv</code> (placeholder prices). Store rules: dfmc-client <code>docs/store-rules-2026-10.md</code>.<br>
@@ -182,4 +182,5 @@ ran until 2026-11-02; accounts that already hold that row keep it &mdash; nothin
   top-left of the SCREEN is page background and is <em>not</em> outside the window.
   Probe: <code>tools/probe_shoplist.py</code> (BEFORE 8/8, AFTER 9/9).</p>
 
+<script src="csv-bind.js"></script>
 </body></html>
