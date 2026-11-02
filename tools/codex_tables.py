@@ -1046,7 +1046,7 @@ def gen_xp_player():
     return '\n'.join([
         '<table>',
         '    <tr><th>Property</th><th>Rule</th></tr>',
-        '    <tr><td class="lbl">XP source</td><td>Every point of XP the account earns, from every battle, in every realm. Player XP is never split &mdash; it is the raw total.</td></tr>',
+        '    <tr><td class="lbl">XP source</td><td>Every point of XP the account earns, from every battle. Player XP is never split &mdash; it is the raw total.</td></tr>',
         '    <tr><td class="lbl">Curve, levels 1&ndash;%d</td><td>Identical to the creature / class curve: the rows of <code>XPCurve.csv</code> (<code>10 &times; L^1.75</code> to 66, then the C1 ramp). '
         'There is no formula fallback: with no curve loaded the account reads level 1, as a creature does.</td></tr>' % top,
         '    <tr><td class="lbl">Curve, levels %d+</td><td><strong>Flat</strong>. Every level past %d costs <code>XP_Account_Flat</code> (row %d of <code>XPCurve.csv</code>) = <strong>%s</strong> XP: '

@@ -14,20 +14,20 @@
 <div class="topbar"><h1 style="font-family:'Cinzel',serif;">BREEDING</h1></div>
 <div class="sp-wrap">
   <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; Breeding</div>
-  <p class="sp-lead">Breeding is a <strong style="color:var(--ink)">continuous pen</strong>, not a transaction. A pair is placed in a pen and the pen starts on its own; from then on it eats <strong style="color:var(--ink)">Ichor</strong> minute by minute and fills a progress bar. When the bar completes, an egg drops into the inventory and the pen keeps going. Ichor is the only limiter &mdash; it has no other use in the game.</p>
+  <p class="sp-lead">Breeding is a <strong style="color:var(--ink)">continuous pen</strong>, not a transaction. A pair is placed in a pen and the pen starts on its own; from then on it eats <strong style="color:var(--ink)">Ichor</strong> minute by minute and fills a progress bar. When the bar completes, an egg drops into the inventory and the pen keeps going. Ichor is the limiter &mdash; its only other outlet is the <a href="system-shadow-trader.html">Shadow Trader</a>, who buys it.</p>
 
   <h2>The pen grid</h2>
-  <p>Six pens, shown as a 2&times;3 grid. <strong>Pen 1 is unlocked from the start.</strong> <strong>Pens 2&ndash;3 are bought with Ichor; pens 4&ndash;6 are premium, 5 / 10 / 15 Wraithgold</strong> (D ruling 2026-08-13; the July 2026 all-Ichor table is retired). They unlock in order. Costs are authored in <code>codex/pen_unlocks.csv</code> and read by the client &mdash; never hardcoded; if that table cannot load the game halts rather than guess a price. Ichor pens are debited by the client; a Wraithgold pen is sold only by the server&rsquo;s <code>/api/unlock</code>, and the save may never claim more pens than that ledger records.</p>
+  <p>Six pens, shown as a 2&times;3 grid. <strong>Pen 1 is unlocked from the start.</strong> <strong>Pens 2&ndash;3 are bought with Ichor; pens 4&ndash;6 are premium, 5 / 10 / 15 Wraithgold</strong> (D ruling 2026-08-13; the July 2026 all-Ichor table is retired). They unlock in order. Costs are authored in <code>codex/pen_unlocks.csv</code> &mdash; never hardcoded; if that table cannot load the game halts rather than guess a price. Every priced pen, Ichor or Wraithgold, is bought at the server&rsquo;s unlock door (since 0.90): the server checks what you hold against the price, books one permanent unlock row and writes the pen into the stored save, so a second click or a refresh never charges twice and the pen survives a reload. The save may never claim more pens than that ledger records.</p>
   <table>
     <tr><th>Pen</th><th>Unlock</th></tr>
     <tr><td class="lbl">1</td><td>Free &mdash; available from the first hatch</td></tr>
-    <tr><td class="lbl">2</td><td><strong>12,000 Ichor</strong> &mdash; roughly 25h of endgame income</td></tr>
-    <tr><td class="lbl">3</td><td><strong>60,000 Ichor</strong> &mdash; ~120h</td></tr>
-    <tr><td class="lbl">4</td><td><strong>5 Wraithgold</strong> &mdash; premium (was 180,000 Ichor)</td></tr>
-    <tr><td class="lbl">5</td><td><strong>10 Wraithgold</strong> &mdash; premium (was 450,000 Ichor)</td></tr>
-    <tr><td class="lbl">6</td><td><strong>15 Wraithgold</strong> &mdash; premium (was 1,000,000 Ichor)</td></tr>
+    <tr><td class="lbl">2</td><td><strong><span data-csv="pen_unlocks.csv#Pen=2#Cost" data-csv-fmt="g">12,000</span> Ichor</strong> &mdash; roughly 7h of endgame kill income</td></tr>
+    <tr><td class="lbl">3</td><td><strong><span data-csv="pen_unlocks.csv#Pen=3#Cost" data-csv-fmt="g">60,000</span> Ichor</strong> &mdash; ~34h</td></tr>
+    <tr><td class="lbl">4</td><td><strong><span data-csv="pen_unlocks.csv#Pen=4#Cost">5</span> Wraithgold</strong> &mdash; premium (was 180,000 Ichor)</td></tr>
+    <tr><td class="lbl">5</td><td><strong><span data-csv="pen_unlocks.csv#Pen=5#Cost">10</span> Wraithgold</strong> &mdash; premium (was 450,000 Ichor)</td></tr>
+    <tr><td class="lbl">6</td><td><strong><span data-csv="pen_unlocks.csv#Pen=6#Cost">15</span> Wraithgold</strong> &mdash; premium (was 1,000,000 Ichor)</td></tr>
   </table>
-  <div class="note"><strong>What extra pens actually buy.</strong> Not throughput &mdash; Ichor income caps that regardless of pen count. Extra pens buy <strong>parallelism</strong>: several different pairs, types, and grade-ladders running at once, and no idle time while you swap partners. A player with six pens and a player with two pens hatch the same number of Void eggs per hour; the six-pen player is also climbing five other lines while they do it.</p></div>
+  <div class="note"><strong>What extra pens actually buy.</strong> Not throughput &mdash; Ichor income caps that regardless of pen count. Extra pens buy <strong>parallelism</strong>: several different pairs, types, and grade-ladders running at once, and no idle time while you swap partners. A player with six pens and a player with two pens hatch the same number of Void eggs per hour; the six-pen player is also climbing five other lines while they do it.</div>
 
   <h2>What decides an egg&rsquo;s grade</h2>
   <p><strong>The parents&rsquo; LEVEL does not matter. Their GRADE does, and nothing else does.</strong>
@@ -62,7 +62,7 @@
     <tr><td class="lbl">Battle lockout</td><td>A creature in a pen <strong>cannot be in the battle party</strong>. Breeding your best fighters means fighting without them.</td></tr>
     <tr><td class="lbl">Same line</td><td>Allowed.</td></tr>
   </table>
-  <div class="note"><strong>Type scarcity is the real gate.</strong> Across the roster of 300, the median creature has 45 or 46 type-compatible species (45.5 exactly) and the tightest has 11. The four three-creature types &mdash; Celestial, Demon, Chimera, Aberration &mdash; are a single line each, so they can only breed within their own line. Breeding rewards a <em>broad</em> collection, not a strong one.</div>
+  <div class="note"><strong>Type scarcity is the real gate.</strong> Across the roster of 312, the median creature has about 45 type-compatible species and the tightest has 11. The four three-creature types &mdash; Celestial, Demon, Chimera, Aberration &mdash; are a single line each, so they can only breed within their own line. Breeding rewards a <em>broad</em> collection, not a strong one.</div>
 
   <h2 style="font-family:'Cinzel',serif;font-size:18px;color:var(--gold);margin:24px 0 8px">What the egg contains</h2>
   <p style="font-size:14px;color:var(--ink-dim)">The egg carries <strong>one of the two parents' lines, rolled 50/50</strong> at the moment it is laid — never a third species. It hatches that line's Stage&nbsp;1, like every other egg in the game. The shared type is the <em>gate</em> on which pairs may breed; it does not decide what comes out, so pairing a Thornback with a Dusthound returns a Bristle or a Whelp and nothing else. The egg's shell art follows the rolled species' first type, and its grade is rolled separately from the pair grade (below).</p>
@@ -162,13 +162,13 @@ RarityMult:   C 1.0   UC 1.1   R 1.2   SR 1.35   SSR 1.5</pre>
   <h2>Throughput ceiling</h2>
   <p>Ichor income &mdash; not pen count &mdash; is the hard cap on egg production.</p>
   <table>
-    <tr><th>Scenario (endgame, floor 119, ~490 Ichor/h)</th><th>Result</th></tr>
-    <tr><td class="lbl">Void pair, any number of pens</td><td>~0.17 eggs / hour, ceiling</td></tr>
-    <tr><td class="lbl">Epic pairs</td><td>~1.3 eggs / hour</td></tr>
-    <tr><td class="lbl">Six pens, all Void</td><td>9,360 Ichor/h demanded &mdash; runs at a <strong>~5% duty cycle</strong>, starving and resuming</td></tr>
-    <tr><td class="lbl">Six pens, Worn through Legendary</td><td>3,060 Ichor/h demanded &mdash; ~16% duty cycle</td></tr>
+    <tr><th>Scenario (endgame, floor 119, ~1,780 Ichor/h from kills)</th><th>Result</th></tr>
+    <tr><td class="lbl">Void pair, any number of pens</td><td>~0.6 eggs / hour, ceiling</td></tr>
+    <tr><td class="lbl">Epic pairs</td><td>~4.6 eggs / hour</td></tr>
+    <tr><td class="lbl">Six pens, all Void</td><td>9,360 Ichor/h demanded &mdash; runs at a <strong>~19% duty cycle</strong>, starving and resuming</td></tr>
+    <tr><td class="lbl">Six pens, Worn through Legendary</td><td>3,060 Ichor/h demanded &mdash; ~58% duty cycle</td></tr>
   </table>
-  <p>A single Void pen alone (1,560 Ichor/h) eats about three times a maxed player's entire Ichor income. That is the intended shape: the top of the ladder is slow by construction, and no amount of pens buys past it.</p>
+  <p>A single Void pen alone (1,560 Ichor/h) eats about nine-tenths of a maxed player's entire kill income; a second Void pen is already past it. That is the intended shape: the top of the ladder is slow by construction, and no amount of pens buys past it.</p>
 </div>
 <script src="admin.js"></script>
   <h2>Where breeding happens &mdash; anchor and claim</h2>
@@ -275,6 +275,7 @@ second run finding nothing left to do, and the item census changing creature row
 <code>dismAdamEve</code> in <code>play/app.js</code>.</p>
 
 <h2>Changelog</h2>
+<p><strong>2026-11-03 &mdash; codex review (dfmc-client lane codexreview-a; D 2026-11-03 &ldquo;review the codex, clean it up, update whatever needs updating&rdquo;). WIKI ONLY.</strong> The pen-grid text still said Ichor pens were debited by the client and that Ichor had no other use; every priced pen has gone through the server&rsquo;s unlock door since 0.90 (ichor-doors, below) and the Shadow Trader buys Ichor. The six pen prices now bind to <code>pen_unlocks.csv</code> <code>Cost</code> instead of being pasted. The throughput-ceiling table still ran on the pre-#772 income (~490 Ichor/h at floor 119); it is recomputed against the ~1,780 Ichor/h the Ichor-income table above already shows (Void ceiling ~0.6 eggs/h, six Void pens ~19% duty). Roster count 300 &rarr; 312 (<code>creatures.csv</code>). No game code or csv changed.</p>
 <p><strong>2026-10-23 &mdash; a pen parent's uid is the server's (R6 "the server mints every identity", dfmc-client lane r6-pen-uids).</strong> SHIPPED IN 0.90. A creature sitting in a breeding pen (<code>pens[i].m</code> / <code>.f</code>) with no uid - a legacy or restored save - used to get a uid invented by the client, on boot and again after every server answer, so a pen action named an id the ledger never issued. The v2 save door now names it once (<code>penUidMint</code> in <code>src/worker.js</code>, beside the bag's <code>bagUidMint</code>): a uid fixed by the creature and its pen and side, an items row with origin <code>pen_mint</code> and its birth, flag <code>pen_uid_minted</code>, <code>srv.penMinted</code> on the answer. The client's <code>ensureUids</code> leaves the pens to the server once the server-authoritative save is on; the legacy path still stamps. Breeding itself is unchanged. Gate: <code>tools/probe_pen_uids.py</code> 5/10 &rarr; 10/10.</p>
 <p><strong>2026-10-23 &mdash; C17 part 3 (dfmc-client lane c17-gen-2): the rates, Ichor-income and egg-dismantle tables are generated. WIKI ONLY; no game code changed.</strong> The egg-dismantle row binds to <code>breeding.csv Egg_Dismantle_Ichor</code>; it still showed the pre-rebalance ladder from Epic up (Epic 115 &rarr; 46, Void 860 &rarr; 344). The Ichor-income table is the kill credit over <code>encounter_weights.csv</code> (floor 25 7.9 &rarr; 9.1 per battle), and the hourly column is at 109 battles/h (<code>tools/sim_econ.mjs</code>), not ~30. Drain per hour is Ichor/min &times; 60, computed.</p>
 <p><strong>2026-10-23 &mdash; a breeding pen names what it spends, on hover (screen review #9, dfmc-client lane screen-fixes-2).</strong> SHIPPED IN 0.90. The spinning circle on a breeding pen's gate already carried the egg grade in its title (#879 moved it there when D removed the pen's rate text). Its title now also names the cost: <em>Breeding &middot; Common egg &middot; 90 Ichor per egg, every 18 min</em>, from <code>breeding.csv</code> <code>Ichor_Per_Egg</code> and <code>Minutes_Per_Egg</code>, the same per-egg ask the server takes. No visible text is added to the pen (#879 stands). Display only. Gate <code>tools/probe_b9_pencost.py</code>.</p>

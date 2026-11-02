@@ -43,10 +43,10 @@
   <p>The comparison falls back to the creature row when <code>creatures.csv</code> has no row for a record, so an unknown or forged creature with a blank <code>Line_ID</code> can never read as &ldquo;same line&rdquo; as everything else. <code>dvSpeciesId</code> still exists and is still exact-creature identity &mdash; it answers a different question and the picker labels off it.</p>
 
   <h2>The Devour consumables</h2>
-  <p>Three item types live in the soul bag under the new <strong>Consumable</strong> category. <strong>None of them can be obtained anywhere yet</strong> (D ruling) &mdash; no drop, no craft, no purchase mints them; <code>mkDevourItem</code> is the single mint and nothing calls it in play. A refused consumable is <strong>never spent</strong>.</p>
+  <p>Three item types live in the soul bag under the new <strong>Consumable</strong> category. <strong>None of them can be obtained anywhere yet</strong> (D ruling) &mdash; no drop, no craft, no purchase mints them (still true at 0.93); <code>mkDevourItem</code> is the single mint and nothing calls it in play. A refused consumable is <strong>never spent</strong>.</p>
   <table>
     <tr><th>Item</th><th>Effect when consumed</th><th>Refusal rule</th></tr>
-    <tr><td>Blood Pellet</td><td>Grants XP to the consumer. Currently <strong>1,000 XP</strong> &mdash; a placeholder constant (<code>DEVOUR_PELLET_XP</code>) pending tuning; each pellet record can also carry its own <code>xp</code>.</td><td>None.</td></tr>
+    <tr><td>Blood Pellet</td><td>Grants XP to the consumer. Currently <strong><span data-csv="economy_params.csv#Key=Devour_Pellet_XP#Value" data-csv-fmt="g">1,000</span> XP</strong> &mdash; <code>economy_params.csv</code> <code>Devour_Pellet_XP</code>, a placeholder pending tuning; each pellet record can also carry its own <code>xp</code>.</td><td>None.</td></tr>
     <tr><td>Mutagen</td><td>The consumer becomes a mutant.</td><td>Refused if the consumer already is one: ALREADY A MUTANT.</td></tr>
     <tr><td>[Grade] Essence of Power</td><td>Raises the consumer's grade to the essence's grade (e.g. an <em>Abyssal Essence of Power</em> makes the creature Abyssal). One item per grade on the Worn&rarr;Void ladder.</td><td>Refused unless the essence's grade is <strong>strictly higher</strong> than the creature's: THE ESSENCE MUST OUTRANK THE CREATURE'S GRADE. Equal or lower is unusable.</td></tr>
   </table>
@@ -56,7 +56,7 @@
     <li>One judgement function (<code>dvJudge</code>) computes the outcome for <strong>both</strong> the preview line and the execution, so what the panel promises is exactly what commits.</li>
     <li>The commit is <strong>one atomic state update</strong>: fodder removed (or its stack decremented) and consumer rewritten in the same write. If the world moved underneath &mdash; the fodder left the bag, the slot changed occupants &mdash; the updater bails and <strong>nothing is paid</strong>.</li>
     <li>The consumer is resolved live on every read: a bag consumer must still be in the bag, a slot consumer is whatever the slot holds now.</li>
-    <li>Each successful devour writes a <code>DEVOUR</code> adventure-log event and saves the run. The panel stays open so the player can keep feeding the same creature.</li>
+    <li>Each successful devour is saved at once. The panel stays open so the player can keep feeding the same creature. (It also wrote an adventure-log line until that log was retired on 2026-10-22.)</li>
   </ul>
 
   <h2>Edge cases and consequences</h2>
@@ -68,7 +68,7 @@
   </ul>
 
   <h2>Integrity</h2>
-  <p>Devour resolves entirely client-side, like crafting and grading: the result rides the save, and the server does not yet validate creature XP, grade or the mutant flag. It therefore belongs to the same anticheat class as those systems &mdash; the Phase&nbsp;2b transaction gate (server-rolled outcomes) covers it when it lands. Until the items are obtainable, nothing of economic value is minted here: a devour can only concentrate what the account already legitimately holds into fewer creatures.</p>
+  <p>A creature-on-creature devour is the server&rsquo;s (since 0.89, 2026-10-23): the game asks the devour door, the server judges the pair from its own records &mdash; grade and mutant status pass along the line and only upward, the XP is the fodder&rsquo;s recorded XP, and a devour that would change nothing is refused &mdash; then spends the fodder and rewrites the consumer. The game shows the server&rsquo;s answer, never its own guess; a refusal or a lost connection consumes nothing and says so, and a retry on the same fodder replays the first answer. A locked creature, or one in a pen, a party slot or a soul socket, is never fodder. The three consumables still resolve on the client, because nothing mints them; the day one becomes obtainable it goes through the same door. Nothing of economic value is created here: a devour only concentrates what the account already holds into fewer creatures.</p>
 
   <h2>Engine reference</h2>
   <table>
@@ -77,7 +77,7 @@
     <tr><td><code>dvChoices</code></td><td>The fodder pool: visible soul-bag creatures + consumables, consumer excluded, consumables first.</td></tr>
     <tr><td><code>dvSpeciesId</code></td><td>Species identity: the codex row (imgId, name fallback). Same row = same species.</td></tr>
     <tr><td><code>dvJudge</code></td><td>The single outcome judgement shared by preview and execution.</td></tr>
-    <tr><td><code>dvExec</code></td><td>The atomic commit: consume fodder, rewrite consumer, log, toast, save; bails on stale references.</td></tr>
+    <tr><td><code>dvExec</code></td><td>The atomic commit: for a creature fodder, plays <code>/api/devour</code>&rsquo;s answer; consume fodder, rewrite consumer, toast, save; bails on stale references and puts the fodder back.</td></tr>
     <tr><td><code>mkDevourItem</code></td><td>The only mint for Blood Pellet / Mutagen / Essence records. No play path calls it.</td></tr>
   </table>
 
@@ -147,6 +147,7 @@
 
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-11-03 &mdash; codex review (dfmc-client lane codexreview-a; D 2026-11-03 &ldquo;review the codex, clean it up, update whatever needs updating&rdquo;).</strong> Codex only. The Integrity section still described a client-side devour awaiting a &ldquo;Phase 2b&rdquo; gate; it now describes the server door that has judged every creature devour since 0.89 (the 2026-10-01 entry below), with the consumables noted as the one client-side remainder. The Blood Pellet XP binds to <code>economy_params.csv</code> <code>Devour_Pellet_XP</code> rather than naming a client constant that no longer exists. The adventure-log line is gone with the log (retired 2026-10-22). No game code changed.</li>
     <li><strong>2026-10-23 &mdash; hardcode-3: the Blood Pellet XP is <code>economy_params.csv</code> <code>Devour_Pellet_XP</code> (dfmc-client lane hardcode-3; D: &ldquo;The csvs need to be the source of all truth. Hardcoded NEVER.&rdquo;). Held for release 0.90.</strong> 1,000 XP, still the placeholder (the item is unobtainable). No number changed. A pin that predates the row keeps the old value and names it (never a refusal); it reaches players when DATA_PIN advances and the bake runs. Gate <code>tools/probe_hardcode3.mjs</code> 33/72 &rarr; 72/72.</li>
     <li><strong>2026-10-01 &mdash; the devour is the server's, and the item lock blocks it (Rulings board card <code>grades</code>, row <code>lockdevour</code>). LIVE on release since 2026-10-23 (0.89).</strong> <strong>The devour door:</strong> a creature-on-creature devour now asks <code>/api/devour</code>. The server judges the pair from its own ledger rows: grade and mutant pass along the line and only upward, XP is the fodder's ledger XP, and a devour that pays nothing is refused. The server spends the fodder row and writes the consumer row. The client plays the server's answer and never its own. A refusal or a lost connection consumes nothing and says so. A retry on the same fodder replays the first answer. After the wipe (<code>GRADE_FREEZE_EPOCH</code>), a fodder the save door adopted without a grant (<code>unsourced</code>) is refused. <strong>Item lock:</strong> a locked creature is no longer offered as fodder, the devour step refuses one, and the door refuses a fodder that the stored save marks locked or that sits in a pen, a party slot or a soul socket. The Devour consumables still run on the client, because nothing mints them. Probe: <code>tools/probe_grades.mjs</code> 7/21 &rarr; 21/21.</li>
     <li><strong>2026-09-30 &mdash; review fixes F162, F163, F164 (client, lane P). On dev.</strong> <strong>F162:</strong> a fodder that lives in the base bag is taken out before the devour commits; when the commit then failed (the consumer moved or changed underneath), the fodder stayed destroyed and the consumer unchanged, and the next save made it permanent. A devour that does not commit now puts the fodder back (a stack gets its count back) and says THE TARGET MOVED &mdash; NOTHING WAS CONSUMED, which is now true. <strong>F163:</strong> a devour into a socketed soul&rsquo;s creature now re-derives the party, like every other soul-slot change. <strong>F164:</strong> the preview said <em>different species &mdash; only XP transfers</em> where the rule is the LINE; it says <em>different line</em>, and the lead paragraph above no longer says &ldquo;same species&rdquo;. Gate <code>tools/probe_review_lanep.mjs</code>.</li>
@@ -220,6 +221,7 @@
   </ul>
 </div>
 <script src="admin.js"></script>
+<script src="csv-bind.js"></script>
 <script src="nav.js"></script>
 </body>
 </html>
