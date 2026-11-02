@@ -380,3 +380,18 @@ chal_wait_note,Aguardando seu desafiante na fila Competitiva · {t},app: pvp cha
 chal_wait_off_note,"Desligado: ele ataca sua defesa, como uma partida de Auto PvP.",app: pvp challenge by code (B16)
 chal_expired_mine,Seu código expirou. Crie um novo.,app: pvp challenge by code (B16)
 chal_band,aguardando o jogador com o seu código {c},app: pvp challenge by code (B16)
+gate_the_tower_keeps_your_climb,A torre guarda a sua escalada em todos os dispositivos.,index.html: sign-in gate: tagline
+gate_sign_in_through_steam,ENTRAR COM A STEAM,index.html: sign-in gate: provider door
+gate_sign_in_with_google,ENTRAR COM O GOOGLE,index.html: sign-in gate: provider door
+gate_sign_in_with_discord,ENTRAR COM O DISCORD,index.html: sign-in gate: provider door
+gate_sign_in_with_apple,ENTRAR COM A APPLE,index.html: sign-in gate: provider door
+gate_your_sign_in_secures,O seu login protege os seus saves e a sua posição no PvP.,index.html: sign-in gate: footnote
+m_dimensional_rift,FENDA DIMENSIONAL,markup: menu tile label (baked in the plate) + rift window title: T48 transfer
+m_send_through_the_rift,ENVIAR PELA FENDA,"app: creature sheet: T48 transfer action (web + Steam shell), was SEND TO HERUMON DUNGEON"
+m_a_copy_goes_through_the_rift_to_herumon_dungeon_free_once_per_creature,"Uma cópia atravessa a fenda até Herumon Dungeon: grátis, uma vez por criatura. Chega no nível 1 e mantém o grau e a condição de mutante. A Torre fica com a sua. Nada volta.",app+markup: creature sheet confirm line + rift window: T48 rules (D 2026-11-02/03)
+m_the_rift_opens_in_the_steam_client,A fenda se abre no cliente Steam. Herumon Tower na Steam envia criaturas por ela; aqui só dá para espiar.,app+markup: creature sheet + rift window on the web build: T48 transfer needs the Steam shell
+m_world_traveler,Viajante de mundos,"app: creature sheet + rift window: T48 mark, ""World traveler - Tower · Dungeon"" (D 2026-11-02)"
+m_world_travelers,VIAJANTES DE MUNDOS,markup: rift window: the sent creatures list header
+m_a_tear_between_the_tower_and_herumon_dungeon,Um rasgo entre a Torre e Herumon Dungeon.,markup: rift window: the intro line
+m_open_a_creatures_sheet_from_the_inventory_and_choose_send_through_the_rift,Abra a ficha de uma criatura no Inventário e escolha ENVIAR PELA FENDA. Só da Torre para o Dungeon: a fenda corre num sentido só.,markup: rift window: how to send
+m_no_creature_has_crossed_yet,Nenhuma criatura atravessou ainda.,markup: rift window: empty travelers list
