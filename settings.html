@@ -118,11 +118,11 @@
     <tr><th>Option</th><th>Control</th><th>Values</th><th>Default</th></tr>
     <tr><td class="lbl">Sign Out</td><td>Action</td><td>saves the climb, ends the session, returns to sign-in</td><td>&mdash;</td></tr>
     <tr><td class="lbl">Player Name</td><td>Static</td><td>set at character creation; no rename in game (D ruling 2026-08-17) &mdash; an admin renames via <code>/api/admin/rename</code></td><td>&mdash;</td></tr>
-    <tr><td class="lbl">Link Account</td><td>Static</td><td><em>Coming</em> &mdash; with Google / Apple / Discord sign-in</td><td>&mdash;</td></tr>
+    <tr><td class="lbl">Link Account</td><td>Segmented</td><td>one segment per configured provider (Steam &middot; Discord &middot; Google &middot; Apple when keyed); gold = linked to this climb; the list is <code>/api/auth/providers</code> (<a href="system-accounts.html">Accounts &amp; Sign-in</a>)</td><td>&mdash;</td></tr>
     <tr><td class="lbl">Cloud Save</td><td>Static (live)</td><td>the time of the last save the server acknowledged; cannot be switched off &mdash; the server owns the save</td><td>&mdash;</td></tr>
     <tr><td class="lbl">Restore Purchases</td><td>Static</td><td><em>Coming</em> &mdash; with the app-store builds</td><td>&mdash;</td></tr>
     <tr><td class="lbl">Export My Data</td><td>Action</td><td>downloads this save as a JSON file, built in the client (no server read)</td><td>&mdash;</td></tr>
-    <tr><td class="lbl">Reset Progress (New Game)</td><td>Action</td><td>wipes this save, back to Floor 1, Lv 1</td><td>&mdash;</td></tr>
+    <tr><td class="lbl">Reset Progress (New Game)</td><td>Action (danger)</td><td>resets <strong>everything</strong> on the account &mdash; save, badges, boards, ratings, bought slots, boons, trades &mdash; back to Floor 1, Lv 1 (T61); the login and paid Wraithgold stay (<a href="system-accounts.html">Accounts</a>)</td><td>&mdash;</td></tr>
     <tr><td class="lbl">Delete Account</td><td>Action (danger)</td><td>Two steps: what goes, then type <strong>DELETE</strong>. Schedules deletion 7 days out and signs out every device; signing in before then offers <em>CANCEL DELETION</em> / <em>CONTINUE</em>. Web link: <a href="delete-account.html">delete-account.html</a></td><td>&mdash;</td></tr>
   </table>
 
@@ -130,7 +130,7 @@
   <table>
     <tr><th>Option</th><th>Control</th><th>Values</th><th>Default</th></tr>
     <tr><td class="lbl">Language</td><td>Segmented</td><td><em>Auto (device)</em> &middot; English &middot; each <code>codex/locales.csv</code> language (today Portugu&ecirc;s (Brasil), fully translated since 2026-11-02)</td><td>Auto</td></tr>
-    <tr><td class="lbl">Text Size</td><td>Static</td><td><em>Coming</em> &mdash; the whole stage scales with the window today</td><td>&mdash;</td></tr>
+    <tr><td class="lbl">Text Size</td><td>&mdash;</td><td><em>Removed</em> (T57) &mdash; the whole stage scales with the window; there is no separate text scale</td><td>&mdash;</td></tr>
     <tr><td class="lbl">Colorblind Mode</td><td>Static</td><td><em>Coming</em> &mdash; needs a second palette</td><td>&mdash;</td></tr>
     <tr><td class="lbl">Reduce Motion</td><td>Toggle</td><td>disables shake, parallax, heavy transitions</td><td>Off</td></tr>
     <tr><td class="lbl">Reduce Flashing</td><td>Toggle</td><td>dampens hit-flash and strobe VFX</td><td>Off</td></tr>
@@ -150,6 +150,7 @@
 
   <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-11-03 &mdash; the Account rows match the live game (D 2026-11-03 codex review; dfmc-client lane codexreview-b). WIKI ONLY.</strong> Link Account is a live segmented row fed by <code>/api/auth/providers</code> (lane googlebtn), not <em>Coming</em>; Reset Progress has the T61 full scope; Text Size is removed (T57), not coming. Help &amp; FAQ and the new <a href="system-accounts.html">Accounts &amp; Sign-in</a> page are the player-facing text.</li>
     <li><strong>2026-11-02 &mdash; Portugu&ecirc;s (Brasil) is translated (rulings card T63 item 5; dfmc-client lane ptbr). Codex data only, no client change.</strong> Every Settings section name, row label, description and note has its pt-BR text (<code>codex/strings_pt-BR.csv</code>, 381/381 keys), so a device set to Portuguese, or the Idioma row set to Portugu&ecirc;s (Brasil), reads this window in Portuguese. The terms, the register and the gate counts: system-client-shell.html, &ldquo;Language &amp; the string table&rdquo;.</li>
     <li><strong>2026-10-23 &mdash; Language is a real control (C22, D T47-5; dfmc-client lane c22-l10n). On dev.</strong> The static &ldquo;More languages are coming&rdquo; row is a picker: Auto (device) follows the device&rsquo;s language, or pick English / any language in <code>codex/locales.csv</code>; stored as the prefs key <code>lang.language</code>. Every Settings label and description now reads through the string table (<code>codex/strings_en.csv</code>, keys <code>set_&lt;section&gt;_&lt;row&gt;_label</code> / <code>_desc</code>), so a translation covers this window. The table, its gate and what it covers: system-client-shell.html, &ldquo;Language &amp; the string table&rdquo;.</li>
     <li><strong>2026-10-23 &mdash; Download My History (A19, BACKLOG &sect; 3, D 2026-10-22; T39 &ldquo;keep the account history forever on the server&rdquo;; dfmc-client lane a19-a10). On dev.</strong> Two action rows at the foot of Notices save the server&rsquo;s own record of the account (JSON, or CSV): ledger totals, every currency grant and spend, item grants, battle drops, trades. The door is <code>GET /api/me/history</code> &mdash; session-bound, paged, read-only; another account&rsquo;s history is refused. The ops-only account log and the battle telemetry are not in it.</li>

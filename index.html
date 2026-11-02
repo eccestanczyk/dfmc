@@ -163,7 +163,7 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     <div class="grid-2">
       <div class="stat-card"><div class="stat-label">Genre</div><div class="stat-val">Competitive Turn-Based RPG / Creature Collector</div></div>
       <div class="stat-card"><div class="stat-label">Platform</div><div class="stat-val">PC — Steam (F2P)</div></div>
-      <div class="stat-card"><div class="stat-label">Engine</div><div class="stat-val">Unity 6.5 Personal</div></div>
+      <div class="stat-card"><div class="stat-label">Engine</div><div class="stat-val">Web client (HTML/JS) + Cloudflare Worker</div></div>
       <div class="stat-card"><div class="stat-label">Art style</div><div class="stat-val">Dark fantasy, AI-generated painting</div></div>
     </div>
     <h3>Concept</h3>
@@ -172,7 +172,8 @@ pre{ font-family:'Courier New', monospace; font-size:13px; background:var(--surf
     <div class="grid-2">
     </div>
     <h3>Ladders</h3>
-    <ul><li>PvP ladder — ranked 3v3 combat, tracked per season and all-time</li><li>Progress (floor) ladder — highest floor reached, tracked per season and all-time</li></ul>
+    <ul><li>PvP ladder — ranked 3v3 combat, all-time (there are no seasons: #900 / T33, 2026-09-14)</li><li>Progress (floor) ladder — highest floor reached, all-time</li></ul>
+    <p style="font-size:13px;color:#c2ae8b">The boards, the rankings window and the public profile are on <a href="system-pvp.html">system-pvp.html</a> and <a href="system-profiles.html">system-profiles.html</a>.</p>
     <h3 id="art-pipeline">Art pipeline</h3>
     <p style="font-size:13px;color:#c2ae8b">Dark-fantasy painterly style generated with <code>gpt-image-2.5-flare</code> (pinned snapshot <code>gpt-image-2.5-flare-2026-09-08</code>) via OpenAI API (sizes in use: 1024&times;1024, 1536&times;1024, 1024&times;1536, and 1536&times;512 / 512&times;1536 for strips). <strong>Generation model is <code>gpt-image-2.5-flare</code> everywhere</strong> (creatures, floors, props, item icons) — it is sharper than every predecessor (~1.5&ndash;2&times; the edge sharpness of <code>gpt-image-1.5</code>, ~6&times; <code>gpt-image-1</code>); the legacy <code>gpt-image-1</code>/<code>gpt-image-1.5</code> models are deprecated for generation. <strong>Transparency:</strong> <code>gpt-image-2.5-flare</code> renders <code>background:"transparent"</code> natively. The PvP Arena (2026-09-28) and Premium Shop (2026-10-01) ornament sets ship the API's own alpha with no matte pass (<code>tools/make_pvp_art.py</code>, <code>tools/make_shop_art.py</code> in the client repo). The old <code>gpt-image-2-2026-04-21</code> rejected transparent, which is where the opaque-then-matte rule came from. <strong>X7 is ruled (T23, 2026-10-18: &ldquo;Model cuts it out; cutout service as backup&rdquo;):</strong> new creature art is generated <code>background:"transparent"</code> on <code>gpt-image-2.5-flare</code> and ships the API's own alpha (<code>tools/make_creature_art.py</code> in the client repo, first used for DFMC-301&ndash;312 on 2026-11-02); the remove.bg + despill pass below is the BACKUP for a roll whose alpha comes back bad. The opaque-then-matte rule that follows is the record of how the 300 approved rows were made and still governs any legacy chroma art: generate opaque on a flat neutral background whose value CONTRASTS the creature's dominant luminance, then obtain transparency via the remove.bg + despill pass below. <strong>Adaptive background rule (remove.bg segments by contrast — a same-tone background destroys the subject):</strong> dark/black-dominant creatures &rarr; flat WHITE or light-gray background. To force the model to actually render a light backdrop, describe the BACKGROUND as "a plain flat pure-white seamless backdrop" &mdash; but do NOT describe the LIGHTING as "studio / high-key / bright even lighting / product shot": that phrasing desaturates and flattens the creature (measured creature saturation drops to ~16&ndash;38 vs ~70 on a dark backdrop), producing washed-out photographic results that lose the dark-fantasy style. <strong>Background color and creature lighting are INDEPENDENT.</strong> Always keep the creature description on "richly saturated vivid colors, dramatic dark-fantasy rim lighting with deep shadows, moody painterly rendering, NOT washed out, NOT overexposed" regardless of background value; light/white-dominant creatures &rarr; flat dark-gray or black background; mid-tone creatures &rarr; mid-gray (#808080). NEVER strong chroma (green/magenta/pink) &mdash; they bake edge halos no pass can fully clean. After a white/light background, run a white-halo despill (darken over-bright edge-band pixels) in addition to the green/magenta despill. (The &ldquo;native transparency is 1.x only&rdquo; note that stood here was written against <code>gpt-image-2-2026-04-21</code>; <code>gpt-image-2.5-flare</code> renders it, see Transparency above.) Legacy creature art follows this pipeline:</p>
     <div class="card"><div class="card-title">Creature art pipeline (per line, 3 images)</div>
@@ -721,6 +722,7 @@ FinalDamage = RawDamage
     </ul>
 
     <h3>Season end migration</h3>
+    <div class="note" style="border-color:#8a7a5e;color:#c2ae8b"><strong style="color:#e8c547">SUPERSEDED &mdash; history.</strong> There are no seasons in the game (D, #900 2026-09-14; T33). Nothing below runs. The live death rules are on <a href="system-realms.html">system-realms.html</a>.</div>
     <div class="arrow">↓</div>
     <div style="height:16px"></div>
     <div class="arrow">↓</div>
@@ -746,8 +748,8 @@ The mark is provenance-only and persists through trades — death-marked creatur
     <p>All metagame systems are accessible as UI panels at any time during PvE floors, including during battles. They are locked during PvP. There is no physical base — everything is menu-driven.</p>
     <div class="grid-2">
       <div class="card"><div class="card-title">🧬 Breeding</div><div class="card-body">Six breeding pens (1 free, 1 bought with Ichor, 4 DLC). A pen holds a ♂/♀ pair sharing at least one type; toggled on, it drains Ichor per minute and fills a bar, dropping an egg into inventory each time it completes and continuing automatically. Rates key off pair grade P = ⌊mean of parent grades⌋. Parents are locked out of the battle party; removing one resets the meter. Full rules: <a href="system-breeding.html" style="color:var(--gold-bright)">Breeding</a>.</div></div>
-      <div class="card"><div class="card-title">🔧 Crafting</div><div class="card-body">Recipe list in UI. Select recipe, confirm materials, receive output. Materials sourced from battle rewards.</div></div>
-      <div class="card"><div class="card-title">🥚 Hatchery</div><div class="card-body">Egg incubation managed via UI. Set eggs to incubate, return after the timer. Hatchery level (upgraded via crafting resources) improves grade odds and slot count.</div></div>
+      <div class="card"><div class="card-title">🔧 Crafting <span style="color:#cf4530;font-size:12px">REMOVED 2026-10-01</span></div><div class="card-body">Removed from the game (D, card <code>craft</code>). Materials feed <a href="upgrading.html">Upgrading</a>; the record is <a href="crafting.html#archive">crafting.html</a>.</div></div>
+      <div class="card"><div class="card-title">🥚 Hatchery <span style="color:#8a7a5e;font-size:12px">SUPERSEDED</span></div><div class="card-body">Eggs hatch from the soul bag at once &mdash; one, or Hatch All from floor 8 (<a href="eggs.html">eggs.html</a>, <a href="system-unlocks.html">unlocks</a>). The original design: Egg incubation managed via UI. Set eggs to incubate, return after the timer. Hatchery level (upgraded via crafting resources) improves grade odds and slot count.</div></div>
     </div>
 
     <h3>Creature acquisition</h3>
@@ -766,7 +768,7 @@ The mark is provenance-only and persists through trades — death-marked creatur
 
     <div class="card">
       <div class="card-title">⭐ Starter creatures</div>
-      <div class="card-body">Granted at character creation via the class-select screen — each starter class carries two fixed creatures, one SR and one SSR line, at Worn quality grade. Genders roll 50/50 at grant; starter creatures are account-bound (never tradeable). Later class unlocks grant no creatures. Assignments: Warrior — Ferrodrake (SR) + Ridgedrake (SSR); Mage — Phylactery (SR) + Pyriel (SSR); Archer — Typhon (SR) + Stormfather (SSR).</div>
+      <div class="card-body">Granted at character creation via the class-select screen — each starter class carries two fixed creatures, two <strong>Common</strong> lines at Worn quality grade (D 2026-11-02; <code>classes.csv Starter_A / Starter_B</code>). Genders roll 50/50 at grant on the server; starter creatures are account-bound (never tradeable). Later class unlocks grant no creatures. Assignments: Warrior — Thornback (Bristle) + Cindershard (Ember); Mage — Stormcrow (Fledgling) + Gloomcap (Button); Archer — Dusthound (Whelp) + Gustwing (Chick).</div>
     </div>
 
     <h3>Ichor</h3>
@@ -782,6 +784,7 @@ The mark is provenance-only and persists through trades — death-marked creatur
 <!-- /gen:ichor -->
 
     <h3>Incubation & hatchery</h3>
+    <div class="note" style="border-color:#8a7a5e;color:#c2ae8b"><strong style="color:#e8c547">SUPERSEDED &mdash; history.</strong> There is no incubation and no hatchery panel. An egg in the soul bag hatches on the spot (single hatch from floor 1, Hatch All from floor 8); the hatch roll is the server's and its weights are <code>egg_hatch_weights.csv</code> on <a href="eggs.html">eggs.html</a>.</div>
     <p>All eggs must be incubated before hatching, managed via the Hatchery UI panel. The hatchery has two upgrade vectors, improved by spending crafting resources:</p>
     <table>
       <tr><th>Hatchery upgrade</th><th>Effect</th></tr>
@@ -1008,13 +1011,13 @@ The mark is provenance-only and persists through trades — death-marked creatur
     <p>Gems, runes, and scrolls are items in their own right: each has a <strong>level tier</strong> (10 named tiers matching the 10 level brackets — e.g. Rough &rarr; Cut &rarr; &hellip; &rarr; Radiant &rarr; Sublime for gems) and a <strong>grade</strong> (Worn&ndash;Void). An enhancement's tier must be &le; the gear's tier to socket. Full tier ladders and all values live in the <a href="stat-tables.html" style="color:var(--gold-bright)">Stat &amp; Equipment Tables</a>.</p>
     <table>
       <tr><th>Family</th><th>Dismantles into</th><th>Material pays for</th></tr>
-      <tr><td>💎 Gems</td><td style="color:#ede0c4">Dust</td><td>Crafting new gems, grading gems up</td></tr>
-      <tr><td>🔷 Runes</td><td style="color:#ede0c4">Essence</td><td>Crafting new runes, grading runes up</td></tr>
-      <tr><td>📜 Scrolls</td><td style="color:#ede0c4">Ink</td><td>Crafting new scrolls, grading scrolls up, rerolling a socketed scroll's modifier (3 &times; tier Ink)</td></tr>
+      <tr><td>💎 Gems</td><td style="color:#ede0c4">Dust</td><td>Grading gems up (crafting removed 2026-10-01)</td></tr>
+      <tr><td>🔷 Runes</td><td style="color:#ede0c4">Essence</td><td>Grading runes up (crafting removed 2026-10-01)</td></tr>
+      <tr><td>📜 Scrolls</td><td style="color:#ede0c4">Ink</td><td>Grading scrolls up (crafting removed 2026-10-01), rerolling a socketed scroll's modifier (3 &times; tier Ink)</td></tr>
     </table>
     <ul>
       <li>Dismantle yield: <code>tier &times; grade#</code> material (a T10 Rare gem &rarr; 40 Dust)</li>
-      <li>Craft: <code>6 &times; tier</code> material produces a Worn enhancement of chosen type at that tier — the junk-to-on-tier conversion loop</li>
+      <li><s>Craft: <code>6 &times; tier</code> material produces a Worn enhancement of chosen type at that tier</s> — crafting was removed 2026-10-01 (<a href="crafting.html#archive">record</a>); grading is the material sink (<a href="upgrading.html">Upgrading</a>)</li>
       <li>Grading up uses the same success ladder as gear (paid in the family material instead of Ichor)</li>
       <li>Removing a socketed gem or rune <strong>destroys it</strong>; the socket is freed</li>
       <li>Materials (Dust / Essence / Ink) are freely tradeable commodities; enhancement items follow the grade-5+ trade gate</li>
@@ -1121,12 +1124,13 @@ Character total:
     </table>
 
     <h3>Nothing is useless</h3>
-    <p>Every drop has value, however marginal. All gear dismantles into <strong style="color:#c2ae8b">Scrap</strong> (plus Ichor at Rare+), and Scrap crafts the next tier of equipment. All enhancements dismantle into their family material (Dust / Essence / Ink), which crafts and grades the next tier of enhancements. A Worn Rough gem drop at floor 95 is still Dust in the pipeline.</p>
+    <p>Every drop has value, however marginal. All gear dismantles into <strong style="color:#c2ae8b">Scrap</strong> (plus Ichor at Rare+), and Scrap pays for gear grading and class unlocks (crafting was removed 2026-10-01). All enhancements dismantle into their family material (Dust / Essence / Ink), which grades the next tier of enhancements. A Worn Rough gem drop at floor 95 is still Dust in the pipeline.</p>
 
     <h3>Gear crafting &amp; level requirements</h3>
+    <div class="note" style="border-color:#8a7a5e;color:#c2ae8b"><strong style="color:#e8c547">SUPERSEDED &mdash; history.</strong> The <em>Craft gear</em> row below is history: crafting was removed from the game 2026-10-01 (D, card <code>craft</code>; <a href="crafting.html#archive">record</a>). The level-requirement rows are live and are the rule (<code>items.csv Level_Req</code>).</div>
     <table>
       <tr><th>Rule</th><th>Detail</th></tr>
-      <tr><td>Craft gear</td><td><code>25 &times; tier</code> Scrap produces a Worn item of chosen slot and base type at that tier (T10 = 250 Scrap)</td></tr>
+      <tr><td><s>Craft gear</s> (removed)</td><td><s><code>25 &times; tier</code> Scrap produces a Worn item of chosen slot and base type at that tier (T10 = 250 Scrap)</td></tr>
       <tr><td>Equip requirement — character gear</td><td>Tier N requires <strong>account level</strong> &ge; (N&minus;1)&times;10 (T1 = level 1, T2 = 10, &hellip; T10 = 90) &mdash; <code>items.csv Level_Req</code>, judged against the account level (D ruling 2026-08-25: &ldquo;Account level gates gear&rdquo;; the class level plays no part). Gear above the account's level cannot be equipped.</td></tr>
       <tr><td>Equip requirement — Tags</td><td>Same thresholds against the <em>creature's</em> level: Tag A/B of Monster I test Monster I's level, Tag A/B of Monster II test Monster II's. A tag slot whose creature slot is empty has no level to test and is not gated (the tag is judged the moment a creature is seated).</td></tr>
       <tr><td>Gems, runes, scrolls</td><td>Carry the same <code>Level_Req</code> ladder ((tier&minus;1)&times;10) and test the level of the piece's wearer: the account level in character gear, the creature's level in a tag. Socketing and enchanting refuse above level, before anything is consumed or rolled.</td></tr>
@@ -1194,6 +1198,7 @@ All progression currencies flow from battles, denominated in battles (~109 battl
 <!-- /gen:chase -->
 
     <h3>Monetization model</h3>
+    <div class="note" style="border-color:#8a7a5e;color:#c2ae8b"><strong style="color:#e8c547">SUPERSEDED &mdash; history.</strong> What is live: free to play, Wraithgold as the only premium currency with a server-owned ledger (<a href="system-premium-shop.html">Premium Shop</a>), no battle pass and no seasons (T33), no marketplace. Real-money purchases open when the Steam partner account does; no account starts with Wraithgold (T56). The list below is the original plan.</div>
     <ul><li>Free to play on Steam</li><li>Microtransactions via Steam / Unity Economy</li><li>Battle pass per season</li><li>Steam takes 5% market fee + configurable game fee (up to ~10%)</li></ul>
     <div class="note note-info"><p>Cosmetics-only monetization is safer for player reception and avoids regulatory issues in certain markets. Decide scope early.</p></div>
     <h3>Steam marketplace integration</h3>
@@ -1230,6 +1235,7 @@ On fungible Community Market listings the mark is not visible pre-purchase (inst
   <!-- TECH -->
   <div id="tech" class="page">
     <h2>Tech stack</h2>
+    <div class="note" style="border-color:#8a7a5e;color:#c2ae8b"><strong style="color:#e8c547">SUPERSEDED &mdash; history.</strong> The game is not built in Unity. The live stack is a single-page web client (<code>play/app.js</code>, <code>play/markup.html</code>) on a 1920&times;1080 stage, a Cloudflare Worker with Durable Objects (<code>src/worker.js</code>), R2 backups, Steam / Google / Discord sign-in, and an Electron shell for the Steam download. See <a href="system-client-shell.html">Client Shell</a>, <a href="system-networking.html">Networking</a>, <a href="system-integrity.html">Integrity</a>, <a href="system-accounts.html">Accounts</a>. The Unity plan below is kept as history.</div>
     <h3>Unity packages</h3>
     <table>
       <tr><th>Package</th><th>Purpose</th></tr>
@@ -1279,6 +1285,7 @@ On fungible Community Market listings the mark is not visible pre-purchase (inst
   <!-- ROADMAP -->
   <div id="roadmap" class="page">
     <h2>Build roadmap</h2>
+    <div class="note" style="border-color:#8a7a5e;color:#c2ae8b"><strong style="color:#e8c547">SUPERSEDED &mdash; history.</strong> The phases below were the Unity plan. The shipped game is tracked by release (0.92 live, 0.93 on dev) in the dfmc-client repo; <a href="checklist.html">checklist.html</a> is the same history.</div>
 
     <h3>Active: Simplified Static (prototype)</h3>
     <p>Click-to-battle prototype — no player avatar, no grid movement. The map displays a ground plate with props and creatures wandering around. The player hovers over creatures to see rarity, clicks to battle. Floor progression rules unchanged.</p>
@@ -1437,7 +1444,7 @@ On fungible Community Market listings the mark is not visible pre-purchase (inst
       <tr><td><span style="color:#c2ae8b">Scrap</span></td><td>Gear crafting (25 &times; tier) and gear grading</td></tr>
       <tr><td><span style="color:#c2ae8b">Scrap</span></td><td>Grading gear up the Worn&ndash;Void ladder &mdash; tier-scaled attempt costs (2026-07-31); enhancements grade in Dust / Essence / Ink</td></tr>
       <tr><td>Ichor</td><td>Unified breeding currency — from completing battles and dismantling eggs</td></tr>
-      <tr><td><span style="color:#9fe0d0">Wraithgold</span></td><td><strong style="color:#ede0c4">Premium.</strong> Bought with real money — it never drops and no amount of play produces it. Its sinks today are soul-bag expansion and the <a href="system-premium-shop.html" style="color:#9fe0d0">Premium Shop</a>. It is held in a server-owned append-only ledger, not in the save, and a progress wipe never destroys it. PvP ladder and tournament payouts are planned and will be the only earned source that ever exists.</td></tr>
+      <tr><td><span style="color:#9fe0d0">Wraithgold</span></td><td><strong style="color:#ede0c4">Premium.</strong> Bought with real money — it never drops and no amount of play produces it. Its sinks today are soul-bag expansion and the <a href="system-premium-shop.html" style="color:#9fe0d0">Premium Shop</a>. It is held in a server-owned append-only ledger, not in the save. A <em>Reset Progress</em> keeps only Wraithgold with paid provenance (T61 / T3, 2026-11-02): free or earned Wraithgold resets with the climb. Purchases are not open yet (T56: no account starts with any). PvP ladder and tournament payouts are planned and will be the only earned source that ever exists.</td></tr>
     </table>
     <p style="font-size:13px;color:#c2ae8b">Wraithgold buys a <em>determined</em> outcome only. Real money never buys a random draw anywhere in this game — no paid hatch, no paid roll, no paid grading attempt.</p>
 
@@ -1818,6 +1825,7 @@ async function loadBalance() {
 }
 </script>
 <h2>Changelog</h2>
+<p><strong>2026-11-03 &mdash; GDD audit against the live game (D 2026-11-03: &ldquo;review the codex, clean it up, update whatever needs updating to make sure it's coherent with the current state of the game&rdquo;; dfmc-client lane codexreview-b). WIKI ONLY.</strong> Marked <em>superseded, history</em> with a pointer to the owning page: Season end migration (no seasons, #900 / T33), Incubation &amp; hatchery (eggs hatch from the soul bag), Gear crafting (removed 2026-10-01), the Monetization model (no battle pass, store not open, T56), Tech stack and Build roadmap (web client + Worker, not Unity). Corrected in place: the Engine card, the ladders (all-time only), the Starter creatures card (two Commons per class from <code>classes.csv Starter_A/B</code>, matching the Starter classes paragraph), the enhancement material table and the Wraithgold row (T61 reset keeps paid rows only). New pages linked: <a href="system-accounts.html">Accounts</a>, <a href="system-profiles.html">Profiles</a>, <a href="system-unlocks.html">Unlocks</a>, <a href="system-feedback.html">Report Panel</a>.</p>
 <p><strong>2026-11-02 &mdash; Starter classes: the starter pair is two Commons, not an SR + SSR (D 2026-11-02 in chat: &ldquo;need to downgrade the starter options to common monsters, not SSR&rdquo;; dfmc-client lane starterdown).</strong> Dev data now; reaches players at the next DATA_PIN (the client and the server's bake both read <code>classes.csv</code> at the pin). The columns <code>Starter_SR</code> / <code>Starter_SSR</code> are renamed <code>Starter_A</code> / <code>Starter_B</code> and carry Common stage-1 ids of the class's flavour: <strong>Warrior</strong> DFMC-001 Bristle (Thornback, Beast, floor 1) + DFMC-271 Ember (Cindershard, Construct/Elemental) &middot; <strong>Mage</strong> DFMC-154 Fledgling (Stormcrow, Avian/Elemental) + DFMC-211 Button (Gloomcap, Fungal) &middot; <strong>Archer</strong> DFMC-004 Whelp (Dusthound, Beast, floor 1) + DFMC-151 Chick (Gustwing, Avian). Before: Warrior Ingot (SR) + Drakeling (SSR), Mage Reliquary (SR) + Wildfire (SSR), Archer Tempest (SR) + Riptide (SSR). The pair shape, the Worn grade, the server-rolled genders and the server mint (F299, system-networking.html) are unchanged; the creation card now tints each creature by its own rarity instead of a fixed SR/SSR colour. Existing accounts keep the starters they were minted.</p>
 <p><strong>2026-11-02 &mdash; Art pipeline: creature art is cut out by the model (ruling T23 / codex X7); the four C7 lines DFMC-301&ndash;312 are the first rows made that way (dfmc-client lane art12, rulings card T63 item 3). Dev data now; reaches players at the next DATA_PIN / ART_REF.</strong> The Art pipeline paragraph above said creature art kept the opaque-then-matte rule &ldquo;until D rules on X7&rdquo; and that native transparency was 1.x-only; T23 (2026-10-18) ruled &ldquo;Model cuts it out; cutout service as backup&rdquo;, so the paragraph now records it: new creature art is generated <code>background:transparent</code> on <code>gpt-image-2.5-flare</code> and ships the API&rsquo;s alpha, remove.bg is the backup for a bad roll, the old rule stays as the record of the 300 approved rows and of legacy chroma art. Tool: dfmc-client <code>tools/make_creature_art.py</code> (STYLE + row Image_Prompt + cutout, one call per row, matte-only alpha fix &times;255/252 and haze &le; 8 cut, the eight derived files, Art_Status pending &rarr; review). Details on <a href="creature.html">creature.html</a>&rsquo;s changelog.</p>
 <p><strong>2026-10-26 &mdash; Art pipeline: a refused floor creature retries against <code>main</code> (dfmc-client lane artretry, next-run 10-26 Step 3 item 8). Dev build now; release with the next ritual.</strong> The battle-floor sprite was a bare <code>&lt;img&gt;</code> with no error handler, so a creature whose art the CDN refused at the pinned SHA (jsDelivr will not cold-fetch a file on a 3.2 GB repo, OPS 2026-09-14) stayed a broken glyph. It now carries the same one-retry fallback the advancement scene uses: a failed <code>dfmc@&lt;sha&gt;</code> URL is retried once at <code>dfmc@main</code>; a miss on <code>main</code> is left alone, so it cannot loop. The retry is remembered per URL, not per element, because the floor reuses one sprite element for every creature that stands in that slot. No game rule changed. Gate: <code>tools/probe_artfallback.py</code>.</p>
