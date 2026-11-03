@@ -576,3 +576,7 @@ link_pend_unnamed,unnamed,"settings: link confirm (SEC-14, a link started off-or
 link_pend_button,LINK,"settings: link confirm (SEC-14, a link started off-origin)"
 link_pend_fail_title,NOT LINKED,"settings: link confirm (SEC-14, a link started off-origin)"
 link_pend_gone,This link request has expired or was not started here. Start it again from Settings.,"settings: link confirm (SEC-14, a link started off-origin)"
+gate_update_required,UPDATE REQUIRED,index.html: update-required screen: title
+gate_update_required_msg,The tower has moved on to build {build}. Update to keep climbing - your climb is safe on the server.,index.html: update-required screen: message; {build} = the release build
+gate_update_reload,RELOAD,index.html: update-required screen: button (web)
+gate_update_restart,RESTART TO UPDATE,index.html: update-required screen: button (Steam / desktop shell)

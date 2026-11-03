@@ -576,3 +576,7 @@ link_pend_unnamed,名前なし,"settings: link confirm (SEC-14, a link started o
 link_pend_button,連携する,"settings: link confirm (SEC-14, a link started off-origin)"
 link_pend_fail_title,連携されていません,"settings: link confirm (SEC-14, a link started off-origin)"
 link_pend_gone,この連携リクエストは期限切れか、ここで開始されたものではありません。設定からもう一度始めてください。,"settings: link confirm (SEC-14, a link started off-origin)"
+gate_update_required,アップデートが必要です,index.html: update-required screen: title
+gate_update_required_msg,塔はビルド {build} に更新されました。登り続けるにはアップデートしてください。進行状況はサーバーに保存されています。,index.html: update-required screen: message; {build} = the release build
+gate_update_reload,再読み込み,index.html: update-required screen: button (web)
+gate_update_restart,再起動してアップデート,index.html: update-required screen: button (Steam / desktop shell)
