@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<base href="../"><!-- workflow/ (D 2026-11-03): not published; serve the dfmc root locally (python -m http.server) and open /workflow/<page>. Assets and links resolve from the root. -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Backend, Save &amp; Anti-Cheat — Herumon Tower</title>
@@ -333,7 +334,7 @@
   </table>
 
   <h2>The farm view (S1 Steam market, 2026-11-03)</h2>
-  <p>The market is built as a <strong>mirror</strong> (see <a href="system-integrity.html">system-integrity</a>): an export takes the row out of the save and mints a Steam item, an import consumes the Steam item and puts the row back. Every committed export and import is logged twice &mdash; in the player&rsquo;s object (<code>market_ledger</code>, the atomic half) and in the World object (<code>market_world</code>, one row per account per act). <code>GET /api/ops/market/exports?steamid=&amp;day=</code> (ops key) reads the World rows and answers <code>farm</code>: per <code>(steamid, day)</code> the exports and imports, sorted by exports &mdash; a farm is a steamid at the daily cap every day. The gates this page asked for: <em>per-account export cap</em> (<code>MARKET_EXPORTS_PER_DAY</code>, 5), <em>account age</em> (<code>MARKET_MIN_SESSION_DAYS</code>, 7), the <em>kill-switch</em> (<code>MARKET_ENABLED</code> unset &rarr; every market door 404; the ops view stays readable). Steam&rsquo;s own $5 limited-account rule applies before ours. Not built: the progression-gated unlock and listing telemetry (config / analytics rows above).</p>
+  <p>The market is built as a <strong>mirror</strong> (see <a href="workflow/system-integrity.html">system-integrity</a>): an export takes the row out of the save and mints a Steam item, an import consumes the Steam item and puts the row back. Every committed export and import is logged twice &mdash; in the player&rsquo;s object (<code>market_ledger</code>, the atomic half) and in the World object (<code>market_world</code>, one row per account per act). <code>GET /api/ops/market/exports?steamid=&amp;day=</code> (ops key) reads the World rows and answers <code>farm</code>: per <code>(steamid, day)</code> the exports and imports, sorted by exports &mdash; a farm is a steamid at the daily cap every day. The gates this page asked for: <em>per-account export cap</em> (<code>MARKET_EXPORTS_PER_DAY</code>, 5), <em>account age</em> (<code>MARKET_MIN_SESSION_DAYS</code>, 7), the <em>kill-switch</em> (<code>MARKET_ENABLED</code> unset &rarr; every market door 404; the ops view stays readable). Steam&rsquo;s own $5 limited-account rule applies before ours. Not built: the progression-gated unlock and listing telemetry (config / analytics rows above).</p>
 
   <h2>What other games teach</h2>
   <table>
@@ -419,7 +420,7 @@
   <code>pvpm</code> 120&nbsp;/&nbsp;90 (<code>/api/db/m/</code>), <code>wallet</code> 24&nbsp;/&nbsp;40,
   <code>roll</code> 300&nbsp;/&nbsp;240 (<code>/api/roll</code>, <code>/api/hatch</code>, <code>/api/breed/claim</code>),
   <code>other</code> 40&nbsp;/&nbsp;24, plus a blanket <code>ip_all</code> of 600&nbsp;/&nbsp;360 per address, checked after the
-  session gate and the per-account bucket (see <a href="system-networking.html">system-networking</a>). An empty bucket answers
+  session gate and the per-account bucket (see <a href="workflow/system-networking.html">system-networking</a>). An empty bucket answers
   <code>429 {error:'rate'}</code>.</p>
   <div class="note"><strong><code>wallet</code> exists because a generic bucket punished a normal player
   (2026-08-04).</strong> <code>/api/wallet/spend</code> and <code>/api/shop/buy</code> matched no prefix, so
@@ -842,7 +843,7 @@
       rows and tombstones (realm is fixed to <code>standard</code>; a <code>realm</code> param is ignored).</td></tr>
     <tr><td class="lbl"><code>GET /api/backup/drops?key=&amp;sid=</code></td><td><code>drops_granted</code>: what the server handed out per battle event (pruned at 7 days); optional <code>from</code>/<code>to</code>.</td></tr>
     <tr><td class="lbl"><code>GET /api/backup/facts?key=&amp;sid=</code></td><td>The server's own record for the account: the ratchet it credited and the xp/Ichor/kills/battles ledger built from credited battles.</td></tr>
-    <tr><td class="lbl"><code>GET /api/backup/history?key=&amp;sid=</code></td><td>The <code>save_hist</code> ring (time-spaced; see <a href="system-networking.html">system-networking</a>).</td></tr>
+    <tr><td class="lbl"><code>GET /api/backup/history?key=&amp;sid=</code></td><td>The <code>save_hist</code> ring (time-spaced; see <a href="workflow/system-networking.html">system-networking</a>).</td></tr>
     <tr><td class="lbl"><code>GET /api/backup/export?key=&amp;sid=[&amp;live=1]</code></td><td>The stored save; <code>live=1</code> asks the player's own object instead of the R2 mirror.</td></tr>
     <tr><td class="lbl"><code>GET /api/backup/list?key=&amp;sid=</code></td><td>The account's R2 mirror slots.</td></tr>
     <tr><td class="lbl"><code>GET /api/backup/pvpq?key=</code></td><td>The PvP matchmaking queue (without <code>end</code>; see the write doors).</td></tr>

@@ -13,7 +13,7 @@ import glob, os, re, sys
 SITE = sys.argv[1] if len(sys.argv) > 1 else os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 NUM = re.compile(r'(?<![\w#.-])\d[\d,]*(?:\.\d+)?%?')
 tot = 0; rows = []
-for p in sorted(glob.glob(os.path.join(SITE, '*.html'))):
+for p in sorted(glob.glob(os.path.join(SITE, '*.html')) + glob.glob(os.path.join(SITE, 'workflow', '*.html'))):  # workflow/: unpublished team pages (2026-11-03)
     s = open(p, encoding='utf-8').read()
     s = re.split(r'<h2[^>]*>\s*Changelog', s)[0]
     s = re.sub(r'<!-- gen:([\w-]+) -->.*?<!-- /gen:\1 -->', ' ', s, flags=re.S)

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<base href="../"><!-- workflow/ (D 2026-11-03): not published; serve the dfmc root locally (python -m http.server) and open /workflow/<page>. Assets and links resolve from the root. -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Analytics &amp; Telemetry — Herumon Tower</title>
@@ -36,7 +37,7 @@ code{background:var(--surface-2);border:1px solid var(--rule-faint);padding:1px 
 <div class="topbar"><h1 style="font-family:'Cinzel',serif;">ANALYTICS &amp; TELEMETRY</h1></div>
 <div class="sp-wrap">
   <div class="sp-crumb"><a href="hub.html">Hub</a> &rsaquo; Dev Tools &rsaquo; Analytics &amp; Telemetry</div>
-  <p class="sp-lead">Canonical plan (v1, July 2026) for hypothesis-driven telemetry: what we measure, where each number comes from, and which authored lever it moves. Purpose per design notes: rebalance drop rates, abilities, stats, general strength, and upgrade chances from observed progression speed — <strong>the default analytical lens is the non-buyer (self-found) player; every tracked metric must map to a named lever (a CSV column, a formula constant, or a Remote Config value); and balance truth comes from the server plane, never from client claims.</strong> Companion to <a href="admin-backend.html">Backend, Save &amp; Anti-Cheat</a>, which already mandates: UGS Analytics stays OFF (MAU-metered) — use free telemetry.</p>
+  <p class="sp-lead">Canonical plan (v1, July 2026) for hypothesis-driven telemetry: what we measure, where each number comes from, and which authored lever it moves. Purpose per design notes: rebalance drop rates, abilities, stats, general strength, and upgrade chances from observed progression speed — <strong>the default analytical lens is the non-buyer (self-found) player; every tracked metric must map to a named lever (a CSV column, a formula constant, or a Remote Config value); and balance truth comes from the server plane, never from client claims.</strong> Companion to <a href="workflow/admin-backend.html">Backend, Save &amp; Anti-Cheat</a>, which already mandates: UGS Analytics stays OFF (MAU-metered) — use free telemetry.</p>
 
   <h2>Requirements traceability</h2>
   <p>The four driving design notes and where each lands in this plan:</p>

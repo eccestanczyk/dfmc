@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<base href="../"><!-- workflow/ (D 2026-11-03): not published; serve the dfmc root locally (python -m http.server) and open /workflow/<page>. Assets and links resolve from the root. -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Networking Architecture — Herumon Tower</title>
@@ -25,7 +26,7 @@
   <p class="sp-lead">How the client and the backend talk, what each side is allowed to decide, and what every call costs.
   <strong style="color:var(--ink)">Read this before changing anything in <code>src/worker.js</code> or any code path that makes a network call.</strong>
   The stack is Cloudflare Workers plus SQLite-backed Durable Objects. The older
-  <a href="system-integrity.html">Save, Economy &amp; Anti-Cheat</a> page describes the retired Unity/UGS design and is kept for its
+  <a href="workflow/system-integrity.html">Save, Economy &amp; Anti-Cheat</a> page describes the retired Unity/UGS design and is kept for its
   <em>doctrine</em> only &mdash; its named services no longer apply.</p>
 
   <h2>Doctrine</h2>
@@ -119,7 +120,7 @@
   doors above are wired they are backend that protects nothing in practice &mdash; the exploit stays open on the client.</div>
 
   <h3>The unlock ladder &mdash; doors that refuse below the rung (T6 part 2, 2026-10-22)</h3>
-  <p>The ladder is <code>codex/unlocks.csv</code> (see <a href="index.html">index.html</a>, "System unlocks"), read through the pinned codex like every
+  <p>The ladder is <code>codex/unlocks.csv</code> (see <a href="workflow/index.html">index.html</a>, "System unlocks"), read through the pinned codex like every
   authored table and judged on the account's <strong>best floor</strong> - the server's progress ratchet (<code>PlayerDO.progressOf</code>), never the
   current floor. The Worker stamps the forwarded request (<code>x-lock: system:floor</code>, always reset first so a client-sent header never reaches
   the object) and the player's object answers <code>403 {error:'locked', system, floor, maxf}</code>; the world doors and the trader refuse in the
@@ -142,7 +143,7 @@
 
   <h3>The scripted opening &mdash; guaranteed drops (T6 part 4, 2026-10-22)</h3>
   <p>B1 (D 2026-09-09): "the guaranteed items exist so the lesson never waits on RNG". Drops are server-rolled (D 2026-07-31: hardcoded never, client
-  authority never), so a guaranteed drop is a server rule from a codex row. <code>codex/opening.csv</code> (see <a href="index.html">index.html</a>, "The
+  authority never), so a guaranteed drop is a server rule from a codex row. <code>codex/opening.csv</code> (see <a href="workflow/index.html">index.html</a>, "The
   opening") is read like <code>unlocks.csv</code> - the pinned ref, an hourly cache, fails <strong>open</strong> with one <code>OPENING_OPEN</code> ops line
   per ten minutes (no table = no guaranteed drop, never a failed battle) - and rides the battle event into the object as <code>_opening</code>, because the
   object never fetches. A row with a Selection is a guaranteed drop for the clear of its Floor: the object's only floor-clear signal is the progress ratchet,
@@ -195,7 +196,7 @@
     <tr><td class="lbl"><code>/api/backup/export</code></td><td><code>FEEDBACK_KEY</code></td><td>Default reads the R2 <em>mirror</em> (<code>source:"r2-mirror"</code>, sweep-time copy, env-scoped); <code>live=1</code> reads the player object's actual SQL (<code>source:"live"</code>) &mdash; the only truth read. One diagnosis session was built on mirrors mistaken for live saves; every export now names its source</td></tr>
     <tr><td class="lbl"><code>/api/backup/history</code>, <code>/api/backup/facts</code></td><td><code>FEEDBACK_KEY</code></td><td>The version ring and the server-built ratchet/ledger. <strong>These are the diagnosis doors</strong> &mdash; the admin console's per-player routes read the WorldDO and answer empty</td></tr>
     <tr><td class="lbl"><code>/api/backup/drops</code></td><td><code>FEEDBACK_KEY</code></td><td>Read-only view of <code>drops_granted</code>, the server's own record of what it handed out per battle event. Never pruned since 2026-10-23 (T39: account history is kept forever); reports <code>oldest_retained</code>. There is deliberately no restore side</td></tr>
-    <tr><td class="lbl"><code>/api/backup/restore</code>, <code>/api/backup/recover</code>, <code>/api/backup/grant</code></td><td><code>FEEDBACK_KEY</code></td><td>The one legitimate door for a rich save. Restore refuses an older payload over a newer live save with 409 unless <code>force=1</code>; since 2026-11-02 (T68) it also refuses a payload holding more souls or items than the <strong>server</strong> slot cap (<code>409 over_cap</code>, both counts listed) unless <code>force=1</code>, which stores as given and flags <code>ops_restore_over_cap</code> &mdash; see <a href="admin-backend.html">admin-backend</a></td></tr>
+    <tr><td class="lbl"><code>/api/backup/restore</code>, <code>/api/backup/recover</code>, <code>/api/backup/grant</code></td><td><code>FEEDBACK_KEY</code></td><td>The one legitimate door for a rich save. Restore refuses an older payload over a newer live save with 409 unless <code>force=1</code>; since 2026-11-02 (T68) it also refuses a payload holding more souls or items than the <strong>server</strong> slot cap (<code>409 over_cap</code>, both counts listed) unless <code>force=1</code>, which stores as given and flags <code>ops_restore_over_cap</code> &mdash; see <a href="workflow/admin-backend.html">admin-backend</a></td></tr>
     <tr><td class="lbl"><code>/api/backup/reverse</code></td><td><code>FEEDBACK_KEY</code></td><td><strong>SHUT &mdash; 501 <code>refunds_not_wired</code>.</strong> The machinery beneath it is correct and is what a store webhook will call, keyed on that store's transaction id. It previously trusted a caller-supplied amount, which is a delayed-fuse bug</td></tr>
     <tr><td class="lbl"><code>/api/backup/sweep</code>, <code>/api/lb/rank/sweep</code></td><td><code>FEEDBACK_KEY</code></td><td>Manual triggers for the two cron passes. Both return their result</td></tr>
     <tr><td class="lbl"><code>/api/feedback/export</code></td><td><code>FEEDBACK_KEY</code></td><td>Bug reports. <strong>The param is <code>k</code>, not <code>key</code>.</strong> POST with <code>{ids:[..],status:"processed"}</code> closes them</td></tr>

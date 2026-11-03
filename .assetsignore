@@ -10,6 +10,8 @@
 .assetsignore
 wrangler.jsonc
 _parking
+# workflow/: the dev/workflow pages (GDD, dev dashboard, review tools, networking/integrity/shell notes) - never public (D 2026-11-03)
+workflow
 _site
 archive
 tools

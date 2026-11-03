@@ -1,4 +1,24 @@
-# codex.playdfmc.com (Workers static assets): html_handling is "none", so the root needs a rule. Pages serves index.html at /.
-/ /index.html 200
+# codex.playdfmc.com (Workers static assets): html_handling is "none", so the root needs a rule.
+# The landing is the player codex, hub.html (D 2026-11-03: "This is now player facing").
+/ /hub.html 200
 /tutorials /tutorials/index.html 200
 /tutorials/ /tutorials/index.html 200
+# The workflow pages left the public site for workflow/ (unpublished; D 2026-11-03). Old links land on the hub.
+/dev.html /hub.html 301
+/admin-backend.html /hub.html 301
+/analytics.html /hub.html 301
+/feedback-pipeline.html /hub.html 301
+/checklist.html /hub.html 301
+/floor-assets.html /hub.html 301
+/pending-art.html /hub.html 301
+/pending-crop.html /hub.html 301
+/move-icons.html /hub.html 301
+/vfx.html /hub.html 301
+/audio.html /hub.html 301
+/research.html /hub.html 301
+/crafting.html /hub.html 301
+/system-networking.html /hub.html 301
+/system-integrity.html /hub.html 301
+/system-stage.html /hub.html 301
+/system-client-shell.html /hub.html 301
+/system-adventure-log.html /hub.html 301

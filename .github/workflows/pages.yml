@@ -26,6 +26,11 @@ jobs:
             --exclude '.github' \
             --exclude '_site' \
             --exclude '_parking' \
+            --exclude 'workflow' \
+            --exclude 'archive' \
+            --exclude 'tools' \
+            --exclude 'scripts' \
+            --exclude '/*.md' \
             --exclude 'codex/images/originals' \
             --exclude 'floors/ground_plates/*.png' \
             ./ _site/

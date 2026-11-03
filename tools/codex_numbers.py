@@ -393,7 +393,10 @@ def kvariants(k):
 
 
 def pages():
-    return sorted(p for p in os.listdir(SITE) if p.endswith('.html') and p not in SKIP_PAGES)
+    # workflow/ (D 2026-11-03): the unpublished team pages moved there; their numbers are still checked
+    wf = os.path.join(SITE, 'workflow')
+    extra = ['workflow/' + p for p in os.listdir(wf) if p.endswith('.html') and p not in SKIP_PAGES] if os.path.isdir(wf) else []
+    return sorted([p for p in os.listdir(SITE) if p.endswith('.html') and p not in SKIP_PAGES] + extra)
 
 
 def convert(page, csvs, refresh_only=False):

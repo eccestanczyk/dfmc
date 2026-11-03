@@ -29,7 +29,7 @@ async def main():
             if ("STRONGER AGAINST "+ty.upper()) not in t: fails.append(ty+": anti block missing")
             if ("BOOSTS "+ty.upper()+" ALLIES") not in t: fails.append(ty+": synergy block missing")
 
-        await pg.goto(B+"index.html"); await pg.wait_for_timeout(1500)
+        await pg.goto(B+"workflow/index.html")  # the GDD moved to workflow/ (2026-11-03); await pg.wait_for_timeout(1500)
         await pg.eval_on_selector("button[onclick*=\"show('balance'\"]","b=>b.click()")
         await pg.wait_for_timeout(3000)
         hrefs=await pg.eval_on_selector_all('#bal-body a','a=>a.map(x=>x.getAttribute("href"))')

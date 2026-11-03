@@ -45,7 +45,7 @@
   <h2>Implementation notes</h2>
   <ul>
     <li>Client: <code>feedbackSend()</code> builds <code>{kind, title, body, ctx, logs, shot:'', build}</code>; <code>feedbackLogs()</code> is the notices list with per-section ceilings; <code>saveRun()</code> runs first.</li>
-    <li>Server: <code>/api/feedback</code> is a WORLD path; admins read it at <code>/api/admin/feedback</code> and mark it with <code>/mark</code>; <code>/api/feedback/export</code> feeds the team's pull. The team-side pipeline (clustering, triage console, ratings) is on <a href="feedback-pipeline.html">Feedback Pipeline</a>.</li>
+    <li>Server: <code>/api/feedback</code> is a WORLD path; admins read it at <code>/api/admin/feedback</code> and mark it with <code>/mark</code>; <code>/api/feedback/export</code> feeds the team's pull. The team-side pipeline (clustering, triage console, ratings) is on Feedback Pipeline.</li>
     <li>Menu plate: <code>MENU_PLATES.feedback = 'report_a_bug'</code>; the Discord tile is <code>join_the_discord_chat</code>.</li>
   </ul>
 
