@@ -110,6 +110,11 @@ const GRADE_COLORS={Worn:'#c2ae8b',Common:'#c2ae8b',Uncommon:'#1eff00',Rare:'#00
 const GRADE_ORDER=['Worn','Common','Uncommon','Rare','Epic','Legendary','Abyssal','Divine','Primordial','Void'];
 const RAR=['C','UC','R','SR','SSR'];
 const csv=u=>fetch(u+'?t='+Date.now()).then(r=>r.text()).then(t=>t.replace(/\r/g,'').trim().split('\n').map(l=>l.split(',')));
+// items.csv carries quoted fields with commas, so item names come through a quote-aware parse
+const parseQ=t=>{const rows=[];let row=[],f='',q=false;for(let i=0;i<t.length;i++){const c=t[i];if(q){if(c==='"'&&t[i+1]==='"'){f+='"';i++;}else if(c==='"')q=false;else f+=c;}else if(c==='"')q=true;else if(c===','){row.push(f);f='';}else if(c==='\n'){row.push(f);rows.push(row);row=[];f='';}else if(c!=='\r')f+=c;}if(f||row.length){row.push(f);rows.push(row);}return rows;};
+let ITEM_NAMES=null;
+const itemNames=()=>ITEM_NAMES||(ITEM_NAMES=fetch('codex/items.csv?t='+Date.now()).then(r=>r.text()).then(t=>{const rows=parseQ(t);const h=rows[0],iI=h.indexOf('Item_ID'),iN=h.indexOf('Name');const m={};rows.slice(1).forEach(r=>{if(r[iI])m[r[iI]]=r[iN];});return m;}).catch(()=>({})));
+const esc=v=>String(v).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const pct=(v,d=2)=>(parseFloat(v)*100).toFixed(d)+'%';
 
 async function loadChances(){
@@ -141,26 +146,34 @@ async function loadGrades(){
   document.getElementById('grades-wrap').innerHTML=h+'</tbody></table>';
 }
 async function loadKeys(){
-  const rows=await csv('codex/key_drop_rates.csv');
+  const [rows,names]=await Promise.all([csv('codex/key_drop_rates.csv'),itemNames()]);
   let h='<table class="dt-table"><thead><tr><th class="rowhead">Zone</th><th>Key</th><th>Floors</th><th>Min Wins</th><th>Min Kills</th>';
   RAR.forEach(r=>h+=`<th class="rar-${r}">${r}</th>`);
   h+='</tr></thead><tbody>';
   for(const c of rows.slice(1)){
-    h+=`<tr><td class="rowhead">${c[0]} — ${c[1]}</td><td><code>${c[2]}</code></td><td>${c[3]}–${c[4]}</td><td>${c[5]}</td><td>${c[6]}</td>`;
+    h+=`<tr><td class="rowhead">${c[0]} — ${c[1]}</td><td>${esc(names[c[2]]||'Key')}</td><td>${c[3]}–${c[4]}</td><td>${c[5]}</td><td>${c[6]}</td>`;
     for(let i=7;i<=11;i++)h+=`<td>${pct(c[i],3)}</td>`;
     h+='</tr>';
   }
   document.getElementById('keys-wrap').innerHTML=h+'</tbody></table>';
 }
 async function loadFirstWin(){
-  const rows=await csv('codex/first_win_drops.csv');
+  const [rows,names]=await Promise.all([csv('codex/first_win_drops.csv'),itemNames()]);
   const head=rows[0];
+  const SEL={fixed:'Fixed piece',random_family:'Random family',complement_of_win_1:'The family win 1 did not give',lowest_rarity_tie_random:'Lowest-rarity enemy present (random among ties)'};
+  const LABEL={Reward_Type:'Reward',Item_ID:'Item'};
   let h='<table class="dt-table"><thead><tr>';
-  head.forEach(x=>h+=`<th>${x.replace(/_/g,' ')}</th>`);
+  head.forEach(x=>h+=`<th>${esc(LABEL[x]||x.replace(/_/g,' '))}</th>`);
   h+='</tr></thead><tbody>';
   for(const c of rows.slice(1)){
     h+='<tr>';
-    c.forEach((v,i)=>h+=i===0?`<td class="rowhead">${v}</td>`:(v?`<td>${v.replace(/_/g,' ')}</td>`:'<td class="zero">—</td>'));
+    c.forEach((v,i)=>{
+      const col=head[i];
+      if(i===0){h+=`<td class="rowhead">${esc(v)}</td>`;return;}
+      if(!v){h+='<td class="zero">—</td>';return;}
+      const shown=col==='Item_ID'?(names[v]||'—'):col==='Selection'?(SEL[v]||v.replace(/_/g,' ')):v.replace(/_/g,' ');
+      h+=`<td>${esc(shown)}</td>`;
+    });
     h+='</tr>';
   }
   document.getElementById('firstwin-wrap').innerHTML=h+'</tbody></table>';
