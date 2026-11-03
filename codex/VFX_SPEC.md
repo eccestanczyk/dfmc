@@ -88,6 +88,30 @@ touch an approval.
 
 ## Changelog
 
+- **2026-11-03** - **A multi-hit move draws and sounds once per hit, and Cataclysm drops the meteor trap's rock
+  (D, bug reports #1154 "the polyp attack that hits twice, its AFX has 3 hits when the attack only has 2" and #1167
+  "cataclysm should use the meteor VFX we have for the meteor trap in Herumon Dungeon. The audio needs to be synced
+  so it's burning afx as the meteor descends, then impact vfx on impact").** **Hits:** a stage whose Effect reads
+  "Damage as N (rapid) hits" now repeats its MAIN FX layer and its MAIN AFX layer N times (`n`, capped at the
+  grammar's 4 - Wall of Claws hits 5), and the AFX `i` steps on the picture's repeat (Frames / (24 v)). 24 stages
+  were off: Triple Maul S1 (Polyp) sounded n3 on 2 hits, Sixfold/Ninefold Fury n2 on 3, Fang Flurry n1 on 3-4,
+  Double Image and the Inferno Chimera breaths drew one sheet for 2-3 hits, and so on. Where a stage's length budget
+  cannot hold N repeats of a full sheet even at v4 (Many Roars S1, Hundred-Headed Storm S2, Fang Flurry S1-S2, Claw
+  Tide S1, Wall of Claws S2) the picture repeats as often as fits at v4 and the sound still repeats N times.
+  **Contact frame:** `fx_bank.csv` gains `Contact_Frame` - the frame a sheet that PRE-BAKES a fall touches its
+  target on (empty = 0 = every sheet but one). The hit beat (`VFX_BANK.impactMs`: numbers, hit tint, `!shake`,
+  `!stop`, `battle.hurt`) and `afx_lint`'s main-beat pin are now `d + Contact_Frame / (24 v)`; before, a falling
+  sheet's hit fired as the rock entered the frame. **FX-056 Meteor Fall** rebaked (`tools/make_meteor_sheet.py`)
+  as the trap's own theatre: ONE rock, an 11-frame fall (the trap's 440 ms, u^2 ease), `Contact_Frame` 11, then the
+  FX-006 fire burst; the 2026-10-01 sheet's three small rocks landed in 5 frames. **Cataclysm** (`ULT-MAGE-3`):
+  `FX-056@t d200 v0.7` lands at d855, FX-007 (the trap's blast) and FX-039 at d860, FX-032@g d900, FX-012 d940; the
+  FX-003 Pale Detonation is gone. Its sound is the trap's: **AFX-853** (dfmc-dungeon `floor_meteor_burn.ogg`,
+  copied unchanged, CC0 Kenney) at d0 g0.5 p+2 burns the whole way down (980 ms) and is out as the rock lands, then
+  AFX-526 Low Frequency explosion 001 (the sibling of the trap's own explosion source) at d860 with the bangs
+  behind it. The trap's 0.06 -> 1 swell is not expressible in the AFX grammar (no gain envelope); the clip plays
+  at flat g0.5. `dfmc-client/tools/probe_01154.py` red 0/4 -> 4/4, `probe_01167.py` 2/7 -> 7/7. Reaches players
+  when `DATA_PIN` next advances. Owning pages: this spec, `AFX_SPEC.md`, `vfx.html`.
+
 - **2026-10-23** - **Particles on ability mouseover (C12, ruling 10.6).** ON DEV. Hovering (or pressing) a move on the
   battle move panel raises 12 motes inside that button: the motion is the move's category - offensive sparks rise
   fast, support motes drift up, debuff motes sink - and the colour is the move's own `VFX_Color`, so the hover

@@ -334,6 +334,13 @@ writes to.
 
 ## Changelog
 
+- **2026-11-03** - **One sound per hit, and the meteor trap's burn (#1154 / #1167).** A multi-hit stage's main
+  layer repeats `n` = its hit count (cap 4) with `i` on the picture's repeat; 24 stages corrected (`VFX_SPEC.md`,
+  same date). New clip **AFX-853 Meteor Burn** (`assets/afx/dungeon/floor-meteor-burn.ogg`, dfmc-dungeon cue
+  `floor.meteor_burn` copied unchanged; CC0 Kenney Sci-fi Sounds, measured LUFS -22.3, onset 28 ms) - Cataclysm's
+  burn under the falling rock. `tools/afx_lint.py` `fx_anchor` adds the sheet's `fx_bank.csv` `Contact_Frame`, so a
+  main beat pins to the moment a falling sheet LANDS, the client's `VFX_BANK.impactMs` twin.
+
 - **2026-10-23** — **the sound follows two pictures that moved, and the four new lines get the character
   pass** (#994; probe census round 5). Two rows broke the timing pin after their FX changed under them.
   *Lightless Carapace* (`M-VOIDSHELL-4`) lost its d0 Hex Motes on 2026-10-22 (VFX_SPEC, T14), so its

@@ -17,6 +17,10 @@ import argparse, csv, os, re, sys
 
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BANK = {r['Id']: r for r in csv.DictReader(open(os.path.join(HERE, 'codex', 'afx_bank.csv'), encoding='utf-8'))}
+# #1167 (D 2026-11-03): a sheet that pre-bakes a fall (FX-056 Meteor Fall) touches its target on a later frame
+# than its first; fx_bank.csv `Contact_Frame` says which, and the picture's beat is d + that frame at the layer's v
+# - the same arithmetic as the client's VFX_BANK.impactMs. Empty = 0 = every other sheet, unchanged.
+FXBANK = {r['Id']: r for r in csv.DictReader(open(os.path.join(HERE, 'codex', 'fx_bank.csv'), encoding='utf-8'))}
 
 # codex/AFX_SPEC.md, "The grammar". A token appears at most once in a layer; the range is inclusive.
 TOK = re.compile(r'^(g|p|d|n|i|j)(-?\d+(?:\.\d+)?)$')
@@ -127,11 +131,16 @@ def fx_anchor(fx_txt):
         m = re.match(r'^FX-\d{3}@(u|t|g|ug|b|a)\b', raw)
         if not m:
             continue
-        d = 0
+        d, v = 0, 1.0
         for t in raw.split()[1:]:
             mm = re.match(r'^d(-?\d+(?:\.\d+)?)$', t)
             if mm:
                 d = float(mm.group(1))
+            mv = re.match(r'^v(\d+(?:\.\d+)?)$', t)
+            if mv:
+                v = float(mv.group(1))
+        cf = float((FXBANK.get(raw.split('@')[0]) or {}).get('Contact_Frame') or 0)
+        d += cf * 1000.0 / (24 * v)
         ds.append(d)
         if m.group(1) in ('t', 'g', 'b'):
             tds.append(d)
