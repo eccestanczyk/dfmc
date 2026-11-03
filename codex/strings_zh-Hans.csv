@@ -588,3 +588,7 @@ shop_web_slow,正在确认你的付款。Wraithgold 很快就会到账，请一�
 shop_web_legal,付款由我们的记录商户 Paddle.com 处理，账单、税费和退款均由其负责。,app: premium shop: web shop (Paddle) legal line under the pack grid (merchant of record)
 shop_web_terms,买家条款,app: premium shop: web shop (Paddle) link to Paddle buyer terms
 shop_web_help,订单帮助与退款,"app: premium shop: web shop (Paddle) link to paddle.net (order help, refunds)"
+m_unlock_new,新解锁,markup: unlock celebration popup: header (#1165)
+m_unlock_show_me,前往,markup: unlock celebration popup: go to the system (#1165)
+unlock_opened_at,第{f}层解锁,app: unlock celebration popup: the floor that opened it (#1165)
+unlock_after_first,首场战斗后解锁,app: unlock celebration popup: autoplay opens after the first battle (#1165)

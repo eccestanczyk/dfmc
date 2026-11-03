@@ -588,3 +588,7 @@ shop_web_slow,お支払いを確認しています。Wraithgoldはまもなく�
 shop_web_legal,お支払いは販売代理店（Merchant of Record）であるPaddle.comが処理し、請求・税金・返金を担当します。,app: premium shop: web shop (Paddle) legal line under the pack grid (merchant of record)
 shop_web_terms,購入者規約,app: premium shop: web shop (Paddle) link to Paddle buyer terms
 shop_web_help,注文サポートと返金,"app: premium shop: web shop (Paddle) link to paddle.net (order help, refunds)"
+m_unlock_new,新たな解放,markup: unlock celebration popup: header (#1165)
+m_unlock_show_me,見に行く,markup: unlock celebration popup: go to the system (#1165)
+unlock_opened_at,{f}階で解放,app: unlock celebration popup: the floor that opened it (#1165)
+unlock_after_first,初めての戦闘の後に解放,app: unlock celebration popup: autoplay opens after the first battle (#1165)

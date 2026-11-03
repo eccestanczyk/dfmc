@@ -588,3 +588,7 @@ shop_web_slow,Seu pagamento está sendo confirmado. O Wraithgold chega à sua ca
 shop_web_legal,"Os pagamentos são processados pela Paddle.com, nossa revendedora oficial (merchant of record), que cuida da cobrança, dos impostos e dos reembolsos.",app: premium shop: web shop (Paddle) legal line under the pack grid (merchant of record)
 shop_web_terms,Termos do comprador,app: premium shop: web shop (Paddle) link to Paddle buyer terms
 shop_web_help,Ajuda com pedidos e reembolsos,"app: premium shop: web shop (Paddle) link to paddle.net (order help, refunds)"
+m_unlock_new,NOVO DESBLOQUEIO,markup: unlock celebration popup: header (#1165)
+m_unlock_show_me,MOSTRAR,markup: unlock celebration popup: go to the system (#1165)
+unlock_opened_at,ABERTO NO ANDAR {f},app: unlock celebration popup: the floor that opened it (#1165)
+unlock_after_first,ABERTO APÓS SUA PRIMEIRA BATALHA,app: unlock celebration popup: autoplay opens after the first battle (#1165)
