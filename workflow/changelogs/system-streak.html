@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<base href="../../"><!-- workflow/changelogs/ (2026-11-04): never published. Links resolve from the public page's folder. -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Win Streak &amp; Floors &mdash; changelog &amp; team notes</title>
+<link rel="stylesheet" href="theme.css?v=4">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">WIN STREAK &amp; FLOORS &mdash; TEAM NOTES</h1></div>
+<div class="sp-wrap">
+<p class="sp-lead">The team record for the public page <a href="system-streak.html">system-streak.html</a>: its dated changelog (newest first) and the implementation notes that left the public page when the codex went player facing (D 2026-11-03). Lanes add each mechanic change here, never on the public page. Shape: <code>python tools/codex_page.py --changelog system-streak.html</code> in dfmc-client.</p>
+
+  <h2>Implementation notes</h2>
+  <ul class="sp-rules">
+    <li><strong>The clear is the server&rsquo;s count</strong> (server-authority run, 2026-10-22; on release since 0.89). Each credited win on an uncleared floor advances a per-floor count kept on the account, the clear is <code>count &ge; Wins_To_Clear</code>, and the victory screen adopts the server&rsquo;s <code>streak / cleared / justCleared</code> when the answer lands. The game client predicts the same numbers from its own counter so the screen never waits.</li>
+    <li>A loss is the server&rsquo;s reset too: every defeat (slain or forfeit) reports to the server, which zeroes the count it keeps, and the defeat screen shows the server&rsquo;s answer &mdash; the client no longer zeroes its own counter. A credited win on another floor also restarts the count. Win, win, loss, win reads 1.</li>
+    <li>Both sides read <code>floors.csv</code>; <code>ceil(floor^0.65)</code> is kept in code only as the fallback for a floor the sheet has not loaded.</li>
+  </ul>
+
+  
+
+  <h2>Changelog</h2>
+  <ul class="sp-rules">
+    <li><strong>2026-11-03 &mdash; a loss resets the server&rsquo;s count (dfmc-client lane codexfinds; codexreview-a&rsquo;s find, D 2026-11-03 &ldquo;make sure it&rsquo;s coherent with the current state of the game&rdquo;).</strong> Losses never reached the server, so the client zeroed its own counter and the next credited win brought the server&rsquo;s prior count back plus one. Every defeat now reports to the server, which zeroes the count; the client shows that answer and no longer resets locally. The rule in <em>Clear condition</em> is unchanged &mdash; it now holds.</li>
+    <li><strong>2026-11-03 &mdash; codex review (dfmc-client lane codexreview-a; D 2026-11-03 &ldquo;review the codex&hellip;&rdquo;). WIKI ONLY.</strong> The threshold is written down as authored data (<code>floors.csv Wins_To_Clear</code>, the formula only as what floors 1&ndash;100 follow); the table reads the sheet through csv-bind; boss floors are the authored <code>Is_Boss</code> rows with no streak, not &ldquo;every tenth&rdquo;; the Streak Counter setting, Stop Advancing After a Loss and the Go Down default are listed; an Implementation notes section records the server-owned count of 2026-10-22 and how the client&rsquo;s loss reset relates to it.</li>
+
+    <li><strong>2026-09-09 &mdash; the stale &ldquo;not yet implemented&rdquo; marker on the Void Apex text above is flipped (D). WIKI ONLY.</strong> Verified against the data and the client: <code>floors.csv</code> authors 30 wins on every Apex grind floor and <code>winsToClear()</code> gates the boss room on it. The Apex has been on release since 0.48 (2026-08-13); the sentence had been telling readers otherwise for four weeks. DESCRIPTIVE ONLY: no game behaviour changes.</li>
+    <li><strong>2026-08-10 &mdash; the Void Apex threshold override written down.</strong> Floors 101&ndash;120 use a flat 30 wins per grind floor instead of <code>ceil(floor^0.65)</code>, with bosses on every even floor rather than every tenth. Rules and data live on <a href="system-void-apex.html">Void Apex</a>. Design only &mdash; no code yet.</li>
+    <li><strong>2026-08-03 &mdash; the reset is now told to the player in-game (LIVE on release since 2026-08-08 (0.42)).</strong> The between-floors loading screen carries a rotating tip pool (<code>LOADING_TIPS</code>, surfaced by <code>transitTip()</code> as the transit subtitle); its first line is <em>"Changing floors resets your streak."</em> The pick is stable for the life of one transit so it cannot reshuffle mid-fade. D spec 2026-08-02.</li>
+    <li><strong>2026-08-03 &mdash; the floor-change streak reset written down.</strong> It was always the intent and always the behaviour, but no page said so, so it was raised as a defect (report&nbsp;#17) and re-proposed as work. Closed <em>wontfix</em> on D's ruling and documented here with the code condition, so the next reader does not have to ask again.</li>
+  </ul>
+
+  
+
+<h2>Team notes (moved off the public page 2026-11-04)</h2>
+<p>Cut verbatim from the public page when the codex went player facing; the public page now carries a player-language version.</p>
+
+<h3>Clear condition &mdash; public wording before the cleanup</h3>
+  <ul class="sp-rules">
+    <li>Win a streak of consecutive battles on a floor to open the portal to the next floor. The wins each floor takes are authored per floor (<code>floors.csv</code>, column <code>Wins_To_Clear</code>); floors 1&ndash;100 follow <code>ceil(floor^0.65)</code> (1 win on floor 1, 5 on floor 10, 13 on floor 50, 20 on floor 99), the Apex grind floors take a flat 30.</li>
+    <li><strong>Losing a battle resets the streak to zero.</strong> You are not removed from the floor &mdash; the team stays put and rebuilds. No forced exit, no floor lock, no return to floor-select.</li>
+    <li><strong>Leaving a floor resets the streak to zero &mdash; INTENDED (D ruling, reaffirmed 2026-08-03).</strong> The streak is a property of the floor you are standing on, not a running total you carry. Any change of floor clears it: ascending, descending, the death-descent, and the floor selector alike. The only case that keeps it is a move that lands you back on the floor you started on. In code the streak survives exactly when <code>floorNum</code> is unchanged (<code>streak:(prev.floorNum!==target?0:prev.streak)</code> in the travel path).</li>
+    <li><strong>The consequence is deliberate:</strong> stepping off a partly-cleared new floor forfeits that progress and it must be rebuilt from zero. Reported as a bug (report&nbsp;#17, closed <em>wontfix</em>) &mdash; it is the design. The pressure in this game comes from the reset, and a streak that banked across floors would let a player accumulate wins on trivial floors and spend them on hard ones.</li>
+    <li><strong>Above floor 100 the formula does not apply.</strong> In the <a href="system-void-apex.html">Void Apex</a> postgame zone (floors 101&ndash;120) every grind floor takes a flat <strong>30 wins</strong> to open the boss room above it, and the odd/even alternation replaces the every-10th boss rule. <strong>LIVE on release since 0.48 (2026-08-13)</strong> &mdash; <code>floors.csv</code> authors 30 on every Apex grind floor and the client gates the boss room on it through <code>winsToClear()</code>.</li>
+    <li><strong>Boss floors (10, 20 &hellip; 100, and every even Apex floor) have no streak</strong> &mdash; the floor is the boss room, one fight, entered with that zone's boss key (see <a href="bosses.html">Bosses</a>). Which floors are boss floors is authored in <code>floors.csv</code> (<code>Is_Boss</code>), not an &ldquo;every tenth&rdquo; rule.</li>
+    <li><strong>Full HP is restored after every battle,</strong> win or lose. Healing items were removed entirely; attrition exists only within a single battle.</li>
+  </ul>
+</div>
+<script src="nav.js"></script>
+</body>
+</html>

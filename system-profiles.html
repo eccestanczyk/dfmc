@@ -14,17 +14,17 @@
 <div class="topbar"><h1 style="font-family:'Cinzel',serif;">PROFILES, BADGES &amp; ACHIEVEMENTS</h1></div>
 <div class="sp-wrap">
   <div class="sp-crumb"><a href="hub.html">Hub</a> &rsaquo; <a href="other-systems.html">Other Systems</a> &rsaquo; Profiles, Badges & Achievements</div>
-  <p class="sp-lead">Every player has a public profile, and every profile carries the badges the account has earned. Badges are the server's: it awards them when the fact becomes true in a save it accepted, and nothing on the device can mint one. On Steam the same facts also unlock Steam achievements.</p>
+  <p class="sp-lead">Every player has a public profile, and every profile carries the badges the account has earned. Badges are awarded by the server when the fact becomes true in your save; nothing on your device can award one. On Steam the same facts also unlock Steam achievements.</p>
 
   <h2>The profile</h2>
   <ul class="sp-rules">
     <li><strong>Open it from the rankings</strong> &mdash; click a name on any leaderboard (<a href="system-pvp.html">PvP, timers &amp; leaderboards</a>) and the profile opens over the board.</li>
     <li><strong>What it shows</strong> &mdash; the avatar (your Steam avatar when you signed in through Steam), the character's name and class, the active party, the highest floor, the PvP rating, the team's power, and the badge row.</li>
-    <li><strong>Read-only and public</strong> &mdash; anyone on the board can see it; it writes nothing and mints nothing. There is no profile text to edit.</li>
+    <li><strong>Read-only and public</strong> &mdash; anyone on the board can see it. There is no profile text to edit.</li>
   </ul>
 
   <h2>Badges</h2>
-  <p>The badge list is <code>codex/badges.csv</code>. Each is awarded once, when the server sees the fact in your save; a badge the server has not awarded does not exist, whatever the device thinks. A <a href="system-accounts.html">Reset Progress</a> wipes them with the rest of the climb (T61).</p>
+  <p>Each badge is awarded once, when the server sees the fact in your save; a badge the server has not awarded does not exist, whatever the device thinks. A <a href="system-accounts.html">Reset Progress</a> wipes them with the rest of the climb.</p>
   <table>
     <tr><th>Badge</th><th>Earned by</th><th>Kind</th></tr>
     <tbody>
@@ -43,10 +43,10 @@
       <tr><td class="lbl">Dimensional Traveler</td><td>A creature sent to Herumon Dungeon reached level 50 there.</td><td>traveler</td></tr>
     </tbody>
   </table>
-  <div class="sp-note"><strong>Dimensional Traveler</strong> is the one badge earned outside the Tower: a creature you sent through the Dimensional Rift reaching level 50 in Herumon Dungeon. The Dungeon reports it back; the Tower awards it (T48, 2026-11-03).</div>
+  <div class="sp-note"><strong>Dimensional Traveler</strong> is the one badge earned outside the Tower: a creature you sent through the Dimensional Rift reaching level 50 in Herumon Dungeon. The Dungeon reports it back and the Tower awards it.</div>
 
   <h2>Steam achievements</h2>
-  <p>On the Steam build the same server-side facts unlock achievements (<code>codex/achievements.csv</code>, pushed through <code>/api/steam/achievements</code>). Most are badges under another name; three are not badges at all. Hidden ones do not show their description on Steam until earned.</p>
+  <p>On the Steam build the same facts unlock Steam achievements. Most are badges under another name; three are not badges at all. Hidden ones do not show their description on Steam until earned.</p>
   <table>
     <tr><th>Achievement</th><th>Condition</th><th>On Steam</th></tr>
     <tbody>
@@ -65,18 +65,6 @@
   <h2>Player level</h2>
   <p>The account-wide player level on the profile is cosmetic and uncapped; it is a separate ladder from creature, class and character level and is described on <a href="system-xp.html">XP &amp; Leveling</a>.</p>
 
-  <h2>Implementation notes</h2>
-  <ul>
-    <li>Profile read: <code>GET /api/profile/&lt;name&gt;</code> (B15) &mdash; a WORLD path, 0 writes. Client <code>profileOpen(name)</code> fills <code>state.profileView</code> (<code>profName, profCls, profParty, profFloor, profRate, profPower, profBadges</code>).</li>
-    <li>Badge rows and their holder counters live in the world object (<code>badges</code>, <code>badge_counts</code>) and go with the boards on a wipe or a T61 reset. <code>/api/_internal/badges_of</code> is the ops read.</li>
-    <li>Avatars: the Steam avatar URL is checked by <code>STEAM_AV_OK</code> before it is drawn.</li>
-  </ul>
-
-  <h2>Changelog</h2>
-  <ul>
-    <li><strong>2026-11-03 &mdash; profile card phone check (board B15b; dfmc-client lane tail2).</strong> On dev. The card was measured on a touch phone at 390x844 and 844x390 (Android and iPhone UAs, simulated notch / home-bar insets) and at 1280x800: it sits inside the safe box with nothing overflowing at every size. The one miss was the close button, 32x32 stage px (about 11 CSS px on a landscape phone) &mdash; now the house 44x44 close target, the name row clearing it. Gate dfmc-client <code>tools/probe_b15b_phone.py</code> 8/12 &rarr; 12/12.</li>
-    <li><strong>2026-11-03 &mdash; page written (D 2026-11-03: &ldquo;add whatever sections and systems we have in the game but not on the codex&rdquo;; dfmc-client lane codexreview-b). WIKI ONLY, no game behaviour.</strong> badges.csv (14 badges incl. DIMENSIONAL_TRAVELER, T48) and achievements.csv (9 Steam achievements) had no page; the public profile (B15) was described only in system-pvp.html and the networking page. Player-facing text first, the doors after.</li>
-  </ul>
 </div>
 <script src="admin.js"></script>
 <script src="nav.js"></script>

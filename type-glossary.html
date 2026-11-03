@@ -31,7 +31,7 @@
 </div>
 <div id="status">LOADING...</div>
 <main id="main" style="display:none;">
-  <p class="tg-note">Canonical definition + prompt-motif for every creature type. Source: <code>codex/type_glossary.json</code>. Motifs are injected into art prompts per type (Rule&nbsp;#0.5).</p>
+  <p class="tg-note">What every creature type means, and the look that marks a creature of that type. Click a type to see its creatures.</p>
   <input id="tg-search" type="text" placeholder="filter types…" oninput="renderList()">
   <div class="tg-list" id="tg-list"></div>
 </main>
@@ -52,7 +52,7 @@ function renderList(){
           <span class="tg-count">${COUNTS[t]||0} creature${(COUNTS[t]===1)?'':'s'}</span>
         </div>
         <p class="tg-def">${esc(GLOSS[t].definition)}</p>
-        <div class="tg-motif-label">Prompt motif</div>
+        <div class="tg-motif-label">Look</div>
         <div class="tg-motif">${esc(GLOSS[t].motifs)}</div>
       </div>
     </div>`).join('') || '<div class="tg-note">No types match.</div>';

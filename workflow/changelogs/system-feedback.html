@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<base href="../../"><!-- workflow/changelogs/ (2026-11-04): never published. Links resolve from the public page's folder. -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Report Panel &mdash; changelog &amp; team notes</title>
+<link rel="stylesheet" href="theme.css?v=4">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">THE REPORT PANEL &mdash; TEAM NOTES</h1></div>
+<div class="sp-wrap">
+<p class="sp-lead">The team record for the public page <a href="system-feedback.html">system-feedback.html</a>: its dated changelog (newest first) and the implementation notes that left the public page when the codex went player facing (D 2026-11-03). Lanes add each mechanic change here, never on the public page. Shape: <code>python tools/codex_page.py --changelog system-feedback.html</code> in dfmc-client.</p>
+
+  <h2>Implementation notes</h2>
+  <ul>
+    <li>Client: <code>feedbackSend()</code> builds <code>{kind, title, body, ctx, logs, shot:'', build}</code>; <code>feedbackLogs()</code> is the notices list with per-section ceilings; <code>saveRun()</code> runs first.</li>
+    <li>Server: <code>/api/feedback</code> is a WORLD path; admins read it at <code>/api/admin/feedback</code> and mark it with <code>/mark</code>; <code>/api/feedback/export</code> feeds the team's pull. The team-side pipeline (clustering, triage console, ratings) is on Feedback Pipeline.</li>
+    <li>Menu plate: <code>MENU_PLATES.feedback = 'report_a_bug'</code>; the Discord tile is <code>join_the_discord_chat</code>.</li>
+  </ul>
+
+  
+
+  <h2>Changelog</h2>
+  <ul>
+    <li><strong>2026-11-03 &mdash; page written (D 2026-11-03: &ldquo;add whatever sections and systems we have in the game but not on the codex&rdquo;; dfmc-client lane codexreview-b). WIKI ONLY, no game behaviour.</strong> The in-game report panel had no player-facing page: feedback-pipeline.html is the team-side console. This page says what a player fills in, what rides along (open-time state, the notices list, the build; no screenshot; the save is flushed first), and what happens to a report.</li>
+  </ul>
+
+<h2>Team notes (moved off the public page 2026-11-04)</h2>
+<p>The lines below stood on the public page until 2026-11-04 and are kept verbatim. The public page now says what happens to a report in player language; the notices row matches the release noticeList (the floor-101 letter and the unlocks, plus data warnings and script errors; no drops).</p>
+  <p class="sp-lead">The report panel is how a player talks to the team from inside the game. It is the <strong>REPORT A BUG</strong> tile on the main menu and <em>Contact Support</em> under Settings &rsaquo; Legal &amp; Support. A person reads every report; the ones that are bugs become fixes in the next bug run, and the fix is logged on the codex page that owns the rule.</p>
+<table>
+      <tr><td class="lbl">The recent notices</td><td>The lines the game showed you (drops, unlocks, warnings) and any script errors it caught. There is no play log on the device: the action log is kept server side only (T31-2), so the report carries the notices list, each section with its own size ceiling, newest lines kept.</td></tr>
+</table>
+  <div class="sp-note">Your save is flushed to the server <strong>before</strong> the report is sent, so the state the report describes is the state the server holds. The <a href="privacy.html">Privacy Policy</a> lists exactly what a report contains and how long it is kept.</div>
+<ul>
+    <li>The report lands on the server (<code>POST /api/feedback</code>, the world object) and is pulled into the team's queue as a numbered file.</li>
+    <li>Reports are triaged by kind. A bug is reproduced with a probe before it is fixed; the fix names the report number in the commit, the patch registry and the codex changelog of the page that owns the rule.</li>
+    <li>A suggestion that needs a design decision goes to D's rulings board rather than straight into the code.</li>
+</ul>
+</div>
+<script src="nav.js"></script>
+</body>
+</html>

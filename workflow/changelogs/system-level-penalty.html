@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<base href="../../"><!-- workflow/changelogs/ (2026-11-04): never published. Links resolve from the public page's folder. -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Level Penalty &mdash; changelog &amp; team notes</title>
+<link rel="stylesheet" href="theme.css?v=4">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">LEVEL PENALTY &mdash; TEAM NOTES</h1></div>
+<div class="sp-wrap">
+<p class="sp-lead">The team record for the public page <a href="system-level-penalty.html">system-level-penalty.html</a>: its dated changelog (newest first) and the implementation notes that left the public page when the codex went player facing (D 2026-11-03). Lanes add each mechanic change here, never on the public page. Shape: <code>python tools/codex_page.py --changelog system-level-penalty.html</code> in dfmc-client.</p>
+
+  <h2>Changelog</h2>
+  <ul class="rules">
+    <li><strong>2026-11-03 &mdash; codex review (dfmc-client lane codexreview-a; D 2026-11-03 &ldquo;review the codex&hellip;&rdquo;). WIKI ONLY.</strong> The recipients line says who is actually paid (the class and the two equipped creatures; a swapped-out fighter in the bag; the account level unpenalised) instead of &ldquo;every creature in the party&rdquo;; a section names the table the parameters live in and that the server applies the curve; this changelog is created &mdash; the page had none.</li>
+  </ul>
+
+<h2>Team notes (moved off the public page 2026-11-04)</h2>
+<p>Cut verbatim from the public page when the codex went player facing; the public page now carries a player-language version.</p>
+
+  <h2>Who gets XP</h2>
+  <ul class="rules">
+    <li>XP is awarded to <strong style="color:var(--ink)">the avatar&rsquo;s class and both equipped creatures</strong> &mdash; the party is the three who fight. A creature swapped out mid-fight is paid in the bag; the account&rsquo;s own level takes the full, unpenalised battle XP.</li>
+    <li><strong style="color:var(--ink)">Dying in battle does not forfeit XP.</strong> A fainted creature or a downed avatar still receives its full end-of-battle share.</li>
+    <li>The penalty is computed <strong style="color:var(--ink)">per recipient</strong>, from that recipient's own level versus the defeated enemy's level. A low-level benchwarmer carried through a high-level fight keeps almost all of its XP; an over-leveled veteran farming weak floors keeps very little.</li>
+  </ul>
+
+  <h2>Where the numbers live</h2>
+  <p>The curve&rsquo;s five parameters (grace +10, full +50, grace &minus;3, full &minus;25, 90% cap) are one table, <code>xp_penalty</code> in dfmc-client <code>src/tables.json</code>, read by the server when it credits class XP for a battle (the server owns XP since the 2026-10-22 server-authority run) and mirrored by the game client&rsquo;s victory screen. The per-kill base XP comes from <code>XPCurve.csv</code> &mdash; see <a href="system-xp.html">XP</a>.</p>
+</div>
+<script src="nav.js"></script>
+</body>
+</html>

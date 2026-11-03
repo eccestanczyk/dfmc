@@ -25,38 +25,11 @@
   <h2>The roll</h2>
   <ul class="sp-rules">
     <li><strong>Fixed 50/50</strong> &mdash; gender is decided on hatch and is never re-rolled.</li>
+    <li><strong>No reroll</strong> &mdash; a creature&rsquo;s gender is fixed for good. Reloading the game, or backing out of character creation and going in again, gives the same answer, so the two starters cannot be re-rolled into a pair.</li>
     <li><strong>Unweighted</strong> &mdash; egg grade, egg type, creature grade, and creature line have no effect on the odds.</li>
     <li><strong>Permanent</strong> &mdash; gender does not change on level-up, advancement or devour; a creature carries the same gender across all three stages of its line.</li>
     <li><strong>What it is for</strong> &mdash; a <a href="system-breeding.html">breeding</a> pen takes one male and one female, and the soul bag&rsquo;s Adam and Eve keeper keeps the best of each gender per line for exactly that reason. Gender has no effect on stats, moves, grade or combat.</li>
   </ul>
-
-  <h2>The roll is the server's, and there is no reroll</h2>
-  <p><em>LIVE on release since 2026-08-08 (0.42).</em> Server-side rolls item 7. The hatch path has answered with
-  the server's gender since 2026-07-31. <strong>Two rolls never moved, and both were rerollable</strong>
-  &mdash; which matters far more than a coin flip sounds, because a breeding pair needs one of each and
-  a pair is the most valuable thing a new account can own.</p>
-  <ul>
-    <li><code>ensureGenders()</code>, the backfill for creatures minted before gender existed: stripping
-      <code>g</code> out of a save and reloading <strong>re-rolled the whole bag</strong>.</li>
-    <li>The two character-creation starters: two <code>Math.random()</code> calls on a screen with a
-      <strong>back button that clears them</strong>, so a player could sit there and reroll until the
-      pair came up M+F.</li>
-  </ul>
-  <p>The draw is <code>HMAC(SPAWN_SECRET, "sex|account|realm|key")</code> (the realm is always <code>standard</code> since the one-mode order of 2026-08-28), where the key is the
-  creature's own <strong>uid</strong>. Asking again for the same creature always answers the same
-  gender, under any request and any idempotency key. That is the point: idempotency here is not about
-  surviving a retry, it is about <em>there being no reroll left to find</em>. The character-creation
-  pair uses two fixed account-scoped keys for the same reason &mdash; the answer is identical every
-  time the screen is opened, whichever class is chosen. <code>ensureUids()</code> now runs
-  <em>before</em> <code>ensureGenders()</code> on load, since the backfill keys on uid.</p>
-  <p>2026-09-30 (F135, LIVE on release since 2026-10-23, 0.89): a creature the server itself sexed at hatch or breed claim answers that stored sex here; the draw above is only for keys with no sexed ledger row, such as the two starters.</p>
-  <div class="sp-note"><strong>One request for a whole bag.</strong> A 126-creature backfill costs one
-  call, not 126. If the server does not answer, <strong>nothing is written</strong>: a creature simply
-  keeps no gender, and <code>monGender()</code> already reads <code>M</code> for a missing value rather
-  than storing one. Probe <code>tools/probe_sexroll.py</code>, 8/8 on the full stack &mdash; test 2
-  asks again under a <em>different</em> idempotency key, because if the answer only repeated for a
-  repeated idem that would be ordinary replay caching and a save-stripper would still get a fresh roll.
-  It has to repeat because the KEY is the seed.</div>
 
   <h2>Display</h2>
   <p>Gender is shown as a sign immediately after the creature's name, everywhere the name appears &mdash; party list, battle UI, creature sheet, and reliquary.</p>
@@ -68,11 +41,7 @@
     </tbody>
   </table>
 
-  <div class="sp-note">Signs are <code>&amp;#9794;</code> (&#9794;) and <code>&amp;#9792;</code> (&#9792;). Gender has no effect on stats, moves, grade, or any combat calculation &mdash; it is a breeding-side and identification trait only.</div>
-  <h2>Changelog</h2>
-  <ul class="sp-rules">
-    <li><strong>2026-11-03 &mdash; codex review (dfmc-client lane codexreview-a; D 2026-11-03 &ldquo;review the codex, clean it up, update whatever needs updating&rdquo;).</strong> Codex only. The page had no changelog; it gets one. The roll section says what gender is for (the breeding pair, the Adam and Eve keeper) in player terms before the server-side notes; the F135 stored-sex rule is marked live (0.89, 2026-10-23) instead of SHIPPED IN 0.93; the HMAC key&rsquo;s realm term is noted as the constant it has been since realms left. No game code changed.</li>
-  </ul>
+  <div class="sp-note">Gender has no effect on stats, moves, grade, or any combat calculation &mdash; it matters for breeding and identification only.</div>
 </div>
 
 <script src="admin.js"></script>

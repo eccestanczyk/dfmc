@@ -29,7 +29,7 @@ async def main():
             if ("STRONGER AGAINST "+ty.upper()) not in t: fails.append(ty+": anti block missing")
             if ("BOOSTS "+ty.upper()+" ALLIES") not in t: fails.append(ty+": synergy block missing")
 
-        await pg.goto(B+"workflow/index.html")  # the GDD moved to workflow/ (2026-11-03); await pg.wait_for_timeout(1500)
+        await pg.goto(B+"workflow/index.html"); await pg.wait_for_timeout(1500)  # the GDD moved to workflow/ (2026-11-03)
         await pg.eval_on_selector("button[onclick*=\"show('balance'\"]","b=>b.click()")
         await pg.wait_for_timeout(3000)
         hrefs=await pg.eval_on_selector_all('#bal-body a','a=>a.map(x=>x.getAttribute("href"))')
@@ -48,9 +48,10 @@ async def main():
                 # the page quotes its own retired wording in the correction block; check the
                 # two places a reader actually lands instead of the whole body.
                 lead=await pg.inner_text('.sp-lead')
-                status=await pg.eval_on_selector("h2:text('Status') + .sp-note","e=>e.innerText")
                 if "not yet implemented" in lead.lower(): fails.append(page+": lead still says not yet implemented")
-                if "nothing on release" in status.lower(): fails.append(page+": Status still says nothing on release")
+                # 2026-11-04 (lane F2, D: the codex "is now player facing"): the Status section is a team note now
+                # (workflow/changelogs/system-void-apex.html); the player page must carry no release status at all.
+                if re.search(r"nothing on release|on dev|not yet on release", t, re.I): fails.append(page+": still carries a release status")
             else:
                 live=t.split("Changelog")[0].split("CHANGELOG")[0]
                 if "not yet implemented" in live.lower(): fails.append(page+": still says not yet implemented")
@@ -58,10 +59,12 @@ async def main():
                 arts=await pg.eval_on_selector_all('.boss-img-wrap img','e=>e.map(x=>[x.getAttribute("src"),x.naturalWidth])')
                 mut=[a for a in arts if "images/mutants/" in a[0] and a[1]>0]
                 if len(mut)!=10: fails.append("bosses.html mutant portraits: %d of 10"%len(mut))
-        # the virtual-gear caveat is TRUE and must survive
+        # the virtual-gear design table (gems / runes / enchants per tag) is NOT what 0.94 plays: wild tags carry as many
+        # gems and runes as the quality grade has sockets, no enchants (lane F2 2026-11-04; the table is a team note now).
+        # The player page must not bind that design column again.
         await pg.goto(B+"system-void-apex.html"); await pg.wait_for_timeout(2000)
-        if "not yet implementable" not in (await pg.inner_text('body')):
-            fails.append("void-apex: the true virtual-gear caveat was removed")
+        if await pg.eval_on_selector_all('[data-csv*="Gems_per_Tag"]','e=>e.length'):
+            fails.append("void-apex: the unbuilt virtual-gear design table is back on the player page")
 
         await br.close()
     print(("FAIL" if fails else "PASS"), "balance links:",len(hrefs))

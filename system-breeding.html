@@ -14,41 +14,35 @@
 <div class="topbar"><h1 style="font-family:'Cinzel',serif;">BREEDING</h1></div>
 <div class="sp-wrap">
   <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; Breeding</div>
-  <p class="sp-lead">Breeding is a <strong style="color:var(--ink)">continuous pen</strong>, not a transaction. A pair is placed in a pen and the pen starts on its own; from then on it eats <strong style="color:var(--ink)">Ichor</strong> minute by minute and fills a progress bar. When the bar completes, an egg drops into the inventory and the pen keeps going. Ichor is the limiter &mdash; its only other outlet is the <a href="system-shadow-trader.html">Shadow Trader</a>, who buys it.</p>
+  <p class="sp-lead">Breeding is a <strong style="color:var(--ink)">continuous pen</strong>, not a one-off trade. Put a compatible pair in a pen and it starts on its own: it eats <strong style="color:var(--ink)">Ichor</strong> minute by minute and fills a progress bar. When the bar fills, an egg drops into your soul bag and the pen keeps going. Breeding opens at floor 25. Ichor is the limit on how fast it runs; the <a href="system-shadow-trader.html">Shadow Trader</a> also takes it in trade.</p>
 
   <h2>The pen grid</h2>
-  <p>Six pens, shown as a 2&times;3 grid. <strong>Pen 1 is unlocked from the start.</strong> <strong>Pens 2&ndash;3 are bought with Ichor; pens 4&ndash;6 are premium, 5 / 10 / 15 Wraithgold</strong> (D ruling 2026-08-13; the July 2026 all-Ichor table is retired). They unlock in order. Costs are authored in <code>codex/pen_unlocks.csv</code> &mdash; never hardcoded; if that table cannot load the game halts rather than guess a price. Every priced pen, Ichor or Wraithgold, is bought at the server&rsquo;s unlock door (since 0.90): the server checks what you hold against the price, books one permanent unlock row and writes the pen into the stored save, so a second click or a refresh never charges twice and the pen survives a reload. The save may never claim more pens than that ledger records.</p>
+  <p>Six pens, shown as a 2&times;3 grid. <strong>Pen 1 is free.</strong> <strong>Pens 2&ndash;3 are bought with Ichor; pens 4&ndash;6 are premium, 5 / 10 / 15 Wraithgold.</strong> They unlock in order. A pen is bought once: a second click or a reload never charges you twice, and a bought pen stays bought.</p>
   <table>
     <tr><th>Pen</th><th>Unlock</th></tr>
-    <tr><td class="lbl">1</td><td>Free &mdash; available from the first hatch</td></tr>
+    <tr><td class="lbl">1</td><td>Free</td></tr>
     <tr><td class="lbl">2</td><td><strong><span data-csv="pen_unlocks.csv#Pen=2#Cost" data-csv-fmt="g">12,000</span> Ichor</strong> &mdash; roughly 7h of endgame kill income</td></tr>
     <tr><td class="lbl">3</td><td><strong><span data-csv="pen_unlocks.csv#Pen=3#Cost" data-csv-fmt="g">60,000</span> Ichor</strong> &mdash; ~34h</td></tr>
-    <tr><td class="lbl">4</td><td><strong><span data-csv="pen_unlocks.csv#Pen=4#Cost">5</span> Wraithgold</strong> &mdash; premium (was 180,000 Ichor)</td></tr>
-    <tr><td class="lbl">5</td><td><strong><span data-csv="pen_unlocks.csv#Pen=5#Cost">10</span> Wraithgold</strong> &mdash; premium (was 450,000 Ichor)</td></tr>
-    <tr><td class="lbl">6</td><td><strong><span data-csv="pen_unlocks.csv#Pen=6#Cost">15</span> Wraithgold</strong> &mdash; premium (was 1,000,000 Ichor)</td></tr>
+    <tr><td class="lbl">4</td><td><strong><span data-csv="pen_unlocks.csv#Pen=4#Cost">5</span> Wraithgold</strong> &mdash; premium</td></tr>
+    <tr><td class="lbl">5</td><td><strong><span data-csv="pen_unlocks.csv#Pen=5#Cost">10</span> Wraithgold</strong> &mdash; premium</td></tr>
+    <tr><td class="lbl">6</td><td><strong><span data-csv="pen_unlocks.csv#Pen=6#Cost">15</span> Wraithgold</strong> &mdash; premium</td></tr>
   </table>
   <div class="note"><strong>What extra pens actually buy.</strong> Not throughput &mdash; Ichor income caps that regardless of pen count. Extra pens buy <strong>parallelism</strong>: several different pairs, types, and grade-ladders running at once, and no idle time while you swap partners. A player with six pens and a player with two pens hatch the same number of Void eggs per hour; the six-pen player is also climbing five other lines while they do it.</div>
 
   <h2>What decides an egg&rsquo;s grade</h2>
   <p><strong>The parents&rsquo; LEVEL does not matter. Their GRADE does, and nothing else does.</strong>
-  A level&nbsp;100 Worn pair and a level&nbsp;1 Worn pair lay exactly the same eggs. Level is read for
-  experience and for combat; it is never read anywhere on the breeding path.</p>
-  <p>What the server does, in order:</p>
+  A level&nbsp;100 Worn pair and a level&nbsp;1 Worn pair lay exactly the same eggs.</p>
   <ol>
-    <li>Takes each parent&rsquo;s grade from its <strong>own item ledger</strong> &mdash; never from the
-      client&rsquo;s note and never from the uploaded save.</li>
-    <li>Floors the average of the two: <code>P = max(1, floor((gradeIndex(&#9794;) + gradeIndex(&#9792;)) / 2))</code>.
+    <li>The two parents&rsquo; grades make the <strong>pair grade</strong>: their average, rounded down (see Pair grade below).
       An Epic&nbsp;&times;&nbsp;Worn pair is <code>floor((5+1)/2) = 3</code> &mdash; an <em>Uncommon</em> pen. A mismatched
       pair always averages down, so two parents of the same grade is the efficient pairing.</li>
-    <li>Uses that pen grade to pick one row of <code>codex/egg_hatch_weights.csv</code>. <strong>The egg&rsquo;s
-      grade is then random within that row</strong> &mdash; the row sets the odds, not the result. A Void pen
-      lays a Void egg 35.7% of the time and can still lay a Worn one at 0.1% (the 2026-10-23 nerf; it was 78.1%).</li>
+    <li>The pair grade picks one row of the egg odds. <strong>The egg&rsquo;s grade is then random within that
+      row</strong> &mdash; the row sets the odds, not the result. A Void pen lays a Void egg 35.7% of the time and can
+      still lay a Worn one 0.1% of the time.</li>
   </ol>
-  <p>The same pen grade also sets the wait and the cost out of <code>codex/breeding.csv</code>. The grade is
-  <strong>re-derived every time the pen is written</strong>, not remembered, so correcting a parent&rsquo;s
-  grade heals the pen without restarting the timer. Full odds table under
-  <a href="#" onclick="document.querySelectorAll('h2').forEach(h=>{if(h.textContent.indexOf('Egg grade output')>=0)h.scrollIntoView();});return false;">Egg grade output</a>;
-  the rates are under Rates.</p>
+  <p>The pair grade also sets the wait and the Ichor cost (Rates below). The egg&rsquo;s grade and its line are rolled
+  when it is laid, and a reload cannot re-roll them. Full odds under
+  <a href="#egg-grade-output">Egg grade output</a>.</p>
 
   <h2>Choosing a pair</h2>
   <p>The pen has two sockets, <strong>&#9794;</strong> and <strong>&#9792;</strong>. Clicking a socket opens a full-screen roster picker &mdash; it leaves the pen grid rather than crowding it, so the 2&times;3 grid stays intact.</p>
@@ -57,59 +51,43 @@
     <tr><td class="lbl">Gender</td><td>One male, one female. Gender is a flat 50/50 roll at hatch and never changes.</td></tr>
     <tr><td class="lbl">Shared type</td><td>The two parents must <strong>share at least one type</strong>. All three type slots count (primary, secondary, tertiary) &mdash; an overlap anywhere is enough.</td></tr>
     <tr><td class="lbl">Progressive filter</td><td>The first socket lists every creature of that gender. Once one parent is chosen, the second picker <strong>filters to compatible partners only</strong>: opposite gender, sharing a type, not already in another pen.</td></tr>
-    <tr><td class="lbl">Sort order</td><td><strong>Grade descending, best first</strong> (<code>Void &rarr; Worn</code>), with level then name as tiebreaks. The picker previously listed candidates in <em>bag insertion order</em>, so a Divine sat wherever it happened to have been hatched. Grade is the lever this screen turns &mdash; <code>pairP()</code> floors the average of the two parents&rsquo; grades &mdash; so the best available parent belongs at the top. <em>LIVE on release since 2026-08-05 (0.32).</em></td></tr>
-    <tr><td class="lbl">Exclusivity</td><td>A creature can sit in only one pen at a time.</td></tr>
+    <tr><td class="lbl">Sort order</td><td><strong>Grade descending, best first</strong> (Void &rarr; Worn), then level, then name. Grade is what this screen turns, so the best available parent sits at the top.</td></tr>
+    <tr><td class="lbl">Exclusivity</td><td>A creature can sit in only one pen at a time. While penned it leaves your soul bag; taking it out returns it there (free a slot first if the bag is full).</td></tr>
     <tr><td class="lbl">Battle lockout</td><td>A creature in a pen <strong>cannot be in the battle party</strong>. Breeding your best fighters means fighting without them.</td></tr>
     <tr><td class="lbl">Same line</td><td>Allowed.</td></tr>
   </table>
   <div class="note"><strong>Type scarcity is the real gate.</strong> Across the roster of 312, the median creature has about 45 type-compatible species and the tightest has 11. The four three-creature types &mdash; Celestial, Demon, Chimera, Aberration &mdash; are a single line each, so they can only breed within their own line. Breeding rewards a <em>broad</em> collection, not a strong one.</div>
 
   <h2 style="font-family:'Cinzel',serif;font-size:18px;color:var(--gold);margin:24px 0 8px">What the egg contains</h2>
-  <p style="font-size:14px;color:var(--ink-dim)">The egg carries <strong>one of the two parents' lines, rolled 50/50</strong> at the moment it is laid — never a third species. It hatches that line's Stage&nbsp;1, like every other egg in the game. The shared type is the <em>gate</em> on which pairs may breed; it does not decide what comes out, so pairing a Thornback with a Dusthound returns a Bristle or a Whelp and nothing else. The egg's shell art follows the rolled species' first type, and its grade is rolled separately from the pair grade (below).</p>
-  <p style="font-size:14px;color:var(--ink-dim)">The line is fixed when the egg is laid, not when it hatches, so an egg sitting in the inventory already knows what it is.</p>
+  <p style="font-size:14px;color:var(--ink-dim)">The egg carries <strong>one of the two parents' lines, rolled 50/50</strong> at the moment it is laid — never a third species. It hatches that line's Stage&nbsp;1, like every other egg in the game. The shared type is the <em>gate</em> on which pairs may breed; it does not decide what comes out, so pairing a Thornback with a Dusthound returns a Bristle or a Whelp and nothing else. Its grade is rolled separately, from the pair grade (above).</p>
+  <p style="font-size:14px;color:var(--ink-dim)">The line is fixed when the egg is laid, not when it hatches, so an egg sitting in the soul bag already knows what it is.</p>
 
   <h2>Pair grade</h2>
   <p>Every rate in the system keys off one number: <strong>pair grade P</strong>.</p>
   <pre>P = floor( (grade of parent A + grade of parent B) / 2 )</pre>
-  <p>Mismatched parents are punished by the floor: a <span style="color:#a855f7">Void</span> paired with a <span style="color:#0070dd">Rare</span> breeds as <span style="color:#e5393f">Abyssal</span> (P&nbsp;=&nbsp;7), not as Void. Climbing the grade ladder means lifting <em>both</em> parents.</p>
-  <p><strong>Where the server gets the two grades.</strong> The start note names only the two parent ids. The server
-  looks each one up in its own item ledger and reads the grade <em>there</em> &mdash; never from the note and never
-  from the uploaded save &mdash; then floors the average exactly as above. Three rules follow: a ledgered parent
-  whose grade is not one of the ten legal grades <em>records nothing</em> (the start is unverifiable, and a claim on a
-  pen with no record is refused); a pair re-announced unchanged never
-  restarts its wait, but its recorded grade is <em>re-derived on every note</em>, so a wrong record cannot outlive
-  the next battle; and the recorded grade is what the claim uses for the wait, the weights and the settled cost.
-  Gate: <code>tools/probe_breedgrade.mjs</code> 7/7 &mdash; it reads the recorded grade back through the claim
-  door's remaining wait (Void 110, Abyssal 50, Common 18 minutes), which is the one place a sandbox can see it.</p>
+  <p>Grades count Worn&nbsp;1, Common&nbsp;2, Uncommon&nbsp;3, Rare&nbsp;4, Epic&nbsp;5, Legendary&nbsp;6, Abyssal&nbsp;7, Divine&nbsp;8, Primordial&nbsp;9, Void&nbsp;10. Mismatched parents are punished by the rounding: a <span style="color:#a855f7">Void</span> paired with a <span style="color:#0070dd">Rare</span> breeds as <span style="color:#e5393f">Abyssal</span> (P&nbsp;=&nbsp;7), not as Void. Climbing the grade ladder means lifting <em>both</em> parents.</p>
 
   <h2>The loop</h2>
   <table>
     <tr><th>State</th><th>Behaviour</th></tr>
-    <tr><td class="lbl">Pair placed</td><td>A pen holding a compatible pair is breeding &mdash; there is no start button and no toggle (0.76). The pen drains <code>Ichor_Per_Min(P)</code> every minute and fills its meter. P is <strong>locked in when the pair lands</strong>.</td></tr>
-    <tr><td class="lbl">Bar full</td><td>An egg is sent to the inventory, the bar resets to zero, and the pen <strong>continues automatically</strong> as long as Ichor and inventory space remain.</td></tr>
-    <tr><td class="lbl">Egg inventory full</td><td>Drain stops, the bar freezes at its current fill. Nothing is consumed and nothing is lost. Clear an egg and it resumes.</td></tr>
-    <tr><td class="lbl">Ichor hits zero</td><td>Same as above: drain stops, bar freezes, pen resumes the moment Ichor arrives.</td></tr>
+    <tr><td class="lbl">Pair placed</td><td>A pen holding a compatible pair is breeding &mdash; there is no start button and no toggle. The pen spends its pair grade&rsquo;s Ichor per minute and fills its meter.</td></tr>
+    <tr><td class="lbl">Bar full</td><td>The pen shows LAYING while the egg is delivered, then the egg goes to your soul bag, the bar resets to zero, and the pen <strong>continues automatically</strong> as long as Ichor and bag space remain. While LAYING it spends nothing; if the game cannot reach the server, the egg is owed, not lost, and lands once it can.</td></tr>
+    <tr><td class="lbl">Soul bag full</td><td>The pen freezes and shows SOUL BAG FULL. Nothing is consumed and no egg is lost &mdash; it lays as soon as a slot is free.</td></tr>
+    <tr><td class="lbl">Out of Ichor</td><td>The pen pauses (NO ICHOR) without consuming anything and resumes the moment Ichor arrives. With only part of a minute&rsquo;s Ichor it crawls along at what it can pay for (LOW ICHOR).</td></tr>
     <tr><td class="lbl">Removing a parent</td><td><strong>Resets that pen's meter to zero.</strong> This is what stops a player filling a bar on a cheap Worn pair and swapping in two Voids at 99%.</td></tr>
-    <tr><td class="lbl">Clock</td><td><strong>Session time only, and session means the tab is alive &mdash; not that it is in front of you.</strong> A pen advances on wall-clock elapsed time whenever the client is loaded, including while the window sits unfocused or behind another tab. It does <strong>not</strong> advance while the game is closed: no offline accrual, ever.</td></tr>
+    <tr><td class="lbl">Clock</td><td><strong>Session time only, and session means the game is open &mdash; not that it is in front of you.</strong> A pen advances on real elapsed time whenever the game is loaded, including while the window sits unfocused or behind another tab. It does <strong>not</strong> advance while the game is closed: no offline progress, ever.</td></tr>
   </table>
 
-  <h3>How the meter actually advances</h3>
+  <h3>How the meter advances</h3>
   <ul class="sp-rules">
-    <li>The tick is a function of <strong>elapsed wall-clock time</strong>, not of frames drawn. Each tick credits
-    <code>prog += (minutes elapsed &times; speed) / Minutes_Per_Egg</code> and spends <code>Ichor_Per_Min &times; minutes elapsed</code>.</li>
-    <li>It therefore does not matter how often the tick runs. A browser that throttles a background tab to one tick a
-    minute credits that whole minute on the next call; the pen finishes at the same moment either way.</li>
-    <li>Partial ticks are honest: if there is not enough Ichor for the full interval the pen credits the fraction it could
-    pay for and flags <em>LOW FOOD</em>. At zero Ichor it pauses without consuming anything.</li>
-    <li>A pen that reaches 100% with the soul bag full <strong>freezes at 100%</strong> and reports
-    <em>SOUL BAG FULL</em>. Nothing is consumed and no egg is lost &mdash; it lays as soon as a slot exists.</li>
-    <li><strong>speed</strong> is 1, on every build: one pen-minute is one real minute. The &times;60 development
-    accelerator was removed on 2026-10-22 (T47-2, &ldquo;No faster breeding, remove that entirely&rdquo;); the server
-    refuses a claim that arrives before the authored wait on its own clock.</li>
+    <li>The meter follows <strong>real elapsed time</strong>, not frames drawn. A browser that slows a background tab
+    credits the whole gap on its next step, so the pen finishes at the same moment either way.</li>
+    <li>One pen-minute is one real minute. An egg is never delivered before its full wait has passed on the server&rsquo;s
+    clock, so changing your device&rsquo;s clock does not speed a pen up.</li>
   </ul>
 
   <h2>Rates &mdash; drain, duration, cost</h2>
-  <p>Authored per pair grade in <code>codex/breeding.csv</code>. Higher grades are slower <em>and</em> hungrier, so cost per egg rises steeply while the pen's own throughput falls.</p>
+  <p>Set per pair grade. Higher grades are slower <em>and</em> hungrier, so cost per egg rises steeply while the pen's own throughput falls.</p>
   <!-- gen:breed-rates -->
 <table>
     <tr><th>Pair grade</th><th>Ichor / min</th><th>Minutes / egg</th><th>Ichor / egg</th><th>Drain per hour</th></tr>
@@ -131,8 +109,8 @@
   <pre>Ichor = round( 2 &times; (1 + enemyLevel / 100) &times; RarityMult )
 
 RarityMult:   C 1.0   UC 1.1   R 1.2   SR 1.35   SSR 1.5</pre>
-  <p style="font-size:13px;color:var(--ink-dim)">The #772 rebalance (D, 2026-09-10): level term /100 (was /20), ladder in <code>tables.json</code> <code>food_rarity_mult</code>. Enemy level caps at 100, so the Void Apex pays the floor-100 rate.</p>
-  <p>A three-enemy battle at the encounter weights in <code>codex/encounter_weights.csv</code> therefore yields:</p>
+  <p style="font-size:13px;color:var(--ink-dim)">Enemy level counts up to 100, so the Void Apex pays the floor-100 rate.</p>
+  <p>An average three-enemy battle therefore yields:</p>
   <!-- gen:breed-ichor -->
 <table>
     <tr><th>Floor</th><th>C</th><th>UC</th><th>R</th><th>SR</th><th>SSR</th><th>Expected / battle</th><th>Ichor / hour</th></tr>
@@ -143,7 +121,7 @@ RarityMult:   C 1.0   UC 1.1   R 1.2   SR 1.35   SSR 1.5</pre>
     <tr><td class="lbl">99</td><td style="text-align:center">4</td><td style="text-align:center">4</td><td style="text-align:center">5</td><td style="text-align:center">5</td><td style="text-align:center">6</td><td style="text-align:center">14.1</td><td style="text-align:center">~1,540</td></tr>
     <tr><td class="lbl">119</td><td style="text-align:center">4</td><td style="text-align:center">4</td><td style="text-align:center">5</td><td style="text-align:center">5</td><td style="text-align:center">6</td><td style="text-align:center">16.3</td><td style="text-align:center">~1,780</td></tr>
   </table>
-  <p style="font-size:13px;color:var(--ink-dim)">Kill Ichor only (egg and gear dismantles are on the Shadow Trader page). Hourly figures at 109 battles/h (dfmc-client <code>tools/sim_econ.mjs</code> BATTLES_PER_HOUR), rounded to 10. Deep floors still pay more &mdash; higher levels and a richer rarity mix &mdash; but the ramp is flat: floor 119 pays 2.7&times; floor 1. Generated by <code>tools/codex_tables.py</code> from <code>encounter_weights.csv</code> and <code>tables.json food_rarity_mult</code>.</p>
+  <p style="font-size:13px;color:var(--ink-dim)">Kill Ichor only (egg and gear dismantles are on the Shadow Trader page). Hourly figures at 109 battles/h, rounded to 10. Deep floors still pay more &mdash; higher levels and a richer rarity mix &mdash; but the ramp is flat: floor 119 pays 2.7&times; floor 1.</p>
 <!-- /gen:breed-ichor -->
 
   <h2>Egg dismantling</h2>
@@ -154,10 +132,10 @@ RarityMult:   C 1.0   UC 1.1   R 1.2   SR 1.35   SSR 1.5</pre>
     <tr><td class="lbl">Ichor</td><td style="text-align:center"><span data-csv="breeding.csv#Grade=Worn#Egg_Dismantle_Ichor">15</span></td><td style="text-align:center"><span data-csv="breeding.csv#Grade=Common#Egg_Dismantle_Ichor">25</span></td><td style="text-align:center"><span data-csv="breeding.csv#Grade=Uncommon#Egg_Dismantle_Ichor">45</span></td><td style="text-align:center"><span data-csv="breeding.csv#Grade=Rare#Egg_Dismantle_Ichor">70</span></td><td style="text-align:center"><span data-csv="breeding.csv#Grade=Epic#Egg_Dismantle_Ichor">46</span></td><td style="text-align:center"><span data-csv="breeding.csv#Grade=Legendary#Egg_Dismantle_Ichor">72</span></td><td style="text-align:center"><span data-csv="breeding.csv#Grade=Abyssal#Egg_Dismantle_Ichor">108</span></td><td style="text-align:center"><span data-csv="breeding.csv#Grade=Divine#Egg_Dismantle_Ichor">164</span></td><td style="text-align:center"><span data-csv="breeding.csv#Grade=Primordial#Egg_Dismantle_Ichor">244</span></td><td style="text-align:center"><span data-csv="breeding.csv#Grade=Void#Egg_Dismantle_Ichor">344</span></td></tr>
   </table>
 <!-- /gen:breed-egg-dismantle -->
-  <div class="note"><strong>No breed-and-dismantle loop.</strong> Yields are tuned against the hatch-weight matrix so that the expected dismantle value of an egg is always <strong>27&ndash;30% of what the pen spent making it</strong> &mdash; at every rung of the ladder, including the up-rolls. Breeding for Ichor is always a loss; dismantling is a refund on a bad roll, never an engine.</div>
+  <div class="note"><strong>No breed-and-dismantle loop.</strong> An egg&rsquo;s expected dismantle value is always well below what the pen spent making it: about 39% of the cost on a Worn pair, under 30% from Common up, and under 10% from Abyssal up. Breeding for Ichor is always a loss; dismantling is a refund on a bad roll, never an engine.</div>
 
-  <h2>Egg grade output</h2>
-  <p>The pen does <strong>not</strong> need a new matrix. The pair grade P indexes the existing row in <code>codex/egg_hatch_weights.csv</code> &mdash; the same matrix that later rolls the hatchling's grade from the egg's grade. Two <span style="color:#a855f7">Void</span> parents roll a Void egg 35.7% of the time (20% Primordial, 9% Divine, 10% Abyssal, 19% Legendary, and a tail below), and that Void egg then rolls a Void creature 35.7% of the time: <strong>~13% Void end-to-end</strong> (it was ~61% before the 2026-10-23 nerf, see the changelog), with a real chance of falling short at either step. The Hatchery grade-boost upgrade shifts the second roll upward.</p>
+  <h2 id="egg-grade-output">Egg grade output</h2>
+  <p>The pair grade P picks a row of the same odds table that later rolls the hatchling&rsquo;s grade from the egg&rsquo;s grade (see <a href="eggs.html">Eggs</a>). Two <span style="color:#a855f7">Void</span> parents roll a Void egg 35.7% of the time (20% Primordial, 9% Divine, 10% Abyssal, 19% Legendary, and a tail below), and that Void egg then hatches a Void creature 35.7% of the time: <strong>~13% Void end-to-end</strong>, with a real chance of falling short at either step.</p>
 
   <h2>Throughput ceiling</h2>
   <p>Ichor income &mdash; not pen count &mdash; is the hard cap on egg production.</p>
@@ -169,231 +147,27 @@ RarityMult:   C 1.0   UC 1.1   R 1.2   SR 1.35   SSR 1.5</pre>
     <tr><td class="lbl">Six pens, Worn through Legendary</td><td>3,060 Ichor/h demanded &mdash; ~58% duty cycle</td></tr>
   </table>
   <p>A single Void pen alone (1,560 Ichor/h) eats about nine-tenths of a maxed player's entire kill income; a second Void pen is already past it. That is the intended shape: the top of the ladder is slow by construction, and no amount of pens buys past it.</p>
+
+  <h2>Adam and Eve &mdash; the soul-bag pair keeper</h2>
+  <p>An option in the soul-bag dismantle menu (soul bag only: it needs lines and genders).
+  <strong>It keeps the highest-grade MALE and the highest-grade FEMALE of every advancement line and
+  dismantles the rest.</strong> Two keepers per line, not one &mdash; a breeding pair needs both, which
+  is the whole point of the name.</p>
+  <p><strong>What it never dismantles:</strong></p>
+  <ul>
+    <li>a creature whose gender is <strong>not known</strong> &mdash; it is kept;</li>
+    <li>a creature whose <strong>line</strong> cannot be worked out;</li>
+    <li>a creature <strong>above level 1</strong>;</li>
+    <li><strong>mutants</strong>;</li>
+    <li>a creature of a grade you have <strong>switched off</strong> in the window. Abyssal and up start switched off; the switches last for that one sweep. A switched-off creature can still be its line&rsquo;s keeper;</li>
+    <li>class souls, eggs, and everything ordinary bulk dismantle already leaves alone. Creatures in pens are not in the bag, so they are never touched.</li>
+  </ul>
+  <p><strong>Ties are broken by level, then by stage</strong>, and the confirmation window says so.</p>
+  <p><strong>The confirmation window explains what it does</strong>: it names the rule, how many survive across how many lines,
+  how many are being dismantled, and every creature it is leaving alone and why.</p>
+
 </div>
 <script src="admin.js"></script>
-  <h2>Where breeding happens &mdash; anchor and claim</h2>
-  <p><strong>The server is called once, at the end.</strong> Starting a pen costs no request of its own and
-  no tick is ever reported. The client attaches two fields &mdash; the pen index and its grade &mdash; to
-  whatever call it was already making, and the server anchors the pen. The egg claim is <code>POST /api/roll</code>
-  with kind <code>egg</code> and the pen index &mdash; the only breeding request in the system
-  (<code>/api/breed/claim</code> was retired on 2026-10-22 and answers 410).</p>
-  <table>
-    <tr><th>Step</th><th>What happens</th></tr>
-    <tr><td class="lbl">Start</td><td>The client rides <code>{p, g, s}</code> on an existing request &mdash;
-      pen, grade, and the moment it started. Because the note is queued, the pen really did start before the
-      server heard about it, so that time is <em>credited</em> rather than discarded &mdash; but it is
-      <strong>clamped</strong>:
-      <code>start = clamp(claimed, floor = last contact, ceiling = now)</code>.
-      The floor falls out of the offline rule: nothing happens offline, so a pen cannot have started before
-      the last moment the account was talking to the server. A false claim is therefore worth at most the gap
-      since the client's previous call, which the client's own traffic already bounds, and a backdate to 1970
-      buys nothing at all. The floor is read from writes the account already makes (the battle chain's last
-      flush, the stored save's timestamp), so proving last contact costs no extra write. With no claim, or a
-      nonsense one, the anchor falls back to <code>now()</code>.</td></tr>
-    <tr><td class="lbl">Running</td><td>Nothing. No tick, no heartbeat, no request. The pen is a row with a
-      grade and a timestamp, and it survives a worker restart because it lives in the account's SQL.</td></tr>
-    <tr><td class="lbl">Re-announced</td><td>Ignored. A re-sent note does not restart a running pen &mdash;
-      otherwise a client could re-announce forever and hold an egg at 99%.</td></tr>
-    <tr><td class="lbl">Claim</td><td>The server compares elapsed time <em>on its own clock</em> against
-      <code>Minutes_Per_Egg</code> for the recorded grade, with a clock-skew band of the greater of 90&nbsp;s and 3% of
-      the pen (anchor drift and device clocks, measured 2026-08-29 and widened 2026-09-02). Earlier than that, or with
-      no record, no rate, or a recorded parent no longer in the pen, it <strong>refuses</strong> (409
-      <code>breed_claim_bad</code>, flagged with the reason) and grants nothing; the client pauses its pens and asks
-      again later. Ready, it re-derives the pair grade from the two recorded parents&rsquo; ledger grades (a record
-      that disagrees is corrected and flagged <code>breed_pair_corrected</code>), draws the grade off that row, names
-      the species off a recorded parent&rsquo;s line, mints the egg&rsquo;s uid, books <code>Ichor_Per_Egg</code>, and
-      re-arms the pen by exactly one wait so one wait can never pay twice. The answer always carries the egg
-      (species, crId, grade, uid); an egg the server cannot name is refused, never laid unnamed.</td></tr>
-  </table>
-  <div class="note">Every number comes from <code>breeding.csv</code> &mdash; minutes per egg, ichor per
-  minute, ichor per egg, dismantle value. Nothing is hardcoded, and a grade the file does not author grants
-  nothing at all rather than falling back to a default.</div>
-
-<h2>The egg's grade and its line are the server's</h2>
-<p><em>LIVE on release since 2026-08-08 (0.42).</em> Server-side rolls items 2 and 3, and they are <strong>one
-ask</strong>, because they are one decision made at one instant. Split into two calls, a client could
-keep a grade it liked and re-ask for the line.</p>
-<p>D's breeding ruling is unchanged: <em>&ldquo;Server only needs to be called when breeding ends for
-the result. Starting breeding and the ticks can be queued.&rdquo;</em> So the per-second tick still
-runs locally and still meters Ichor in whole units. <strong>Only the laying waits.</strong></p>
-<h3>A due egg is a paid entitlement, and the pen stops</h3>
-<p>Breeding charges as it goes, so by the time progress reaches 1 the Ichor is <em>already spent</em>.
-The egg cannot simply be dropped if the server is unreachable, and it must not be laid blind either.
-So the pen banks <code>due</code> and <strong>stops</strong>: it spends no more Ichor and accrues no
-second entitlement. That is what keeps this out of outbox territory &mdash; a stopped pen credits
-nothing, and what is owed is one egg, not a growing queue. It reuses the rule breeding already has:
-a full soul bag <em>pauses</em> a pen, it never discards.</p>
-<p><code>layEgg()</code> is idempotent against its own entitlement, so an answer arriving twice
-cannot lay twice, and it re-checks the soul cap &mdash; the bag can fill between the entitlement
-being banked and the answer landing.</p>
-<h3>What the server decides</h3>
-<table>
-  <tr><th>Fact</th><th>Source</th></tr>
-  <tr><td class="lbl">Egg grade</td><td><code>egg_hatch_weights.csv</code>, the row for the <em>pair's</em> grade. The ladder is the CSV's own column set, never restated in code &mdash; re-author the grades and the weights move with them.</td></tr>
-  <tr><td class="lbl">Parent line</td><td>50/50 between the two parents, drawn on a second HMAC lane. The client is <em>told</em> which parent and only resolves it to a line id.</td></tr>
-  <tr><td class="lbl">Species, origin record, toast</td><td>Client. None of it is a chance.</td></tr>
-</table>
-<p class="note"><strong>Also deleted:</strong> <code>rollHatchGrade()</code>, dead since the hatch
-path became server-decided. No call site remained, and a live <code>Math.random()</code> grade roller
-sitting beside the door that replaced it is an invitation to wire the wrong one back up.
-<code>hatchWeights()</code> stays &mdash; the mass-hatch screen reads it to <em>show</em> the odds,
-which is display, not a draw.</p>
-<p class="note"><strong>Probe.</strong> <code>tools/probe_eggroll.py</code> &mdash; BEFORE 1/8, AFTER
-8/8 over three runs, on the full stack. Test 5 aborts <code>/api/roll</code> and proves the pen stops
-dead; test 6 restores it and proves the egg lands exactly once. Test 2 reads the authored weights out
-of the CSV rather than restating them, and test 4 bounds the 50/50 at three standard deviations of
-the sample the roll rate cap actually permits.</p>
-
-<h2>Adam and Eve &mdash; the soul-bag pair keeper (reports #99 + #100)</h2>
-<p><strong>Status: on release.</strong> An option in the soul-bag dismantle
-menu, offered in the SOUL BAG ONLY because it is meaningless where there is no line and no gender.
-<strong>It keeps the highest-grade MALE and the highest-grade FEMALE of every advancement line and
-dismantles the rest.</strong> Two keepers per line, not one &mdash; a breeding pair needs both, which
-is the whole point of the name.</p>
-<p><strong>What it refuses to touch</strong>, each a deliberate refusal rather than an omission:</p>
-<ul>
-  <li>a creature whose gender is <strong>not known</strong>. The gender helper defaults to male, and
-  that default must never decide a dismantle &mdash; unknown is its own bucket and everything in it
-  is kept. Wrong in the player's favour is the only acceptable direction here.</li>
-  <li>a creature whose <strong>line cannot be resolved</strong> from <code>creatures.csv</code>. No
-  line, no comparison, no dismantle.</li>
-  <li>anything <strong>in a breeding pen</strong>, which is in use.</li>
-  <li>class souls, eggs and everything the shared bulk-salvage rules already exclude &mdash; it runs
-  through those rules rather than restating them, so every existing exclusion holds for free.</li>
-</ul>
-<p><strong>Ties are broken by level, then by stage</strong>, and the confirmation window says so.
-A tie means the two are interchangeable, but only one survives, so the choice is made on the numbers
-rather than on bag order.</p>
-<p><strong>The confirmation window explains what it does</strong>, which is part of the spec rather
-than a nicety: it names the rule, how many survive across how many lines, how many are being
-dismantled, and every creature it is leaving alone and why. Without that last part a player reads
-&ldquo;keeps the best of each line&rdquo;, finds four Phantoms still in the bag, and files it as a bug.</p>
-<p class="foot">Measured on a real account before shipping: 87 creatures down to 47, exactly the 40
-on the kill list, no creature dismantled while a worse one of its own line and gender survived, a
-second run finding nothing left to do, and the item census changing creature rows only. Client:
-<code>adamEveSplit()</code>, <code>dismTargets</code> mode <code>adameve</code>,
-<code>dismAdamEve</code> in <code>play/app.js</code>.</p>
-
-<h2>Changelog</h2>
-<p><strong>2026-11-04 &mdash; a server-granted egg paints its shell on the hatch screen (#1194, D 2026-11-03: &ldquo;clicking an egg to hatch is not showing the egg image or the hatching animation. Looks like the image is not being served&rdquo;; dfmc-client lane E2). On dev.</strong> Eggs the SERVER grants (floor drops, boss eggs, breed grants) reach the client with no <code>eggType</code>, so the hatch screen asked for <code>codex/images/opt/eggs/undefined.webp</code> &mdash; a 404 on every host &mdash; and the confirm stage and both crack halves of the hatch animation were empty. The egg art was there all along (all 22 type shells at the release pin, on R2 and jsDelivr). The client now reads the shell type the way the egg names it: its own <code>eggType</code>, else its line&rsquo;s <code>Type_Primary</code> (<code>crId</code>), else <code>eggs.csv</code> by species, else <code>creatures.csv</code>, else Reptile; the hatch view, the bag tile and the boot warm all use it (<code>eggTypeOf</code> in <code>play/app.js</code>). Gate: dfmc-client <code>tools/probe_eggimg.py</code>.</p>
-<p><strong>2026-11-03 &mdash; a locked BREEDING plate is greyed (#1196, D 2026-11-03: &ldquo;the breeding button is locked but not grayed out&rdquo;; dfmc-client lane C).</strong> Below the breeding rung (25) the BREEDING plate in the bag row now greys like DISMANTLE and the menu plate, and its chip reads UNLOCKS ON FLOOR 25 (was OPENS AT FLOOR 25). Gate: dfmc-client tools/probe_unlock_ladder_1193.py L2.</p>
-<p><strong>2026-11-03 &mdash; a hatch always names its creature (dfmc-client lane L1c; house rule: the server mints every identity). On dev (0.94).</strong> When the hatch answer carried no uid, the client invented one, and a creature under a uid no ledger row holds can never be equipped. The server now declines a hatch it could not write to its ledger (the egg is not spent) and declines a stored result that named no creature; the client grants nothing for an answer without a uid, keeps the egg and re-reads the server's state.</p>
-<p><strong>2026-11-03 &mdash; codex review (dfmc-client lane codexreview-a; D 2026-11-03 &ldquo;review the codex, clean it up, update whatever needs updating&rdquo;). WIKI ONLY.</strong> The pen-grid text still said Ichor pens were debited by the client and that Ichor had no other use; every priced pen has gone through the server&rsquo;s unlock door since 0.90 (ichor-doors, below) and the Shadow Trader buys Ichor. The six pen prices now bind to <code>pen_unlocks.csv</code> <code>Cost</code> instead of being pasted. The throughput-ceiling table still ran on the pre-#772 income (~490 Ichor/h at floor 119); it is recomputed against the ~1,780 Ichor/h the Ichor-income table above already shows (Void ceiling ~0.6 eggs/h, six Void pens ~19% duty). Roster count 300 &rarr; 312 (<code>creatures.csv</code>). No game code or csv changed.</p>
-<p><strong>2026-10-23 &mdash; a pen parent's uid is the server's (R6 "the server mints every identity", dfmc-client lane r6-pen-uids).</strong> SHIPPED IN 0.90. A creature sitting in a breeding pen (<code>pens[i].m</code> / <code>.f</code>) with no uid - a legacy or restored save - used to get a uid invented by the client, on boot and again after every server answer, so a pen action named an id the ledger never issued. The v2 save door now names it once (<code>penUidMint</code> in <code>src/worker.js</code>, beside the bag's <code>bagUidMint</code>): a uid fixed by the creature and its pen and side, an items row with origin <code>pen_mint</code> and its birth, flag <code>pen_uid_minted</code>, <code>srv.penMinted</code> on the answer. The client's <code>ensureUids</code> leaves the pens to the server once the server-authoritative save is on; the legacy path still stamps. Breeding itself is unchanged. Gate: <code>tools/probe_pen_uids.py</code> 5/10 &rarr; 10/10.</p>
-<p><strong>2026-10-23 &mdash; C17 part 3 (dfmc-client lane c17-gen-2): the rates, Ichor-income and egg-dismantle tables are generated. WIKI ONLY; no game code changed.</strong> The egg-dismantle row binds to <code>breeding.csv Egg_Dismantle_Ichor</code>; it still showed the pre-rebalance ladder from Epic up (Epic 115 &rarr; 46, Void 860 &rarr; 344). The Ichor-income table is the kill credit over <code>encounter_weights.csv</code> (floor 25 7.9 &rarr; 9.1 per battle), and the hourly column is at 109 battles/h (<code>tools/sim_econ.mjs</code>), not ~30. Drain per hour is Ichor/min &times; 60, computed.</p>
-<p><strong>2026-10-23 &mdash; a breeding pen names what it spends, on hover (screen review #9, dfmc-client lane screen-fixes-2).</strong> SHIPPED IN 0.90. The spinning circle on a breeding pen's gate already carried the egg grade in its title (#879 moved it there when D removed the pen's rate text). Its title now also names the cost: <em>Breeding &middot; Common egg &middot; 90 Ichor per egg, every 18 min</em>, from <code>breeding.csv</code> <code>Ichor_Per_Egg</code> and <code>Minutes_Per_Egg</code>, the same per-egg ask the server takes. No visible text is added to the pen (#879 stands). Display only. Gate <code>tools/probe_b9_pencost.py</code>.</p>
-<p><strong>2026-10-23 &mdash; the Ichor pens, the breed screen's egg dismantle and the breed meter go through the server (lane ichor-doors).</strong> SHIPPED IN 0.90. Since the wallet became the ledger's sum (2026-10-23, system-networking), three Ichor flows that moved only on the client undid themselves at the next save answer. <strong>Pens 2-3</strong> are now bought at the same server door as the Wraithgold pens: the price is <code>pen_unlocks.csv</code>'s, the server checks the balance (refusing with what you hold and what it costs), books one permanent <code>unlock</code> row and writes the pen into the stored save - a second click or a refresh never charges twice, and the pen survives a reload. After the wipe line only pen 1 (price 0) is free; a priced pen is owned by its ledger row. <strong>Dismantling an egg</strong> on the breed screen calls the dismantle door at the click (the server prices it from <code>breeding.csv</code> Egg_Dismantle_Ichor), with the next save as its fallback, never both. <strong>The breed meter</strong> no longer draws Ichor out of the shown wallet second by second: the egg's cost (Ichor_Per_Egg) is booked by the server when the egg is laid, and the meter only measures progress against what the wallet can still cover. Probe: <code>tools/probe_ichor_doors.py</code> 5/11 &rarr; 11/11.</p>
-<p><strong>2026-10-23 &mdash; each parent's name sits on a wooden sign nailed to the pen gate (C14, the one piece of #879 left unbuilt).</strong> SHIPPED IN 0.90. A filled parent slot prints its name on a plank (<code>img/breed/sign.webp</code>, cut by <code>tools/make_breed_sign.py</code> from the gate set's own rail, lifted so it reads as a sign on the gate rather than another rail), in front of the gate, with the grade line beneath it. Display only - nothing about breeding changes. The sign is warmed with the barn and the gates; the first-open art is 637 KB of the 700 KB budget.</p>
-<p><strong>2026-10-23 &mdash; breeding odds nerfed at the top: the Abyssal, Divine, Primordial and Void rows of the hatch matrix hold far less of their own grade (INDEX &sect; 3 Economy, D 2026-10-22 &ldquo;breeding chances reviewed and nerfed, especially higher grades&rdquo;; C3).</strong> SHIPPED IN 0.90. <code>codex/egg_hatch_weights.csv</code> only &mdash; no server or client constant, no new column, <code>breeding.csv</code> durations unchanged. A bred egg reads the matrix twice (the pair grade&rsquo;s row picks the egg grade, the egg grade&rsquo;s row picks the creature), so a row&rsquo;s own-grade weight compounded: a Void pair bred a Void creature 61.6% of the time, Divine 53.5%, and a breeder penning only their best tenth went from all-Legendary to 92% Divine+ in five generations. Those four rows are reachable only by breeding (wild eggs stop at the Legendary cap), so they move and nothing else does: own-grade weight Abyssal 57.4&rarr;38, Divine 63.8&rarr;37, Primordial 70.5&rarr;37, Void 78.1&rarr;35.7; the step-up weights shrink (Void column: 0.4/1/4 &rarr; 0.1/0.3/1.9) and the freed mass falls mostly to Legendary rather than one grade down, so breeding does not become the main source of Divine. Worn through Legendary &mdash; the rows a wild egg hatches on &mdash; are untouched. Model (<code>tools/statmodel.py breed</code>, 40 fresh endgame collections at floor 119, 3 pens, every Ichor to the pens): a pair&rsquo;s child is its own grade or better Abyssal 49.9&rarr;22.4%, Divine 53.5&rarr;17.2%, Primordial 57.5&rarr;15.9%, Void 61.6&rarr;13.2%; first Void at a median 19.5&rarr;63.5 active hours; Void creatures made 63&rarr;13 per 100 active hours; the best-tenth curve tops out at 25% Divine+ instead of 92%; bred share of Divine 37&rarr;35%. Gate: dfmc-client <code>tools/probe_breed_odds.py</code> 10/10 (4/10 on the old weights) &mdash; the server&rsquo;s own pair-grade, egg and hatch code extracted from <code>src/worker.js</code> over 200k pairs matches the model, and the targets hold. Review: dfmc-client <code>docs/breeding-odds-2026-10.md</code>. Reaches the game on the next DATA_PIN advance and bake.</p>
-<p><strong>2026-10-22 &mdash; the egg claim refuses what the pen record cannot account for, the pair grade is the parents&rsquo;, the type rule is server-checked, and the &times;60 dev clock is gone (server-authority run &sect; 3 item 6; F134, F140, F144, F175; T47-2). LIVE on release since 2026-10-23 (0.89).</strong> Watch-first ended on the roll door&rsquo;s egg branch: a claim with no pen record, before the authored wait on the server clock, with a recorded parent gone, or for a grade the tables do not author is refused (409 <code>breed_claim_bad</code>, still flagged) and nothing is drawn, minted or booked &mdash; the idem is not spent, so the honest claim that follows is answered. The client&rsquo;s <code>pair</code> is ignored: the pair grade is re-derived at the claim from the two recorded parents&rsquo; ledger grades (the breedfix rule, moved into the door; a stale record is corrected and flagged <code>breed_pair_corrected</code>). The pen start now checks the shared-type rule server-side, off the ledger rows&rsquo; species names and <code>creatures.csv</code>: no type in common refuses the start (<code>breed_start_bad no-shared-type</code>); a name the table does not hold is unverifiable and records nothing. The answer always carries the egg &mdash; species, crId, grade, uid &mdash; and the client adopts it; the client-side <code>stage1OfLine</code> fallback that named an unnamed egg from its own copy of the parents is gone, and an egg the server cannot name is refused (<code>breed_species_unresolved</code>). <code>/api/breed/claim</code>, routed but with no caller, is retired (410) and its object handler deleted. The ops breedfix door looks hatch records up by the hatch door&rsquo;s own <code>uid:index</code> key, so a regranted egg that hatched is not redelivered. The &times;60 development pen clock is deleted end to end (template, release override, save key, tick, Settings toggle and markup): one pen-minute is one real minute on every build. Gate: <code>tools/probe_sa_roll_breed.py</code> 24/24 on the local rig (red 12/24 on the pre-fix tree).</p>
-<p><strong>2026-10-01 &mdash; the pens tick no longer repaints every screen (0.89 carry-over s4.3, PREP_PERFORMANCE &sect; 1.4).</strong> LIVE on release since 2026-10-23 (0.89). While any pen was on, the client's once-a-second pen tick pushed the new pen state, wallet and egg entitlements through a full repaint of the whole screen, whatever screen was open - the floor, a fight, the inventory - for a readout only the Breeding window shows. The pen state is saved state, so nothing about it changes: the tick keeps its one-second cadence, its integer-metered Ichor draw, its progress and its due-egg entitlements, and the save carries exactly the same fields with the same values. What changes is only the painting: with the Breeding window closed the tick writes the pen state without repainting, and the next real paint (or the next save) sees it; with the Breeding window open every tick still repaints, and a wallet change still repaints while the Crafting window is open, because its rail shows the Ichor count. Measured by the client's tools/probe_perf_3.py: on the floor with a pen running, 5 full repaints per 5 s before, 0 after; with the Crafting window open, 6 before, 3 after (one per wallet change); the Breeding window keeps its 6; the save's shape is identical before and after and the three screens are pixel-identical.</p>
-<p><strong>2026-09-30 &mdash; a hatched egg keeps its hatch record while its row exists, and the gender door answers a creature's stored sex (review lane U, F143, F135).</strong> ON DEV. The hatch door limits an egg by counting its hatch records, and those were purged after 30 days whatever the egg's own ledger row said. Every egg hatched before 2026-09-30 still has an unspent row (still in the bag, or marked gone by a save sync, which the hatch door accepts), so once its record aged out the same egg could hatch a second time and mint a second creature. A hatch record is now purged only once no ledger row for that egg remains; the row's own 30-day tombstone prune releases it, and an egg id with no row is refused. So the replay now holds for as long as the egg exists, not 30 days. The gender door (<code>/api/roll</code> kind=sex) used its own draw and never read the sex the hatch or the breed claim stored for a creature, so a hatched creature whose gender was stripped from the save could come back the other gender about half the time. A creature the server already sexed now answers that sex; keys with no sexed row (the starters) still draw 50/50, so no odds change. Release (main) has the same purge and in addition hatches any egg id without a ledger check (F132, fixed on dev only). Gate <code>tools/probe_hatchpurge.mjs</code> 4/7 -> 7/7.</p>
-<p><strong>2026-09-30 &mdash; the pen start checks creatures and genders, and a claim checks the pen is yours (review lane Q, F134, F353, F143). ON DEV.</strong> The server&rsquo;s start check tested distinct uids, not-busy and a legal grade. It now also records nothing when either parent&rsquo;s ledger row is not a creature, or both carry the same server-rolled sex. An empty field is our gap, not the player&rsquo;s, so it is not held against the start. The shared-type rule is still checked only on the client: the object holds no species types. The dormant <code>/api/breed/claim</code> door refuses a pen index past the pens this account owns. NOTE (F143): the hatch record that makes a hatch answer the same way on a retry is purged after 30 days, so that replay guarantee lasts 30 days, not forever. Gate <code>tools/probe_laneq.mjs</code> 0/15 &rarr; 15/15.</p>
-<p><strong>2026-09-30 &mdash; review P6 F6-050. ON DEV.</strong> The egg claim (<code>/api/roll</code> kind <code>egg</code> with its pen) read the lazily created <code>pens</code> table without creating it, so on a player object where no start note had ever landed the request failed with a server error and the ready egg could never be claimed. It now creates the table first (the same statement the start note uses), and a pen with no record takes the watch-first <code>no-record</code> path: paid off the claim and flagged, as the ledger rule says.</p>
-<p><strong>2026-09-30 &mdash; review P6 F6-037. WIKI ONLY.</strong> The claim row said an early claim grants nothing; the server has paid a claim up to the greater of 90&nbsp;s and 3% of <code>Minutes_Per_Egg</code> early since 2026-09-02 (60&nbsp;s / 2% from 2026-08-29) &mdash; a deliberate band for anchor drift and device clock skew, measured on real anomaly rows, that still flags anything further out. The row now states the band. No rule changed.</p>
-<p><strong>2026-09-30 &mdash; review drift fixes: F138, F142. WIKI ONLY.</strong> Ichor income, its per-floor table, the pen-price hours and the Throughput ceiling are restated on the #772 curve the server pays (level/100, ladder 1/1.1/1.2/1.35/1.5); they were still the pre-09-10 numbers (~3,040/h at floor 99, now ~420). The loop table dropped its Toggle ON/OFF rows: since 0.76 a pen with a compatible pair always runs, and the only stop is removing a parent, which zeroes the meter. DESCRIPTIVE ONLY.</p>
-<p><strong>2026-09-30 &mdash; premium pens are only ever what the ledger paid for (F136, F327, full project review). ON DEV.</strong> Two ways past the Wraithgold price are closed. The save carried <code>pensUnlocked</code> as a number that could only grow, with no ceiling: a save claiming six pens was stored, and both the unlock door and the pen note then took that number as ownership, so pens 4&ndash;6 came free. The save door now caps the claim at what the server can vouch for &mdash; the Ichor pens (1&ndash;3, still debited by the client), the highest pen the permanent unlock ledger records as bought, or the count the account already held (a pen owned before the ruling is never taken back) &mdash; and flags anything above it (<code>pen_unpaid</code>). A pen note for a pen the account does not own is refused (<code>pen_unowned</code>). On the client, a lost <code>pen_unlocks.csv</code> used to fall back to the old all-Ichor table and sell pens 4&ndash;6 for Ichor on the spot; the boot now halts on it like every other core table, and with no price table no pen is for sale. The pen price table above is corrected to the 2026-08-13 ruling. Server: <code>penEntitled</code>, <code>penNote</code>, the save door in <code>src/worker.js</code>; client: <code>loadPenCsv</code>, <code>penPrice</code>, <code>unlockPen</code> in <code>play/app.js</code>. Gate: <code>tools/probe_f136_penentitle.py</code>.</p>
-<p><strong>2026-09-30 &mdash; a hatch opens the egg the server holds, and the creature remembers it (F132, F133, full project review). ON DEV.</strong> The server already drew every hatch, but it drew it off the grade the request named and never asked whether the egg was one the account held, so the draw could be pointed at any grade. It now resolves the egg by its own row in the item ledger: the grade the draw uses is that row&rsquo;s grade, never the request&rsquo;s; an egg the ledger holds no live Egg row for hatches nothing and is flagged <code>hatch_unledgered</code>; and the egg row is marked spent (<code>gone_src=hatch</code>) the moment it hatches, so one egg is one creature. Every legitimate egg already carries a row &mdash; drops and bred eggs are written at the grant and the save door adopts every held item on each save &mdash; so no held egg is refused. The same lookup fixes the lineage: hatch ids travel as <code>uid:index</code> and the birth record searched the whole id, found nothing, and wrote every hatched creature with no egg name, no parents and no pen. It now reads the egg&rsquo;s row, so a bred egg&rsquo;s parents and pen reach the creature as the 2026-08-26 entry promised. A replayed id still answers the same creature. Worker: <code>hatchOne</code> in <code>src/worker.js</code>; gate <code>tools/probe_hatchledger.mjs</code>.</p>
-<p><strong>2026-09-17 &mdash; CHOOSE PARENT clears the pen door, and the circle stands on it (#949 D, #954). ON DEV (0.84).</strong> <em>The text.</em> D: &ldquo;the first row of the breeding pen &lsquo;choose a parent&rsquo; text is cut off by the breeding pen door graphic. expected to be like second row where text is above pen doors.&rdquo; Both rows were in fact placed identically: an empty slot&rsquo;s sigil and label were centred on a box that is the whole pen bay, while the door is an overlay that box knows nothing about &mdash; so every one of the six bays put the label on the door line. What differed was the door <em>art</em>. The six gate plates are all 912 wide but 222 to 242 tall, so the row-one plates rise above the label and eat it while the row-two plates sit under it and clear it; nudging row one would have been fixing the symptom. The label is now centred in the stall <em>above</em> the door, from a single measurement sized to clear the tallest plate rather than the average, so all six bays read alike and no future door can put one back on its own rail. It is lifted well clear, and bold, both as D asked. <em>The circle.</em> The alchemical circle leaves the top strip the 2026-09-16 entry put it in and stands on the middle of that bay&rsquo;s door. It keeps the egg&rsquo;s grade colour and the tooltip naming that grade, and it gains a dark backing &mdash; the door is lit timber in the same tonal range as the lower grades and the rune vanished into the grain, and since #879 took the BREEDING word away this circle is the pen&rsquo;s only running-or-stopped readout. The strip stays behind it, empty unless the pen is paused, so the parents below are not resized. Gate <code>tools/probe_pentext.py</code> 0/10 &rarr; 10/10 red-first, measured at 1920&times;911 and 1423&times;687; <code>probe_breedbarn</code> 29/29, its circle check re-aimed from the top strip to the gate and named for #954.</p>
-<p><strong>2026-09-16 (c) &mdash; a locked pen no longer prints its number (#879, D). ON DEV (0.81).</strong> The first #879 pass took PEN # out of the open pens and left it on the boarded ones &mdash; padlock, &ldquo;PEN n&rdquo;, the unlock button, the tagline. Asked whether the window title counts, D ruled: &ldquo;I am talking about what is in each pen, not the title of the page.&rdquo; So the &ldquo;PEN n&rdquo; line under the padlock is gone, and its producer went with it. The window title BREEDING stays. The unlock button keeps its label (UNLOCK PEN n FIRST, or UNLOCK &middot; the price) &mdash; it names what the button unlocks, it is not the pen describing itself &mdash; and the PEN n IS NOT NEXT and PEN n UNLOCKED messages are messages, not pen content. Gate <code>tools/probe_879b.py</code> 6/7 &rarr; 7/7 red-first; <code>probe_breedbarn</code> 29/29 unchanged.</p>
-<p><strong>2026-09-16 (b) &mdash; the EGGS HATCHED card shows who hatched (#912, D). ON DEV (0.81).</strong> Under each grade row of the Hatch All summary there is now one thumbnail per distinct creature hatched at that grade &mdash; the Floor Map completion list&rsquo;s 72px tile, drawn from the same codex art, never the full-size icon. The same species, sex and grade hatched more than once is <em>one</em> thumbnail wearing a &times;<em>n</em> badge, not a repeat; a mutant is its own thumbnail on its recolour. The grade sits top-left as the alchemical circle in the grade colour (there is no grade icon asset, so the circle is the treatment the running pen already uses) and the gender sigil top-right tells a species&rsquo; two sexes apart. The rows column scrolls past 560px so a many-grade hatch cannot push CLOSE off the stage. Gate <code>tools/probe_hatchcard.py</code> 9/9 on the real Hatch All path.</p>
-<p><strong>2026-09-16 &mdash; the pen header is the circle alone (#879, D). ON DEV (0.81).</strong> PEN #, PAIR GRADE, the BREEDING word and the Ichor/min &middot; min/egg &middot; Ichor/egg line are gone from every pen, and the level no longer prints beside a parent&rsquo;s grade. The alchemical circle is centred in the pen&rsquo;s top strip at 52px (it was 22px in a corner); the strip keeps the height the two text rows had, so the parents are not resized. The circle still takes the egg&rsquo;s grade colour, and its tooltip now names that grade (&ldquo;Breeding &middot; Rare egg&rdquo;) since the readout that printed it is gone. A paused pen keeps its reason beside the dim circle &mdash; SOUL BAG FULL and LAYING are calls to action. The producers went with the text (num, status, pair grade, rate line, recLevel). <strong>Still owed:</strong> D asked for a <em>wooden sign</em> behind each parent&rsquo;s name, in front of the pen gate &mdash; that is new art (a plank roughly the width of the parent slot, about 34px tall, sitting above the gate and below the name in the stack) and is promoted rather than placeholdered. Gate <code>tools/probe_breedbarn.py</code> 22/29 &rarr; 29/29 red-first.</p>
-<p><strong>2026-09-14 (b) &mdash; the pen header fits, and the Ichor count is legible (#849, D). LIVE on release since 2026-09-14 (0.80).</strong> The soul bag button was carrying the 120px plate every full-size nav button uses inside a 65px header &mdash; measured at 22px below the strip and 23px above it &mdash; and comes to 48px, the header minus its own padding, keeping its 850/344 aspect. The Ichor readout was a 12px flat purple square (a placeholder from before the currency icons were generated) beside a 16px number; it is the real icon and 26px in a fixed 110px slot now, through the same rule every other currency readout uses, because this count ticks every pen-minute.</p>
-<p><strong>2026-09-14 &mdash; a creature alone in a pen does not play the pair animation (#888, D). LIVE on release since 2026-09-14 (0.80).</strong> Both animations were hardcoded <code>infinite</code> in the markup and bound to nothing, so a creature by itself lunged at a partner who was not there and the recoil fired at an empty pen on its own beat. They are a PAIR animation and they ask whether there is a pair. <strong>Breathing is deliberately untouched &mdash; being alone is not being dead</strong> &mdash; and the gate fails if a later pass stills it.</p>
-<p><strong>2026-09-11 &mdash; the pens become a barn, and breeding runs itself (D). LIVE on release since 2026-09-11 (0.76).</strong> The pen grid is painted over a two-storey timber barn: each of the six bays <em>is</em> a pen, so the card frame, the slot boxes, the status chip and the readability scrim are gone. A gate hangs in front of both parents, a pen that is not unlocked is boarded shut, and the grade a creature carries now reads as a coloured aura behind it rather than a box around it. PAIR GRADE and the Ichor rate moved into the bay header, onto dark planking, because once the bays had straw floors the old position was unreadable. The removal button is the Tier X item plate and the gender marker is a crystal sigil.</p>
-<p><strong>2026-09-11 &mdash; there is no BEGIN BREEDING button (D). LIVE on release since 2026-09-11 (0.76).</strong> A pen holding a compatible pair is breeding. The progress bar and the percentage are gone with the button; the pen reports BREEDING, and the rate line already says what it is earning. Pulling a parent out still resets that pen&rsquo;s meter to zero &mdash; D&rsquo;s ruling, and the behaviour the code already had. Nothing changed on the server: the same pair lock, the same <code>startedAt</code> stamp the breed-start ledger anchors on, only stamped when the pair lands rather than when a button was pressed. Saves written before 0.76 that hold an idle pair start it when the pens are opened.</p>
-<p><strong>2026-09-11 &mdash; the parents are alive in the pen (D). LIVE on release since 2026-09-11 (0.76).</strong> Both parents breathe on their own cycle, and every few seconds the male lunges at the female and she takes the hit &mdash; the battle screen&rsquo;s own attack and recoil, at the same timing, scaled to the smaller art. The male is mirrored so he faces her. There is no damage flash and no effect on the hit.</p>
-<p><strong>2026-09-11 &mdash; a loading tip for grade inheritance (D). LIVE on release since 2026-09-11 (0.76).</strong> &ldquo;Better grade parents can produce better grade eggs.&rdquo; carries an egg icon, and the loading screen now prints a tip&rsquo;s icon underneath its text instead of beside it.</p>
-<p><strong>2026-09-09 &mdash; the server decides what a bred egg is (#821, D). LIVE on release since 2026-09-09 (0.73).</strong> The server has always chosen which of the two parents an egg comes from, fifty-fifty. It did not say which <em>creature</em> that meant, and recorded the egg with no species at all &mdash; the game client worked it out afterwards, and if it could not, it picked a creature of the shared type at random and minted that. The server now resolves the chosen parent to the first form of its own line, using its own records, sends that with the egg and writes it into the ledger. If a parent cannot be resolved the egg is left unnamed and the case is recorded for review &mdash; nothing is invented to fill the gap. The rule this restores is the oldest one in the game: the server decides, the client displays. Gate <code>tools/probe_eggspecies.py</code> 5/5, red 2/5.</p>
-
-<p><strong>2026-09-12 &mdash; hovering a parent no longer hides its name, the running pen&rsquo;s circle takes the egg&rsquo;s colour, and the parent picker gets a background (D). ON DEV (0.78).</strong> Three things in the breeding window. <em>The gate stopped eating the name.</em> Putting the pointer on a parent brightened the whole stall, and brightening an element makes it its own paint layer &mdash; which dropped the name, grade, level, gender sigil and remove X <em>behind</em> the stall gate, so hovering covered exactly the information you were hovering to read. The highlight now rides the contents of the stall rather than the stall, so nothing about the layering changes when you hover: the gate still stands in front of the creature&rsquo;s legs, the name strip still sits in front of the gate. This is the third time this pen&rsquo;s layering has broken in the same way (the remove X on 2026-09-04, the sheet on 2026-09-03) and all three come from one shape &mdash; an overlay authored to sit above a neighbour&rsquo;s contents, which any brightness, scale or fade silently breaks. <em>The circle tells you what is coming.</em> The circle that spins while a pen is running was a fixed orange on every pen; it is now the grade colour of the egg that pair is working towards, read from the same row the PAIR GRADE readout prints, so the two can never disagree. A stopped or unpaired pen keeps the dead stone colour. <em>The parent picker has a floor.</em> It was drawn straight over the barn plate with nothing behind it, so barn beams ran between the card columns and a post or the feed chest read through the portraits themselves. It has its own panel now, and the cards are no longer see-through where the art sits. The pens view is unchanged &mdash; the barn is the pen there.</p>
-
-<p><strong>2026-09-08 &mdash; Hatch All gets a SKIP ALL button (#790, D). LIVE on release since 2026-09-08 (0.72).</strong> A SKIP ALL button now sits at the bottom of the hatch stage for the whole run. Pressing it ends the show at once and lands on the same summary card the run finishes on by itself; it does not pause on Abyssal-or-better eggs, because that rule belongs to the held fast-forward (#769) and the card names every grade anyway. Theatre only: the eggs were hatched and the creatures were in your bag before the first one took the stage, so skipping changes nothing about what you got. The button&rsquo;s own tap never reaches the stage underneath &mdash; no egg skipped, no fast-forward armed &mdash; and a hold released over it simply ends the hold. Gate <code>tools/probe_hatchskip.py</code> 11/11, red 5/11.</p>
-<p><strong>2026-09-07 &mdash; Hatch All plays low to high and never fast-forwards past an Abyssal+ hatch (#769, D). LIVE on release since 2026-09-08 (0.71).</strong> The stage now plays the eggs sorted by the hatched creature&rsquo;s grade, lowest first (Worn &rarr; &hellip; &rarr; Abyssal &rarr; Divine &rarr; Primordial &rarr; Void; same grade keeps the hatch order), so a held fast-forward burns through the chaff and lands on what is worth watching. Reaching an Abyssal-or-better egg while held drops the run back to pace &mdash; that egg cracks and reveals in full &mdash; and the finger still down does not race on; a new hold does, and stops again on the next one (with the order, those are all the eggs left). Theatre only: the hatch is still committed once, as before. Gate <code>tools/probe_hatchseq.py</code> 13/13, red 9/13.</p>
-<p><strong>2026-09-05 &mdash; Hatch All gets its theatre (board 3.6, D). LIVE on release since 2026-09-06 (0.70).</strong> The server still answers every egg in one go and the creatures are in your bag from that moment; what changed is the show. Each egg now takes the hatch stage in turn &mdash; mist, crack, reveal with the creature&rsquo;s name and grade colour, a mutant glow when it is one &mdash; with a running counter. One click skips the egg on stage to its reveal; click and hold runs the rest at speed until you let go. The summary card (counts per grade, mutants) follows the last egg, and closing the stage early lands on it too.</p>
-<p><strong>2026-09-04 &mdash; the pen X works again (D). LIVE on release since 2026-09-06 (0.70).</strong> Since the grade effects reached the pens (2026-09-03), the portrait had been drawn over the remove X, the gender glyph and the name strip, so a click on the X landed on the portrait. The three sit above the portrait again; the X removes the creature, stops the pen and returns it to the soul bag as before.</p>
-<p><strong>2026-09-03 &mdash; grade effects in the breeding window, and press-and-hold opens a creature&rsquo;s sheet (#723, #722, D). LIVE on release since 2026-09-03 (0.69).</strong> The pen parent slots and the parent picker cards draw the same grade effect layer the inventory tiles do, beneath the art. Pressing and holding a creature for about half a second &mdash; touch or mouse &mdash; on a parent slot, a picker card, or an Equipment creature card opens its sheet, the same window a click opens from the inventory; a short press keeps doing what it did (choose, pick, open the slot). The release is judged by the clock, so a hold under a slow frame still counts as a hold. Gates <code>tools/probe_breedgfx.py</code> 3/3, <code>tools/probe_holdsheet.py</code> 5/5.</p><p><strong>2026-09-01</strong> &mdash; <strong>New section: &ldquo;What decides an egg&rsquo;s grade&rdquo;.</strong> Nothing on this page was wrong &mdash; every pasted rate verifies against <code>codex/breeding.csv</code> and the odds against <code>codex/egg_hatch_weights.csv</code> &mdash; but two questions a player actually asks were not answerable from it. Whether the parents&rsquo; <em>level</em> affects the egg could only be inferred from an absence, and the page never used the word <em>quality</em> at all, so searching for it found nothing. The new section states plainly that level is never read on the breeding path, that grade is, via the floored average, and that the egg&rsquo;s grade is random within the row that average selects. Documentation only &mdash; no code, CSV or <code>DATA_PIN</code> touched, no behaviour changed, and no existing section edited.</p>
-<p><strong>2026-08-22 &mdash; every verified pair bred as Worn; fixed, and the eggs it cost are regranted (D order: &ldquo;fix both&rdquo;). LIVE on release since 2026-08-22 (0.59).</strong>
-A player reported Void pairs laying Void &ldquo;almost always&rdquo; while the grades below looked random. The second
-half was a defect: the breed-start ledger looked each parent up by id and read back its id and category
-&mdash; <em>not its grade</em> &mdash; so the floored average of two missing grades was 0, clamped to 1, and every pair
-the server could verify was recorded as a <strong>Worn</strong> pen. The verified claim then drew the egg off the Worn
-row (84% Worn, 12% Common) and booked the Worn price. The lookup lost the grade on 2026-08-18 (when parents stopped
-being read from the save blob), reached release with the 2026-08-21 server batch, and the same day's grandfather
-stamp put every creature into the ledger, so from then on it hit every pair on every account. Measured on release:
-six Primordial pens laid 42 eggs as 34 Worn / 6 Common / 1 Uncommon / 1 Rare (the Worn row exactly); 24/24 Worn on
-a second account; 101 wrong eggs across four accounts in about a day. The odds tables themselves were never wrong
-&mdash; the egg roll and the hatch roll read them correctly &mdash; and Void looking &ldquo;sticky&rdquo; is authored:
-a Void pair rolls a Void egg 78.1% of the time, and Void is the only grade with nowhere to roll up.
-<br><br><strong>The fix</strong> is the paragraph under <em>Pair grade</em> above: the grade rides the lookup, an unknown
-grade records nothing, and an unchanged pair re-derives its recorded grade on every note so every Worn record made
-under the defect heals on the account's next battle without losing any waiting. <strong>The repair</strong> is an ops
-door, <code>/api/backup/breedfix</code> (documented on <em>Admin &amp; backend</em>): for every stored egg draw whose
-recorded pair was Worn <em>and</em> which the ledger verified, it recomputes the real pair grade from the pen's recorded
-parents, re-takes the draw's own keyed lane on the correct row &mdash; same lane, right table, so the answer is the egg
-the player would have been handed &mdash; upgrades the egg in place if it is still unhatched in the bag, regrants a
-fresh egg of that line at that grade if it was hatched or dismantled, books the Ichor the pen actually metered
-against the Worn price the claim booked, and heals the account's running pens. An honest Worn pair, a pen whose pair
-has changed since, or a parent without a legal grade is skipped and named, never guessed. Gates:
-<code>tools/probe_breedgrade.mjs</code> 7/7 (2/7 watched fail on the defect) and
-<code>tools/probe_breedfix.mjs</code> (the incident reproduced end to end on the pre-fix tree, then repaired).</p>
-<p><strong>2026-08-13 &mdash; the breed ledger (D's spec: the client may only say breeding started and ended). On release.</strong>
-The server now owns the whole breeding record. START: the anchor rides battle events carrying the
-pen, the two parent ids and the start time &mdash; nothing else &mdash; and the server validates every
-start against its own stored save: both parents present, both creatures, genders opposite (the
-gender the server's own roll assigned), distinct, and not already breeding elsewhere. The pair
-grade is <em>computed by the server</em> from the recorded parents &mdash; the floored average, the same
-rule the bench uses &mdash; never taken from a claim, and the start time keeps its last-contact clamp.
-END: the egg ask names its pen; the server checks its own record &mdash; it exists, the authored wait
-for the <em>recorded</em> grade has elapsed, and both recorded parents are still held, the same two
-that started it, by id. A verified award runs entirely off the record: its grade's weights, its
-settled cost, and the line names an actual recorded parent. The pen then re-arms by exactly one
-authored wait, so cycles continue without a fresh start. Watch-first like every ledger guard: an
-unverifiable ask still pays out as before, flagged with its reason; enforcement is a later flip.
-Gates: <code>tools/probe_breedledger.mjs</code> 7/7 (real data &mdash; the anchor proof and every
-refusal) and <code>tools/probe_breedledger_unit.mjs</code> 6/6 (the verified branch, transcribed).</p>
-<p><strong>2026-08-13 &mdash; the egg award is recorded and settled (the economy BOOK phase's fourth and final brick). On release.</strong>
-The bred-egg award was the last uncredited lane in the economy: the egg entered the bag with no
-record behind it, and the Ichor the pens metered out for it never reached the permanent ledger.
-At the award &mdash; and only on the fresh draw, since every replay answers the stored result verbatim
-&mdash; two records now ride along: the egg is <em>minted</em> with a server id and a grant (origin
-"breed"), so it is sourced from birth and dismantling it verifies against that grant like
-everything else; and its authored settled cost (<code>Ichor_Per_Egg</code>) is <em>booked</em> into the
-permanent ledger, keyed on the ask's own stable id &mdash; the egg is already paid for and survives a
-reload, so the settlement is once-ever by the same key that makes the draw once-ever. With this
-the BOOK phase is complete: every mint and every currency movement is in the permanent record.
-Gate: <code>tools/probe_breedbook.mjs</code> 5/5 &mdash; the last case chains the whole phase in one
-line: mint, spend, same-window verify, dismantle earn.</p>
-<p><strong>2026-08-13 &mdash; pens 4&ndash;6 are premium: 5 / 10 / 15 Wraithgold (D ruling). ON DEV; release keeps the old Ichor prices until the next data-pin advance.</strong>
-The price is the server's: the client names a pen, <code>/api/unlock</code> resolves the authored
-<code>pen_unlocks.csv</code> row (now Currency/Cost aware), judges sequence against the save AND the
-wallet ledger, and spends through the permanent Wraithgold ledger &mdash; one row per pen, forever, so a
-refresh or replay can never charge twice and ownership is provable from the ledger alone. Pens 2&ndash;3
-stay Ichor and client-flow for now (the economy BOOK phase picks them up). Gate:
-<code>tools/probe_unlockpen.mjs</code> 9/9.</p>
-<p><strong>2026-08-12 &mdash; Adam and Eve, the soul-bag pair keeper (reports #99 + #100).</strong>
-<em>on release.</em> New section above. Keeps the highest-grade male and the
-highest-grade female of every advancement line and dismantles the rest, behind a confirmation window
-that names the rule, the survivors, the tie-break and everything it is refusing to touch. It never
-dismantles a creature whose gender is unknown, whose line cannot be read, or which is sitting in a
-breeding pen. Verified on a real account before shipping: 87 creatures down to 47, exactly the kill
-list, nothing better destroyed than what survived, and a second run finding nothing left to do.</p>
-
-<p><strong>2026-08-08 &mdash; the bred egg's grade and parent line are decided server-side.</strong>
-<em>LIVE on release since 2026-08-08 (0.42).</em> One ask, because they are one decision. The tick still runs
-locally and still meters Ichor; only the laying waits. A due egg stops its pen rather than stacking
-entitlements, and lays exactly once when the answer arrives. <code>rollEggGrade()</code> and the dead
-<code>rollHatchGrade()</code> are both gone. Probe <code>tools/probe_eggroll.py</code>: BEFORE 1/8,
-AFTER 8/8.</p>
-
-<ul>
-        <li><strong>2026-08-26 &mdash; the bred egg's birth is written by the mint, the hatched creature's by the hatch grant (on release).</strong> When the egg claim verifies against the pen anchor the egg's items row records <code>{src: bred, pen, parents}</code> from the ledger's own sire and dam (pen alone when it did not verify); when that egg hatches, the creature's row records <code>{src: hatched, egg{name, grade, uid}, parents, pen}</code> from the egg's row. Neither is ever overwritten, and neither rides the save any more &mdash; see <em>system-networking</em>.</li>
-<li><strong>2026-08-05 &mdash; the DUNECOIL line (Wyrmling &rarr; Neonate &rarr; Sidewinder) is now Serpent + Elemental (D ruling; on DEV immediately, on release at the next DATA_PIN bump).</strong> It carried Serpent alone. Type is not combat maths &mdash; nothing in the client multiplies damage by it &mdash; so the only mechanical consumer of the second slot is <code>breedShareType()</code>, the pair gate on this page, plus the inventory type filters and the displayed type string. The consequence is therefore entirely here: a Wyrmling went from <strong>14 type-compatible species across 4 lines</strong> (BLAZEWYRM, COUATL, ECHIDNA, OUROBOROS) to <strong>62 across 20</strong>, because Elemental is the roster's widest type at 51 rows. The roster median above moved 44 &rarr; 45.5 with it; the tightest is still 11 and the four single-line types are untouched. Recomputed from <code>creatures.csv</code>, not estimated. Note that DUNECOIL and BLAZEWYRM now carry an identical type pair.</li>
-    <li><strong>2026-08-05 &mdash; the breeding selector is ordered by grade (LIVE on release since 2026-08-05 (0.32)).</strong> <code>pickCards</code> built straight off <code>breedPool()</code>, which is <code>BAG.concat(bagAdd)</code> &mdash; insertion order &mdash; so the roster picker had no order at all. Now GRADE_ORDER descending, then level, then name, matching the comparator the inventory and dismantle lists already use. Probe: <code>tools/probe_breedorder.py</code>, seeded with a deliberate grade spread laid out so bag order is not grade order (BEFORE 4/4, AFTER 5/5).</li>
-    <li><strong>2026-07-31 &mdash; the queued start time is credited, not discarded.</strong> The pen note may carry its start moment; the server clamps it to the window between last contact and now, so a player keeps the seconds a queued note costs them while a backdate buys nothing.</li>
-    <li><strong>2026-07-31 &mdash; breeding became server-owned, at one call per egg.</strong> The pen is anchored on the server clock by two fields riding an existing request, no tick is ever sent, and the result is claimed at the end. Timing, cost and dismantle value read from <code>breeding.csv</code>. A backdated or re-sent note cannot move the timer, and a claim consumes the pen.</li>
-  <li><strong>2026-07-28</strong> &mdash; Clarified the pen clock as mechanics: a pen advances on elapsed wall-clock time while the client is loaded, <em>including an unfocused or background window</em>, and never while the game is closed. Added <em>How the meter actually advances</em> covering the credit formula, tick frequency independence, partial and paused ticks, and the full-bag freeze. Client fix in the same batch: the pen tick and the run save had been riding requestAnimationFrame, which stops in an unfocused tab.</li>
-</ul>
 <script src="csv-bind.js"></script>
 <script src="nav.js"></script>
 </body>

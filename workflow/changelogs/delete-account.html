@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<base href="../../"><!-- workflow/changelogs/ (2026-11-04): never published. Links resolve from the public page's folder. -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delete Your Account &mdash; changelog &amp; team notes</title>
+<link rel="stylesheet" href="theme.css?v=4">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">DELETE YOUR ACCOUNT &mdash; TEAM NOTES</h1></div>
+<div class="sp-wrap">
+<p class="sp-lead">The team record for the public page <a href="delete-account.html">delete-account.html</a>: its dated changelog (newest first) and the implementation notes that left the public page when the codex went player facing (D 2026-11-03). Lanes add each mechanic change here, never on the public page. Shape: <code>python tools/codex_page.py --changelog delete-account.html</code> in dfmc-client.</p>
+
+  <h2>Changelog</h2>
+  <ul>
+    <li><strong>2026-11-03 &mdash; any configured login, not Steam only (D 2026-11-03 codex review; dfmc-client lane codexreview-b). WIKI ONLY.</strong> Sign-in is Steam, Google or Discord (lane googlebtn); deletion removes every linked login with the account (<a href="system-accounts.html">Accounts &amp; Sign-in</a>).</li>
+    <li><strong>2026-10-01 &mdash; first version (D, Rulings board card <em>settings</em>; lane DELETE). WIKI + dev; the server half needs main + deploy.</strong> Google Play requires an account-deletion link outside the app, and this page is it. The button opens the game's <code>?delete=1</code> route on playdfmc.com, which runs the same two-step Settings flow (<code>dfmc-client/play/app.js</code>).</li>
+  </ul>
+</div>
+<script src="nav.js"></script>
+</body>
+</html>

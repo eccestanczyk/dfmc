@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<base href="../../"><!-- workflow/changelogs/ (2026-11-04): never published. Links resolve from the public page's folder. -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Premium Shop &amp; Wraithgold &mdash; changelog &amp; team notes</title>
+<link rel="stylesheet" href="theme.css?v=4">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">PREMIUM SHOP &AMP; WRAITHGOLD &mdash; TEAM NOTES</h1></div>
+<div class="sp-wrap">
+<p class="sp-lead">The team record for the public page <a href="system-premium-shop.html">system-premium-shop.html</a>: its dated changelog (newest first) and the implementation notes that left the public page when the codex went player facing (D 2026-11-03). Lanes add each mechanic change here, never on the public page. Shape: <code>python tools/codex_page.py --changelog system-premium-shop.html</code> in dfmc-client.</p>
+
+  <h2>Changelog</h2>
+<p class="note">
+2026-11-04 &mdash; #1192 shop polish (D, report #1192: &ldquo;flame vfx following the cursor on the shop looks great, make it a less tall, give it a dispersing gentle &lsquo;explosion&rsquo; vfx on click, and then it reforms. The text of the button to buy stuff in the shop is bleeding out of its container. Remove where it says 30 days and recenter. &hellip; Remove the word &lsquo;again&rsquo;&rdquo;; dfmc-client lane e1). On dev. PRESENTATION ONLY. The cursor wraithfire (#1173) is 0.72 of its old height, squashed about its base so the base stays on the pointer, and stretches less while moving; a mouse or pen press throws eight flame sprites gently outward from the click point while the head vanishes and grows back from its base over about a second (transform / opacity / scale animations only). An active timed row&rsquo;s buy plaque no longer carries <code>+30 DAYS &middot;</code> before the price &mdash; it holds the coin and the price, centred &mdash; and its line reads <code>buying adds 30 days</code>. Gate <code>tools/probe_01183_01192.py</code> D/E; <code>tools/probe_01173.py</code> 13/13.<br>
+2026-11-03 &mdash; #1171 drought lessons + one-time boons (D, report #1171: &ldquo;the first time &hellip; make a tutorial to click on the Incense icon &hellip; purchase a one time 1-day incense that disappears from the shop after being bought &hellip; (1 scrap). Give it a 10 minute cooldown, and then &hellip; the Bait icon&rdquo;; dfmc-client lane incense). On dev. opening.csv <code>drought_incense</code> / <code>drought_bait</code> (Ready <code>drought_first</code> / <code>drought_bait</code>, anchors <code>boon-incense</code> / <code>boon-bait</code>); premium_shop.csv gains a <code>Once</code> column and SHOP-004 / SHOP-005 (1 Scrap, 1 day, Once). The one-time state, the Scrap price and the grant are the server&rsquo;s (the shop door; the catalogue door hides a bought one-time row per account). Gate <code>tools/probe_1171_drought_shop.py</code> 1/12 &rarr; 12/12.<br>
+2026-11-03 &mdash; #1173 cursor wraithfire (D, report #1173: &ldquo;make a flame vfx on the same color as the vfx behind the wraithgold coin the shopkeep is holding, that follows the cursor &hellip; deforms as it moves, leaving a short lived trail of fire&rdquo;, very cheap; dfmc-client lane shopflame). On dev. PRESENTATION ONLY. While the shop is open a wraithfire tongue in the coin fire&rsquo;s cyan palette rides the mouse pointer: it leans against the direction of travel and stretches with speed, and every 10 stage px of travel drops a short-lived flame (0.4&ndash;0.5 s) that rises, shrinks and fades. Built to the docs/vfx-research-2026-09-17.md &sect;7 recipe: one baked 12-frame strip (<code>img/shop/fx/cursor_fire.webp</code>, 12 KB, from <code>tools/make_shop_fx_art.py</code>), the flipbook played by <code>steps(12)</code> on transform, a pool of 18 trail sprites faded by transform/opacity animations, additive (<code>plus-lighter</code>) on the dark shop. The only script work is a rAF that runs while the pointer moved in the last 160 ms and stops when the flame settles. Mouse and pen only (none on touch); off on the Low VFX tier (the VFX setting, battery saver, reduced motion or the OS&rsquo;s reduced-motion preference); nothing exists while the shop is closed. Gate dfmc-client <code>tools/probe_01173.py</code> 4/13 &rarr; 13/13.<br>
+2026-11-03 &mdash; web shop (D 2026-11-03 &ldquo;have our own payment processor for dlc and wraithgold &hellip; once you&rsquo;ve figured out the details you can build it&rdquo;; dfmc-client lane webshop; rules docs/own-payments-2026-11.md). On dev, OFF (<code>WEBSTORE_ENABLED</code> unset). Built the Paddle provider on the D5 ledger: web catalogue, checkout, signed-webhook grant (<code>paid_web</code>, once per transaction), refund / chargeback revoke, the Japan unspent-paid report; the web build&rsquo;s pack grid opens Paddle&rsquo;s checkout, the Steam build never shows it. <code>store_packs.csv</code> gained <code>Paddle_Price_ID</code> (placeholders) and <code>web</code> in <code>Stores</code>. Section &ldquo;The web shop&rdquo; added. Gate dfmc-client <code>tools/probe_webshop.py</code> 2/18 &rarr; 26/26.<br>
+2026-11-03 &mdash; store-closed line (T69, screen-review row #12; dfmc-client lane tail2). On dev. While the store is OFF the premium shop&rsquo;s line (<code>shop_store_soon</code>) now also says the store opens with the Steam release and that Wraithgold already paid for is kept &mdash; all five languages. Text only, no behaviour change. Gate dfmc-client <code>tools/l10n_gate.py</code>.<br>
+2026-11-03 &mdash; paid taint (D11; docs/monetization-catalogue-2026-11.md F1; dfmc-client lane paidflag). On dev. A row minted by a Wraithgold or real-money purchase is stamped paid at grant and refused by the Steam market export; it survives hatch, devour and evolve, not breeding. No SKU mints a row today. Section &ldquo;Item grants&rdquo; gained the paragraph. Gate dfmc-client <code>tools/probe_paidflag.py</code> 3/12 &rarr; 12/12.<br>
+2026-11-03 &mdash; S7 Steam purchase flow end-to-end (board S7; D5 / T37 &ldquo;purchasing systems through steam&rdquo;; D 2026-11-03 &ldquo;build those too&rdquo;; dfmc-client lane purchase). On dev, the store still OFF (<code>STORE_ENABLED</code> unset &mdash; D&rsquo;s word). The 2026-11-03 backlog audit found D5 struck DONE with only the server half built. Built: the WRAITHGOLD PACKS grid in the premium shop (from <code>/api/store/catalogue</code>; BUY on the Steam client only, &ldquo;Buy in the Steam client&rdquo; on the web, &ldquo;opens soon&rdquo; while off), the shell leg (<code>DFMC_SHELL.store.buy</code>: Steam&rsquo;s authorisation of one order, with a polling fallback when the shell lacks the callback), the wallet painted from the server&rsquo;s finalize answer only, the status door that settles one order against Steam&rsquo;s QueryTxn, the hourly sweep on the cron that voids a stale order and finalises an authorised one, the ops listing of open orders, twelve strings in en + pt-BR. Proof <code>tools/probe_purchase.py</code> 5/15 &rarr; 16/16. Section &ldquo;Provenance and real-money Wraithgold&rdquo; gained the end-to-end paragraph.<br>
+2026-11-03 &mdash; codex review (dfmc-client lane codexreview-a; D 2026-11-03 &ldquo;review the codex, clean it up, update whatever needs updating&rdquo;). WIKI ONLY. The three prices and the two durations in the table bind to <code>codex/premium_shop.csv</code> (csv-bind) instead of being pasted; the wipe paragraph said &ldquo;resetting a realm&rdquo; never touches the wallet &mdash; it now states the T61 rule (paid rows survive a per-account reset, earned and granted rows do not) and the T37 full wipe. Catalogue (three SKUs, Enabled=1), the 402 / idempotency contract, D5 provenance and <code>STORE_ENABLED</code> unset re-checked against dev 0.93.<br>
+2026-11-02 &mdash; T56 (D, Tower rulings card T56 &ldquo;the shop never says where Wraithgold comes from&rdquo;: &ldquo;NO ONE STARTS WITH WRAITHGOLD. it is premium currency bought from the shop&rdquo;; dfmc-client lane wgseed). On dev. The 100 Wraithgold account-creation grant is over: <code>economy_params.csv</code> <code>WG_Seed</code> 100 &rarr; 0, the worker&rsquo;s alpha-grant flag is off and <code>wgEnsureSeed</code> books nothing when the grant is 0, so a fresh account&rsquo;s first save no longer seeds a row and its wallet reads 0 on every touch. The client no longer raises a new hero&rsquo;s wallet to the seed at creation or on save adoption (the server&rsquo;s ledger took it back on the next save anyway), and the Buy plate&rsquo;s copy no longer promises a grant or a Steam date. The Premium Shop info line (<code>info.csv</code> <code>shop</code>) now opens with &ldquo;Wraithgold is the premium currency. It is bought here in the shop; no one starts with any.&rdquo; Accounts holding the old seed row keep it. The hub&rsquo;s slot-pricing note no longer says every account is credited 100. Gate <code>tools/probe_t56_wgseed.py</code> (dfmc-client, worker rig) 5/19 &rarr; 19/19.<br>
+2026-10-23 &mdash; Boon tile touch hold (dfmc-client lane probe-triage-4; board 9.1-9.3). On dev. A finger held on the Incense or Bait floor tile shows its plate; lifting the finger folds it and opens nothing. The plate had come back and stuck open: after the release the browser fires the touch&rsquo;s compat mouse-enter, which re-opened it, and the click that ends the touch was eaten by the hold guard. That click now folds the plate. Gate <code>tools/probe_boontiles.py</code> 19/19.<br>
+2026-10-23 &mdash; D5 (T37: &ldquo;purchasing systems through steam and mobile stores &hellip; the priority is steam&rdquo;; dfmc-client lane d5-purchasing). On dev, OFF (<code>STORE_ENABLED</code> unset). The ledger&rsquo;s provenance is one fixed vocabulary (paid_web / paid_steam / paid_ios / paid_android / granted / promo, plus earned, spent, refund, legacy, transfer); older free-text tags were migrated once and kept as detail. A roll priced in a purchasable currency is refused (D11). Steam MicroTxn order, finalize and refund revoke built against a mock; the catalogue is the new <code>codex/store_packs.csv</code> (placeholder prices). Store rules: dfmc-client <code>docs/store-rules-2026-10.md</code>.<br>
+2026-10-01 &mdash; SHOP-FX (D, Bug Run 0.89 board Q7: the premium icons &ldquo;make them breathe, give them outline auras&rdquo;; the Shadow Trader &ldquo;should also breathe, his eyes should shine brighter every few seconds, the coin in his hand should have wraithfire gently burning around it&rdquo;). LIVE on release since 2026-10-23 (0.89). PRESENTATION ONLY. Each catalogue row&rsquo;s icon sits over a baked outline aura (<code>img/shop/fx/aura_&lt;incense|bait|apvp&gt;.webp</code>, the icon&rsquo;s own silhouette dilated, blurred and tinted, body knocked out); the icon breathes (scale 1 &rarr; 1.035) and the aura with it (opacity .4 &rarr; 1, 3.6 s), each row 1.2 s behind the one above. The Shadow Trader painting breathes (scale 1.006 &times; 1.013 from his feet, 5.2 s), his eyes flare with a baked cyan glint every 4.6 s, and a 16-frame wraithfire strip burns round the coin in his raised hand (steps, 1.6 s loop). The #1052 portal technique: every glow, blur and shadow is pre-baked (<code>tools/make_shop_fx_art.py</code>, dfmc-client) and the keyframes move only transform and opacity; the trader&rsquo;s old CSS drop-shadow filter is a baked static shadow under the breathing body. Reduced-motion stops all of it. Also: the close cross sits 40 stage px further in, clear of the shell&rsquo;s fullscreen button at 1920 wide. Rows, prices and the purchase flow are unchanged. Gate <code>tools/probe_shopfx.py</code> (dfmc-client) 5/24 &rarr; 24/24; paints per frame with the trader open unchanged (0.10 &rarr; 0.07 desktop, 0.07 &rarr; 0.08 phone: the stage&rsquo;s own, none from the effects).<br>
+2026-10-01 &mdash; SHOP-UI (D, Bug Run 0.89 board Q7, after the #1050 rework on dev: &ldquo;Shop frame is OK as is. Shopkeep is fine.&rdquo;). LIVE on release since 2026-10-23 (0.89). The MENU plate is back top left while the shop is open, as on the arena, breeding and rankings screens (the shop sits at z 99990, over the menu hud&rsquo;s 110; the hud lifts over the shop while it is open), and a menu pick now closes the shop. The PREMIUM / SHADOW TRADER tabs are the arena&rsquo;s hammered-bronze plate (<code>img/pvp/queue.webp</code>), the open tab with its runes lit (<code>queue_press</code>), where they were a flat gold gradient and a dark pill. The buy plaque is 104 stage px tall (was 72) with the price at 42px (was 24) and the Wraithgold coin at 56 stage px (was 30). Rows, prices, wallet math and the purchase flow are unchanged. Gate <code>tools/probe_shopui.py</code> (dfmc-client) 6/24 &rarr; 24/24.<br>
+2026-10-01 &mdash; #1050 LAYOUT half (D: &ldquo;Occupy the entire screen real-estate it has instead of being a window in the middle &hellip; Full rework of that UI.&rdquo;). LIVE on release since 2026-10-23 (0.89). The shop is a SCREEN on the PvP Arena&rsquo;s shape, not a window: 100% of the stage, the painted floor (<code>shop_floor</code>) full-bleed at 40%, the title on the banner past the 65px header line, the Shadow Trader (<code>trader</code>) standing on the left, the catalogue in the 9-slice <code>frame</code> on the right, the balance the shop&rsquo;s own coin at 64 stage px (was 26 off the header icon), every buy control the bronze <code>buy</code> plaque. Rows, prices, wallet math, the purchase flow and #722&rsquo;s hold guard are unchanged &mdash; the rows only gained the classes that dress them. The bottom CLOSE bar is gone; the header&rsquo;s cross and a tap on the backdrop close it. #958&rsquo;s effect stands: the frame column is the stage&rsquo;s height less the header, <code>overflow:auto</code> kept as the safety valve. Verified at 1920&times;1080 and the report&rsquo;s 1067&times;487 (the stage is one 1920&times;1080 box zoomed by fitScale). Gate <code>tools/probe_01050.py</code> 8/22 &rarr; 22/22.<br>
+2026-09-30 &mdash; #1050 ART half (D: &ldquo;the premium shop needs a UI redesign similar to the pvp UI &hellip; Thematic assets. The shadow trader needs a character generated. Wraithsilver icon is too small.&rdquo;). On dev. The shop had no art of its own &mdash; a gradient window, and the Wraithgold balance drawn off the 64&times;64 header icon at 26px. A painted ornament set now ships under <code>play/img/shop/</code>, made by <code>tools/make_shop_art.py</code> on the arena&rsquo;s #1017 recipe (gpt-image-2.5-flare, one STYLE block byte-identical across the set, the accent the wraith-teal of the coin instead of the arena&rsquo;s ember): <code>shop_floor</code> 1920&times;1016 (the Trader&rsquo;s vault under the tower, full-bleed), <code>trader</code> 640&times;900 and <code>trader_bust</code> 320&times;320 (the Shadow Trader &mdash; a hooded merchant-wraith, coin in one hand, scale in the other; the bust is cropped from the same painting), <code>wraithgold</code> 256&times;256 (the skull-faced coin in wraith-fire; the 64&times;64 CURSET icon is untouched and the currency keeps its name &mdash; &ldquo;Wraithsilver&rdquo; is Wraithgold), <code>frame</code> / <code>frame_hover</code> 176&times;176 9-slice (slice 44), <code>buy</code> / <code>buy_press</code> 480&times;120 plaque, <code>banner</code> 640&times;184. Raws under <code>local-only/art_raw/shop</code>. The layout (full-screen instead of the centred window) is the other half of #1050, a separate lane; markup and app.js are untouched here. Gate <code>tools/probe_01050art.py</code> 0/18 &rarr; 27/27.<br>
+2026-09-30 &mdash; review lane Q (F115, F116, F117, F104 shop half, F107). On dev. A boon purchase awaits its entitlement grant now. If the grant is refused (the 40/hour account guard or the game-wide guard), the Wraithgold is refunded under the same idem and the answer is a refusal (429). A retry gets the same refusal. The spawn budget is moved only once the entitlement exists. Before, the debit stood, no entitlement was written, and the budget still ran at the boon rate while the floor clock said none. The Auto PVP ticket SKU answers its balance as <code>wg</code>, like every other SKU, so the header no longer reads undefined. A paid ticket purchase whose world grant did not land (<code>grantPending</code>) is re-sent under its own idem, up to 5 times, 3&nbsp;s apart. The re-send can never charge twice. NOTE (F107): for Incense and Bait, <code>Effect_Value</code> in <code>premium_shop.csv</code> is display only. The magnitudes live in <code>tools/gen_tables.py</code> (<code>incense_sub_ms</code> 30000, <code>bait_mult</code> 0.5), so editing the CSV value changes nothing. Incense&rsquo;s 2 equals &minus;30&nbsp;s only at the 60&nbsp;s base. Gate <code>tools/probe_laneq.mjs</code> 0/15 &rarr; 15/15.<br>
+2026-09-30 &mdash; review fix F6-033 (client). On dev. The catalogue answer&rsquo;s status is read now: a 429 (the shop shares the &lsquo;other&rsquo; rate class) or a 5xx that answered JSON used to paint an empty shop with no message. Only a 2xx with an items list is a catalogue; anything else shows an error (a 429: &ldquo;The shop is busy &mdash; close it and try again in a moment.&rdquo;). Gate <code>tools/probe_f6_033.py</code> 1/3 &rarr; 3/3.<br>
+2026-09-30 &mdash; review drift fixes: F111, F120. WIKI ONLY. The sale table listed only Incense; it now carries all three enabled SKUs of <code>premium_shop.csv</code> &mdash; Bait (10 Wraithgold, 30 days, interval &times;0.5, 15 s with Incense) and Auto PVP Attacks (4 Wraithgold, +10 tickets until the daily reset). DESCRIPTIVE ONLY.<br>
+2026-09-17 &mdash; The shop panel is bigger and neither tab scrolls (#958, D: &ldquo;shadow trader window should not have a scroll, make the shop window bigger and resize items inside of it so it never needs to be scrolled&rdquo;). ON DEV. <code>min(1320px,94%)</code> at 94% height, padding <code>24px 36px</code> &mdash; see &ldquo;Panel size and offer layout&rdquo; below. The offer list's 12px gap is deliberately left alone: it is the token a 2026-08-05 registry entry verifies itself at, and that entry pins list-versus-grid, which this report does not touch. The overflow itself was the Shadow Trader tab's, and the rest of the 236 stage px came off its rows (<a href="system-shadow-trader.html">Shadow Trader</a>). The catalogue's own offer sizes are <strong>unchanged</strong> &mdash; the 2026-08-05 phone sizing below still holds row for row. Gate <code>tools/probe_958.py</code> 5/7 red &rarr; 7/7.<br>
+2026-09-06 &mdash; Premium buff icons (board 9.1 / 9.2 / 9.3, D). LIVE on release since 2026-09-08 (0.71). The INCENSE / BAIT text pills are two icon tiles now (see the section below).<br>
+2026-08-05 &mdash; Offers are a LIST, not a grid, and sized for the phone: name 30px, description 21px, buy control 24px with an 18&times;30 pad (D: &ldquo;the items are too small&hellip; mobile friendly font size&rdquo;). Measured, not estimated &mdash; the old name drew at 5.03 CSS px at fitScale 0.36. A tap on the backdrop now closes the panel (D: &ldquo;clicking outside of the window is not closing it&rdquo;); the backdrop had no handler at all. <em>LIVE on release since 2026-08-05 (0.32).</em><br>
+2026-08-03 &mdash; The incense prompt renders at last (P7, LIVE on release). The block had never been rebuilt after its removal, so every investigation into why it did not appear was searching a document that did not contain it.<br>
+2026-08-07 &mdash; The boon no longer reaches backwards: a purchase settles the spawn row before hanging the new expiry. The buy answer carries the expiry and budget, and the pill expires on its own clock.<br>
+2026-08-02 — Page created. Premium Shop, Incense Burner, the Wraithgold ledger and the item grant lane.</p>
+
+<h2>Team notes (moved off the public page 2026-11-04)</h2>
+<p>The public page&rsquo;s body as it stood until 2026-11-04, kept verbatim (headings demoted). The public page now carries a player-language version for live 0.94: the sale table, how Incense and Bait work, the floor tiles and dry-floor prompts, the buying rules, the shop screen and what Wraithgold is. Nothing below is published.</p>
+<h3>Page intro and the sale table (SKU ids)</h3>
+<p class="note">Server-authoritative store for Wraithgold. Prices and durations are authored in
+<code>codex/premium_shop.csv</code> — never in code.</p>
+
+<table><tr><th>SKU</th><th>Name</th><th>Cost</th><th>Duration</th><th>Effect</th></tr>
+<tr><td>SHOP-001</td><td>Incense Burner</td><td><span data-csv="premium_shop.csv#SKU=SHOP-001#Cost">10</span> Wraithgold</td><td><span data-csv="premium_shop.csv#SKU=SHOP-001#Duration_Days">30</span> days</td><td>Doubles the wild respawn rate</td></tr>
+<tr><td>SHOP-002</td><td>Bait</td><td><span data-csv="premium_shop.csv#SKU=SHOP-002#Cost">10</span> Wraithgold</td><td><span data-csv="premium_shop.csv#SKU=SHOP-002#Duration_Days">30</span> days</td><td>Halves the wild respawn interval; stacks with Incense</td></tr>
+<tr><td>SHOP-003</td><td>Auto PVP Attacks</td><td><span data-csv="premium_shop.csv#SKU=SHOP-003#Cost">4</span> Wraithgold</td><td>none (one-shot)</td><td>+10 Auto PVP attacks for today, even above the daily ten; they expire at the daily reset</td></tr>
+<tr><td>SHOP-004</td><td>First Incense</td><td><span data-csv="premium_shop.csv#SKU=SHOP-004#Cost">1</span> Scrap</td><td><span data-csv="premium_shop.csv#SKU=SHOP-004#Duration_Days">1</span> day</td><td>Incense, one time per account (Once=1); gone from that account&rsquo;s shop once bought</td></tr>
+<tr><td>SHOP-005</td><td>First Bait</td><td><span data-csv="premium_shop.csv#SKU=SHOP-005#Cost">1</span> Scrap</td><td><span data-csv="premium_shop.csv#SKU=SHOP-005#Duration_Days">1</span> day</td><td>Bait, one time per account (Once=1); gone from that account&rsquo;s shop once bought</td></tr></table>
+<p><strong>The drought lessons and the one-time boons (#1171, 2026-11-03).</strong> The first time a floor runs dry (every creature cleared, the respawn budget short of the pool) an arrow points at the <strong>INCENSE</strong> floor tile (opening.csv <code>drought_incense</code>); the shop then offers <strong>First Incense</strong>, a 1-day Incense for 1 Scrap. Ten minutes after that lesson ends, the next dry floor points the arrow at the <strong>BAIT</strong> tile (<code>drought_bait</code>) and <strong>First Bait</strong>, a 1-day Bait for 1 Scrap. A <code>premium_shop.csv</code> row with <code>Once</code> = 1 is bought once per account, ever: the server keeps the purchase on the account, leaves the row out of that account&rsquo;s catalogue and refuses a second purchase (409 <code>once_bought</code>). A row priced in a material is paid the Shadow Trader&rsquo;s way: checked against the ledger (or the stored save before the wipe), booked as a spend, written into the stored save with a version bump, and the client adopts the new balance.</p>
+<p>The authored respawner gives <strong>one spawn per 60 seconds</strong> while below the cap of ten.
+Incense halves that interval to <strong>30 seconds</strong>. Bait multiplies whatever interval is running by
+0.5: <strong>30 seconds</strong> alone, <strong>15 seconds</strong> with Incense
+(<code>interval = (60 s &minus; incense 30 s) &times; bait 0.5</code>, <code>tables.json spawn_budget</code>). A timed boon
+bought again adds 30 days. Auto PVP Attacks is sold by the same door; the money is spent in the player's
+object and the ten tickets are granted in the world object on the purchase's own idem, so a retry ends at
+exactly +10 once. The pool cap is unchanged — the cap is how many
+creatures can be waiting, not how fast they arrive.</p>
+
+<p>The boon <strong>starts when it is paid for and never reaches backwards</strong>. Credits accrue
+lazily — the row holds a balance and the instant it was last touched, and the accrual splits that
+window at the boon boundary, so time before the purchase settles at 60 seconds and time after it at
+30. A purchase therefore <em>settles the row first</em>: it banks what the old rate earned, stamps
+the instant, and only then hangs the new expiry.</p>
+<p class="note">Until 2026-08-07 the purchase wrote the expiry alone and left the instant at the last
+spawn spent, so the whole already-elapsed window was re-accrued at the boosted rate — buying after
+three idle minutes handed the player six spawns for three minutes of ordinary waiting. Bounded by the
+cap of ten, and always in the player's favour, but paid time that was never paid for.</p>
+
+<h3>How a purchase works</h3>
+<p>The client names a SKU and an idempotency key. It never sends a price. The worker resolves the
+authored row and the player's own object performs the balance check, the debit and the grant inside a
+single transaction. A repeated key returns the original answer rather than charging twice.</p>
+<table><tr><th>Rule</th><th>Behaviour</th></tr>
+<tr><td>Insufficient balance</td><td>Refused with <code>402</code>. A balance never goes negative on a purchase.</td></tr>
+<tr><td>Repeat purchase while active</td><td>Extends the expiry by another 30 days. Time already paid for is never burned.</td></tr>
+<tr><td>Unauthored SKU</td><td>Refused. Only rows in the CSV are for sale.</td></tr>
+<tr><td>Catalogue unreachable</td><td>Refuses to sell rather than inventing a price.</td></tr>
+<tr><td>Expiry</td><td>Computed server-side from the grant. A save rollback can neither lose nor extend it.</td></tr></table>
+
+<h3>The wallet ledger</h3>
+<p>Wraithgold is held in an append-only ledger. The balance is the sum of its entries; there is no
+authoritative balance stored anywhere else. Every entry carries its provenance, so paid, granted and
+promotional units stay distinguishable — that distinction cannot be reconstructed once units mix.</p>
+<p><strong>Paid Wraithgold survives a reset.</strong> A per-account reset (Settings; T61, D 2026-11-02: &ldquo;per account reset should RESET everything&rdquo;) clears the save and every ledger row that was earned or granted, and keeps every row that was paid for (<code>paid_*</code>). The full wipe of 2026-10 (T37) was the exception by D&rsquo;s order: it took everything, entitlements included.</p>
+
+<h3>Item grants</h3>
+<p>Items owed to a player — compensation, purchases, promotions — are minted server-side and stay
+pending until the client takes delivery and records the grant in its own save. If a save is rolled back,
+the record rolls back with it and the grant becomes owed again, so a restore can never silently swallow
+an item. A grant with nowhere to go waits rather than being destroyed.</p>
+<p><strong>Paid taint (D11, 2026-11-03).</strong> Anything a purchase with Wraithgold or real money mints &mdash; a creature, an egg, a piece &mdash; is stamped <em>paid</em> on the server at the grant, and the stamp is never cleared: a paid egg hatches a paid creature, a creature that devours a paid one becomes paid, an evolve keeps it; breeding does not pass it (the egg costs farmed Ichor). A paid row can never go to the Steam market (system-integrity, &ldquo;The Steam market mirror&rdquo;). Today no SKU mints a row &mdash; the shop sells boons and PvP tickets and the packs sell Wraithgold only &mdash; so the stamp waits for the first M1 item that does.</p>
+
+<h3>The incense prompt (P7, shipped 2026-08-03)</h3>
+<p>When a floor's spawns are exhausted and no boon is running, the floor offers <strong>BURN INCENSE TO GET MORE SPAWNS</strong>. <code>incPromptOn</code> and <code>onIncensePrompt</code> had been computed and inert in <code>app.js</code> with <strong>no markup at all</strong> &mdash; the block was removed and never rebuilt. Six candidate causes were ruled out across earlier attempts (the scene, the condition, a missing <code>spawnSb</code>, wiped markup, a missing <code>hint-placeholder-val</code>, and placement) without finding one, because the block was not in the document to begin with. It is deliberately a <em>sibling</em> of the drought gate rather than nested inside it: nesting in the drought pill is the placement that was already tried and emitted nothing.</p>
+<p>It shows only when the pool is empty and no Incense boon is active, and hides the moment one is burned. Probe: <code>tools/probe_deadprops.py</code> (8/8), which asserts the condition is true before believing the render.</p>
+
+<h3>Provenance and real-money Wraithgold (D5, built 2026-10-23, OFF)</h3>
+<p>Every ledger entry carries exactly one provenance class: <code>earned</code>, <code>spent</code>, <code>refund</code>,
+<code>granted</code>, <code>promo</code>, <code>legacy</code>, <code>transfer</code>, <code>paid_web</code>, <code>paid_steam</code>,
+<code>paid_ios</code>, <code>paid_android</code>. The server refuses any other value. Wraithgold is the only currency a store
+may sell.</p>
+<p><strong>No purchasable currency feeds a roll.</strong> A grade, soul grade or other roll step priced in Wraithgold is
+refused before the draw (<code>403 paid_currency_roll</code>), and the commit that would author one fails its gate. Rolls
+stay paid in farmed currency only, so no random draw is a paid chance.</p>
+<p>Steam purchase, when switched on: the server opens the order, Steam shows its overlay, and only after Steam confirms
+the charge does the server add the pack's Wraithgold, once per order (<code>paid_steam</code>). A Steam refund or
+chargeback takes the same amount back out, even below zero. Packs and prices come from <code>codex/store_packs.csv</code>.
+The store is off until D enables it.</p>
+<p><strong>The flow, end to end (S7, built 2026-11-03).</strong> The premium shop opens with a <strong>WRAITHGOLD PACKS</strong>
+grid above the boons: each pack&rsquo;s name, its Wraithgold, and its price in the catalogue&rsquo;s currency. On the Steam
+client a BUY plaque runs the order: the server opens it, Steam shows its purchase overlay in the game, the client relays
+Steam&rsquo;s yes or no, and the server confirms the charge and adds the Wraithgold once &mdash; the wallet the shop paints is
+the server&rsquo;s answer, never the old balance plus the pack. The shop says what happened (waiting for Steam, complete,
+declined, did not go through) and keeps a &ldquo;Last purchase&rdquo; line. On the web build the packs show with &ldquo;Buy in
+the Steam client&rdquo; and no buy action: the store sells only through Steam (the mobile stores come later). While the store
+is off the grid says it opens soon. An order the overlay never answered is settled by the server within the hour against
+Steam&rsquo;s own record: an authorised one is granted, a stale one is voided; nothing is ever charged without a grant or
+granted without a charge.</p>
+<p><strong>No one starts with Wraithgold</strong> (T56, D 2026-11-02: &ldquo;NO ONE STARTS WITH WRAITHGOLD. it is premium currency
+bought from the shop&rdquo;). <code>economy_params.csv</code> row <code>WG_Seed</code> is 0 and the server books no seed row on any
+touch; a new account&rsquo;s ledger is empty and its wallet reads 0 until a purchase lands (<code>paid_*</code>) or an operator credits it
+(<code>granted</code>). The alpha grant of 100 (D 2026-07-27, booked as one <code>legacy</code> row <code>seed:&lt;realm&gt;</code> on the first save)
+ran until 2026-11-02; accounts that already hold that row keep it &mdash; nothing is clawed back. The shop&rsquo;s info line
+(<code>info.csv</code> row <code>shop</code>) says what Wraithgold is and that it is bought here.</p>
+<h3>The web shop (Paddle, built 2026-11-03, OFF)</h3>
+<p>The browser build and the direct PC download sell the same Wraithgold packs through <strong>Paddle</strong>, the merchant of record (Paddle is the seller: tax, refunds and chargebacks are Paddle&rsquo;s). Same rows as Steam (<code>codex/store_packs.csv</code>: <code>Stores</code> <code>steam|web</code>, column <code>Paddle_Price_ID</code>; a placeholder id never sells), same units; the price shown is Paddle&rsquo;s own, localised to the buyer. BUY opens Paddle&rsquo;s checkout over the game. <strong>The Wraithgold arrives only when Paddle&rsquo;s signed notification reaches the server</strong> &mdash; one wallet row per Paddle transaction, provenance <code>paid_web</code> (the paid taint: nothing bought with it reaches the Steam market). An approved refund or chargeback takes the same units back. A line under the packs names Paddle as merchant of record, with its buyer terms and order-help links.</p>
+<p><strong>Where it never shows.</strong> Under the Steam client the shop is Steam Wallet only &mdash; no web prices, no Paddle link, no Paddle script. A future iOS or Android build shows no pack grid until its own store billing exists. No paid item has a random result. Wraithgold never expires. For the Japan prepaid-instrument rule ops reads the unspent paid Wraithgold on each 3/31 and 9/30, by provider. Off until <code>WEBSTORE_ENABLED=1</code> (runbook <code>docs/webshop-2026-11.md</code>).</p>
+  <h3>Incense &mdash; the player can see it burning <em>(the pill described here became an icon tile on 2026-09-06 &mdash; next section)</em></h3>
+  <p>Incense doubles wild-spawn refill for 30 days. The expiry has always been server-side
+  (<code>spawn_budget.boon_until</code>) and <code>/api/floor/enter</code> has always returned it to the
+  client as <code>inc</code>, which the client stored as <code>spawnInc</code> &mdash; and
+  <strong>nothing ever rendered it</strong>, so a player who had paid for Incense had no way to tell how
+  much was left. The floor screen now shows a pill reading <code>INCENSE &middot; 4d 23h</code>, under the
+  MENU button. Coarse by design: the boon runs 30 days, so days and hours are the useful unit.</p>
+  <p>The pill is a <strong>floor-scene</strong> element: <code>incLeftOn</code> requires the floor phase
+  <em>and</em> that no panel is open, because panels are overlays and the phase stays <code>floor</code>
+  underneath every one of them.</p>
+  <p>Two delivery holes closed on <strong>2026-08-07</strong>. The buy answer now returns the expiry and
+  the spawn budget alongside the balance, so Incense bought while standing on a floor takes effect on
+  screen immediately instead of waiting for the next <code>/api/floor/enter</code> — previously the shop
+  said it was active and the floor showed nothing. And <code>incPump()</code> arms a single timeout on
+  the boon's own expiry, so the pill and the upsell prompt stop reading a boon that has ended on an idle
+  floor; the one-second drought tick only runs while the pool is starved and could not serve this.</p>
+  <div class="note"><strong>Placement was measured, not chosen.</strong> The obvious spot &mdash; centred
+  under the floor title &mdash; is covered by the floor header bar, which is <code>z-index 80</code> with an
+  <em>opaque</em> background. A pill placed there is present in the DOM with every computed style reading
+  visible, and invisible on screen. The centre lower down belongs to the incense <em>prompt</em>
+  (<code>top:12%</code>), which can be showing at the same time. Under MENU is clear, and
+  <code>z-index 105</code> clears the bar. Verify this class of change with
+  <code>document.elementFromPoint()</code> at the element's own centre, never by reading its text.</div>
+
+  <h3>The boons as icon tiles (board 9.1 / 9.2 / 9.3, 2026-09-06). LIVE on release since 2026-09-08 (0.71).</h3>
+  <p>The two text pills above are gone. In their place, at the same spot under MENU, sit two <strong>icon tiles</strong> &mdash; the Incense Burner and the Bait, generated in the currency-icon style and keyed locally (masters in <code>_parking/ui/boon-icons/</code>). They are <strong>always on the floor</strong> under the pills&rsquo; own rule (floor scene, no window over it): an active boon shows its icon with the countdown under it (<code>12d 4h</code>, the same formatter as before); an expired or never-bought boon shows the icon dimmed with <strong>NOT APPLIED</strong>. Hovering a tile (or pressing and holding it on touch) opens a plate to its right &mdash; the name, what the boon does, the time left, and where to buy; a click or tap opens the Premium Shop. The plate carries no price and no day count: those are the catalogue&rsquo;s numbers and the shop prints them.</p>
+  <p>In the shop, a timed offer says what the account holds &mdash; <code>ACTIVE &middot; 12d 4h left &middot; buying adds 30 days</code> <em>(&ldquo;again&rdquo; dropped 2026-11-04, #1192)</em> or <code>Not active &middot; 30 days per purchase</code> &mdash; from the same expiry the floor reads, and its button reads the Wraithgold mark and <code>10</code> (until 2026-11-04 it read <code>+30 DAYS &middot; 10</code> while the boon ran; #1192 dropped the prefix) (<strong>the <code>WG</code> text was retired 2026-09-08, #791 &mdash; ON DEV</strong>). Buying an active boon <strong>extends</strong> it: the buy door adds the days to the time already paid for (<code>max(now, current expiry) + days</code>) rather than replacing it; the shop now says so. The Auto PVP ticket bundle has no timer and prints nothing extra.</p>
+  <p>One producer (<code>boonTileProps</code>) feeds both tiles; the four pill properties were retired with their bindings. A boon that expires while the player stands on the floor flips to NOT APPLIED by itself, through the same single timeout the pill used. Gate <code>tools/probe_boontiles.py</code> 15/15, red-first 1/15.</p>
+  <h3>The shop rows carry their icons (#791, 2026-09-08). LIVE on release since 2026-09-08 (0.72).</h3>
+  <p>Every row in the store now paints <strong>the same icon its floor tile draws</strong>, 96 stage px at the head of the
+  row: Incense Burner, Bait, and a third generated for Auto PVP Attacks &mdash; a parchment scroll with crossed swords, in
+  the same style, prompt committed before the call and masters parked in <code>_parking/ui/boon-icons/</code>. The file is
+  named in <strong>one place</strong> (<code>BOON_ICON</code>); the floor tile reads it by key and the shop resolves it from
+  the row&rsquo;s own <code>Effect_Kind</code>, so the two surfaces cannot drift apart.</p>
+  <p>The shop icon is <strong>full colour whether or not the boon is running</strong>. The floor tile greys its icon to say
+  NOT APPLIED; a storefront does not, and the <code>ACTIVE</code> / <code>Not active</code> line under the name already says
+  it. A row whose effect has no art yet keeps an empty slot of the same width, so the names stay in one column.</p>
+  <p>The price carries its <strong>currency icon</strong> ahead of the number, from the same set the bag, the equipment
+  header, the reward window and the trader draw from. The old hardcoded <code>WG</code> printed Wraithgold&rsquo;s short name
+  on every row and would have been wrong the day an offer is authored in another currency. Gate
+  <code>tools/probe_shopicons.py</code> 11/11, red-first 5/11.</p>
+  <h3>Panel size and offer layout</h3>
+  <p>Since #1050 (2026-10-01) the shop is a full-stage <strong>screen</strong> on the PvP Arena&rsquo;s shape, not a
+  window: a 65px header (the title on the banner, the 64px Wraithgold coin and balance, a cross), then the Shadow
+  Trader standing in a 560 stage px column on the left and the catalogue in the painted 9-slice frame on the right,
+  the frame&rsquo;s inner column the stage&rsquo;s remaining height with <code>overflow:auto</code> as the safety
+  valve. The note is pinned to the bottom of the frame so a short catalogue does not leave it floating. Before that
+  it was a <code>min(1320px,94%)</code> &times; 94% window with <code>24px 36px</code> of padding (#958,
+  2026-09-17 &mdash; and <code>min(1180px,94%)</code> at 86% before the Shadow Trader tab turned out not to fit),
+  and a fixed <code>520px</code> column before 2026-08-05.</p>
+
+  <p><strong>The offers are a LIST, one row per sku</strong> (<code>display:flex; flex-direction:column;
+  gap:12px</code>). They were briefly a responsive grid (<code>auto-fill, minmax(360px,1fr)</code>); that
+  is reversed as of 2026-08-05. The grid capped every card at roughly 360 stage px, and the reason that
+  matters is the stage: the whole UI is a fixed <code>1920&times;1080</code> box scaled by
+  <code>fitScale = min(innerWidth/1920, innerHeight/1080)</code>, which on a phone is about
+  <code>0.36</code>. Authored sizes are therefore stage units, and what a player sees is the size
+  &times; fitScale. Measured on a 690&times;674 viewport, the old <code>14px</code> offer name drew at
+  <strong>5.03 CSS px</strong> and the buy control stood <strong>12 CSS px</strong> tall &mdash; below any
+  usable tap target.</p>
+
+  <table>
+    <tr><th>Element</th><th>Stage size</th><th>Drawn at fitScale 0.36</th></tr>
+    <tr><td>Offer name</td><td><code>30px</code></td><td>10.8 CSS px</td></tr>
+    <tr><td>Offer description</td><td><code>21px</code></td><td>7.5 CSS px</td></tr>
+    <tr><td>Buy control</td><td><code>24px</code>, padding <code>18px 30px</code></td><td>52.3 &times; 25.9 CSS px</td></tr>
+    <tr><td>Buy plaque (since SHOP-UI, 2026-10-01)</td><td>104 tall, &ge;330 wide; price <code>42px</code>, coin 56</td><td>37 CSS px tall; price 15 CSS px</td></tr>
+  </table>
+
+  <p class="note">RULE: any size authored for this panel is a STAGE size. Divide nothing; multiply by
+  fitScale to find out what a phone actually shows, and check the result rather than the source.</p>
+
+  <h3>Dismissal</h3>
+  <p>The panel closes three ways: the CLOSE control, and &mdash; since 2026-08-05 &mdash; a tap anywhere on
+  the backdrop. The backdrop carries <code>onCloseShop</code> and the window itself carries
+  <code>onStopProp</code>, so a tap inside never bubbles out and closes it. This is the same pattern the
+   shop backdrop simply carried no handler at all, so a tap outside
+  did nothing. Verified with <code>document.elementFromPoint()</code> at a point derived from the
+  backdrop's rect minus the window's &mdash; note that on a phone the stage is letterboxed, so the
+  top-left of the SCREEN is page background and is <em>not</em> outside the window.
+  Probe: <code>tools/probe_shoplist.py</code> (BEFORE 8/8, AFTER 9/9).</p>
+</div>
+<script src="nav.js"></script>
+</body>
+</html>

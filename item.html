@@ -52,7 +52,8 @@ table.item-table td:first-child{ color:var(--ink); font-weight:600; }
       <div style="overflow-x:auto"><table class="item-table"><thead><tr id="implicit-grid-head"></tr></thead><tbody id="implicit-grid-body"></tbody></table></div>
     </div></div>
     <div class="item-section"><h3>Grade Progression</h3><div class="item-section-body">
-      <table class="item-table"><thead><tr><th>Grade</th><th>Gems</th><th>Runes</th><th>Enchants</th><th>Grade-Up Cost</th><th>Success %</th></tr></thead><tbody id="grade-table"></tbody></table>
+      <table class="item-table"><thead><tr><th>Grade</th><th>Gems</th><th>Runes</th><th>Enchants</th><th>Success %</th></tr></thead><tbody id="grade-table"></tbody></table>
+      <p style="font-size:12px;color:var(--ink-dim);margin-top:8px">Success % is the chance of each grade-up attempt to reach that grade. An attempt costs Scrap (weapons, armour, accessories and tags) or Dust, Essence or Ink (gems, runes and scrolls), more at a higher tier; a failed attempt spends the cost and changes nothing else. Full price table: <a href="upgrading.html">Upgrading</a>.</p>
     </div></div>
     <div class="item-section"><h3>Dismantle Yields</h3><div class="item-section-body" id="dismantle-info"></div></div>
   </div>
@@ -61,16 +62,16 @@ table.item-table td:first-child{ color:var(--ink); font-weight:600; }
 const IMG_BASE = "https://raw.githubusercontent.com/eccestanczyk/dfmc/main/";
 const ITEMS_URL = IMG_BASE + "codex/items.csv";
 const GRADES = [
-  {name:'Worn',color:'#c2ae8b',gems:0,runes:0,enchants:0,cost:'—',success:'—'},
-  {name:'Common',color:'#c2ae8b',gems:1,runes:0,enchants:0,cost:'1 Ichor',success:'100%'},
-  {name:'Uncommon',color:'#1eff00',gems:1,runes:1,enchants:0,cost:'1 Ichor',success:'90%'},
-  {name:'Rare',color:'#0070dd',gems:1,runes:1,enchants:1,cost:'2 Ichor',success:'70%'},
-  {name:'Epic',color:'#a335ee',gems:2,runes:1,enchants:1,cost:'3 Ichor',success:'50%'},
-  {name:'Legendary',color:'#ff8000',gems:2,runes:2,enchants:1,cost:'5 Ichor',success:'35%'},
-  {name:'Abyssal',color:'#e5393f',gems:2,runes:2,enchants:2,cost:'8 Ichor',success:'20%'},
-  {name:'Divine',color:'#00ffe0',gems:3,runes:2,enchants:2,cost:'12 Ichor',success:'8%'},
-  {name:'Primordial',color:'#ff44cc',gems:3,runes:3,enchants:2,cost:'18 Ichor',success:'3%'},
-  {name:'Void',color:'#a855f7',gems:3,runes:3,enchants:3,cost:'40 Ichor',success:'0.5%'},
+  {name:'Worn',color:'#c2ae8b',gems:0,runes:0,enchants:0,success:'—'},
+  {name:'Common',color:'#c2ae8b',gems:1,runes:0,enchants:0,success:'100%'},
+  {name:'Uncommon',color:'#1eff00',gems:1,runes:1,enchants:0,success:'90%'},
+  {name:'Rare',color:'#0070dd',gems:1,runes:1,enchants:1,success:'70%'},
+  {name:'Epic',color:'#a335ee',gems:2,runes:1,enchants:1,success:'50%'},
+  {name:'Legendary',color:'#ff8000',gems:2,runes:2,enchants:1,success:'35%'},
+  {name:'Abyssal',color:'#e5393f',gems:2,runes:2,enchants:2,success:'20%'},
+  {name:'Divine',color:'#00ffe0',gems:3,runes:2,enchants:2,success:'8%'},
+  {name:'Primordial',color:'#ff44cc',gems:3,runes:3,enchants:2,success:'3%'},
+  {name:'Void',color:'#a855f7',gems:3,runes:3,enchants:3,success:'0.5%'},
 ];
 function parseCSV(text){
   const lines=text.trim().split('\n');
@@ -126,6 +127,7 @@ function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replac
     const sec=document.getElementById('implicit-grid-section');
     const GF=g=>1+0.12*(g-1);
     const DEF_OH={'Warrior':1,'Professor':1};
+    const coefOf=r=>{const m=r&&String(r.Effect||'').match(/(\d+(?:\.\d+)?)\s*[×x]\s*T\s*[×x]\s*GF/i);return m?+m[1]:null;};
     function liftedM(c){const M=[];for(let g=1;g<=10;g++){M[g]=[];for(let t=1;t<=10;t++){let v=Math.floor(c*t*GF(g)+0.5);if(t>1)v=Math.max(v,M[g][t-1]+1);if(g>1)v=Math.max(v,M[g-1][t]+1);M[g][t]=v;}}return M;}
     function renderGrid(M,pctMode){
       let html='<tr><th>Grade \\ Tier</th>'+Array.from({length:10},(_,i)=>'<th>T'+(i+1)+'</th>').join('')+'</tr>';
@@ -136,21 +138,23 @@ function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replac
     }
     if(category==='Weapon'){
       const ohDef=!!DEF_OH[family];
-      const noteTxt='Main Hand: flat Attack — 16.5 × tier × GF. Off Hand: '+(ohDef?'flat Defense — 6.6 × tier × GF (defensive off hand)':'flat Attack — 4.5 × tier × GF')+'. Half-up, strictly increasing per tier and per grade.';
+      const cM=coefOf(fam.find(r=>r.Slot==='Main Hand'))||16.5, cO=coefOf(fam.find(r=>r.Slot==='Off Hand'))||(ohDef?6.6:4.5);
+      const noteTxt='Main Hand: flat Attack — '+cM+' × tier × GF. Off Hand: '+(ohDef?'flat Defense — '+cO+' × tier × GF (defensive off hand)':'flat Attack — '+cO+' × tier × GF')+'. Rounded half-up; each grade is worth at least 1 more than the grade below.';
       const wrap=document.getElementById('implicit-grid-body').parentElement.parentElement.parentElement;
       wrap.innerHTML='<div style="font-size:12px;color:var(--ink-dim);margin-bottom:8px">'+noteTxt+'</div><h4 style="color:var(--gold);font-family:Cinzel,serif;font-size:12px;letter-spacing:1px">MAIN HAND — FLAT ATTACK</h4>'
-        +'<div style="overflow-x:auto;margin-bottom:12px"><table class="item-table">'+renderGrid(liftedM(5.5),false)+'</table></div>'
+        +'<div style="overflow-x:auto;margin-bottom:12px"><table class="item-table">'+renderGrid(liftedM(cM),false)+'</table></div>'
         +'<h4 style="color:var(--gold);font-family:Cinzel,serif;font-size:12px;letter-spacing:1px">OFF HAND — '+(ohDef?'FLAT DEFENSE':'FLAT ATTACK')+'</h4>'
-        +'<div style="overflow-x:auto"><table class="item-table">'+renderGrid(liftedM(ohDef?2.2:1.5),false)+'</table></div>';
+        +'<div style="overflow-x:auto"><table class="item-table">'+renderGrid(liftedM(cO),false)+'</table></div>';
       return;
     }
     let coef=null, stat='', pct=false;
-    if(category==='Armour'){coef=2.2;stat='flat Defense';}
-    else if(category==='Accessory'){coef=(family==='Relic')?3.0:2.0;stat=(family==='Relic')?'flat HP':'flat Attack';}
-    else if(category==='Gem'){coef=1.5;stat=(family==='Onyx')?'flat Defense':(family==='Bloodstone')?'flat HP':'flat Attack';}
-    else if(category==='Tag'){coef=3.0;stat=(family==='Carapace')?'Creature Defense':(family==='Heart')?'Creature HP':'Creature Attack';}
+    if(category==='Armour'){stat='flat Defense';}
+    else if(category==='Accessory'){stat=(family==='Relic')?'flat HP':'flat Attack';}
+    else if(category==='Gem'){stat=(family==='Onyx')?'flat Defense':(family==='Bloodstone')?'flat HP':'flat Attack';}
+    else if(category==='Tag'){stat=(family==='Carapace')?'Creature Defense':(family==='Heart')?'Creature HP':'Creature Attack';}
     else if(category==='Rune'){pct=true;stat=(family.indexOf('Aegis')>=0)?'increased % Defense':(family.indexOf('Vitality')>=0)?'increased % HP':'increased % Attack';}
     else {sec.style.display='none';return;}
+    if(!pct){coef=coefOf(first); if(!coef){sec.style.display='none';return;}}
     document.getElementById('implicit-grid-note').textContent=pct
       ? stat+' — 6% + 3% × (grade−1) + 0.6% × tier'
       : stat+' — '+coef+' × tier × GF, GF = 1 + 0.12 × (grade−1)';
@@ -159,14 +163,14 @@ function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replac
     document.getElementById('implicit-grid-head').parentElement.parentElement.innerHTML=renderGrid(M,pct);
   })();
   const gradeBody=document.getElementById('grade-table');
-  GRADES.forEach(g=>{gradeBody.innerHTML+=`<tr><td style="color:${g.color}">${g.name}</td><td>${g.gems||'—'}</td><td>${g.runes||'—'}</td><td>${g.enchants||'—'}</td><td>${g.cost}</td><td>${g.success}</td></tr>`;});
+  GRADES.forEach(g=>{gradeBody.innerHTML+=`<tr><td style="color:${g.color}">${g.name}</td><td>${g.gems||'—'}</td><td>${g.runes||'—'}</td><td>${g.enchants||'—'}</td><td>${g.success}</td></tr>`;});
   const mat=craftMat;
-  document.getElementById('dismantle-info').innerHTML=`<p style="font-size:14px;color:var(--ink-dim);">Yields <b style="color:var(--ink)">tier × grade#</b> ${mat}.`+(isEnh?'':' Rare+ gear also yields Ichor (R:1, E:2, L:4, A:8, D:12, P:20, V:32).')+`</p>`;
+  document.getElementById('dismantle-info').innerHTML=`<p style="font-size:14px;color:var(--ink-dim);">`+(isEnh?`Yields <b style="color:var(--ink)">tier × grade#</b> ${mat}.`:(category==='Tag'?'Yields Scrap and Essence, more for a higher tier and grade.':`Yields ${mat}, more for a higher tier and grade.`))+`</p>`;
   document.getElementById('status').style.display='none';
   document.getElementById('content').style.display='block';
 })();
 </script>
-<div style="margin-top:18px;font-size:12px;color:#8a7a5e"><strong>Changelog</strong> &mdash; 2026-07-30: tooltip coefficients corrected to codex/items.csv truth (16.5 / 6.6 / 4.5, were a magnitude rework behind).</div><script src="nav.js"></script>
+<script src="nav.js"></script>
 <script src="admin.js"></script>
 </body>
 </html>

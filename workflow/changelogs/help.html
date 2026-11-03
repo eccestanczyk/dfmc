@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<base href="../../"><!-- workflow/changelogs/ (2026-11-04): never published. Links resolve from the public page's folder. -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Help &amp; FAQ &mdash; changelog &amp; team notes</title>
+<link rel="stylesheet" href="theme.css?v=4">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">HELP &amp; FAQ &mdash; TEAM NOTES</h1></div>
+<div class="sp-wrap">
+<p class="sp-lead">The team record for the public page <a href="help.html">help.html</a>: its dated changelog (newest first) and the implementation notes that left the public page when the codex went player facing (D 2026-11-03). Lanes add each mechanic change here, never on the public page. Shape: <code>python tools/codex_page.py --changelog help.html</code> in dfmc-client.</p>
+
+  <h2>Changelog</h2>
+  <ul>
+    <li><strong>2026-11-03 &mdash; the FAQ matches the live game (D 2026-11-03 codex review; dfmc-client lane codexreview-b). WIKI ONLY.</strong> Sign-in is Steam, Google or Discord with Apple when keyed (lane googlebtn, board N1), not Steam only with the rest &ldquo;planned&rdquo;; Link Account exists; Reset Progress resets everything but the login and paid Wraithgold (T61, T3), not &ldquo;Wraithgold survives&rdquo;; Delete Account has its button (0.89); the report panel's kinds and payload are stated (no device play log, T31-2); the Steam client is a download (board N2); new answers for the unlock ladder, profiles and badges, the Dimensional Rift (T48) and the codex host (board N5). Each links the new pages <a href="system-accounts.html">Accounts</a>, <a href="system-feedback.html">Report Panel</a>, <a href="system-profiles.html">Profiles</a>, <a href="system-unlocks.html">Unlocks</a>.</li>
+    <li><strong>2026-10-01 &mdash; page written (D, Rulings board card <em>settings</em>; lane LEGAL). WIKI ONLY.</strong> The Settings rows Help &amp; FAQ, Privacy Policy, Terms of Service and Credits opened this site's <code>help.html</code>, <code>privacy.html</code>, <code>terms.html</code> and <code>credits.html</code>, and all four were 404. This FAQ is built from the codex pages it links; the three legal pages carry bracketed placeholders for the company details that do not exist yet, owed by the backlog entry <em>Legal review of privacy/terms/credits</em>.</li>
+  </ul>
+
+<h2>Team notes (moved off the public page 2026-11-04)</h2>
+<p>The lines below stood on the public page until 2026-11-04 and are kept verbatim. The public page now drops the ruling attributions and the links to unpublished pages, and corrects three answers for live 0.94: Autoplay opens after the first battle (unlocks.csv autoplay = 1), a locked control names its floor when clicked (lockLine), and the history download exists (Settings &rsaquo; Notices, /api/me/history).</p>
+    <p>With <strong>Steam</strong>, <strong>Google</strong> or <strong>Discord</strong> &mdash; the gate shows one button per provider the server has configured (Apple appears when its key is set). You are sent to the provider's own sign-in page; we never see your password. The provider tells us your id, and that id is your account. Inside the Steam client there is no page: the shell signs you in with your Steam session (<a href="system-accounts.html">Accounts &amp; Sign-in</a>).</p>
+    <p>Herumon Tower on Steam is a download: the shell ships the game, its data and its art inside the install and signs you in with your Steam session. It is the build that has <em>Taskbar mode</em> and the Dimensional Rift (Client Shell). The web build at playdfmc.com is the same game with the same save.</p>
+    <p>On our server. The game keeps a copy in your browser so it can load fast, but the server's copy is the real one, and every save is checked by the server (Integrity). Cloud save cannot be switched off. You can play on any device by signing in with the same login, or any login you have linked.</p>
+    <p><em>Reset Progress (New Game)</em> resets <strong>everything</strong> on the account &mdash; creatures, gear, floor, badges, rankings, bought bag slots, boons &mdash; and puts you back on Floor 1 with a new character (D, T61). The login itself stays, and so does any Wraithgold you paid real money for; free or earned Wraithgold goes with the rest (<a href="system-accounts.html">Accounts</a>, <a href="system-premium-shop.html">Premium Shop</a>). <strong>Delete Account</strong> is in the same section: two steps, then the account is deleted 7 days later; signing in before then can cancel it (<a href="delete-account.html">how to delete your account</a>). See the <a href="privacy.html">Privacy Policy</a> for what deletion removes.</p>
+    <p>Systems open floor by floor &mdash; Autoplay at 6, Hatch All and Dismantle All at 8, souls at 12, Auto PvP at 15, breeding at 25, and so on up to the Dimensional Rift at 100. A locked control shows the floor that opens it, and when it opens an arrow points at it until you click it once (<a href="system-unlocks.html">System Unlocks</a>).</p>
+    <p>Beat floor 100 and the rift to Herumon Dungeon opens: send a creature through as a copy, free, once. It arrives there at level 1 and keeps its grade; if it reaches level 50 there you earn the Dimensional Traveler badge here (Client Shell).</p>
+    <p>The player-side Adventure Log is retired (D, 2026-10-22). The action log is kept server side only; a player export of it is planned (Networking).</p>
+    <p>Not yet &mdash; the store opens when the Steam partner account does, and no account starts with any Wraithgold (D, T56). When real-money purchases open, the price, what you get, the refund rules and &mdash; for anything with a random result &mdash; the odds will be shown before you pay.</p>
+    <p>Reload. Every open window is moved to the new build so all players run the same rules (Client Shell).</p>
+</div>
+<script src="nav.js"></script>
+</body>
+</html>

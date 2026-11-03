@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<base href="../../"><!-- workflow/changelogs/ (2026-11-04): never published. Links resolve from the public page's folder. -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Status Effects &amp; Buff Stacking &mdash; changelog &amp; team notes</title>
+<link rel="stylesheet" href="theme.css?v=4">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">STATUS EFFECTS &amp; BUFF STACKING &mdash; TEAM NOTES</h1></div>
+<div class="sp-wrap">
+<p class="sp-lead">The team record for the public page <a href="system-status-effects.html">system-status-effects.html</a>: its dated changelog (newest first) and the implementation notes that left the public page when the codex went player facing (D 2026-11-03). Lanes add each mechanic change here, never on the public page. Shape: <code>python tools/codex_page.py --changelog system-status-effects.html</code> in dfmc-client.</p>
+
+<h2>Changelog</h2>
+
+  <ul>
+    <li><strong>2026-11-03 &mdash; codex review (dfmc-client lane codexreview-a; D 2026-11-03 &ldquo;review the codex, clean it up, update whatever needs updating&rdquo;). WIKI ONLY.</strong> The six legacy deltas were pasted numbers; the game has read them from <code>stat_model.csv</code> since hardcode-3 (2026-10-23), so the page now fills them from that file (<code>csv-bind.js</code>). A player-facing table of the named statuses (what Scorchrot, Doomrune, Bind and the rest do) was missing and is added from the engine&rsquo;s own status map. Stacking, clamps, targeting and the signature rule re-checked against <code>statusMult</code> at dev HEAD: unchanged (0.30&ndash;2.50 clamp, additive deltas).</li>
+    <li><strong>2026-09-30 &mdash; six moves' conditional riders fire again (review F6-004, S2). Client parser; dev.</strong> The moves.csv effect parser tested a catch-all for rider sentences (<em>if target already has X, extend it Nt</em>; <em>if target has X, also &hellip;</em>; <em>Fungal/Undead ally(ies) +N%</em> and <em>if no X ally, self +N%</em>; <em>if the user was not hit last turn, also +N%</em>; <em>consumes the mark</em>) before the rules that build the engine payloads, so each sentence was filed as an unread note and the battle engine (which has implemented all five riders since 2026-07-24) never saw them, PvE and PvP alike. The rider rules now match first. Affected: Dusting of Quiet Rot (M-SPOREFLY-3) extends Infected; Patient Carriers (M-SPOREFLY-4) buffs Fungal allies; Vesper Brood (M-VESPERA-4) adds the Defense cut on a Venom Bloom target; Dance of the Hanged (M-GALLOWVINE-4) buffs Undead allies or falls back to self; The Hunt Ends All (M-VOIDHOUND-1) consumes Death-Marked; Deathless Orders (M-VIGIL-3) adds its not-hit Attack buff. No authored number changed; every other move's parse is identical (all 401 rows diffed).</li>
+    <li><strong>2026-09-30 &mdash; review drift fixes: F077. Codex only.</strong> The <em>Signature mechanics cannot be removed</em> footnote pointed at <code>applyFxTo</code> in <code>play/app.js</code>, a dead twin with no caller since 3.7; it now names the live <code>src/battle_round.js</code> / <code>play/battle_module.js</code> path. No rule changed.</li>
+    <li><strong>2026-09-07 &mdash; thorns reflects the damage actually dealt (#771, D ruling A; retracts the 09-02 rule). LIVE on release since 2026-09-08 (0.71).</strong> The floor-108 Talos&rsquo;s 15% thorns one-shot a 3,862-HP attacker for a 1,722 hit because the share was taken from the attacker&rsquo;s raw output (28,790); it now returns 15% of what Talos lost (258), never more than it had left. Both sources.</li>
+    <li><strong>2026-09-02 &mdash; thorns reflects pre-mitigation damage. LIVE on release since 2026-09-02 (0.66).</strong> A player reported thorns only paying on tanks that take no damage &mdash; under 100 reflected off a 2k+ creature. Thorns read the damage the unit took after its own defense. Now it reads the hit as the attacker put it out (see the section above); a target at the reference defense is unchanged by construction. Both sources, status and soul package; multi-hit summed per hit; retaliation riders untouched. Engine-shared, so Auto PVP resolves the same way on both sides. A buff to every thorns soul on live saves: dev-first, D&rsquo;s word before release. Oracle <code>tools/probe_thorns.mjs</code> 2/4 before, 7/7 after (tank reflected 4 where paper reflected 70; now 70/70).</li>
+    <li><strong>2026-08-12 &mdash; a boss's unique mechanic could be stripped, stolen or shortened (reports #117 / #118). on release.</strong> D ruled these must be permanent for the fight and impossible to remove. The engine already flagged them and its own tooltip already said so; four paths ignored the flag. New section above records all four, why the report never reproduced, and the single predicate that closes it. Gate 15/15, 8/15 before.</li>
+  </ul>
+  <ul class="sp-rules">
+    <li><strong>2026-07-28 &mdash; page created, and the buff system rebuilt beneath it.</strong> Previously every positive Attack buff was named <em>Rallied</em> and every positive Defense buff <em>Guarded</em>, and applying one filtered out any existing status of that name. Three consequences, all reported from live play: a move's own Synergy clause overwrote its self buff, so casting <em>Convocation of Storms</em> left the caster at +15% instead of +50%; one creature's buff overwrote another creature's unrelated buff; and the newer cast always won regardless of strength. Fixed by making a status's identity its ability. In the same pass: buffs now combine additively rather than multiplicatively; re-application refreshes duration and keeps the stronger magnitude; a Synergy type gate includes the caster while an "if no X ally" fallback excludes it; and <code>Targets=self</code> moves no longer offer allies as targets.</li>
+  </ul>
+
+<h2>Team notes (moved off the public page 2026-11-04)</h2>
+<h3>From the public section &ldquo;Identity: a status is its ability&rdquo;</h3>
+  <p>A status is identified by the ability that applied it, not by the stat it moves. Every buff payload a move produces is stamped at build time with:</p>
+  <ul class="sp-rules">
+    <li><code>key = 'ab:' + Move_ID</code> &mdash; e.g. <code>ab:M-STORMFATHER-4</code>. This is the identity the engine matches on.</li>
+    <li><code>name</code> = the ability's own stage name (<em>Stormcall</em> / <em>Call the Storm</em> / <em>Convocation of Storms</em>). This is what the player sees on the status chip.</li>
+  </ul>
+<h3>From the public section &ldquo;The named statuses&rdquo;</h3>
+  <p class="foot">The family of each name is the <code>STATUS_ITYPE</code> map and the per-turn fractions the <code>DOT</code> map, both in <code>src/battle.js</code>, built into <code>play/battle_module.js</code>; they pick the chip icon and the tooltip family too.</p>
+  <h2>Where this lives in the client</h2>
+  <table>
+    <tr><th>Function</th><th>Responsibility</th></tr>
+    <tr><td><code>buildMove</code></td><td>Stamps the ability key and display name onto every buff payload of the move.</td></tr>
+    <tr><td><code>stKey</code></td><td>Status identity: the ability key when present, else the display name.</td></tr>
+    <tr><td><code>addStatusObj</code></td><td>Finds a status with the same identity and merges, or appends a new one.</td></tr>
+    <tr><td><code>mergeStatus</code></td><td>Refresh duration, keep the stronger magnitude, keep the surviving cast's name.</td></tr>
+    <tr><td><code>statusMult</code></td><td>Additive aggregation of Attack, Defense and Speed with the 0.30&ndash;2.50 clamp.</td></tr>
+    <tr><td><code>applySyn</code></td><td>Synergy clause: type gate including the caster, "another ally" test excluding it.</td></tr>
+    <tr><td><code>targetOk</code> / <code>pickTarget</code></td><td>Target legality, shared with the selection highlight.</td></tr>
+  </table>
+
+  <h2>Signature mechanics cannot be removed (reports #117 / #118)</h2>
+  <p><strong>Status: on release.</strong> D's ruling, 2026-08-12:
+  <em>&ldquo;Boss buffs / unique mechanics cannot drop. They need to be permanent for the fight and
+  impossible to remove.&rdquo;</em></p>
+  <p><strong>The engine already promised this and did not keep it.</strong> A boss's unique rule is
+  carried as a status with the <code>sig</code> flag: it is painted with the skull icon, and its own
+  tooltip already reads <em>&ldquo;This cannot be removed.&rdquo;</em> But the predicate that answers
+  &ldquo;is this a buff?&rdquo; returns TRUE for a signature status &mdash; correctly, it <em>is</em>
+  a buff &mdash; and four separate paths acted on that answer without ever asking whether the thing
+  was allowed to be taken:</p>
+  <ul>
+    <li><strong>Remove buffs</strong> stripped it outright.</li>
+    <li><strong>Steal buffs</strong> took it <em>off the boss</em> and put it <em>on the player</em>,
+    so the boss lost its mechanic and the player gained one.</li>
+    <li><strong>Buff shortening</strong> pulled its duration down &mdash; measured 99 turns to 94 in
+    one hit. Shortening is removal with extra steps: a mechanic that expires early did not last
+    &ldquo;permanent for the fight&rdquo;.</li>
+    <li><strong>The Unfinished Work</strong>'s own round rule, which clears the party's buffs, wiped
+    a signature status off a party member too.</li>
+  </ul>
+  <p><strong>Why it was seen only a few times.</strong> Every one of those needs a player carrying a
+  strip, steal or shorten effect. A bare account has none, which is why the report never reproduced
+  and was twice recorded as &ldquo;could not reproduce&rdquo;.</p>
+  <p><strong>The rule now.</strong> One predicate &mdash; <em>is this buff strippable</em> &mdash; is
+  asked at every removal site. A signature status still READS as a buff everywhere else: it shows in
+  the buff row, it satisfies &ldquo;target has a buff&rdquo; conditions, and it is described in
+  tooltips exactly as before. It is simply never a legal <em>target</em> for removal, theft or
+  shortening. <strong>Authored counterplay is untouched</strong> &mdash; Sethek's second rising is
+  still cancelled by killing his escort first (#116), because that is the boss's own written rule
+  rather than a status being taken off him.</p>
+  <p class="foot">Engine: <code>isStrippableBuff()</code> and <code>applyFxTo()</code> in
+  <code>src/battle_round.js</code>, built into <code>play/battle_module.js</code>, whose <code>resolveRound</code>
+  runs the fight; the <code>SIGFX</code> rules in <code>play/app.js</code>. The <code>applyFxTo</code> still defined
+  in <code>play/app.js</code> has no caller since 3.7 and is not the live path. Gate:
+  <code>tools/probe_sigperm.py</code> 15/15, and <strong>8/15 against the build it replaces</strong>
+  &mdash; the failing run reproduces all four losses on a real client before fixing any of them, and
+  every check has a control proving ordinary buffs are still removable.</p>
+  <h2>Thorns &mdash; what is reflected</h2>
+<p>Thorns comes from two places and both follow one rule: a <strong>status</strong> on the unit (a move rider such as Quillhide, carrying
+<code>thornsPct</code>) and the <strong>soul package</strong> (the character&rsquo;s own thorns souls, plus team thorns on every ally).
+Each fires once per hit taken and deals its share straight to the attacker&rsquo;s HP, on the damage line as
+&ldquo;<em>N</em> reflected&rdquo;. Retaliation ultimates are a different mechanic and are not thorns.</p>
+<p><strong>The share is of the damage the unit actually lost on the hit</strong> &mdash; after its own defence, and never more than it had left. <strong>(#771, D ruling A, 2026-09-07 &mdash; LIVE on release since 2026-09-08 (0.71).; this retracts the 2026-09-02 rule below.)</strong> The 09-02 rule read the hit as the attacker <em>put it out</em>, before the target&rsquo;s defence, so that a tank reflected as much as a paper target; against an armoured target it did the opposite of its purpose: the floor-108 Talos (Divine, defence 9, its +50% Defense up) sent 15% of a 27k-attack creature&rsquo;s raw output back &mdash; 28,790 &mdash; and killed a 3,862-HP attacker outright for landing a 1,722 hit. Under ruling A that same hit returns 258. Both sources, status and soul package; multi-hit summed; overkill counts only what the unit had. Gate <code>tools/probe_thorns.py</code> 5/5 through the real floor-108 boss party and the shared engine.</p>
+<p><em>Retracted rule, kept for the record (LIVE on release 0.66 until 0.71):</em> the share was of the hit as the attacker put it out &mdash; the engine computed the hit a second time against its reference defence (<code>10 &times; STAT_SCALE</code>) and thorns read that figure, so a tank reflected exactly what a paper target would off the same swing.</p>
+<p>Before 2026-09-02 thorns read the damage actually taken &mdash; the reading ruling A returns to. A tank that mitigated a 2,000 hit to 100 reflected 4% of 100 &mdash; the souls were
+only worth carrying on a unit that took no damage, which is the one unit that never got to use them.</p>
+</div>
+<script src="nav.js"></script>
+</body>
+</html>

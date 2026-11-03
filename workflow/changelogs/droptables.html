@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<base href="../../"><!-- workflow/changelogs/ (2026-11-04): never published. Links resolve from the public page's folder. -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DROPTABLES &mdash; changelog &amp; team notes</title>
+<link rel="stylesheet" href="theme.css?v=4">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">DROPTABLES &mdash; TEAM NOTES</h1></div>
+<div class="sp-wrap">
+<p class="sp-lead">The team record for the public page <a href="droptables.html">droptables.html</a>: its dated changelog (newest first) and the implementation notes that left the public page when the codex went player facing (D 2026-11-03). Lanes add each mechanic change here, never on the public page. Shape: <code>python tools/codex_page.py --changelog droptables.html</code> in dfmc-client.</p>
+
+<h2>Changelog</h2>
+  <ul class="sp-rules">
+    <li><strong>2026-11-03 &mdash; crafting is not a source (D 2026-11-03 codex review; dfmc-client lane codexreview-b). WIKI ONLY.</strong> The item-type table listed crafting (25 &times; tier Scrap; 6 &times; tier material) as a source for gear and enhancements. Crafting was removed from the game 2026-10-01 (D, card <code>craft</code>; record); the sources are the wild roll, boss gear and the first-win ladder. Materials go to <a href="upgrading.html">Upgrading</a>.</li>
+    <li><strong>2026-10-01 &mdash; boss loot text matches the server (Rulings board card <code>bossloot</code>, D: &ldquo;review and test&rdquo;). WIKI ONLY; no code changed.</strong> The Boss Loot text said the gear band&rsquo;s &ldquo;final band clamps to itself&rdquo; and the egg comes from the zone&rsquo;s <code>Home_Zone</code> lines. Tested on the shipped server code: the floor-100 boss rolls floor 101&rsquo;s row, the first Apex band (200 of 200 draws, none below Rare); an Apex boss reads the next floor&rsquo;s single-floor row (floor 102 reads 103, 200 of 200) and floor 120 its own; a tower boss egg comes from every line that spawns in the zone (The Crag: 300 eggs, 85 distinct lines, 275 outside its ten home lines). The client did the same before the 2026-08-08 server move, so the game has never used <code>Home_Zone</code> here. Text and the <code>boss_loot.csv</code> Notes now say what the server does; whether the egg should narrow to the home lines, and whether the floor-100 piece should reach into the Apex row, are open for D. Gate <code>tools/probe_bossloot_review.mjs</code> 3/6 &rarr; 6/6.</li>
+    <li><strong>2026-09-30 &mdash; three drop-engine fixes, review lane Q (F093, F098, F102). On dev.</strong> Floor 101&rsquo;s enhancements (gems, runes, scrolls) read the band one behind gear, which on the first Apex floor was the tower&rsquo;s 91&ndash;100 row &mdash; about 86% of them landed Worn/Common/Uncommon, under the Apex&rsquo;s Rare floor. Inside the Apex the band behind never reaches back into the tower: floor 101 reads its own row (102+ unchanged). If <code>items.csv</code> cannot load, a gear or enhancement drop is now dropped and its raw draw stripped, as this page already said; before, the unresolved descriptor reached the client. A kill&rsquo;s lane budget is 10 draws, not 8: a gear hit and an enhancement hit on one kill spend four lanes each, and the eighth-lane cap either lost later drops or forced the enhancement to a Gem. Every draw an 8-lane kill made is unchanged. Gate <code>tools/probe_laneq.mjs</code> 0/15 &rarr; 15/15.</li>
+    <li><strong>2026-09-30 &mdash; battle rewards, review lane J (F084, F086, F087, F089). On dev.</strong> The victory screen&rsquo;s Ichor row now pays an SSR kill its 1.5 rung: its ladder had no <code>Super Super Rare</code> key, the spelling every wild SSR carries, so the row showed &times;1 against the server&rsquo;s &times;1.5; the row is also rewritten to the server&rsquo;s credited Ichor when the answer lands (F084). The battle event maps <code>Super Super Rare</code> to SSR, as the reward path does (F089). The dead leftovers of the old client drop rolls in the reward builder are gone; every drop is the server&rsquo;s (F087). <code>boss_overdraft</code>, the rate bank&rsquo;s granted overdraft on an honest boss clear, is filed as system telemetry, no longer as a suspected key forgery (F086). Gates <code>tools/probe_lanej.mjs</code> 4/19 &rarr; 19/19, <code>probe_ichorcurve</code> 5/6 &rarr; 6/6 (now fed the real spelling).</li>
+    <li><strong>2026-09-30 &mdash; review drift fixes: F088, F101. WIKI ONLY.</strong> The Drop Rules Ichor row named a boss 1&ndash;3 rule, gear dismantles and a 2% deep-floor lane; none exists. Ichor is paid on every kill by the #772 formula, and gear dismantles carry no Ichor (<code>dismantle.csv</code>); egg dismantles do. The Void Apex boss-egg sentence said the egg is never one of the fight&rsquo;s lines; the server draws from all 100 lines with no exclusion, which is what D&rsquo;s ruling allows. DESCRIPTIVE ONLY.</li>
+    <li><strong>2026-09-30 &mdash; boss gear is Weapon / Armour / Accessory only, as this page says (client review F090). CODE FIX, dev.</strong> The server&rsquo;s gear lane drew the guaranteed boss piece from the wild pool, which includes creature Tags, so about one boss piece in seven was a Tag. The Boss Loot rule above and <code>boss_loot.csv</code> both name a uniform pick among the Weapon / Armour / Accessory bases; the worker now drops Tag from the pool when the drop is marked boss. Wild gear is unchanged and still draws Tags. Gate: <code>tools/probe_f090_f091.py</code>.</li>
+    <li><strong>2026-09-09 &mdash; the stale &ldquo;not yet implemented&rdquo; marker on the Void Apex text above is flipped (D). WIKI ONLY.</strong> Verified against the data: <code>drop_grade_weights.csv</code> carries eighty single-floor Apex bands over exactly Rare, Epic, Legendary and Abyssal, and the client fetches that file at boot. The Apex has been on release since 0.48 (2026-08-13); the sentence had been telling readers otherwise for four weeks. DESCRIPTIVE ONLY: no game behaviour changes.</li>
+<li><strong>2026-08-27 &mdash; the Void Apex boss egg reads its own pool and weights. On release.</strong> The boss-egg pool was looked up by the item tier (clamped to 10), so every Apex boss egg was a zone-10 line at the tower weights and <code>apex_boss_egg_rarity.csv</code> was read by nothing. Fixed server-side; tower bosses unchanged. Same day, the Apex <strong>key</strong> lane was replayed on 723 live floor-101 events from the spawn secret: every recorded drop and the one key the server granted reproduce exactly &mdash; the rates on release are the 08-25 table (1 per 1,440 kills on floor 101), a ~1,500-win run without a key is a ~4% event at that rate, and no gate or clamp fired. Nothing about keys changed.</li>
+  <li><strong>2026-08-25 &mdash; Void Apex Key drop rates re-derived from D's rule (one every two hours at a battle every 15 s, Apex only; report #533). ON DEV data, release at the next pin.</strong> Apex floor 103 from ~15 hours per Key to 2; the tower's zones are untouched (a first cut the same hour touched them; corrected within the hour, byte-identical to before). First-clear guarantee unchanged.</li></ul>
+<p><strong>2026-08-10 &mdash; Void Apex drop band authored.</strong> Per-floor grade bands for floors 101&ndash;120, added to this page's own table,, ranked Rare through Abyssal, tuned by simulation so an Abyssal drop stays rare at
+the entry (0.1% per drop) and uncommon at the cap (1.5%). The last three grades remain upgrade-only
+everywhere. Full rules on <a href="system-void-apex.html">Void Apex</a>.</p>
+<p><strong>2026-08-08 &mdash; boss gear, boss eggs and boss keys are decided server-side.</strong>
+<em>LIVE on release since 2026-08-08 (0.42).</em> <code>rollGearDrop</code>, <code>rollBossEgg</code> and
+<code>rollDropGrade</code> are all deleted &mdash; the last was the final <code>Math.random()</code>
+grade roller in the client. The boss-egg tier weights became machine-readable Params in
+<code>boss_loot.csv</code> (values unchanged); <code>DATA_PIN</code> moves with them. Probes:
+<code>tools/probe_bossloot.py</code> 9/9, <code>tools/probe_bosskey.py</code> 5/5.</p>
+
+  <ul>
+    <li><strong>2026-08-02 &mdash; key loss on a full bag documented.</strong> No behaviour change: the gates and the destroy-on-full rule were always in the code and were never written down, so a player question about a missing key could not be answered from this page. Both are now stated above.</li>
+    <li><strong>2026-08-01 &mdash; the client stopped rolling wild drops, and the egg cap became real.</strong>
+      <code>/api/battle</code>&rsquo;s resolved <code>drops</code> array is now what the client renders; the
+      gear, enhancement and egg rolls were deleted from the client rather than mirrored, and
+      <code>rollEnhDrop</code>/<code>rollEggDrop</code> are gone. XP and Ichor are deterministic and still
+      credit immediately, so the drop rows arrive during the victory bar fill. Two defects closed on the way:
+      the server was band-rolling egg grades with <em>no</em> Legendary clamp (a forbidden Abyssal egg at
+      floors 91&ndash;100), now authored as <code>Wild_Egg_Grade_Cap</code>; and the derived spawn&rsquo;s
+      creature id was being discarded one line after it was derived, leaving the egg lane unable to name a
+      line at all.</li>
+    <li><strong>2026-08-01 &mdash; the server picks the base, and picks it the way this page says.</strong>
+      Item selection moved off the client, which had been picking a <code>category|family</code> bucket and
+      then an item inside it &mdash; over-weighting bases in small families against the uniform-across-bases
+      rule authored here. The draw is made in the player&rsquo;s object and mapped to <code>items.csv</code>
+      by the Worker, so the 208&nbsp;KB table never rides the battle request.</li>
+    <li><strong>2026-07-31 &mdash; drops moved to the server.</strong> The backend rolls every drop from
+      these CSVs and tells the client; the client no longer decides one. Item tier comes from the zone
+      boundaries in <code>floors.csv</code> instead of a hardcoded <code>ceil(floor/10)</code>. No fallback
+      constants: a missing table means no drop and a flag. <em>(Backfilled 2026-08-01 &mdash; this page had
+      no changelog section, and the commit that should have added this entry skipped it silently.)</em></li>
+  </ul>
+
+  <h2>Who rolls the drop</h2>
+  <p><strong>The server rolls it and tells the client.</strong> The client renders the grant and never
+  reports a drop of its own, so there is no second opinion to reconcile. Every number the roll uses is read
+  from the files on this page &mdash; nothing about a drop is hardcoded in the backend, and there is no
+  fallback constant anywhere in the path: if a table fails to load the drop simply does not happen and the
+  account is flagged (<code>drop_data</code>). A default would quietly become the balance.</p>
+  <table>
+    <tr><th>Step</th><th>Source</th></tr>
+    <tr><td class="lbl">Does it drop</td><td><code>drop_chances_by_floor.csv</code> &mdash; one independent
+      roll each for gear, enhancement and egg, per kill, at that kill's rarity. The kills are the ones the
+      <em>server</em> derived from the seeded spawn slot, so floor, rarity and count are its own facts.</td></tr>
+    <tr><td class="lbl">What grade</td><td><code>drop_grade_weights.csv</code> for the floor's band.
+      Enhancements use the band one behind gear, and that rule is read from
+      <code>drop_rates.csv</code> (<code>Enhancement_Grade_Rule</code>) rather than assumed.</td></tr>
+    <tr><td class="lbl">Which base</td><td>The server picks it, uniformly among the gear bases at that
+      tier &mdash; the rule this page already authors. Enhancements split evenly across gem / rune /
+      scroll, then pick uniformly within. <strong>The client used to do this differently:</strong> it
+      picked a <code>category|family</code> bucket uniformly and then picked inside it, giving a base
+      that sits in a two-item family far more weight than one in a ten-item family. That was a
+      deviation from this page rather than a balance decision, and moving the pick to the server
+      corrects it &mdash; expect the visible distribution to change.</td></tr>
+    <tr><td class="lbl">What tier</td><td>The zone boundaries authored in <code>floors.csv</code>. The
+      client's <code>ceil(floor/10)</code> is a hardcoded restatement of today's zone layout &mdash;
+      re-author the zones and it silently produces the wrong tier.</td></tr>
+    <tr><td class="lbl">Only when earned</td><td>The roll runs in the credited branch only. An uncredited
+      battle &mdash; over the spawn budget, over a rate cap &mdash; earns nothing and therefore drops
+      nothing.</td></tr>
+    <tr><td class="lbl">Once only</td><td>Recorded against the battle's event id, which is already deduped,
+      so a retried or replayed battle returns the same grant instead of a second one.</td></tr>
+  </table>
+  <div class="note"><strong>How the pieces divide.</strong> The player&rsquo;s Durable Object makes the
+  <em>draw</em>, because that is where the secret-keyed generator lives; the Worker maps that draw onto
+  <code>items.csv</code> and substitutes the concrete base on the way out. The split is not decoration:
+  <code>items.csv</code> is around 208&nbsp;KB and the chance tables travel <em>inside the battle request
+  body</em>, so adding it there would put 208&nbsp;KB on the hottest path in the game, every battle. The
+  Worker holds it module-cached instead and the object never sees it. If it cannot be loaded the drop is
+  dropped rather than invented, and the raw draw is stripped before the client sees the response.</div>
+
+  <div class="note"><strong>Balancing.</strong> Change a rate here and the live game changes with it &mdash;
+  the backend reads these files at <code>DATA_PIN</code> on release and at <code>main</code> on dev. No code
+  edit, no deploy.</div>
+
+<h2>Team notes (moved off the public page 2026-11-04)</h2>
+<p>Engineering notes and wording that stood on the public page until 2026-11-04, kept verbatim (headings demoted). Two claims were corrected on the public page against the 0.94 pin (feeeee88) and release code: the drop rate is 0.2 drops per family per battle (per-kill 6.67% on every floor), not &ldquo;exactly 10% per battle&rdquo;; and a boss Key is spent at the challenge (<code>challengeBoss</code> &rarr; <code>consumeBossKey</code>), not on entering the den. The &ldquo;minimum-win journey yields exactly one Key&rdquo; normalisation does not hold at the pin either (Min_Wins &times; 3 kills at the authored chances gives ~2.0 keys per zone); the public page now states battles per key instead.</p>
+
+<h3>How Drops Work (paragraphs 2&ndash;3)</h3>
+  <p>Per-kill chances are scaled on the game-wide <strong>rarity value ladder</strong> — <span class="rar-C">C 1.0</span> / <span class="rar-UC">UC 1.5</span> / <span class="rar-R">R 2.5</span> / <span class="rar-SR">SR 4.0</span> / <span class="rar-SSR">SSR 7.0</span> (the same ladder as XP and Ichor) — and normalized per floor against <code>codex/encounter_weights.csv</code>, so each drop family lands <strong>exactly 10% per battle</strong> (3 kills) in expectation on every floor of the tower. Rarer kills pay better; the floor-wide economy never drifts.</p>
+  <p>All chances on this page are read live from the codex CSVs — <code>drop_chances_by_floor.csv</code>, <code>drop_grade_weights.csv</code>, <code>key_drop_rates.csv</code>, <code>boss_loot.csv</code>, <code>first_win_drops.csv</code> — the same tables the game reads. Nothing is hardcoded.</p>
+
+<h3>Source footers</h3>
+  <p class="foot">Source: <code>codex/drop_chances_by_floor.csv</code> · normalized against <code>codex/encounter_weights.csv</code></p>
+  <p class="foot">Source: <code>codex/drop_grade_weights.csv</code> · band rules in <code>codex/drop_rates.csv</code> and <code>codex/boss_loot.csv</code></p>
+  <p class="foot">Source: <code>codex/key_drop_rates.csv</code></p>
+  <p class="foot">Source: <code>codex/boss_loot.csv</code></p>
+  <p class="foot">Source: <code>codex/first_win_drops.csv</code></p>
+  <p class="foot">Rules mirror <code>codex/drop_rates.csv</code>, <code>codex/boss_loot.csv</code>, GDD Combat &amp; Reward Systems, and Stat Tables §15.</p>
+
+<h3>Boss Keys (paragraphs)</h3>
+  <p>A single zone-specific <strong>Key</strong> (<code>ITM-KEY-010</code>…<code>ITM-KEY-100</code>) is required to enter a boss floor and is consumed on entry. Every wild creature defeated on the zone's 9 preceding floors rolls for that zone's Key, per creature, scaled on the rarity value ladder and normalized so a <strong>minimum-win journey through the zone yields exactly one Key in expectation</strong>.</p>
+  <p><strong>Gates:</strong> a zone's Key cannot drop until the character has banked that zone's <code>Min_Wins</code> wins AND <code>Min_Kills</code> wild kills (<code>zoneWins</code>/<code>zoneKills</code> in the save, counted per zone, wild battles only — a boss win advances neither). Below either gate the roll is skipped entirely.</p>
+  <p><strong style="color:var(--gold-bright)">A Key that drops into a full inventory is DESTROYED.</strong> Every grant goes through one shared space check: no free item slot means the drop is discarded, never queued and never held — the victory screen reports only the generic <em>"N drops lost — inventory full"</em> and does not say a Key was among them. Since keys are the rarest item lane in the zone (0.46% per Common kill in Desert Plains, ~1 per 60 battles), a player farming with a full bag can lose several keys without ever knowing. Reported live 2026-08-01 by a player stranded on floor 29 with 235 zone wins and no key; his context snapshot read <code>invCount 80 / invCap 80</code>.</p>
+  <p><strong>Void Apex rate (D, 2026-08-25):</strong> on each Apex key floor (101, 103, &hellip; 119) one Key is expected every two hours of chance at one won battle every 15 seconds &mdash; 1,440 kills per Key, split by the rarity ladder, normalised on that floor's encounter mix. Those ten rows are generated from that sentence (<code>tools/gen_keyrates.py</code>), never hand-typed; the tower's ten rows keep their authored minimum-win normalisation.</p>
+
+<h3>Boss Loot, egg paragraph</h3>
+  <p><strong style="color:var(--gold-bright)">One native egg</strong> — a Stage-1 egg of any line that spawns on the zone&rsquo;s floors (<code>floor_creature_rarity.csv</code>: a line counts when any of its stages spawns there; the egg is its Stage&nbsp;1) &mdash; 69&ndash;87 lines per tower zone, not just the ten lines <code>creatures.csv</code> files under that zone as home, weighted by the canonical rarity chances 30/30/20/10/10 (<span class="rar-C">C</span>/<span class="rar-UC">UC</span>/<span class="rar-R">R</span>/<span class="rar-SR">SR</span>/<span class="rar-SSR">SSR</span>) normalized over the tiers present in the zone. Grade from the boss's floor band, clamped to the Legendary wild-egg cap — breeding remains the only path to Divine+ and Void creatures. <strong>Void Apex bosses (102&ndash;120):</strong> the pool is the Apex's own line list (all 100 lines) and the tier weights come from that boss floor's row in <code>apex_boss_egg_rarity.csv</code> instead of the 30/30/20/10/10 above; the egg is any line, including the lines of the three creatures in the fight &mdash; nothing is excluded (D ruling 2026-08-27: &ldquo;apex boss is any egg ok&rdquo;). Full mechanics on <a href="system-void-apex.html" style="color:var(--gold-bright)">Void Apex</a>. On DEV since 2026-08-27, on release at the next push.</p>
+
+<h3>Drop rules table, changed cells</h3>
+<p>Weapon and Gem sources carried &ldquo;(crafting removed 2026-10-01)&rdquo;; Weapon grade rule &ldquo;Divine+ never drops &mdash; the Scrap grading gamble only&rdquo;; Boss Key &ldquo;One expected Key per minimum-win zone journey. Consumed on boss entry.&rdquo;; Scrap &ldquo;Feeds gear crafting.&rdquo;; Ichor &ldquo;(#772) &middot; egg dismantles (<code>breeding.csv</code> <code>Egg_Dismantle_Ichor</code>) &hellip; Feeds the Ichor gamble &mdash; the only source of Divine+ gear.&rdquo; (wrong at the pin: gear grading is paid in Scrap, grading.csv); Dust / Essence / Ink &ldquo;(tier &times; grade#) &hellip; Feed enhancement crafting.&rdquo;</p>
+
+  <div class="note"><strong>The egg lane names a line, and the server is the one that names it.</strong>
+  A wild egg is the Stage-1 egg of the <em>line that was defeated</em>, so the grant needs a species as
+  well as a grade. Of the three kills in a battle, one is the spawn the server itself derived from the
+  seeded slot &mdash; that creature&rsquo;s identity is the server&rsquo;s own fact and is used directly. The
+  other two have no server-derived identity; the client names them, and the claim is accepted
+  <em>only if this floor&rsquo;s own creature table authors that creature at the tier the kill was already
+  clamped to</em>. A claim the floor does not author is discarded and that kill grants no egg &mdash; the
+  client can never talk a valuable line out of the server. The grade is band-rolled as above and then
+  clamped to <code>Wild_Egg_Grade_Cap</code> in <code>drop_rates.csv</code> (<strong>Legendary</strong>),
+  with the grade ladder read from the order of <code>drop_grade_weights.csv</code> rather than restated in
+  code. This clamp is load-bearing: the 91&ndash;100 band authors an Abyssal weight, and without the cap a
+  wild egg could hatch above the ceiling that makes breeding the only path to Divine and above. No cap
+  authored means no egg is granted, the same no-fallback rule the rates use.</div>
+
+  <h3>Boss loot and boss keys are the server's</h3>
+<p><em>LIVE on release since 2026-08-08 (0.42).</em> Server-side rolls items 5 and 6. The wild drop lanes moved on
+2026-08-01 and <strong>the boss lanes were left behind</strong>, so
+<code>rollGearDrop&nbsp;&rarr;&nbsp;rollDropGrade&nbsp;&rarr;&nbsp;Math.random()</code> survived on the
+client for the single most valuable drop in the game, and the boss-key chance was the last
+<code>Math.random()</code> on the wild-kill reward path. Both are gone.</p>
+<h4>What the server now decides</h4>
+<table>
+  <tr><th>Lane</th><th>Rule</th></tr>
+  <tr><td class="lbl">Boss gear</td><td>Count is guaranteed (<code>Gear_Guaranteed_Per_Kill</code>). The <em>grade</em> rolls the band shifted by <code>Gear_Grade_Band_Rule</code> &mdash; &ldquo;one_band_ahead&rdquo; is a value in the CSV, not a branch name in code. The floor-100 boss reads floor 101&rsquo;s row (the first Apex band), an Apex boss the next floor&rsquo;s, floor 120 its own.</td></tr>
+  <tr><td class="lbl">Boss egg</td><td>One Stage-1 egg of any line that spawns in the zone (<code>floor_creature_rarity.csv</code>), tiers weighted by the newly machine-readable <code>Egg_Line_Weight_*</code> Params, grade rolled on the boss's own band and clamped to the wild-egg cap.</td></tr>
+  <tr><td class="lbl">Boss key</td><td>The <em>chance</em> is the server's, off <code>key_drop_rates.csv</code> at the kill's rarity, at most one per battle. The <code>Min_Wins</code>/<code>Min_Kills</code> gate counters stay the client's, per D's ruling &mdash; <em>&ldquo;We are tracking battle wins. So it should be trivial for the client to keep the streak counter, and it should.&rdquo;</em> They are clamped to the server's own credited ledger before they are read, so an inflated claim buys nothing and costs no extra write. The deterministic first-clear key is untouched: it is a grant, not a roll.</td></tr>
+</table>
+<h4>The balance table that was prose</h4>
+<p><code>boss_loot.csv</code> authored the egg's line weighting as
+<code>Egg_Line_Weighting,rarity_appearance</code> with &ldquo;30/30/20/10/10 (C/UC/R/SR/SSR)&rdquo;
+<strong>inside the Notes cell</strong>. Notes are prose, not data: nothing could read them, and the
+client carried the numbers as a literal. They are five Params now &mdash;
+<code>Egg_Line_Weight_C</code> through <code>_SSR</code>, values unchanged. A formatting fix, not a
+balance change, and the same failure the enchantment magnitudes had.</p>
+<p class="note"><strong>A drop that throws now says so.</strong> An exception in the drop roll used to
+leave <code>drops</code> simply <em>absent</em>, which is indistinguishable from &ldquo;nothing
+dropped&rdquo;. The boss lanes vanished for an entire probe run and the only trace was a flag nobody
+reads; the response carries <code>dropNote</code> now, and it named the cause in one run. Same lesson
+as the swallowed floor sync &mdash; a refusal that looks like a null result is the worst kind.</p>
+<p class="note"><strong>Probes.</strong> <code>tools/probe_bossloot.py</code> 9/9 and
+<code>tools/probe_bosskey.py</code> 5/5, full stack. The loot probe climbs to a boss floor the honest
+way (the Genesis rule caps a new account at floor 2) and waits out the spawn budget between kills.
+The key probe deliberately has <strong>no end-to-end &ldquo;a key dropped&rdquo; test</strong>: the
+cheapest authored gate is 29 wins / 87 kills, every credited kill costs a spawn credit refilling at
+one per minute, and the chance behind it is 1.4% for a Common &mdash; roughly ninety minutes to open
+the gate and hours more to land one. It tests the gate, the clamp and the naming, which are the parts
+that can be attacked.</p>
+
+<h3>Void Apex note (as it stood)</h3>
+<div class="sp-note"><strong>Floors 101&ndash;120 use their own grade table.</strong> Everything on this page describes the 100-floor tower. The <a href="system-void-apex.html">Void Apex</a> postgame zone rolls from <code>drop_grade_weights.csv</code> itself &mdash; one single-floor band per Apex floor instead: four grades only &mdash; Rare, Epic, Legendary, Abyssal &mdash; with Rare as the floor and Divine, Primordial and Void never dropping. Eggs use the same curve with the Abyssal share folded into Legendary. <strong>LIVE on release since 0.48 (2026-08-13)</strong> &mdash; <code>drop_grade_weights.csv</code> carries eighty single-floor Apex bands and the client reads that file at boot.</div>
+</div>
+<script src="nav.js"></script>
+</body>
+</html>

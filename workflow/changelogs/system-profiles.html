@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<base href="../../"><!-- workflow/changelogs/ (2026-11-04): never published. Links resolve from the public page's folder. -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profiles, Badges &amp; Achievements &mdash; changelog &amp; team notes</title>
+<link rel="stylesheet" href="theme.css?v=4">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">PROFILES, BADGES &amp; ACHIEVEMENTS &mdash; TEAM NOTES</h1></div>
+<div class="sp-wrap">
+<p class="sp-lead">The team record for the public page <a href="system-profiles.html">system-profiles.html</a>: its dated changelog (newest first) and the implementation notes that left the public page when the codex went player facing (D 2026-11-03). Lanes add each mechanic change here, never on the public page. Shape: <code>python tools/codex_page.py --changelog system-profiles.html</code> in dfmc-client.</p>
+
+  <h2>Implementation notes</h2>
+  <ul>
+    <li>Profile read: <code>GET /api/profile/&lt;name&gt;</code> (B15) &mdash; a WORLD path, 0 writes. Client <code>profileOpen(name)</code> fills <code>state.profileView</code> (<code>profName, profCls, profParty, profFloor, profRate, profPower, profBadges</code>).</li>
+    <li>Badge rows and their holder counters live in the world object (<code>badges</code>, <code>badge_counts</code>) and go with the boards on a wipe or a T61 reset. <code>/api/_internal/badges_of</code> is the ops read.</li>
+    <li>Avatars: the Steam avatar URL is checked by <code>STEAM_AV_OK</code> before it is drawn.</li>
+  </ul>
+
+  
+
+  <h2>Changelog</h2>
+  <ul>
+    <li><strong>2026-11-03 &mdash; profile card phone check (board B15b; dfmc-client lane tail2).</strong> On dev. The card was measured on a touch phone at 390x844 and 844x390 (Android and iPhone UAs, simulated notch / home-bar insets) and at 1280x800: it sits inside the safe box with nothing overflowing at every size. The one miss was the close button, 32x32 stage px (about 11 CSS px on a landscape phone) &mdash; now the house 44x44 close target, the name row clearing it. Gate dfmc-client <code>tools/probe_b15b_phone.py</code> 8/12 &rarr; 12/12.</li>
+    <li><strong>2026-11-03 &mdash; page written (D 2026-11-03: &ldquo;add whatever sections and systems we have in the game but not on the codex&rdquo;; dfmc-client lane codexreview-b). WIKI ONLY, no game behaviour.</strong> badges.csv (14 badges incl. DIMENSIONAL_TRAVELER, T48) and achievements.csv (9 Steam achievements) had no page; the public profile (B15) was described only in system-pvp.html and the networking page. Player-facing text first, the doors after.</li>
+  </ul>
+
+<h2>Team notes (moved off the public page 2026-11-04)</h2>
+<p>The lines below stood on the public page until 2026-11-04 and are kept verbatim. The public page drops the CSV names, the achievements door and the ruling ids; both tables re-checked against badges.csv and achievements.csv at feeeee88.</p>
+  <p class="sp-lead">Every player has a public profile, and every profile carries the badges the account has earned. Badges are the server's: it awards them when the fact becomes true in a save it accepted, and nothing on the device can mint one. On Steam the same facts also unlock Steam achievements.</p>
+<ul>
+    <li><strong>Read-only and public</strong> &mdash; anyone on the board can see it; it writes nothing and mints nothing. There is no profile text to edit.</li>
+</ul>
+  <p>The badge list is <code>codex/badges.csv</code>. Each is awarded once, when the server sees the fact in your save; a badge the server has not awarded does not exist, whatever the device thinks. A <a href="system-accounts.html">Reset Progress</a> wipes them with the rest of the climb (T61).</p>
+  <div class="sp-note"><strong>Dimensional Traveler</strong> is the one badge earned outside the Tower: a creature you sent through the Dimensional Rift reaching level 50 in Herumon Dungeon. The Dungeon reports it back; the Tower awards it (T48, 2026-11-03).</div>
+  <p>On the Steam build the same server-side facts unlock achievements (<code>codex/achievements.csv</code>, pushed through <code>/api/steam/achievements</code>). Most are badges under another name; three are not badges at all. Hidden ones do not show their description on Steam until earned.</p>
+</div>
+<script src="nav.js"></script>
+</body>
+</html>

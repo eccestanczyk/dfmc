@@ -28,7 +28,17 @@ resolve from the root exactly as before the move.
 | move-icons.html | move effect icon review |
 | floor-assets.html, pending-art.html, pending-crop.html | art pipeline tools |
 | PIPELINE.md, ASSET_PIPELINE.md | art pipeline notes |
+| changelogs/ | each player page's changelog and team notes (below) |
 
 `dfmc-client/tools/codex_page.py` lists these as `workflow/<page>.html`; a bare name (`--changelog system-networking.html`)
-still finds them. The player pages at the repo root keep their changelogs in the source; `nav.js` / `pages-redirect.js`
-hide the Changelog and Implementation notes sections from visitors (`?admin=1` shows them).
+still finds them.
+
+## changelogs/ - the player pages' team notes (2026-11-04)
+
+A player page (repo root, `tutorials/`) carries no changelog, no implementation notes and no ON DEV marker, not even
+hidden: the codex is player facing (D 2026-11-03). Each player page's dated changelog (newest first, `On dev.` until
+release-ritual step 12 flips it to SHIPPED IN <ver>) and the team notes that left it live in
+`workflow/changelogs/<page>.html` (`tutorials/<page>` -> `changelogs/tutorials/<page>`). A change that is only on dev
+leaves the player page alone; its entry carries `At release: <the page edit>` and step 12 applies it
+(`dfmc-client/tools/release_sweep.py` lists them). `python tools/codex_page.py --changelog <page>` (dfmc-client) prints
+the file and the shape. Each file carries `<base href="../../">`, so its links resolve from the root.

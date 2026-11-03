@@ -14,211 +14,69 @@
 <div class="topbar"><h1 style="font-family:'Cinzel',serif;">&dagger; DEVOUR</h1></div>
 <div class="sp-wrap">
   <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; Devour</div>
-  <p class="sp-lead">One creature consumes another &mdash; or a Devour item &mdash; and takes what was worth keeping. The fodder's XP <strong>always</strong> transfers in full. Grade and mutant status transfer too, but <strong>only within the same line</strong>. The fodder is destroyed permanently: its uid is burned and nothing recovers it.</p>
+  <p class="sp-lead">One creature consumes another &mdash; or a Devour item &mdash; and takes what was worth keeping. The fodder's XP <strong>always</strong> transfers in full. Grade and mutant status transfer too, but <strong>only within the same line</strong>. The fodder is destroyed permanently: nothing recovers it. Devour opens on floor 12 (<a href="system-unlocks.html">Unlocks</a>).</p>
 
   <h2>Where it lives</h2>
   <ul class="sp-rules">
     <li><strong>Soul bag:</strong> open a creature's sheet &mdash; <strong>&dagger; DEVOUR</strong> sits beside DISMANTLE. That creature is the consumer.</li>
-    <li><strong>Equipment window:</strong> click an equipped creature's slot &mdash; <strong>&dagger; DEVOUR</strong> sits under ATTEMPT UPGRADE. The equipped creature is the consumer, and its gains (level, grade&nbsp;&rarr;&nbsp;QM, mutant) re-derive the party immediately.</li>
-    <li><strong>Soul-socket picker:</strong> open a gear slot's soul picker while the socket holds a creature &mdash; <strong>&dagger; DEVOUR</strong> is offered there too (D 2026-08-06). The creature socketed as that soul is the consumer, resolved live from <code>soulOv[gi].src</code>, so a socketed soul can be levelled without unsocketing it. An empty socket or a class soul has no source creature, and the button is not shown.</li>
-    <li>The panel shows the <strong>consumer on the left</strong> with the arrow pointing <em>at</em> it, and the fodder slot on the right. Clicking the slot opens the picker.</li>
-    <li><strong>The main view fits without scrolling; only the fodder PICKER scrolls</strong>, because that one is a list of every eligible creature in the bag and no layout fits 100+ rows. Sized from measurement: the two cards are <code>min-height:276px</code> with <code>11px</code> padding, the body has <code>16px 24px</code> padding and a <code>12px</code> gap, and the preview line is <code>15px/1.35</code>. Body content is <strong>359&ndash;380px</strong> against a panel that caps at 593px on a phone, so there is real room before a scrollbar can return. <em>LIVE on release since 2026-08-05 (0.32).</em></li>
-    <li><strong>Why the phone scrolled and the desktop did not.</strong> The overlay is <code>position:fixed</code>, which escapes the stage’s CSS <code>zoom</code>, so its <code>max-height:88%</code> resolves against the REAL viewport rather than the 1080-tall stage: 88% of 674px = 593px on a phone against 792px on a 900px desktop. Every other size in this panel is a stage unit. Any fixed-position overlay in this build has the same asymmetry &mdash; measure it at a phone viewport, not just at desktop.</li>
-    <li>Devour only opens on the <strong>floor or in the boss room</strong>. During a battle (select through flash) it refuses with NOT DURING A BATTLE. While the panel is open the floor simulation is frozen, like every other window.</li>
+    <li><strong>Equipment window:</strong> click an equipped creature's slot &mdash; <strong>&dagger; DEVOUR</strong> sits under ATTEMPT UPGRADE. The equipped creature is the consumer, and its gains (level, grade&nbsp;&rarr;&nbsp;quality multiplier, mutant) apply to the party at once.</li>
+    <li><strong>Soul-socket picker:</strong> open a gear slot's soul picker while the socket holds a creature &mdash; <strong>&dagger; DEVOUR</strong> is offered there too. The socketed creature is the consumer, so a socketed soul can be levelled without unsocketing it. An empty socket or a class soul has no creature, and the button is not shown.</li>
+    <li>The panel shows the <strong>consumer on the left</strong> with the arrow pointing <em>at</em> it, and the fodder slot on the right. Clicking the slot opens the fodder picker; only that list scrolls.</li>
+    <li>Devour only opens on the <strong>floor or in the boss room</strong>. During a battle it refuses with NOT DURING A BATTLE. While the panel is open the floor is paused, like every other window.</li>
   </ul>
 
-  <h2>What can be consumed</h2>
-  <p>The fodder picker lists the soul bag's <strong>visible pool</strong> only: creatures and Devour consumables. By construction this means anything <strong>equipped, penned or socketed can never be fodder</strong> &mdash; those are not in the visible pool. Eggs and class souls are never fodder. The consumer is excluded from its own pool; a creature cannot devour itself. Consumables sort to the top of the picker, then creatures in soul-bag order.</p>
+  <h2>The fodder picker</h2>
+  <ul class="sp-rules">
+    <li>It lists soul-bag creatures and Devour consumables. Eggs and class souls are never fodder, a <strong>locked</strong> creature is never offered, and a creature cannot devour itself.</li>
+    <li>It offers only fodder that <strong>can change the consumer</strong> &mdash; more XP, a better grade or mutant status. The preview line and the result use the same judgement, so what the panel promises is what you get.</li>
+    <li>Creatures that are <strong>equipped</strong> (a party slot or a soul socket) or <strong>breeding</strong> (in a pen) are shown <strong>greyed and badged</strong> EQUIPPED or BREEDING, after the selectable ones. They cannot be picked; clicking one says why.</li>
+    <li>If nothing selectable is left, the picker says so.</li>
+  </ul>
+  <p>Order: consumables first, then creatures by:</p>
+  <table>
+    <tr><th>Key</th><th>Direction</th></tr>
+    <tr><td>Level</td><td>highest first &mdash; the XP a fodder carries always transfers</td></tr>
+    <tr><td>Grade</td><td>best first</td></tr>
+    <tr><td>Line</td><td>alphabetical, so every stage of one family sits in one block</td></tr>
+    <tr><td>Stage</td><td>S1 before S3 within a line</td></tr>
+    <tr><td>Gender</td><td>tie-break</td></tr>
+    <tr><td>Rarity</td><td>best first; rarity does not change what a devour pays</td></tr>
+    <tr><td>Name</td><td>A&ndash;Z</td></tr>
+  </table>
+  <p>This is a different order from the party creature picker on <a href="system-equipment.html">Equipment</a>: there you choose a creature to fight with, here one to spend, and the line decides whether grade and mutant transfer.</p>
 
   <h2>Devouring a creature</h2>
   <table>
     <tr><th>Aspect</th><th>Rule</th></tr>
-    <tr><td>XP</td><td><strong>Always</strong> transfers, in full, regardless of species: <code>consumer.xp += fodder.xp</code>. Level is re-derived from the shared XP curve.</td></tr>
+    <tr><td>XP</td><td><strong>Always</strong> transfers, in full, regardless of species. Level is re-derived from the shared XP curve.</td></tr>
     <tr><td>Grade</td><td>Transfers <strong>within the same LINE</strong>, and only upward: the consumer keeps the <strong>higher</strong> of the two grades. Any stage feeds any other stage of its own line. Grade feeds the <a href="system-grade.html">Grade Multiplier</a>, so this is a real stat change.</td></tr>
     <tr><td>Mutant</td><td>Transfers <strong>within the same LINE</strong>, across stages: a mutant fodder makes the consumer a mutant (see <a href="system-mutants.html">Mutant Variants</a>). Never removed, never reversed.</td></tr>
-    <tr><td>Fodder</td><td>Destroyed. The record leaves the bag, the uid is burned, equipment is unaffected (a bag creature carries none).</td></tr>
-    <tr><td>Identity</td><td>The consumer's uid, origin, gender and everything not listed above are untouched. It is the same creature, fed.</td></tr>
+    <tr><td>Fodder</td><td>Destroyed. A bag creature carries no equipment, so nothing else is lost.</td></tr>
+    <tr><td>Identity</td><td>The consumer's gender, origin and everything not listed above are untouched. It is the same creature, fed.</td></tr>
   </table>
-  <p><strong>&ldquo;Same&rdquo; means the same LINE (D ruling 2026-08-02).</strong> Identity for grade and mutant is <code>Line_ID</code> from <code>creatures.csv</code>, so an S1 and the S3 it advances into ARE the same for this rule: feed a Stage-1 Rare mutant into its own Stage-3 Common and the Stage-3 comes out Rare and mutant. Across <em>different</em> lines only XP moves.</p>
-  <p>The comparison falls back to the creature row when <code>creatures.csv</code> has no row for a record, so an unknown or forged creature with a blank <code>Line_ID</code> can never read as &ldquo;same line&rdquo; as everything else. <code>dvSpeciesId</code> still exists and is still exact-creature identity &mdash; it answers a different question and the picker labels off it.</p>
+  <p><strong>&ldquo;Same&rdquo; means the same LINE.</strong> A Stage-1 creature and the Stage-3 it advances into are the same line: feed a Stage-1 Rare mutant into its own Stage-3 Common and the Stage-3 comes out Rare and mutant. Across <em>different</em> lines only XP moves.</p>
+  <ul class="sp-rules">
+    <li>The result comes from the server, judged from your saved creatures; a reload cannot change it. A devour that would change nothing is refused.</li>
+    <li>If a devour is refused or the connection drops, <strong>nothing is consumed</strong> and the panel says so. Retrying the same fodder gives the same answer.</li>
+    <li>Each devour is saved at once. The panel stays open so you can keep feeding the same creature.</li>
+  </ul>
 
   <h2>The Devour consumables</h2>
-  <p>Three item types live in the soul bag under the new <strong>Consumable</strong> category. <strong>None of them can be obtained anywhere yet</strong> (D ruling) &mdash; no drop, no craft, no purchase mints them (still true at 0.93); <code>mkDevourItem</code> is the single mint and nothing calls it in play. A refused consumable is <strong>never spent</strong>.</p>
+  <p>Three item types live in the soul bag under the <strong>Consumable</strong> category. No drop, craft or purchase gives them in the current game. A refused consumable is <strong>never spent</strong>; stacked consumables are used one at a time.</p>
   <table>
     <tr><th>Item</th><th>Effect when consumed</th><th>Refusal rule</th></tr>
-    <tr><td>Blood Pellet</td><td>Grants XP to the consumer. Currently <strong><span data-csv="economy_params.csv#Key=Devour_Pellet_XP#Value" data-csv-fmt="g">1,000</span> XP</strong> &mdash; <code>economy_params.csv</code> <code>Devour_Pellet_XP</code>, a placeholder pending tuning; each pellet record can also carry its own <code>xp</code>.</td><td>None.</td></tr>
+    <tr><td>Blood Pellet</td><td>Grants <strong><span data-csv="economy_params.csv#Key=Devour_Pellet_XP#Value" data-csv-fmt="g">1,000</span> XP</strong> to the consumer.</td><td>None.</td></tr>
     <tr><td>Mutagen</td><td>The consumer becomes a mutant.</td><td>Refused if the consumer already is one: ALREADY A MUTANT.</td></tr>
-    <tr><td>[Grade] Essence of Power</td><td>Raises the consumer's grade to the essence's grade (e.g. an <em>Abyssal Essence of Power</em> makes the creature Abyssal). One item per grade on the Worn&rarr;Void ladder.</td><td>Refused unless the essence's grade is <strong>strictly higher</strong> than the creature's: THE ESSENCE MUST OUTRANK THE CREATURE'S GRADE. Equal or lower is unusable.</td></tr>
+    <tr><td>[Grade] Essence of Power</td><td>Raises the consumer's grade to the essence's grade (e.g. an <em>Abyssal Essence of Power</em> makes the creature Abyssal). One item per grade on the Worn&rarr;Void ladder.</td><td>Refused unless the essence's grade is <strong>strictly higher</strong> than the creature's: THE ESSENCE MUST OUTRANK THE CREATURE'S GRADE.</td></tr>
   </table>
 
-  <h2>Order of operations</h2>
+  <h2>After a devour</h2>
   <ul class="sp-rules">
-    <li>One judgement function (<code>dvJudge</code>) computes the outcome for <strong>both</strong> the preview line and the execution, so what the panel promises is exactly what commits.</li>
-    <li>The commit is <strong>one atomic state update</strong>: fodder removed (or its stack decremented) and consumer rewritten in the same write. If the world moved underneath &mdash; the fodder left the bag, the slot changed occupants &mdash; the updater bails and <strong>nothing is paid</strong>.</li>
-    <li>The consumer is resolved live on every read: a bag consumer must still be in the bag, a slot consumer is whatever the slot holds now.</li>
-    <li>Each successful devour is saved at once. The panel stays open so the player can keep feeding the same creature. (It also wrote an adventure-log line until that log was retired on 2026-10-22.)</li>
+    <li><strong>Advancement does not happen in the panel.</strong> Devoured XP can carry a creature past its advancement level; the advancement scene plays where it always does: a party creature advances on its next victory, a bag creature once it is equipped and wins. The XP is banked either way.</li>
+    <li>A grade raise on an <strong>equipped</strong> consumer changes its quality multiplier at once &mdash; the party&rsquo;s stats and your POWER move.</li>
+    <li>A devour never adds anything to the bag, so a full bag never blocks it.</li>
   </ul>
 
-  <h2>Edge cases and consequences</h2>
-  <ul class="sp-rules">
-    <li><strong>Advancement is not triggered from the panel.</strong> Devoured XP can carry a creature past its advancement level, but the advancement scene plays where it always does: a party creature advances on its next victory; a bag creature advances once it is equipped and wins. The XP is banked either way.</li>
-    <li>A grade raise on an <strong>equipped</strong> consumer changes its quality multiplier at once &mdash; the party re-derives and the power number moves.</li>
-    <li>Devour only ever <em>removes</em> from the bag, so the inventory guard is not in play &mdash; no path here returns an item.</li>
-    <li>Stacked consumables decrement quantity; the last one leaves the bag.</li>
-  </ul>
-
-  <h2>Integrity</h2>
-  <p>A creature-on-creature devour is the server&rsquo;s (since 0.89, 2026-10-23): the game asks the devour door, the server judges the pair from its own records &mdash; grade and mutant status pass along the line and only upward, the XP is the fodder&rsquo;s recorded XP, and a devour that would change nothing is refused &mdash; then spends the fodder and rewrites the consumer. The game shows the server&rsquo;s answer, never its own guess; a refusal or a lost connection consumes nothing and says so, and a retry on the same fodder replays the first answer. A locked creature, or one in a pen, a party slot or a soul socket, is never fodder. The three consumables still resolve on the client, because nothing mints them; the day one becomes obtainable it goes through the same door. Nothing of economic value is created here: a devour only concentrates what the account already holds into fewer creatures.</p>
-
-  <h2>Engine reference</h2>
-  <table>
-    <tr><th>Function</th><th>Responsibility</th></tr>
-    <tr><td><code>dvOpenBag</code> / <code>dvOpenSlot</code> / <code>dvOpenSoul</code></td><td>Entry points from the creature sheet, the equipped-creature slot picker, and the soul-socket picker (a socket holding a creature); all three enforce the battle-phase gate.</td></tr>
-    <tr><td><code>dvChoices</code></td><td>The fodder pool: visible soul-bag creatures + consumables, consumer excluded, consumables first.</td></tr>
-    <tr><td><code>dvSpeciesId</code></td><td>Species identity: the codex row (imgId, name fallback). Same row = same species.</td></tr>
-    <tr><td><code>dvJudge</code></td><td>The single outcome judgement shared by preview and execution.</td></tr>
-    <tr><td><code>dvExec</code></td><td>The atomic commit: for a creature fodder, plays <code>/api/devour</code>&rsquo;s answer; consume fodder, rewrite consumer, toast, save; bails on stale references and puts the fodder back.</td></tr>
-    <tr><td><code>mkDevourItem</code></td><td>The only mint for Blood Pellet / Mutagen / Essence records. No play path calls it.</td></tr>
-  </table>
-
-  <h2>The fodder picker shows what it cannot take</h2>
-  <p class="sp-lead">Creatures that are <strong>equipped</strong> (a party slot or a soul socket) or <strong>breeding</strong> (in a pen) appear in the fodder list, <strong>greyed, badged</strong> EQUIPPED or BREEDING, and cannot be selected. Clicking one says why rather than doing nothing.</p>
-  <ul class="sp-rules">
-    <li><strong>They sit after the selectable creatures.</strong> Sorting them in among the rest would push a creature the player <em>can</em> feed below three they cannot, on the one screen whose entire job is picking one.</li>
-    <li><strong>They are shallow copies, never the live records.</strong> Nothing that reaches this list can be fed, but a copy cannot be fed by accident either.</li>
-  </ul>
-  <p><strong>The report that prompted this was a name collision, and the measurement is worth keeping.</strong> It was raised as &ldquo;it is showing mons currently in breeding as options&rdquo;. Compared by <code>uid</code> on the reporting save, <strong>zero</strong> penned, equipped or socketed creatures were in the list &mdash; penning and equipping both <em>splice the creature out of the bag</em>, which is exactly why <code>isPennedItem()</code> and <code>isEquippedMon()</code> can honestly return <code>false</code>. The account held three creatures called Tempest and two called Ingot; one of each was penned, and the rest were ordinary bag creatures. What the player could not do was tell them apart.</p>
-  <p>So the filter that was asked for already existed. Showing the unavailable creatures greyed is what fixes the actual confusion, and it is worth more than the filter: <strong>a list that silently omits a creature cannot explain where it went.</strong></p>
-  <p class="foot">Client: <code>dvBlockedRecs()</code>, <code>dvChoices()</code> in <code>play/app.js</code>. Probe: <code>tools/probe_devsel.py</code> &mdash; BEFORE 4/4 (asserting the creatures are absent entirely), AFTER 7/7, matching by uid rather than by name.</p>
-
-  <h2>The fodder picker is ordered, and it offers only fodder that can change the consumer</h2>
-  <p class="sp-lead"><em>Build 0.47.</em> Two changes to the same list: it has an order, and it has a usefulness filter.</p>
-
-  <h2>Ordering &mdash; Level &gt; Grade &gt; line &gt; stage &gt; gender &gt; rarity</h2>
-  <table>
-    <tr><th>Key</th><th>Direction</th><th>Why it sits here</th></tr>
-    <tr><td>Level</td><td>best first</td><td>The XP a fodder carries is the payout that always applies, so it leads.</td></tr>
-    <tr><td>Grade</td><td>best first</td><td>The second payout, and the one that decides whether a devour is worth spending a creature on.</td></tr>
-    <tr><td>Advancement line</td><td><strong>alphabetical</strong></td><td>Not a ranking &mdash; it exists to <strong>group a family together</strong>, so every stage of one line lands in one block.</td></tr>
-    <tr><td>Stage</td><td>ascending, within a line</td><td>S1 before S3, so a family block reads in advancement order.</td></tr>
-    <tr><td>Gender</td><td>tie-break</td><td></td></tr>
-    <tr><td>Rarity</td><td>last</td><td>Rarity does not affect what a devour pays, so it is the weakest key here.</td></tr>
-    <tr><td>Name</td><td>ascending</td><td>Present so the order is <strong>TOTAL</strong> and cannot shuffle between re-renders.</td></tr>
-  </table>
-  <div class="sp-note"><strong>Record this explicitly: this is a DIFFERENT key order from the party equipment
-  picker</strong>, which is <em>Level &gt; Grade &gt; Rarity &gt; Codex # &gt; Gender</em> (see
-  <a href="system-equipment.html">Equipment &amp; Auto-Optimize</a>). <strong>The two are deliberately separate
-  comparators</strong>: the party picker is choosing a creature to fight with, where rarity and codex identity matter and
-  the advancement line does not; this picker is choosing a creature to <em>spend</em>, where the line decides whether
-  grade and mutant transfer at all. <strong>They must not be unified without the designer's word.</strong></div>
-
-  <h2>The usefulness filter</h2>
-  <p>The list now offers only fodder that <strong>can actually change the consumer</strong>. The predicate is the
-  existing <code>dvJudge</code>, which returns not-ok <strong>exactly when xp, grade and mut are ALL absent</strong>
-  &mdash; the same three payouts the 2026-08-06 refusal is built on.</p>
-  <ul class="sp-rules">
-    <li><strong>It is the same judgement the preview and the execution use</strong>, so the list can never offer
-    something the confirm step would then refuse. One function, three surfaces, no second opinion about what a devour
-    pays.</li>
-    <li><strong>It is applied only once a consumer exists.</strong> With no consumer selected, <code>dvJudge</code>
-    answers <em>&ldquo;THE CREATURE IS GONE&rdquo;</em> for every candidate, so filtering on it before that point would
-    <strong>empty the window instead of filling it</strong>.</li>
-  </ul>
-  <p><strong>Consequence worth recording: the filter made &ldquo;no rows at all&rdquo; the wrong empty-state test.</strong>
-  The common empty state is now a list holding <strong>only blocked cards</strong> &mdash; the equipped and breeding
-  creatures that exist to explain where a creature went and that can never be picked. A row-count test reads that list as
-  populated and stays silent on a screen the player cannot act on. <strong>The empty message now fires on nothing
-  SELECTABLE, not on nothing at all.</strong></p>
-
-  <h2>What a devour pays &mdash; the full set, for completeness</h2>
-  <table>
-    <tr><th>Source</th><th>Payout</th></tr>
-    <tr><td>Same-line fodder of a higher grade</td><td>Raises the consumer's grade to the fodder's.</td></tr>
-    <tr><td>Mutant fodder</td><td>Makes a non-mutant consumer mutant. Never reversed.</td></tr>
-    <tr><td>Any fodder</td><td>XP transfers.</td></tr>
-    <tr><td>Blood Pellet</td><td>XP.</td></tr>
-    <tr><td>Mutagen</td><td>Mutant &mdash; and <strong>nothing at all</strong> if the consumer already is one.</td></tr>
-    <tr><td>[Grade] Essence of Power</td><td>Grade, and <strong>only</strong> if the essence outranks the consumer's grade.</td></tr>
-  </table>
-  <p class="note"><strong>Correction to earlier text on this page.</strong> <em>What can be consumed</em> above ends
-  &ldquo;Consumables sort to the top of the picker, then creatures in soul-bag order.&rdquo; The soul-bag order half is
-  stale as of 0.47 &mdash; creatures are ordered by the comparator above. The sentence is left as written; this page is
-  append-only.</p>
-
-  <h2>Changelog</h2>
-  <ul class="sp-rules">
-    <li><strong>2026-11-03 &mdash; codex review (dfmc-client lane codexreview-a; D 2026-11-03 &ldquo;review the codex, clean it up, update whatever needs updating&rdquo;).</strong> Codex only. The Integrity section still described a client-side devour awaiting a &ldquo;Phase 2b&rdquo; gate; it now describes the server door that has judged every creature devour since 0.89 (the 2026-10-01 entry below), with the consumables noted as the one client-side remainder. The Blood Pellet XP binds to <code>economy_params.csv</code> <code>Devour_Pellet_XP</code> rather than naming a client constant that no longer exists. The adventure-log line is gone with the log (retired 2026-10-22). No game code changed.</li>
-    <li><strong>2026-10-23 &mdash; hardcode-3: the Blood Pellet XP is <code>economy_params.csv</code> <code>Devour_Pellet_XP</code> (dfmc-client lane hardcode-3; D: &ldquo;The csvs need to be the source of all truth. Hardcoded NEVER.&rdquo;). Held for release 0.90.</strong> 1,000 XP, still the placeholder (the item is unobtainable). No number changed. A pin that predates the row keeps the old value and names it (never a refusal); it reaches players when DATA_PIN advances and the bake runs. Gate <code>tools/probe_hardcode3.mjs</code> 33/72 &rarr; 72/72.</li>
-    <li><strong>2026-10-01 &mdash; the devour is the server's, and the item lock blocks it (Rulings board card <code>grades</code>, row <code>lockdevour</code>). LIVE on release since 2026-10-23 (0.89).</strong> <strong>The devour door:</strong> a creature-on-creature devour now asks <code>/api/devour</code>. The server judges the pair from its own ledger rows: grade and mutant pass along the line and only upward, XP is the fodder's ledger XP, and a devour that pays nothing is refused. The server spends the fodder row and writes the consumer row. The client plays the server's answer and never its own. A refusal or a lost connection consumes nothing and says so. A retry on the same fodder replays the first answer. After the wipe (<code>GRADE_FREEZE_EPOCH</code>), a fodder the save door adopted without a grant (<code>unsourced</code>) is refused. <strong>Item lock:</strong> a locked creature is no longer offered as fodder, the devour step refuses one, and the door refuses a fodder that the stored save marks locked or that sits in a pen, a party slot or a soul socket. The Devour consumables still run on the client, because nothing mints them. Probe: <code>tools/probe_grades.mjs</code> 7/21 &rarr; 21/21.</li>
-    <li><strong>2026-09-30 &mdash; review fixes F162, F163, F164 (client, lane P). On dev.</strong> <strong>F162:</strong> a fodder that lives in the base bag is taken out before the devour commits; when the commit then failed (the consumer moved or changed underneath), the fodder stayed destroyed and the consumer unchanged, and the next save made it permanent. A devour that does not commit now puts the fodder back (a stack gets its count back) and says THE TARGET MOVED &mdash; NOTHING WAS CONSUMED, which is now true. <strong>F163:</strong> a devour into a socketed soul&rsquo;s creature now re-derives the party, like every other soul-slot change. <strong>F164:</strong> the preview said <em>different species &mdash; only XP transfers</em> where the rule is the LINE; it says <em>different line</em>, and the lead paragraph above no longer says &ldquo;same species&rdquo;. Gate <code>tools/probe_review_lanep.mjs</code>.</li>
-    <li><strong>2026-09-30 &mdash; review drift fixes: F166, F167. Codex only.</strong> The page caught up with the build; no rule changed. <strong>F166:</strong> the third entry point, DEVOUR on the soul-socket picker (<code>dvOpenSoul</code>, D 2026-08-06), is now listed under <em>Where it lives</em> and in the engine reference. <strong>F167:</strong> the 2026-09-25 entry below says the devour theatre still sat after the stage; Q11 (0.87, see Client shell 2026-09-28) has since moved the theatre, the breed toast, the dismantle-done panel and the breed message inside <code>#vxbStage</code>, so the theatre is stage-sized like the window.</li>
-    <li><strong>2026-09-25 &mdash; the devour window is one size at every zoom, resolution and aspect ratio (#985, D). Shipped in 0.87.</strong>
-      D&rsquo;s rule: <strong>the window must always be the same size, and the same size relative to the rest of the game&rsquo;s UI,
-      whatever the player&rsquo;s zoom, resolution or aspect ratio.</strong> The client shell is a fixed 1920&times;1080 stage scaled
-      as one piece to the viewport (<em>system-client-shell</em>), and every window inside it inherits that rule for free. The
-      devour window did not sit inside it: it was built on 2026-07-30, the stage scale arrived on 2026-08-05, and the window
-      was left after the stage in the unscaled wrapper &mdash; so its 1020px were <em>screen</em> pixels, its 94% / 88% caps
-      read the real viewport, its arrow was 7% of the viewport width and its fodder page was 3 to 8 rows by viewport.
-      Measured against the stage: <strong>53% of the game&rsquo;s width at 1920&times;1080, 84% at 1423&times;687 and 116%
-      &mdash; wider than the whole game &mdash; at 1067&times;487</strong>, where it also cut off fodder rows.
-      <br><strong>Now the window lives inside the stage</strong>, 1020 stage pixels wide with the arrow a fixed 66, so it is
-      the same fraction of the game at every size (0.531 of the stage width, gated at 1920&times;1080, 1423&times;687,
-      1067&times;487 and the 390&times;668 floor). <strong>The fodder page is a constant seven rows</strong> &mdash; not eight,
-      because the browser snaps each 1px border to a whole device pixel under scale, which at the phone floor is ~5 stage
-      pixels a border and pushed eight rows plus the pager past the list box; seven never reach the height cap, so the
-      window is the same height everywhere too. The #787 rule stands: <strong>the list never scrolls and never clips</strong>,
-      and the gate measures the last row inside its box at every size. The devour <em>theatre</em> (the staged sequence
-      above) and a few small overlays still sit after the stage; D has asked for the rule game-wide, and that is a separate
-      decision.</li>
-    <li><strong>2026-09-14 &mdash; devour is a staged sequence, and this page had never described it (#887 / #787, D). LIVE on release since 2026-09-14 (0.80).</strong>
-      The outcomes resolve one at a time in a fixed order &mdash; <strong>experience, then grade, then mutant</strong> &mdash;
-      so a devour that pays all three reads as three beats rather than one sentence. <strong>The food is drawn in and the
-      consumer reacts</strong>; the experience beat streams motes into it and the level line <strong>counts up</strong>,
-      stopping on a level-up flash <em>only if the level actually changed</em>; the grade beat ignites the frame in the new
-      grade&rsquo;s colour and <strong>the grade word replaces the old one with a hard snap</strong>; the mutant beat washes
-      over last and <strong>the art swaps to the mutant variant in place</strong>. Items reuse the same beats &mdash; a pellet
-      plays experience only, a mutagen the mutant only, an essence the grade only &mdash; and there is no separate art path
-      for them. A tap skips to the end state; nothing is decided by the theatre, because the judge banks the outcome before
-      the first frame.
-      <br><strong>It was specified on 2026-09-08 and shipped on 2026-09-13 with no creature in it.</strong> The wiring asked
-      for the consumer&rsquo;s art through a helper that does not exist, so the url was always empty and all three treatments
-      played as coloured rings around an empty box; the mutant art was passed as the empty string outright, so the swap could
-      never happen. <strong>Its gate passed 9/9 the whole time because it read an attribute rather than the paint</strong>
-      &mdash; that gate now asserts the computed animation and the painted art, and a second gate measures pixels, urls and
-      animations for every beat. This page carried no description of the sequence at all until today, which is the other half
-      of how it went unnoticed: <strong>nothing to check the build against.</strong></li>
-    <li><strong>2026-08-10 &mdash; the fodder picker is ordered, and it offers only fodder that can change the consumer (shipped in 0.47).</strong>
-      Order is <strong>Level &gt; Grade &gt; advancement line &gt; stage &gt; gender &gt; rarity</strong>, ending on a
-      name compare so it is total: line is alphabetical because it groups a family together rather than ranking one,
-      stage ascends within a line, and rarity is last because it does not affect what a devour pays. <strong>This is a
-      different key order from the party equipment picker</strong> (Level &gt; Grade &gt; Rarity &gt; Codex # &gt;
-      Gender) and the two are deliberately separate comparators &mdash; they must not be unified without the designer's
-      word. The usefulness filter uses the existing <code>dvJudge</code>, which returns not-ok exactly when xp, grade and
-      mut are all absent, and which is the same judgement the preview and the execution use, so the list can never offer
-      something the confirm step would refuse; it is applied only once a consumer exists, because with no consumer
-      <code>dvJudge</code> answers &ldquo;THE CREATURE IS GONE&rdquo; for everything and the window would empty instead
-      of fill. Consequence: &ldquo;no rows at all&rdquo; is no longer the right empty-state test &mdash; the common empty
-      state is a list holding only blocked (equipped/breeding) cards, so the empty message now fires on nothing
-      SELECTABLE. New sections above.</li>
-    <li><strong>2026-08-07 &mdash; the fodder picker shows equipped and breeding creatures, greyed and badged (LIVE on release since 2026-08-07 (0.39)).</strong> Report #48 said they were being offered as options; measured by uid, they were not &mdash; the account simply held three creatures of the same name. They are now shown and labelled so the player can tell which is which, and a click on one says why it cannot be taken. New section above. Verified 7/7.</li>
-    <li><strong>2026-08-06 &mdash; a devour that pays nothing is refused. LIVE on release since 2026-08-08 (0.42).</strong>
-      There are exactly three payouts: <strong>experience, grade and mutant</strong>. If none of them moves, the
-      transaction had no content &mdash; and until now it went through anyway, destroying the fodder for literally
-      nothing and reporting success. A freshly hatched creature carries <strong>zero experience</strong>, so feeding one
-      <em>across lines</em>, where grade and the mutant flag cannot transfer at all, was the ordinary way to hit it.
-      The devour is now refused with <em>&ldquo;THERE IS NOTHING TO BE GAINED HERE&rdquo;</em> and the fodder survives.
-      <br><strong>The refusal is deliberately narrow.</strong> Experience alone still pays. A grade rise still pays even
-      when the fodder carries no experience, and so does a mutant passing on. And <em>GRADE HELD</em> is untouched: that
-      is a real devour which paid experience and merely failed to raise the grade, so it still goes through and still
-      says so. The consumables were already correct and are not changed &mdash; a mutagen refuses a creature that is
-      already a mutant, an essence refuses unless it outranks, and a pellet's experience falls back to the standard
-      value so it can never be zero.
-      <br>Verified: <code>tools/probe_dvworthless.py</code> 8/8, of which six assertions exist to prove the cases that
-      must still work rather than the one that must not.</li>
-    <li><strong>2026-08-05 &mdash; the devour window no longer scrolls unnecessarily (D).</strong> The fixed-content view needed 442px against 440px available on a phone, so a scrollbar appeared on a panel that plainly had room. Card padding, body padding, the column gap and the preview line were trimmed from measurement, taking the content to 359&ndash;380px. The fodder picker still scrolls and should &mdash; it is a list. Probe: <code>tools/probe_devourfit.py</code>, which measures all three panel states at desktop AND phone (BEFORE 8/8, AFTER 10/10).</li>
-    <li><strong>2026-08-02 &mdash; grade and mutant now ride the LINE, not the creature row (D ruling).</strong> Previously <code>dvJudge</code> compared <code>dvSpeciesId</code> (the DFMC image id), so feeding a Stage-1 into its own Stage-3 passed XP and nothing else &mdash; which is what a player means by &ldquo;Devour is bugged&rdquo;: the grade they fed in vanished. Now compared on <code>Line_ID</code> via <code>dvLineId()</code>. XP behaviour is unchanged, and cross-line devouring is unchanged.</li>
-    <li><strong>2026-07-30 &mdash; page created with the system (D spec, same day).</strong> Devour ships on dev: creature-into-creature consumption with full XP transfer, same-species-only grade and mutant transfer, the three unobtainable consumables (Blood Pellet, Mutagen, graded Essences of Power), both entry points, the battle-phase gate, the atomic commit and the DEVOUR log event. Blood Pellet XP is a 1,000 placeholder pending D's number.</li>
-  </ul>
 </div>
 <script src="admin.js"></script>
 <script src="csv-bind.js"></script>

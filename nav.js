@@ -16,21 +16,6 @@
     return;
   }
 
-  // ---- workflow sections stay off the public page (D 2026-11-03: "This is now player facing") ----
-  // The rules pages carry the team's changelog and implementation notes; tools/codex_page.py and the bug lanes read
-  // them from the source. A visitor never sees them; ?admin=1 (admin.js) shows them. Same block in pages-redirect.js.
-  function hideWorkflowSections(){
-    if (/\/workflow\//.test(location.pathname)) return;   // the team's own pages show everything
-    try { if (localStorage.getItem('dfmc_admin') === '1') return; } catch (e) {}
-    document.querySelectorAll('h2,h3').forEach(function(h){
-      if (!/^\s*(changelog|implementation notes)\b/i.test(h.textContent)) return;
-      var lvl = +h.tagName[1], n = h.nextElementSibling;
-      h.style.display = 'none';
-      while (n && !(/^H[1-6]$/.test(n.tagName) && +n.tagName[1] <= lvl)) { n.style.display = 'none'; n = n.nextElementSibling; }
-    });
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', hideWorkflowSections); else hideWorkflowSections();
-
   // ---- always-fresh content ----
   // GitHub Pages serves everything with `cache-control: max-age=600` and gives
   // us no way to change that, so the browser happily shows a 10-minute-stale

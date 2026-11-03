@@ -18,25 +18,10 @@
   <p class="sp-lead">Herumon Tower has <strong>one realm</strong>. Every account holds one character, one save, one leaderboard presence. Death costs the win streak and nothing else &mdash; characters, creatures and items persist forever. (Autoplay can be set to step down one floor after a defeat &mdash; <em>On Death: Go Down</em>, its default &mdash; but that is your own setting, not a penalty; see <a href="system-autoplay.html">Autoplay</a>.)</p>
 
   <h2>One game mode</h2>
-  <p><strong>SCOPE, D 2026-08-28 (correcting an over-reach):</strong> &ldquo;crypt&rdquo; here means <strong>the Bequest inbox &mdash; the mechanism by which items crossed from Hardcore back into the standard league</strong>, and nothing else. It does <em>not</em> mean the floor-90 den, whose name is <strong>The Undying Crypt</strong> (Varkolan, the Undying King, and its Void Apex twin on floor&nbsp;118). That is a place in the game and it stays, in <code>floors.csv</code>, <code>bosses.csv</code> and everywhere the game names it. The floor-90 key&rsquo;s description and art prompt were stripped of the den name on this reading and have been <strong>restored</strong>; no art was regenerated, so nothing else follows from it.</p>
-  <p>The Hardcore realm, the Seasonal ladders, the HC Season and the crypt bag (Bequest inbox) were <strong>removed on 2026-08-28 by D's order</strong>: &ldquo;Delete hardcore and crypt systems. The game is going to have only 1 game mode.&rdquo; The realm parameter survives in the save and API plumbing as the constant <code>standard</code>; any other value is refused server-side.</p>
+  <p>There is one game mode. Hardcore, the seasonal ladders and the crypt bag (the Bequest inbox) are no longer in the game.</p>
+  <p>The floor-90 den, <strong>The Undying Crypt</strong> (Varkolan, the Undying King, and its Void Apex twin on floor&nbsp;118), is a place in the tower and has nothing to do with the old crypt bag.</p>
 
-  <h2>Changelog</h2>
-  <ul class="sp-rules">
-    <li><strong>2026-11-03 &mdash; codex review (dfmc-client lane codexreview-a; D 2026-11-03 &ldquo;review the codex, clean it up, update whatever needs updating&rdquo;). WIKI ONLY.</strong> Checked against the worker at dev HEAD: the realm is still the constant <code>standard</code> on every door, and nothing hardcore, crypt-bag or HC-season survives in the server; the only &ldquo;season&rdquo; left anywhere is the Auto PvP weekly settle (see <a href="system-auto-pvp.html">Auto PvP</a>). The lead now names the autoplay <em>On Death</em> step-down so &ldquo;nothing else&rdquo; cannot be read as a contradiction, and the page carries the shared nav like every other system page.</li>
-    <li><strong>2026-08-28 &mdash; the wipe broke the interface on dev, and it is fixed.</strong> Stage&nbsp;2 deleted
-      the crypt-bag block and took the <code>agoStr</code> time formatter with it &mdash; but that helper had
-      <strong>two</strong> callers and only one was crypt. The other is the PvP history list, which the same order marks
-      as untouched, and it runs inside the render pass: every boot threw there and <strong>every binding on the page
-      failed at once</strong>, so dev drew nothing for a day. Release 0.63 was never affected. No existing gate caught it
-      &mdash; the syntax is valid, so every build check passed and none of them draws a screen. The helper is restored and
-      <code>tools/probe_dangling.py</code> now refuses any call with no definition. <strong>The rule: deleting a block must
-      check every shared helper inside it for callers outside the block.</strong> A sweep of the whole 27&ndash;28 August
-      batch found nothing else removed-and-still-referenced.</li>
-    <li><strong>2026-08-28 &mdash; one game mode (D order). On release.</strong> Stage 1: the worker is one-realm &mdash; 54 realm coercions and 13 realm loops collapsed to <code>standard</code>, the hardcore leaderboards dropped, realm validators refuse anything else, <code>hcSeasonActive</code> and <code>bequests</code> left the save door (verified empty on every live account; no hardcore save ever existed, so nothing stored was lost). Stage 2: the client &mdash; the GAME MODE picker, the crypt bag (icon, window, methods, seed data), the hardcore battle/forfeit/PvP guards, <code>defHc</code> and the <code>_hc</code> storage suffix are gone; token census 0 across app, markup and index; the wiped client boots and plays on a live save (probe 5/5). Stage 3: this page and eleven others rewritten; the floor-90 key no longer names its den &ldquo;crypt&rdquo;. Untouched by rule: the Auto PVP weekly season (a separate live system) and the floor-90 den's display name in floors.csv/bosses.csv (lore, pending D's word on a rename).</li>
-  </ul>
-
-  <div class="sp-note">Related: Networking &amp; Saves for the save door, <a href="system-pvp.html">PvP</a> for the ladder.</div>
+<div class="sp-note">Related: <a href="system-pvp.html">PvP</a> for the ladder.</div>
 </div>
 <script src="nav.js"></script>
 </body>

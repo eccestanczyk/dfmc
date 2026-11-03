@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<base href="../../"><!-- workflow/changelogs/ (2026-11-04): never published. Links resolve from the public page's folder. -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XP &amp; Leveling &mdash; changelog &amp; team notes</title>
+<link rel="stylesheet" href="theme.css?v=4">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">XP &amp; LEVELING &mdash; TEAM NOTES</h1></div>
+<div class="sp-wrap">
+<p class="sp-lead">The team record for the public page <a href="system-xp.html">system-xp.html</a>: its dated changelog (newest first) and the implementation notes that left the public page when the codex went player facing (D 2026-11-03). Lanes add each mechanic change here, never on the public page. Shape: <code>python tools/codex_page.py --changelog system-xp.html</code> in dfmc-client.</p>
+
+<h2>Changelog</h2>
+  <ul>
+    <li><strong>2026-11-03 &mdash; socketed souls are credited by the server too (dfmc-client lane L1c; follow-on of L1b / #1174; house rule: server authority).</strong> ON DEV (0.94). A creature seated in a soul slot gains the same battle XP as the party (&ldquo;the creature inside the socket levels while socketed&rdquo;), but only the client computed it, so a soul never kept a level. The credited <code>/api/battle</code> win now pays every soul the stored save holds, off the same server-derived kills and the same formula, its level read off the soul's own XP. The figure is written to the soul's record (XP and its Lv label) and its ledger row (<code>items.xp</code>), answered to the client as <code>srx</code> next to <code>crx</code>, and kept with the event so a retried battle never pays twice. The client shows its own estimate on the victory screen and then takes the server's number.</li>
+    <li><strong>2026-11-03 &mdash; the party's battle XP is the server's (dfmc-client lane L1b; bug #1174 &ldquo;my companions are not leveling up from level 1&rdquo;; house rule: server authority).</strong> ON DEV (0.94). Since the save door closed to full saves, nothing carried a companion's battle XP to the server &mdash; the client computed it into its own record and no door credited it, so every party creature stayed at Lv 1. The credited <code>/api/battle</code> win now pays the two creatures the stored save wears in the party slots, off the kills the server derived itself, by the formula above (per kill: the table value for its level and tier, scaled by the level-gap penalty against the creature's own level). The figure is written to the creature's record and its ledger row (<code>items.xp</code>, the one the devour and advance doors read), answered to the client as <code>crx</code>, and kept with the event so a retried battle never pays twice. PvE, boss and autoplay wins all ride this door; PvP pays no XP (unchanged). Evolution is still the advance step, which the server checks against this XP. Socketed souls are not yet credited this way.</li>
+    <li><strong>2026-11-03 &mdash; codex review (dfmc-client lane codexreview-a; D 2026-11-03 &ldquo;review the codex, clean it up, update whatever needs updating&rdquo;).</strong> WIKI ONLY. The hand-written chart captions still carried the pre-T53 ramp (+12% at 99, 90&ndash;100 &ldquo;half of the total&rdquo;) and the pre-C1 finish line (20,346 battles); they now say +16%, 60% and ~3,730 battles, matching the generated tables. The past-100 pacing paragraph still quoted the pre-C1 numbers (18,464,128 XP to 100, ~640 battles a level); it is recomputed from <code>XPCurve.csv</code> (2,936,130 to 100; 354,245 a level &asymp; 355 battles) and those two figures bind to the csv. &ldquo;In every realm&rdquo; (in the generated xp-player block, so the wording is fixed in <code>tools/codex_tables.py</code> <code>gen_xp_player</code> and the block regenerated) and the hardcore-death note left with the realms (2026-08-28). No game code or csv changed.</li>
+    <li><strong>2026-11-02 &mdash; the ramp ends at +16%: D&rsquo;s T53 ruling &ldquo;Slower: end the ramp at +16% (90&ndash;100 is 60%, about 34 hours)&rdquo;</strong> (dfmc-client lane xpcurve, rulings card T53, docs/balance-2026-10.md &sect; 3). Codex data; reaches the game with the next DATA_PIN advance, and the server&rsquo;s <code>src/tables.json</code> (<code>xp_cum</code>, <code>class_max_xp</code>) must be regenerated with <code>tools/gen_tables.py</code> in the same release. <em>What changed:</em> the C1 generator, now written down as dfmc-client <code>tools/gen_xpcurve.py</code> (it reproduces the 2026-10-23 rows at <code>--end 12</code>), run at <code>--end 16</code>: the per-level growth of <code>XP_To_Next</code> ramps linearly from the polynomial&rsquo;s own 2.7% at 66 to <strong>16%</strong> at 99 (was 12%), cumulative recomputed; rows 1&ndash;66 and every kill-XP column untouched. Level 100 = 2,936,130 XP (was 2,126,757); 90&ndash;100 = 59.7% of it (was 50.0%); <code>XP_Account_Flat</code> = 354,245 (was 184,439; the ramp&rsquo;s next step, +16.4%). A fresh on-level climb to 100: 34.2&nbsp;h (was 27.0), 15.9&nbsp;h of it in 90&ndash;100 (was 9.8); clearing only the Wins_To_Clear battles ends floor 120 at class 88 (was 89). The formula rows, the level table and the milestone note are regenerated (<code>tools/codex_tables.py --write</code>) and the bound spans refreshed; this page now loads <code>csv-bind.js</code> (it carried bound spans with no binder). An existing XP total between the old and the new cumulative of its level reads one level lower; a class clamped at the old cap (2,126,757) reads 95 and earns again to the new one. Gate: dfmc-client <code>tools/probe_t53_xpcurve.py</code> 4/12 &rarr; 12/12.</li>
+    <li><strong>2026-10-23 &mdash; the formulas and player-level tables and the milestone pace are generated</strong> (dfmc-client lane a8-s5-c17-tail, C17 part 4; WIKI ONLY): blocks xp-formulas, xp-player, xp-milestone-note in <code>tools/codex_tables.py</code>, from <code>XPCurve.csv</code> and the on-level battle. Changed: growth at 67 2.7% &rarr; 3.0% (XP_To_Next 67 / 66); the &plusmn;0.7% band &rarr; &plusmn;0.8%; floor 100 999.4 &rarr; 996.6 XP per battle; the retired <code>L^0.75</code> / <code>23.4 &times; 1.16^(L&minus;67)</code> battles formula &rarr; the computed counts (1 / 24 / 24 / 166 at 1 / 66 / 67 / 99); the milestone time column and its footnote ~30 &rarr; ~109 battles/h (the economy simulator, <code>tools/sim_econ.mjs</code>), and the &ldquo;~98 h at the 30/h below&rdquo; aside is gone. Player-level numbers unchanged.</li>
+    <li><strong>2026-10-23 &mdash; the penalty table is generated</strong> (dfmc-client C17 part 2, lane c17-gen; WIKI ONLY): every penalty, retention and battles-per-level figure is src/worker.js xpPenalty over src/tables.json xp_penalty, so a penalty edit can no longer leave this table behind (all 16 matched). tables marked <code>&lt;!-- gen:NAME --&gt;</code> are generated by <code>tools/codex_tables.py</code> from the CSVs with the engine&rsquo;s own formulas (each generator cites the engine line it ports); its <code>--check</code> is a dfmc-client gate, so a CSV edit without <code>--write</code> fails the gates.</li>
+    <li><strong>2026-10-23 &mdash; the account&rsquo;s flat step past 100 is codex data, continuous with the C1 curve</strong> (dfmc-client lane pvp-spread, docs/balance-2026-10.md &sect; 8.2). Codex data; reaches the game with the next DATA_PIN advance. What was wrong: every account level past 100 cost <code>PLAYER_FLAT_XP = 639,723</code>, hard-coded in <code>play/app.js</code> &mdash; the OLD level-90 step. On C1&rsquo;s curve 99&rarr;100 costs 164,264, so 100&rarr;101 cost 3.9&times; the level before it; and <code>playerCost()</code>, the curve-missing fallback, still carried the retired <code>234 &times; L &times; 1.16^(L&minus;67)</code>. The fix: <code>XPCurve.csv</code> gains the column <code>XP_Account_Flat</code>, filled on row 100 only: <strong>184,439</strong> (the 67&ndash;99 ramp continued one step, +12.28%). The client&rsquo;s <code>playerLv</code> reads it; the constant, <code>playerCost()</code> and its formula are deleted. The server does not price account levels, so <code>src/tables.json</code> is unchanged. Gate <code>tools/probe_acct_flat.py</code> 2/7 &rarr; 7/7.</li>
+    <li><strong>2026-10-23 &mdash; the 90&ndash;100 stall is gone: levels 67&ndash;99 re-authored in <code>XPCurve.csv</code></strong> (dfmc-client lane c1-balance, BACKLOG C1 &sect;5.2/5.4, D&rsquo;s <code>balance</code> card). Codex data; reaches the game with the next DATA_PIN advance, and the server&rsquo;s <code>src/tables.json</code> (<code>xp_cum</code>, <code>class_max_xp</code>) must be regenerated with <code>tools/gen_tables.py</code> in the same release. <em>What was wrong:</em> <code>XP_To_Next</code> followed <code>10 &times; L^1.75</code> (+2.7%/level at 66) and then jumped to a flat +17.5% per level from 67, while a battle&rsquo;s XP grows ~1% per level &mdash; so a level cost 0.2&nbsp;h at 66, 3.5&nbsp;h at 90 and 25&nbsp;h at 99, and 78.5% of the XP to 100 sat in levels 90&ndash;100 (the live accounts 17&ndash;19 levels under their floor at 97&ndash;99). <em>The fix:</em> rows 1&ndash;66 untouched; from 67 the per-level growth ramps linearly from the polynomial&rsquo;s own 2.7% to 12% at 99, cumulative recomputed. Level 100 = 2,126,757 XP (was 18,464,128); 90&ndash;100 = 50.0% of it. A fresh on-level climb to 100: 27.0&nbsp;h (was 172.9&nbsp;h), 90&ndash;100 9.8&nbsp;h (was 129.9&nbsp;h); clearing only the Wins_To_Clear battles now ends floor 120 at class 89 (was 79). Kill XP columns unchanged. Existing XP totals map to the same or higher level; a class above the new cap reads 100 and the server clamps it there. Two client constants are left as they were and are listed for a follow-up: <code>PLAYER_FLAT_XP = 639,723</code> (the OLD level-90 requirement; the new 99&rarr;100 step is 164,264) and the <code>playerCost()</code> fallback. Research and targets: <code>docs/balance-2026-10.md</code> in dfmc-client.</li>
+    <li><strong>2026-10-23 &mdash; a class level-up is announced</strong> (dfmc-client lane ui-polish-2, D FTUE playthrough 2026-10-23: &ldquo;class level went 1&rarr;5 silently&rdquo;). Dev build now; release with the next ritual. When the server&rsquo;s class XP lands &mdash; the victory credit or the save door&rsquo;s correction &mdash; and the active class&rsquo;s level on that XP is above the level before it, a short gold toast reads &ldquo;&#9650; LEVEL UP &middot; CLASS LV n&rdquo; (one toast for a multi-level jump). The client adds no XP and guesses no level: a repeated answer, a clamp down, or an answer that also switches the active class shows nothing. Creature levels are not announced here &mdash; creature XP is not a server figure yet. Gate <code>tools/probe_clslvup.py</code> 4/5 &rarr; 5/5.</li>
+    <li><strong>2026-10-22 &mdash; class XP is a server ledger per class; the save&rsquo;s class fields are a view</strong> (server-authority run &sect; 3 item 7, F169). LIVE on release since 2026-10-23 (0.89). The per-class ledger is append-only rows now, one per credited battle keyed by the event id, so a replayed event adds nothing and a class&rsquo;s XP is the SUM of its rows, ceilinged at the level-100 figure. The battle credit lands on the class the <em>server</em> knows is worn (the stored row&rsquo;s class, or the class named for the fight when the class door sold it), never the save&rsquo;s word. The save door no longer merges <code>classXp</code> / <code>clsXpBy</code> with a grace or a clamp window: each class is set to the ledger&rsquo;s view, a client figure above it is corrected and flagged (<code>classxp_over_ledger</code>), below it lifted, and the save is never refused. <code>clsOwned</code> is derived - the stored row&rsquo;s class plus the class door&rsquo;s wallet rows - not the stored list. A pre-ledger account keeps its stored figure until that class&rsquo;s first credit folds it into the ledger; the wipe starts every class at 0. Gate <code>tools/probe_sa_class.py</code> 10/20 &rarr; 20/20.</li>
+    <li><strong>2026-10-01 &mdash; every class has its own level (D, Rulings board card <code>classlevel</code>: &ldquo;Every class is a different level. Only the account level stays shared.&rdquo;). LIVE on release since 2026-10-23 (0.89).</strong> Since 2026-07-27 the build kept one <code>classXp</code> for every class, so switching class kept the number and every class shared one level, against what this design always said. Now <code>classXp</code> and <code>clsAdv</code> are the <em>active</em> class&rsquo;s, and <code>clsXpBy</code> / <code>clsAdvBy</code> bank every other class. A newly bought class starts at level&nbsp;1 and earns its own XP on the same curve (cap at level&nbsp;100). Switching banks the class you leave and loads the class you take; its soul in the bag shows its own level. The server owns it: <code>/api/battle</code> credits class XP to the class the battle was fought as (if the account owns it), in a per-class ledger (<code>ledger_cls</code>), and the gap penalty uses that class&rsquo;s level; the save door clamps <em>each</em> class&rsquo;s XP to what that class was credited plus the usual grace, grow-only per class. Account XP and the account level are unchanged and shared. No migration: a save from before this has its <code>classXp</code> on its active class and every other class at level&nbsp;1 until the wipe. Gates <code>tools/probe_classlevel.py</code> 1/9 &rarr; 9/9 and <code>tools/probe_classlevel.mjs</code> 6/19 &rarr; 19/19.</li>
+    <li><strong>2026-09-30 &mdash; review fix F173 (client, lane P). On dev.</strong> The client had two player-level functions that disagreed past 100: the fallback (used when the XP curve has not loaded, and by the forge&rsquo;s requirement colour) charged the level-100 curve cost for 100&rarr;101, while the HUD and the gear gate charge the flat step. The fallback now charges the flat step from 100 on, as this page says. No visible change today (no recipe asks for more than 90). Gate <code>tools/probe_review_lanep.mjs</code>.</li>
+    <li><strong>2026-09-30 &mdash; review fix F085 (server).</strong> The class-XP level-gap penalty on <code>/api/battle</code> read the avatar&rsquo;s class level from the ledger&rsquo;s <code>class_total</code> alone, which only counts credits since 2026-08-01, so a grandfathered account was priced as class level 1 and the server&rsquo;s class figure (which overwrites the client estimate) disagreed with the rule. The class level is now the higher of the ledger and the stored save&rsquo;s <code>classXp</code>, capped at <code>class_max_xp</code> as the save door caps it &mdash; the same level the client estimate reads.</li>
+    <li><strong>2026-09-30 &mdash; review drift fixes: F172. Codex only.</strong> The player-level pacing paragraph said level 100 takes ~21.6&nbsp;M XP and that a level-100 kill pays 1,000 XP. Level 100 is reached at 18,464,128 (<code>XPCurve.csv</code> cumulative, what <code>playerLv()</code> uses); 21.6&nbsp;M also counted the level-100 row&rsquo;s own cost. Kill XP at level 100 is 118&ndash;827; ~1,000 is per battle. No rule changed.</li>
+    <li><strong>2026-09-02 &mdash; a creature in the SOUL BAG advances. LIVE on release since 2026-09-02 (0.66).</strong> D fed a level-90 creature to a Void dragon and it did not advance until he equipped it. The detector scanned socketed souls and the two party slots only &mdash; there was no scanner for the bag, so a creature that crossed its advancement level while unequipped got no arrow and did not count on the floor marker. A third scanner now reads the bag, keyed by the creature's uid because a bag record has no slot; the bag tile draws the same arrow the party tile draws; the floor marker counts it; and the commit rewrites only name and form on the same uid, leaving XP, grade, mutant status and the lock alone. A stale arrow for a creature that was since dismantled, devoured or equipped rewrites nothing. Party creatures and socketed souls are unchanged. Gate: <code>tools/probe_bagadv.py</code>, 2/9 before the change, 14/14 after, driven through the real click and ritual on D's own save.</li>
+    <li><strong>2026-09-02 &mdash; the READY TO ADVANCE floor marker now renders for everyone. LIVE on release since 2026-09-02 (0.66).</strong> Since 0.31 the marker's block sat inside the PvP queue icon's block in the markup, so it was computed for every player and drawn only while a match was being searched for. Found by the probe above when its floor-marker check failed on the unpatched client; live on 0.65. Moved out to be a sibling of the queue block. The queue icon is pinned present-when-queued and absent-when-not by the same probe.</li>
+    <li><strong>2026-08-25 &mdash; the account level now gates character gear (D ruling &ldquo;Account level gates gear&rdquo;). On release.</strong> The &ldquo;Player level (uncapped)&rdquo; paragraph corrected: it used to promise no gear requirements. Rule and thresholds on <a href="system-equipment.html">Equipment</a>. Same day, ops: every account and party creature wearing above its level was promoted to level 90 on D's order (record on Admin &amp; backend).</li>
+    <li><strong>2026-08-07 &mdash; a mid-battle advancement waits for the battle, and the server is told (LIVE on release since 2026-08-07 (0.39)).</strong> Clicking an arrow in the equipment window during a fight took the player out of a live battle; it now defers, acknowledges the click, and plays when the run is back in a room. Every committed advancement also queues a claim onto the next save: the worker resolves the line step out of <code>creatures.csv</code> and stamps the level it requires, and the player's object checks the creature, the form it left and the level it had banked in the <em>previous save</em> before writing <code>adv_ledger</code>. The claim's own level is never read. Nothing is clamped &mdash; an illegal claim is flagged and dropped, and the save still lands. New section above. D spec. Verified 10/10 in a browser and 15/15 against real SQLite.</li>
+    <li><strong>2026-08-07 &mdash; the advancement arrow: dismissal, the stale battle unit, and placement (LIVE on release since 2026-08-07 (0.39)).</strong> Report #41: an equipped creature advanced, the record became a Lich, and the arrow stayed live and replayed the same scene on a creature that had already advanced. Cause: <code>advancingAlly()</code> reads the stage off the battle unit and the commit only wrote the record, while <code>refreshPartyFromCsv()</code> rebuilds only in phase <code>'floor'</code> &mdash; so the stale unit survived even a return to the floor. The commit now moves both. The arrow also disappears on the click rather than at the end of the scene (<code>advFired</code>), is centred on the image and materially larger everywhere, and the class arrow moved from the name row onto the class portrait. The equipment arrow was not missing but clipped: <code>top:-9px</code> inside an <code>overflow:hidden</code> tile. Corrected the same day after a screenshot showed the enlarged arrow covering the soul tile’s own multiplier: two sizes now, and the probe gained an <code>elementFromPoint</code> occlusion check it had lacked. New section above. D report + #41. Verified 12/12.</li>
+    <li><strong>2026-08-05 &mdash; battle XP is addressed by creature, not by party slot (LIVE on release since 2026-08-05 (0.32)).</strong> Swapping a party creature mid-battle in the Equipment window paid the
+      newcomer at the fighter's rate and paid the fighter nothing; the advance check had the same
+      slot-addressing and could write one creature's next form into another's record. Both now resolve
+      the fighting unit's own <code>uid</code>, and credit nobody rather than the wrong creature.</li>
+    <li><strong>2026-08-04 &mdash; aptitude radar and staggered move upgrades (LIVE in 0.31).</strong>
+      Base attributes became the codex's three-axis radar everywhere in game; HP is not charted. Move
+      upgrades were flat across every line's whole kit and now follow the stage windows, complete by 90,
+      with each line on its own schedule. Found by a player reporting Hafgufa as overtuned &mdash; it was
+      firing a Kraken's move fifteen levels before it could become one.</li>
+    <li><strong>2026-08-04 &mdash; creatures no longer state their rarity (LIVE on release since 2026-08-04 (0.31)).</strong>
+      The C / UC / R / SR / SSR badges are gone from the creature card, the creature sheet, the hatch and codex
+      lists, and from creature subtitles. Rarity still drives spawn rates, art and the codex, and the tier
+      colour stays &mdash; only the words are gone.</li>
+    <li><strong>2026-08-04 &mdash; advancement is fired by the player (LIVE on release since 2026-08-04 (0.31)).</strong>
+      A victory no longer plays the advancement scene on its own. An upward arrow marks the slot that earned
+      it &mdash; the teammate or the socketed soul &mdash; and clicking it plays the scene. Eligibility is
+      level-based, so an unclaimed advancement keeps until it is asked for.</li>
+    <li><strong>2026-08-04 &mdash; &ldquo;battles per level&rdquo; was framed as normal play; it is a best case
+      (live, on release).</strong> D called it and the live saves agree. The two battle columns assume the character
+      stands on the floor matching its level, which is the one place the level-gap penalty is zero. Measured against
+      all 11 closed-alpha accounts: class level runs <strong>+1 to +19 above the floor</strong> through the early and
+      middle tower (median ~+7) and <strong>17&ndash;19 below</strong> at floors 97&ndash;99; two of eleven are inside
+      the zero-penalty band. Columns are relabelled <em>on-level</em>, and a gap&nbsp;&rarr;&nbsp;retention&nbsp;&rarr;
+      battles-multiplier table now sits under them. Also measured from the server ledger rather than assumed:
+      <code>_ledK / _ledB</code> is <strong>3.00 kills per battle on 9 of 9</strong> accounts that have fought, and
+      <code>_ledC / _ledX</code> on the reference account (class 31, floor 23, gap +8) reads <strong>0.807</strong>
+      against a predicted 0.796 &mdash; the penalty model is confirmed against live data, the framing around it was
+      what was wrong. Account XP is unaffected: it is raw, so the account level still tracks the on-level column.</li>
+    <li><strong>2026-08-04 &mdash; both curves are now charted (live, on release).</strong> The single
+      battles-per-level canvas became two, drawn by one generic log-scale routine off the same loaded data:
+      an <strong>XP curve</strong> (requirement for the next level against cumulative XP to reach it) and a
+      <strong>battles curve</strong> (battles spent at each level against cumulative battles to reach it).
+      Both carry a legend and the level-67 knee marker. The caption above them claimed per-kill XP is flat in
+      the enemy's level, which is the same error the Formulas table carried &mdash; corrected: the flat thing
+      is a whole battle, at <code>&asymp;10&nbsp;&times;&nbsp;L</code>.</li>
+    <li><strong>2026-08-04 &mdash; battles-to-level, averaged over the real spawn spread (live, on release).</strong>
+      The level-by-level table gains <strong>battles to reach that level</strong> and <strong>time to reach it</strong>
+      (at 30 battles/h), and the XP-per-battle column is no longer read off the floor's own row: it now averages the
+      <code>&minus;3&hellip;+3 at 3/7/12/56/12/7/3%</code> spawn-level spread that <code>buildSpawn()</code> actually
+      rolls. The whole spread lies inside the level-gap grace, so on a level-appropriate floor the penalty is zero on
+      every roll and account, class and creature XP are identical &mdash; which is what makes a single
+      &ldquo;battles at Lv&rdquo; number well defined at all. Measured effect of the averaging: under 0.35% above
+      level 4, one battle in 20,346 across the whole climb, and ~19% at level 1 where the 4-XP floor bites. The flat
+      floor-row figure was therefore already the average, and is documented as such rather than quietly kept.</li>
+    <li><strong>2026-08-04 &mdash; the level-by-level curve is on the page (live, on release).</strong>
+      All 100 rows of <code>codex/XPCurve.csv</code> now render here &mdash; XP to next, cumulative, and the five
+      per-kill columns &mdash; alongside derived XP-per-battle and battles-per-level against each floor's own
+      <code>encounter_weights.csv</code> mix. The milestone table and the chart were switched off their analytic
+      approximation onto the same data (the approximation survives only as a fetch-failure fallback).
+      Two Formulas rows were WRONG and are corrected: per-kill XP is not <code>10 &times; C</code> &mdash; it is an
+      authored table on the C&nbsp;1.0 / UC&nbsp;1.5 / R&nbsp;2.5 / SR&nbsp;4.0 / SSR&nbsp;7.0 ladder, and at level 100
+      a Common kill is 118 XP, not 1,000. What <em>is</em> <code>&asymp; 10 &times; L</code> is a whole battle
+      (3 kills at the floor's rarity mix): 999.4 at floor 100, within &plusmn;0.7% of the line from level 10 up.
+      That identity is why every downstream figure on this page &mdash; ~20,300 battles to max, ~885 to level 67,
+      74.5% of the climb in levels 90&ndash;100 &mdash; verified against the real tables rather than needing a rewrite.
+      Client and server were checked against the CSV on both branches: <code>xp_cum</code> and <code>xp_kill</code> in
+      <code>src/tables.json</code> match all 100 rows exactly on <code>main</code> and <code>dev</code>, and
+      <code>class_max_xp</code> equals the level-100 cumulative, 18,464,128.</li>
+    <li><strong>2026-08-04 &mdash; no client-credited battle rewards (LIVE on release since 2026-08-04 (0.31)).</strong>
+      Account XP, class XP and Ichor are no longer moved at battle end; the server's figures are the only
+      ones that reach the account, and the victory class row is rebuilt from them when they land. The
+      delta reconciliation shipped 2026-08-03 already left the stored total correct &mdash; what this
+      removes is the window in which the player held a number the server never agreed to.</li>
+    <li><strong>2026-08-01 &mdash; class XP moves server-side.</strong> It had no ledger and no ceiling; a save could
+      claim any class level and keep it. The server now credits class XP itself per battle from the authored curve and
+      the level-gap penalty, caps it at the level-100 cumulative, and clamps a claim to what it actually credited.
+      Verified against a real worker: at zero level gap the class and account totals come out identical, a
+      1,000,000,000 claim clamps, a claim past the level-100 cumulative clamps to the cap, an established account's
+      historical total is kept, and legitimate growth still lands untouched.</li>
+  </ul>
+
+<h2>Team notes (moved off the public page 2026-11-04)</h2>
+<p>Cut verbatim from the public page when the codex went player facing; the public page now carries a player-language version.</p>
+
+<h3>Public wording before the cleanup (replaced on the page by a player-language version)</h3>
+
+<h4>XP curve note</h4>
+  <p style="font-size:13px;color:var(--ink-faint)">Log scale, plotted from <code>codex/XPCurve.csv</code>. <span style="color:#dd5646">Requirement for the next level</span> and <span style="color:#cfa650">cumulative XP to reach the level</span>. The knee at&nbsp;67 is where <code>10&nbsp;&times;&nbsp;L^1.75</code> hands off to a geometric phase whose per-level growth ramps smoothly from +2.7% (the polynomial's own rate at 66) to +16% at level&nbsp;99 &mdash; no step anywhere; levels 90&ndash;100 are 60% of the total (C1, 2026-10-23, ramp end +12% &rarr; +16% by T53, 2026-11-02; before C1 it was a flat +17.5% from 67 and 78.5%).</p>
+
+<h4>Milestones note</h4>
+  <div class="sp-note">The curve is back-loaded, not walled: <strong style="color:var(--ink)">levels 90&ndash;100 are 60% of the XP to 100</strong> (2,936,130 in all). A fresh account that stays on its floor&rsquo;s level reaches 100 in <strong style="color:var(--ink)">~3,730 battles &asymp; 34&nbsp;h at the measured 109 battles/h</strong>, 15.9&nbsp;h of it in levels 90&ndash;100 &mdash; <code>python tools/statmodel.py xp</code> in dfmc-client. Before C1 (2026-10-23) the same climb was ~18,900 battles &asymp; 173&nbsp;h, 130&nbsp;h of it in 90&ndash;100; the C1 curve (ramp ending at +12%) was ~2,900 battles &asymp; 27&nbsp;h until D&rsquo;s T53 ruling (2026-11-02) ended the ramp at +16%. Reaching level&nbsp;67 &mdash; where wild Stage&nbsp;3 creatures appear &mdash; is unchanged at ~885 battles.</div>
+
+<h4>Level-by-level intro</h4>
+  <p>Read live from <code>codex/XPCurve.csv</code> &mdash; the same 100 rows the client's <code>xpLevel()</code>/<code>xpKill()</code> and the server's <code>TABLES.xp_cum</code>/<code>TABLES.xp_kill</code> read. Nothing here is restated by hand. <strong>XP&nbsp;to&nbsp;next</strong> and <strong>cumulative</strong> are the requirement curve and apply identically to creatures, classes and the player level; the five per-kill columns are indexed by the <em>enemy&rsquo;s</em> level, not the recipient's. <strong>XP/battle</strong> and <strong>battles</strong> are derived against that floor's own rarity mix in <code>codex/encounter_weights.csv</code> over 3 kills &mdash; a boss floor has no wild spawns, so it inherits the last wild floor's mix.</p>
+
+<h4>On-level note and what sets the number</h4>
+  <div class="sp-note"><strong>&ldquo;On-level&rdquo; is a floor, not a forecast &mdash; and live accounts do not sit on it.</strong>
+  Those two columns assume the character is standing on the floor whose number matches their level. That is the case where
+  the level-gap penalty is <em>zero</em>, so it is the cheapest the climb can possibly be. <strong>It is not what the tower
+  actually looks like.</strong> Measured against all 11 closed-alpha accounts (live saves, floors 1&ndash;99): the class
+  level runs <strong>+1 to +19 levels above the floor</strong> through the early and middle tower &mdash; a median of about
+  <strong>+7</strong> &mdash; and then falls <strong>17&ndash;19 levels behind</strong> at floors 97&ndash;99, where the
+  requirement curve outruns the climb. Exactly <strong>two of eleven</strong> sit inside the zero-penalty band. Treat the
+  two on-level columns as a lower bound and multiply by the table below.</div>
+
+  <p><strong>What actually sets the number.</strong> Per-kill XP is indexed by the <em>enemy&rsquo;s</em> level, so XP per
+  battle is set by <strong>the floor you farm</strong> and never by your own level &mdash; out-levelling a floor earns you
+  nothing extra, it only costs. Three things are measured rather than assumed:</p>
+  <ul class="sp-rules">
+    <li><strong>3.00 kills per battle, exactly</strong> &mdash; on 9 of 9 alpha accounts that have fought one
+      (<code>_ledK / _ledB</code> from the server's own ledger). The assumption behind every battle count on this page.</li>
+    <li><strong>A wild slot is not stamped at the floor's level.</strong> <code>buildSpawn()</code> rolls an offset of
+      <code>&minus;3&hellip;+3</code> at <code>3/7/12/56/12/7/3%</code>, clamped 1&ndash;100, and the whole spread sits
+      inside the grace band, so on-level really is penalty-free on every roll. Averaging over it rather than reading the
+      floor's own row moves the number by under 0.35% above level 4 &mdash; one battle in 20,346 across the climb.</li>
+    <li><strong>The penalty is visible in the ledger.</strong> Account XP is raw, class XP is penalised, so
+      <code>_ledC / _ledX</code> is the retention the account actually got. On the reference account &mdash; class 31 on
+      floor 23, a gap of +8 &mdash; the formula predicts 0.796 and the ledger reads <strong>0.807</strong>.</li>
+  </ul>
+
+<h4>Penalty note and source footnote</h4>
+  <p style="font-size:13px;color:var(--ink-faint)">The multiplier applies to <strong>class and creature</strong> levels only.
+  <strong>Account (player) XP takes no penalty at all</strong> &mdash; it is the raw sum &mdash; so the account level tracks
+  the on-level column exactly, provided the character is farming the floor that matches it. Full curve in
+  <a href="system-level-penalty.html">Level Penalty</a>.</p>
+  <p class="foot">Source: <code>codex/XPCurve.csv</code> &middot; mix from <code>codex/encounter_weights.csv</code> &middot; spawn spread from <code>app.js</code> <code>buildSpawn()</code>. Level&nbsp;100 carries <code>XP_To_Next = 0</code>: creatures and classes are maxed there, and the player level continues at a flat <code>XP_Account_Flat</code> (354,245). Battle counts assume the enemy is level-appropriate, so the level-gap penalty is zero &mdash; see <a href="system-level-penalty.html">Level Penalty</a>.</p>
+
+<h4>Player level paragraph</h4>
+  <p>Separate from creature levels and class levels. The <strong>player (account) level</strong> is an account-wide marker of total time in the tower. It grants no stats and no unlocks, but since 2026-08-25 it has one job: <strong>it gates character gear</strong> &mdash; tier N needs account level &ge; (N&minus;1)&times;10, T10 = 90 (D ruling: &ldquo;Account level gates gear&rdquo;; On release.; mechanics on <a href="system-equipment.html">Equipment</a>). Tags are gated by the creature's own level, never by this one. It exists so that the endgame keeps counting, and so that a future system has a natural place to hook into. <em>(This paragraph said &ldquo;no gear requirements&rdquo; until 2026-08-25; that was true only because nothing enforced them.)</em></p>
+
+<h4>Pacing past 100</h4>
+  <p>Pacing, past 100: at level-100 enemies (kill XP 118&ndash;827 by rarity, <code>XPCurve.csv</code> row 100 &mdash; roughly 1,000 XP per <em>battle</em>) each player level is <strong>~355 battles &asymp; 3&frac14;&nbsp;h</strong> of autoplay at the measured 109 battles/h &mdash; a level most evenings for a steady player, so the counter visibly ticks over instead of freezing. Reaching player level 100 itself takes <span data-csv="XPCurve.csv#Level=100#XP_Cumulative" data-csv-fmt="g">2,936,130</span> XP (the curve&rsquo;s cumulative at 100, the same number <code>playerLv()</code> reads); every level after is the flat <span data-csv="XPCurve.csv#Level=100#XP_Account_Flat" data-csv-fmt="g">354,245</span>, climbing linearly forever instead of exploding. Continuing the ramp past 100 was rejected as too slow to feel alive.</p>
+
+  <h2>Who receives XP</h2>
+  <ul class="sp-rules">
+    <li>End-of-battle XP goes to <strong>every creature in the party and the avatar</strong>, not only the participants.</li>
+    <li><strong>Dying in battle does not forfeit XP</strong> — a fainted creature or downed avatar still receives its full share.</li>
+    <li>Each recipient's XP is then scaled by the level gap to the defeated enemy. See <a href="system-level-penalty.html">Level Penalty</a> for the full curve.</li>
+  </ul>
+
+  <h2>XP is addressed to a CREATURE, never to a party slot &mdash; LIVE on release since 2026-08-05 (0.32)</h2>
+  <p>The party occupies gear slots <code>8</code> and <code>9</code>, and the battle units
+  <code>a1</code>/<code>a2</code> are derived from whatever record sits in them. The credit used to be
+  written back the same way &mdash; straight into <code>equipOv[8|9]</code> at commit time. The Equipment
+  window can be opened <em>during</em> a battle, so that record is not guaranteed to still be the creature
+  that fought.</p>
+
+  <p>Reported by a player on 0.31 and reproduced on his own save: a level&nbsp;28 Scorchscale fought a full
+  battle, was swapped out mid-fight, and received <strong>nothing</strong>; a level&nbsp;1 Vaettir swapped
+  into the slot received <strong>282</strong> &mdash; the gain computed from the <em>fighter's</em> level
+  and applied to the <em>newcomer's</em> base. That is also a power-levelling exploit: swap a fresh
+  creature in before the killing blow and it earns at a veteran's rate.</p>
+
+  <ul class="sp-rules">
+    <li>Every battle unit carries the <code>uid</code> of the record it was derived from
+      (<code>monFromSlot</code> / <code>mkMon</code>).</li>
+    <li><code>partyRecFor(un, gi, st)</code> resolves the fighter's record wherever it now sits: still in
+      its slot, moved to the other slot, or back in the bag. A fighter found in the bag is paid there.</li>
+    <li>If the fighter cannot be found, <strong>nobody is credited</strong> &mdash; never the occupant of
+      the slot. A slot that is simply empty still falls back to the pre-uid <code>crXp</code> species map,
+      so legacy saves keep working.</li>
+    <li>Records written before uids existed compare on name instead. This is the same guard shape
+      <code>commitSoulEvolution</code> has carried since 2026-07-27.</li>
+  </ul>
+
+  <p><strong>The advance check had the same defect, with a worse outcome.</strong>
+  <code>advancingAlly</code> also read the slot, so after a mid-battle swap it took the newcomer's level
+  and stamped the newcomer's <code>uid</code> &mdash; which meant <code>commitPartyEvolution</code>'s own
+  guard <em>passed</em> and wrote the fighter's next form into the newcomer's record. That is the exact
+  cross-line corruption the guard exists to prevent, arriving through a different door. It now resolves
+  through <code>partyRecFor</code> as well.</p>
+
+  <div class="sp-note">Probe: <code>tools/probe_partyswapxp.py</code> &mdash; BEFORE 11/11 (the bug
+  reproduces on the reporter's save), AFTER 12/12, including an assertion that the unit carries a real
+  <code>uid</code> so the match is exact rather than a species-name guess.</div>
+
+  <h2>Class XP &mdash; who computes it</h2>
+  <p><strong>The server, since 2026-08-01.</strong> Class XP is the avatar's share of the same battle, and it is
+  derived from the same authored tables the account total comes from &mdash; the client is not asked and is not
+  believed.</p>
+  <table>
+    <tr><th>Quantity</th><th>Rule</th></tr>
+    <tr><td class="lbl">Account XP (player level)</td><td>The <strong>raw</strong> sum of <code>XP_Kill_&lt;tier&gt;</code> over the kills the server derived from its own seeded slot. No penalty is applied &mdash; player XP is never split</td></tr>
+    <tr><td class="lbl">Class XP</td><td>The <strong>same</strong> kills, each scaled by the level-gap penalty between the avatar's class level and that enemy: <code>round(base &times; (1 &minus; penalty(enemyLevel &minus; classLevel)))</code>. The class level is read once, before the battle</td></tr>
+    <tr><td class="lbl">Class level</td><td><strong>Per class</strong> since 2026-10-01: each class line has its own row in <code>ledger_cls</code> and the battle credits the class it was fought as. Derived from that class's credited total against <code>XP_Cumulative</code> in <code>XPCurve.csv</code> &mdash; the server needs nothing from the client to know it</td></tr>
+    <tr><td class="lbl">Ceiling</td><td>Classes cap at level&nbsp;100, so <strong>18,464,128</strong> (the cumulative at 100) is an absolute ceiling on class XP. Below that, a save may only claim what the server has credited since the previous accepted save</td></tr>
+  </table>
+  <p>Two consequences fall straight out of the definitions. Class XP <strong>can never exceed account XP</strong>, because
+  the penalty is never negative &mdash; an account where it does has a starved account total, not a rich class total.
+  And at a level gap inside the grace window the penalty is zero, so the two totals are <em>identical</em>; that is the
+  sharpest available check that both are being computed from the same table.</p>
+  <p class="note"><strong>What this replaces.</strong> Until this landed the ledger held account XP, Ichor, kills and
+  battles &mdash; and nothing at all for class XP. The save door capped it only on a <em>newborn</em> account, then
+  merged it grow-only forever after, so on any established account a crafted save could set class XP to any number and
+  keep it permanently. Class advancement was the last progression system still authored entirely by the client.</p>
+  <p class="note"><strong>Grandfathering.</strong> The class ledger starts counting from the day it shipped while every
+  live account's class XP is historical, so the ceiling is a <em>delta</em>: each accepted save is stamped with the
+  server's class total at that moment, and the next save may claim what was credited since, plus the standard grace.
+  An account with no stamp yet keeps what it holds. This is the same shape as the kill and battle counters, and for the
+  same reason &mdash; a flat total would have confiscated real progress on the first save.</p>
+
+  <h2>Who credits a battle's XP &mdash; nobody but the server</h2>
+<p><strong>LIVE on release since 2026-08-04 (0.31).</strong> Owner ruling, standing: <em>no client-credited battle
+rewards</em>. Account XP, class XP and Ichor are not moved when a battle ends. <code>/api/battle</code>
+answers with the figures the server derived from its own kill list, and those are the only numbers that
+ever reach the account or the screen.</p>
+<p><strong>What this replaced, stated precisely, because the end state was already correct.</strong> Since
+2026-08-03 the client credited its own arithmetic and then reconciled to the server's number as a delta
+when the response landed &mdash; so the stored total was already the server's. What was wrong was the
+<em>transient</em>: for the 67&ndash;256&nbsp;ms until the response arrived, the player's totals held a
+figure the server had never agreed to, and an uncredited battle (rate cap, spawn budget) had to be
+adjusted back down to zero afterwards. The local credit is now zero, which makes that same delta
+reconciliation an absolute apply with no second code path.</p>
+<ul>
+  <li><strong>Timing is not the obstacle and was measured, not assumed.</strong> The victory bar stages at
+      80&nbsp;/&nbsp;1000&nbsp;/&nbsp;1070&nbsp;ms while a live round trip is 67&ndash;256&nbsp;ms, so the
+      server's figure lands an order of magnitude inside the fill animation. The bar simply grows to it.</li>
+  <li><strong>The victory class row is rebuilt from the server's number too.</strong> Account XP is rendered
+      nowhere on the victory screen, so the class row is the one battle figure a player actually reads;
+      leaving it on the client's estimate would have kept showing a number the server never agreed to. The
+      row's XP text, both percentages and the level-up marker are recomputed from the same level function
+      the row was built with, so bar and label can never disagree.</li>
+  <li><strong>Creature XP is untouched by this.</strong> The server does not compute per-creature XP, so
+      <code>crXp</code> is still client-side. It is a separate question from the account ledger.</li>
+  <li><strong>An uncredited or unanswered battle now credits nothing at all</strong>, which is the ruling
+      working: the server credited nothing, so the player earns nothing. A battle cannot start without
+      connectivity in the first place &mdash; the battle-entry gate awaits a save flush and refuses the
+      fight if it does not land.</li>
+</ul>
+<p><strong>Why it matters beyond correctness.</strong> The two authorities disagreeing by design is what
+made <code>xp_over_ledger</code> fire on every live account &mdash; hundreds of times each, on four of four
+accounts measured. A guard that fires on every honest player describes the system, not the players, and a
+real offender would have been invisible inside it. With one authority the flag becomes a signal again.</p>
+
+<h2>Advancement is asked for, not given</h2>
+<p><strong>LIVE on release since 2026-08-04 (0.31).</strong> A creature, a socketed soul or the class still becomes
+eligible to advance the same way &mdash; by passing its line's advance level with a further stage to reach.
+What changed is who starts it. <strong>A victory no longer interrupts itself to play the scene.</strong> The
+win resolves, the rewards land, and the floor returns.</p>
+<p>The advancement waits on the record that earned it. An upward arrow sits on that record's icon &mdash; the
+teammate's portrait, the equipment slot holding the soul, <strong>or the creature's tile in the soul bag</strong>
+(ON DEV since 2026-09-02, LIVE on release since 2026-09-02 (0.66).) &mdash; and clicking it plays the advancement scene. A creature in
+the bag can cross its advancement level through devour, and until 2026-09-02 nothing looked at it there: the
+arrow only ever reached equipped creatures, so a bag creature had to be equipped to advance.</p>
+<ul>
+  <li><strong>The arrow and the scene are one call.</strong> The marker is computed from the same function
+      the scene uses, so an arrow can never appear on a slot the scene will not go to.</li>
+  <li><strong>One at a time, in order</strong> &mdash; party creature, then socketed soul, then class. That was
+      always the rule; it is simply now visible. A second eligible creature is marked once the first has been
+      played.</li>
+  <li><strong>Nothing expires.</strong> Eligibility is read from the creature's level, not from an edge, so an
+      advancement left unclaimed stays claimable across battles, floors and reloads.</li>
+</ul>
+
+<h2>The arrow &mdash; where it sits, and when it goes</h2>
+<p class="sp-lead">The arrow is <strong>dead centre on the image</strong> in all three places it can appear: the equipped soul's tile, the party creature's card, and the <strong>class portrait</strong>. One shape, one size, one placement, so it means the same thing everywhere.</p>
+<ul>
+  <li><strong>It goes on the click.</strong> Every arrow is derived from the records, and the records are not written until <code>commitEvolution()</code> runs at the end of the ~3s scene &mdash; so the arrow used to sit there, live and clickable, for the whole animation. <code>advFired</code> holds the advancements already set in motion so the derivation can answer honestly while the screen stops offering it.</li>
+  <li><strong>The suppression key carries the creature and the target form</strong> (<code>uid</code> + <code>toId</code>), never the slot. A slot can be swapped while the scene plays &mdash; that is the cross-line corruption the commit guard exists for &mdash; and a slot-keyed suppression would hide the newcomer's arrow instead.</li>
+  <li><strong>Every commit path clears it, deliberately.</strong> A commit refused by the same-creature guard writes nothing, so the derivation offers the advancement again and the arrow returns &mdash; correct, because that creature did not advance. Suppression outliving a failure would be a silent loss.</li>
+  <li><strong>The class arrow lives on the portrait</strong>, not beside the class name in the header row, which is where it used to be and where players kept finding it. Its click stops propagation, so the portrait still opens the soul crystals when the arrow is not hit.</li>
+</ul>
+<p><strong>The stale battle unit (report&nbsp;#41, measured 2026-08-07).</strong> <code>advancingAlly()</code> reads the creature's current stage off <code>units[id].src</code> &mdash; the battle unit &mdash; and <code>commitEvolution()</code> only ever rewrote <code>equipOv</code>. Measured against a real save: the slot became a Lich and <code>units.a1.src</code> stayed on <code>DFMC-265</code>, so the arrow was re-derived <em>forever</em> and every click replayed <em>Reliquary&nbsp;&rarr;&nbsp;Lich</em> on a creature that was already a Lich &mdash; word for word what the player reported. <code>refreshPartyFromCsv()</code> could not rescue it either: it rebuilds the party only while the phase is <code>'floor'</code>, and an advancement runs in phase <code>'evolution'</code>, so it fell through to a bare <code>forceUpdate()</code> and the stale unit survived even a return to the floor. The commit now moves the battle unit with the record.</p>
+<p><strong>The equipment arrow was clipped, not missing.</strong> It sat at <code>top:-9px</code> inside an <code>overflow:hidden</code> 72&nbsp;px soul tile &mdash; measured 17&times;17 with its top cut off. It is now centred on the image and no longer clipped.</p>
+<p><strong>Two sizes, because one constant cannot serve both.</strong> The party card and the class portrait have room and take 44&nbsp;px. The <strong>soul tile is a 72&nbsp;px chip already carrying a creature image, a gender glyph, a grade glyph and a full-width multiplier band</strong>, so it takes 30&nbsp;px and sits at <code>top:32%</code> &mdash; centred on the image <em>area</em> rather than on the whole tile, clear of the band below and the glyph in the corner. That is a real constraint, not a preference: at 44&nbsp;px the arrow covered the tile&rsquo;s own multiplier, which read <em>&times;1.?9</em> on screen. It can grow once that multiplier moves into the details panel.</p>
+<p><strong>How that was missed, and what now catches it.</strong> The probe measured size and centring, reported a clean pass, and never asked what else was in the box &mdash; the collision was found by taking a screenshot and looking at it. Every sibling carrying text is now checked with <code>document.elementFromPoint</code> at its own centre: is the arrow what is actually painted there? Rect-versus-rect was tried first and is the wrong test, because the multiplier is a full-width band whose <em>box</em> spans the tile even though its digits sit centred &mdash; it reported a collision that was not on screen.</p>
+<p class="foot">Client: <code>advKey()</code>, <code>advFiredHas()</code>, <code>advClearFired()</code>, <code>advReady()</code>, <code>advancingClassLive()</code>, <code>commitEvolution()</code> in <code>play/app.js</code>. Probe: <code>tools/probe_advarrow2.py</code> (12/12).</p>
+
+<h2>An advancement waits for the battle &mdash; and the server is told</h2>
+<p class="sp-lead">The advancement arrows live in the equipment window, and the equipment window <strong>opens during a fight</strong>. Clicking one mid-battle used to drop the phase straight to the advancement scene and take the player out of a live battle &mdash; gear is frozen for the duration of a fight, and this was the one thing that could still change a fighter mid-round.</p>
+<ul>
+  <li><strong>It defers, it does not refuse.</strong> The click is acknowledged: the arrow goes at once exactly as it does out of battle, and the player is told <em>ADVANCEMENT WILL PLAY AFTER THE BATTLE</em> rather than being ignored.</li>
+  <li><strong>It plays when the run is back in a room</strong> &mdash; floor or boss den, the only unambiguous &ldquo;after the battle&rdquo;. One at a time: the advancement scene itself ends by returning to the room, which drains the next, so three queued advancements play as three scenes in order rather than racing.</li>
+  <li><strong>Nothing is trusted to survive the wait.</strong> The deferred advancement replays through the ordinary path, and the same-creature guard still refuses it if that slot no longer holds that creature.</li>
+</ul>
+<h3>The advancement claim</h3>
+<p>Every committed advancement appends a row to <code>_advQ</code>, which rides the next ordinary save and is then consumed and deleted. Same contract as the dismantle claim: <strong>the client claims, the server decides.</strong> The row names the creature (<code>uid</code>), the form it left, the form it reached and the level it held &mdash; and every one of those is re-derived server-side. They are sent so the server knows <em>which record to look at</em>, never so it can take their word for it. The claim is cleared once the save is accepted, keyed on <code>uid</code>+<code>to</code> rather than <code>uid</code> alone, because one creature can advance twice in a session.</p>
+<p><strong>The check is split, and the split is deliberate.</strong> <code>creatures.csv</code> lives behind a fetch and only the worker can read it; the previous save &mdash; the only thing that can say what that creature actually was and what level it held &mdash; lives in the player's object. So the worker answers <em>&ldquo;does this line take that step, and at what level?&rdquo;</em> and stamps the requirement; the object answers <em>&ldquo;is this that creature, and had it reached it?&rdquo;</em> The worker decides nothing about legality.</p>
+<p>Four conditions must all hold, all of them against the server's own previous save:</p>
+<ul>
+  <li>the line actually takes that step, per <code>creatures.csv</code>;</li>
+  <li>we held that creature before, by <code>uid</code>, wherever a creature can be held &mdash; bag, party slot or soul socket;</li>
+  <li>it was in the form it claims to have left;</li>
+  <li><strong>it had reached the required level, computed from the XP banked in the previous save.</strong> The claim's own <code>lv</code> is never read. That is the level check.</li>
+</ul>
+<p>A fifth is a consequence rather than a rule: the creature must actually <em>be</em> the new form in the save now arriving, or nothing advanced and there is nothing to record. Legal advancements are written to <code>adv_ledger</code>, one row per creature per form reached &mdash; the <code>UNIQUE</code> key is the idempotence, so a replayed claim writes nothing. <strong>Nothing is clamped or refused.</strong> An illegal claim is flagged <code>advance_claim_bad</code> and not written; the save still lands. This is a record of what legitimately happened, and a save must never be lost to it.</p>
+<p><strong>The class needs no claim.</strong> <code>clsAdv</code> is already in the save and the server already derives the class level from the same cumulative curve, so class legality is checkable from the save itself without a queue.</p>
+<p class="foot">Client: <code>deferAdvance()</code>, <code>drainAdvDefer()</code>, <code>advQPush()</code> in <code>play/app.js</code>. Server: <code>_advReq</code> in the worker, <code>adv_ledger</code> and <code>levelOfXp()</code> in the object. Probes: <code>tools/probe_advdefer.py</code> (10/10), <code>tools/probe_advledger.mjs</code> (15/15, real SQLite).</p>
+
+<h2>A creature does not state its tier</h2>
+<p><strong>LIVE on release since 2026-08-04 (0.31).</strong> Rarity still exists and still governs everything it always
+did &mdash; spawn tables, encounter weights, art, the codex. What it no longer does is announce itself.
+<strong>Owner ruling: players work it out by meeting a creature more or less often.</strong></p>
+<p>Removed from every in-game surface: the badge on the creature card, the badge on the creature sheet, the
+badges in the hatch and codex lists, and the tier baked into a creature's subtitle. The abbreviation function
+still exists and is still correct &mdash; nothing renders it.</p>
+<p><strong>The tier colour stays</strong> (owner ruling). A card still reads at a glance without naming what it
+is. Item grades are a separate system and are untouched.</p>
+
+<h2>Aptitude is a shape, not a score &mdash; LIVE 0.31</h2>
+<p>Base attributes are drawn as the same three-axis radar the class pages use: ATK at the top, DEF lower
+right, SPD lower left, rings at 25/50/75/100%, values scaled out of ten. It replaced the numeric rows on the
+creature sheet and the bar charts on the class card and the class selector. <strong>HP is not charted</strong>
+&mdash; the class pages chart three axes and list HP nowhere, and the in-game chart follows that exactly.
+Utility went with the bars for the same reason.</p>
+<p>The point is what a player reads off it. A grade of 9 reads as a quantity to be compared; a shape reads as
+an aptitude &mdash; what this creature is <em>for</em>. The geometry is shared with the codex so the two can
+never drift into two different triangles.</p>
+
+<h2>Move upgrades follow the stages &mdash; LIVE 0.31</h2>
+<p>A move exists in three versions, and a creature moves up through them by level. Until 0.31 <strong>every one
+of the hundred lines upgraded its entire four-move kit on a single level</strong>: all four to V2 at once, then
+all four to V3 at once. Learn levels were already staggered, so only the upgrade columns were flat &mdash; a
+column filled per line rather than per move. The result was a cliff: a creature crossed one level and gained
+its whole next kit.</p>
+<p><strong>The rule now:</strong></p>
+<ul>
+  <li>V1 is learned on the way to the second stage.</li>
+  <li>V2 lands inside the second-stage window &mdash; between the S2 advance and the S3 advance.</li>
+  <li>V3 lands only after the S3 advance, so a creature can never wield its final form's moves before it has
+      reached that form.</li>
+  <li>Everything is fully upgraded by level 90.</li>
+  <li>Each line has its own shape, so no level between 2 and 90 passes without some creature gaining
+      something &mdash; either a new move or an upgrade to one it has.</li>
+</ul>
+<p><strong>What found it.</strong> A player reported Hafgufa as overtuned. It was: Hafgufa is the second stage
+of the kraken line and advances at 69, but every move in that line upgraded to V3 at 54 &mdash; so for fifteen
+levels a mid-stage creature with the top attack grade held the full final kit, on the floors where it spawns.
+It was throwing <em>Collapse of the Trench</em>, a Kraken's move, at power 120. That move now cannot exist
+below level 80, and the line advances at 69, so a Hafgufa can never fire it.</p>
+</div>
+<script src="nav.js"></script>
+</body>
+</html>
