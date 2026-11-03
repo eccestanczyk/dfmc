@@ -609,7 +609,7 @@ m_unlock_new,FREIGESCHALTET,markup: unlock celebration popup: header (#1165)
 m_unlock_show_me,ZEIGEN,markup: unlock celebration popup: go to the system (#1165)
 unlock_opened_at,GEÖFFNET AUF EBENE {f},app: unlock celebration popup: the floor that opened it (#1165)
 unlock_after_first,GEÖFFNET NACH DEINEM ERSTEN KAMPF,app: unlock celebration popup: autoplay opens after the first battle (#1165)
-m_soul_slots_title,Seelenplätze · Ichor & Wraithgold,app: soul bag slot shop: Ichor track (#1168/#1169)
+m_soul_slots_tracks,Ichor & Wraithgold,app: soul bag slot shop: Ichor track (#1168/#1169) - the title after "Soul Slots · "
 m_soul_ichor_prog,{t} / {n} gekauft,app: soul bag slot shop: Ichor track (#1168/#1169)
 m_soul_ichor_done,Alle Ichor-Erweiterungen gekauft,app: soul bag slot shop: Ichor track (#1168/#1169)
 m_soul_ichor_next,Erweiterung {t}: +{add} Seelenplätze,app: soul bag slot shop: Ichor track (#1168/#1169)
