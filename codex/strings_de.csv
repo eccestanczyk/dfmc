@@ -56,7 +56,7 @@ m_apply,ANWENDEN,markup: equipment
 m_rename,UMBENENNEN,markup: equipment
 m_delete,LÖSCHEN,markup: equipment
 m_inventory,INVENTAR,markup: equipment
-m_soul_bag,SEELENBEUTEL,markup: equipment
+m_soul_bag,SEELEN­BEUTEL,markup: equipment
 m_classes,KLASSEN ▾,markup: equipment
 m_class_lv,Klassen-Lv,markup: equipment
 m_to_next,· bis zur nächsten,markup: equipment
@@ -107,7 +107,7 @@ m_mutant,Mutant,markup: hatch
 m_alternate_colour_cosmetic,andere Farbe · kosmetisch,markup: hatch
 m_not_yet,NOCH NICHT,markup: hatch
 m_hatch,AUSBRÜTEN,markup: hatch
-m_floor_map,ETAGENKARTE,markup: floor map
+m_floor_map,ETAGEN­KARTE,markup: floor map
 m_boss_keys,BOSSSCHLÜSSEL,markup: floor map
 m_cry,SCHREI,markup: creature sheet
 m_devour_2,VERSCHLINGEN,markup: creature sheet
@@ -115,7 +115,7 @@ m_experience,ERFAHRUNG,markup: creature sheet
 m_aptitude,BEGABUNG,markup: creature sheet
 m_moves,ATTACKEN,markup: creature sheet
 m_advancement_line,ENTWICKLUNGSLINIE,markup: creature sheet
-m_game_settings,SPIELEINSTELLUNGEN,markup: settings
+m_game_settings,SPIEL­EINSTELLUNGEN,markup: settings
 m_restore_defaults,STANDARD WIEDERHERSTELLEN —,markup: settings
 m_choose_parent,ELTERNTEIL WÄHLEN,markup: breeding
 m_extra_pens_buy_parallelism_not_thr,"mehr Gehege bringen Parallelität, nicht mehr Durchsatz",markup: breeding
@@ -392,7 +392,7 @@ gate_sign_in_with_google,MIT GOOGLE ANMELDEN,index.html: sign-in gate: provider 
 gate_sign_in_with_discord,MIT DISCORD ANMELDEN,index.html: sign-in gate: provider door
 gate_sign_in_with_apple,MIT APPLE ANMELDEN,index.html: sign-in gate: provider door
 gate_your_sign_in_secures,Deine Anmeldung sichert deine Spielstände und deinen PvP-Rang.,index.html: sign-in gate: footnote
-m_dimensional_rift,DIMENSIONSRISS,markup: menu tile label (baked in the plate) + rift window title: T48 transfer
+m_dimensional_rift,DIMENSIONS­RISS,markup: menu tile label (baked in the plate) + rift window title: T48 transfer
 m_send_through_the_rift,DURCH DEN RISS SENDEN,"app: creature sheet: T48 transfer action (web + Steam shell), was SEND TO HERUMON DUNGEON"
 m_a_copy_goes_through_the_rift_to_herumon_dungeon_free_once_per_creature,"Eine Kopie geht durch den Riss nach Herumon Dungeon: kostenlos, einmal pro Kreatur. Sie kommt auf Stufe 1 an und behält Grad und Mutantenstatus. Der Turm behält deine. Nichts kommt zurück.",app+markup: creature sheet confirm line + rift window: T48 rules (D 2026-11-02/03)
 m_the_rift_opens_in_the_steam_client,Der Riss öffnet sich im Steam-Client. Herumon Tower auf Steam sendet Kreaturen hindurch; hier kannst du nur hineinsehen.,app+markup: creature sheet + rift window on the web build: T48 transfer needs the Steam shell
@@ -401,7 +401,7 @@ m_world_travelers,WELTENREISENDE,markup: rift window: the sent creatures list he
 m_a_tear_between_the_tower_and_herumon_dungeon,Ein Riss zwischen dem Turm und Herumon Dungeon.,markup: rift window: the intro line
 m_open_a_creatures_sheet_from_the_inventory_and_choose_send_through_the_rift,Öffne das Blatt einer Kreatur im Inventar und wähle DURCH DEN RISS SENDEN. Nur vom Turm zum Dungeon: Der Riss geht nur in eine Richtung.,markup: rift window: how to send
 m_no_creature_has_crossed_yet,Noch keine Kreatur ist hindurchgegangen.,markup: rift window: empty travelers list
-m_trophy_wall,Trophäenwand,markup: trophy wall: title
+m_trophy_wall,Trophäen­wand,markup: trophy wall: title
 m_earned,Erhalten,markup/app: trophy wall: the earned count label and the earned tile state
 m_not_yet_earned,Noch nicht erhalten,app: trophy wall: tile state
 m_hidden_achievement,???,app: trophy wall: a hidden achievement not yet earned
@@ -596,7 +596,7 @@ tip_ability_slot,Gewährt die Technik in Fähigkeitsplatz {n},app: inventory: it
 tip_soul_socket,Hat einen passiven Seelensockel,app: inventory: item / soul bag hover (#1162 / #1170)
 tip_class_weapon,{cls}-Waffe,app: inventory: item / soul bag hover (#1162 / #1170)
 tip_class_not_yours,deine Klasse kann sie nicht ausrüsten,app: inventory: item / soul bag hover (#1162 / #1170)
-m_taskbar_web_title,TASKLEISTENMODUS,markup: taskbar mode web window
+m_taskbar_web_title,TASKLEISTEN­MODUS,markup: taskbar mode web window
 m_taskbar_web_body,"Der Taskleistenmodus faltet den Turm zu einem schmalen Streifen über deiner Taskleiste, damit dein Team weiterklettert, während du arbeitest.",markup: taskbar mode web window
 m_taskbar_web_note,Er gehört zum Desktop-Client: Ein Browser-Tab kann sein eigenes Fenster nicht verkleinern.,markup: taskbar mode web window
 m_taskbar_web_download,DESKTOP-CLIENT HERUNTERLADEN,markup: taskbar mode web window
@@ -694,3 +694,42 @@ m_mat_ink,Tinte,"app: a material named in a cost line, matName() (L1; glossary)"
 m_mat_dust,Staub,"app: a material named in a cost line, matName() (L1; glossary)"
 m_mat_essence,Essenz,"app: a material named in a cost line, matName() (L1; glossary)"
 m_mat_ichor,Ichor,"app: a material named in a cost line, matName() (L1; glossary)"
+m_plate_game,SPIEL,markup: menu plate label (L2 art-button localization: drawn over the text-free plate in every language but English)
+m_plate_hatch_all,ALLE AUSBRÜTEN,markup: menu plate label (L2 art-button localization: drawn over the text-free plate in every language but English)
+m_plate_menu,MENÜ,markup: menu plate label (L2 art-button localization: drawn over the text-free plate in every language but English)
+m_dim_held,Im Besitz: {n},"app: dimension keys (K3): shop key row, keys held"
+m_dim_use,BENUTZEN,"app: dimension keys (K3): shop key row, use button"
+m_dim_opens,Öffnet die {d},"app: dimension keys (K3): key confirm, subtitle"
+m_dim_rules,{f} Ebenen mit je {b} Kämpfen. Jede Kreatur trägt den Bonus oben. Kämpfe bringen {r} und sonst nichts.,"app: dimension keys (K3): key confirm, rules"
+m_dim_no_down,"Der Schlüssel wird beim Betreten verbraucht. Du kannst nicht absteigen; wer stirbt oder geht, kehrt zu {where} zurück.","app: dimension keys (K3): key confirm, warning"
+m_dim_cancel,ABBRECHEN,"app: dimension keys (K3): key confirm, cancel"
+m_dim_enter,BETRETEN,"app: dimension keys (K3): key confirm, enter"
+m_dim_enter_failed,Die Dimension hat sich nicht geöffnet.,"app: dimension keys (K3): shop note, enter refused"
+m_dim_ret_abyss,den Unendlichen Abgrund,"app: dimension keys (K3): return point, the Abyss"
+m_dim_ret_floor,Ebene {n},"app: dimension keys (K3): return point, a floor"
+m_dim_floor_n,Ebene {n},"app: dimension keys (K3): dimension title, floor"
+m_dim_battles_left,Noch {n} von {t} Kämpfen auf dieser Ebene,"app: dimension keys (K3): dimension view, battles left"
+m_dim_floor_of,Ebene {n} von {t},"app: dimension keys (K3): dimension view, floor count"
+m_dim_banked,In diesem Lauf gesichert:,"app: dimension keys (K3): dimension view, banked total"
+m_dim_every_creature,JEDE KREATUR HIER TRÄGT,"app: dimension keys (K3): dimension view, buff panel"
+m_dim_per_battle,Jeder Sieg bringt,"app: dimension keys (K3): dimension view, reward per win"
+m_dim_engage,ANGREIFEN,"app: dimension keys (K3): dimension view, fight"
+m_dim_resume,KAMPF FORTSETZEN,"app: dimension keys (K3): dimension view, armed fight"
+m_dim_leave,DIMENSION VERLASSEN,"app: dimension keys (K3): dimension view, leave"
+m_dim_round_one,Runde 1 — die Dimension schließt sich.,"app: dimension keys (K3): battle log, first line"
+m_dim_banking,Der Kampf wird verbucht...,"app: dimension keys (K3): win banner, waiting"
+m_dim_win_refused,Der Server hat diesen Kampf nicht verbucht.,"app: dimension keys (K3): win banner, refused"
+m_dim_continue,WEITER,"app: dimension keys (K3): win banner, continue"
+m_dim_victory,SIEG,"app: dimension keys (K3): win banner, title"
+m_dim_xp_line,+{x} EP · +{c} Klassen-EP,"app: dimension keys (K3): win banner, xp"
+m_dim_floor_up,Ebene {n} geschafft — weiter zu Ebene {m},"app: dimension keys (K3): win banner, floor cleared"
+m_dim_leave_q,Die {d} verlassen?,"app: dimension keys (K3): leave confirm, title"
+m_dim_leave_body,"Der Lauf endet und der Schlüssel bleibt verbraucht. Was du gesichert hast, gehört dir. Du kehrst zu {where} zurück.","app: dimension keys (K3): leave confirm, body"
+m_dim_stay,BLEIBEN,"app: dimension keys (K3): leave confirm, stay"
+m_dim_leave_go,VERLASSEN,"app: dimension keys (K3): leave confirm, leave"
+m_dim_cleared,DIMENSION BEZWUNGEN,"app: dimension keys (K3): end screen, cleared"
+m_dim_fell,DEINE GRUPPE IST GEFALLEN,"app: dimension keys (K3): end screen, death"
+m_dim_left,DU HAST DIE DIMENSION VERLASSEN,"app: dimension keys (K3): end screen, left"
+m_dim_won_n,Gewonnene Kämpfe: {n},"app: dimension keys (K3): end screen, wins"
+m_dim_return,ZURÜCK ZU {where},"app: dimension keys (K3): end screen, return button"
+m_dim_bought,Schlüssel gekauft. Benutze ihn in seiner Zeile.,"app: dimension keys (K3): shop note, key bought"
