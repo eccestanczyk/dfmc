@@ -104,7 +104,7 @@ a:hover{color:var(--gold)}
     <code>Onset_Ms</code> column (the clip's attack, the first sample at −12 dB re its peak, from the same
     decode) is what the player pre-rolls each voice by, so a clip with 100 ms of lead-in authored at
     <code>d200</code> hits at 200, not 300 — 487 of the 1221 compositions were more than a frame late that
-    way; <code>codex/afx_sync_audit.csv</code> is the table. <b>Since 2026-09-28 (#994, #993) a move sounds like its creature, its name and its effect</b>, judged on each clip's measured features: the two synthetic sci-fi booms (AFX-495 / AFX-526, 206 move layers, most of them a boom at the end of a move that does not explode) are off every move — an explosive move ends on a recorded bang, any other on its own settle sound — no physical or voiced move hits with a chiptune blip, a named element is heard at every stage, a voiced move carries a creature voice and a bite a bite; 292 of 419 rows re-assigned, per-move record in <code>codex/afx_character_audit.csv</code> (codex/AFX_SPEC.md, <i>Character</i>). The <code>battle.victory</code> event is a short soft pizzicato phrase (AFX-377, 0.80 s), no longer the floor gate's latch. Licences and provenance:
+    way; <code>codex/afx_sync_audit.csv</code> is the table. <b>Since 2026-09-28 (#994, #993) a move sounds like its creature, its name and its effect</b>, judged on each clip's measured features: the two synthetic sci-fi booms (AFX-495 / AFX-526, 206 move layers, most of them a boom at the end of a move that does not explode) are off every move — an explosive move ends on a recorded bang, any other on its own settle sound — no physical or voiced move hits with a chiptune blip, a named element is heard at every stage, a voiced move carried a creature voice (retired 2026-11-04, below) and a bite a bite; 292 of 419 rows re-assigned, per-move record in <code>codex/afx_character_audit.csv</code> (codex/AFX_SPEC.md, <i>Character</i>). The <code>battle.victory</code> event is a short soft pizzicato phrase (AFX-377, 0.80 s), no longer the floor gate's latch. Licences and provenance:
     <a href="codex/AUDIO_LICENCES.md">codex/AUDIO_LICENCES.md</a>. <b>Since 2026-10-01 (#1041) a boss fight has a bed of
     its own</b> (D: <i>"Need a boss battle song"</i>) — <code>bgm.csv</code>'s <code>State=boss</code> row,
     <code>assets/bgm/boss.wav</code>, synthesized by dfmc-client <code>tools/afx_boss_bgm.py</code> with nothing to
@@ -114,7 +114,11 @@ a:hover{color:var(--gold)}
     every boss opening. <b>Since 2026-10-01 (#1035) the devour cue is a bite</b> — bank clip AFX-615 Eat 02, 0.39 s,
     rung twice — not the dungeon's 4.7 s gurgle D heard as water. A move's composition is not reviewed
     here — it is reviewed <a href="workflow/vfx.html">against its picture</a>, which is the only place the two
-    can be judged as one thing.
+    can be judged as one thing. <b>Since 2026-11-04 no ability makes a creature's vocal sound</b> (D: <i>"the ability effects that
+    currently have voices or moans attached to them - seems unnatural that the monsters would be making those sounds"</i>) &mdash;
+    the 58 vocal recordings of the bank (rubberduck's grunts, roars, howls, hurts, monsters, trolls, attacks, dies, breaths
+    and burbles, qubodup's five ghost moans) are off every move; a roar is now its slam and rumble, a howl or a shriek a gust,
+    a moan a low drone, a croak a bubble.
   </div>
 
   <div id="tab-bgm">
@@ -131,6 +135,19 @@ a:hover{color:var(--gold)}
   <div id="tab-events" class="hidden"><div id="evHost"><div class="loading">Loading…</div></div></div>
 
   <div id="tab-bank" class="hidden"><div id="bankHost"><div class="loading">Loading…</div></div></div>
+
+  <h2>Changelog</h2>
+  <ul class="sp-rules">
+    <li><strong>2026-11-04 &mdash; no voices on abilities (chunk AU, D chat order).</strong> 123 move layers on 60 moves named
+      a vocal clip (AFX-607, 612-613, 618-638, 642-670, 838-842); each is swapped clip for clip in every stage, keeping its
+      <code>d / n / i / j / g</code>, for the move's named element, else its voiced force (roar/growl &rarr; slam, rolling,
+      rock fall; howl/shriek &rarr; wind; moan &rarr; ambient drone, force field, gong; croak &rarr; bubble, splash), else its
+      contact, else its settle. 4 bank clips newly ship: AFX-738 Ambient 02, AFX-777 Gong 01, AFX-818 Wet Break 1, AFX-825
+      Wet Break 7 (all CC0-1.0, packs already on the credits page). Rule W0 in dfmc-client <code>tools/afx_character_pass.py</code>;
+      W4 keeps only voices with no throat (a swarm's wings, a spit, a bubble). <code>afx_lint</code> 435 rows, 0 failing; the
+      pass is a fixpoint again (only ULT-MAGE-3's pre-existing boom). Client gate <code>tools/probe_au_novoice.py</code>.
+      Players hear it when the client's DATA_PIN moves to this commit.</li>
+  </ul>
 
 </div>
 

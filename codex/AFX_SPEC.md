@@ -142,8 +142,12 @@ three effect lines and its line's creature types; the VFX description only for a
 3. **A named element is heard at every stage** where a clip of it fits the budget: fire, steam, ice,
    lightning, ooze, water, sand, earth, plant, metal, bone, chitin, wind, spirit (a low drone or a gong
    counts — rule 4 allows the rune register).
-4. **A voiced move carries a creature voice** (croak, roar, howl, shriek, call, song, wail, hiss, swarm),
-   pitched down — no screech (#993).
+4. **~~A voiced move carries a creature voice~~ - no ability makes a vocal sound** [D 2026-11-04: *"the ability
+   effects that currently have voices or moans attached to them - seems unnatural that the monsters would be making
+   those sounds"*]. The bank's 58 vocal recordings (AFX-607, 612-613, 618-638, 642-670, 838-842: breath, burble,
+   grunt, howl, hurt, monster, roar, troll, attack, die, ghost moan) are on no move. A voiced move carries its
+   *force* instead: roar / growl a slam, rolling or rock fall; howl / shriek a gust; moan a low drone or gong;
+   croak a bubble or splash; hiss a spit; a swarm's buzz is wings and stays (rule W0 of the pass).
 5. **A bite carries a bite, a spit a spit.**
 
 A layer that already answers the move is never replaced: S1's lead (family identity), a layer with `n>1`
@@ -334,6 +338,18 @@ writes to.
 | `dfmc-client/tools/afx_sync_audit.py` | `Onset_Ms` + the `AFX_S*` / `FX_S*` columns: where each hit lands against its picture beat; writes `codex/afx_sync_audit.csv` |
 
 ## Changelog
+
+- **2026-11-04** - **No voices on abilities (chunk AU, D chat order: "a lot of our AFX for Tower is not very good.
+  Especially the ability effects that currently have voices or moans attached to them").** 123 layers on 60 moves named
+  one of the 58 vocal clips (rule 4 above, amended). `dfmc-client/tools/afx_character_pass.py` gains **W0**: every vocal
+  clip leaves every pool, and one a move still carries is swapped clip for clip in every stage (family identity holds),
+  keeping `d / n / i / j / g` and the hygiene, from the move's named element first, then its voiced force, its contact,
+  its settle; W4 keeps only the voices with no throat (buzz, spit, bubble). The spirit settle took the bank's unused
+  low drones in place of the moans (AFX-738 Ambient 02, AFX-777 Gong 01). 60 rows merged, `moves.csv` synced,
+  `afx_character_audit.csv` rows updated; `afx_lint` 435 rows, 0 failing; the pass re-run re-assigns only ULT-MAGE-3
+  (its 2026-11-03 synth boom, unchanged). 4 clips newly ship in the client (AFX-738, 777, 818, 825 - all CC0-1.0,
+  measured, packs already credited). Loudness is unchanged in kind: the player trims every clip from its `LUFS` /
+  `Play_Peak_dBFS` cells (rule 3). Client gate: `tools/probe_au_novoice.py`.
 
 - **2026-11-03** - **Every hit sounds, the burn swells, and the sync table reads the landing (F4, the #1154 / #1167
   follow-on; D, release 0.94: "don't leave anything for a follow up").** `n` is 1-8 (was 1-4): Tidal Wall of Claws
