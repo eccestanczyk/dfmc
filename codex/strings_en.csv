@@ -289,13 +289,13 @@ set_tutorials_note,"An arrow points at each system the floor you reach opens, un
 set_tutorials_arrows_label,Tutorial Arrows,settings: row label
 set_tutorials_arrows_desc,Show the arrow on each newly opened system until its control is clicked once.,settings: row description
 set_notices,Notices,settings: section name
-set_notices_note,The floor-101 letter and each system the climb has opened. The action log is kept on the server.,settings: section note
+set_notices_note,The floor-101 letter. Each system the climb opens is under Tutorials. The action log is kept on the server.,settings: section note
 set_notices_history_label,Download My History,settings: row label
 set_notices_history_desc,"Saves the server's record of this account - every currency earned and spent, item grants, battle drops, trades - as a JSON file.",settings: row description
 set_notices_history_csv_label,Download My History (CSV),settings: row label
 set_notices_history_csv_desc,The same record as a spreadsheet file.,settings: row description
 set_notices_none_label,No notices yet,settings: row label
-set_notices_none_desc,They appear as the climb opens systems.,settings: row description
+set_notices_none_desc,The floor-101 letter appears here once you reach it.,settings: row description
 set_notif,Notifications,settings: section name
 set_notif_breedc_label,Breeding Complete,settings: row label
 set_notif_breedc_desc,The in-game banner when a pen lays an egg.,settings: row description
@@ -588,10 +588,6 @@ shop_web_slow,Your payment is being confirmed. The Wraithgold reaches your walle
 shop_web_legal,"Payments are processed by Paddle.com, our merchant of record, who handles billing, tax and refunds.",app: premium shop: web shop (Paddle) legal line under the pack grid (merchant of record)
 shop_web_terms,Buyer terms,app: premium shop: web shop (Paddle) link to Paddle buyer terms
 shop_web_help,Order help and refunds,"app: premium shop: web shop (Paddle) link to paddle.net (order help, refunds)"
-m_unlock_new,NEW UNLOCK,markup: unlock celebration popup: header (#1165)
-m_unlock_show_me,SHOW ME,markup: unlock celebration popup: go to the system (#1165)
-unlock_opened_at,OPENED AT FLOOR {f},app: unlock celebration popup: the floor that opened it (#1165)
-unlock_after_first,OPENED AFTER YOUR FIRST BATTLE,app: unlock celebration popup: autoplay opens after the first battle (#1165)
 tip_gem_eff,Socket it into a piece of gear: adds this flat {stat} to that piece.,app: inventory: item / soul bag hover (#1162 / #1170)
 tip_rune_eff,Socket it into a piece of gear: raises that piece’s own {stat} by this percentage.,app: inventory: item / soul bag hover (#1162 / #1170)
 tip_souls_hdr,SOULS · strength ×{mult},app: inventory: item / soul bag hover (#1162 / #1170)
@@ -599,3 +595,17 @@ tip_ability_slot,Grants the move in ability slot {n},app: inventory: item / soul
 tip_soul_socket,Has a passive soul socket,app: inventory: item / soul bag hover (#1162 / #1170)
 tip_class_weapon,{cls} weapon,app: inventory: item / soul bag hover (#1162 / #1170)
 tip_class_not_yours,your class cannot equip it,app: inventory: item / soul bag hover (#1162 / #1170)
+m_taskbar_web_title,TASKBAR MODE,markup: taskbar mode web window
+m_taskbar_web_body,"Taskbar Mode folds the tower into a slim strip above your taskbar, so your team keeps climbing while you work.",markup: taskbar mode web window
+m_taskbar_web_note,It lives in the desktop client: a browser tab cannot shrink its own window.,markup: taskbar mode web window
+m_taskbar_web_download,DOWNLOAD THE DESKTOP CLIENT,markup: taskbar mode web window
+set_tut_codex,CODEX,settings: tutorials row button
+set_tut_replay,REPLAY,settings: tutorials row button
+set_tut_seen,Seen.,settings: tutorials row description
+set_tut_pending,Arrow pending.,settings: tutorials row description
+set_tut_replay_desc,REPLAY shows its arrow once more.,settings: tutorials row description
+set_tut_past_desc,Behind you now. The codex walks through it step by step.,settings: tutorials row description
+m_unlock_new,NEW UNLOCK,markup: unlock celebration popup: header (#1165)
+m_unlock_show_me,SHOW ME,markup: unlock celebration popup: go to the system (#1165)
+unlock_opened_at,OPENED AT FLOOR {f},app: unlock celebration popup: the floor that opened it (#1165)
+unlock_after_first,OPENED AFTER YOUR FIRST BATTLE,app: unlock celebration popup: autoplay opens after the first battle (#1165)

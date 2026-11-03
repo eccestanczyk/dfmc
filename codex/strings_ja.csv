@@ -289,13 +289,13 @@ set_tutorials_note,到達した階で解放されたシステムを、一度ク�
 set_tutorials_arrows_label,チュートリアル矢印,settings: row label
 set_tutorials_arrows_desc,新しく解放されたシステムに、一度クリックするまで矢印を表示します。,settings: row description
 set_notices,お知らせ,settings: section name
-set_notices_note,101階の手紙と、登頂で解放された各システムです。行動ログはサーバーに保存されています。,settings: section note
+set_notices_note,101階の手紙です。登頂で解放される各システムはチュートリアルにあります。行動ログはサーバーに保存されています。,settings: section note
 set_notices_history_label,履歴をダウンロード,settings: row label
 set_notices_history_desc,このアカウントのサーバー記録（獲得・消費した通貨、アイテム付与、戦闘ドロップ、取引）をJSONファイルで保存します。,settings: row description
 set_notices_history_csv_label,履歴をダウンロード（CSV）,settings: row label
 set_notices_history_csv_desc,同じ記録を表計算ファイルで保存します。,settings: row description
 set_notices_none_label,お知らせはありません,settings: row label
-set_notices_none_desc,登頂でシステムが解放されると表示されます。,settings: row description
+set_notices_none_desc,101階に着くと、その手紙がここに表示されます。,settings: row description
 set_notif,通知,settings: section name
 set_notif_breedc_label,交配完了,settings: row label
 set_notif_breedc_desc,囲いでタマゴが産まれたときのゲーム内バナーです。,settings: row description
@@ -588,10 +588,6 @@ shop_web_slow,お支払いを確認しています。Wraithgoldはまもなく�
 shop_web_legal,お支払いは販売代理店（Merchant of Record）であるPaddle.comが処理し、請求・税金・返金を担当します。,app: premium shop: web shop (Paddle) legal line under the pack grid (merchant of record)
 shop_web_terms,購入者規約,app: premium shop: web shop (Paddle) link to Paddle buyer terms
 shop_web_help,注文サポートと返金,"app: premium shop: web shop (Paddle) link to paddle.net (order help, refunds)"
-m_unlock_new,新たな解放,markup: unlock celebration popup: header (#1165)
-m_unlock_show_me,見に行く,markup: unlock celebration popup: go to the system (#1165)
-unlock_opened_at,{f}階で解放,app: unlock celebration popup: the floor that opened it (#1165)
-unlock_after_first,初めての戦闘の後に解放,app: unlock celebration popup: autoplay opens after the first battle (#1165)
 tip_gem_eff,装備に装着すると、その装備に{stat}を固定値で加える。,app: inventory: item / soul bag hover (#1162 / #1170)
 tip_rune_eff,装備に装着すると、その装備自身の{stat}をこの割合だけ上げる。,app: inventory: item / soul bag hover (#1162 / #1170)
 tip_souls_hdr,ソウル · 強さ ×{mult},app: inventory: item / soul bag hover (#1162 / #1170)
@@ -599,3 +595,17 @@ tip_ability_slot,アビリティ枠{n}の技を与える,app: inventory: item / 
 tip_soul_socket,パッシブソウルの装着枠あり,app: inventory: item / soul bag hover (#1162 / #1170)
 tip_class_weapon,{cls}の武器,app: inventory: item / soul bag hover (#1162 / #1170)
 tip_class_not_yours,今のクラスでは装備できない,app: inventory: item / soul bag hover (#1162 / #1170)
+m_taskbar_web_title,タスクバーモード,markup: taskbar mode web window
+m_taskbar_web_body,タスクバーモードは塔をタスクバーの上の細い帯にたたみ、作業中もチームが登り続けます。,markup: taskbar mode web window
+m_taskbar_web_note,これはデスクトップクライアントの機能です。ブラウザのタブは自分のウィンドウを縮められません。,markup: taskbar mode web window
+m_taskbar_web_download,デスクトップクライアントをダウンロード,markup: taskbar mode web window
+set_tut_codex,図鑑,settings: tutorials row button
+set_tut_replay,再生,settings: tutorials row button
+set_tut_seen,確認済み。,settings: tutorials row description
+set_tut_pending,矢印待ち。,settings: tutorials row description
+set_tut_replay_desc,再生で矢印をもう一度表示します。,settings: tutorials row description
+set_tut_past_desc,すでに通過しました。図鑑で手順を一つずつ確認できます。,settings: tutorials row description
+m_unlock_new,新たな解放,markup: unlock celebration popup: header (#1165)
+m_unlock_show_me,見に行く,markup: unlock celebration popup: go to the system (#1165)
+unlock_opened_at,{f}階で解放,app: unlock celebration popup: the floor that opened it (#1165)
+unlock_after_first,初めての戦闘の後に解放,app: unlock celebration popup: autoplay opens after the first battle (#1165)

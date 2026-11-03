@@ -289,13 +289,13 @@ set_tutorials_note,每当你到达的楼层开放一个系统，都会有箭头�
 set_tutorials_arrows_label,教程箭头,settings: row label
 set_tutorials_arrows_desc,在每个新开放的系统上显示箭头，直到其按钮被点击一次。,settings: row description
 set_notices,通知记录,settings: section name
-set_notices_note,第 101 层的信件，以及攀登过程中开放的各个系统。操作日志保存在服务器上。,settings: section note
+set_notices_note,第 101 层的信件。攀登中开放的各个系统在“教程”中。操作日志保存在服务器上。,settings: section note
 set_notices_history_label,下载我的历史记录,settings: row label
 set_notices_history_desc,将服务器上该账号的记录——所有货币的获取与消耗、物品发放、战斗掉落、交易——保存为 JSON 文件。,settings: row description
 set_notices_history_csv_label,下载我的历史记录（CSV）,settings: row label
 set_notices_history_csv_desc,相同的记录，以电子表格文件形式保存。,settings: row description
 set_notices_none_label,暂无通知,settings: row label
-set_notices_none_desc,攀登中开放新系统时会显示在这里。,settings: row description
+set_notices_none_desc,到达第 101 层后，那封信会显示在这里。,settings: row description
 set_notif,推送通知,settings: section name
 set_notif_breedc_label,繁育完成,settings: row label
 set_notif_breedc_desc,繁育栏产出蛋时的游戏内横幅。,settings: row description
@@ -588,10 +588,6 @@ shop_web_slow,正在确认你的付款。Wraithgold 很快就会到账，请一�
 shop_web_legal,付款由我们的记录商户 Paddle.com 处理，账单、税费和退款均由其负责。,app: premium shop: web shop (Paddle) legal line under the pack grid (merchant of record)
 shop_web_terms,买家条款,app: premium shop: web shop (Paddle) link to Paddle buyer terms
 shop_web_help,订单帮助与退款,"app: premium shop: web shop (Paddle) link to paddle.net (order help, refunds)"
-m_unlock_new,新解锁,markup: unlock celebration popup: header (#1165)
-m_unlock_show_me,前往,markup: unlock celebration popup: go to the system (#1165)
-unlock_opened_at,第{f}层解锁,app: unlock celebration popup: the floor that opened it (#1165)
-unlock_after_first,首场战斗后解锁,app: unlock celebration popup: autoplay opens after the first battle (#1165)
 tip_gem_eff,镶嵌到一件装备上：为该装备增加此固定{stat}。,app: inventory: item / soul bag hover (#1162 / #1170)
 tip_rune_eff,镶嵌到一件装备上：按此百分比提高该装备自身的{stat}。,app: inventory: item / soul bag hover (#1162 / #1170)
 tip_souls_hdr,灵魂 · 强度 ×{mult},app: inventory: item / soul bag hover (#1162 / #1170)
@@ -599,3 +595,17 @@ tip_ability_slot,提供技能栏{n}的招式,app: inventory: item / soul bag hov
 tip_soul_socket,带有一个被动灵魂插槽,app: inventory: item / soul bag hover (#1162 / #1170)
 tip_class_weapon,{cls}武器,app: inventory: item / soul bag hover (#1162 / #1170)
 tip_class_not_yours,你的职业无法装备,app: inventory: item / soul bag hover (#1162 / #1170)
+m_taskbar_web_title,任务栏模式,markup: taskbar mode web window
+m_taskbar_web_body,任务栏模式把高塔折叠成任务栏上方的一条细带，你工作时队伍仍在继续攀登。,markup: taskbar mode web window
+m_taskbar_web_note,它属于桌面客户端：浏览器标签页无法缩小自己的窗口。,markup: taskbar mode web window
+m_taskbar_web_download,下载桌面客户端,markup: taskbar mode web window
+set_tut_codex,图鉴,settings: tutorials row button
+set_tut_replay,重播,settings: tutorials row button
+set_tut_seen,已看过。,settings: tutorials row description
+set_tut_pending,箭头待显示。,settings: tutorials row description
+set_tut_replay_desc,重播会再显示一次它的箭头。,settings: tutorials row description
+set_tut_past_desc,已经过去了。图鉴会一步步讲解。,settings: tutorials row description
+m_unlock_new,新解锁,markup: unlock celebration popup: header (#1165)
+m_unlock_show_me,前往,markup: unlock celebration popup: go to the system (#1165)
+unlock_opened_at,第{f}层解锁,app: unlock celebration popup: the floor that opened it (#1165)
+unlock_after_first,首场战斗后解锁,app: unlock celebration popup: autoplay opens after the first battle (#1165)

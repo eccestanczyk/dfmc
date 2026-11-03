@@ -289,13 +289,13 @@ set_tutorials_note,"Uma seta aponta para cada sistema que o andar alcançado abr
 set_tutorials_arrows_label,Setas de Tutorial,settings: row label
 set_tutorials_arrows_desc,Mostra a seta em cada sistema recém-aberto até seu controle ser clicado uma vez.,settings: row description
 set_notices,Avisos,settings: section name
-set_notices_note,A carta do andar 101 e cada sistema que a subida abriu. O registro de ações fica no servidor.,settings: section note
+set_notices_note,A carta do andar 101. Cada sistema que a subida abre fica em Tutoriais. O registro de ações fica no servidor.,settings: section note
 set_notices_history_label,Baixar Meu Histórico,settings: row label
 set_notices_history_desc,"Salva o registro do servidor desta conta - cada moeda ganha e gasta, itens concedidos, recompensas de batalha, trocas - como um arquivo JSON.",settings: row description
 set_notices_history_csv_label,Baixar Meu Histórico (CSV),settings: row label
 set_notices_history_csv_desc,O mesmo registro como um arquivo de planilha.,settings: row description
 set_notices_none_label,Nenhum aviso ainda,settings: row label
-set_notices_none_desc,Eles aparecem conforme a subida abre sistemas.,settings: row description
+set_notices_none_desc,A carta do andar 101 aparece aqui quando você chegar lá.,settings: row description
 set_notif,Notificações,settings: section name
 set_notif_breedc_label,Criação Concluída,settings: row label
 set_notif_breedc_desc,O aviso no jogo quando um viveiro põe um ovo.,settings: row description
@@ -588,10 +588,6 @@ shop_web_slow,Seu pagamento está sendo confirmado. O Wraithgold chega à sua ca
 shop_web_legal,"Os pagamentos são processados pela Paddle.com, nossa revendedora oficial (merchant of record), que cuida da cobrança, dos impostos e dos reembolsos.",app: premium shop: web shop (Paddle) legal line under the pack grid (merchant of record)
 shop_web_terms,Termos do comprador,app: premium shop: web shop (Paddle) link to Paddle buyer terms
 shop_web_help,Ajuda com pedidos e reembolsos,"app: premium shop: web shop (Paddle) link to paddle.net (order help, refunds)"
-m_unlock_new,NOVO DESBLOQUEIO,markup: unlock celebration popup: header (#1165)
-m_unlock_show_me,MOSTRAR,markup: unlock celebration popup: go to the system (#1165)
-unlock_opened_at,ABERTO NO ANDAR {f},app: unlock celebration popup: the floor that opened it (#1165)
-unlock_after_first,ABERTO APÓS SUA PRIMEIRA BATALHA,app: unlock celebration popup: autoplay opens after the first battle (#1165)
 tip_gem_eff,Encaixe numa peça de equipamento: soma este {stat} fixo a essa peça.,app: inventory: item / soul bag hover (#1162 / #1170)
 tip_rune_eff,Encaixe numa peça de equipamento: aumenta o {stat} da própria peça nesta porcentagem.,app: inventory: item / soul bag hover (#1162 / #1170)
 tip_souls_hdr,ALMAS · força ×{mult},app: inventory: item / soul bag hover (#1162 / #1170)
@@ -599,3 +595,17 @@ tip_ability_slot,Concede o golpe do espaço de habilidade {n},app: inventory: it
 tip_soul_socket,Tem um encaixe de alma passiva,app: inventory: item / soul bag hover (#1162 / #1170)
 tip_class_weapon,Arma de {cls},app: inventory: item / soul bag hover (#1162 / #1170)
 tip_class_not_yours,sua classe não pode equipá-la,app: inventory: item / soul bag hover (#1162 / #1170)
+m_taskbar_web_title,MODO BARRA DE TAREFAS,markup: taskbar mode web window
+m_taskbar_web_body,"O Modo Barra de Tarefas dobra a torre numa faixa fina acima da sua barra de tarefas, para que sua equipe continue subindo enquanto você trabalha.",markup: taskbar mode web window
+m_taskbar_web_note,Ele fica no cliente para desktop: uma aba do navegador não consegue encolher a própria janela.,markup: taskbar mode web window
+m_taskbar_web_download,BAIXAR O CLIENTE PARA DESKTOP,markup: taskbar mode web window
+set_tut_codex,CÓDICE,settings: tutorials row button
+set_tut_replay,REPETIR,settings: tutorials row button
+set_tut_seen,Visto.,settings: tutorials row description
+set_tut_pending,Seta pendente.,settings: tutorials row description
+set_tut_replay_desc,REPETIR mostra a seta mais uma vez.,settings: tutorials row description
+set_tut_past_desc,Já ficou para trás. O códice explica passo a passo.,settings: tutorials row description
+m_unlock_new,NOVO DESBLOQUEIO,markup: unlock celebration popup: header (#1165)
+m_unlock_show_me,MOSTRAR,markup: unlock celebration popup: go to the system (#1165)
+unlock_opened_at,ABERTO NO ANDAR {f},app: unlock celebration popup: the floor that opened it (#1165)
+unlock_after_first,ABERTO APÓS SUA PRIMEIRA BATALHA,app: unlock celebration popup: autoplay opens after the first battle (#1165)
