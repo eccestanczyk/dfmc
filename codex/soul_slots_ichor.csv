@@ -1,0 +1,4 @@
+Tier,Add,Currency,Cost,Note
+1,10,Ichor,300,"Soul bag Ichor track (D 2026-11-03, #1168/#1169): three tiers of +10 slots, bought in order, independent of the Wraithgold ladder in soul_slots.csv. Effective cap = soul_slots.csv cap + the tiers bought here; ceiling 600 + 30 = 630."
+2,10,Ichor,500,
+3,10,Ichor,1000,"Final Ichor tier"
