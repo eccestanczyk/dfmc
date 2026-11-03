@@ -23,9 +23,12 @@ BANK = {r['Id']: r for r in csv.DictReader(open(os.path.join(HERE, 'codex', 'afx
 FXBANK = {r['Id']: r for r in csv.DictReader(open(os.path.join(HERE, 'codex', 'fx_bank.csv'), encoding='utf-8'))}
 
 # codex/AFX_SPEC.md, "The grammar". A token appears at most once in a layer; the range is inclusive.
-TOK = re.compile(r'^(g|p|d|n|i|j)(-?\d+(?:\.\d+)?)$')
-RANGE = {'g': (0.05, 1.5), 'p': (-12, 12), 'd': (0, 2000), 'n': (1, 4), 'i': (30, 600), 'j': (0, 3)}
-INT = ('p', 'd', 'n', 'i', 'j')
+# F4 (D 2026-11-03, the #1154 / #1167 follow-on): n to 8 - a layer sounds once per hit and Tidal Wall of Claws hits 5;
+# w<ms> is the SWELL - the voice starts at 6% of g at its hit and rises linearly to g over w ms (Herumon Dungeon's
+# floor.meteor_burn swell). The client's AFX_BANK TOK / RANGE is the twin.
+TOK = re.compile(r'^(g|p|d|n|i|j|w)(-?\d+(?:\.\d+)?)$')
+RANGE = {'g': (0.05, 1.5), 'p': (-12, 12), 'd': (0, 2000), 'n': (1, 8), 'i': (30, 600), 'j': (0, 3), 'w': (0, 2000)}
+INT = ('p', 'd', 'n', 'i', 'j', 'w')
 # (min layers, max layers, max ms)
 BUDGET = {1: (1, 2, 900), 2: (1, 3, 1200), 3: (2, 4, 1600), 'ULT': (3, 5, 2600)}
 

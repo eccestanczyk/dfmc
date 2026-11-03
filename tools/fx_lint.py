@@ -14,7 +14,9 @@ HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BANK = {r['Id']: r for r in csv.DictReader(open(os.path.join(HERE, 'codex', 'fx_bank.csv'), encoding='utf-8'))}
 FLAGS = ('!flash', '!shake', '!stop')
 TOK = re.compile(r'^(sat|br|s|v|d|n|h|a|r|x|y|w)(-?\d+(?:\.\d+)?)$')
-RANGE = {'s': (0.3, 3.5), 'v': (0.3, 4), 'd': (0, 1500), 'n': (1, 4), 'h': (0, 359), 'sat': (0, 1.5),
+# F4 (D 2026-11-03, the #1154 follow-on): n to 8 and v to 8 - one picture per hit. Tidal Wall of Claws hits 5 times and
+# its 26-frame sheet repeats five times inside S2's 900 ms only above v6. The client's VFX_BANK RANGE is the twin.
+RANGE = {'s': (0.3, 3.5), 'v': (0.3, 8), 'd': (0, 1500), 'n': (1, 8), 'h': (0, 359), 'sat': (0, 1.5),
          'br': (0.3, 1.6), 'a': (0.2, 1), 'r': (-360, 360), 'x': (-100, 100), 'y': (-100, 100), 'w': (10, 100)}
 BUDGET = {1: (1, 2, 700), 2: (2, 3, 900), 3: (3, 4, 1200), 'ULT': (4, 6, 2000)}
 # ULT 4-5 -> 4-6 (D, 0.86 board Q7): the ASSASSIN ultimate needed a sixth layer for Vanish to read louder than
@@ -139,6 +141,16 @@ def parse(txt):
     return layers, flags, errs
 
 
+def hit(layer):
+    """F4 (D 2026-11-03): when a target layer HITS - d + the sheet's fx_bank.csv Contact_Frame at the layer's v (#1167:
+    FX-056 Meteor Fall lands on frame 11). The client's VFX_BANK.impactMs and afx_lint.fx_anchor are the twins. Empty
+    Contact_Frame = 0 = d, every other sheet unchanged. The 'first target layer starts after 200 ms' rule stays on d:
+    a falling rock is ON SCREEN from d, it is the beats behind the hit that wait for the landing."""
+    m = layer['mods']
+    cf = float((BANK.get(layer['id']) or {}).get('Contact_Frame') or 0)
+    return m.get('d', 0) + cf * 1000.0 / (24 * m.get('v', 1))
+
+
 def length(layer):
     row = BANK.get(layer['id'])
     if not row: return 0
@@ -182,7 +194,7 @@ def check_row(mid, stages, anchor_col, is_ult):
         if ac == 'self' and tl: errs.append('S%d: a self move plays on the target' % st)
         if ac in ('target', 'ground') and not tl: errs.append('S%d: a target move plays nothing on the target' % st)
         if ac in ('target', 'ground') and tl and ul and not is_ult:
-            td = min(l['mods'].get('d', 0) for l in tl)
+            td = min(hit(l) for l in tl)
             need = max(CASTER_BEAT_FLOOR, td + CASTER_BEAT_LAG)
             got = min(l['mods'].get('d', 0) for l in ul)
             if got < need:
@@ -191,7 +203,7 @@ def check_row(mid, stages, anchor_col, is_ult):
                             '+ %d))' % (st, got, need, CASTER_BEAT_FLOOR, td, CASTER_BEAT_LAG))
         if ac == 'both-sides':
             if not tl or not ul: errs.append('S%d: a both-sides move needs a target layer AND a user layer' % st)
-            elif min(l['mods'].get('d', 0) for l in ul) < min(l['mods'].get('d', 0) for l in tl) + 100:
+            elif min(l['mods'].get('d', 0) for l in ul) < min(hit(l) for l in tl) + 100:
                 errs.append('S%d: both-sides user beat must start >= 100 ms after the target beat' % st)
         if '!flash' in flags and ac == 'self': errs.append('S%d: !flash on a self move' % st)
     if not is_ult and all(s in parsed for s in (1, 2, 3)):

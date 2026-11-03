@@ -11,9 +11,13 @@
    ============================================================================ */
 (function (root) {
   const AFX_BANK=(()=>{
-    const TOK=/^(g|p|d|n|i|j)(-?\d+(?:\.\d+)?)$/;
-    const RANGE={g:[0.05,1.5],p:[-12,12],d:[0,2000],n:[1,4],i:[30,600],j:[0,3]};
-    const INT={d:1,n:1,i:1};
+    /* F4 (D 2026-11-03, the #1154 / #1167 follow-on): n to 8 - a layer sounds once per hit, and Tidal Wall of Claws hits 5;
+       w<ms> = the SWELL: the voice starts at SWELL_FROM of its gain at its hit and rises linearly to the gain over w ms
+       (one GainNode linearRamp) - Herumon Dungeon's floor.meteor_burn swell {from 0.06, to 1}, so Cataclysm's burn grows
+       as the rock nears. dfmc tools/afx_lint.py TOK / RANGE is the twin. */
+    const TOK=/^(g|p|d|n|i|j|w)(-?\d+(?:\.\d+)?)$/;
+    const RANGE={g:[0.05,1.5],p:[-12,12],d:[0,2000],n:[1,8],i:[30,600],j:[0,3],w:[0,2000]};
+    const INT={d:1,n:1,i:1,w:1}, SWELL_FROM=0.06;
     // groups a MOVE may use; ui / coin / jingle / door belong to the cue set and are refused on a move
     const MOVE_GROUPS={impact:1,material:1,melee:1,blast:1,arcane:1,machine:1,creature:1,foley:1,footstep:1};
     const REFUSED={ui:1,coin:1,jingle:1,door:1};
@@ -43,7 +47,7 @@
           if(!(RANGE[k][0]<=v&&v<=RANGE[k][1])) errs.push(k+mm[2]+' out of range '+RANGE[k][0]+'-'+RANGE[k][1]);
           if(INT[k]&&v!==Math.floor(v)) errs.push(k+' must be an integer');
           mods[k]=v; });
-        const L={id:aid, g:(mods.g==null?1:mods.g), p:(mods.p||0), d:(mods.d||0), n:(mods.n||1), i:(mods.i==null?90:mods.i), j:(mods.j||0)};
+        const L={id:aid, g:(mods.g==null?1:mods.g), p:(mods.p||0), d:(mods.d||0), n:(mods.n||1), i:(mods.i==null?90:mods.i), j:(mods.j||0)}; if(mods.w) L.w=mods.w; // the swell rides only when authored: a layer without w is the spec's default shape
         if(row){ const grp=String(col(row,'Group','group')||'').toLowerCase();
           if(REFUSED[grp]) errs.push(aid+' is a '+grp+' clip - the cue set owns those, a move may not use one');
           else if(grp&&!MOVE_GROUPS[grp]) errs.push(aid+' group '+JSON.stringify(grp)+' is not a move group');
@@ -74,13 +78,22 @@
 
     // ---- registries and the audio graph ---------------------------------------------------------
     let BANK={}, EVENTS={}, TRACKS={}, BASE='';
-    const mix={master:80, music:60, sfx:90};
+    const mix={master:80, music:60, sfx:60}; /* #1157: SETTINGS_SCHEMA audio.sfx def 60 */
     let muted=false, unlocked=false;
     let ctx=null, gMaster=null, gMusic=null, gSfx=null;
     const buf={}, pending={}, warned={}, lastCue={};
     let cur=null; // the music handle on air
     const warnOnce=msg=>{ if(warned[msg]) return; warned[msg]=1; try{ console.warn('[afx] '+msg); }catch(e){} };
-    const url=f=>{ f=String(f==null?'':f).replace(/^\.?\//,''); return (/^[a-z]+:\/\//i.test(f)||!BASE)?f:(BASE+f); };
+    /* AUDIO FALLBACK (B22, PREP_PERFORMANCE § 5, 2026-10-23): every clip ships as Ogg Vorbis, which Safari / iOS before 18.4
+       cannot decode - an older iPhone played the game silent. tools/make_audio_fallback.py writes an AAC .m4a beside every .ogg
+       under play/assets, from the same file; a browser whose canPlayType has no Ogg Vorbis but has AAC asks for that copy.
+       Only relative (shipped) paths swap - an absolute URL is some other tree with no .m4a. A browser that plays Ogg is unchanged. */
+    let audM4a=null; const AUD_M4A=()=>{ if(audM4a!==null) return audM4a; audM4a=false;
+      try{ const a=typeof Audio==='function'?new Audio():null;
+        if(a&&typeof a.canPlayType==='function') audM4a=!a.canPlayType('audio/ogg; codecs="vorbis"') && !!a.canPlayType('audio/mp4; codecs="mp4a.40.2"'); }catch(e){}
+      return audM4a; };
+    const url=f=>{ f=String(f==null?'':f).replace(/^\.?\//,''); if(AUD_M4A()&&!/^[a-z]+:\/\//i.test(f)) f=f.replace(/\.ogg(?=$|[?#])/i,'.m4a');
+      return (/^[a-z]+:\/\//i.test(f)||!BASE)?f:(BASE+f); };
     /* THE BUSES ARE LOUDNESS FADERS, THE MASTER IS A BOUNDED TRIM (#995, D 2026-09-25: "60% is loud and 30% is
        impossible to hear, seems muted. Go research how other games implement these sliders"). Music and sfx keep
        (pct/100)^1.6: that is Stevens' power law (loudness ~ amplitude^0.6), so the slider reads as PERCENT OF FULL
@@ -157,16 +170,18 @@
        a clip with lead-in, or a cold decode), the lead-in is skipped - at most the onset, never the body of
        the hit - under a 5 ms fade so the mid-ramp start does not click; whatever lateness remains once the
        lead-in is gone is a decode that was not warmed, which is what warm() below is for. */
-    const voice=(path,gain,semis,delayMs,bus,onsetMs)=>{ const c=ensure(); if(!c) return ()=>{};
+    const voice=(path,gain,semis,delayMs,bus,onsetMs,swellMs)=>{ const c=ensure(); if(!c) return ()=>{};
       const rate=Math.pow(2,(semis||0)/12), lead=Math.max(0,onsetMs||0)/1000/rate;
       const t0=c.currentTime+Math.max(0,delayMs||0)/1000-lead; let src=null, dead=false;
       decode(path).then(b=>{ if(dead||!b) return;
         try{ src=c.createBufferSource(); src.buffer=b; src.playbackRate.value=rate;
           const g=c.createGain(); g.gain.value=Math.max(0,gain); src.connect(g); g.connect(bus);
           const now=c.currentTime;
+          // the swell (token w): SWELL_FROM of the gain at the hit, the full gain w ms later
+          if(swellMs>0){ const th=Math.max(now,t0+lead); try{ g.gain.setValueAtTime(Math.max(0,gain)*SWELL_FROM,Math.max(now,t0)); g.gain.linearRampToValueAtTime(Math.max(0,gain),th+swellMs/1000); }catch(e2){} }
           if(t0>=now) src.start(t0);
           else { const skip=Math.min(now-t0,lead)*rate; // file seconds of lead-in there is no time left to play
-            if(skip>0.002){ try{ g.gain.setValueAtTime(0,now); g.gain.linearRampToValueAtTime(Math.max(0,gain),now+0.005); }catch(e2){} }
+            if(skip>0.002&&!(swellMs>0)){ try{ g.gain.setValueAtTime(0,now); g.gain.linearRampToValueAtTime(Math.max(0,gain),now+0.005); }catch(e2){} }
             src.start(now, Math.min(skip, Math.max(0,(b.duration||0)))); } }catch(e){ warnOnce('cannot start '+path+': '+(e&&e.message||e)); } });
       return ()=>{ dead=true; if(src){ try{ src.stop(); }catch(e){} src=null; } }; };
     /* warm(ids|paths) -> how many decodes it started. THE FIRST CAST WAS ALWAYS LATE (#994; the 0.86 board's
@@ -195,7 +210,7 @@
       P.layers.forEach(l=>{ const row=bank[l.id]; if(!row||!row.file) return;
         for(let k=0;k<l.n;k++){
           const jit=l.j?((Math.random()*2-1)*l.j):0; // re-rolled per repeat, by the grammar
-          stops.push(voice(row.file, l.g*og*(row.norm==null?1:row.norm), l.p+jit, (l.d+k*l.i)*speed, gSfx, row.onset)); } });
+          stops.push(voice(row.file, l.g*og*(row.norm==null?1:row.norm), l.p+jit, (l.d+k*l.i)*speed, gSfx, row.onset, (l.w||0)*speed)); } });
       return h; };
     /* cue(id, opts) -> an afx_events.csv row by Event_ID. Retrigger_Ms is a floor on how often one cue may fire,
        which is what keeps ui.click from turning a held button into a buzz. Unknown id: one console line, silence. */
@@ -256,10 +271,11 @@
         if(!x||!x.length) return null;
         try{ b=c.createBuffer(1,x.length,48000); if(b.copyToChannel) b.copyToChannel(x,0); else b.getChannelData(0).set(x); buf[k]=b; }catch(e){ warnOnce('cannot buffer cry '+key); return null; } }
       let src=null; try{ src=c.createBufferSource(); src.buffer=b; const g=c.createGain(); g.gain.value=Math.max(0,num(gain,1)); src.connect(g); g.connect(gSfx); src.start(); }catch(e){ return null; }
-      return { stop:()=>{ try{ src.stop(); }catch(e){} } }; };
+      return { stop:()=>{ try{ src.stop(); }catch(e){} }, dur:b.duration }; }; /* T15: dur (s) - the step after a cry waits for it (cryHold) */
     const trackForZone=name=>{ const ks=Object.keys(TRACKS); for(let i=0;i<ks.length;i++){ if(TRACKS[ks[i]].zone===String(name)) return TRACKS[ks[i]].id; } return null; };
+    const trackForState=name=>{ const ks=Object.keys(TRACKS); for(let i=0;i<ks.length;i++){ if(TRACKS[ks[i]].state===String(name)) return TRACKS[ks[i]].id; } return null; }; /* #1041: the boss bed is a State row (Zone empty), matched the way a zone bed is */
     return { parse:parse, layerMs:layerMs, lengthMs:lengthMs, zoneFor:zoneFor, load:load, play:play, cue:cue, pcm:pcm,
-      music:music, setMix:setMix, getMix:getMix, unlock:unlock, mute:mute, trackForZone:trackForZone, warm:warm, isWarm:isWarm,
+      music:music, setMix:setMix, getMix:getMix, unlock:unlock, mute:mute, trackForZone:trackForZone, trackForState:trackForState, warm:warm, isWarm:isWarm,
       isMuted:()=>muted, isUnlocked:()=>unlocked, playing:()=>(cur&&cur.id)||null,
       bank:()=>BANK, events:()=>EVENTS, tracks:()=>TRACKS,
       normOf:normOf, NORM:{lufs:NORM_LUFS, peak:NORM_PEAK, masterDb:MASTER_DB},

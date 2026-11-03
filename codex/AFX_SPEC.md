@@ -57,9 +57,10 @@ AFX-NNN [g<gain>] [p<semitones>] [d<ms>] [n<count>] [i<ms>] [j<semitones>]
 | `g` | 0.05 – 1.5 | 1 | gain multiplier on the sfx bus |
 | `p` | −12 – 12 | 0 | pitch in semitones: `playbackRate = 2^(p/12)`, so it shortens or lengthens the clip too |
 | `d` | 0 – 2000 | 0 | delay in ms from the cast to the clip's **hit** — its `Onset_Ms` crossing, not the file's first sample; the player starts the file that much earlier (2026-09-25, #994) |
-| `n` | 1 – 4 | 1 | repeats |
+| `n` | 1 – 8 | 1 | repeats — one per hit on a multi-hit stage (1 – 4 until 2026-11-03) |
 | `i` | 30 – 600 | 90 | ms between repeats — only meaningful with `n>1` |
 | `j` | 0 – 3 | 0 | random pitch jitter ± semitones, re-rolled on every play and every repeat |
+| `w` | 0 – 2000 | 0 | **swell**, ms: the voice starts at 6 % of its gain at its hit and rises linearly to the gain over `w` ms (one GainNode `linearRampToValueAtTime`; Herumon Dungeon's `floor.meteor_burn` swell). Scaled by the fast-forward like `d` and `i` (2026-11-03) |
 
 A token appears at most once per layer. `p`, `d`, `n`, `i`, `j` are integers; `g` is not.
 
@@ -333,6 +334,17 @@ writes to.
 | `dfmc-client/tools/afx_sync_audit.py` | `Onset_Ms` + the `AFX_S*` / `FX_S*` columns: where each hit lands against its picture beat; writes `codex/afx_sync_audit.csv` |
 
 ## Changelog
+
+- **2026-11-03** - **Every hit sounds, the burn swells, and the sync table reads the landing (F4, the #1154 / #1167
+  follow-on; D, release 0.94: "don't leave anything for a follow up").** `n` is 1-8 (was 1-4): Tidal Wall of Claws
+  (`M-CRAGGERNAUT-1`) hits 5 times and its main layer is now `AFX-144 n5` on S2 (`i146`, the S2 1200 ms budget holds
+  no wider step) and S3 (`i217` = one FX-049 repeat at v5). New token **`w`, the swell** (table above): Cataclysm's
+  burn is `AFX-853 g0.5 p2 w855` - it rises from 6 % to full as the rock falls and peaks on the landing (855 ms),
+  the Dungeon trap's swell. `afx_lint` TOK / RANGE and the client's `AFX_BANK` are the twins; `assets/vfx/afx_bank.js`
+  regenerated. `afx_sync_audit.csv` regenerated with the Contact_Frame-aware picture beat (`afx_sync_audit.py`
+  `fx_beats` adds `fx_bank.csv` `Contact_Frame` at the layer's `v`, the `fx_anchor` rule): 3638 layer plays, main
+  beats out by more than a frame 0, Cataclysm's main beat expected at 854 (was 200). `afx_lint`: 435 rows, 0 failing.
+  Client gate: `tools/probe_f4vfx.py` 14/14 (red 1/14).
 
 - **2026-11-03** - **One sound per hit, and the meteor trap's burn (#1154 / #1167).** A multi-hit stage's main
   layer repeats `n` = its hit count (cap 4) with `i` on the picture's repeat; 24 stages corrected (`VFX_SPEC.md`,

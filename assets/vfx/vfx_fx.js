@@ -98,7 +98,9 @@ const VXHIT_FOR=(parsed,color)=>{ const t=((parsed&&parsed.layers)||[]).filter(l
   function buildBank(E) {
     const FLAGS=['!flash','!shake','!stop'];
     const TOK=/^(sat|br|s|v|d|n|h|a|r|x|y|w)(-?\d+(?:\.\d+)?)$/;
-    const RANGE={s:[0.3,3.5],v:[0.3,4],d:[0,1500],n:[1,4],h:[0,359],sat:[0,1.5],br:[0.3,1.6],a:[0.2,1],r:[-360,360],x:[-100,100],y:[-100,100],w:[10,100]};
+    /* #1154 follow-on (F4, D 2026-11-03): n to 8 and v to 8 - one picture per hit. Tidal Wall of Claws hits 5 times and a
+       26-frame sheet fits five repeats inside S2's 900 ms only above v6 (dfmc tools/fx_lint.py RANGE is the twin). */
+    const RANGE={s:[0.3,3.5],v:[0.3,8],d:[0,1500],n:[1,8],h:[0,359],sat:[0,1.5],br:[0.3,1.6],a:[0.2,1],r:[-360,360],x:[-100,100],y:[-100,100],w:[10,100]};
     const DIRECTIONAL=['slash','impact','fire','lightning','water','flame','smoke'];
     // parse(txt, bank) -> {layers:[{id,anchor,mods}], flags:[...], errs:[...]}; errs non-empty = malformed (fx_lint.parse, token for token).
     // bank (Id -> fx_bank.csv row) is optional: without it the sheet-level checks (unknown id, hue distance, f on a radial sheet) are skipped.
@@ -120,14 +122,18 @@ const VXHIT_FOR=(parsed,color)=>{ const t=((parsed&&parsed.layers)||[]).filter(l
         // that hue (sepia(1) first), so with k there is nothing left to protect and the clamp is skipped.
         if(row){ if(mods.h!=null&&row.Colored==='yes'&&!mods.k){ const hue=parseFloat(row.Hue)||0; const diff=Math.abs((((mods.h-hue+180)%360)+360)%360-180); if(diff>90) errs.push(fid+' h'+mods.h+' is '+Math.round(diff)+' deg from the sheet hue '+hue+' (limit 90)'); }
           if(mods.f&&DIRECTIONAL.indexOf(row.Group)<0) errs.push(fid+' ('+row.Group+') is radial - no f'); }
-        layers.push({id:fid, anchor:anchor, mods:mods}); });
+        layers.push({id:fid, anchor:anchor, mods:mods, cf:(row&&+row.Contact_Frame)||0}); });
       return {layers:layers, flags:flags, errs:errs}; };
     // a layer's length in ms: d + frames/(24*v)*n*1000; low VFX plays at 0.75x (v x 1.33)
     const layerMs=(l,bank,low)=>{ const row=bank&&bank[l.id]; if(!row) return 0; const m=l.mods; return (m.d||0)+(+row.Frames)/(24*(m.v||1)*(low?1.33:1))*(m.n||1)*1000; };
     // the composition's length = its longest layer (low VFX: only the first layer plays)
     const lengthMs=(parsed,bank,low)=>(low?parsed.layers.slice(0,1):parsed.layers).reduce((a,l)=>Math.max(a,layerMs(l,bank,low)),0);
     // the impact = the first target-side layer's delay (0 when the composition has none)
-    const impactMs=parsed=>{ const t=parsed.layers.filter(l=>l.anchor==='t'||l.anchor==='g'||l.anchor==='b'); return t.length?Math.min.apply(null,t.map(l=>l.mods.d||0)):0; };
+    /* #1167 (D 2026-11-03): + the sheet's Contact_Frame (fx_bank.csv) at the layer's v. A sheet that pre-bakes a fall
+       (FX-056 Meteor Fall: the dungeon trap's rock lands on frame 11) touches the target that late, so the hit beat -
+       the numbers, the hit tint, !shake, !stop, battle.hurt - waits for the landing instead of firing as the rock
+       appears. Every other sheet carries no Contact_Frame = 0 = unchanged. dfmc tools/afx_lint.py fx_anchor is the twin. */
+    const impactMs=parsed=>{ const t=parsed.layers.filter(l=>l.anchor==='t'||l.anchor==='g'||l.anchor==='b'); return t.length?Math.min.apply(null,t.map(l=>(l.mods.d||0)+(l.cf?l.cf*1000/(24*(l.mods.v||1)):0))):0; };
     // colour: a Colored sheet rotates from its own hue; an uncoloured one is sepia-tinted first so h means the same on every sheet.
     // `k` forces the neutral (sepia) path for THIS layer whatever the sheet's Colored says - hue-rotate returns white
     // for a white pixel (it moves chroma and white has none), so the near-white sheets can only be recoloured this way.
@@ -167,7 +173,7 @@ const VXHIT_FOR=(parsed,color)=>{ const t=((parsed&&parsed.layers)||[]).filter(l
         out.push(E('div',{key:(ctx.key||'vxb')+i, style:{position:'absolute', left:(50+x)+'%', top:((ground?86:54)+y)+'%', width:(s*100*fw/M)+'%', aspectRatio:fw+' / '+fh, transform:'translate(-50%,-50%) rotate('+(m.r||0)+'deg) scale('+(flip?-1:1)+','+w+')', overflow:'hidden', pointerEvents:'none', animation:'vxbLife '+total+'ms step-end '+d+'ms 1 both'}},
           E('img',{src:row.File, alt:'', draggable:false, style:{position:'absolute', left:0, top:0, width:(C*100)+'%', height:(R*100)+'%', maxWidth:'none', opacity:(m.a!=null?m.a:1), filter:filt||undefined, willChange:'transform', animation:'vxbStep'+F+'x'+C+' '+iter+'ms step-end '+d+'ms '+n+' both'}}))); });
       return out; };
-    return { parse:parse, layerMs:layerMs, lengthMs:lengthMs, impactMs:impactMs, render:render, FLAGS:FLAGS, SHAPES:[[24,6],[26,6],[32,6],[48,6],[7,6],[11,6]] };
+    return { parse:parse, layerMs:layerMs, lengthMs:lengthMs, impactMs:impactMs, render:render, sheetFilter:sheetFilter, FLAGS:FLAGS, SHAPES:[[24,6],[26,6],[32,6],[48,6],[7,6],[11,6]] };
   }
 
   root.DFMC_VFX_FX = { build: build, buildBank: buildBank, dom: dom, HEX: HEX, DURMS: DURMS,
