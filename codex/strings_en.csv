@@ -629,3 +629,68 @@ m_soul_full_rem_iw,"Dismantle a creature, hatch an egg, buy the next Ichor upgra
 m_soul_full_rem_i,"Dismantle a creature, hatch an egg, or buy the next Ichor upgrade (+{add} soul slots), then try again.","app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
 m_soul_full_rem_w,"Dismantle a creature, hatch an egg, or buy more soul slots with Wraithgold, then try again.","app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
 m_soul_full_rem_0,"Dismantle a creature or hatch an egg, then try again.","app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_shop_not_active_days,Not active · {d} days per purchase,app: L1 localization pass (D 2026-11-04)
+m_saved_just_now,Saved just now,app: L1 localization pass (D 2026-11-04)
+m_floors_band,floors {r},app: L1 localization pass (D 2026-11-04)
+m_unlocks_after_first_battle,UNLOCKS AFTER YOUR FIRST BATTLE,app: L1 localization pass (D 2026-11-04)
+m_unlocks_on_floor,UNLOCKS ON FLOOR {f},app: L1 localization pass (D 2026-11-04)
+m_your_best_floor,YOUR BEST FLOOR IS {f},app: L1 localization pass (D 2026-11-04)
+m_not_applied,NOT APPLIED,app: L1 localization pass (D 2026-11-04)
+m_not_active,Not active,app: L1 localization pass (D 2026-11-04)
+m_open_premium_hint,Click or tap to open the Premium Store,app: L1 localization pass (D 2026-11-04)
+m_unit_down,DOWN,app: L1 localization pass (D 2026-11-04)
+m_cls_stage_lv,STAGE {s} · LV {l},app: L1 localization pass (D 2026-11-04)
+m_locked,LOCKED,app: L1 localization pass (D 2026-11-04)
+m_ult_learned_at,ULTIMATE · LEARNED AT LEVEL {l},app: L1 localization pass (D 2026-11-04)
+m_need_more,need {n} more {m},app: L1 localization pass (D 2026-11-04)
+m_you_are_here,YOU ARE HERE,app: L1 localization pass (D 2026-11-04)
+m_enter_den,ENTER DEN,app: L1 localization pass (D 2026-11-04)
+m_boss_gate,BOSS GATE,app: L1 localization pass (D 2026-11-04)
+m_travel,TRAVEL,app: L1 localization pass (D 2026-11-04)
+m_unrated,UNRATED,app: L1 localization pass (D 2026-11-04)
+m_unlock_pen_first,UNLOCK PEN {n} FIRST,app: L1 localization pass (D 2026-11-04)
+tip_changing_floors_resets_your_streak,Changing floors resets your streak.,"app: loading tip (L1, D 2026-11-04)"
+tip_you_can_turn_off_screen_shake_in_the_display_set,You can turn off screen shake in the display settings.,"app: loading tip (L1, D 2026-11-04)"
+tip_turn_order_shows_who_acts_first_each_round_plan,Turn order shows who acts first each round. Plan your moves around it.,"app: loading tip (L1, D 2026-11-04)"
+tip_every_creature_picks_its_move_before_the_round_p,Every creature picks its move before the round plays. Lock them in together.,"app: loading tip (L1, D 2026-11-04)"
+tip_your_class_ultimate_is_a_move_of_its_own_use_it,Your class ultimate is a move of its own. Use it when the fight turns.,"app: loading tip (L1, D 2026-11-04)"
+tip_a_weapon_your_class_can_wear_that_beats_the_one,"A weapon your class can wear that beats the one you hold is worth equipping: click it in the bag, then EQUIP.","app: loading tip (L1, D 2026-11-04)"
+tip_materials_pay_for_upgrading_your_gear_to_its_nex,Materials pay for upgrading your gear to its next grade.,"app: loading tip (L1, D 2026-11-04)"
+tip_a_gem_fits_a_socket_on_your_gear_better_graded_p,A gem fits a socket on your gear. Better-graded pieces have more sockets.,"app: loading tip (L1, D 2026-11-04)"
+tip_eggs_wait_in_the_soul_bag_open_one_and_hatch_it,Eggs wait in the soul bag. Open one and hatch it for a new creature.,"app: loading tip (L1, D 2026-11-04)"
+tip_break_the_pieces_you_do_not_need_into_materials,Break the pieces you do not need into materials.,"app: loading tip (L1, D 2026-11-04)"
+tip_an_empty_floor_the_incense_burner_brings_creatur,An empty floor? The Incense Burner brings creatures back.,"app: loading tip (L1, D 2026-11-04)"
+tip_bait_is_another_way_to_lure_creatures_onto_a_dry,Bait is another way to lure creatures onto a dry floor.,"app: loading tip (L1, D 2026-11-04)"
+tip_autoplay_fights_the_floor_for_you,Autoplay fights the floor for you.,"app: loading tip (L1, D 2026-11-04)"
+tip_dismantle_all_breaks_many_pieces_into_materials,Dismantle All breaks many pieces into materials in one go.,"app: loading tip (L1, D 2026-11-04)"
+tip_souls_live_in_their_own_bag_seat_one_on_your_gea,Souls live in their own bag. Seat one on your gear for its power.,"app: loading tip (L1, D 2026-11-04)"
+tip_hatch_all_hatches_every_egg_in_the_bag_in_one_go,Hatch All hatches every egg in the bag in one go.,"app: loading tip (L1, D 2026-11-04)"
+tip_the_arena_queues_your_team_against_other_players,The arena queues your team against other players’ teams.,"app: loading tip (L1, D 2026-11-04)"
+tip_auto_optimise_wears_the_strongest_pieces_in_your,Auto-optimise wears the strongest pieces in your bag for you.,"app: loading tip (L1, D 2026-11-04)"
+tip_two_creatures_in_a_pen_make_eggs_over_time,Two creatures in a pen make eggs over time.,"app: loading tip (L1, D 2026-11-04)"
+tip_better_grade_parents_can_produce_better_grade_eg,Better grade parents can produce better grade eggs.,"app: loading tip (L1, D 2026-11-04)"
+tip_scrolls_enchant_gear_that_carries_a_scroll_socke,Scrolls enchant gear that carries a scroll socket.,"app: loading tip (L1, D 2026-11-04)"
+tip_grading_lifts_a_gem_rune_or_scroll_to_a_better_g,"Grading lifts a gem, rune or scroll to a better grade.","app: loading tip (L1, D 2026-11-04)"
+tip_the_shadow_trader_s_stock_changes_over_time_come,The Shadow Trader’s stock changes over time. Come back for new wares.,"app: loading tip (L1, D 2026-11-04)"
+tip_more_classes_can_be_bought_from_the_equipment_wi,More classes can be bought from the equipment window.,"app: loading tip (L1, D 2026-11-04)"
+tip_competitive_pvp_puts_your_team_on_the_ranked_lad,Competitive PvP puts your team on the ranked ladder.,"app: loading tip (L1, D 2026-11-04)"
+tip_the_dimensional_rift_sends_a_copy_of_a_creature,"The Dimensional Rift sends a copy of a creature to Herumon Dungeon, once and free.","app: loading tip (L1, D 2026-11-04)"
+tip_apex_bosses_past_floor_100_carry_a_skull_status,Apex bosses past floor 100 carry a skull status with a unique mechanic — hover the skull to read it.,"app: loading tip (L1, D 2026-11-04)"
+unl_first_fight_start,Click a creature on the floor to fight it.,app: opening.csv first_fight_start Line - the FTUE arrow line (L1)
+unl_first_fight_move,Pick a move for the creature whose turn it is.,app: opening.csv first_fight_move Line - the FTUE arrow line (L1)
+unl_first_fight_target,Click an enemy to aim the move.,app: opening.csv first_fight_target Line - the FTUE arrow line (L1)
+unl_first_fight_lock,Every creature has its move. Lock them in to play the round.,app: opening.csv first_fight_lock Line - the FTUE arrow line (L1)
+unl_first_fight_order,See who acts first this round.,app: opening.csv first_fight_order Line - the FTUE arrow line (L1)
+unl_ultimate,Your class ultimate is learned. Click it to use it.,app: opening.csv ultimate Line - the FTUE arrow line (L1)
+unl_weapon_drop,"A new weapon is in your bag. Click it, then EQUIP.",app: opening.csv weapon_drop Line - the FTUE arrow line (L1)
+unl_gem_drop,A gem fits a socket on your gear.,app: opening.csv gem_drop Line - the FTUE arrow line (L1)
+unl_single_hatch,An egg is in your bag. Open it and hatch it.,app: opening.csv single_hatch Line - the FTUE arrow line (L1)
+unl_single_dismantle,Break a piece you do not need into materials.,app: opening.csv single_dismantle Line - the FTUE arrow line (L1)
+unl_drought_incense,The floor is empty. Click the Incense Burner: your first one costs 1 Scrap.,app: opening.csv drought_incense Line - the FTUE arrow line (L1)
+unl_drought_bait,Dry again. Click the Bait: your first one costs 1 Scrap.,app: opening.csv drought_bait Line - the FTUE arrow line (L1)
+set_account_link_desc,Sign in to this same climb with another login. Gold = linked.,settings: row description
+m_mat_scrap,Scrap,"app: a material named in a cost line, matName() (L1; glossary)"
+m_mat_ink,Ink,"app: a material named in a cost line, matName() (L1; glossary)"
+m_mat_dust,Dust,"app: a material named in a cost line, matName() (L1; glossary)"
+m_mat_essence,Essence,"app: a material named in a cost line, matName() (L1; glossary)"
+m_mat_ichor,Ichor,"app: a material named in a cost line, matName() (L1; glossary)"

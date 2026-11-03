@@ -1,0 +1,2689 @@
+En,Text,Kind
+Beast,Fera,type
+Flora,Flora,type
+Fey,Feérico,type
+Spectral,Espectral,type
+Elemental,Elemental,type
+Undead,Morto-vivo,type
+Construct,Constructo,type
+Avian,Ave,type
+Aquatic,Aquático,type
+Arthropod,Artrópode,type
+Amphibian,Anfíbio,type
+Reptile,Réptil,type
+Mollusk,Molusco,type
+Void,Vazio,type
+Serpent,Serpente,type
+Eldritch,Cósmico,type
+Insect,Inseto,type
+Fungal,Fúngico,type
+Horror,Horror,type
+Parasite,Parasita,type
+Ooze,Gosma,type
+Dragon,Dragão,type
+Aberration,Aberração,type
+Vampiric,Vampírico,type
+Chimera,Quimera,type
+Demon,Demônio,type
+Celestial,Celestial,type
+Warrior,Guerreiro,class
+Knight,Cavaleiro,class
+Paladin,Paladino,class
+Mage,Mago,class
+Sorcerer,Feiticeiro,class
+Archon,Arconte,class
+Archer,Arqueiro,class
+Ranger,Patrulheiro,class
+Hawkeye,Olho de Falcão,class
+Brute,Bruto,class
+Warlord,Senhor da Guerra,class
+Titan,Titã,class
+Assassin,Assassino,class
+Stalker,Espreitador,class
+Nightblade,Lâmina Noturna,class
+Professor,Professor,class
+Sage,Sábio,class
+Prophet,Profeta,class
+Hold the Line,Segurar a Linha,ultimate
+Iron Bulwark,Baluarte de Ferro,ultimate
+Martyr's Aegis,Égide do Mártir,ultimate
+Shardburst,Rajada de Estilhaços,ultimate
+Stonefall,Chuva de Pedras,ultimate
+Cataclysm,Cataclismo,ultimate
+Sure Shot,Tiro Certeiro,ultimate
+Deadeye,Mira Mortal,ultimate
+Godpiercer,Perfura-Deuses,ultimate
+Blood Price,Preço de Sangue,ultimate
+Tyrant's Toll,Tributo do Tirano,ultimate
+Wrath of the Pit,Ira do Fosso,ultimate
+Recitation,Recitação,ultimate
+Grand Thesis,Grande Tese,ultimate
+Revelation,Revelação,ultimate
+Slip Away,Escapulir,ultimate
+Shadowmeld,Fusão Sombria,ultimate
+Vanish,Desaparecer,ultimate
+Every enemy single-target move this round is drawn to you. Area moves are not redirected.,Todo golpe de alvo único dos inimigos nesta rodada é atraído para você. Golpes em área não são redirecionados.,ultimate_effect
+"Every enemy single-target move this round is drawn to you, and your Defense rises 10% for the rest of the battle.","Todo golpe de alvo único dos inimigos nesta rodada é atraído para você, e sua Defesa sobe 10% pelo resto da batalha.",ultimate_effect
+"Every enemy single-target move this round is drawn to you, your Defense rises 10% for the rest of the battle, and you heal 5% of maximum HP for each hit you take this round.","Todo golpe de alvo único dos inimigos nesta rodada é atraído para você, sua Defesa sobe 10% pelo resto da batalha e você cura 5% do PV máximo a cada acerto que recebe nesta rodada.",ultimate_effect
+Strikes every enemy for 75 power.,Atinge todos os inimigos com 75 de poder.,ultimate_effect
+Strikes every enemy for 100 power.,Atinge todos os inimigos com 100 de poder.,ultimate_effect
+Strikes every enemy for 125 power.,Atinge todos os inimigos com 125 de poder.,ultimate_effect
+Strikes one enemy for 180 power.,Atinge um inimigo com 180 de poder.,ultimate_effect
+Strikes one enemy for 240 power.,Atinge um inimigo com 240 de poder.,ultimate_effect
+Strikes one enemy for 300 power.,Atinge um inimigo com 300 de poder.,ultimate_effect
+"This round every hit you take is answered with a 50 power counter, and each hit raises your Attack 4% for the rest of the battle, up to +40%.","Nesta rodada, cada acerto que você recebe é respondido com um contra-ataque de 50 de poder, e cada acerto aumenta seu Ataque em 4% pelo resto da batalha, até +40%.",ultimate_effect
+"This round every hit you take is answered with a 65 power counter, and each hit raises your Attack 5% for the rest of the battle, up to +50%.","Nesta rodada, cada acerto que você recebe é respondido com um contra-ataque de 65 de poder, e cada acerto aumenta seu Ataque em 5% pelo resto da batalha, até +50%.",ultimate_effect
+"This round every hit you take is answered with an 80 power counter, and each hit raises your Attack 6% for the rest of the battle, up to +60%.","Nesta rodada, cada acerto que você recebe é respondido com um contra-ataque de 80 de poder, e cada acerto aumenta seu Ataque em 6% pelo resto da batalha, até +60%.",ultimate_effect
+"Every support ability in your hero soul slots fires at once on the whole party, you included. Bonuses land at 40% strength, so +50% Attack becomes +20%, and durations are halved, rounded up. A single-step effect like +1 Speed rounds away to nothing at this stage. Once per battle.","Toda habilidade de suporte nos espaços de alma do seu herói dispara de uma vez em todo o grupo, você incluso. Os bônus chegam com 40% da força, então +50% de Ataque vira +20%, e as durações caem pela metade, arredondadas para cima. Um efeito de um só passo, como +1 de Velocidade, é arredondado para nada neste estágio. Uma vez por batalha.",ultimate_effect
+"Every support ability in your hero soul slots fires at once on the whole party, you included. Bonuses land at 50% strength, so +50% Attack becomes +25%, and durations are halved, rounded up. A single-step effect like +1 Speed still lands. Once per battle.","Toda habilidade de suporte nos espaços de alma do seu herói dispara de uma vez em todo o grupo, você incluso. Os bônus chegam com 50% da força, então +50% de Ataque vira +25%, e as durações caem pela metade, arredondadas para cima. Um efeito de um só passo, como +1 de Velocidade, ainda funciona. Uma vez por batalha.",ultimate_effect
+"Every support ability in your hero soul slots fires at once on the whole party, you included. Bonuses land at 60% strength, so +50% Attack becomes +30%, and durations are halved, rounded up. A single-step effect like +1 Speed still lands. Once per battle.","Toda habilidade de suporte nos espaços de alma do seu herói dispara de uma vez em todo o grupo, você incluso. Os bônus chegam com 60% da força, então +50% de Ataque vira +30%, e as durações caem pela metade, arredondadas para cima. Um efeito de um só passo, como +1 de Velocidade, ainda funciona. Uma vez por batalha.",ultimate_effect
+"Strikes one enemy for 120 power, then you cannot be targeted by single-target moves for 1 round. Area moves still connect and existing effects keep ticking.","Atinge um inimigo com 120 de poder; depois, você não pode ser alvo de golpes de alvo único por 1 rodada. Golpes em área ainda acertam e os efeitos ativos continuam agindo.",ultimate_effect
+"Strikes one enemy for 180 power, then you cannot be targeted by single-target moves for 2 rounds. Area moves still connect and existing effects keep ticking.","Atinge um inimigo com 180 de poder; depois, você não pode ser alvo de golpes de alvo único por 2 rodadas. Golpes em área ainda acertam e os efeitos ativos continuam agindo.",ultimate_effect
+"Strikes one enemy for 240 power, then you cannot be targeted by single-target moves for 3 rounds. Area moves still connect and existing effects keep ticking.","Atinge um inimigo com 240 de poder; depois, você não pode ser alvo de golpes de alvo único por 3 rodadas. Golpes em área ainda acertam e os efeitos ativos continuam agindo.",ultimate_effect
+Grasslands,Pradarias,zone
+Tidal Shallows,Baixios da Maré,zone
+Desert Plains,Planícies Desérticas,zone
+Swarm Thicket,Matagal do Enxame,zone
+The Crag,O Rochedo,zone
+Storm Peaks,Picos da Tempestade,zone
+Sunken Bog,Pântano Submerso,zone
+Underwater Cave,Caverna Subaquática,zone
+Gemstone Cave,Caverna das Gemas,zone
+Flaming Hellscape,Inferno Flamejante,zone
+Void Apex,Ápice do Vazio,zone
+Sunlit Meadow,Prado Ensolarado,floor
+Hollow Burrow,Toca Oca,floor
+Meadow Stream,Riacho do Prado,floor
+Rolling Hills,Colinas Ondulantes,floor
+Windswept Rise,Encosta Ventosa,floor
+Thistle Field,Campo de Cardos,floor
+Grazing Pond,Lago do Pasto,floor
+Root Hollow,Oco das Raízes,floor
+Wildflower Expanse,Campina Florida,floor
+The Alpha's Den,O Covil do Alfa,floor
+Pale Sandbar,Banco de Areia Pálido,floor
+Driftwood Dunes,Dunas de Troncos,floor
+Tidewashed Grotto,Gruta da Maré,floor
+Kelp Forest,Floresta de Algas,floor
+Drowned Ruins,Ruínas Afogadas,floor
+Tidepool Flats,Poças da Maré,floor
+The Undertow,A Contracorrente,floor
+Barnacle Reef,Recife de Cracas,floor
+Current Sinkhole,Sumidouro da Corrente,floor
+Trench Gate,Portão da Fossa,floor
+Sunbaked Flats,Planura Calcinada,floor
+Bone Dune Ridge,Crista das Dunas de Osso,floor
+Sandworm Burrow,Toca do Verme da Areia,floor
+Cracked Salt Pan,Salina Rachada,floor
+The Sunspire Coil,A Espiral do Pico Solar,floor
+Hidden Oasis,Oásis Oculto,floor
+Windcarved Mesa,Mesa Talhada pelo Vento,floor
+Sun-Cracked Grotto,Gruta Rachada pelo Sol,floor
+Serpent's Crossing,Travessia da Serpente,floor
+The Ossuary Coil,A Espiral do Ossário,floor
+Webbed Undergrowth,Mata de Teias,floor
+Hive Tunnel,Túnel da Colmeia,floor
+Chitin Clearing,Clareira de Quitina,floor
+Larval Chamber,Câmara Larval,floor
+The Queen's Nest,O Ninho da Rainha,floor
+Buzzing Meadow,Prado do Zumbido,floor
+Stagnant Mire Edge,Beira do Lodo Parado,floor
+Silk-Choked Burrow,Toca Sufocada de Seda,floor
+Molting Grounds,Campo da Muda,floor
+The Broodmother's Hollow,O Oco da Matriarca,floor
+Fissure Entrance,Entrada da Fissura,floor
+Windswept Ledge,Beiral Ventoso,floor
+Silk-Strung Crevice,Greta Tecida de Seda,floor
+Molt-Littered Hollow,Oco das Exúvias,floor
+The Widow's Crevasse,A Garganta da Viúva,floor
+Scree Slope,Encosta de Cascalho,floor
+Cliffside Spring,Nascente do Penhasco,floor
+Bone-Pit Chamber,Câmara do Fosso de Ossos,floor
+Chitin Gallery,Galeria de Quitina,floor
+The Carapace Throne,O Trono de Carapaça,floor
+Windbattered Switchback,Zigue-zague Ventoso,floor
+Cliffnest Overlook,Mirante dos Ninhos,floor
+Thunderhollow,Oco do Trovão,floor
+Talon Ridge,Crista da Garra,floor
+The Stormcaller's Aerie,O Ninho do Invocador,floor
+Frostbitten Summit,Cume Enregelado,floor
+Alpine Tarn,Lago Alpino,floor
+Echo Cavern,Caverna do Eco,floor
+Skybridge Crossing,Travessia da Ponte Celeste,floor
+The Roost of the First Storm,O Poleiro da Primeira Tempestade,floor
+Reedchoked Shallows,Baixios de Juncais,floor
+Mudflat Crossing,Travessia do Lamaçal,floor
+Sunken Hollow,Oco Submerso,floor
+Croaking Marsh,Charco Coaxante,floor
+The Drowned Shrine,O Santuário Afogado,floor
+Rootcave Grotto,Gruta das Raízes,floor
+Willow Hollow,Oco do Salgueiro,floor
+Sinking Path,Trilha que Afunda,floor
+Mire Tunnel,Túnel do Lodo,floor
+The Bogfather's Pool,O Poço do Pai do Brejo,floor
+Cliffside Cave Mouth,Boca da Caverna no Penhasco,floor
+Glowspore Passage,Passagem dos Esporos Luzentes,floor
+Flooded Antechamber,Antecâmara Inundada,floor
+Mycelium Grotto,Gruta do Micélio,floor
+The Luminous Deep,As Profundezas Luminosas,floor
+Ink-Dark Pool,Poço Negro de Tinta,floor
+Spore Chimney,Chaminé de Esporos,floor
+Sunken Passage,Passagem Submersa,floor
+Tendril Hollow,Oco das Gavinhas,floor
+The Abyssal Bloom,A Floração Abissal,floor
+Crystal Outcrop,Afloramento de Cristal,floor
+Refracted Hollow,Oco Refratado,floor
+Silent Gallery,Galeria Silenciosa,floor
+Still Reflection Pool,Espelho d'Água Parado,floor
+The Weeping Crystal Tomb,A Tumba do Cristal Pranteante,floor
+Bloodlit Passage,Passagem de Luz Sangrenta,floor
+Sunken Reliquary,Relicário Submerso,floor
+Whispering Vein,Veio Sussurrante,floor
+Hollow Court,Corte Oca,floor
+The Undying Crypt,A Cripta Imortal,floor
+Obsidian Flats,Planície de Obsidiana,floor
+Forge Tunnel,Túnel da Forja,floor
+Slag Hollow,Oco da Escória,floor
+Magma Vent Pool,Poço do Respiro de Magma,floor
+The Furnace Heart,O Coração da Fornalha,floor
+Cinderfall Ridge,Crista da Chuva de Cinzas,floor
+Rustbound Gallery,Galeria Enferrujada,floor
+Boiling Cistern,Cisterna Fervente,floor
+Emberlit Passage,Passagem à Luz de Brasas,floor
+The Godforge,A Forja dos Deuses,floor
+The First Drift,A Primeira Deriva,floor
+Arena of the Torn Stair,Arena da Escada Rasgada,floor
+The Broken Ring,O Anel Partido,floor
+Cathedral Adrift,Catedral à Deriva,floor
+The Chain Bridge,A Ponte de Correntes,floor
+The Dead Constellation,A Constelação Morta,floor
+The Unshelved,Fora das Estantes,floor
+The Skull Brow,A Fronte do Crânio,floor
+The Orbiting Plaza,A Praça em Órbita,floor
+Echo of the Godforge,Eco da Forja dos Deuses,floor
+The Frozen Shatter,O Estilhaço Congelado,floor
+The Drowned Throne,O Trono Afogado,floor
+The Sunken Graves,As Covas Submersas,floor
+The Glass Heart,O Coração de Vidro,floor
+The Upward Melt,O Degelo Ascendente,floor
+The Fused Clockwork,O Mecanismo Fundido,floor
+The Rooted Bone,O Osso Enraizado,floor
+The Open Eye,O Olho Aberto,floor
+The Last Stair,O Último Degrau,floor
+The Apex,O Ápice,floor
+Bristle,Eriço,creature
+Thornhide,Pelespinho,creature
+Thornback,Espinhaço,creature
+Whelp,Lobato,creature
+Dustcur,Vira-pó,creature
+Dusthound,Cão-poeira,creature
+Grub,Cavuco,creature
+Delver,Escavador,creature
+Barrowmole,Tumulpeira,creature
+Fawn,Corço,creature
+Briarfawn,Urzecorço,creature
+Bramblefawn,Silvacorço,creature
+Shade,Sombra,creature
+Phantasm,Fantasma,creature
+Nightmare,Pesadelo,creature
+Cairn,Moledro,creature
+Menhir,Menir,creature
+Golgoth,Gólgota,creature
+Sprig,Raminho,creature
+Woodwose,Silvano,creature
+Wychroot,Raiz-bruxa,creature
+Noose,Laço,creature
+Ligature,Ligadura,creature
+Garrote,Garrote,creature
+Nestling,Ninhego,creature
+Carrion,Carniça,creature
+Gallowsbird,Ave-da-forca,creature
+Hart,Cervo,creature
+Leshy,Leshy,creature
+Herne,Herne,creature
+Nauplius,Náuplio,creature
+Barnacle,Craca,creature
+Tidecrawler,Rastejamaré,creature
+Fry,Alevino,creature
+Snapjaw,Trincadente,creature
+Saltjaw,Salgadente,creature
+Polliwog,Cabeçudo,creature
+Brineling,Salmourinho,creature
+Brinefrog,Salmourã,creature
+Zoea,Zoea,creature
+Smasher,Esmagador,creature
+Crestmantis,Cristamântis,creature
+Gecko,Lagartixa,creature
+Monitor,Varano,creature
+Duskscale,Ocasáurio,creature
+Naiad,Náiade,creature
+Undine,Ondina,creature
+Rusalka,Rusalka,creature
+Whorl,Espiral,creature
+Rampart,Muralha,creature
+Bulwark,Baluarte,creature
+Elver,Meixão,creature
+Conger,Congro,creature
+Nethereel,Trevenguia,creature
+Polyp,Pólipo,creature
+Medusa,Medusa,creature
+Coralhydra,Hidracoral,creature
+Nommo,Nommo,creature
+Oannes,Oannes,creature
+Dagon,Dagon,creature
+Haunt,Assombração,creature
+Wraith,Espectro,creature
+Banshee,Banshee,creature
+Wyrmling,Serpentino,creature
+Neonate,Neonato,creature
+Sidewinder,Cascavel,creature
+Mirage,Miragem,creature
+Sylph,Sílfide,creature
+Fata,Fata,creature
+Grit,Grão,creature
+Sirocco,Siroco,creature
+Simoom,Simum,creature
+Lamia,Lâmia,creature
+Gorgon,Górgona,creature
+Echidna,Equidna,creature
+Paralarva,Paralarva,creature
+Inkling,Tintinho,creature
+Voidsiphon,Sifão-vazio,creature
+Cinder,Tição,creature
+Scorchscale,Chamuscama,creature
+Emberclaw,Garrabrasa,creature
+Terrapin,Cágado,creature
+Kurma,Kurma,creature
+Zaratan,Zaratan,creature
+Jann,Jann,creature
+Ifrit,Ifrit,creature
+Marid,Marid,creature
+Nidhogg,Nidhogg,creature
+Jormungand,Jormungand,creature
+Ouroboros,Ouroboros,creature
+Larva,Larva,creature
+Maggot,Gusano,creature
+Gloomgrub,Larvumbra,creature
+Instar,Ínstar,creature
+Thornshell,Espinhocasca,creature
+Thornhusk,Cardocasca,creature
+Ovum,Óvulo,creature
+Sporeling,Esporinho,creature
+Sporefly,Esporomosca,creature
+Spiderling,Aranhinha,creature
+Orbweaver,Tecelã,creature
+Arachne,Aracne,creature
+Sundew,Drósera,creature
+Flytrap,Papa-moscas,creature
+Carnifora,Carnífora,creature
+Vector,Vetor,creature
+Contagion,Contágio,creature
+Plaguecarrier,Pestífero,creature
+Novice,Noviço,creature
+Acolyte,Acólito,creature
+Devout,Devoto,creature
+Nymph,Ninfa,creature
+Hopper,Saltador,creature
+Locust,Gafanhoto,creature
+Vespid,Véspido,creature
+Cordyceps,Cordyceps,creature
+Vespera,Véspera,creature
+Taproot,Raiz-mestra,creature
+Mycorrhiza,Micorriza,creature
+Yggdrasil,Yggdrasil,creature
+Megalopa,Megalopa,creature
+Scuttler,Andalado,creature
+Cliffpincer,Penhapinça,creature
+Scute,Escudete,creature
+Carapace,Carapaça,creature
+Crushmaul,Esmagalho,creature
+Dross,Borra,creature
+Smelt,Fundido,creature
+Slagworm,Vermescória,creature
+Drakeling,Draquinho,creature
+Dragonet,Dragonete,creature
+Ridgedrake,Cristadraco,creature
+Crayfish,Lagostim,creature
+Stonecaller,Chamapedra,creature
+Despot,Déspota,creature
+Fluke,Fascíola,creature
+Sangleech,Sanguessuga,creature
+Sanguinarch,Sanguinarca,creature
+Colony,Colônia,creature
+Aggregate,Agregado,creature
+Craggernaut,Rochanauta,creature
+Scorpling,Escorpinho,creature
+Umbra,Umbra,creature
+Voidshell,Casco-vazio,creature
+Automaton,Autômato,creature
+Colossus,Colosso,creature
+Talos,Talos,creature
+Scoria,Escória,creature
+Obsidian,Obsidiana,creature
+Magmacrawler,Rastejamagma,creature
+Chick,Pintinho,creature
+Zephyr,Zéfiro,creature
+Gustwing,Asa-lufada,creature
+Fledgling,Emplumado,creature
+Stormcrow,Corvo-tormenta,creature
+Tempestcrow,Corvo-tempestade,creature
+Chrysalis,Crisálida,creature
+Sparkwing,Asafaísca,creature
+Thundermoth,Mariposa-trovão,creature
+Eyas,Falconete,creature
+Haggard,Bravio,creature
+Roc,Roca,creature
+Yelp,Ganido,creature
+Squall,Borrasca,creature
+Galehowl,Uivendaval,creature
+Static,Estática,creature
+Arcwing,Asarco,creature
+Voltmantle,Voltimanto,creature
+Amphiptere,Anfíptero,creature
+Quetzal,Quetzal,creature
+Couatl,Couatl,creature
+Tempest,Tempestade,creature
+Typhoon,Tufão,creature
+Typhon,Tífon,creature
+Ziz,Ziz,creature
+Simurgh,Simurgh,creature
+Anzu,Anzu,creature
+Riptide,Correnteza,creature
+Maelstrom,Voragem,creature
+Charybdis,Caríbdis,creature
+Spawn,Prole,creature
+Froglet,Rãzinha,creature
+Boghopper,Saltabrejo,creature
+Newtling,Tritãozinho,creature
+Eft,Tritão,creature
+Mirenewt,Tritão-lodo,creature
+Nit,Lêndea,creature
+Blowfly,Varejeira,creature
+Rotfly,Moscapodre,creature
+Tadpole,Girino,creature
+Wight,Penado,creature
+Lichfrog,Sapolich,creature
+Glimmer,Cintilo,creature
+Lantern,Lanterna,creature
+Wispmaw,Bocafátua,creature
+Orcneas,Orcneas,creature
+Eoten,Eoten,creature
+Grendel,Grendel,creature
+Vaettir,Vaettir,creature
+Haugbui,Haugbui,creature
+Draugr,Draugr,creature
+Tendril,Gavinha,creature
+Bindweed,Corriola,creature
+Gallowvine,Cipó-forca,creature
+Toadling,Sapinho,creature
+Behemoth,Beemote,creature
+Miremother,Mãe-do-lodo,creature
+Vestige,Vestígio,creature
+Revenant,Retornado,creature
+Cenotaph,Cenotáfio,creature
+Button,Botão,creature
+Toadstool,Chapéu-de-sapo,creature
+Gloomcap,Treva-chapéu,creature
+Cuttle,Siba,creature
+Argonaut,Argonauta,creature
+Inkmantle,Tintamanto,creature
+Hypha,Hifa,creature
+Rhizome,Rizoma,creature
+Veinmold,Mofoveia,creature
+Nautilus,Náutilo,creature
+Oracle,Oráculo,creature
+Sibyl,Sibila,creature
+Tremor,Tremor,creature
+Palsy,Paralisia,creature
+Vertigo,Vertigem,creature
+Kitling,Raposinha,creature
+Foxfire,Fogo-fátuo,creature
+Kitsune,Kitsune,creature
+Puffball,Bufa-de-lobo,creature
+Leviathan,Leviatã,creature
+Sporewhale,Esporobaleia,creature
+Lure,Engodo,creature
+Abyss,Abismo,creature
+Riftangler,Pescafenda,creature
+Spore,Esporo,creature
+Bloom,Florada,creature
+Mycelium,Micélio,creature
+Veliger,Véliger,creature
+Hafgufa,Hafgufa,creature
+Kraken,Kraken,creature
+Phantom,Aparição,creature
+Geist,Geist,creature
+Crystalwraith,Espectro-cristal,creature
+Pup,Filhote,creature
+Vesper,Vésper,creature
+Ashbat,Cinzamorcego,creature
+Shard,Estilhaço,creature
+Geode,Geodo,creature
+Gemborn,Gemanato,creature
+Stiletto,Estilete,creature
+Scalpel,Bisturi,creature
+Bloodcarver,Talha-sangue,creature
+Splinter,Lasca,creature
+Poltergeist,Poltergeist,creature
+Shatterspecter,Estilhaspectro,creature
+Whippet,Galguinho,creature
+Barghest,Barghest,creature
+Voidhound,Cão-vazio,creature
+Echo,Eco,creature
+Fetch,Sósia,creature
+Doppelganger,Doppelgänger,creature
+Nachzehrer,Nachzehrer,creature
+Strigoi,Strigoi,creature
+Nosferatu,Nosferatu,creature
+Reliquary,Relicário,creature
+Lich,Lich,creature
+Phylactery,Filactério,creature
+Facet,Faceta,creature
+Reflection,Reflexo,creature
+Speculum,Espéculo,creature
+Ember,Brasa,creature
+Clinker,Clínquer,creature
+Protogale,Protogale,creature
+Soot,Fuligem,creature
+Ossuary,Ossário,creature
+Ashwalker,Andacinza,creature
+Effigy,Efígie,creature
+Idol,Ídolo,creature
+Moloch,Moloque,creature
+Flicker,Lampejo,creature
+Salamander,Salamandra,creature
+Blazewyrm,Labaserpe,creature
+Hybrid,Híbrido,creature
+Omnichimera,Omniquimera,creature
+Ingot,Lingote,creature
+Ironclad,Encouraçado,creature
+Ferrodrake,Ferrodraco,creature
+Ignis,Ignis,creature
+Pyre,Pira,creature
+Ignifer,Ignífero,creature
+Sentry,Vigia,creature
+Sentinel,Sentinela,creature
+Vigil,Vigília,creature
+Wildfire,Incêndio,creature
+Balefire,Fogaréu,creature
+Pyriel,Piriel,creature
+Aeon,Éon,creature
+Demiurge,Demiurgo,creature
+Grinlet,Sorrisote,creature
+Gibberling,Tagarela,creature
+Jackanape,Saltimbanco,creature
+Knuckler,Socador,creature
+Silverback,Dorso-prata,creature
+Goliath,Golias,creature
+Tyrantling,Tiraninho,creature
+Tyrantjaw,Bocatirana,creature
+Tyrannos,Tirannos,creature
+Rotdrip,Gotapodre,creature
+Gristleglob,Gosmanervo,creature
+Charnelmass,Carnimassa,creature
+"Vargr, the Alpha","Vargr, o Alfa",boss
+Vargr,Vargr,boss
+Abyssal Trench Gate,Portão da Fossa Abissal,boss
+"Pelagos, the Trench Warden","Pelagos, o Guardião da Fossa",boss
+Pelagos,Pelagos,boss
+"Sethek, the Ossuary King","Sethek, o Rei do Ossário",boss
+Sethek,Sethek,boss
+"Mother Vesk, the Broodmother","Mãe Vesk, a Matriarca",boss
+Vesk,Vesk,boss
+"Ostrakon, the Carapace Despot","Ostrakon, o Déspota da Carapaça",boss
+Ostrakon,Ostrakon,boss
+"Keraun, the Stormcaller","Keraun, o Invocador de Tempestades",boss
+Keraun,Keraun,boss
+"Morast, the Bogfather","Morast, o Pai do Brejo",boss
+Morast,Morast,boss
+"Teloma, the Bloom Herald","Teloma, Arauto da Floração",boss
+Teloma,Teloma,boss
+"Varkolan, the Undying King","Varkolan, o Rei Imortal",boss
+Varkolan,Varkolan,boss
+"Eskaton, the Unfinished God","Eskaton, o Deus Inacabado",boss
+Eskaton,Eskaton,boss
+Über Vargr,Über Vargr,boss
+"Über Vargr, the Alpha","Über Vargr, o Alfa",boss
+Über Pelagos,Über Pelagos,boss
+"Über Pelagos, the Trench Warden","Über Pelagos, o Guardião da Fossa",boss
+Über Sethek,Über Sethek,boss
+"Über Sethek, the Ossuary King","Über Sethek, o Rei do Ossário",boss
+Über Vesk,Über Vesk,boss
+"Über Mother Vesk, the Broodmother","Über Mãe Vesk, a Matriarca",boss
+Über Ostrakon,Über Ostrakon,boss
+"Über Ostrakon, the Carapace Despot","Über Ostrakon, o Déspota da Carapaça",boss
+Über Keraun,Über Keraun,boss
+"Über Keraun, the Stormcaller","Über Keraun, o Invocador de Tempestades",boss
+Über Morast,Über Morast,boss
+"Über Morast, the Bogfather","Über Morast, o Pai do Brejo",boss
+Über Teloma,Über Teloma,boss
+"Über Teloma, the Bloom Herald","Über Teloma, Arauto da Floração",boss
+Über Varkolan,Über Varkolan,boss
+"Über Varkolan, the Undying King","Über Varkolan, o Rei Imortal",boss
+Über Eskaton,Über Eskaton,boss
+"Über Eskaton, the Unfinished God","Über Eskaton, o Deus Inacabado",boss
+Incense Burner,Incensário,shop
+Wild creatures return to your floor twice as often. Burns for 30 days.,Criaturas selvagens voltam ao seu andar com o dobro da frequência. Queima por 30 dias.,shop
+Bait,Isca,shop
+Wild creatures return in half the time. Stacks with Incense. Lasts 30 days.,Criaturas selvagens voltam na metade do tempo. Acumula com o Incenso. Dura 30 dias.,shop
+Auto PVP Attacks,Ataques de Auto PvP,shop
+Ten more Auto PVP attacks. They join today pool even above the daily ten and expire at the daily reset.,Mais dez ataques de Auto PvP. Entram no saldo de hoje mesmo acima dos dez diários e expiram no reset diário.,shop
+First Incense,Primeiro Incenso,shop
+Your first Incense: wild creatures return twice as often for 1 day. One time only.,Seu primeiro Incenso: criaturas selvagens voltam com o dobro da frequência por 1 dia. Uso único.,shop
+First Bait,Primeira Isca,shop
+Your first Bait: wild creatures return in half the time for 1 day. Stacks with Incense. One time only.,Sua primeira Isca: criaturas selvagens voltam na metade do tempo por 1 dia. Acumula com o Incenso. Uso único.,shop
+Scrap Key,Chave de Sucata,shop
+Opens the Rusted Dimension once: five floors of five battles that pay Scrap. Consumed on entry.,Abre a Dimensão Enferrujada uma vez: cinco andares de cinco batalhas que pagam Sucata. Consumida ao entrar.,shop
+Dust Key,Chave de Pó,shop
+Opens the Enchanted Dimension once: five floors of five battles that pay Dust. Consumed on entry.,Abre a Dimensão Encantada uma vez: cinco andares de cinco batalhas que pagam Pó. Consumida ao entrar.,shop
+Ichor Key,Chave de Icor,shop
+Opens the Sanguine Dimension once: five floors of five battles that pay Ichor. Consumed on entry.,Abre a Dimensão Sanguínea uma vez: cinco andares de cinco batalhas que pagam Icor. Consumida ao entrar.,shop
+Essence Key,Chave de Essência,shop
+Opens the Swollen Dimension once: five floors of five battles that pay Essence. Consumed on entry.,Abre a Dimensão Inchada uma vez: cinco andares de cinco batalhas que pagam Essência. Consumida ao entrar.,shop
+Ink Key,Chave de Tinta,shop
+Opens the Inscribed Dimension once: five floors of five battles that pay Ink. Consumed on entry.,Abre a Dimensão Inscrita uma vez: cinco andares de cinco batalhas que pagam Tinta. Consumida ao entrar.,shop
+Class soul,Alma de classe,unlock
+Hatch All,Chocar Tudo,unlock
+Dismantle All,Desmontar Tudo,unlock
+Autoplay,Autojogo,unlock
+Souls,Almas,unlock
+Devour,Devorar,unlock
+Auto PvP,Auto PvP,unlock
+Auto-optimise,Otimizar Auto,unlock
+Breeding,Criação,unlock
+Scrolls + enchanting,Pergaminhos + encantamento,unlock
+Grading,Graduação,unlock
+Upgrade All,Melhorar Tudo,unlock
+Shadow Trader,Mercador das Sombras,unlock
+Buy classes,Comprar classes,unlock
+Competitive PvP,PvP Competitivo,unlock
+Dimensional Rift,Fenda Dimensional,unlock
+Start a fight,Comece uma luta,tutorial
+Choose a move,Escolha um golpe,tutorial
+Pick a target,Escolha um alvo,tutorial
+Lock in moves,Confirme os golpes,tutorial
+Turn order,Ordem de turno,tutorial
+The ultimate,A ultimate,tutorial
+Equip the weapon,Equipe a arma,tutorial
+Upgrade the weapon,Melhore a arma,tutorial
+Socket the gem,Encaixe a gema,tutorial
+Hatch the egg,Choque o ovo,tutorial
+Dismantle a piece,Desmonte uma peça,tutorial
+Burn incense,Queime incenso,tutorial
+Set bait,Coloque isca,tutorial
+Crude Signet,Sinete Tosco,item
+Sturdy Signet,Sinete Robusto,item
+Fine Signet,Sinete Fino,item
+Superior Signet,Sinete Superior,item
+Ornate Signet,Sinete Ornado,item
+Masterwork Signet,Sinete de Mestre,item
+Exalted Signet,Sinete Exaltado,item
+Sovereign Signet,Sinete Soberano,item
+Mythic Signet,Sinete Mítico,item
+Transcendent Signet,Sinete Transcendente,item
+Crude Relic,Relíquia Tosca,item
+Sturdy Relic,Relíquia Robusta,item
+Fine Relic,Relíquia Fina,item
+Superior Relic,Relíquia Superior,item
+Ornate Relic,Relíquia Ornada,item
+Masterwork Relic,Relíquia de Mestre,item
+Exalted Relic,Relíquia Exaltada,item
+Sovereign Relic,Relíquia Soberana,item
+Mythic Relic,Relíquia Mítica,item
+Transcendent Relic,Relíquia Transcendente,item
+Crude Fang,Presa Tosca,item
+Sturdy Fang,Presa Robusta,item
+Fine Fang,Presa Fina,item
+Superior Fang,Presa Superior,item
+Ornate Fang,Presa Ornada,item
+Masterwork Fang,Presa de Mestre,item
+Exalted Fang,Presa Exaltada,item
+Sovereign Fang,Presa Soberana,item
+Mythic Fang,Presa Mítica,item
+Transcendent Fang,Presa Transcendente,item
+Crude Carapace,Carapaça Tosca,item
+Sturdy Carapace,Carapaça Robusta,item
+Fine Carapace,Carapaça Fina,item
+Superior Carapace,Carapaça Superior,item
+Ornate Carapace,Carapaça Ornada,item
+Masterwork Carapace,Carapaça de Mestre,item
+Exalted Carapace,Carapaça Exaltada,item
+Sovereign Carapace,Carapaça Soberana,item
+Mythic Carapace,Carapaça Mítica,item
+Transcendent Carapace,Carapaça Transcendente,item
+Crude Heart,Coração Tosco,item
+Sturdy Heart,Coração Robusto,item
+Fine Heart,Coração Fino,item
+Superior Heart,Coração Superior,item
+Ornate Heart,Coração Ornado,item
+Masterwork Heart,Coração de Mestre,item
+Exalted Heart,Coração Exaltado,item
+Sovereign Heart,Coração Soberano,item
+Mythic Heart,Coração Mítico,item
+Transcendent Heart,Coração Transcendente,item
+Rough Garnet,Granada Bruta,item
+Cut Garnet,Granada Lapidada,item
+Polished Garnet,Granada Polida,item
+Faceted Garnet,Granada Facetada,item
+Brilliant Garnet,Granada Brilhante,item
+Pristine Garnet,Granada Imaculada,item
+Flawless Garnet,Granada Impecável,item
+Perfect Garnet,Granada Perfeita,item
+Radiant Garnet,Granada Radiante,item
+Sublime Garnet,Granada Sublime,item
+Rough Onyx,Ônix Bruto,item
+Cut Onyx,Ônix Lapidado,item
+Polished Onyx,Ônix Polido,item
+Faceted Onyx,Ônix Facetado,item
+Brilliant Onyx,Ônix Brilhante,item
+Pristine Onyx,Ônix Imaculado,item
+Flawless Onyx,Ônix Impecável,item
+Perfect Onyx,Ônix Perfeito,item
+Radiant Onyx,Ônix Radiante,item
+Sublime Onyx,Ônix Sublime,item
+Rough Bloodstone,Pedra-sangue Bruta,item
+Cut Bloodstone,Pedra-sangue Lapidada,item
+Polished Bloodstone,Pedra-sangue Polida,item
+Faceted Bloodstone,Pedra-sangue Facetada,item
+Brilliant Bloodstone,Pedra-sangue Brilhante,item
+Pristine Bloodstone,Pedra-sangue Imaculada,item
+Flawless Bloodstone,Pedra-sangue Impecável,item
+Perfect Bloodstone,Pedra-sangue Perfeita,item
+Radiant Bloodstone,Pedra-sangue Radiante,item
+Sublime Bloodstone,Pedra-sangue Sublime,item
+Faded Rune of Ruin,Runa Desbotada da Ruína,item
+Etched Rune of Ruin,Runa Gravada da Ruína,item
+Carved Rune of Ruin,Runa Entalhada da Ruína,item
+Bound Rune of Ruin,Runa Atada da Ruína,item
+Warded Rune of Ruin,Runa Protegida da Ruína,item
+Charged Rune of Ruin,Runa Carregada da Ruína,item
+Awakened Rune of Ruin,Runa Desperta da Ruína,item
+Resonant Rune of Ruin,Runa Ressonante da Ruína,item
+Ancient Rune of Ruin,Runa Antiga da Ruína,item
+Elder Rune of Ruin,Runa Ancestral da Ruína,item
+Faded Rune of Aegis,Runa Desbotada da Égide,item
+Etched Rune of Aegis,Runa Gravada da Égide,item
+Carved Rune of Aegis,Runa Entalhada da Égide,item
+Bound Rune of Aegis,Runa Atada da Égide,item
+Warded Rune of Aegis,Runa Protegida da Égide,item
+Charged Rune of Aegis,Runa Carregada da Égide,item
+Awakened Rune of Aegis,Runa Desperta da Égide,item
+Resonant Rune of Aegis,Runa Ressonante da Égide,item
+Ancient Rune of Aegis,Runa Antiga da Égide,item
+Elder Rune of Aegis,Runa Ancestral da Égide,item
+Tattered Scroll,Pergaminho Rasgado,item
+Coarse Scroll,Pergaminho Grosseiro,item
+Scribe's Scroll,Pergaminho de Escriba,item
+Vellum Scroll,Pergaminho de Velino,item
+Illuminated Scroll,Pergaminho Iluminado,item
+Sealed Scroll,Pergaminho Selado,item
+Occult Scroll,Pergaminho Oculto,item
+Forbidden Scroll,Pergaminho Proibido,item
+Prophetic Scroll,Pergaminho Profético,item
+Fated Scroll,Pergaminho Fadado,item
+Scrap,Sucata,item
+Ichor,Icor,item
+Dust,Pó,item
+Essence,Essência,item
+Ink,Tinta,item
+Faded Rune of Vitality,Runa Desbotada da Vitalidade,item
+Etched Rune of Vitality,Runa Gravada da Vitalidade,item
+Carved Rune of Vitality,Runa Entalhada da Vitalidade,item
+Bound Rune of Vitality,Runa Atada da Vitalidade,item
+Warded Rune of Vitality,Runa Protegida da Vitalidade,item
+Charged Rune of Vitality,Runa Carregada da Vitalidade,item
+Awakened Rune of Vitality,Runa Desperta da Vitalidade,item
+Resonant Rune of Vitality,Runa Ressonante da Vitalidade,item
+Ancient Rune of Vitality,Runa Antiga da Vitalidade,item
+Elder Rune of Vitality,Runa Ancestral da Vitalidade,item
+Bristle Egg,Ovo de Eriço,item
+Thornhide Egg,Ovo de Pelespinho,item
+Thornback Egg,Ovo de Espinhaço,item
+Whelp Egg,Ovo de Lobato,item
+Dustcur Egg,Ovo de Vira-pó,item
+Dusthound Egg,Ovo de Cão-poeira,item
+Grub Egg,Ovo de Cavuco,item
+Delver Egg,Ovo de Escavador,item
+Barrowmole Egg,Ovo de Tumulpeira,item
+Fawn Egg,Ovo de Corço,item
+Briarfawn Egg,Ovo de Urzecorço,item
+Bramblefawn Egg,Ovo de Silvacorço,item
+Shade Egg,Ovo de Sombra,item
+Phantasm Egg,Ovo de Fantasma,item
+Nightmare Egg,Ovo de Pesadelo,item
+Cairn Egg,Ovo de Moledro,item
+Menhir Egg,Ovo de Menir,item
+Golgoth Egg,Ovo de Gólgota,item
+Sprig Egg,Ovo de Raminho,item
+Woodwose Egg,Ovo de Silvano,item
+Wychroot Egg,Ovo de Raiz-bruxa,item
+Noose Egg,Ovo de Laço,item
+Ligature Egg,Ovo de Ligadura,item
+Garrote Egg,Ovo de Garrote,item
+Nestling Egg,Ovo de Ninhego,item
+Carrion Egg,Ovo de Carniça,item
+Gallowsbird Egg,Ovo de Ave-da-forca,item
+Hart Egg,Ovo de Cervo,item
+Leshy Egg,Ovo de Leshy,item
+Herne Egg,Ovo de Herne,item
+Nauplius Egg,Ovo de Náuplio,item
+Barnacle Egg,Ovo de Craca,item
+Tidecrawler Egg,Ovo de Rastejamaré,item
+Fry Egg,Ovo de Alevino,item
+Snapjaw Egg,Ovo de Trincadente,item
+Saltjaw Egg,Ovo de Salgadente,item
+Polliwog Egg,Ovo de Cabeçudo,item
+Brineling Egg,Ovo de Salmourinho,item
+Brinefrog Egg,Ovo de Salmourã,item
+Zoea Egg,Ovo de Zoea,item
+Smasher Egg,Ovo de Esmagador,item
+Crestmantis Egg,Ovo de Cristamântis,item
+Gecko Egg,Ovo de Lagartixa,item
+Monitor Egg,Ovo de Varano,item
+Duskscale Egg,Ovo de Ocasáurio,item
+Naiad Egg,Ovo de Náiade,item
+Undine Egg,Ovo de Ondina,item
+Rusalka Egg,Ovo de Rusalka,item
+Whorl Egg,Ovo de Espiral,item
+Rampart Egg,Ovo de Muralha,item
+Bulwark Egg,Ovo de Baluarte,item
+Elver Egg,Ovo de Meixão,item
+Conger Egg,Ovo de Congro,item
+Nethereel Egg,Ovo de Trevenguia,item
+Polyp Egg,Ovo de Pólipo,item
+Medusa Egg,Ovo de Medusa,item
+Coralhydra Egg,Ovo de Hidracoral,item
+Nommo Egg,Ovo de Nommo,item
+Oannes Egg,Ovo de Oannes,item
+Dagon Egg,Ovo de Dagon,item
+Haunt Egg,Ovo de Assombração,item
+Wraith Egg,Ovo de Espectro,item
+Banshee Egg,Ovo de Banshee,item
+Wyrmling Egg,Ovo de Serpentino,item
+Neonate Egg,Ovo de Neonato,item
+Sidewinder Egg,Ovo de Cascavel,item
+Mirage Egg,Ovo de Miragem,item
+Sylph Egg,Ovo de Sílfide,item
+Fata Egg,Ovo de Fata,item
+Grit Egg,Ovo de Grão,item
+Sirocco Egg,Ovo de Siroco,item
+Simoom Egg,Ovo de Simum,item
+Lamia Egg,Ovo de Lâmia,item
+Gorgon Egg,Ovo de Górgona,item
+Echidna Egg,Ovo de Equidna,item
+Paralarva Egg,Ovo de Paralarva,item
+Inkling Egg,Ovo de Tintinho,item
+Voidsiphon Egg,Ovo de Sifão-vazio,item
+Cinder Egg,Ovo de Tição,item
+Scorchscale Egg,Ovo de Chamuscama,item
+Emberclaw Egg,Ovo de Garrabrasa,item
+Terrapin Egg,Ovo de Cágado,item
+Kurma Egg,Ovo de Kurma,item
+Zaratan Egg,Ovo de Zaratan,item
+Jann Egg,Ovo de Jann,item
+Ifrit Egg,Ovo de Ifrit,item
+Marid Egg,Ovo de Marid,item
+Nidhogg Egg,Ovo de Nidhogg,item
+Jormungand Egg,Ovo de Jormungand,item
+Ouroboros Egg,Ovo de Ouroboros,item
+Larva Egg,Ovo de Larva,item
+Maggot Egg,Ovo de Gusano,item
+Gloomgrub Egg,Ovo de Larvumbra,item
+Instar Egg,Ovo de Ínstar,item
+Thornshell Egg,Ovo de Espinhocasca,item
+Thornhusk Egg,Ovo de Cardocasca,item
+Ovum Egg,Ovo de Óvulo,item
+Sporeling Egg,Ovo de Esporinho,item
+Sporefly Egg,Ovo de Esporomosca,item
+Spiderling Egg,Ovo de Aranhinha,item
+Orbweaver Egg,Ovo de Tecelã,item
+Arachne Egg,Ovo de Aracne,item
+Sundew Egg,Ovo de Drósera,item
+Flytrap Egg,Ovo de Papa-moscas,item
+Carnifora Egg,Ovo de Carnífora,item
+Vector Egg,Ovo de Vetor,item
+Contagion Egg,Ovo de Contágio,item
+Plaguecarrier Egg,Ovo de Pestífero,item
+Novice Egg,Ovo de Noviço,item
+Acolyte Egg,Ovo de Acólito,item
+Devout Egg,Ovo de Devoto,item
+Nymph Egg,Ovo de Ninfa,item
+Hopper Egg,Ovo de Saltador,item
+Locust Egg,Ovo de Gafanhoto,item
+Vespid Egg,Ovo de Véspido,item
+Cordyceps Egg,Ovo de Cordyceps,item
+Vespera Egg,Ovo de Véspera,item
+Taproot Egg,Ovo de Raiz-mestra,item
+Mycorrhiza Egg,Ovo de Micorriza,item
+Yggdrasil Egg,Ovo de Yggdrasil,item
+Megalopa Egg,Ovo de Megalopa,item
+Scuttler Egg,Ovo de Andalado,item
+Cliffpincer Egg,Ovo de Penhapinça,item
+Scute Egg,Ovo de Escudete,item
+Carapace Egg,Ovo de Carapaça,item
+Crushmaul Egg,Ovo de Esmagalho,item
+Dross Egg,Ovo de Borra,item
+Smelt Egg,Ovo de Fundido,item
+Slagworm Egg,Ovo de Vermescória,item
+Drakeling Egg,Ovo de Draquinho,item
+Dragonet Egg,Ovo de Dragonete,item
+Ridgedrake Egg,Ovo de Cristadraco,item
+Crayfish Egg,Ovo de Lagostim,item
+Stonecaller Egg,Ovo de Chamapedra,item
+Despot Egg,Ovo de Déspota,item
+Fluke Egg,Ovo de Fascíola,item
+Sangleech Egg,Ovo de Sanguessuga,item
+Sanguinarch Egg,Ovo de Sanguinarca,item
+Colony Egg,Ovo de Colônia,item
+Aggregate Egg,Ovo de Agregado,item
+Craggernaut Egg,Ovo de Rochanauta,item
+Scorpling Egg,Ovo de Escorpinho,item
+Umbra Egg,Ovo de Umbra,item
+Voidshell Egg,Ovo de Casco-vazio,item
+Automaton Egg,Ovo de Autômato,item
+Colossus Egg,Ovo de Colosso,item
+Talos Egg,Ovo de Talos,item
+Scoria Egg,Ovo de Escória,item
+Obsidian Egg,Ovo de Obsidiana,item
+Magmacrawler Egg,Ovo de Rastejamagma,item
+Chick Egg,Ovo de Pintinho,item
+Zephyr Egg,Ovo de Zéfiro,item
+Gustwing Egg,Ovo de Asa-lufada,item
+Fledgling Egg,Ovo de Emplumado,item
+Stormcrow Egg,Ovo de Corvo-tormenta,item
+Tempestcrow Egg,Ovo de Corvo-tempestade,item
+Chrysalis Egg,Ovo de Crisálida,item
+Sparkwing Egg,Ovo de Asafaísca,item
+Thundermoth Egg,Ovo de Mariposa-trovão,item
+Eyas Egg,Ovo de Falconete,item
+Haggard Egg,Ovo de Bravio,item
+Roc Egg,Ovo de Roca,item
+Yelp Egg,Ovo de Ganido,item
+Squall Egg,Ovo de Borrasca,item
+Galehowl Egg,Ovo de Uivendaval,item
+Static Egg,Ovo de Estática,item
+Arcwing Egg,Ovo de Asarco,item
+Voltmantle Egg,Ovo de Voltimanto,item
+Amphiptere Egg,Ovo de Anfíptero,item
+Quetzal Egg,Ovo de Quetzal,item
+Couatl Egg,Ovo de Couatl,item
+Tempest Egg,Ovo de Tempestade,item
+Typhoon Egg,Ovo de Tufão,item
+Typhon Egg,Ovo de Tífon,item
+Ziz Egg,Ovo de Ziz,item
+Simurgh Egg,Ovo de Simurgh,item
+Anzu Egg,Ovo de Anzu,item
+Riptide Egg,Ovo de Correnteza,item
+Maelstrom Egg,Ovo de Voragem,item
+Charybdis Egg,Ovo de Caríbdis,item
+Spawn Egg,Ovo de Prole,item
+Froglet Egg,Ovo de Rãzinha,item
+Boghopper Egg,Ovo de Saltabrejo,item
+Newtling Egg,Ovo de Tritãozinho,item
+Eft Egg,Ovo de Tritão,item
+Mirenewt Egg,Ovo de Tritão-lodo,item
+Nit Egg,Ovo de Lêndea,item
+Blowfly Egg,Ovo de Varejeira,item
+Rotfly Egg,Ovo de Moscapodre,item
+Tadpole Egg,Ovo de Girino,item
+Wight Egg,Ovo de Penado,item
+Lichfrog Egg,Ovo de Sapolich,item
+Glimmer Egg,Ovo de Cintilo,item
+Lantern Egg,Ovo de Lanterna,item
+Wispmaw Egg,Ovo de Bocafátua,item
+Orcneas Egg,Ovo de Orcneas,item
+Eoten Egg,Ovo de Eoten,item
+Grendel Egg,Ovo de Grendel,item
+Vaettir Egg,Ovo de Vaettir,item
+Haugbui Egg,Ovo de Haugbui,item
+Draugr Egg,Ovo de Draugr,item
+Tendril Egg,Ovo de Gavinha,item
+Bindweed Egg,Ovo de Corriola,item
+Gallowvine Egg,Ovo de Cipó-forca,item
+Toadling Egg,Ovo de Sapinho,item
+Behemoth Egg,Ovo de Beemote,item
+Miremother Egg,Ovo de Mãe-do-lodo,item
+Vestige Egg,Ovo de Vestígio,item
+Revenant Egg,Ovo de Retornado,item
+Cenotaph Egg,Ovo de Cenotáfio,item
+Button Egg,Ovo de Botão,item
+Toadstool Egg,Ovo de Chapéu-de-sapo,item
+Gloomcap Egg,Ovo de Treva-chapéu,item
+Cuttle Egg,Ovo de Siba,item
+Argonaut Egg,Ovo de Argonauta,item
+Inkmantle Egg,Ovo de Tintamanto,item
+Hypha Egg,Ovo de Hifa,item
+Rhizome Egg,Ovo de Rizoma,item
+Veinmold Egg,Ovo de Mofoveia,item
+Nautilus Egg,Ovo de Náutilo,item
+Oracle Egg,Ovo de Oráculo,item
+Sibyl Egg,Ovo de Sibila,item
+Tremor Egg,Ovo de Tremor,item
+Palsy Egg,Ovo de Paralisia,item
+Vertigo Egg,Ovo de Vertigem,item
+Kitling Egg,Ovo de Raposinha,item
+Foxfire Egg,Ovo de Fogo-fátuo,item
+Kitsune Egg,Ovo de Kitsune,item
+Puffball Egg,Ovo de Bufa-de-lobo,item
+Leviathan Egg,Ovo de Leviatã,item
+Sporewhale Egg,Ovo de Esporobaleia,item
+Lure Egg,Ovo de Engodo,item
+Abyss Egg,Ovo de Abismo,item
+Riftangler Egg,Ovo de Pescafenda,item
+Spore Egg,Ovo de Esporo,item
+Bloom Egg,Ovo de Florada,item
+Mycelium Egg,Ovo de Micélio,item
+Veliger Egg,Ovo de Véliger,item
+Hafgufa Egg,Ovo de Hafgufa,item
+Kraken Egg,Ovo de Kraken,item
+Phantom Egg,Ovo de Aparição,item
+Geist Egg,Ovo de Geist,item
+Crystalwraith Egg,Ovo de Espectro-cristal,item
+Pup Egg,Ovo de Filhote,item
+Vesper Egg,Ovo de Vésper,item
+Ashbat Egg,Ovo de Cinzamorcego,item
+Shard Egg,Ovo de Estilhaço,item
+Geode Egg,Ovo de Geodo,item
+Gemborn Egg,Ovo de Gemanato,item
+Stiletto Egg,Ovo de Estilete,item
+Scalpel Egg,Ovo de Bisturi,item
+Bloodcarver Egg,Ovo de Talha-sangue,item
+Splinter Egg,Ovo de Lasca,item
+Poltergeist Egg,Ovo de Poltergeist,item
+Shatterspecter Egg,Ovo de Estilhaspectro,item
+Whippet Egg,Ovo de Galguinho,item
+Barghest Egg,Ovo de Barghest,item
+Voidhound Egg,Ovo de Cão-vazio,item
+Echo Egg,Ovo de Eco,item
+Fetch Egg,Ovo de Sósia,item
+Doppelganger Egg,Ovo de Doppelgänger,item
+Nachzehrer Egg,Ovo de Nachzehrer,item
+Strigoi Egg,Ovo de Strigoi,item
+Nosferatu Egg,Ovo de Nosferatu,item
+Reliquary Egg,Ovo de Relicário,item
+Lich Egg,Ovo de Lich,item
+Phylactery Egg,Ovo de Filactério,item
+Facet Egg,Ovo de Faceta,item
+Reflection Egg,Ovo de Reflexo,item
+Speculum Egg,Ovo de Espéculo,item
+Ember Egg,Ovo de Brasa,item
+Clinker Egg,Ovo de Clínquer,item
+Protogale Egg,Ovo de Protogale,item
+Soot Egg,Ovo de Fuligem,item
+Ossuary Egg,Ovo de Ossário,item
+Ashwalker Egg,Ovo de Andacinza,item
+Effigy Egg,Ovo de Efígie,item
+Idol Egg,Ovo de Ídolo,item
+Moloch Egg,Ovo de Moloque,item
+Flicker Egg,Ovo de Lampejo,item
+Salamander Egg,Ovo de Salamandra,item
+Blazewyrm Egg,Ovo de Labaserpe,item
+Hybrid Egg,Ovo de Híbrido,item
+Chimera Egg,Ovo de Quimera,item
+Omnichimera Egg,Ovo de Omniquimera,item
+Ingot Egg,Ovo de Lingote,item
+Ironclad Egg,Ovo de Encouraçado,item
+Ferrodrake Egg,Ovo de Ferrodraco,item
+Ignis Egg,Ovo de Ignis,item
+Pyre Egg,Ovo de Pira,item
+Ignifer Egg,Ovo de Ignífero,item
+Sentry Egg,Ovo de Vigia,item
+Sentinel Egg,Ovo de Sentinela,item
+Vigil Egg,Ovo de Vigília,item
+Wildfire Egg,Ovo de Incêndio,item
+Balefire Egg,Ovo de Fogaréu,item
+Pyriel Egg,Ovo de Piriel,item
+Archon Egg,Ovo de Arconte,item
+Aeon Egg,Ovo de Éon,item
+Demiurge Egg,Ovo de Demiurgo,item
+Grinlet Egg,Ovo de Sorrisote,item
+Gibberling Egg,Ovo de Tagarela,item
+Jackanape Egg,Ovo de Saltimbanco,item
+Knuckler Egg,Ovo de Socador,item
+Silverback Egg,Ovo de Dorso-prata,item
+Goliath Egg,Ovo de Golias,item
+Tyrantling Egg,Ovo de Tiraninho,item
+Tyrantjaw Egg,Ovo de Bocatirana,item
+Tyrannos Egg,Ovo de Tirannos,item
+Rotdrip Egg,Ovo de Gotapodre,item
+Gristleglob Egg,Ovo de Gosmanervo,item
+Charnelmass Egg,Ovo de Carnimassa,item
+Cowl,Cogula,item
+Hood,Capuz,item
+Coif,Coifa,item
+Sallet,Celada,item
+Barbute,Barbuta,item
+Helm,Elmo,item
+Greathelm,Grande Elmo,item
+Wyrmskull Helm,Elmo de Crânio-Serpe,item
+Sanctified Casque,Capacete Santificado,item
+Voidcrown,Coroa do Vazio,item
+Padded Jerkin,Gibão Acolchoado,item
+Leather Jerkin,Gibão de Couro,item
+Brigandine,Brigantina,item
+Scale Hauberk,Cota de Escamas,item
+Chain Hauberk,Cota de Malha,item
+Cuirass,Couraça,item
+Warplate,Placa de Guerra,item
+Bloodforged Plate,Placa Sanguiforjada,item
+Sanctified Bulwark,Baluarte Santificado,item
+Voidplate,Placa do Vazio,item
+Handwraps,Faixas de Mão,item
+Leather Grips,Luvas de Couro,item
+Studded Grips,Luvas Tacheadas,item
+Bracers,Braçadeiras,item
+Chain Mitts,Mitenes de Malha,item
+Steel Gauntlets,Manoplas de Aço,item
+Wargauntlets,Manoplas de Guerra,item
+Bloodforged Fists,Punhos Sanguiforjados,item
+Sanctified Grasp,Aperto Santificado,item
+Voidclaws,Garras do Vazio,item
+Footwraps,Faixas de Pé,item
+Worn Boots,Botas Gastas,item
+Hobnailed Boots,Botas Cravejadas,item
+Riding Boots,Botas de Montaria,item
+Chain Boots,Botas de Malha,item
+Greaves,Grevas,item
+Wargreaves,Grevas de Guerra,item
+Bloodforged Stride,Passada Sanguiforjada,item
+Sanctified Sabatons,Escarpes Santificados,item
+Voidtreads,Passos do Vazio,item
+Arming Sword,Espada de Armas,item
+Veteran's Arming Sword,Espada de Armas do Veterano,item
+Champion's Arming Sword,Espada de Armas do Campeão,item
+Longsword,Espada Longa,item
+Veteran's Longsword,Espada Longa do Veterano,item
+Champion's Longsword,Espada Longa do Campeão,item
+Great Morningstar,Grande Maça-estrela,item
+Veteran's Great Morningstar,Grande Maça-estrela do Veterano,item
+Champion's Great Morningstar,Grande Maça-estrela do Campeão,item
+Tyrant's Great Morningstar,Grande Maça-estrela do Tirano,item
+Kite Shield,Escudo Normando,item
+Veteran's Kite Shield,Escudo Normando do Veterano,item
+Champion's Kite Shield,Escudo Normando do Campeão,item
+Heater Shield,Escudo Heráldico,item
+Veteran's Heater Shield,Escudo Heráldico do Veterano,item
+Champion's Heater Shield,Escudo Heráldico do Campeão,item
+Tower Shield,Escudo-torre,item
+Veteran's Tower Shield,Escudo-torre do Veterano,item
+Champion's Tower Shield,Escudo-torre do Campeão,item
+Tyrant's Tower Shield,Escudo-torre do Tirano,item
+Crystal Staff,Cajado de Cristal,item
+Veteran's Crystal Staff,Cajado de Cristal do Veterano,item
+Champion's Crystal Staff,Cajado de Cristal do Campeão,item
+Amethyst Staff,Cajado de Ametista,item
+Veteran's Amethyst Staff,Cajado de Ametista do Veterano,item
+Champion's Amethyst Staff,Cajado de Ametista do Campeão,item
+Ruby Warstaff,Cajado Bélico de Rubi,item
+Veteran's Ruby Warstaff,Cajado Bélico de Rubi do Veterano,item
+Champion's Ruby Warstaff,Cajado Bélico de Rubi do Campeão,item
+Tyrant's Ruby Warstaff,Cajado Bélico de Rubi do Tirano,item
+Handflame Focus,Foco de Chama,item
+Veteran's Handflame Focus,Foco de Chama do Veterano,item
+Champion's Handflame Focus,Foco de Chama do Campeão,item
+Amethyst Shardring,Anel de Ametista,item
+Veteran's Amethyst Shardring,Anel de Ametista do Veterano,item
+Champion's Amethyst Shardring,Anel de Ametista do Campeão,item
+Magma Orbit,Órbita de Magma,item
+Veteran's Magma Orbit,Órbita de Magma do Veterano,item
+Champion's Magma Orbit,Órbita de Magma do Campeão,item
+Tyrant's Magma Orbit,Órbita de Magma do Tirano,item
+Ash Shortbow,Arco Curto de Freixo,item
+Veteran's Ash Shortbow,Arco Curto de Freixo do Veterano,item
+Champion's Ash Shortbow,Arco Curto de Freixo do Campeão,item
+Runed Recurve,Recurvo Rúnico,item
+Veteran's Runed Recurve,Recurvo Rúnico do Veterano,item
+Champion's Runed Recurve,Recurvo Rúnico do Campeão,item
+Hawkwing Greatbow,Arco Asa-de-Falcão,item
+Veteran's Hawkwing Greatbow,Arco Asa-de-Falcão do Veterano,item
+Champion's Hawkwing Greatbow,Arco Asa-de-Falcão do Campeão,item
+Tyrant's Hawkwing Greatbow,Arco Asa-de-Falcão do Tirano,item
+Scout's Quiver,Aljava de Batedor,item
+Veteran's Scout's Quiver,Aljava de Batedor do Veterano,item
+Champion's Scout's Quiver,Aljava de Batedor do Campeão,item
+Silvered Quiver,Aljava Prateada,item
+Veteran's Silvered Quiver,Aljava Prateada do Veterano,item
+Champion's Silvered Quiver,Aljava Prateada do Campeão,item
+Obsidian Quiver,Aljava de Obsidiana,item
+Veteran's Obsidian Quiver,Aljava de Obsidiana do Veterano,item
+Champion's Obsidian Quiver,Aljava de Obsidiana do Campeão,item
+Tyrant's Obsidian Quiver,Aljava de Obsidiana do Tirano,item
+Nailed Club,Clava Cravejada,item
+Veteran's Nailed Club,Clava Cravejada do Veterano,item
+Champion's Nailed Club,Clava Cravejada do Campeão,item
+War-Club,Clava de Guerra,item
+Veteran's War-Club,Clava de Guerra do Veterano,item
+Champion's War-Club,Clava de Guerra do Campeão,item
+Colossus Axe,Machado Colossal,item
+Veteran's Colossus Axe,Machado Colossal do Veterano,item
+Champion's Colossus Axe,Machado Colossal do Campeão,item
+Tyrant's Colossus Axe,Machado Colossal do Tirano,item
+Fist Cords,Cordas de Punho,item
+Veteran's Fist Cords,Cordas de Punho do Veterano,item
+Champion's Fist Cords,Cordas de Punho do Campeão,item
+Iron Knucklewraps,Soqueiras de Ferro,item
+Veteran's Iron Knucklewraps,Soqueiras de Ferro do Veterano,item
+Champion's Iron Knucklewraps,Soqueiras de Ferro do Campeão,item
+Titan Chainwraps,Correntes de Titã,item
+Veteran's Titan Chainwraps,Correntes de Titã do Veterano,item
+Champion's Titan Chainwraps,Correntes de Titã do Campeão,item
+Tyrant's Titan Chainwraps,Correntes de Titã do Tirano,item
+Iron Dagger,Adaga de Ferro,item
+Veteran's Iron Dagger,Adaga de Ferro do Veterano,item
+Champion's Iron Dagger,Adaga de Ferro do Campeão,item
+Blackened Scimitar,Cimitarra Enegrecida,item
+Veteran's Blackened Scimitar,Cimitarra Enegrecida do Veterano,item
+Champion's Blackened Scimitar,Cimitarra Enegrecida do Campeão,item
+Bladed Gauntlet,Manopla Laminada,item
+Veteran's Bladed Gauntlet,Manopla Laminada do Veterano,item
+Champion's Bladed Gauntlet,Manopla Laminada do Campeão,item
+Tyrant's Bladed Gauntlet,Manopla Laminada do Tirano,item
+Iron Dagger (Off),Adaga de Ferro (Sec.),item
+Veteran's Iron Dagger (Off),Adaga de Ferro do Veterano (Sec.),item
+Champion's Iron Dagger (Off),Adaga de Ferro do Campeão (Sec.),item
+Blackened Scimitar (Off),Cimitarra Enegrecida (Sec.),item
+Veteran's Blackened Scimitar (Off),Cimitarra Enegrecida do Veterano (Sec.),item
+Champion's Blackened Scimitar (Off),Cimitarra Enegrecida do Campeão (Sec.),item
+Bladed Gauntlet (Off),Manopla Laminada (Sec.),item
+Veteran's Bladed Gauntlet (Off),Manopla Laminada do Veterano (Sec.),item
+Champion's Bladed Gauntlet (Off),Manopla Laminada do Campeão (Sec.),item
+Tyrant's Bladed Gauntlet (Off),Manopla Laminada do Tirano (Sec.),item
+Battered Tome,Tomo Surrado,item
+Veteran's Battered Tome,Tomo Surrado do Veterano,item
+Champion's Battered Tome,Tomo Surrado do Campeão,item
+Ancient Tome,Tomo Antigo,item
+Veteran's Ancient Tome,Tomo Antigo do Veterano,item
+Champion's Ancient Tome,Tomo Antigo do Campeão,item
+Hovering Grimoire,Grimório Flutuante,item
+Veteran's Hovering Grimoire,Grimório Flutuante do Veterano,item
+Champion's Hovering Grimoire,Grimório Flutuante do Campeão,item
+Tyrant's Hovering Grimoire,Grimório Flutuante do Tirano,item
+Cut Quill,Pena Aparada,item
+Veteran's Cut Quill,Pena Aparada do Veterano,item
+Champion's Cut Quill,Pena Aparada do Campeão,item
+Gilded Quill,Pena Dourada,item
+Veteran's Gilded Quill,Pena Dourada do Veterano,item
+Champion's Gilded Quill,Pena Dourada do Campeão,item
+Scribing Quill,Pena de Escriba,item
+Veteran's Scribing Quill,Pena de Escriba do Veterano,item
+Champion's Scribing Quill,Pena de Escriba do Campeão,item
+Tyrant's Scribing Quill,Pena de Escriba do Tirano,item
+Grasslands Key,Chave das Pradarias,item
+Tidal Shallows Key,Chave dos Baixios da Maré,item
+Desert Plains Key,Chave das Planícies Desérticas,item
+Swarm Thicket Key,Chave do Matagal do Enxame,item
+The Crag Key,Chave do Rochedo,item
+Storm Peaks Key,Chave dos Picos da Tempestade,item
+Sunken Bog Key,Chave do Pântano Submerso,item
+Underwater Cave Key,Chave da Caverna Subaquática,item
+Gemstone Cave Key,Chave da Caverna das Gemas,item
+Flaming Hellscape Key,Chave do Inferno Flamejante,item
+Void Apex Key — Vargr,Chave do Ápice do Vazio — Vargr,item
+Void Apex Key — Pelagos,Chave do Ápice do Vazio — Pelagos,item
+Void Apex Key — Sethek,Chave do Ápice do Vazio — Sethek,item
+Void Apex Key — Vesk,Chave do Ápice do Vazio — Vesk,item
+Void Apex Key — Ostrakon,Chave do Ápice do Vazio — Ostrakon,item
+Void Apex Key — Keraun,Chave do Ápice do Vazio — Keraun,item
+Void Apex Key — Morast,Chave do Ápice do Vazio — Morast,item
+Void Apex Key — Teloma,Chave do Ápice do Vazio — Teloma,item
+Void Apex Key — Varkolan,Chave do Ápice do Vazio — Varkolan,item
+Void Apex Key — Eskaton,Chave do Ápice do Vazio — Eskaton,item
+A smear of red wax. A promise of red steel.,Uma mancha de cera vermelha. Uma promessa de aço vermelho.,item_flavor
+Iron band. The crest bites into skin.,Aro de ferro. O brasão morde a pele.,item_flavor
+Tempered seal. The impression it leaves heals slowly.,Selo temperado. A marca que deixa cicatriza devagar.,item_flavor
+Forged crest. Documents signed with it are binding.,Brasão forjado. Documentos selados com ele têm força de lei.,item_flavor
+Runic face. The seal glows when violence is near.,Face rúnica. O selo brilha quando a violência está próxima.,item_flavor
+Blessed signet. Contracts signed with it cannot be broken.,Sinete abençoado. Contratos firmados com ele não podem ser quebrados.,item_flavor
+Wrought in dark metal. The crest changes per wearer.,Lavrado em metal escuro. O brasão muda a cada portador.,item_flavor
+Darksteel band. The impression it leaves does not heal.,Aro de aço negro. A marca que deixa não cicatriza.,item_flavor
+The ring signs your name before you write it.,O anel assina seu nome antes que você o escreva.,item_flavor
+The crest is the last thing the enemy sees.,O brasão é a última coisa que o inimigo vê.,item_flavor
+"A saint's knuckle, or a convincing forgery.","O nó do dedo de um santo, ou uma falsificação convincente.",item_flavor
+Iron-framed glass. The bone inside is warm.,Vidro em moldura de ferro. O osso lá dentro está morno.,item_flavor
+Tempered case. The relic has survived three fires.,Estojo temperado. A relíquia sobreviveu a três incêndios.,item_flavor
+Forged filigree. Every curl is intentional.,Filigrana forjada. Cada volta é proposital.,item_flavor
+Runic glass. The bone glows faintly during prayer.,Vidro rúnico. O osso brilha de leve durante a oração.,item_flavor
+Blessed locket. Opening it heals. Closing it hurts.,Medalhão abençoado. Abri-lo cura. Fechá-lo dói.,item_flavor
+Wrought gold. The bone has grown since it was placed.,Ouro lavrado. O osso cresceu desde que foi colocado.,item_flavor
+Darksteel hinge. It opens only for the dying.,Dobradiça de aço negro. Só se abre para os moribundos.,item_flavor
+The relic prays for you.,A relíquia reza por você.,item_flavor
+The bone inside is yours. You have not lost it yet.,O osso lá dentro é seu. Você ainda não o perdeu.,item_flavor
+Taken from something that did not give it.,Tirada de algo que não a entregou.,item_flavor
+Iron-capped. The tooth still carries venom residue.,Ponta de ferro. O dente ainda guarda resíduo de veneno.,item_flavor
+Tempered in salt. The edge has not dulled.,Temperada no sal. O fio não perdeu o corte.,item_flavor
+Forged cap. The fang is longer than the creature it came from.,Capa forjada. A presa é mais longa que a criatura de onde veio.,item_flavor
+Runic etching along the root. It vibrates near prey.,Gravura rúnica ao longo da raiz. Vibra perto de vítimas.,item_flavor
+Blessed fang. It draws blood through armor.,Presa abençoada. Tira sangue através da armadura.,item_flavor
+Wrought setting. The fang has grown since mounting.,Engaste lavrado. A presa cresceu desde que foi montada.,item_flavor
+Darksteel cap. The venom inside has concentrated.,Capa de aço negro. O veneno lá dentro se concentrou.,item_flavor
+The fang remembers its original mouth.,A presa se lembra da boca de origem.,item_flavor
+It bites on its own.,Ela morde sozinha.,item_flavor
+The previous owner survived everything but its removal.,"O dono anterior sobreviveu a tudo, menos à extração dela.",item_flavor
+Iron rivets. The chitin holds better than steel.,Rebites de ferro. A quitina aguenta mais que o aço.,item_flavor
+Tempered surface. Blows slide off at impossible angles.,Superfície temperada. Os golpes escorregam em ângulos impossíveis.,item_flavor
+Forged strap. The carapace molds to new shapes.,Correia forjada. A carapaça se molda a novas formas.,item_flavor
+Runic edge. The iridescence shifts to match threats.,Borda rúnica. A iridescência muda conforme a ameaça.,item_flavor
+Blessed shell. It hardens on impact.,Casca abençoada. Endurece com o impacto.,item_flavor
+Wrought mount. The carapace has begun growing new layers.,Suporte lavrado. A carapaça começou a criar novas camadas.,item_flavor
+Darksteel rivets. The chitin between them heals.,Rebites de aço negro. A quitina entre eles se regenera.,item_flavor
+The carapace rejects damage personally.,A carapaça rejeita o dano como ofensa pessoal.,item_flavor
+It is growing. It has not stopped.,Está crescendo. Não parou.,item_flavor
+It is not the creature's heart. It beats anyway.,Não é o coração da criatura. Bate mesmo assim.,item_flavor
+Iron-bound crystal. The pulse is steady.,Cristal cintado de ferro. O pulso é firme.,item_flavor
+Tempered wire. The glow strengthens when the creature is wounded.,Fio temperado. O brilho se intensifica quando a criatura se fere.,item_flavor
+Forged cage. The crystal has cracked and healed three times.,Gaiola forjada. O cristal rachou e se curou três vezes.,item_flavor
+Runic wire. The heartbeat syncs to the creature's.,Fio rúnico. O batimento se sincroniza com o da criatura.,item_flavor
+Blessed crystal. It beats when the creature's heart would stop.,Cristal abençoado. Bate quando o coração da criatura pararia.,item_flavor
+Wrought frame. The heart now beats for two.,Armação lavrada. O coração agora bate por dois.,item_flavor
+Darksteel wire. The glow is visible through armor.,Fio de aço negro. O brilho se vê através da armadura.,item_flavor
+The heart decides when the creature dies. It has not decided yet.,O coração decide quando a criatura morre. Ainda não decidiu.,item_flavor
+Cut one open and it bleeds. The Tower keeps no record of who first tried.,Corte uma e ela sangra. A Torre não registra quem tentou primeiro.,item_flavor
+"Rough red stone, still warm to the touch.","Pedra vermelha bruta, ainda morna ao toque.",item_flavor
+"Cut once, cleanly. The red inside was waiting.","Cortada uma vez, com precisão. O vermelho lá dentro esperava.",item_flavor
+The red deepens where blood once pooled.,O vermelho se aprofunda onde o sangue já se empoçou.,item_flavor
+First shaping. The stone drinks the lapidary's nicked thumb.,Primeira lapidação. A pedra bebe do polegar cortado do lapidário.,item_flavor
+Each face angles toward the nearest heartbeat.,Cada face se inclina para o batimento mais próximo.,item_flavor
+Polished in silence. It hums near open wounds.,Polida em silêncio. Zumbe perto de feridas abertas.,item_flavor
+No flaw remains to slow the hunger inside.,Nenhuma falha resta para conter a fome lá dentro.,item_flavor
+Perfectly cut. Perfectly patient.,Perfeitamente lapidada. Perfeitamente paciente.,item_flavor
+It no longer reflects light. It reflects intent.,Já não reflete a luz. Reflete a intenção.,item_flavor
+The last lapidary who finished one never set down the knife.,O último lapidário que terminou uma nunca largou a faca.,item_flavor
+A rough dark stone that swallows a little light.,Uma pedra escura e bruta que engole um pouco de luz.,item_flavor
+"Cold. It was always cold, even in the forge.","Fria. Sempre foi fria, até na forja.",item_flavor
+Polished slabs like this line the oldest tomb walls.,Lajes polidas como esta revestem as tumbas mais antigas.,item_flavor
+"Shaped, it sits heavier than its size allows.","Lapidada, pesa mais do que seu tamanho permite.",item_flavor
+Blows aimed at its bearer arrive strangely tired.,Golpes contra seu portador chegam estranhamente cansados.,item_flavor
+Polished black. Arrows glance from things they should not.,Negro polido. Flechas ricocheteiam no que não deviam.,item_flavor
+Not one crack in it. Not one crack because of it.,Nem uma rachadura nela. Nem uma rachadura por causa dela.,item_flavor
+The stone accepts the strike so the flesh does not.,A pedra aceita o golpe para que a carne não precise.,item_flavor
+"Light bends around it now, and so does harm.","A luz agora se curva ao redor dela, e o mal também.",item_flavor
+Fortresses have been razed to recover a single one.,Fortalezas foram arrasadas para recuperar uma única.,item_flavor
+"Green stone flecked red, like moss on a battlefield.","Pedra verde salpicada de vermelho, como musgo num campo de batalha.",item_flavor
+The red flecks multiply. Nobody discusses it.,As manchas vermelhas se multiplicam. Ninguém comenta.,item_flavor
+Wounds near it itch as they knit.,Feridas perto dela coçam ao fechar.,item_flavor
+First cut. The flecks arrange into veins.,Primeiro corte. As manchas se arranjam em veias.,item_flavor
+"It pulses. Slowly. Once a minute, then faster.","Pulsa. Devagar. Uma vez por minuto, depois mais rápido.",item_flavor
+"Held tight, dying men take one more breath than owed.","Apertada na mão, moribundos tomam um fôlego a mais do que deviam.",item_flavor
+Flawless — the veins now branch like living tissue.,Impecável — as veias agora se ramificam como tecido vivo.,item_flavor
+"Perfect. It is warm, and it was not carved warm.","Perfeita. Está morna, e não foi talhada morna.",item_flavor
+It beats in time with its bearer's heart. Or leads it.,Bate no ritmo do coração do portador. Ou o conduz.,item_flavor
+Cut one open and it bleeds.,Corte uma e ela sangra.,item_flavor
+The sigil is nearly worn away. Nearly.,O sigilo está quase apagado. Quase.,item_flavor
+Freshly etched. The grooves are stained rust-red.,Recém-gravada. Os sulcos estão manchados de vermelho-ferrugem.,item_flavor
+Carved deep enough that the stone weeps dust.,Entalhada tão fundo que a pedra chora pó.,item_flavor
+Bound in iron wire to keep the edge in.,Atada com arame de ferro para conter o gume.,item_flavor
+The ward is not for the rune's protection.,A proteção não é para a runa.,item_flavor
+It sparks when carried into battle.,Solta faíscas quando levada à batalha.,item_flavor
+The sigil moves when watched from the corner of the eye.,O sigilo se mexe quando visto pelo canto do olho.,item_flavor
+It rings like struck metal at the moment of a kill.,Ressoa como metal golpeado no instante de uma morte.,item_flavor
+Older than the Tower's lowest floor.,Mais antiga que o andar mais baixo da Torre.,item_flavor
+"The first word ever carved, and it was a threat.","A primeira palavra já entalhada, e era uma ameaça.",item_flavor
+"A worn shield-mark, half smoothed by rubbing thumbs.","Uma marca de escudo gasta, meio alisada por polegares.",item_flavor
+The etching catches lamplight like still water.,A gravura capta a luz da lamparina como água parada.,item_flavor
+Deep-carved. Rain refuses to pool in the grooves.,Entalhe fundo. A chuva se recusa a empoçar nos sulcos.,item_flavor
+Iron-bound. The binding has never rusted.,Atada em ferro. A amarra nunca enferrujou.,item_flavor
+It grows cold when danger is near — colder when it is not.,Esfria quando o perigo está perto — e esfria mais quando não está.,item_flavor
+"Charged, it hums a single sustained low note.","Carregada, sustenta uma única nota grave.",item_flavor
+Awake now. It positions itself between.,Agora desperta. Ela se põe no meio.,item_flavor
+Struck directly once. The hammer broke.,Foi golpeada em cheio uma vez. O martelo quebrou.,item_flavor
+The sigil predates the language it was written in.,O sigilo é anterior à língua em que foi escrito.,item_flavor
+Walls fall. This does not.,Muralhas caem. Esta não.,item_flavor
+Most of the words are gone. The rest are trying to leave.,A maioria das palavras sumiu. O resto está tentando ir embora.,item_flavor
+"Rough paper, rougher penmanship, real power.","Papel tosco, caligrafia mais tosca, poder real.",item_flavor
+A professional hand. The margins hold corrections in another.,Letra profissional. As margens trazem correções em outra.,item_flavor
+Fine calfskin. The calf is not mentioned.,"Pele fina de bezerro. Do bezerro, ninguém fala.",item_flavor
+Gold leaf in the capitals. The letters gleam without light.,Folha de ouro nas capitulares. As letras brilham sem luz.,item_flavor
+The wax seal re-forms each time it is broken.,O selo de cera se refaz cada vez que é rompido.,item_flavor
+Written in a script that itches to read.,Escrito numa letra que coça ao ler.,item_flavor
+Copying it is a crime. Reading it is a sentence.,Copiá-lo é crime. Lê-lo é sentença.,item_flavor
+It describes tomorrow in the past tense.,Descreve o amanhã no pretérito.,item_flavor
+Your name was already in it.,Seu nome já estava nele.,item_flavor
+"Everything the Tower breaks, it returns in pieces.","Tudo o que a Torre quebra, ela devolve em pedaços.",item_flavor
+What flows where blood is insufficient.,O que corre onde o sangue não basta.,item_flavor
+"Ground brilliance. It still catches the light, resentfully.","Brilho moído. Ainda capta a luz, com rancor.",item_flavor
+The meaning survives the stone.,O sentido sobrevive à pedra.,item_flavor
+Words want out. This is what they pay.,As palavras querem sair. Este é o preço que pagam.,item_flavor
+A faded pulse-mark. The heart it counted still beats.,Uma marca de pulso desbotada. O coração que contava ainda bate.,item_flavor
+Etched in dried blood that has not aged.,Gravada em sangue seco que não envelheceu.,item_flavor
+Carved by a surgeon. The grooves follow veins.,Entalhada por um cirurgião. Os sulcos seguem as veias.,item_flavor
+Bound with sinew. The binding is warm.,Atada com tendão. A amarra está morna.,item_flavor
+"The ward thickens the air. Breathing costs more, but returns more.","A proteção adensa o ar. Respirar custa mais, mas rende mais.",item_flavor
+"Charged, it pulses. The bearer's pulse answers.","Carregada, ela pulsa. O pulso do portador responde.",item_flavor
+"Awake. Wounds close slower, but close completely.","Desperta. As feridas fecham mais devagar, mas fecham por completo.",item_flavor
+It resonates with every heartbeat. Each one lands harder.,Ressoa a cada batimento. Cada um bate mais forte.,item_flavor
+Ancient blood remembered in stone. The body obeys.,Sangue antigo lembrado na pedra. O corpo obedece.,item_flavor
+It has kept more things alive than any healer.,Já manteve mais coisas vivas que qualquer curandeiro.,item_flavor
+Something stirs within the shell.,Algo se mexe dentro da casca.,item_flavor
+Better than rain in the eyes. Barely.,Melhor que chuva nos olhos. Por pouco.,item_flavor
+The tower does not care what you wear. Wear it anyway.,A torre não liga para o que você veste. Vista mesmo assim.,item_flavor
+"A thousand small links, one stubborn idea.","Mil pequenos elos, uma ideia teimosa.",item_flavor
+See little. Be seen less.,Veja pouco. Seja visto menos ainda.,item_flavor
+A face for the faceless work.,Um rosto para o trabalho sem rosto.,item_flavor
+Knock first.,Bata antes.,item_flavor
+The world through a cross of light.,O mundo através de uma cruz de luz.,item_flavor
+It fit the wyrm worse.,"Na serpe, servia pior.",item_flavor
+"Blessed, buffed, and billed.","Abençoado, polido e cobrado.",item_flavor
+It hums when you stop praying.,Zumbe quando você para de rezar.,item_flavor
+Stuffed with straw and stubbornness.,Recheado de palha e teimosia.,item_flavor
+"A cow's last argument, your first armor.","O último argumento de uma vaca, sua primeira armadura.",item_flavor
+"Cloth outside, disagreement inside.","Pano por fora, discordância por dentro.",item_flavor
+Ten thousand small roofs.,Dez mil telhadinhos.,item_flavor
+It sings when you run. Try not to run.,Ela canta quando você corre. Tente não correr.,item_flavor
+Shaped like a hero. Fits anyone.,Tem forma de herói. Serve em qualquer um.,item_flavor
+Wear the war before it wears you.,Vista a guerra antes que ela vista você.,item_flavor
+Quenched in something that remembers.,Temperada em algo que se lembra.,item_flavor
+"Holiness, load-bearing.",Santidade estrutural.,item_flavor
+It fits perfectly. That is the problem.,Serve perfeitamente. Esse é o problema.,item_flavor
+"Blisters underneath, business on top.","Bolhas por baixo, serviço por cima.",item_flavor
+Grip first. Grieve later.,Primeiro agarre. Chore depois.,item_flavor
+A handshake people remember.,Um aperto de mão inesquecível.,item_flavor
+The forearm is a shield that forgot.,O antebraço é um escudo que esqueceu.,item_flavor
+"Cold fingers, colder answers.","Dedos frios, respostas mais frias.",item_flavor
+"Every finger, armored and opinionated.","Cada dedo, blindado e opinativo.",item_flavor
+"Fists, promoted.","Punhos, promovidos.",item_flavor
+"They clench on their own, sometimes.","Às vezes, se fecham sozinhos.",item_flavor
+"Clean hands, at last.","Mãos limpas, enfim.",item_flavor
+They hold things that are not there yet.,Seguram coisas que ainda não estão lá.,item_flavor
+Ten toes of pure optimism.,Dez dedos de puro otimismo.,item_flavor
+They have walked out of worse.,Já saíram de coisa pior.,item_flavor
+You will hear the argument coming.,Você vai ouvir a discussão chegando.,item_flavor
+For those who arrive.,Para quem chega.,item_flavor
+"Heavy steps, light conscience.","Passos pesados, consciência leve.",item_flavor
+Shin-first into history.,De canela para a história.,item_flavor
+The floor complains first.,O chão reclama primeiro.,item_flavor
+Each step signs something.,Cada passo assina algo.,item_flavor
+Walking softly is also a weapon.,Andar de mansinho também é uma arma.,item_flavor
+They leave no prints. They leave less.,Não deixam pegadas. Deixam menos.,item_flavor
+The first blade issued; the last one blamed.,A primeira lâmina entregue; a última culpada.,item_flavor
+Squires polish it; knights answer with it.,Escudeiros a polem; cavaleiros respondem com ela.,item_flavor
+"When the wall must fall, the sphere is sent.","Quando a muralha precisa cair, manda-se a esfera.",item_flavor
+It has stopped worse than you.,Já parou coisa pior que você.,item_flavor
+Heraldry is a promise written in steel.,A heráldica é uma promessa escrita em aço.,item_flavor
+"Behind it, the world waits its turn.","Atrás dele, o mundo espera a vez.",item_flavor
+Every storm begins as a spark on a stick.,Toda tempestade começa como uma faísca num graveto.,item_flavor
+The stone remembers the mountain; the hand remembers nothing.,A pedra se lembra da montanha; a mão não se lembra de nada.,item_flavor
+"A sun, caged and furious.","Um sol, enjaulado e furioso.",item_flavor
+"Fire, on a leash of wire.","Fogo, numa coleira de arame.",item_flavor
+Gravity is negotiable; the price is not.,"A gravidade é negociável; o preço, não.",item_flavor
+She wears the volcano as a bracelet.,Ela usa o vulcão como pulseira.,item_flavor
+"Pale wood, patient work.","Madeira pálida, trabalho paciente.",item_flavor
+The runes never stray; the archer merely agrees.,As runas nunca erram; o arqueiro só concorda.,item_flavor
+"Taller than its bearer, older than her name.","Mais alto que quem o empunha, mais velho que o nome dela.",item_flavor
+Count them going out; count fewer coming back.,Conte-as na ida; conte menos na volta.,item_flavor
+"Silver at the mouth, death at the tip.","Prata na boca, morte na ponta.",item_flavor
+"Each head twists as it flies, and after.","Cada ponta se retorce no voo, e depois.",item_flavor
+"Argument, simplified.","Argumento, simplificado.",item_flavor
+"The pit taught him one lesson, repeatedly.","O fosso lhe ensinou uma lição, repetidamente.",item_flavor
+A door for places that have no doors.,Uma porta para lugares sem portas.,item_flavor
+Skin heals. Eventually.,A pele sara. Uma hora.,item_flavor
+Iron does the remembering.,O ferro é quem se lembra.,item_flavor
+"Chains, worn by the thing they could not hold.","Correntes, usadas pela coisa que não conseguiram prender.",item_flavor
+"Cheap steel, expensive lessons.","Aço barato, lições caras.",item_flavor
+It whispers on the way out.,Sussurra na saída.,item_flavor
+"Where the hand ends, the ending begins.","Onde a mão termina, começa o fim.",item_flavor
+The left hand learns by watching.,A mão esquerda aprende olhando.,item_flavor
+"Two curves, one conclusion.","Duas curvas, uma conclusão.",item_flavor
+Symmetry is a kind of mercy. Brief.,A simetria é uma espécie de misericórdia. Breve.,item_flavor
+The spine broke before his spirit did.,A lombada quebrou antes do espírito dele.,item_flavor
+Older than the tower's lowest stone.,Mais antigo que a pedra mais baixa da torre.,item_flavor
+"It reads itself now, aloud, to no one.","Agora lê a si mesmo, em voz alta, para ninguém.",item_flavor
+"Mightier, allegedly.","Mais poderosa, dizem.",item_flavor
+Gold ink for iron truths.,Tinta de ouro para verdades de ferro.,item_flavor
+"What it writes, occurs.","O que ela escreve, acontece.",item_flavor
+Taken from the hand of Vargr. The door remembers its shape.,Tirada da mão de Vargr. A porta lembra o formato dela.,item_flavor
+Taken from the hand of Pelagos. The door remembers its shape.,Tirada da mão de Pelagos. A porta lembra o formato dela.,item_flavor
+Taken from the hand of Sethek. The door remembers its shape.,Tirada da mão de Sethek. A porta lembra o formato dela.,item_flavor
+Taken from the hand of Mother Vesk. The door remembers its shape.,Tirada da mão da Mãe Vesk. A porta lembra o formato dela.,item_flavor
+Taken from the hand of Ostrakon. The door remembers its shape.,Tirada da mão de Ostrakon. A porta lembra o formato dela.,item_flavor
+Taken from the hand of Keraun. The door remembers its shape.,Tirada da mão de Keraun. A porta lembra o formato dela.,item_flavor
+Taken from the hand of Morast. The door remembers its shape.,Tirada da mão de Morast. A porta lembra o formato dela.,item_flavor
+Taken from the hand of Teloma. The door remembers its shape.,Tirada da mão de Teloma. A porta lembra o formato dela.,item_flavor
+Taken from the hand of Varkolan. The door remembers its shape.,Tirada da mão de Varkolan. A porta lembra o formato dela.,item_flavor
+Taken from the hand of Eskaton. The door remembers its shape.,Tirada da mão de Eskaton. A porta lembra o formato dela.,item_flavor
+Taken from the hand of something that already died once. The door remembers its shape; it does not remember mercy.,Tirada da mão de algo que já morreu uma vez. A porta lembra o formato dela; não lembra a misericórdia.,item_flavor
+Ram Charge,Investida de Aríete,move
+Rampart Break,Quebra-muralha,move
+Rampart Annihilation,Aniquilação da Muralha,move
+Snout Butt,Focinhada,move
+Skullplate Ram,Aríete de Crânio,move
+Skullplate Onslaught,Ofensiva de Crânio,move
+Quill Flick,Disparo de Cerda,move
+Thorn Toss,Arremesso de Espinho,move
+Thornstorm Volley,Tempestade de Espinhos,move
+Bristle Up,Eriçar,move
+Bristleguard,Guarda Eriçada,move
+Ironquill Bulwark,Baluarte de Cerda-ferro,move
+Dust Cough,Tosse de Poeira,move
+Choking Pall,Manto Asfixiante,move
+Suffocating Pall,Mortalha Sufocante,move
+Run-Down,Atropelar,move
+Relentless Pursuit,Perseguição Implacável,move
+Pursuit Without End,Perseguição Sem Fim,move
+Snap,Abocanhar,move
+Rending Snap,Bocada Dilacerante,move
+Bonecrusher Snap,Bocada Quebra-ossos,move
+Dust Kick,Chute de Poeira,move
+Grit Storm,Tempestade de Cascalho,move
+Blinding Duststorm,Poeirada Cegante,move
+Cave-In,Desmoronamento,move
+Collapse Barrow,Desabar Túmulo,move
+Barrow Cataclysm,Cataclismo Tumular,move
+Undermine,Solapar,move
+Undermine Footing,Solapar o Chão,move
+Foundation Ruin,Ruína dos Alicerces,move
+Spade Claw,Garra-pá,move
+Gravedigger Claw,Garra de Coveiro,move
+Gravebreaker Talon,Garra Rompe-túmulos,move
+Dig In,Cavar Fundo,move
+Entrench,Entrincheirar,move
+Entombed Bulwark,Baluarte Sepulto,move
+Bud Pop,Estouro de Broto,move
+Bloomburst,Explosão Florida,move
+Bloodbloom Burst,Explosão Flor-de-sangue,move
+Thorn Flick,Peteleco de Espinho,move
+Thorn Volley,Saraivada de Espinhos,move
+Bramble Fusillade,Fuzilaria de Silvas,move
+Green Ward,Proteção Verde,move
+Verdant Ward,Proteção Verdejante,move
+Verdant Aegis,Égide Verdejante,move
+Tangle Snare,Laço Emaranhado,move
+Briar Snare,Armadilha de Urze,move
+Strangling Briarsnare,Urzal Estrangulador,move
+Chase Down,Encurralar,move
+Reap the Fleeing,Ceifar os Fugitivos,move
+Harvest of the Fleeing,Colheita dos Fugitivos,move
+Terror Gallop,Galope do Terror,move
+Dread Gallop,Galope do Pavor,move
+Gallop of Grinding Dread,Galope do Pavor Esmagador,move
+Soul Chase,Caça à Alma,move
+Soul Pursuit,Perseguição de Almas,move
+Pursuit Beyond Death,Perseguição Além da Morte,move
+Night Veil,Véu Noturno,move
+Veil of Night,Véu da Noite,move
+Shroud of Endless Night,Mortalha da Noite Eterna,move
+Rock Blow,Golpe de Rocha,move
+Avalanche Blow,Golpe Avalanche,move
+Avalanche Judgment,Juízo da Avalanche,move
+Seismic Stomp,Pisão Sísmico,move
+Quake Stomp,Pisão Terremoto,move
+Earthbreaker Stomp,Pisão Racha-terra,move
+Stone Fist,Punho de Pedra,move
+Granite Fist,Punho de Granito,move
+Mountain's Fist,Punho da Montanha,move
+Calcify,Calcificar,move
+Petrify Hide,Couro Petrificado,move
+Monolith Skin,Pele de Monólito,move
+Root Grip,Aperto de Raiz,move
+Strangleroots,Raízes Estranguladoras,move
+Strangleroot Execution,Execução Estranguladora,move
+Root Lash,Chicote de Raiz,move
+Root Scourge,Flagelo de Raízes,move
+Grasping Scourge,Flagelo Agarrador,move
+Sap Drink,Gole de Seiva,move
+Sap Draught,Trago de Seiva,move
+Draught of Stolen Years,Trago dos Anos Roubados,move
+Barkskin,Pele de Casca,move
+Ironbark Skin,Pele de Casca-ferro,move
+Hide of the Elder Bark,Couro da Casca Anciã,move
+Tight Knot,Nó Apertado,move
+Last Knot,Último Nó,move
+The Final Knot,O Nó Final,move
+Gallows Drop,Queda da Forca,move
+Trapdoor Drop,Queda do Alçapão,move
+Drop of the Condemned,Queda do Condenado,move
+Cinch,Apertar,move
+Cinch Tight,Arrocho,move
+Windpipe Cinch,Arrocho na Traqueia,move
+Wire Whip,Chicote de Arame,move
+Wire Lash,Açoite de Arame,move
+Razorwire Scourge,Flagelo de Arame Farpado,move
+Grave Wind,Vento Tumular,move
+Funeral Wind,Vento Fúnebre,move
+Wind of the Final Rite,Vento do Último Rito,move
+Peck of Omens,Bicada dos Presságios,move
+Omen Peck,Bicada Agourenta,move
+Peck of Ill Omens,Bicada dos Maus Agouros,move
+Death Knell,Dobre Fúnebre,move
+Tolling Knell,Dobre de Sinos,move
+Knell of the Condemned,Dobre do Condenado,move
+Carrion Call,Chamado da Carniça,move
+Carrion Summons,Convocação da Carniça,move
+Feast of Crows,Banquete dos Corvos,move
+Antler Toss,Arremesso de Galhada,move
+Horned Judgment,Julgamento dos Chifres,move
+Wild Hunt Verdict,Veredito da Caçada Selvagem,move
+Antler Jab,Estocada de Galhada,move
+Antler Gore,Chifrada,move
+Sovereign's Gore,Chifrada do Soberano,move
+Green Bloom,Floração Verde,move
+Sovereign's Bloom,Floração do Soberano,move
+Wild Throne Bloom,Floração do Trono Selvagem,move
+Wild Command,Comando Selvagem,move
+Command the Wild,Comandar o Selvagem,move
+Dominion of the Hunt,Domínio da Caçada,move
+Shell Scrape,Raspão de Casco,move
+Barnacle Grind,Moenda de Cracas,move
+Barnacle Millstone,Mó de Cracas,move
+Scuttle Strike,Golpe Lateral,move
+Scuttle Slash,Talho Lateral,move
+Tidal Scuttle Assault,Assalto Lateral da Maré,move
+Pincer Snip,Beliscão de Pinça,move
+Pincer Shear,Tesoura de Pinça,move
+Shear of the Tidepool,Tesoura da Poça de Maré,move
+Shell Up,Fechar Casco,move
+Shell Wall,Muralha de Casco,move
+Bastion of the Shore,Bastião da Costa,move
+Jawlock,Trava-mandíbula,move
+Jawlock Vice,Torno de Mandíbula,move
+Inescapable Jawlock,Mandíbula Inescapável,move
+Salt Wound,Ferida de Sal,move
+Salted Wound,Ferida Salgada,move
+Salt in the Wound,Sal na Ferida,move
+Bite,Mordida,move
+Crushing Bite,Mordida Esmagadora,move
+Bonesplitting Bite,Mordida Racha-ossos,move
+Thrash,Sacudida,move
+Death Thrash,Sacudida Mortal,move
+Deathroll Thrash,Giro da Morte,move
+Wet Croak,Coaxo Úmido,move
+Deluge Croak,Coaxo Dilúvio,move
+Drowning Chorus,Coro Afogado,move
+Brine Spit,Cuspe de Salmoura,move
+Salt Spit,Cuspe de Sal,move
+Caustic Brinespit,Cuspe Cáustico de Salmoura,move
+Weeping Mist,Névoa Chorosa,move
+Mourning Mist,Névoa de Luto,move
+Veil of Weeping Salt,Véu de Sal Choroso,move
+Puff Up,Estufar,move
+Swell Up,Inchar,move
+Tidal Swell,Inchaço da Maré,move
+Steam Punch,Soco de Vapor,move
+Thermal Lance Punch,Soco Lança Térmica,move
+Thermal Lance,Lança Térmica,move
+Cavitation Snap,Estalo de Cavitação,move
+Cavitation Burst,Explosão de Cavitação,move
+Imploding Cavitation,Cavitação Implosiva,move
+Jab Volley,Saraivada de Socos,move
+Piston Volley,Saraivada de Pistão,move
+Pistonstorm Volley,Tempestade de Pistões,move
+Warm Up,Aquecer,move
+Boiling Point,Ponto de Ebulição,move
+Superheated Threshold,Limiar Superaquecido,move
+Sorrow Swell,Onda de Tristeza,move
+Grief Surge,Surto de Luto,move
+Surge of Drowning Grief,Surto de Luto Afogado,move
+Undertow Touch,Toque da Contracorrente,move
+Undertow Grasp,Aperto da Contracorrente,move
+Grasp of the Undertow,Abraço da Contracorrente,move
+Drowning Lure,Atração Afogadora,move
+Siren Lure,Canto da Sereia,move
+Lure to the Riverbed,Atrair ao Leito do Rio,move
+Mendtide,Maré Curativa,move
+Mending Tide,Maré Restauradora,move
+Tide of Cold Mercy,Maré da Fria Misericórdia,move
+Shell Slam,Pancada de Casco,move
+Fortress Slam,Pancada Fortaleza,move
+Fortress Devastation,Devastação da Fortaleza,move
+Shell Bash,Investida de Casco,move
+Rampart Bash,Investida de Muralha,move
+Battlement Crush,Esmagar Ameias,move
+Shell Retreat,Recolher no Casco,move
+Shell Seal,Selar o Casco,move
+Impenetrable Withdrawal,Recuo Impenetrável,move
+Slime Coat,Camada de Gosma,move
+Rampart Slime,Gosma Muralha,move
+Rampart Mireshield,Muralha de Lodo,move
+Dark Lash,Açoite Sombrio,move
+Void Lash,Açoite do Vazio,move
+Lash of the Hollow Dark,Açoite da Treva Oca,move
+Static Discharge,Descarga Estática,move
+Voltaic Discharge,Descarga Voltaica,move
+Abyssal Discharge,Descarga Abissal,move
+Phase Bite,Mordida de Fase,move
+Phasing Bite,Mordida Defasada,move
+Bite Between Worlds,Mordida Entre Mundos,move
+Unreal Slip,Deslize Irreal,move
+Phase Slip,Deslize de Fase,move
+Slip Out of Being,Escapar da Existência,move
+Triple Snap,Bocada Tripla,move
+Sixfold Fury,Fúria Sêxtupla,move
+Ninefold Fury,Fúria Nônupla,move
+Triple Maul,Estraçalho Triplo,move
+Sixfold Maul,Estraçalho Sêxtuplo,move
+Ninemaw Maul,Estraçalho das Nove Bocas,move
+Coral Rake,Arranhão de Coral,move
+Reefclaw Rake,Arranhão Garra-recife,move
+Razorreef Rake,Arranhão Recife-navalha,move
+Regrow Head,Regenerar Cabeça,move
+Sprout Heads,Brotar Cabeças,move
+Hydra Proliferation,Proliferação da Hidra,move
+Tide Surge,Surto de Maré,move
+The Deep Remembers,O Fundo se Lembra,move
+The Sea Remembers,O Mar se Lembra,move
+Tide Swell,Cheia da Maré,move
+Tide of Ruin,Maré da Ruína,move
+Ruinous Tide,Maré Ruinosa,move
+Deep Crush,Esmagamento Profundo,move
+Abyssal Crush,Esmagamento Abissal,move
+Crush of the Abyss,Esmagamento do Abismo,move
+Drowned Court,Corte Afogada,move
+Court of the Drowned,Corte dos Afogados,move
+Drowned Dominion,Domínio Afogado,move
+Dark Pull,Puxão Sombrio,move
+Event Horizon,Horizonte de Eventos,move
+Past the Horizon,Além do Horizonte,move
+Ink Jet,Jato de Tinta,move
+Void Jet,Jato do Vazio,move
+Jet of Hungry Dark,Jato da Treva Faminta,move
+Swallowing Ink,Tinta Engolidora,move
+Devouring Ink,Tinta Devoradora,move
+World-Swallowing Ink,Tinta Engole-mundos,move
+Blink Home,Piscar para Casa,move
+Blink Away,Piscar e Sumir,move
+Retreat Between Stars,Recuo Entre Estrelas,move
+Dusk Bite,Mordida do Ocaso,move
+Twilight Maw,Bocarra Crepuscular,move
+Maw of Falling Night,Bocarra do Anoitecer,move
+Basking Fury,Fúria ao Sol,move
+Sunfed Fury,Fúria Nutrida de Sol,move
+Fury of the Last Light,Fúria da Última Luz,move
+Tail Sweep,Varrida de Cauda,move
+Tail Scythe,Foice de Cauda,move
+Duskscythe Sweep,Varrida Foice-do-ocaso,move
+Duskshift,Mudança do Ocaso,move
+Twilight Shift,Mudança Crepuscular,move
+Vanish Into Dusk,Sumir no Ocaso,move
+Shrill Cry,Grito Agudo,move
+Requiem Shriek,Guincho de Réquiem,move
+Shriek of the Requiem,Guincho do Réquiem,move
+Wailing Touch,Toque Lamentoso,move
+Keening Touch,Toque Pranteador,move
+Touch of the Dead,Toque dos Mortos,move
+Keening,Pranto,move
+Keening Wail,Pranto Lamentoso,move
+Keen of the Buried,Pranto dos Enterrados,move
+Death Omen,Agouro Mortal,move
+Omen of Death,Presságio da Morte,move
+Portent of the Grave,Portento da Cova,move
+Sand Fang,Presa de Areia,move
+Buried Fang,Presa Enterrada,move
+Fang Beneath the Dunes,Presa Sob as Dunas,move
+Squeeze,Apertão,move
+Constrict,Constringir,move
+Crushing Constriction,Constrição Esmagadora,move
+Ambush Strike,Golpe de Emboscada,move
+Ambush Lunge,Bote de Emboscada,move
+Duneshadow Ambush,Emboscada Sombra-da-duna,move
+Sand Swim,Nado na Areia,move
+Dune Glide,Deslize nas Dunas,move
+Beneath the Sandsea,Sob o Mar de Areia,move
+Water Dream,Sonho d'Água,move
+Dream of Water,Sonho de Água,move
+Dream of Drowning Light,Sonho da Luz Afogada,move
+Double Image,Imagem Dupla,move
+Twin Image,Imagem Gêmea,move
+Legion of Images,Legião de Imagens,move
+Mirage Claw,Garra-miragem,move
+Mirage Talon,Garra da Miragem,move
+Talon of False Light,Garra da Falsa Luz,move
+Heat Haze,Bruma de Calor,move
+Shimmering Haze,Bruma Tremeluzente,move
+Haze of the Lost Road,Bruma da Estrada Perdida,move
+Grit Blast,Rajada de Cascalho,move
+Sandblast,Jato de Areia,move
+Sandblast Apocalypse,Apocalipse de Areia,move
+Grinding Gale,Vendaval Moedor,move
+Scouring Gale,Vendaval Abrasivo,move
+Gale of Grinding Glass,Vendaval de Vidro Moído,move
+Reform,Recompor,move
+Re-form,Refazer,move
+Reconstitute the Storm,Reconstituir a Tempestade,move
+Stormwall,Muralha de Tempestade,move
+Wall of Sand,Muralha de Areia,move
+Burning Storm Wall,Muralha da Tempestade Ardente,move
+Fang Flurry,Rajada de Presas,move
+Hundred Fangs,Cem Presas,move
+Thousand Fangs,Mil Presas,move
+Mother's Coil,Enlace Materno,move
+Matriarch's Coil,Enlace da Matriarca,move
+Coil of the Broodmother,Enlace da Mãe da Ninhada,move
+Viper Spit,Cuspe de Víbora,move
+Venom Spit,Cuspe Venenoso,move
+Serpent Queen's Venom,Veneno da Rainha Serpente,move
+Brood Call,Chamado da Ninhada,move
+Call the Brood,Convocar a Ninhada,move
+Thousand Brood,Mil Crias,move
+Hot Rend,Rasgo Quente,move
+White-Hot Rend,Rasgo em Brasa,move
+Incandescent Rend,Rasgo Incandescente,move
+Killing Heat,Calor Assassino,move
+Lethal Heat,Calor Letal,move
+Heat That Kills,Calor que Mata,move
+Sear Swipe,Patada Chamuscante,move
+Searing Swipe,Patada Abrasadora,move
+Brandmark Swipe,Patada de Ferrete,move
+Kindle,Acender,move
+Stoke Embers,Atiçar Brasas,move
+Furnace Heart,Coração de Fornalha,move
+Slow Roll,Rolagem Lenta,move
+Continental Roll,Rolagem Continental,move
+Living Continent,Continente Vivo,move
+Weight of Ages,Peso das Eras,move
+Weight of Eons,Peso dos Éons,move
+The Weight of All Ages,O Peso de Todas as Eras,move
+Ruin Shrug,Ombrada Ruinosa,move
+Shrug of Ruin,Ombrada da Ruína,move
+Shrug That Topples Cities,Ombrada que Derruba Cidades,move
+Ancient Patience,Paciência Antiga,move
+Eternal Patience,Paciência Eterna,move
+Patience of Earth,Paciência da Terra,move
+Sand Gust,Lufada de Areia,move
+Simoom's Wrath,Ira do Simum,move
+Burning Wind Wrath,Ira do Vento Ardente,move
+Sand Cyclone,Ciclone de Areia,move
+Desert Cyclone,Ciclone do Deserto,move
+Glass Cyclone,Ciclone de Vidro,move
+Scouring Wind,Vento Abrasivo,move
+Flaying Wind,Vento Esfolador,move
+Wind That Strips Bone,Vento que Descarna Ossos,move
+Djinn Step,Passo do Djinn,move
+Djinn Stride,Passada do Djinn,move
+Bottled Storm,Tempestade Engarrafada,move
+Tail Bite,Morder a Cauda,move
+End Is Beginning,Fim é Começo,move
+The End Is the Beginning,O Fim É o Começo,move
+Eternal Bind,Laço Eterno,move
+Endless Bind,Laço Sem Fim,move
+Bind Without End,Laço Interminável,move
+World Coil,Enlace do Mundo,move
+Worldring Coil,Enlace Anel-do-mundo,move
+Coil Around the World,Enlaçar o Mundo,move
+Tail Swallow,Engole-cauda,move
+Swallow the Tail,Engolir a Cauda,move
+Devour the Self Eternal,Devorar o Eu Eterno,move
+Acid Spill,Derrame de Ácido,move
+Dissolving Flood,Enchente Dissolvente,move
+Flood of Dissolution,Enchente da Dissolução,move
+Acid Dribble,Baba Ácida,move
+Acid Spatter,Respingo Ácido,move
+Corrosive Torrent,Torrente Corrosiva,move
+Corrosive Burst,Explosão Corrosiva,move
+Caustic Burst,Explosão Cáustica,move
+Fleshmelt Burst,Explosão Derrete-carne,move
+Curl Up,Enrolar-se,move
+Curl Tight,Enrolar Firme,move
+Impervious Coil,Enrolamento Impenetrável,move
+Husk Pop,Estouro de Casca,move
+Husk Detonation,Detonação de Casca,move
+Detonation of the Husk,Detonação da Casca,move
+Thorn Spray,Borrifo de Espinhos,move
+Thorn Barrage,Barragem de Espinhos,move
+Barrage of Iron Thorns,Barragem de Espinhos de Ferro,move
+Branch Jab,Estocada de Galho,move
+Branch Spear,Lança de Galho,move
+Impaling Branch,Galho Empalador,move
+Mimic Bark,Casca Mimética,move
+False Bark,Casca Falsa,move
+Waiting Snare,Armadilha à Espera,move
+Spore Cough,Tosse de Esporos,move
+Bloomlung,Pulmão Florido,move
+Bloomlung Blight,Praga do Pulmão Florido,move
+Dart,Dardo,move
+Needle Dart,Dardo-agulha,move
+Sporeneedle Dart,Dardo Agulha-esporo,move
+Spore Dusting,Pó de Esporos,move
+Spore Coating,Camada de Esporos,move
+Dusting of Quiet Rot,Pó da Podridão Silenciosa,move
+Carrier Swarm,Enxame Portador,move
+Vector Swarm,Enxame Vetor,move
+Patient Carriers,Portadores Pacientes,move
+Silk Snip,Corte de Seda,move
+Silken Noose,Laço de Seda,move
+Silken Guillotine,Guilhotina de Seda,move
+Fang Strike,Golpe de Presa,move
+Venom Fang,Presa Venenosa,move
+Widow's Fang,Presa da Viúva,move
+Numbing Thread,Fio Entorpecente,move
+Paralytic Silk,Seda Paralisante,move
+Paralytic Shroud,Mortalha Paralisante,move
+Web Corner,Canto da Teia,move
+Web Larder,Despensa de Teia,move
+Larder of the Wrapped,Despensa dos Embrulhados,move
+Leaf Snap,Estalo de Folha,move
+Rooted Feast,Banquete Enraizado,move
+Feast of the Rooted,Banquete dos Enraizados,move
+Snap Trap,Armadilha de Mola,move
+Jawleaf Trap,Armadilha Folha-mandíbula,move
+Mantrap Guillotine,Guilhotina Pega-homem,move
+Sap Bath,Banho de Seiva,move
+Digestive Bath,Banho Digestivo,move
+Dissolution Bath,Banho de Dissolução,move
+Overgrowth,Alastrar,move
+Rampant Overgrowth,Alastramento Desenfreado,move
+Devouring Overgrowth,Alastramento Devorador,move
+Sick Bite,Mordida Doente,move
+Pandemic Bite,Mordida Pandêmica,move
+Bite of the Great Dying,Mordida da Grande Mortandade,move
+Chitin Clip,Tesourada de Quitina,move
+Chitin Shear,Corte de Quitina,move
+Plagueshell Shear,Corte Casca-praga,move
+Release Colony,Soltar Colônia,move
+Release the Colony,Soltar a Colônia,move
+Unleash the Colony,Libertar a Colônia,move
+Host's Gift,Dom do Hospedeiro,move
+Carrier's Gift,Dom do Portador,move
+Gift of the Patient Host,Dom do Hospedeiro Paciente,move
+Whispered Prayer,Prece Sussurrada,move
+Answered Prayer,Prece Atendida,move
+Prayer in Blood,Prece em Sangue,move
+Prayer Strike,Golpe da Prece,move
+Zealot Strike,Golpe do Fanático,move
+Zealot's Consecration,Consagração do Fanático,move
+Between Blinks,Entre Piscadas,move
+Between Heartbeats,Entre Batimentos,move
+Between the Last Blinks,Entre as Últimas Piscadas,move
+Silent Grace,Graça Silenciosa,move
+Solemn Grace,Graça Solene,move
+Grace of the Silent Order,Graça da Ordem Silenciosa,move
+Swarm Gather,Reunir Enxame,move
+The Swarm Descends,O Enxame Desce,move
+Descent of the Devourers,Descida dos Devoradores,move
+Swarm Surge,Surto do Enxame,move
+Swarm Tide,Maré do Enxame,move
+Tide of Chitin,Maré de Quitina,move
+Strip Field,Rapar o Campo,move
+Strip the Field,Rapar a Lavoura,move
+Leave Nothing Green,Nada Verde Resta,move
+Devour All,Devorar Tudo,move
+Consume the Harvest,Consumir a Colheita,move
+Crown Swarm,Enxame da Coroa,move
+Coronation Swarm,Enxame da Coroação,move
+Crowned Swarm,Enxame Coroado,move
+Sting,Ferroada,move
+Royal Sting,Ferroada Real,move
+Sting of the Sovereign,Ferroada do Soberano,move
+Queen's Decree,Decreto da Rainha,move
+Queen's Edict,Édito da Rainha,move
+Edict of the Hive Throne,Édito do Trono da Colmeia,move
+Spore Brood,Ninhada de Esporos,move
+Brood Bloom,Floração da Ninhada,move
+Vesper Brood,Ninhada Vespertina,move
+Root Stir,Agitar Raízes,move
+The Deep Roots Rise,As Raízes Profundas Sobem,move
+Rise of the Deep Roots,Ascensão das Raízes Profundas,move
+Root Grasp,Agarrão de Raiz,move
+Worldroot Grasp,Agarrão da Raiz-mundo,move
+Grasp of the World-Root,Agarrão da Raiz do Mundo,move
+Root Aegis,Égide de Raiz,move
+World-Root Aegis,Égide da Raiz-mundo,move
+Aegis of the World Tree,Égide da Árvore do Mundo,move
+Sap of Ages,Seiva das Eras,move
+Ageless Sap,Seiva sem Idade,move
+Sap of Uncounted Ages,Seiva de Eras Incontáveis,move
+Face Slam,Pancada de Paredão,move
+Sheer Face Slam,Pancada de Paredão Íngreme,move
+Sheer Cliff Obliteration,Obliteração do Penhasco,move
+Drop Ambush,Emboscada em Queda,move
+Deadfall Ambush,Emboscada de Desabamento,move
+Deadfall Execution,Execução por Desabamento,move
+Pincer Crush,Esmagar com Pinça,move
+Vice Crush,Esmagamento de Torno,move
+Vicegrip Ruin,Ruína do Torno,move
+Stonecling,Agarrar Pedra,move
+Stonegrip Cling,Grudar na Pedra,move
+Bedrock Anchor,Âncora de Rocha-mãe,move
+Heavy Roll,Rolagem Pesada,move
+Juggernaut Roll,Rolagem Colossal,move
+Juggernaut Devastation,Devastação Colossal,move
+Momentum Crash,Choque de Impulso,move
+Momentum Wreck,Colisão de Impulso,move
+Unstoppable Collision,Colisão Imparável,move
+Roll Over,Passar por Cima,move
+Flatten,Achatar,move
+Steamroll Ruin,Ruína do Rolo Compressor,move
+Spikeball,Bola de Espinhos,move
+Spiked Shell,Casco Espinhoso,move
+Impaler Sphere,Esfera Empaladora,move
+Rock Chew,Mastigar Rocha,move
+Consume Bedrock,Consumir a Rocha-mãe,move
+Devour the Bedrock,Devorar a Rocha-mãe,move
+Caustic Glide,Deslize Cáustico,move
+Caustic Slither,Rastejo Cáustico,move
+Slither of Molten Ruin,Rastejo da Ruína Derretida,move
+Dissolve Stone,Dissolver Pedra,move
+Melt Stone,Derreter Pedra,move
+Dissolution of Stone,Dissolução da Pedra,move
+Molten Mucus,Muco Derretido,move
+Slag Mucus,Muco de Escória,move
+Mucus of Molten Slag,Muco de Escória Derretida,move
+Crag Dive,Mergulho do Penhasco,move
+Cragfire Dive,Mergulho Fogo-rochedo,move
+Cragfire Devastation,Devastação Fogo-rochedo,move
+Furnace Breath,Bafo de Fornalha,move
+Kiln Breath,Bafo de Forno,move
+Mountain Forge,Forja da Montanha,move
+Talon Rake,Arranhão de Garra,move
+Talon Gouge,Rasgo de Garra,move
+Ridgeclaw Evisceration,Evisceração Garra-crista,move
+Updraft,Corrente Ascendente,move
+Thermal Updraft,Térmica Ascendente,move
+Ride the Burning Wind,Montar o Vento Ardente,move
+Stern Ruling,Sentença Severa,move
+Tyrant's Verdict,Veredito do Tirano,move
+Stone Verdict,Veredito de Pedra,move
+Scornful Backhand,Revés Desdenhoso,move
+Contemptuous Backhand,Revés de Desprezo,move
+Backhand of Utter Scorn,Revés do Desdém Total,move
+Decree of Stone,Decreto de Pedra,move
+Stone Decree,Decreto Pétreo,move
+Decree Written in Stone,Decreto Escrito em Pedra,move
+Court of Rock,Corte de Rocha,move
+Court of Stone,Corte de Pedra,move
+Court of the Unmoving,Corte dos Inabaláveis,move
+Blood Sip,Gole de Sangue,move
+Exsanguinate,Exsanguinar,move
+Total Exsanguination,Exsanguinação Total,move
+Crimson Tithe,Dízimo Carmesim,move
+Blood Tithe,Dízimo de Sangue,move
+Tithe of Crimson,Dízimo Rubro,move
+Tap Vein,Furar Veia,move
+Tap the Vein,Furar a Veia,move
+Open the Great Vein,Abrir a Grande Veia,move
+Anticoagulant,Anticoagulante,move
+Thinning Venom,Veneno Diluente,move
+Endless Bleed,Sangria Sem Fim,move
+Claw Tide,Maré de Garras,move
+Wall of Claws,Muralha de Garras,move
+Tidal Wall of Claws,Muralha-maré de Garras,move
+Many Grips,Muitos Apertos,move
+Multitude Grip,Aperto da Multidão,move
+Grip of the Multitude,Garra da Multidão,move
+Colony Slam,Pancada da Colônia,move
+Colony Avalanche,Avalanche da Colônia,move
+Avalanche of the Colony,Avalanche Colonial,move
+Fuse Ranks,Fundir Fileiras,move
+Lock Ranks,Travar Fileiras,move
+Unbreakable Phalanx,Falange Inquebrável,move
+Dim Light,Esmaecer a Luz,move
+Swallow Light,Engolir a Luz,move
+Swallow the Light Whole,Engolir a Luz Inteira,move
+Absent Sting,Ferroada Ausente,move
+Hollow Sting,Ferroada Oca,move
+Sting From Nowhere,Ferroada do Nada,move
+Nullpinch,Belisco Nulo,move
+Null Pinch,Beliscão Nulo,move
+Pinch of Unbeing,Beliscão da Inexistência,move
+Lightless Carapace,Carapaça sem Luz,move
+Sunless Carapace,Carapaça sem Sol,move
+Devoured Light,Luz Devorada,move
+Heavy Blow,Golpe Pesado,move
+Titan's Downstroke,Martelada do Titã,move
+Downstroke of the Titan,Martelada Titânica,move
+Iron Backfist,Revés de Ferro,move
+Bronze Backfist,Revés de Bronze,move
+Backfist of the Colossus,Revés do Colosso,move
+Ore-Bound Bulk,Massa de Minério,move
+Orebound Mass,Massa Mineral,move
+Bulk of the Living Mine,Massa da Mina Viva,move
+Foundry Guard,Guarda da Fundição,move
+Foundry Stance,Postura da Fundição,move
+Guard of the First Forge,Guarda da Primeira Forja,move
+Lava Spurt,Esguicho de Lava,move
+Eruption,Erupção,move
+Cataclysmic Eruption,Erupção Cataclísmica,move
+Magma Vent,Respiro de Magma,move
+Magma Geyser,Gêiser de Magma,move
+Pyroclastic Vent,Respiro Piroclástico,move
+Obsidian Edge,Gume de Obsidiana,move
+Obsidian Blade,Lâmina de Obsidiana,move
+Volcanic Glass Guillotine,Guilhotina de Vidro Vulcânico,move
+Cooling Shell,Casca Resfriada,move
+Basalt Shell,Casca de Basalto,move
+Igneous Carapace,Carapaça Ígnea,move
+Sky Cut,Corte Celeste,move
+Sky Lacerate,Laceração Celeste,move
+Sky-Rending Laceration,Laceração Rasga-céu,move
+Scissor Dive,Mergulho Tesoura,move
+Shearing Dive,Mergulho Cortante,move
+Guillotine Dive,Mergulho Guilhotina,move
+Wind Shear,Tesoura de Vento,move
+Cutting Shear,Corte Tesoura,move
+Bladewind Shear,Tesoura Vento-lâmina,move
+Wake Cut,Corte de Esteira,move
+Swift Wake,Esteira Veloz,move
+Slipstream Ascendant,Vácuo Ascendente,move
+Storm Perch,Poleiro da Tempestade,move
+Stormcrown,Coroa de Tempestade,move
+Crown of the Storm,Coroa da Tempestade,move
+Ball Lightning,Raio Globular,move
+Orb Lightning,Raio em Orbe,move
+Screaming Volts,Volts Gritantes,move
+Static Peck,Bicada Estática,move
+Voltaic Peck,Bicada Voltaica,move
+Peck of the Thunderhead,Bicada da Nuvem de Trovão,move
+Thundercall,Chamado do Trovão,move
+Call Thunder,Chamar o Trovão,move
+Thunderhead Call,Chamado da Trovoada,move
+Static Flash,Clarão Estático,move
+Overload Flash,Clarão de Sobrecarga,move
+Overload Cataclysm,Cataclismo de Sobrecarga,move
+Dust Zap,Choque de Poeira,move
+Charged Dust,Poeira Carregada,move
+Galvanic Dustburst,Explosão de Poeira Galvânica,move
+EM Pulse,Pulso EM,move
+Electromagnetic Pulse,Pulso Eletromagnético,move
+Fieldkiller Pulse,Pulso Mata-campo,move
+Magnet Wings,Asas Ímã,move
+Magnetized Wings,Asas Magnetizadas,move
+Wings of the Iron Storm,Asas da Tempestade de Ferro,move
+Stone Lift,Erguer Pedra,move
+Mountain-Bearer,Carrega-montanhas,move
+Bearer of Mountains,Portador de Montanhas,move
+Boulder Drop,Queda de Pedregulho,move
+Crag Drop,Queda de Rochedo,move
+Fall of Mountains,Queda das Montanhas,move
+Hunting Stoop,Mergulho de Caça,move
+Deathstoop,Mergulho Mortal,move
+Stoop of the Sky Tyrant,Mergulho do Tirano do Céu,move
+Talon Snatch,Bote de Garra,move
+Talon Seize,Captura de Garra,move
+Talon Seizure,Agarrão das Garras,move
+Wind Fang,Presa de Vento,move
+Twisterfang,Presa-tornado,move
+Twisterfang Cataclysm,Cataclismo Presa-tornado,move
+Keening Bite,Mordida Pranteadora,move
+Howling Bite,Mordida Uivante,move
+Bite of the Keening Wind,Mordida do Vento Pranteador,move
+Tornado Howl,Uivo Tornado,move
+Cyclone Howl,Uivo Ciclone,move
+Devouring Sky,Céu Devorador,move
+Eye of the Wind,Olho do Vento,move
+Eye of the Funnel,Olho do Funil,move
+Heart of the Vortex,Coração do Vórtice,move
+Volt Touch,Toque Volt,move
+Megavolt Delivery,Entrega Megavolt,move
+Megavolt Execution,Execução Megavolt,move
+Discharge Sweep,Varredura de Descarga,move
+Discharge Arc,Arco de Descarga,move
+Arc of Total Discharge,Arco de Descarga Total,move
+Volt Graze,Raspão Volt,move
+Volt Brush,Roçar Volt,move
+Graze of the Live Wire,Raspão do Fio Desencapado,move
+Thermal Ride,Cavalgar Térmica,move
+Thermal Soar,Planar Térmico,move
+Ride the Burning Current,Montar a Corrente Ardente,move
+Sky Verdict,Veredito do Céu,move
+Serpent's Verdict,Veredito da Serpente,move
+Sky Serpent's Verdict,Veredito da Serpente Celeste,move
+Plume Spark,Faísca de Pluma,move
+Feathered Lightning,Relâmpago Emplumado,move
+Feathered Thunderbolt,Raio Emplumado,move
+Plume Strike,Golpe de Pluma,move
+Plumed Lash,Açoite Plumado,move
+Quetzal Scourge,Flagelo do Quetzal,move
+Cloudcoil,Espiral de Nuvem,move
+Stormcoil,Espiral de Tempestade,move
+Coil of the High Storm,Espiral da Alta Tempestade,move
+Many Roars,Muitos Rugidos,move
+Hundred-Headed Storm,Tempestade de Cem Cabeças,move
+Hundred-Head Storm,Tormenta de Cem Cabeças,move
+Storm Maw,Bocarra da Tempestade,move
+Tempest Maw,Bocarra da Tormenta,move
+Maw of the Worldstorm,Bocarra da Tempestade-mundo,move
+Pressure Front,Frente de Pressão,move
+Crushing Front,Frente Esmagadora,move
+Front of Crushing Skies,Frente dos Céus Esmagadores,move
+Cyclone Shield,Escudo Ciclone,move
+Cyclone Ward,Proteção Ciclone,move
+Ward of the Turning Sky,Proteção do Céu que Gira,move
+First Gust,Primeira Lufada,move
+Primordial Gale,Vendaval Primordial,move
+The Wind That Was First,O Vento que Veio Primeiro,move
+Feather Flick,Peteleco de Pena,move
+Stormfeather Volley,Saraivada Pena-tormenta,move
+Stormfeather Tempest,Tempestade Pena-tormenta,move
+Rising Draft,Corrente Crescente,move
+Leading Wind,Vento Guia,move
+First Wind,Primeiro Vento,move
+Following Gale,Vendaval de Popa,move
+Relentless Gale,Vendaval Implacável,move
+Unbroken Gale,Vendaval Ininterrupto,move
+Storm Rise,Ascensão da Tempestade,move
+I Am the Storm,Eu Sou a Tempestade,move
+I Am the Storm Entire,Eu Sou Toda a Tempestade,move
+Lightning Spear,Lança Relâmpago,move
+Levin Spear,Lança Fulgurante,move
+Spear of the Sky's Wrath,Lança da Ira do Céu,move
+Thunder Rake,Arranhão Trovejante,move
+Thunderclaw Rake,Arranhão Garra-trovão,move
+Rake of Rolling Thunder,Arranhão do Trovão Rolante,move
+Stormcall,Invocar Tempestade,move
+Call the Storm,Chamar a Tempestade,move
+Convocation of Storms,Convocação das Tempestades,move
+Hop Ball,Bola Saltitante,move
+Launch Ball,Bola Lançada,move
+Ballistic Launch,Lançamento Balístico,move
+Gut Splash,Respingo de Tripa,move
+Gutwater Burst,Jorro Visceral,move
+Gutwater Deluge,Dilúvio Visceral,move
+Bounce Slam,Pancada Quicante,move
+Crushing Bounce,Quique Esmagador,move
+Slamdown Rebound,Rebote Esmagador,move
+Puff,Sopro,move
+Inflate,Inflar,move
+Titanic Inflation,Inchaço Titânico,move
+Odd Dream,Sonho Estranho,move
+Fever Dream,Delírio Febril,move
+Fever Beyond Waking,Febre Além do Despertar,move
+Slick Strike,Golpe Escorregadio,move
+Slick Lash,Açoite Escorregadio,move
+Toxin-Slick Lash,Açoite Tóxico Viscoso,move
+Hallucinogen Coat,Camada Alucinógena,move
+Delirium Coat,Camada de Delírio,move
+Waking Nightmare,Pesadelo Acordado,move
+Skinshed,Troca de Pele,move
+Shed Skin,Mudar a Pele,move
+Molt of the Deceiver,Muda do Enganador,move
+Blight Buzz,Zumbido da Praga,move
+Blightswarm,Enxame da Praga,move
+Blightswarm Pestilence,Pestilência do Enxame,move
+Reanimating Sting,Ferroada Reanimadora,move
+Gravewake Sting,Ferroada Desperta-cova,move
+Sting of the Dead,Ferroada dos Mortos,move
+Corpse Nip,Beliscada de Cadáver,move
+Carrion Nip,Beliscada de Carniça,move
+Carrion-Feeder's Bite,Mordida do Carniceiro,move
+Plague Eggs,Ovos da Peste,move
+Blight Clutch,Ninhada da Praga,move
+Clutch of Writhing Blight,Ninhada da Praga Contorcida,move
+Stitch Skin,Costurar Pele,move
+Stitchflesh,Carne Costurada,move
+Stitchflesh Abomination,Abominação Costurada,move
+Bonetongue,Língua de Osso,move
+Bonetongue Lash,Chicote Língua-osso,move
+Marrowtongue Scourge,Flagelo Língua-tutano,move
+Bog Blessing,Bênção do Brejo,move
+Bog Benediction,Benedição do Brejo,move
+Benediction of Rot,Benedição da Podridão,move
+Deathcroak,Coaxo Mortal,move
+Dirgecroak,Coaxo Fúnebre,move
+Croak of the Grave,Coaxo da Cova,move
+Glow Snack,Petisco Luminoso,move
+Glowfeast,Banquete Luminoso,move
+Feast of Stolen Light,Banquete de Luz Roubada,move
+Lure Flick,Peteleco de Isca,move
+Lure Flash,Clarão de Isca,move
+Flash of the False Beacon,Clarão do Falso Farol,move
+Mesmer Light,Luz Hipnótica,move
+Mesmeric Light,Luz Mesmérica,move
+Light That Binds the Will,Luz que Prende a Vontade,move
+Lost Lantern,Lanterna Perdida,move
+Lantern of the Lost,Lanterna dos Perdidos,move
+Lure of the Lost,Isca dos Perdidos,move
+Fen Blow,Golpe do Charco,move
+Fenbreaker,Racha-charco,move
+Fenbreaker Cataclysm,Cataclismo Racha-charco,move
+Marsh Maul,Malho do Pântano,move
+Mire Maul,Malho do Lodo,move
+Maul of the Black Fen,Malho do Charco Negro,move
+Parasite Shrug,Sacudir Parasitas,move
+Leech Shrug,Sacudir Sanguessugas,move
+Shrug Off the Feeders,Livrar-se dos Parasitas,move
+Bog Lurk,Espreita do Brejo,move
+Fen Lurk,Espreita do Charco,move
+Terror Beneath the Fen,Terror Sob o Charco,move
+Cold Pull,Puxão Frio,move
+Take You Under,Te Levo ao Fundo,move
+Dragged to the Deep,Arrastado ao Fundo,move
+Cold Grip,Aperto Frio,move
+Drowned Grip,Aperto Afogado,move
+Grip of the Drowned,Aperto dos Afogados,move
+Half-Here,Meio Presente,move
+Half-Departed,Meio Partido,move
+Neither Shore,Nenhuma Margem,move
+Wet Memory,Memória Úmida,move
+Drowned Memory,Memória Afogada,move
+Memory of Drowning,Memória do Afogamento,move
+String Pull,Puxar Fios,move
+Marionette Harvest,Colheita de Marionetes,move
+Harvest of Marionettes,Colheita das Marionetes,move
+Strangling Growth,Crescimento Estrangulador,move
+Choking Growth,Crescimento Sufocante,move
+Gallows Growth,Crescimento da Forca,move
+Tendril Snap,Estalo de Gavinha,move
+Tendril Lash,Açoite de Gavinha,move
+Hangman's Tendril,Gavinha do Carrasco,move
+Puppet Corpse,Cadáver Marionete,move
+Corpse Puppet,Marionete de Cadáver,move
+Dance of the Hanged,Dança dos Enforcados,move
+Mud Stir,Revolver Lama,move
+What Lies Beneath,O que Jaz Abaixo,move
+What Waits Beneath,O que Espera Abaixo,move
+Brood Slap,Tapa da Ninhada,move
+Brood Swipe,Patada da Ninhada,move
+Broodmother's Backhand,Revés da Matriarca,move
+Mother's Milk,Leite Materno,move
+Mire Milk,Leite do Lodo,move
+Milk of the Black Mire,Leite do Lodo Negro,move
+Spawn Tide,Maré de Crias,move
+Brood Tide,Maré da Ninhada,move
+Tide of Spawn,Maré da Desova,move
+Fading Touch,Toque Esvaecente,move
+Nameless End,Fim sem Nome,move
+End Without a Name,Um Fim sem Nome,move
+Absent Touch,Toque Ausente,move
+Hollow Touch,Toque Oco,move
+Touch of Absence,Toque da Ausência,move
+Unwritten,Não Escrito,move
+Unwritten Fate,Destino Não Escrito,move
+Erased From Record,Apagado dos Registros,move
+Mourning Veil,Véu de Luto,move
+Veil of Mourning,Véu do Luto,move
+Nameless Shroud,Mortalha sem Nome,move
+Spore Drift,Deriva de Esporos,move
+Sporefall,Chuva de Esporos,move
+Sporefall Blight,Praga da Chuva de Esporos,move
+Cap Thump,Batida de Chapéu,move
+Cap Slam,Pancada de Chapéu,move
+Mycothump Crush,Esmagamento Micótico,move
+Vertigo Spores,Esporos da Vertigem,move
+Dizzying Spores,Esporos Tonteantes,move
+Spores of Spinning Dark,Esporos da Treva Giratória,move
+Mycowall,Micomuralha,move
+Fungal Wall,Muralha Fúngica,move
+Wall of Creeping Rot,Muralha da Podridão Rastejante,move
+Ink Splash,Respingo de Tinta,move
+Memory Flood,Enchente de Memórias,move
+Flood of Forgetting,Enchente do Esquecimento,move
+Tentacle Slap,Tapa de Tentáculo,move
+Tentacle Lash,Açoite de Tentáculo,move
+Manyarm Onslaught,Ofensiva de Muitos Braços,move
+Lethean Ink,Tinta Leteia,move
+Ink of Lethe,Tinta do Letes,move
+Ink of Oblivion,Tinta do Olvido,move
+Jet Retreat,Recuo a Jato,move
+Ink Jet Retreat,Recuo em Jato de Tinta,move
+Vanish in Black Water,Sumir na Água Negra,move
+First Spore,Primeiro Esporo,move
+Total Colonization,Colonização Total,move
+Colonization Absolute,Colonização Absoluta,move
+Spore Lash,Açoite de Esporos,move
+Mold Lash,Açoite de Mofo,move
+Lash of Creeping Veins,Açoite das Veias Rastejantes,move
+Neural Threading,Fiação Neural,move
+Nerve Threading,Fiação Nervosa,move
+Threading of the Mind,Fiação da Mente,move
+Symbiotic Bloom,Floração Simbiótica,move
+Parasitic Bloom,Floração Parasítica,move
+Bloom of the Willing Host,Floração do Hospedeiro Disposto,move
+Foretold Blow,Golpe Predito,move
+Inevitable Future,Futuro Inevitável,move
+The Inevitable Future,O Futuro Inevitável,move
+Shell Chime,Badalo da Concha,move
+Oracle Chime,Badalo do Oráculo,move
+Chime of the Oracle Shell,Badalo da Concha Oracular,move
+Glimpse the End,Vislumbrar o Fim,move
+See the End,Ver o Fim,move
+Vision of the Final Hour,Visão da Hora Final,move
+Prophecy Ward,Proteção Profética,move
+Foresight Ward,Proteção da Presciência,move
+Ward of Written Fate,Proteção do Destino Escrito,move
+Odd Unfold,Desdobrar Estranho,move
+Unfolding Horror,Horror que se Desdobra,move
+Horror Unfolding,Horror em Desdobramento,move
+Skitterflank,Flanco Ligeiro,move
+Flankskitter,Disparada Lateral,move
+Skitter Past Reason,Correr Além da Razão,move
+Jointed Lunge,Bote Articulado,move
+Manyjoint Lunge,Bote de Muitas Juntas,move
+Lunge of Too Many Joints,Bote de Juntas Demais,move
+Wrong Angles,Ângulos Errados,move
+Impossible Angles,Ângulos Impossíveis,move
+Geometry of Madness,Geometria da Loucura,move
+Quick Fade,Sumiço Rápido,move
+Vanishing Strike,Golpe Evanescente,move
+Strike From Nowhere,Golpe do Nada,move
+Traceflash,Rastro-clarão,move
+Flashtrace,Clarão-rastro,move
+Blinding Traceflash,Rastro-clarão Cegante,move
+Afterimage Trail,Rastro de Imagem,move
+Ghostlight Trail,Rastro de Luz Fantasma,move
+Trail of False Ghosts,Rastro de Falsos Fantasmas,move
+Hypnotic Wake,Esteira Hipnótica,move
+Mesmer Wake,Esteira Mesmérica,move
+Wake of the Entranced,Esteira dos Enfeitiçados,move
+Surface Rise,Subir à Tona,move
+Breach of the Deep,Salto das Profundezas,move
+Sunless Breach,Salto sem Sol,move
+Bulk Drift,Deriva Massiva,move
+Bulk Ram,Aríete Massivo,move
+Leviathan Drift,Deriva do Leviatã,move
+Spore Ballast,Lastro de Esporos,move
+Ballast Bloom,Floração de Lastro,move
+Ballast of Blooming Rot,Lastro da Podridão Florida,move
+Filter Cleanse,Limpeza do Filtro,move
+Filter Purge,Purga do Filtro,move
+Baleen Purge,Purga de Barbatanas,move
+Gone Fishing,Fui Pescar,move
+Where It Goes,Para Onde Vai,move
+Where Lost Things Go,Onde as Coisas Perdidas Vão,move
+Spacetooth,Dente-espaço,move
+Riftooth,Dente-fenda,move
+Teeth of Torn Space,Dentes do Espaço Rasgado,move
+Riftlure Snap,Bocada Isca-fenda,move
+Riftlure Bite,Mordida Isca-fenda,move
+Snap of the False Star,Bocada da Falsa Estrela,move
+Bait the Hole,Iscar o Buraco,move
+Bait the Rift,Iscar a Fenda,move
+Lure of the Hungry Void,Isca do Vazio Faminto,move
+Hyphal Sting,Ferroada de Hifa,move
+Hyphal Lance,Lança de Hifa,move
+Sting of the Undernet,Ferroada da Rede Subterrânea,move
+The Network Feeds,A Rede Alimenta,move
+The Network Provides,A Rede Provê,move
+The Network Provides All,A Rede Provê Tudo,move
+Rot and Renew,Apodrecer e Renovar,move
+Rot Into Renewal,Podridão em Renovação,move
+Decay Eternal Renewal,"Decomposição, Renovação Eterna",move
+We Spread,Nós Nos Espalhamos,move
+We Are Elsewhere,Estamos Noutro Lugar,move
+Always Everywhere,Sempre em Toda Parte,move
+Deep Stir,Agitação Profunda,move
+Wake the Deep,Despertar o Fundo,move
+The Deep Awakens,O Fundo Desperta,move
+Cavern Collapse,Colapso da Caverna,move
+Trench Collapse,Colapso da Fossa,move
+Collapse of the Trench,Desabamento da Fossa,move
+Eightfold Grip,Aperto Óctuplo,move
+Eightarm Grip,Aperto de Oito Braços,move
+Grip of Eight Dooms,Aperto das Oito Ruínas,move
+Colossal Sweep,Varrida Colossal,move
+Titanic Sweep,Varrida Titânica,move
+Sweep of the Leviathan,Varrida do Leviatã,move
+Grief Shard,Estilhaço de Luto,move
+Crystallize Grief,Cristalizar o Luto,move
+Grief Made Crystal,Luto Feito Cristal,move
+Light Lance,Lança de Luz,move
+Refraction Lance,Lança de Refração,move
+Prismatic Impalement,Empalamento Prismático,move
+Shardflick,Peteleco de Estilhaço,move
+Shard Scatter,Dispersão de Estilhaços,move
+Scattershard Volley,Saraivada de Estilhaços,move
+Prism Orbit,Órbita Prismática,move
+Shard Orbit,Órbita de Estilhaços,move
+Orbit of Broken Light,Órbita da Luz Partida,move
+Thin Sip,Gole Fino,move
+Deep Draught,Trago Fundo,move
+Final Draught,Trago Final,move
+Life Sip,Gole de Vida,move
+Life Drain,Dreno de Vida,move
+Lifeblood Harvest,Colheita de Sangue Vital,move
+Grey Nip,Beliscada Cinzenta,move
+Ashen Bite,Mordida Cinérea,move
+Cindershroud Bite,Mordida Mortalha-cinza,move
+Grey Wake,Esteira Cinzenta,move
+Ashen Wake,Esteira Cinérea,move
+Wake of Cinders,Esteira de Cinzas,move
+Core Beam,Raio do Núcleo,move
+Heartstone Beam,Raio Pedra-coração,move
+Heartstone Annihilation,Aniquilação Pedra-coração,move
+Facet Jab,Estocada de Faceta,move
+Faceted Jab,Estocada Facetada,move
+Facetstorm Assault,Tempestade de Facetas,move
+Core Shine,Brilho do Núcleo,move
+Core Radiance,Radiância do Núcleo,move
+Radiance of Stone,Radiância da Pedra,move
+Hardlight Wall,Muralha de Luz Sólida,move
+Hardlight Bastion,Bastião de Luz Sólida,move
+Bastion of Living Light,Bastião da Luz Viva,move
+First Cut,Primeiro Corte,move
+Red Portrait,Retrato Vermelho,move
+The Masterpiece,A Obra-prima,move
+Clean Cut,Corte Limpo,move
+Surgical Strike,Golpe Cirúrgico,move
+Vivisection Stroke,Golpe de Vivissecção,move
+Incision,Incisão,move
+Deep Incision,Incisão Profunda,move
+Anatomist's Incision,Incisão do Anatomista,move
+Vein Trace,Traçar Veia,move
+Arterial Map,Mapa Arterial,move
+Arterial Cartography,Cartografia Arterial,move
+Wrong Fit,Encaixe Errado,move
+Reassembled Wrong,Remontado Errado,move
+Reassembled All Wrong,Remontado Todo Errado,move
+Piecewise Assault,Ataque por Partes,move
+Piecemeal Assault,Ataque aos Pedaços,move
+Assault of Broken Pieces,Ataque dos Cacos,move
+Fragment Swipe,Patada de Fragmento,move
+Fragment Slash,Talho de Fragmento,move
+Slash of Shattered Selves,Talho dos Eus Estilhaçados,move
+Come Apart,Desmanchar,move
+Fall Apart,Despedaçar,move
+Come Apart at the Seams,Desmanchar pelas Costuras,move
+Track Down,Rastrear,move
+The Hunt Concludes,A Caçada Termina,move
+The Hunt Ends All,A Caçada Encerra Tudo,move
+Devour Vitality,Devorar Vitalidade,move
+Consume Vitality,Consumir Vitalidade,move
+Devour the Living Spark,Devorar a Centelha Viva,move
+Predestined Bite,Mordida Predestinada,move
+Fated Bite,Mordida Fadada,move
+Bite Written in Fate,Mordida Escrita no Destino,move
+Scent of Endings,Cheiro de Finais,move
+Scent the Ending,Farejar o Fim,move
+Scent of All Endings,Cheiro de Todos os Fins,move
+Rough Copy,Cópia Grosseira,move
+Perfect Reflection,Reflexo Perfeito,move
+Reflection Made Flesh,Reflexo Feito Carne,move
+Mirror Jab,Estocada Espelho,move
+Mirrored Strike,Golpe Espelhado,move
+Strike From the Glass,Golpe do Espelho,move
+Copied Stance,Postura Copiada,move
+Stolen Stance,Postura Roubada,move
+Stolen Form,Forma Roubada,move
+Familiar Face,Rosto Familiar,move
+Borrowed Face,Rosto Emprestado,move
+The Face You Trust,O Rosto em que Você Confia,move
+Cold Greeting,Saudação Fria,move
+Red Formality,Formalidade Rubra,move
+The Red Formality,A Formalidade Rubra,move
+Noble Feast,Banquete Nobre,move
+Noble's Feast,Banquete do Nobre,move
+Feast of the Pale Court,Banquete da Corte Pálida,move
+Contempt,Desprezo,move
+Cold Contempt,Desprezo Frio,move
+Contempt of Centuries,Desprezo de Séculos,move
+Command Presence,Presença de Comando,move
+Commanding Presence,Presença Imponente,move
+Blood Command,Comando de Sangue,move
+Gem Spark,Faísca de Gema,move
+Gemfire Bolt,Raio Fogo-gema,move
+Gemfire Cataclysm,Cataclismo Fogo-gema,move
+Soulspark,Centelha da Alma,move
+Soulfire Spark,Faísca Fogo-alma,move
+Soulfire Lance,Lança Fogo-alma,move
+Leaden Curse,Maldição Plúmbea,move
+Curse of Lead,Maldição de Chumbo,move
+Leaden Heart,Coração de Chumbo,move
+Soul Aside,Alma de Lado,move
+Soul Elsewhere,Alma Noutro Lugar,move
+Soul Beyond Reach,Alma Fora de Alcance,move
+Glass Step,Passo de Vidro,move
+Step Through,Atravessar,move
+Step Through the Glass,Atravessar o Espelho,move
+Backwards Cut,Corte Invertido,move
+Reversed Cut,Corte Reverso,move
+Cut From the Wrong Side,Corte do Lado Errado,move
+What It Shows,O que Ele Mostra,move
+What It Reflects,O que Ele Reflete,move
+What the Mirror Keeps,O que o Espelho Guarda,move
+Empty Glass,Espelho Vazio,move
+Nothing Looks Back,Nada Olha de Volta,move
+And Nothing Looks Back,E Nada Olha de Volta,move
+Gust Crack,Estalo de Rajada,move
+Windshear Burst,Explosão de Cisalhamento,move
+Shearwind Detonation,Detonação Vento-tesoura,move
+Draft Storm,Tempestade de Correntes,move
+Galestorm,Tormenta de Vendaval,move
+Vortex Maelstrom,Voragem de Vórtice,move
+Wind Nick,Talho de Vento,move
+Wind Slash,Corte de Vento,move
+Razorwind Cut,Corte Vento-navalha,move
+Self-Split,Autodivisão,move
+Self-Replicate,Autorreplicação,move
+Endless Replication,Replicação Sem Fim,move
+Ember March,Marcha das Brasas,move
+Bonefire March,Marcha da Fogueira de Ossos,move
+Bonefire Procession,Procissão da Fogueira de Ossos,move
+Ash Cuff,Algema de Cinza,move
+Cinder Shackle,Grilhão de Cinzas,move
+Pyre Shackle,Grilhão da Pira,move
+Lingering Will,Vontade Persistente,move
+Residual Purpose,Propósito Residual,move
+Purpose Beyond Death,Propósito Além da Morte,move
+Ash Puff,Baforada de Cinzas,move
+Choking Cloud,Nuvem Sufocante,move
+Smothering Ashfall,Chuva de Cinzas Asfixiante,move
+Hungry Maw,Bocarra Faminta,move
+Sacrificial Maw,Bocarra Sacrificial,move
+Maw of Burnt Offerings,Bocarra das Oferendas Queimadas,move
+Idol Fist,Punho do Ídolo,move
+Brazen Fist,Punho de Latão,move
+Fist of the Brass Idol,Punho do Ídolo de Latão,move
+Furnace Belly,Barriga de Fornalha,move
+Furnace Gut,Bucho de Fornalha,move
+Belly of Devouring Flame,Ventre da Chama Devoradora,move
+Iron Adoration,Adoração de Ferro,move
+Brazen Adoration,Adoração de Latão,move
+Furnace Adoration,Adoração da Fornalha,move
+Flare Spit,Cuspe Flamejante,move
+Wyrmflare,Clarão de Serpe,move
+Wyrmflare Conflagration,Conflagração da Serpe,move
+Fire Coil,Espiral de Fogo,move
+Burning Coil,Espiral Ardente,move
+Immolating Coil,Espiral Imolante,move
+Flame Lash,Açoite de Chamas,move
+Flame Whipcrack,Estalo de Chicote Flamejante,move
+Cinderwhip Fury,Fúria do Chicote de Cinzas,move
+Scorch Trail,Rastro Chamuscado,move
+Blazing Trail,Rastro Ardente,move
+Trail of Embers,Rastro de Brasas,move
+Three Bites,Três Mordidas,move
+Three Heads One Roar,"Três Cabeças, Um Rugido",move
+Three Heads One Hunger,"Três Cabeças, Uma Fome",move
+Split Breath,Sopro Dividido,move
+Trisected Breath,Sopro Tripartido,move
+Elemental Convergence,Convergência Elemental,move
+Threefold Snap,Bocada Tríplice,move
+Threefold Rend,Rasgo Tríplice,move
+Threefold Evisceration,Evisceração Tríplice,move
+Discordant Roar,Rugido Discordante,move
+Cacophonous Roar,Rugido Cacofônico,move
+Roar of Three Furies,Rugido das Três Fúrias,move
+Furnace Roar,Rugido da Fornalha,move
+Blastfurnace Roar,Rugido do Alto-forno,move
+Blastfurnace Cataclysm,Cataclismo do Alto-forno,move
+Molten Rivets,Rebites Derretidos,move
+Rivet Barrage,Barragem de Rebites,move
+Molten Rivet Barrage,Barragem de Rebites Derretidos,move
+Pig-Iron Bite,Mordida de Ferro-gusa,move
+Cast-Iron Bite,Mordida de Ferro Fundido,move
+Foundry-Forged Bite,Mordida Forjada na Fundição,move
+Foundry Hide,Couro de Fundição,move
+Tempered Hide,Couro Temperado,move
+Slagplate Armor,Armadura de Placas de Escória,move
+Flare Up,Inflamar,move
+Uncontained,Incontido,move
+Uncontainable Inferno,Inferno Incontrolável,move
+Containment Failure,Falha de Contenção,move
+Breach Event,Evento de Ruptura,move
+Total Breach,Ruptura Total,move
+Cinder Slash,Talho de Cinzas,move
+Cinder Scythe,Foice de Cinzas,move
+Slash of Living Fire,Talho do Fogo Vivo,move
+Stoke,Atiçar,move
+Stoke the Core,Atiçar o Núcleo,move
+Feed the Conflagration,Alimentar a Conflagração,move
+Standing Watch,Vigia Constante,move
+Contingency Zero,Contingência Zero,move
+Contingency Absolute,Contingência Absoluta,move
+Warden Strike,Golpe de Guardião,move
+Warden's Strike,Golpe do Guardião,move
+Strike of the Last Warden,Golpe do Último Guardião,move
+Standing Order,Ordem Permanente,move
+Standing Orders,Ordens Permanentes,move
+Deathless Orders,Ordens Imortais,move
+Protocol Shield,Escudo de Protocolo,move
+Shield Protocol,Protocolo Escudo,move
+Eternal Watch,Vigília Eterna,move
+First Spark,Primeira Faísca,move
+Before the Light,Antes da Luz,move
+Before There Was Light,Antes que Houvesse Luz,move
+Primordial Spark,Faísca Primordial,move
+Primordial Flare,Clarão Primordial,move
+Spark of the First Dawn,Faísca da Primeira Aurora,move
+First Flame,Primeira Chama,move
+The First Flame,A Primeira Chama,move
+Flame Before Creation,Chama Antes da Criação,move
+Anoint in Fire,Ungir no Fogo,move
+Baptism of Fire,Batismo de Fogo,move
+Anointment of the Pyre,Unção da Pira,move
+Redline,Linha Vermelha,move
+Deprecation,Obsolescência,move
+Total Deprecation,Obsolescência Total,move
+Editing Stroke,Traço de Edição,move
+Correcting Stroke,Traço de Correção,move
+Authorial Erasure,Rasura do Autor,move
+Rewrite Terms,Reescrever Termos,move
+Rewrite the Terms,Reescrever os Termos,move
+Rewrite All Terms,Reescrever Todos os Termos,move
+Design Flaw,Falha de Projeto,move
+Intended Flaw,Falha Intencional,move
+Flaw by Design,Falha Proposital,move
+Branch Pounce,Salto do Galho,move
+Canopy Ambush,Emboscada na Copa,move
+Hundred-Branch Ambush,Emboscada dos Cem Galhos,move
+Jeer,Vaia,move
+Mocking Chorus,Coro Zombeteiro,move
+Chorus of Ridicule,Coro do Escárnio,move
+Pickpocket,Batedor de Carteira,move
+Thief's Jab,Estocada do Ladrão,move
+Hand of the Trickster King,Mão do Rei Trapaceiro,move
+Scamper,Correria,move
+Treetop Scamper,Correria nas Copas,move
+Scamper Through the Void,Correria pelo Vazio,move
+Hammerfist,Punho-martelo,move
+Ground Pound,Soco no Chão,move
+Mountainfall Fist,Punho Queda-montanha,move
+Knuckle Slam,Pancada de Nós,move
+Quake Slam,Pancada Sísmica,move
+Silverback Quake,Tremor do Dorso-prata,move
+Backhand,Revés,move
+Brute Backhand,Revés Brutal,move
+Kingslayer Backhand,Revés Mata-reis,move
+Chest Beat,Bater no Peito,move
+War Drum,Tambor de Guerra,move
+Drumming of the Old King,Tambores do Velho Rei,move
+Tail Crash,Batida de Cauda,move
+Extinction Tail,Cauda da Extinção,move
+Bone Crunch,Triturar Ossos,move
+Marrow Crunch,Triturar Tutano,move
+Jaws of Extinction,Mandíbulas da Extinção,move
+Tyrant Snap,Bocada Tirana,move
+Apex Bite,Mordida Suprema,move
+Bellow,Bramido,move
+Primal Roar,Rugido Primal,move
+Roar of the Last Age,Rugido da Última Era,move
+Engulf,Engolfar,move
+Digesting Engulf,Engolfar Digestivo,move
+Charnel Engulfment,Engolfamento Carnário,move
+Bone Spit,Cuspe de Osso,move
+Ossuary Spit,Cuspe de Ossário,move
+Ossuary Barrage,Barragem de Ossário,move
+Ooze Slap,Tapa de Gosma,move
+Rot Slap,Tapa Podre,move
+Gravewax Slap,Tapa de Cera Tumular,move
+Seep,Infiltrar,move
+Corpse Seep,Infiltração Cadavérica,move
+Seep of the Charnel Pit,Infiltração da Vala Carnária,move
+Strike,Golpe,move

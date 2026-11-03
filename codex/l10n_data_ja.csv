@@ -1,0 +1,2689 @@
+En,Text,Kind
+Beast,獣,type
+Flora,植物,type
+Fey,妖精,type
+Spectral,霊体,type
+Elemental,精霊,type
+Undead,アンデッド,type
+Construct,人造,type
+Avian,鳥,type
+Aquatic,水棲,type
+Arthropod,節足,type
+Amphibian,両生,type
+Reptile,爬虫,type
+Mollusk,軟体,type
+Void,ヴォイド,type
+Serpent,蛇,type
+Eldritch,異界,type
+Insect,虫,type
+Fungal,菌類,type
+Horror,怪異,type
+Parasite,寄生,type
+Ooze,粘体,type
+Dragon,竜,type
+Aberration,異形,type
+Vampiric,吸血,type
+Chimera,キメラ,type
+Demon,悪魔,type
+Celestial,天界,type
+Warrior,ウォリアー,class
+Knight,ナイト,class
+Paladin,パラディン,class
+Mage,メイジ,class
+Sorcerer,ソーサラー,class
+Archon,アルコン,class
+Archer,アーチャー,class
+Ranger,レンジャー,class
+Hawkeye,ホークアイ,class
+Brute,ブルート,class
+Warlord,ウォーロード,class
+Titan,タイタン,class
+Assassin,アサシン,class
+Stalker,ストーカー,class
+Nightblade,ナイトブレード,class
+Professor,プロフェッサー,class
+Sage,セージ,class
+Prophet,プロフェット,class
+Hold the Line,死守,ultimate
+Iron Bulwark,鉄の防壁,ultimate
+Martyr's Aegis,殉教者の守護,ultimate
+Shardburst,破片炸裂,ultimate
+Stonefall,落石,ultimate
+Cataclysm,大災厄,ultimate
+Sure Shot,必中の矢,ultimate
+Deadeye,百発百中,ultimate
+Godpiercer,神穿ち,ultimate
+Blood Price,血の代価,ultimate
+Tyrant's Toll,暴君の取り立て,ultimate
+Wrath of the Pit,奈落の憤怒,ultimate
+Recitation,朗誦,ultimate
+Grand Thesis,大命題,ultimate
+Revelation,啓示,ultimate
+Slip Away,すり抜け,ultimate
+Shadowmeld,影溶け,ultimate
+Vanish,消失,ultimate
+Every enemy single-target move this round is drawn to you. Area moves are not redirected.,このラウンド、敵の単体技はすべて自分に向かう。範囲技の対象は変わらない。,ultimate_effect
+"Every enemy single-target move this round is drawn to you, and your Defense rises 10% for the rest of the battle.",このラウンド、敵の単体技はすべて自分に向かい、戦闘終了まで防御力が10%上がる。,ultimate_effect
+"Every enemy single-target move this round is drawn to you, your Defense rises 10% for the rest of the battle, and you heal 5% of maximum HP for each hit you take this round.",このラウンド、敵の単体技はすべて自分に向かい、戦闘終了まで防御力が10%上がる。さらにこのラウンド被弾するたびに最大HPの5%を回復する。,ultimate_effect
+Strikes every enemy for 75 power.,敵全体に威力75で攻撃する。,ultimate_effect
+Strikes every enemy for 100 power.,敵全体に威力100で攻撃する。,ultimate_effect
+Strikes every enemy for 125 power.,敵全体に威力125で攻撃する。,ultimate_effect
+Strikes one enemy for 180 power.,敵単体に威力180で攻撃する。,ultimate_effect
+Strikes one enemy for 240 power.,敵単体に威力240で攻撃する。,ultimate_effect
+Strikes one enemy for 300 power.,敵単体に威力300で攻撃する。,ultimate_effect
+"This round every hit you take is answered with a 50 power counter, and each hit raises your Attack 4% for the rest of the battle, up to +40%.",このラウンド、被弾するたびに威力50で反撃し、戦闘終了まで攻撃力が1回につき4%上がる（最大+40%）。,ultimate_effect
+"This round every hit you take is answered with a 65 power counter, and each hit raises your Attack 5% for the rest of the battle, up to +50%.",このラウンド、被弾するたびに威力65で反撃し、戦闘終了まで攻撃力が1回につき5%上がる（最大+50%）。,ultimate_effect
+"This round every hit you take is answered with an 80 power counter, and each hit raises your Attack 6% for the rest of the battle, up to +60%.",このラウンド、被弾するたびに威力80で反撃し、戦闘終了まで攻撃力が1回につき6%上がる（最大+60%）。,ultimate_effect
+"Every support ability in your hero soul slots fires at once on the whole party, you included. Bonuses land at 40% strength, so +50% Attack becomes +20%, and durations are halved, rounded up. A single-step effect like +1 Speed rounds away to nothing at this stage. Once per battle.",ヒーローのソウル枠にあるサポート能力すべてを、自分を含む味方全体に一斉発動する。効果は40%の強さになり（攻撃力+50%なら+20%）、持続は半分（切り上げ）。この段階では素早さ+1のような1段階の効果は消えてしまう。1戦闘に1回。,ultimate_effect
+"Every support ability in your hero soul slots fires at once on the whole party, you included. Bonuses land at 50% strength, so +50% Attack becomes +25%, and durations are halved, rounded up. A single-step effect like +1 Speed still lands. Once per battle.",ヒーローのソウル枠にあるサポート能力すべてを、自分を含む味方全体に一斉発動する。効果は50%の強さになり（攻撃力+50%なら+25%）、持続は半分（切り上げ）。素早さ+1のような1段階の効果も発動する。1戦闘に1回。,ultimate_effect
+"Every support ability in your hero soul slots fires at once on the whole party, you included. Bonuses land at 60% strength, so +50% Attack becomes +30%, and durations are halved, rounded up. A single-step effect like +1 Speed still lands. Once per battle.",ヒーローのソウル枠にあるサポート能力すべてを、自分を含む味方全体に一斉発動する。効果は60%の強さになり（攻撃力+50%なら+30%）、持続は半分（切り上げ）。素早さ+1のような1段階の効果も発動する。1戦闘に1回。,ultimate_effect
+"Strikes one enemy for 120 power, then you cannot be targeted by single-target moves for 1 round. Area moves still connect and existing effects keep ticking.",敵単体に威力120で攻撃し、その後1ラウンドの間、単体技の対象にならない。範囲技は命中し、既存の効果も継続する。,ultimate_effect
+"Strikes one enemy for 180 power, then you cannot be targeted by single-target moves for 2 rounds. Area moves still connect and existing effects keep ticking.",敵単体に威力180で攻撃し、その後2ラウンドの間、単体技の対象にならない。範囲技は命中し、既存の効果も継続する。,ultimate_effect
+"Strikes one enemy for 240 power, then you cannot be targeted by single-target moves for 3 rounds. Area moves still connect and existing effects keep ticking.",敵単体に威力240で攻撃し、その後3ラウンドの間、単体技の対象にならない。範囲技は命中し、既存の効果も継続する。,ultimate_effect
+Grasslands,草原,zone
+Tidal Shallows,潮の浅瀬,zone
+Desert Plains,砂漠平原,zone
+Swarm Thicket,群虫の茂み,zone
+The Crag,岩山,zone
+Storm Peaks,嵐の峰,zone
+Sunken Bog,沈んだ沼地,zone
+Underwater Cave,海中洞窟,zone
+Gemstone Cave,宝石洞窟,zone
+Flaming Hellscape,炎獄,zone
+Void Apex,ヴォイド・エイペックス,zone
+Sunlit Meadow,陽だまりの草地,floor
+Hollow Burrow,うつろな巣穴,floor
+Meadow Stream,草地の小川,floor
+Rolling Hills,なだらかな丘,floor
+Windswept Rise,風吹く高台,floor
+Thistle Field,アザミの野,floor
+Grazing Pond,草食みの池,floor
+Root Hollow,根の窪み,floor
+Wildflower Expanse,野花の原,floor
+The Alpha's Den,群れの長の巣穴,floor
+Pale Sandbar,白い砂州,floor
+Driftwood Dunes,流木の砂丘,floor
+Tidewashed Grotto,潮洗いの岩屋,floor
+Kelp Forest,海藻の森,floor
+Drowned Ruins,水没した遺跡,floor
+Tidepool Flats,潮だまりの干潟,floor
+The Undertow,底流,floor
+Barnacle Reef,フジツボの礁,floor
+Current Sinkhole,潮流の陥没穴,floor
+Trench Gate,海溝の門,floor
+Sunbaked Flats,灼けた平地,floor
+Bone Dune Ridge,骨砂丘の尾根,floor
+Sandworm Burrow,砂虫の巣穴,floor
+Cracked Salt Pan,ひび割れた塩原,floor
+The Sunspire Coil,陽塔のとぐろ,floor
+Hidden Oasis,隠れオアシス,floor
+Windcarved Mesa,風削りの台地,floor
+Sun-Cracked Grotto,陽割れの岩屋,floor
+Serpent's Crossing,蛇の渡り,floor
+The Ossuary Coil,納骨堂のとぐろ,floor
+Webbed Undergrowth,巣糸の藪,floor
+Hive Tunnel,蟲巣の坑道,floor
+Chitin Clearing,キチンの空き地,floor
+Larval Chamber,幼虫の間,floor
+The Queen's Nest,女王の巣,floor
+Buzzing Meadow,羽音の草地,floor
+Stagnant Mire Edge,澱んだ泥沼のほとり,floor
+Silk-Choked Burrow,糸詰まりの巣穴,floor
+Molting Grounds,脱皮の地,floor
+The Broodmother's Hollow,母蟲の洞,floor
+Fissure Entrance,亀裂の入口,floor
+Windswept Ledge,風吹く岩棚,floor
+Silk-Strung Crevice,糸張りの岩溝,floor
+Molt-Littered Hollow,抜け殻散らばる窪地,floor
+The Widow's Crevasse,寡婦の裂溝,floor
+Scree Slope,ガレ場の斜面,floor
+Cliffside Spring,崖の泉,floor
+Bone-Pit Chamber,骨穴の間,floor
+Chitin Gallery,キチンの回廊,floor
+The Carapace Throne,甲殻の玉座,floor
+Windbattered Switchback,風に打たれる九十九折,floor
+Cliffnest Overlook,崖巣の見晴らし,floor
+Thunderhollow,雷鳴の窪地,floor
+Talon Ridge,鉤爪の尾根,floor
+The Stormcaller's Aerie,嵐呼びの巣,floor
+Frostbitten Summit,凍てつく山頂,floor
+Alpine Tarn,高山の池,floor
+Echo Cavern,木霊の洞窟,floor
+Skybridge Crossing,天橋の渡り,floor
+The Roost of the First Storm,始まりの嵐の止まり木,floor
+Reedchoked Shallows,葦に埋もれた浅瀬,floor
+Mudflat Crossing,干潟の渡り,floor
+Sunken Hollow,沈んだ窪地,floor
+Croaking Marsh,蛙鳴く湿地,floor
+The Drowned Shrine,水没した祠,floor
+Rootcave Grotto,根洞の岩屋,floor
+Willow Hollow,柳の窪地,floor
+Sinking Path,沈む小道,floor
+Mire Tunnel,泥沼のトンネル,floor
+The Bogfather's Pool,沼の主の池,floor
+Cliffside Cave Mouth,崖の洞窟口,floor
+Glowspore Passage,光胞子の通路,floor
+Flooded Antechamber,浸水した前室,floor
+Mycelium Grotto,菌糸の岩屋,floor
+The Luminous Deep,光る深淵,floor
+Ink-Dark Pool,インク色の淵,floor
+Spore Chimney,胞子の煙突,floor
+Sunken Passage,沈んだ通路,floor
+Tendril Hollow,蔓の窪地,floor
+The Abyssal Bloom,アビサルの開花,floor
+Crystal Outcrop,水晶の露頭,floor
+Refracted Hollow,屈折の窪地,floor
+Silent Gallery,静寂の回廊,floor
+Still Reflection Pool,静かな鏡池,floor
+The Weeping Crystal Tomb,涙する水晶の墓所,floor
+Bloodlit Passage,血光の通路,floor
+Sunken Reliquary,沈んだ聖遺物堂,floor
+Whispering Vein,囁く鉱脈,floor
+Hollow Court,虚ろな宮廷,floor
+The Undying Crypt,不死の地下墓所,floor
+Obsidian Flats,黒曜石の平原,floor
+Forge Tunnel,鍛冶炉の坑道,floor
+Slag Hollow,鉱滓の窪地,floor
+Magma Vent Pool,溶岩孔の池,floor
+The Furnace Heart,溶鉱炉の心臓,floor
+Cinderfall Ridge,燃え殻降る尾根,floor
+Rustbound Gallery,錆びついた回廊,floor
+Boiling Cistern,煮え立つ貯水槽,floor
+Emberlit Passage,残り火の通路,floor
+The Godforge,神の鍛冶場,floor
+The First Drift,最初の漂流,floor
+Arena of the Torn Stair,裂けた階段の闘技場,floor
+The Broken Ring,壊れた環,floor
+Cathedral Adrift,漂う大聖堂,floor
+The Chain Bridge,鎖の橋,floor
+The Dead Constellation,死せる星座,floor
+The Unshelved,書架なき書庫,floor
+The Skull Brow,髑髏の額,floor
+The Orbiting Plaza,周回する広場,floor
+Echo of the Godforge,神の鍛冶場の残響,floor
+The Frozen Shatter,凍れる破砕,floor
+The Drowned Throne,水没した玉座,floor
+The Sunken Graves,沈んだ墓場,floor
+The Glass Heart,硝子の心臓,floor
+The Upward Melt,昇る融解,floor
+The Fused Clockwork,融けた歯車仕掛け,floor
+The Rooted Bone,根付く骨,floor
+The Open Eye,開かれた眼,floor
+The Last Stair,最後の階段,floor
+The Apex,頂,floor
+Bristle,ブリッスル,creature
+Thornhide,ソーンハイド,creature
+Thornback,ソーンバック,creature
+Whelp,ウェルプ,creature
+Dustcur,ダストカー,creature
+Dusthound,ダストハウンド,creature
+Grub,グラブ,creature
+Delver,デルヴァー,creature
+Barrowmole,バロウモール,creature
+Fawn,フォーン,creature
+Briarfawn,ブライアフォーン,creature
+Bramblefawn,ブランブルフォーン,creature
+Shade,カゲボウシ,creature
+Phantasm,ファンタズム,creature
+Nightmare,ナイトメア,creature
+Cairn,ケルン,creature
+Menhir,メンヒル,creature
+Golgoth,ゴルゴス,creature
+Sprig,スプリッグ,creature
+Woodwose,ウッドウォス,creature
+Wychroot,ウィッチルート,creature
+Noose,クビナワ,creature
+Ligature,リガチャー,creature
+Garrote,ガロット,creature
+Nestling,ネストリング,creature
+Carrion,キャリオン,creature
+Gallowsbird,ギャロウズバード,creature
+Hart,オジカ,creature
+Leshy,レーシー,creature
+Herne,ハーン,creature
+Nauplius,ノープリウス,creature
+Barnacle,フジツボ,creature
+Tidecrawler,タイドクローラー,creature
+Fry,チギョ,creature
+Snapjaw,スナップジョー,creature
+Saltjaw,ソルトジョー,creature
+Polliwog,ポリウォグ,creature
+Brineling,ブラインリング,creature
+Brinefrog,ブラインフロッグ,creature
+Zoea,ゾエア,creature
+Smasher,スマッシャー,creature
+Crestmantis,クレストマンティス,creature
+Gecko,ヤモリ,creature
+Monitor,オオトカゲ,creature
+Duskscale,ダスクスケイル,creature
+Naiad,ナイアード,creature
+Undine,ウンディーネ,creature
+Rusalka,ルサールカ,creature
+Whorl,ウズマキ,creature
+Rampart,ランパート,creature
+Bulwark,ブルワーク,creature
+Elver,エルヴァー,creature
+Conger,アナゴ,creature
+Nethereel,ネザーイール,creature
+Polyp,ポリプ,creature
+Medusa,メドゥーサ,creature
+Coralhydra,コーラルヒドラ,creature
+Nommo,ノンモ,creature
+Oannes,オアンネス,creature
+Dagon,ダゴン,creature
+Haunt,タタリ,creature
+Wraith,レイス,creature
+Banshee,バンシー,creature
+Wyrmling,ワームリング,creature
+Neonate,ネオネイト,creature
+Sidewinder,サイドワインダー,creature
+Mirage,ミラージュ,creature
+Sylph,シルフ,creature
+Fata,ファータ,creature
+Grit,スナツブ,creature
+Sirocco,シロッコ,creature
+Simoom,シムーン,creature
+Lamia,ラミア,creature
+Gorgon,ゴルゴン,creature
+Echidna,エキドナ,creature
+Paralarva,パララーヴァ,creature
+Inkling,インクリング,creature
+Voidsiphon,ヴォイドサイフォン,creature
+Cinder,シンダー,creature
+Scorchscale,スコーチスケイル,creature
+Emberclaw,エンバークロウ,creature
+Terrapin,テラピン,creature
+Kurma,クールマ,creature
+Zaratan,ザラタン,creature
+Jann,ジャーン,creature
+Ifrit,イフリート,creature
+Marid,マリード,creature
+Nidhogg,ニーズヘッグ,creature
+Jormungand,ヨルムンガンド,creature
+Ouroboros,ウロボロス,creature
+Larva,ラーヴァ,creature
+Maggot,ウジムシ,creature
+Gloomgrub,グルームグラブ,creature
+Instar,インスター,creature
+Thornshell,ソーンシェル,creature
+Thornhusk,ソーンハスク,creature
+Ovum,オーヴム,creature
+Sporeling,スポアリング,creature
+Sporefly,スポアフライ,creature
+Spiderling,コグモ,creature
+Orbweaver,オーブウィーバー,creature
+Arachne,アラクネ,creature
+Sundew,モウセンゴケ,creature
+Flytrap,ハエトリグサ,creature
+Carnifora,カルニフォラ,creature
+Vector,ベクター,creature
+Contagion,コンテイジョン,creature
+Plaguecarrier,プレイグキャリアー,creature
+Novice,ノービス,creature
+Acolyte,アコライト,creature
+Devout,ディヴァウト,creature
+Nymph,ニンフ,creature
+Hopper,ホッパー,creature
+Locust,ローカスト,creature
+Vespid,ヴェスピッド,creature
+Cordyceps,コルディセプス,creature
+Vespera,ヴェスペラ,creature
+Taproot,タップルート,creature
+Mycorrhiza,ミコリザ,creature
+Yggdrasil,ユグドラシル,creature
+Megalopa,メガロパ,creature
+Scuttler,スカトラー,creature
+Cliffpincer,クリフピンサー,creature
+Scute,スキュート,creature
+Carapace,カラペイス,creature
+Crushmaul,クラッシュモール,creature
+Dross,ドロス,creature
+Smelt,スメルト,creature
+Slagworm,スラグワーム,creature
+Drakeling,ドレイクリング,creature
+Dragonet,ドラゴネット,creature
+Ridgedrake,リッジドレイク,creature
+Crayfish,ザリガニ,creature
+Stonecaller,ストーンコーラー,creature
+Despot,デスポット,creature
+Fluke,フルーク,creature
+Sangleech,サングリーチ,creature
+Sanguinarch,サングイナーク,creature
+Colony,コロニー,creature
+Aggregate,アグリゲイト,creature
+Craggernaut,クラッガーノート,creature
+Scorpling,スコープリング,creature
+Umbra,アンブラ,creature
+Voidshell,ヴォイドシェル,creature
+Automaton,オートマトン,creature
+Colossus,コロッサス,creature
+Talos,タロス,creature
+Scoria,スコリア,creature
+Obsidian,オブシディアン,creature
+Magmacrawler,マグマクローラー,creature
+Chick,ヒヨコ,creature
+Zephyr,ゼファー,creature
+Gustwing,ガストウィング,creature
+Fledgling,フレッジリング,creature
+Stormcrow,ストームクロウ,creature
+Tempestcrow,テンペストクロウ,creature
+Chrysalis,クリサリス,creature
+Sparkwing,スパークウィング,creature
+Thundermoth,サンダーモス,creature
+Eyas,アイアス,creature
+Haggard,ハガード,creature
+Roc,ロック,creature
+Yelp,イェルプ,creature
+Squall,スコール,creature
+Galehowl,ゲイルハウル,creature
+Static,スタティック,creature
+Arcwing,アークウィング,creature
+Voltmantle,ボルトマントル,creature
+Amphiptere,アンフィプテール,creature
+Quetzal,ケツァール,creature
+Couatl,コアトル,creature
+Tempest,テンペスト,creature
+Typhoon,タイフーン,creature
+Typhon,テュポーン,creature
+Ziz,ジズ,creature
+Simurgh,シームルグ,creature
+Anzu,アンズー,creature
+Riptide,リップタイド,creature
+Maelstrom,メイルストロム,creature
+Charybdis,カリュブディス,creature
+Spawn,スポーン,creature
+Froglet,コガエル,creature
+Boghopper,ボグホッパー,creature
+Newtling,ニュートリング,creature
+Eft,エフト,creature
+Mirenewt,マイアニュート,creature
+Nit,シラミ,creature
+Blowfly,ブロウフライ,creature
+Rotfly,ロットフライ,creature
+Tadpole,オタマジャクシ,creature
+Wight,ワイト,creature
+Lichfrog,リッチフロッグ,creature
+Glimmer,グリマー,creature
+Lantern,ランタン,creature
+Wispmaw,ウィスプモウ,creature
+Orcneas,オルクネアス,creature
+Eoten,エオテン,creature
+Grendel,グレンデル,creature
+Vaettir,ヴァッティル,creature
+Haugbui,ハウグブイ,creature
+Draugr,ドラウグル,creature
+Tendril,テンドリル,creature
+Bindweed,バインドウィード,creature
+Gallowvine,ギャロウヴァイン,creature
+Toadling,トードリング,creature
+Behemoth,ベヒーモス,creature
+Miremother,マイアマザー,creature
+Vestige,ヴェスティージ,creature
+Revenant,レヴナント,creature
+Cenotaph,セノタフ,creature
+Button,ボタンダケ,creature
+Toadstool,ドクキノコ,creature
+Gloomcap,グルームキャップ,creature
+Cuttle,カトル,creature
+Argonaut,アルゴノート,creature
+Inkmantle,インクマントル,creature
+Hypha,ハイファ,creature
+Rhizome,リゾーム,creature
+Veinmold,ヴェインモールド,creature
+Nautilus,ノーチラス,creature
+Oracle,オラクル,creature
+Sibyl,シビュラ,creature
+Tremor,トレマー,creature
+Palsy,パルシー,creature
+Vertigo,ヴァーティゴ,creature
+Kitling,コギツネ,creature
+Foxfire,キツネビ,creature
+Kitsune,キュウビ,creature
+Puffball,ホコリタケ,creature
+Leviathan,リヴァイアサン,creature
+Sporewhale,スポアホエール,creature
+Lure,ルアー,creature
+Abyss,アビス,creature
+Riftangler,リフトアングラー,creature
+Spore,ホウシ,creature
+Bloom,ブルーム,creature
+Mycelium,マイセリウム,creature
+Veliger,ヴェリジャー,creature
+Hafgufa,ハフグファ,creature
+Kraken,クラーケン,creature
+Phantom,ファントム,creature
+Geist,ガイスト,creature
+Crystalwraith,クリスタルレイス,creature
+Pup,パップ,creature
+Vesper,ヴェスパー,creature
+Ashbat,アッシュバット,creature
+Shard,シャード,creature
+Geode,ジオード,creature
+Gemborn,ジェムボーン,creature
+Stiletto,スティレット,creature
+Scalpel,スカルペル,creature
+Bloodcarver,ブラッドカーヴァー,creature
+Splinter,スプリンター,creature
+Poltergeist,ポルターガイスト,creature
+Shatterspecter,シャタースペクター,creature
+Whippet,ウィペット,creature
+Barghest,バーゲスト,creature
+Voidhound,ヴォイドハウンド,creature
+Echo,コダマ,creature
+Fetch,フェッチ,creature
+Doppelganger,ドッペルゲンガー,creature
+Nachzehrer,ナハツェーラー,creature
+Strigoi,ストリゴイ,creature
+Nosferatu,ノスフェラトゥ,creature
+Reliquary,レリクアリ,creature
+Lich,リッチ,creature
+Phylactery,フィラクテリー,creature
+Facet,ファセット,creature
+Reflection,ウツシミ,creature
+Speculum,スペキュラム,creature
+Ember,エンバー,creature
+Clinker,クリンカー,creature
+Protogale,プロトゲイル,creature
+Soot,スート,creature
+Ossuary,オッシュアリ,creature
+Ashwalker,アッシュウォーカー,creature
+Effigy,エフィジー,creature
+Idol,グウゾウ,creature
+Moloch,モロク,creature
+Flicker,フリッカー,creature
+Salamander,サラマンダー,creature
+Blazewyrm,ブレイズワーム,creature
+Hybrid,ハイブリッド,creature
+Omnichimera,オムニキメラ,creature
+Ingot,インゴット,creature
+Ironclad,アイアンクラッド,creature
+Ferrodrake,フェロドレイク,creature
+Ignis,イグニス,creature
+Pyre,パイア,creature
+Ignifer,イグニファー,creature
+Sentry,セントリー,creature
+Sentinel,センチネル,creature
+Vigil,ヴィジル,creature
+Wildfire,ワイルドファイア,creature
+Balefire,ベイルファイア,creature
+Pyriel,ピリエル,creature
+Aeon,アイオーン,creature
+Demiurge,デミウルゴス,creature
+Grinlet,グリンレット,creature
+Gibberling,ギバーリング,creature
+Jackanape,ジャッカネイプ,creature
+Knuckler,ナックラー,creature
+Silverback,シルバーバック,creature
+Goliath,ゴライアス,creature
+Tyrantling,タイラントリング,creature
+Tyrantjaw,タイラントジョー,creature
+Tyrannos,ティラノス,creature
+Rotdrip,ロットドリップ,creature
+Gristleglob,グリッスルグロブ,creature
+Charnelmass,チャーネルマス,creature
+"Vargr, the Alpha",群れの長ヴァルグ,boss
+Vargr,ヴァルグ,boss
+Abyssal Trench Gate,アビサル海溝の門,boss
+"Pelagos, the Trench Warden",海溝の番人ペラゴス,boss
+Pelagos,ペラゴス,boss
+"Sethek, the Ossuary King",納骨堂の王セテク,boss
+Sethek,セテク,boss
+"Mother Vesk, the Broodmother",母蟲マザー・ヴェスク,boss
+Vesk,ヴェスク,boss
+"Ostrakon, the Carapace Despot",甲殻の暴君オストラコン,boss
+Ostrakon,オストラコン,boss
+"Keraun, the Stormcaller",嵐呼びケラウン,boss
+Keraun,ケラウン,boss
+"Morast, the Bogfather",沼の主モラスト,boss
+Morast,モラスト,boss
+"Teloma, the Bloom Herald",開花の使者テロマ,boss
+Teloma,テロマ,boss
+"Varkolan, the Undying King",不死王ヴァルコラン,boss
+Varkolan,ヴァルコラン,boss
+"Eskaton, the Unfinished God",未完の神エスカトン,boss
+Eskaton,エスカトン,boss
+Über Vargr,超・ヴァルグ,boss
+"Über Vargr, the Alpha",超・群れの長ヴァルグ,boss
+Über Pelagos,超・ペラゴス,boss
+"Über Pelagos, the Trench Warden",超・海溝の番人ペラゴス,boss
+Über Sethek,超・セテク,boss
+"Über Sethek, the Ossuary King",超・納骨堂の王セテク,boss
+Über Vesk,超・ヴェスク,boss
+"Über Mother Vesk, the Broodmother",超・母蟲マザー・ヴェスク,boss
+Über Ostrakon,超・オストラコン,boss
+"Über Ostrakon, the Carapace Despot",超・甲殻の暴君オストラコン,boss
+Über Keraun,超・ケラウン,boss
+"Über Keraun, the Stormcaller",超・嵐呼びケラウン,boss
+Über Morast,超・モラスト,boss
+"Über Morast, the Bogfather",超・沼の主モラスト,boss
+Über Teloma,超・テロマ,boss
+"Über Teloma, the Bloom Herald",超・開花の使者テロマ,boss
+Über Varkolan,超・ヴァルコラン,boss
+"Über Varkolan, the Undying King",超・不死王ヴァルコラン,boss
+Über Eskaton,超・エスカトン,boss
+"Über Eskaton, the Unfinished God",超・未完の神エスカトン,boss
+Incense Burner,香炉,shop
+Wild creatures return to your floor twice as often. Burns for 30 days.,野生のクリーチャーが自分の階に戻る頻度が2倍になる。30日間燃え続ける。,shop
+Bait,撒き餌,shop
+Wild creatures return in half the time. Stacks with Incense. Lasts 30 days.,野生のクリーチャーが半分の時間で戻ってくる。お香と重複する。30日間有効。,shop
+Auto PVP Attacks,オートPvP攻撃,shop
+Ten more Auto PVP attacks. They join today pool even above the daily ten and expire at the daily reset.,オートPvP攻撃を10回追加。1日10回の上限を超えても本日分に加わり、デイリーリセットで失効する。,shop
+First Incense,はじめてのお香,shop
+Your first Incense: wild creatures return twice as often for 1 day. One time only.,初回限定のお香：1日間、野生のクリーチャーが戻る頻度が2倍になる。1回限り。,shop
+First Bait,はじめての撒き餌,shop
+Your first Bait: wild creatures return in half the time for 1 day. Stacks with Incense. One time only.,初回限定の撒き餌：1日間、野生のクリーチャーが半分の時間で戻ってくる。お香と重複する。1回限り。,shop
+Scrap Key,スクラップの鍵,shop
+Opens the Rusted Dimension once: five floors of five battles that pay Scrap. Consumed on entry.,錆びた次元を一度だけ開く。5戦ずつの5階でスクラップを獲得できる。入場時に消費。,shop
+Dust Key,ダストの鍵,shop
+Opens the Enchanted Dimension once: five floors of five battles that pay Dust. Consumed on entry.,魅惑の次元を一度だけ開く。5戦ずつの5階でダストを獲得できる。入場時に消費。,shop
+Ichor Key,イコルの鍵,shop
+Opens the Sanguine Dimension once: five floors of five battles that pay Ichor. Consumed on entry.,血潮の次元を一度だけ開く。5戦ずつの5階でイコルを獲得できる。入場時に消費。,shop
+Essence Key,エッセンスの鍵,shop
+Opens the Swollen Dimension once: five floors of five battles that pay Essence. Consumed on entry.,膨れた次元を一度だけ開く。5戦ずつの5階でエッセンスを獲得できる。入場時に消費。,shop
+Ink Key,インクの鍵,shop
+Opens the Inscribed Dimension once: five floors of five battles that pay Ink. Consumed on entry.,刻印の次元を一度だけ開く。5戦ずつの5階でインクを獲得できる。入場時に消費。,shop
+Class soul,クラスソウル,unlock
+Hatch All,一括孵化,unlock
+Dismantle All,一括分解,unlock
+Autoplay,オートプレイ,unlock
+Souls,ソウル,unlock
+Devour,捕食,unlock
+Auto PvP,オートPvP,unlock
+Auto-optimise,自動最適化,unlock
+Breeding,交配,unlock
+Scrolls + enchanting,巻物 + エンチャント,unlock
+Grading,等級,unlock
+Upgrade All,一括強化,unlock
+Shadow Trader,影の商人,unlock
+Buy classes,クラス購入,unlock
+Competitive PvP,ランクPvP,unlock
+Dimensional Rift,次元の裂け目,unlock
+Start a fight,バトルを始める,tutorial
+Choose a move,技を選ぶ,tutorial
+Pick a target,対象を選ぶ,tutorial
+Lock in moves,技を確定する,tutorial
+Turn order,行動順,tutorial
+The ultimate,アルティメット,tutorial
+Equip the weapon,武器を装備する,tutorial
+Upgrade the weapon,武器を強化する,tutorial
+Socket the gem,ジェムをはめる,tutorial
+Hatch the egg,タマゴを孵化する,tutorial
+Dismantle a piece,装備を分解する,tutorial
+Burn incense,お香を焚く,tutorial
+Set bait,エサを仕掛ける,tutorial
+Crude Signet,粗製の印章,item
+Sturdy Signet,頑丈な印章,item
+Fine Signet,上質な印章,item
+Superior Signet,高級な印章,item
+Ornate Signet,華麗な印章,item
+Masterwork Signet,名匠の印章,item
+Exalted Signet,崇高な印章,item
+Sovereign Signet,王者の印章,item
+Mythic Signet,神話の印章,item
+Transcendent Signet,超越の印章,item
+Crude Relic,粗製の聖遺物,item
+Sturdy Relic,頑丈な聖遺物,item
+Fine Relic,上質な聖遺物,item
+Superior Relic,高級な聖遺物,item
+Ornate Relic,華麗な聖遺物,item
+Masterwork Relic,名匠の聖遺物,item
+Exalted Relic,崇高な聖遺物,item
+Sovereign Relic,王者の聖遺物,item
+Mythic Relic,神話の聖遺物,item
+Transcendent Relic,超越の聖遺物,item
+Crude Fang,粗製の牙,item
+Sturdy Fang,頑丈な牙,item
+Fine Fang,上質な牙,item
+Superior Fang,高級な牙,item
+Ornate Fang,華麗な牙,item
+Masterwork Fang,名匠の牙,item
+Exalted Fang,崇高な牙,item
+Sovereign Fang,王者の牙,item
+Mythic Fang,神話の牙,item
+Transcendent Fang,超越の牙,item
+Crude Carapace,粗製の甲殻,item
+Sturdy Carapace,頑丈な甲殻,item
+Fine Carapace,上質な甲殻,item
+Superior Carapace,高級な甲殻,item
+Ornate Carapace,華麗な甲殻,item
+Masterwork Carapace,名匠の甲殻,item
+Exalted Carapace,崇高な甲殻,item
+Sovereign Carapace,王者の甲殻,item
+Mythic Carapace,神話の甲殻,item
+Transcendent Carapace,超越の甲殻,item
+Crude Heart,粗製の心臓,item
+Sturdy Heart,頑丈な心臓,item
+Fine Heart,上質な心臓,item
+Superior Heart,高級な心臓,item
+Ornate Heart,華麗な心臓,item
+Masterwork Heart,名匠の心臓,item
+Exalted Heart,崇高な心臓,item
+Sovereign Heart,王者の心臓,item
+Mythic Heart,神話の心臓,item
+Transcendent Heart,超越の心臓,item
+Rough Garnet,粗いガーネット,item
+Cut Garnet,カットしたガーネット,item
+Polished Garnet,磨いたガーネット,item
+Faceted Garnet,多面のガーネット,item
+Brilliant Garnet,輝くガーネット,item
+Pristine Garnet,無垢のガーネット,item
+Flawless Garnet,無傷のガーネット,item
+Perfect Garnet,完璧なガーネット,item
+Radiant Garnet,光輝のガーネット,item
+Sublime Garnet,至高のガーネット,item
+Rough Onyx,粗いオニキス,item
+Cut Onyx,カットしたオニキス,item
+Polished Onyx,磨いたオニキス,item
+Faceted Onyx,多面のオニキス,item
+Brilliant Onyx,輝くオニキス,item
+Pristine Onyx,無垢のオニキス,item
+Flawless Onyx,無傷のオニキス,item
+Perfect Onyx,完璧なオニキス,item
+Radiant Onyx,光輝のオニキス,item
+Sublime Onyx,至高のオニキス,item
+Rough Bloodstone,粗い血石,item
+Cut Bloodstone,カットした血石,item
+Polished Bloodstone,磨いた血石,item
+Faceted Bloodstone,多面の血石,item
+Brilliant Bloodstone,輝く血石,item
+Pristine Bloodstone,無垢の血石,item
+Flawless Bloodstone,無傷の血石,item
+Perfect Bloodstone,完璧な血石,item
+Radiant Bloodstone,光輝の血石,item
+Sublime Bloodstone,至高の血石,item
+Faded Rune of Ruin,色褪せた破滅のルーン,item
+Etched Rune of Ruin,刻まれた破滅のルーン,item
+Carved Rune of Ruin,彫られた破滅のルーン,item
+Bound Rune of Ruin,縛られた破滅のルーン,item
+Warded Rune of Ruin,護られた破滅のルーン,item
+Charged Rune of Ruin,充填された破滅のルーン,item
+Awakened Rune of Ruin,目覚めた破滅のルーン,item
+Resonant Rune of Ruin,共鳴する破滅のルーン,item
+Ancient Rune of Ruin,古代の破滅のルーン,item
+Elder Rune of Ruin,太古の破滅のルーン,item
+Faded Rune of Aegis,色褪せた守護のルーン,item
+Etched Rune of Aegis,刻まれた守護のルーン,item
+Carved Rune of Aegis,彫られた守護のルーン,item
+Bound Rune of Aegis,縛られた守護のルーン,item
+Warded Rune of Aegis,護られた守護のルーン,item
+Charged Rune of Aegis,充填された守護のルーン,item
+Awakened Rune of Aegis,目覚めた守護のルーン,item
+Resonant Rune of Aegis,共鳴する守護のルーン,item
+Ancient Rune of Aegis,古代の守護のルーン,item
+Elder Rune of Aegis,太古の守護のルーン,item
+Tattered Scroll,ぼろぼろの巻物,item
+Coarse Scroll,粗末な巻物,item
+Scribe's Scroll,写字生の巻物,item
+Vellum Scroll,羊皮紙の巻物,item
+Illuminated Scroll,彩飾の巻物,item
+Sealed Scroll,封印された巻物,item
+Occult Scroll,秘術の巻物,item
+Forbidden Scroll,禁断の巻物,item
+Prophetic Scroll,予言の巻物,item
+Fated Scroll,宿命の巻物,item
+Scrap,スクラップ,item
+Ichor,イコル,item
+Dust,ダスト,item
+Essence,エッセンス,item
+Ink,インク,item
+Faded Rune of Vitality,色褪せた活力のルーン,item
+Etched Rune of Vitality,刻まれた活力のルーン,item
+Carved Rune of Vitality,彫られた活力のルーン,item
+Bound Rune of Vitality,縛られた活力のルーン,item
+Warded Rune of Vitality,護られた活力のルーン,item
+Charged Rune of Vitality,充填された活力のルーン,item
+Awakened Rune of Vitality,目覚めた活力のルーン,item
+Resonant Rune of Vitality,共鳴する活力のルーン,item
+Ancient Rune of Vitality,古代の活力のルーン,item
+Elder Rune of Vitality,太古の活力のルーン,item
+Bristle Egg,ブリッスルのタマゴ,item
+Thornhide Egg,ソーンハイドのタマゴ,item
+Thornback Egg,ソーンバックのタマゴ,item
+Whelp Egg,ウェルプのタマゴ,item
+Dustcur Egg,ダストカーのタマゴ,item
+Dusthound Egg,ダストハウンドのタマゴ,item
+Grub Egg,グラブのタマゴ,item
+Delver Egg,デルヴァーのタマゴ,item
+Barrowmole Egg,バロウモールのタマゴ,item
+Fawn Egg,フォーンのタマゴ,item
+Briarfawn Egg,ブライアフォーンのタマゴ,item
+Bramblefawn Egg,ブランブルフォーンのタマゴ,item
+Shade Egg,カゲボウシのタマゴ,item
+Phantasm Egg,ファンタズムのタマゴ,item
+Nightmare Egg,ナイトメアのタマゴ,item
+Cairn Egg,ケルンのタマゴ,item
+Menhir Egg,メンヒルのタマゴ,item
+Golgoth Egg,ゴルゴスのタマゴ,item
+Sprig Egg,スプリッグのタマゴ,item
+Woodwose Egg,ウッドウォスのタマゴ,item
+Wychroot Egg,ウィッチルートのタマゴ,item
+Noose Egg,クビナワのタマゴ,item
+Ligature Egg,リガチャーのタマゴ,item
+Garrote Egg,ガロットのタマゴ,item
+Nestling Egg,ネストリングのタマゴ,item
+Carrion Egg,キャリオンのタマゴ,item
+Gallowsbird Egg,ギャロウズバードのタマゴ,item
+Hart Egg,オジカのタマゴ,item
+Leshy Egg,レーシーのタマゴ,item
+Herne Egg,ハーンのタマゴ,item
+Nauplius Egg,ノープリウスのタマゴ,item
+Barnacle Egg,フジツボのタマゴ,item
+Tidecrawler Egg,タイドクローラーのタマゴ,item
+Fry Egg,チギョのタマゴ,item
+Snapjaw Egg,スナップジョーのタマゴ,item
+Saltjaw Egg,ソルトジョーのタマゴ,item
+Polliwog Egg,ポリウォグのタマゴ,item
+Brineling Egg,ブラインリングのタマゴ,item
+Brinefrog Egg,ブラインフロッグのタマゴ,item
+Zoea Egg,ゾエアのタマゴ,item
+Smasher Egg,スマッシャーのタマゴ,item
+Crestmantis Egg,クレストマンティスのタマゴ,item
+Gecko Egg,ヤモリのタマゴ,item
+Monitor Egg,オオトカゲのタマゴ,item
+Duskscale Egg,ダスクスケイルのタマゴ,item
+Naiad Egg,ナイアードのタマゴ,item
+Undine Egg,ウンディーネのタマゴ,item
+Rusalka Egg,ルサールカのタマゴ,item
+Whorl Egg,ウズマキのタマゴ,item
+Rampart Egg,ランパートのタマゴ,item
+Bulwark Egg,ブルワークのタマゴ,item
+Elver Egg,エルヴァーのタマゴ,item
+Conger Egg,アナゴのタマゴ,item
+Nethereel Egg,ネザーイールのタマゴ,item
+Polyp Egg,ポリプのタマゴ,item
+Medusa Egg,メドゥーサのタマゴ,item
+Coralhydra Egg,コーラルヒドラのタマゴ,item
+Nommo Egg,ノンモのタマゴ,item
+Oannes Egg,オアンネスのタマゴ,item
+Dagon Egg,ダゴンのタマゴ,item
+Haunt Egg,タタリのタマゴ,item
+Wraith Egg,レイスのタマゴ,item
+Banshee Egg,バンシーのタマゴ,item
+Wyrmling Egg,ワームリングのタマゴ,item
+Neonate Egg,ネオネイトのタマゴ,item
+Sidewinder Egg,サイドワインダーのタマゴ,item
+Mirage Egg,ミラージュのタマゴ,item
+Sylph Egg,シルフのタマゴ,item
+Fata Egg,ファータのタマゴ,item
+Grit Egg,スナツブのタマゴ,item
+Sirocco Egg,シロッコのタマゴ,item
+Simoom Egg,シムーンのタマゴ,item
+Lamia Egg,ラミアのタマゴ,item
+Gorgon Egg,ゴルゴンのタマゴ,item
+Echidna Egg,エキドナのタマゴ,item
+Paralarva Egg,パララーヴァのタマゴ,item
+Inkling Egg,インクリングのタマゴ,item
+Voidsiphon Egg,ヴォイドサイフォンのタマゴ,item
+Cinder Egg,シンダーのタマゴ,item
+Scorchscale Egg,スコーチスケイルのタマゴ,item
+Emberclaw Egg,エンバークロウのタマゴ,item
+Terrapin Egg,テラピンのタマゴ,item
+Kurma Egg,クールマのタマゴ,item
+Zaratan Egg,ザラタンのタマゴ,item
+Jann Egg,ジャーンのタマゴ,item
+Ifrit Egg,イフリートのタマゴ,item
+Marid Egg,マリードのタマゴ,item
+Nidhogg Egg,ニーズヘッグのタマゴ,item
+Jormungand Egg,ヨルムンガンドのタマゴ,item
+Ouroboros Egg,ウロボロスのタマゴ,item
+Larva Egg,ラーヴァのタマゴ,item
+Maggot Egg,ウジムシのタマゴ,item
+Gloomgrub Egg,グルームグラブのタマゴ,item
+Instar Egg,インスターのタマゴ,item
+Thornshell Egg,ソーンシェルのタマゴ,item
+Thornhusk Egg,ソーンハスクのタマゴ,item
+Ovum Egg,オーヴムのタマゴ,item
+Sporeling Egg,スポアリングのタマゴ,item
+Sporefly Egg,スポアフライのタマゴ,item
+Spiderling Egg,コグモのタマゴ,item
+Orbweaver Egg,オーブウィーバーのタマゴ,item
+Arachne Egg,アラクネのタマゴ,item
+Sundew Egg,モウセンゴケのタマゴ,item
+Flytrap Egg,ハエトリグサのタマゴ,item
+Carnifora Egg,カルニフォラのタマゴ,item
+Vector Egg,ベクターのタマゴ,item
+Contagion Egg,コンテイジョンのタマゴ,item
+Plaguecarrier Egg,プレイグキャリアーのタマゴ,item
+Novice Egg,ノービスのタマゴ,item
+Acolyte Egg,アコライトのタマゴ,item
+Devout Egg,ディヴァウトのタマゴ,item
+Nymph Egg,ニンフのタマゴ,item
+Hopper Egg,ホッパーのタマゴ,item
+Locust Egg,ローカストのタマゴ,item
+Vespid Egg,ヴェスピッドのタマゴ,item
+Cordyceps Egg,コルディセプスのタマゴ,item
+Vespera Egg,ヴェスペラのタマゴ,item
+Taproot Egg,タップルートのタマゴ,item
+Mycorrhiza Egg,ミコリザのタマゴ,item
+Yggdrasil Egg,ユグドラシルのタマゴ,item
+Megalopa Egg,メガロパのタマゴ,item
+Scuttler Egg,スカトラーのタマゴ,item
+Cliffpincer Egg,クリフピンサーのタマゴ,item
+Scute Egg,スキュートのタマゴ,item
+Carapace Egg,カラペイスのタマゴ,item
+Crushmaul Egg,クラッシュモールのタマゴ,item
+Dross Egg,ドロスのタマゴ,item
+Smelt Egg,スメルトのタマゴ,item
+Slagworm Egg,スラグワームのタマゴ,item
+Drakeling Egg,ドレイクリングのタマゴ,item
+Dragonet Egg,ドラゴネットのタマゴ,item
+Ridgedrake Egg,リッジドレイクのタマゴ,item
+Crayfish Egg,ザリガニのタマゴ,item
+Stonecaller Egg,ストーンコーラーのタマゴ,item
+Despot Egg,デスポットのタマゴ,item
+Fluke Egg,フルークのタマゴ,item
+Sangleech Egg,サングリーチのタマゴ,item
+Sanguinarch Egg,サングイナークのタマゴ,item
+Colony Egg,コロニーのタマゴ,item
+Aggregate Egg,アグリゲイトのタマゴ,item
+Craggernaut Egg,クラッガーノートのタマゴ,item
+Scorpling Egg,スコープリングのタマゴ,item
+Umbra Egg,アンブラのタマゴ,item
+Voidshell Egg,ヴォイドシェルのタマゴ,item
+Automaton Egg,オートマトンのタマゴ,item
+Colossus Egg,コロッサスのタマゴ,item
+Talos Egg,タロスのタマゴ,item
+Scoria Egg,スコリアのタマゴ,item
+Obsidian Egg,オブシディアンのタマゴ,item
+Magmacrawler Egg,マグマクローラーのタマゴ,item
+Chick Egg,ヒヨコのタマゴ,item
+Zephyr Egg,ゼファーのタマゴ,item
+Gustwing Egg,ガストウィングのタマゴ,item
+Fledgling Egg,フレッジリングのタマゴ,item
+Stormcrow Egg,ストームクロウのタマゴ,item
+Tempestcrow Egg,テンペストクロウのタマゴ,item
+Chrysalis Egg,クリサリスのタマゴ,item
+Sparkwing Egg,スパークウィングのタマゴ,item
+Thundermoth Egg,サンダーモスのタマゴ,item
+Eyas Egg,アイアスのタマゴ,item
+Haggard Egg,ハガードのタマゴ,item
+Roc Egg,ロックのタマゴ,item
+Yelp Egg,イェルプのタマゴ,item
+Squall Egg,スコールのタマゴ,item
+Galehowl Egg,ゲイルハウルのタマゴ,item
+Static Egg,スタティックのタマゴ,item
+Arcwing Egg,アークウィングのタマゴ,item
+Voltmantle Egg,ボルトマントルのタマゴ,item
+Amphiptere Egg,アンフィプテールのタマゴ,item
+Quetzal Egg,ケツァールのタマゴ,item
+Couatl Egg,コアトルのタマゴ,item
+Tempest Egg,テンペストのタマゴ,item
+Typhoon Egg,タイフーンのタマゴ,item
+Typhon Egg,テュポーンのタマゴ,item
+Ziz Egg,ジズのタマゴ,item
+Simurgh Egg,シームルグのタマゴ,item
+Anzu Egg,アンズーのタマゴ,item
+Riptide Egg,リップタイドのタマゴ,item
+Maelstrom Egg,メイルストロムのタマゴ,item
+Charybdis Egg,カリュブディスのタマゴ,item
+Spawn Egg,スポーンのタマゴ,item
+Froglet Egg,コガエルのタマゴ,item
+Boghopper Egg,ボグホッパーのタマゴ,item
+Newtling Egg,ニュートリングのタマゴ,item
+Eft Egg,エフトのタマゴ,item
+Mirenewt Egg,マイアニュートのタマゴ,item
+Nit Egg,シラミのタマゴ,item
+Blowfly Egg,ブロウフライのタマゴ,item
+Rotfly Egg,ロットフライのタマゴ,item
+Tadpole Egg,オタマジャクシのタマゴ,item
+Wight Egg,ワイトのタマゴ,item
+Lichfrog Egg,リッチフロッグのタマゴ,item
+Glimmer Egg,グリマーのタマゴ,item
+Lantern Egg,ランタンのタマゴ,item
+Wispmaw Egg,ウィスプモウのタマゴ,item
+Orcneas Egg,オルクネアスのタマゴ,item
+Eoten Egg,エオテンのタマゴ,item
+Grendel Egg,グレンデルのタマゴ,item
+Vaettir Egg,ヴァッティルのタマゴ,item
+Haugbui Egg,ハウグブイのタマゴ,item
+Draugr Egg,ドラウグルのタマゴ,item
+Tendril Egg,テンドリルのタマゴ,item
+Bindweed Egg,バインドウィードのタマゴ,item
+Gallowvine Egg,ギャロウヴァインのタマゴ,item
+Toadling Egg,トードリングのタマゴ,item
+Behemoth Egg,ベヒーモスのタマゴ,item
+Miremother Egg,マイアマザーのタマゴ,item
+Vestige Egg,ヴェスティージのタマゴ,item
+Revenant Egg,レヴナントのタマゴ,item
+Cenotaph Egg,セノタフのタマゴ,item
+Button Egg,ボタンダケのタマゴ,item
+Toadstool Egg,ドクキノコのタマゴ,item
+Gloomcap Egg,グルームキャップのタマゴ,item
+Cuttle Egg,カトルのタマゴ,item
+Argonaut Egg,アルゴノートのタマゴ,item
+Inkmantle Egg,インクマントルのタマゴ,item
+Hypha Egg,ハイファのタマゴ,item
+Rhizome Egg,リゾームのタマゴ,item
+Veinmold Egg,ヴェインモールドのタマゴ,item
+Nautilus Egg,ノーチラスのタマゴ,item
+Oracle Egg,オラクルのタマゴ,item
+Sibyl Egg,シビュラのタマゴ,item
+Tremor Egg,トレマーのタマゴ,item
+Palsy Egg,パルシーのタマゴ,item
+Vertigo Egg,ヴァーティゴのタマゴ,item
+Kitling Egg,コギツネのタマゴ,item
+Foxfire Egg,キツネビのタマゴ,item
+Kitsune Egg,キュウビのタマゴ,item
+Puffball Egg,ホコリタケのタマゴ,item
+Leviathan Egg,リヴァイアサンのタマゴ,item
+Sporewhale Egg,スポアホエールのタマゴ,item
+Lure Egg,ルアーのタマゴ,item
+Abyss Egg,アビスのタマゴ,item
+Riftangler Egg,リフトアングラーのタマゴ,item
+Spore Egg,ホウシのタマゴ,item
+Bloom Egg,ブルームのタマゴ,item
+Mycelium Egg,マイセリウムのタマゴ,item
+Veliger Egg,ヴェリジャーのタマゴ,item
+Hafgufa Egg,ハフグファのタマゴ,item
+Kraken Egg,クラーケンのタマゴ,item
+Phantom Egg,ファントムのタマゴ,item
+Geist Egg,ガイストのタマゴ,item
+Crystalwraith Egg,クリスタルレイスのタマゴ,item
+Pup Egg,パップのタマゴ,item
+Vesper Egg,ヴェスパーのタマゴ,item
+Ashbat Egg,アッシュバットのタマゴ,item
+Shard Egg,シャードのタマゴ,item
+Geode Egg,ジオードのタマゴ,item
+Gemborn Egg,ジェムボーンのタマゴ,item
+Stiletto Egg,スティレットのタマゴ,item
+Scalpel Egg,スカルペルのタマゴ,item
+Bloodcarver Egg,ブラッドカーヴァーのタマゴ,item
+Splinter Egg,スプリンターのタマゴ,item
+Poltergeist Egg,ポルターガイストのタマゴ,item
+Shatterspecter Egg,シャタースペクターのタマゴ,item
+Whippet Egg,ウィペットのタマゴ,item
+Barghest Egg,バーゲストのタマゴ,item
+Voidhound Egg,ヴォイドハウンドのタマゴ,item
+Echo Egg,コダマのタマゴ,item
+Fetch Egg,フェッチのタマゴ,item
+Doppelganger Egg,ドッペルゲンガーのタマゴ,item
+Nachzehrer Egg,ナハツェーラーのタマゴ,item
+Strigoi Egg,ストリゴイのタマゴ,item
+Nosferatu Egg,ノスフェラトゥのタマゴ,item
+Reliquary Egg,レリクアリのタマゴ,item
+Lich Egg,リッチのタマゴ,item
+Phylactery Egg,フィラクテリーのタマゴ,item
+Facet Egg,ファセットのタマゴ,item
+Reflection Egg,ウツシミのタマゴ,item
+Speculum Egg,スペキュラムのタマゴ,item
+Ember Egg,エンバーのタマゴ,item
+Clinker Egg,クリンカーのタマゴ,item
+Protogale Egg,プロトゲイルのタマゴ,item
+Soot Egg,スートのタマゴ,item
+Ossuary Egg,オッシュアリのタマゴ,item
+Ashwalker Egg,アッシュウォーカーのタマゴ,item
+Effigy Egg,エフィジーのタマゴ,item
+Idol Egg,グウゾウのタマゴ,item
+Moloch Egg,モロクのタマゴ,item
+Flicker Egg,フリッカーのタマゴ,item
+Salamander Egg,サラマンダーのタマゴ,item
+Blazewyrm Egg,ブレイズワームのタマゴ,item
+Hybrid Egg,ハイブリッドのタマゴ,item
+Chimera Egg,キメラのタマゴ,item
+Omnichimera Egg,オムニキメラのタマゴ,item
+Ingot Egg,インゴットのタマゴ,item
+Ironclad Egg,アイアンクラッドのタマゴ,item
+Ferrodrake Egg,フェロドレイクのタマゴ,item
+Ignis Egg,イグニスのタマゴ,item
+Pyre Egg,パイアのタマゴ,item
+Ignifer Egg,イグニファーのタマゴ,item
+Sentry Egg,セントリーのタマゴ,item
+Sentinel Egg,センチネルのタマゴ,item
+Vigil Egg,ヴィジルのタマゴ,item
+Wildfire Egg,ワイルドファイアのタマゴ,item
+Balefire Egg,ベイルファイアのタマゴ,item
+Pyriel Egg,ピリエルのタマゴ,item
+Archon Egg,アルコンのタマゴ,item
+Aeon Egg,アイオーンのタマゴ,item
+Demiurge Egg,デミウルゴスのタマゴ,item
+Grinlet Egg,グリンレットのタマゴ,item
+Gibberling Egg,ギバーリングのタマゴ,item
+Jackanape Egg,ジャッカネイプのタマゴ,item
+Knuckler Egg,ナックラーのタマゴ,item
+Silverback Egg,シルバーバックのタマゴ,item
+Goliath Egg,ゴライアスのタマゴ,item
+Tyrantling Egg,タイラントリングのタマゴ,item
+Tyrantjaw Egg,タイラントジョーのタマゴ,item
+Tyrannos Egg,ティラノスのタマゴ,item
+Rotdrip Egg,ロットドリップのタマゴ,item
+Gristleglob Egg,グリッスルグロブのタマゴ,item
+Charnelmass Egg,チャーネルマスのタマゴ,item
+Cowl,頭巾,item
+Hood,フード,item
+Coif,コイフ,item
+Sallet,サレット,item
+Barbute,バルビュート,item
+Helm,兜,item
+Greathelm,グレートヘルム,item
+Wyrmskull Helm,竜髑髏の兜,item
+Sanctified Casque,聖別のカスク,item
+Voidcrown,ヴォイドクラウン,item
+Padded Jerkin,綿入れの胴衣,item
+Leather Jerkin,革の胴衣,item
+Brigandine,ブリガンダイン,item
+Scale Hauberk,鱗の帷子,item
+Chain Hauberk,鎖帷子,item
+Cuirass,胸甲,item
+Warplate,ウォープレート,item
+Bloodforged Plate,血鍛えの鎧,item
+Sanctified Bulwark,聖別の防壁,item
+Voidplate,ヴォイドプレート,item
+Handwraps,手巻布,item
+Leather Grips,革のグリップ,item
+Studded Grips,鋲付きグリップ,item
+Bracers,ブレーサー,item
+Chain Mitts,鎖のミトン,item
+Steel Gauntlets,鋼の籠手,item
+Wargauntlets,戦籠手,item
+Bloodforged Fists,血鍛えの拳,item
+Sanctified Grasp,聖別の掌,item
+Voidclaws,ヴォイドクロー,item
+Footwraps,足巻布,item
+Worn Boots,ボロのブーツ,item
+Hobnailed Boots,鋲打ちブーツ,item
+Riding Boots,乗馬ブーツ,item
+Chain Boots,鎖のブーツ,item
+Greaves,脛当て,item
+Wargreaves,戦脛当て,item
+Bloodforged Stride,血鍛えの歩み,item
+Sanctified Sabatons,聖別の鉄靴,item
+Voidtreads,ヴォイドトレッド,item
+Arming Sword,アーミングソード,item
+Veteran's Arming Sword,歴戦のアーミングソード,item
+Champion's Arming Sword,覇者のアーミングソード,item
+Longsword,ロングソード,item
+Veteran's Longsword,歴戦のロングソード,item
+Champion's Longsword,覇者のロングソード,item
+Great Morningstar,大モーニングスター,item
+Veteran's Great Morningstar,歴戦の大モーニングスター,item
+Champion's Great Morningstar,覇者の大モーニングスター,item
+Tyrant's Great Morningstar,暴君の大モーニングスター,item
+Kite Shield,カイトシールド,item
+Veteran's Kite Shield,歴戦のカイトシールド,item
+Champion's Kite Shield,覇者のカイトシールド,item
+Heater Shield,ヒーターシールド,item
+Veteran's Heater Shield,歴戦のヒーターシールド,item
+Champion's Heater Shield,覇者のヒーターシールド,item
+Tower Shield,タワーシールド,item
+Veteran's Tower Shield,歴戦のタワーシールド,item
+Champion's Tower Shield,覇者のタワーシールド,item
+Tyrant's Tower Shield,暴君のタワーシールド,item
+Crystal Staff,水晶の杖,item
+Veteran's Crystal Staff,歴戦の水晶の杖,item
+Champion's Crystal Staff,覇者の水晶の杖,item
+Amethyst Staff,アメジストの杖,item
+Veteran's Amethyst Staff,歴戦のアメジストの杖,item
+Champion's Amethyst Staff,覇者のアメジストの杖,item
+Ruby Warstaff,ルビーの戦杖,item
+Veteran's Ruby Warstaff,歴戦のルビーの戦杖,item
+Champion's Ruby Warstaff,覇者のルビーの戦杖,item
+Tyrant's Ruby Warstaff,暴君のルビーの戦杖,item
+Handflame Focus,手炎のフォーカス,item
+Veteran's Handflame Focus,歴戦の手炎のフォーカス,item
+Champion's Handflame Focus,覇者の手炎のフォーカス,item
+Amethyst Shardring,アメジストの欠片環,item
+Veteran's Amethyst Shardring,歴戦のアメジストの欠片環,item
+Champion's Amethyst Shardring,覇者のアメジストの欠片環,item
+Magma Orbit,マグマオービット,item
+Veteran's Magma Orbit,歴戦のマグマオービット,item
+Champion's Magma Orbit,覇者のマグマオービット,item
+Tyrant's Magma Orbit,暴君のマグマオービット,item
+Ash Shortbow,トネリコの短弓,item
+Veteran's Ash Shortbow,歴戦のトネリコの短弓,item
+Champion's Ash Shortbow,覇者のトネリコの短弓,item
+Runed Recurve,ルーンのリカーブ弓,item
+Veteran's Runed Recurve,歴戦のルーンのリカーブ弓,item
+Champion's Runed Recurve,覇者のルーンのリカーブ弓,item
+Hawkwing Greatbow,鷹翼の大弓,item
+Veteran's Hawkwing Greatbow,歴戦の鷹翼の大弓,item
+Champion's Hawkwing Greatbow,覇者の鷹翼の大弓,item
+Tyrant's Hawkwing Greatbow,暴君の鷹翼の大弓,item
+Scout's Quiver,斥候の矢筒,item
+Veteran's Scout's Quiver,歴戦の斥候の矢筒,item
+Champion's Scout's Quiver,覇者の斥候の矢筒,item
+Silvered Quiver,銀張りの矢筒,item
+Veteran's Silvered Quiver,歴戦の銀張りの矢筒,item
+Champion's Silvered Quiver,覇者の銀張りの矢筒,item
+Obsidian Quiver,黒曜石の矢筒,item
+Veteran's Obsidian Quiver,歴戦の黒曜石の矢筒,item
+Champion's Obsidian Quiver,覇者の黒曜石の矢筒,item
+Tyrant's Obsidian Quiver,暴君の黒曜石の矢筒,item
+Nailed Club,釘打ちの棍棒,item
+Veteran's Nailed Club,歴戦の釘打ちの棍棒,item
+Champion's Nailed Club,覇者の釘打ちの棍棒,item
+War-Club,戦棍,item
+Veteran's War-Club,歴戦の戦棍,item
+Champion's War-Club,覇者の戦棍,item
+Colossus Axe,巨像の斧,item
+Veteran's Colossus Axe,歴戦の巨像の斧,item
+Champion's Colossus Axe,覇者の巨像の斧,item
+Tyrant's Colossus Axe,暴君の巨像の斧,item
+Fist Cords,拳紐,item
+Veteran's Fist Cords,歴戦の拳紐,item
+Champion's Fist Cords,覇者の拳紐,item
+Iron Knucklewraps,鉄の拳布,item
+Veteran's Iron Knucklewraps,歴戦の鉄の拳布,item
+Champion's Iron Knucklewraps,覇者の鉄の拳布,item
+Titan Chainwraps,タイタンの鎖巻き,item
+Veteran's Titan Chainwraps,歴戦のタイタンの鎖巻き,item
+Champion's Titan Chainwraps,覇者のタイタンの鎖巻き,item
+Tyrant's Titan Chainwraps,暴君のタイタンの鎖巻き,item
+Iron Dagger,鉄の短剣,item
+Veteran's Iron Dagger,歴戦の鉄の短剣,item
+Champion's Iron Dagger,覇者の鉄の短剣,item
+Blackened Scimitar,黒染めのシミター,item
+Veteran's Blackened Scimitar,歴戦の黒染めのシミター,item
+Champion's Blackened Scimitar,覇者の黒染めのシミター,item
+Bladed Gauntlet,刃付き籠手,item
+Veteran's Bladed Gauntlet,歴戦の刃付き籠手,item
+Champion's Bladed Gauntlet,覇者の刃付き籠手,item
+Tyrant's Bladed Gauntlet,暴君の刃付き籠手,item
+Iron Dagger (Off),鉄の短剣(副),item
+Veteran's Iron Dagger (Off),歴戦の鉄の短剣(副),item
+Champion's Iron Dagger (Off),覇者の鉄の短剣(副),item
+Blackened Scimitar (Off),黒染めのシミター(副),item
+Veteran's Blackened Scimitar (Off),歴戦の黒染めのシミター(副),item
+Champion's Blackened Scimitar (Off),覇者の黒染めのシミター(副),item
+Bladed Gauntlet (Off),刃付き籠手(副),item
+Veteran's Bladed Gauntlet (Off),歴戦の刃付き籠手(副),item
+Champion's Bladed Gauntlet (Off),覇者の刃付き籠手(副),item
+Tyrant's Bladed Gauntlet (Off),暴君の刃付き籠手(副),item
+Battered Tome,傷だらけの書,item
+Veteran's Battered Tome,歴戦の傷だらけの書,item
+Champion's Battered Tome,覇者の傷だらけの書,item
+Ancient Tome,古代の書,item
+Veteran's Ancient Tome,歴戦の古代の書,item
+Champion's Ancient Tome,覇者の古代の書,item
+Hovering Grimoire,浮遊する魔導書,item
+Veteran's Hovering Grimoire,歴戦の浮遊する魔導書,item
+Champion's Hovering Grimoire,覇者の浮遊する魔導書,item
+Tyrant's Hovering Grimoire,暴君の浮遊する魔導書,item
+Cut Quill,削った羽ペン,item
+Veteran's Cut Quill,歴戦の削った羽ペン,item
+Champion's Cut Quill,覇者の削った羽ペン,item
+Gilded Quill,金箔の羽ペン,item
+Veteran's Gilded Quill,歴戦の金箔の羽ペン,item
+Champion's Gilded Quill,覇者の金箔の羽ペン,item
+Scribing Quill,筆記の羽ペン,item
+Veteran's Scribing Quill,歴戦の筆記の羽ペン,item
+Champion's Scribing Quill,覇者の筆記の羽ペン,item
+Tyrant's Scribing Quill,暴君の筆記の羽ペン,item
+Grasslands Key,草原の鍵,item
+Tidal Shallows Key,潮の浅瀬の鍵,item
+Desert Plains Key,砂漠平原の鍵,item
+Swarm Thicket Key,群虫の茂みの鍵,item
+The Crag Key,岩山の鍵,item
+Storm Peaks Key,嵐の峰の鍵,item
+Sunken Bog Key,沈んだ沼地の鍵,item
+Underwater Cave Key,海中洞窟の鍵,item
+Gemstone Cave Key,宝石洞窟の鍵,item
+Flaming Hellscape Key,炎獄の鍵,item
+Void Apex Key — Vargr,ヴォイド・エイペックスの鍵 — ヴァルグ,item
+Void Apex Key — Pelagos,ヴォイド・エイペックスの鍵 — ペラゴス,item
+Void Apex Key — Sethek,ヴォイド・エイペックスの鍵 — セテク,item
+Void Apex Key — Vesk,ヴォイド・エイペックスの鍵 — ヴェスク,item
+Void Apex Key — Ostrakon,ヴォイド・エイペックスの鍵 — オストラコン,item
+Void Apex Key — Keraun,ヴォイド・エイペックスの鍵 — ケラウン,item
+Void Apex Key — Morast,ヴォイド・エイペックスの鍵 — モラスト,item
+Void Apex Key — Teloma,ヴォイド・エイペックスの鍵 — テロマ,item
+Void Apex Key — Varkolan,ヴォイド・エイペックスの鍵 — ヴァルコラン,item
+Void Apex Key — Eskaton,ヴォイド・エイペックスの鍵 — エスカトン,item
+A smear of red wax. A promise of red steel.,赤い蝋のひと塗り。赤い鋼の約束。,item_flavor
+Iron band. The crest bites into skin.,鉄の指輪。紋章が肌に食い込む。,item_flavor
+Tempered seal. The impression it leaves heals slowly.,焼き入れた印。押された跡はゆっくりと癒える。,item_flavor
+Forged crest. Documents signed with it are binding.,鍛造の紋章。これで署名した書類は拘束力を持つ。,item_flavor
+Runic face. The seal glows when violence is near.,ルーンの印面。暴力が近づくと印が光る。,item_flavor
+Blessed signet. Contracts signed with it cannot be broken.,祝福された印章。これで結んだ契約は破れない。,item_flavor
+Wrought in dark metal. The crest changes per wearer.,黒い金属で鍛えられた。紋章は持ち主ごとに変わる。,item_flavor
+Darksteel band. The impression it leaves does not heal.,暗黒鋼の指輪。押された跡は癒えない。,item_flavor
+The ring signs your name before you write it.,あなたが書く前に、指輪が名を記す。,item_flavor
+The crest is the last thing the enemy sees.,敵が最後に目にするのはこの紋章だ。,item_flavor
+"A saint's knuckle, or a convincing forgery.",聖人の指の骨。あるいは精巧な偽物。,item_flavor
+Iron-framed glass. The bone inside is warm.,鉄枠のガラス。中の骨は温かい。,item_flavor
+Tempered case. The relic has survived three fires.,焼き入れた容器。この聖遺物は三度の火災を生き延びた。,item_flavor
+Forged filigree. Every curl is intentional.,鍛造の金線細工。どの渦巻きにも意図がある。,item_flavor
+Runic glass. The bone glows faintly during prayer.,ルーンのガラス。祈りの間、骨がかすかに光る。,item_flavor
+Blessed locket. Opening it heals. Closing it hurts.,祝福されたロケット。開けば癒え、閉じれば痛む。,item_flavor
+Wrought gold. The bone has grown since it was placed.,鍛えた黄金。納めてから骨が育っている。,item_flavor
+Darksteel hinge. It opens only for the dying.,暗黒鋼の蝶番。死にゆく者にしか開かない。,item_flavor
+The relic prays for you.,聖遺物があなたのために祈る。,item_flavor
+The bone inside is yours. You have not lost it yet.,中の骨はあなたのものだ。まだ失ってはいないが。,item_flavor
+Taken from something that did not give it.,差し出さなかった何かから奪ったもの。,item_flavor
+Iron-capped. The tooth still carries venom residue.,鉄の被せ。牙にはまだ毒が残っている。,item_flavor
+Tempered in salt. The edge has not dulled.,塩で焼き入れた。刃先は鈍っていない。,item_flavor
+Forged cap. The fang is longer than the creature it came from.,鍛造の被せ。牙は元のクリーチャーよりも長い。,item_flavor
+Runic etching along the root. It vibrates near prey.,根元にルーンの彫刻。獲物が近いと震える。,item_flavor
+Blessed fang. It draws blood through armor.,祝福された牙。鎧越しに血を吸う。,item_flavor
+Wrought setting. The fang has grown since mounting.,鍛えた台座。据えてから牙が伸びている。,item_flavor
+Darksteel cap. The venom inside has concentrated.,暗黒鋼の被せ。中の毒は濃縮された。,item_flavor
+The fang remembers its original mouth.,牙は元の口を覚えている。,item_flavor
+It bites on its own.,ひとりでに噛みつく。,item_flavor
+The previous owner survived everything but its removal.,前の持ち主は、これを剥がされること以外すべてを生き延びた。,item_flavor
+Iron rivets. The chitin holds better than steel.,鉄の鋲。キチンは鋼よりも頑丈だ。,item_flavor
+Tempered surface. Blows slide off at impossible angles.,焼き入れた表面。打撃があり得ない角度で滑る。,item_flavor
+Forged strap. The carapace molds to new shapes.,鍛造の革帯。甲殻が新しい形に馴染む。,item_flavor
+Runic edge. The iridescence shifts to match threats.,ルーンの縁。虹色の光沢が脅威に合わせて移ろう。,item_flavor
+Blessed shell. It hardens on impact.,祝福された殻。衝撃を受けると硬くなる。,item_flavor
+Wrought mount. The carapace has begun growing new layers.,鍛えた台座。甲殻が新たな層を育て始めた。,item_flavor
+Darksteel rivets. The chitin between them heals.,暗黒鋼の鋲。間のキチンが自ら癒える。,item_flavor
+The carapace rejects damage personally.,この甲殻は、傷を個人的に拒む。,item_flavor
+It is growing. It has not stopped.,育っている。止まらない。,item_flavor
+It is not the creature's heart. It beats anyway.,クリーチャーの心臓ではない。それでも脈打つ。,item_flavor
+Iron-bound crystal. The pulse is steady.,鉄で縛った水晶。鼓動は安定している。,item_flavor
+Tempered wire. The glow strengthens when the creature is wounded.,焼き入れた針金。クリーチャーが傷つくと光が強まる。,item_flavor
+Forged cage. The crystal has cracked and healed three times.,鍛造の籠。水晶は三度割れ、三度癒えた。,item_flavor
+Runic wire. The heartbeat syncs to the creature's.,ルーンの針金。鼓動がクリーチャーと同期する。,item_flavor
+Blessed crystal. It beats when the creature's heart would stop.,祝福された水晶。クリーチャーの心臓が止まるはずの時に脈打つ。,item_flavor
+Wrought frame. The heart now beats for two.,鍛えた枠。この心臓は今、二つの命のために脈打つ。,item_flavor
+Darksteel wire. The glow is visible through armor.,暗黒鋼の針金。その光は鎧越しにも見える。,item_flavor
+The heart decides when the creature dies. It has not decided yet.,クリーチャーの死期は心臓が決める。まだ決めていない。,item_flavor
+Cut one open and it bleeds. The Tower keeps no record of who first tried.,割れば血が流れる。最初に試したのが誰か、塔に記録はない。,item_flavor
+"Rough red stone, still warm to the touch.",粗い赤い石。触れるとまだ温かい。,item_flavor
+"Cut once, cleanly. The red inside was waiting.",一度だけ、きれいに切られた。内なる赤が待っていた。,item_flavor
+The red deepens where blood once pooled.,かつて血が溜まった場所ほど、赤が深い。,item_flavor
+First shaping. The stone drinks the lapidary's nicked thumb.,最初の成形。石は宝石職人の切れた親指を飲む。,item_flavor
+Each face angles toward the nearest heartbeat.,どの面も、最も近い鼓動のほうを向く。,item_flavor
+Polished in silence. It hums near open wounds.,静寂の中で磨かれた。開いた傷の近くで唸る。,item_flavor
+No flaw remains to slow the hunger inside.,内なる飢えを鈍らせる傷は、もうひとつもない。,item_flavor
+Perfectly cut. Perfectly patient.,完璧な切り口。完璧な忍耐。,item_flavor
+It no longer reflects light. It reflects intent.,もはや光を映さない。映すのは殺意だ。,item_flavor
+The last lapidary who finished one never set down the knife.,最後にこれを仕上げた職人は、二度とナイフを置かなかった。,item_flavor
+A rough dark stone that swallows a little light.,光を少しだけ呑み込む、粗い黒石。,item_flavor
+"Cold. It was always cold, even in the forge.",冷たい。炉の中でさえ、ずっと冷たかった。,item_flavor
+Polished slabs like this line the oldest tomb walls.,最古の墓の壁には、こうした磨かれた石板が並ぶ。,item_flavor
+"Shaped, it sits heavier than its size allows.",形を整えると、大きさ以上に重く感じる。,item_flavor
+Blows aimed at its bearer arrive strangely tired.,持ち主を狙った打撃は、なぜか疲れ切って届く。,item_flavor
+Polished black. Arrows glance from things they should not.,磨かれた黒。弾くはずのない矢まで弾く。,item_flavor
+Not one crack in it. Not one crack because of it.,ひびひとつない。これのせいでできたひびもない。,item_flavor
+The stone accepts the strike so the flesh does not.,石が一撃を受け止め、肉は受けずに済む。,item_flavor
+"Light bends around it now, and so does harm.",今や光がこれを避けて曲がる。害もまた。,item_flavor
+Fortresses have been razed to recover a single one.,たったひとつを取り戻すため、いくつもの砦が落とされた。,item_flavor
+"Green stone flecked red, like moss on a battlefield.",赤い斑の散る緑石。戦場の苔のように。,item_flavor
+The red flecks multiply. Nobody discusses it.,赤い斑が増えていく。誰もそれを口にしない。,item_flavor
+Wounds near it itch as they knit.,近くの傷は、塞がるときに痒くなる。,item_flavor
+First cut. The flecks arrange into veins.,最初のカット。斑が血管のように連なる。,item_flavor
+"It pulses. Slowly. Once a minute, then faster.",脈打つ。ゆっくりと、一分に一度。やがて速く。,item_flavor
+"Held tight, dying men take one more breath than owed.",強く握れば、死にゆく者は定めより一息だけ長く生きる。,item_flavor
+Flawless — the veins now branch like living tissue.,無傷 — 血管は今や生きた組織のように枝分かれする。,item_flavor
+"Perfect. It is warm, and it was not carved warm.",完璧。温かい。温かく彫られたわけではないのに。,item_flavor
+It beats in time with its bearer's heart. Or leads it.,持ち主の鼓動と同じ拍を刻む。あるいは導く。,item_flavor
+Cut one open and it bleeds.,割れば血が流れる。,item_flavor
+The sigil is nearly worn away. Nearly.,印はほとんど擦り減っている。ほとんど。,item_flavor
+Freshly etched. The grooves are stained rust-red.,刻まれたばかり。溝は錆色に染まっている。,item_flavor
+Carved deep enough that the stone weeps dust.,石がダストの涙を流すほど深く彫られた。,item_flavor
+Bound in iron wire to keep the edge in.,刃を内に留めるため、鉄線で縛られている。,item_flavor
+The ward is not for the rune's protection.,この結界は、ルーンを護るためのものではない。,item_flavor
+It sparks when carried into battle.,戦場に持ち込むと火花を散らす。,item_flavor
+The sigil moves when watched from the corner of the eye.,視界の隅で見ると、印が動く。,item_flavor
+It rings like struck metal at the moment of a kill.,命を奪う瞬間、打たれた金属のように鳴る。,item_flavor
+Older than the Tower's lowest floor.,塔の最下階よりも古い。,item_flavor
+"The first word ever carved, and it was a threat.",初めて刻まれた言葉。それは脅しだった。,item_flavor
+"A worn shield-mark, half smoothed by rubbing thumbs.",擦り減った盾の印。撫でる親指で半ば滑らかになっている。,item_flavor
+The etching catches lamplight like still water.,刻みが灯りを映す。静かな水面のように。,item_flavor
+Deep-carved. Rain refuses to pool in the grooves.,深く彫られている。雨は溝に溜まるのを拒む。,item_flavor
+Iron-bound. The binding has never rusted.,鉄で縛られている。その縛めは一度も錆びたことがない。,item_flavor
+It grows cold when danger is near — colder when it is not.,危険が近いと冷たくなる。近くない時はもっと冷たい。,item_flavor
+"Charged, it hums a single sustained low note.",充填されると、低い一音を唸り続ける。,item_flavor
+Awake now. It positions itself between.,今は目覚めている。自ら間に割って入る。,item_flavor
+Struck directly once. The hammer broke.,一度、まともに打たれた。槌のほうが砕けた。,item_flavor
+The sigil predates the language it was written in.,この印は、それを記した言語よりも古い。,item_flavor
+Walls fall. This does not.,壁は崩れる。これは崩れない。,item_flavor
+Most of the words are gone. The rest are trying to leave.,言葉の大半は消えた。残りも去ろうとしている。,item_flavor
+"Rough paper, rougher penmanship, real power.",粗い紙、さらに粗い筆跡、本物の力。,item_flavor
+A professional hand. The margins hold corrections in another.,熟練の筆。余白には別人の訂正がある。,item_flavor
+Fine calfskin. The calf is not mentioned.,上質な子牛革。子牛については触れられていない。,item_flavor
+Gold leaf in the capitals. The letters gleam without light.,頭文字に金箔。光がなくとも文字が輝く。,item_flavor
+The wax seal re-forms each time it is broken.,蝋の封は、破るたびに元に戻る。,item_flavor
+Written in a script that itches to read.,読むと痒くなる文字で書かれている。,item_flavor
+Copying it is a crime. Reading it is a sentence.,写せば罪。読めば刑。,item_flavor
+It describes tomorrow in the past tense.,明日のことを過去形で記している。,item_flavor
+Your name was already in it.,あなたの名前は、すでにそこにあった。,item_flavor
+"Everything the Tower breaks, it returns in pieces.",塔が壊したものはすべて、欠片となって返ってくる。,item_flavor
+What flows where blood is insufficient.,血では足りぬ場所に流れるもの。,item_flavor
+"Ground brilliance. It still catches the light, resentfully.",砕かれた輝き。恨めしげに、今も光を捉える。,item_flavor
+The meaning survives the stone.,石が失われても、意味は残る。,item_flavor
+Words want out. This is what they pay.,言葉は外へ出たがる。これがその代価だ。,item_flavor
+A faded pulse-mark. The heart it counted still beats.,色褪せた脈の印。それが数えた心臓は、今も鼓動している。,item_flavor
+Etched in dried blood that has not aged.,乾いた血で刻まれている。その血は古びていない。,item_flavor
+Carved by a surgeon. The grooves follow veins.,外科医が彫った。溝は血管をなぞる。,item_flavor
+Bound with sinew. The binding is warm.,腱で縛られている。その縛めは温かい。,item_flavor
+"The ward thickens the air. Breathing costs more, but returns more.",結界が空気を濃くする。息は重くなるが、得るものも多い。,item_flavor
+"Charged, it pulses. The bearer's pulse answers.",充填されると脈打つ。持ち主の脈がそれに応える。,item_flavor
+"Awake. Wounds close slower, but close completely.",目覚めている。傷の塞がりは遅いが、完全に塞がる。,item_flavor
+It resonates with every heartbeat. Each one lands harder.,あらゆる鼓動と共鳴する。一拍ごとに重く響く。,item_flavor
+Ancient blood remembered in stone. The body obeys.,石に刻まれた太古の血の記憶。肉体はそれに従う。,item_flavor
+It has kept more things alive than any healer.,どんな癒し手よりも多くの命を繋いできた。,item_flavor
+Something stirs within the shell.,殻の中で何かが蠢いている。,item_flavor
+Better than rain in the eyes. Barely.,目に入る雨よりはまし。かろうじて。,item_flavor
+The tower does not care what you wear. Wear it anyway.,塔はあなたの装いなど気にしない。それでも身につけておけ。,item_flavor
+"A thousand small links, one stubborn idea.",千の小さな輪、ひとつの頑固な考え。,item_flavor
+See little. Be seen less.,見るは少なく、見られるはさらに少なく。,item_flavor
+A face for the faceless work.,顔なき仕事のための顔。,item_flavor
+Knock first.,まずはノックを。,item_flavor
+The world through a cross of light.,十字の光越しに見る世界。,item_flavor
+It fit the wyrm worse.,竜にはもっと合わなかった。,item_flavor
+"Blessed, buffed, and billed.",祝福され、磨かれ、請求された。,item_flavor
+It hums when you stop praying.,祈りをやめると唸り出す。,item_flavor
+Stuffed with straw and stubbornness.,藁と意地が詰まっている。,item_flavor
+"A cow's last argument, your first armor.",牛の最後の抗弁、あなたの最初の鎧。,item_flavor
+"Cloth outside, disagreement inside.",外は布、内は反骨。,item_flavor
+Ten thousand small roofs.,一万の小さな屋根。,item_flavor
+It sings when you run. Try not to run.,走ると歌う。なるべく走るな。,item_flavor
+Shaped like a hero. Fits anyone.,英雄の形。誰にでも合う。,item_flavor
+Wear the war before it wears you.,戦に着られる前に、戦を着ろ。,item_flavor
+Quenched in something that remembers.,何かを覚えているものに浸して焼き入れた。,item_flavor
+"Holiness, load-bearing.",神聖さ、耐荷重仕様。,item_flavor
+It fits perfectly. That is the problem.,ぴったり合う。それが問題だ。,item_flavor
+"Blisters underneath, business on top.",下にはマメ、上には仕事。,item_flavor
+Grip first. Grieve later.,まず握れ。嘆くのは後だ。,item_flavor
+A handshake people remember.,忘れられない握手。,item_flavor
+The forearm is a shield that forgot.,前腕とは、盾であることを忘れた盾だ。,item_flavor
+"Cold fingers, colder answers.",冷たい指、さらに冷たい答え。,item_flavor
+"Every finger, armored and opinionated.",指の一本一本が武装し、一家言を持つ。,item_flavor
+"Fists, promoted.",拳、昇進。,item_flavor
+"They clench on their own, sometimes.",時々、ひとりでに握りしめる。,item_flavor
+"Clean hands, at last.",ようやく、清らかな手。,item_flavor
+They hold things that are not there yet.,まだそこにないものを掴む。,item_flavor
+Ten toes of pure optimism.,十本の足指に、純然たる楽観。,item_flavor
+They have walked out of worse.,もっとひどい場所からも歩いて出てきた。,item_flavor
+You will hear the argument coming.,揉め事が近づく足音が聞こえるだろう。,item_flavor
+For those who arrive.,たどり着く者のために。,item_flavor
+"Heavy steps, light conscience.",重い足取り、軽い良心。,item_flavor
+Shin-first into history.,脛から先に歴史へ。,item_flavor
+The floor complains first.,先に文句を言うのは床のほうだ。,item_flavor
+Each step signs something.,一歩ごとに何かに署名する。,item_flavor
+Walking softly is also a weapon.,静かに歩くこともまた武器だ。,item_flavor
+They leave no prints. They leave less.,足跡を残さない。それ以下しか残さない。,item_flavor
+The first blade issued; the last one blamed.,最初に支給され、最後に責められる剣。,item_flavor
+Squires polish it; knights answer with it.,従者が磨き、騎士がそれで応える。,item_flavor
+"When the wall must fall, the sphere is sent.",壁を崩すべき時、この球が遣わされる。,item_flavor
+It has stopped worse than you.,お前より手強いものを止めてきた。,item_flavor
+Heraldry is a promise written in steel.,紋章とは、鋼に記された約束だ。,item_flavor
+"Behind it, the world waits its turn.",その後ろで、世界は順番を待つ。,item_flavor
+Every storm begins as a spark on a stick.,あらゆる嵐は、棒の先の火花から始まる。,item_flavor
+The stone remembers the mountain; the hand remembers nothing.,石は山を覚えている。手は何も覚えていない。,item_flavor
+"A sun, caged and furious.",檻に囚われた、怒れる太陽。,item_flavor
+"Fire, on a leash of wire.",針金の鎖に繋がれた炎。,item_flavor
+Gravity is negotiable; the price is not.,重力は交渉できる。代価はできない。,item_flavor
+She wears the volcano as a bracelet.,彼女は火山を腕輪として身につける。,item_flavor
+"Pale wood, patient work.",淡い木、根気の仕事。,item_flavor
+The runes never stray; the archer merely agrees.,ルーンは逸れない。射手はただ同意するだけ。,item_flavor
+"Taller than its bearer, older than her name.",持ち主より背が高く、その名より古い。,item_flavor
+Count them going out; count fewer coming back.,放つ時に数え、戻る時に少なく数えよ。,item_flavor
+"Silver at the mouth, death at the tip.",口には銀、先には死。,item_flavor
+"Each head twists as it flies, and after.",矢じりは飛びながらねじれ、刺さった後もねじれる。,item_flavor
+"Argument, simplified.",議論、簡略化。,item_flavor
+"The pit taught him one lesson, repeatedly.",奈落は彼にひとつの教訓を、何度も教えた。,item_flavor
+A door for places that have no doors.,扉のない場所のための扉。,item_flavor
+Skin heals. Eventually.,皮膚は癒える。いずれは。,item_flavor
+Iron does the remembering.,覚えておくのは鉄の役目。,item_flavor
+"Chains, worn by the thing they could not hold.",繋ぎ止められなかったものが身につける鎖。,item_flavor
+"Cheap steel, expensive lessons.",安い鋼、高い教訓。,item_flavor
+It whispers on the way out.,抜く時に囁く。,item_flavor
+"Where the hand ends, the ending begins.",手が終わる所で、終わりが始まる。,item_flavor
+The left hand learns by watching.,左手は見て学ぶ。,item_flavor
+"Two curves, one conclusion.",二つの曲線、ひとつの結論。,item_flavor
+Symmetry is a kind of mercy. Brief.,対称はある種の慈悲だ。束の間の。,item_flavor
+The spine broke before his spirit did.,心より先に背表紙が折れた。,item_flavor
+Older than the tower's lowest stone.,塔の最下層の石よりも古い。,item_flavor
+"It reads itself now, aloud, to no one.",今は自らを声に出して読む。誰にともなく。,item_flavor
+"Mightier, allegedly.",剣より強し、らしい。,item_flavor
+Gold ink for iron truths.,鉄の真実に金のインク。,item_flavor
+"What it writes, occurs.",書いたことが、起こる。,item_flavor
+Taken from the hand of Vargr. The door remembers its shape.,ヴァルグの手から奪った。扉はその形を覚えている。,item_flavor
+Taken from the hand of Pelagos. The door remembers its shape.,ペラゴスの手から奪った。扉はその形を覚えている。,item_flavor
+Taken from the hand of Sethek. The door remembers its shape.,セテクの手から奪った。扉はその形を覚えている。,item_flavor
+Taken from the hand of Mother Vesk. The door remembers its shape.,マザー・ヴェスクの手から奪った。扉はその形を覚えている。,item_flavor
+Taken from the hand of Ostrakon. The door remembers its shape.,オストラコンの手から奪った。扉はその形を覚えている。,item_flavor
+Taken from the hand of Keraun. The door remembers its shape.,ケラウンの手から奪った。扉はその形を覚えている。,item_flavor
+Taken from the hand of Morast. The door remembers its shape.,モラストの手から奪った。扉はその形を覚えている。,item_flavor
+Taken from the hand of Teloma. The door remembers its shape.,テロマの手から奪った。扉はその形を覚えている。,item_flavor
+Taken from the hand of Varkolan. The door remembers its shape.,ヴァルコランの手から奪った。扉はその形を覚えている。,item_flavor
+Taken from the hand of Eskaton. The door remembers its shape.,エスカトンの手から奪った。扉はその形を覚えている。,item_flavor
+Taken from the hand of something that already died once. The door remembers its shape; it does not remember mercy.,一度死んだ何かの手から奪った。扉はその形を覚えている。慈悲は覚えていない。,item_flavor
+Ram Charge,突進,move
+Rampart Break,城壁破り,move
+Rampart Annihilation,城壁殲滅,move
+Snout Butt,鼻突き,move
+Skullplate Ram,頭甲突撃,move
+Skullplate Onslaught,頭甲猛攻,move
+Quill Flick,針弾き,move
+Thorn Toss,棘投げ,move
+Thornstorm Volley,棘嵐の斉射,move
+Bristle Up,逆立て,move
+Bristleguard,剛毛の守り,move
+Ironquill Bulwark,鉄針の防壁,move
+Dust Cough,ダストの咳,move
+Choking Pall,むせ返る帳,move
+Suffocating Pall,窒息の帳,move
+Run-Down,追い詰め,move
+Relentless Pursuit,執拗な追跡,move
+Pursuit Without End,終わりなき追跡,move
+Snap,食らいつき,move
+Rending Snap,裂き食らい,move
+Bonecrusher Snap,骨砕きの牙,move
+Dust Kick,ダストキック,move
+Grit Storm,砂礫の嵐,move
+Blinding Duststorm,目潰しのダストストーム,move
+Cave-In,落盤,move
+Collapse Barrow,塚崩し,move
+Barrow Cataclysm,塚の大災厄,move
+Undermine,掘り崩し,move
+Undermine Footing,足場崩し,move
+Foundation Ruin,基礎崩壊,move
+Spade Claw,鋤の爪,move
+Gravedigger Claw,墓掘りの爪,move
+Gravebreaker Talon,墓破りの鉤爪,move
+Dig In,掘り込み,move
+Entrench,塹壕構え,move
+Entombed Bulwark,埋葬の防壁,move
+Bud Pop,蕾弾け,move
+Bloomburst,開花炸裂,move
+Bloodbloom Burst,血花炸裂,move
+Thorn Flick,棘弾き,move
+Thorn Volley,棘の斉射,move
+Bramble Fusillade,茨の掃射,move
+Green Ward,緑の守り,move
+Verdant Ward,新緑の守り,move
+Verdant Aegis,新緑の守護,move
+Tangle Snare,絡め罠,move
+Briar Snare,茨の罠,move
+Strangling Briarsnare,絞殺の茨罠,move
+Chase Down,追い討ち,move
+Reap the Fleeing,逃げる者を刈る,move
+Harvest of the Fleeing,逃亡者の刈り入れ,move
+Terror Gallop,恐怖の疾駆,move
+Dread Gallop,戦慄の疾駆,move
+Gallop of Grinding Dread,軋む戦慄の疾駆,move
+Soul Chase,ソウル追い,move
+Soul Pursuit,ソウル追跡,move
+Pursuit Beyond Death,死を越える追跡,move
+Night Veil,夜帳,move
+Veil of Night,夜の帳,move
+Shroud of Endless Night,果てなき夜の覆い,move
+Rock Blow,岩打ち,move
+Avalanche Blow,崩落打ち,move
+Avalanche Judgment,崩落の裁き,move
+Seismic Stomp,地震踏み,move
+Quake Stomp,激震踏み,move
+Earthbreaker Stomp,地割り踏み,move
+Stone Fist,石の拳,move
+Granite Fist,花崗岩の拳,move
+Mountain's Fist,山の拳,move
+Calcify,石灰化,move
+Petrify Hide,石化皮膚,move
+Monolith Skin,一枚岩の肌,move
+Root Grip,根掴み,move
+Strangleroots,絞め根,move
+Strangleroot Execution,絞め根の処刑,move
+Root Lash,根の鞭,move
+Root Scourge,根の責め苦,move
+Grasping Scourge,掴みかかる責め苦,move
+Sap Drink,樹液飲み,move
+Sap Draught,樹液の一服,move
+Draught of Stolen Years,盗んだ歳月の一服,move
+Barkskin,樹皮の肌,move
+Ironbark Skin,鉄樹皮の肌,move
+Hide of the Elder Bark,古樹皮の鎧,move
+Tight Knot,固結び,move
+Last Knot,最後の結び目,move
+The Final Knot,終の結び目,move
+Gallows Drop,絞首台落とし,move
+Trapdoor Drop,落とし戸,move
+Drop of the Condemned,罪人落とし,move
+Cinch,締め込み,move
+Cinch Tight,きつく締める,move
+Windpipe Cinch,気管締め,move
+Wire Whip,鋼線の鞭,move
+Wire Lash,鋼線打ち,move
+Razorwire Scourge,剃刀線の責め苦,move
+Grave Wind,墓場の風,move
+Funeral Wind,葬送の風,move
+Wind of the Final Rite,終の儀の風,move
+Peck of Omens,兆しのついばみ,move
+Omen Peck,予兆つつき,move
+Peck of Ill Omens,凶兆のついばみ,move
+Death Knell,死の弔鐘,move
+Tolling Knell,鳴り響く弔鐘,move
+Knell of the Condemned,罪人の弔鐘,move
+Carrion Call,腐肉の呼び声,move
+Carrion Summons,腐肉の召集,move
+Feast of Crows,鴉の饗宴,move
+Antler Toss,角すくい,move
+Horned Judgment,角の裁き,move
+Wild Hunt Verdict,魔狩りの判決,move
+Antler Jab,角突き,move
+Antler Gore,角刺し,move
+Sovereign's Gore,王者の角刺し,move
+Green Bloom,緑の開花,move
+Sovereign's Bloom,王者の開花,move
+Wild Throne Bloom,野の玉座の開花,move
+Wild Command,野生の号令,move
+Command the Wild,野生を統べる,move
+Dominion of the Hunt,狩りの支配,move
+Shell Scrape,殻こすり,move
+Barnacle Grind,フジツボ削り,move
+Barnacle Millstone,フジツボの石臼,move
+Scuttle Strike,這い打ち,move
+Scuttle Slash,這い斬り,move
+Tidal Scuttle Assault,潮の這い襲撃,move
+Pincer Snip,鋏切り,move
+Pincer Shear,鋏断ち,move
+Shear of the Tidepool,潮だまりの断ち鋏,move
+Shell Up,殻籠もり,move
+Shell Wall,殻の壁,move
+Bastion of the Shore,岸辺の砦,move
+Jawlock,顎締め,move
+Jawlock Vice,万力顎締め,move
+Inescapable Jawlock,逃れられぬ顎締め,move
+Salt Wound,塩傷,move
+Salted Wound,塩漬けの傷,move
+Salt in the Wound,傷口に塩,move
+Bite,噛みつき,move
+Crushing Bite,噛み砕き,move
+Bonesplitting Bite,骨割り噛み,move
+Thrash,暴れ回り,move
+Death Thrash,死の暴れ,move
+Deathroll Thrash,デスロール,move
+Wet Croak,湿った鳴き声,move
+Deluge Croak,豪雨の鳴き声,move
+Drowning Chorus,溺れる合唱,move
+Brine Spit,塩水吐き,move
+Salt Spit,塩吐き,move
+Caustic Brinespit,腐食の塩水吐き,move
+Weeping Mist,涙の霧,move
+Mourning Mist,哀悼の霧,move
+Veil of Weeping Salt,涙塩の帳,move
+Puff Up,膨らむ,move
+Swell Up,膨れ上がる,move
+Tidal Swell,潮のうねり,move
+Steam Punch,蒸気パンチ,move
+Thermal Lance Punch,熱槍パンチ,move
+Thermal Lance,熱の槍,move
+Cavitation Snap,空洞弾き,move
+Cavitation Burst,空洞炸裂,move
+Imploding Cavitation,圧壊の空洞,move
+Jab Volley,ジャブ連打,move
+Piston Volley,ピストン連打,move
+Pistonstorm Volley,ピストン嵐の連打,move
+Warm Up,ウォームアップ,move
+Boiling Point,沸点,move
+Superheated Threshold,過熱臨界,move
+Sorrow Swell,悲しみのうねり,move
+Grief Surge,嘆きの奔流,move
+Surge of Drowning Grief,溺れる嘆きの奔流,move
+Undertow Touch,底流の触れ,move
+Undertow Grasp,底流掴み,move
+Grasp of the Undertow,底流の掌握,move
+Drowning Lure,溺れの誘い,move
+Siren Lure,セイレーンの誘い,move
+Lure to the Riverbed,川底への誘い,move
+Mendtide,癒やし潮,move
+Mending Tide,癒やしの潮,move
+Tide of Cold Mercy,冷たき慈悲の潮,move
+Shell Slam,甲羅打ち,move
+Fortress Slam,要塞打ち,move
+Fortress Devastation,要塞の壊滅,move
+Shell Bash,甲羅叩き,move
+Rampart Bash,城壁叩き,move
+Battlement Crush,胸壁粉砕,move
+Shell Retreat,甲羅籠もり,move
+Shell Seal,甲羅封じ,move
+Impenetrable Withdrawal,鉄壁の籠城,move
+Slime Coat,粘液の衣,move
+Rampart Slime,城壁粘液,move
+Rampart Mireshield,城壁の泥盾,move
+Dark Lash,闇の鞭,move
+Void Lash,ヴォイドの鞭,move
+Lash of the Hollow Dark,虚ろな闇の鞭,move
+Static Discharge,静電放電,move
+Voltaic Discharge,電撃放電,move
+Abyssal Discharge,アビサル放電,move
+Phase Bite,位相噛み,move
+Phasing Bite,位相ずらし噛み,move
+Bite Between Worlds,世界の狭間の噛みつき,move
+Unreal Slip,虚ろ抜け,move
+Phase Slip,位相抜け,move
+Slip Out of Being,存在抜け,move
+Triple Snap,三連食らい,move
+Sixfold Fury,六重の猛襲,move
+Ninefold Fury,九重の猛襲,move
+Triple Maul,三重の打擲,move
+Sixfold Maul,六重の打擲,move
+Ninemaw Maul,九顎の打擲,move
+Coral Rake,珊瑚掻き,move
+Reefclaw Rake,礁爪掻き,move
+Razorreef Rake,剃刀礁掻き,move
+Regrow Head,首の再生,move
+Sprout Heads,首生やし,move
+Hydra Proliferation,ヒドラ増殖,move
+Tide Surge,潮の奔流,move
+The Deep Remembers,深みは覚えている,move
+The Sea Remembers,海は覚えている,move
+Tide Swell,潮満ち,move
+Tide of Ruin,破滅の潮,move
+Ruinous Tide,滅びの潮,move
+Deep Crush,深海圧壊,move
+Abyssal Crush,アビサル圧壊,move
+Crush of the Abyss,深淵の圧殺,move
+Drowned Court,水没の宮廷,move
+Court of the Drowned,溺死者の宮廷,move
+Drowned Dominion,溺れし支配,move
+Dark Pull,闇の引力,move
+Event Horizon,事象の地平,move
+Past the Horizon,地平の彼方へ,move
+Ink Jet,インク噴射,move
+Void Jet,ヴォイド噴射,move
+Jet of Hungry Dark,飢えた闇の噴射,move
+Swallowing Ink,呑み込むインク,move
+Devouring Ink,喰らうインク,move
+World-Swallowing Ink,世界を呑むインク,move
+Blink Home,瞬間帰還,move
+Blink Away,瞬間退避,move
+Retreat Between Stars,星間退避,move
+Dusk Bite,黄昏の噛みつき,move
+Twilight Maw,薄暮の顎,move
+Maw of Falling Night,夜落ちの顎,move
+Basking Fury,日浴びの猛襲,move
+Sunfed Fury,陽喰らいの猛襲,move
+Fury of the Last Light,最後の光の猛襲,move
+Tail Sweep,尾払い,move
+Tail Scythe,尾の大鎌,move
+Duskscythe Sweep,黄昏鎌払い,move
+Duskshift,黄昏移ろい,move
+Twilight Shift,薄暮移ろい,move
+Vanish Into Dusk,黄昏に消ゆ,move
+Shrill Cry,金切り声,move
+Requiem Shriek,鎮魂の絶叫,move
+Shriek of the Requiem,鎮魂歌の絶叫,move
+Wailing Touch,慟哭の手,move
+Keening Touch,哀哭の手,move
+Touch of the Dead,死者の手,move
+Keening,哀哭,move
+Keening Wail,哀哭の叫び,move
+Keen of the Buried,埋葬者の哀哭,move
+Death Omen,死の兆し,move
+Omen of Death,死の予兆,move
+Portent of the Grave,墓の前兆,move
+Sand Fang,砂牙,move
+Buried Fang,埋もれ牙,move
+Fang Beneath the Dunes,砂丘の下の牙,move
+Squeeze,締めつけ,move
+Constrict,絞め上げ,move
+Crushing Constriction,圧殺の絞め,move
+Ambush Strike,奇襲撃,move
+Ambush Lunge,奇襲突き,move
+Duneshadow Ambush,砂丘影の奇襲,move
+Sand Swim,砂泳ぎ,move
+Dune Glide,砂丘滑り,move
+Beneath the Sandsea,砂海の下へ,move
+Water Dream,水の夢,move
+Dream of Water,水を夢見る,move
+Dream of Drowning Light,溺れる光の夢,move
+Double Image,二重像,move
+Twin Image,双子像,move
+Legion of Images,幻影の軍勢,move
+Mirage Claw,蜃気楼の爪,move
+Mirage Talon,蜃気楼の鉤爪,move
+Talon of False Light,偽りの光の鉤爪,move
+Heat Haze,陽炎,move
+Shimmering Haze,揺らめく陽炎,move
+Haze of the Lost Road,失われし道の陽炎,move
+Grit Blast,砂礫弾,move
+Sandblast,サンドブラスト,move
+Sandblast Apocalypse,砂塵の黙示録,move
+Grinding Gale,削る疾風,move
+Scouring Gale,抉る疾風,move
+Gale of Grinding Glass,硝子砕く疾風,move
+Reform,再形成,move
+Re-form,再構成,move
+Reconstitute the Storm,嵐の再構築,move
+Stormwall,嵐の壁,move
+Wall of Sand,砂の壁,move
+Burning Storm Wall,灼熱の嵐壁,move
+Fang Flurry,牙の乱舞,move
+Hundred Fangs,百の牙,move
+Thousand Fangs,千の牙,move
+Mother's Coil,母のとぐろ,move
+Matriarch's Coil,女家長のとぐろ,move
+Coil of the Broodmother,母蟲のとぐろ,move
+Viper Spit,毒蛇の唾,move
+Venom Spit,毒液吐き,move
+Serpent Queen's Venom,蛇女王の毒,move
+Brood Call,眷属呼び,move
+Call the Brood,眷属召喚,move
+Thousand Brood,千の眷属,move
+Hot Rend,熱裂き,move
+White-Hot Rend,白熱裂き,move
+Incandescent Rend,灼光裂き,move
+Killing Heat,殺しの熱,move
+Lethal Heat,致死の熱,move
+Heat That Kills,命奪う熱,move
+Sear Swipe,焼き払い,move
+Searing Swipe,灼熱の薙ぎ,move
+Brandmark Swipe,烙印の薙ぎ,move
+Kindle,着火,move
+Stoke Embers,熾火くべ,move
+Furnace Heart,溶鉱炉の心臓,move
+Slow Roll,ゆるり転がり,move
+Continental Roll,大陸転がし,move
+Living Continent,生ける大陸,move
+Weight of Ages,時代の重み,move
+Weight of Eons,永劫の重み,move
+The Weight of All Ages,全時代の重み,move
+Ruin Shrug,破滅の身震い,move
+Shrug of Ruin,滅びの身震い,move
+Shrug That Topples Cities,都を崩す身震い,move
+Ancient Patience,古の忍耐,move
+Eternal Patience,永遠の忍耐,move
+Patience of Earth,大地の忍耐,move
+Sand Gust,砂の突風,move
+Simoom's Wrath,シムーンの憤怒,move
+Burning Wind Wrath,熱風の憤怒,move
+Sand Cyclone,砂の旋風,move
+Desert Cyclone,砂漠の旋風,move
+Glass Cyclone,硝子の旋風,move
+Scouring Wind,抉る風,move
+Flaying Wind,皮剥ぐ風,move
+Wind That Strips Bone,骨を剥ぐ風,move
+Djinn Step,ジンの歩み,move
+Djinn Stride,ジンの闊歩,move
+Bottled Storm,瓶詰めの嵐,move
+Tail Bite,尾噛み,move
+End Is Beginning,終は始,move
+The End Is the Beginning,終わりは始まり,move
+Eternal Bind,永遠の束縛,move
+Endless Bind,果てなき束縛,move
+Bind Without End,終わりなき束縛,move
+World Coil,世界のとぐろ,move
+Worldring Coil,世界環のとぐろ,move
+Coil Around the World,世界を巻くとぐろ,move
+Tail Swallow,尾呑み,move
+Swallow the Tail,尾を呑む,move
+Devour the Self Eternal,永劫の自己捕食,move
+Acid Spill,酸こぼし,move
+Dissolving Flood,溶解の洪水,move
+Flood of Dissolution,溶解の大洪水,move
+Acid Dribble,酸垂らし,move
+Acid Spatter,酸飛沫,move
+Corrosive Torrent,腐食の奔流,move
+Corrosive Burst,腐食炸裂,move
+Caustic Burst,苛性炸裂,move
+Fleshmelt Burst,肉溶かし炸裂,move
+Curl Up,丸まる,move
+Curl Tight,固く丸まる,move
+Impervious Coil,不壊のとぐろ,move
+Husk Pop,殻弾け,move
+Husk Detonation,殻の起爆,move
+Detonation of the Husk,外殻大爆発,move
+Thorn Spray,棘撒き,move
+Thorn Barrage,棘の弾幕,move
+Barrage of Iron Thorns,鉄棘の弾幕,move
+Branch Jab,枝突き,move
+Branch Spear,枝槍,move
+Impaling Branch,串刺しの枝,move
+Mimic Bark,擬態樹皮,move
+False Bark,偽樹皮,move
+Waiting Snare,待ち伏せの罠,move
+Spore Cough,胞子の咳,move
+Bloomlung,花肺,move
+Bloomlung Blight,花肺の病禍,move
+Dart,吹き矢,move
+Needle Dart,針吹き矢,move
+Sporeneedle Dart,胞子針の吹き矢,move
+Spore Dusting,胞子撒き,move
+Spore Coating,胞子まぶし,move
+Dusting of Quiet Rot,静かな腐敗の粉,move
+Carrier Swarm,保菌者の群れ,move
+Vector Swarm,媒介者の群れ,move
+Patient Carriers,忍耐強き保菌者,move
+Silk Snip,糸切り,move
+Silken Noose,絹の輪縄,move
+Silken Guillotine,絹のギロチン,move
+Fang Strike,牙撃,move
+Venom Fang,毒牙,move
+Widow's Fang,寡婦の牙,move
+Numbing Thread,痺れ糸,move
+Paralytic Silk,麻痺の糸,move
+Paralytic Shroud,麻痺の覆い,move
+Web Corner,巣の隅,move
+Web Larder,巣の食料庫,move
+Larder of the Wrapped,簀巻きの食料庫,move
+Leaf Snap,葉閉じ,move
+Rooted Feast,根付く饗宴,move
+Feast of the Rooted,根付く者の饗宴,move
+Snap Trap,挟み罠,move
+Jawleaf Trap,顎葉の罠,move
+Mantrap Guillotine,人喰い罠のギロチン,move
+Sap Bath,樹液浴,move
+Digestive Bath,消化液浴,move
+Dissolution Bath,溶解浴,move
+Overgrowth,繁茂,move
+Rampant Overgrowth,大繁茂,move
+Devouring Overgrowth,貪る繁茂,move
+Sick Bite,病の噛みつき,move
+Pandemic Bite,大疫の噛みつき,move
+Bite of the Great Dying,大量死の噛みつき,move
+Chitin Clip,キチン挟み,move
+Chitin Shear,キチン断ち,move
+Plagueshell Shear,疫殻断ち,move
+Release Colony,群体解放,move
+Release the Colony,群体を解き放つ,move
+Unleash the Colony,群体の暴走,move
+Host's Gift,宿主の贈り物,move
+Carrier's Gift,保菌者の贈り物,move
+Gift of the Patient Host,忍耐強き宿主の贈り物,move
+Whispered Prayer,囁きの祈り,move
+Answered Prayer,届いた祈り,move
+Prayer in Blood,血の祈り,move
+Prayer Strike,祈りの一撃,move
+Zealot Strike,狂信の一撃,move
+Zealot's Consecration,狂信者の聖別,move
+Between Blinks,瞬きの間,move
+Between Heartbeats,鼓動の間,move
+Between the Last Blinks,最後の瞬きの間,move
+Silent Grace,沈黙の恩寵,move
+Solemn Grace,厳粛な恩寵,move
+Grace of the Silent Order,沈黙会の恩寵,move
+Swarm Gather,群れ集い,move
+The Swarm Descends,群れの降下,move
+Descent of the Devourers,喰らう者の降臨,move
+Swarm Surge,群れの奔流,move
+Swarm Tide,群れの潮,move
+Tide of Chitin,キチンの潮,move
+Strip Field,野荒らし,move
+Strip the Field,野を食い尽くす,move
+Leave Nothing Green,緑ひとつ残さず,move
+Devour All,全て喰らう,move
+Consume the Harvest,収穫を喰らう,move
+Crown Swarm,王冠の群れ,move
+Coronation Swarm,戴冠の群れ,move
+Crowned Swarm,冠戴く群れ,move
+Sting,一刺し,move
+Royal Sting,王家の毒針,move
+Sting of the Sovereign,王者の毒針,move
+Queen's Decree,女王の布告,move
+Queen's Edict,女王の勅令,move
+Edict of the Hive Throne,巣の玉座の勅令,move
+Spore Brood,胞子の眷属,move
+Brood Bloom,眷属の開花,move
+Vesper Brood,宵の眷属,move
+Root Stir,根の胎動,move
+The Deep Roots Rise,深き根の隆起,move
+Rise of the Deep Roots,深根の目覚め,move
+Root Grasp,根の掌握,move
+Worldroot Grasp,世界根の掌握,move
+Grasp of the World-Root,世界の根の掌握,move
+Root Aegis,根の守護,move
+World-Root Aegis,世界根の守護,move
+Aegis of the World Tree,世界樹の守護,move
+Sap of Ages,歳月の樹液,move
+Ageless Sap,不老の樹液,move
+Sap of Uncounted Ages,数えきれぬ歳月の樹液,move
+Face Slam,崖面打ち,move
+Sheer Face Slam,絶壁打ち,move
+Sheer Cliff Obliteration,絶壁の抹消,move
+Drop Ambush,落下奇襲,move
+Deadfall Ambush,落とし罠奇襲,move
+Deadfall Execution,落とし罠の処刑,move
+Pincer Crush,鋏潰し,move
+Vice Crush,万力潰し,move
+Vicegrip Ruin,万力の破滅,move
+Stonecling,岩しがみつき,move
+Stonegrip Cling,岩掴み,move
+Bedrock Anchor,岩盤の錨,move
+Heavy Roll,重転がり,move
+Juggernaut Roll,怒涛の転がり,move
+Juggernaut Devastation,怒涛の壊滅,move
+Momentum Crash,勢い任せの激突,move
+Momentum Wreck,勢いの大破,move
+Unstoppable Collision,止まらぬ衝突,move
+Roll Over,轢き転がし,move
+Flatten,押し潰し,move
+Steamroll Ruin,蹂躙の破滅,move
+Spikeball,棘玉,move
+Spiked Shell,棘甲羅,move
+Impaler Sphere,串刺しの球,move
+Rock Chew,岩噛み,move
+Consume Bedrock,岩盤喰らい,move
+Devour the Bedrock,岩盤を貪る,move
+Caustic Glide,腐食の滑走,move
+Caustic Slither,腐食の這行,move
+Slither of Molten Ruin,溶融の這行,move
+Dissolve Stone,石の溶解,move
+Melt Stone,石溶かし,move
+Dissolution of Stone,石の大溶解,move
+Molten Mucus,溶融粘液,move
+Slag Mucus,鉱滓粘液,move
+Mucus of Molten Slag,溶けた鉱滓の粘液,move
+Crag Dive,岩山ダイブ,move
+Cragfire Dive,岩炎ダイブ,move
+Cragfire Devastation,岩炎の壊滅,move
+Furnace Breath,溶鉱炉ブレス,move
+Kiln Breath,窯ブレス,move
+Mountain Forge,山の鍛冶場,move
+Talon Rake,鉤爪掻き,move
+Talon Gouge,鉤爪抉り,move
+Ridgeclaw Evisceration,尾根爪の臓腑抉り,move
+Updraft,上昇気流,move
+Thermal Updraft,熱上昇気流,move
+Ride the Burning Wind,灼風に乗る,move
+Stern Ruling,厳格な裁定,move
+Tyrant's Verdict,暴君の判決,move
+Stone Verdict,石の判決,move
+Scornful Backhand,侮蔑の裏拳,move
+Contemptuous Backhand,軽蔑の裏拳,move
+Backhand of Utter Scorn,至極侮蔑の裏拳,move
+Decree of Stone,石の布告,move
+Stone Decree,岩の布告,move
+Decree Written in Stone,石に刻む布告,move
+Court of Rock,岩の法廷,move
+Court of Stone,石の法廷,move
+Court of the Unmoving,不動の法廷,move
+Blood Sip,血啜り,move
+Exsanguinate,瀉血,move
+Total Exsanguination,完全瀉血,move
+Crimson Tithe,深紅の貢ぎ,move
+Blood Tithe,血の貢ぎ,move
+Tithe of Crimson,紅の貢ぎ,move
+Tap Vein,静脈穿ち,move
+Tap the Vein,血管を穿つ,move
+Open the Great Vein,大血管開き,move
+Anticoagulant,抗凝血,move
+Thinning Venom,血薄めの毒,move
+Endless Bleed,止まらぬ出血,move
+Claw Tide,爪の潮,move
+Wall of Claws,爪の壁,move
+Tidal Wall of Claws,爪の津波,move
+Many Grips,多重掴み,move
+Multitude Grip,群体掴み,move
+Grip of the Multitude,群衆の握撃,move
+Colony Slam,群体打ち,move
+Colony Avalanche,群体雪崩,move
+Avalanche of the Colony,群体の大雪崩,move
+Fuse Ranks,隊列融合,move
+Lock Ranks,隊列固め,move
+Unbreakable Phalanx,不壊の密集陣,move
+Dim Light,減光,move
+Swallow Light,光呑み,move
+Swallow the Light Whole,光を丸呑み,move
+Absent Sting,不在の針,move
+Hollow Sting,虚ろな針,move
+Sting From Nowhere,どこからともなき針,move
+Nullpinch,虚挟み,move
+Null Pinch,虚無挟み,move
+Pinch of Unbeing,非在の挟撃,move
+Lightless Carapace,無光の甲殻,move
+Sunless Carapace,陽なき甲殻,move
+Devoured Light,喰われた光,move
+Heavy Blow,重撃,move
+Titan's Downstroke,タイタンの振り下ろし,move
+Downstroke of the Titan,タイタンの鉄槌,move
+Iron Backfist,鉄の裏拳,move
+Bronze Backfist,青銅の裏拳,move
+Backfist of the Colossus,巨像の裏拳,move
+Ore-Bound Bulk,鉱石の巨体,move
+Orebound Mass,鉱縛の巨塊,move
+Bulk of the Living Mine,生ける鉱山の巨体,move
+Foundry Guard,鋳造所の守り,move
+Foundry Stance,鋳造所の構え,move
+Guard of the First Forge,原初の炉の守り,move
+Lava Spurt,溶岩噴き,move
+Eruption,噴火,move
+Cataclysmic Eruption,大災厄の噴火,move
+Magma Vent,マグマ噴出,move
+Magma Geyser,マグマ間欠泉,move
+Pyroclastic Vent,火砕流噴出,move
+Obsidian Edge,黒曜石の切っ先,move
+Obsidian Blade,黒曜石の刃,move
+Volcanic Glass Guillotine,火山硝子のギロチン,move
+Cooling Shell,冷却の殻,move
+Basalt Shell,玄武岩の殻,move
+Igneous Carapace,火成岩の甲殻,move
+Sky Cut,天斬り,move
+Sky Lacerate,天裂き,move
+Sky-Rending Laceration,天を裂く斬撃,move
+Scissor Dive,鋏急降下,move
+Shearing Dive,断ち切り急降下,move
+Guillotine Dive,ギロチン急降下,move
+Wind Shear,風断ち,move
+Cutting Shear,切り断ち,move
+Bladewind Shear,刃風断ち,move
+Wake Cut,航跡斬り,move
+Swift Wake,疾き航跡,move
+Slipstream Ascendant,昇る気流,move
+Storm Perch,嵐の止まり木,move
+Stormcrown,嵐冠,move
+Crown of the Storm,嵐の王冠,move
+Ball Lightning,球電,move
+Orb Lightning,雷球,move
+Screaming Volts,絶叫する電撃,move
+Static Peck,静電ついばみ,move
+Voltaic Peck,電撃ついばみ,move
+Peck of the Thunderhead,雷雲のついばみ,move
+Thundercall,雷呼び,move
+Call Thunder,雷鳴召喚,move
+Thunderhead Call,雷雲の呼び声,move
+Static Flash,静電閃光,move
+Overload Flash,過負荷閃光,move
+Overload Cataclysm,過負荷の大災厄,move
+Dust Zap,ダスト電撃,move
+Charged Dust,帯電ダスト,move
+Galvanic Dustburst,電撃ダスト炸裂,move
+EM Pulse,EMパルス,move
+Electromagnetic Pulse,電磁パルス,move
+Fieldkiller Pulse,電界殺しのパルス,move
+Magnet Wings,磁石の翼,move
+Magnetized Wings,磁化した翼,move
+Wings of the Iron Storm,鉄嵐の翼,move
+Stone Lift,岩持ち上げ,move
+Mountain-Bearer,山運び,move
+Bearer of Mountains,山を担う者,move
+Boulder Drop,岩落とし,move
+Crag Drop,岩山落とし,move
+Fall of Mountains,山崩れ,move
+Hunting Stoop,狩りの急降下,move
+Deathstoop,死の急降下,move
+Stoop of the Sky Tyrant,空の暴君の急降下,move
+Talon Snatch,鉤爪掴み,move
+Talon Seize,鉤爪捕り,move
+Talon Seizure,鉤爪の捕縛,move
+Wind Fang,風の牙,move
+Twisterfang,竜巻牙,move
+Twisterfang Cataclysm,竜巻牙の大災厄,move
+Keening Bite,哀哭の噛みつき,move
+Howling Bite,遠吠えの噛みつき,move
+Bite of the Keening Wind,哀哭の風の噛みつき,move
+Tornado Howl,竜巻の遠吠え,move
+Cyclone Howl,旋風の遠吠え,move
+Devouring Sky,貪る空,move
+Eye of the Wind,風の目,move
+Eye of the Funnel,漏斗雲の目,move
+Heart of the Vortex,渦の中心,move
+Volt Touch,電撃の手,move
+Megavolt Delivery,メガボルト送電,move
+Megavolt Execution,メガボルト処刑,move
+Discharge Sweep,放電薙ぎ,move
+Discharge Arc,放電アーク,move
+Arc of Total Discharge,全放電のアーク,move
+Volt Graze,電撃かすり,move
+Volt Brush,電撃なで,move
+Graze of the Live Wire,活線のかすり,move
+Thermal Ride,熱気流乗り,move
+Thermal Soar,熱気流飛翔,move
+Ride the Burning Current,灼流に乗る,move
+Sky Verdict,天の判決,move
+Serpent's Verdict,蛇の判決,move
+Sky Serpent's Verdict,天蛇の判決,move
+Plume Spark,羽根の火花,move
+Feathered Lightning,羽毛の稲妻,move
+Feathered Thunderbolt,羽毛の雷霆,move
+Plume Strike,羽根撃ち,move
+Plumed Lash,羽飾りの鞭,move
+Quetzal Scourge,ケツァールの責め苦,move
+Cloudcoil,雲のとぐろ,move
+Stormcoil,嵐のとぐろ,move
+Coil of the High Storm,高嵐のとぐろ,move
+Many Roars,多頭の咆哮,move
+Hundred-Headed Storm,百頭の嵐,move
+Hundred-Head Storm,百首の嵐,move
+Storm Maw,嵐の顎,move
+Tempest Maw,大嵐の顎,move
+Maw of the Worldstorm,世界嵐の顎,move
+Pressure Front,気圧前線,move
+Crushing Front,圧壊前線,move
+Front of Crushing Skies,押し潰す空の前線,move
+Cyclone Shield,旋風の盾,move
+Cyclone Ward,旋風の結界,move
+Ward of the Turning Sky,巡る空の結界,move
+First Gust,最初の突風,move
+Primordial Gale,プライモーディアルの疾風,move
+The Wind That Was First,始まりの風,move
+Feather Flick,羽弾き,move
+Stormfeather Volley,嵐羽の斉射,move
+Stormfeather Tempest,嵐羽の大嵐,move
+Rising Draft,昇る風,move
+Leading Wind,導きの風,move
+First Wind,一番風,move
+Following Gale,追い風,move
+Relentless Gale,止まぬ疾風,move
+Unbroken Gale,途切れぬ疾風,move
+Storm Rise,嵐の目覚め,move
+I Am the Storm,我こそは嵐,move
+I Am the Storm Entire,我こそ嵐そのもの,move
+Lightning Spear,稲妻の槍,move
+Levin Spear,雷光の槍,move
+Spear of the Sky's Wrath,天の怒りの槍,move
+Thunder Rake,雷掻き,move
+Thunderclaw Rake,雷爪掻き,move
+Rake of Rolling Thunder,轟雷の爪痕,move
+Stormcall,嵐呼び,move
+Call the Storm,嵐を呼ぶ,move
+Convocation of Storms,嵐の招集,move
+Hop Ball,跳ね玉,move
+Launch Ball,発射玉,move
+Ballistic Launch,弾道発射,move
+Gut Splash,腹水しぶき,move
+Gutwater Burst,腹水炸裂,move
+Gutwater Deluge,腹水の大洪水,move
+Bounce Slam,跳ね打ち,move
+Crushing Bounce,押し潰す跳躍,move
+Slamdown Rebound,叩きつけの反動,move
+Puff,膨らみ,move
+Inflate,膨張,move
+Titanic Inflation,巨大膨張,move
+Odd Dream,奇妙な夢,move
+Fever Dream,熱夢,move
+Fever Beyond Waking,醒めぬ熱夢,move
+Slick Strike,ぬめり打ち,move
+Slick Lash,ぬめり鞭,move
+Toxin-Slick Lash,毒ぬめりの鞭,move
+Hallucinogen Coat,幻覚の膜,move
+Delirium Coat,譫妄の膜,move
+Waking Nightmare,白昼の悪夢,move
+Skinshed,皮脱ぎ,move
+Shed Skin,脱皮,move
+Molt of the Deceiver,欺く者の脱皮,move
+Blight Buzz,病禍の羽音,move
+Blightswarm,病禍の群れ,move
+Blightswarm Pestilence,病禍の大疫,move
+Reanimating Sting,蘇生の毒針,move
+Gravewake Sting,墓覚ましの毒針,move
+Sting of the Dead,死者の毒針,move
+Corpse Nip,屍かじり,move
+Carrion Nip,腐肉かじり,move
+Carrion-Feeder's Bite,腐肉喰らいの噛みつき,move
+Plague Eggs,疫病のタマゴ,move
+Blight Clutch,病禍の卵塊,move
+Clutch of Writhing Blight,蠢く病禍の卵塊,move
+Stitch Skin,皮縫い,move
+Stitchflesh,縫い肉,move
+Stitchflesh Abomination,縫い肉の忌み子,move
+Bonetongue,骨舌,move
+Bonetongue Lash,骨舌の鞭,move
+Marrowtongue Scourge,髄舌の責め苦,move
+Bog Blessing,沼の祝福,move
+Bog Benediction,沼の祝祷,move
+Benediction of Rot,腐敗の祝祷,move
+Deathcroak,死の鳴き声,move
+Dirgecroak,挽歌の鳴き声,move
+Croak of the Grave,墓場の鳴き声,move
+Glow Snack,光のおやつ,move
+Glowfeast,光の饗宴,move
+Feast of Stolen Light,盗んだ光の饗宴,move
+Lure Flick,疑似餌振り,move
+Lure Flash,疑似餌の閃き,move
+Flash of the False Beacon,偽りの灯台の閃光,move
+Mesmer Light,催眠光,move
+Mesmeric Light,魅了の光,move
+Light That Binds the Will,意志を縛る光,move
+Lost Lantern,迷いランタン,move
+Lantern of the Lost,迷い人のランタン,move
+Lure of the Lost,迷い人の誘い,move
+Fen Blow,沼地打ち,move
+Fenbreaker,沼割り,move
+Fenbreaker Cataclysm,沼割りの大災厄,move
+Marsh Maul,湿地の打擲,move
+Mire Maul,泥沼の打擲,move
+Maul of the Black Fen,黒沼の打擲,move
+Parasite Shrug,寄生虫払い,move
+Leech Shrug,蛭払い,move
+Shrug Off the Feeders,吸う者を振り払う,move
+Bog Lurk,沼潜み,move
+Fen Lurk,湿原潜み,move
+Terror Beneath the Fen,沼底の恐怖,move
+Cold Pull,冷たい引き込み,move
+Take You Under,水底へ連れて行く,move
+Dragged to the Deep,深みへの引きずり込み,move
+Cold Grip,冷たい握り,move
+Drowned Grip,溺死者の握り,move
+Grip of the Drowned,溺れし者の握撃,move
+Half-Here,半ばここに,move
+Half-Departed,半ば去りし者,move
+Neither Shore,どちらの岸でもなく,move
+Wet Memory,濡れた記憶,move
+Drowned Memory,溺れた記憶,move
+Memory of Drowning,溺死の記憶,move
+String Pull,糸引き,move
+Marionette Harvest,操り人形の収穫,move
+Harvest of Marionettes,操り人形の刈り入れ,move
+Strangling Growth,絞め殺す成長,move
+Choking Growth,窒息の成長,move
+Gallows Growth,絞首台の成長,move
+Tendril Snap,蔓弾き,move
+Tendril Lash,蔓の鞭,move
+Hangman's Tendril,首吊り役人の蔓,move
+Puppet Corpse,傀儡の屍,move
+Corpse Puppet,屍の傀儡,move
+Dance of the Hanged,吊られし者の舞,move
+Mud Stir,泥かき回し,move
+What Lies Beneath,水底に潜むもの,move
+What Waits Beneath,水底で待つもの,move
+Brood Slap,眷属打ち,move
+Brood Swipe,眷属薙ぎ,move
+Broodmother's Backhand,母蟲の裏拳,move
+Mother's Milk,母の乳,move
+Mire Milk,泥沼の乳,move
+Milk of the Black Mire,黒き泥沼の乳,move
+Spawn Tide,仔の潮,move
+Brood Tide,眷属の潮,move
+Tide of Spawn,仔らの大潮,move
+Fading Touch,薄れる手,move
+Nameless End,名もなき終焉,move
+End Without a Name,名なき終わり,move
+Absent Touch,不在の手,move
+Hollow Touch,虚ろな手,move
+Touch of Absence,不在の感触,move
+Unwritten,書かれざるもの,move
+Unwritten Fate,書かれざる運命,move
+Erased From Record,記録抹消,move
+Mourning Veil,喪のヴェール,move
+Veil of Mourning,哀悼のヴェール,move
+Nameless Shroud,名もなき屍衣,move
+Spore Drift,胞子の漂い,move
+Sporefall,胞子降り,move
+Sporefall Blight,胞子降りの病禍,move
+Cap Thump,傘叩き,move
+Cap Slam,傘打ち,move
+Mycothump Crush,菌打ち粉砕,move
+Vertigo Spores,眩暈胞子,move
+Dizzying Spores,目回し胞子,move
+Spores of Spinning Dark,回る闇の胞子,move
+Mycowall,菌壁,move
+Fungal Wall,菌類の壁,move
+Wall of Creeping Rot,這う腐敗の壁,move
+Ink Splash,インク飛ばし,move
+Memory Flood,記憶の洪水,move
+Flood of Forgetting,忘却の洪水,move
+Tentacle Slap,触手打ち,move
+Tentacle Lash,触手の鞭,move
+Manyarm Onslaught,多腕の猛攻,move
+Lethean Ink,レテのインク,move
+Ink of Lethe,忘却川のインク,move
+Ink of Oblivion,忘却のインク,move
+Jet Retreat,噴射退避,move
+Ink Jet Retreat,インク噴射退避,move
+Vanish in Black Water,黒き水に消ゆ,move
+First Spore,最初の胞子,move
+Total Colonization,全面定着,move
+Colonization Absolute,絶対定着,move
+Spore Lash,胞子の鞭,move
+Mold Lash,黴の鞭,move
+Lash of Creeping Veins,這う菌脈の鞭,move
+Neural Threading,神経紡ぎ,move
+Nerve Threading,神経の糸通し,move
+Threading of the Mind,精神の糸紡ぎ,move
+Symbiotic Bloom,共生の開花,move
+Parasitic Bloom,寄生の開花,move
+Bloom of the Willing Host,進んで宿す者の開花,move
+Foretold Blow,予言された一撃,move
+Inevitable Future,不可避の未来,move
+The Inevitable Future,避け得ぬ未来,move
+Shell Chime,殻の鈴音,move
+Oracle Chime,神託の鈴音,move
+Chime of the Oracle Shell,神託の殻の鈴音,move
+Glimpse the End,終わりを垣間見る,move
+See the End,終わりを見る,move
+Vision of the Final Hour,最期の刻の幻視,move
+Prophecy Ward,予言の結界,move
+Foresight Ward,先見の結界,move
+Ward of Written Fate,記された運命の結界,move
+Odd Unfold,奇妙な展開,move
+Unfolding Horror,開きゆく怪異,move
+Horror Unfolding,怪異の展開,move
+Skitterflank,側面駆け,move
+Flankskitter,駆け回り側撃,move
+Skitter Past Reason,理を越える這い回り,move
+Jointed Lunge,関節突き,move
+Manyjoint Lunge,多関節突き,move
+Lunge of Too Many Joints,多すぎる関節の突き,move
+Wrong Angles,歪な角度,move
+Impossible Angles,あり得ぬ角度,move
+Geometry of Madness,狂気の幾何学,move
+Quick Fade,素早い消失,move
+Vanishing Strike,消失撃,move
+Strike From Nowhere,虚空からの一撃,move
+Traceflash,軌跡閃,move
+Flashtrace,閃光軌跡,move
+Blinding Traceflash,目眩む軌跡閃,move
+Afterimage Trail,残像の軌跡,move
+Ghostlight Trail,鬼火の軌跡,move
+Trail of False Ghosts,偽りの幽霊の軌跡,move
+Hypnotic Wake,催眠の航跡,move
+Mesmer Wake,魅了の航跡,move
+Wake of the Entranced,魅入られし者の航跡,move
+Surface Rise,浮上,move
+Breach of the Deep,深海の躍り出,move
+Sunless Breach,陽なき浮上,move
+Bulk Drift,巨体の漂流,move
+Bulk Ram,巨体突撃,move
+Leviathan Drift,リヴァイアサンの漂流,move
+Spore Ballast,胞子の重り,move
+Ballast Bloom,重りの開花,move
+Ballast of Blooming Rot,咲く腐敗の重り,move
+Filter Cleanse,濾過浄化,move
+Filter Purge,濾過一掃,move
+Baleen Purge,鯨鬚の一掃,move
+Gone Fishing,釣りに出かける,move
+Where It Goes,行き着く先,move
+Where Lost Things Go,失せ物の行き着く先,move
+Spacetooth,空間牙,move
+Riftooth,裂け目の牙,move
+Teeth of Torn Space,裂けた空間の歯,move
+Riftlure Snap,裂け目誘いの食らいつき,move
+Riftlure Bite,裂け目誘いの噛みつき,move
+Snap of the False Star,偽りの星の食らいつき,move
+Bait the Hole,穴に餌を,move
+Bait the Rift,裂け目に餌を,move
+Lure of the Hungry Void,飢えたヴォイドの誘い,move
+Hyphal Sting,菌糸の針,move
+Hyphal Lance,菌糸の槍,move
+Sting of the Undernet,地下網の針,move
+The Network Feeds,網は喰らう,move
+The Network Provides,網は与える,move
+The Network Provides All,網はすべてを与える,move
+Rot and Renew,腐敗と再生,move
+Rot Into Renewal,腐りて甦る,move
+Decay Eternal Renewal,永劫の腐敗再生,move
+We Spread,我らは広がる,move
+We Are Elsewhere,我らは他所にいる,move
+Always Everywhere,常に遍く,move
+Deep Stir,深みの胎動,move
+Wake the Deep,深みを起こす,move
+The Deep Awakens,深淵の目覚め,move
+Cavern Collapse,洞窟崩落,move
+Trench Collapse,海溝崩落,move
+Collapse of the Trench,海溝の大崩落,move
+Eightfold Grip,八重の握撃,move
+Eightarm Grip,八腕の握撃,move
+Grip of Eight Dooms,八つの破滅の握撃,move
+Colossal Sweep,巨大薙ぎ,move
+Titanic Sweep,超巨大薙ぎ,move
+Sweep of the Leviathan,リヴァイアサンの薙ぎ払い,move
+Grief Shard,嘆きの欠片,move
+Crystallize Grief,嘆きの結晶化,move
+Grief Made Crystal,結晶となった嘆き,move
+Light Lance,光の槍,move
+Refraction Lance,屈折の槍,move
+Prismatic Impalement,虹光の串刺し,move
+Shardflick,欠片弾き,move
+Shard Scatter,欠片散らし,move
+Scattershard Volley,散弾欠片の斉射,move
+Prism Orbit,プリズム周回,move
+Shard Orbit,欠片周回,move
+Orbit of Broken Light,砕けた光の周回,move
+Thin Sip,ひと啜り,move
+Deep Draught,深い一飲み,move
+Final Draught,最後の一飲み,move
+Life Sip,命啜り,move
+Life Drain,生命吸収,move
+Lifeblood Harvest,生き血の収穫,move
+Grey Nip,灰色のかじり,move
+Ashen Bite,灰の噛みつき,move
+Cindershroud Bite,灰帳の噛みつき,move
+Grey Wake,灰色の航跡,move
+Ashen Wake,灰の航跡,move
+Wake of Cinders,燃え殻の航跡,move
+Core Beam,核光線,move
+Heartstone Beam,心石光線,move
+Heartstone Annihilation,心石の殲滅,move
+Facet Jab,切子突き,move
+Faceted Jab,多面突き,move
+Facetstorm Assault,切子嵐の襲撃,move
+Core Shine,核の輝き,move
+Core Radiance,核の光輝,move
+Radiance of Stone,石の光輝,move
+Hardlight Wall,硬光の壁,move
+Hardlight Bastion,硬光の砦,move
+Bastion of Living Light,生ける光の砦,move
+First Cut,最初の一刀,move
+Red Portrait,紅の肖像,move
+The Masterpiece,傑作,move
+Clean Cut,綺麗な切断,move
+Surgical Strike,外科的一撃,move
+Vivisection Stroke,生体解剖の一閃,move
+Incision,切開,move
+Deep Incision,深い切開,move
+Anatomist's Incision,解剖学者の切開,move
+Vein Trace,血管なぞり,move
+Arterial Map,動脈図,move
+Arterial Cartography,動脈製図,move
+Wrong Fit,噛み合わせ違い,move
+Reassembled Wrong,誤った再組立,move
+Reassembled All Wrong,何もかも誤った再組立,move
+Piecewise Assault,断片的襲撃,move
+Piecemeal Assault,小出しの襲撃,move
+Assault of Broken Pieces,砕けた欠片の襲撃,move
+Fragment Swipe,破片薙ぎ,move
+Fragment Slash,破片斬り,move
+Slash of Shattered Selves,砕けた自我の斬撃,move
+Come Apart,ばらける,move
+Fall Apart,崩れ落ちる,move
+Come Apart at the Seams,縫い目からばらける,move
+Track Down,追い詰める,move
+The Hunt Concludes,狩りの終幕,move
+The Hunt Ends All,狩りはすべてを終わらせる,move
+Devour Vitality,活力喰らい,move
+Consume Vitality,活力吸収,move
+Devour the Living Spark,命の火花を喰らう,move
+Predestined Bite,予定された噛みつき,move
+Fated Bite,宿命の噛みつき,move
+Bite Written in Fate,運命に記された噛みつき,move
+Scent of Endings,終わりの匂い,move
+Scent the Ending,終わりを嗅ぐ,move
+Scent of All Endings,すべての終わりの匂い,move
+Rough Copy,粗い写し,move
+Perfect Reflection,完璧な映し身,move
+Reflection Made Flesh,肉を得た映し身,move
+Mirror Jab,鏡突き,move
+Mirrored Strike,鏡映しの一撃,move
+Strike From the Glass,鏡の中からの一撃,move
+Copied Stance,写した構え,move
+Stolen Stance,盗んだ構え,move
+Stolen Form,盗んだ姿,move
+Familiar Face,見知った顔,move
+Borrowed Face,借り物の顔,move
+The Face You Trust,信じる顔,move
+Cold Greeting,冷たい挨拶,move
+Red Formality,紅の儀礼,move
+The Red Formality,真紅の儀礼,move
+Noble Feast,貴族の饗宴,move
+Noble's Feast,高貴なる者の饗宴,move
+Feast of the Pale Court,蒼白の宮廷の饗宴,move
+Contempt,侮蔑,move
+Cold Contempt,冷たい侮蔑,move
+Contempt of Centuries,幾世紀の侮蔑,move
+Command Presence,支配の威圧,move
+Commanding Presence,威風堂々,move
+Blood Command,血の命令,move
+Gem Spark,宝石の火花,move
+Gemfire Bolt,宝炎弾,move
+Gemfire Cataclysm,宝炎の大災厄,move
+Soulspark,ソウルの火花,move
+Soulfire Spark,ソウル炎の火花,move
+Soulfire Lance,ソウル炎の槍,move
+Leaden Curse,鉛の呪い,move
+Curse of Lead,鉛呪,move
+Leaden Heart,鉛の心,move
+Soul Aside,ソウル離脱,move
+Soul Elsewhere,ソウル彼方,move
+Soul Beyond Reach,届かぬソウル,move
+Glass Step,鏡踏み,move
+Step Through,通り抜け,move
+Step Through the Glass,鏡を通り抜ける,move
+Backwards Cut,逆斬り,move
+Reversed Cut,反転斬り,move
+Cut From the Wrong Side,裏側からの斬撃,move
+What It Shows,映すもの,move
+What It Reflects,反射するもの,move
+What the Mirror Keeps,鏡が留めるもの,move
+Empty Glass,空っぽの鏡,move
+Nothing Looks Back,何も見返さない,move
+And Nothing Looks Back,そして何も見返さない,move
+Gust Crack,突風の亀裂,move
+Windshear Burst,風断ち炸裂,move
+Shearwind Detonation,断ち風の爆発,move
+Draft Storm,気流の嵐,move
+Galestorm,疾風嵐,move
+Vortex Maelstrom,大渦の渦動,move
+Wind Nick,風のかすり傷,move
+Wind Slash,風斬り,move
+Razorwind Cut,剃刀風の斬撃,move
+Self-Split,自己分裂,move
+Self-Replicate,自己複製,move
+Endless Replication,無限複製,move
+Ember March,熾火の行進,move
+Bonefire March,骨火の行進,move
+Bonefire Procession,骨火の葬列,move
+Ash Cuff,灰の枷,move
+Cinder Shackle,熾火の手枷,move
+Pyre Shackle,火葬台の枷,move
+Lingering Will,残る意志,move
+Residual Purpose,残留する目的,move
+Purpose Beyond Death,死を越える目的,move
+Ash Puff,灰吹き,move
+Choking Cloud,窒息の雲,move
+Smothering Ashfall,息詰まる降灰,move
+Hungry Maw,飢えた顎,move
+Sacrificial Maw,生贄の顎,move
+Maw of Burnt Offerings,燔祭の顎,move
+Idol Fist,偶像の拳,move
+Brazen Fist,真鍮の拳,move
+Fist of the Brass Idol,真鍮像の拳,move
+Furnace Belly,炉の腹,move
+Furnace Gut,炉の臓腑,move
+Belly of Devouring Flame,貪る炎の腹,move
+Iron Adoration,鉄の崇拝,move
+Brazen Adoration,真鍮の崇拝,move
+Furnace Adoration,炉の崇拝,move
+Flare Spit,火炎吐き,move
+Wyrmflare,竜炎,move
+Wyrmflare Conflagration,竜炎の大火,move
+Fire Coil,炎のとぐろ,move
+Burning Coil,燃えるとぐろ,move
+Immolating Coil,焼き尽くすとぐろ,move
+Flame Lash,炎の鞭,move
+Flame Whipcrack,炎の鞭鳴り,move
+Cinderwhip Fury,燃え殻鞭の猛襲,move
+Scorch Trail,焦げ跡,move
+Blazing Trail,燃え盛る軌跡,move
+Trail of Embers,熾火の軌跡,move
+Three Bites,三連噛み,move
+Three Heads One Roar,三頭一吼,move
+Three Heads One Hunger,三頭一飢,move
+Split Breath,分裂ブレス,move
+Trisected Breath,三分ブレス,move
+Elemental Convergence,精霊の収束,move
+Threefold Snap,三重の食らいつき,move
+Threefold Rend,三重の引き裂き,move
+Threefold Evisceration,三重の臓腑抉り,move
+Discordant Roar,不協和の咆哮,move
+Cacophonous Roar,騒音の咆哮,move
+Roar of Three Furies,三つの憤怒の咆哮,move
+Furnace Roar,炉の咆哮,move
+Blastfurnace Roar,高炉の咆哮,move
+Blastfurnace Cataclysm,高炉の大災厄,move
+Molten Rivets,溶けた鋲,move
+Rivet Barrage,鋲の弾幕,move
+Molten Rivet Barrage,溶鋲の弾幕,move
+Pig-Iron Bite,銑鉄の噛みつき,move
+Cast-Iron Bite,鋳鉄の噛みつき,move
+Foundry-Forged Bite,鋳造所鍛えの噛みつき,move
+Foundry Hide,鋳造の皮,move
+Tempered Hide,焼き入れた皮,move
+Slagplate Armor,鉱滓板の装甲,move
+Flare Up,燃え上がり,move
+Uncontained,抑えきれず,move
+Uncontainable Inferno,封じ得ぬ業火,move
+Containment Failure,封じ込め失敗,move
+Breach Event,破損事象,move
+Total Breach,全面決壊,move
+Cinder Slash,燃え殻斬り,move
+Cinder Scythe,燃え殻の大鎌,move
+Slash of Living Fire,生ける炎の斬撃,move
+Stoke,焚きつけ,move
+Stoke the Core,炉心を焚く,move
+Feed the Conflagration,大火に薪を,move
+Standing Watch,見張り番,move
+Contingency Zero,非常事態ゼロ,move
+Contingency Absolute,絶対非常事態,move
+Warden Strike,番人の一撃,move
+Warden's Strike,番人の打撃,move
+Strike of the Last Warden,最後の番人の一撃,move
+Standing Order,常任命令,move
+Standing Orders,常任命令群,move
+Deathless Orders,不死の命令,move
+Protocol Shield,プロトコルの盾,move
+Shield Protocol,防盾プロトコル,move
+Eternal Watch,永遠の見張り,move
+First Spark,最初の火花,move
+Before the Light,光の前に,move
+Before There Was Light,光あれの前に,move
+Primordial Spark,プライモーディアルの火花,move
+Primordial Flare,プライモーディアルの閃炎,move
+Spark of the First Dawn,最初の夜明けの火花,move
+First Flame,最初の炎,move
+The First Flame,始まりの炎,move
+Flame Before Creation,創造以前の炎,move
+Anoint in Fire,火の塗油,move
+Baptism of Fire,火の洗礼,move
+Anointment of the Pyre,火葬台の塗油,move
+Redline,朱入れ,move
+Deprecation,廃止宣告,move
+Total Deprecation,完全廃止,move
+Editing Stroke,推敲の一筆,move
+Correcting Stroke,訂正の一筆,move
+Authorial Erasure,作者による抹消,move
+Rewrite Terms,条項書き換え,move
+Rewrite the Terms,条項を書き換える,move
+Rewrite All Terms,全条項の書き換え,move
+Design Flaw,設計上の欠陥,move
+Intended Flaw,意図された欠陥,move
+Flaw by Design,仕様の欠陥,move
+Branch Pounce,枝からの飛びかかり,move
+Canopy Ambush,樹冠の奇襲,move
+Hundred-Branch Ambush,百枝の奇襲,move
+Jeer,野次,move
+Mocking Chorus,嘲りの合唱,move
+Chorus of Ridicule,嘲笑の大合唱,move
+Pickpocket,スリ,move
+Thief's Jab,盗人の突き,move
+Hand of the Trickster King,いたずら王の手,move
+Scamper,駆け回り,move
+Treetop Scamper,梢渡り,move
+Scamper Through the Void,ヴォイド駆け,move
+Hammerfist,鉄槌拳,move
+Ground Pound,地面叩き,move
+Mountainfall Fist,山崩しの拳,move
+Knuckle Slam,拳叩きつけ,move
+Quake Slam,激震叩き,move
+Silverback Quake,シルバーバックの激震,move
+Backhand,裏拳,move
+Brute Backhand,ブルート裏拳,move
+Kingslayer Backhand,王殺しの裏拳,move
+Chest Beat,ドラミング,move
+War Drum,戦太鼓,move
+Drumming of the Old King,老王のドラミング,move
+Tail Crash,尾撃,move
+Extinction Tail,絶滅の尾,move
+Bone Crunch,骨噛み砕き,move
+Marrow Crunch,髄噛み砕き,move
+Jaws of Extinction,絶滅の顎,move
+Tyrant Snap,暴君の食らいつき,move
+Apex Bite,頂点の噛みつき,move
+Bellow,怒号,move
+Primal Roar,原始の咆哮,move
+Roar of the Last Age,最後の時代の咆哮,move
+Engulf,呑み込み,move
+Digesting Engulf,消化の呑み込み,move
+Charnel Engulfment,納骨の呑み込み,move
+Bone Spit,骨吐き,move
+Ossuary Spit,納骨堂吐き,move
+Ossuary Barrage,納骨堂の弾幕,move
+Ooze Slap,粘体打ち,move
+Rot Slap,腐敗打ち,move
+Gravewax Slap,屍蝋打ち,move
+Seep,滲み出し,move
+Corpse Seep,屍の滲み,move
+Seep of the Charnel Pit,死体穴の滲み,move
+Strike,打撃,move

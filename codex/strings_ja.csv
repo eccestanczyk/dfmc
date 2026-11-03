@@ -629,3 +629,68 @@ m_soul_full_rem_iw,クリーチャーを分解する、卵を孵す、次のIcho
 m_soul_full_rem_i,クリーチャーを分解する、卵を孵す、または次のIchor拡張（ソウル枠 +{add}）を購入してから、もう一度お試しください。,"app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
 m_soul_full_rem_w,クリーチャーを分解する、卵を孵す、またはWraithgoldでソウル枠を追加購入してから、もう一度お試しください。,"app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
 m_soul_full_rem_0,クリーチャーを分解するか卵を孵してから、もう一度お試しください。,"app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_shop_not_active_days,未使用 · 購入ごとに{d}日,app: L1 localization pass (D 2026-11-04)
+m_saved_just_now,たった今保存,app: L1 localization pass (D 2026-11-04)
+m_floors_band,{r}階,app: L1 localization pass (D 2026-11-04)
+m_unlocks_after_first_battle,最初のバトル後に解放,app: L1 localization pass (D 2026-11-04)
+m_unlocks_on_floor,{f}階で解放,app: L1 localization pass (D 2026-11-04)
+m_your_best_floor,最高到達階は{f}階,app: L1 localization pass (D 2026-11-04)
+m_not_applied,未使用,app: L1 localization pass (D 2026-11-04)
+m_not_active,未使用,app: L1 localization pass (D 2026-11-04)
+m_open_premium_hint,クリックまたはタップでプレミアムストアを開く,app: L1 localization pass (D 2026-11-04)
+m_unit_down,戦闘不能,app: L1 localization pass (D 2026-11-04)
+m_cls_stage_lv,ステージ{s} · Lv{l},app: L1 localization pass (D 2026-11-04)
+m_locked,ロック中,app: L1 localization pass (D 2026-11-04)
+m_ult_learned_at,アルティメット · Lv{l}で習得,app: L1 localization pass (D 2026-11-04)
+m_need_more,{m}があと{n}必要,app: L1 localization pass (D 2026-11-04)
+m_you_are_here,現在地,app: L1 localization pass (D 2026-11-04)
+m_enter_den,巣に入る,app: L1 localization pass (D 2026-11-04)
+m_boss_gate,ボスの門,app: L1 localization pass (D 2026-11-04)
+m_travel,移動,app: L1 localization pass (D 2026-11-04)
+m_unrated,未評価,app: L1 localization pass (D 2026-11-04)
+m_unlock_pen_first,先に{n}番目の囲いを解放,app: L1 localization pass (D 2026-11-04)
+tip_changing_floors_resets_your_streak,階を移動すると連勝がリセットされます。,"app: loading tip (L1, D 2026-11-04)"
+tip_you_can_turn_off_screen_shake_in_the_display_set,画面の揺れは表示設定でオフにできます。,"app: loading tip (L1, D 2026-11-04)"
+tip_turn_order_shows_who_acts_first_each_round_plan,行動順は各ラウンドで誰が先に動くかを示します。それに合わせて技を組み立てましょう。,"app: loading tip (L1, D 2026-11-04)"
+tip_every_creature_picks_its_move_before_the_round_p,ラウンド開始前に全クリーチャーが技を選びます。まとめて確定しましょう。,"app: loading tip (L1, D 2026-11-04)"
+tip_your_class_ultimate_is_a_move_of_its_own_use_it,クラスのアルティメットは独自の技です。戦況が動いたときに使いましょう。,"app: loading tip (L1, D 2026-11-04)"
+tip_a_weapon_your_class_can_wear_that_beats_the_one,今の武器より強く、クラスが装備できる武器は装備する価値があります。バッグでクリックして「装備」を押しましょう。,"app: loading tip (L1, D 2026-11-04)"
+tip_materials_pay_for_upgrading_your_gear_to_its_nex,素材は装備を次のグレードへ強化する費用になります。,"app: loading tip (L1, D 2026-11-04)"
+tip_a_gem_fits_a_socket_on_your_gear_better_graded_p,ジェムは装備のソケットにはめ込めます。グレードの高い装備ほどソケットが多くなります。,"app: loading tip (L1, D 2026-11-04)"
+tip_eggs_wait_in_the_soul_bag_open_one_and_hatch_it,タマゴはソウルバッグにあります。開いて孵化させると新しいクリーチャーが手に入ります。,"app: loading tip (L1, D 2026-11-04)"
+tip_break_the_pieces_you_do_not_need_into_materials,不要な装備は分解して素材にしましょう。,"app: loading tip (L1, D 2026-11-04)"
+tip_an_empty_floor_the_incense_burner_brings_creatur,階が空っぽ？香炉でクリーチャーが戻ってきます。,"app: loading tip (L1, D 2026-11-04)"
+tip_bait_is_another_way_to_lure_creatures_onto_a_dry,エサも、空っぽの階にクリーチャーを呼び寄せる方法の一つです。,"app: loading tip (L1, D 2026-11-04)"
+tip_autoplay_fights_the_floor_for_you,オートプレイが代わりに階で戦います。,"app: loading tip (L1, D 2026-11-04)"
+tip_dismantle_all_breaks_many_pieces_into_materials,一括分解で多くの装備をまとめて素材にできます。,"app: loading tip (L1, D 2026-11-04)"
+tip_souls_live_in_their_own_bag_seat_one_on_your_gea,ソウルは専用のバッグに入っています。装備にセットするとその力を得られます。,"app: loading tip (L1, D 2026-11-04)"
+tip_hatch_all_hatches_every_egg_in_the_bag_in_one_go,一括孵化でバッグのタマゴをすべて一度に孵化できます。,"app: loading tip (L1, D 2026-11-04)"
+tip_the_arena_queues_your_team_against_other_players,アリーナではあなたのチームが他のプレイヤーのチームと対戦します。,"app: loading tip (L1, D 2026-11-04)"
+tip_auto_optimise_wears_the_strongest_pieces_in_your,自動最適化がバッグの中の最強装備を代わりに装備します。,"app: loading tip (L1, D 2026-11-04)"
+tip_two_creatures_in_a_pen_make_eggs_over_time,囲いの中の2体のクリーチャーは時間とともにタマゴを産みます。,"app: loading tip (L1, D 2026-11-04)"
+tip_better_grade_parents_can_produce_better_grade_eg,グレードの高い親ほど、グレードの高いタマゴが生まれやすくなります。,"app: loading tip (L1, D 2026-11-04)"
+tip_scrolls_enchant_gear_that_carries_a_scroll_socke,スクロールはスクロールソケットのある装備にエンチャントを付けます。,"app: loading tip (L1, D 2026-11-04)"
+tip_grading_lifts_a_gem_rune_or_scroll_to_a_better_g,グレード上げでジェム、ルーン、スクロールのグレードを上げられます。,"app: loading tip (L1, D 2026-11-04)"
+tip_the_shadow_trader_s_stock_changes_over_time_come,影の商人の品ぞろえは時間とともに変わります。また来て新しい品を見ましょう。,"app: loading tip (L1, D 2026-11-04)"
+tip_more_classes_can_be_bought_from_the_equipment_wi,装備ウィンドウから他のクラスを購入できます。,"app: loading tip (L1, D 2026-11-04)"
+tip_competitive_pvp_puts_your_team_on_the_ranked_lad,ランクPvPではあなたのチームがランキングに参加します。,"app: loading tip (L1, D 2026-11-04)"
+tip_the_dimensional_rift_sends_a_copy_of_a_creature,次元の裂け目はクリーチャーのコピーを1度だけ無料でHerumon Dungeonへ送ります。,"app: loading tip (L1, D 2026-11-04)"
+tip_apex_bosses_past_floor_100_carry_a_skull_status,100階より上のエイペックスボスはドクロの状態異常と固有ギミックを持っています。ドクロにカーソルを合わせて確認しましょう。,"app: loading tip (L1, D 2026-11-04)"
+unl_first_fight_start,階にいるクリーチャーをクリックして戦いましょう。,app: opening.csv first_fight_start Line - the FTUE arrow line (L1)
+unl_first_fight_move,手番のクリーチャーの技を選びましょう。,app: opening.csv first_fight_move Line - the FTUE arrow line (L1)
+unl_first_fight_target,敵をクリックして技の対象を選びましょう。,app: opening.csv first_fight_target Line - the FTUE arrow line (L1)
+unl_first_fight_lock,全クリーチャーの技が決まりました。確定してラウンドを進めましょう。,app: opening.csv first_fight_lock Line - the FTUE arrow line (L1)
+unl_first_fight_order,このラウンドで誰が先に動くか確認しましょう。,app: opening.csv first_fight_order Line - the FTUE arrow line (L1)
+unl_ultimate,クラスのアルティメットを習得しました。クリックして使いましょう。,app: opening.csv ultimate Line - the FTUE arrow line (L1)
+unl_weapon_drop,バッグに新しい武器があります。クリックして「装備」を押しましょう。,app: opening.csv weapon_drop Line - the FTUE arrow line (L1)
+unl_gem_drop,ジェムは装備のソケットにはめ込めます。,app: opening.csv gem_drop Line - the FTUE arrow line (L1)
+unl_single_hatch,バッグにタマゴがあります。開いて孵化させましょう。,app: opening.csv single_hatch Line - the FTUE arrow line (L1)
+unl_single_dismantle,不要な装備を分解して素材にしましょう。,app: opening.csv single_dismantle Line - the FTUE arrow line (L1)
+unl_drought_incense,階が空っぽです。香炉をクリックしましょう。最初の1つはスクラップ1個です。,app: opening.csv drought_incense Line - the FTUE arrow line (L1)
+unl_drought_bait,また空っぽです。エサをクリックしましょう。最初の1つはスクラップ1個です。,app: opening.csv drought_bait Line - the FTUE arrow line (L1)
+set_account_link_desc,別のログインでこの同じ冒険にサインインします。金色 = 連携済み。,settings: row description
+m_mat_scrap,スクラップ,"app: a material named in a cost line, matName() (L1; glossary)"
+m_mat_ink,インク,"app: a material named in a cost line, matName() (L1; glossary)"
+m_mat_dust,ダスト,"app: a material named in a cost line, matName() (L1; glossary)"
+m_mat_essence,エッセンス,"app: a material named in a cost line, matName() (L1; glossary)"
+m_mat_ichor,イコル,"app: a material named in a cost line, matName() (L1; glossary)"

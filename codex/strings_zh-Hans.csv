@@ -629,3 +629,68 @@ m_soul_full_rem_iw,分解一只生物、孵化一枚蛋、购买下一级Ichor�
 m_soul_full_rem_i,分解一只生物、孵化一枚蛋，或购买下一级Ichor升级（灵魂栏位 +{add}），然后再试一次。,"app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
 m_soul_full_rem_w,分解一只生物、孵化一枚蛋，或用Wraithgold购买更多灵魂栏位，然后再试一次。,"app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
 m_soul_full_rem_0,分解一只生物或孵化一枚蛋，然后再试一次。,"app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_shop_not_active_days,未生效 · 每次购买{d}天,app: L1 localization pass (D 2026-11-04)
+m_saved_just_now,刚刚已保存,app: L1 localization pass (D 2026-11-04)
+m_floors_band,第{r}层,app: L1 localization pass (D 2026-11-04)
+m_unlocks_after_first_battle,首场战斗后解锁,app: L1 localization pass (D 2026-11-04)
+m_unlocks_on_floor,第{f}层解锁,app: L1 localization pass (D 2026-11-04)
+m_your_best_floor,你的最高层为{f},app: L1 localization pass (D 2026-11-04)
+m_not_applied,未使用,app: L1 localization pass (D 2026-11-04)
+m_not_active,未生效,app: L1 localization pass (D 2026-11-04)
+m_open_premium_hint,点击或轻触打开高级商店,app: L1 localization pass (D 2026-11-04)
+m_unit_down,倒下,app: L1 localization pass (D 2026-11-04)
+m_cls_stage_lv,阶段{s} · 等级{l},app: L1 localization pass (D 2026-11-04)
+m_locked,未解锁,app: L1 localization pass (D 2026-11-04)
+m_ult_learned_at,终极技 · {l}级习得,app: L1 localization pass (D 2026-11-04)
+m_need_more,还需{n}{m},app: L1 localization pass (D 2026-11-04)
+m_you_are_here,你在这里,app: L1 localization pass (D 2026-11-04)
+m_enter_den,进入巢穴,app: L1 localization pass (D 2026-11-04)
+m_boss_gate,首领之门,app: L1 localization pass (D 2026-11-04)
+m_travel,前往,app: L1 localization pass (D 2026-11-04)
+m_unrated,未定级,app: L1 localization pass (D 2026-11-04)
+m_unlock_pen_first,请先解锁围栏{n},app: L1 localization pass (D 2026-11-04)
+tip_changing_floors_resets_your_streak,切换楼层会重置你的连胜。,"app: loading tip (L1, D 2026-11-04)"
+tip_you_can_turn_off_screen_shake_in_the_display_set,可以在显示设置中关闭屏幕震动。,"app: loading tip (L1, D 2026-11-04)"
+tip_turn_order_shows_who_acts_first_each_round_plan,行动顺序显示每回合谁先行动。据此规划你的招式。,"app: loading tip (L1, D 2026-11-04)"
+tip_every_creature_picks_its_move_before_the_round_p,每只生物都在回合开始前选择招式。一起锁定它们。,"app: loading tip (L1, D 2026-11-04)"
+tip_your_class_ultimate_is_a_move_of_its_own_use_it,职业终极技是一个独立的招式。在战局转折时使用它。,"app: loading tip (L1, D 2026-11-04)"
+tip_a_weapon_your_class_can_wear_that_beats_the_one,职业可装备且优于当前武器的武器值得装备：在背包中点击它，然后点击装备。,"app: loading tip (L1, D 2026-11-04)"
+tip_materials_pay_for_upgrading_your_gear_to_its_nex,材料用于将装备强化到下一品级。,"app: loading tip (L1, D 2026-11-04)"
+tip_a_gem_fits_a_socket_on_your_gear_better_graded_p,宝石可镶嵌在装备的插槽中。品级越高的装备插槽越多。,"app: loading tip (L1, D 2026-11-04)"
+tip_eggs_wait_in_the_soul_bag_open_one_and_hatch_it,蛋放在魂袋里。打开并孵化即可获得新生物。,"app: loading tip (L1, D 2026-11-04)"
+tip_break_the_pieces_you_do_not_need_into_materials,把不需要的装备分解成材料。,"app: loading tip (L1, D 2026-11-04)"
+tip_an_empty_floor_the_incense_burner_brings_creatur,楼层空了？香炉能把生物引回来。,"app: loading tip (L1, D 2026-11-04)"
+tip_bait_is_another_way_to_lure_creatures_onto_a_dry,诱饵是把生物引到空楼层的另一种方法。,"app: loading tip (L1, D 2026-11-04)"
+tip_autoplay_fights_the_floor_for_you,自动战斗会替你挑战本层。,"app: loading tip (L1, D 2026-11-04)"
+tip_dismantle_all_breaks_many_pieces_into_materials,全部分解可一次把大量装备分解成材料。,"app: loading tip (L1, D 2026-11-04)"
+tip_souls_live_in_their_own_bag_seat_one_on_your_gea,魂存放在专属袋子里。把魂嵌到装备上即可获得其力量。,"app: loading tip (L1, D 2026-11-04)"
+tip_hatch_all_hatches_every_egg_in_the_bag_in_one_go,全部孵化可一次孵化袋中所有的蛋。,"app: loading tip (L1, D 2026-11-04)"
+tip_the_arena_queues_your_team_against_other_players,竞技场会让你的队伍与其他玩家的队伍对战。,"app: loading tip (L1, D 2026-11-04)"
+tip_auto_optimise_wears_the_strongest_pieces_in_your,自动优化会替你装备袋中最强的装备。,"app: loading tip (L1, D 2026-11-04)"
+tip_two_creatures_in_a_pen_make_eggs_over_time,围栏中的两只生物会随时间产蛋。,"app: loading tip (L1, D 2026-11-04)"
+tip_better_grade_parents_can_produce_better_grade_eg,品级更高的亲代可能产出品级更高的蛋。,"app: loading tip (L1, D 2026-11-04)"
+tip_scrolls_enchant_gear_that_carries_a_scroll_socke,卷轴可为带有卷轴插槽的装备附魔。,"app: loading tip (L1, D 2026-11-04)"
+tip_grading_lifts_a_gem_rune_or_scroll_to_a_better_g,升品可把宝石、符文或卷轴提升到更高品级。,"app: loading tip (L1, D 2026-11-04)"
+tip_the_shadow_trader_s_stock_changes_over_time_come,暗影商人的货物会随时间变化。记得回来看看新货。,"app: loading tip (L1, D 2026-11-04)"
+tip_more_classes_can_be_bought_from_the_equipment_wi,可在装备窗口中购买更多职业。,"app: loading tip (L1, D 2026-11-04)"
+tip_competitive_pvp_puts_your_team_on_the_ranked_lad,竞技PvP会让你的队伍登上排行榜。,"app: loading tip (L1, D 2026-11-04)"
+tip_the_dimensional_rift_sends_a_copy_of_a_creature,次元裂隙可免费将一只生物的复制体送往Herumon Dungeon，仅限一次。,"app: loading tip (L1, D 2026-11-04)"
+tip_apex_bosses_past_floor_100_carry_a_skull_status,第100层以上的巅峰首领带有骷髅状态和独特机制——将鼠标悬停在骷髅上查看。,"app: loading tip (L1, D 2026-11-04)"
+unl_first_fight_start,点击楼层中的生物与其战斗。,app: opening.csv first_fight_start Line - the FTUE arrow line (L1)
+unl_first_fight_move,为当前行动的生物选择招式。,app: opening.csv first_fight_move Line - the FTUE arrow line (L1)
+unl_first_fight_target,点击敌人作为招式的目标。,app: opening.csv first_fight_target Line - the FTUE arrow line (L1)
+unl_first_fight_lock,每只生物都已选好招式。锁定后开始本回合。,app: opening.csv first_fight_lock Line - the FTUE arrow line (L1)
+unl_first_fight_order,查看本回合谁先行动。,app: opening.csv first_fight_order Line - the FTUE arrow line (L1)
+unl_ultimate,已习得职业终极技。点击即可使用。,app: opening.csv ultimate Line - the FTUE arrow line (L1)
+unl_weapon_drop,背包里有一把新武器。点击它，然后点击装备。,app: opening.csv weapon_drop Line - the FTUE arrow line (L1)
+unl_gem_drop,宝石可镶嵌在装备的插槽中。,app: opening.csv gem_drop Line - the FTUE arrow line (L1)
+unl_single_hatch,背包里有一颗蛋。打开并孵化它。,app: opening.csv single_hatch Line - the FTUE arrow line (L1)
+unl_single_dismantle,把不需要的装备分解成材料。,app: opening.csv single_dismantle Line - the FTUE arrow line (L1)
+unl_drought_incense,楼层空了。点击香炉：第一个只需1废料。,app: opening.csv drought_incense Line - the FTUE arrow line (L1)
+unl_drought_bait,又空了。点击诱饵：第一个只需1废料。,app: opening.csv drought_bait Line - the FTUE arrow line (L1)
+set_account_link_desc,用其他登录方式登录同一进度。金色 = 已关联。,settings: row description
+m_mat_scrap,废料,"app: a material named in a cost line, matName() (L1; glossary)"
+m_mat_ink,墨,"app: a material named in a cost line, matName() (L1; glossary)"
+m_mat_dust,尘晶,"app: a material named in a cost line, matName() (L1; glossary)"
+m_mat_essence,精华,"app: a material named in a cost line, matName() (L1; glossary)"
+m_mat_ichor,灵液,"app: a material named in a cost line, matName() (L1; glossary)"

@@ -1,0 +1,2689 @@
+En,Text,Kind
+Beast,野兽,type
+Flora,植物,type
+Fey,妖精,type
+Spectral,幽灵,type
+Elemental,元素,type
+Undead,不死,type
+Construct,构装,type
+Avian,飞禽,type
+Aquatic,水栖,type
+Arthropod,节肢,type
+Amphibian,两栖,type
+Reptile,爬行,type
+Mollusk,软体,type
+Void,虚空,type
+Serpent,蛇,type
+Eldritch,邪异,type
+Insect,昆虫,type
+Fungal,真菌,type
+Horror,恐怖,type
+Parasite,寄生,type
+Ooze,软泥,type
+Dragon,龙,type
+Aberration,异怪,type
+Vampiric,吸血,type
+Chimera,奇美拉,type
+Demon,恶魔,type
+Celestial,天界,type
+Warrior,战士,class
+Knight,骑士,class
+Paladin,圣骑士,class
+Mage,法师,class
+Sorcerer,术士,class
+Archon,执政官,class
+Archer,弓手,class
+Ranger,游侠,class
+Hawkeye,鹰眼,class
+Brute,蛮兵,class
+Warlord,军阀,class
+Titan,泰坦,class
+Assassin,刺客,class
+Stalker,潜行者,class
+Nightblade,夜刃,class
+Professor,教授,class
+Sage,贤者,class
+Prophet,先知,class
+Hold the Line,坚守阵线,ultimate
+Iron Bulwark,钢铁壁垒,ultimate
+Martyr's Aegis,殉道者之盾,ultimate
+Shardburst,碎晶爆裂,ultimate
+Stonefall,落石天降,ultimate
+Cataclysm,大灾变,ultimate
+Sure Shot,必中一箭,ultimate
+Deadeye,神射,ultimate
+Godpiercer,贯神之箭,ultimate
+Blood Price,血之代价,ultimate
+Tyrant's Toll,暴君之税,ultimate
+Wrath of the Pit,深坑之怒,ultimate
+Recitation,吟诵,ultimate
+Grand Thesis,鸿篇巨论,ultimate
+Revelation,天启,ultimate
+Slip Away,悄然脱身,ultimate
+Shadowmeld,暗影融合,ultimate
+Vanish,消失无踪,ultimate
+Every enemy single-target move this round is drawn to you. Area moves are not redirected.,本回合所有敌方单体招式都会被引向你。群体招式不会被转移。,ultimate_effect
+"Every enemy single-target move this round is drawn to you, and your Defense rises 10% for the rest of the battle.",本回合所有敌方单体招式都会被引向你，且你的防御提升10%，持续至战斗结束。,ultimate_effect
+"Every enemy single-target move this round is drawn to you, your Defense rises 10% for the rest of the battle, and you heal 5% of maximum HP for each hit you take this round.",本回合所有敌方单体招式都会被引向你，你的防御提升10%并持续至战斗结束，且本回合你每受到一次攻击，便恢复最大HP的5%。,ultimate_effect
+Strikes every enemy for 75 power.,对所有敌人造成75威力的攻击。,ultimate_effect
+Strikes every enemy for 100 power.,对所有敌人造成100威力的攻击。,ultimate_effect
+Strikes every enemy for 125 power.,对所有敌人造成125威力的攻击。,ultimate_effect
+Strikes one enemy for 180 power.,对一名敌人造成180威力的攻击。,ultimate_effect
+Strikes one enemy for 240 power.,对一名敌人造成240威力的攻击。,ultimate_effect
+Strikes one enemy for 300 power.,对一名敌人造成300威力的攻击。,ultimate_effect
+"This round every hit you take is answered with a 50 power counter, and each hit raises your Attack 4% for the rest of the battle, up to +40%.",本回合你每受到一次攻击，都会以50威力反击，且每次受击使你的攻击提升4%并持续至战斗结束，最多+40%。,ultimate_effect
+"This round every hit you take is answered with a 65 power counter, and each hit raises your Attack 5% for the rest of the battle, up to +50%.",本回合你每受到一次攻击，都会以65威力反击，且每次受击使你的攻击提升5%并持续至战斗结束，最多+50%。,ultimate_effect
+"This round every hit you take is answered with an 80 power counter, and each hit raises your Attack 6% for the rest of the battle, up to +60%.",本回合你每受到一次攻击，都会以80威力反击，且每次受击使你的攻击提升6%并持续至战斗结束，最多+60%。,ultimate_effect
+"Every support ability in your hero soul slots fires at once on the whole party, you included. Bonuses land at 40% strength, so +50% Attack becomes +20%, and durations are halved, rounded up. A single-step effect like +1 Speed rounds away to nothing at this stage. Once per battle.",你英雄魂槽中的所有辅助能力将同时对全队（包括你自己）发动。增益以40%强度生效，因此+50%攻击会变为+20%，持续时间减半（向上取整）。在此阶段，+1速度这类单级效果会被舍为零。每场战斗限一次。,ultimate_effect
+"Every support ability in your hero soul slots fires at once on the whole party, you included. Bonuses land at 50% strength, so +50% Attack becomes +25%, and durations are halved, rounded up. A single-step effect like +1 Speed still lands. Once per battle.",你英雄魂槽中的所有辅助能力将同时对全队（包括你自己）发动。增益以50%强度生效，因此+50%攻击会变为+25%，持续时间减半（向上取整）。+1速度这类单级效果仍会生效。每场战斗限一次。,ultimate_effect
+"Every support ability in your hero soul slots fires at once on the whole party, you included. Bonuses land at 60% strength, so +50% Attack becomes +30%, and durations are halved, rounded up. A single-step effect like +1 Speed still lands. Once per battle.",你英雄魂槽中的所有辅助能力将同时对全队（包括你自己）发动。增益以60%强度生效，因此+50%攻击会变为+30%，持续时间减半（向上取整）。+1速度这类单级效果仍会生效。每场战斗限一次。,ultimate_effect
+"Strikes one enemy for 120 power, then you cannot be targeted by single-target moves for 1 round. Area moves still connect and existing effects keep ticking.",对一名敌人造成120威力的攻击，随后1回合内你无法成为单体招式的目标。群体招式仍会命中，已有效果也会继续生效。,ultimate_effect
+"Strikes one enemy for 180 power, then you cannot be targeted by single-target moves for 2 rounds. Area moves still connect and existing effects keep ticking.",对一名敌人造成180威力的攻击，随后2回合内你无法成为单体招式的目标。群体招式仍会命中，已有效果也会继续生效。,ultimate_effect
+"Strikes one enemy for 240 power, then you cannot be targeted by single-target moves for 3 rounds. Area moves still connect and existing effects keep ticking.",对一名敌人造成240威力的攻击，随后3回合内你无法成为单体招式的目标。群体招式仍会命中，已有效果也会继续生效。,ultimate_effect
+Grasslands,草原,zone
+Tidal Shallows,潮汐浅滩,zone
+Desert Plains,荒漠平原,zone
+Swarm Thicket,虫群灌丛,zone
+The Crag,峭岩,zone
+Storm Peaks,风暴群峰,zone
+Sunken Bog,沉没沼泽,zone
+Underwater Cave,水下洞窟,zone
+Gemstone Cave,宝石洞窟,zone
+Flaming Hellscape,烈焰炼狱,zone
+Void Apex,虚空之巅,zone
+Sunlit Meadow,阳光草甸,floor
+Hollow Burrow,幽空兽穴,floor
+Meadow Stream,草甸溪流,floor
+Rolling Hills,起伏丘陵,floor
+Windswept Rise,疾风高坡,floor
+Thistle Field,蓟草原野,floor
+Grazing Pond,牧食水塘,floor
+Root Hollow,树根洞,floor
+Wildflower Expanse,野花原野,floor
+The Alpha's Den,头狼巢穴,floor
+Pale Sandbar,苍白沙洲,floor
+Driftwood Dunes,浮木沙丘,floor
+Tidewashed Grotto,潮蚀岩洞,floor
+Kelp Forest,海藻森林,floor
+Drowned Ruins,沉没废墟,floor
+Tidepool Flats,潮池滩涂,floor
+The Undertow,暗流,floor
+Barnacle Reef,藤壶礁,floor
+Current Sinkhole,洋流陷坑,floor
+Trench Gate,海沟之门,floor
+Sunbaked Flats,烈日旱原,floor
+Bone Dune Ridge,骨丘山脊,floor
+Sandworm Burrow,沙虫巢穴,floor
+Cracked Salt Pan,龟裂盐滩,floor
+The Sunspire Coil,日塔蛇环,floor
+Hidden Oasis,隐秘绿洲,floor
+Windcarved Mesa,风蚀台地,floor
+Sun-Cracked Grotto,日裂岩洞,floor
+Serpent's Crossing,巨蛇渡口,floor
+The Ossuary Coil,藏骨蛇环,floor
+Webbed Undergrowth,蛛网灌丛,floor
+Hive Tunnel,虫巢隧道,floor
+Chitin Clearing,甲壳空地,floor
+Larval Chamber,幼虫巢室,floor
+The Queen's Nest,女王之巢,floor
+Buzzing Meadow,嗡鸣草甸,floor
+Stagnant Mire Edge,死沼边缘,floor
+Silk-Choked Burrow,丝缠洞穴,floor
+Molting Grounds,蜕皮之地,floor
+The Broodmother's Hollow,虫母巢窟,floor
+Fissure Entrance,裂缝入口,floor
+Windswept Ledge,狂风岩架,floor
+Silk-Strung Crevice,悬丝岩缝,floor
+Molt-Littered Hollow,蜕壳洞窟,floor
+The Widow's Crevasse,黑寡妇裂谷,floor
+Scree Slope,碎石坡,floor
+Cliffside Spring,崖边清泉,floor
+Bone-Pit Chamber,骨坑石室,floor
+Chitin Gallery,甲壳长廊,floor
+The Carapace Throne,甲壳王座,floor
+Windbattered Switchback,风蚀折径,floor
+Cliffnest Overlook,崖巢瞭望台,floor
+Thunderhollow,雷鸣谷,floor
+Talon Ridge,利爪山脊,floor
+The Stormcaller's Aerie,风暴召唤者之巢,floor
+Frostbitten Summit,霜噬山巅,floor
+Alpine Tarn,高山冰湖,floor
+Echo Cavern,回音洞窟,floor
+Skybridge Crossing,天桥渡口,floor
+The Roost of the First Storm,太初风暴栖巢,floor
+Reedchoked Shallows,芦苇浅滩,floor
+Mudflat Crossing,泥滩渡口,floor
+Sunken Hollow,沉陷洼地,floor
+Croaking Marsh,蛙鸣沼泽,floor
+The Drowned Shrine,沉没神殿,floor
+Rootcave Grotto,根窟岩洞,floor
+Willow Hollow,柳树洼地,floor
+Sinking Path,下陷小径,floor
+Mire Tunnel,泥沼隧道,floor
+The Bogfather's Pool,沼泽之父的池塘,floor
+Cliffside Cave Mouth,崖边洞口,floor
+Glowspore Passage,荧孢通道,floor
+Flooded Antechamber,淹没前厅,floor
+Mycelium Grotto,菌丝岩洞,floor
+The Luminous Deep,辉光深处,floor
+Ink-Dark Pool,墨黑水潭,floor
+Spore Chimney,孢子烟囱,floor
+Sunken Passage,沉没通道,floor
+Tendril Hollow,卷须洼地,floor
+The Abyssal Bloom,深渊之花,floor
+Crystal Outcrop,水晶岩突,floor
+Refracted Hollow,折光洞窟,floor
+Silent Gallery,寂静长廊,floor
+Still Reflection Pool,静映池,floor
+The Weeping Crystal Tomb,泣晶之墓,floor
+Bloodlit Passage,血光通道,floor
+Sunken Reliquary,沉没圣物堂,floor
+Whispering Vein,低语矿脉,floor
+Hollow Court,空寂王庭,floor
+The Undying Crypt,不灭墓穴,floor
+Obsidian Flats,黑曜石平原,floor
+Forge Tunnel,熔炉隧道,floor
+Slag Hollow,熔渣洼地,floor
+Magma Vent Pool,岩浆喷口池,floor
+The Furnace Heart,熔炉之心,floor
+Cinderfall Ridge,落烬山脊,floor
+Rustbound Gallery,锈缚长廊,floor
+Boiling Cistern,沸腾水窖,floor
+Emberlit Passage,余烬通道,floor
+The Godforge,神之熔炉,floor
+The First Drift,初次漂流,floor
+Arena of the Torn Stair,断阶竞技场,floor
+The Broken Ring,破碎之环,floor
+Cathedral Adrift,漂流大教堂,floor
+The Chain Bridge,锁链之桥,floor
+The Dead Constellation,死寂星座,floor
+The Unshelved,离架书海,floor
+The Skull Brow,颅骨眉岭,floor
+The Orbiting Plaza,环行广场,floor
+Echo of the Godforge,神之熔炉回响,floor
+The Frozen Shatter,冰封碎域,floor
+The Drowned Throne,沉没王座,floor
+The Sunken Graves,沉没墓群,floor
+The Glass Heart,玻璃之心,floor
+The Upward Melt,向上熔流,floor
+The Fused Clockwork,熔接钟械,floor
+The Rooted Bone,生根之骨,floor
+The Open Eye,睁开之眼,floor
+The Last Stair,最后的阶梯,floor
+The Apex,极巅,floor
+Bristle,刺毛兽,creature
+Thornhide,棘皮兽,creature
+Thornback,棘背兽,creature
+Whelp,尘崽,creature
+Dustcur,尘犬,creature
+Dusthound,尘猎犬,creature
+Grub,蛴螬,creature
+Delver,掘地虫,creature
+Barrowmole,古冢鼹,creature
+Fawn,幼鹿,creature
+Briarfawn,荆鹿,creature
+Bramblefawn,棘丛鹿,creature
+Shade,幽影,creature
+Phantasm,幻影,creature
+Nightmare,梦魇,creature
+Cairn,石冢,creature
+Menhir,巨石柱,creature
+Golgoth,戈尔戈斯,creature
+Sprig,嫩枝灵,creature
+Woodwose,林野人,creature
+Wychroot,巫根,creature
+Noose,绞索,creature
+Ligature,勒绳,creature
+Garrote,绞喉索,creature
+Nestling,雏鸟,creature
+Carrion,食腐鸟,creature
+Gallowsbird,绞架鸦,creature
+Hart,雄鹿,creature
+Leshy,列希,creature
+Herne,赫恩,creature
+Nauplius,节幼虫,creature
+Barnacle,藤壶,creature
+Tidecrawler,潮爬怪,creature
+Fry,鱼苗,creature
+Snapjaw,咬颚兽,creature
+Saltjaw,盐颚鳄,creature
+Polliwog,蝌蚪仔,creature
+Brineling,盐水仔,creature
+Brinefrog,卤蛙,creature
+Zoea,蚤蟹仔,creature
+Smasher,重拳虾,creature
+Crestmantis,冠螳虾,creature
+Gecko,壁虎,creature
+Monitor,巨蜥,creature
+Duskscale,暮鳞蜥,creature
+Naiad,娜伊阿德,creature
+Undine,温蒂妮,creature
+Rusalka,鲁萨尔卡,creature
+Whorl,螺纹龟,creature
+Rampart,垒甲龟,creature
+Bulwark,堡垒龟,creature
+Elver,幼鳗,creature
+Conger,海鳗,creature
+Nethereel,冥渊鳗,creature
+Polyp,水螅,creature
+Medusa,美杜莎,creature
+Coralhydra,珊瑚海德拉,creature
+Nommo,诺摩,creature
+Oannes,俄安内斯,creature
+Dagon,大衮,creature
+Haunt,作祟灵,creature
+Wraith,怨灵,creature
+Banshee,报丧女妖,creature
+Wyrmling,幼蛇,creature
+Neonate,初生蛇,creature
+Sidewinder,侧行蛇,creature
+Mirage,蜃影,creature
+Sylph,西尔芙,creature
+Fata,法塔,creature
+Grit,砂粒精,creature
+Sirocco,热风妖,creature
+Simoom,焚风魔,creature
+Lamia,拉弥亚,creature
+Gorgon,戈耳工,creature
+Echidna,厄喀德那,creature
+Paralarva,幼乌贼,creature
+Inkling,墨仔,creature
+Voidsiphon,噬虚乌贼,creature
+Cinder,灰烬蜥,creature
+Scorchscale,焦鳞蜥,creature
+Emberclaw,烬爪蜥,creature
+Terrapin,泥龟,creature
+Kurma,库尔玛,creature
+Zaratan,扎拉坦,creature
+Jann,詹恩,creature
+Ifrit,伊弗利特,creature
+Marid,马里德,creature
+Nidhogg,尼德霍格,creature
+Jormungand,耶梦加得,creature
+Ouroboros,衔尾蛇,creature
+Larva,幼虫,creature
+Maggot,蛆虫,creature
+Gloomgrub,暗蛴螬,creature
+Instar,龄虫,creature
+Thornshell,棘壳虫,creature
+Thornhusk,棘荚虫,creature
+Ovum,卵囊,creature
+Sporeling,孢苗,creature
+Sporefly,孢蝇,creature
+Spiderling,幼蛛,creature
+Orbweaver,圆网蛛,creature
+Arachne,阿拉克涅,creature
+Sundew,茅膏菜,creature
+Flytrap,捕蝇草,creature
+Carnifora,噬肉花,creature
+Vector,带菌虫,creature
+Contagion,疫源虫,creature
+Plaguecarrier,携疫虫,creature
+Novice,见习螳,creature
+Acolyte,侍僧螳,creature
+Devout,虔信螳,creature
+Nymph,若虫,creature
+Hopper,跳蝻,creature
+Locust,蝗虫,creature
+Vespid,胡蜂,creature
+Cordyceps,虫草菌,creature
+Vespera,孢蜂女王,creature
+Taproot,主根灵,creature
+Mycorrhiza,菌根灵,creature
+Yggdrasil,世界树,creature
+Megalopa,大眼蟹仔,creature
+Scuttler,疾走蟹,creature
+Cliffpincer,崖钳蟹,creature
+Scute,甲片兽,creature
+Carapace,甲壳兽,creature
+Crushmaul,碾槌兽,creature
+Dross,渣滓虫,creature
+Smelt,熔炼虫,creature
+Slagworm,熔渣蠕虫,creature
+Drakeling,幼龙,creature
+Dragonet,小翼龙,creature
+Ridgedrake,脊岭龙,creature
+Crayfish,螯虾,creature
+Stonecaller,唤石蟹,creature
+Despot,霸主蟹,creature
+Fluke,吸虫,creature
+Sangleech,血蛭,creature
+Sanguinarch,血君蛭,creature
+Colony,群落蟹,creature
+Aggregate,聚合蟹,creature
+Craggernaut,岩群巨兽,creature
+Scorpling,幼蝎,creature
+Umbra,本影蝎,creature
+Voidshell,虚壳蝎,creature
+Automaton,机关人偶,creature
+Colossus,巨像,creature
+Talos,塔罗斯,creature
+Scoria,渣岩灵,creature
+Obsidian,黑曜岩灵,creature
+Magmacrawler,熔岩爬兽,creature
+Chick,小雏,creature
+Zephyr,西风鸟,creature
+Gustwing,疾风翼,creature
+Fledgling,羽雏,creature
+Stormcrow,风暴鸦,creature
+Tempestcrow,狂岚鸦,creature
+Chrysalis,蛹,creature
+Sparkwing,火花翼,creature
+Thundermoth,雷蛾,creature
+Eyas,雏鹰,creature
+Haggard,荒野鹰,creature
+Roc,大鹏,creature
+Yelp,吠崽,creature
+Squall,飑风狼,creature
+Galehowl,嚎风狼,creature
+Static,静电灵,creature
+Arcwing,电弧翼,creature
+Voltmantle,伏特幔,creature
+Amphiptere,翼蛇,creature
+Quetzal,魁札尔,creature
+Couatl,库亚特,creature
+Tempest,狂岚,creature
+Typhoon,台风,creature
+Typhon,堤丰,creature
+Ziz,齐兹,creature
+Simurgh,西摩格,creature
+Anzu,安祖,creature
+Riptide,裂潮,creature
+Maelstrom,大漩涡,creature
+Charybdis,卡律布狄斯,creature
+Spawn,卵块,creature
+Froglet,小蛙,creature
+Boghopper,沼跳蛙,creature
+Newtling,幼蝾螈,creature
+Eft,水蜥,creature
+Mirenewt,沼螈,creature
+Nit,虱卵,creature
+Blowfly,绿头蝇,creature
+Rotfly,腐蝇,creature
+Tadpole,蝌蚪,creature
+Wight,尸妖,creature
+Lichfrog,巫妖蛙,creature
+Glimmer,微光鱼,creature
+Lantern,提灯鱼,creature
+Wispmaw,鬼火巨口,creature
+Orcneas,奥克尼斯,creature
+Eoten,伊奥滕,creature
+Grendel,格伦德尔,creature
+Vaettir,维提尔,creature
+Haugbui,冢居尸,creature
+Draugr,尸鬼,creature
+Tendril,卷须藤,creature
+Bindweed,旋花藤,creature
+Gallowvine,绞架藤,creature
+Toadling,小蟾,creature
+Behemoth,贝希摩斯,creature
+Miremother,沼母,creature
+Vestige,残迹灵,creature
+Revenant,归魂,creature
+Cenotaph,空冢灵,creature
+Button,小菇蕾,creature
+Toadstool,毒蕈,creature
+Gloomcap,幽伞菇,creature
+Cuttle,墨鱼,creature
+Argonaut,船蛸,creature
+Inkmantle,墨幔,creature
+Hypha,菌丝芽,creature
+Rhizome,根茎,creature
+Veinmold,脉霉,creature
+Nautilus,鹦鹉螺,creature
+Oracle,神谕螺,creature
+Sibyl,西比尔,creature
+Tremor,震颤魔,creature
+Palsy,麻痹魔,creature
+Vertigo,眩晕魔,creature
+Kitling,狐崽,creature
+Foxfire,狐火,creature
+Kitsune,妖狐,creature
+Puffball,马勃,creature
+Leviathan,利维坦,creature
+Sporewhale,孢鲸,creature
+Lure,诱光鱼,creature
+Abyss,渊底鱼,creature
+Riftangler,裂隙鮟鱇,creature
+Spore,孢子,creature
+Bloom,菌花,creature
+Mycelium,菌丝体,creature
+Veliger,幼螺,creature
+Hafgufa,哈夫古法,creature
+Kraken,克拉肯,creature
+Phantom,魅影,creature
+Geist,盖斯特,creature
+Crystalwraith,晶怨灵,creature
+Pup,蝠崽,creature
+Vesper,暮蝠,creature
+Ashbat,灰烬蝠,creature
+Shard,碎晶,creature
+Geode,晶洞,creature
+Gemborn,宝晶子,creature
+Stiletto,细刃,creature
+Scalpel,柳叶刃,creature
+Bloodcarver,血雕者,creature
+Splinter,裂片,creature
+Poltergeist,骚灵,creature
+Shatterspecter,碎魂魅,creature
+Whippet,灵猎犬,creature
+Barghest,巴格斯特,creature
+Voidhound,虚空猎犬,creature
+Echo,回声,creature
+Fetch,幽替身,creature
+Doppelganger,二重身,creature
+Nachzehrer,纳赫泽尔,creature
+Strigoi,斯特里戈伊,creature
+Nosferatu,诺斯费拉图,creature
+Reliquary,圣骸匣,creature
+Lich,巫妖,creature
+Phylactery,命匣,creature
+Facet,刻面,creature
+Reflection,倒影,creature
+Speculum,魔镜,creature
+Ember,余烬,creature
+Clinker,熔块,creature
+Protogale,原初风灵,creature
+Soot,煤灰,creature
+Ossuary,骨堂灵,creature
+Ashwalker,灰行者,creature
+Effigy,祭偶,creature
+Idol,神像,creature
+Moloch,摩洛,creature
+Flicker,火苗,creature
+Salamander,火蜥蜴,creature
+Blazewyrm,烈焰龙,creature
+Hybrid,混种兽,creature
+Omnichimera,万象奇美拉,creature
+Ingot,铁锭,creature
+Ironclad,铁甲兽,creature
+Ferrodrake,铁龙,creature
+Ignis,焰灵,creature
+Pyre,火葬堆,creature
+Ignifer,携火者,creature
+Sentry,哨兵,creature
+Sentinel,卫士,creature
+Vigil,守夜者,creature
+Wildfire,野火,creature
+Balefire,劫火,creature
+Pyriel,派瑞尔,creature
+Aeon,永世,creature
+Demiurge,巨匠神,creature
+Grinlet,狞笑猴,creature
+Gibberling,喋喋猴,creature
+Jackanape,顽猴,creature
+Knuckler,拳猿,creature
+Silverback,银背猿,creature
+Goliath,歌利亚,creature
+Tyrantling,幼暴龙,creature
+Tyrantjaw,暴颚龙,creature
+Tyrannos,暴君龙,creature
+Rotdrip,腐滴,creature
+Gristleglob,软骨团,creature
+Charnelmass,尸骸团,creature
+"Vargr, the Alpha",瓦格尔，头狼,boss
+Vargr,瓦格尔,boss
+Abyssal Trench Gate,深渊海沟之门,boss
+"Pelagos, the Trench Warden",佩拉戈斯，海沟守望者,boss
+Pelagos,佩拉戈斯,boss
+"Sethek, the Ossuary King",塞泰克，藏骨之王,boss
+Sethek,塞泰克,boss
+"Mother Vesk, the Broodmother",母虫维斯克，虫巢之母,boss
+Vesk,维斯克,boss
+"Ostrakon, the Carapace Despot",奥斯特拉孔，甲壳霸主,boss
+Ostrakon,奥斯特拉孔,boss
+"Keraun, the Stormcaller",凯劳恩，风暴召唤者,boss
+Keraun,凯劳恩,boss
+"Morast, the Bogfather",莫拉斯特，沼泽之父,boss
+Morast,莫拉斯特,boss
+"Teloma, the Bloom Herald",特洛玛，绽放使者,boss
+Teloma,特洛玛,boss
+"Varkolan, the Undying King",瓦尔科兰，不灭之王,boss
+Varkolan,瓦尔科兰,boss
+"Eskaton, the Unfinished God",埃斯卡顿，未竟之神,boss
+Eskaton,埃斯卡顿,boss
+Über Vargr,究极瓦格尔,boss
+"Über Vargr, the Alpha",究极瓦格尔，头狼,boss
+Über Pelagos,究极佩拉戈斯,boss
+"Über Pelagos, the Trench Warden",究极佩拉戈斯，海沟守望者,boss
+Über Sethek,究极塞泰克,boss
+"Über Sethek, the Ossuary King",究极塞泰克，藏骨之王,boss
+Über Vesk,究极维斯克,boss
+"Über Mother Vesk, the Broodmother",究极母虫维斯克，虫巢之母,boss
+Über Ostrakon,究极奥斯特拉孔,boss
+"Über Ostrakon, the Carapace Despot",究极奥斯特拉孔，甲壳霸主,boss
+Über Keraun,究极凯劳恩,boss
+"Über Keraun, the Stormcaller",究极凯劳恩，风暴召唤者,boss
+Über Morast,究极莫拉斯特,boss
+"Über Morast, the Bogfather",究极莫拉斯特，沼泽之父,boss
+Über Teloma,究极特洛玛,boss
+"Über Teloma, the Bloom Herald",究极特洛玛，绽放使者,boss
+Über Varkolan,究极瓦尔科兰,boss
+"Über Varkolan, the Undying King",究极瓦尔科兰，不灭之王,boss
+Über Eskaton,究极埃斯卡顿,boss
+"Über Eskaton, the Unfinished God",究极埃斯卡顿，未竟之神,boss
+Incense Burner,香炉,shop
+Wild creatures return to your floor twice as often. Burns for 30 days.,野生生物重返你所在楼层的频率翻倍。可燃烧30天。,shop
+Bait,诱饵,shop
+Wild creatures return in half the time. Stacks with Incense. Lasts 30 days.,野生生物重返所需时间减半。可与熏香叠加。持续30天。,shop
+Auto PVP Attacks,自动 PvP 攻击次数,shop
+Ten more Auto PVP attacks. They join today pool even above the daily ten and expire at the daily reset.,额外十次自动 PvP 攻击。即使已超过每日十次，也会计入今日次数池，并在每日重置时失效。,shop
+First Incense,首份熏香,shop
+Your first Incense: wild creatures return twice as often for 1 day. One time only.,你的首份熏香：1天内野生生物重返频率翻倍。仅限一次。,shop
+First Bait,首份诱饵,shop
+Your first Bait: wild creatures return in half the time for 1 day. Stacks with Incense. One time only.,你的首份诱饵：1天内野生生物重返时间减半。可与熏香叠加。仅限一次。,shop
+Scrap Key,废料钥匙,shop
+Opens the Rusted Dimension once: five floors of five battles that pay Scrap. Consumed on entry.,开启一次锈蚀次元：共五层，每层五场战斗，奖励废料。进入时消耗。,shop
+Dust Key,尘晶钥匙,shop
+Opens the Enchanted Dimension once: five floors of five battles that pay Dust. Consumed on entry.,开启一次附魔次元：共五层，每层五场战斗，奖励尘晶。进入时消耗。,shop
+Ichor Key,灵液钥匙,shop
+Opens the Sanguine Dimension once: five floors of five battles that pay Ichor. Consumed on entry.,开启一次血色次元：共五层，每层五场战斗，奖励灵液。进入时消耗。,shop
+Essence Key,精华钥匙,shop
+Opens the Swollen Dimension once: five floors of five battles that pay Essence. Consumed on entry.,开启一次肿胀次元：共五层，每层五场战斗，奖励精华。进入时消耗。,shop
+Ink Key,墨钥匙,shop
+Opens the Inscribed Dimension once: five floors of five battles that pay Ink. Consumed on entry.,开启一次铭文次元：共五层，每层五场战斗，奖励墨。进入时消耗。,shop
+Class soul,职业魂,unlock
+Hatch All,全部孵化,unlock
+Dismantle All,全部分解,unlock
+Autoplay,自动战斗,unlock
+Souls,魂,unlock
+Devour,吞噬,unlock
+Auto PvP,自动 PvP,unlock
+Auto-optimise,一键优化,unlock
+Breeding,繁育,unlock
+Scrolls + enchanting,卷轴 + 附魔,unlock
+Grading,品级鉴定,unlock
+Upgrade All,全部强化,unlock
+Shadow Trader,暗影商人,unlock
+Buy classes,购买职业,unlock
+Competitive PvP,竞技 PvP,unlock
+Dimensional Rift,次元裂隙,unlock
+Start a fight,开始战斗,tutorial
+Choose a move,选择招式,tutorial
+Pick a target,选择目标,tutorial
+Lock in moves,锁定招式,tutorial
+Turn order,行动顺序,tutorial
+The ultimate,终极技,tutorial
+Equip the weapon,装备武器,tutorial
+Upgrade the weapon,强化武器,tutorial
+Socket the gem,镶嵌宝石,tutorial
+Hatch the egg,孵化蛋,tutorial
+Dismantle a piece,分解装备,tutorial
+Burn incense,点燃熏香,tutorial
+Set bait,放置诱饵,tutorial
+Crude Signet,粗糙印戒,item
+Sturdy Signet,坚固印戒,item
+Fine Signet,精良印戒,item
+Superior Signet,上等印戒,item
+Ornate Signet,华丽印戒,item
+Masterwork Signet,大师印戒,item
+Exalted Signet,崇高印戒,item
+Sovereign Signet,至尊印戒,item
+Mythic Signet,神话印戒,item
+Transcendent Signet,超凡印戒,item
+Crude Relic,粗糙圣物,item
+Sturdy Relic,坚固圣物,item
+Fine Relic,精良圣物,item
+Superior Relic,上等圣物,item
+Ornate Relic,华丽圣物,item
+Masterwork Relic,大师圣物,item
+Exalted Relic,崇高圣物,item
+Sovereign Relic,至尊圣物,item
+Mythic Relic,神话圣物,item
+Transcendent Relic,超凡圣物,item
+Crude Fang,粗糙獠牙,item
+Sturdy Fang,坚固獠牙,item
+Fine Fang,精良獠牙,item
+Superior Fang,上等獠牙,item
+Ornate Fang,华丽獠牙,item
+Masterwork Fang,大师獠牙,item
+Exalted Fang,崇高獠牙,item
+Sovereign Fang,至尊獠牙,item
+Mythic Fang,神话獠牙,item
+Transcendent Fang,超凡獠牙,item
+Crude Carapace,粗糙甲壳,item
+Sturdy Carapace,坚固甲壳,item
+Fine Carapace,精良甲壳,item
+Superior Carapace,上等甲壳,item
+Ornate Carapace,华丽甲壳,item
+Masterwork Carapace,大师甲壳,item
+Exalted Carapace,崇高甲壳,item
+Sovereign Carapace,至尊甲壳,item
+Mythic Carapace,神话甲壳,item
+Transcendent Carapace,超凡甲壳,item
+Crude Heart,粗糙心核,item
+Sturdy Heart,坚固心核,item
+Fine Heart,精良心核,item
+Superior Heart,上等心核,item
+Ornate Heart,华丽心核,item
+Masterwork Heart,大师心核,item
+Exalted Heart,崇高心核,item
+Sovereign Heart,至尊心核,item
+Mythic Heart,神话心核,item
+Transcendent Heart,超凡心核,item
+Rough Garnet,毛坯石榴石,item
+Cut Garnet,切割石榴石,item
+Polished Garnet,抛光石榴石,item
+Faceted Garnet,刻面石榴石,item
+Brilliant Garnet,璀璨石榴石,item
+Pristine Garnet,纯净石榴石,item
+Flawless Garnet,无瑕石榴石,item
+Perfect Garnet,完美石榴石,item
+Radiant Garnet,闪耀石榴石,item
+Sublime Garnet,至臻石榴石,item
+Rough Onyx,毛坯缟玛瑙,item
+Cut Onyx,切割缟玛瑙,item
+Polished Onyx,抛光缟玛瑙,item
+Faceted Onyx,刻面缟玛瑙,item
+Brilliant Onyx,璀璨缟玛瑙,item
+Pristine Onyx,纯净缟玛瑙,item
+Flawless Onyx,无瑕缟玛瑙,item
+Perfect Onyx,完美缟玛瑙,item
+Radiant Onyx,闪耀缟玛瑙,item
+Sublime Onyx,至臻缟玛瑙,item
+Rough Bloodstone,毛坯血石,item
+Cut Bloodstone,切割血石,item
+Polished Bloodstone,抛光血石,item
+Faceted Bloodstone,刻面血石,item
+Brilliant Bloodstone,璀璨血石,item
+Pristine Bloodstone,纯净血石,item
+Flawless Bloodstone,无瑕血石,item
+Perfect Bloodstone,完美血石,item
+Radiant Bloodstone,闪耀血石,item
+Sublime Bloodstone,至臻血石,item
+Faded Rune of Ruin,褪色毁灭符文,item
+Etched Rune of Ruin,蚀刻毁灭符文,item
+Carved Rune of Ruin,雕刻毁灭符文,item
+Bound Rune of Ruin,束缚毁灭符文,item
+Warded Rune of Ruin,结界毁灭符文,item
+Charged Rune of Ruin,充能毁灭符文,item
+Awakened Rune of Ruin,觉醒毁灭符文,item
+Resonant Rune of Ruin,共鸣毁灭符文,item
+Ancient Rune of Ruin,远古毁灭符文,item
+Elder Rune of Ruin,上古毁灭符文,item
+Faded Rune of Aegis,褪色庇护符文,item
+Etched Rune of Aegis,蚀刻庇护符文,item
+Carved Rune of Aegis,雕刻庇护符文,item
+Bound Rune of Aegis,束缚庇护符文,item
+Warded Rune of Aegis,结界庇护符文,item
+Charged Rune of Aegis,充能庇护符文,item
+Awakened Rune of Aegis,觉醒庇护符文,item
+Resonant Rune of Aegis,共鸣庇护符文,item
+Ancient Rune of Aegis,远古庇护符文,item
+Elder Rune of Aegis,上古庇护符文,item
+Tattered Scroll,破烂卷轴,item
+Coarse Scroll,粗纸卷轴,item
+Scribe's Scroll,书记卷轴,item
+Vellum Scroll,犊皮卷轴,item
+Illuminated Scroll,泥金卷轴,item
+Sealed Scroll,封印卷轴,item
+Occult Scroll,秘术卷轴,item
+Forbidden Scroll,禁忌卷轴,item
+Prophetic Scroll,预言卷轴,item
+Fated Scroll,命定卷轴,item
+Scrap,废料,item
+Ichor,灵液,item
+Dust,尘晶,item
+Essence,精华,item
+Ink,墨,item
+Faded Rune of Vitality,褪色生命符文,item
+Etched Rune of Vitality,蚀刻生命符文,item
+Carved Rune of Vitality,雕刻生命符文,item
+Bound Rune of Vitality,束缚生命符文,item
+Warded Rune of Vitality,结界生命符文,item
+Charged Rune of Vitality,充能生命符文,item
+Awakened Rune of Vitality,觉醒生命符文,item
+Resonant Rune of Vitality,共鸣生命符文,item
+Ancient Rune of Vitality,远古生命符文,item
+Elder Rune of Vitality,上古生命符文,item
+Bristle Egg,刺毛兽蛋,item
+Thornhide Egg,棘皮兽蛋,item
+Thornback Egg,棘背兽蛋,item
+Whelp Egg,尘崽蛋,item
+Dustcur Egg,尘犬蛋,item
+Dusthound Egg,尘猎犬蛋,item
+Grub Egg,蛴螬蛋,item
+Delver Egg,掘地虫蛋,item
+Barrowmole Egg,古冢鼹蛋,item
+Fawn Egg,幼鹿蛋,item
+Briarfawn Egg,荆鹿蛋,item
+Bramblefawn Egg,棘丛鹿蛋,item
+Shade Egg,幽影蛋,item
+Phantasm Egg,幻影蛋,item
+Nightmare Egg,梦魇蛋,item
+Cairn Egg,石冢蛋,item
+Menhir Egg,巨石柱蛋,item
+Golgoth Egg,戈尔戈斯蛋,item
+Sprig Egg,嫩枝灵蛋,item
+Woodwose Egg,林野人蛋,item
+Wychroot Egg,巫根蛋,item
+Noose Egg,绞索蛋,item
+Ligature Egg,勒绳蛋,item
+Garrote Egg,绞喉索蛋,item
+Nestling Egg,雏鸟蛋,item
+Carrion Egg,食腐鸟蛋,item
+Gallowsbird Egg,绞架鸦蛋,item
+Hart Egg,雄鹿蛋,item
+Leshy Egg,列希蛋,item
+Herne Egg,赫恩蛋,item
+Nauplius Egg,节幼虫蛋,item
+Barnacle Egg,藤壶蛋,item
+Tidecrawler Egg,潮爬怪蛋,item
+Fry Egg,鱼苗蛋,item
+Snapjaw Egg,咬颚兽蛋,item
+Saltjaw Egg,盐颚鳄蛋,item
+Polliwog Egg,蝌蚪仔蛋,item
+Brineling Egg,盐水仔蛋,item
+Brinefrog Egg,卤蛙蛋,item
+Zoea Egg,蚤蟹仔蛋,item
+Smasher Egg,重拳虾蛋,item
+Crestmantis Egg,冠螳虾蛋,item
+Gecko Egg,壁虎蛋,item
+Monitor Egg,巨蜥蛋,item
+Duskscale Egg,暮鳞蜥蛋,item
+Naiad Egg,娜伊阿德蛋,item
+Undine Egg,温蒂妮蛋,item
+Rusalka Egg,鲁萨尔卡蛋,item
+Whorl Egg,螺纹龟蛋,item
+Rampart Egg,垒甲龟蛋,item
+Bulwark Egg,堡垒龟蛋,item
+Elver Egg,幼鳗蛋,item
+Conger Egg,海鳗蛋,item
+Nethereel Egg,冥渊鳗蛋,item
+Polyp Egg,水螅蛋,item
+Medusa Egg,美杜莎蛋,item
+Coralhydra Egg,珊瑚海德拉蛋,item
+Nommo Egg,诺摩蛋,item
+Oannes Egg,俄安内斯蛋,item
+Dagon Egg,大衮蛋,item
+Haunt Egg,作祟灵蛋,item
+Wraith Egg,怨灵蛋,item
+Banshee Egg,报丧女妖蛋,item
+Wyrmling Egg,幼蛇蛋,item
+Neonate Egg,初生蛇蛋,item
+Sidewinder Egg,侧行蛇蛋,item
+Mirage Egg,蜃影蛋,item
+Sylph Egg,西尔芙蛋,item
+Fata Egg,法塔蛋,item
+Grit Egg,砂粒精蛋,item
+Sirocco Egg,热风妖蛋,item
+Simoom Egg,焚风魔蛋,item
+Lamia Egg,拉弥亚蛋,item
+Gorgon Egg,戈耳工蛋,item
+Echidna Egg,厄喀德那蛋,item
+Paralarva Egg,幼乌贼蛋,item
+Inkling Egg,墨仔蛋,item
+Voidsiphon Egg,噬虚乌贼蛋,item
+Cinder Egg,灰烬蜥蛋,item
+Scorchscale Egg,焦鳞蜥蛋,item
+Emberclaw Egg,烬爪蜥蛋,item
+Terrapin Egg,泥龟蛋,item
+Kurma Egg,库尔玛蛋,item
+Zaratan Egg,扎拉坦蛋,item
+Jann Egg,詹恩蛋,item
+Ifrit Egg,伊弗利特蛋,item
+Marid Egg,马里德蛋,item
+Nidhogg Egg,尼德霍格蛋,item
+Jormungand Egg,耶梦加得蛋,item
+Ouroboros Egg,衔尾蛇蛋,item
+Larva Egg,幼虫蛋,item
+Maggot Egg,蛆虫蛋,item
+Gloomgrub Egg,暗蛴螬蛋,item
+Instar Egg,龄虫蛋,item
+Thornshell Egg,棘壳虫蛋,item
+Thornhusk Egg,棘荚虫蛋,item
+Ovum Egg,卵囊蛋,item
+Sporeling Egg,孢苗蛋,item
+Sporefly Egg,孢蝇蛋,item
+Spiderling Egg,幼蛛蛋,item
+Orbweaver Egg,圆网蛛蛋,item
+Arachne Egg,阿拉克涅蛋,item
+Sundew Egg,茅膏菜蛋,item
+Flytrap Egg,捕蝇草蛋,item
+Carnifora Egg,噬肉花蛋,item
+Vector Egg,带菌虫蛋,item
+Contagion Egg,疫源虫蛋,item
+Plaguecarrier Egg,携疫虫蛋,item
+Novice Egg,见习螳蛋,item
+Acolyte Egg,侍僧螳蛋,item
+Devout Egg,虔信螳蛋,item
+Nymph Egg,若虫蛋,item
+Hopper Egg,跳蝻蛋,item
+Locust Egg,蝗虫蛋,item
+Vespid Egg,胡蜂蛋,item
+Cordyceps Egg,虫草菌蛋,item
+Vespera Egg,孢蜂女王蛋,item
+Taproot Egg,主根灵蛋,item
+Mycorrhiza Egg,菌根灵蛋,item
+Yggdrasil Egg,世界树蛋,item
+Megalopa Egg,大眼蟹仔蛋,item
+Scuttler Egg,疾走蟹蛋,item
+Cliffpincer Egg,崖钳蟹蛋,item
+Scute Egg,甲片兽蛋,item
+Carapace Egg,甲壳兽蛋,item
+Crushmaul Egg,碾槌兽蛋,item
+Dross Egg,渣滓虫蛋,item
+Smelt Egg,熔炼虫蛋,item
+Slagworm Egg,熔渣蠕虫蛋,item
+Drakeling Egg,幼龙蛋,item
+Dragonet Egg,小翼龙蛋,item
+Ridgedrake Egg,脊岭龙蛋,item
+Crayfish Egg,螯虾蛋,item
+Stonecaller Egg,唤石蟹蛋,item
+Despot Egg,霸主蟹蛋,item
+Fluke Egg,吸虫蛋,item
+Sangleech Egg,血蛭蛋,item
+Sanguinarch Egg,血君蛭蛋,item
+Colony Egg,群落蟹蛋,item
+Aggregate Egg,聚合蟹蛋,item
+Craggernaut Egg,岩群巨兽蛋,item
+Scorpling Egg,幼蝎蛋,item
+Umbra Egg,本影蝎蛋,item
+Voidshell Egg,虚壳蝎蛋,item
+Automaton Egg,机关人偶蛋,item
+Colossus Egg,巨像蛋,item
+Talos Egg,塔罗斯蛋,item
+Scoria Egg,渣岩灵蛋,item
+Obsidian Egg,黑曜岩灵蛋,item
+Magmacrawler Egg,熔岩爬兽蛋,item
+Chick Egg,小雏蛋,item
+Zephyr Egg,西风鸟蛋,item
+Gustwing Egg,疾风翼蛋,item
+Fledgling Egg,羽雏蛋,item
+Stormcrow Egg,风暴鸦蛋,item
+Tempestcrow Egg,狂岚鸦蛋,item
+Chrysalis Egg,蛹蛋,item
+Sparkwing Egg,火花翼蛋,item
+Thundermoth Egg,雷蛾蛋,item
+Eyas Egg,雏鹰蛋,item
+Haggard Egg,荒野鹰蛋,item
+Roc Egg,大鹏蛋,item
+Yelp Egg,吠崽蛋,item
+Squall Egg,飑风狼蛋,item
+Galehowl Egg,嚎风狼蛋,item
+Static Egg,静电灵蛋,item
+Arcwing Egg,电弧翼蛋,item
+Voltmantle Egg,伏特幔蛋,item
+Amphiptere Egg,翼蛇蛋,item
+Quetzal Egg,魁札尔蛋,item
+Couatl Egg,库亚特蛋,item
+Tempest Egg,狂岚蛋,item
+Typhoon Egg,台风蛋,item
+Typhon Egg,堤丰蛋,item
+Ziz Egg,齐兹蛋,item
+Simurgh Egg,西摩格蛋,item
+Anzu Egg,安祖蛋,item
+Riptide Egg,裂潮蛋,item
+Maelstrom Egg,大漩涡蛋,item
+Charybdis Egg,卡律布狄斯蛋,item
+Spawn Egg,卵块蛋,item
+Froglet Egg,小蛙蛋,item
+Boghopper Egg,沼跳蛙蛋,item
+Newtling Egg,幼蝾螈蛋,item
+Eft Egg,水蜥蛋,item
+Mirenewt Egg,沼螈蛋,item
+Nit Egg,虱卵蛋,item
+Blowfly Egg,绿头蝇蛋,item
+Rotfly Egg,腐蝇蛋,item
+Tadpole Egg,蝌蚪蛋,item
+Wight Egg,尸妖蛋,item
+Lichfrog Egg,巫妖蛙蛋,item
+Glimmer Egg,微光鱼蛋,item
+Lantern Egg,提灯鱼蛋,item
+Wispmaw Egg,鬼火巨口蛋,item
+Orcneas Egg,奥克尼斯蛋,item
+Eoten Egg,伊奥滕蛋,item
+Grendel Egg,格伦德尔蛋,item
+Vaettir Egg,维提尔蛋,item
+Haugbui Egg,冢居尸蛋,item
+Draugr Egg,尸鬼蛋,item
+Tendril Egg,卷须藤蛋,item
+Bindweed Egg,旋花藤蛋,item
+Gallowvine Egg,绞架藤蛋,item
+Toadling Egg,小蟾蛋,item
+Behemoth Egg,贝希摩斯蛋,item
+Miremother Egg,沼母蛋,item
+Vestige Egg,残迹灵蛋,item
+Revenant Egg,归魂蛋,item
+Cenotaph Egg,空冢灵蛋,item
+Button Egg,小菇蕾蛋,item
+Toadstool Egg,毒蕈蛋,item
+Gloomcap Egg,幽伞菇蛋,item
+Cuttle Egg,墨鱼蛋,item
+Argonaut Egg,船蛸蛋,item
+Inkmantle Egg,墨幔蛋,item
+Hypha Egg,菌丝芽蛋,item
+Rhizome Egg,根茎蛋,item
+Veinmold Egg,脉霉蛋,item
+Nautilus Egg,鹦鹉螺蛋,item
+Oracle Egg,神谕螺蛋,item
+Sibyl Egg,西比尔蛋,item
+Tremor Egg,震颤魔蛋,item
+Palsy Egg,麻痹魔蛋,item
+Vertigo Egg,眩晕魔蛋,item
+Kitling Egg,狐崽蛋,item
+Foxfire Egg,狐火蛋,item
+Kitsune Egg,妖狐蛋,item
+Puffball Egg,马勃蛋,item
+Leviathan Egg,利维坦蛋,item
+Sporewhale Egg,孢鲸蛋,item
+Lure Egg,诱光鱼蛋,item
+Abyss Egg,渊底鱼蛋,item
+Riftangler Egg,裂隙鮟鱇蛋,item
+Spore Egg,孢子蛋,item
+Bloom Egg,菌花蛋,item
+Mycelium Egg,菌丝体蛋,item
+Veliger Egg,幼螺蛋,item
+Hafgufa Egg,哈夫古法蛋,item
+Kraken Egg,克拉肯蛋,item
+Phantom Egg,魅影蛋,item
+Geist Egg,盖斯特蛋,item
+Crystalwraith Egg,晶怨灵蛋,item
+Pup Egg,蝠崽蛋,item
+Vesper Egg,暮蝠蛋,item
+Ashbat Egg,灰烬蝠蛋,item
+Shard Egg,碎晶蛋,item
+Geode Egg,晶洞蛋,item
+Gemborn Egg,宝晶子蛋,item
+Stiletto Egg,细刃蛋,item
+Scalpel Egg,柳叶刃蛋,item
+Bloodcarver Egg,血雕者蛋,item
+Splinter Egg,裂片蛋,item
+Poltergeist Egg,骚灵蛋,item
+Shatterspecter Egg,碎魂魅蛋,item
+Whippet Egg,灵猎犬蛋,item
+Barghest Egg,巴格斯特蛋,item
+Voidhound Egg,虚空猎犬蛋,item
+Echo Egg,回声蛋,item
+Fetch Egg,幽替身蛋,item
+Doppelganger Egg,二重身蛋,item
+Nachzehrer Egg,纳赫泽尔蛋,item
+Strigoi Egg,斯特里戈伊蛋,item
+Nosferatu Egg,诺斯费拉图蛋,item
+Reliquary Egg,圣骸匣蛋,item
+Lich Egg,巫妖蛋,item
+Phylactery Egg,命匣蛋,item
+Facet Egg,刻面蛋,item
+Reflection Egg,倒影蛋,item
+Speculum Egg,魔镜蛋,item
+Ember Egg,余烬蛋,item
+Clinker Egg,熔块蛋,item
+Protogale Egg,原初风灵蛋,item
+Soot Egg,煤灰蛋,item
+Ossuary Egg,骨堂灵蛋,item
+Ashwalker Egg,灰行者蛋,item
+Effigy Egg,祭偶蛋,item
+Idol Egg,神像蛋,item
+Moloch Egg,摩洛蛋,item
+Flicker Egg,火苗蛋,item
+Salamander Egg,火蜥蜴蛋,item
+Blazewyrm Egg,烈焰龙蛋,item
+Hybrid Egg,混种兽蛋,item
+Chimera Egg,奇美拉蛋,item
+Omnichimera Egg,万象奇美拉蛋,item
+Ingot Egg,铁锭蛋,item
+Ironclad Egg,铁甲兽蛋,item
+Ferrodrake Egg,铁龙蛋,item
+Ignis Egg,焰灵蛋,item
+Pyre Egg,火葬堆蛋,item
+Ignifer Egg,携火者蛋,item
+Sentry Egg,哨兵蛋,item
+Sentinel Egg,卫士蛋,item
+Vigil Egg,守夜者蛋,item
+Wildfire Egg,野火蛋,item
+Balefire Egg,劫火蛋,item
+Pyriel Egg,派瑞尔蛋,item
+Archon Egg,执政官蛋,item
+Aeon Egg,永世蛋,item
+Demiurge Egg,巨匠神蛋,item
+Grinlet Egg,狞笑猴蛋,item
+Gibberling Egg,喋喋猴蛋,item
+Jackanape Egg,顽猴蛋,item
+Knuckler Egg,拳猿蛋,item
+Silverback Egg,银背猿蛋,item
+Goliath Egg,歌利亚蛋,item
+Tyrantling Egg,幼暴龙蛋,item
+Tyrantjaw Egg,暴颚龙蛋,item
+Tyrannos Egg,暴君龙蛋,item
+Rotdrip Egg,腐滴蛋,item
+Gristleglob Egg,软骨团蛋,item
+Charnelmass Egg,尸骸团蛋,item
+Cowl,风帽,item
+Hood,兜帽,item
+Coif,锁甲头罩,item
+Sallet,轻骑盔,item
+Barbute,巴布特盔,item
+Helm,头盔,item
+Greathelm,大头盔,item
+Wyrmskull Helm,龙颅盔,item
+Sanctified Casque,圣化盔,item
+Voidcrown,虚空之冠,item
+Padded Jerkin,衬垫短衣,item
+Leather Jerkin,皮革短甲,item
+Brigandine,布面甲,item
+Scale Hauberk,鳞甲衫,item
+Chain Hauberk,锁子甲衫,item
+Cuirass,胸甲,item
+Warplate,战铠,item
+Bloodforged Plate,血铸板甲,item
+Sanctified Bulwark,圣化壁垒,item
+Voidplate,虚空板甲,item
+Handwraps,裹手布,item
+Leather Grips,皮手套,item
+Studded Grips,镶钉手套,item
+Bracers,护腕,item
+Chain Mitts,锁链手甲,item
+Steel Gauntlets,钢铁护手,item
+Wargauntlets,战争护手,item
+Bloodforged Fists,血铸拳甲,item
+Sanctified Grasp,圣化之握,item
+Voidclaws,虚空之爪,item
+Footwraps,裹脚布,item
+Worn Boots,旧靴,item
+Hobnailed Boots,钉靴,item
+Riding Boots,骑靴,item
+Chain Boots,锁链靴,item
+Greaves,护胫,item
+Wargreaves,战争护胫,item
+Bloodforged Stride,血铸步履,item
+Sanctified Sabatons,圣化铁靴,item
+Voidtreads,虚空步履,item
+Arming Sword,佩剑,item
+Veteran's Arming Sword,老兵佩剑,item
+Champion's Arming Sword,冠军佩剑,item
+Longsword,长剑,item
+Veteran's Longsword,老兵长剑,item
+Champion's Longsword,冠军长剑,item
+Great Morningstar,巨晨星锤,item
+Veteran's Great Morningstar,老兵巨晨星锤,item
+Champion's Great Morningstar,冠军巨晨星锤,item
+Tyrant's Great Morningstar,暴君巨晨星锤,item
+Kite Shield,鸢盾,item
+Veteran's Kite Shield,老兵鸢盾,item
+Champion's Kite Shield,冠军鸢盾,item
+Heater Shield,三角盾,item
+Veteran's Heater Shield,老兵三角盾,item
+Champion's Heater Shield,冠军三角盾,item
+Tower Shield,塔盾,item
+Veteran's Tower Shield,老兵塔盾,item
+Champion's Tower Shield,冠军塔盾,item
+Tyrant's Tower Shield,暴君塔盾,item
+Crystal Staff,水晶法杖,item
+Veteran's Crystal Staff,老兵水晶法杖,item
+Champion's Crystal Staff,冠军水晶法杖,item
+Amethyst Staff,紫晶法杖,item
+Veteran's Amethyst Staff,老兵紫晶法杖,item
+Champion's Amethyst Staff,冠军紫晶法杖,item
+Ruby Warstaff,红玉战杖,item
+Veteran's Ruby Warstaff,老兵红玉战杖,item
+Champion's Ruby Warstaff,冠军红玉战杖,item
+Tyrant's Ruby Warstaff,暴君红玉战杖,item
+Handflame Focus,掌焰法器,item
+Veteran's Handflame Focus,老兵掌焰法器,item
+Champion's Handflame Focus,冠军掌焰法器,item
+Amethyst Shardring,紫晶碎环,item
+Veteran's Amethyst Shardring,老兵紫晶碎环,item
+Champion's Amethyst Shardring,冠军紫晶碎环,item
+Magma Orbit,熔岩轨环,item
+Veteran's Magma Orbit,老兵熔岩轨环,item
+Champion's Magma Orbit,冠军熔岩轨环,item
+Tyrant's Magma Orbit,暴君熔岩轨环,item
+Ash Shortbow,梣木短弓,item
+Veteran's Ash Shortbow,老兵梣木短弓,item
+Champion's Ash Shortbow,冠军梣木短弓,item
+Runed Recurve,符文反曲弓,item
+Veteran's Runed Recurve,老兵符文反曲弓,item
+Champion's Runed Recurve,冠军符文反曲弓,item
+Hawkwing Greatbow,鹰翼巨弓,item
+Veteran's Hawkwing Greatbow,老兵鹰翼巨弓,item
+Champion's Hawkwing Greatbow,冠军鹰翼巨弓,item
+Tyrant's Hawkwing Greatbow,暴君鹰翼巨弓,item
+Scout's Quiver,斥候箭袋,item
+Veteran's Scout's Quiver,老兵斥候箭袋,item
+Champion's Scout's Quiver,冠军斥候箭袋,item
+Silvered Quiver,镀银箭袋,item
+Veteran's Silvered Quiver,老兵镀银箭袋,item
+Champion's Silvered Quiver,冠军镀银箭袋,item
+Obsidian Quiver,黑曜石箭袋,item
+Veteran's Obsidian Quiver,老兵黑曜石箭袋,item
+Champion's Obsidian Quiver,冠军黑曜石箭袋,item
+Tyrant's Obsidian Quiver,暴君黑曜石箭袋,item
+Nailed Club,钉头棒,item
+Veteran's Nailed Club,老兵钉头棒,item
+Champion's Nailed Club,冠军钉头棒,item
+War-Club,战棍,item
+Veteran's War-Club,老兵战棍,item
+Champion's War-Club,冠军战棍,item
+Colossus Axe,巨像战斧,item
+Veteran's Colossus Axe,老兵巨像战斧,item
+Champion's Colossus Axe,冠军巨像战斧,item
+Tyrant's Colossus Axe,暴君巨像战斧,item
+Fist Cords,拳绳,item
+Veteran's Fist Cords,老兵拳绳,item
+Champion's Fist Cords,冠军拳绳,item
+Iron Knucklewraps,铁拳缠带,item
+Veteran's Iron Knucklewraps,老兵铁拳缠带,item
+Champion's Iron Knucklewraps,冠军铁拳缠带,item
+Titan Chainwraps,泰坦链缠,item
+Veteran's Titan Chainwraps,老兵泰坦链缠,item
+Champion's Titan Chainwraps,冠军泰坦链缠,item
+Tyrant's Titan Chainwraps,暴君泰坦链缠,item
+Iron Dagger,铁匕首,item
+Veteran's Iron Dagger,老兵铁匕首,item
+Champion's Iron Dagger,冠军铁匕首,item
+Blackened Scimitar,乌钢弯刀,item
+Veteran's Blackened Scimitar,老兵乌钢弯刀,item
+Champion's Blackened Scimitar,冠军乌钢弯刀,item
+Bladed Gauntlet,刃爪护手,item
+Veteran's Bladed Gauntlet,老兵刃爪护手,item
+Champion's Bladed Gauntlet,冠军刃爪护手,item
+Tyrant's Bladed Gauntlet,暴君刃爪护手,item
+Iron Dagger (Off),铁匕首（副手）,item
+Veteran's Iron Dagger (Off),老兵铁匕首（副手）,item
+Champion's Iron Dagger (Off),冠军铁匕首（副手）,item
+Blackened Scimitar (Off),乌钢弯刀（副手）,item
+Veteran's Blackened Scimitar (Off),老兵乌钢弯刀（副手）,item
+Champion's Blackened Scimitar (Off),冠军乌钢弯刀（副手）,item
+Bladed Gauntlet (Off),刃爪护手（副手）,item
+Veteran's Bladed Gauntlet (Off),老兵刃爪护手（副手）,item
+Champion's Bladed Gauntlet (Off),冠军刃爪护手（副手）,item
+Tyrant's Bladed Gauntlet (Off),暴君刃爪护手（副手）,item
+Battered Tome,残破典籍,item
+Veteran's Battered Tome,老兵残破典籍,item
+Champion's Battered Tome,冠军残破典籍,item
+Ancient Tome,古老典籍,item
+Veteran's Ancient Tome,老兵古老典籍,item
+Champion's Ancient Tome,冠军古老典籍,item
+Hovering Grimoire,悬浮魔典,item
+Veteran's Hovering Grimoire,老兵悬浮魔典,item
+Champion's Hovering Grimoire,冠军悬浮魔典,item
+Tyrant's Hovering Grimoire,暴君悬浮魔典,item
+Cut Quill,削羽笔,item
+Veteran's Cut Quill,老兵削羽笔,item
+Champion's Cut Quill,冠军削羽笔,item
+Gilded Quill,镀金羽笔,item
+Veteran's Gilded Quill,老兵镀金羽笔,item
+Champion's Gilded Quill,冠军镀金羽笔,item
+Scribing Quill,铭写羽笔,item
+Veteran's Scribing Quill,老兵铭写羽笔,item
+Champion's Scribing Quill,冠军铭写羽笔,item
+Tyrant's Scribing Quill,暴君铭写羽笔,item
+Grasslands Key,草原钥匙,item
+Tidal Shallows Key,潮汐浅滩钥匙,item
+Desert Plains Key,荒漠平原钥匙,item
+Swarm Thicket Key,虫群灌丛钥匙,item
+The Crag Key,峭岩钥匙,item
+Storm Peaks Key,风暴群峰钥匙,item
+Sunken Bog Key,沉没沼泽钥匙,item
+Underwater Cave Key,水下洞窟钥匙,item
+Gemstone Cave Key,宝石洞窟钥匙,item
+Flaming Hellscape Key,烈焰炼狱钥匙,item
+Void Apex Key — Vargr,虚空之巅钥匙——瓦格尔,item
+Void Apex Key — Pelagos,虚空之巅钥匙——佩拉戈斯,item
+Void Apex Key — Sethek,虚空之巅钥匙——塞泰克,item
+Void Apex Key — Vesk,虚空之巅钥匙——维斯克,item
+Void Apex Key — Ostrakon,虚空之巅钥匙——奥斯特拉孔,item
+Void Apex Key — Keraun,虚空之巅钥匙——凯劳恩,item
+Void Apex Key — Morast,虚空之巅钥匙——莫拉斯特,item
+Void Apex Key — Teloma,虚空之巅钥匙——特洛玛,item
+Void Apex Key — Varkolan,虚空之巅钥匙——瓦尔科兰,item
+Void Apex Key — Eskaton,虚空之巅钥匙——埃斯卡顿,item
+A smear of red wax. A promise of red steel.,一抹红蜡。一句红钢的誓言。,item_flavor
+Iron band. The crest bites into skin.,铁质戒环。纹章咬进皮肉。,item_flavor
+Tempered seal. The impression it leaves heals slowly.,淬火印面。它留下的印痕愈合得很慢。,item_flavor
+Forged crest. Documents signed with it are binding.,锻造纹章。以它签署的文书具有约束力。,item_flavor
+Runic face. The seal glows when violence is near.,符文印面。暴力将至时，印章会发光。,item_flavor
+Blessed signet. Contracts signed with it cannot be broken.,受祝印戒。以它签订的契约无法违背。,item_flavor
+Wrought in dark metal. The crest changes per wearer.,以暗色金属打造。纹章随佩戴者而变。,item_flavor
+Darksteel band. The impression it leaves does not heal.,暗钢戒环。它留下的印痕永不愈合。,item_flavor
+The ring signs your name before you write it.,你尚未落笔，戒指已替你签了名。,item_flavor
+The crest is the last thing the enemy sees.,这枚纹章是敌人看到的最后一样东西。,item_flavor
+"A saint's knuckle, or a convincing forgery.",一节圣徒的指骨，或是一件以假乱真的赝品。,item_flavor
+Iron-framed glass. The bone inside is warm.,铁框玻璃。里面的骨头是温的。,item_flavor
+Tempered case. The relic has survived three fires.,淬火匣盒。这件圣物已熬过三场大火。,item_flavor
+Forged filigree. Every curl is intentional.,锻造花丝。每一道卷纹都别有用意。,item_flavor
+Runic glass. The bone glows faintly during prayer.,符文玻璃。祈祷时，骨头会微微发光。,item_flavor
+Blessed locket. Opening it heals. Closing it hurts.,受祝挂匣。打开它能治愈，合上它会刺痛。,item_flavor
+Wrought gold. The bone has grown since it was placed.,精铸黄金。骨头自放入后一直在生长。,item_flavor
+Darksteel hinge. It opens only for the dying.,暗钢铰链。它只为垂死之人开启。,item_flavor
+The relic prays for you.,圣物在为你祈祷。,item_flavor
+The bone inside is yours. You have not lost it yet.,里面的骨头是你的。你只是还没失去它。,item_flavor
+Taken from something that did not give it.,取自某个并不情愿交出它的东西。,item_flavor
+Iron-capped. The tooth still carries venom residue.,铁质牙冠。牙上仍残留着毒液。,item_flavor
+Tempered in salt. The edge has not dulled.,以盐淬炼。锋刃从未变钝。,item_flavor
+Forged cap. The fang is longer than the creature it came from.,锻造牙冠。这颗獠牙比它原本的主人还长。,item_flavor
+Runic etching along the root. It vibrates near prey.,牙根刻有符文。靠近猎物时会震颤。,item_flavor
+Blessed fang. It draws blood through armor.,受祝獠牙。能隔着盔甲见血。,item_flavor
+Wrought setting. The fang has grown since mounting.,精铸底座。獠牙镶上后仍在生长。,item_flavor
+Darksteel cap. The venom inside has concentrated.,暗钢牙冠。其中的毒液已愈发浓烈。,item_flavor
+The fang remembers its original mouth.,獠牙还记得它原本的那张嘴。,item_flavor
+It bites on its own.,它会自己咬人。,item_flavor
+The previous owner survived everything but its removal.,前任主人什么都挺过来了，唯独没挺过它被拔下。,item_flavor
+Iron rivets. The chitin holds better than steel.,铁铆钉。这甲壳比钢还结实。,item_flavor
+Tempered surface. Blows slide off at impossible angles.,淬火表面。攻击会以不可思议的角度滑开。,item_flavor
+Forged strap. The carapace molds to new shapes.,锻造束带。甲壳会塑成新的形状。,item_flavor
+Runic edge. The iridescence shifts to match threats.,符文镶边。虹彩会随威胁而变幻。,item_flavor
+Blessed shell. It hardens on impact.,受祝甲壳。受击时会变硬。,item_flavor
+Wrought mount. The carapace has begun growing new layers.,精铸托座。甲壳已开始长出新层。,item_flavor
+Darksteel rivets. The chitin between them heals.,暗钢铆钉。铆钉间的甲壳会自行愈合。,item_flavor
+The carapace rejects damage personally.,这副甲壳把伤害当作私人恩怨来拒绝。,item_flavor
+It is growing. It has not stopped.,它在生长。从未停止。,item_flavor
+It is not the creature's heart. It beats anyway.,它不是生物的心脏。但它照样跳动。,item_flavor
+Iron-bound crystal. The pulse is steady.,铁箍水晶。脉动平稳。,item_flavor
+Tempered wire. The glow strengthens when the creature is wounded.,淬火金属丝。生物受伤时，光芒会增强。,item_flavor
+Forged cage. The crystal has cracked and healed three times.,锻造笼架。水晶已碎裂又愈合了三次。,item_flavor
+Runic wire. The heartbeat syncs to the creature's.,符文金属丝。心跳与生物同步。,item_flavor
+Blessed crystal. It beats when the creature's heart would stop.,受祝水晶。生物心脏将停时，它会跳动。,item_flavor
+Wrought frame. The heart now beats for two.,精铸框架。这颗心如今为两者跳动。,item_flavor
+Darksteel wire. The glow is visible through armor.,暗钢金属丝。光芒能透过盔甲看见。,item_flavor
+The heart decides when the creature dies. It has not decided yet.,这颗心决定生物何时死去。它还没做出决定。,item_flavor
+Cut one open and it bleeds. The Tower keeps no record of who first tried.,切开它，它就会流血。高塔没有记载是谁第一个尝试的。,item_flavor
+"Rough red stone, still warm to the touch.",粗糙的红石，摸上去仍有余温。,item_flavor
+"Cut once, cleanly. The red inside was waiting.",干净利落地切开一刀。里面的红色早已等候多时。,item_flavor
+The red deepens where blood once pooled.,曾经积血之处，红色愈发深沉。,item_flavor
+First shaping. The stone drinks the lapidary's nicked thumb.,初次成形。宝石吮吸着宝石匠划破的拇指。,item_flavor
+Each face angles toward the nearest heartbeat.,每一个刻面都朝向最近的心跳。,item_flavor
+Polished in silence. It hums near open wounds.,在寂静中打磨而成。靠近伤口时会嗡鸣。,item_flavor
+No flaw remains to slow the hunger inside.,再无瑕疵能减缓其中的饥渴。,item_flavor
+Perfectly cut. Perfectly patient.,切工完美。耐心也完美。,item_flavor
+It no longer reflects light. It reflects intent.,它不再反射光芒，而是映出意图。,item_flavor
+The last lapidary who finished one never set down the knife.,最后一位完成它的宝石匠，再也没放下过刻刀。,item_flavor
+A rough dark stone that swallows a little light.,一块会吞掉些许光线的粗糙暗石。,item_flavor
+"Cold. It was always cold, even in the forge.",冰冷。即使在熔炉中，它也一直冰冷。,item_flavor
+Polished slabs like this line the oldest tomb walls.,最古老的墓壁上，砌着这样的抛光石板。,item_flavor
+"Shaped, it sits heavier than its size allows.",成形之后，它比看上去沉重得多。,item_flavor
+Blows aimed at its bearer arrive strangely tired.,冲着持有者而来的攻击，落下时都出奇地乏力。,item_flavor
+Polished black. Arrows glance from things they should not.,抛光的漆黑。箭矢会从不该偏开的地方偏开。,item_flavor
+Not one crack in it. Not one crack because of it.,它身上没有一道裂痕，有它在，你身上也不会有。,item_flavor
+The stone accepts the strike so the flesh does not.,石头替血肉承受了这一击。,item_flavor
+"Light bends around it now, and so does harm.",如今光线会绕它而行，伤害亦然。,item_flavor
+Fortresses have been razed to recover a single one.,曾有要塞为夺回一颗而被夷为平地。,item_flavor
+"Green stone flecked red, like moss on a battlefield.",绿石上点缀着红斑，宛如战场上的青苔。,item_flavor
+The red flecks multiply. Nobody discusses it.,红斑越来越多。没人提起这件事。,item_flavor
+Wounds near it itch as they knit.,靠近它的伤口在愈合时会发痒。,item_flavor
+First cut. The flecks arrange into veins.,第一刀。红斑排列成了血脉。,item_flavor
+"It pulses. Slowly. Once a minute, then faster.",它在搏动。很慢。一分钟一次，然后越来越快。,item_flavor
+"Held tight, dying men take one more breath than owed.",紧握着它，垂死之人能多喘一口本不该有的气。,item_flavor
+Flawless — the veins now branch like living tissue.,无瑕——脉纹如今像活组织般分叉。,item_flavor
+"Perfect. It is warm, and it was not carved warm.",完美。它是温热的，但雕刻时并不温热。,item_flavor
+It beats in time with its bearer's heart. Or leads it.,它与持有者的心跳同拍。或者说，是它在引领心跳。,item_flavor
+Cut one open and it bleeds.,切开它，它就会流血。,item_flavor
+The sigil is nearly worn away. Nearly.,印记几乎磨灭殆尽。只是几乎。,item_flavor
+Freshly etched. The grooves are stained rust-red.,新近蚀刻。刻槽被染成锈红色。,item_flavor
+Carved deep enough that the stone weeps dust.,刻得极深，石头簌簌落下尘屑。,item_flavor
+Bound in iron wire to keep the edge in.,以铁丝缠缚，好让锋芒收在里面。,item_flavor
+The ward is not for the rune's protection.,这道结界并不是为了保护符文。,item_flavor
+It sparks when carried into battle.,带入战斗时，它会迸出火花。,item_flavor
+The sigil moves when watched from the corner of the eye.,用眼角余光看时，印记会移动。,item_flavor
+It rings like struck metal at the moment of a kill.,击杀的瞬间，它会如被敲击的金属般鸣响。,item_flavor
+Older than the Tower's lowest floor.,比高塔的最底层还要古老。,item_flavor
+"The first word ever carved, and it was a threat.",有史以来刻下的第一个字，是一句威胁。,item_flavor
+"A worn shield-mark, half smoothed by rubbing thumbs.",一枚磨损的盾印，被摩挲的拇指磨平了一半。,item_flavor
+The etching catches lamplight like still water.,蚀刻纹路如静水般映着灯光。,item_flavor
+Deep-carved. Rain refuses to pool in the grooves.,深深刻下。雨水不肯积在刻槽里。,item_flavor
+Iron-bound. The binding has never rusted.,铁箍缠缚。箍条从未生锈。,item_flavor
+It grows cold when danger is near — colder when it is not.,危险临近时它会变冷——危险不在时更冷。,item_flavor
+"Charged, it hums a single sustained low note.",充能后，它会持续发出一个低沉的单音。,item_flavor
+Awake now. It positions itself between.,如今已觉醒。它会挡在中间。,item_flavor
+Struck directly once. The hammer broke.,曾被正面敲击一次。锤子碎了。,item_flavor
+The sigil predates the language it was written in.,这个印记比书写它的语言还要古老。,item_flavor
+Walls fall. This does not.,城墙会倒，它不会。,item_flavor
+Most of the words are gone. The rest are trying to leave.,大部分文字已经消失，剩下的也正试图离开。,item_flavor
+"Rough paper, rougher penmanship, real power.",纸张粗糙，字迹更糙，力量却是真的。,item_flavor
+A professional hand. The margins hold corrections in another.,出自行家之手。页边留有另一人的批改。,item_flavor
+Fine calfskin. The calf is not mentioned.,上好的犊皮。没人提起那头小牛。,item_flavor
+Gold leaf in the capitals. The letters gleam without light.,首字母饰以金箔。无光时字母也会闪耀。,item_flavor
+The wax seal re-forms each time it is broken.,每次被拆开，蜡封都会重新成形。,item_flavor
+Written in a script that itches to read.,以一种读起来令人发痒的文字写成。,item_flavor
+Copying it is a crime. Reading it is a sentence.,抄写它是犯罪，阅读它是服刑。,item_flavor
+It describes tomorrow in the past tense.,它用过去时描述明天。,item_flavor
+Your name was already in it.,你的名字早就写在里面了。,item_flavor
+"Everything the Tower breaks, it returns in pieces.",高塔打碎的一切，都会以碎片的形式归还。,item_flavor
+What flows where blood is insufficient.,血液不足之处，流淌的便是它。,item_flavor
+"Ground brilliance. It still catches the light, resentfully.",研磨成粉的光辉。它仍会映出光芒，只是心有不甘。,item_flavor
+The meaning survives the stone.,石头碎了，意义犹存。,item_flavor
+Words want out. This is what they pay.,文字想要出来。这就是它们付出的代价。,item_flavor
+A faded pulse-mark. The heart it counted still beats.,一枚褪色的脉搏印记。它计数的那颗心仍在跳动。,item_flavor
+Etched in dried blood that has not aged.,以未曾老化的干血蚀刻而成。,item_flavor
+Carved by a surgeon. The grooves follow veins.,出自外科医生之手。刻槽沿着血管走向。,item_flavor
+Bound with sinew. The binding is warm.,以筋腱缠缚。缠绳是温热的。,item_flavor
+"The ward thickens the air. Breathing costs more, but returns more.",结界让空气变得浓稠。呼吸更费力，回报也更多。,item_flavor
+"Charged, it pulses. The bearer's pulse answers.",充能后，它会搏动。持有者的脉搏随之回应。,item_flavor
+"Awake. Wounds close slower, but close completely.",已觉醒。伤口愈合更慢，但会彻底愈合。,item_flavor
+It resonates with every heartbeat. Each one lands harder.,它与每一次心跳共鸣。每一下都更加有力。,item_flavor
+Ancient blood remembered in stone. The body obeys.,远古之血铭刻于石。肉体随之服从。,item_flavor
+It has kept more things alive than any healer.,它救活的东西比任何治疗师都多。,item_flavor
+Something stirs within the shell.,蛋壳里有什么在蠢动。,item_flavor
+Better than rain in the eyes. Barely.,总比雨水打进眼睛强。勉强而已。,item_flavor
+The tower does not care what you wear. Wear it anyway.,高塔不在乎你穿什么。照穿不误。,item_flavor
+"A thousand small links, one stubborn idea.",千枚小环，一个执拗的念头。,item_flavor
+See little. Be seen less.,看得少，被看得更少。,item_flavor
+A face for the faceless work.,为无名之事准备的一张脸。,item_flavor
+Knock first.,先敲门。,item_flavor
+The world through a cross of light.,透过十字光缝看世界。,item_flavor
+It fit the wyrm worse.,戴在巨龙头上更不合适。,item_flavor
+"Blessed, buffed, and billed.",祝圣、抛光、记账。,item_flavor
+It hums when you stop praying.,你一停止祈祷，它就嗡嗡作响。,item_flavor
+Stuffed with straw and stubbornness.,塞满了稻草和倔强。,item_flavor
+"A cow's last argument, your first armor.",一头牛最后的据理力争，你的第一件护甲。,item_flavor
+"Cloth outside, disagreement inside.",外层是布，内里是异议。,item_flavor
+Ten thousand small roofs.,一万片小小的屋瓦。,item_flavor
+It sings when you run. Try not to run.,你一跑它就叮当作响。尽量别跑。,item_flavor
+Shaped like a hero. Fits anyone.,按英雄的身形打造。谁都能穿。,item_flavor
+Wear the war before it wears you.,在战争把你穿上之前，先把它穿上。,item_flavor
+Quenched in something that remembers.,在某种有记忆的东西里淬过火。,item_flavor
+"Holiness, load-bearing.",神圣，且能承重。,item_flavor
+It fits perfectly. That is the problem.,它完美贴合。问题就在这里。,item_flavor
+"Blisters underneath, business on top.",底下是水泡，上面是正事。,item_flavor
+Grip first. Grieve later.,先握紧，再悲伤。,item_flavor
+A handshake people remember.,一次令人难忘的握手。,item_flavor
+The forearm is a shield that forgot.,前臂是一面遗忘了自己的盾。,item_flavor
+"Cold fingers, colder answers.",冰冷的手指，更冰冷的回答。,item_flavor
+"Every finger, armored and opinionated.",每根手指都披着甲，也都有主见。,item_flavor
+"Fists, promoted.",拳头，升职了。,item_flavor
+"They clench on their own, sometimes.",有时它们会自己攥紧。,item_flavor
+"Clean hands, at last.",终于，双手干净了。,item_flavor
+They hold things that are not there yet.,它们握着尚未出现的东西。,item_flavor
+Ten toes of pure optimism.,十根脚趾，满满的乐观。,item_flavor
+They have walked out of worse.,它们走出过更糟的地方。,item_flavor
+You will hear the argument coming.,你会听见争执由远及近。,item_flavor
+For those who arrive.,献给抵达之人。,item_flavor
+"Heavy steps, light conscience.",脚步沉重，良心轻松。,item_flavor
+Shin-first into history.,小腿先行，步入史册。,item_flavor
+The floor complains first.,地板最先抱怨。,item_flavor
+Each step signs something.,每一步都在签下些什么。,item_flavor
+Walking softly is also a weapon.,轻声行走，亦是武器。,item_flavor
+They leave no prints. They leave less.,它们不留脚印。留下的更少。,item_flavor
+The first blade issued; the last one blamed.,最先配发的剑，最后被问责的剑。,item_flavor
+Squires polish it; knights answer with it.,侍从擦拭它，骑士用它回应。,item_flavor
+"When the wall must fall, the sphere is sent.",城墙必须倒下时，便派出这颗铁球。,item_flavor
+It has stopped worse than you.,比你更凶的，它都挡过。,item_flavor
+Heraldry is a promise written in steel.,纹章是以钢铁写下的承诺。,item_flavor
+"Behind it, the world waits its turn.",在它身后，世界静候轮到自己。,item_flavor
+Every storm begins as a spark on a stick.,每一场风暴，都始于杖头的一点火花。,item_flavor
+The stone remembers the mountain; the hand remembers nothing.,石头记得山岳；手却什么都不记得。,item_flavor
+"A sun, caged and furious.",一轮被囚禁的、狂怒的太阳。,item_flavor
+"Fire, on a leash of wire.",以金属丝拴住的火焰。,item_flavor
+Gravity is negotiable; the price is not.,重力可以商量，价钱不行。,item_flavor
+She wears the volcano as a bracelet.,她把火山当作手镯戴着。,item_flavor
+"Pale wood, patient work.",苍白的木料，耐心的手艺。,item_flavor
+The runes never stray; the archer merely agrees.,符文从不偏离；弓手只是附和而已。,item_flavor
+"Taller than its bearer, older than her name.",比持弓者更高，比她的名字更古老。,item_flavor
+Count them going out; count fewer coming back.,射出时数一遍；回来时数得更少。,item_flavor
+"Silver at the mouth, death at the tip.",袋口镶银，箭尖藏死。,item_flavor
+"Each head twists as it flies, and after.",每支箭头飞行时都会旋转，命中后亦然。,item_flavor
+"Argument, simplified.",争论，简化版。,item_flavor
+"The pit taught him one lesson, repeatedly.",角斗坑只教了他一课，反复地教。,item_flavor
+A door for places that have no doors.,为没有门的地方开一扇门。,item_flavor
+Skin heals. Eventually.,皮肉会愈合的。迟早而已。,item_flavor
+Iron does the remembering.,记忆由铁来承担。,item_flavor
+"Chains, worn by the thing they could not hold.",锁链，如今戴在它们锁不住的那个东西身上。,item_flavor
+"Cheap steel, expensive lessons.",廉价的钢，昂贵的教训。,item_flavor
+It whispers on the way out.,拔出时，它会低语。,item_flavor
+"Where the hand ends, the ending begins.",手的尽头，便是终结的开始。,item_flavor
+The left hand learns by watching.,左手靠旁观学习。,item_flavor
+"Two curves, one conclusion.",两道弧线，一个结论。,item_flavor
+Symmetry is a kind of mercy. Brief.,对称是一种仁慈。短暂的仁慈。,item_flavor
+The spine broke before his spirit did.,书脊先于他的意志断裂。,item_flavor
+Older than the tower's lowest stone.,比高塔最底层的石头还要古老。,item_flavor
+"It reads itself now, aloud, to no one.",如今它会自己大声朗读，对着空无一人。,item_flavor
+"Mightier, allegedly.",据说比剑更强。,item_flavor
+Gold ink for iron truths.,以金墨书写铁一般的真理。,item_flavor
+"What it writes, occurs.",它写下的，都会发生。,item_flavor
+Taken from the hand of Vargr. The door remembers its shape.,从瓦格尔手中夺来。门还记得它的形状。,item_flavor
+Taken from the hand of Pelagos. The door remembers its shape.,从佩拉戈斯手中夺来。门还记得它的形状。,item_flavor
+Taken from the hand of Sethek. The door remembers its shape.,从塞泰克手中夺来。门还记得它的形状。,item_flavor
+Taken from the hand of Mother Vesk. The door remembers its shape.,从母虫维斯克手中夺来。门还记得它的形状。,item_flavor
+Taken from the hand of Ostrakon. The door remembers its shape.,从奥斯特拉孔手中夺来。门还记得它的形状。,item_flavor
+Taken from the hand of Keraun. The door remembers its shape.,从凯劳恩手中夺来。门还记得它的形状。,item_flavor
+Taken from the hand of Morast. The door remembers its shape.,从莫拉斯特手中夺来。门还记得它的形状。,item_flavor
+Taken from the hand of Teloma. The door remembers its shape.,从特洛玛手中夺来。门还记得它的形状。,item_flavor
+Taken from the hand of Varkolan. The door remembers its shape.,从瓦尔科兰手中夺来。门还记得它的形状。,item_flavor
+Taken from the hand of Eskaton. The door remembers its shape.,从埃斯卡顿手中夺来。门还记得它的形状。,item_flavor
+Taken from the hand of something that already died once. The door remembers its shape; it does not remember mercy.,从某个已死过一次的东西手中夺来。门记得它的形状，却不记得何为仁慈。,item_flavor
+Ram Charge,冲撞,move
+Rampart Break,破垒,move
+Rampart Annihilation,壁垒歼灭,move
+Snout Butt,拱鼻撞,move
+Skullplate Ram,颅甲冲撞,move
+Skullplate Onslaught,颅甲猛攻,move
+Quill Flick,弹刺,move
+Thorn Toss,掷棘,move
+Thornstorm Volley,棘暴齐射,move
+Bristle Up,竖毛,move
+Bristleguard,刚毛护体,move
+Ironquill Bulwark,铁刺壁垒,move
+Dust Cough,咳尘,move
+Choking Pall,呛人尘幕,move
+Suffocating Pall,窒息尘幕,move
+Run-Down,穷追,move
+Relentless Pursuit,无情追猎,move
+Pursuit Without End,无尽追猎,move
+Snap,猛咬,move
+Rending Snap,撕裂猛咬,move
+Bonecrusher Snap,碎骨猛咬,move
+Dust Kick,踢尘,move
+Grit Storm,砂砾风暴,move
+Blinding Duststorm,致盲尘暴,move
+Cave-In,塌方,move
+Collapse Barrow,冢穴崩塌,move
+Barrow Cataclysm,古冢浩劫,move
+Undermine,掘基,move
+Undermine Footing,掘松立足,move
+Foundation Ruin,根基崩毁,move
+Spade Claw,铲爪,move
+Gravedigger Claw,掘墓爪,move
+Gravebreaker Talon,破墓爪,move
+Dig In,掘地固守,move
+Entrench,深壕固守,move
+Entombed Bulwark,入墓壁垒,move
+Bud Pop,花苞迸裂,move
+Bloomburst,绽放爆裂,move
+Bloodbloom Burst,血花爆裂,move
+Thorn Flick,弹棘,move
+Thorn Volley,棘刺齐射,move
+Bramble Fusillade,荆棘连射,move
+Green Ward,绿意结界,move
+Verdant Ward,翠绿结界,move
+Verdant Aegis,翠绿庇护,move
+Tangle Snare,缠绕陷阱,move
+Briar Snare,荆棘陷阱,move
+Strangling Briarsnare,绞杀荆棘阱,move
+Chase Down,追击,move
+Reap the Fleeing,收割逃者,move
+Harvest of the Fleeing,逃者大收割,move
+Terror Gallop,恐怖奔袭,move
+Dread Gallop,惊惧奔袭,move
+Gallop of Grinding Dread,碾魂恐惧之驰,move
+Soul Chase,追魂,move
+Soul Pursuit,魂之追猎,move
+Pursuit Beyond Death,死亦追猎,move
+Night Veil,夜幕,move
+Veil of Night,夜之帷幕,move
+Shroud of Endless Night,永夜之幕,move
+Rock Blow,岩击,move
+Avalanche Blow,崩岩击,move
+Avalanche Judgment,崩岩审判,move
+Seismic Stomp,地震践踏,move
+Quake Stomp,震地践踏,move
+Earthbreaker Stomp,碎地践踏,move
+Stone Fist,石拳,move
+Granite Fist,花岗岩拳,move
+Mountain's Fist,山岳之拳,move
+Calcify,钙化,move
+Petrify Hide,石化外皮,move
+Monolith Skin,巨石之肤,move
+Root Grip,根握,move
+Strangleroots,绞杀之根,move
+Strangleroot Execution,绞根处决,move
+Root Lash,根鞭,move
+Root Scourge,根须重鞭,move
+Grasping Scourge,攫握重鞭,move
+Sap Drink,饮汁,move
+Sap Draught,汁液豪饮,move
+Draught of Stolen Years,窃岁之饮,move
+Barkskin,树皮肤,move
+Ironbark Skin,铁木之肤,move
+Hide of the Elder Bark,古木之皮,move
+Tight Knot,紧结,move
+Last Knot,最后之结,move
+The Final Knot,终结之结,move
+Gallows Drop,绞刑坠落,move
+Trapdoor Drop,活板坠落,move
+Drop of the Condemned,死囚之坠,move
+Cinch,勒紧,move
+Cinch Tight,死死勒紧,move
+Windpipe Cinch,锁喉勒,move
+Wire Whip,钢丝鞭,move
+Wire Lash,钢丝抽打,move
+Razorwire Scourge,剃刀铁丝鞭,move
+Grave Wind,坟风,move
+Funeral Wind,葬风,move
+Wind of the Final Rite,终仪之风,move
+Peck of Omens,预兆之啄,move
+Omen Peck,兆啄,move
+Peck of Ill Omens,凶兆之啄,move
+Death Knell,丧钟,move
+Tolling Knell,鸣响丧钟,move
+Knell of the Condemned,死囚丧钟,move
+Carrion Call,腐食召唤,move
+Carrion Summons,腐食召集,move
+Feast of Crows,群鸦盛宴,move
+Antler Toss,鹿角挑掷,move
+Horned Judgment,角之审判,move
+Wild Hunt Verdict,狂猎裁决,move
+Antler Jab,鹿角刺,move
+Antler Gore,鹿角顶穿,move
+Sovereign's Gore,君王顶穿,move
+Green Bloom,绿意绽放,move
+Sovereign's Bloom,君王绽放,move
+Wild Throne Bloom,荒野王座之花,move
+Wild Command,野性号令,move
+Command the Wild,号令荒野,move
+Dominion of the Hunt,狩猎统御,move
+Shell Scrape,壳刮,move
+Barnacle Grind,藤壶碾磨,move
+Barnacle Millstone,藤壶磨盘,move
+Scuttle Strike,疾走打击,move
+Scuttle Slash,疾走斩,move
+Tidal Scuttle Assault,潮汐疾袭,move
+Pincer Snip,钳剪,move
+Pincer Shear,钳切,move
+Shear of the Tidepool,潮池之剪,move
+Shell Up,缩壳,move
+Shell Wall,甲壳之墙,move
+Bastion of the Shore,海岸堡垒,move
+Jawlock,锁颚,move
+Jawlock Vice,锁颚虎钳,move
+Inescapable Jawlock,无逃锁颚,move
+Salt Wound,盐伤,move
+Salted Wound,撒盐之伤,move
+Salt in the Wound,伤口撒盐,move
+Bite,撕咬,move
+Crushing Bite,粉碎撕咬,move
+Bonesplitting Bite,裂骨撕咬,move
+Thrash,翻腾,move
+Death Thrash,死亡翻腾,move
+Deathroll Thrash,死亡翻滚,move
+Wet Croak,湿鸣,move
+Deluge Croak,洪鸣,move
+Drowning Chorus,溺亡合唱,move
+Brine Spit,卤水喷吐,move
+Salt Spit,盐喷,move
+Caustic Brinespit,腐蚀卤喷,move
+Weeping Mist,泣雾,move
+Mourning Mist,哀悼之雾,move
+Veil of Weeping Salt,泣盐之幕,move
+Puff Up,鼓胀,move
+Swell Up,膨胀,move
+Tidal Swell,潮涌膨胀,move
+Steam Punch,蒸汽拳,move
+Thermal Lance Punch,热枪拳,move
+Thermal Lance,热能长枪,move
+Cavitation Snap,空泡弹,move
+Cavitation Burst,空泡爆裂,move
+Imploding Cavitation,内爆空泡,move
+Jab Volley,连刺,move
+Piston Volley,活塞连击,move
+Pistonstorm Volley,活塞风暴连击,move
+Warm Up,热身,move
+Boiling Point,沸点,move
+Superheated Threshold,过热临界,move
+Sorrow Swell,哀潮,move
+Grief Surge,悲涌,move
+Surge of Drowning Grief,溺悲狂涌,move
+Undertow Touch,暗流之触,move
+Undertow Grasp,暗流之握,move
+Grasp of the Undertow,暗流攫握,move
+Drowning Lure,溺亡诱惑,move
+Siren Lure,塞壬之诱,move
+Lure to the Riverbed,诱入河床,move
+Mendtide,愈潮,move
+Mending Tide,治愈之潮,move
+Tide of Cold Mercy,寒慈之潮,move
+Shell Slam,甲壳猛撞,move
+Fortress Slam,堡垒猛撞,move
+Fortress Devastation,堡垒毁灭,move
+Shell Bash,甲壳重击,move
+Rampart Bash,壁垒重击,move
+Battlement Crush,城垛碾压,move
+Shell Retreat,缩壳退守,move
+Shell Seal,封壳,move
+Impenetrable Withdrawal,无隙退守,move
+Slime Coat,黏液外衣,move
+Rampart Slime,壁垒黏液,move
+Rampart Mireshield,壁垒泥盾,move
+Dark Lash,暗鞭,move
+Void Lash,虚空鞭笞,move
+Lash of the Hollow Dark,虚暗之鞭,move
+Static Discharge,静电放射,move
+Voltaic Discharge,伏打放电,move
+Abyssal Discharge,深渊放电,move
+Phase Bite,相位咬,move
+Phasing Bite,相移撕咬,move
+Bite Between Worlds,界间撕咬,move
+Unreal Slip,虚幻滑移,move
+Phase Slip,相位滑移,move
+Slip Out of Being,滑出存在,move
+Triple Snap,三连咬,move
+Sixfold Fury,六重狂怒,move
+Ninefold Fury,九重狂怒,move
+Triple Maul,三连重殴,move
+Sixfold Maul,六重重殴,move
+Ninemaw Maul,九口重殴,move
+Coral Rake,珊瑚爪击,move
+Reefclaw Rake,礁爪抓击,move
+Razorreef Rake,利礁抓击,move
+Regrow Head,再生头颅,move
+Sprout Heads,萌生群首,move
+Hydra Proliferation,海德拉增殖,move
+Tide Surge,潮涌,move
+The Deep Remembers,深海铭记,move
+The Sea Remembers,大海铭记,move
+Tide Swell,潮胀,move
+Tide of Ruin,毁灭之潮,move
+Ruinous Tide,灾厄潮汐,move
+Deep Crush,深海碾压,move
+Abyssal Crush,深渊碾压,move
+Crush of the Abyss,渊底碾压,move
+Drowned Court,溺亡宫廷,move
+Court of the Drowned,溺者之庭,move
+Drowned Dominion,溺亡领域,move
+Dark Pull,暗引,move
+Event Horizon,事件视界,move
+Past the Horizon,越过视界,move
+Ink Jet,喷墨,move
+Void Jet,虚空喷射,move
+Jet of Hungry Dark,饥暗喷射,move
+Swallowing Ink,吞没之墨,move
+Devouring Ink,噬人之墨,move
+World-Swallowing Ink,吞世之墨,move
+Blink Home,闪归,move
+Blink Away,闪离,move
+Retreat Between Stars,星间遁走,move
+Dusk Bite,暮咬,move
+Twilight Maw,暮光巨口,move
+Maw of Falling Night,夜落之口,move
+Basking Fury,曝晒之怒,move
+Sunfed Fury,饱日之怒,move
+Fury of the Last Light,残光之怒,move
+Tail Sweep,尾扫,move
+Tail Scythe,尾镰,move
+Duskscythe Sweep,暮镰横扫,move
+Duskshift,暮移,move
+Twilight Shift,暮光挪移,move
+Vanish Into Dusk,隐入暮色,move
+Shrill Cry,尖啸,move
+Requiem Shriek,安魂尖啸,move
+Shriek of the Requiem,安魂曲之啸,move
+Wailing Touch,哀嚎之触,move
+Keening Touch,恸哭之触,move
+Touch of the Dead,亡者之触,move
+Keening,恸哭,move
+Keening Wail,恸哭哀嚎,move
+Keen of the Buried,葬者之恸,move
+Death Omen,死兆,move
+Omen of Death,死亡之兆,move
+Portent of the Grave,坟墓预兆,move
+Sand Fang,沙牙,move
+Buried Fang,埋伏之牙,move
+Fang Beneath the Dunes,丘下毒牙,move
+Squeeze,挤压,move
+Constrict,缠勒,move
+Crushing Constriction,碎骨缠勒,move
+Ambush Strike,伏击,move
+Ambush Lunge,伏击猛扑,move
+Duneshadow Ambush,丘影伏击,move
+Sand Swim,沙泳,move
+Dune Glide,沙丘滑行,move
+Beneath the Sandsea,沙海之下,move
+Water Dream,水梦,move
+Dream of Water,水之梦,move
+Dream of Drowning Light,溺光之梦,move
+Double Image,双影,move
+Twin Image,孪影,move
+Legion of Images,万千幻影,move
+Mirage Claw,蜃影爪,move
+Mirage Talon,蜃影利爪,move
+Talon of False Light,伪光之爪,move
+Heat Haze,热霾,move
+Shimmering Haze,闪烁热霾,move
+Haze of the Lost Road,迷途之霾,move
+Grit Blast,砂砾冲击,move
+Sandblast,喷砂,move
+Sandblast Apocalypse,喷砂末日,move
+Grinding Gale,碾磨狂风,move
+Scouring Gale,冲刷狂风,move
+Gale of Grinding Glass,碎玻璃狂风,move
+Reform,重组,move
+Re-form,再成形,move
+Reconstitute the Storm,风暴重塑,move
+Stormwall,风暴之墙,move
+Wall of Sand,沙墙,move
+Burning Storm Wall,燃烧风暴墙,move
+Fang Flurry,獠牙乱舞,move
+Hundred Fangs,百牙,move
+Thousand Fangs,千牙,move
+Mother's Coil,母之盘绕,move
+Matriarch's Coil,族母之盘,move
+Coil of the Broodmother,巢母盘绕,move
+Viper Spit,蝰蛇喷吐,move
+Venom Spit,毒液喷吐,move
+Serpent Queen's Venom,蛇后之毒,move
+Brood Call,唤巢,move
+Call the Brood,召唤子嗣,move
+Thousand Brood,千子,move
+Hot Rend,灼热撕裂,move
+White-Hot Rend,白热撕裂,move
+Incandescent Rend,炽亮撕裂,move
+Killing Heat,杀戮之热,move
+Lethal Heat,致命之热,move
+Heat That Kills,夺命之热,move
+Sear Swipe,灼挥,move
+Searing Swipe,灼烧横扫,move
+Brandmark Swipe,烙印横扫,move
+Kindle,引燃,move
+Stoke Embers,拨旺余烬,move
+Furnace Heart,熔炉之心,move
+Slow Roll,缓滚,move
+Continental Roll,大陆翻滚,move
+Living Continent,活体大陆,move
+Weight of Ages,岁月之重,move
+Weight of Eons,万古之重,move
+The Weight of All Ages,亘古之重,move
+Ruin Shrug,毁灭一耸,move
+Shrug of Ruin,毁灭耸肩,move
+Shrug That Topples Cities,倾城一耸,move
+Ancient Patience,远古耐心,move
+Eternal Patience,永恒耐心,move
+Patience of Earth,大地的耐心,move
+Sand Gust,沙风,move
+Simoom's Wrath,焚风之怒,move
+Burning Wind Wrath,燃风之怒,move
+Sand Cyclone,沙之旋风,move
+Desert Cyclone,荒漠旋风,move
+Glass Cyclone,玻璃旋风,move
+Scouring Wind,冲刷之风,move
+Flaying Wind,剥皮之风,move
+Wind That Strips Bone,剔骨之风,move
+Djinn Step,灯神步,move
+Djinn Stride,灯神阔步,move
+Bottled Storm,瓶中风暴,move
+Tail Bite,咬尾,move
+End Is Beginning,终即是始,move
+The End Is the Beginning,终结即开端,move
+Eternal Bind,永恒束缚,move
+Endless Bind,无尽束缚,move
+Bind Without End,无终之缚,move
+World Coil,世界盘绕,move
+Worldring Coil,世界环盘绕,move
+Coil Around the World,环世盘绕,move
+Tail Swallow,吞尾,move
+Swallow the Tail,吞下己尾,move
+Devour the Self Eternal,永恒自噬,move
+Acid Spill,酸液泼洒,move
+Dissolving Flood,溶解洪流,move
+Flood of Dissolution,消融洪流,move
+Acid Dribble,酸液滴落,move
+Acid Spatter,酸液飞溅,move
+Corrosive Torrent,腐蚀洪流,move
+Corrosive Burst,腐蚀爆发,move
+Caustic Burst,灼蚀爆发,move
+Fleshmelt Burst,熔肉爆发,move
+Curl Up,蜷缩,move
+Curl Tight,紧紧蜷缩,move
+Impervious Coil,无懈蜷体,move
+Husk Pop,荚壳迸裂,move
+Husk Detonation,荚壳引爆,move
+Detonation of the Husk,荚壳大爆炸,move
+Thorn Spray,棘刺喷射,move
+Thorn Barrage,棘刺弹幕,move
+Barrage of Iron Thorns,铁棘弹幕,move
+Branch Jab,枝刺,move
+Branch Spear,枝矛,move
+Impaling Branch,穿刺之枝,move
+Mimic Bark,拟态树皮,move
+False Bark,伪装树皮,move
+Waiting Snare,静候陷阱,move
+Spore Cough,孢子咳,move
+Bloomlung,花肺,move
+Bloomlung Blight,花肺疫病,move
+Dart,飞刺,move
+Needle Dart,针刺,move
+Sporeneedle Dart,孢针飞刺,move
+Spore Dusting,孢子撒布,move
+Spore Coating,孢子覆层,move
+Dusting of Quiet Rot,静腐之尘,move
+Carrier Swarm,携菌虫群,move
+Vector Swarm,媒介虫群,move
+Patient Carriers,静候携者,move
+Silk Snip,剪丝,move
+Silken Noose,丝之绞索,move
+Silken Guillotine,丝之断头台,move
+Fang Strike,牙击,move
+Venom Fang,毒牙,move
+Widow's Fang,寡妇之牙,move
+Numbing Thread,麻痹丝线,move
+Paralytic Silk,麻痹蛛丝,move
+Paralytic Shroud,麻痹丝茧,move
+Web Corner,网角,move
+Web Larder,网中储粮,move
+Larder of the Wrapped,裹茧粮仓,move
+Leaf Snap,叶夹,move
+Rooted Feast,扎根盛宴,move
+Feast of the Rooted,根者之宴,move
+Snap Trap,夹阱,move
+Jawleaf Trap,颚叶陷阱,move
+Mantrap Guillotine,捕人断头台,move
+Sap Bath,汁液浴,move
+Digestive Bath,消化浴,move
+Dissolution Bath,溶解浴,move
+Overgrowth,蔓生,move
+Rampant Overgrowth,狂乱蔓生,move
+Devouring Overgrowth,噬人蔓生,move
+Sick Bite,病咬,move
+Pandemic Bite,大流行之咬,move
+Bite of the Great Dying,大灭绝之咬,move
+Chitin Clip,甲壳剪,move
+Chitin Shear,甲壳切,move
+Plagueshell Shear,疫壳剪切,move
+Release Colony,释放菌落,move
+Release the Colony,放出菌落,move
+Unleash the Colony,菌落肆虐,move
+Host's Gift,宿主之礼,move
+Carrier's Gift,携者之礼,move
+Gift of the Patient Host,耐心宿主之礼,move
+Whispered Prayer,低语祈祷,move
+Answered Prayer,应验祈祷,move
+Prayer in Blood,血之祈祷,move
+Prayer Strike,祈祷打击,move
+Zealot Strike,狂信打击,move
+Zealot's Consecration,狂信者祝圣,move
+Between Blinks,眨眼之间,move
+Between Heartbeats,心跳之间,move
+Between the Last Blinks,临终眨眼间,move
+Silent Grace,静默恩典,move
+Solemn Grace,庄严恩典,move
+Grace of the Silent Order,静默教团恩典,move
+Swarm Gather,虫群集结,move
+The Swarm Descends,虫群降临,move
+Descent of the Devourers,噬者降临,move
+Swarm Surge,虫群涌动,move
+Swarm Tide,虫群浪潮,move
+Tide of Chitin,甲壳浪潮,move
+Strip Field,掠田,move
+Strip the Field,掠尽田野,move
+Leave Nothing Green,寸草不留,move
+Devour All,鲸吞,move
+Consume the Harvest,吞食收成,move
+Crown Swarm,冠冕虫群,move
+Coronation Swarm,加冕虫群,move
+Crowned Swarm,戴冠虫群,move
+Sting,蜇刺,move
+Royal Sting,王家蜇刺,move
+Sting of the Sovereign,君王之蜇,move
+Queen's Decree,女王敕令,move
+Queen's Edict,女王谕令,move
+Edict of the Hive Throne,巢座谕令,move
+Spore Brood,孢子幼群,move
+Brood Bloom,幼群绽放,move
+Vesper Brood,暮祷幼群,move
+Root Stir,根动,move
+The Deep Roots Rise,深根崛起,move
+Rise of the Deep Roots,深根升起,move
+Root Grasp,根攫,move
+Worldroot Grasp,世界根攫握,move
+Grasp of the World-Root,世界之根攫握,move
+Root Aegis,根之庇护,move
+World-Root Aegis,世界根庇护,move
+Aegis of the World Tree,世界树庇护,move
+Sap of Ages,岁月之汁,move
+Ageless Sap,不老汁液,move
+Sap of Uncounted Ages,无尽岁月之汁,move
+Face Slam,面撞,move
+Sheer Face Slam,峭壁猛撞,move
+Sheer Cliff Obliteration,绝壁湮灭,move
+Drop Ambush,坠落伏击,move
+Deadfall Ambush,落石伏击,move
+Deadfall Execution,落石处决,move
+Pincer Crush,钳碎,move
+Vice Crush,虎钳碾碎,move
+Vicegrip Ruin,虎钳毁灭,move
+Stonecling,附石,move
+Stonegrip Cling,石握紧附,move
+Bedrock Anchor,基岩锚定,move
+Heavy Roll,重滚,move
+Juggernaut Roll,巨力翻滚,move
+Juggernaut Devastation,巨力毁灭,move
+Momentum Crash,冲势撞击,move
+Momentum Wreck,冲势摧毁,move
+Unstoppable Collision,无可阻挡之撞,move
+Roll Over,碾过,move
+Flatten,压平,move
+Steamroll Ruin,碾压毁灭,move
+Spikeball,刺球,move
+Spiked Shell,尖刺甲壳,move
+Impaler Sphere,穿刺球,move
+Rock Chew,嚼石,move
+Consume Bedrock,吞食基岩,move
+Devour the Bedrock,吞尽基岩,move
+Caustic Glide,腐蚀滑行,move
+Caustic Slither,腐蚀蠕行,move
+Slither of Molten Ruin,熔毁蠕行,move
+Dissolve Stone,溶石,move
+Melt Stone,熔石,move
+Dissolution of Stone,岩石消融,move
+Molten Mucus,熔融黏液,move
+Slag Mucus,熔渣黏液,move
+Mucus of Molten Slag,熔渣之涎,move
+Crag Dive,峭岩俯冲,move
+Cragfire Dive,岩火俯冲,move
+Cragfire Devastation,岩火毁灭,move
+Furnace Breath,熔炉吐息,move
+Kiln Breath,窑火吐息,move
+Mountain Forge,群山熔炉,move
+Talon Rake,利爪抓挠,move
+Talon Gouge,利爪剜刺,move
+Ridgeclaw Evisceration,脊爪开膛,move
+Updraft,上升气流,move
+Thermal Updraft,热力上升流,move
+Ride the Burning Wind,乘燃风,move
+Stern Ruling,严厉裁决,move
+Tyrant's Verdict,暴君裁决,move
+Stone Verdict,石之裁决,move
+Scornful Backhand,轻蔑反手,move
+Contemptuous Backhand,鄙夷反手,move
+Backhand of Utter Scorn,极蔑反手,move
+Decree of Stone,石之敕令,move
+Stone Decree,石敕,move
+Decree Written in Stone,刻石之令,move
+Court of Rock,岩之法庭,move
+Court of Stone,石之法庭,move
+Court of the Unmoving,不动法庭,move
+Blood Sip,啜血,move
+Exsanguinate,放血,move
+Total Exsanguination,抽干鲜血,move
+Crimson Tithe,猩红贡赋,move
+Blood Tithe,血之贡赋,move
+Tithe of Crimson,猩红之税,move
+Tap Vein,刺脉,move
+Tap the Vein,刺破血脉,move
+Open the Great Vein,切开大动脉,move
+Anticoagulant,抗凝毒,move
+Thinning Venom,稀血毒,move
+Endless Bleed,流血不止,move
+Claw Tide,爪潮,move
+Wall of Claws,爪墙,move
+Tidal Wall of Claws,潮涌爪墙,move
+Many Grips,群握,move
+Multitude Grip,万众之握,move
+Grip of the Multitude,群体攫握,move
+Colony Slam,群落猛击,move
+Colony Avalanche,群落雪崩,move
+Avalanche of the Colony,群落大崩落,move
+Fuse Ranks,合阵,move
+Lock Ranks,锁阵,move
+Unbreakable Phalanx,不破方阵,move
+Dim Light,黯光,move
+Swallow Light,吞光,move
+Swallow the Light Whole,一口吞光,move
+Absent Sting,无形之蜇,move
+Hollow Sting,空洞之蜇,move
+Sting From Nowhere,无端之蜇,move
+Nullpinch,虚无钳,move
+Null Pinch,虚无夹击,move
+Pinch of Unbeing,湮存之钳,move
+Lightless Carapace,无光甲壳,move
+Sunless Carapace,无日甲壳,move
+Devoured Light,噬光,move
+Heavy Blow,重击,move
+Titan's Downstroke,泰坦下劈,move
+Downstroke of the Titan,泰坦之劈,move
+Iron Backfist,铁背拳,move
+Bronze Backfist,青铜背拳,move
+Backfist of the Colossus,巨像背拳,move
+Ore-Bound Bulk,矿缚之躯,move
+Orebound Mass,矿缚巨躯,move
+Bulk of the Living Mine,活矿之躯,move
+Foundry Guard,铸炉守势,move
+Foundry Stance,铸炉架势,move
+Guard of the First Forge,初炉之守,move
+Lava Spurt,熔岩喷涌,move
+Eruption,喷发,move
+Cataclysmic Eruption,灾变喷发,move
+Magma Vent,岩浆喷口,move
+Magma Geyser,岩浆间歇泉,move
+Pyroclastic Vent,火山碎屑喷发,move
+Obsidian Edge,黑曜锋,move
+Obsidian Blade,黑曜石刃,move
+Volcanic Glass Guillotine,火山玻璃断头台,move
+Cooling Shell,冷却外壳,move
+Basalt Shell,玄武岩壳,move
+Igneous Carapace,火成甲壳,move
+Sky Cut,天切,move
+Sky Lacerate,裂空,move
+Sky-Rending Laceration,撕天裂斩,move
+Scissor Dive,剪刀俯冲,move
+Shearing Dive,剪切俯冲,move
+Guillotine Dive,断头俯冲,move
+Wind Shear,风切,move
+Cutting Shear,切割风剪,move
+Bladewind Shear,刃风切,move
+Wake Cut,尾流切,move
+Swift Wake,疾速尾流,move
+Slipstream Ascendant,滑流升腾,move
+Storm Perch,风暴栖枝,move
+Stormcrown,风暴之冠,move
+Crown of the Storm,风暴王冠,move
+Ball Lightning,球状闪电,move
+Orb Lightning,雷球,move
+Screaming Volts,尖啸电流,move
+Static Peck,静电啄,move
+Voltaic Peck,伏打啄,move
+Peck of the Thunderhead,雷云之啄,move
+Thundercall,唤雷,move
+Call Thunder,召雷,move
+Thunderhead Call,雷云召唤,move
+Static Flash,静电闪光,move
+Overload Flash,过载闪光,move
+Overload Cataclysm,过载灾变,move
+Dust Zap,尘电,move
+Charged Dust,带电尘埃,move
+Galvanic Dustburst,电流尘爆,move
+EM Pulse,EM脉冲,move
+Electromagnetic Pulse,电磁脉冲,move
+Fieldkiller Pulse,灭场脉冲,move
+Magnet Wings,磁翼,move
+Magnetized Wings,磁化之翼,move
+Wings of the Iron Storm,铁暴之翼,move
+Stone Lift,举石,move
+Mountain-Bearer,负山者,move
+Bearer of Mountains,擎山者,move
+Boulder Drop,巨石坠击,move
+Crag Drop,峭岩坠击,move
+Fall of Mountains,群山崩落,move
+Hunting Stoop,猎食俯冲,move
+Deathstoop,死亡俯冲,move
+Stoop of the Sky Tyrant,天空暴君俯冲,move
+Talon Snatch,利爪攫取,move
+Talon Seize,利爪擒拿,move
+Talon Seizure,利爪擒杀,move
+Wind Fang,风牙,move
+Twisterfang,旋风牙,move
+Twisterfang Cataclysm,旋风牙灾变,move
+Keening Bite,哀鸣之咬,move
+Howling Bite,嚎叫之咬,move
+Bite of the Keening Wind,哀风之咬,move
+Tornado Howl,龙卷嚎叫,move
+Cyclone Howl,气旋嚎叫,move
+Devouring Sky,噬天,move
+Eye of the Wind,风之眼,move
+Eye of the Funnel,漏斗之眼,move
+Heart of the Vortex,漩涡之心,move
+Volt Touch,伏特之触,move
+Megavolt Delivery,兆伏传导,move
+Megavolt Execution,兆伏处决,move
+Discharge Sweep,放电横扫,move
+Discharge Arc,放电电弧,move
+Arc of Total Discharge,全放电弧,move
+Volt Graze,伏特擦击,move
+Volt Brush,伏特拂击,move
+Graze of the Live Wire,带电擦击,move
+Thermal Ride,乘热流,move
+Thermal Soar,热流翱翔,move
+Ride the Burning Current,乘燃流,move
+Sky Verdict,天空裁决,move
+Serpent's Verdict,巨蛇裁决,move
+Sky Serpent's Verdict,天蛇裁决,move
+Plume Spark,羽火花,move
+Feathered Lightning,羽之闪电,move
+Feathered Thunderbolt,羽之雷霆,move
+Plume Strike,羽击,move
+Plumed Lash,羽鞭,move
+Quetzal Scourge,魁札尔之鞭,move
+Cloudcoil,云盘,move
+Stormcoil,风暴盘绕,move
+Coil of the High Storm,高空风暴盘绕,move
+Many Roars,群吼,move
+Hundred-Headed Storm,百首风暴,move
+Hundred-Head Storm,百头风暴,move
+Storm Maw,风暴巨口,move
+Tempest Maw,狂岚巨口,move
+Maw of the Worldstorm,世界风暴之口,move
+Pressure Front,气压锋面,move
+Crushing Front,碾压锋面,move
+Front of Crushing Skies,碾天锋面,move
+Cyclone Shield,气旋护盾,move
+Cyclone Ward,气旋结界,move
+Ward of the Turning Sky,旋天结界,move
+First Gust,初风,move
+Primordial Gale,太古狂风,move
+The Wind That Was First,最初之风,move
+Feather Flick,弹羽,move
+Stormfeather Volley,暴羽齐射,move
+Stormfeather Tempest,暴羽狂岚,move
+Rising Draft,上升风,move
+Leading Wind,引领之风,move
+First Wind,第一阵风,move
+Following Gale,尾随狂风,move
+Relentless Gale,无情狂风,move
+Unbroken Gale,不息狂风,move
+Storm Rise,风暴升起,move
+I Am the Storm,吾即风暴,move
+I Am the Storm Entire,吾即风暴本身,move
+Lightning Spear,闪电之矛,move
+Levin Spear,电光之矛,move
+Spear of the Sky's Wrath,天怒之矛,move
+Thunder Rake,雷霆抓击,move
+Thunderclaw Rake,雷爪抓击,move
+Rake of Rolling Thunder,滚雷抓击,move
+Stormcall,风暴呼唤,move
+Call the Storm,召唤风暴,move
+Convocation of Storms,风暴召集,move
+Hop Ball,跳球,move
+Launch Ball,发射球,move
+Ballistic Launch,弹道发射,move
+Gut Splash,腹水泼溅,move
+Gutwater Burst,腹水爆发,move
+Gutwater Deluge,腹水洪流,move
+Bounce Slam,弹跳重击,move
+Crushing Bounce,碾压弹跳,move
+Slamdown Rebound,砸地回弹,move
+Puff,鼓气,move
+Inflate,充气膨胀,move
+Titanic Inflation,巨型膨胀,move
+Odd Dream,怪梦,move
+Fever Dream,狂热之梦,move
+Fever Beyond Waking,不醒热梦,move
+Slick Strike,滑击,move
+Slick Lash,滑鞭,move
+Toxin-Slick Lash,毒滑之鞭,move
+Hallucinogen Coat,致幻涂层,move
+Delirium Coat,谵妄涂层,move
+Waking Nightmare,清醒噩梦,move
+Skinshed,褪皮,move
+Shed Skin,蜕皮,move
+Molt of the Deceiver,欺诈者之蜕,move
+Blight Buzz,疫病嗡鸣,move
+Blightswarm,疫病虫群,move
+Blightswarm Pestilence,疫群瘟灾,move
+Reanimating Sting,复生之蜇,move
+Gravewake Sting,唤墓之蜇,move
+Sting of the Dead,亡者之蜇,move
+Corpse Nip,啃尸,move
+Carrion Nip,腐肉啃咬,move
+Carrion-Feeder's Bite,食腐者之咬,move
+Plague Eggs,瘟疫卵,move
+Blight Clutch,疫病卵窝,move
+Clutch of Writhing Blight,蠕动疫卵,move
+Stitch Skin,缝皮,move
+Stitchflesh,缝合血肉,move
+Stitchflesh Abomination,缝合憎恶,move
+Bonetongue,骨舌,move
+Bonetongue Lash,骨舌鞭,move
+Marrowtongue Scourge,髓舌重鞭,move
+Bog Blessing,沼泽祝福,move
+Bog Benediction,沼泽赐福,move
+Benediction of Rot,腐朽赐福,move
+Deathcroak,死亡蛙鸣,move
+Dirgecroak,挽歌蛙鸣,move
+Croak of the Grave,坟墓蛙鸣,move
+Glow Snack,荧光点心,move
+Glowfeast,荧光盛宴,move
+Feast of Stolen Light,窃光之宴,move
+Lure Flick,诱饵轻甩,move
+Lure Flash,诱光一闪,move
+Flash of the False Beacon,伪灯塔之闪,move
+Mesmer Light,催眠光,move
+Mesmeric Light,迷魂之光,move
+Light That Binds the Will,缚志之光,move
+Lost Lantern,迷失提灯,move
+Lantern of the Lost,迷途者之灯,move
+Lure of the Lost,迷途者之诱,move
+Fen Blow,沼泽一击,move
+Fenbreaker,破沼,move
+Fenbreaker Cataclysm,破沼灾变,move
+Marsh Maul,沼泽重殴,move
+Mire Maul,泥沼重殴,move
+Maul of the Black Fen,黑沼重殴,move
+Parasite Shrug,抖落寄生,move
+Leech Shrug,抖落水蛭,move
+Shrug Off the Feeders,抖落吸食者,move
+Bog Lurk,沼泽潜伏,move
+Fen Lurk,沼地潜伏,move
+Terror Beneath the Fen,沼下恐怖,move
+Cold Pull,寒拽,move
+Take You Under,拖你下水,move
+Dragged to the Deep,拖入深处,move
+Cold Grip,寒握,move
+Drowned Grip,溺者之握,move
+Grip of the Drowned,溺亡攫握,move
+Half-Here,半在此处,move
+Half-Departed,半已离去,move
+Neither Shore,两岸皆非,move
+Wet Memory,湿漉记忆,move
+Drowned Memory,溺亡记忆,move
+Memory of Drowning,溺水之忆,move
+String Pull,牵线,move
+Marionette Harvest,提线收割,move
+Harvest of Marionettes,傀儡收割,move
+Strangling Growth,绞杀生长,move
+Choking Growth,窒息生长,move
+Gallows Growth,绞架生长,move
+Tendril Snap,卷须抽击,move
+Tendril Lash,卷须鞭,move
+Hangman's Tendril,刽子手卷须,move
+Puppet Corpse,傀儡尸,move
+Corpse Puppet,尸傀儡,move
+Dance of the Hanged,吊死者之舞,move
+Mud Stir,搅泥,move
+What Lies Beneath,底下之物,move
+What Waits Beneath,底下静候之物,move
+Brood Slap,育雏掌掴,move
+Brood Swipe,育雏横扫,move
+Broodmother's Backhand,巢母反手,move
+Mother's Milk,母乳,move
+Mire Milk,泥沼之乳,move
+Milk of the Black Mire,黑沼之乳,move
+Spawn Tide,卵潮,move
+Brood Tide,幼群之潮,move
+Tide of Spawn,产卵狂潮,move
+Fading Touch,消逝之触,move
+Nameless End,无名终结,move
+End Without a Name,无名之终,move
+Absent Touch,虚无之触,move
+Hollow Touch,空洞之触,move
+Touch of Absence,缺失之触,move
+Unwritten,未书,move
+Unwritten Fate,未书之命,move
+Erased From Record,除名,move
+Mourning Veil,哀悼面纱,move
+Veil of Mourning,哀悼之纱,move
+Nameless Shroud,无名裹尸布,move
+Spore Drift,孢子飘散,move
+Sporefall,孢子雨,move
+Sporefall Blight,孢雨疫病,move
+Cap Thump,菌盖捶击,move
+Cap Slam,菌盖猛击,move
+Mycothump Crush,菌捶碾压,move
+Vertigo Spores,眩晕孢子,move
+Dizzying Spores,晕眩孢子,move
+Spores of Spinning Dark,旋暗孢子,move
+Mycowall,菌墙,move
+Fungal Wall,真菌之墙,move
+Wall of Creeping Rot,蔓腐之墙,move
+Ink Splash,泼墨,move
+Memory Flood,记忆洪流,move
+Flood of Forgetting,遗忘洪流,move
+Tentacle Slap,触手拍击,move
+Tentacle Lash,触手鞭打,move
+Manyarm Onslaught,千臂猛攻,move
+Lethean Ink,忘川之墨,move
+Ink of Lethe,勒忒之墨,move
+Ink of Oblivion,遗忘之墨,move
+Jet Retreat,喷射撤退,move
+Ink Jet Retreat,喷墨撤退,move
+Vanish in Black Water,遁入黑水,move
+First Spore,初孢,move
+Total Colonization,全面殖化,move
+Colonization Absolute,绝对殖化,move
+Spore Lash,孢子鞭,move
+Mold Lash,霉菌鞭,move
+Lash of Creeping Veins,蔓脉之鞭,move
+Neural Threading,神经穿线,move
+Nerve Threading,神经缝缀,move
+Threading of the Mind,心智穿线,move
+Symbiotic Bloom,共生绽放,move
+Parasitic Bloom,寄生绽放,move
+Bloom of the Willing Host,甘愿宿主之花,move
+Foretold Blow,预言一击,move
+Inevitable Future,必然未来,move
+The Inevitable Future,无可避免的未来,move
+Shell Chime,螺壳鸣响,move
+Oracle Chime,神谕鸣响,move
+Chime of the Oracle Shell,神谕螺之鸣,move
+Glimpse the End,窥见终末,move
+See the End,目睹终末,move
+Vision of the Final Hour,终时幻视,move
+Prophecy Ward,预言结界,move
+Foresight Ward,先见结界,move
+Ward of Written Fate,定命结界,move
+Odd Unfold,怪异展开,move
+Unfolding Horror,展开的恐怖,move
+Horror Unfolding,恐怖展开,move
+Skitterflank,侧窜,move
+Flankskitter,窜侧,move
+Skitter Past Reason,窜越理智,move
+Jointed Lunge,关节猛扑,move
+Manyjoint Lunge,多关节猛扑,move
+Lunge of Too Many Joints,过多关节之扑,move
+Wrong Angles,错误角度,move
+Impossible Angles,不可能之角,move
+Geometry of Madness,疯狂几何,move
+Quick Fade,速隐,move
+Vanishing Strike,消隐打击,move
+Strike From Nowhere,无处来袭,move
+Traceflash,残迹闪,move
+Flashtrace,闪迹,move
+Blinding Traceflash,致盲残迹闪,move
+Afterimage Trail,残像轨迹,move
+Ghostlight Trail,鬼光轨迹,move
+Trail of False Ghosts,伪鬼之迹,move
+Hypnotic Wake,催眠尾流,move
+Mesmer Wake,迷魂尾流,move
+Wake of the Entranced,恍惚者之迹,move
+Surface Rise,浮出水面,move
+Breach of the Deep,深海破浪,move
+Sunless Breach,无日破浪,move
+Bulk Drift,巨躯漂流,move
+Bulk Ram,巨躯冲撞,move
+Leviathan Drift,利维坦漂流,move
+Spore Ballast,孢子压舱,move
+Ballast Bloom,压舱绽放,move
+Ballast of Blooming Rot,绽腐压舱,move
+Filter Cleanse,滤食净化,move
+Filter Purge,滤食清除,move
+Baleen Purge,鲸须清除,move
+Gone Fishing,钓鱼去了,move
+Where It Goes,它的去处,move
+Where Lost Things Go,失物归处,move
+Spacetooth,空间之牙,move
+Riftooth,裂隙之牙,move
+Teeth of Torn Space,裂空之齿,move
+Riftlure Snap,裂隙诱咬,move
+Riftlure Bite,裂隙诱噬,move
+Snap of the False Star,伪星之咬,move
+Bait the Hole,诱洞,move
+Bait the Rift,诱入裂隙,move
+Lure of the Hungry Void,饥饿虚空之诱,move
+Hyphal Sting,菌丝之蜇,move
+Hyphal Lance,菌丝长枪,move
+Sting of the Undernet,地网之蜇,move
+The Network Feeds,网络进食,move
+The Network Provides,网络供给,move
+The Network Provides All,网络供给一切,move
+Rot and Renew,腐朽与新生,move
+Rot Into Renewal,腐而复生,move
+Decay Eternal Renewal,衰朽永续新生,move
+We Spread,我们蔓延,move
+We Are Elsewhere,我们在别处,move
+Always Everywhere,无处不在,move
+Deep Stir,深海搅动,move
+Wake the Deep,唤醒深海,move
+The Deep Awakens,深海苏醒,move
+Cavern Collapse,洞窟崩塌,move
+Trench Collapse,海沟崩塌,move
+Collapse of the Trench,海沟大崩塌,move
+Eightfold Grip,八重攫握,move
+Eightarm Grip,八臂攫握,move
+Grip of Eight Dooms,八劫之握,move
+Colossal Sweep,巨力横扫,move
+Titanic Sweep,泰坦横扫,move
+Sweep of the Leviathan,利维坦横扫,move
+Grief Shard,悲伤碎片,move
+Crystallize Grief,悲伤结晶,move
+Grief Made Crystal,悲恸成晶,move
+Light Lance,光枪,move
+Refraction Lance,折射光枪,move
+Prismatic Impalement,棱光穿刺,move
+Shardflick,弹晶,move
+Shard Scatter,碎晶散射,move
+Scattershard Volley,散晶齐射,move
+Prism Orbit,棱镜环绕,move
+Shard Orbit,碎晶环绕,move
+Orbit of Broken Light,碎光环绕,move
+Thin Sip,浅啜,move
+Deep Draught,深饮,move
+Final Draught,最后一饮,move
+Life Sip,啜命,move
+Life Drain,生命汲取,move
+Lifeblood Harvest,命血收割,move
+Grey Nip,灰啃,move
+Ashen Bite,灰烬之咬,move
+Cindershroud Bite,烬幕之咬,move
+Grey Wake,灰色尾迹,move
+Ashen Wake,灰烬尾迹,move
+Wake of Cinders,余烬之迹,move
+Core Beam,核心光束,move
+Heartstone Beam,心石光束,move
+Heartstone Annihilation,心石歼灭,move
+Facet Jab,刻面刺,move
+Faceted Jab,多面刺击,move
+Facetstorm Assault,刻面风暴突袭,move
+Core Shine,核心闪耀,move
+Core Radiance,核心光辉,move
+Radiance of Stone,岩石光辉,move
+Hardlight Wall,硬光之墙,move
+Hardlight Bastion,硬光堡垒,move
+Bastion of Living Light,活光堡垒,move
+First Cut,第一刀,move
+Red Portrait,血色肖像,move
+The Masterpiece,杰作,move
+Clean Cut,干净一刀,move
+Surgical Strike,外科打击,move
+Vivisection Stroke,活剖之击,move
+Incision,切口,move
+Deep Incision,深切口,move
+Anatomist's Incision,解剖师之切,move
+Vein Trace,循脉,move
+Arterial Map,动脉图,move
+Arterial Cartography,动脉测绘,move
+Wrong Fit,错位,move
+Reassembled Wrong,错误重组,move
+Reassembled All Wrong,全盘错组,move
+Piecewise Assault,分段突袭,move
+Piecemeal Assault,零碎突袭,move
+Assault of Broken Pieces,碎块突袭,move
+Fragment Swipe,碎片横扫,move
+Fragment Slash,碎片斩,move
+Slash of Shattered Selves,碎我之斩,move
+Come Apart,散开,move
+Fall Apart,崩散,move
+Come Apart at the Seams,分崩离析,move
+Track Down,追踪,move
+The Hunt Concludes,狩猎终结,move
+The Hunt Ends All,狩猎终结一切,move
+Devour Vitality,吞噬活力,move
+Consume Vitality,吞食活力,move
+Devour the Living Spark,吞噬生命之火,move
+Predestined Bite,宿命之咬,move
+Fated Bite,命定之咬,move
+Bite Written in Fate,命书之咬,move
+Scent of Endings,终末气息,move
+Scent the Ending,嗅出终末,move
+Scent of All Endings,万物终末之息,move
+Rough Copy,粗糙复制,move
+Perfect Reflection,完美倒影,move
+Reflection Made Flesh,倒影成肉,move
+Mirror Jab,镜刺,move
+Mirrored Strike,镜像打击,move
+Strike From the Glass,镜中一击,move
+Copied Stance,复制架势,move
+Stolen Stance,窃取架势,move
+Stolen Form,窃取形体,move
+Familiar Face,熟悉面孔,move
+Borrowed Face,借来的面孔,move
+The Face You Trust,你信任的脸,move
+Cold Greeting,冷淡问候,move
+Red Formality,血色礼节,move
+The Red Formality,血之礼仪,move
+Noble Feast,贵族盛宴,move
+Noble's Feast,贵族之宴,move
+Feast of the Pale Court,苍白宫廷之宴,move
+Contempt,蔑视,move
+Cold Contempt,冷酷蔑视,move
+Contempt of Centuries,百世蔑视,move
+Command Presence,威压,move
+Commanding Presence,统御威仪,move
+Blood Command,血之号令,move
+Gem Spark,宝石火花,move
+Gemfire Bolt,宝焰弹,move
+Gemfire Cataclysm,宝焰灾变,move
+Soulspark,魂火花,move
+Soulfire Spark,魂火之花,move
+Soulfire Lance,魂火长枪,move
+Leaden Curse,铅之诅咒,move
+Curse of Lead,铅咒,move
+Leaden Heart,铅心,move
+Soul Aside,魂魄旁置,move
+Soul Elsewhere,魂在别处,move
+Soul Beyond Reach,魂不可及,move
+Glass Step,镜步,move
+Step Through,穿行,move
+Step Through the Glass,穿镜而行,move
+Backwards Cut,倒斩,move
+Reversed Cut,逆斩,move
+Cut From the Wrong Side,反面之斩,move
+What It Shows,镜中所示,move
+What It Reflects,镜中所映,move
+What the Mirror Keeps,镜中所藏,move
+Empty Glass,空镜,move
+Nothing Looks Back,无物回望,move
+And Nothing Looks Back,再无物回望,move
+Gust Crack,风裂,move
+Windshear Burst,风切爆裂,move
+Shearwind Detonation,切风引爆,move
+Draft Storm,气流风暴,move
+Galestorm,狂风暴,move
+Vortex Maelstrom,漩涡狂澜,move
+Wind Nick,风刮,move
+Wind Slash,风斩,move
+Razorwind Cut,利风切,move
+Self-Split,自我分裂,move
+Self-Replicate,自我复制,move
+Endless Replication,无尽复制,move
+Ember March,余烬行军,move
+Bonefire March,骨火行军,move
+Bonefire Procession,骨火队列,move
+Ash Cuff,灰烬手铐,move
+Cinder Shackle,余烬枷锁,move
+Pyre Shackle,火葬枷锁,move
+Lingering Will,残留意志,move
+Residual Purpose,残余使命,move
+Purpose Beyond Death,死亦使命,move
+Ash Puff,喷灰,move
+Choking Cloud,窒息之云,move
+Smothering Ashfall,闷杀灰雨,move
+Hungry Maw,饥饿之口,move
+Sacrificial Maw,献祭之口,move
+Maw of Burnt Offerings,燔祭之口,move
+Idol Fist,神像之拳,move
+Brazen Fist,黄铜之拳,move
+Fist of the Brass Idol,铜像之拳,move
+Furnace Belly,熔炉之腹,move
+Furnace Gut,炉腹,move
+Belly of Devouring Flame,噬焰之腹,move
+Iron Adoration,钢铁崇拜,move
+Brazen Adoration,黄铜崇拜,move
+Furnace Adoration,熔炉崇拜,move
+Flare Spit,喷焰,move
+Wyrmflare,龙焰,move
+Wyrmflare Conflagration,龙焰大火,move
+Fire Coil,火之盘绕,move
+Burning Coil,燃烧盘绕,move
+Immolating Coil,焚身盘绕,move
+Flame Lash,火焰鞭,move
+Flame Whipcrack,烈焰鞭响,move
+Cinderwhip Fury,烬鞭狂怒,move
+Scorch Trail,焦痕,move
+Blazing Trail,烈焰之径,move
+Trail of Embers,余烬之路,move
+Three Bites,三咬,move
+Three Heads One Roar,三首一吼,move
+Three Heads One Hunger,三首一饥,move
+Split Breath,分裂吐息,move
+Trisected Breath,三分吐息,move
+Elemental Convergence,元素汇聚,move
+Threefold Snap,三重咬,move
+Threefold Rend,三重撕裂,move
+Threefold Evisceration,三重开膛,move
+Discordant Roar,不谐咆哮,move
+Cacophonous Roar,嘈杂咆哮,move
+Roar of Three Furies,三怒咆哮,move
+Furnace Roar,熔炉咆哮,move
+Blastfurnace Roar,高炉咆哮,move
+Blastfurnace Cataclysm,高炉灾变,move
+Molten Rivets,熔融铆钉,move
+Rivet Barrage,铆钉弹幕,move
+Molten Rivet Barrage,熔铆弹幕,move
+Pig-Iron Bite,生铁之咬,move
+Cast-Iron Bite,铸铁之咬,move
+Foundry-Forged Bite,铸炉锻咬,move
+Foundry Hide,铸炉之皮,move
+Tempered Hide,淬火之皮,move
+Slagplate Armor,渣板铠甲,move
+Flare Up,骤燃,move
+Uncontained,失控,move
+Uncontainable Inferno,失控烈狱,move
+Containment Failure,收容失效,move
+Breach Event,泄漏事件,move
+Total Breach,全面泄漏,move
+Cinder Slash,余烬斩,move
+Cinder Scythe,余烬镰,move
+Slash of Living Fire,活火之斩,move
+Stoke,添火,move
+Stoke the Core,添火炉心,move
+Feed the Conflagration,助燃大火,move
+Standing Watch,持续警戒,move
+Contingency Zero,零号预案,move
+Contingency Absolute,绝对预案,move
+Warden Strike,守望者打击,move
+Warden's Strike,守望者之击,move
+Strike of the Last Warden,末代守望者之击,move
+Standing Order,长期指令,move
+Standing Orders,常备命令,move
+Deathless Orders,不灭指令,move
+Protocol Shield,协议护盾,move
+Shield Protocol,护盾协议,move
+Eternal Watch,永恒守望,move
+First Spark,初始火花,move
+Before the Light,光明之前,move
+Before There Was Light,未有光之时,move
+Primordial Spark,太古火花,move
+Primordial Flare,太古耀焰,move
+Spark of the First Dawn,初晓之火,move
+First Flame,初焰,move
+The First Flame,最初之焰,move
+Flame Before Creation,创世前之焰,move
+Anoint in Fire,火之膏抹,move
+Baptism of Fire,火之洗礼,move
+Anointment of the Pyre,柴堆圣膏,move
+Redline,红线,move
+Deprecation,弃用,move
+Total Deprecation,全面弃用,move
+Editing Stroke,编辑一笔,move
+Correcting Stroke,修正一笔,move
+Authorial Erasure,作者抹除,move
+Rewrite Terms,改写条款,move
+Rewrite the Terms,重写条款,move
+Rewrite All Terms,改写全部条款,move
+Design Flaw,设计缺陷,move
+Intended Flaw,预设缺陷,move
+Flaw by Design,刻意之缺,move
+Branch Pounce,跃枝扑击,move
+Canopy Ambush,树冠伏击,move
+Hundred-Branch Ambush,百枝伏击,move
+Jeer,嘲弄,move
+Mocking Chorus,嘲讽合唱,move
+Chorus of Ridicule,讥笑合唱,move
+Pickpocket,扒窃,move
+Thief's Jab,盗贼刺拳,move
+Hand of the Trickster King,诡术王之手,move
+Scamper,蹿跳,move
+Treetop Scamper,树梢蹿跳,move
+Scamper Through the Void,虚空蹿跳,move
+Hammerfist,锤拳,move
+Ground Pound,捶地,move
+Mountainfall Fist,崩山拳,move
+Knuckle Slam,指节猛击,move
+Quake Slam,震地猛击,move
+Silverback Quake,银背震地,move
+Backhand,反手击,move
+Brute Backhand,蛮力反手,move
+Kingslayer Backhand,弑君反手,move
+Chest Beat,捶胸,move
+War Drum,战鼓,move
+Drumming of the Old King,老王之鼓,move
+Tail Crash,尾撞,move
+Extinction Tail,灭绝之尾,move
+Bone Crunch,嚼骨,move
+Marrow Crunch,嚼髓,move
+Jaws of Extinction,灭绝之颚,move
+Tyrant Snap,暴君猛咬,move
+Apex Bite,巅峰之咬,move
+Bellow,怒吼,move
+Primal Roar,原始咆哮,move
+Roar of the Last Age,末世咆哮,move
+Engulf,吞没,move
+Digesting Engulf,消化吞没,move
+Charnel Engulfment,尸骸吞没,move
+Bone Spit,喷骨,move
+Ossuary Spit,藏骨喷吐,move
+Ossuary Barrage,藏骨弹幕,move
+Ooze Slap,软泥拍击,move
+Rot Slap,腐烂拍击,move
+Gravewax Slap,尸蜡拍击,move
+Seep,渗出,move
+Corpse Seep,尸液渗出,move
+Seep of the Charnel Pit,尸坑渗流,move
+Strike,打击,move

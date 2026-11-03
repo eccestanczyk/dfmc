@@ -629,3 +629,68 @@ m_soul_full_rem_iw,"Zerlege eine Kreatur, brüte ein Ei aus, kaufe die nächste 
 m_soul_full_rem_i,"Zerlege eine Kreatur, brüte ein Ei aus oder kaufe die nächste Ichor-Erweiterung (+{add} Seelenplätze) und versuche es erneut.","app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
 m_soul_full_rem_w,"Zerlege eine Kreatur, brüte ein Ei aus oder kaufe weitere Seelenplätze mit Wraithgold und versuche es erneut.","app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
 m_soul_full_rem_0,Zerlege eine Kreatur oder brüte ein Ei aus und versuche es erneut.,"app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_shop_not_active_days,Inaktiv · {d} Tage pro Kauf,app: L1 localization pass (D 2026-11-04)
+m_saved_just_now,Gerade gespeichert,app: L1 localization pass (D 2026-11-04)
+m_floors_band,Etagen {r},app: L1 localization pass (D 2026-11-04)
+m_unlocks_after_first_battle,FREI NACH DEINEM ERSTEN KAMPF,app: L1 localization pass (D 2026-11-04)
+m_unlocks_on_floor,FREI AB ETAGE {f},app: L1 localization pass (D 2026-11-04)
+m_your_best_floor,DEINE BESTE ETAGE IST {f},app: L1 localization pass (D 2026-11-04)
+m_not_applied,NICHT AKTIV,app: L1 localization pass (D 2026-11-04)
+m_not_active,Inaktiv,app: L1 localization pass (D 2026-11-04)
+m_open_premium_hint,"Klicken oder tippen, um den Premium-Shop zu öffnen",app: L1 localization pass (D 2026-11-04)
+m_unit_down,BESIEGT,app: L1 localization pass (D 2026-11-04)
+m_cls_stage_lv,STUFE {s} · ST. {l},app: L1 localization pass (D 2026-11-04)
+m_locked,GESPERRT,app: L1 localization pass (D 2026-11-04)
+m_ult_learned_at,ULTIMATIV · AB STUFE {l},app: L1 localization pass (D 2026-11-04)
+m_need_more,noch {n} {m} nötig,app: L1 localization pass (D 2026-11-04)
+m_you_are_here,DU BIST HIER,app: L1 localization pass (D 2026-11-04)
+m_enter_den,BAU BETRETEN,app: L1 localization pass (D 2026-11-04)
+m_boss_gate,BOSS-TOR,app: L1 localization pass (D 2026-11-04)
+m_travel,REISEN,app: L1 localization pass (D 2026-11-04)
+m_unrated,OHNE WERTUNG,app: L1 localization pass (D 2026-11-04)
+m_unlock_pen_first,ERST GEHEGE {n} FREISCHALTEN,app: L1 localization pass (D 2026-11-04)
+tip_changing_floors_resets_your_streak,Ein Etagenwechsel setzt deine Serie zurück.,"app: loading tip (L1, D 2026-11-04)"
+tip_you_can_turn_off_screen_shake_in_the_display_set,Das Bildschirmwackeln lässt sich in den Anzeige-Einstellungen abschalten.,"app: loading tip (L1, D 2026-11-04)"
+tip_turn_order_shows_who_acts_first_each_round_plan,"Die Zugreihenfolge zeigt, wer in jeder Runde zuerst handelt. Plane deine Attacken danach.","app: loading tip (L1, D 2026-11-04)"
+tip_every_creature_picks_its_move_before_the_round_p,Jede Kreatur wählt ihre Attacke vor der Runde. Bestätige alle zusammen.,"app: loading tip (L1, D 2026-11-04)"
+tip_your_class_ultimate_is_a_move_of_its_own_use_it,"Das Ultimativ deiner Klasse ist eine eigene Attacke. Setze es ein, wenn der Kampf kippt.","app: loading tip (L1, D 2026-11-04)"
+tip_a_weapon_your_class_can_wear_that_beats_the_one,"Eine Waffe, die deine Klasse tragen kann und besser ist als deine aktuelle, lohnt sich: im Beutel anklicken, dann AUSRÜSTEN.","app: loading tip (L1, D 2026-11-04)"
+tip_materials_pay_for_upgrading_your_gear_to_its_nex,Materialien bezahlen das Aufwerten deiner Ausrüstung auf die nächste Stufe.,"app: loading tip (L1, D 2026-11-04)"
+tip_a_gem_fits_a_socket_on_your_gear_better_graded_p,Ein Edelstein passt in einen Sockel deiner Ausrüstung. Bessere Stufen haben mehr Sockel.,"app: loading tip (L1, D 2026-11-04)"
+tip_eggs_wait_in_the_soul_bag_open_one_and_hatch_it,Eier warten im Seelenbeutel. Öffne eines und brüte es für eine neue Kreatur aus.,"app: loading tip (L1, D 2026-11-04)"
+tip_break_the_pieces_you_do_not_need_into_materials,"Zerlege Teile, die du nicht brauchst, in Materialien.","app: loading tip (L1, D 2026-11-04)"
+tip_an_empty_floor_the_incense_burner_brings_creatur,Leere Etage? Das Räuchergefäß lockt Kreaturen zurück.,"app: loading tip (L1, D 2026-11-04)"
+tip_bait_is_another_way_to_lure_creatures_onto_a_dry,"Köder sind ein weiterer Weg, Kreaturen auf eine leere Etage zu locken.","app: loading tip (L1, D 2026-11-04)"
+tip_autoplay_fights_the_floor_for_you,Autoplay kämpft die Etage für dich.,"app: loading tip (L1, D 2026-11-04)"
+tip_dismantle_all_breaks_many_pieces_into_materials,Alles zerlegen verwandelt viele Teile auf einmal in Materialien.,"app: loading tip (L1, D 2026-11-04)"
+tip_souls_live_in_their_own_bag_seat_one_on_your_gea,"Seelen haben ihren eigenen Beutel. Setze eine in deine Ausrüstung, um ihre Kraft zu nutzen.","app: loading tip (L1, D 2026-11-04)"
+tip_hatch_all_hatches_every_egg_in_the_bag_in_one_go,Alle ausbrüten brütet jedes Ei im Beutel auf einmal aus.,"app: loading tip (L1, D 2026-11-04)"
+tip_the_arena_queues_your_team_against_other_players,Die Arena stellt dein Team gegen die Teams anderer Spieler.,"app: loading tip (L1, D 2026-11-04)"
+tip_auto_optimise_wears_the_strongest_pieces_in_your,Auto-Optimieren legt dir die stärksten Teile aus deinem Beutel an.,"app: loading tip (L1, D 2026-11-04)"
+tip_two_creatures_in_a_pen_make_eggs_over_time,Zwei Kreaturen in einem Gehege legen mit der Zeit Eier.,"app: loading tip (L1, D 2026-11-04)"
+tip_better_grade_parents_can_produce_better_grade_eg,Eltern besserer Stufe können Eier besserer Stufe hervorbringen.,"app: loading tip (L1, D 2026-11-04)"
+tip_scrolls_enchant_gear_that_carries_a_scroll_socke,Schriftrollen verzaubern Ausrüstung mit einem Schriftrollensockel.,"app: loading tip (L1, D 2026-11-04)"
+tip_grading_lifts_a_gem_rune_or_scroll_to_a_better_g,"Einstufen hebt einen Edelstein, eine Rune oder eine Schriftrolle auf eine bessere Stufe.","app: loading tip (L1, D 2026-11-04)"
+tip_the_shadow_trader_s_stock_changes_over_time_come,Das Angebot des Schattenhändlers wechselt mit der Zeit. Schau für neue Waren wieder vorbei.,"app: loading tip (L1, D 2026-11-04)"
+tip_more_classes_can_be_bought_from_the_equipment_wi,Weitere Klassen kannst du im Ausrüstungsfenster kaufen.,"app: loading tip (L1, D 2026-11-04)"
+tip_competitive_pvp_puts_your_team_on_the_ranked_lad,Competitive PvP bringt dein Team auf die Rangliste.,"app: loading tip (L1, D 2026-11-04)"
+tip_the_dimensional_rift_sends_a_copy_of_a_creature,"Der Dimensionsriss schickt eine Kopie einer Kreatur nach Herumon Dungeon, einmalig und kostenlos.","app: loading tip (L1, D 2026-11-04)"
+tip_apex_bosses_past_floor_100_carry_a_skull_status,"Apex-Bosse ab Etage 100 tragen einen Schädelstatus mit einer eigenen Mechanik – fahre über den Schädel, um ihn zu lesen.","app: loading tip (L1, D 2026-11-04)"
+unl_first_fight_start,"Klicke auf eine Kreatur auf der Etage, um sie zu bekämpfen.",app: opening.csv first_fight_start Line - the FTUE arrow line (L1)
+unl_first_fight_move,"Wähle eine Attacke für die Kreatur, die am Zug ist.",app: opening.csv first_fight_move Line - the FTUE arrow line (L1)
+unl_first_fight_target,"Klicke auf einen Gegner, um die Attacke zu zielen.",app: opening.csv first_fight_target Line - the FTUE arrow line (L1)
+unl_first_fight_lock,"Jede Kreatur hat ihre Attacke. Bestätige, um die Runde zu spielen.",app: opening.csv first_fight_lock Line - the FTUE arrow line (L1)
+unl_first_fight_order,"Sieh, wer in dieser Runde zuerst handelt.",app: opening.csv first_fight_order Line - the FTUE arrow line (L1)
+unl_ultimate,"Das Ultimativ deiner Klasse ist erlernt. Klicke darauf, um es einzusetzen.",app: opening.csv ultimate Line - the FTUE arrow line (L1)
+unl_weapon_drop,"Eine neue Waffe liegt in deinem Beutel. Klicke darauf, dann auf AUSRÜSTEN.",app: opening.csv weapon_drop Line - the FTUE arrow line (L1)
+unl_gem_drop,Ein Edelstein passt in einen Sockel deiner Ausrüstung.,app: opening.csv gem_drop Line - the FTUE arrow line (L1)
+unl_single_hatch,Ein Ei liegt in deinem Beutel. Öffne es und brüte es aus.,app: opening.csv single_hatch Line - the FTUE arrow line (L1)
+unl_single_dismantle,"Zerlege ein Teil, das du nicht brauchst, in Materialien.",app: opening.csv single_dismantle Line - the FTUE arrow line (L1)
+unl_drought_incense,Die Etage ist leer. Klicke auf das Räuchergefäß: das erste kostet 1 Schrott.,app: opening.csv drought_incense Line - the FTUE arrow line (L1)
+unl_drought_bait,Wieder leer. Klicke auf den Köder: der erste kostet 1 Schrott.,app: opening.csv drought_bait Line - the FTUE arrow line (L1)
+set_account_link_desc,Melde dich mit einem anderen Login bei diesem Aufstieg an. Gold = verknüpft.,settings: row description
+m_mat_scrap,Schrott,"app: a material named in a cost line, matName() (L1; glossary)"
+m_mat_ink,Tinte,"app: a material named in a cost line, matName() (L1; glossary)"
+m_mat_dust,Staub,"app: a material named in a cost line, matName() (L1; glossary)"
+m_mat_essence,Essenz,"app: a material named in a cost line, matName() (L1; glossary)"
+m_mat_ichor,Ichor,"app: a material named in a cost line, matName() (L1; glossary)"

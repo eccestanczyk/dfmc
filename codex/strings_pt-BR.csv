@@ -629,3 +629,68 @@ m_soul_full_rem_iw,"Desmonte uma criatura, choque um ovo, compre a próxima melh
 m_soul_full_rem_i,"Desmonte uma criatura, choque um ovo ou compre a próxima melhoria de Ichor (+{add} espaços de alma) e tente de novo.","app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
 m_soul_full_rem_w,"Desmonte uma criatura, choque um ovo ou compre mais espaços de alma com Wraithgold e tente de novo.","app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
 m_soul_full_rem_0,Desmonte uma criatura ou choque um ovo e tente de novo.,"app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_shop_not_active_days,Inativo · {d} dias por compra,app: L1 localization pass (D 2026-11-04)
+m_saved_just_now,Salvo agora mesmo,app: L1 localization pass (D 2026-11-04)
+m_floors_band,andares {r},app: L1 localization pass (D 2026-11-04)
+m_unlocks_after_first_battle,LIBERA APÓS SUA PRIMEIRA BATALHA,app: L1 localization pass (D 2026-11-04)
+m_unlocks_on_floor,LIBERA NO ANDAR {f},app: L1 localization pass (D 2026-11-04)
+m_your_best_floor,SEU MELHOR ANDAR É {f},app: L1 localization pass (D 2026-11-04)
+m_not_applied,NÃO APLICADO,app: L1 localization pass (D 2026-11-04)
+m_not_active,Inativo,app: L1 localization pass (D 2026-11-04)
+m_open_premium_hint,Clique ou toque para abrir a Loja Premium,app: L1 localization pass (D 2026-11-04)
+m_unit_down,CAÍDO,app: L1 localization pass (D 2026-11-04)
+m_cls_stage_lv,ESTÁGIO {s} · NV {l},app: L1 localization pass (D 2026-11-04)
+m_locked,BLOQUEADO,app: L1 localization pass (D 2026-11-04)
+m_ult_learned_at,ULTIMATE · APRENDIDO NO NÍVEL {l},app: L1 localization pass (D 2026-11-04)
+m_need_more,faltam {n} de {m},app: L1 localization pass (D 2026-11-04)
+m_you_are_here,VOCÊ ESTÁ AQUI,app: L1 localization pass (D 2026-11-04)
+m_enter_den,ENTRAR NO COVIL,app: L1 localization pass (D 2026-11-04)
+m_boss_gate,PORTÃO DO CHEFE,app: L1 localization pass (D 2026-11-04)
+m_travel,VIAJAR,app: L1 localization pass (D 2026-11-04)
+m_unrated,SEM RANK,app: L1 localization pass (D 2026-11-04)
+m_unlock_pen_first,LIBERE O CERCADO {n} ANTES,app: L1 localization pass (D 2026-11-04)
+tip_changing_floors_resets_your_streak,Mudar de andar zera sua sequência.,"app: loading tip (L1, D 2026-11-04)"
+tip_you_can_turn_off_screen_shake_in_the_display_set,Você pode desligar o tremor de tela nas configurações de exibição.,"app: loading tip (L1, D 2026-11-04)"
+tip_turn_order_shows_who_acts_first_each_round_plan,A ordem de turno mostra quem age primeiro a cada rodada. Planeje seus golpes com base nela.,"app: loading tip (L1, D 2026-11-04)"
+tip_every_creature_picks_its_move_before_the_round_p,Cada criatura escolhe seu golpe antes da rodada. Confirme todos juntos.,"app: loading tip (L1, D 2026-11-04)"
+tip_your_class_ultimate_is_a_move_of_its_own_use_it,A ultimate da sua classe é um golpe próprio. Use-a quando a luta virar.,"app: loading tip (L1, D 2026-11-04)"
+tip_a_weapon_your_class_can_wear_that_beats_the_one,Uma arma que sua classe pode usar e que supera a atual vale a pena: clique nela na bolsa e depois em EQUIPAR.,"app: loading tip (L1, D 2026-11-04)"
+tip_materials_pay_for_upgrading_your_gear_to_its_nex,Materiais pagam a melhoria do seu equipamento para o próximo grau.,"app: loading tip (L1, D 2026-11-04)"
+tip_a_gem_fits_a_socket_on_your_gear_better_graded_p,Uma gema encaixa num soquete do seu equipamento. Peças de grau melhor têm mais soquetes.,"app: loading tip (L1, D 2026-11-04)"
+tip_eggs_wait_in_the_soul_bag_open_one_and_hatch_it,Ovos esperam na bolsa de almas. Abra um e choque para ganhar uma nova criatura.,"app: loading tip (L1, D 2026-11-04)"
+tip_break_the_pieces_you_do_not_need_into_materials,Desmonte as peças que você não precisa em materiais.,"app: loading tip (L1, D 2026-11-04)"
+tip_an_empty_floor_the_incense_burner_brings_creatur,Andar vazio? O Incensário traz as criaturas de volta.,"app: loading tip (L1, D 2026-11-04)"
+tip_bait_is_another_way_to_lure_creatures_onto_a_dry,A Isca é outra forma de atrair criaturas para um andar vazio.,"app: loading tip (L1, D 2026-11-04)"
+tip_autoplay_fights_the_floor_for_you,O Autojogo luta no andar por você.,"app: loading tip (L1, D 2026-11-04)"
+tip_dismantle_all_breaks_many_pieces_into_materials,Desmontar Tudo transforma muitas peças em materiais de uma vez.,"app: loading tip (L1, D 2026-11-04)"
+tip_souls_live_in_their_own_bag_seat_one_on_your_gea,Almas ficam em uma bolsa própria. Coloque uma no equipamento para ganhar seu poder.,"app: loading tip (L1, D 2026-11-04)"
+tip_hatch_all_hatches_every_egg_in_the_bag_in_one_go,Chocar Tudo choca todos os ovos da bolsa de uma vez.,"app: loading tip (L1, D 2026-11-04)"
+tip_the_arena_queues_your_team_against_other_players,A arena coloca sua equipe contra as equipes de outros jogadores.,"app: loading tip (L1, D 2026-11-04)"
+tip_auto_optimise_wears_the_strongest_pieces_in_your,O Auto-otimizar equipa por você as peças mais fortes da bolsa.,"app: loading tip (L1, D 2026-11-04)"
+tip_two_creatures_in_a_pen_make_eggs_over_time,Duas criaturas em um cercado produzem ovos com o tempo.,"app: loading tip (L1, D 2026-11-04)"
+tip_better_grade_parents_can_produce_better_grade_eg,Pais de grau melhor podem gerar ovos de grau melhor.,"app: loading tip (L1, D 2026-11-04)"
+tip_scrolls_enchant_gear_that_carries_a_scroll_socke,Pergaminhos encantam equipamentos com soquete de pergaminho.,"app: loading tip (L1, D 2026-11-04)"
+tip_grading_lifts_a_gem_rune_or_scroll_to_a_better_g,"A graduação eleva uma gema, runa ou pergaminho a um grau melhor.","app: loading tip (L1, D 2026-11-04)"
+tip_the_shadow_trader_s_stock_changes_over_time_come,O estoque do Mercador das Sombras muda com o tempo. Volte para ver novidades.,"app: loading tip (L1, D 2026-11-04)"
+tip_more_classes_can_be_bought_from_the_equipment_wi,Mais classes podem ser compradas na janela de equipamento.,"app: loading tip (L1, D 2026-11-04)"
+tip_competitive_pvp_puts_your_team_on_the_ranked_lad,O PvP Competitivo coloca sua equipe no ranking.,"app: loading tip (L1, D 2026-11-04)"
+tip_the_dimensional_rift_sends_a_copy_of_a_creature,"A Fenda Dimensional envia uma cópia de uma criatura para o Herumon Dungeon, uma vez e de graça.","app: loading tip (L1, D 2026-11-04)"
+tip_apex_bosses_past_floor_100_carry_a_skull_status,Chefes do Ápice após o andar 100 têm um status de caveira com uma mecânica única — passe o mouse na caveira para ler.,"app: loading tip (L1, D 2026-11-04)"
+unl_first_fight_start,Clique em uma criatura no andar para lutar com ela.,app: opening.csv first_fight_start Line - the FTUE arrow line (L1)
+unl_first_fight_move,Escolha um golpe para a criatura da vez.,app: opening.csv first_fight_move Line - the FTUE arrow line (L1)
+unl_first_fight_target,Clique em um inimigo para mirar o golpe.,app: opening.csv first_fight_target Line - the FTUE arrow line (L1)
+unl_first_fight_lock,Cada criatura tem seu golpe. Confirme para jogar a rodada.,app: opening.csv first_fight_lock Line - the FTUE arrow line (L1)
+unl_first_fight_order,Veja quem age primeiro nesta rodada.,app: opening.csv first_fight_order Line - the FTUE arrow line (L1)
+unl_ultimate,A ultimate da sua classe foi aprendida. Clique nela para usar.,app: opening.csv ultimate Line - the FTUE arrow line (L1)
+unl_weapon_drop,Há uma nova arma na sua bolsa. Clique nela e depois em EQUIPAR.,app: opening.csv weapon_drop Line - the FTUE arrow line (L1)
+unl_gem_drop,Uma gema encaixa num soquete do seu equipamento.,app: opening.csv gem_drop Line - the FTUE arrow line (L1)
+unl_single_hatch,Há um ovo na sua bolsa. Abra-o e choque.,app: opening.csv single_hatch Line - the FTUE arrow line (L1)
+unl_single_dismantle,Desmonte uma peça que você não precisa em materiais.,app: opening.csv single_dismantle Line - the FTUE arrow line (L1)
+unl_drought_incense,O andar está vazio. Clique no Incensário: o primeiro custa 1 Sucata.,app: opening.csv drought_incense Line - the FTUE arrow line (L1)
+unl_drought_bait,Vazio de novo. Clique na Isca: a primeira custa 1 Sucata.,app: opening.csv drought_bait Line - the FTUE arrow line (L1)
+set_account_link_desc,Entre nesta mesma escalada com outro login. Dourado = vinculado.,settings: row description
+m_mat_scrap,Sucata,"app: a material named in a cost line, matName() (L1; glossary)"
+m_mat_ink,Tinta,"app: a material named in a cost line, matName() (L1; glossary)"
+m_mat_dust,Pó,"app: a material named in a cost line, matName() (L1; glossary)"
+m_mat_essence,Essência,"app: a material named in a cost line, matName() (L1; glossary)"
+m_mat_ichor,Icor,"app: a material named in a cost line, matName() (L1; glossary)"
