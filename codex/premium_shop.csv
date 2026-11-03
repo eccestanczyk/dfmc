@@ -4,3 +4,8 @@ SHOP-002,Bait,Boon,Wraithgold,10,30,spawn_bait,0.5,Wild creatures return in half
 SHOP-003,Auto PVP Attacks,Boon,Wraithgold,4,0,apvp_tickets,10,Ten more Auto PVP attacks. They join today pool even above the daily ten and expire at the daily reset.,1,
 SHOP-004,First Incense,Boon,Scrap,1,1,spawn_rate,2,Your first Incense: wild creatures return twice as often for 1 day. One time only.,1,1
 SHOP-005,First Bait,Boon,Scrap,1,1,spawn_bait,0.5,Your first Bait: wild creatures return in half the time for 1 day. Stacks with Incense. One time only.,1,1
+SHOP-006,Scrap Key,Key,Wraithgold,20,0,dim_key,1,Opens the Rusted Dimension once: five floors of five battles that pay Scrap. Consumed on entry.,0,
+SHOP-007,Dust Key,Key,Wraithgold,20,0,dim_key,1,Opens the Enchanted Dimension once: five floors of five battles that pay Dust. Consumed on entry.,0,
+SHOP-008,Ichor Key,Key,Wraithgold,20,0,dim_key,1,Opens the Sanguine Dimension once: five floors of five battles that pay Ichor. Consumed on entry.,0,
+SHOP-009,Essence Key,Key,Wraithgold,20,0,dim_key,1,Opens the Swollen Dimension once: five floors of five battles that pay Essence. Consumed on entry.,0,
+SHOP-010,Ink Key,Key,Wraithgold,20,0,dim_key,1,Opens the Inscribed Dimension once: five floors of five battles that pay Ink. Consumed on entry.,0,

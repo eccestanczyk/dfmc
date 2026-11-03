@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dimensions &mdash; Herumon Tower</title>
+<link rel="stylesheet" href="theme.css?v=4">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">DIMENSIONS</h1></div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; Dimensions</div>
+  <p class="sp-lead">Five side worlds, each opened by its own key from the <a href="system-premium-shop.html">Premium Shop</a>. A dimension is five floors of five battles, and every battle pays one resource &mdash; ten times what a battle on a tower floor of the same level is worth. <strong>Designed 2026-11-04; not in the game yet</strong> (the keys are not on sale until the server and the client land).</p>
+
+  <h2>How it works</h2>
+  <ul class="sp-rules">
+    <li><strong>A key is the only way in.</strong> Keys cost Wraithgold and are bought in the Premium Shop. Using one opens a confirmation window; confirming takes you to the dimension and <strong>consumes the key</strong>.</li>
+    <li><strong>Five floors, five battles each, always upward.</strong> Win five battles and you climb to the next floor. There is no going down, no kill limit, and nothing respawns.</li>
+    <li><strong>One resource per dimension.</strong> Every win pays that dimension&rsquo;s resource, more on each floor. <strong>No other drops</strong> &mdash; no items, no eggs, no Ichor (except in the Sanguine Dimension, whose resource is Ichor). Your party still earns its ordinary experience.</li>
+    <li><strong>What you win is yours at once.</strong> Each battle&rsquo;s reward is banked the moment you win it.</li>
+    <li><strong>Dying takes you out.</strong> A defeat ends the run; what you already won stays. It does not count as a death on the tower (your floor streak and the Abyss are untouched).</li>
+    <li><strong>Leaving puts you back where you were.</strong> Leave the dimension any way you like and you return to the floor (or the Abyss) you entered from. Leaving ends the run &mdash; the key is spent. Closing the game is not leaving: you pick up where you stopped.</li>
+    <li><strong>Every creature is marked.</strong> Creatures in a dimension wear its colours and carry its permanent buff, shown on their status bar like an &uuml;ber boss&rsquo;s rule. It cannot be removed, stolen or shortened.</li>
+  </ul>
+
+  <h2>The five keys</h2>
+  <table>
+    <tr><th>Key</th><th>Dimension</th><th>Resource</th><th>Price</th><th>Every creature carries</th></tr>
+    <tr><td class="lbl">Scrap Key</td><td>Rusted Dimension</td><td>Scrap</td><td><span data-csv="premium_shop.csv#SHOP-006#Cost">20</span> Wraithgold</td><td><strong><span data-csv="dimension_keys.csv#DK-SCRAP#Buff_Name">Rust Fury</span></strong> &mdash; <span data-csv="dimension_keys.csv#DK-SCRAP#Buff_Text">+20% Attack, -20% Defense.</span></td></tr>
+    <tr><td class="lbl">Dust Key</td><td>Enchanted Dimension</td><td>Dust</td><td><span data-csv="premium_shop.csv#SHOP-007#Cost">20</span> Wraithgold</td><td><strong><span data-csv="dimension_keys.csv#DK-DUST#Buff_Name">Enchanted Haste</span></strong> &mdash; <span data-csv="dimension_keys.csv#DK-DUST#Buff_Text">+10 Speed and always moves first (only a class ultimate goes before it).</span></td></tr>
+    <tr><td class="lbl">Ichor Key</td><td>Sanguine Dimension</td><td>Ichor</td><td><span data-csv="premium_shop.csv#SHOP-008#Cost">20</span> Wraithgold</td><td><strong><span data-csv="dimension_keys.csv#DK-ICHOR#Buff_Name">Sanguine Ward</span></strong> &mdash; <span data-csv="dimension_keys.csv#DK-ICHOR#Buff_Text">+20% Defense, -20% Attack.</span></td></tr>
+    <tr><td class="lbl">Essence Key</td><td>Swollen Dimension</td><td>Essence</td><td><span data-csv="premium_shop.csv#SHOP-009#Cost">20</span> Wraithgold</td><td><strong><span data-csv="dimension_keys.csv#DK-ESSENCE#Buff_Name">Swollen Vigor</span></strong> &mdash; <span data-csv="dimension_keys.csv#DK-ESSENCE#Buff_Text">Double maximum HP.</span></td></tr>
+    <tr><td class="lbl">Ink Key</td><td>Inscribed Dimension</td><td>Ink</td><td><span data-csv="premium_shop.csv#SHOP-010#Cost">20</span> Wraithgold</td><td><strong><span data-csv="dimension_keys.csv#DK-INK#Buff_Name">Inscribed Writ</span></strong> &mdash; <span data-csv="dimension_keys.csv#DK-INK#Buff_Text">Debuffs on it last 50% less; its buffs last twice as long; debuffs it inflicts last twice as long.</span></td></tr>
+  </table>
+  <div class="sp-note">Prices: <code>codex/premium_shop.csv</code> (SHOP-006&ndash;010). Keys, colours and buffs: <code>codex/dimension_keys.csv</code>. A key is not an item: it cannot be traded, sold or dismantled.</div>
+
+  <h2>The floors</h2>
+  <p>The five floors are the same in every dimension; only the buff, the colours and the resource change. Creature level and the strength of their gear rise together. The reward is what one dimension battle pays.</p>
+  <table>
+    <tr><th>Floor</th><th>Creature level</th><th>Gear</th><th>Scrap</th><th>Dust</th><th>Ichor</th><th>Essence</th><th>Ink</th></tr>
+    <tr><td class="lbl">1</td><td><span data-csv="dimension_floors.csv#1#Monster_Level">20</span></td><td>tier <span data-csv="dimension_floors.csv#1#Tag_Tier">2</span>, <span data-csv="dimension_floors.csv#1#Gear_Grade">Common</span></td><td><span data-csv="dimension_floors.csv#1#Reward_Scrap">8</span></td><td><span data-csv="dimension_floors.csv#1#Reward_Dust">2</span></td><td><span data-csv="dimension_floors.csv#1#Reward_Ichor">115</span></td><td><span data-csv="dimension_floors.csv#1#Reward_Essence">2</span></td><td><span data-csv="dimension_floors.csv#1#Reward_Ink">2</span></td></tr>
+    <tr><td class="lbl">2</td><td><span data-csv="dimension_floors.csv#2#Monster_Level">40</span></td><td>tier <span data-csv="dimension_floors.csv#2#Tag_Tier">4</span>, <span data-csv="dimension_floors.csv#2#Gear_Grade">Uncommon</span></td><td><span data-csv="dimension_floors.csv#2#Reward_Scrap">18</span></td><td><span data-csv="dimension_floors.csv#2#Reward_Dust">4</span></td><td><span data-csv="dimension_floors.csv#2#Reward_Ichor">141</span></td><td><span data-csv="dimension_floors.csv#2#Reward_Essence">4</span></td><td><span data-csv="dimension_floors.csv#2#Reward_Ink">4</span></td></tr>
+    <tr><td class="lbl">3</td><td><span data-csv="dimension_floors.csv#3#Monster_Level">60</span></td><td>tier <span data-csv="dimension_floors.csv#3#Tag_Tier">6</span>, <span data-csv="dimension_floors.csv#3#Gear_Grade">Rare</span></td><td><span data-csv="dimension_floors.csv#3#Reward_Scrap">26</span></td><td><span data-csv="dimension_floors.csv#3#Reward_Dust">5</span></td><td><span data-csv="dimension_floors.csv#3#Reward_Ichor">152</span></td><td><span data-csv="dimension_floors.csv#3#Reward_Essence">6</span></td><td><span data-csv="dimension_floors.csv#3#Reward_Ink">5</span></td></tr>
+    <tr><td class="lbl">4</td><td><span data-csv="dimension_floors.csv#4#Monster_Level">80</span></td><td>tier <span data-csv="dimension_floors.csv#4#Tag_Tier">8</span>, <span data-csv="dimension_floors.csv#4#Gear_Grade">Epic</span></td><td><span data-csv="dimension_floors.csv#4#Reward_Scrap">45</span></td><td><span data-csv="dimension_floors.csv#4#Reward_Dust">9</span></td><td><span data-csv="dimension_floors.csv#4#Reward_Ichor">184</span></td><td><span data-csv="dimension_floors.csv#4#Reward_Essence">10</span></td><td><span data-csv="dimension_floors.csv#4#Reward_Ink">9</span></td></tr>
+    <tr><td class="lbl">5</td><td><span data-csv="dimension_floors.csv#5#Monster_Level">100</span></td><td>tier <span data-csv="dimension_floors.csv#5#Tag_Tier">10</span>, <span data-csv="dimension_floors.csv#5#Gear_Grade">Legendary</span></td><td><span data-csv="dimension_floors.csv#5#Reward_Scrap">48</span></td><td><span data-csv="dimension_floors.csv#5#Reward_Dust">13</span></td><td><span data-csv="dimension_floors.csv#5#Reward_Ichor">206</span></td><td><span data-csv="dimension_floors.csv#5#Reward_Essence">15</span></td><td><span data-csv="dimension_floors.csv#5#Reward_Ink">13</span></td></tr>
+  </table>
+  <div class="sp-note">Each column pays only in its own dimension. <strong>How the reward is set:</strong> ten times the expected yield of that resource from one ordinary battle on the highest wild floor at or below the creature level (floors 19, 39, 59, 79, 99) &mdash; the battle&rsquo;s own Ichor plus the dismantle value of what drops, the same measure the <a href="system-shadow-trader.html">Shadow Trader</a> prices from. A full run of all 25 battles pays Scrap 725, Dust 165, Ichor 3,990, Essence 185 or Ink 165. Numbers: <code>codex/dimension_floors.csv</code>.</div>
+
+  <h2>How hard is it?</h2>
+  <ul class="sp-rules">
+    <li><strong>Floors 1&ndash;2</strong> fall to any party around level 40 and up.</li>
+    <li><strong>Floor 3</strong> is the test for a level-60 party.</li>
+    <li><strong>Floor 5</strong> is meant to be challenging but doable for a well-equipped party of level 90 and up: about two battles in three won (simulated on real saves, 2026-11-04). The <strong>Swollen Dimension</strong> is the hardest &mdash; double HP on everything.</li>
+    <li>Your party starts every battle at full health.</li>
+  </ul>
+</div>
+
+<div class="sp-note">Related: <a href="system-premium-shop.html">Premium Shop &amp; Wraithgold</a> for buying keys, <a href="system-void-apex.html">Void Apex</a> for the &uuml;ber bosses whose rule chips the dimension buffs reuse, <a href="system-shadow-trader.html">The Shadow Trader</a> for the resource values the rewards are built on.</div>
+
+<script src="admin.js"></script>
+<script src="csv-bind.js"></script>
+<script src="nav.js"></script>
+</body>
+</html>

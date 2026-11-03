@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<base href="../../"><!-- workflow/changelogs/ (2026-11-04): never published. Links resolve from the public page's folder. -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dimensions &mdash; changelog &amp; team notes</title>
+<link rel="stylesheet" href="theme.css?v=4">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">DIMENSIONS &mdash; TEAM NOTES</h1></div>
+<div class="sp-wrap">
+<p class="sp-lead">The team record for the public page <a href="system-dimensions.html">system-dimensions.html</a>: its dated changelog (newest first) and the implementation notes that stay off the public page. Lanes add each mechanic change here, never on the public page. Shape: <code>python tools/codex_page.py --changelog system-dimensions.html</code> in dfmc-client.</p>
+
+  <h2>Changelog</h2>
+<p class="note">
+2026-11-04 &mdash; K1 design + numbers (D chat 2026-11-04: five paid keys, names approved, levels/equipment f1 20 / f2 40 / f3 60 / f4 80 / f5 100, each battle worth 10 regular battles of the same level; dfmc-client lane K1, spec dfmc-client docs/dimension-keys-2026-11.md &sect; Build spec). DESIGN ONLY, not in the game. New page system-dimensions.html (linked from hub), new <code>codex/dimension_keys.csv</code> (keys, theme colours, recolour filters, the permanent buff knobs) and <code>codex/dimension_floors.csv</code> (per floor: level, species pool, rarity floor, quality / gear grade, tag tier and count, HP mult, AI tier, min battle time, rewards). <code>codex/premium_shop.csv</code> gains SHOP-006&ndash;010 (<code>Effect_Kind dim_key</code>, 20 Wraithgold) with <code>Enabled 0</code>: the dev worker reads codex <code>main</code> live, so they stay off until the server can grant them (lane K2 flips them). Reward per battle = round(10 &times; <code>acquisitionPerBattle</code> at the highest wild floor at or below the level, src/trader.js) &mdash; checked by <code>node tools/sim_dim.mjs --rewards</code>. Enemy grade ladder tuned on the real engine (<code>tools/sim_dim.mjs</code>, 21 real saves): Common / Uncommon / Rare / Epic / Epic quality + Legendary gear; a level-90 party (floors 89&ndash;101) wins floor-5 battles 68 / 73 / 69 / 40 / 59% (Scrap / Dust / Ichor / Essence / Ink), mean 62%. The buff reuses the &uuml;ber-boss signature chip (<code>{sig, perm}</code>). Server, client and art follow in lanes K2&ndash;K4.<br>
+</p>
+
+  <h2>Implementation notes</h2>
+  <ul class="sp-rules">
+    <li><strong>Where the build spec lives:</strong> dfmc-client <code>docs/dimension-keys-2026-11.md</code> &sect; Build spec (state machine, doors, battle generation, manager defaults, lane cut).</li>
+    <li><strong>One price, one place:</strong> the key price is <code>premium_shop.csv Cost</code>; <code>dimension_keys.csv</code> names the SKU only.</li>
+    <li><strong>Rewards are baked, not computed live:</strong> a change to the drop tables, the dismantle table or battle Ichor moves <code>acquisitionPerBattle</code>; re-bake <code>Reward_*</code> and run <code>--rewards</code>.</li>
+  </ul>
+</div>
+</body>
+</html>
