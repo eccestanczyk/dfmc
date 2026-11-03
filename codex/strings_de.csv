@@ -578,6 +578,7 @@ link_pend_fail_title,NICHT VERKNÜPFT,"settings: link confirm (SEC-14, a link st
 link_pend_gone,Diese Verknüpfungsanfrage ist abgelaufen oder wurde nicht hier gestartet. Starte sie in den Einstellungen neu.,"settings: link confirm (SEC-14, a link started off-origin)"
 gate_update_required,UPDATE ERFORDERLICH,index.html: update-required screen: title
 gate_update_required_msg,"Der Turm ist auf Build {build} weitergezogen. Aktualisiere, um weiterzuklettern - dein Aufstieg ist auf dem Server sicher.",index.html: update-required screen: message; {build} = the release build
+gate_update_required_msg_nobuild,"Der Turm ist auf einen neuen Build weitergezogen. Aktualisiere, um weiterzuklettern - dein Aufstieg ist auf dem Server sicher.",index.html: update-required screen: message when the answer names no build (F3 - the {build} sentence left a gap in ja/zh-Hans)
 gate_update_reload,NEU LADEN,index.html: update-required screen: button (web)
 gate_update_restart,NEU STARTEN UND AKTUALISIEREN,index.html: update-required screen: button (Steam / desktop shell)
 shop_web_pending,AN DER KASSE...,app: premium shop: web shop (Paddle) buy plaque while the checkout overlay is open

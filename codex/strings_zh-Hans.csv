@@ -578,6 +578,7 @@ link_pend_fail_title,未关联,"settings: link confirm (SEC-14, a link started o
 link_pend_gone,此关联请求已过期，或并非在此处发起。请从设置中重新开始。,"settings: link confirm (SEC-14, a link started off-origin)"
 gate_update_required,需要更新,index.html: update-required screen: title
 gate_update_required_msg,高塔已更新至版本 {build}。请更新以继续攀登——你的进度已安全保存在服务器上。,index.html: update-required screen: message; {build} = the release build
+gate_update_required_msg_nobuild,高塔已更新至新版本。请更新以继续攀登——你的进度已安全保存在服务器上。,index.html: update-required screen: message when the answer names no build (F3 - the {build} sentence left a gap in ja/zh-Hans)
 gate_update_reload,重新加载,index.html: update-required screen: button (web)
 gate_update_restart,重启以更新,index.html: update-required screen: button (Steam / desktop shell)
 shop_web_pending,正在结账...,app: premium shop: web shop (Paddle) buy plaque while the checkout overlay is open

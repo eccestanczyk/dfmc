@@ -578,6 +578,7 @@ link_pend_fail_title,NÃO VINCULADO,"settings: link confirm (SEC-14, a link star
 link_pend_gone,Este pedido de vínculo expirou ou não foi iniciado aqui. Comece de novo pelas Configurações.,"settings: link confirm (SEC-14, a link started off-origin)"
 gate_update_required,ATUALIZAÇÃO NECESSÁRIA,index.html: update-required screen: title
 gate_update_required_msg,A torre avançou para a versão {build}. Atualize para continuar subindo - sua escalada está salva no servidor.,index.html: update-required screen: message; {build} = the release build
+gate_update_required_msg_nobuild,A torre avançou para uma nova versão. Atualize para continuar subindo - sua escalada está salva no servidor.,index.html: update-required screen: message when the answer names no build (F3 - the {build} sentence left a gap in ja/zh-Hans)
 gate_update_reload,RECARREGAR,index.html: update-required screen: button (web)
 gate_update_restart,REINICIAR PARA ATUALIZAR,index.html: update-required screen: button (Steam / desktop shell)
 shop_web_pending,NO CHECKOUT...,app: premium shop: web shop (Paddle) buy plaque while the checkout overlay is open
