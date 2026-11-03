@@ -569,3 +569,10 @@ m_unl_generic,Aberto no andar {f}. Clique uma vez para começar.,app: unlock les
 portal_sealed_win,SELADO · FALTA 1 VITÓRIA,app: floor portal: sealed with one win left (#1142)
 portal_sealed_wins,SELADO · FALTAM {n} VITÓRIAS,app: floor portal: sealed with {n} wins left (#1142)
 m_mkt_paid,"Comprado com Wraithgold, ou chocado ou criado a partir de algo que foi. Fica na Torre.","app: STEAM MARKET (paidflag, D11): refusal not_exportable reason paid"
+link_pend_title,CONFIRMAR VÍNCULO,"settings: link confirm (SEC-14, a link started off-origin)"
+link_pend_body,"Vincular o login {provider} “{name}” a esta escalada ({hero})? A partir de então, {provider} abre esta escalada. Se não foi você quem iniciou este vínculo, cancele.","settings: link confirm (SEC-14, a link started off-origin)"
+link_pend_body_noname,"Vincular este login {provider} a esta escalada ({hero})? A partir de então, {provider} abre esta escalada. Se não foi você quem iniciou este vínculo, cancele.","settings: link confirm (SEC-14, a link started off-origin)"
+link_pend_unnamed,sem nome,"settings: link confirm (SEC-14, a link started off-origin)"
+link_pend_button,VINCULAR,"settings: link confirm (SEC-14, a link started off-origin)"
+link_pend_fail_title,NÃO VINCULADO,"settings: link confirm (SEC-14, a link started off-origin)"
+link_pend_gone,Este pedido de vínculo expirou ou não foi iniciado aqui. Comece de novo pelas Configurações.,"settings: link confirm (SEC-14, a link started off-origin)"

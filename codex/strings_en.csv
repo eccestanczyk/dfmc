@@ -569,3 +569,10 @@ m_unl_generic,Opened at floor {f}. Click it once to begin.,app: unlock lesson: t
 portal_sealed_win,SEALED · 1 MORE WIN,app: floor portal: sealed with one win left (#1142)
 portal_sealed_wins,SEALED · {n} MORE WINS,app: floor portal: sealed with {n} wins left (#1142)
 m_mkt_paid,"Bought with Wraithgold, or hatched or grown from something that was. It stays in the Tower.","app: STEAM MARKET (paidflag, D11): refusal not_exportable reason paid"
+link_pend_title,CONFIRM THE LINK,"settings: link confirm (SEC-14, a link started off-origin)"
+link_pend_body,"Link the {provider} login “{name}” to this climb ({hero})? From then on, {provider} opens this climb. If you did not start this link yourself, cancel.","settings: link confirm (SEC-14, a link started off-origin)"
+link_pend_body_noname,"Link this {provider} login to this climb ({hero})? From then on, {provider} opens this climb. If you did not start this link yourself, cancel.","settings: link confirm (SEC-14, a link started off-origin)"
+link_pend_unnamed,unnamed,"settings: link confirm (SEC-14, a link started off-origin)"
+link_pend_button,LINK,"settings: link confirm (SEC-14, a link started off-origin)"
+link_pend_fail_title,NOT LINKED,"settings: link confirm (SEC-14, a link started off-origin)"
+link_pend_gone,This link request has expired or was not started here. Start it again from Settings.,"settings: link confirm (SEC-14, a link started off-origin)"
