@@ -620,3 +620,11 @@ m_slot_wait,请等待{s}秒,app: soul bag slot shop: Ichor track (#1168/#1169)
 m_slot_confirm,确认后继续,app: soul bag slot shop: Ichor track (#1168/#1169)
 m_slot_buy_for,花费 {cost} {cur} 购买,app: soul bag slot shop: Ichor track (#1168/#1169)
 m_slot_need_more,还需 {n} {cur},app: soul bag slot shop: Ichor track (#1168/#1169)
+m_soul_full_title,灵魂背包已满,"app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_soul_full_that,那,"app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_soul_full_need1,{what}需要1个空闲灵魂栏位，你只有{free}个。,"app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_soul_full_needn,{what}需要{need}个空闲灵魂栏位，你只有{free}个。,"app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_soul_full_rem_iw,分解一只生物、孵化一枚蛋、购买下一级Ichor升级（灵魂栏位 +{add}），或用Wraithgold购买更多灵魂栏位，然后再试一次。,"app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_soul_full_rem_i,分解一只生物、孵化一枚蛋，或购买下一级Ichor升级（灵魂栏位 +{add}），然后再试一次。,"app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_soul_full_rem_w,分解一只生物、孵化一枚蛋，或用Wraithgold购买更多灵魂栏位，然后再试一次。,"app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_soul_full_rem_0,分解一只生物或孵化一枚蛋，然后再试一次。,"app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"

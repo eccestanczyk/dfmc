@@ -620,3 +620,11 @@ m_slot_wait,{s}秒お待ちください,app: soul bag slot shop: Ichor track (#1
 m_slot_confirm,確認して続行,app: soul bag slot shop: Ichor track (#1168/#1169)
 m_slot_buy_for,{cost} {cur}で購入,app: soul bag slot shop: Ichor track (#1168/#1169)
 m_slot_need_more,{cur}があと{n}必要,app: soul bag slot shop: Ichor track (#1168/#1169)
+m_soul_full_title,ソウルバッグが満杯,"app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_soul_full_that,それ,"app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_soul_full_need1,{what}には空きソウル枠が1つ必要ですが、空きは{free}です。,"app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_soul_full_needn,{what}には空きソウル枠が{need}つ必要ですが、空きは{free}です。,"app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_soul_full_rem_iw,クリーチャーを分解する、卵を孵す、次のIchor拡張（ソウル枠 +{add}）を購入する、またはWraithgoldでソウル枠を追加購入してから、もう一度お試しください。,"app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_soul_full_rem_i,クリーチャーを分解する、卵を孵す、または次のIchor拡張（ソウル枠 +{add}）を購入してから、もう一度お試しください。,"app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_soul_full_rem_w,クリーチャーを分解する、卵を孵す、またはWraithgoldでソウル枠を追加購入してから、もう一度お試しください。,"app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_soul_full_rem_0,クリーチャーを分解するか卵を孵してから、もう一度お試しください。,"app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"

@@ -620,3 +620,11 @@ m_slot_wait,PLEASE WAIT {s}S,app: soul bag slot shop: Ichor track (#1168/#1169)
 m_slot_confirm,CONFIRM TO CONTINUE,app: soul bag slot shop: Ichor track (#1168/#1169)
 m_slot_buy_for,BUY FOR {cost} {cur},app: soul bag slot shop: Ichor track (#1168/#1169)
 m_slot_need_more,NEED {n} MORE {cur},app: soul bag slot shop: Ichor track (#1168/#1169)
+m_soul_full_title,SOUL BAG FULL,"app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_soul_full_that,That,"app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_soul_full_need1,{what} needs 1 free soul slot and you have {free}.,"app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_soul_full_needn,{what} needs {need} free soul slots and you have {free}.,"app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_soul_full_rem_iw,"Dismantle a creature, hatch an egg, buy the next Ichor upgrade (+{add} soul slots), or buy more soul slots with Wraithgold, then try again.","app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_soul_full_rem_i,"Dismantle a creature, hatch an egg, or buy the next Ichor upgrade (+{add} soul slots), then try again.","app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_soul_full_rem_w,"Dismantle a creature, hatch an egg, or buy more soul slots with Wraithgold, then try again.","app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_soul_full_rem_0,"Dismantle a creature or hatch an egg, then try again.","app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"

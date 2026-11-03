@@ -620,3 +620,11 @@ m_slot_wait,AGUARDE {s}S,app: soul bag slot shop: Ichor track (#1168/#1169)
 m_slot_confirm,CONFIRME PARA CONTINUAR,app: soul bag slot shop: Ichor track (#1168/#1169)
 m_slot_buy_for,COMPRAR POR {cost} {cur},app: soul bag slot shop: Ichor track (#1168/#1169)
 m_slot_need_more,FALTAM {n} {cur},app: soul bag slot shop: Ichor track (#1168/#1169)
+m_soul_full_title,BOLSA DE ALMAS CHEIA,"app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_soul_full_that,Isso,"app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_soul_full_need1,{what} precisa de 1 espaço de alma livre e você tem {free}.,"app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_soul_full_needn,{what} precisa de {need} espaços de alma livres e você tem {free}.,"app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_soul_full_rem_iw,"Desmonte uma criatura, choque um ovo, compre a próxima melhoria de Ichor (+{add} espaços de alma) ou compre mais espaços de alma com Wraithgold e tente de novo.","app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_soul_full_rem_i,"Desmonte uma criatura, choque um ovo ou compre a próxima melhoria de Ichor (+{add} espaços de alma) e tente de novo.","app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_soul_full_rem_w,"Desmonte uma criatura, choque um ovo ou compre mais espaços de alma com Wraithgold e tente de novo.","app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_soul_full_rem_0,Desmonte uma criatura ou choque um ovo e tente de novo.,"app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"

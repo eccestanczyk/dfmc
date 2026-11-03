@@ -620,3 +620,11 @@ m_slot_wait,BITTE {s} S WARTEN,app: soul bag slot shop: Ichor track (#1168/#1169
 m_slot_confirm,ZUM FORTFAHREN BESTÄTIGEN,app: soul bag slot shop: Ichor track (#1168/#1169)
 m_slot_buy_for,FÜR {cost} {cur} KAUFEN,app: soul bag slot shop: Ichor track (#1168/#1169)
 m_slot_need_more,NOCH {n} {cur} NÖTIG,app: soul bag slot shop: Ichor track (#1168/#1169)
+m_soul_full_title,SEELENTASCHE VOLL,"app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_soul_full_that,Das,"app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_soul_full_need1,"{what} braucht 1 freien Seelenplatz, du hast {free}.","app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_soul_full_needn,"{what} braucht {need} freie Seelenplätze, du hast {free}.","app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_soul_full_rem_iw,"Zerlege eine Kreatur, brüte ein Ei aus, kaufe die nächste Ichor-Erweiterung (+{add} Seelenplätze) oder kaufe weitere Seelenplätze mit Wraithgold und versuche es erneut.","app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_soul_full_rem_i,"Zerlege eine Kreatur, brüte ein Ei aus oder kaufe die nächste Ichor-Erweiterung (+{add} Seelenplätze) und versuche es erneut.","app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_soul_full_rem_w,"Zerlege eine Kreatur, brüte ein Ei aus oder kaufe weitere Seelenplätze mit Wraithgold und versuche es erneut.","app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
+m_soul_full_rem_0,Zerlege eine Kreatur oder brüte ein Ei aus und versuche es erneut.,"app: soul bag full message (F2, D 2026-11-03): Ichor upgrades named first, then Wraithgold"
