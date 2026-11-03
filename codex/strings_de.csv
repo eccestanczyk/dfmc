@@ -580,3 +580,11 @@ gate_update_required,UPDATE ERFORDERLICH,index.html: update-required screen: tit
 gate_update_required_msg,"Der Turm ist auf Build {build} weitergezogen. Aktualisiere, um weiterzuklettern - dein Aufstieg ist auf dem Server sicher.",index.html: update-required screen: message; {build} = the release build
 gate_update_reload,NEU LADEN,index.html: update-required screen: button (web)
 gate_update_restart,NEU STARTEN UND AKTUALISIEREN,index.html: update-required screen: button (Steam / desktop shell)
+shop_web_pending,AN DER KASSE...,app: premium shop: web shop (Paddle) buy plaque while the checkout overlay is open
+shop_web_opening,Die sichere Kasse wird geöffnet...,app: premium shop: web shop (Paddle) note while the order is minted
+shop_web_confirming,Zahlung erhalten. Warte auf Bestätigung...,"app: premium shop: web shop (Paddle) note after Paddle says paid, before the webhook grants"
+shop_web_closed,Die Kasse wurde geschlossen. Nichts wurde berechnet.,app: premium shop: web shop (Paddle) note after the overlay closed unpaid
+shop_web_slow,Deine Zahlung wird bestätigt. Das Wraithgold erreicht deine Börse in Kürze; öffne den Laden in einer Minute erneut.,app: premium shop: web shop (Paddle) note when the webhook has not landed after two minutes
+shop_web_legal,"Zahlungen werden von Paddle.com abgewickelt, unserem Merchant of Record, der Abrechnung, Steuern und Erstattungen übernimmt.",app: premium shop: web shop (Paddle) legal line under the pack grid (merchant of record)
+shop_web_terms,Käuferbedingungen,app: premium shop: web shop (Paddle) link to Paddle buyer terms
+shop_web_help,Hilfe zu Bestellungen und Erstattungen,"app: premium shop: web shop (Paddle) link to paddle.net (order help, refunds)"

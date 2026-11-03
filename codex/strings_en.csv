@@ -580,3 +580,11 @@ gate_update_required,UPDATE REQUIRED,index.html: update-required screen: title
 gate_update_required_msg,The tower has moved on to build {build}. Update to keep climbing - your climb is safe on the server.,index.html: update-required screen: message; {build} = the release build
 gate_update_reload,RELOAD,index.html: update-required screen: button (web)
 gate_update_restart,RESTART TO UPDATE,index.html: update-required screen: button (Steam / desktop shell)
+shop_web_pending,AT THE CHECKOUT...,app: premium shop: web shop (Paddle) buy plaque while the checkout overlay is open
+shop_web_opening,Opening the secure checkout...,app: premium shop: web shop (Paddle) note while the order is minted
+shop_web_confirming,Payment received. Waiting for confirmation...,"app: premium shop: web shop (Paddle) note after Paddle says paid, before the webhook grants"
+shop_web_closed,The checkout was closed. Nothing was charged.,app: premium shop: web shop (Paddle) note after the overlay closed unpaid
+shop_web_slow,Your payment is being confirmed. The Wraithgold reaches your wallet shortly; reopen the shop in a minute.,app: premium shop: web shop (Paddle) note when the webhook has not landed after two minutes
+shop_web_legal,"Payments are processed by Paddle.com, our merchant of record, who handles billing, tax and refunds.",app: premium shop: web shop (Paddle) legal line under the pack grid (merchant of record)
+shop_web_terms,Buyer terms,app: premium shop: web shop (Paddle) link to Paddle buyer terms
+shop_web_help,Order help and refunds,"app: premium shop: web shop (Paddle) link to paddle.net (order help, refunds)"

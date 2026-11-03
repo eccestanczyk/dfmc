@@ -580,3 +580,11 @@ gate_update_required,アップデートが必要です,index.html: update-requir
 gate_update_required_msg,塔はビルド {build} に更新されました。登り続けるにはアップデートしてください。進行状況はサーバーに保存されています。,index.html: update-required screen: message; {build} = the release build
 gate_update_reload,再読み込み,index.html: update-required screen: button (web)
 gate_update_restart,再起動してアップデート,index.html: update-required screen: button (Steam / desktop shell)
+shop_web_pending,お支払い手続き中...,app: premium shop: web shop (Paddle) buy plaque while the checkout overlay is open
+shop_web_opening,安全な決済画面を開いています...,app: premium shop: web shop (Paddle) note while the order is minted
+shop_web_confirming,お支払いを受け付けました。確認を待っています...,"app: premium shop: web shop (Paddle) note after Paddle says paid, before the webhook grants"
+shop_web_closed,決済画面が閉じられました。請求は発生していません。,app: premium shop: web shop (Paddle) note after the overlay closed unpaid
+shop_web_slow,お支払いを確認しています。Wraithgoldはまもなくウォレットに届きます。1分後にショップを開き直してください。,app: premium shop: web shop (Paddle) note when the webhook has not landed after two minutes
+shop_web_legal,お支払いは販売代理店（Merchant of Record）であるPaddle.comが処理し、請求・税金・返金を担当します。,app: premium shop: web shop (Paddle) legal line under the pack grid (merchant of record)
+shop_web_terms,購入者規約,app: premium shop: web shop (Paddle) link to Paddle buyer terms
+shop_web_help,注文サポートと返金,"app: premium shop: web shop (Paddle) link to paddle.net (order help, refunds)"

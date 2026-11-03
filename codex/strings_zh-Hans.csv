@@ -580,3 +580,11 @@ gate_update_required,需要更新,index.html: update-required screen: title
 gate_update_required_msg,高塔已更新至版本 {build}。请更新以继续攀登——你的进度已安全保存在服务器上。,index.html: update-required screen: message; {build} = the release build
 gate_update_reload,重新加载,index.html: update-required screen: button (web)
 gate_update_restart,重启以更新,index.html: update-required screen: button (Steam / desktop shell)
+shop_web_pending,正在结账...,app: premium shop: web shop (Paddle) buy plaque while the checkout overlay is open
+shop_web_opening,正在打开安全结账页面...,app: premium shop: web shop (Paddle) note while the order is minted
+shop_web_confirming,已收到付款，正在等待确认...,"app: premium shop: web shop (Paddle) note after Paddle says paid, before the webhook grants"
+shop_web_closed,结账已关闭，未产生任何扣款。,app: premium shop: web shop (Paddle) note after the overlay closed unpaid
+shop_web_slow,正在确认你的付款。Wraithgold 很快就会到账，请一分钟后重新打开商店。,app: premium shop: web shop (Paddle) note when the webhook has not landed after two minutes
+shop_web_legal,付款由我们的记录商户 Paddle.com 处理，账单、税费和退款均由其负责。,app: premium shop: web shop (Paddle) legal line under the pack grid (merchant of record)
+shop_web_terms,买家条款,app: premium shop: web shop (Paddle) link to Paddle buyer terms
+shop_web_help,订单帮助与退款,"app: premium shop: web shop (Paddle) link to paddle.net (order help, refunds)"
