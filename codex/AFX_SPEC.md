@@ -34,7 +34,9 @@ They are the dungeon's, they are D's, and they apply here unchanged.
 4. **Dark fantasy / grimdark.** A sound is coherent with the creature using the move, the move's
    flavour text, and (for a bed) the zone's design. No cheerful chimes, no casino, no sci-fi laser
    reads unless pitched into a drone or rune register. Bless and heal are a low warm swell, not a
-   bell. Hex and curse fall and shudder. Ward is muffled metal. Impacts are low and dry.
+   bell. Hex and curse fall and shudder. Ward is muffled metal. Impacts are low and dry. Since
+   2026-11-04 (AU2) the rune register is recorded spells (AFX-854..895, group `arcane`), not the
+   Kenney Digital Audio chiptune; a synth zap is left only on a lightning move.
 
 And the lesson the VFX run paid for [D 2026-09-17]: **a mounting gate is not proof it is right.**
 `tools/afx_gate.py` proves the player was invoked with a parsed composition. It cannot hear it.
@@ -338,6 +340,16 @@ writes to.
 | `dfmc-client/tools/afx_sync_audit.py` | `Onset_Ms` + the `AFX_S*` / `FX_S*` columns: where each hit lands against its picture beat; writes `codex/afx_sync_audit.csv` |
 
 ## Changelog
+
+- **2026-11-04** - **Recorded spells replace the chiptune rune register (chunk AU2, D chat order: "a lot of our AFX for
+  Tower is not very good ... free audio that only requires a mention in the credits").** 42 clips from 13 OpenGameArt
+  submissions, `AFX-854`..`AFX-895` (24 CC0-1.0, 18 CC-BY-3.0 - licences, credit lines and processing in
+  `codex/AUDIO_LICENCES.md` § The third pass; the CC-BY lines on `credits.html`). `dfmc-client/tools/afx_character_pass.py`
+  gains **W6**: every Kenney Digital Audio layer is swapped clip for clip in every stage for a spell of the move's school
+  (VFX archetype, else element, else a cast), keeping `d / n / i / j / g`, dropping the drone `p`; rule 4 above amended.
+  477 layers on 187 moves (hex 198, cast 71, storm 60, heal 50, ward 42, haste 22, holy 10, bind 9, fire 8, ice 4,
+  earth 3); 11 zap layers stay on lightning moves; M-CINDERSHARD-1 S3 also took a wind layer (W3). `afx_lint` 435 rows,
+  0 failing; the pass is a fixpoint (only ULT-MAGE-3, unchanged). Client gate: `tools/probe_au2.py`.
 
 - **2026-11-04** - **No voices on abilities (chunk AU, D chat order: "a lot of our AFX for Tower is not very good.
   Especially the ability effects that currently have voices or moans attached to them").** 123 layers on 60 moves named

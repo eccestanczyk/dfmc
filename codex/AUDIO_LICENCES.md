@@ -2,15 +2,17 @@
 
 Every sound the Tower ships, its licence and where it came from. Ingested 2026-09-24 from
 `dfmc-dungeon` (`docs/assets-licences.md` § Audio placeholders, § The eleven zone beds, § AFX bank);
-the facts are that repo's, the files are copies. Nothing here is CC-BY, so no credit line is
-*required* — the attributions below are recorded as a courtesy and because a pack cannot be
-re-sourced from a filename.
+the facts are that repo's, the files are copies. Everything ingested then is CC0, so no credit line
+is *required* for it — the attributions below are recorded as a courtesy and because a pack cannot be
+re-sourced from a filename. The one exception is the third pass (below, 2026-11-04): seven spell
+submissions licensed CC-BY 3.0, whose credit lines are on the public `credits.html` (the page the
+game's *Settings › Legal & Support › Credits* opens) and in each row's `Attribution` cell.
 
 Per-clip provenance for the bank lives in `codex/afx_bank.csv` itself (`Licence`, `Licence_URL`,
 `Attribution`, `Pack`, `Source_URL` on every row) and is rendered on `audio.html`. This page is the
 pack- and track-level summary.
 
-## The AFX bank — 852 clips, 30 packs, every one CC0 1.0
+## The AFX bank — 895 clips, 43 packs: CC0 1.0, and seven CC-BY 3.0 spell submissions (the third pass)
 
 `codex/afx_bank.csv` + `assets/afx/<pack>/*.ogg`. All thirty packs are CC0 1.0
 (<https://creativecommons.org/publicdomain/zero/1.0/>): no attribution, no fee, commercial use and
@@ -87,6 +89,49 @@ qubodup's snow and rustle sets — CC0, but shipped as .7z and there is no 7-Zip
 Considered and refused, so nobody re-sources them: Kenney Voiceover Pack and Voiceover Pack
 (Fighter) — spoken words, against the standing **No words** rule. Incompetech / Kevin MacLeod —
 CC-BY 4.0, which needs a credit line this site has nowhere to put.
+
+### The third pass — 42 recorded spells for the rune register, CC0 and CC-BY 3.0 [2026-11-04, dfmc-client lane AU2]
+
+`AFX-854`…`AFX-895`, group `arcane`. D (chat, 2026-11-04): *"a lot of our AFX for Tower is not very
+good"* — after lane AU took the voices off, the worst left was the Kenney Digital Audio chiptune set
+standing in as the rune register (488 move layers). The Dungeon had nothing newer to give (its bank
+is this bank), so these 13 OpenGameArt submissions were sourced for it, each licence read off its own
+node page before the file was taken (raw downloads and the node pages kept in
+`E:\Herumon-Tower\local-only\afx-src\oga-<slug>\`). D's order allows CC-BY where a credit line is all
+it asks; nothing NC, ND, SA or GPL-only was taken (*Spell 4 (fire)* and *3 Heal Spells* are
+multi-licensed and taken under their CC-BY 3.0 option; HaelDB's *Spell sounds* under its CC0 option).
+
+| Submission | Author | Clips | Licence | Source | Credit line (CC-BY) |
+| --- | --- | --- | --- | --- | --- |
+| Spell sounds | HaelDB | 9 | CC0-1.0 | <https://opengameart.org/content/spell-sounds> | - |
+| Magic Spell SFX | JaggedStone | 7 | CC0-1.0 | <https://opengameart.org/content/magic-spell-sfx> | - |
+| RPG Sound Pack | artisticdude | 3 | CC0-1.0 | <https://opengameart.org/content/rpg-sound-pack> | - |
+| Teleport Spell | Ogrebane | 2 | CC0-1.0 | <https://opengameart.org/content/teleport-spell> | - |
+| Freeze Spell | artisticdude | 2 | CC0-1.0 | <https://opengameart.org/content/freeze-spell-0> | - |
+| Earth Element Magic Spell | qubodup | 1 | CC0-1.0 | <https://opengameart.org/content/earth-element-magic-spell> | - |
+| Fantasy Sound Effects Library | Little Robot Sound Factory | 5 | CC-BY-3.0 | <https://opengameart.org/content/fantasy-sound-effects-library> | "Fantasy Sound Effects Library" by Little Robot Sound Factory - www.littlerobotsoundfactory.com (https://opengameart.org/content/fantasy-sound-effects-library), CC-BY 3.0; trimmed, filtered and level-matched |
+| 3 Heal Spells | DoKashiteru | 3 | CC-BY-3.0 | <https://opengameart.org/content/3-heal-spells> | "3 Heal Spells" by DoKashiteru (https://opengameart.org/content/3-heal-spells), CC-BY 3.0; trimmed, filtered and level-matched |
+| Magic SFX Sample | ViRiX | 3 | CC-BY-3.0 | <https://opengameart.org/content/magic-sfx-sample> | "Magic SFX Sample" by ViRiX (https://opengameart.org/content/magic-sfx-sample), CC-BY 3.0; trimmed, filtered and level-matched |
+| Magic Shield | spookymodem | 2 | CC-BY-3.0 | <https://opengameart.org/content/magic-shield> | "Magic Shield" by spookymodem (https://opengameart.org/content/magic-shield), CC-BY 3.0; trimmed, filtered and level-matched |
+| Magic Smite | spookymodem | 2 | CC-BY-3.0 | <https://opengameart.org/content/magic-smite> | "Magic Smite" by spookymodem (https://opengameart.org/content/magic-smite), CC-BY 3.0; trimmed, filtered and level-matched |
+| Torch Fire Spell | spookymodem | 2 | CC-BY-3.0 | <https://opengameart.org/content/torch-fire-spell> | "Torch Fire Spell" by spookymodem (https://opengameart.org/content/torch-fire-spell), CC-BY 3.0; trimmed, filtered and level-matched |
+| Spell 4 (fire) | bart | 1 | CC-BY-3.0 | <https://opengameart.org/content/spell-4-fire> | "Spell 4 (fire)" by bart (https://opengameart.org/content/spell-4-fire), CC-BY 3.0; trimmed, filtered and level-matched |
+
+**What was done to them** (ffmpeg-static from the Dungeon checkout + numpy, by path; nothing in the
+download folders was executed): a high-pass at 60-130 Hz (the sub rumble a phone speaker turns into
+distortion, the #993 lesson), a low-pass at 4-4.5 kHz on the four sources that measured shrill
+(`Over3k_Pct >= 20`: Healing Full, Magic Shield, Spell_00, freeze; *Trap Snap* stays at 22 % and plays
+under the grammar's `p <= -3` hygiene), a cut to a window of 0.5-1.45 s that starts at the clip's own onset (or the take
+named in `Name`), a squared fade-out, then a gain to −18 LUFS integrated capped at −1 dBFS sample peak
+(6 % headroom for the Vorbis encode), mono 48 kHz Vorbis q4. Most sources gave a long cut (S2 / S3 /
+ultimate) and a short one (≤ 850 ms, because a W6 swap must fit S1's 900 ms budget too).
+
+Considered and not taken: qubodup's *Time Magic*, *Spell Sounds Starter Pack* (CC-BY-SA / GPL);
+*Replenish Life Force*, *Wisdom Magic*, *Energy Drain*, *Ghost breath* (built from a human voice —
+lane AU took every voice off the abilities); *3 dark magic spells*, *Ice & Electricity Magic*,
+*Growth Spell*, *Fire & Evil Spell* (7z only, no 7-Zip on the build machine); the shrill
+(`Over3k_Pct` 50-99 %) *Misc 02*, *Ice attack 2*, *Spell_01*, *electricspell*, *magical 5-7* and the
+sub booms (centroid under 90 Hz) *Fire impact 1*, *Spell_02*, *Spell_04*.
 
 ## The music beds — 10 zone tracks (OpenGameArt, every one CC0 1.0) and one synthesized boss bed
 

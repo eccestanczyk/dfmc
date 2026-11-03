@@ -138,6 +138,26 @@ a:hover{color:var(--gold)}
 
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-11-04 &mdash; recorded spells replace the chiptune rune register (chunk AU2, D chat order: "a lot of our
+      AFX for Tower is not very good ... free audio that only requires a mention in the credits"). On dev.</strong> After AU the
+      worst left was the Kenney Digital Audio set standing in as rule 4's rune register: 488 layers on 190 moves (AFX-430 Low
+      Random x85, AFX-429 Low Down x79, AFX-431 Low Three Tone x41). The Dungeon had nothing newer (its bank is this bank), so
+      42 clips were sourced from 13 OpenGameArt submissions, AFX-854..895, group <code>arcane</code>: 24 CC0-1.0 (HaelDB, JaggedStone,
+      artisticdude, Ogrebane, qubodup) and 18 CC-BY-3.0 (Little Robot Sound Factory, DoKashiteru, ViRiX, spookymodem, bart), each
+      high-passed, low-passed where shrill, cut to 0.5-1.45 s from its onset and matched to -18 LUFS under a -1 dBFS ceiling; every
+      CC-BY credit line is in its row's <code>Attribution</code>, on <a href="credits.html">credits.html</a> and in
+      <code>codex/AUDIO_LICENCES.md</code>. Rule <strong>W6</strong> in dfmc-client <code>tools/afx_character_pass.py</code> swaps
+      every chiptune layer clip for clip in every stage, keeping <code>d / n / i / j / g</code> and dropping the drone
+      <code>p</code>, for a spell of the move's school: its VFX archetype first (heal / cleanse &rarr; warm swell, speed_up &rarr;
+      gust, *_up &rarr; ward, *_down / curse &rarr; dark whoosh, a whip debuff &rarr; snare), then its element (lightning &rarr;
+      recorded crackle, fire &rarr; torch, ice &rarr; freeze, holy &rarr; smite, spirit &rarr; dark whoosh, earth / plant &rarr;
+      earth spell), else a cast. 477 layers on 187 moves re-voiced: hex 198, cast 71, storm 60, heal 50, ward 42, haste 22,
+      holy 10, bind 9, fire 8, ice 4, earth 3; chiptune left: 11 zap layers on lightning moves (Zap 1 / 2 / Three Tone Down,
+      the one place a synth fits). Calving Burst (M-CINDERSHARD-1) also took a wind layer on S3 (W3, now that its rune layer
+      carries no p-5). 37 spells ship in the client; the sync pruned the 53 now-unreferenced clips (the chiptune set and AU's
+      voices). <code>afx_lint</code> 435 rows, 0 failing; the pass is a fixpoint again (only ULT-MAGE-3's pre-existing boom).
+      Client gates <code>tools/probe_au2.py</code> 1/6 &rarr; 6/6, <code>tools/probe_au_novoice.py</code> check 5 re-aimed to
+      allow credited CC-BY. Players hear it when the client's DATA_PIN moves to this commit.</li>
     <li><strong>2026-11-04 &mdash; no voices on abilities (chunk AU, D chat order).</strong> 123 move layers on 60 moves named
       a vocal clip (AFX-607, 612-613, 618-638, 642-670, 838-842); each is swapped clip for clip in every stage, keeping its
       <code>d / n / i / j / g</code>, for the move's named element, else its voiced force (roar/growl &rarr; slam, rolling,

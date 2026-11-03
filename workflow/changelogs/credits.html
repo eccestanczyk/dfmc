@@ -14,6 +14,19 @@
 
   <h2>Changelog</h2>
   <ul>
+    <li><strong>2026-11-04 &mdash; the CC-BY spell sounds are credited (chunk AU2, D chat order: free audio that "only requires a
+      mention in the credits"; dfmc-client lane AU2). On dev &mdash; the public page edit is made now, not at release.</strong>
+      AU2 brought 42 recorded spells into the AFX bank (AFX-854..895; <a href="workflow/audio.html">workflow/audio.html</a>
+      changelog), 18 of them from seven CC-BY 3.0 submissions. CC-BY asks for the credit wherever the work is distributed and the
+      dev build already plays them, so the credit lines went on the public page in the same batch instead of waiting for
+      release-ritual step 12: the lead no longer says nothing CC-BY ships, the Audio line says every clip is CC0-1.0 except the
+      credited spells, six CC0 submissions joined the OpenGameArt table (Spell sounds / HaelDB 9, Magic Spell SFX / JaggedStone 7,
+      RPG Sound Pack / artisticdude 3, Teleport Spell / Ogrebane 2, Freeze Spell / artisticdude 2, Earth Element Magic Spell /
+      qubodup 1) and a new table <em>Spell sounds licensed CC-BY 3.0</em> carries each submission's exact credit line (the row's
+      <code>Attribution</code> cell) with links to the source and the licence: Fantasy Sound Effects Library / Little Robot Sound
+      Factory 5, 3 Heal Spells / DoKashiteru 3, Magic SFX Sample / ViRiX 3, Magic Shield, Magic Smite, Torch Fire Spell /
+      spookymodem 2 each, Spell 4 (fire) / bart 1. The game's Credits row opens this page, so the in-game credits are the same
+      edit. Gate: dfmc-client <code>tools/probe_au2.py</code> check 3. NOT REVIEWED BY COUNSEL.</li>
     <li><strong>2026-10-22 &mdash; the font licence ships with the game (D, Tower rulings form card <em>T21</em>, 2026-10-18: &ldquo;Build them next run&rdquo;; 0.89-4 board card <em>Q18</em> LEGAL; lane T21, dfmc-client dev). WIKI + dev; the server half needs main + deploy. NOT REVIEWED BY COUNSEL.</strong> The OFL requires its text and the copyright notice beside every copy of the fonts; the game shipped 32 hashed <code>.woff2</code> files and nothing else. <code>play/fonts/OFL.txt</code> now carries the licence and the four families&rsquo; notices, and the table above names each holder.</li>
     <li><strong>2026-10-01 &mdash; page written (D, Rulings board card <em>settings</em>; lane LEGAL). WIKI ONLY.</strong> The Settings row <em>Credits</em> opened this page and it was 404. Built from the repos' own licence records: <code>codex/AUDIO_LICENCES.md</code> (8 Kenney packs, 22 OpenGameArt submissions, 10 zone tracks, all CC0-1.0), <code>codex/fx_bank.csv</code> (49 sheets from Unity Labs Paris and Effekseer, CC0-1.0), the fonts in <code>play/fonts/</code> and the vendored React notice. Team credits and the AI-art disclosure wording are placeholders, owed by the backlog entry <em>Legal review of privacy/terms/credits</em>.</li>
   </ul>
