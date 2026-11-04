@@ -810,3 +810,153 @@ srv_body,不正なリクエストです,app: L1b server refusal code body (srvEr
 srv_bad_json,不正なリクエストです,app: L1b server refusal code bad json (srvErr)
 srv_unreadable_save,セーブを読み込めません,app: L1b server refusal code unreadable save (srvErr)
 srv_sid_required,サインインしていません,app: L1b server refusal code sid required (srvErr)
+m_sock_tip,{kind}：{name} T{tier} — {fx},"app: L1d equipment socket hover tooltip, a filled socket ({kind} socket kind, {name} item, {tier} tier, {fx} effect)"
+m_sock_empty_gem,空きジェム枠,"app: L1d equipment socket hover tooltip, an empty Gem socket"
+m_sock_empty_rune,空きルーン枠,"app: L1d equipment socket hover tooltip, an empty Rune socket"
+m_sock_empty_enchant,空きエンチャント枠,"app: L1d equipment socket hover tooltip, an empty Enchant (scroll) socket"
+m_sock_illegal_lv,不正 — {name}にはレベル{lv}が必要です。それまで効果はありません。,"app: L1d equipment socket tooltip, a socketed item above the slot's level"
+m_sock_illegal_lv_creature,不正 — {name}にはクリーチャーレベル{lv}が必要です。それまで効果はありません。,"app: L1d tag socket tooltip, a socketed item above the creature's level"
+m_sock_illegal_stat,不正 — {name}はこの装備の能力値と合いません。外すまで効果はありません。,"app: L1d equipment socket tooltip, a socketed item of the wrong stat"
+m_sock_rolled,ランダム,"app: L1d socket effect line, a randomly rolled enchant stat"
+m_kind_enchant,エンチャント,"app: L1d socket kind, an Enchant (scroll) socket"
+m_stat_attack,攻撃力,app: L1d a stat word in a socket effect line (+24 Attack)
+m_stat_defense,防御力,app: L1d a stat word in a socket effect line (+16 Defense)
+m_stat_hp,HP,app: L1d a stat word in a socket effect line (+40 HP)
+m_stat_creature_attack,クリーチャー攻撃力,app: L1d a stat word in a tag socket effect line
+m_stat_creature_defense,クリーチャー防御力,app: L1d a stat word in a tag socket effect line
+m_stat_creature_hp,クリーチャーHP,app: L1d a stat word in a tag socket effect line
+m_stat_status_resist,状態異常耐性,app: L1d a stat word in a rolled enchant effect line
+m_srv_class_not_bought,クラスは購入されませんでした（{e}）。,app: L1d class purchase refused ({e} = the server's reason)
+m_srv_trade_failed,取引は成立しませんでした（{e}）。,app: L1d Shadow Trader trade refused ({e} = the server's reason)
+m_link_not_linked,連携されていません,"app: L1d account link refused, dialog title"
+m_link_failed,連携を完了できませんでした（{e}）。設定からもう一度お試しください。,"app: L1d account link refused, dialog body ({e} = the server's reason)"
+m_link_not_merged,統合されていません,"app: L1d account merge refused, dialog title"
+m_link_merge_failed,何も変更されませんでした（{e}）。,"app: L1d account merge refused, dialog body ({e} = the server's reason)"
+m_srv_no_answer,応答なし,app: L1d the server gave no reason
+m_srv_attempt_short,1回分の{cur}が足りません — 何も消費されていません,"app: L1d upgrade refused, not enough of a material ({cur} = the material)"
+m_bld_unconfigured,このクラスではまだビルドを保存できません。,"app: L1d saved builds refused, builds_unconfigured"
+m_bld_empty_loadout,保存する装備がありません。,"app: L1d saved builds refused, empty_loadout"
+m_srv_could_not,サーバーはそれを実行できませんでした（{e}）。,app: L1d saved builds refused ({e} = the server's reason)
+m_srv_network,通信エラー,app: L1d market refusal with no answer (a network failure)
+m_pvp_queue_failed,マッチング失敗,"app: L1d PvP queue refused, note title"
+m_pvp_match_refused,サーバーが対戦を拒否しました（{e}）。,"app: L1d PvP queue refused, note body ({e} = the server's reason)"
+srv_code,コード {c},app: L1d a server refusal code with no srv_ row ({c} = the code itself)
+srv_abyss_locked,無限の深淵はまだ開いていません,app: L1d server refusal code (srvErr)
+srv_account_conflict,このログインは別のアカウントのものです,app: L1d server refusal code (srvErr)
+srv_account_locked,アカウントがロックされています,app: L1d server refusal code (srvErr)
+srv_account_locked_try_later,アカウントがロック中、後でお試しください,app: L1d server refusal code (srvErr)
+srv_already_sent,送信済み,app: L1d server refusal code (srvErr)
+srv_attempt_foreign,あなたの試行ではありません,app: L1d server refusal code (srvErr)
+srv_attempt_required,試行が開始されていません,app: L1d server refusal code (srvErr)
+srv_attempt_spent,試行は使用済みです,app: L1d server refusal code (srvErr)
+srv_attempt_stale,試行が古くなっています,app: L1d server refusal code (srvErr)
+srv_bad_request,不正なリクエスト,app: L1d server refusal code (srvErr)
+srv_bad_state,状態が一致しません、もう一度お試しください,app: L1d server refusal code (srvErr)
+srv_bag_full,バッグがいっぱいです,app: L1d server refusal code (srvErr)
+srv_banned,アカウントが停止されています,app: L1d server refusal code (srvErr)
+srv_breed_claim_bad,このタマゴは受け取れません,app: L1d server refusal code (srvErr)
+srv_breed_claim_removed,タマゴの受け取り方法が変わりました,app: L1d server refusal code (srvErr)
+srv_breed_species_unresolved,不明な種族です,app: L1d server refusal code (srvErr)
+srv_builds_unconfigured,ビルドの保存はまだ使えません,app: L1d server refusal code (srvErr)
+srv_busy,混み合っています、もう一度お試しください,app: L1d server refusal code (srvErr)
+srv_challenge_unavailable,挑戦できません,app: L1d server refusal code (srvErr)
+srv_closed,終了しています,app: L1d server refusal code (srvErr)
+srv_code_expired,コードの期限切れ,app: L1d server refusal code (srvErr)
+srv_conflict,競合しました、もう一度お試しください,app: L1d server refusal code (srvErr)
+srv_cooldown,少しお待ちください,app: L1d server refusal code (srvErr)
+srv_crafting_removed,クラフトは廃止されました,app: L1d server refusal code (srvErr)
+srv_devour_consumer,このクリーチャーでは捕食できません,app: L1d server refusal code (srvErr)
+srv_devour_fodder,捕食できません,app: L1d server refusal code (srvErr)
+srv_devour_held,装備中または繁殖中です,app: L1d server refusal code (srvErr)
+srv_devour_locked,ロック中,app: L1d server refusal code (srvErr)
+srv_devour_pair,この2体は組み合わせられません,app: L1d server refusal code (srvErr)
+srv_devour_unsourced,入手元が不明です,app: L1d server refusal code (srvErr)
+srv_devour_worthless,得るものがありません,app: L1d server refusal code (srvErr)
+srv_egg_mint_failed,タマゴを作れませんでした,app: L1d server refusal code (srvErr)
+srv_empty_loadout,何も装備していません,app: L1d server refusal code (srvErr)
+srv_entitlement_refused,購入が確認できません,app: L1d server refusal code (srvErr)
+srv_equipped,装備中,app: L1d server refusal code (srvErr)
+srv_evolve_form,不明な形態です,app: L1d server refusal code (srvErr)
+srv_evolve_short,レベルが足りません,app: L1d server refusal code (srvErr)
+srv_evolve_step,次の段階ではありません,app: L1d server refusal code (srvErr)
+srv_evolve_uid,クリーチャーが見つかりません,app: L1d server refusal code (srvErr)
+srv_evolve_unknown,クリーチャーがまだ保存されていません,app: L1d server refusal code (srvErr)
+srv_export_cap,1日の上限に達しました,app: L1d server refusal code (srvErr)
+srv_floor_locked,この階はまだ開いていません,app: L1d server refusal code (srvErr)
+srv_grade_anchor,グレードがサーバーと一致しません,app: L1d server refusal code (srvErr)
+srv_grade_identity,グレードがサーバーと一致しません,app: L1d server refusal code (srvErr)
+srv_held_by,別の場所で使用中です,app: L1d server refusal code (srvErr)
+srv_implausible_floor,この階には到達していません,app: L1d server refusal code (srvErr)
+srv_implausible_xp,経験値が記録されていません,app: L1d server refusal code (srvErr)
+srv_in_dimension,すでに次元の中にいます,app: L1d server refusal code (srvErr)
+srv_in_pen,繁殖ペンの中です,app: L1d server refusal code (srvErr)
+srv_ks_slow,サーバーが混雑しています,app: L1d server refusal code (srvErr)
+srv_link_refused,連携が拒否されました,app: L1d server refusal code (srvErr)
+srv_live_save_is_newer,より新しいセーブがあります,app: L1d server refusal code (srvErr)
+srv_locked,ロック中,app: L1d server refusal code (srvErr)
+srv_locked_unlock_pen,先に詳細でロックを解除してください,app: L1d server refusal code (srvErr)
+srv_maintenance,メンテナンス中,app: L1d server refusal code (srvErr)
+srv_market_unconfigured,マーケットは準備中です,app: L1d server refusal code (srvErr)
+srv_name_unclaimed,名前が登録されていません,app: L1d server refusal code (srvErr)
+srv_no_build,そのビルドはありません,app: L1d server refusal code (srvErr)
+srv_no_live_match,進行中の対戦がありません,app: L1d server refusal code (srvErr)
+srv_no_match,一致しません,app: L1d server refusal code (srvErr)
+srv_no_such_egg,そのタマゴはありません,app: L1d server refusal code (srvErr)
+srv_no_such_pen,そのペンはありません,app: L1d server refusal code (srvErr)
+srv_no_such_pack,そのパックはありません,app: L1d server refusal code (srvErr)
+srv_no_such_sku,その商品はありません,app: L1d server refusal code (srvErr)
+srv_not_a_participant,この対戦の参加者ではありません,app: L1d server refusal code (srvErr)
+srv_not_armed,準備ができていません,app: L1d server refusal code (srvErr)
+srv_not_enough,足りません,app: L1d server refusal code (srvErr)
+srv_not_exportable,タワーの外には出せません,app: L1d server refusal code (srvErr)
+srv_not_for_sale,販売されていません,app: L1d server refusal code (srvErr)
+srv_not_in_dimension,次元の中にいません,app: L1d server refusal code (srvErr)
+srv_not_in_the_abyss,深淵の中にいません,app: L1d server refusal code (srvErr)
+srv_not_owned,所持していません,app: L1d server refusal code (srvErr)
+srv_not_your_account,あなたのアカウントではありません,app: L1d server refusal code (srvErr)
+srv_not_yours,あなたのものではありません,app: L1d server refusal code (srvErr)
+srv_nothing_to_merge,統合するものがありません,app: L1d server refusal code (srvErr)
+srv_oauth_denied,ログインが拒否されました,app: L1d server refusal code (srvErr)
+srv_over_cap,上限を超えています,app: L1d server refusal code (srvErr)
+srv_own_code,自分のコードです,app: L1d server refusal code (srvErr)
+srv_paid_currency_on_losing_account,もう一方のアカウントにWraithgoldがあります,app: L1d server refusal code (srvErr)
+srv_paid_currency_roll,Wraithgoldでは購入できません,app: L1d server refusal code (srvErr)
+srv_rate_limited,リクエストが多すぎます、少しお待ちください,app: L1d server refusal code (srvErr)
+srv_rate_limit_account,リクエストが多すぎます、少しお待ちください,app: L1d server refusal code (srvErr)
+srv_rate_limit_global,サーバーが混雑しています、少しお待ちください,app: L1d server refusal code (srvErr)
+srv_read_only,サーバーは現在読み取り専用です,app: L1d server refusal code (srvErr)
+srv_rename_refused,名前が拒否されました,app: L1d server refusal code (srvErr)
+srv_retired,現在は利用できません,app: L1d server refusal code (srvErr)
+srv_save_too_large,セーブが大きすぎます,app: L1d server refusal code (srvErr)
+srv_session_young,アカウント作成から日が浅すぎます,app: L1d server refusal code (srvErr)
+srv_sock_unledgered,このソケットアイテムは記録されていません,app: L1d server refusal code (srvErr)
+srv_soul_bag_full,ソウルバッグがいっぱいです,app: L1d server refusal code (srvErr)
+srv_stale_run,ランが古くなっています、もう一度お試しください,app: L1d server refusal code (srvErr)
+srv_stale_session,セッションの期限切れ、再読み込みしてください,app: L1d server refusal code (srvErr)
+srv_steam_failed,Steamから応答がありません,app: L1d server refusal code (srvErr)
+srv_steam_unreachable,Steamから応答がありません,app: L1d server refusal code (srvErr)
+srv_store_disabled,ストアは閉まっています,app: L1d server refusal code (srvErr)
+srv_team_illegal,このチームは使えません,app: L1d server refusal code (srvErr)
+srv_team_too_large,チームの人数が多すぎます,app: L1d server refusal code (srvErr)
+srv_team_unbuilt,チームがまだありません,app: L1d server refusal code (srvErr)
+srv_too_fast,速すぎます、少しお待ちください,app: L1d server refusal code (srvErr)
+srv_too_large,大きすぎます,app: L1d server refusal code (srvErr)
+srv_too_small,小さすぎます,app: L1d server refusal code (srvErr)
+srv_transfer_level,移動するにはレベルが足りません,app: L1d server refusal code (srvErr)
+srv_transfer_parked,すでに移動待ちです,app: L1d server refusal code (srvErr)
+srv_update_required,ゲームを更新してください,app: L1d server refusal code (srvErr)
+srv_verified_identity_required,先にログインしてください,app: L1d server refusal code (srvErr)
+srv_wrong_battle,この戦闘ではありません,app: L1d server refusal code (srvErr)
+srv_trader_data_unavailable,サーバー更新中、もう一度お試しください,"app: L1d server refusal code (srvErr), a codex table not loaded"
+srv_dim_data_unavailable,サーバー更新中、もう一度お試しください,"app: L1d server refusal code (srvErr), a codex table not loaded"
+srv_spawn_data_unavailable,サーバー更新中、もう一度お試しください,"app: L1d server refusal code (srvErr), a codex table not loaded"
+srv_class_data_unavailable,サーバー更新中、もう一度お試しください,"app: L1d server refusal code (srvErr), a codex table not loaded"
+srv_chance_data_unavailable,サーバー更新中、もう一度お試しください,"app: L1d server refusal code (srvErr), a codex table not loaded"
+srv_shop_data_unavailable,サーバー更新中、もう一度お試しください,"app: L1d server refusal code (srvErr), a codex table not loaded"
+srv_creature_data_unavailable,サーバー更新中、もう一度お試しください,"app: L1d server refusal code (srvErr), a codex table not loaded"
+srv_dismantle_data_unavailable,サーバー更新中、もう一度お試しください,"app: L1d server refusal code (srvErr), a codex table not loaded"
+srv_build_data_unavailable,サーバー更新中、もう一度お試しください,"app: L1d server refusal code (srvErr), a codex table not loaded"
+srv_slot_data_unavailable,サーバー更新中、もう一度お試しください,"app: L1d server refusal code (srvErr), a codex table not loaded"
+srv_pen_data_unavailable,サーバー更新中、もう一度お試しください,"app: L1d server refusal code (srvErr), a codex table not loaded"
+srv_ach_data_unavailable,サーバー更新中、もう一度お試しください,"app: L1d server refusal code (srvErr), a codex table not loaded"
+srv_not_a_fresh_start,新規開始ではありません,app: L1d server refusal code (srvErr)

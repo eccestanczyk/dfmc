@@ -810,3 +810,153 @@ srv_body,请求无效,app: L1b server refusal code body (srvErr)
 srv_bad_json,请求无效,app: L1b server refusal code bad json (srvErr)
 srv_unreadable_save,存档无法读取,app: L1b server refusal code unreadable save (srvErr)
 srv_sid_required,未登录,app: L1b server refusal code sid required (srvErr)
+m_sock_tip,{kind}：{name} T{tier} — {fx},"app: L1d equipment socket hover tooltip, a filled socket ({kind} socket kind, {name} item, {tier} tier, {fx} effect)"
+m_sock_empty_gem,空宝石槽,"app: L1d equipment socket hover tooltip, an empty Gem socket"
+m_sock_empty_rune,空符文槽,"app: L1d equipment socket hover tooltip, an empty Rune socket"
+m_sock_empty_enchant,空附魔槽,"app: L1d equipment socket hover tooltip, an empty Enchant (scroll) socket"
+m_sock_illegal_lv,不可用 — {name}需要等级{lv}。在此之前不提供任何加成。,"app: L1d equipment socket tooltip, a socketed item above the slot's level"
+m_sock_illegal_lv_creature,不可用 — {name}需要生物等级{lv}。在此之前不提供任何加成。,"app: L1d tag socket tooltip, a socketed item above the creature's level"
+m_sock_illegal_stat,不可用 — {name}与此物品的属性不符。取下之前不提供任何加成。,"app: L1d equipment socket tooltip, a socketed item of the wrong stat"
+m_sock_rolled,随机,"app: L1d socket effect line, a randomly rolled enchant stat"
+m_kind_enchant,附魔,"app: L1d socket kind, an Enchant (scroll) socket"
+m_stat_attack,攻击,app: L1d a stat word in a socket effect line (+24 Attack)
+m_stat_defense,防御,app: L1d a stat word in a socket effect line (+16 Defense)
+m_stat_hp,HP,app: L1d a stat word in a socket effect line (+40 HP)
+m_stat_creature_attack,生物攻击,app: L1d a stat word in a tag socket effect line
+m_stat_creature_defense,生物防御,app: L1d a stat word in a tag socket effect line
+m_stat_creature_hp,生物HP,app: L1d a stat word in a tag socket effect line
+m_stat_status_resist,状态抗性,app: L1d a stat word in a rolled enchant effect line
+m_srv_class_not_bought,未能购买该职业（{e}）。,app: L1d class purchase refused ({e} = the server's reason)
+m_srv_trade_failed,交易未能完成（{e}）。,app: L1d Shadow Trader trade refused ({e} = the server's reason)
+m_link_not_linked,未关联,"app: L1d account link refused, dialog title"
+m_link_failed,无法完成关联（{e}）。请从设置中重试。,"app: L1d account link refused, dialog body ({e} = the server's reason)"
+m_link_not_merged,未合并,"app: L1d account merge refused, dialog title"
+m_link_merge_failed,没有任何更改（{e}）。,"app: L1d account merge refused, dialog body ({e} = the server's reason)"
+m_srv_no_answer,无应答,app: L1d the server gave no reason
+m_srv_attempt_short,{cur}不足以进行一次尝试 — 未消耗任何东西,"app: L1d upgrade refused, not enough of a material ({cur} = the material)"
+m_bld_unconfigured,该职业尚未开放保存配装。,"app: L1d saved builds refused, builds_unconfigured"
+m_bld_empty_loadout,没有可保存的装备。,"app: L1d saved builds refused, empty_loadout"
+m_srv_could_not,服务器无法执行该操作（{e}）。,app: L1d saved builds refused ({e} = the server's reason)
+m_srv_network,网络,app: L1d market refusal with no answer (a network failure)
+m_pvp_queue_failed,匹配失败,"app: L1d PvP queue refused, note title"
+m_pvp_match_refused,服务器拒绝了这场对战（{e}）。,"app: L1d PvP queue refused, note body ({e} = the server's reason)"
+srv_code,代码 {c},app: L1d a server refusal code with no srv_ row ({c} = the code itself)
+srv_abyss_locked,无尽深渊尚未开启,app: L1d server refusal code (srvErr)
+srv_account_conflict,该登录属于另一个账号,app: L1d server refusal code (srvErr)
+srv_account_locked,账号已锁定,app: L1d server refusal code (srvErr)
+srv_account_locked_try_later,账号已锁定，请稍后再试,app: L1d server refusal code (srvErr)
+srv_already_sent,已发送,app: L1d server refusal code (srvErr)
+srv_attempt_foreign,不是你的尝试,app: L1d server refusal code (srvErr)
+srv_attempt_required,没有进行中的尝试,app: L1d server refusal code (srvErr)
+srv_attempt_spent,该尝试已使用,app: L1d server refusal code (srvErr)
+srv_attempt_stale,该尝试已过期,app: L1d server refusal code (srvErr)
+srv_bad_request,无效请求,app: L1d server refusal code (srvErr)
+srv_bad_state,状态不同步，请重试,app: L1d server refusal code (srvErr)
+srv_bag_full,背包已满,app: L1d server refusal code (srvErr)
+srv_banned,账号已被封禁,app: L1d server refusal code (srvErr)
+srv_breed_claim_bad,无法领取这个蛋,app: L1d server refusal code (srvErr)
+srv_breed_claim_removed,领取蛋的方式已变更,app: L1d server refusal code (srvErr)
+srv_breed_species_unresolved,未知物种,app: L1d server refusal code (srvErr)
+srv_builds_unconfigured,配装保存尚未开放,app: L1d server refusal code (srvErr)
+srv_busy,服务器繁忙，请重试,app: L1d server refusal code (srvErr)
+srv_challenge_unavailable,挑战不可用,app: L1d server refusal code (srvErr)
+srv_closed,已关闭,app: L1d server refusal code (srvErr)
+srv_code_expired,代码已过期,app: L1d server refusal code (srvErr)
+srv_conflict,发生冲突，请重试,app: L1d server refusal code (srvErr)
+srv_cooldown,请稍候,app: L1d server refusal code (srvErr)
+srv_crafting_removed,制作功能已移除,app: L1d server refusal code (srvErr)
+srv_devour_consumer,此生物无法吞噬,app: L1d server refusal code (srvErr)
+srv_devour_fodder,无法被吞噬,app: L1d server refusal code (srvErr)
+srv_devour_held,已装备或正在繁殖,app: L1d server refusal code (srvErr)
+srv_devour_locked,已锁定,app: L1d server refusal code (srvErr)
+srv_devour_pair,这两个无法配对,app: L1d server refusal code (srvErr)
+srv_devour_unsourced,来源不明,app: L1d server refusal code (srvErr)
+srv_devour_worthless,没有任何收益,app: L1d server refusal code (srvErr)
+srv_egg_mint_failed,无法生成蛋,app: L1d server refusal code (srvErr)
+srv_empty_loadout,没有装备,app: L1d server refusal code (srvErr)
+srv_entitlement_refused,购买未确认,app: L1d server refusal code (srvErr)
+srv_equipped,已装备,app: L1d server refusal code (srvErr)
+srv_evolve_form,未知形态,app: L1d server refusal code (srvErr)
+srv_evolve_short,等级不足,app: L1d server refusal code (srvErr)
+srv_evolve_step,不是下一阶段,app: L1d server refusal code (srvErr)
+srv_evolve_uid,找不到该生物,app: L1d server refusal code (srvErr)
+srv_evolve_unknown,该生物尚未保存,app: L1d server refusal code (srvErr)
+srv_export_cap,已达每日上限,app: L1d server refusal code (srvErr)
+srv_floor_locked,该层尚未开启,app: L1d server refusal code (srvErr)
+srv_grade_anchor,品质与服务器不符,app: L1d server refusal code (srvErr)
+srv_grade_identity,品质与服务器不符,app: L1d server refusal code (srvErr)
+srv_held_by,正在别处使用,app: L1d server refusal code (srvErr)
+srv_implausible_floor,尚未到达该层,app: L1d server refusal code (srvErr)
+srv_implausible_xp,经验未记录,app: L1d server refusal code (srvErr)
+srv_in_dimension,已在次元中,app: L1d server refusal code (srvErr)
+srv_in_pen,在繁殖栏中,app: L1d server refusal code (srvErr)
+srv_ks_slow,服务器繁忙，已降速,app: L1d server refusal code (srvErr)
+srv_link_refused,关联被拒绝,app: L1d server refusal code (srvErr)
+srv_live_save_is_newer,存在更新的存档,app: L1d server refusal code (srvErr)
+srv_locked,已锁定,app: L1d server refusal code (srvErr)
+srv_locked_unlock_pen,请先在详情中解锁,app: L1d server refusal code (srvErr)
+srv_maintenance,维护中,app: L1d server refusal code (srvErr)
+srv_market_unconfigured,市场尚未开放,app: L1d server refusal code (srvErr)
+srv_name_unclaimed,名称未注册,app: L1d server refusal code (srvErr)
+srv_no_build,没有该配装,app: L1d server refusal code (srvErr)
+srv_no_live_match,没有进行中的对战,app: L1d server refusal code (srvErr)
+srv_no_match,不匹配,app: L1d server refusal code (srvErr)
+srv_no_such_egg,没有该蛋,app: L1d server refusal code (srvErr)
+srv_no_such_pen,没有该繁殖栏,app: L1d server refusal code (srvErr)
+srv_no_such_pack,没有该礼包,app: L1d server refusal code (srvErr)
+srv_no_such_sku,没有该商品,app: L1d server refusal code (srvErr)
+srv_not_a_participant,不是这场对战的参与者,app: L1d server refusal code (srvErr)
+srv_not_armed,尚未就绪,app: L1d server refusal code (srvErr)
+srv_not_enough,不足,app: L1d server refusal code (srvErr)
+srv_not_exportable,无法带出塔外,app: L1d server refusal code (srvErr)
+srv_not_for_sale,非卖品,app: L1d server refusal code (srvErr)
+srv_not_in_dimension,不在次元中,app: L1d server refusal code (srvErr)
+srv_not_in_the_abyss,不在深渊中,app: L1d server refusal code (srvErr)
+srv_not_owned,不属于你,app: L1d server refusal code (srvErr)
+srv_not_your_account,不是你的账号,app: L1d server refusal code (srvErr)
+srv_not_yours,不是你的,app: L1d server refusal code (srvErr)
+srv_nothing_to_merge,没有可合并的内容,app: L1d server refusal code (srvErr)
+srv_oauth_denied,登录被拒绝,app: L1d server refusal code (srvErr)
+srv_over_cap,超出上限,app: L1d server refusal code (srvErr)
+srv_own_code,这是你自己的代码,app: L1d server refusal code (srvErr)
+srv_paid_currency_on_losing_account,另一个账号持有Wraithgold,app: L1d server refusal code (srvErr)
+srv_paid_currency_roll,无法用Wraithgold购买,app: L1d server refusal code (srvErr)
+srv_rate_limited,请求过多，请稍候,app: L1d server refusal code (srvErr)
+srv_rate_limit_account,请求过多，请稍候,app: L1d server refusal code (srvErr)
+srv_rate_limit_global,服务器繁忙，请稍候,app: L1d server refusal code (srvErr)
+srv_read_only,服务器暂时为只读,app: L1d server refusal code (srvErr)
+srv_rename_refused,名称被拒绝,app: L1d server refusal code (srvErr)
+srv_retired,已停用,app: L1d server refusal code (srvErr)
+srv_save_too_large,存档过大,app: L1d server refusal code (srvErr)
+srv_session_young,账号注册时间太短,app: L1d server refusal code (srvErr)
+srv_sock_unledgered,该镶嵌物没有记录,app: L1d server refusal code (srvErr)
+srv_soul_bag_full,魂袋已满,app: L1d server refusal code (srvErr)
+srv_stale_run,本次挑战已过期，请重试,app: L1d server refusal code (srvErr)
+srv_stale_session,会话已过期，请重新加载,app: L1d server refusal code (srvErr)
+srv_steam_failed,Steam无应答,app: L1d server refusal code (srvErr)
+srv_steam_unreachable,Steam无应答,app: L1d server refusal code (srvErr)
+srv_store_disabled,商店已关闭,app: L1d server refusal code (srvErr)
+srv_team_illegal,该队伍不可用,app: L1d server refusal code (srvErr)
+srv_team_too_large,队伍人数过多,app: L1d server refusal code (srvErr)
+srv_team_unbuilt,尚无队伍,app: L1d server refusal code (srvErr)
+srv_too_fast,太快了，请稍候,app: L1d server refusal code (srvErr)
+srv_too_large,过大,app: L1d server refusal code (srvErr)
+srv_too_small,过小,app: L1d server refusal code (srvErr)
+srv_transfer_level,等级不足，无法转移,app: L1d server refusal code (srvErr)
+srv_transfer_parked,已在等待转移,app: L1d server refusal code (srvErr)
+srv_update_required,请更新游戏,app: L1d server refusal code (srvErr)
+srv_verified_identity_required,请先登录,app: L1d server refusal code (srvErr)
+srv_wrong_battle,不是这场战斗,app: L1d server refusal code (srvErr)
+srv_trader_data_unavailable,服务器更新中，请重试,"app: L1d server refusal code (srvErr), a codex table not loaded"
+srv_dim_data_unavailable,服务器更新中，请重试,"app: L1d server refusal code (srvErr), a codex table not loaded"
+srv_spawn_data_unavailable,服务器更新中，请重试,"app: L1d server refusal code (srvErr), a codex table not loaded"
+srv_class_data_unavailable,服务器更新中，请重试,"app: L1d server refusal code (srvErr), a codex table not loaded"
+srv_chance_data_unavailable,服务器更新中，请重试,"app: L1d server refusal code (srvErr), a codex table not loaded"
+srv_shop_data_unavailable,服务器更新中，请重试,"app: L1d server refusal code (srvErr), a codex table not loaded"
+srv_creature_data_unavailable,服务器更新中，请重试,"app: L1d server refusal code (srvErr), a codex table not loaded"
+srv_dismantle_data_unavailable,服务器更新中，请重试,"app: L1d server refusal code (srvErr), a codex table not loaded"
+srv_build_data_unavailable,服务器更新中，请重试,"app: L1d server refusal code (srvErr), a codex table not loaded"
+srv_slot_data_unavailable,服务器更新中，请重试,"app: L1d server refusal code (srvErr), a codex table not loaded"
+srv_pen_data_unavailable,服务器更新中，请重试,"app: L1d server refusal code (srvErr), a codex table not loaded"
+srv_ach_data_unavailable,服务器更新中，请重试,"app: L1d server refusal code (srvErr), a codex table not loaded"
+srv_not_a_fresh_start,不是全新开始,app: L1d server refusal code (srvErr)
