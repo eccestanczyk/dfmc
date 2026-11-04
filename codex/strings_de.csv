@@ -1398,7 +1398,6 @@ m_dismantle_by_tier,Nach Stufe zerlegen,app: L1e screen text (top)
 m_pick_as_many_tiers_as_you_want_then,Wähle beliebig viele Stufen und bestätige einmal,app: L1e screen text (top)
 m_dismantle_selected,Ausgewählte zerlegen,app: L1e screen text (top)
 m_hammer_cursor_mark_items_in_the_inve,Hammer-Cursor — markiere Gegenstände im Inventar und drück die Taste erneut zum Bestätigen,app: L1e screen text (top)
-m_sure_about_dismantling_item,Wirklich {v1} Item{v2} zerlegen?,app: L1e screen text (top)
 m_nothing_to_dismantle_every_line_is_a,Nichts zu zerlegen — jede Linie ist bereits auf ein Paar reduziert.,app: L1e screen text (top)
 m_dismantle_all_t_items,Alle T{v1}-Gegenstände zerlegen?,app: L1e screen text (top)
 m_dismantle_all_items,Alle {v1}-Gegenstände zerlegen?,app: L1e screen text (top)
@@ -1791,3 +1790,24 @@ m_n_items_dismantled,{v1} GEGENSTÄNDE ZERLEGT,app: L1f (D 2026-11-04 Finish loc
 m_n_socketable,{v1} SOCKELBARES,app: L1f (D 2026-11-04 Finish localizing the game)
 m_n_socketables,{v1} SOCKELBARE,app: L1f (D 2026-11-04 Finish localizing the game)
 m_action_n_of_m,Aktion {v1} von {v2},app: L1f (D 2026-11-04 Finish localizing the game)
+m_status_slagbite,Schlackenbiss,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_fracture,Bruch,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_scorchrot,Sengfäule,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_mothervenom,Muttergift,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_necrovenom,Nekrogift,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_graveleech,Grabegel,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_doomrune,Verhängnisrune,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_gravechill,Grabeskälte,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_cinch,Würgegriff,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_bind,Fessel,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_warded,Gefeit,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_guarded,Gedeckt,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_hastened,Beschleunigt,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_slowed,Verlangsamt,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_blessed,Gesegnet,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_rallied,Angefeuert,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_x_companion,Gefährte ({v1}),"app: L1g (D 2026-11-04 Finish localizing the game): battle: an ally creature sub-line, v1 = its grade"
+m_undiscovered_meta,??? · unentdeckt,"app: L1g (D 2026-11-04 Finish localizing the game): creature card meta, an undiscovered creature"
+m_x_quality,Qualität {v1},"app: L1g (D 2026-11-04 Finish localizing the game): creature card meta, v1 = its grade"
+m_sure_dismantle_one,Wirklich {v1} Item zerlegen?,"app: L1g (D 2026-11-04 Finish localizing the game): dismantle confirm, one item (txn)"
+m_sure_dismantle_other,Wirklich {v1} Items zerlegen?,"app: L1g (D 2026-11-04 Finish localizing the game): dismantle confirm, several items (txn)"

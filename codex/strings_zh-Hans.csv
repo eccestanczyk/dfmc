@@ -1398,7 +1398,6 @@ m_dismantle_by_tier,按阶级分解,app: L1e screen text (top)
 m_pick_as_many_tiers_as_you_want_then,任意选择多个阶级，然后确认一次,app: L1e screen text (top)
 m_dismantle_selected,分解所选,app: L1e screen text (top)
 m_hammer_cursor_mark_items_in_the_inve,锤子光标——在背包中标记物品，然后再次按下按钮确认,app: L1e screen text (top)
-m_sure_about_dismantling_item,确定要分解 {v1} 件物品{v2}吗？,app: L1e screen text (top)
 m_nothing_to_dismantle_every_line_is_a,没有可分解的——每条路线都已只剩一对。,app: L1e screen text (top)
 m_dismantle_all_t_items,分解所有 T{v1} 物品？,app: L1e screen text (top)
 m_dismantle_all_items,分解所有{v1}物品？,app: L1e screen text (top)
@@ -1791,3 +1790,24 @@ m_n_items_dismantled,已分解{v1}件物品,app: L1f (D 2026-11-04 Finish locali
 m_n_socketable,{v1}件可镶嵌物,app: L1f (D 2026-11-04 Finish localizing the game)
 m_n_socketables,{v1}件可镶嵌物,app: L1f (D 2026-11-04 Finish localizing the game)
 m_action_n_of_m,第{v1}/{v2}个行动,app: L1f (D 2026-11-04 Finish localizing the game)
+m_status_slagbite,熔渣噬,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_fracture,碎裂,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_scorchrot,焦腐,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_mothervenom,母毒,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_necrovenom,死灵毒,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_graveleech,墓蛭,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_doomrune,厄运符文,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_gravechill,墓寒,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_cinch,缠缚,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_bind,束缚,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_warded,护佑,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_guarded,戒备,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_hastened,迅捷,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_slowed,迟缓,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_blessed,祝福,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_rallied,鼓舞,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_x_companion,{v1}伙伴,"app: L1g (D 2026-11-04 Finish localizing the game): battle: an ally creature sub-line, v1 = its grade"
+m_undiscovered_meta,??? · 未发现,"app: L1g (D 2026-11-04 Finish localizing the game): creature card meta, an undiscovered creature"
+m_x_quality,品质 {v1},"app: L1g (D 2026-11-04 Finish localizing the game): creature card meta, v1 = its grade"
+m_sure_dismantle_one,确定要分解 {v1} 件物品吗？,"app: L1g (D 2026-11-04 Finish localizing the game): dismantle confirm, one item (txn)"
+m_sure_dismantle_other,确定要分解 {v1} 件物品吗？,"app: L1g (D 2026-11-04 Finish localizing the game): dismantle confirm, several items (txn)"

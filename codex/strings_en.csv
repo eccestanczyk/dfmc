@@ -1398,7 +1398,6 @@ m_dismantle_by_tier,Dismantle by tier,app: L1e screen text (top)
 m_pick_as_many_tiers_as_you_want_then,"Pick as many tiers as you want, then confirm once",app: L1e screen text (top)
 m_dismantle_selected,Dismantle selected,app: L1e screen text (top)
 m_hammer_cursor_mark_items_in_the_inve,"Hammer cursor — mark items in the inventory, then press the button again to confirm",app: L1e screen text (top)
-m_sure_about_dismantling_item,Sure about dismantling {v1} item{v2}?,app: L1e screen text (top)
 m_nothing_to_dismantle_every_line_is_a,Nothing to dismantle — every line is already down to a pair.,app: L1e screen text (top)
 m_dismantle_all_t_items,Dismantle all T{v1} items?,app: L1e screen text (top)
 m_dismantle_all_items,Dismantle all {v1} items?,app: L1e screen text (top)
@@ -1791,3 +1790,24 @@ m_n_items_dismantled,{v1} ITEMS DISMANTLED,app: L1f (D 2026-11-04 Finish localiz
 m_n_socketable,{v1} SOCKETABLE,app: L1f (D 2026-11-04 Finish localizing the game)
 m_n_socketables,{v1} SOCKETABLES,app: L1f (D 2026-11-04 Finish localizing the game)
 m_action_n_of_m,Action {v1} of {v2},app: L1f (D 2026-11-04 Finish localizing the game)
+m_status_slagbite,Slagbite,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_fracture,Fracture,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_scorchrot,Scorchrot,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_mothervenom,Mothervenom,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_necrovenom,Necrovenom,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_graveleech,Graveleech,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_doomrune,Doomrune,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_gravechill,Gravechill,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_cinch,Cinch,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_bind,Bind,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_warded,Warded,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_guarded,Guarded,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_hastened,Hastened,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_slowed,Slowed,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_blessed,Blessed,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_rallied,Rallied,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_x_companion,{v1} companion,"app: L1g (D 2026-11-04 Finish localizing the game): battle: an ally creature sub-line, v1 = its grade"
+m_undiscovered_meta,??? · undiscovered,"app: L1g (D 2026-11-04 Finish localizing the game): creature card meta, an undiscovered creature"
+m_x_quality,{v1} quality,"app: L1g (D 2026-11-04 Finish localizing the game): creature card meta, v1 = its grade"
+m_sure_dismantle_one,Sure about dismantling {v1} item?,"app: L1g (D 2026-11-04 Finish localizing the game): dismantle confirm, one item (txn)"
+m_sure_dismantle_other,Sure about dismantling {v1} items?,"app: L1g (D 2026-11-04 Finish localizing the game): dismantle confirm, several items (txn)"

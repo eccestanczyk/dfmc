@@ -1398,7 +1398,6 @@ m_dismantle_by_tier,Desmontar por tier,app: L1e screen text (top)
 m_pick_as_many_tiers_as_you_want_then,Escolha quantos tiers quiser e confirme uma vez,app: L1e screen text (top)
 m_dismantle_selected,Desmontar selecionados,app: L1e screen text (top)
 m_hammer_cursor_mark_items_in_the_inve,Cursor de martelo — marque itens no inventário e pressione o botão de novo para confirmar,app: L1e screen text (top)
-m_sure_about_dismantling_item,Tem certeza de que quer desmontar {v1} peça{v2}?,app: L1e screen text (top)
 m_nothing_to_dismantle_every_line_is_a,Nada para desmontar — cada linha já está reduzida a um par.,app: L1e screen text (top)
 m_dismantle_all_t_items,Desmontar todos os itens T{v1}?,app: L1e screen text (top)
 m_dismantle_all_items,Desmontar todos os itens {v1}?,app: L1e screen text (top)
@@ -1791,3 +1790,24 @@ m_n_items_dismantled,{v1} ITENS DESMONTADOS,app: L1f (D 2026-11-04 Finish locali
 m_n_socketable,{v1} ENCAIXÁVEL,app: L1f (D 2026-11-04 Finish localizing the game)
 m_n_socketables,{v1} ENCAIXÁVEIS,app: L1f (D 2026-11-04 Finish localizing the game)
 m_action_n_of_m,Ação {v1} de {v2},app: L1f (D 2026-11-04 Finish localizing the game)
+m_status_slagbite,Mordescória,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_fracture,Fratura,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_scorchrot,Podriqueima,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_mothervenom,Veneno-Mãe,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_necrovenom,Necroveneno,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_graveleech,Sanguessuga-Tumular,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_doomrune,Runa da Ruína,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_gravechill,Frio-Tumular,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_cinch,Constrição,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_bind,Amarra,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_warded,Protegido,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_guarded,Em Guarda,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_hastened,Acelerado,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_slowed,Lento,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_blessed,Abençoado,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_status_rallied,Inspirado,"app: L1g (D 2026-11-04 Finish localizing the game): status name, battle chip tooltip"
+m_x_companion,Companheiro {v1},"app: L1g (D 2026-11-04 Finish localizing the game): battle: an ally creature sub-line, v1 = its grade"
+m_undiscovered_meta,??? · não descoberto,"app: L1g (D 2026-11-04 Finish localizing the game): creature card meta, an undiscovered creature"
+m_x_quality,qualidade {v1},"app: L1g (D 2026-11-04 Finish localizing the game): creature card meta, v1 = its grade"
+m_sure_dismantle_one,Tem certeza de que quer desmontar {v1} peça?,"app: L1g (D 2026-11-04 Finish localizing the game): dismantle confirm, one item (txn)"
+m_sure_dismantle_other,Tem certeza de que quer desmontar {v1} peças?,"app: L1g (D 2026-11-04 Finish localizing the game): dismantle confirm, several items (txn)"
