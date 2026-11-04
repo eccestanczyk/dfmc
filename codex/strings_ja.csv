@@ -1911,3 +1911,14 @@ m_no_males_share_type_with_x,インベントリに{v1}とタイプを共有す�
 m_no_females_share_type_with_x,インベントリに{v1}とタイプを共有するメスがいません。本当の壁はタイプの希少さです — 繁殖は幅広いコレクションに報います。,"app: L1h (D 2026-11-04 Finish localizing the game): breeding pick, empty"
 m_no_male_creatures_in_inventory,インベントリにオスのクリーチャーがいません。タマゴを孵化するか、クリーチャーの装備を外して繁殖させましょう。,"app: L1h (D 2026-11-04 Finish localizing the game): breeding pick, empty"
 m_no_female_creatures_in_inventory,インベントリにメスのクリーチャーがいません。タマゴを孵化するか、クリーチャーの装備を外して繁殖させましょう。,"app: L1h (D 2026-11-04 Finish localizing the game): breeding pick, empty"
+m_fx_hatches_x_grade_weighted,{v1}が孵化する。孵化した個体のグレードはタマゴのグレードに左右される。,app: L1i (D 2026-11-04 Finish localizing the game)
+m_fx_unlocks_floor_n_boss_room_x,{v1}階のボス部屋を開く：{v2}。,app: L1i (D 2026-11-04 Finish localizing the game)
+m_fx_unlocks_floor_n_uber_room_x,{v1}階のウーバーボス部屋を開く：{v2}。勝敗にかかわらず入室時に消費される。,app: L1i (D 2026-11-04 Finish localizing the game)
+m_fx_unequipped,装備解除済み,app: L1i (D 2026-11-04 Finish localizing the game)
+m_fx_unsocketed,ソケットから外した,app: L1i (D 2026-11-04 Finish localizing the game)
+m_fx_socketed,ソケット装着済み,app: L1i (D 2026-11-04 Finish localizing the game)
+m_fx_equipped,装備中,app: L1i (D 2026-11-04 Finish localizing the game)
+m_fx_starter_weapon,初期武器,app: L1i (D 2026-11-04 Finish localizing the game)
+m_fx_opening_lesson,最初のレッスン,app: L1i (D 2026-11-04 Finish localizing the game)
+m_fx_accompanying_creature,同行するクリーチャー,app: L1i (D 2026-11-04 Finish localizing the game)
+m_eq_base_line,+{v1} {v2}（基本）,app: L1i (D 2026-11-04 Finish localizing the game)

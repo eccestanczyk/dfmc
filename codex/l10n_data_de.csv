@@ -3636,3 +3636,21 @@ Fey and Beast allies deal +7%.,Verbündete der Typen Fee und Bestie verursachen 
 +8% Attack while below 50% HP.,+8% Angriff bei unter 50% LP.,soul
 Reptile and Dragon allies deal +7%.,Verbündete der Typen Reptil und Drache verursachen +7% Schaden.,soul
 Ooze and Undead allies +5% Defense.,Verbündete der Typen Schleim und Untoter +5% Verteidigung.,soul
++Attack,+Angriff,item_effect
++HP,+LP,item_effect
++Creature Attack,+Kreaturangriff,item_effect
++Creature Defense,+Kreaturverteidigung,item_effect
++Creature HP,+Kreatur-LP,item_effect
++Defense,+Verteidigung,item_effect
+Increased % Attack,Erhöhter Angriff in %,item_effect
+Increased % Defense,Erhöhte Verteidigung in %,item_effect
+Random Local enchantment roll — flat Attack/Defense/HP or item-local % Attack/Defense/HP,Zufällige lokale Verzauberung — fester Angriff/Verteidigung/LP oder gegenstandseigener %-Angriff/-Verteidigung/-LP,item_effect
+Gear crafting,Ausrüstung herstellen,item_effect
+Gear grading,Ausrüstung aufwerten,item_effect
+Gem crafting + grading,Edelsteine herstellen + aufwerten,item_effect
+Rune crafting + grading,Runen herstellen + aufwerten,item_effect
+Scroll crafting + grading + rerolling,Schriftrollen herstellen + aufwerten + neu würfeln,item_effect
+Increased % HP,Erhöhte LP in %,item_effect
+Passive soul socket,Passiver Seelensockel,item_effect
+Ability slot 1,Fähigkeitsplatz 1,item_effect
+Ability slot 2,Fähigkeitsplatz 2,item_effect

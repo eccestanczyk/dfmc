@@ -3636,3 +3636,21 @@ Fey and Beast allies deal +7%.,妖精和野兽友方造成的伤害+7%。,soul
 +8% Attack while below 50% HP.,HP低于50%时，攻击+8%。,soul
 Reptile and Dragon allies deal +7%.,爬行和龙友方造成的伤害+7%。,soul
 Ooze and Undead allies +5% Defense.,软泥和不死友方防御+5%。,soul
++Attack,+攻击,item_effect
++HP,+HP,item_effect
++Creature Attack,+生物攻击,item_effect
++Creature Defense,+生物防御,item_effect
++Creature HP,+生物HP,item_effect
++Defense,+防御,item_effect
+Increased % Attack,攻击%提高,item_effect
+Increased % Defense,防御%提高,item_effect
+Random Local enchantment roll — flat Attack/Defense/HP or item-local % Attack/Defense/HP,随机本地附魔 — 固定攻击/防御/HP，或装备自身的%攻击/防御/HP,item_effect
+Gear crafting,装备制作,item_effect
+Gear grading,装备升品,item_effect
+Gem crafting + grading,宝石制作 + 升品,item_effect
+Rune crafting + grading,符文制作 + 升品,item_effect
+Scroll crafting + grading + rerolling,卷轴制作 + 升品 + 重铸,item_effect
+Increased % HP,HP%提高,item_effect
+Passive soul socket,被动魂槽,item_effect
+Ability slot 1,技能栏1,item_effect
+Ability slot 2,技能栏2,item_effect

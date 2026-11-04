@@ -1911,3 +1911,14 @@ m_no_males_share_type_with_x,No males in your inventory share a type with {v1}. 
 m_no_females_share_type_with_x,No females in your inventory share a type with {v1}. Type scarcity is the real gate — breeding rewards a broad collection.,"app: L1h (D 2026-11-04 Finish localizing the game): breeding pick, empty"
 m_no_male_creatures_in_inventory,No male creatures in your inventory. Hatch an egg or unequip a creature to breed it.,"app: L1h (D 2026-11-04 Finish localizing the game): breeding pick, empty"
 m_no_female_creatures_in_inventory,No female creatures in your inventory. Hatch an egg or unequip a creature to breed it.,"app: L1h (D 2026-11-04 Finish localizing the game): breeding pick, empty"
+m_fx_hatches_x_grade_weighted,Hatches {v1}. Hatchling grade is weighted by the egg's grade.,app: L1i (D 2026-11-04 Finish localizing the game)
+m_fx_unlocks_floor_n_boss_room_x,Unlocks the Floor {v1} boss room: {v2}.,app: L1i (D 2026-11-04 Finish localizing the game)
+m_fx_unlocks_floor_n_uber_room_x,"Unlocks the Floor {v1} über boss room: {v2}. Consumed on entry, won or lost.",app: L1i (D 2026-11-04 Finish localizing the game)
+m_fx_unequipped,Unequipped,app: L1i (D 2026-11-04 Finish localizing the game)
+m_fx_unsocketed,Unsocketed,app: L1i (D 2026-11-04 Finish localizing the game)
+m_fx_socketed,Socketed,app: L1i (D 2026-11-04 Finish localizing the game)
+m_fx_equipped,Equipped,app: L1i (D 2026-11-04 Finish localizing the game)
+m_fx_starter_weapon,Starter weapon,app: L1i (D 2026-11-04 Finish localizing the game)
+m_fx_opening_lesson,Opening lesson,app: L1i (D 2026-11-04 Finish localizing the game)
+m_fx_accompanying_creature,Accompanying creature,app: L1i (D 2026-11-04 Finish localizing the game)
+m_eq_base_line,+{v1} {v2} (base),app: L1i (D 2026-11-04 Finish localizing the game)

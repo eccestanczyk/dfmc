@@ -3636,3 +3636,21 @@ Fey and Beast allies deal +7%.,妖精・獣タイプの味方の与ダメージ+
 +8% Attack while below 50% HP.,HPが50%未満の間、攻撃力+8%。,soul
 Reptile and Dragon allies deal +7%.,爬虫・竜タイプの味方の与ダメージ+7%。,soul
 Ooze and Undead allies +5% Defense.,粘体・アンデッドタイプの味方の防御力+5%。,soul
++Attack,+攻撃,item_effect
++HP,+HP,item_effect
++Creature Attack,+クリーチャー攻撃,item_effect
++Creature Defense,+クリーチャー防御,item_effect
++Creature HP,+クリーチャーHP,item_effect
++Defense,+防御,item_effect
+Increased % Attack,攻撃％上昇,item_effect
+Increased % Defense,防御％上昇,item_effect
+Random Local enchantment roll — flat Attack/Defense/HP or item-local % Attack/Defense/HP,ランダムなローカルエンチャント抽選 — 固定の攻撃/防御/HP、またはアイテム固有の％攻撃/防御/HP,item_effect
+Gear crafting,装備の製作,item_effect
+Gear grading,装備のグレード上げ,item_effect
+Gem crafting + grading,ジェムの製作＋グレード上げ,item_effect
+Rune crafting + grading,ルーンの製作＋グレード上げ,item_effect
+Scroll crafting + grading + rerolling,スクロールの製作＋グレード上げ＋再抽選,item_effect
+Increased % HP,HP％上昇,item_effect
+Passive soul socket,パッシブソウルソケット,item_effect
+Ability slot 1,アビリティ枠1,item_effect
+Ability slot 2,アビリティ枠2,item_effect

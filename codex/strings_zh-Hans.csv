@@ -1911,3 +1911,14 @@ m_no_males_share_type_with_x,你的背包中没有与{v1}同类型的雄性。�
 m_no_females_share_type_with_x,你的背包中没有与{v1}同类型的雌性。类型稀缺才是真正的门槛——繁殖奖励丰富的收藏。,"app: L1h (D 2026-11-04 Finish localizing the game): breeding pick, empty"
 m_no_male_creatures_in_inventory,你的背包中没有雄性生物。孵化一枚蛋或卸下一只生物来进行繁殖。,"app: L1h (D 2026-11-04 Finish localizing the game): breeding pick, empty"
 m_no_female_creatures_in_inventory,你的背包中没有雌性生物。孵化一枚蛋或卸下一只生物来进行繁殖。,"app: L1h (D 2026-11-04 Finish localizing the game): breeding pick, empty"
+m_fx_hatches_x_grade_weighted,孵化出{v1}。幼崽的品级受蛋的品级影响。,app: L1i (D 2026-11-04 Finish localizing the game)
+m_fx_unlocks_floor_n_boss_room_x,开启第{v1}层的首领房间：{v2}。,app: L1i (D 2026-11-04 Finish localizing the game)
+m_fx_unlocks_floor_n_uber_room_x,开启第{v1}层的超级首领房间：{v2}。进入时消耗，无论胜负。,app: L1i (D 2026-11-04 Finish localizing the game)
+m_fx_unequipped,已卸下,app: L1i (D 2026-11-04 Finish localizing the game)
+m_fx_unsocketed,已取下,app: L1i (D 2026-11-04 Finish localizing the game)
+m_fx_socketed,已镶嵌,app: L1i (D 2026-11-04 Finish localizing the game)
+m_fx_equipped,已装备,app: L1i (D 2026-11-04 Finish localizing the game)
+m_fx_starter_weapon,初始武器,app: L1i (D 2026-11-04 Finish localizing the game)
+m_fx_opening_lesson,入门课程,app: L1i (D 2026-11-04 Finish localizing the game)
+m_fx_accompanying_creature,随行生物,app: L1i (D 2026-11-04 Finish localizing the game)
+m_eq_base_line,+{v1} {v2}（基础）,app: L1i (D 2026-11-04 Finish localizing the game)

@@ -3636,3 +3636,21 @@ Fey and Beast allies deal +7%.,Aliados Feérico e Fera causam +7% de dano.,soul
 +8% Attack while below 50% HP.,+8% de Ataque enquanto abaixo de 50% de PV.,soul
 Reptile and Dragon allies deal +7%.,Aliados Réptil e Dragão causam +7% de dano.,soul
 Ooze and Undead allies +5% Defense.,Aliados Gosma e Morto-vivo +5% de Defesa.,soul
++Attack,+Ataque,item_effect
++HP,+PV,item_effect
++Creature Attack,+Ataque da criatura,item_effect
++Creature Defense,+Defesa da criatura,item_effect
++Creature HP,+PV da criatura,item_effect
++Defense,+Defesa,item_effect
+Increased % Attack,% de Ataque aumentado,item_effect
+Increased % Defense,% de Defesa aumentada,item_effect
+Random Local enchantment roll — flat Attack/Defense/HP or item-local % Attack/Defense/HP,Rolagem aleatória de encantamento Local — Ataque/Defesa/PV fixos ou % de Ataque/Defesa/PV do próprio item,item_effect
+Gear crafting,Criação de equipamento,item_effect
+Gear grading,Graduação de equipamento,item_effect
+Gem crafting + grading,Criação + graduação de gemas,item_effect
+Rune crafting + grading,Criação + graduação de runas,item_effect
+Scroll crafting + grading + rerolling,Criação + graduação + nova rolagem de pergaminhos,item_effect
+Increased % HP,% de PV aumentado,item_effect
+Passive soul socket,Encaixe de alma passiva,item_effect
+Ability slot 1,Espaço de habilidade 1,item_effect
+Ability slot 2,Espaço de habilidade 2,item_effect

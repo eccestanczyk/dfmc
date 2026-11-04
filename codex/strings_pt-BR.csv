@@ -1911,3 +1911,14 @@ m_no_males_share_type_with_x,Nenhum macho no seu inventário compartilha um tipo
 m_no_females_share_type_with_x,Nenhuma fêmea no seu inventário compartilha um tipo com {v1}. A escassez de tipos é a verdadeira barreira — a criação recompensa uma coleção ampla.,"app: L1h (D 2026-11-04 Finish localizing the game): breeding pick, empty"
 m_no_male_creatures_in_inventory,Nenhuma criatura macho no seu inventário. Choque um ovo ou desequipe uma criatura para criá-la.,"app: L1h (D 2026-11-04 Finish localizing the game): breeding pick, empty"
 m_no_female_creatures_in_inventory,Nenhuma criatura fêmea no seu inventário. Choque um ovo ou desequipe uma criatura para criá-la.,"app: L1h (D 2026-11-04 Finish localizing the game): breeding pick, empty"
+m_fx_hatches_x_grade_weighted,Choca um {v1}. O grau do filhote é ponderado pelo grau do ovo.,app: L1i (D 2026-11-04 Finish localizing the game)
+m_fx_unlocks_floor_n_boss_room_x,Abre a sala do chefe do Andar {v1}: {v2}.,app: L1i (D 2026-11-04 Finish localizing the game)
+m_fx_unlocks_floor_n_uber_room_x,"Abre a sala do chefe über do Andar {v1}: {v2}. Consumida ao entrar, vencendo ou perdendo.",app: L1i (D 2026-11-04 Finish localizing the game)
+m_fx_unequipped,Desequipado,app: L1i (D 2026-11-04 Finish localizing the game)
+m_fx_unsocketed,Removido do encaixe,app: L1i (D 2026-11-04 Finish localizing the game)
+m_fx_socketed,Encaixado,app: L1i (D 2026-11-04 Finish localizing the game)
+m_fx_equipped,Equipado,app: L1i (D 2026-11-04 Finish localizing the game)
+m_fx_starter_weapon,Arma inicial,app: L1i (D 2026-11-04 Finish localizing the game)
+m_fx_opening_lesson,Lição inicial,app: L1i (D 2026-11-04 Finish localizing the game)
+m_fx_accompanying_creature,Criatura acompanhante,app: L1i (D 2026-11-04 Finish localizing the game)
+m_eq_base_line,+{v1} {v2} (base),app: L1i (D 2026-11-04 Finish localizing the game)
