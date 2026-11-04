@@ -1050,12 +1050,9 @@ m_purchase_failed,購入に失敗しました,app: L1e message (toast)
 m_not_yet_available,まだ利用できません,app: L1e message (setState)
 m_wraithgold_is_the_premium_currency_b,Wraithgoldはショップで購入するプレミアム通貨です。購入はまだ開始されていません。,app: L1e message (setState)
 m_inventory_full,インベントリが満杯,app: L1e message (setState)
-m_dismantle_gear_you_do_not_need_or_bu,。不要な装備を分解するか、インベントリ枠を追加購入してから再度お試しください。,app: L1e message (setState)
 m_the_creature,そのクリーチャー,app: L1e message (setState)
-m_free_a_slot_first,)。先に枠を空けてください。,app: L1e message (setState)
 m_cannot_remove,{v1}を外せません,app: L1e message (setState)
 m_that_creature,そのクリーチャー,app: L1e message (setState)
-m_slots_free_a_slot_dismantle_a_creatu,枠)。クリーチャーを分解するかタマゴを孵化して枠を空けてから、親を外してください。,app: L1e message (setState)
 m_pen_is_not_next,{v1}番目の囲いはまだ解放できません,app: L1e message (setState)
 m_pens_unlock_in_order_unlock_pen_firs,囲いは順番に解放されます。先に{v1}番目の囲いを解放してください。,app: L1e message (setState)
 m_not_enough_ichor,イコルが足りません,app: L1e message (setState)
@@ -1109,13 +1106,11 @@ m_there_is_nothing_to_be_gained_here,これでは何も得られません,app: L
 m_the_server_refused_the_devour_nothin,サーバーが捕食を拒否しました — 何も消費されていません,app: L1e message (_dvToast)
 m_could_not_reach_the_server_nothing_w_2,サーバーに接続できませんでした — 何も消費されていません,app: L1e message (_dvToast)
 m_the_target_moved_nothing_was_consume,対象が移動しました — 何も消費されていません,app: L1e message (setState)
-m_last,直近: {v1}{v2} — {v3},app: L1e message (setState)
 m_queued,待機中,app: L1e message (setState)
 m_your_auto_pvp_match_starts_when_this,この戦闘が終わるとオートPvPの対戦が始まります。,app: L1e message (setState)
 m_that_match_expired,その対戦は期限切れです,app: L1e message (setState)
 m_the_20_minute_window_had_passed_so_i,20分の制限時間が過ぎたため、防衛側の勝利となりました。準備ができたら再度キューに入ってください。,app: L1e message (setState)
 m_no_attacks_left,攻撃回数が残っていません,app: L1e message (setState)
-m_they_refill_in_about,約{v1}で回復します。,app: L1e message (setState)
 m_the_premium_shop_sells_ten_more_for,プレミアムショップで本日分としてさらに10回購入できます — 4 Wraithgold。,app: L1e message (setState)
 m_shop,ショップ,app: L1e message (setState)
 m_no_team_saved_yet,チームがまだ保存されていません,app: L1e message (setState)
@@ -1311,7 +1306,6 @@ m_fights_beside_active,{v1}体の仲間{v2}と共に戦う,app: L1e screen text 
 m_fights_alone,単独で戦う,app: L1e screen text (top)
 m_spends_1_key_held,鍵を1つ消費 · 所持{v1},app: L1e screen text (top)
 m_0_keys_held_keys_drop_on_this_zone_s,鍵の所持0 · 鍵はこのゾーンの階でドロップ,app: L1e screen text (top)
-m_lost_inventory_full,消失 — インベントリが満杯,app: L1e screen text (top)
 m_you_yield_the_match_your_opponent_ta,対戦を放棄します。相手が勝利とレートを得て、あなたは敗北となります。,app: L1e screen text (top)
 m_your_party_falls_where_it_stands_thi,パーティはその場で倒れます。倒されたときとまったく同じく敗北扱いになります。,app: L1e screen text (top)
 m_exit_fullscreen,フルスクリーン解除,app: L1e screen text (top)
@@ -1337,7 +1331,6 @@ m_trophy_wall_2,トロフィーウォール,app: L1e screen text (top)
 m_salvages_for,回収で{v1},app: L1e screen text (top)
 m_no_grade,· グレードなし,app: L1e screen text (top)
 m_advances_lv,Lv {v1}で進化,app: L1e screen text (top)
-m_no_grade_on_a_codex_sheet,· 図鑑ではグレードなし,app: L1e screen text (top)
 m_your_class,あなたのクラス,app: L1e screen text (top)
 m_line_stage_of_3,{v1}ライン · ステージ{v2}/3,app: L1e screen text (top)
 m_dlc_available_for_purchase_click_to,DLC購入可能 — クリックでSteamのページを表示,app: L1e screen text (top)
@@ -1424,8 +1417,6 @@ m_not_breeding,交配していません,app: L1e screen text (top)
 m_price_unavailable,価格不明,app: L1e screen text (top)
 m_shares_a_type_with,{v1}とタイプが共通,app: L1e screen text (push)
 m_in_your_inventory,インベントリ内,app: L1e screen text (push)
-m_type_scarcity_is_the_real_gate_breed,。タイプの希少さこそが本当の壁です — 交配は幅広いコレクションに報います。,app: L1e screen text (top)
-m_creatures_in_your_inventory_hatch_an,のクリーチャーがインベントリにいません。タマゴを孵化するかクリーチャーを外して交配させましょう。,app: L1e screen text (top)
 m_returned_to_your_bag,がバッグに戻りました,app: L1e screen text (top)
 m_hover_your_team_all_allies_are_warde,味方にカーソルを — 味方全体を守ります,app: L1e screen text (top)
 m_hover_an_ally_to_support_highlighted,支援する味方にカーソルを — 緑で強調表示,app: L1e screen text (top)
@@ -1811,3 +1802,112 @@ m_undiscovered_meta,??? · 未発見,"app: L1g (D 2026-11-04 Finish localizing t
 m_x_quality,品質 {v1},"app: L1g (D 2026-11-04 Finish localizing the game): creature card meta, v1 = its grade"
 m_sure_dismantle_one,{v1}個のアイテムを分解してよろしいですか？,"app: L1g (D 2026-11-04 Finish localizing the game): dismantle confirm, one item (txn)"
 m_sure_dismantle_other,{v1}個のアイテムを分解してよろしいですか？,"app: L1g (D 2026-11-04 Finish localizing the game): dismantle confirm, several items (txn)"
+m_x_soul_lc,{v1}のソウル,"app: L1h (D 2026-11-04 Finish localizing the game): hero sheet sub-line, v1 = class name"
+m_floor_n_locked_by_server,{v1}階はサーバーによってロックされています,app: L1h (D 2026-11-04 Finish localizing the game): floor travel refused
+m_x_starter_weapons,{v1}の初期武器,"app: L1h (D 2026-11-04 Finish localizing the game): inventory full: what needs room, v1 = class"
+m_x_already_opens_this_climb,{v1}はすでにこの登攀を開いています。,app: L1h (D 2026-11-04 Finish localizing the game): already linked notice
+m_server_said_n,サーバー応答 {v1},"app: L1h (D 2026-11-04 Finish localizing the game): matchmaking failure reason, v1 = HTTP status"
+m_could_not_reach_the_server,サーバーに接続できません,app: L1h (D 2026-11-04 Finish localizing the game): matchmaking failure reason
+m_matchmaking_hiccup_retrying,マッチングに不具合（{v1}）— 再試行中,"app: L1h (D 2026-11-04 Finish localizing the game): PvP note, v1 = reason"
+m_n_attempts_failed_last,{v1}回連続で失敗しました（最後: {v2}）,"app: L1h (D 2026-11-04 Finish localizing the game): save halt reason, v2 = last HTTP status"
+m_n_attempts_failed,{v1}回連続で失敗しました,app: L1h (D 2026-11-04 Finish localizing the game): save halt reason
+m_sa_an_item,アイテム,app: L1h (D 2026-11-04 Finish localizing the game): refused action: an unnamed item
+m_sa_dismantling,{v1}の分解,app: L1h (D 2026-11-04 Finish localizing the game): refused action (The server refused {v1})
+m_sa_advancing,{v1}の進化,app: L1h (D 2026-11-04 Finish localizing the game): refused action
+m_sa_unsocketing,{v1}の取り外し,app: L1h (D 2026-11-04 Finish localizing the game): refused action
+m_sa_socketing,{v1}のはめ込み,app: L1h (D 2026-11-04 Finish localizing the game): refused action
+m_sa_unequipping,{v1}の装備解除,app: L1h (D 2026-11-04 Finish localizing the game): refused action
+m_sa_seating_a_soul,ソウル{v1}のセット,app: L1h (D 2026-11-04 Finish localizing the game): refused action
+m_sa_switching_class,クラス変更 {v1},app: L1h (D 2026-11-04 Finish localizing the game): refused action
+m_sa_moving_to_floor,{v1}階への移動 {v2},"app: L1h (D 2026-11-04 Finish localizing the game): refused action, v1 = floor"
+m_sa_advancing_your_class,クラスの進化 {v1},app: L1h (D 2026-11-04 Finish localizing the game): refused action
+m_sa_changing_a_pen,囲いの変更 {v1},app: L1h (D 2026-11-04 Finish localizing the game): refused action
+m_sa_taking_out_of_pen,囲いからのクリーチャーの取り出し {v1},app: L1h (D 2026-11-04 Finish localizing the game): refused action
+m_sa_applying_build,保存したビルドの適用 {v1},app: L1h (D 2026-11-04 Finish localizing the game): refused action
+m_sa_equipping,{v1}の装備,app: L1h (D 2026-11-04 Finish localizing the game): refused action
+m_sa_level_needs,レベル{v1}で、{v2}が必要です,app: L1h (D 2026-11-04 Finish localizing the game): refusal reason
+m_sa_not_held,もう所持していません,app: L1h (D 2026-11-04 Finish localizing the game): refusal reason
+m_sa_mismatch,アイテムが送信したものと一致しません,app: L1h (D 2026-11-04 Finish localizing the game): refusal reason
+m_sa_held_in_slot,まだ装備中か、はめ込まれています,app: L1h (D 2026-11-04 Finish localizing the game): refusal reason
+m_sa_wrong_form,クリーチャーがその形態ではありません,app: L1h (D 2026-11-04 Finish localizing the game): refusal reason
+m_sa_no_step,そのような段階はありません,app: L1h (D 2026-11-04 Finish localizing the game): refusal reason
+m_sa_no_build,そのビルドはあなたのものではないか、削除されています,app: L1h (D 2026-11-04 Finish localizing the game): refusal reason
+m_sa_other_class,別のクラスのものです,app: L1h (D 2026-11-04 Finish localizing the game): refusal reason
+m_sa_unknown_type,サーバーはその操作を認識していません,app: L1h (D 2026-11-04 Finish localizing the game): refusal reason
+m_sa_shape,リクエストが不完全でした,app: L1h (D 2026-11-04 Finish localizing the game): refusal reason
+m_x_opened_at_floor_n,{v1}が{v2}階で解放されました。,app: L1h (D 2026-11-04 Finish localizing the game): unlock line
+m_n_of_n_slots,{v1} / {v2} 枠,app: L1h (D 2026-11-04 Finish localizing the game): slot shop capacity
+m_you_have_n,所持 {v1},app: L1h (D 2026-11-04 Finish localizing the game): slot shop: what you hold
+m_inv_full_need1,{v1}には空き枠が1つ必要ですが、空きは{v2}です。不要な装備を分解するか、インベントリ枠を追加購入してから、もう一度お試しください。,"app: L1h (D 2026-11-04 Finish localizing the game): inventory full, one slot needed (txn)"
+m_inv_full_needn,{v1}には空き枠が{v2}つ必要ですが、空きは{v3}です。不要な装備を分解するか、インベントリ枠を追加購入してから、もう一度お試しください。,"app: L1h (D 2026-11-04 Finish localizing the game): inventory full, several slots needed (txn)"
+m_x_would_return_soul_bag_when_y,{v2}がその場所に入ると{v1}はソウルバッグに戻りますが、空きがありません（{v3} / {v4}）。先に枠を空けてください。,app: L1h (D 2026-11-04 Finish localizing the game): breeding pen swap refused
+m_this_one,これ,app: L1h (D 2026-11-04 Finish localizing the game): breeding pen swap: an unnamed creature
+m_x_would_return_soul_bag_full,{v1}はソウルバッグに戻りますが、満杯です（{v2} / {v3} 枠）。クリーチャーを分解するかタマゴを孵化して枠を空けてから、親を外してください。,app: L1h (D 2026-11-04 Finish localizing the game): breeding pen remove refused
+m_n_attempt_lc,{v1}回,"app: L1h (D 2026-11-04 Finish localizing the game): upgrade-all tail, one (txn)"
+m_n_attempts_lc,{v1}回,"app: L1h (D 2026-11-04 Finish localizing the game): upgrade-all tail, several (txn)"
+m_empty_dash,— 空 —,app: L1h (D 2026-11-04 Finish localizing the game): an empty gear slot
+m_n_piece_saved_when,{v1}点 · 保存 {v2},"app: L1h (D 2026-11-04 Finish localizing the game): saved build slot, one piece (txn)"
+m_n_pieces_saved_when,{v1}点 · 保存 {v2},app: L1h (D 2026-11-04 Finish localizing the game): saved build slot (txn)
+m_n_piece,{v1}点,"app: L1h (D 2026-11-04 Finish localizing the game): saved build slot, one piece (txn)"
+m_n_pieces,{v1}点,app: L1h (D 2026-11-04 Finish localizing the game): saved build slot (txn)
+m_n_hatchling,孵化した子{v1}体,app: L1h (D 2026-11-04 Finish localizing the game): soul bag full: what needs room (txn)
+m_n_hatchlings,孵化した子{v1}体,app: L1h (D 2026-11-04 Finish localizing the game): soul bag full: what needs room (txn)
+m_scroll_band,{v1}–{v2} 固定 · {v3}–{v4}% · {v5}–{v6}% 追加 · {v7}は約{v8}%の位置,"app: L1h (D 2026-11-04 Finish localizing the game): scroll row: its roll band, v7 = grade"
+m_x_and_its_n_socketed_item,{v1}とはめ込まれた{v2}個のアイテム,app: L1h (D 2026-11-04 Finish localizing the game): bag full: what needs room (txn)
+m_x_and_its_n_socketed_items,{v1}とはめ込まれた{v2}個のアイテム,app: L1h (D 2026-11-04 Finish localizing the game): bag full: what needs room (txn)
+m_x_and_its_n_socketed_gem_rune,{v1}とはめ込まれた{v2}個のジェム/ルーン,app: L1h (D 2026-11-04 Finish localizing the game): bag full: what needs room (txn)
+m_x_and_its_n_socketed_gems_runes,{v1}とはめ込まれた{v2}個のジェム/ルーン,app: L1h (D 2026-11-04 Finish localizing the game): bag full: what needs room (txn)
+m_damage_taken_pct,被ダメージ {v1}{v2}%,"app: L1h (D 2026-11-04 Finish localizing the game): status chip line, v1 = sign"
+m_healing_pct,回復 {v1}{v2}%,"app: L1h (D 2026-11-04 Finish localizing the game): status chip line, v1 = sign"
+m_x_left,残り{v1},app: L1h (D 2026-11-04 Finish localizing the game): premium boon time left
+m_n_held_n_fell,防衛成功 {v1}件、陥落 {v2}件。,app: L1h (D 2026-11-04 Finish localizing the game): PvP defense summary
+m_last_x_with_y_turned_away,直近: {v1}（{v2}）— 撃退。,"app: L1h (D 2026-11-04 Finish localizing the game): PvP defense summary, last attacker"
+m_last_x_with_y_broke_through,直近: {v1}（{v2}）— 突破された。,"app: L1h (D 2026-11-04 Finish localizing the game): PvP defense summary, last attacker"
+m_last_x_turned_away,直近: {v1} — 撃退。,"app: L1h (D 2026-11-04 Finish localizing the game): PvP defense summary, last attacker"
+m_last_x_broke_through,直近: {v1} — 突破された。,"app: L1h (D 2026-11-04 Finish localizing the game): PvP defense summary, last attacker"
+m_they_refill_in_about_n_hours,約{v1}時間後に回復します。,app: L1h (D 2026-11-04 Finish localizing the game): no attacks left
+m_they_refill_in_about_n_minute,約{v1}分後に回復します。,app: L1h (D 2026-11-04 Finish localizing the game): no attacks left (txn)
+m_they_refill_in_about_n_minutes,約{v1}分後に回復します。,app: L1h (D 2026-11-04 Finish localizing the game): no attacks left (txn)
+m_rating_n,レート {v1},app: L1h (D 2026-11-04 Finish localizing the game): PvP result tail
+m_minus_n_turn_enemy_buffs,敵の強化 −{v1}ターン,app: L1h (D 2026-11-04 Finish localizing the game): soul passive line (txn)
+m_minus_n_turns_enemy_buffs,敵の強化 −{v1}ターン,app: L1h (D 2026-11-04 Finish localizing the game): soul passive line (txn)
+m_plus_n_slot,+{v1} 枠,app: L1h (D 2026-11-04 Finish localizing the game): gear compare socket delta (txn)
+m_plus_n_slots,+{v1} 枠,app: L1h (D 2026-11-04 Finish localizing the game): gear compare socket delta (txn)
+m_minus_n_slot,-{v1} 枠,app: L1h (D 2026-11-04 Finish localizing the game): gear compare socket delta (txn)
+m_minus_n_slots,-{v1} 枠,app: L1h (D 2026-11-04 Finish localizing the game): gear compare socket delta (txn)
+m_same_slots,枠数同じ,app: L1h (D 2026-11-04 Finish localizing the game): gear compare socket delta
+m_bn_drains_n,{v1}吸収,app: L1h (D 2026-11-04 Finish localizing the game): battle log note
+m_bn_recoil_n,反動 {v1},app: L1h (D 2026-11-04 Finish localizing the game): battle log note
+m_bn_x_heals_n,{v1}が{v2}回復,"app: L1h (D 2026-11-04 Finish localizing the game): battle log note, v1 = status"
+m_bn_x_answers_n,{v1}が{v2}で反撃,"app: L1h (D 2026-11-04 Finish localizing the game): battle log note, v1 = status"
+m_n_drop_lost_inv_full,ドロップ{v1}個消失 — インベントリが満杯,app: L1h (D 2026-11-04 Finish localizing the game): battle reward (txn)
+m_n_drops_lost_inv_full,ドロップ{v1}個消失 — インベントリが満杯,app: L1h (D 2026-11-04 Finish localizing the game): battle reward (txn)
+m_power_base_mult_as_grade_soul,基礎{v1} × {v2}（{v3}ソウルとして）,"app: L1h (D 2026-11-04 Finish localizing the game): move power tooltip, v3 = grade"
+m_power_base_no_grade,基礎{v1} · 図鑑シートにはグレードなし,app: L1h (D 2026-11-04 Finish localizing the game): move power tooltip
+m_x_can_advance_to_y_click,{v1}は{v2}に進化できます — クリックで開始,app: L1h (D 2026-11-04 Finish localizing the game): class advance tooltip
+m_x_soul_dash_y,{v1}のソウル — {v2},app: L1h (D 2026-11-04 Finish localizing the game): soul slot tooltip
+m_n_spare_stone_fits_no_piece,予備の石{v1}個は装備中のどの部位にも合いません（ステータスの一致が必要）,app: L1h (D 2026-11-04 Finish localizing the game): optimiser note (txn)
+m_n_spare_stones_fit_no_piece,予備の石{v1}個は装備中のどの部位にも合いません（ステータスの一致が必要）,app: L1h (D 2026-11-04 Finish localizing the game): optimiser note (txn)
+m_n_to_inventory,{v1}個をインベントリへ,app: L1h (D 2026-11-04 Finish localizing the game): optimiser plan line
+m_n_consumed_from_inventory,インベントリから{v1}個消費,app: L1h (D 2026-11-04 Finish localizing the game): optimiser plan line
+m_tip_atk_formula_n,(装備 {v1} + レベル {v2}) x クラス {v3} x リスク {v4} + 下限 {v5},app: L1h (D 2026-11-04 Finish localizing the game): hero ATK tooltip formula (floor = the minimum term)
+m_tip_def_formula_n,(装備 {v1} + レベル {v2}) x クラス {v3} + 下限 {v4},app: L1h (D 2026-11-04 Finish localizing the game): hero DEF tooltip formula (floor = the minimum term)
+m_x_would_return_to_inventory,{v1}はインベントリに戻ります,app: L1h (D 2026-11-04 Finish localizing the game): inventory full: what needs room
+m_x_would_return_to_soul_bag,{v1}はソウルバッグに戻ります,app: L1h (D 2026-11-04 Finish localizing the game): soul bag full: what needs room
+m_lv_n_mutant,Lv{v1} · ミュータント,app: L1h (D 2026-11-04 Finish localizing the game): a creature record's saved level line (tlMove template)
+m_lv_n_eff,Lv{v1},app: L1h (D 2026-11-04 Finish localizing the game): a creature record's saved level line (tlMove template)
+m_n_mutant_among_them,うちミュータント{v1}体,app: L1h (D 2026-11-04 Finish localizing the game): mass hatch result (txn)
+m_n_mutants_among_them,うちミュータント{v1}体,app: L1h (D 2026-11-04 Finish localizing the game): mass hatch result (txn)
+m_item_bag_expanded_n,アイテムバッグを拡張 — {v1}枠。,app: L1h (D 2026-11-04 Finish localizing the game): slot purchase confirmation
+m_soul_bag_expanded_n,ソウルバッグを拡張 — {v1}枠。,app: L1h (D 2026-11-04 Finish localizing the game): slot purchase confirmation
+m_fb_ctx_line,ビルド {v1} · {v2}階 · {v3} · {v4},"app: L1h (D 2026-11-04 Finish localizing the game): feedback form context line, v1 = game build"
+m_grade_x_to_y,グレード {v1} → {v2},app: L1h (D 2026-11-04 Finish localizing the game): devour preview
+m_n_failed_in_a_row,{v1}回連続失敗,app: L1h (D 2026-11-04 Finish localizing the game): upgrade pity line
+m_n_item_matches_filters,現在のフィルターに一致するアイテム: {v1}個,app: L1h (D 2026-11-04 Finish localizing the game): dismantle menu (txn)
+m_n_items_match_filters,現在のフィルターに一致するアイテム: {v1}個,app: L1h (D 2026-11-04 Finish localizing the game): dismantle menu (txn)
+m_saved_n_s_ago,{v1}秒前に保存,app: L1h (D 2026-11-04 Finish localizing the game): run save status
+m_no_save_yet,まだ保存なし,app: L1h (D 2026-11-04 Finish localizing the game): run save status
+m_no_males_share_type_with_x,インベントリに{v1}とタイプを共有するオスがいません。本当の壁はタイプの希少さです — 繁殖は幅広いコレクションに報います。,"app: L1h (D 2026-11-04 Finish localizing the game): breeding pick, empty"
+m_no_females_share_type_with_x,インベントリに{v1}とタイプを共有するメスがいません。本当の壁はタイプの希少さです — 繁殖は幅広いコレクションに報います。,"app: L1h (D 2026-11-04 Finish localizing the game): breeding pick, empty"
+m_no_male_creatures_in_inventory,インベントリにオスのクリーチャーがいません。タマゴを孵化するか、クリーチャーの装備を外して繁殖させましょう。,"app: L1h (D 2026-11-04 Finish localizing the game): breeding pick, empty"
+m_no_female_creatures_in_inventory,インベントリにメスのクリーチャーがいません。タマゴを孵化するか、クリーチャーの装備を外して繁殖させましょう。,"app: L1h (D 2026-11-04 Finish localizing the game): breeding pick, empty"

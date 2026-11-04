@@ -1050,12 +1050,9 @@ m_purchase_failed,PURCHASE FAILED,app: L1e message (toast)
 m_not_yet_available,NOT YET AVAILABLE,app: L1e message (setState)
 m_wraithgold_is_the_premium_currency_b,"Wraithgold is the premium currency, bought in the shop. Purchases are not open yet.",app: L1e message (setState)
 m_inventory_full,INVENTORY FULL,app: L1e message (setState)
-m_dismantle_gear_you_do_not_need_or_bu,". Dismantle gear you do not need, or buy more inventory slots, then try again.",app: L1e message (setState)
 m_the_creature,The creature,app: L1e message (setState)
-m_free_a_slot_first,). Free a slot first.,app: L1e message (setState)
 m_cannot_remove,CANNOT REMOVE {v1},app: L1e message (setState)
 m_that_creature,That creature,app: L1e message (setState)
-m_slots_free_a_slot_dismantle_a_creatu,slots). Free a slot — dismantle a creature or hatch an egg — then remove the parent.,app: L1e message (setState)
 m_pen_is_not_next,PEN {v1} IS NOT NEXT,app: L1e message (setState)
 m_pens_unlock_in_order_unlock_pen_firs,Pens unlock in order. Unlock Pen {v1} first.,app: L1e message (setState)
 m_not_enough_ichor,NOT ENOUGH ICHOR,app: L1e message (setState)
@@ -1109,13 +1106,11 @@ m_there_is_nothing_to_be_gained_here,THERE IS NOTHING TO BE GAINED HERE,app: L1e
 m_the_server_refused_the_devour_nothin,THE SERVER REFUSED THE DEVOUR — NOTHING WAS CONSUMED,app: L1e message (_dvToast)
 m_could_not_reach_the_server_nothing_w_2,COULD NOT REACH THE SERVER — NOTHING WAS CONSUMED,app: L1e message (_dvToast)
 m_the_target_moved_nothing_was_consume,THE TARGET MOVED — NOTHING WAS CONSUMED,app: L1e message (setState)
-m_last,Last: {v1}{v2} — {v3},app: L1e message (setState)
 m_queued,QUEUED,app: L1e message (setState)
 m_your_auto_pvp_match_starts_when_this,Your Auto PVP match starts when this fight ends.,app: L1e message (setState)
 m_that_match_expired,THAT MATCH EXPIRED,app: L1e message (setState)
 m_the_20_minute_window_had_passed_so_i,"The 20-minute window had passed, so it counts as a defense win. Queue again when you are ready.",app: L1e message (setState)
 m_no_attacks_left,NO ATTACKS LEFT,app: L1e message (setState)
-m_they_refill_in_about,They refill in about {v1}.,app: L1e message (setState)
 m_the_premium_shop_sells_ten_more_for,The premium shop sells ten more for today — 4 Wraithgold.,app: L1e message (setState)
 m_shop,SHOP,app: L1e message (setState)
 m_no_team_saved_yet,NO TEAM SAVED YET,app: L1e message (setState)
@@ -1311,7 +1306,6 @@ m_fights_beside_active,Fights beside {v1} active{v2},app: L1e screen text (top)
 m_fights_alone,Fights alone,app: L1e screen text (top)
 m_spends_1_key_held,SPENDS 1 KEY · {v1} HELD,app: L1e screen text (top)
 m_0_keys_held_keys_drop_on_this_zone_s,0 KEYS HELD · KEYS DROP ON THIS ZONE’S FLOORS,app: L1e screen text (top)
-m_lost_inventory_full,lost — inventory full,app: L1e screen text (top)
 m_you_yield_the_match_your_opponent_ta,You yield the match. Your opponent takes the win and the rating — you take the loss.,app: L1e screen text (top)
 m_your_party_falls_where_it_stands_thi,"Your party falls where it stands. This counts as a defeat, exactly as if you were slain.",app: L1e screen text (top)
 m_exit_fullscreen,Exit fullscreen,app: L1e screen text (top)
@@ -1337,7 +1331,6 @@ m_trophy_wall_2,TROPHY WALL,app: L1e screen text (top)
 m_salvages_for,Salvages for {v1},app: L1e screen text (top)
 m_no_grade,· NO GRADE,app: L1e screen text (top)
 m_advances_lv,Advances Lv {v1},app: L1e screen text (top)
-m_no_grade_on_a_codex_sheet,· no grade on a codex sheet,app: L1e screen text (top)
 m_your_class,Your class,app: L1e screen text (top)
 m_line_stage_of_3,{v1} line · Stage {v2} of 3,app: L1e screen text (top)
 m_dlc_available_for_purchase_click_to,DLC available for purchase — click to view on Steam,app: L1e screen text (top)
@@ -1424,8 +1417,6 @@ m_not_breeding,Not breeding,app: L1e screen text (top)
 m_price_unavailable,PRICE UNAVAILABLE,app: L1e screen text (top)
 m_shares_a_type_with,SHARES A TYPE WITH {v1},app: L1e screen text (push)
 m_in_your_inventory,IN YOUR INVENTORY,app: L1e screen text (push)
-m_type_scarcity_is_the_real_gate_breed,. Type scarcity is the real gate — breeding rewards a broad collection.,app: L1e screen text (top)
-m_creatures_in_your_inventory_hatch_an,creatures in your inventory. Hatch an egg or unequip a creature to breed it.,app: L1e screen text (top)
 m_returned_to_your_bag,RETURNED TO YOUR BAG,app: L1e screen text (top)
 m_hover_your_team_all_allies_are_warde,Hover your team — all allies are warded,app: L1e screen text (top)
 m_hover_an_ally_to_support_highlighted,Hover an ally to support — highlighted green,app: L1e screen text (top)
@@ -1811,3 +1802,112 @@ m_undiscovered_meta,??? · undiscovered,"app: L1g (D 2026-11-04 Finish localizin
 m_x_quality,{v1} quality,"app: L1g (D 2026-11-04 Finish localizing the game): creature card meta, v1 = its grade"
 m_sure_dismantle_one,Sure about dismantling {v1} item?,"app: L1g (D 2026-11-04 Finish localizing the game): dismantle confirm, one item (txn)"
 m_sure_dismantle_other,Sure about dismantling {v1} items?,"app: L1g (D 2026-11-04 Finish localizing the game): dismantle confirm, several items (txn)"
+m_x_soul_lc,{v1} soul,"app: L1h (D 2026-11-04 Finish localizing the game): hero sheet sub-line, v1 = class name"
+m_floor_n_locked_by_server,Floor {v1} is locked by the server,app: L1h (D 2026-11-04 Finish localizing the game): floor travel refused
+m_x_starter_weapons,{v1} starter weapons,"app: L1h (D 2026-11-04 Finish localizing the game): inventory full: what needs room, v1 = class"
+m_x_already_opens_this_climb,{v1} already opens this climb.,app: L1h (D 2026-11-04 Finish localizing the game): already linked notice
+m_server_said_n,server said {v1},"app: L1h (D 2026-11-04 Finish localizing the game): matchmaking failure reason, v1 = HTTP status"
+m_could_not_reach_the_server,could not reach the server,app: L1h (D 2026-11-04 Finish localizing the game): matchmaking failure reason
+m_matchmaking_hiccup_retrying,matchmaking hiccup ({v1}) — retrying,"app: L1h (D 2026-11-04 Finish localizing the game): PvP note, v1 = reason"
+m_n_attempts_failed_last,{v1} attempts in a row failed (last {v2}),"app: L1h (D 2026-11-04 Finish localizing the game): save halt reason, v2 = last HTTP status"
+m_n_attempts_failed,{v1} attempts in a row failed,app: L1h (D 2026-11-04 Finish localizing the game): save halt reason
+m_sa_an_item,an item,app: L1h (D 2026-11-04 Finish localizing the game): refused action: an unnamed item
+m_sa_dismantling,dismantling {v1},app: L1h (D 2026-11-04 Finish localizing the game): refused action (The server refused {v1})
+m_sa_advancing,advancing {v1},app: L1h (D 2026-11-04 Finish localizing the game): refused action
+m_sa_unsocketing,unsocketing {v1},app: L1h (D 2026-11-04 Finish localizing the game): refused action
+m_sa_socketing,socketing {v1},app: L1h (D 2026-11-04 Finish localizing the game): refused action
+m_sa_unequipping,unequipping {v1},app: L1h (D 2026-11-04 Finish localizing the game): refused action
+m_sa_seating_a_soul,seating a soul {v1},app: L1h (D 2026-11-04 Finish localizing the game): refused action
+m_sa_switching_class,switching class {v1},app: L1h (D 2026-11-04 Finish localizing the game): refused action
+m_sa_moving_to_floor,moving to floor {v1} {v2},"app: L1h (D 2026-11-04 Finish localizing the game): refused action, v1 = floor"
+m_sa_advancing_your_class,advancing your class {v1},app: L1h (D 2026-11-04 Finish localizing the game): refused action
+m_sa_changing_a_pen,changing a pen {v1},app: L1h (D 2026-11-04 Finish localizing the game): refused action
+m_sa_taking_out_of_pen,taking a creature out of a pen {v1},app: L1h (D 2026-11-04 Finish localizing the game): refused action
+m_sa_applying_build,applying a saved build {v1},app: L1h (D 2026-11-04 Finish localizing the game): refused action
+m_sa_equipping,equipping {v1},app: L1h (D 2026-11-04 Finish localizing the game): refused action
+m_sa_level_needs,it is level {v1} and needs {v2},app: L1h (D 2026-11-04 Finish localizing the game): refusal reason
+m_sa_not_held,you no longer hold it,app: L1h (D 2026-11-04 Finish localizing the game): refusal reason
+m_sa_mismatch,the item is not what was sent,app: L1h (D 2026-11-04 Finish localizing the game): refusal reason
+m_sa_held_in_slot,it is still equipped or socketed,app: L1h (D 2026-11-04 Finish localizing the game): refusal reason
+m_sa_wrong_form,the creature is not in that form,app: L1h (D 2026-11-04 Finish localizing the game): refusal reason
+m_sa_no_step,there is no such step,app: L1h (D 2026-11-04 Finish localizing the game): refusal reason
+m_sa_no_build,that build is not yours or was deleted,app: L1h (D 2026-11-04 Finish localizing the game): refusal reason
+m_sa_other_class,it belongs to another class,app: L1h (D 2026-11-04 Finish localizing the game): refusal reason
+m_sa_unknown_type,the server does not know that action,app: L1h (D 2026-11-04 Finish localizing the game): refusal reason
+m_sa_shape,the request was incomplete,app: L1h (D 2026-11-04 Finish localizing the game): refusal reason
+m_x_opened_at_floor_n,{v1} opened at floor {v2}.,app: L1h (D 2026-11-04 Finish localizing the game): unlock line
+m_n_of_n_slots,{v1} / {v2} slots,app: L1h (D 2026-11-04 Finish localizing the game): slot shop capacity
+m_you_have_n,you have {v1},app: L1h (D 2026-11-04 Finish localizing the game): slot shop: what you hold
+m_inv_full_need1,"{v1} needs 1 free slot and you have {v2}. Dismantle gear you do not need, or buy more inventory slots, then try again.","app: L1h (D 2026-11-04 Finish localizing the game): inventory full, one slot needed (txn)"
+m_inv_full_needn,"{v1} needs {v2} free slots and you have {v3}. Dismantle gear you do not need, or buy more inventory slots, then try again.","app: L1h (D 2026-11-04 Finish localizing the game): inventory full, several slots needed (txn)"
+m_x_would_return_soul_bag_when_y,"{v1} would return to your soul bag when {v2} takes its place, but there is no room ({v3} / {v4}). Free a slot first.",app: L1h (D 2026-11-04 Finish localizing the game): breeding pen swap refused
+m_this_one,this one,app: L1h (D 2026-11-04 Finish localizing the game): breeding pen swap: an unnamed creature
+m_x_would_return_soul_bag_full,"{v1} would return to your soul bag, but it is full ({v2} / {v3} slots). Free a slot — dismantle a creature or hatch an egg — then remove the parent.",app: L1h (D 2026-11-04 Finish localizing the game): breeding pen remove refused
+m_n_attempt_lc,{v1} attempt,"app: L1h (D 2026-11-04 Finish localizing the game): upgrade-all tail, one (txn)"
+m_n_attempts_lc,{v1} attempts,"app: L1h (D 2026-11-04 Finish localizing the game): upgrade-all tail, several (txn)"
+m_empty_dash,— empty —,app: L1h (D 2026-11-04 Finish localizing the game): an empty gear slot
+m_n_piece_saved_when,{v1} piece · saved {v2},"app: L1h (D 2026-11-04 Finish localizing the game): saved build slot, one piece (txn)"
+m_n_pieces_saved_when,{v1} pieces · saved {v2},app: L1h (D 2026-11-04 Finish localizing the game): saved build slot (txn)
+m_n_piece,{v1} piece,"app: L1h (D 2026-11-04 Finish localizing the game): saved build slot, one piece (txn)"
+m_n_pieces,{v1} pieces,app: L1h (D 2026-11-04 Finish localizing the game): saved build slot (txn)
+m_n_hatchling,{v1} hatchling,app: L1h (D 2026-11-04 Finish localizing the game): soul bag full: what needs room (txn)
+m_n_hatchlings,{v1} hatchlings,app: L1h (D 2026-11-04 Finish localizing the game): soul bag full: what needs room (txn)
+m_scroll_band,rolls {v1}–{v2} flat · {v3}–{v4}% · {v5}–{v6}% more · {v7} lands around the {v8}% mark,"app: L1h (D 2026-11-04 Finish localizing the game): scroll row: its roll band, v7 = grade"
+m_x_and_its_n_socketed_item,{v1} and its {v2} socketed item,app: L1h (D 2026-11-04 Finish localizing the game): bag full: what needs room (txn)
+m_x_and_its_n_socketed_items,{v1} and its {v2} socketed items,app: L1h (D 2026-11-04 Finish localizing the game): bag full: what needs room (txn)
+m_x_and_its_n_socketed_gem_rune,{v1} and its {v2} socketed gem/rune,app: L1h (D 2026-11-04 Finish localizing the game): bag full: what needs room (txn)
+m_x_and_its_n_socketed_gems_runes,{v1} and its {v2} socketed gems/runes,app: L1h (D 2026-11-04 Finish localizing the game): bag full: what needs room (txn)
+m_damage_taken_pct,damage taken {v1}{v2}%,"app: L1h (D 2026-11-04 Finish localizing the game): status chip line, v1 = sign"
+m_healing_pct,healing {v1}{v2}%,"app: L1h (D 2026-11-04 Finish localizing the game): status chip line, v1 = sign"
+m_x_left,{v1} left,app: L1h (D 2026-11-04 Finish localizing the game): premium boon time left
+m_n_held_n_fell,"{v1} held, {v2} fell.",app: L1h (D 2026-11-04 Finish localizing the game): PvP defense summary
+m_last_x_with_y_turned_away,Last: {v1} with {v2} — turned away.,"app: L1h (D 2026-11-04 Finish localizing the game): PvP defense summary, last attacker"
+m_last_x_with_y_broke_through,Last: {v1} with {v2} — broke through.,"app: L1h (D 2026-11-04 Finish localizing the game): PvP defense summary, last attacker"
+m_last_x_turned_away,Last: {v1} — turned away.,"app: L1h (D 2026-11-04 Finish localizing the game): PvP defense summary, last attacker"
+m_last_x_broke_through,Last: {v1} — broke through.,"app: L1h (D 2026-11-04 Finish localizing the game): PvP defense summary, last attacker"
+m_they_refill_in_about_n_hours,They refill in about {v1} hours.,app: L1h (D 2026-11-04 Finish localizing the game): no attacks left
+m_they_refill_in_about_n_minute,They refill in about {v1} minute.,app: L1h (D 2026-11-04 Finish localizing the game): no attacks left (txn)
+m_they_refill_in_about_n_minutes,They refill in about {v1} minutes.,app: L1h (D 2026-11-04 Finish localizing the game): no attacks left (txn)
+m_rating_n,rating {v1},app: L1h (D 2026-11-04 Finish localizing the game): PvP result tail
+m_minus_n_turn_enemy_buffs,−{v1} turn enemy buffs,app: L1h (D 2026-11-04 Finish localizing the game): soul passive line (txn)
+m_minus_n_turns_enemy_buffs,−{v1} turns enemy buffs,app: L1h (D 2026-11-04 Finish localizing the game): soul passive line (txn)
+m_plus_n_slot,+{v1} slot,app: L1h (D 2026-11-04 Finish localizing the game): gear compare socket delta (txn)
+m_plus_n_slots,+{v1} slots,app: L1h (D 2026-11-04 Finish localizing the game): gear compare socket delta (txn)
+m_minus_n_slot,-{v1} slot,app: L1h (D 2026-11-04 Finish localizing the game): gear compare socket delta (txn)
+m_minus_n_slots,-{v1} slots,app: L1h (D 2026-11-04 Finish localizing the game): gear compare socket delta (txn)
+m_same_slots,same slots,app: L1h (D 2026-11-04 Finish localizing the game): gear compare socket delta
+m_bn_drains_n,drains {v1},app: L1h (D 2026-11-04 Finish localizing the game): battle log note
+m_bn_recoil_n,recoil {v1},app: L1h (D 2026-11-04 Finish localizing the game): battle log note
+m_bn_x_heals_n,{v1} heals {v2},"app: L1h (D 2026-11-04 Finish localizing the game): battle log note, v1 = status"
+m_bn_x_answers_n,{v1} answers {v2},"app: L1h (D 2026-11-04 Finish localizing the game): battle log note, v1 = status"
+m_n_drop_lost_inv_full,{v1} drop lost — inventory full,app: L1h (D 2026-11-04 Finish localizing the game): battle reward (txn)
+m_n_drops_lost_inv_full,{v1} drops lost — inventory full,app: L1h (D 2026-11-04 Finish localizing the game): battle reward (txn)
+m_power_base_mult_as_grade_soul,{v1} base × {v2} as a {v3} soul,"app: L1h (D 2026-11-04 Finish localizing the game): move power tooltip, v3 = grade"
+m_power_base_no_grade,{v1} base · no grade on a codex sheet,app: L1h (D 2026-11-04 Finish localizing the game): move power tooltip
+m_x_can_advance_to_y_click,{v1} can advance to {v2} — click to begin,app: L1h (D 2026-11-04 Finish localizing the game): class advance tooltip
+m_x_soul_dash_y,{v1} soul — {v2},app: L1h (D 2026-11-04 Finish localizing the game): soul slot tooltip
+m_n_spare_stone_fits_no_piece,{v1} spare stone fits no piece you wear (stat must match),app: L1h (D 2026-11-04 Finish localizing the game): optimiser note (txn)
+m_n_spare_stones_fit_no_piece,{v1} spare stones fit no piece you wear (stat must match),app: L1h (D 2026-11-04 Finish localizing the game): optimiser note (txn)
+m_n_to_inventory,{v1} to inventory,app: L1h (D 2026-11-04 Finish localizing the game): optimiser plan line
+m_n_consumed_from_inventory,{v1} consumed from inventory,app: L1h (D 2026-11-04 Finish localizing the game): optimiser plan line
+m_tip_atk_formula_n,(gear {v1} + {v2} level) x class {v3} x risk {v4} + {v5} floor,app: L1h (D 2026-11-04 Finish localizing the game): hero ATK tooltip formula (floor = the minimum term)
+m_tip_def_formula_n,(gear {v1} + {v2} level) x class {v3} + {v4} floor,app: L1h (D 2026-11-04 Finish localizing the game): hero DEF tooltip formula (floor = the minimum term)
+m_x_would_return_to_inventory,{v1} would return to your inventory,app: L1h (D 2026-11-04 Finish localizing the game): inventory full: what needs room
+m_x_would_return_to_soul_bag,{v1} would return to your soul bag,app: L1h (D 2026-11-04 Finish localizing the game): soul bag full: what needs room
+m_lv_n_mutant,Lv {v1} · mutant,app: L1h (D 2026-11-04 Finish localizing the game): a creature record's saved level line (tlMove template)
+m_lv_n_eff,Lv {v1},app: L1h (D 2026-11-04 Finish localizing the game): a creature record's saved level line (tlMove template)
+m_n_mutant_among_them,{v1} mutant among them,app: L1h (D 2026-11-04 Finish localizing the game): mass hatch result (txn)
+m_n_mutants_among_them,{v1} mutants among them,app: L1h (D 2026-11-04 Finish localizing the game): mass hatch result (txn)
+m_item_bag_expanded_n,Item bag expanded — {v1} slots.,app: L1h (D 2026-11-04 Finish localizing the game): slot purchase confirmation
+m_soul_bag_expanded_n,Soul bag expanded — {v1} slots.,app: L1h (D 2026-11-04 Finish localizing the game): slot purchase confirmation
+m_fb_ctx_line,build {v1} · floor {v2} · {v3} · {v4},"app: L1h (D 2026-11-04 Finish localizing the game): feedback form context line, v1 = game build"
+m_grade_x_to_y,grade {v1} → {v2},app: L1h (D 2026-11-04 Finish localizing the game): devour preview
+m_n_failed_in_a_row,{v1} failed in a row,app: L1h (D 2026-11-04 Finish localizing the game): upgrade pity line
+m_n_item_matches_filters,{v1} item matches the current filters,app: L1h (D 2026-11-04 Finish localizing the game): dismantle menu (txn)
+m_n_items_match_filters,{v1} items match the current filters,app: L1h (D 2026-11-04 Finish localizing the game): dismantle menu (txn)
+m_saved_n_s_ago,saved {v1}s ago,app: L1h (D 2026-11-04 Finish localizing the game): run save status
+m_no_save_yet,no save yet,app: L1h (D 2026-11-04 Finish localizing the game): run save status
+m_no_males_share_type_with_x,No males in your inventory share a type with {v1}. Type scarcity is the real gate — breeding rewards a broad collection.,"app: L1h (D 2026-11-04 Finish localizing the game): breeding pick, empty"
+m_no_females_share_type_with_x,No females in your inventory share a type with {v1}. Type scarcity is the real gate — breeding rewards a broad collection.,"app: L1h (D 2026-11-04 Finish localizing the game): breeding pick, empty"
+m_no_male_creatures_in_inventory,No male creatures in your inventory. Hatch an egg or unequip a creature to breed it.,"app: L1h (D 2026-11-04 Finish localizing the game): breeding pick, empty"
+m_no_female_creatures_in_inventory,No female creatures in your inventory. Hatch an egg or unequip a creature to breed it.,"app: L1h (D 2026-11-04 Finish localizing the game): breeding pick, empty"

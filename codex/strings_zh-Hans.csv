@@ -1050,12 +1050,9 @@ m_purchase_failed,购买失败,app: L1e message (toast)
 m_not_yet_available,暂未开放,app: L1e message (setState)
 m_wraithgold_is_the_premium_currency_b,Wraithgold 是付费货币，可在商店购买。购买功能暂未开放。,app: L1e message (setState)
 m_inventory_full,背包已满,app: L1e message (setState)
-m_dismantle_gear_you_do_not_need_or_bu,。请分解不需要的装备，或购买更多背包栏位，然后再试一次。,app: L1e message (setState)
 m_the_creature,该生物,app: L1e message (setState)
-m_free_a_slot_first,)。请先腾出一个栏位。,app: L1e message (setState)
 m_cannot_remove,无法移除 {v1},app: L1e message (setState)
 m_that_creature,该生物,app: L1e message (setState)
-m_slots_free_a_slot_dismantle_a_creatu,个栏位)。请腾出一个栏位——分解一只生物或孵化一枚蛋——然后再移除亲代。,app: L1e message (setState)
 m_pen_is_not_next,繁育栏 {v1} 不是下一个,app: L1e message (setState)
 m_pens_unlock_in_order_unlock_pen_firs,繁育栏需按顺序解锁。请先解锁繁育栏 {v1}。,app: L1e message (setState)
 m_not_enough_ichor,灵液不足,app: L1e message (setState)
@@ -1109,13 +1106,11 @@ m_there_is_nothing_to_be_gained_here,这里没有任何收益,app: L1e message (
 m_the_server_refused_the_devour_nothin,服务器拒绝了吞噬——未消耗任何对象,app: L1e message (_dvToast)
 m_could_not_reach_the_server_nothing_w_2,无法连接服务器——未消耗任何对象,app: L1e message (_dvToast)
 m_the_target_moved_nothing_was_consume,目标已移动——未消耗任何对象,app: L1e message (setState)
-m_last,最近一次：{v1}{v2} — {v3},app: L1e message (setState)
 m_queued,已排队,app: L1e message (setState)
 m_your_auto_pvp_match_starts_when_this,本场战斗结束后，你的自动 PvP 对战将开始。,app: L1e message (setState)
 m_that_match_expired,该对战已过期,app: L1e message (setState)
 m_the_20_minute_window_had_passed_so_i,20 分钟的时限已过，因此计为防守方胜利。准备好后请再次排队。,app: L1e message (setState)
 m_no_attacks_left,没有剩余进攻次数,app: L1e message (setState)
-m_they_refill_in_about,约 {v1} 后恢复。,app: L1e message (setState)
 m_the_premium_shop_sells_ten_more_for,高级商店出售今日额外十次进攻——4 Wraithgold。,app: L1e message (setState)
 m_shop,商店,app: L1e message (setState)
 m_no_team_saved_yet,尚未保存队伍,app: L1e message (setState)
@@ -1311,7 +1306,6 @@ m_fights_beside_active,与 {v1} 名出战同伴{v2}并肩作战,app: L1e screen 
 m_fights_alone,单独作战,app: L1e screen text (top)
 m_spends_1_key_held,消耗 1 把钥匙 · 持有 {v1},app: L1e screen text (top)
 m_0_keys_held_keys_drop_on_this_zone_s,持有 0 把钥匙 · 钥匙在本区域的楼层掉落,app: L1e screen text (top)
-m_lost_inventory_full,丢失——背包已满,app: L1e screen text (top)
 m_you_yield_the_match_your_opponent_ta,你认输了本场对战。对手获得胜利和评分——你记为失败。,app: L1e screen text (top)
 m_your_party_falls_where_it_stands_thi,你的队伍就地倒下。这将计为失败，与被击败完全相同。,app: L1e screen text (top)
 m_exit_fullscreen,退出全屏,app: L1e screen text (top)
@@ -1337,7 +1331,6 @@ m_trophy_wall_2,荣誉墙,app: L1e screen text (top)
 m_salvages_for,回收可得 {v1},app: L1e screen text (top)
 m_no_grade,· 无品级,app: L1e screen text (top)
 m_advances_lv,{v1}级时进阶,app: L1e screen text (top)
-m_no_grade_on_a_codex_sheet,· 图鉴页面无品级,app: L1e screen text (top)
 m_your_class,你的职业,app: L1e screen text (top)
 m_line_stage_of_3,{v1}路线 · 阶段 {v2}/3,app: L1e screen text (top)
 m_dlc_available_for_purchase_click_to,DLC 可供购买——点击在 Steam 上查看,app: L1e screen text (top)
@@ -1424,8 +1417,6 @@ m_not_breeding,未在繁育,app: L1e screen text (top)
 m_price_unavailable,价格不可用,app: L1e screen text (top)
 m_shares_a_type_with,与{v1}有相同类型,app: L1e screen text (push)
 m_in_your_inventory,在你的背包中,app: L1e screen text (push)
-m_type_scarcity_is_the_real_gate_breed,。类型稀缺才是真正的门槛——繁育奖励丰富多样的收藏。,app: L1e screen text (top)
-m_creatures_in_your_inventory_hatch_an,生物：你的背包中没有。孵化一枚蛋或卸下一只生物即可用于繁育。,app: L1e screen text (top)
 m_returned_to_your_bag,已退回你的袋中,app: L1e screen text (top)
 m_hover_your_team_all_allies_are_warde,悬停你的队伍——所有友方都会受到守护,app: L1e screen text (top)
 m_hover_an_ally_to_support_highlighted,悬停一名友方进行辅助——以绿色高亮,app: L1e screen text (top)
@@ -1811,3 +1802,112 @@ m_undiscovered_meta,??? · 未发现,"app: L1g (D 2026-11-04 Finish localizing t
 m_x_quality,品质 {v1},"app: L1g (D 2026-11-04 Finish localizing the game): creature card meta, v1 = its grade"
 m_sure_dismantle_one,确定要分解 {v1} 件物品吗？,"app: L1g (D 2026-11-04 Finish localizing the game): dismantle confirm, one item (txn)"
 m_sure_dismantle_other,确定要分解 {v1} 件物品吗？,"app: L1g (D 2026-11-04 Finish localizing the game): dismantle confirm, several items (txn)"
+m_x_soul_lc,{v1}之魂,"app: L1h (D 2026-11-04 Finish localizing the game): hero sheet sub-line, v1 = class name"
+m_floor_n_locked_by_server,第{v1}层已被服务器锁定,app: L1h (D 2026-11-04 Finish localizing the game): floor travel refused
+m_x_starter_weapons,{v1}初始武器,"app: L1h (D 2026-11-04 Finish localizing the game): inventory full: what needs room, v1 = class"
+m_x_already_opens_this_climb,{v1}已开启本次攀登。,app: L1h (D 2026-11-04 Finish localizing the game): already linked notice
+m_server_said_n,服务器返回 {v1},"app: L1h (D 2026-11-04 Finish localizing the game): matchmaking failure reason, v1 = HTTP status"
+m_could_not_reach_the_server,无法连接服务器,app: L1h (D 2026-11-04 Finish localizing the game): matchmaking failure reason
+m_matchmaking_hiccup_retrying,匹配出现波动（{v1}）— 正在重试,"app: L1h (D 2026-11-04 Finish localizing the game): PvP note, v1 = reason"
+m_n_attempts_failed_last,连续{v1}次尝试失败（最后一次：{v2}）,"app: L1h (D 2026-11-04 Finish localizing the game): save halt reason, v2 = last HTTP status"
+m_n_attempts_failed,连续{v1}次尝试失败,app: L1h (D 2026-11-04 Finish localizing the game): save halt reason
+m_sa_an_item,一件物品,app: L1h (D 2026-11-04 Finish localizing the game): refused action: an unnamed item
+m_sa_dismantling,分解{v1},app: L1h (D 2026-11-04 Finish localizing the game): refused action (The server refused {v1})
+m_sa_advancing,进阶{v1},app: L1h (D 2026-11-04 Finish localizing the game): refused action
+m_sa_unsocketing,卸下{v1},app: L1h (D 2026-11-04 Finish localizing the game): refused action
+m_sa_socketing,镶嵌{v1},app: L1h (D 2026-11-04 Finish localizing the game): refused action
+m_sa_unequipping,卸除{v1},app: L1h (D 2026-11-04 Finish localizing the game): refused action
+m_sa_seating_a_soul,安放灵魂{v1},app: L1h (D 2026-11-04 Finish localizing the game): refused action
+m_sa_switching_class,切换职业{v1},app: L1h (D 2026-11-04 Finish localizing the game): refused action
+m_sa_moving_to_floor,前往第{v1}层 {v2},"app: L1h (D 2026-11-04 Finish localizing the game): refused action, v1 = floor"
+m_sa_advancing_your_class,职业进阶{v1},app: L1h (D 2026-11-04 Finish localizing the game): refused action
+m_sa_changing_a_pen,更改繁殖栏{v1},app: L1h (D 2026-11-04 Finish localizing the game): refused action
+m_sa_taking_out_of_pen,从繁殖栏取出生物{v1},app: L1h (D 2026-11-04 Finish localizing the game): refused action
+m_sa_applying_build,应用已保存的配装{v1},app: L1h (D 2026-11-04 Finish localizing the game): refused action
+m_sa_equipping,装备{v1},app: L1h (D 2026-11-04 Finish localizing the game): refused action
+m_sa_level_needs,它是{v1}级，需要{v2}级,app: L1h (D 2026-11-04 Finish localizing the game): refusal reason
+m_sa_not_held,你已不再持有它,app: L1h (D 2026-11-04 Finish localizing the game): refusal reason
+m_sa_mismatch,物品与发送的不符,app: L1h (D 2026-11-04 Finish localizing the game): refusal reason
+m_sa_held_in_slot,它仍处于装备或镶嵌状态,app: L1h (D 2026-11-04 Finish localizing the game): refusal reason
+m_sa_wrong_form,该生物不处于那种形态,app: L1h (D 2026-11-04 Finish localizing the game): refusal reason
+m_sa_no_step,不存在该阶段,app: L1h (D 2026-11-04 Finish localizing the game): refusal reason
+m_sa_no_build,该配装不属于你或已被删除,app: L1h (D 2026-11-04 Finish localizing the game): refusal reason
+m_sa_other_class,它属于另一个职业,app: L1h (D 2026-11-04 Finish localizing the game): refusal reason
+m_sa_unknown_type,服务器不认识该操作,app: L1h (D 2026-11-04 Finish localizing the game): refusal reason
+m_sa_shape,请求不完整,app: L1h (D 2026-11-04 Finish localizing the game): refusal reason
+m_x_opened_at_floor_n,{v1}已在第{v2}层开启。,app: L1h (D 2026-11-04 Finish localizing the game): unlock line
+m_n_of_n_slots,{v1} / {v2} 栏位,app: L1h (D 2026-11-04 Finish localizing the game): slot shop capacity
+m_you_have_n,你有 {v1},app: L1h (D 2026-11-04 Finish localizing the game): slot shop: what you hold
+m_inv_full_need1,{v1}需要1个空闲栏位，你只有{v2}个。分解不需要的装备，或购买更多背包栏位，然后重试。,"app: L1h (D 2026-11-04 Finish localizing the game): inventory full, one slot needed (txn)"
+m_inv_full_needn,{v1}需要{v2}个空闲栏位，你只有{v3}个。分解不需要的装备，或购买更多背包栏位，然后重试。,"app: L1h (D 2026-11-04 Finish localizing the game): inventory full, several slots needed (txn)"
+m_x_would_return_soul_bag_when_y,{v2}占据其位置时，{v1}会回到你的灵魂背包，但已没有空位（{v3} / {v4}）。请先腾出一个栏位。,app: L1h (D 2026-11-04 Finish localizing the game): breeding pen swap refused
+m_this_one,这个,app: L1h (D 2026-11-04 Finish localizing the game): breeding pen swap: an unnamed creature
+m_x_would_return_soul_bag_full,{v1}会回到你的灵魂背包，但背包已满（{v2} / {v3} 个栏位）。请腾出一个栏位——分解一只生物或孵化一枚蛋——然后再移除亲代。,app: L1h (D 2026-11-04 Finish localizing the game): breeding pen remove refused
+m_n_attempt_lc,{v1}次,"app: L1h (D 2026-11-04 Finish localizing the game): upgrade-all tail, one (txn)"
+m_n_attempts_lc,{v1}次,"app: L1h (D 2026-11-04 Finish localizing the game): upgrade-all tail, several (txn)"
+m_empty_dash,— 空 —,app: L1h (D 2026-11-04 Finish localizing the game): an empty gear slot
+m_n_piece_saved_when,{v1}件 · 保存于 {v2},"app: L1h (D 2026-11-04 Finish localizing the game): saved build slot, one piece (txn)"
+m_n_pieces_saved_when,{v1}件 · 保存于 {v2},app: L1h (D 2026-11-04 Finish localizing the game): saved build slot (txn)
+m_n_piece,{v1}件,"app: L1h (D 2026-11-04 Finish localizing the game): saved build slot, one piece (txn)"
+m_n_pieces,{v1}件,app: L1h (D 2026-11-04 Finish localizing the game): saved build slot (txn)
+m_n_hatchling,{v1}只幼崽,app: L1h (D 2026-11-04 Finish localizing the game): soul bag full: what needs room (txn)
+m_n_hatchlings,{v1}只幼崽,app: L1h (D 2026-11-04 Finish localizing the game): soul bag full: what needs room (txn)
+m_scroll_band,{v1}–{v2} 固定 · {v3}–{v4}% · {v5}–{v6}% 额外 · {v7}约落在{v8}%处,"app: L1h (D 2026-11-04 Finish localizing the game): scroll row: its roll band, v7 = grade"
+m_x_and_its_n_socketed_item,{v1}及其镶嵌的{v2}件物品,app: L1h (D 2026-11-04 Finish localizing the game): bag full: what needs room (txn)
+m_x_and_its_n_socketed_items,{v1}及其镶嵌的{v2}件物品,app: L1h (D 2026-11-04 Finish localizing the game): bag full: what needs room (txn)
+m_x_and_its_n_socketed_gem_rune,{v1}及其镶嵌的{v2}颗宝石/符文,app: L1h (D 2026-11-04 Finish localizing the game): bag full: what needs room (txn)
+m_x_and_its_n_socketed_gems_runes,{v1}及其镶嵌的{v2}颗宝石/符文,app: L1h (D 2026-11-04 Finish localizing the game): bag full: what needs room (txn)
+m_damage_taken_pct,受到伤害 {v1}{v2}%,"app: L1h (D 2026-11-04 Finish localizing the game): status chip line, v1 = sign"
+m_healing_pct,治疗 {v1}{v2}%,"app: L1h (D 2026-11-04 Finish localizing the game): status chip line, v1 = sign"
+m_x_left,剩余{v1},app: L1h (D 2026-11-04 Finish localizing the game): premium boon time left
+m_n_held_n_fell,{v1}次守住，{v2}次失守。,app: L1h (D 2026-11-04 Finish localizing the game): PvP defense summary
+m_last_x_with_y_turned_away,最近：{v1}（{v2}）— 已击退。,"app: L1h (D 2026-11-04 Finish localizing the game): PvP defense summary, last attacker"
+m_last_x_with_y_broke_through,最近：{v1}（{v2}）— 被突破。,"app: L1h (D 2026-11-04 Finish localizing the game): PvP defense summary, last attacker"
+m_last_x_turned_away,最近：{v1} — 已击退。,"app: L1h (D 2026-11-04 Finish localizing the game): PvP defense summary, last attacker"
+m_last_x_broke_through,最近：{v1} — 被突破。,"app: L1h (D 2026-11-04 Finish localizing the game): PvP defense summary, last attacker"
+m_they_refill_in_about_n_hours,约{v1}小时后恢复。,app: L1h (D 2026-11-04 Finish localizing the game): no attacks left
+m_they_refill_in_about_n_minute,约{v1}分钟后恢复。,app: L1h (D 2026-11-04 Finish localizing the game): no attacks left (txn)
+m_they_refill_in_about_n_minutes,约{v1}分钟后恢复。,app: L1h (D 2026-11-04 Finish localizing the game): no attacks left (txn)
+m_rating_n,评分 {v1},app: L1h (D 2026-11-04 Finish localizing the game): PvP result tail
+m_minus_n_turn_enemy_buffs,敌方增益 −{v1}回合,app: L1h (D 2026-11-04 Finish localizing the game): soul passive line (txn)
+m_minus_n_turns_enemy_buffs,敌方增益 −{v1}回合,app: L1h (D 2026-11-04 Finish localizing the game): soul passive line (txn)
+m_plus_n_slot,+{v1} 栏位,app: L1h (D 2026-11-04 Finish localizing the game): gear compare socket delta (txn)
+m_plus_n_slots,+{v1} 栏位,app: L1h (D 2026-11-04 Finish localizing the game): gear compare socket delta (txn)
+m_minus_n_slot,-{v1} 栏位,app: L1h (D 2026-11-04 Finish localizing the game): gear compare socket delta (txn)
+m_minus_n_slots,-{v1} 栏位,app: L1h (D 2026-11-04 Finish localizing the game): gear compare socket delta (txn)
+m_same_slots,栏位相同,app: L1h (D 2026-11-04 Finish localizing the game): gear compare socket delta
+m_bn_drains_n,吸取{v1},app: L1h (D 2026-11-04 Finish localizing the game): battle log note
+m_bn_recoil_n,反冲{v1},app: L1h (D 2026-11-04 Finish localizing the game): battle log note
+m_bn_x_heals_n,{v1}治疗{v2},"app: L1h (D 2026-11-04 Finish localizing the game): battle log note, v1 = status"
+m_bn_x_answers_n,{v1}反击{v2},"app: L1h (D 2026-11-04 Finish localizing the game): battle log note, v1 = status"
+m_n_drop_lost_inv_full,{v1}件掉落丢失——背包已满,app: L1h (D 2026-11-04 Finish localizing the game): battle reward (txn)
+m_n_drops_lost_inv_full,{v1}件掉落丢失——背包已满,app: L1h (D 2026-11-04 Finish localizing the game): battle reward (txn)
+m_power_base_mult_as_grade_soul,基础{v1} × {v2}（作为{v3}灵魂）,"app: L1h (D 2026-11-04 Finish localizing the game): move power tooltip, v3 = grade"
+m_power_base_no_grade,基础{v1} · 图鉴页无品级,app: L1h (D 2026-11-04 Finish localizing the game): move power tooltip
+m_x_can_advance_to_y_click,{v1}可进阶为{v2}——点击开始,app: L1h (D 2026-11-04 Finish localizing the game): class advance tooltip
+m_x_soul_dash_y,{v1}之魂 — {v2},app: L1h (D 2026-11-04 Finish localizing the game): soul slot tooltip
+m_n_spare_stone_fits_no_piece,{v1}颗备用石头不适合你穿戴的任何部件（属性必须匹配）,app: L1h (D 2026-11-04 Finish localizing the game): optimiser note (txn)
+m_n_spare_stones_fit_no_piece,{v1}颗备用石头不适合你穿戴的任何部件（属性必须匹配）,app: L1h (D 2026-11-04 Finish localizing the game): optimiser note (txn)
+m_n_to_inventory,{v1}件放入背包,app: L1h (D 2026-11-04 Finish localizing the game): optimiser plan line
+m_n_consumed_from_inventory,从背包消耗{v1}件,app: L1h (D 2026-11-04 Finish localizing the game): optimiser plan line
+m_tip_atk_formula_n,(装备 {v1} + 等级 {v2}) x 职业 {v3} x 风险 {v4} + 保底 {v5},app: L1h (D 2026-11-04 Finish localizing the game): hero ATK tooltip formula (floor = the minimum term)
+m_tip_def_formula_n,(装备 {v1} + 等级 {v2}) x 职业 {v3} + 保底 {v4},app: L1h (D 2026-11-04 Finish localizing the game): hero DEF tooltip formula (floor = the minimum term)
+m_x_would_return_to_inventory,{v1}会回到你的背包,app: L1h (D 2026-11-04 Finish localizing the game): inventory full: what needs room
+m_x_would_return_to_soul_bag,{v1}会回到你的灵魂背包,app: L1h (D 2026-11-04 Finish localizing the game): soul bag full: what needs room
+m_lv_n_mutant,等级{v1} · 变异体,app: L1h (D 2026-11-04 Finish localizing the game): a creature record's saved level line (tlMove template)
+m_lv_n_eff,等级{v1},app: L1h (D 2026-11-04 Finish localizing the game): a creature record's saved level line (tlMove template)
+m_n_mutant_among_them,其中{v1}只变异体,app: L1h (D 2026-11-04 Finish localizing the game): mass hatch result (txn)
+m_n_mutants_among_them,其中{v1}只变异体,app: L1h (D 2026-11-04 Finish localizing the game): mass hatch result (txn)
+m_item_bag_expanded_n,物品袋已扩充——{v1}个栏位。,app: L1h (D 2026-11-04 Finish localizing the game): slot purchase confirmation
+m_soul_bag_expanded_n,灵魂背包已扩充——{v1}个栏位。,app: L1h (D 2026-11-04 Finish localizing the game): slot purchase confirmation
+m_fb_ctx_line,版本 {v1} · 第{v2}层 · {v3} · {v4},"app: L1h (D 2026-11-04 Finish localizing the game): feedback form context line, v1 = game build"
+m_grade_x_to_y,品级 {v1} → {v2},app: L1h (D 2026-11-04 Finish localizing the game): devour preview
+m_n_failed_in_a_row,连续失败{v1}次,app: L1h (D 2026-11-04 Finish localizing the game): upgrade pity line
+m_n_item_matches_filters,{v1}件物品符合当前筛选,app: L1h (D 2026-11-04 Finish localizing the game): dismantle menu (txn)
+m_n_items_match_filters,{v1}件物品符合当前筛选,app: L1h (D 2026-11-04 Finish localizing the game): dismantle menu (txn)
+m_saved_n_s_ago,{v1}秒前已保存,app: L1h (D 2026-11-04 Finish localizing the game): run save status
+m_no_save_yet,尚未保存,app: L1h (D 2026-11-04 Finish localizing the game): run save status
+m_no_males_share_type_with_x,你的背包中没有与{v1}同类型的雄性。类型稀缺才是真正的门槛——繁殖奖励丰富的收藏。,"app: L1h (D 2026-11-04 Finish localizing the game): breeding pick, empty"
+m_no_females_share_type_with_x,你的背包中没有与{v1}同类型的雌性。类型稀缺才是真正的门槛——繁殖奖励丰富的收藏。,"app: L1h (D 2026-11-04 Finish localizing the game): breeding pick, empty"
+m_no_male_creatures_in_inventory,你的背包中没有雄性生物。孵化一枚蛋或卸下一只生物来进行繁殖。,"app: L1h (D 2026-11-04 Finish localizing the game): breeding pick, empty"
+m_no_female_creatures_in_inventory,你的背包中没有雌性生物。孵化一枚蛋或卸下一只生物来进行繁殖。,"app: L1h (D 2026-11-04 Finish localizing the game): breeding pick, empty"
