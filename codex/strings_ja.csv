@@ -734,3 +734,79 @@ m_dim_won_n,勝利した戦闘: {n},"app: dimension keys (K3): end screen, wins"
 m_dim_return,{where}に戻る,"app: dimension keys (K3): end screen, return button"
 m_dim_bought,鍵を購入した。その行から使える。,"app: dimension keys (K3): shop note, key bought"
 m_dim_battles_left_lbl,残り戦闘,"app: dimension keys (K3): battle HUD, the streak box in a dimension fight"
+m_loot_rule_ahead,ボスより一つ先の階層帯,"app: L1b codex boss drops, the band rule (boss_loot.csv one_band_ahead)"
+m_loot_rule_own,ボス自身の階層帯,"app: L1b codex boss drops, the band rule (own band)"
+m_loot_line,勝利ごとに{g}の装備 + {e}のタマゴ,"app: L1b boss den, guaranteed loot line"
+m_loot_rolls_ahead,装備は一つ先の階層帯で抽選される,"app: L1b boss den, the band rule"
+m_loot_rolls_own,装備はボス自身の階層帯で抽選される,"app: L1b boss den, the band rule (own band)"
+m_pvp_wl,{w}勝 · {l}敗,"app: L1b PvP record, wins and losses"
+m_abbr_inc,増加,"app: L1b socket chip, an Increased enchant / rune (short)"
+m_abbr_more,乗算,"app: L1b socket chip, a More enchant (short)"
+m_abbr_roll,抽選,"app: L1b socket chip, an unrolled socket (short)"
+m_kind_gem,ジェム,"app: L1b socket kind, an empty Gem socket"
+m_kind_rune,ルーン,"app: L1b socket kind, an empty Rune socket"
+m_kind_scroll,スクロール,"app: L1b socket kind, an empty Scroll socket"
+m_ult_each,ずつ,"app: L1b ultimate value, damage to each enemy (""1155 EACH"")"
+m_ult_heal_hit,回復/被弾,"app: L1b ultimate value, heal per hit (short)"
+m_ult_val_counter,反撃{c} · +{s}%/被弾、最大+{m}%,"app: L1b ultimate value, retaliate (short)"
+m_ult_draws_all,単体技を全て引き受ける,"app: L1b ultimate value, taunt (short)"
+m_ult_k_damage,ダメージ,app: L1b ultimate detail row label
+m_ult_k_effect,効果,app: L1b ultimate detail row label
+m_ult_k_duration,持続,app: L1b ultimate detail row label
+m_ult_round_1,1ラウンド,"app: L1b ultimate detail, duration of one round"
+m_ult_rounds,{n}ラウンド,"app: L1b ultimate detail, duration in rounds"
+m_ult_k_counter,反撃,app: L1b ultimate detail row label
+m_ult_k_stacks,累積,app: L1b ultimate detail row label
+m_ult_stack_to,被弾ごとに+{s}%、最大+{m}%,"app: L1b ultimate detail, stacking value with a cap"
+m_ult_stack,被弾ごとに+{s}%,"app: L1b ultimate detail, stacking value"
+m_ult_k_heal,回復,app: L1b ultimate detail row label
+m_ult_pct_hit,被弾ごとに{p}%,"app: L1b ultimate detail, heal per hit"
+m_ult_k_echo,反響,app: L1b ultimate detail row label / value
+m_ult_k_defense,防御力,app: L1b ultimate detail row label
+m_ult_tag,アルティメット,"app: L1b equipment ultimate box tag, ultimate detail window"
+m_ult_locked_lv,ロック中 · Lv{l},"app: L1b ultimate detail window, not learned yet"
+m_ult_level,Lv{l},"app: L1b equipment ultimate box, the level it is learned at"
+m_ult_tag_locked,アルティメット · ロック中,"app: L1b equipment ultimate box tag, not learned yet"
+m_ult_learned_lv,Lv{l}で習得。,"app: L1b equipment ultimate box hover, not learned yet"
+m_pvp_q_abyss,待機中 · 先に深淵の戦闘を行います · 終了後にマッチが始まります,"app: L1b Auto PvP matchmaking line, queued behind an Abyss fight"
+m_pvp_q_net,実際の対戦相手を検索中,"app: L1b Auto PvP matchmaking line, searching"
+m_pvp_q_band,レート±{b}でマッチング中 · バックグラウンドで実行されます,"app: L1b Auto PvP matchmaking line, the rating band"
+m_pvp_mm_net,リアルマッチング有効 · レートが近い相手と組み、範囲は徐々に広がります,"app: L1b Auto PvP matchmaking line, idle (server matchmaking)"
+m_pvp_mm_local,レートが近い相手と組み · 待つほど範囲が広がります,"app: L1b Auto PvP matchmaking line, idle (offline)"
+m_rank_tab_pvp,PvP,app: L1b rankings tab (PvP boards)
+m_rank_tab_pve,PvE,app: L1b rankings tab (PvE boards)
+m_rank_power,キャラクター戦力,app: L1b rankings board title
+m_rank_deepest,最高到達階,app: L1b rankings board title
+m_rank_autopvp,オートPvP,app: L1b rankings board title
+m_rank_ladder,ランクPvP,app: L1b rankings board title
+m_mv_synergy,シナジー,"app: L1b move tooltip, the line's Synergy clause label"
+m_mv_anti,アンチ,"app: L1b move tooltip, the line's Anti clause label"
+m_strip_floor,{n}階,"app: L1b taskbar strip (steam/strip.js), the floor label"
+m_strip_auto_on,オート ON,"app: L1b taskbar strip button, autoplay on"
+m_strip_auto_off,オート OFF,"app: L1b taskbar strip button, autoplay off"
+m_strip_level_up,レベルアップ,"app: L1b taskbar strip, a unit levelled up after a win"
+m_strip_on_top,最前面,"app: L1b taskbar strip button, keep on top"
+m_strip_window,ウィンドウ,"app: L1b taskbar strip button, back to the game window"
+m_strip_t_auto,オートプレイ：ONならチームが自動で登り、OFFなら立ち止まって待つ,"app: L1b taskbar strip, AUTO button hover"
+m_strip_t_top,この帯をほかのすべてのウィンドウより前面に保つ,"app: L1b taskbar strip, ON TOP button hover"
+m_strip_t_win,ゲームウィンドウに戻る,"app: L1b taskbar strip, WINDOW button hover"
+m_srv_refused,サーバーが拒否しました,app: L1b a server refusal with no code (breeding toast)
+m_srv_grade_anchor,サーバーではこのアイテムは{g}として記録されています — 同期し直しました。消費はありません,"app: L1b upgrade, the server's grade anchor wins ({g} = a grade name)"
+m_srv_refused_attempt,サーバーが試行を拒否しました（{e}）— 消費はありません,"app: L1b upgrade, a refused attempt ({e} = the server's reason)"
+m_apvp_not_counted,オートPvP — 記録されません,"app: L1b Auto PvP result refused, title"
+m_apvp_not_accepted,サーバーはこの結果を受け付けませんでした（{e}）。,"app: L1b Auto PvP result refused, line ({e} = the server's reason)"
+srv_insufficient,素材が足りません,app: L1b server refusal code insufficient (srvErr)
+srv_unauthenticated,サインインしていません,app: L1b server refusal code unauthenticated (srvErr)
+srv_forbidden,許可されていません,app: L1b server refusal code forbidden (srvErr)
+srv_not_found,見つかりません,app: L1b server refusal code not found (srvErr)
+srv_no_save,サーバーにセーブがありません,app: L1b server refusal code no save (srvErr)
+srv_stale,情報が古くなっています。もう一度お試しください,app: L1b server refusal code stale (srvErr)
+srv_soft_block,現在ブロックされています,app: L1b server refusal code soft_block (srvErr)
+srv_once_bought,購入済みです,app: L1b server refusal code once_bought (srvErr)
+srv_no_tickets,チケットが残っていません,app: L1b server refusal code no_tickets (srvErr)
+srv_no_snapshot,チームのスナップショットがありません,app: L1b server refusal code no_snapshot (srvErr)
+srv_no_defenders,防衛側がいません,app: L1b server refusal code no_defenders (srvErr)
+srv_body,不正なリクエストです,app: L1b server refusal code body (srvErr)
+srv_bad_json,不正なリクエストです,app: L1b server refusal code bad json (srvErr)
+srv_unreadable_save,セーブを読み込めません,app: L1b server refusal code unreadable save (srvErr)
+srv_sid_required,サインインしていません,app: L1b server refusal code sid required (srvErr)

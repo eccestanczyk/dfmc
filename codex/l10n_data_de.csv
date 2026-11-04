@@ -2687,3 +2687,952 @@ Seep,Sickern,move
 Corpse Seep,Leichensickern,move
 Seep of the Charnel Pit,Sickern der Leichengrube,move
 Strike,Schlag,move
+Starter,Start,class_access
+Unlock,Freischalten,class_access
+Worn,Abgenutzt,grade
+Common,Gewöhnlich,grade
+Uncommon,Ungewöhnlich,grade
+Rare,Selten,grade
+Epic,Episch,grade
+Legendary,Legendär,grade
+Abyssal,Abyssal,grade
+Divine,Göttlich,grade
+Primordial,Urzeitlich,grade
+The floor,Die Etage,info
+Win battles in a row to fill the streak counter. A full streak opens the portal up; one loss sets the streak back to zero.,"Gewinne Kämpfe in Folge, um den Serienzähler zu füllen. Eine volle Serie öffnet das Portal nach oben; eine Niederlage setzt die Serie auf null zurück.",info
+The fight,Der Kampf,info
+"Each round, every fighter on your side picks one move; then the round plays out. Faster creatures act first, and a move's type against the target's type changes how hard it hits.","In jeder Runde wählt jeder Kämpfer auf deiner Seite eine Attacke; danach läuft die Runde ab. Schnellere Kreaturen handeln zuerst, und der Typ einer Attacke gegen den Typ des Ziels bestimmt, wie hart sie trifft.",info
+Floor map,Etagenkarte,info
+"Every floor of the tower, ten per zone. Travel to any floor you have reached; the squares on a row are the creatures that live on that floor.","Jede Etage des Turms, zehn pro Zone. Reise zu jeder Etage, die du erreicht hast; die Felder in einer Reihe sind die Kreaturen, die auf dieser Etage leben.",info
+Inventory,Inventar,info
+"Your gear. Click a piece to see its stats, wear it or break it down. When the bag is full, new drops cannot come in, so dismantle what you will not use.","Deine Ausrüstung. Klick ein Teil an, um seine Werte zu sehen, es anzulegen oder zu zerlegen. Ist der Beutel voll, kann neue Beute nicht mehr hinein, also zerlege, was du nicht brauchst.",info
+Soul bag,Seelenbeutel,info
+"Every creature and egg you own lives here. Click a creature to open its sheet; click an egg to hatch it. The egg's grade tilts the odds of the hatchling's grade, it does not fix it.","Jede Kreatur und jedes Ei, das du besitzt, ist hier. Klick eine Kreatur an, um ihr Blatt zu öffnen; klick ein Ei an, um es auszubrüten. Der Grad des Eis verschiebt die Chancen auf den Grad des Schlüpflings, legt ihn aber nicht fest.",info
+Equipment,Ausrüstung,info
+"Your team is your character and two creatures, and this window is the only place you set it. Change gear any time: a fight already running keeps the gear it started with.","Dein Team besteht aus deinem Charakter und zwei Kreaturen, und nur in diesem Fenster stellst du es zusammen. Wechsle die Ausrüstung jederzeit: Ein laufender Kampf behält die Ausrüstung, mit der er begonnen hat.",info
+Classes,Klassen,info
+"Your character's class sets its stats and its ultimate. Each class grows through three stages as it levels, and the ultimate is learned partway up.","Die Klasse deines Charakters bestimmt seine Werte und seine Ultimative. Jede Klasse durchläuft beim Aufleveln drei Stufen, und die Ultimative wird auf dem Weg nach oben erlernt.",info
+"Put two creatures in a pen and it keeps working on its own, spending Ichor over time. Each time the bar fills an egg drops into your bag, and the pen starts again.","Setze zwei Kreaturen in ein Gehege, dann arbeitet es von allein weiter und verbraucht mit der Zeit Ichor. Jedes Mal, wenn sich der Balken füllt, fällt ein Ei in deinen Beutel, und das Gehege beginnt von vorn.",info
+Codex,Kodex,info
+"Every creature in the tower, in order. A ???? card is a creature you have not found yet. The top row lists what the next boss can drop.","Jede Kreatur im Turm, der Reihe nach. Eine ????-Karte ist eine Kreatur, die du noch nicht gefunden hast. Die obere Reihe zeigt, was der nächste Boss fallen lassen kann.",info
+PvP arena,PvP-Arena,info
+"Auto PvP attacks a saved copy of another player's team, so they do not need to be online; your own team defends the same way. Competitive PvP is live, against a player who is there.","Auto-PvP greift eine gespeicherte Kopie des Teams eines anderen Spielers an, der dafür nicht online sein muss; dein eigenes Team verteidigt auf dieselbe Weise. Ranglisten-PvP läuft live, gegen einen Spieler, der gerade da ist.",info
+Rankings,Rangliste,info
+"The boards for Auto PvP and Competitive PvP, side by side. Pick PVP or PVE at the top to switch boards.","Die Ranglisten für Auto-PvP und Ranglisten-PvP, nebeneinander. Wähle oben PVP oder PVE, um die Liste zu wechseln.",info
+Settings,Einstellungen,info
+Every choice here is saved with your account and follows you to any device you play on.,"Jede Auswahl hier wird mit deinem Konto gespeichert und folgt dir auf jedes Gerät, auf dem du spielst.",info
+Premium shop,Premium-Shop,info
+"Wraithgold is the premium currency. It is bought here in the shop; no one starts with any. Spend it on boosts. A boost with a duration counts down from the moment you buy it, and its card shows whether it is running.","Wraithgold ist die Premiumwährung. Man kauft es hier im Shop; niemand beginnt mit welchem. Gib es für Boosts aus. Ein Boost mit Laufzeit läuft ab dem Kauf herunter, und seine Karte zeigt, ob er aktiv ist.",info
+Creature sheet,Kreaturenblatt,info
+"One creature's stats, moves and how it grows. The aptitude shape shows which stats it is best at.","Werte, Attacken und Wachstum einer Kreatur. Die Eignungsform zeigt, in welchen Werten sie am besten ist.",info
+Character power,Charaktermacht,info
+"Every hero with a saved team is listed by its character power. The server counts it from your saved build once a day, so a change shows after the next daily update.","Jeder Held mit einem gespeicherten Team wird nach seiner Charaktermacht gelistet. Der Server berechnet sie einmal am Tag aus deinem gespeicherten Build, daher erscheint eine Änderung nach dem nächsten täglichen Update.",info
+Highest climb,Höchster Aufstieg,info
+Clear floor 1 to be listed. The board ranks the highest floor you have reached and updates once a day.,"Schließe Etage 1 ab, um gelistet zu werden. Die Liste ordnet nach der höchsten Etage, die du erreicht hast, und wird einmal am Tag aktualisiert.",info
+Every hero with a class soul and a creature in the team is listed at the next daily update - at 1500 until your Auto PvP fights move the rating.,"Jeder Held mit einer Klassenseele und einer Kreatur im Team wird beim nächsten täglichen Update gelistet - bei 1500, bis deine Auto-PvP-Kämpfe die Wertung verschieben.",info
+Play one Competitive PvP match to get a rating. The board shows it after the next daily update.,"Spiele ein Ranglisten-PvP-Match, um eine Wertung zu erhalten. Die Liste zeigt sie nach dem nächsten täglichen Update.",info
+"Damage; Sunder Plate: target -10% Defense, 2t.","Schaden; Panzerbruch: Ziel -10% Verteidigung, 2R.",move_effect
+"Damage; Sunder Plate: target -25% Defense, 3t.","Schaden; Panzerbruch: Ziel -25% Verteidigung, 3R.",move_effect
+"Damage; Sunder Plate: target -30% Defense, 3t.","Schaden; Panzerbruch: Ziel -30% Verteidigung, 3R.",move_effect
+Damage only.,Nur Schaden.,move_effect
+Damage; ignores 10% of target Defense.,Schaden; ignoriert 10% der Verteidigung des Ziels.,move_effect
+Damage; ignores 15% of target Defense.,Schaden; ignoriert 15% der Verteidigung des Ziels.,move_effect
+"Damage; Impale: target bleeds 3% max HP/turn, 2t.","Schaden; Pfählung: Ziel blutet 3% max. LP/Runde, 2R.",move_effect
+"Damage; Impale: target bleeds 5% max HP/turn, 3t.","Schaden; Pfählung: Ziel blutet 5% max. LP/Runde, 3R.",move_effect
+"Damage; Impale: target bleeds 6% max HP/turn, 3t.","Schaden; Pfählung: Ziel blutet 6% max. LP/Runde, 3R.",move_effect
+"+45% Defense (self, 3t).","+45% Verteidigung (selbst, 3R).",move_effect
+"+50% Defense (self, 3t); attackers take Quillprick: 9% max HP over 3t.","+50% Verteidigung (selbst, 3R); Angreifer erleiden Stachelstich: 9% max. LP über 3R.",move_effect
+"+50% Defense (self, 3t); attackers take Quillprick: 12% max HP over 3t.","+50% Verteidigung (selbst, 3R); Angreifer erleiden Stachelstich: 12% max. LP über 3R.",move_effect
+"Damage; Pall: target -10% Attack, 2t.","Schaden; Düsternis: Ziel -10% Angriff, 2R.",move_effect
+"Damage; Pall: target -15% Attack, 3t.","Schaden; Düsternis: Ziel -15% Angriff, 3R.",move_effect
+"Damage; Pall: target -25% Attack, 3t.","Schaden; Düsternis: Ziel -25% Angriff, 3R.",move_effect
+"Damage; Harried: target -1 Speed stage, 2t.","Schaden; Gehetzt: Ziel -1 Tempostufe, 2R.",move_effect
+Damage; +15% more if user acted before the target this turn.,"Schaden; +15% mehr, wenn der Anwender in dieser Runde vor dem Ziel gehandelt hat.",move_effect
+Damage; +20% more if user acted before the target this turn.,"Schaden; +20% mehr, wenn der Anwender in dieser Runde vor dem Ziel gehandelt hat.",move_effect
+"Blinding Dust: target -25% Attack, 2t.","Blendstaub: Ziel -25% Angriff, 2R.",move_effect
+"Blinding Dust: target -30% Attack, 3t.","Blendstaub: Ziel -30% Angriff, 3R.",move_effect
+"Blinding Dust: target -40% Attack, 3t.","Blendstaub: Ziel -40% Angriff, 3R.",move_effect
+"Damage; Buried: target -10% Defense, 2t.","Schaden; Verschüttet: Ziel -10% Verteidigung, 2R.",move_effect
+"Damage; Buried: target -25% Defense, 3t.","Schaden; Verschüttet: Ziel -25% Verteidigung, 3R.",move_effect
+"Damage; Buried: target -30% Defense, 3t.","Schaden; Verschüttet: Ziel -30% Verteidigung, 3R.",move_effect
+"Damage; Sinkstep: target -1 Speed stage, 2t.","Schaden; Sinkschritt: Ziel -1 Tempostufe, 2R.",move_effect
+"Damage; Sinkstep: target -1 Speed stage, 3t.","Schaden; Sinkschritt: Ziel -1 Tempostufe, 3R.",move_effect
+"+50% Defense (self, 3t); cleanse 1 debuff.","+50% Verteidigung (selbst, 3R); reinigt 1 Debuff.",move_effect
+Damage; all allies cleanse 1 debuff.,Schaden; alle Verbündeten reinigen 1 Debuff.,move_effect
+"Damage; Nettle: target takes 4% max HP/turn, 3t.","Schaden; Brennnessel: Ziel erleidet 4% max. LP/Runde, 3R.",move_effect
+"Damage; Nettle: target takes 5% max HP/turn, 3t.","Schaden; Brennnessel: Ziel erleidet 5% max. LP/Runde, 3R.",move_effect
+"One ally +35% Defense, 3t.","Ein Verbündeter +35% Verteidigung, 3R.",move_effect
+"All allies +50% Defense, 3t.","Alle Verbündeten +50% Verteidigung, 3R.",move_effect
+"Snare: target -1 Speed stage, 2t.","Schlinge: Ziel -1 Tempostufe, 2R.",move_effect
+"Snare: target -2 Speed stages, 3t.","Schlinge: Ziel -2 Tempostufen, 3R.",move_effect
+Damage; +25% more vs targets with a reduced Speed stage.,Schaden; +25% mehr gegen Ziele mit gesenkter Tempostufe.,move_effect
+Damage; +40% more vs targets with a reduced Speed stage.,Schaden; +40% mehr gegen Ziele mit gesenkter Tempostufe.,move_effect
+Damage; +50% more vs targets with a reduced Speed stage.,Schaden; +50% mehr gegen Ziele mit gesenkter Tempostufe.,move_effect
+"Damage; Dread: target -10% Attack, 3t.","Schaden; Grauen: Ziel -10% Angriff, 3R.",move_effect
+"Damage; Dread: target -15% Attack, 3t.","Schaden; Grauen: Ziel -15% Angriff, 3R.",move_effect
+Damage; +25% more if user acted before the target this turn.,"Schaden; +25% mehr, wenn der Anwender in dieser Runde vor dem Ziel gehandelt hat.",move_effect
+"Self +1 Speed stage, 2t.","Selbst +1 Tempostufe, 2R.",move_effect
+"Self +1 Speed stage, 3t.","Selbst +1 Tempostufe, 3R.",move_effect
+"Damage; Staggered: target -1 Speed stage, 2t.","Schaden; Taumelnd: Ziel -1 Tempostufe, 2R.",move_effect
+"+50% Defense (self, 3t); self -1 Speed stage, 2t.","+50% Verteidigung (selbst, 3R); selbst -1 Tempostufe, 2R.",move_effect
+"Damage; Rootbound: target -1 Speed stage, 2t.","Schaden; Wurzelgebunden: Ziel -1 Tempostufe, 2R.",move_effect
+"Damage; Rootbound: target -2 Speed stages, 3t.","Schaden; Wurzelgebunden: Ziel -2 Tempostufen, 3R.",move_effect
+"Leech Roots: 7%/turn, 3t.","Saugwurzeln: 7%/Runde, 3R.",move_effect
+"Leech Roots: target takes 9% max HP/turn, 3t; user drains the amount siphoned.","Saugwurzeln: Ziel erleidet 9% max. LP/Runde, 3R; Anwender saugt die entzogene Menge ab.",move_effect
+"Leech Roots: target takes 12% max HP/turn, 3t; user drains the amount siphoned.","Saugwurzeln: Ziel erleidet 12% max. LP/Runde, 3R; Anwender saugt die entzogene Menge ab.",move_effect
+"+50% Defense (self, 3t).","+50% Verteidigung (selbst, 3R).",move_effect
+"Damage; Throttle: target -10% Attack, 2t.","Schaden; Würgegriff: Ziel -10% Angriff, 2R.",move_effect
+"Damage; Throttle: target -25% Attack and -1 Speed stage, 3t.","Schaden; Würgegriff: Ziel -25% Angriff und -1 Tempostufe, 3R.",move_effect
+"Damage; Throttle: target -30% Attack and -1 Speed stage, 3t.","Schaden; Würgegriff: Ziel -30% Angriff und -1 Tempostufe, 3R.",move_effect
+Damage; +20% more vs targets below 40% HP.,Schaden; +20% mehr gegen Ziele unter 40% LP.,move_effect
+Damage; +30% more vs targets below 40% HP.,Schaden; +30% mehr gegen Ziele unter 40% LP.,move_effect
+Damage; +35% more vs targets below 40% HP.,Schaden; +35% mehr gegen Ziele unter 40% LP.,move_effect
+"Damage; Garroted: target -10% Attack, 3t.","Schaden; Erdrosselt: Ziel -10% Angriff, 3R.",move_effect
+"Damage; Garroted: target -15% Attack, 3t.","Schaden; Erdrosselt: Ziel -15% Angriff, 3R.",move_effect
+Damage; +20% more vs targets with Knell.,Schaden; +20% mehr gegen Ziele mit „Totenglocke“.,move_effect
+Damage; +30% more vs targets with Knell.,Schaden; +30% mehr gegen Ziele mit „Totenglocke“.,move_effect
+Damage; +40% more vs targets with Knell.,Schaden; +40% mehr gegen Ziele mit „Totenglocke“.,move_effect
+"Knell: +20% damage from all sources, 2t.","Totenglocke: +20% Schaden aus allen Quellen, 2R.",move_effect
+"Knell: target takes +25% damage from all sources, 3t.","Totenglocke: Ziel erleidet +25% Schaden aus allen Quellen, 3R.",move_effect
+"Knell: target takes +30% damage from all sources, 3t.","Totenglocke: Ziel erleidet +30% Schaden aus allen Quellen, 3R.",move_effect
+"One ally +25% Attack, 3t.","Ein Verbündeter +25% Angriff, 3R.",move_effect
+"All allies +30% Attack, 3t.","Alle Verbündeten +30% Angriff, 3R.",move_effect
+"All allies +40% Attack, 3t.","Alle Verbündeten +40% Angriff, 3R.",move_effect
+Heal one ally 25% max HP.,Heilt einen Verbündeten um 25% max. LP.,move_effect
+Heal one ally 35% max HP.,Heilt einen Verbündeten um 35% max. LP.,move_effect
+Heal one ally 40% max HP.,Heilt einen Verbündeten um 40% max. LP.,move_effect
+"One ally +45% Attack, 3t.","Ein Verbündeter +45% Angriff, 3R.",move_effect
+"One ally +50% Attack, 3t.","Ein Verbündeter +50% Angriff, 3R.",move_effect
+"Damage; Hullscrape: target -10% Defense, 2t.","Schaden; Rumpfschaben: Ziel -10% Verteidigung, 2R.",move_effect
+"Damage; Hullscrape: target -15% Defense, 3t.","Schaden; Rumpfschaben: Ziel -15% Verteidigung, 3R.",move_effect
+"Damage; Hullscrape: target -25% Defense, 3t.","Schaden; Rumpfschaben: Ziel -25% Verteidigung, 3R.",move_effect
+"Damage; Clamped: target -1 Speed stage, 2t.","Schaden; Eingeklemmt: Ziel -1 Tempostufe, 2R.",move_effect
+"Damage; Clamped: target -1 Speed stage and -10% Attack, 3t.","Schaden; Eingeklemmt: Ziel -1 Tempostufe und -10% Angriff, 3R.",move_effect
+"Damage; Clamped: target -1 Speed stage and -15% Attack, 3t.","Schaden; Eingeklemmt: Ziel -1 Tempostufe und -15% Angriff, 3R.",move_effect
+Damage; +20% more vs targets with any damage-over-time effect.,Schaden; +20% mehr gegen Ziele mit einem Dauerschaden-Effekt.,move_effect
+Damage; +30% more vs targets with any damage-over-time effect.,Schaden; +30% mehr gegen Ziele mit einem Dauerschaden-Effekt.,move_effect
+Damage; +40% more vs targets with any damage-over-time effect.,Schaden; +40% mehr gegen Ziele mit einem Dauerschaden-Effekt.,move_effect
+"Damage; Ragged: target bleeds 3% max HP/turn, 2t.","Schaden; Zerfetzt: Ziel blutet 3% max. LP/Runde, 2R.",move_effect
+"Damage; Ragged: target bleeds 4% max HP/turn, 3t.","Schaden; Zerfetzt: Ziel blutet 4% max. LP/Runde, 3R.",move_effect
+"Damage; Ragged: target bleeds 5% max HP/turn, 3t.","Schaden; Zerfetzt: Ziel blutet 5% max. LP/Runde, 3R.",move_effect
+"Damage; Soaked: target -10% Defense, 2t.","Schaden; Durchnässt: Ziel -10% Verteidigung, 2R.",move_effect
+"Damage; Soaked: target -15% Defense, 3t.","Schaden; Durchnässt: Ziel -15% Verteidigung, 3R.",move_effect
+"Damage; Soaked: target -25% Defense, 3t.","Schaden; Durchnässt: Ziel -25% Verteidigung, 3R.",move_effect
+"Damage; Sting: target -10% Attack, 2t.","Schaden; Stich: Ziel -10% Angriff, 2R.",move_effect
+"Damage; Sting: target -15% Attack, 2t.","Schaden; Stich: Ziel -15% Angriff, 2R.",move_effect
+"Brineblind: target -25% Attack, 2t.","Salzblind: Ziel -25% Angriff, 2R.",move_effect
+"Brineblind: target -30% Attack, 3t.","Salzblind: Ziel -30% Angriff, 3R.",move_effect
+"Brineblind: target -40% Attack, 3t.","Salzblind: Ziel -40% Angriff, 3R.",move_effect
+"Damage; Scalded: target -10% Defense, 2t.","Schaden; Verbrüht: Ziel -10% Verteidigung, 2R.",move_effect
+"Damage; Scalded: target -15% Defense, 3t.","Schaden; Verbrüht: Ziel -15% Verteidigung, 3R.",move_effect
+"Damage; Scalded: target -25% Defense, 3t.","Schaden; Verbrüht: Ziel -25% Verteidigung, 3R.",move_effect
+Damage; ignores 20% of target Defense.,Schaden; ignoriert 20% der Verteidigung des Ziels.,move_effect
+Damage as 2 rapid hits.,Schaden in 2 schnellen Treffern.,move_effect
+Damage as 3 rapid hits.,Schaden in 3 schnellen Treffern.,move_effect
+"Self +35% Attack, 3t.","Selbst +35% Angriff, 3R.",move_effect
+"Self +50% Attack, 3t.","Selbst +50% Angriff, 3R.",move_effect
+Damage; +20% more vs targets with Lured.,Schaden; +20% mehr gegen Ziele mit „Angelockt“.,move_effect
+Damage; +30% more vs targets with Lured.,Schaden; +30% mehr gegen Ziele mit „Angelockt“.,move_effect
+Damage; +40% more vs targets with Lured.,Schaden; +40% mehr gegen Ziele mit „Angelockt“.,move_effect
+"Lured: target -1 Speed stage, 2t.","Angelockt: Ziel -1 Tempostufe, 2R.",move_effect
+"Lured: target -1 Speed stage and -30% Attack, 3t.","Angelockt: Ziel -1 Tempostufe und -30% Angriff, 3R.",move_effect
+"Lured: target -1 Speed stage and -35% Attack, 3t.","Angelockt: Ziel -1 Tempostufe und -35% Angriff, 3R.",move_effect
+Damage; +25% more if user has an active Defense buff.,"Schaden; +25% mehr, wenn der Anwender einen aktiven Verteidigungs-Buff hat.",move_effect
+Damage; +30% more if user has an active Defense buff.,"Schaden; +30% mehr, wenn der Anwender einen aktiven Verteidigungs-Buff hat.",move_effect
+"+45% Defense (self, 2t).","+45% Verteidigung (selbst, 2R).",move_effect
+"+50% Defense (self, 2t); heal self 30% max HP.","+50% Verteidigung (selbst, 2R); heilt sich selbst um 30% max. LP.",move_effect
+"+50% Defense (self, 2t); heal self 35% max HP.","+50% Verteidigung (selbst, 2R); heilt sich selbst um 35% max. LP.",move_effect
+Mired Trail: 2t.,Festgefahrene Spur: 2R.,move_effect
+"Mired Trail: target -1 Speed stage, 3t.","Festgefahrene Spur: Ziel -1 Tempostufe, 3R.",move_effect
+"Damage; Numbed: target -1 Speed stage, 2t.","Schaden; Betäubt: Ziel -1 Tempostufe, 2R.",move_effect
+Damage; ignores 5% of target Defense.,Schaden; ignoriert 5% der Verteidigung des Ziels.,move_effect
+"Self +1 Speed stage, 3t; next hit taken -25%.","Selbst +1 Tempostufe, 3R; nächster erhaltener Treffer -25%.",move_effect
+"Self +1 Speed stage, 3t; next hit taken -30%.","Selbst +1 Tempostufe, 3R; nächster erhaltener Treffer -30%.",move_effect
+Damage as 2 hits.,Schaden in 2 Treffern.,move_effect
+Damage as 3 hits.,Schaden in 3 Treffern.,move_effect
+"Damage as 3 hits, one per head.","Schaden in 3 Treffern, einer pro Kopf.",move_effect
+"Damage; Coral Rot: target -10% Defense, 2t.","Schaden; Korallenfäule: Ziel -10% Verteidigung, 2R.",move_effect
+"Damage; Coral Rot: target -10% Defense, 3t.","Schaden; Korallenfäule: Ziel -10% Verteidigung, 3R.",move_effect
+"Damage; Coral Rot: target -15% Defense, 3t.","Schaden; Korallenfäule: Ziel -15% Verteidigung, 3R.",move_effect
+"Self +50% Attack, 3t; cleanse 1 debuff.","Selbst +50% Angriff, 3R; reinigt 1 Debuff.",move_effect
+Damage; +15% more per debuff on target (max +30%).,Schaden; +15% mehr pro Debuff auf dem Ziel (max. +30%).,move_effect
+Damage; +20% more per debuff on target (max +40%).,Schaden; +20% mehr pro Debuff auf dem Ziel (max. +40%).,move_effect
+Damage; +25% more per debuff on target (max +50%).,Schaden; +25% mehr pro Debuff auf dem Ziel (max. +50%).,move_effect
+"Damage; Salt Curse: target -10% Defense, 2t.","Schaden; Salzfluch: Ziel -10% Verteidigung, 2R.",move_effect
+"Damage; Salt Curse: target -15% Defense, 3t.","Schaden; Salzfluch: Ziel -15% Verteidigung, 3R.",move_effect
+"Damage; Salt Curse: target -25% Defense, 3t.","Schaden; Salzfluch: Ziel -25% Verteidigung, 3R.",move_effect
+"Damage; Pulled Under: target -1 Speed stage, 2t.","Schaden; Untergezogen: Ziel -1 Tempostufe, 2R.",move_effect
+"Damage; Pulled Under: target -2 Speed stages, 2t.","Schaden; Untergezogen: Ziel -2 Tempostufen, 2R.",move_effect
+"Inkblind: target -25% Attack, 2t.","Tintenblind: Ziel -25% Angriff, 2R.",move_effect
+"Inkblind: target -45% Attack, 3t.","Tintenblind: Ziel -45% Angriff, 3R.",move_effect
+"Inkblind: target -50% Attack, 3t.","Tintenblind: Ziel -50% Angriff, 3R.",move_effect
+"+50% Defense (self, 2t); cleanse 1 debuff.","+50% Verteidigung (selbst, 2R); reinigt 1 Debuff.",move_effect
+Damage; +25% more if user is above 70% HP.,"Schaden; +25% mehr, wenn der Anwender über 70% LP hat.",move_effect
+Damage; +30% more if user is above 70% HP.,"Schaden; +30% mehr, wenn der Anwender über 70% LP hat.",move_effect
+"+50% Defense (self, 3t); +30% Attack (self, 3t).","+50% Verteidigung (selbst, 3R); +30% Angriff (selbst, 3R).",move_effect
+"+50% Defense (self, 3t); +35% Attack (self, 3t).","+50% Verteidigung (selbst, 3R); +35% Angriff (selbst, 3R).",move_effect
+Damage; +25% more vs targets with Unraveled.,Schaden; +25% mehr gegen Ziele mit „Zerfasert“.,move_effect
+Damage; +40% more vs targets with Unraveled.,Schaden; +40% mehr gegen Ziele mit „Zerfasert“.,move_effect
+Damage; +50% more vs targets with Unraveled.,Schaden; +50% mehr gegen Ziele mit „Zerfasert“.,move_effect
+"Unraveled: target -25% Defense, 2t.","Zerfasert: Ziel -25% Verteidigung, 2R.",move_effect
+"Unraveled: target -30% Defense, 3t.","Zerfasert: Ziel -30% Verteidigung, 3R.",move_effect
+"Unraveled: target -40% Defense, 3t.","Zerfasert: Ziel -40% Verteidigung, 3R.",move_effect
+Omen: +25% damage from the next hit against it.,Omen: +25% Schaden durch den nächsten Treffer gegen es.,move_effect
+Omen: target takes +30% damage from the next hit against it.,Omen: Ziel erleidet +30% Schaden durch den nächsten Treffer gegen es.,move_effect
+Omen: target takes +35% damage from the next hit against it.,Omen: Ziel erleidet +35% Schaden durch den nächsten Treffer gegen es.,move_effect
+"Damage; Venom Grit: 4%/turn, 3t.","Schaden; Gifthärte: 4%/Runde, 3R.",move_effect
+"Damage; Venom Grit: target takes 5% max HP/turn, 3t.","Schaden; Gifthärte: Ziel erleidet 5% max. LP/Runde, 3R.",move_effect
+"Damage; Venom Grit: target takes 6% max HP/turn, 3t.","Schaden; Gifthärte: Ziel erleidet 6% max. LP/Runde, 3R.",move_effect
+"Damage; Coilcrush: target -1 Speed stage, 2t.","Schaden; Schlingdruck: Ziel -1 Tempostufe, 2R.",move_effect
+"Damage; Coilcrush: target -1 Speed stage, 3t.","Schaden; Schlingdruck: Ziel -1 Tempostufe, 3R.",move_effect
+Damage; +30% more if user acted before the target this turn.,"Schaden; +30% mehr, wenn der Anwender in dieser Runde vor dem Ziel gehandelt hat.",move_effect
+"Self +1 Speed stage, 3t; next hit taken -15%.","Selbst +1 Tempostufe, 3R; nächster erhaltener Treffer -15%.",move_effect
+"Self +1 Speed stage, 3t; next hit taken -20%.","Selbst +1 Tempostufe, 3R; nächster erhaltener Treffer -20%.",move_effect
+"Damage; Parched Hope: target -10% Attack, 2t.","Schaden; Verdorrte Hoffnung: Ziel -10% Angriff, 2R.",move_effect
+"Damage; Parched Hope: target -15% Attack and -10% Defense, 3t.","Schaden; Verdorrte Hoffnung: Ziel -15% Angriff und -10% Verteidigung, 3R.",move_effect
+"Damage; Parched Hope: target -25% Attack and -15% Defense, 3t.","Schaden; Verdorrte Hoffnung: Ziel -25% Angriff und -15% Verteidigung, 3R.",move_effect
+Damage as 2 hits; second hit +25% more vs debuffed targets.,Schaden in 2 Treffern; zweiter Treffer +25% mehr gegen Ziele mit Debuffs.,move_effect
+Damage as 2 hits; second hit +30% more vs debuffed targets.,Schaden in 2 Treffern; zweiter Treffer +30% mehr gegen Ziele mit Debuffs.,move_effect
+Next hit taken -25%.,Nächster erhaltener Treffer -25%.,move_effect
+Next 2 hits taken -20%.,Nächste 2 erhaltene Treffer -20%.,move_effect
+Next 2 hits taken -25%.,Nächste 2 erhaltene Treffer -25%.,move_effect
+"Damage; Scoured: target -10% Attack, 3t.","Schaden; Zerschrammt: Ziel -10% Angriff, 3R.",move_effect
+"Damage; Scoured: target -15% Attack, 3t.","Schaden; Zerschrammt: Ziel -15% Angriff, 3R.",move_effect
+"Damage; Abrade: target -10% Defense, does not stack.","Schaden; Abrieb: Ziel -10% Verteidigung, nicht stapelbar.",move_effect
+"Damage; Abrade: target -10% Defense, stacks up to 3 times.","Schaden; Abrieb: Ziel -10% Verteidigung, stapelbar bis zu 3 Mal.",move_effect
+"Damage; Abrade: target -15% Defense, stacks up to 3 times.","Schaden; Abrieb: Ziel -15% Verteidigung, stapelbar bis zu 3 Mal.",move_effect
+"+45% Defense (self, 2t); cleanse 1 debuff.","+45% Verteidigung (selbst, 2R); reinigt 1 Debuff.",move_effect
+"+50% Defense (self, 2t); cleanse up to 2 debuffs.","+50% Verteidigung (selbst, 2R); reinigt bis zu 2 Debuffs.",move_effect
+"+50% Defense (self, 2t); cleanse all debuffs.","+50% Verteidigung (selbst, 2R); reinigt alle Debuffs.",move_effect
+"One ally takes -20% damage, 2t.","Ein Verbündeter erleidet -20% Schaden, 2R.",move_effect
+"All allies take -20% damage, 2t.","Alle Verbündeten erleiden -20% Schaden, 2R.",move_effect
+"All allies take -25% damage, 2t.","Alle Verbündeten erleiden -25% Schaden, 2R.",move_effect
+Damage as 4 hits; each applies 2t of Mothervenom.,Schaden in 4 Treffern; jeder Treffer wendet „Muttergift“ für 2R an.,move_effect
+"Damage; Coiled: target -1 Speed stage, 2t.","Schaden; Umwunden: Ziel -1 Tempostufe, 2R.",move_effect
+"Damage; Coiled: target -1 Speed stage, 3t.","Schaden; Umwunden: Ziel -1 Tempostufe, 3R.",move_effect
+"Damage; Mothervenom: target takes 4% max HP/turn, 3t.","Schaden; Muttergift: Ziel erleidet 4% max. LP/Runde, 3R.",move_effect
+"Damage; Mothervenom: target takes 5% max HP/turn, 3t.","Schaden; Muttergift: Ziel erleidet 5% max. LP/Runde, 3R.",move_effect
+"Damage; Scorch: 4%/turn, 2t.","Schaden; Versengt: 4%/Runde, 2R.",move_effect
+"Damage; Scorch: target takes 5% max HP/turn, 3t.","Schaden; Versengt: Ziel erleidet 5% max. LP/Runde, 3R.",move_effect
+"Damage; Scorch: target takes 6% max HP/turn, 3t.","Schaden; Versengt: Ziel erleidet 6% max. LP/Runde, 3R.",move_effect
+"Damage; Cauterized: target's healing received -40%, 3t.","Schaden; Kauterisiert: erhaltene Heilung des Ziels -40%, 3R.",move_effect
+"Damage; Cauterized: target's healing received -50%, 3t.","Schaden; Kauterisiert: erhaltene Heilung des Ziels -50%, 3R.",move_effect
+"Self +25% Attack, 3t.","Selbst +25% Angriff, 3R.",move_effect
+"Self +45% Attack, 3t.","Selbst +45% Angriff, 3R.",move_effect
+"Damage; Ruinshock: target -10% Defense, 2t.","Schaden; Ruinenschock: Ziel -10% Verteidigung, 2R.",move_effect
+"Damage; Ruinshock: target -15% Defense, 3t.","Schaden; Ruinenschock: Ziel -15% Verteidigung, 3R.",move_effect
+"Damage; Ruinshock: target -25% Defense, 3t.","Schaden; Ruinenschock: Ziel -25% Verteidigung, 3R.",move_effect
+Damage; +15% more per active Defense buff on self (max +30%).,Schaden; +15% mehr pro aktivem Verteidigungs-Buff auf dem Anwender (max. +30%).,move_effect
+Damage; +25% more per active Defense buff on self (max +50%).,Schaden; +25% mehr pro aktivem Verteidigungs-Buff auf dem Anwender (max. +50%).,move_effect
+Damage; +30% more per active Defense buff on self (max +60%).,Schaden; +30% mehr pro aktivem Verteidigungs-Buff auf dem Anwender (max. +60%).,move_effect
+"Damage; Flayed by Sand: target -10% Defense, 2t.","Schaden; Sandgeschunden: Ziel -10% Verteidigung, 2R.",move_effect
+"Damage; Flayed by Sand: target -15% Defense, 3t.","Schaden; Sandgeschunden: Ziel -15% Verteidigung, 3R.",move_effect
+"Damage; Flayed by Sand: target -25% Defense, 3t.","Schaden; Sandgeschunden: Ziel -25% Verteidigung, 3R.",move_effect
+"Damage; Gritted Eyes: target -10% Attack, 3t.","Schaden; Sand in den Augen: Ziel -10% Angriff, 3R.",move_effect
+"Damage; Gritted Eyes: target -15% Attack, 3t.","Schaden; Sand in den Augen: Ziel -15% Angriff, 3R.",move_effect
+Damage; +20% more vs targets with 2 or more debuffs.,Schaden; +20% mehr gegen Ziele mit 2 oder mehr Debuffs.,move_effect
+Damage; +30% more vs targets with 2 or more debuffs.,Schaden; +30% mehr gegen Ziele mit 2 oder mehr Debuffs.,move_effect
+Damage; +40% more vs targets with 2 or more debuffs.,Schaden; +40% mehr gegen Ziele mit 2 oder mehr Debuffs.,move_effect
+"Damage; target -1 Speed stage, 2t.","Schaden; Ziel -1 Tempostufe, 2R.",move_effect
+"Damage; target -1 Speed stage, 3t; refreshes the duration of existing damage-over-time effects on the target.","Schaden; Ziel -1 Tempostufe, 3R; erneuert die Dauer bestehender Dauerschaden-Effekte auf dem Ziel.",move_effect
+"cleanse 1 debuff; +25% Attack (self, 3t) if a debuff was cleansed.","reinigt 1 Debuff; +25% Angriff (selbst, 3R), wenn ein Debuff gereinigt wurde.",move_effect
+"Cleanse up to 2 self debuffs; +30% Attack (self, 3t) per debuff cleansed.","Reinigt bis zu 2 eigene Debuffs; +30% Angriff (selbst, 3R) pro gereinigtem Debuff.",move_effect
+"Cleanse all self debuffs; +40% Attack (self, 3t) per debuff cleansed.","Reinigt alle eigenen Debuffs; +40% Angriff (selbst, 3R) pro gereinigtem Debuff.",move_effect
+"Damage; Meltshell: target -10% Defense, 3t.","Schaden; Schmelzpanzer: Ziel -10% Verteidigung, 3R.",move_effect
+"Damage; Meltshell: target -25% Defense, 4t.","Schaden; Schmelzpanzer: Ziel -25% Verteidigung, 4R.",move_effect
+"Damage; Meltshell: target -30% Defense, 4t.","Schaden; Schmelzpanzer: Ziel -30% Verteidigung, 4R.",move_effect
+"Damage; Etched: target -10% Defense, 3t.","Schaden; Geätzt: Ziel -10% Verteidigung, 3R.",move_effect
+"Damage; Etched: target -15% Defense, 3t.","Schaden; Geätzt: Ziel -15% Verteidigung, 3R.",move_effect
+"Meltshell: target -25% Defense, 2t.","Schmelzpanzer: Ziel -25% Verteidigung, 2R.",move_effect
+"Meltshell: target -45% Defense, 3t.","Schmelzpanzer: Ziel -45% Verteidigung, 3R.",move_effect
+"Meltshell: target -50% Defense, 3t.","Schmelzpanzer: Ziel -50% Verteidigung, 3R.",move_effect
+Damage; user loses 10% max HP.,Schaden; Anwender verliert 10% max. LP.,move_effect
+"Damage; Impaled: target -10% Defense, 3t; user loses 5% max HP.","Schaden; Gepfählt: Ziel -10% Verteidigung, 3R; Anwender verliert 5% max. LP.",move_effect
+"Damage; Impaled: target -15% Defense, 3t; user loses 10% max HP.","Schaden; Gepfählt: Ziel -15% Verteidigung, 3R; Anwender verliert 10% max. LP.",move_effect
+"Damage; Splinters: target takes 4% max HP/turn, 3t.","Schaden; Splitter: Ziel erleidet 4% max. LP/Runde, 3R.",move_effect
+"Damage; Splinters: target takes 5% max HP/turn, 3t.","Schaden; Splitter: Ziel erleidet 5% max. LP/Runde, 3R.",move_effect
+Damage; +25% more vs targets with Infected.,Schaden; +25% mehr gegen Ziele mit „Infiziert“.,move_effect
+Damage; +40% more vs targets with Infected.,Schaden; +40% mehr gegen Ziele mit „Infiziert“.,move_effect
+Damage; +50% more vs targets with Infected.,Schaden; +50% mehr gegen Ziele mit „Infiziert“.,move_effect
+"Infected: 7%/turn, 2t.","Infiziert: 7%/Runde, 2R.",move_effect
+"Infected: target takes 7% max HP/turn, 3t; if target already has Infected, extend it 2t.","Infiziert: Ziel erleidet 7% max. LP/Runde, 3R; falls das Ziel bereits „Infiziert“ hat, wird es um 2R verlängert.",move_effect
+"Infected: target takes 9% max HP/turn, 3t; if target already has Infected, extend it 2t.","Infiziert: Ziel erleidet 9% max. LP/Runde, 3R; falls das Ziel bereits „Infiziert“ hat, wird es um 2R verlängert.",move_effect
+"Fungal ally +25% Attack, 3t.","Ein Verbündeter vom Typ Pilz +25% Angriff, 3R.",move_effect
+"Fungal allies +45% Attack, 3t.","Verbündete vom Typ Pilz +45% Angriff, 3R.",move_effect
+"Fungal allies +50% Attack, 3t.","Verbündete vom Typ Pilz +50% Angriff, 3R.",move_effect
+Damage; +25% more vs targets with Numbweave.,Schaden; +25% mehr gegen Ziele mit „Taubgespinst“.,move_effect
+Damage; +40% more vs targets with Numbweave.,Schaden; +40% mehr gegen Ziele mit „Taubgespinst“.,move_effect
+Damage; +50% more vs targets with Numbweave.,Schaden; +50% mehr gegen Ziele mit „Taubgespinst“.,move_effect
+"Damage; Widow's Kiss: target takes 4% max HP/turn, 3t.","Schaden; Kuss der Witwe: Ziel erleidet 4% max. LP/Runde, 3R.",move_effect
+"Damage; Widow's Kiss: target takes 5% max HP/turn, 3t.","Schaden; Kuss der Witwe: Ziel erleidet 5% max. LP/Runde, 3R.",move_effect
+"Numbweave: target -1 Speed stage, 2t.","Taubgespinst: Ziel -1 Tempostufe, 2R.",move_effect
+"Numbweave: target -2 Speed stages, 3t.","Taubgespinst: Ziel -2 Tempostufen, 3R.",move_effect
+"Wrapped: +20% damage from the user, 3t.","Eingewickelt: +20% Schaden vom Anwender, 3R.",move_effect
+"Wrapped: target takes +25% damage from the user, 3t.","Eingewickelt: Ziel erleidet +25% Schaden vom Anwender, 3R.",move_effect
+"Wrapped: target takes +30% damage from the user, 3t.","Eingewickelt: Ziel erleidet +30% Schaden vom Anwender, 3R.",move_effect
+Damage; user heals 25% of damage dealt.,Schaden; Anwender heilt 25% des verursachten Schadens.,move_effect
+Damage; user heals 40% of damage dealt.,Schaden; Anwender heilt 40% des verursachten Schadens.,move_effect
+Damage; user heals 50% of damage dealt.,Schaden; Anwender heilt 50% des verursachten Schadens.,move_effect
+"Enzyme Drip: target -25% Defense, 2t.","Enzymtropfen: Ziel -25% Verteidigung, 2R.",move_effect
+"Enzyme Drip: target -30% Defense and 7% max HP/turn, 3t.","Enzymtropfen: Ziel -30% Verteidigung und 7% max. LP/Runde, 3R.",move_effect
+"Enzyme Drip: target -40% Defense and 9% max HP/turn, 3t.","Enzymtropfen: Ziel -40% Verteidigung und 9% max. LP/Runde, 3R.",move_effect
+"All allies +45% Defense, 3t.","Alle Verbündeten +45% Verteidigung, 3R.",move_effect
+"Damage; Infested: target takes 3% max HP/turn, 3t.","Schaden; Befallen: Ziel erleidet 3% max. LP/Runde, 3R.",move_effect
+"Damage; Infested: target takes 5% max HP/turn, 4t.","Schaden; Befallen: Ziel erleidet 5% max. LP/Runde, 4R.",move_effect
+"Damage; Infested: target takes 6% max HP/turn, 4t.","Schaden; Befallen: Ziel erleidet 6% max. LP/Runde, 4R.",move_effect
+"Infested: 7%/turn, 2t.","Befallen: 7%/Runde, 2R.",move_effect
+"Infested: target takes 9% max HP/turn, 3t.","Befallen: Ziel erleidet 9% max. LP/Runde, 3R.",move_effect
+"Infested: target takes 12% max HP/turn, 3t.","Befallen: Ziel erleidet 12% max. LP/Runde, 3R.",move_effect
+One ally cleanses 1 debuff.,Ein Verbündeter reinigt 1 Debuff.,move_effect
+"One ally cleanses 1 debuff and gains +45% Attack, 3t.","Ein Verbündeter reinigt 1 Debuff und erhält +45% Angriff, 3R.",move_effect
+"One ally cleanses 1 debuff and gains +50% Attack, 3t.","Ein Verbündeter reinigt 1 Debuff und erhält +50% Angriff, 3R.",move_effect
+Damage; +20% more vs targets with any active buff.,Schaden; +20% mehr gegen Ziele mit einem aktiven Buff.,move_effect
+Damage; +30% more vs targets with any active buff.,Schaden; +30% mehr gegen Ziele mit einem aktiven Buff.,move_effect
+Damage; +40% more vs targets with any active buff.,Schaden; +40% mehr gegen Ziele mit einem aktiven Buff.,move_effect
+Next hit taken -30%.,Nächster erhaltener Treffer -30%.,move_effect
+Next hit taken -40%.,Nächster erhaltener Treffer -40%.,move_effect
+Next hit taken -50%.,Nächster erhaltener Treffer -50%.,move_effect
+Damage; +10% more per Insect ally on the team.,Schaden; +10% mehr pro Verbündetem vom Typ Insekt im Team.,move_effect
+Damage; +20% more per Insect ally on the team.,Schaden; +20% mehr pro Verbündetem vom Typ Insekt im Team.,move_effect
+Damage; +25% more per Insect ally on the team.,Schaden; +25% mehr pro Verbündetem vom Typ Insekt im Team.,move_effect
+Damage as 4 hits.,Schaden in 4 Treffern.,move_effect
+"Damage; Famine: target -10% Attack, 3t.","Schaden; Hungersnot: Ziel -10% Angriff, 3R.",move_effect
+"Damage; Famine: target -15% Attack, 3t.","Schaden; Hungersnot: Ziel -15% Angriff, 3R.",move_effect
+"Damage; Venom Bloom: target takes 4% max HP/turn, 3t.","Schaden; Giftblüte: Ziel erleidet 4% max. LP/Runde, 3R.",move_effect
+"Damage; Venom Bloom: target takes 5% max HP/turn, 3t.","Schaden; Giftblüte: Ziel erleidet 5% max. LP/Runde, 3R.",move_effect
+"Hatching Spores: 7%/turn, 2t.","Schlüpfende Sporen: 7%/Runde, 2R.",move_effect
+"Hatching Spores: target takes 9% max HP/turn, 3t; if target has Venom Bloom, also -30% Defense, 3t.","Schlüpfende Sporen: Ziel erleidet 9% max. LP/Runde, 3R; falls das Ziel „Giftblüte“ hat, zusätzlich -30% Verteidigung, 3R.",move_effect
+"Hatching Spores: target takes 12% max HP/turn, 3t; if target has Venom Bloom, also -35% Defense, 3t.","Schlüpfende Sporen: Ziel erleidet 12% max. LP/Runde, 3R; falls das Ziel „Giftblüte“ hat, zusätzlich -35% Verteidigung, 3R.",move_effect
+"Damage; Worldbind: target -1 Speed stage, 2t.","Schaden; Weltenfessel: Ziel -1 Tempostufe, 2R.",move_effect
+"Damage; Worldbind: target -2 Speed stages and -15% Defense, 3t.","Schaden; Weltenfessel: Ziel -2 Tempostufen und -15% Verteidigung, 3R.",move_effect
+"Damage; Worldbind: target -2 Speed stages and -25% Defense, 3t.","Schaden; Weltenfessel: Ziel -2 Tempostufen und -25% Verteidigung, 3R.",move_effect
+"Damage; Held: target -1 Speed stage, 2t.","Schaden; Gehalten: Ziel -1 Tempostufe, 2R.",move_effect
+"One ally takes -25% damage, 2t.","Ein Verbündeter erleidet -25% Schaden, 2R.",move_effect
+"All allies take -30% damage, 2t.","Alle Verbündeten erleiden -30% Schaden, 2R.",move_effect
+Heal one ally 30% max HP.,Heilt einen Verbündeten um 30% max. LP.,move_effect
+Heal one ally 45% max HP.,Heilt einen Verbündeten um 45% max. LP.,move_effect
+"Damage; Cracked Carapace: target -10% Defense, 2t.","Schaden; Gesprungener Panzer: Ziel -10% Verteidigung, 2R.",move_effect
+"Damage; Cracked Carapace: target -15% Defense, 3t.","Schaden; Gesprungener Panzer: Ziel -15% Verteidigung, 3R.",move_effect
+"Damage; Cracked Carapace: target -25% Defense, 3t.","Schaden; Gesprungener Panzer: Ziel -25% Verteidigung, 3R.",move_effect
+Damage; +20% more if the target acted before the user this turn.,"Schaden; +20% mehr, wenn das Ziel in dieser Runde vor dem Anwender gehandelt hat.",move_effect
+Damage; +30% more if the target acted before the user this turn.,"Schaden; +30% mehr, wenn das Ziel in dieser Runde vor dem Anwender gehandelt hat.",move_effect
+Damage; +40% more if the target acted before the user this turn.,"Schaden; +40% mehr, wenn das Ziel in dieser Runde vor dem Anwender gehandelt hat.",move_effect
+"Damage; Flattened: target -10% Attack, 2t.","Schaden; Plattgedrückt: Ziel -10% Angriff, 2R.",move_effect
+"Damage; Flattened: target -10% Attack, 3t.","Schaden; Plattgedrückt: Ziel -10% Angriff, 3R.",move_effect
+"Damage; Flattened: target -15% Attack, 3t.","Schaden; Plattgedrückt: Ziel -15% Angriff, 3R.",move_effect
+Damage; +25% more if Spikeball was used last turn.,"Schaden; +25% mehr, wenn „Stachelkugel“ in der letzten Runde eingesetzt wurde.",move_effect
+Damage; +30% more if Spikeball was used last turn.,"Schaden; +30% mehr, wenn „Stachelkugel“ in der letzten Runde eingesetzt wurde.",move_effect
+"+50% Defense (self, 3t); attackers take 10% of their damage back.","+50% Verteidigung (selbst, 3R); Angreifer erleiden 10% ihres Schadens zurück.",move_effect
+"+50% Defense (self, 3t); attackers take 15% of their damage back.","+50% Verteidigung (selbst, 3R); Angreifer erleiden 15% ihres Schadens zurück.",move_effect
+"Damage; +15% Defense (self, 3t).","Schaden; +15% Verteidigung (selbst, 3R).",move_effect
+"Damage; user +25% Defense, 3t.","Schaden; Anwender +25% Verteidigung, 3R.",move_effect
+"Damage; user +30% Defense, 3t.","Schaden; Anwender +30% Verteidigung, 3R.",move_effect
+"Damage; Slagtrail: target -10% Defense, 3t.","Schaden; Schlackenspur: Ziel -10% Verteidigung, 3R.",move_effect
+"Damage; Slagtrail: target -15% Defense, 3t.","Schaden; Schlackenspur: Ziel -15% Verteidigung, 3R.",move_effect
+"Liquefied Armor: target -25% Defense, 2t.","Verflüssigte Rüstung: Ziel -25% Verteidigung, 2R.",move_effect
+"Liquefied Armor: target -45% Defense, 3t.","Verflüssigte Rüstung: Ziel -45% Verteidigung, 3R.",move_effect
+"Liquefied Armor: target -50% Defense, 3t.","Verflüssigte Rüstung: Ziel -50% Verteidigung, 3R.",move_effect
+Mired: 2t.,Festgefahren: 2R.,move_effect
+"Mired: target -1 Speed stage, 3t.","Festgefahren: Ziel -1 Tempostufe, 3R.",move_effect
+"Damage; Seared: 4%/turn, 2t.","Schaden; Angebrannt: 4%/Runde, 2R.",move_effect
+"Damage; Seared: target takes 5% max HP/turn, 3t.","Schaden; Angebrannt: Ziel erleidet 5% max. LP/Runde, 3R.",move_effect
+"Damage; Seared: target takes 6% max HP/turn, 3t.","Schaden; Angebrannt: Ziel erleidet 6% max. LP/Runde, 3R.",move_effect
+"Self +1 Speed stage, 2t; +45% Attack, 3t.","Selbst +1 Tempostufe, 2R; +45% Angriff, 3R.",move_effect
+"Self +1 Speed stage, 2t; +50% Attack, 3t.","Selbst +1 Tempostufe, 2R; +50% Angriff, 3R.",move_effect
+Damage; +20% more vs targets with a reduced Speed stage.,Schaden; +20% mehr gegen Ziele mit gesenkter Tempostufe.,move_effect
+Damage; +30% more vs targets with a reduced Speed stage.,Schaden; +30% mehr gegen Ziele mit gesenkter Tempostufe.,move_effect
+"Edict: target -1 Speed stage, 2t.","Edikt: Ziel -1 Tempostufe, 2R.",move_effect
+"Petrifying Edict: target -1 Speed stage and -30% Attack, 3t.","Versteinerndes Edikt: Ziel -1 Tempostufe und -30% Angriff, 3R.",move_effect
+"Petrifying Edict: target -1 Speed stage and -35% Attack, 3t.","Versteinerndes Edikt: Ziel -1 Tempostufe und -35% Angriff, 3R.",move_effect
+Damage; user heals 25% of damage dealt; +20% more vs targets with Thin Blood.,Schaden; Anwender heilt 25% des verursachten Schadens; +20% mehr gegen Ziele mit „Dünnes Blut“.,move_effect
+Damage; user heals 40% of damage dealt; +30% more vs targets with Thin Blood.,Schaden; Anwender heilt 40% des verursachten Schadens; +30% mehr gegen Ziele mit „Dünnes Blut“.,move_effect
+Damage; user heals 50% of damage dealt; +40% more vs targets with Thin Blood.,Schaden; Anwender heilt 50% des verursachten Schadens; +40% mehr gegen Ziele mit „Dünnes Blut“.,move_effect
+Damage; user heals 15% of damage dealt.,Schaden; Anwender heilt 15% des verursachten Schadens.,move_effect
+Damage; user heals 30% of damage dealt.,Schaden; Anwender heilt 30% des verursachten Schadens.,move_effect
+"Thin Blood: 7%/turn, 2t.","Dünnes Blut: 7%/Runde, 2R.",move_effect
+"Thin Blood: target takes 9% max HP/turn, 3t; target's healing received -40%, 3t.","Dünnes Blut: Ziel erleidet 9% max. LP/Runde, 3R; erhaltene Heilung des Ziels -40%, 3R.",move_effect
+"Thin Blood: target takes 12% max HP/turn, 3t; target's healing received -50%, 3t.","Dünnes Blut: Ziel erleidet 12% max. LP/Runde, 3R; erhaltene Heilung des Ziels -50%, 3R.",move_effect
+Damage as 5 hits.,Schaden in 5 Treffern.,move_effect
+"Damage; Held Fast: target -1 Speed stage, 2t.","Schaden; Festgehalten: Ziel -1 Tempostufe, 2R.",move_effect
+"Damage; Held Fast: target -1 Speed stage, 3t.","Schaden; Festgehalten: Ziel -1 Tempostufe, 3R.",move_effect
+"Damage; Unmade Spot: target -10% Defense, 2t.","Schaden; Ungeschaffener Fleck: Ziel -10% Verteidigung, 2R.",move_effect
+"Damage; Unmade Spot: target -15% Defense, 3t.","Schaden; Ungeschaffener Fleck: Ziel -15% Verteidigung, 3R.",move_effect
+"Damage; Unmade Spot: target -25% Defense, 3t.","Schaden; Ungeschaffener Fleck: Ziel -25% Verteidigung, 3R.",move_effect
+"The next creature to hit the user gains Dimmed: -25% Attack, 2t.","Die nächste Kreatur, die den Anwender trifft, erhält „Verdunkelt“: -25% Angriff, 2R.",move_effect
+"The next creature to hit the user gains Dimmed: target -30% Attack, 3t.","Die nächste Kreatur, die den Anwender trifft, erhält „Verdunkelt“: Ziel -30% Angriff, 3R.",move_effect
+"The next creature to hit the user gains Dimmed: target -35% Attack, 3t.","Die nächste Kreatur, die den Anwender trifft, erhält „Verdunkelt“: Ziel -35% Angriff, 3R.",move_effect
+"Damage; Dented: target -10% Defense, 2t.","Schaden; Verbeult: Ziel -10% Verteidigung, 2R.",move_effect
+"Damage; Dented: target -15% Defense, 3t.","Schaden; Verbeult: Ziel -15% Verteidigung, 3R.",move_effect
+"Damage; Dented: target -25% Defense, 3t.","Schaden; Verbeult: Ziel -25% Verteidigung, 3R.",move_effect
+"One ally takes -30% damage, 2t.","Ein Verbündeter erleidet -30% Schaden, 2R.",move_effect
+"Damage; Pyroclast: 4%/turn, 2t.","Schaden; Pyroklast: 4%/Runde, 2R.",move_effect
+"Damage; Pyroclast: target takes 5% max HP/turn, 3t.","Schaden; Pyroklast: Ziel erleidet 5% max. LP/Runde, 3R.",move_effect
+"Damage; Pyroclast: target takes 6% max HP/turn, 3t.","Schaden; Pyroklast: Ziel erleidet 6% max. LP/Runde, 3R.",move_effect
+"Damage; Molten Coat: target -10% Defense, 2t.","Schaden; Schmelzmantel: Ziel -10% Verteidigung, 2R.",move_effect
+"Damage; Molten Coat: target -10% Defense and 4% max HP/turn, 3t.","Schaden; Schmelzmantel: Ziel -10% Verteidigung und 4% max. LP/Runde, 3R.",move_effect
+"Damage; Molten Coat: target -15% Defense and 5% max HP/turn, 3t.","Schaden; Schmelzmantel: Ziel -15% Verteidigung und 5% max. LP/Runde, 3R.",move_effect
+"Damage; Glasscut: target bleeds 4% max HP/turn, 3t.","Schaden; Glasschnitt: Ziel blutet 4% max. LP/Runde, 3R.",move_effect
+"Damage; Glasscut: target bleeds 5% max HP/turn, 3t.","Schaden; Glasschnitt: Ziel blutet 5% max. LP/Runde, 3R.",move_effect
+"+50% Defense (self, 3t); +30% Attack next turn.","+50% Verteidigung (selbst, 3R); +30% Angriff in der nächsten Runde.",move_effect
+"+50% Defense (self, 3t); +40% Attack next turn.","+50% Verteidigung (selbst, 3R); +40% Angriff in der nächsten Runde.",move_effect
+Damage; +20% more if user's Speed is higher than the target's.,"Schaden; +20% mehr, wenn das Tempo des Anwenders höher ist als das des Ziels.",move_effect
+Damage; +30% more if user's Speed is higher than the target's.,"Schaden; +30% mehr, wenn das Tempo des Anwenders höher ist als das des Ziels.",move_effect
+Damage; +40% more if user's Speed is higher than the target's.,"Schaden; +40% mehr, wenn das Tempo des Anwenders höher ist als das des Ziels.",move_effect
+"Damage; Cutting Gale: target bleeds 4% max HP/turn, 3t.","Schaden; Schneidender Sturm: Ziel blutet 4% max. LP/Runde, 3R.",move_effect
+"Damage; Cutting Gale: target bleeds 5% max HP/turn, 3t.","Schaden; Schneidender Sturm: Ziel blutet 5% max. LP/Runde, 3R.",move_effect
+"One ally +1 Speed stage, 2t.","Ein Verbündeter +1 Tempostufe, 2R.",move_effect
+"All allies +1 Speed stage, 2t.","Alle Verbündeten +1 Tempostufe, 2R.",move_effect
+Damage; +25% more vs targets with Charged.,Schaden; +25% mehr gegen Ziele mit „Aufgeladen“.,move_effect
+Damage; +40% more vs targets with Charged.,Schaden; +40% mehr gegen Ziele mit „Aufgeladen“.,move_effect
+Damage; +50% more vs targets with Charged.,Schaden; +50% mehr gegen Ziele mit „Aufgeladen“.,move_effect
+"Damage; Galvanic Jolt: target -1 Speed stage, 2t.","Schaden; Galvanischer Schlag: Ziel -1 Tempostufe, 2R.",move_effect
+Damage; Charged: the next hit against the target deals +10% more.,Schaden; Aufgeladen: der nächste Treffer gegen das Ziel verursacht +10% mehr Schaden.,move_effect
+Damage; Charged: the next hit against the target deals +15% more.,Schaden; Aufgeladen: der nächste Treffer gegen das Ziel verursacht +15% mehr Schaden.,move_effect
+"Self +25% Attack, 2t.","Selbst +25% Angriff, 2R.",move_effect
+"Self +30% Attack, 3t.","Selbst +30% Angriff, 3R.",move_effect
+"Damage; Whiteout: target -10% Attack, 2t.","Schaden; Schneeblindheit: Ziel -10% Angriff, 2R.",move_effect
+"Damage; Whiteout: target -25% Attack, 2t.","Schaden; Schneeblindheit: Ziel -25% Angriff, 2R.",move_effect
+"Damage; Whiteout: target -30% Attack, 2t.","Schaden; Schneeblindheit: Ziel -30% Angriff, 2R.",move_effect
+"Scrambled: target -25% Attack, 2t.","Durcheinander: Ziel -25% Angriff, 2R.",move_effect
+"Scrambled: target -30% Attack, 3t.","Durcheinander: Ziel -30% Angriff, 3R.",move_effect
+"Scrambled: target -40% Attack, 3t.","Durcheinander: Ziel -40% Angriff, 3R.",move_effect
+"Damage; Flattened: target -1 Speed stage, 2t.","Schaden; Plattgedrückt: Ziel -1 Tempostufe, 2R.",move_effect
+"Damage; Flattened: target -1 Speed stage, 3t.","Schaden; Plattgedrückt: Ziel -1 Tempostufe, 3R.",move_effect
+"Damage; Crushed: target -10% Defense, 2t.","Schaden; Zerquetscht: Ziel -10% Verteidigung, 2R.",move_effect
+"Damage; Crushed: target -10% Defense, 3t.","Schaden; Zerquetscht: Ziel -10% Verteidigung, 3R.",move_effect
+"Damage; Crushed: target -15% Defense, 3t.","Schaden; Zerquetscht: Ziel -15% Verteidigung, 3R.",move_effect
+Damage; +20% more vs targets with Spun.,Schaden; +20% mehr gegen Ziele mit „Eingesponnen“.,move_effect
+Damage; +30% more vs targets with Spun.,Schaden; +30% mehr gegen Ziele mit „Eingesponnen“.,move_effect
+Damage; +40% more vs targets with Spun.,Schaden; +40% mehr gegen Ziele mit „Eingesponnen“.,move_effect
+"Spun: target -1 Speed stage, 2t.","Eingesponnen: Ziel -1 Tempostufe, 2R.",move_effect
+"Spun: target -1 Speed stage and -30% Attack, 3t.","Eingesponnen: Ziel -1 Tempostufe und -30% Angriff, 3R.",move_effect
+"Spun: target -1 Speed stage and -35% Attack, 3t.","Eingesponnen: Ziel -1 Tempostufe und -35% Angriff, 3R.",move_effect
+One ally's next hit taken -20%.,Nächster erhaltener Treffer eines Verbündeten -20%.,move_effect
+One ally's next hit taken -25%.,Nächster erhaltener Treffer eines Verbündeten -25%.,move_effect
+One ally's next hit taken -30%.,Nächster erhaltener Treffer eines Verbündeten -30%.,move_effect
+"Damage; Grounded Twitch: target -1 Speed stage, 2t.","Schaden; Geerdetes Zucken: Ziel -1 Tempostufe, 2R.",move_effect
+"Self +45% Attack, 3t; next hit taken -15%.","Selbst +45% Angriff, 3R; nächster erhaltener Treffer -15%.",move_effect
+"Self +50% Attack, 3t; next hit taken -20%.","Selbst +50% Angriff, 3R; nächster erhaltener Treffer -20%.",move_effect
+Damage as 4 hits; each applies 2t of Lowpressure.,Schaden in 4 Treffern; jeder Treffer wendet „Unterdruck“ für 2R an.,move_effect
+"Lowpressure: target -25% Defense, 2t.","Unterdruck: Ziel -25% Verteidigung, 2R.",move_effect
+"Lowpressure: target -30% Defense and -30% Attack, 3t.","Unterdruck: Ziel -30% Verteidigung und -30% Angriff, 3R.",move_effect
+"Lowpressure: target -35% Defense and -35% Attack, 3t.","Unterdruck: Ziel -35% Verteidigung und -35% Angriff, 3R.",move_effect
+"Damage; Tempo Theft: target -1 Speed stage, 2t.","Schaden; Tempodiebstahl: Ziel -1 Tempostufe, 2R.",move_effect
+"Damage; Tempo Theft: target -2 Speed stages, 3t; self +1 Speed stage, 3t.","Schaden; Tempodiebstahl: Ziel -2 Tempostufen, 3R; selbst +1 Tempostufe, 3R.",move_effect
+Damage as 3 hits; each +5% more if user acted before the target.,"Schaden in 3 Treffern; jeder Treffer +5% mehr, wenn der Anwender vor dem Ziel gehandelt hat.",move_effect
+Damage as 3 hits; each +10% more if user acted before the target.,"Schaden in 3 Treffern; jeder Treffer +10% mehr, wenn der Anwender vor dem Ziel gehandelt hat.",move_effect
+"All allies +1 Speed stage, 3t; self +2 Speed stages, 2t.","Alle Verbündeten +1 Tempostufe, 3R; selbst +2 Tempostufen, 2R.",move_effect
+"Damage; Struck Twice: 4%/turn, 2t.","Schaden; Zweimal getroffen: 4%/Runde, 2R.",move_effect
+"Damage; Struck Twice: target takes 5% max HP/turn, 3t; target -1 Speed stage, 2t.","Schaden; Zweimal getroffen: Ziel erleidet 5% max. LP/Runde, 3R; Ziel -1 Tempostufe, 2R.",move_effect
+"Damage; Struck Twice: target takes 6% max HP/turn, 3t; target -1 Speed stage, 2t.","Schaden; Zweimal getroffen: Ziel erleidet 6% max. LP/Runde, 3R; Ziel -1 Tempostufe, 2R.",move_effect
+Damage; +20% more if user has an active Defense buff — consumes it.,"Schaden; +20% mehr, wenn der Anwender einen aktiven Verteidigungs-Buff hat — verbraucht ihn.",move_effect
+Damage; +30% more if user has an active Defense buff — consumes it.,"Schaden; +30% mehr, wenn der Anwender einen aktiven Verteidigungs-Buff hat — verbraucht ihn.",move_effect
+Damage; +40% more if user has an active Defense buff — consumes it.,"Schaden; +40% mehr, wenn der Anwender einen aktiven Verteidigungs-Buff hat — verbraucht ihn.",move_effect
+"Damage; Fouled: target -10% Attack, 2t.","Schaden; Verunreinigt: Ziel -10% Angriff, 2R.",move_effect
+"Damage; Fouled: target -15% Attack, 3t.","Schaden; Verunreinigt: Ziel -15% Angriff, 3R.",move_effect
+"Damage; Fouled: target -25% Attack, 3t.","Schaden; Verunreinigt: Ziel -25% Angriff, 3R.",move_effect
+Damage; +25% more vs targets with Wyrd Visions.,Schaden; +25% mehr gegen Ziele mit „Schicksalsvisionen“.,move_effect
+Damage; +40% more vs targets with Wyrd Visions.,Schaden; +40% mehr gegen Ziele mit „Schicksalsvisionen“.,move_effect
+Damage; +50% more vs targets with Wyrd Visions.,Schaden; +50% mehr gegen Ziele mit „Schicksalsvisionen“.,move_effect
+"Wyrd Visions: target -25% Attack, 2t.","Schicksalsvisionen: Ziel -25% Angriff, 2R.",move_effect
+"Wyrd Visions: target -45% Attack, 3t.","Schicksalsvisionen: Ziel -45% Angriff, 3R.",move_effect
+"Wyrd Visions: target -50% Attack, 3t.","Schicksalsvisionen: Ziel -50% Angriff, 3R.",move_effect
+cleanse 1 debuff.,reinigt 1 Debuff.,move_effect
+"Cleanse up to 2 self debuffs; +1 Speed stage, 2t.","Reinigt bis zu 2 eigene Debuffs; +1 Tempostufe, 2R.",move_effect
+"Cleanse all self debuffs; +1 Speed stage, 2t.","Reinigt alle eigenen Debuffs; +1 Tempostufe, 2R.",move_effect
+"Damage; Larval Rot: target takes 3% max HP/turn, 3t.","Schaden; Larvenfäule: Ziel erleidet 3% max. LP/Runde, 3R.",move_effect
+"Damage; Larval Rot: target takes 5% max HP/turn, 4t.","Schaden; Larvenfäule: Ziel erleidet 5% max. LP/Runde, 4R.",move_effect
+"Damage; Larval Rot: target takes 6% max HP/turn, 4t.","Schaden; Larvenfäule: Ziel erleidet 6% max. LP/Runde, 4R.",move_effect
+"Larval Rot: 7%/turn, 2t.","Larvenfäule: 7%/Runde, 2R.",move_effect
+"Larval Rot: target takes 9% max HP/turn, 3t.","Larvenfäule: Ziel erleidet 9% max. LP/Runde, 3R.",move_effect
+"Larval Rot: target takes 12% max HP/turn, 3t.","Larvenfäule: Ziel erleidet 12% max. LP/Runde, 3R.",move_effect
+Damage; user heals 10% of damage dealt.,Schaden; Anwender heilt 10% des verursachten Schadens.,move_effect
+Damage; user heals 20% of damage dealt.,Schaden; Anwender heilt 20% des verursachten Schadens.,move_effect
+"Grave Chill: target -25% Attack, 2t.","Grabeskälte: Ziel -25% Angriff, 2R.",move_effect
+"Grave Chill: target -30% Attack and -1 Speed stage, 3t.","Grabeskälte: Ziel -30% Angriff und -1 Tempostufe, 3R.",move_effect
+"Grave Chill: target -35% Attack and -1 Speed stage, 3t.","Grabeskälte: Ziel -35% Angriff und -1 Tempostufe, 3R.",move_effect
+Damage; +20% more vs targets with Transfixed.,Schaden; +20% mehr gegen Ziele mit „Gebannt“.,move_effect
+Damage; +35% more vs targets with Transfixed.,Schaden; +35% mehr gegen Ziele mit „Gebannt“.,move_effect
+Damage; +45% more vs targets with Transfixed.,Schaden; +45% mehr gegen Ziele mit „Gebannt“.,move_effect
+"Transfixed: target -1 Speed stage, 2t.","Gebannt: Ziel -1 Tempostufe, 2R.",move_effect
+"Transfixed: target -2 Speed stages, 3t.","Gebannt: Ziel -2 Tempostufen, 3R.",move_effect
+"Transfixed: target -2 Speed stages, 3t; target -30% Attack, 3t.","Gebannt: Ziel -2 Tempostufen, 3R; Ziel -30% Angriff, 3R.",move_effect
+"Transfixed: target -2 Speed stages, 3t; target -40% Attack, 3t.","Gebannt: Ziel -2 Tempostufen, 3R; Ziel -40% Angriff, 3R.",move_effect
+"Damage; Bogged: target -1 Speed stage, 2t.","Schaden; Versumpft: Ziel -1 Tempostufe, 2R.",move_effect
+"Damage; Bogged: target -1 Speed stage, 3t.","Schaden; Versumpft: Ziel -1 Tempostufe, 3R.",move_effect
+Cleanse 1 self debuff (no transfer to target).,Reinigt 1 eigenen Debuff (keine Übertragung auf das Ziel).,move_effect
+Transfer 1 debuff from self to the target.,Überträgt 1 Debuff von sich selbst auf das Ziel.,move_effect
+"+50% Defense (self, 3t); user's next attack deals +25% more.","+50% Verteidigung (selbst, 3R); nächster Angriff des Anwenders verursacht +25% mehr Schaden.",move_effect
+"+50% Defense (self, 3t); user's next attack deals +30% more.","+50% Verteidigung (selbst, 3R); nächster Angriff des Anwenders verursacht +30% mehr Schaden.",move_effect
+"Damage; Chilled: target -1 Speed stage, 2t.","Schaden; Unterkühlt: Ziel -1 Tempostufe, 2R.",move_effect
+Next 2 hits taken -30%.,Nächste 2 erhaltene Treffer -30%.,move_effect
+Next 2 hits taken -35%.,Nächste 2 erhaltene Treffer -35%.,move_effect
+"Weight of Water: target -25% Attack, 2t.","Wasserlast: Ziel -25% Angriff, 2R.",move_effect
+"Weight of Water: target -30% Attack, 3t.","Wasserlast: Ziel -30% Angriff, 3R.",move_effect
+"Weight of Water: target -40% Attack, 3t.","Wasserlast: Ziel -40% Angriff, 3R.",move_effect
+Damage; +20% more vs targets with Vinegrip.,Schaden; +20% mehr gegen Ziele mit „Rankengriff“.,move_effect
+Damage; +30% more vs targets with Vinegrip.,Schaden; +30% mehr gegen Ziele mit „Rankengriff“.,move_effect
+Damage; +40% more vs targets with Vinegrip.,Schaden; +40% mehr gegen Ziele mit „Rankengriff“.,move_effect
+"Damage; Vinegrip: target -1 Speed stage, 2t.","Schaden; Rankengriff: Ziel -1 Tempostufe, 2R.",move_effect
+"Damage; Vinegrip: target -1 Speed stage, 3t.","Schaden; Rankengriff: Ziel -1 Tempostufe, 3R.",move_effect
+"Undead allies +50% Attack, 3t; if no Undead ally, self +30% Attack, 3t.","Verbündete vom Typ Untoter +50% Angriff, 3R; falls kein Verbündeter vom Typ Untoter, selbst +30% Angriff, 3R.",move_effect
+"Undead allies +50% Attack, 3t; if no Undead ally, self +40% Attack, 3t.","Verbündete vom Typ Untoter +50% Angriff, 3R; falls kein Verbündeter vom Typ Untoter, selbst +40% Angriff, 3R.",move_effect
+"Damage; Dragged Down: target -1 Speed stage, 2t.","Schaden; Hinabgezogen: Ziel -1 Tempostufe, 2R.",move_effect
+"Damage; Dragged Down: target -2 Speed stages and -15% Defense, 3t.","Schaden; Hinabgezogen: Ziel -2 Tempostufen und -15% Verteidigung, 3R.",move_effect
+"Damage; Dragged Down: target -2 Speed stages and -25% Defense, 3t.","Schaden; Hinabgezogen: Ziel -2 Tempostufen und -25% Verteidigung, 3R.",move_effect
+"One ally +25% Attack and +25% Defense, 2t.","Ein Verbündeter +25% Angriff und +25% Verteidigung, 2R.",move_effect
+"All allies +30% Attack and +30% Defense, 2t.","Alle Verbündeten +30% Angriff und +30% Verteidigung, 2R.",move_effect
+"All allies +40% Attack and +40% Defense, 2t.","Alle Verbündeten +40% Angriff und +40% Verteidigung, 2R.",move_effect
+Damage; +25% more vs targets with no active buffs.,Schaden; +25% mehr gegen Ziele ohne aktive Buffs.,move_effect
+Damage; +40% more vs targets with no active buffs.,Schaden; +40% mehr gegen Ziele ohne aktive Buffs.,move_effect
+Damage; +50% more vs targets with no active buffs.,Schaden; +50% mehr gegen Ziele ohne aktive Buffs.,move_effect
+Remove 1 buff from the target.,Entfernt 1 Buff vom Ziel.,move_effect
+Remove up to 2 buffs from the target.,Entfernt bis zu 2 Buffs vom Ziel.,move_effect
+Remove all buffs from the target.,Entfernt alle Buffs vom Ziel.,move_effect
+"Damage; Spinning: target -1 Speed stage and -10% Attack, 2t.","Schaden; Wirbelnd: Ziel -1 Tempostufe und -10% Angriff, 2R.",move_effect
+"Damage; Spinning: target -1 Speed stage and -10% Attack, 4t.","Schaden; Wirbelnd: Ziel -1 Tempostufe und -10% Angriff, 4R.",move_effect
+"Damage; Spinning: target -1 Speed stage and -15% Attack, 4t.","Schaden; Wirbelnd: Ziel -1 Tempostufe und -15% Angriff, 4R.",move_effect
+"Spinning: target -1 Speed stage, 2t.","Wirbelnd: Ziel -1 Tempostufe, 2R.",move_effect
+"Spinning: target -1 Speed stage and -30% Attack, 3t.","Wirbelnd: Ziel -1 Tempostufe und -30% Angriff, 3R.",move_effect
+"Spinning: target -1 Speed stage and -35% Attack, 3t.","Wirbelnd: Ziel -1 Tempostufe und -35% Angriff, 3R.",move_effect
+Damage; +20% more vs targets with Forgetting.,Schaden; +20% mehr gegen Ziele mit „Vergessen“.,move_effect
+Damage; +30% more vs targets with Forgetting.,Schaden; +30% mehr gegen Ziele mit „Vergessen“.,move_effect
+Damage; +40% more vs targets with Forgetting.,Schaden; +40% mehr gegen Ziele mit „Vergessen“.,move_effect
+"Forgetting: target -25% Attack, 2t.","Vergessen: Ziel -25% Angriff, 2R.",move_effect
+"Forgetting: target -30% Attack, 3t; the target's buffs expire 1 turn sooner.","Vergessen: Ziel -30% Angriff, 3R; die Buffs des Ziels laufen 1 Runde früher aus.",move_effect
+"Forgetting: target -40% Attack, 3t; the target's buffs expire 1 turn sooner.","Vergessen: Ziel -40% Angriff, 3R; die Buffs des Ziels laufen 1 Runde früher aus.",move_effect
+"Damage; Puppeted Nerves: target -10% Attack and -1 Speed stage, 2t.","Schaden; Marionettennerven: Ziel -10% Angriff und -1 Tempostufe, 2R.",move_effect
+"Damage; Puppeted Nerves: target -15% Attack and -1 Speed stage, 4t.","Schaden; Marionettennerven: Ziel -15% Angriff und -1 Tempostufe, 4R.",move_effect
+"Damage; Puppeted Nerves: target -25% Attack and -1 Speed stage, 4t.","Schaden; Marionettennerven: Ziel -25% Angriff und -1 Tempostufe, 4R.",move_effect
+"Puppeted Nerves: target -25% Attack, 2t.","Marionettennerven: Ziel -25% Angriff, 2R.",move_effect
+"Puppeted Nerves: target -30% Attack and -1 Speed stage, 3t.","Marionettennerven: Ziel -30% Angriff und -1 Tempostufe, 3R.",move_effect
+"Puppeted Nerves: target -40% Attack and -1 Speed stage, 3t.","Marionettennerven: Ziel -40% Angriff und -1 Tempostufe, 3R.",move_effect
+Damage; +20% more vs targets with Foreseen.,Schaden; +20% mehr gegen Ziele mit „Vorhergesehen“.,move_effect
+Damage; +30% more vs targets with Foreseen.,Schaden; +30% mehr gegen Ziele mit „Vorhergesehen“.,move_effect
+Damage; +40% more vs targets with Foreseen.,Schaden; +40% mehr gegen Ziele mit „Vorhergesehen“.,move_effect
+Foreseen: target -20% damage.,Vorhergesehen: Ziel -20% Schaden.,move_effect
+Foreseen: the target's next attack deals -25% damage.,Vorhergesehen: der nächste Angriff des Ziels verursacht -25% Schaden.,move_effect
+Foreseen: the target's next attack deals -30% damage.,Vorhergesehen: der nächste Angriff des Ziels verursacht -30% Schaden.,move_effect
+One ally's next hit taken -40%.,Nächster erhaltener Treffer eines Verbündeten -40%.,move_effect
+"Disoriented: target -25% Attack, 2t.","Orientierungslos: Ziel -25% Angriff, 2R.",move_effect
+"Disoriented: target -30% Attack, 3t.","Orientierungslos: Ziel -30% Angriff, 3R.",move_effect
+"Disoriented: target -40% Attack, 3t.","Orientierungslos: Ziel -40% Angriff, 3R.",move_effect
+Damage; +40% more if user acted before the target this turn.,"Schaden; +40% mehr, wenn der Anwender in dieser Runde vor dem Ziel gehandelt hat.",move_effect
+Next hit taken -20%.,Nächster erhaltener Treffer -20%.,move_effect
+"Next 2 hits taken -25%; self +1 Speed stage, 2t.","Nächste 2 erhaltene Treffer -25%; selbst +1 Tempostufe, 2R.",move_effect
+"Next 2 hits taken -30%; self +1 Speed stage, 2t.","Nächste 2 erhaltene Treffer -30%; selbst +1 Tempostufe, 2R.",move_effect
+"Trailbound: target -1 Speed stage, 2t.","Spurgebunden: Ziel -1 Tempostufe, 2R.",move_effect
+"Trailbound: target -2 Speed stages, 2t.","Spurgebunden: Ziel -2 Tempostufen, 2R.",move_effect
+"Damage; Concussed: target -1 Speed stage, 2t.","Schaden; Erschüttert: Ziel -1 Tempostufe, 2R.",move_effect
+"Damage; Concussed: target -1 Speed stage, 3t.","Schaden; Erschüttert: Ziel -1 Tempostufe, 3R.",move_effect
+One ally cleanses up to 2 debuffs.,Ein Verbündeter reinigt bis zu 2 Debuffs.,move_effect
+One ally cleanses all debuffs.,Ein Verbündeter reinigt alle Debuffs.,move_effect
+Damage; +25% more vs targets with Drawn In.,Schaden; +25% mehr gegen Ziele mit „Hineingezogen“.,move_effect
+Damage; +40% more vs targets with Drawn In.,Schaden; +40% mehr gegen Ziele mit „Hineingezogen“.,move_effect
+Damage; +50% more vs targets with Drawn In.,Schaden; +50% mehr gegen Ziele mit „Hineingezogen“.,move_effect
+Damage; ignores 25% of target Defense.,Schaden; ignoriert 25% der Verteidigung des Ziels.,move_effect
+"Drawn In: target -1 Speed stage, 2t.","Hineingezogen: Ziel -1 Tempostufe, 2R.",move_effect
+"Drawn In: target -1 Speed stage, 3t; target takes +20% damage from the user, 3t.","Hineingezogen: Ziel -1 Tempostufe, 3R; Ziel erleidet +20% Schaden vom Anwender, 3R.",move_effect
+"Drawn In: target -1 Speed stage, 3t; target takes +25% damage from the user, 3t.","Hineingezogen: Ziel -1 Tempostufe, 3R; Ziel erleidet +25% Schaden vom Anwender, 3R.",move_effect
+"Decomposing: target -25% Defense, 2t.","Zersetzend: Ziel -25% Verteidigung, 2R.",move_effect
+"Decomposing: target -30% Defense, 3t; one ally +30% Attack, 3t.","Zersetzend: Ziel -30% Verteidigung, 3R; ein Verbündeter +30% Angriff, 3R.",move_effect
+"Decomposing: target -40% Defense, 3t; one ally +40% Attack, 3t.","Zersetzend: Ziel -40% Verteidigung, 3R; ein Verbündeter +40% Angriff, 3R.",move_effect
+"+50% Defense (self, 2t); cleanse up to 2 self debuffs.","+50% Verteidigung (selbst, 2R); reinigt bis zu 2 eigene Debuffs.",move_effect
+"+50% Defense (self, 2t); cleanse all self debuffs.","+50% Verteidigung (selbst, 2R); reinigt alle eigenen Debuffs.",move_effect
+Damage; +10% more per debuff on target (max +30%).,Schaden; +10% mehr pro Debuff auf dem Ziel (max. +30%).,move_effect
+Damage; +15% more per debuff on target (max +50%).,Schaden; +15% mehr pro Debuff auf dem Ziel (max. +50%).,move_effect
+Damage; +20% more per debuff on target (max +60%).,Schaden; +20% mehr pro Debuff auf dem Ziel (max. +60%).,move_effect
+"Damage; Pinned: target -10% Defense, 2t.","Schaden; Festgenagelt: Ziel -10% Verteidigung, 2R.",move_effect
+"Damage; Pinned: target -15% Defense, 3t.","Schaden; Festgenagelt: Ziel -15% Verteidigung, 3R.",move_effect
+"Damage; Pinned: target -25% Defense, 3t.","Schaden; Festgenagelt: Ziel -25% Verteidigung, 3R.",move_effect
+"Damage; Crushed Slow: target -1 Speed stage, 2t.","Schaden; Quetschlahm: Ziel -1 Tempostufe, 2R.",move_effect
+"Damage; Crushed Slow: target -1 Speed stage, 3t.","Schaden; Quetschlahm: Ziel -1 Tempostufe, 3R.",move_effect
+"Damage; Vitrified: target -1 Speed stage, 2t.","Schaden; Verglast: Ziel -1 Tempostufe, 2R.",move_effect
+"Damage; Vitrified: target -2 Speed stages and -10% Defense, 2t.","Schaden; Verglast: Ziel -2 Tempostufen und -10% Verteidigung, 2R.",move_effect
+"Damage; Vitrified: target -2 Speed stages and -15% Defense, 2t.","Schaden; Verglast: Ziel -2 Tempostufen und -15% Verteidigung, 2R.",move_effect
+"Damage; Glass Splinter: target bleeds 4% max HP/turn, 3t.","Schaden; Glassplitter: Ziel blutet 4% max. LP/Runde, 3R.",move_effect
+"Damage; Glass Splinter: target bleeds 5% max HP/turn, 3t.","Schaden; Glassplitter: Ziel blutet 5% max. LP/Runde, 3R.",move_effect
+Damage; user heals 20% of damage dealt; +20% more vs targets with Ashen.,Schaden; Anwender heilt 20% des verursachten Schadens; +20% mehr gegen Ziele mit „Aschfahl“.,move_effect
+Damage; user heals 30% of damage dealt; +30% more vs targets with Ashen.,Schaden; Anwender heilt 30% des verursachten Schadens; +30% mehr gegen Ziele mit „Aschfahl“.,move_effect
+Damage; user heals 40% of damage dealt; +40% more vs targets with Ashen.,Schaden; Anwender heilt 40% des verursachten Schadens; +40% mehr gegen Ziele mit „Aschfahl“.,move_effect
+"Ashen: target's healing received -25%, 2t.","Aschfahl: erhaltene Heilung des Ziels -25%, 2R.",move_effect
+"Ashen: target's healing received -40%, 3t.","Aschfahl: erhaltene Heilung des Ziels -40%, 3R.",move_effect
+"Ashen: target's healing received -50%, 3t.","Aschfahl: erhaltene Heilung des Ziels -50%, 3R.",move_effect
+"+50% Defense (self, 3t); the next creature to hit the user gains Dazzled: -30% Attack, 2t.","+50% Verteidigung (selbst, 3R); die nächste Kreatur, die den Anwender trifft, erhält „Geblendet“: -30% Angriff, 2R.",move_effect
+"+50% Defense (self, 3t); the next creature to hit the user gains Dazzled: -35% Attack, 2t.","+50% Verteidigung (selbst, 3R); die nächste Kreatur, die den Anwender trifft, erhält „Geblendet“: -35% Angriff, 2R.",move_effect
+Damage; +25% more vs targets with Precise Cut.,Schaden; +25% mehr gegen Ziele mit „Präziser Schnitt“.,move_effect
+Damage; +40% more vs targets with Precise Cut.,Schaden; +40% mehr gegen Ziele mit „Präziser Schnitt“.,move_effect
+Damage; +50% more vs targets with Precise Cut.,Schaden; +50% mehr gegen Ziele mit „Präziser Schnitt“.,move_effect
+"Damage; Precise Cut: target bleeds 4% max HP/turn, 3t.","Schaden; Präziser Schnitt: Ziel blutet 4% max. LP/Runde, 3R.",move_effect
+"Damage; Precise Cut: target bleeds 5% max HP/turn, 3t.","Schaden; Präziser Schnitt: Ziel blutet 5% max. LP/Runde, 3R.",move_effect
+"Marked Veins: +15% more to the target, 3t.","Gezeichnete Venen: +15% mehr Schaden gegen das Ziel, 3R.",move_effect
+"Marked Veins: user deals +20% more to the target, 3t.","Gezeichnete Venen: Anwender verursacht +20% mehr Schaden am Ziel, 3R.",move_effect
+"Marked Veins: user deals +25% more to the target, 3t.","Gezeichnete Venen: Anwender verursacht +25% mehr Schaden am Ziel, 3R.",move_effect
+"Damage; Wrong Geometry: target -10% Attack, 2t.","Schaden; Falsche Geometrie: Ziel -10% Angriff, 2R.",move_effect
+"Damage; Wrong Geometry: target -15% Attack and -10% Defense, 3t.","Schaden; Falsche Geometrie: Ziel -15% Angriff und -10% Verteidigung, 3R.",move_effect
+"Damage; Wrong Geometry: target -25% Attack and -15% Defense, 3t.","Schaden; Falsche Geometrie: Ziel -25% Angriff und -15% Verteidigung, 3R.",move_effect
+Damage; +25% more vs targets with Death-Marked; consumes the mark.,Schaden; +25% mehr gegen Ziele mit „Todgezeichnet“; verbraucht das Mal.,move_effect
+Damage; +40% more vs targets with Death-Marked; consumes the mark.,Schaden; +40% mehr gegen Ziele mit „Todgezeichnet“; verbraucht das Mal.,move_effect
+Damage; +50% more vs targets with Death-Marked; consumes the mark.,Schaden; +50% mehr gegen Ziele mit „Todgezeichnet“; verbraucht das Mal.,move_effect
+"Death-Marked: +10% more to the target, 3t.","Todgezeichnet: +10% mehr Schaden gegen das Ziel, 3R.",move_effect
+"Death-Marked: user deals +15% more to the target, 4t.","Todgezeichnet: Anwender verursacht +15% mehr Schaden am Ziel, 4R.",move_effect
+"Death-Marked: user deals +20% more to the target, 4t.","Todgezeichnet: Anwender verursacht +20% mehr Schaden am Ziel, 4R.",move_effect
+Steal 1 buff from the target.,Stiehlt 1 Buff vom Ziel.,move_effect
+"Unsettled: target -25% Attack, 2t.","Beunruhigt: Ziel -25% Angriff, 2R.",move_effect
+"Unsettled: target -30% Attack, 3t.","Beunruhigt: Ziel -30% Angriff, 3R.",move_effect
+"Unsettled: target -40% Attack, 3t.","Beunruhigt: Ziel -40% Angriff, 3R.",move_effect
+"Damage; user heals 30% of damage dealt; Bled Dry: target's healing received -40%, 3t.","Schaden; Anwender heilt 30% des verursachten Schadens; Ausgeblutet: erhaltene Heilung des Ziels -40%, 3R.",move_effect
+"Damage; user heals 40% of damage dealt; Bled Dry: target's healing received -50%, 3t.","Schaden; Anwender heilt 40% des verursachten Schadens; Ausgeblutet: erhaltene Heilung des Ziels -50%, 3R.",move_effect
+"Cowed: target -25% Attack, 2t.","Eingeschüchtert: Ziel -25% Angriff, 2R.",move_effect
+"Cowed: target -30% Attack, 3t.","Eingeschüchtert: Ziel -30% Angriff, 3R.",move_effect
+"Cowed: target -40% Attack, 3t.","Eingeschüchtert: Ziel -40% Angriff, 3R.",move_effect
+"Soulweight: target -1 Speed stage, 2t.","Seelenlast: Ziel -1 Tempostufe, 2R.",move_effect
+"Soulweight: target -1 Speed stage and -30% Attack, 3t.","Seelenlast: Ziel -1 Tempostufe und -30% Angriff, 3R.",move_effect
+"Soulweight: target -1 Speed stage and -35% Attack, 3t.","Seelenlast: Ziel -1 Tempostufe und -35% Angriff, 3R.",move_effect
+"Once per battle: survive with 1 HP, then user -45% Defense, 2t.","Einmal pro Kampf: überlebt mit 1 LP, danach Anwender -45% Verteidigung, 2R.",move_effect
+Once per battle: the first killing blow this battle leaves the user at 1 HP instead.,Einmal pro Kampf: der erste tödliche Treffer in diesem Kampf lässt den Anwender stattdessen bei 1 LP zurück.,move_effect
+Damage; ignores 30% of target Defense.,Schaden; ignoriert 30% der Verteidigung des Ziels.,move_effect
+"Reflected Doubt: target -25% Attack, 2t.","Gespiegelter Zweifel: Ziel -25% Angriff, 2R.",move_effect
+"Copy the target's newest buff to self; Reflected Doubt: target -30% Attack, 3t.","Kopiert den neuesten Buff des Ziels auf sich selbst; Gespiegelter Zweifel: Ziel -30% Angriff, 3R.",move_effect
+"Copy the target's newest buff to self; Reflected Doubt: target -35% Attack, 3t.","Kopiert den neuesten Buff des Ziels auf sich selbst; Gespiegelter Zweifel: Ziel -35% Angriff, 3R.",move_effect
+"The next creature to hit the user gains Hollow Gaze: -25% Attack, 2t.","Die nächste Kreatur, die den Anwender trifft, erhält „Hohler Blick“: -25% Angriff, 2R.",move_effect
+"The next creature to hit the user gains Hollow Gaze: target -45% Attack, 3t.","Die nächste Kreatur, die den Anwender trifft, erhält „Hohler Blick“: Ziel -45% Angriff, 3R.",move_effect
+"The next creature to hit the user gains Hollow Gaze: target -50% Attack, 3t.","Die nächste Kreatur, die den Anwender trifft, erhält „Hohler Blick“: Ziel -50% Angriff, 3R.",move_effect
+"Damage; Windshorn: target -10% Defense, 2t.","Schaden; Windgeschoren: Ziel -10% Verteidigung, 2R.",move_effect
+"Damage; Windshorn: target -10% Defense, 3t.","Schaden; Windgeschoren: Ziel -10% Verteidigung, 3R.",move_effect
+"Damage; Windshorn: target -15% Defense, 3t.","Schaden; Windgeschoren: Ziel -15% Verteidigung, 3R.",move_effect
+"Damage; Razor Draft: target bleeds 4% max HP/turn, 3t.","Schaden; Klingenzug: Ziel blutet 4% max. LP/Runde, 3R.",move_effect
+"Damage; Razor Draft: target bleeds 5% max HP/turn, 3t.","Schaden; Klingenzug: Ziel blutet 5% max. LP/Runde, 3R.",move_effect
+Damage; +20% more vs targets with Ashlung.,Schaden; +20% mehr gegen Ziele mit „Aschlunge“.,move_effect
+Damage; +30% more vs targets with Ashlung.,Schaden; +30% mehr gegen Ziele mit „Aschlunge“.,move_effect
+Damage; +40% more vs targets with Ashlung.,Schaden; +40% mehr gegen Ziele mit „Aschlunge“.,move_effect
+"cleanse 1 debuff; +35% Defense (self, 3t).","reinigt 1 Debuff; +35% Verteidigung (selbst, 3R).",move_effect
+"Cleanse up to 2 self debuffs; +50% Defense (self, 3t).","Reinigt bis zu 2 eigene Debuffs; +50% Verteidigung (selbst, 3R).",move_effect
+"Cleanse all self debuffs; +50% Defense (self, 3t).","Reinigt alle eigenen Debuffs; +50% Verteidigung (selbst, 3R).",move_effect
+"Ashlung: target -25% Attack, 2t.","Aschlunge: Ziel -25% Angriff, 2R.",move_effect
+"Ashlung: target -30% Attack, 3t.","Aschlunge: Ziel -30% Angriff, 3R.",move_effect
+"Ashlung: target -40% Attack, 3t.","Aschlunge: Ziel -40% Angriff, 3R.",move_effect
+Damage; +20% more vs targets below 50% HP.,Schaden; +20% mehr gegen Ziele unter 50% LP.,move_effect
+Damage; +30% more vs targets below 50% HP.,Schaden; +30% mehr gegen Ziele unter 50% LP.,move_effect
+Damage; +40% more vs targets below 50% HP.,Schaden; +40% mehr gegen Ziele unter 50% LP.,move_effect
+"Branded: 7%/turn, 2t.","Gebrandmarkt: 7%/Runde, 2R.",move_effect
+"The next creature to hit the user gains Branded: target takes 7% max HP/turn, 3t.","Die nächste Kreatur, die den Anwender trifft, erhält „Gebrandmarkt“: Ziel erleidet 7% max. LP/Runde, 3R.",move_effect
+"The next creature to hit the user gains Branded: target takes 9% max HP/turn, 3t.","Die nächste Kreatur, die den Anwender trifft, erhält „Gebrandmarkt“: Ziel erleidet 9% max. LP/Runde, 3R.",move_effect
+"Damage; Cindered: target -10% Defense, 2t.","Schaden; Verkohlt: Ziel -10% Verteidigung, 2R.",move_effect
+"Damage; Cindered: target -10% Defense, 3t.","Schaden; Verkohlt: Ziel -10% Verteidigung, 3R.",move_effect
+"Damage; Cindered: target -15% Defense, 3t.","Schaden; Verkohlt: Ziel -15% Verteidigung, 3R.",move_effect
+"Damage; Kindling: target takes 4% max HP/turn, 3t.","Schaden; Zunder: Ziel erleidet 4% max. LP/Runde, 3R.",move_effect
+"Damage; Kindling: target takes 5% max HP/turn, 3t.","Schaden; Zunder: Ziel erleidet 5% max. LP/Runde, 3R.",move_effect
+"Self +1 Speed stage, 2t; the next creature to hit the user gains Kindling: 7% max HP/turn, 2t.","Selbst +1 Tempostufe, 2R; die nächste Kreatur, die den Anwender trifft, erhält „Zunder“: 7% max. LP/Runde, 2R.",move_effect
+"Self +1 Speed stage, 2t; the next creature to hit the user gains Kindling: 9% max HP/turn, 2t.","Selbst +1 Tempostufe, 2R; die nächste Kreatur, die den Anwender trifft, erhält „Zunder“: 9% max. LP/Runde, 2R.",move_effect
+Damage; +10% more per active damage-over-time on the target (max +20%).,Schaden; +10% mehr pro aktivem Dauerschaden auf dem Ziel (max. +20%).,move_effect
+Damage; +10% more per active damage-over-time on the target (max +35%).,Schaden; +10% mehr pro aktivem Dauerschaden auf dem Ziel (max. +35%).,move_effect
+Damage; +15% more per active damage-over-time on the target (max +45%).,Schaden; +15% mehr pro aktivem Dauerschaden auf dem Ziel (max. +45%).,move_effect
+"Damage as 3 hits; each applies Elemental Burn: 3% max HP/turn, 2t.","Schaden in 3 Treffern; jeder Treffer wendet „Elementarbrand“ an: 3% max. LP/Runde, 2R.",move_effect
+"Damage as 3 hits; each applies Elemental Burn: 4% max HP/turn, 2t.","Schaden in 3 Treffern; jeder Treffer wendet „Elementarbrand“ an: 4% max. LP/Runde, 2R.",move_effect
+"Rattled: target -25% Attack, 2t.","Verunsichert: Ziel -25% Angriff, 2R.",move_effect
+"Rattled: target -30% Attack and -30% Defense, 2t.","Verunsichert: Ziel -30% Angriff und -30% Verteidigung, 2R.",move_effect
+"Rattled: target -35% Attack and -35% Defense, 2t.","Verunsichert: Ziel -35% Angriff und -35% Verteidigung, 2R.",move_effect
+"Damage; Rivetburn: target -10% Defense, 2t.","Schaden; Nietenbrand: Ziel -10% Verteidigung, 2R.",move_effect
+"Damage; Rivetburn: target -10% Defense, 3t.","Schaden; Nietenbrand: Ziel -10% Verteidigung, 3R.",move_effect
+"Damage; Rivetburn: target -15% Defense, 3t.","Schaden; Nietenbrand: Ziel -15% Verteidigung, 3R.",move_effect
+"Damage; Leak: 4%/turn, 2t.","Schaden; Leck: 4%/Runde, 2R.",move_effect
+"Damage; Firestorm Leak: target takes 5% max HP/turn, 3t.","Schaden; Feuersturm-Leck: Ziel erleidet 5% max. LP/Runde, 3R.",move_effect
+"Damage; Firestorm Leak: target takes 6% max HP/turn, 3t.","Schaden; Feuersturm-Leck: Ziel erleidet 6% max. LP/Runde, 3R.",move_effect
+Damage; +25% more if any ally was damaged last turn.,"Schaden; +25% mehr, wenn in der letzten Runde ein Verbündeter Schaden erlitten hat.",move_effect
+Damage; +40% more if any ally was damaged last turn.,"Schaden; +40% mehr, wenn in der letzten Runde ein Verbündeter Schaden erlitten hat.",move_effect
+Damage; +50% more if any ally was damaged last turn.,"Schaden; +50% mehr, wenn in der letzten Runde ein Verbündeter Schaden erlitten hat.",move_effect
+"+50% Defense (self, 3t); if the user was not hit last turn, also +30% Attack, 3t.","+50% Verteidigung (selbst, 3R); falls der Anwender in der letzten Runde nicht getroffen wurde, zusätzlich +30% Angriff, 3R.",move_effect
+"+50% Defense (self, 3t); if the user was not hit last turn, also +40% Attack, 3t.","+50% Verteidigung (selbst, 3R); falls der Anwender in der letzten Runde nicht getroffen wurde, zusätzlich +40% Angriff, 3R.",move_effect
+"One ally takes -35% damage, 2t.","Ein Verbündeter erleidet -35% Schaden, 2R.",move_effect
+"Damage; ignores 20% of target Defense; applies Unquenchable: 5% max HP/turn, 3t.","Schaden; ignoriert 20% der Verteidigung des Ziels; wendet „Unlöschbar“ an: 5% max. LP/Runde, 3R.",move_effect
+"Damage; ignores 25% of target Defense; applies Unquenchable: 6% max HP/turn, 3t.","Schaden; ignoriert 25% der Verteidigung des Ziels; wendet „Unlöschbar“ an: 6% max. LP/Runde, 3R.",move_effect
+"Unquenchable: target takes 7% max HP/turn, 3t; cannot be cleansed.","Unlöschbar: Ziel erleidet 7% max. LP/Runde, 3R; kann nicht gereinigt werden.",move_effect
+"Unquenchable: target takes 12% max HP/turn, 3t; cannot be cleansed.","Unlöschbar: Ziel erleidet 12% max. LP/Runde, 3R; kann nicht gereinigt werden.",move_effect
+"Unquenchable: target takes 15% max HP/turn, 3t; cannot be cleansed.","Unlöschbar: Ziel erleidet 15% max. LP/Runde, 3R; kann nicht gereinigt werden.",move_effect
+"One ally +35% Attack, 3t.","Ein Verbündeter +35% Angriff, 3R.",move_effect
+Damage; +20% more vs targets with Flawed Make.,Schaden; +20% mehr gegen Ziele mit „Fehlerhafte Machart“.,move_effect
+Damage; +30% more vs targets with Flawed Make.,Schaden; +30% mehr gegen Ziele mit „Fehlerhafte Machart“.,move_effect
+Damage; +40% more vs targets with Flawed Make.,Schaden; +40% mehr gegen Ziele mit „Fehlerhafte Machart“.,move_effect
+Transfer up to 2 self debuffs to the target.,Überträgt bis zu 2 eigene Debuffs auf das Ziel.,move_effect
+Transfer all self debuffs to the target.,Überträgt alle eigenen Debuffs auf das Ziel.,move_effect
+"Flawed Make: target -25% Defense, 2t.","Fehlerhafte Machart: Ziel -25% Verteidigung, 2R.",move_effect
+"Flawed Make: target -30% Defense and -30% Attack, 3t.","Fehlerhafte Machart: Ziel -30% Verteidigung und -30% Angriff, 3R.",move_effect
+"Flawed Make: target -40% Defense and -35% Attack, 3t.","Fehlerhafte Machart: Ziel -40% Verteidigung und -35% Angriff, 3R.",move_effect
+"Damage; Jeered: target -10% Attack, 3t.","Schaden; Verhöhnt: Ziel -10% Angriff, 3R.",move_effect
+"Damage; Jeered: target -15% Attack, 3t.","Schaden; Verhöhnt: Ziel -15% Angriff, 3R.",move_effect
+"Damage; Floored: target -1 Speed stage, 2t.","Schaden; Niedergestreckt: Ziel -1 Tempostufe, 2R.",move_effect
+"Damage; Gored: 4%/turn, 2t.","Schaden; Aufgespießt: 4%/Runde, 2R.",move_effect
+"Damage; Gored: target takes 5% max HP/turn, 3t.","Schaden; Aufgespießt: Ziel erleidet 5% max. LP/Runde, 3R.",move_effect
+"Damage; Gored: target takes 6% max HP/turn, 3t.","Schaden; Aufgespießt: Ziel erleidet 6% max. LP/Runde, 3R.",move_effect
+"Damage; Putrefying: target takes 3% max HP/turn, 3t.","Schaden; Verwesend: Ziel erleidet 3% max. LP/Runde, 3R.",move_effect
+"Damage; Putrefying: target takes 5% max HP/turn, 4t.","Schaden; Verwesend: Ziel erleidet 5% max. LP/Runde, 4R.",move_effect
+"Damage; Putrefying: target takes 6% max HP/turn, 4t.","Schaden; Verwesend: Ziel erleidet 6% max. LP/Runde, 4R.",move_effect
+"Putrefying: 7%/turn, 2t.","Verwesend: 7%/Runde, 2R.",move_effect
+"Putrefying: target takes 9% max HP/turn, 3t.","Verwesend: Ziel erleidet 9% max. LP/Runde, 3R.",move_effect
+"Putrefying: target takes 12% max HP/turn, 3t.","Verwesend: Ziel erleidet 12% max. LP/Runde, 3R.",move_effect
+Damage.,Schaden.,move_effect
++30% damage vs Construct targets.,+30% Schaden gegen Ziele vom Typ Konstrukt.,move_clause
+Beast allies also gain +10% Defense.,Verbündete vom Typ Bestie erhalten zusätzlich +10% Verteidigung.,move_clause
++40% damage vs Insect targets.,+40% Schaden gegen Ziele vom Typ Insekt.,move_clause
+"Beast allies gain +1 Speed stage, 2t.","Verbündete vom Typ Bestie erhalten +1 Tempostufe, 2R.",move_clause
++35% damage vs Construct targets.,+35% Schaden gegen Ziele vom Typ Konstrukt.,move_clause
+Flora allies gain +40% Defense instead.,Verbündete vom Typ Flora erhalten stattdessen +40% Verteidigung.,move_clause
+"Fey and Spectral allies also gain +1 Speed stage, 2t.","Verbündete der Typen Fee und Spektral erhalten zusätzlich +1 Tempostufe, 2R.",move_clause
++30% damage vs Arthropod targets.,+30% Schaden gegen Ziele vom Typ Gliederfüßer.,move_clause
++30% damage vs Undead targets.,+30% Schaden gegen Ziele vom Typ Untoter.,move_clause
+"Flora allies gain +15% Defense, 3t.","Verbündete vom Typ Flora erhalten +15% Verteidigung, 3R.",move_clause
++40% damage vs Beast targets.,+40% Schaden gegen Ziele vom Typ Bestie.,move_clause
+Undead allies gain +30% Attack instead.,Verbündete vom Typ Untoter erhalten stattdessen +30% Angriff.,move_clause
++40% damage vs Demon targets.,+40% Schaden gegen Ziele vom Typ Dämon.,move_clause
+Fey and Beast allies are healed 10% more.,Verbündete der Typen Fee und Bestie werden 10% stärker geheilt.,move_clause
+Beast allies gain +30% Attack instead.,Verbündete vom Typ Bestie erhalten stattdessen +30% Angriff.,move_clause
++30% damage vs Mollusk targets.,+30% Schaden gegen Ziele vom Typ Weichtier.,move_clause
++30% damage vs Amphibian targets.,+30% Schaden gegen Ziele vom Typ Amphibie.,move_clause
+"Aquatic allies: Soaked targets also take -1 Speed stage, 2t.","Verbündete vom Typ Wasser: Ziele mit „Durchnässt“ erleiden zusätzlich -1 Tempostufe, 2R.",move_clause
++30% damage vs Elemental targets.,+30% Schaden gegen Ziele vom Typ Elementar.,move_clause
++40% damage vs Mollusk targets.,+40% Schaden gegen Ziele vom Typ Weichtier.,move_clause
+Aquatic allies are healed 10% more.,Verbündete vom Typ Wasser werden 10% stärker geheilt.,move_clause
++40% damage vs Eldritch targets.,+40% Schaden gegen Ziele vom Typ Urgrauen.,move_clause
++30% damage vs Aquatic targets.,+30% Schaden gegen Ziele vom Typ Wasser.,move_clause
+Undead and Aquatic allies gain +30% Attack instead.,Verbündete der Typen Untoter und Wasser erhalten stattdessen +30% Angriff.,move_clause
++35% damage vs Fey targets.,+35% Schaden gegen Ziele vom Typ Fee.,move_clause
+"Mollusk allies gain +15% Defense, 3t.","Verbündete vom Typ Weichtier erhalten +15% Verteidigung, 3R.",move_clause
++30% damage vs Insect targets.,+30% Schaden gegen Ziele vom Typ Insekt.,move_clause
+"Reptile allies gain +10% Attack, 3t.","Verbündete vom Typ Reptil erhalten +10% Angriff, 3R.",move_clause
++30% damage vs Beast targets.,+30% Schaden gegen Ziele vom Typ Bestie.,move_clause
+Construct allies take -40% damage instead.,Verbündete vom Typ Konstrukt erleiden stattdessen -40% Schaden.,move_clause
++30% damage vs Chimera targets.,+30% Schaden gegen Ziele vom Typ Chimäre.,move_clause
+"Serpent and Chimera allies gain +15% Attack, 3t.","Verbündete der Typen Schlange und Chimäre erhalten +15% Angriff, 3R.",move_clause
++45% damage vs Flora and Ooze targets.,+45% Schaden gegen Ziele der Typen Flora und Schleim.,move_clause
++30% damage vs Avian targets.,+30% Schaden gegen Ziele vom Typ Vogel.,move_clause
+"Elemental allies gain +1 Speed stage, 2t.","Verbündete vom Typ Elementar erhalten +1 Tempostufe, 2R.",move_clause
++40% damage vs Construct targets.,+40% Schaden gegen Ziele vom Typ Konstrukt.,move_clause
+"Flora allies gain +10% Defense, 3t.","Verbündete vom Typ Flora erhalten +10% Verteidigung, 3R.",move_clause
+(This move IS the synergy: Fungal-only buff.),(Diese Attacke IST die Synergie: Buff nur für Typ Pilz.),move_clause
+Flora allies gain +35% Defense instead.,Verbündete vom Typ Flora erhalten stattdessen +35% Verteidigung.,move_clause
+"Parasite allies gain +15% Attack, 3t.","Verbündete vom Typ Parasit erhalten +15% Angriff, 3R.",move_clause
+Insect allies gain +30% Attack instead.,Verbündete vom Typ Insekt erhalten stattdessen +30% Angriff.,move_clause
+"Fey allies gain +1 Speed stage, 2t.","Verbündete vom Typ Fee erhalten +1 Tempostufe, 2R.",move_clause
+(This move IS the synergy: scales with Insect allies.),(Diese Attacke IST die Synergie: skaliert mit Verbündeten vom Typ Insekt.),move_clause
+Flora allies take -45% damage instead.,Verbündete vom Typ Flora erleiden stattdessen -45% Schaden.,move_clause
++45% damage vs Construct targets.,+45% Schaden gegen Ziele vom Typ Konstrukt.,move_clause
+"Ooze allies gain +15% Defense, 3t.","Verbündete vom Typ Schleim erhalten +15% Verteidigung, 3R.",move_clause
++35% damage vs Arthropod targets.,+35% Schaden gegen Ziele vom Typ Gliederfüßer.,move_clause
+Construct and Arthropod allies gain +35% Defense instead.,Verbündete der Typen Konstrukt und Gliederfüßer erhalten stattdessen +35% Verteidigung.,move_clause
++40% damage vs Spectral targets.,+40% Schaden gegen Ziele vom Typ Spektral.,move_clause
+"Void allies gain +10% Defense, 3t.","Verbündete vom Typ Leere erhalten +10% Verteidigung, 3R.",move_clause
++35% damage vs Dragon targets.,+35% Schaden gegen Ziele vom Typ Drache.,move_clause
+Construct allies take -45% damage instead.,Verbündete vom Typ Konstrukt erleiden stattdessen -45% Schaden.,move_clause
+Avian allies gain +1 Speed stage for 3t instead.,Verbündete vom Typ Vogel erhalten stattdessen +1 Tempostufe für 3R.,move_clause
+"Elemental allies gain +25% Attack, 3t.","Verbündete vom Typ Elementar erhalten +25% Angriff, 3R.",move_clause
+Duration doubled vs Construct targets.,Dauer verdoppelt gegen Ziele vom Typ Konstrukt.,move_clause
++30% damage vs Serpent targets.,+30% Schaden gegen Ziele vom Typ Schlange.,move_clause
+Avian allies get -45% instead.,Verbündete vom Typ Vogel erhalten stattdessen -45%.,move_clause
++40% damage vs Aquatic targets.,+40% Schaden gegen Ziele vom Typ Wasser.,move_clause
++35% damage vs Reptile targets.,+35% Schaden gegen Ziele vom Typ Reptil.,move_clause
+"Elemental and Dragon allies gain +15% Attack, 3t.","Verbündete der Typen Elementar und Drache erhalten +15% Angriff, 3R.",move_clause
+"Undead allies gain +20% Attack, 3t when this hits.","Verbündete vom Typ Untoter erhalten +20% Angriff, 3R, wenn dies trifft.",move_clause
+Undead and Amphibian allies are healed 10% more.,Verbündete der Typen Untoter und Amphibie werden 10% stärker geheilt.,move_clause
+Duration doubled vs Insect targets.,Dauer verdoppelt gegen Ziele vom Typ Insekt.,move_clause
+(This move IS the synergy: Undead-focused buff.),(Diese Attacke IST die Synergie: Buff mit Fokus auf Typ Untoter.),move_clause
+Amphibian allies are healed 15% more.,Verbündete vom Typ Amphibie werden 15% stärker geheilt.,move_clause
+Horror allies gain +25%/+25% instead.,Verbündete vom Typ Schrecken erhalten stattdessen +25%/+25%.,move_clause
+Undead allies take -40% damage instead.,Verbündete vom Typ Untoter erleiden stattdessen -40% Schaden.,move_clause
+"Fungal allies gain +15% Defense, 3t.","Verbündete vom Typ Pilz erhalten +15% Verteidigung, 3R.",move_clause
+Fungal allies gain +35% Attack instead.,Verbündete vom Typ Pilz erhalten stattdessen +35% Angriff.,move_clause
++30% damage vs Void targets.,+30% Schaden gegen Ziele vom Typ Leere.,move_clause
+Spectral allies: the ward repeats once more.,Verbündete vom Typ Spektral: Der Schutz wirkt noch einmal.,move_clause
++35% damage vs Aquatic targets.,+35% Schaden gegen Ziele vom Typ Wasser.,move_clause
+"Aberration allies gain +15% Attack, 3t.","Verbündete vom Typ Aberration erhalten +15% Angriff, 3R.",move_clause
++30% damage vs Aberration targets.,+30% Schaden gegen Ziele vom Typ Aberration.,move_clause
++30% damage vs Parasite targets.,+30% Schaden gegen Ziele vom Typ Parasit.,move_clause
++30% damage vs Fey targets.,+30% Schaden gegen Ziele vom Typ Fee.,move_clause
+Fungal allies are healed 15% more.,Verbündete vom Typ Pilz werden 15% stärker geheilt.,move_clause
++35% damage vs Horror targets.,+35% Schaden gegen Ziele vom Typ Schrecken.,move_clause
++35% damage vs Vampiric targets.,+35% Schaden gegen Ziele vom Typ Vampir.,move_clause
++30% damage vs Vampiric targets.,+30% Schaden gegen Ziele vom Typ Vampir.,move_clause
+"Vampiric allies gain +15% Attack, 3t.","Verbündete vom Typ Vampir erhalten +15% Angriff, 3R.",move_clause
+"Construct allies gain +15% Defense, 3t.","Verbündete vom Typ Konstrukt erhalten +15% Verteidigung, 3R.",move_clause
++45% damage vs Flora targets.,+45% Schaden gegen Ziele vom Typ Flora.,move_clause
++40% damage vs Fungal targets.,+40% Schaden gegen Ziele vom Typ Pilz.,move_clause
+Construct allies take -50% damage instead.,Verbündete vom Typ Konstrukt erleiden stattdessen -50% Schaden.,move_clause
++35% damage vs Celestial targets.,+35% Schaden gegen Ziele vom Typ Himmlisch.,move_clause
+Elemental and Demon allies gain +40% Attack instead.,Verbündete der Typen Elementar und Dämon erhalten stattdessen +40% Angriff.,move_clause
+"Celestial and Eldritch allies gain +15% Attack, 3t.","Verbündete der Typen Himmlisch und Urgrauen erhalten +15% Angriff, 3R.",move_clause
++5% Defense while above 50% HP.,+5% Verteidigung bei über 50% LP.,soul
+This armour's Defense ×1.35.,Verteidigung dieser Rüstung ×1.35.,soul
+Attackers that hit you take 4% of their damage back.,"Angreifer, die dich treffen, erleiden 4% ihres Schadens zurück.",soul
+Allies take -3% damage while at full HP.,"Verbündete erleiden -3% Schaden, solange sie volle LP haben.",soul
++4% Attack.,+4% Angriff.,soul
++5% Attack on the first turn of battle.,+5% Angriff in der ersten Runde des Kampfes.,soul
+This item's Defense contribution ×1.35.,Verteidigungsbeitrag dieses Gegenstands ×1.35.,soul
+Allies' debuffs on enemies last +1 turn on the first turn.,Debuffs der Verbündeten auf Gegner halten in der ersten Runde +1 Runde länger.,soul
+Debuffs on you expire 10% sooner.,Debuffs auf dir laufen 10% früher aus.,soul
++5% Defense.,+5% Verteidigung.,soul
+Allies +2% Defense.,Verbündete +2% Verteidigung.,soul
+Allies' healing received +2%.,Erhaltene Heilung der Verbündeten +2%.,soul
++5% HP.,+5% LP.,soul
+Your damage-over-time effects deal +6%.,Deine Dauerschaden-Effekte verursachen +6% Schaden.,soul
++6% Attack vs targets with reduced Speed stages.,+6% Angriff gegen Ziele mit gesenkten Tempostufen.,soul
++6% HP.,+6% LP.,soul
+This item's Defense contribution ×1.40.,Verteidigungsbeitrag dieses Gegenstands ×1.40.,soul
+Allies deal +5% on the first turn.,Verbündete verursachen in der ersten Runde +5% Schaden.,soul
++6% Defense.,+6% Verteidigung.,soul
+This armour's Defense ×1.40.,Verteidigung dieser Rüstung ×1.40.,soul
++6% Attack while below 50% HP.,+6% Angriff bei unter 50% LP.,soul
+Allies take -12% damage from damage-over-time.,Verbündete erleiden -12% Schaden durch Dauerschaden.,soul
+Healing you receive +10%.,Erhaltene Heilung +10%.,soul
+Your damage-over-time effects deal +7%.,Deine Dauerschaden-Effekte verursachen +7% Schaden.,soul
++7% Attack vs targets below 40% HP.,+7% Angriff gegen Ziele unter 40% LP.,soul
++7% HP.,+7% LP.,soul
+This item's Defense contribution ×1.45.,Verteidigungsbeitrag dieses Gegenstands ×1.45.,soul
+Allies deal +5% vs targets with reduced Attack.,Verbündete verursachen +5% Schaden gegen Ziele mit gesenktem Angriff.,soul
++6% Attack vs targets below 50% HP.,+6% Angriff gegen Ziele unter 50% LP.,soul
+Your debuffs last +1 turn.,Deine Debuffs halten +1 Runde länger.,soul
+Allies deal +6% vs targets below 50% HP.,Verbündete verursachen +6% Schaden gegen Ziele unter 50% LP.,soul
+Allies' healing received +7%.,Erhaltene Heilung der Verbündeten +7%.,soul
++8% HP.,+8% LP.,soul
+Your buffs on allies last +1 turn.,Deine Buffs auf Verbündeten halten +1 Runde länger.,soul
+This item's Defense contribution ×1.52.,Verteidigungsbeitrag dieses Gegenstands ×1.52.,soul
++5% Defense while you have a Defense buff.,"+5% Verteidigung, solange du einen Verteidigungs-Buff hast.",soul
+Allies +2% Defense on the first turn.,Verbündete +2% Verteidigung in der ersten Runde.,soul
++5% Attack vs targets with a damage-over-time effect.,+5% Angriff gegen Ziele mit einem Dauerschaden-Effekt.,soul
+Allies' bleed effects deal +4%.,Blutungseffekte der Verbündeten verursachen +4% Schaden.,soul
+Your status debuffs are +6% more potent.,Deine Status-Debuffs sind +6% stärker.,soul
+Enemy Attack debuffs from allies last +1 turn.,Angriffs-Debuffs von Verbündeten auf Gegner halten +1 Runde länger.,soul
++5% Attack on Heavy and Nuke moves.,+5% Angriff bei Schwer- und Nuke-Attacken.,soul
++6% Attack while above 70% HP.,+6% Angriff bei über 70% LP.,soul
+Allies' first hit each battle deals +9%.,Der erste Treffer der Verbündeten in jedem Kampf verursacht +9% Schaden.,soul
+Allies' healing received +3%.,Erhaltene Heilung der Verbündeten +3%.,soul
+Your heals restore +10% more.,Deine Heilungen stellen +10% mehr LP her.,soul
++7% Defense while below 50% HP.,+7% Verteidigung bei unter 50% LP.,soul
+This armour's Defense ×1.45.,Verteidigung dieser Rüstung ×1.45.,soul
+Attackers that hit you take 5% of their damage back.,"Angreifer, die dich treffen, erleiden 5% ihres Schadens zurück.",soul
+Allies take -2% damage.,Verbündete erleiden -2% Schaden.,soul
++7% Attack on the first turn.,+7% Angriff in der ersten Runde.,soul
+Allies deal +4% vs Spectral and Void targets.,Verbündete verursachen +4% Schaden gegen Ziele der Typen Spektral und Leere.,soul
++7% Attack while above 70% HP.,+7% Angriff bei über 70% LP.,soul
+This armour's Defense ×1.52.,Verteidigung dieser Rüstung ×1.52.,soul
+Your multi-hit moves deal +8%.,Deine Mehrfachtreffer-Attacken verursachen +8% Schaden.,soul
+Allies +3% Defense.,Verbündete +3% Verteidigung.,soul
+Allies deal +3% vs debuffed targets.,Verbündete verursachen +3% Schaden gegen Ziele mit Debuffs.,soul
++9% HP.,+9% LP.,soul
+This item's Defense contribution ×1.60.,Verteidigungsbeitrag dieses Gegenstands ×1.60.,soul
+Allies' debuffs last +1 turn.,Debuffs der Verbündeten halten +1 Runde länger.,soul
+Enemy Attack debuffs you apply are +7% more potent.,"Angriffs-Debuffs, die du auf Gegner wirkst, sind +7% stärker.",soul
+Allies take -4% damage on the first turn.,Verbündete erleiden in der ersten Runde -4% Schaden.,soul
++6% Attack at or above 70% HP.,+6% Angriff bei 70% LP oder mehr.,soul
+Your Defense debuffs are +6% more potent.,Deine Verteidigungs-Debuffs sind +6% stärker.,soul
++4% Attack vs debuffed targets.,+4% Angriff gegen Ziele mit Debuffs.,soul
+Allies deal +4% vs targets with reduced Defense.,Verbündete verursachen +4% Schaden gegen Ziele mit gesenkter Verteidigung.,soul
++5% Attack on the first turn.,+5% Angriff in der ersten Runde.,soul
+Allies' first hit each battle deals +4%.,Der erste Treffer der Verbündeten in jedem Kampf verursacht +4% Schaden.,soul
++5% Attack while untouched this battle.,"+5% Angriff, solange du in diesem Kampf ungetroffen bist.",soul
+Allies take -2% damage on the first turn.,Verbündete erleiden in der ersten Runde -2% Schaden.,soul
+Debuffs on you expire 12% sooner.,Debuffs auf dir laufen 12% früher aus.,soul
+Allies' damage-over-time effects deal +10%.,Dauerschaden-Effekte der Verbündeten verursachen +10% Schaden.,soul
++6% Attack vs targets with a damage-over-time effect.,+6% Angriff gegen Ziele mit einem Dauerschaden-Effekt.,soul
+Your damage-over-time effects deal +8%.,Deine Dauerschaden-Effekte verursachen +8% Schaden.,soul
+Allies' burn-type effects deal +12%.,Brandeffekte der Verbündeten verursachen +12% Schaden.,soul
++7% Defense.,+7% Verteidigung.,soul
+Allies +4% Defense while above 50% HP.,"Verbündete +4% Verteidigung, solange sie über 50% LP haben.",soul
+Allies' Attack debuffs on enemies are +12% more potent.,Angriffs-Debuffs der Verbündeten auf Gegner sind +12% stärker.,soul
+Debuffs on you expire 15% sooner.,Debuffs auf dir laufen 15% früher aus.,soul
+Allies' damage-over-time effects last +1 turn.,Dauerschaden-Effekte der Verbündeten halten +1 Runde länger.,soul
++5% Defense while you have not attacked this turn.,"+5% Verteidigung, solange du in dieser Runde nicht angegriffen hast.",soul
+Your damage-over-time effects last +1 turn.,Deine Dauerschaden-Effekte halten +1 Runde länger.,soul
+Fungal allies deal +6%.,Verbündete vom Typ Pilz verursachen +6% Schaden.,soul
++5% Attack vs targets with reduced Speed stages.,+5% Angriff gegen Ziele mit gesenkten Tempostufen.,soul
+Allies deal +9% vs targets with reduced Speed stages.,Verbündete verursachen +9% Schaden gegen Ziele mit gesenkten Tempostufen.,soul
+Your attacks that heal you restore +10% more.,"Deine Attacken, die dich heilen, stellen +10% mehr LP her.",soul
+Your damage-over-time effects are +7% more potent.,Deine Dauerschaden-Effekte sind +7% stärker.,soul
++6% Attack on the first turn.,+6% Angriff in der ersten Runde.,soul
++6% Attack while any ally is an Insect.,"+6% Angriff, solange ein Verbündeter ein Insekt ist.",soul
+Insect allies deal +6%.,Verbündete vom Typ Insekt verursachen +6% Schaden.,soul
+Insect allies' damage-over-time effects deal +7%.,Dauerschaden-Effekte von Verbündeten vom Typ Insekt verursachen +7% Schaden.,soul
+Allies' healing received +8%.,Erhaltene Heilung der Verbündeten +8%.,soul
+This armour's Defense ×1.60.,Verteidigung dieser Rüstung ×1.60.,soul
++10% Defense.,+10% Verteidigung.,soul
+Allies +4% Defense.,Verbündete +4% Verteidigung.,soul
++5% Attack vs targets that acted before you this turn.,"+5% Angriff gegen Ziele, die in dieser Runde vor dir gehandelt haben.",soul
+Allies take -3% damage from multi-hit moves.,Verbündete erleiden -3% Schaden durch Mehrfachtreffer-Attacken.,soul
++7% Attack at or above 70% HP.,+7% Angriff bei 70% LP oder mehr.,soul
+Your Speed-stage debuffs last +1 turn.,Deine Tempostufen-Debuffs halten +1 Runde länger.,soul
+Construct and Arthropod allies +6% Defense.,Verbündete der Typen Konstrukt und Gliederfüßer +6% Verteidigung.,soul
+Your attacks that heal you restore +12% more.,"Deine Attacken, die dich heilen, stellen +12% mehr LP her.",soul
+Allies' attacks that heal them restore +9% more.,"Attacken der Verbündeten, die sie heilen, stellen +9% mehr LP her.",soul
+Allies take -4% damage from Spectral and Fey enemies.,Verbündete erleiden -4% Schaden von Gegnern der Typen Spektral und Fee.,soul
+Allies take -5% damage while above 50% HP.,"Verbündete erleiden -5% Schaden, solange sie über 50% LP haben.",soul
++8% Attack vs targets with a damage-over-time effect.,+8% Angriff gegen Ziele mit einem Dauerschaden-Effekt.,soul
+Your damage-over-time effects deal +10%.,Deine Dauerschaden-Effekte verursachen +10% Schaden.,soul
+Allies' burn-type effects last +1 turn.,Brandeffekte der Verbündeten halten +1 Runde länger.,soul
++4% Attack on the first turn.,+4% Angriff in der ersten Runde.,soul
++5% Attack vs targets you have debuffed.,"+5% Angriff gegen Ziele, die du mit einem Debuff belegt hast.",soul
+Elemental allies deal +5%.,Verbündete vom Typ Elementar verursachen +5% Schaden.,soul
+Enemy Attack debuffs you apply are +6% more potent.,"Angriffs-Debuffs, die du auf Gegner wirkst, sind +6% stärker.",soul
+Allies take -3% damage from Construct enemies.,Verbündete erleiden -3% Schaden von Gegnern vom Typ Konstrukt.,soul
+Avian allies take -5% damage.,Verbündete vom Typ Vogel erleiden -5% Schaden.,soul
++6% Attack while untouched this battle.,"+6% Angriff, solange du in diesem Kampf ungetroffen bist.",soul
+Your multi-hit moves deal +9%.,Deine Mehrfachtreffer-Attacken verursachen +9% Schaden.,soul
+Allies' Attack and Defense debuffs on enemies are +10% more potent.,Angriffs- und Verteidigungs-Debuffs der Verbündeten auf Gegner sind +10% stärker.,soul
+Your Speed-stage effects last +1 turn.,Deine Tempostufen-Effekte halten +1 Runde länger.,soul
+Allies deal +6% on the first turn.,Verbündete verursachen in der ersten Runde +6% Schaden.,soul
++8% Attack vs targets with reduced Speed stages.,+8% Angriff gegen Ziele mit gesenkten Tempostufen.,soul
+Elemental and Dragon allies deal +7%.,Verbündete der Typen Elementar und Drache verursachen +7% Schaden.,soul
++5% Attack the turn after gaining a Defense buff.,+5% Angriff in der Runde nach einem Verteidigungs-Buff.,soul
+Allies take -9% damage from damage-over-time.,Verbündete erleiden -9% Schaden durch Dauerschaden.,soul
+Allies' Attack debuffs on enemies last +1 turn.,Angriffs-Debuffs der Verbündeten auf Gegner halten +1 Runde länger.,soul
+Undead allies deal +5%.,Verbündete vom Typ Untoter verursachen +5% Schaden.,soul
+Undead and Amphibian allies +5% Defense.,Verbündete der Typen Untoter und Amphibie +5% Verteidigung.,soul
+Your Speed-stage debuffs are +7% more potent.,Deine Tempostufen-Debuffs sind +7% stärker.,soul
+Allies' first attack each battle deals +9%.,Die erste Attacke der Verbündeten in jedem Kampf verursacht +9% Schaden.,soul
+Allies take -4% damage from Beast enemies.,Verbündete erleiden -4% Schaden von Gegnern vom Typ Bestie.,soul
+Undead allies deal +6%.,Verbündete vom Typ Untoter verursachen +6% Schaden.,soul
+Your heals restore +12% more.,Deine Heilungen stellen +12% mehr LP her.,soul
+Amphibian and Horror allies +6% Defense.,Verbündete der Typen Amphibie und Schrecken +6% Verteidigung.,soul
++8% Attack vs targets with no active buffs.,+8% Angriff gegen Ziele ohne aktive Buffs.,soul
+Your buff-removal effects also deal 5% of target max HP.,Deine Buff-Entfernungs-Effekte verursachen zusätzlich 5% der max. LP des Ziels als Schaden.,soul
+Allies take -3% damage while the enemy has no active buffs.,"Verbündete erleiden -3% Schaden, solange der Gegner keine aktiven Buffs hat.",soul
+Enemy debuffs you apply are +6% more potent.,"Debuffs, die du auf Gegner wirkst, sind +6% stärker.",soul
+Fungal allies +5% Defense.,Verbündete vom Typ Pilz +5% Verteidigung.,soul
+Enemy buffs expire 1 turn sooner when you debuff them.,"Buffs von Gegnern laufen 1 Runde früher aus, wenn du sie mit einem Debuff belegst.",soul
+Allies' Attack debuffs on enemies are +10% more potent.,Angriffs-Debuffs der Verbündeten auf Gegner sind +10% stärker.,soul
+Your Attack debuffs are +7% more potent.,Deine Angriffs-Debuffs sind +7% stärker.,soul
+The first hit against you each battle deals -10%.,Der erste Treffer gegen dich in jedem Kampf verursacht -10% Schaden.,soul
++6% Attack vs targets with reduced Attack.,+6% Angriff gegen Ziele mit gesenktem Angriff.,soul
+Allies' debuffs expire 20% sooner.,Debuffs der Verbündeten laufen 20% früher aus.,soul
++7% Attack vs targets with reduced Speed stages.,+7% Angriff gegen Ziele mit gesenkten Tempostufen.,soul
+Fungal allies +7% Defense and deal +5%.,Verbündete vom Typ Pilz +7% Verteidigung und verursachen +5% Schaden.,soul
++8% Attack vs debuffed targets.,+8% Angriff gegen Ziele mit Debuffs.,soul
+Your multi-hit and grip moves deal +10%.,Deine Mehrfachtreffer- und Griff-Attacken verursachen +10% Schaden.,soul
+Your bleed effects deal +6%.,Deine Blutungseffekte verursachen +6% Schaden.,soul
+Enemy healing received -5% while any ally is Vampiric.,"Erhaltene Heilung von Gegnern -5%, solange ein Verbündeter vom Typ Vampir ist.",soul
+Construct allies +5% Defense.,Verbündete vom Typ Konstrukt +5% Verteidigung.,soul
+Allies' bleed effects deal +10%.,Blutungseffekte der Verbündeten verursachen +10% Schaden.,soul
+Allies take -4% damage from multi-hit moves.,Verbündete erleiden -4% Schaden durch Mehrfachtreffer-Attacken.,soul
++7% Attack vs targets below 50% HP.,+7% Angriff gegen Ziele unter 50% LP.,soul
+Allies deal +5% vs targets below 50% HP.,Verbündete verursachen +5% Schaden gegen Ziele unter 50% LP.,soul
++6% Attack vs targets with any active buff.,+6% Angriff gegen Ziele mit einem aktiven Buff.,soul
+"Your buff-steal and buff-removal effects also grant you +5% Attack, 1t.","Deine Buff-Diebstahl- und Buff-Entfernungs-Effekte gewähren dir zusätzlich +5% Angriff, 1R.",soul
+Allies deal +8% vs buffed targets.,Verbündete verursachen +8% Schaden gegen Ziele mit Buffs.,soul
+Vampiric allies' attacks that heal them restore +7% more.,"Attacken von Verbündeten vom Typ Vampir, die sie heilen, stellen +7% mehr LP her.",soul
+Allies take -8% damage while below 25% HP.,"Verbündete erleiden -8% Schaden, solange sie unter 25% LP haben.",soul
+Enemy Attack debuffs you apply are +8% more potent.,"Angriffs-Debuffs, die du auf Gegner wirkst, sind +8% stärker.",soul
+Your buff-copy and buff-steal effects last +1 turn.,Deine Buff-Kopier- und Buff-Diebstahl-Effekte halten +1 Runde länger.,soul
+Allies take -5% damage from Spectral and Horror enemies.,Verbündete erleiden -5% Schaden von Gegnern der Typen Spektral und Schrecken.,soul
+Your burn-type effects are +7% more potent.,Deine Brandeffekte sind +7% stärker.,soul
+Allies' burn-type effects deal +10%.,Brandeffekte der Verbündeten verursachen +10% Schaden.,soul
++6% Attack while you have a damage-over-time on the enemy.,"+6% Angriff, solange du einen Dauerschaden auf dem Gegner hast.",soul
+Construct allies +6% Defense.,Verbündete vom Typ Konstrukt +6% Verteidigung.,soul
++7% Attack while below 50% HP.,+7% Angriff bei unter 50% LP.,soul
++7% Defense while you did not attack last turn.,"+7% Verteidigung, wenn du in der letzten Runde nicht angegriffen hast.",soul
++7% Attack the turn after an ally was damaged.,+7% Angriff in der Runde nach Schaden an einem Verbündeten.,soul
+Your damage-over-time effects are +10% more potent.,Deine Dauerschaden-Effekte sind +10% stärker.,soul
+Elemental and Demon allies deal +7%.,Verbündete der Typen Elementar und Dämon verursachen +7% Schaden.,soul
+Your debuffs are +10% more potent.,Deine Debuffs sind +10% stärker.,soul
+Allies' debuffs on enemies are +12% more potent.,Debuffs der Verbündeten auf Gegner sind +12% stärker.,soul
+Fey and Beast allies deal +7%.,Verbündete der Typen Fee und Bestie verursachen +7% Schaden.,soul
++8% Attack while below 50% HP.,+8% Angriff bei unter 50% LP.,soul
+Reptile and Dragon allies deal +7%.,Verbündete der Typen Reptil und Drache verursachen +7% Schaden.,soul
+Ooze and Undead allies +5% Defense.,Verbündete der Typen Schleim und Untoter +5% Verteidigung.,soul

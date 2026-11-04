@@ -2687,3 +2687,952 @@ Seep,滲み出し,move
 Corpse Seep,屍の滲み,move
 Seep of the Charnel Pit,死体穴の滲み,move
 Strike,打撃,move
+Starter,初期,class_access
+Unlock,解放,class_access
+Worn,ボロ,grade
+Common,コモン,grade
+Uncommon,アンコモン,grade
+Rare,レア,grade
+Epic,エピック,grade
+Legendary,レジェンダリー,grade
+Abyssal,アビサル,grade
+Divine,ディバイン,grade
+Primordial,プライモーディアル,grade
+The floor,階,info
+Win battles in a row to fill the streak counter. A full streak opens the portal up; one loss sets the streak back to zero.,連続で戦闘に勝利して連勝カウンターを満たしましょう。連勝が満タンになると上へのポータルが開きます。一度でも負けると連勝はゼロに戻ります。,info
+The fight,戦闘,info
+"Each round, every fighter on your side picks one move; then the round plays out. Faster creatures act first, and a move's type against the target's type changes how hard it hits.",毎ラウンド、味方の戦闘員がそれぞれ技を一つ選び、その後ラウンドが進行します。素早いクリーチャーほど先に行動し、技のタイプと対象のタイプの相性で威力が変わります。,info
+Floor map,階層マップ,info
+"Every floor of the tower, ten per zone. Travel to any floor you have reached; the squares on a row are the creatures that live on that floor.",塔のすべての階を、ゾーンごとに10階ずつ表示します。到達済みの階へは自由に移動できます。各行の四角は、その階に棲むクリーチャーです。,info
+Inventory,インベントリ,info
+"Your gear. Click a piece to see its stats, wear it or break it down. When the bag is full, new drops cannot come in, so dismantle what you will not use.",所持している装備です。装備をクリックするとステータスの確認、装着、分解ができます。バッグがいっぱいだと新しいドロップが入らないので、使わない装備は分解しましょう。,info
+Soul bag,ソウルバッグ,info
+"Every creature and egg you own lives here. Click a creature to open its sheet; click an egg to hatch it. The egg's grade tilts the odds of the hatchling's grade, it does not fix it.",所持しているクリーチャーとタマゴはすべてここにあります。クリーチャーをクリックすると詳細が開き、タマゴをクリックすると孵化します。タマゴのグレードは孵化するクリーチャーのグレードの確率を傾けますが、固定するわけではありません。,info
+Equipment,装備,info
+"Your team is your character and two creatures, and this window is the only place you set it. Change gear any time: a fight already running keeps the gear it started with.",チームはあなたのキャラクターとクリーチャー2体で構成され、編成できるのはこのウィンドウだけです。装備はいつでも変更できます。進行中の戦闘は、開始時の装備のまま続きます。,info
+Classes,クラス,info
+"Your character's class sets its stats and its ultimate. Each class grows through three stages as it levels, and the ultimate is learned partway up.",キャラクターのクラスによって、ステータスとアルティメットが決まります。各クラスはレベルが上がるにつれて3段階に成長し、アルティメットは途中で習得します。,info
+"Put two creatures in a pen and it keeps working on its own, spending Ichor over time. Each time the bar fills an egg drops into your bag, and the pen starts again.",囲いにクリーチャーを2体入れると、自動で交配が進み、時間とともにイコルを消費します。バーが満タンになるたびにタマゴがバッグに入り、囲いは最初からやり直しになります。,info
+Codex,コーデックス,info
+"Every creature in the tower, in order. A ???? card is a creature you have not found yet. The top row lists what the next boss can drop.",塔のすべてのクリーチャーを順番に並べています。????のカードは、まだ見つけていないクリーチャーです。最上段には次のボスがドロップするものが並びます。,info
+PvP arena,PvPアリーナ,info
+"Auto PvP attacks a saved copy of another player's team, so they do not need to be online; your own team defends the same way. Competitive PvP is live, against a player who is there.",オートPvPは他のプレイヤーのチームの保存コピーを攻撃するため、相手がオンラインである必要はありません。自分のチームも同じ形で防衛します。ランクPvPはリアルタイムで、その場にいるプレイヤーと対戦します。,info
+Rankings,ランキング,info
+"The boards for Auto PvP and Competitive PvP, side by side. Pick PVP or PVE at the top to switch boards.",オートPvPとランクPvPのランキングを並べて表示します。上部でPvPかPvEを選ぶと切り替わります。,info
+Settings,設定,info
+Every choice here is saved with your account and follows you to any device you play on.,ここでの選択はすべてアカウントに保存され、どのデバイスでも引き継がれます。,info
+Premium shop,プレミアムストア,info
+"Wraithgold is the premium currency. It is bought here in the shop; no one starts with any. Spend it on boosts. A boost with a duration counts down from the moment you buy it, and its card shows whether it is running.",Wraithgoldはプレミアム通貨です。ここのストアで購入でき、最初から持っている人はいません。ブーストに使えます。期間付きのブーストは購入した瞬間からカウントダウンが始まり、カードに稼働中かどうかが表示されます。,info
+Creature sheet,クリーチャー詳細,info
+"One creature's stats, moves and how it grows. The aptitude shape shows which stats it is best at.",クリーチャー1体のステータス、技、成長のしかたを表示します。適性チャートは、どのステータスが得意かを示します。,info
+Character power,キャラクター戦力,info
+"Every hero with a saved team is listed by its character power. The server counts it from your saved build once a day, so a change shows after the next daily update.",チームを保存しているヒーローは全員、キャラクター戦力順に掲載されます。サーバーは保存されたビルドから1日1回戦力を集計するため、変更は次のデイリー更新後に反映されます。,info
+Highest climb,最高到達階,info
+Clear floor 1 to be listed. The board ranks the highest floor you have reached and updates once a day.,1階をクリアすると掲載されます。到達した最高の階で順位が決まり、1日1回更新されます。,info
+Every hero with a class soul and a creature in the team is listed at the next daily update - at 1500 until your Auto PvP fights move the rating.,クラスソウルを持ち、チームにクリーチャーがいるヒーローは全員、次のデイリー更新で掲載されます。オートPvPの戦いでレートが動くまでは1500です。,info
+Play one Competitive PvP match to get a rating. The board shows it after the next daily update.,ランクPvPを1試合プレイするとレートが付きます。次のデイリー更新後にランキングに表示されます。,info
+"Damage; Sunder Plate: target -10% Defense, 2t.",ダメージ；装甲破砕：対象の防御力-10%（2ターン）。,move_effect
+"Damage; Sunder Plate: target -25% Defense, 3t.",ダメージ；装甲破砕：対象の防御力-25%（3ターン）。,move_effect
+"Damage; Sunder Plate: target -30% Defense, 3t.",ダメージ；装甲破砕：対象の防御力-30%（3ターン）。,move_effect
+Damage only.,ダメージのみ。,move_effect
+Damage; ignores 10% of target Defense.,ダメージ；対象の防御力の10%を無視する。,move_effect
+Damage; ignores 15% of target Defense.,ダメージ；対象の防御力の15%を無視する。,move_effect
+"Damage; Impale: target bleeds 3% max HP/turn, 2t.",ダメージ；串刺し：対象は毎ターン最大HPの3%の出血ダメージを受ける（2ターン）。,move_effect
+"Damage; Impale: target bleeds 5% max HP/turn, 3t.",ダメージ；串刺し：対象は毎ターン最大HPの5%の出血ダメージを受ける（3ターン）。,move_effect
+"Damage; Impale: target bleeds 6% max HP/turn, 3t.",ダメージ；串刺し：対象は毎ターン最大HPの6%の出血ダメージを受ける（3ターン）。,move_effect
+"+45% Defense (self, 3t).",防御力+45%（自身、3ターン）。,move_effect
+"+50% Defense (self, 3t); attackers take Quillprick: 9% max HP over 3t.",防御力+50%（自身、3ターン）；攻撃者に棘刺しを与える：3ターンかけて最大HPの9%のダメージ。,move_effect
+"+50% Defense (self, 3t); attackers take Quillprick: 12% max HP over 3t.",防御力+50%（自身、3ターン）；攻撃者に棘刺しを与える：3ターンかけて最大HPの12%のダメージ。,move_effect
+"Damage; Pall: target -10% Attack, 2t.",ダメージ；暗雲：対象の攻撃力-10%（2ターン）。,move_effect
+"Damage; Pall: target -15% Attack, 3t.",ダメージ；暗雲：対象の攻撃力-15%（3ターン）。,move_effect
+"Damage; Pall: target -25% Attack, 3t.",ダメージ；暗雲：対象の攻撃力-25%（3ターン）。,move_effect
+"Damage; Harried: target -1 Speed stage, 2t.",ダメージ；追い立て：対象の素早さ-1段階（2ターン）。,move_effect
+Damage; +15% more if user acted before the target this turn.,ダメージ；このターン使用者が対象より先に行動していればさらに+15%。,move_effect
+Damage; +20% more if user acted before the target this turn.,ダメージ；このターン使用者が対象より先に行動していればさらに+20%。,move_effect
+"Blinding Dust: target -25% Attack, 2t.",目潰しの粉塵：対象の攻撃力-25%（2ターン）。,move_effect
+"Blinding Dust: target -30% Attack, 3t.",目潰しの粉塵：対象の攻撃力-30%（3ターン）。,move_effect
+"Blinding Dust: target -40% Attack, 3t.",目潰しの粉塵：対象の攻撃力-40%（3ターン）。,move_effect
+"Damage; Buried: target -10% Defense, 2t.",ダメージ；埋没：対象の防御力-10%（2ターン）。,move_effect
+"Damage; Buried: target -25% Defense, 3t.",ダメージ；埋没：対象の防御力-25%（3ターン）。,move_effect
+"Damage; Buried: target -30% Defense, 3t.",ダメージ；埋没：対象の防御力-30%（3ターン）。,move_effect
+"Damage; Sinkstep: target -1 Speed stage, 2t.",ダメージ；沈み足：対象の素早さ-1段階（2ターン）。,move_effect
+"Damage; Sinkstep: target -1 Speed stage, 3t.",ダメージ；沈み足：対象の素早さ-1段階（3ターン）。,move_effect
+"+50% Defense (self, 3t); cleanse 1 debuff.",防御力+50%（自身、3ターン）；デバフ1個を解除する。,move_effect
+Damage; all allies cleanse 1 debuff.,ダメージ；味方全体がデバフ1個を解除する。,move_effect
+"Damage; Nettle: target takes 4% max HP/turn, 3t.",ダメージ；イラクサ：対象は毎ターン最大HPの4%のダメージを受ける（3ターン）。,move_effect
+"Damage; Nettle: target takes 5% max HP/turn, 3t.",ダメージ；イラクサ：対象は毎ターン最大HPの5%のダメージを受ける（3ターン）。,move_effect
+"One ally +35% Defense, 3t.",味方単体の防御力+35%（3ターン）。,move_effect
+"All allies +50% Defense, 3t.",味方全体の防御力+50%（3ターン）。,move_effect
+"Snare: target -1 Speed stage, 2t.",足縄：対象の素早さ-1段階（2ターン）。,move_effect
+"Snare: target -2 Speed stages, 3t.",足縄：対象の素早さ-2段階（3ターン）。,move_effect
+Damage; +25% more vs targets with a reduced Speed stage.,ダメージ；素早さ段階が下がっている対象にはさらに+25%。,move_effect
+Damage; +40% more vs targets with a reduced Speed stage.,ダメージ；素早さ段階が下がっている対象にはさらに+40%。,move_effect
+Damage; +50% more vs targets with a reduced Speed stage.,ダメージ；素早さ段階が下がっている対象にはさらに+50%。,move_effect
+"Damage; Dread: target -10% Attack, 3t.",ダメージ；恐怖：対象の攻撃力-10%（3ターン）。,move_effect
+"Damage; Dread: target -15% Attack, 3t.",ダメージ；恐怖：対象の攻撃力-15%（3ターン）。,move_effect
+Damage; +25% more if user acted before the target this turn.,ダメージ；このターン使用者が対象より先に行動していればさらに+25%。,move_effect
+"Self +1 Speed stage, 2t.",自身の素早さ+1段階（2ターン）。,move_effect
+"Self +1 Speed stage, 3t.",自身の素早さ+1段階（3ターン）。,move_effect
+"Damage; Staggered: target -1 Speed stage, 2t.",ダメージ；よろめき：対象の素早さ-1段階（2ターン）。,move_effect
+"+50% Defense (self, 3t); self -1 Speed stage, 2t.",防御力+50%（自身、3ターン）；自身の素早さ-1段階（2ターン）。,move_effect
+"Damage; Rootbound: target -1 Speed stage, 2t.",ダメージ；根縛り：対象の素早さ-1段階（2ターン）。,move_effect
+"Damage; Rootbound: target -2 Speed stages, 3t.",ダメージ；根縛り：対象の素早さ-2段階（3ターン）。,move_effect
+"Leech Roots: 7%/turn, 3t.",吸い根：毎ターン7%（3ターン）。,move_effect
+"Leech Roots: target takes 9% max HP/turn, 3t; user drains the amount siphoned.",吸い根：対象は毎ターン最大HPの9%のダメージを受ける（3ターン）；使用者は吸い取った量を回復する。,move_effect
+"Leech Roots: target takes 12% max HP/turn, 3t; user drains the amount siphoned.",吸い根：対象は毎ターン最大HPの12%のダメージを受ける（3ターン）；使用者は吸い取った量を回復する。,move_effect
+"+50% Defense (self, 3t).",防御力+50%（自身、3ターン）。,move_effect
+"Damage; Throttle: target -10% Attack, 2t.",ダメージ；喉締め：対象の攻撃力-10%（2ターン）。,move_effect
+"Damage; Throttle: target -25% Attack and -1 Speed stage, 3t.",ダメージ；喉締め：対象の攻撃力-25%と素早さ-1段階（3ターン）。,move_effect
+"Damage; Throttle: target -30% Attack and -1 Speed stage, 3t.",ダメージ；喉締め：対象の攻撃力-30%と素早さ-1段階（3ターン）。,move_effect
+Damage; +20% more vs targets below 40% HP.,ダメージ；HPが40%未満の対象にはさらに+20%。,move_effect
+Damage; +30% more vs targets below 40% HP.,ダメージ；HPが40%未満の対象にはさらに+30%。,move_effect
+Damage; +35% more vs targets below 40% HP.,ダメージ；HPが40%未満の対象にはさらに+35%。,move_effect
+"Damage; Garroted: target -10% Attack, 3t.",ダメージ；絞め上げ：対象の攻撃力-10%（3ターン）。,move_effect
+"Damage; Garroted: target -15% Attack, 3t.",ダメージ；絞め上げ：対象の攻撃力-15%（3ターン）。,move_effect
+Damage; +20% more vs targets with Knell.,ダメージ；弔鐘状態の対象にはさらに+20%。,move_effect
+Damage; +30% more vs targets with Knell.,ダメージ；弔鐘状態の対象にはさらに+30%。,move_effect
+Damage; +40% more vs targets with Knell.,ダメージ；弔鐘状態の対象にはさらに+40%。,move_effect
+"Knell: +20% damage from all sources, 2t.",弔鐘：受けるダメージ+20%（あらゆる要因）（2ターン）。,move_effect
+"Knell: target takes +25% damage from all sources, 3t.",弔鐘：対象が受けるダメージ+25%（あらゆる要因）（3ターン）。,move_effect
+"Knell: target takes +30% damage from all sources, 3t.",弔鐘：対象が受けるダメージ+30%（あらゆる要因）（3ターン）。,move_effect
+"One ally +25% Attack, 3t.",味方単体の攻撃力+25%（3ターン）。,move_effect
+"All allies +30% Attack, 3t.",味方全体の攻撃力+30%（3ターン）。,move_effect
+"All allies +40% Attack, 3t.",味方全体の攻撃力+40%（3ターン）。,move_effect
+Heal one ally 25% max HP.,味方単体のHPを最大HPの25%回復する。,move_effect
+Heal one ally 35% max HP.,味方単体のHPを最大HPの35%回復する。,move_effect
+Heal one ally 40% max HP.,味方単体のHPを最大HPの40%回復する。,move_effect
+"One ally +45% Attack, 3t.",味方単体の攻撃力+45%（3ターン）。,move_effect
+"One ally +50% Attack, 3t.",味方単体の攻撃力+50%（3ターン）。,move_effect
+"Damage; Hullscrape: target -10% Defense, 2t.",ダメージ；船殻削り：対象の防御力-10%（2ターン）。,move_effect
+"Damage; Hullscrape: target -15% Defense, 3t.",ダメージ；船殻削り：対象の防御力-15%（3ターン）。,move_effect
+"Damage; Hullscrape: target -25% Defense, 3t.",ダメージ；船殻削り：対象の防御力-25%（3ターン）。,move_effect
+"Damage; Clamped: target -1 Speed stage, 2t.",ダメージ；挟み込み：対象の素早さ-1段階（2ターン）。,move_effect
+"Damage; Clamped: target -1 Speed stage and -10% Attack, 3t.",ダメージ；挟み込み：対象の素早さ-1段階と攻撃力-10%（3ターン）。,move_effect
+"Damage; Clamped: target -1 Speed stage and -15% Attack, 3t.",ダメージ；挟み込み：対象の素早さ-1段階と攻撃力-15%（3ターン）。,move_effect
+Damage; +20% more vs targets with any damage-over-time effect.,ダメージ；継続ダメージ効果を受けている対象にはさらに+20%。,move_effect
+Damage; +30% more vs targets with any damage-over-time effect.,ダメージ；継続ダメージ効果を受けている対象にはさらに+30%。,move_effect
+Damage; +40% more vs targets with any damage-over-time effect.,ダメージ；継続ダメージ効果を受けている対象にはさらに+40%。,move_effect
+"Damage; Ragged: target bleeds 3% max HP/turn, 2t.",ダメージ；裂傷：対象は毎ターン最大HPの3%の出血ダメージを受ける（2ターン）。,move_effect
+"Damage; Ragged: target bleeds 4% max HP/turn, 3t.",ダメージ；裂傷：対象は毎ターン最大HPの4%の出血ダメージを受ける（3ターン）。,move_effect
+"Damage; Ragged: target bleeds 5% max HP/turn, 3t.",ダメージ；裂傷：対象は毎ターン最大HPの5%の出血ダメージを受ける（3ターン）。,move_effect
+"Damage; Soaked: target -10% Defense, 2t.",ダメージ；ずぶ濡れ：対象の防御力-10%（2ターン）。,move_effect
+"Damage; Soaked: target -15% Defense, 3t.",ダメージ；ずぶ濡れ：対象の防御力-15%（3ターン）。,move_effect
+"Damage; Soaked: target -25% Defense, 3t.",ダメージ；ずぶ濡れ：対象の防御力-25%（3ターン）。,move_effect
+"Damage; Sting: target -10% Attack, 2t.",ダメージ；刺傷：対象の攻撃力-10%（2ターン）。,move_effect
+"Damage; Sting: target -15% Attack, 2t.",ダメージ；刺傷：対象の攻撃力-15%（2ターン）。,move_effect
+"Brineblind: target -25% Attack, 2t.",塩水の目潰し：対象の攻撃力-25%（2ターン）。,move_effect
+"Brineblind: target -30% Attack, 3t.",塩水の目潰し：対象の攻撃力-30%（3ターン）。,move_effect
+"Brineblind: target -40% Attack, 3t.",塩水の目潰し：対象の攻撃力-40%（3ターン）。,move_effect
+"Damage; Scalded: target -10% Defense, 2t.",ダメージ；熱傷：対象の防御力-10%（2ターン）。,move_effect
+"Damage; Scalded: target -15% Defense, 3t.",ダメージ；熱傷：対象の防御力-15%（3ターン）。,move_effect
+"Damage; Scalded: target -25% Defense, 3t.",ダメージ；熱傷：対象の防御力-25%（3ターン）。,move_effect
+Damage; ignores 20% of target Defense.,ダメージ；対象の防御力の20%を無視する。,move_effect
+Damage as 2 rapid hits.,ダメージ（高速2ヒット）。,move_effect
+Damage as 3 rapid hits.,ダメージ（高速3ヒット）。,move_effect
+"Self +35% Attack, 3t.",自身の攻撃力+35%（3ターン）。,move_effect
+"Self +50% Attack, 3t.",自身の攻撃力+50%（3ターン）。,move_effect
+Damage; +20% more vs targets with Lured.,ダメージ；誘引状態の対象にはさらに+20%。,move_effect
+Damage; +30% more vs targets with Lured.,ダメージ；誘引状態の対象にはさらに+30%。,move_effect
+Damage; +40% more vs targets with Lured.,ダメージ；誘引状態の対象にはさらに+40%。,move_effect
+"Lured: target -1 Speed stage, 2t.",誘引：対象の素早さ-1段階（2ターン）。,move_effect
+"Lured: target -1 Speed stage and -30% Attack, 3t.",誘引：対象の素早さ-1段階と攻撃力-30%（3ターン）。,move_effect
+"Lured: target -1 Speed stage and -35% Attack, 3t.",誘引：対象の素早さ-1段階と攻撃力-35%（3ターン）。,move_effect
+Damage; +25% more if user has an active Defense buff.,ダメージ；使用者に防御バフがあればさらに+25%。,move_effect
+Damage; +30% more if user has an active Defense buff.,ダメージ；使用者に防御バフがあればさらに+30%。,move_effect
+"+45% Defense (self, 2t).",防御力+45%（自身、2ターン）。,move_effect
+"+50% Defense (self, 2t); heal self 30% max HP.",防御力+50%（自身、2ターン）；自身のHPを最大HPの30%回復する。,move_effect
+"+50% Defense (self, 2t); heal self 35% max HP.",防御力+50%（自身、2ターン）；自身のHPを最大HPの35%回復する。,move_effect
+Mired Trail: 2t.,泥濘の跡：2ターン。,move_effect
+"Mired Trail: target -1 Speed stage, 3t.",泥濘の跡：対象の素早さ-1段階（3ターン）。,move_effect
+"Damage; Numbed: target -1 Speed stage, 2t.",ダメージ；しびれ：対象の素早さ-1段階（2ターン）。,move_effect
+Damage; ignores 5% of target Defense.,ダメージ；対象の防御力の5%を無視する。,move_effect
+"Self +1 Speed stage, 3t; next hit taken -25%.",自身の素早さ+1段階（3ターン）；次に受ける攻撃のダメージ-25%。,move_effect
+"Self +1 Speed stage, 3t; next hit taken -30%.",自身の素早さ+1段階（3ターン）；次に受ける攻撃のダメージ-30%。,move_effect
+Damage as 2 hits.,ダメージ（2ヒット）。,move_effect
+Damage as 3 hits.,ダメージ（3ヒット）。,move_effect
+"Damage as 3 hits, one per head.",ダメージ（3ヒット、頭ごとに1回）。,move_effect
+"Damage; Coral Rot: target -10% Defense, 2t.",ダメージ；珊瑚腐れ：対象の防御力-10%（2ターン）。,move_effect
+"Damage; Coral Rot: target -10% Defense, 3t.",ダメージ；珊瑚腐れ：対象の防御力-10%（3ターン）。,move_effect
+"Damage; Coral Rot: target -15% Defense, 3t.",ダメージ；珊瑚腐れ：対象の防御力-15%（3ターン）。,move_effect
+"Self +50% Attack, 3t; cleanse 1 debuff.",自身の攻撃力+50%（3ターン）；デバフ1個を解除する。,move_effect
+Damage; +15% more per debuff on target (max +30%).,ダメージ；対象のデバフごとにさらに+15%（最大+30%）。,move_effect
+Damage; +20% more per debuff on target (max +40%).,ダメージ；対象のデバフごとにさらに+20%（最大+40%）。,move_effect
+Damage; +25% more per debuff on target (max +50%).,ダメージ；対象のデバフごとにさらに+25%（最大+50%）。,move_effect
+"Damage; Salt Curse: target -10% Defense, 2t.",ダメージ；塩の呪い：対象の防御力-10%（2ターン）。,move_effect
+"Damage; Salt Curse: target -15% Defense, 3t.",ダメージ；塩の呪い：対象の防御力-15%（3ターン）。,move_effect
+"Damage; Salt Curse: target -25% Defense, 3t.",ダメージ；塩の呪い：対象の防御力-25%（3ターン）。,move_effect
+"Damage; Pulled Under: target -1 Speed stage, 2t.",ダメージ；引き沈め：対象の素早さ-1段階（2ターン）。,move_effect
+"Damage; Pulled Under: target -2 Speed stages, 2t.",ダメージ；引き沈め：対象の素早さ-2段階（2ターン）。,move_effect
+"Inkblind: target -25% Attack, 2t.",インクの目潰し：対象の攻撃力-25%（2ターン）。,move_effect
+"Inkblind: target -45% Attack, 3t.",インクの目潰し：対象の攻撃力-45%（3ターン）。,move_effect
+"Inkblind: target -50% Attack, 3t.",インクの目潰し：対象の攻撃力-50%（3ターン）。,move_effect
+"+50% Defense (self, 2t); cleanse 1 debuff.",防御力+50%（自身、2ターン）；デバフ1個を解除する。,move_effect
+Damage; +25% more if user is above 70% HP.,ダメージ；使用者のHPが70%を超えていればさらに+25%。,move_effect
+Damage; +30% more if user is above 70% HP.,ダメージ；使用者のHPが70%を超えていればさらに+30%。,move_effect
+"+50% Defense (self, 3t); +30% Attack (self, 3t).",防御力+50%（自身、3ターン）；攻撃力+30%（自身、3ターン）。,move_effect
+"+50% Defense (self, 3t); +35% Attack (self, 3t).",防御力+50%（自身、3ターン）；攻撃力+35%（自身、3ターン）。,move_effect
+Damage; +25% more vs targets with Unraveled.,ダメージ；ほつれ状態の対象にはさらに+25%。,move_effect
+Damage; +40% more vs targets with Unraveled.,ダメージ；ほつれ状態の対象にはさらに+40%。,move_effect
+Damage; +50% more vs targets with Unraveled.,ダメージ；ほつれ状態の対象にはさらに+50%。,move_effect
+"Unraveled: target -25% Defense, 2t.",ほつれ：対象の防御力-25%（2ターン）。,move_effect
+"Unraveled: target -30% Defense, 3t.",ほつれ：対象の防御力-30%（3ターン）。,move_effect
+"Unraveled: target -40% Defense, 3t.",ほつれ：対象の防御力-40%（3ターン）。,move_effect
+Omen: +25% damage from the next hit against it.,凶兆：次に受ける攻撃のダメージ+25%。,move_effect
+Omen: target takes +30% damage from the next hit against it.,凶兆：対象が次に受ける攻撃のダメージ+30%。,move_effect
+Omen: target takes +35% damage from the next hit against it.,凶兆：対象が次に受ける攻撃のダメージ+35%。,move_effect
+"Damage; Venom Grit: 4%/turn, 3t.",ダメージ；毒の粒：毎ターン4%（3ターン）。,move_effect
+"Damage; Venom Grit: target takes 5% max HP/turn, 3t.",ダメージ；毒の粒：対象は毎ターン最大HPの5%のダメージを受ける（3ターン）。,move_effect
+"Damage; Venom Grit: target takes 6% max HP/turn, 3t.",ダメージ；毒の粒：対象は毎ターン最大HPの6%のダメージを受ける（3ターン）。,move_effect
+"Damage; Coilcrush: target -1 Speed stage, 2t.",ダメージ；とぐろ締め：対象の素早さ-1段階（2ターン）。,move_effect
+"Damage; Coilcrush: target -1 Speed stage, 3t.",ダメージ；とぐろ締め：対象の素早さ-1段階（3ターン）。,move_effect
+Damage; +30% more if user acted before the target this turn.,ダメージ；このターン使用者が対象より先に行動していればさらに+30%。,move_effect
+"Self +1 Speed stage, 3t; next hit taken -15%.",自身の素早さ+1段階（3ターン）；次に受ける攻撃のダメージ-15%。,move_effect
+"Self +1 Speed stage, 3t; next hit taken -20%.",自身の素早さ+1段階（3ターン）；次に受ける攻撃のダメージ-20%。,move_effect
+"Damage; Parched Hope: target -10% Attack, 2t.",ダメージ；渇いた希望：対象の攻撃力-10%（2ターン）。,move_effect
+"Damage; Parched Hope: target -15% Attack and -10% Defense, 3t.",ダメージ；渇いた希望：対象の攻撃力-15%と防御力-10%（3ターン）。,move_effect
+"Damage; Parched Hope: target -25% Attack and -15% Defense, 3t.",ダメージ；渇いた希望：対象の攻撃力-25%と防御力-15%（3ターン）。,move_effect
+Damage as 2 hits; second hit +25% more vs debuffed targets.,ダメージ（2ヒット）；2ヒット目はデバフ状態の対象にさらに+25%。,move_effect
+Damage as 2 hits; second hit +30% more vs debuffed targets.,ダメージ（2ヒット）；2ヒット目はデバフ状態の対象にさらに+30%。,move_effect
+Next hit taken -25%.,次に受ける攻撃のダメージ-25%。,move_effect
+Next 2 hits taken -20%.,次に受ける攻撃2回のダメージ-20%。,move_effect
+Next 2 hits taken -25%.,次に受ける攻撃2回のダメージ-25%。,move_effect
+"Damage; Scoured: target -10% Attack, 3t.",ダメージ；擦過：対象の攻撃力-10%（3ターン）。,move_effect
+"Damage; Scoured: target -15% Attack, 3t.",ダメージ；擦過：対象の攻撃力-15%（3ターン）。,move_effect
+"Damage; Abrade: target -10% Defense, does not stack.",ダメージ；摩耗：対象の防御力-10%（重複しない）。,move_effect
+"Damage; Abrade: target -10% Defense, stacks up to 3 times.",ダメージ；摩耗：対象の防御力-10%（最大3回まで重複）。,move_effect
+"Damage; Abrade: target -15% Defense, stacks up to 3 times.",ダメージ；摩耗：対象の防御力-15%（最大3回まで重複）。,move_effect
+"+45% Defense (self, 2t); cleanse 1 debuff.",防御力+45%（自身、2ターン）；デバフ1個を解除する。,move_effect
+"+50% Defense (self, 2t); cleanse up to 2 debuffs.",防御力+50%（自身、2ターン）；デバフを最大2個解除する。,move_effect
+"+50% Defense (self, 2t); cleanse all debuffs.",防御力+50%（自身、2ターン）；デバフをすべて解除する。,move_effect
+"One ally takes -20% damage, 2t.",味方単体の被ダメージ-20%（2ターン）。,move_effect
+"All allies take -20% damage, 2t.",味方全体の被ダメージ-20%（2ターン）。,move_effect
+"All allies take -25% damage, 2t.",味方全体の被ダメージ-25%（2ターン）。,move_effect
+Damage as 4 hits; each applies 2t of Mothervenom.,ダメージ（4ヒット）；各ヒットが母毒を2ターン付与する。,move_effect
+"Damage; Coiled: target -1 Speed stage, 2t.",ダメージ；巻きつき：対象の素早さ-1段階（2ターン）。,move_effect
+"Damage; Coiled: target -1 Speed stage, 3t.",ダメージ；巻きつき：対象の素早さ-1段階（3ターン）。,move_effect
+"Damage; Mothervenom: target takes 4% max HP/turn, 3t.",ダメージ；母毒：対象は毎ターン最大HPの4%のダメージを受ける（3ターン）。,move_effect
+"Damage; Mothervenom: target takes 5% max HP/turn, 3t.",ダメージ；母毒：対象は毎ターン最大HPの5%のダメージを受ける（3ターン）。,move_effect
+"Damage; Scorch: 4%/turn, 2t.",ダメージ；焦熱：毎ターン4%（2ターン）。,move_effect
+"Damage; Scorch: target takes 5% max HP/turn, 3t.",ダメージ；焦熱：対象は毎ターン最大HPの5%のダメージを受ける（3ターン）。,move_effect
+"Damage; Scorch: target takes 6% max HP/turn, 3t.",ダメージ；焦熱：対象は毎ターン最大HPの6%のダメージを受ける（3ターン）。,move_effect
+"Damage; Cauterized: target's healing received -40%, 3t.",ダメージ；焼灼：対象の被回復量-40%（3ターン）。,move_effect
+"Damage; Cauterized: target's healing received -50%, 3t.",ダメージ；焼灼：対象の被回復量-50%（3ターン）。,move_effect
+"Self +25% Attack, 3t.",自身の攻撃力+25%（3ターン）。,move_effect
+"Self +45% Attack, 3t.",自身の攻撃力+45%（3ターン）。,move_effect
+"Damage; Ruinshock: target -10% Defense, 2t.",ダメージ；破滅の衝撃：対象の防御力-10%（2ターン）。,move_effect
+"Damage; Ruinshock: target -15% Defense, 3t.",ダメージ；破滅の衝撃：対象の防御力-15%（3ターン）。,move_effect
+"Damage; Ruinshock: target -25% Defense, 3t.",ダメージ；破滅の衝撃：対象の防御力-25%（3ターン）。,move_effect
+Damage; +15% more per active Defense buff on self (max +30%).,ダメージ；使用者の有効な防御バフごとにさらに+15%（最大+30%）。,move_effect
+Damage; +25% more per active Defense buff on self (max +50%).,ダメージ；使用者の有効な防御バフごとにさらに+25%（最大+50%）。,move_effect
+Damage; +30% more per active Defense buff on self (max +60%).,ダメージ；使用者の有効な防御バフごとにさらに+30%（最大+60%）。,move_effect
+"Damage; Flayed by Sand: target -10% Defense, 2t.",ダメージ；砂剥ぎ：対象の防御力-10%（2ターン）。,move_effect
+"Damage; Flayed by Sand: target -15% Defense, 3t.",ダメージ；砂剥ぎ：対象の防御力-15%（3ターン）。,move_effect
+"Damage; Flayed by Sand: target -25% Defense, 3t.",ダメージ；砂剥ぎ：対象の防御力-25%（3ターン）。,move_effect
+"Damage; Gritted Eyes: target -10% Attack, 3t.",ダメージ；砂入りの目：対象の攻撃力-10%（3ターン）。,move_effect
+"Damage; Gritted Eyes: target -15% Attack, 3t.",ダメージ；砂入りの目：対象の攻撃力-15%（3ターン）。,move_effect
+Damage; +20% more vs targets with 2 or more debuffs.,ダメージ；デバフが2個以上の対象にはさらに+20%。,move_effect
+Damage; +30% more vs targets with 2 or more debuffs.,ダメージ；デバフが2個以上の対象にはさらに+30%。,move_effect
+Damage; +40% more vs targets with 2 or more debuffs.,ダメージ；デバフが2個以上の対象にはさらに+40%。,move_effect
+"Damage; target -1 Speed stage, 2t.",ダメージ；対象の素早さ-1段階（2ターン）。,move_effect
+"Damage; target -1 Speed stage, 3t; refreshes the duration of existing damage-over-time effects on the target.",ダメージ；対象の素早さ-1段階（3ターン）；対象の継続ダメージ効果の持続時間を更新する。,move_effect
+"cleanse 1 debuff; +25% Attack (self, 3t) if a debuff was cleansed.",デバフ1個を解除する；デバフを解除した場合、攻撃力+25%（自身、3ターン）。,move_effect
+"Cleanse up to 2 self debuffs; +30% Attack (self, 3t) per debuff cleansed.",自身のデバフを最大2個解除する；デバフを解除するごとに攻撃力+30%（自身、3ターン）。,move_effect
+"Cleanse all self debuffs; +40% Attack (self, 3t) per debuff cleansed.",自身のデバフをすべて解除する；デバフを解除するごとに攻撃力+40%（自身、3ターン）。,move_effect
+"Damage; Meltshell: target -10% Defense, 3t.",ダメージ；溶殻：対象の防御力-10%（3ターン）。,move_effect
+"Damage; Meltshell: target -25% Defense, 4t.",ダメージ；溶殻：対象の防御力-25%（4ターン）。,move_effect
+"Damage; Meltshell: target -30% Defense, 4t.",ダメージ；溶殻：対象の防御力-30%（4ターン）。,move_effect
+"Damage; Etched: target -10% Defense, 3t.",ダメージ；蝕刻：対象の防御力-10%（3ターン）。,move_effect
+"Damage; Etched: target -15% Defense, 3t.",ダメージ；蝕刻：対象の防御力-15%（3ターン）。,move_effect
+"Meltshell: target -25% Defense, 2t.",溶殻：対象の防御力-25%（2ターン）。,move_effect
+"Meltshell: target -45% Defense, 3t.",溶殻：対象の防御力-45%（3ターン）。,move_effect
+"Meltshell: target -50% Defense, 3t.",溶殻：対象の防御力-50%（3ターン）。,move_effect
+Damage; user loses 10% max HP.,ダメージ；使用者は最大HPの10%を失う。,move_effect
+"Damage; Impaled: target -10% Defense, 3t; user loses 5% max HP.",ダメージ；串刺され：対象の防御力-10%（3ターン）；使用者は最大HPの5%を失う。,move_effect
+"Damage; Impaled: target -15% Defense, 3t; user loses 10% max HP.",ダメージ；串刺され：対象の防御力-15%（3ターン）；使用者は最大HPの10%を失う。,move_effect
+"Damage; Splinters: target takes 4% max HP/turn, 3t.",ダメージ；木片：対象は毎ターン最大HPの4%のダメージを受ける（3ターン）。,move_effect
+"Damage; Splinters: target takes 5% max HP/turn, 3t.",ダメージ；木片：対象は毎ターン最大HPの5%のダメージを受ける（3ターン）。,move_effect
+Damage; +25% more vs targets with Infected.,ダメージ；感染状態の対象にはさらに+25%。,move_effect
+Damage; +40% more vs targets with Infected.,ダメージ；感染状態の対象にはさらに+40%。,move_effect
+Damage; +50% more vs targets with Infected.,ダメージ；感染状態の対象にはさらに+50%。,move_effect
+"Infected: 7%/turn, 2t.",感染：毎ターン7%（2ターン）。,move_effect
+"Infected: target takes 7% max HP/turn, 3t; if target already has Infected, extend it 2t.",感染：対象は毎ターン最大HPの7%のダメージを受ける（3ターン）；対象がすでに感染状態なら、2ターン延長する。,move_effect
+"Infected: target takes 9% max HP/turn, 3t; if target already has Infected, extend it 2t.",感染：対象は毎ターン最大HPの9%のダメージを受ける（3ターン）；対象がすでに感染状態なら、2ターン延長する。,move_effect
+"Fungal ally +25% Attack, 3t.",菌類タイプの味方の攻撃力+25%（3ターン）。,move_effect
+"Fungal allies +45% Attack, 3t.",菌類タイプの味方の攻撃力+45%（3ターン）。,move_effect
+"Fungal allies +50% Attack, 3t.",菌類タイプの味方の攻撃力+50%（3ターン）。,move_effect
+Damage; +25% more vs targets with Numbweave.,ダメージ；痺れ織り状態の対象にはさらに+25%。,move_effect
+Damage; +40% more vs targets with Numbweave.,ダメージ；痺れ織り状態の対象にはさらに+40%。,move_effect
+Damage; +50% more vs targets with Numbweave.,ダメージ；痺れ織り状態の対象にはさらに+50%。,move_effect
+"Damage; Widow's Kiss: target takes 4% max HP/turn, 3t.",ダメージ；未亡人の口づけ：対象は毎ターン最大HPの4%のダメージを受ける（3ターン）。,move_effect
+"Damage; Widow's Kiss: target takes 5% max HP/turn, 3t.",ダメージ；未亡人の口づけ：対象は毎ターン最大HPの5%のダメージを受ける（3ターン）。,move_effect
+"Numbweave: target -1 Speed stage, 2t.",痺れ織り：対象の素早さ-1段階（2ターン）。,move_effect
+"Numbweave: target -2 Speed stages, 3t.",痺れ織り：対象の素早さ-2段階（3ターン）。,move_effect
+"Wrapped: +20% damage from the user, 3t.",包み込み：使用者から受けるダメージ+20%（3ターン）。,move_effect
+"Wrapped: target takes +25% damage from the user, 3t.",包み込み：対象が使用者から受けるダメージ+25%（3ターン）。,move_effect
+"Wrapped: target takes +30% damage from the user, 3t.",包み込み：対象が使用者から受けるダメージ+30%（3ターン）。,move_effect
+Damage; user heals 25% of damage dealt.,ダメージ；使用者は与えたダメージの25%を回復する。,move_effect
+Damage; user heals 40% of damage dealt.,ダメージ；使用者は与えたダメージの40%を回復する。,move_effect
+Damage; user heals 50% of damage dealt.,ダメージ；使用者は与えたダメージの50%を回復する。,move_effect
+"Enzyme Drip: target -25% Defense, 2t.",酵素の滴り：対象の防御力-25%（2ターン）。,move_effect
+"Enzyme Drip: target -30% Defense and 7% max HP/turn, 3t.",酵素の滴り：対象の防御力-30%、毎ターン最大HPの7%のダメージ（3ターン）。,move_effect
+"Enzyme Drip: target -40% Defense and 9% max HP/turn, 3t.",酵素の滴り：対象の防御力-40%、毎ターン最大HPの9%のダメージ（3ターン）。,move_effect
+"All allies +45% Defense, 3t.",味方全体の防御力+45%（3ターン）。,move_effect
+"Damage; Infested: target takes 3% max HP/turn, 3t.",ダメージ；巣食い：対象は毎ターン最大HPの3%のダメージを受ける（3ターン）。,move_effect
+"Damage; Infested: target takes 5% max HP/turn, 4t.",ダメージ；巣食い：対象は毎ターン最大HPの5%のダメージを受ける（4ターン）。,move_effect
+"Damage; Infested: target takes 6% max HP/turn, 4t.",ダメージ；巣食い：対象は毎ターン最大HPの6%のダメージを受ける（4ターン）。,move_effect
+"Infested: 7%/turn, 2t.",巣食い：毎ターン7%（2ターン）。,move_effect
+"Infested: target takes 9% max HP/turn, 3t.",巣食い：対象は毎ターン最大HPの9%のダメージを受ける（3ターン）。,move_effect
+"Infested: target takes 12% max HP/turn, 3t.",巣食い：対象は毎ターン最大HPの12%のダメージを受ける（3ターン）。,move_effect
+One ally cleanses 1 debuff.,味方単体がデバフ1個を解除する。,move_effect
+"One ally cleanses 1 debuff and gains +45% Attack, 3t.",味方単体がデバフ1個を解除し、攻撃力+45%（3ターン）。,move_effect
+"One ally cleanses 1 debuff and gains +50% Attack, 3t.",味方単体がデバフ1個を解除し、攻撃力+50%（3ターン）。,move_effect
+Damage; +20% more vs targets with any active buff.,ダメージ；バフが有効な対象にはさらに+20%。,move_effect
+Damage; +30% more vs targets with any active buff.,ダメージ；バフが有効な対象にはさらに+30%。,move_effect
+Damage; +40% more vs targets with any active buff.,ダメージ；バフが有効な対象にはさらに+40%。,move_effect
+Next hit taken -30%.,次に受ける攻撃のダメージ-30%。,move_effect
+Next hit taken -40%.,次に受ける攻撃のダメージ-40%。,move_effect
+Next hit taken -50%.,次に受ける攻撃のダメージ-50%。,move_effect
+Damage; +10% more per Insect ally on the team.,ダメージ；チームの虫タイプの味方ごとにさらに+10%。,move_effect
+Damage; +20% more per Insect ally on the team.,ダメージ；チームの虫タイプの味方ごとにさらに+20%。,move_effect
+Damage; +25% more per Insect ally on the team.,ダメージ；チームの虫タイプの味方ごとにさらに+25%。,move_effect
+Damage as 4 hits.,ダメージ（4ヒット）。,move_effect
+"Damage; Famine: target -10% Attack, 3t.",ダメージ；飢饉：対象の攻撃力-10%（3ターン）。,move_effect
+"Damage; Famine: target -15% Attack, 3t.",ダメージ；飢饉：対象の攻撃力-15%（3ターン）。,move_effect
+"Damage; Venom Bloom: target takes 4% max HP/turn, 3t.",ダメージ；毒の花：対象は毎ターン最大HPの4%のダメージを受ける（3ターン）。,move_effect
+"Damage; Venom Bloom: target takes 5% max HP/turn, 3t.",ダメージ；毒の花：対象は毎ターン最大HPの5%のダメージを受ける（3ターン）。,move_effect
+"Hatching Spores: 7%/turn, 2t.",孵化の胞子：毎ターン7%（2ターン）。,move_effect
+"Hatching Spores: target takes 9% max HP/turn, 3t; if target has Venom Bloom, also -30% Defense, 3t.",孵化の胞子：対象は毎ターン最大HPの9%のダメージを受ける（3ターン）；対象が毒の花状態なら、さらに防御力-30%（3ターン）。,move_effect
+"Hatching Spores: target takes 12% max HP/turn, 3t; if target has Venom Bloom, also -35% Defense, 3t.",孵化の胞子：対象は毎ターン最大HPの12%のダメージを受ける（3ターン）；対象が毒の花状態なら、さらに防御力-35%（3ターン）。,move_effect
+"Damage; Worldbind: target -1 Speed stage, 2t.",ダメージ；世界縛り：対象の素早さ-1段階（2ターン）。,move_effect
+"Damage; Worldbind: target -2 Speed stages and -15% Defense, 3t.",ダメージ；世界縛り：対象の素早さ-2段階と防御力-15%（3ターン）。,move_effect
+"Damage; Worldbind: target -2 Speed stages and -25% Defense, 3t.",ダメージ；世界縛り：対象の素早さ-2段階と防御力-25%（3ターン）。,move_effect
+"Damage; Held: target -1 Speed stage, 2t.",ダメージ；拘束：対象の素早さ-1段階（2ターン）。,move_effect
+"One ally takes -25% damage, 2t.",味方単体の被ダメージ-25%（2ターン）。,move_effect
+"All allies take -30% damage, 2t.",味方全体の被ダメージ-30%（2ターン）。,move_effect
+Heal one ally 30% max HP.,味方単体のHPを最大HPの30%回復する。,move_effect
+Heal one ally 45% max HP.,味方単体のHPを最大HPの45%回復する。,move_effect
+"Damage; Cracked Carapace: target -10% Defense, 2t.",ダメージ；割れた甲殻：対象の防御力-10%（2ターン）。,move_effect
+"Damage; Cracked Carapace: target -15% Defense, 3t.",ダメージ；割れた甲殻：対象の防御力-15%（3ターン）。,move_effect
+"Damage; Cracked Carapace: target -25% Defense, 3t.",ダメージ；割れた甲殻：対象の防御力-25%（3ターン）。,move_effect
+Damage; +20% more if the target acted before the user this turn.,ダメージ；このターン対象が使用者より先に行動していればさらに+20%。,move_effect
+Damage; +30% more if the target acted before the user this turn.,ダメージ；このターン対象が使用者より先に行動していればさらに+30%。,move_effect
+Damage; +40% more if the target acted before the user this turn.,ダメージ；このターン対象が使用者より先に行動していればさらに+40%。,move_effect
+"Damage; Flattened: target -10% Attack, 2t.",ダメージ；ぺしゃんこ：対象の攻撃力-10%（2ターン）。,move_effect
+"Damage; Flattened: target -10% Attack, 3t.",ダメージ；ぺしゃんこ：対象の攻撃力-10%（3ターン）。,move_effect
+"Damage; Flattened: target -15% Attack, 3t.",ダメージ；ぺしゃんこ：対象の攻撃力-15%（3ターン）。,move_effect
+Damage; +25% more if Spikeball was used last turn.,ダメージ；前のターンに棘玉を使っていればさらに+25%。,move_effect
+Damage; +30% more if Spikeball was used last turn.,ダメージ；前のターンに棘玉を使っていればさらに+30%。,move_effect
+"+50% Defense (self, 3t); attackers take 10% of their damage back.",防御力+50%（自身、3ターン）；攻撃者は与えたダメージの10%を受ける。,move_effect
+"+50% Defense (self, 3t); attackers take 15% of their damage back.",防御力+50%（自身、3ターン）；攻撃者は与えたダメージの15%を受ける。,move_effect
+"Damage; +15% Defense (self, 3t).",ダメージ；防御力+15%（自身、3ターン）。,move_effect
+"Damage; user +25% Defense, 3t.",ダメージ；使用者の防御力+25%（3ターン）。,move_effect
+"Damage; user +30% Defense, 3t.",ダメージ；使用者の防御力+30%（3ターン）。,move_effect
+"Damage; Slagtrail: target -10% Defense, 3t.",ダメージ；鉱滓の跡：対象の防御力-10%（3ターン）。,move_effect
+"Damage; Slagtrail: target -15% Defense, 3t.",ダメージ；鉱滓の跡：対象の防御力-15%（3ターン）。,move_effect
+"Liquefied Armor: target -25% Defense, 2t.",液化した鎧：対象の防御力-25%（2ターン）。,move_effect
+"Liquefied Armor: target -45% Defense, 3t.",液化した鎧：対象の防御力-45%（3ターン）。,move_effect
+"Liquefied Armor: target -50% Defense, 3t.",液化した鎧：対象の防御力-50%（3ターン）。,move_effect
+Mired: 2t.,ぬかるみ：2ターン。,move_effect
+"Mired: target -1 Speed stage, 3t.",ぬかるみ：対象の素早さ-1段階（3ターン）。,move_effect
+"Damage; Seared: 4%/turn, 2t.",ダメージ；灼熱：毎ターン4%（2ターン）。,move_effect
+"Damage; Seared: target takes 5% max HP/turn, 3t.",ダメージ；灼熱：対象は毎ターン最大HPの5%のダメージを受ける（3ターン）。,move_effect
+"Damage; Seared: target takes 6% max HP/turn, 3t.",ダメージ；灼熱：対象は毎ターン最大HPの6%のダメージを受ける（3ターン）。,move_effect
+"Self +1 Speed stage, 2t; +45% Attack, 3t.",自身の素早さ+1段階（2ターン）；攻撃力+45%（3ターン）。,move_effect
+"Self +1 Speed stage, 2t; +50% Attack, 3t.",自身の素早さ+1段階（2ターン）；攻撃力+50%（3ターン）。,move_effect
+Damage; +20% more vs targets with a reduced Speed stage.,ダメージ；素早さ段階が下がっている対象にはさらに+20%。,move_effect
+Damage; +30% more vs targets with a reduced Speed stage.,ダメージ；素早さ段階が下がっている対象にはさらに+30%。,move_effect
+"Edict: target -1 Speed stage, 2t.",勅令：対象の素早さ-1段階（2ターン）。,move_effect
+"Petrifying Edict: target -1 Speed stage and -30% Attack, 3t.",石化の勅令：対象の素早さ-1段階と攻撃力-30%（3ターン）。,move_effect
+"Petrifying Edict: target -1 Speed stage and -35% Attack, 3t.",石化の勅令：対象の素早さ-1段階と攻撃力-35%（3ターン）。,move_effect
+Damage; user heals 25% of damage dealt; +20% more vs targets with Thin Blood.,ダメージ；使用者は与えたダメージの25%を回復する；薄血状態の対象にはさらに+20%。,move_effect
+Damage; user heals 40% of damage dealt; +30% more vs targets with Thin Blood.,ダメージ；使用者は与えたダメージの40%を回復する；薄血状態の対象にはさらに+30%。,move_effect
+Damage; user heals 50% of damage dealt; +40% more vs targets with Thin Blood.,ダメージ；使用者は与えたダメージの50%を回復する；薄血状態の対象にはさらに+40%。,move_effect
+Damage; user heals 15% of damage dealt.,ダメージ；使用者は与えたダメージの15%を回復する。,move_effect
+Damage; user heals 30% of damage dealt.,ダメージ；使用者は与えたダメージの30%を回復する。,move_effect
+"Thin Blood: 7%/turn, 2t.",薄血：毎ターン7%（2ターン）。,move_effect
+"Thin Blood: target takes 9% max HP/turn, 3t; target's healing received -40%, 3t.",薄血：対象は毎ターン最大HPの9%のダメージを受ける（3ターン）；対象の被回復量-40%（3ターン）。,move_effect
+"Thin Blood: target takes 12% max HP/turn, 3t; target's healing received -50%, 3t.",薄血：対象は毎ターン最大HPの12%のダメージを受ける（3ターン）；対象の被回復量-50%（3ターン）。,move_effect
+Damage as 5 hits.,ダメージ（5ヒット）。,move_effect
+"Damage; Held Fast: target -1 Speed stage, 2t.",ダメージ；固縛：対象の素早さ-1段階（2ターン）。,move_effect
+"Damage; Held Fast: target -1 Speed stage, 3t.",ダメージ；固縛：対象の素早さ-1段階（3ターン）。,move_effect
+"Damage; Unmade Spot: target -10% Defense, 2t.",ダメージ；崩れた斑：対象の防御力-10%（2ターン）。,move_effect
+"Damage; Unmade Spot: target -15% Defense, 3t.",ダメージ；崩れた斑：対象の防御力-15%（3ターン）。,move_effect
+"Damage; Unmade Spot: target -25% Defense, 3t.",ダメージ；崩れた斑：対象の防御力-25%（3ターン）。,move_effect
+"The next creature to hit the user gains Dimmed: -25% Attack, 2t.",使用者を次に攻撃したクリーチャーに減光を付与：攻撃力-25%（2ターン）。,move_effect
+"The next creature to hit the user gains Dimmed: target -30% Attack, 3t.",使用者を次に攻撃したクリーチャーに減光を付与：対象の攻撃力-30%（3ターン）。,move_effect
+"The next creature to hit the user gains Dimmed: target -35% Attack, 3t.",使用者を次に攻撃したクリーチャーに減光を付与：対象の攻撃力-35%（3ターン）。,move_effect
+"Damage; Dented: target -10% Defense, 2t.",ダメージ；へこみ：対象の防御力-10%（2ターン）。,move_effect
+"Damage; Dented: target -15% Defense, 3t.",ダメージ；へこみ：対象の防御力-15%（3ターン）。,move_effect
+"Damage; Dented: target -25% Defense, 3t.",ダメージ；へこみ：対象の防御力-25%（3ターン）。,move_effect
+"One ally takes -30% damage, 2t.",味方単体の被ダメージ-30%（2ターン）。,move_effect
+"Damage; Pyroclast: 4%/turn, 2t.",ダメージ；火砕：毎ターン4%（2ターン）。,move_effect
+"Damage; Pyroclast: target takes 5% max HP/turn, 3t.",ダメージ；火砕：対象は毎ターン最大HPの5%のダメージを受ける（3ターン）。,move_effect
+"Damage; Pyroclast: target takes 6% max HP/turn, 3t.",ダメージ；火砕：対象は毎ターン最大HPの6%のダメージを受ける（3ターン）。,move_effect
+"Damage; Molten Coat: target -10% Defense, 2t.",ダメージ；溶融の外套：対象の防御力-10%（2ターン）。,move_effect
+"Damage; Molten Coat: target -10% Defense and 4% max HP/turn, 3t.",ダメージ；溶融の外套：対象の防御力-10%、毎ターン最大HPの4%のダメージ（3ターン）。,move_effect
+"Damage; Molten Coat: target -15% Defense and 5% max HP/turn, 3t.",ダメージ；溶融の外套：対象の防御力-15%、毎ターン最大HPの5%のダメージ（3ターン）。,move_effect
+"Damage; Glasscut: target bleeds 4% max HP/turn, 3t.",ダメージ；ガラスの切り傷：対象は毎ターン最大HPの4%の出血ダメージを受ける（3ターン）。,move_effect
+"Damage; Glasscut: target bleeds 5% max HP/turn, 3t.",ダメージ；ガラスの切り傷：対象は毎ターン最大HPの5%の出血ダメージを受ける（3ターン）。,move_effect
+"+50% Defense (self, 3t); +30% Attack next turn.",防御力+50%（自身、3ターン）；次のターン、攻撃力+30%。,move_effect
+"+50% Defense (self, 3t); +40% Attack next turn.",防御力+50%（自身、3ターン）；次のターン、攻撃力+40%。,move_effect
+Damage; +20% more if user's Speed is higher than the target's.,ダメージ；使用者の素早さが対象より高ければさらに+20%。,move_effect
+Damage; +30% more if user's Speed is higher than the target's.,ダメージ；使用者の素早さが対象より高ければさらに+30%。,move_effect
+Damage; +40% more if user's Speed is higher than the target's.,ダメージ；使用者の素早さが対象より高ければさらに+40%。,move_effect
+"Damage; Cutting Gale: target bleeds 4% max HP/turn, 3t.",ダメージ；切り裂く烈風：対象は毎ターン最大HPの4%の出血ダメージを受ける（3ターン）。,move_effect
+"Damage; Cutting Gale: target bleeds 5% max HP/turn, 3t.",ダメージ；切り裂く烈風：対象は毎ターン最大HPの5%の出血ダメージを受ける（3ターン）。,move_effect
+"One ally +1 Speed stage, 2t.",味方単体の素早さ+1段階（2ターン）。,move_effect
+"All allies +1 Speed stage, 2t.",味方全体の素早さ+1段階（2ターン）。,move_effect
+Damage; +25% more vs targets with Charged.,ダメージ；帯電状態の対象にはさらに+25%。,move_effect
+Damage; +40% more vs targets with Charged.,ダメージ；帯電状態の対象にはさらに+40%。,move_effect
+Damage; +50% more vs targets with Charged.,ダメージ；帯電状態の対象にはさらに+50%。,move_effect
+"Damage; Galvanic Jolt: target -1 Speed stage, 2t.",ダメージ；電流の衝撃：対象の素早さ-1段階（2ターン）。,move_effect
+Damage; Charged: the next hit against the target deals +10% more.,ダメージ；帯電：対象への次の攻撃のダメージ+10%。,move_effect
+Damage; Charged: the next hit against the target deals +15% more.,ダメージ；帯電：対象への次の攻撃のダメージ+15%。,move_effect
+"Self +25% Attack, 2t.",自身の攻撃力+25%（2ターン）。,move_effect
+"Self +30% Attack, 3t.",自身の攻撃力+30%（3ターン）。,move_effect
+"Damage; Whiteout: target -10% Attack, 2t.",ダメージ；ホワイトアウト：対象の攻撃力-10%（2ターン）。,move_effect
+"Damage; Whiteout: target -25% Attack, 2t.",ダメージ；ホワイトアウト：対象の攻撃力-25%（2ターン）。,move_effect
+"Damage; Whiteout: target -30% Attack, 2t.",ダメージ；ホワイトアウト：対象の攻撃力-30%（2ターン）。,move_effect
+"Scrambled: target -25% Attack, 2t.",攪乱：対象の攻撃力-25%（2ターン）。,move_effect
+"Scrambled: target -30% Attack, 3t.",攪乱：対象の攻撃力-30%（3ターン）。,move_effect
+"Scrambled: target -40% Attack, 3t.",攪乱：対象の攻撃力-40%（3ターン）。,move_effect
+"Damage; Flattened: target -1 Speed stage, 2t.",ダメージ；ぺしゃんこ：対象の素早さ-1段階（2ターン）。,move_effect
+"Damage; Flattened: target -1 Speed stage, 3t.",ダメージ；ぺしゃんこ：対象の素早さ-1段階（3ターン）。,move_effect
+"Damage; Crushed: target -10% Defense, 2t.",ダメージ；圧壊：対象の防御力-10%（2ターン）。,move_effect
+"Damage; Crushed: target -10% Defense, 3t.",ダメージ；圧壊：対象の防御力-10%（3ターン）。,move_effect
+"Damage; Crushed: target -15% Defense, 3t.",ダメージ；圧壊：対象の防御力-15%（3ターン）。,move_effect
+Damage; +20% more vs targets with Spun.,ダメージ；目回し状態の対象にはさらに+20%。,move_effect
+Damage; +30% more vs targets with Spun.,ダメージ；目回し状態の対象にはさらに+30%。,move_effect
+Damage; +40% more vs targets with Spun.,ダメージ；目回し状態の対象にはさらに+40%。,move_effect
+"Spun: target -1 Speed stage, 2t.",目回し：対象の素早さ-1段階（2ターン）。,move_effect
+"Spun: target -1 Speed stage and -30% Attack, 3t.",目回し：対象の素早さ-1段階と攻撃力-30%（3ターン）。,move_effect
+"Spun: target -1 Speed stage and -35% Attack, 3t.",目回し：対象の素早さ-1段階と攻撃力-35%（3ターン）。,move_effect
+One ally's next hit taken -20%.,味方単体が次に受ける攻撃のダメージ-20%。,move_effect
+One ally's next hit taken -25%.,味方単体が次に受ける攻撃のダメージ-25%。,move_effect
+One ally's next hit taken -30%.,味方単体が次に受ける攻撃のダメージ-30%。,move_effect
+"Damage; Grounded Twitch: target -1 Speed stage, 2t.",ダメージ；接地痙攣：対象の素早さ-1段階（2ターン）。,move_effect
+"Self +45% Attack, 3t; next hit taken -15%.",自身の攻撃力+45%（3ターン）；次に受ける攻撃のダメージ-15%。,move_effect
+"Self +50% Attack, 3t; next hit taken -20%.",自身の攻撃力+50%（3ターン）；次に受ける攻撃のダメージ-20%。,move_effect
+Damage as 4 hits; each applies 2t of Lowpressure.,ダメージ（4ヒット）；各ヒットが低気圧を2ターン付与する。,move_effect
+"Lowpressure: target -25% Defense, 2t.",低気圧：対象の防御力-25%（2ターン）。,move_effect
+"Lowpressure: target -30% Defense and -30% Attack, 3t.",低気圧：対象の防御力-30%と攻撃力-30%（3ターン）。,move_effect
+"Lowpressure: target -35% Defense and -35% Attack, 3t.",低気圧：対象の防御力-35%と攻撃力-35%（3ターン）。,move_effect
+"Damage; Tempo Theft: target -1 Speed stage, 2t.",ダメージ；テンポ強奪：対象の素早さ-1段階（2ターン）。,move_effect
+"Damage; Tempo Theft: target -2 Speed stages, 3t; self +1 Speed stage, 3t.",ダメージ；テンポ強奪：対象の素早さ-2段階（3ターン）；自身の素早さ+1段階（3ターン）。,move_effect
+Damage as 3 hits; each +5% more if user acted before the target.,ダメージ（3ヒット）；各ヒットは、使用者が対象より先に行動していればさらに+5%。,move_effect
+Damage as 3 hits; each +10% more if user acted before the target.,ダメージ（3ヒット）；各ヒットは、使用者が対象より先に行動していればさらに+10%。,move_effect
+"All allies +1 Speed stage, 3t; self +2 Speed stages, 2t.",味方全体の素早さ+1段階（3ターン）；自身の素早さ+2段階（2ターン）。,move_effect
+"Damage; Struck Twice: 4%/turn, 2t.",ダメージ；二度打ち：毎ターン4%（2ターン）。,move_effect
+"Damage; Struck Twice: target takes 5% max HP/turn, 3t; target -1 Speed stage, 2t.",ダメージ；二度打ち：対象は毎ターン最大HPの5%のダメージを受ける（3ターン）；対象の素早さ-1段階（2ターン）。,move_effect
+"Damage; Struck Twice: target takes 6% max HP/turn, 3t; target -1 Speed stage, 2t.",ダメージ；二度打ち：対象は毎ターン最大HPの6%のダメージを受ける（3ターン）；対象の素早さ-1段階（2ターン）。,move_effect
+Damage; +20% more if user has an active Defense buff — consumes it.,ダメージ；使用者に防御バフがあればさらに+20% — そのバフを消費する。,move_effect
+Damage; +30% more if user has an active Defense buff — consumes it.,ダメージ；使用者に防御バフがあればさらに+30% — そのバフを消費する。,move_effect
+Damage; +40% more if user has an active Defense buff — consumes it.,ダメージ；使用者に防御バフがあればさらに+40% — そのバフを消費する。,move_effect
+"Damage; Fouled: target -10% Attack, 2t.",ダメージ；汚濁：対象の攻撃力-10%（2ターン）。,move_effect
+"Damage; Fouled: target -15% Attack, 3t.",ダメージ；汚濁：対象の攻撃力-15%（3ターン）。,move_effect
+"Damage; Fouled: target -25% Attack, 3t.",ダメージ；汚濁：対象の攻撃力-25%（3ターン）。,move_effect
+Damage; +25% more vs targets with Wyrd Visions.,ダメージ；奇しき幻視状態の対象にはさらに+25%。,move_effect
+Damage; +40% more vs targets with Wyrd Visions.,ダメージ；奇しき幻視状態の対象にはさらに+40%。,move_effect
+Damage; +50% more vs targets with Wyrd Visions.,ダメージ；奇しき幻視状態の対象にはさらに+50%。,move_effect
+"Wyrd Visions: target -25% Attack, 2t.",奇しき幻視：対象の攻撃力-25%（2ターン）。,move_effect
+"Wyrd Visions: target -45% Attack, 3t.",奇しき幻視：対象の攻撃力-45%（3ターン）。,move_effect
+"Wyrd Visions: target -50% Attack, 3t.",奇しき幻視：対象の攻撃力-50%（3ターン）。,move_effect
+cleanse 1 debuff.,デバフ1個を解除する。,move_effect
+"Cleanse up to 2 self debuffs; +1 Speed stage, 2t.",自身のデバフを最大2個解除する；素早さ+1段階（2ターン）。,move_effect
+"Cleanse all self debuffs; +1 Speed stage, 2t.",自身のデバフをすべて解除する；素早さ+1段階（2ターン）。,move_effect
+"Damage; Larval Rot: target takes 3% max HP/turn, 3t.",ダメージ；幼虫腐れ：対象は毎ターン最大HPの3%のダメージを受ける（3ターン）。,move_effect
+"Damage; Larval Rot: target takes 5% max HP/turn, 4t.",ダメージ；幼虫腐れ：対象は毎ターン最大HPの5%のダメージを受ける（4ターン）。,move_effect
+"Damage; Larval Rot: target takes 6% max HP/turn, 4t.",ダメージ；幼虫腐れ：対象は毎ターン最大HPの6%のダメージを受ける（4ターン）。,move_effect
+"Larval Rot: 7%/turn, 2t.",幼虫腐れ：毎ターン7%（2ターン）。,move_effect
+"Larval Rot: target takes 9% max HP/turn, 3t.",幼虫腐れ：対象は毎ターン最大HPの9%のダメージを受ける（3ターン）。,move_effect
+"Larval Rot: target takes 12% max HP/turn, 3t.",幼虫腐れ：対象は毎ターン最大HPの12%のダメージを受ける（3ターン）。,move_effect
+Damage; user heals 10% of damage dealt.,ダメージ；使用者は与えたダメージの10%を回復する。,move_effect
+Damage; user heals 20% of damage dealt.,ダメージ；使用者は与えたダメージの20%を回復する。,move_effect
+"Grave Chill: target -25% Attack, 2t.",墓所の冷気：対象の攻撃力-25%（2ターン）。,move_effect
+"Grave Chill: target -30% Attack and -1 Speed stage, 3t.",墓所の冷気：対象の攻撃力-30%と素早さ-1段階（3ターン）。,move_effect
+"Grave Chill: target -35% Attack and -1 Speed stage, 3t.",墓所の冷気：対象の攻撃力-35%と素早さ-1段階（3ターン）。,move_effect
+Damage; +20% more vs targets with Transfixed.,ダメージ；縫い止め状態の対象にはさらに+20%。,move_effect
+Damage; +35% more vs targets with Transfixed.,ダメージ；縫い止め状態の対象にはさらに+35%。,move_effect
+Damage; +45% more vs targets with Transfixed.,ダメージ；縫い止め状態の対象にはさらに+45%。,move_effect
+"Transfixed: target -1 Speed stage, 2t.",縫い止め：対象の素早さ-1段階（2ターン）。,move_effect
+"Transfixed: target -2 Speed stages, 3t.",縫い止め：対象の素早さ-2段階（3ターン）。,move_effect
+"Transfixed: target -2 Speed stages, 3t; target -30% Attack, 3t.",縫い止め：対象の素早さ-2段階（3ターン）；対象の攻撃力-30%（3ターン）。,move_effect
+"Transfixed: target -2 Speed stages, 3t; target -40% Attack, 3t.",縫い止め：対象の素早さ-2段階（3ターン）；対象の攻撃力-40%（3ターン）。,move_effect
+"Damage; Bogged: target -1 Speed stage, 2t.",ダメージ；泥はまり：対象の素早さ-1段階（2ターン）。,move_effect
+"Damage; Bogged: target -1 Speed stage, 3t.",ダメージ；泥はまり：対象の素早さ-1段階（3ターン）。,move_effect
+Cleanse 1 self debuff (no transfer to target).,自身のデバフ1個を解除する（対象には移さない）。,move_effect
+Transfer 1 debuff from self to the target.,自身のデバフ1個を対象に移す。,move_effect
+"+50% Defense (self, 3t); user's next attack deals +25% more.",防御力+50%（自身、3ターン）；使用者の次の攻撃のダメージ+25%。,move_effect
+"+50% Defense (self, 3t); user's next attack deals +30% more.",防御力+50%（自身、3ターン）；使用者の次の攻撃のダメージ+30%。,move_effect
+"Damage; Chilled: target -1 Speed stage, 2t.",ダメージ；冷却：対象の素早さ-1段階（2ターン）。,move_effect
+Next 2 hits taken -30%.,次に受ける攻撃2回のダメージ-30%。,move_effect
+Next 2 hits taken -35%.,次に受ける攻撃2回のダメージ-35%。,move_effect
+"Weight of Water: target -25% Attack, 2t.",水の重み：対象の攻撃力-25%（2ターン）。,move_effect
+"Weight of Water: target -30% Attack, 3t.",水の重み：対象の攻撃力-30%（3ターン）。,move_effect
+"Weight of Water: target -40% Attack, 3t.",水の重み：対象の攻撃力-40%（3ターン）。,move_effect
+Damage; +20% more vs targets with Vinegrip.,ダメージ；蔦締め状態の対象にはさらに+20%。,move_effect
+Damage; +30% more vs targets with Vinegrip.,ダメージ；蔦締め状態の対象にはさらに+30%。,move_effect
+Damage; +40% more vs targets with Vinegrip.,ダメージ；蔦締め状態の対象にはさらに+40%。,move_effect
+"Damage; Vinegrip: target -1 Speed stage, 2t.",ダメージ；蔦締め：対象の素早さ-1段階（2ターン）。,move_effect
+"Damage; Vinegrip: target -1 Speed stage, 3t.",ダメージ；蔦締め：対象の素早さ-1段階（3ターン）。,move_effect
+"Undead allies +50% Attack, 3t; if no Undead ally, self +30% Attack, 3t.",アンデッドタイプの味方の攻撃力+50%（3ターン）；アンデッドタイプの味方がいなければ、自身の攻撃力+30%（3ターン）。,move_effect
+"Undead allies +50% Attack, 3t; if no Undead ally, self +40% Attack, 3t.",アンデッドタイプの味方の攻撃力+50%（3ターン）；アンデッドタイプの味方がいなければ、自身の攻撃力+40%（3ターン）。,move_effect
+"Damage; Dragged Down: target -1 Speed stage, 2t.",ダメージ；引きずり込み：対象の素早さ-1段階（2ターン）。,move_effect
+"Damage; Dragged Down: target -2 Speed stages and -15% Defense, 3t.",ダメージ；引きずり込み：対象の素早さ-2段階と防御力-15%（3ターン）。,move_effect
+"Damage; Dragged Down: target -2 Speed stages and -25% Defense, 3t.",ダメージ；引きずり込み：対象の素早さ-2段階と防御力-25%（3ターン）。,move_effect
+"One ally +25% Attack and +25% Defense, 2t.",味方単体の攻撃力+25%と防御力+25%（2ターン）。,move_effect
+"All allies +30% Attack and +30% Defense, 2t.",味方全体の攻撃力+30%と防御力+30%（2ターン）。,move_effect
+"All allies +40% Attack and +40% Defense, 2t.",味方全体の攻撃力+40%と防御力+40%（2ターン）。,move_effect
+Damage; +25% more vs targets with no active buffs.,ダメージ；有効なバフがない対象にはさらに+25%。,move_effect
+Damage; +40% more vs targets with no active buffs.,ダメージ；有効なバフがない対象にはさらに+40%。,move_effect
+Damage; +50% more vs targets with no active buffs.,ダメージ；有効なバフがない対象にはさらに+50%。,move_effect
+Remove 1 buff from the target.,対象のバフ1個を除去する。,move_effect
+Remove up to 2 buffs from the target.,対象のバフを最大2個除去する。,move_effect
+Remove all buffs from the target.,対象のバフをすべて除去する。,move_effect
+"Damage; Spinning: target -1 Speed stage and -10% Attack, 2t.",ダメージ；回転：対象の素早さ-1段階と攻撃力-10%（2ターン）。,move_effect
+"Damage; Spinning: target -1 Speed stage and -10% Attack, 4t.",ダメージ；回転：対象の素早さ-1段階と攻撃力-10%（4ターン）。,move_effect
+"Damage; Spinning: target -1 Speed stage and -15% Attack, 4t.",ダメージ；回転：対象の素早さ-1段階と攻撃力-15%（4ターン）。,move_effect
+"Spinning: target -1 Speed stage, 2t.",回転：対象の素早さ-1段階（2ターン）。,move_effect
+"Spinning: target -1 Speed stage and -30% Attack, 3t.",回転：対象の素早さ-1段階と攻撃力-30%（3ターン）。,move_effect
+"Spinning: target -1 Speed stage and -35% Attack, 3t.",回転：対象の素早さ-1段階と攻撃力-35%（3ターン）。,move_effect
+Damage; +20% more vs targets with Forgetting.,ダメージ；忘却状態の対象にはさらに+20%。,move_effect
+Damage; +30% more vs targets with Forgetting.,ダメージ；忘却状態の対象にはさらに+30%。,move_effect
+Damage; +40% more vs targets with Forgetting.,ダメージ；忘却状態の対象にはさらに+40%。,move_effect
+"Forgetting: target -25% Attack, 2t.",忘却：対象の攻撃力-25%（2ターン）。,move_effect
+"Forgetting: target -30% Attack, 3t; the target's buffs expire 1 turn sooner.",忘却：対象の攻撃力-30%（3ターン）；対象のバフは1ターン早く切れる。,move_effect
+"Forgetting: target -40% Attack, 3t; the target's buffs expire 1 turn sooner.",忘却：対象の攻撃力-40%（3ターン）；対象のバフは1ターン早く切れる。,move_effect
+"Damage; Puppeted Nerves: target -10% Attack and -1 Speed stage, 2t.",ダメージ；操り神経：対象の攻撃力-10%と素早さ-1段階（2ターン）。,move_effect
+"Damage; Puppeted Nerves: target -15% Attack and -1 Speed stage, 4t.",ダメージ；操り神経：対象の攻撃力-15%と素早さ-1段階（4ターン）。,move_effect
+"Damage; Puppeted Nerves: target -25% Attack and -1 Speed stage, 4t.",ダメージ；操り神経：対象の攻撃力-25%と素早さ-1段階（4ターン）。,move_effect
+"Puppeted Nerves: target -25% Attack, 2t.",操り神経：対象の攻撃力-25%（2ターン）。,move_effect
+"Puppeted Nerves: target -30% Attack and -1 Speed stage, 3t.",操り神経：対象の攻撃力-30%と素早さ-1段階（3ターン）。,move_effect
+"Puppeted Nerves: target -40% Attack and -1 Speed stage, 3t.",操り神経：対象の攻撃力-40%と素早さ-1段階（3ターン）。,move_effect
+Damage; +20% more vs targets with Foreseen.,ダメージ；予見状態の対象にはさらに+20%。,move_effect
+Damage; +30% more vs targets with Foreseen.,ダメージ；予見状態の対象にはさらに+30%。,move_effect
+Damage; +40% more vs targets with Foreseen.,ダメージ；予見状態の対象にはさらに+40%。,move_effect
+Foreseen: target -20% damage.,予見：対象のダメージ-20%。,move_effect
+Foreseen: the target's next attack deals -25% damage.,予見：対象の次の攻撃のダメージ-25%。,move_effect
+Foreseen: the target's next attack deals -30% damage.,予見：対象の次の攻撃のダメージ-30%。,move_effect
+One ally's next hit taken -40%.,味方単体が次に受ける攻撃のダメージ-40%。,move_effect
+"Disoriented: target -25% Attack, 2t.",方向喪失：対象の攻撃力-25%（2ターン）。,move_effect
+"Disoriented: target -30% Attack, 3t.",方向喪失：対象の攻撃力-30%（3ターン）。,move_effect
+"Disoriented: target -40% Attack, 3t.",方向喪失：対象の攻撃力-40%（3ターン）。,move_effect
+Damage; +40% more if user acted before the target this turn.,ダメージ；このターン使用者が対象より先に行動していればさらに+40%。,move_effect
+Next hit taken -20%.,次に受ける攻撃のダメージ-20%。,move_effect
+"Next 2 hits taken -25%; self +1 Speed stage, 2t.",次に受ける攻撃2回のダメージ-25%；自身の素早さ+1段階（2ターン）。,move_effect
+"Next 2 hits taken -30%; self +1 Speed stage, 2t.",次に受ける攻撃2回のダメージ-30%；自身の素早さ+1段階（2ターン）。,move_effect
+"Trailbound: target -1 Speed stage, 2t.",跡縛り：対象の素早さ-1段階（2ターン）。,move_effect
+"Trailbound: target -2 Speed stages, 2t.",跡縛り：対象の素早さ-2段階（2ターン）。,move_effect
+"Damage; Concussed: target -1 Speed stage, 2t.",ダメージ；脳震盪：対象の素早さ-1段階（2ターン）。,move_effect
+"Damage; Concussed: target -1 Speed stage, 3t.",ダメージ；脳震盪：対象の素早さ-1段階（3ターン）。,move_effect
+One ally cleanses up to 2 debuffs.,味方単体がデバフを最大2個解除する。,move_effect
+One ally cleanses all debuffs.,味方単体がデバフをすべて解除する。,move_effect
+Damage; +25% more vs targets with Drawn In.,ダメージ；引き込まれ状態の対象にはさらに+25%。,move_effect
+Damage; +40% more vs targets with Drawn In.,ダメージ；引き込まれ状態の対象にはさらに+40%。,move_effect
+Damage; +50% more vs targets with Drawn In.,ダメージ；引き込まれ状態の対象にはさらに+50%。,move_effect
+Damage; ignores 25% of target Defense.,ダメージ；対象の防御力の25%を無視する。,move_effect
+"Drawn In: target -1 Speed stage, 2t.",引き込まれ：対象の素早さ-1段階（2ターン）。,move_effect
+"Drawn In: target -1 Speed stage, 3t; target takes +20% damage from the user, 3t.",引き込まれ：対象の素早さ-1段階（3ターン）；対象が使用者から受けるダメージ+20%（3ターン）。,move_effect
+"Drawn In: target -1 Speed stage, 3t; target takes +25% damage from the user, 3t.",引き込まれ：対象の素早さ-1段階（3ターン）；対象が使用者から受けるダメージ+25%（3ターン）。,move_effect
+"Decomposing: target -25% Defense, 2t.",分解：対象の防御力-25%（2ターン）。,move_effect
+"Decomposing: target -30% Defense, 3t; one ally +30% Attack, 3t.",分解：対象の防御力-30%（3ターン）；味方単体の攻撃力+30%（3ターン）。,move_effect
+"Decomposing: target -40% Defense, 3t; one ally +40% Attack, 3t.",分解：対象の防御力-40%（3ターン）；味方単体の攻撃力+40%（3ターン）。,move_effect
+"+50% Defense (self, 2t); cleanse up to 2 self debuffs.",防御力+50%（自身、2ターン）；自身のデバフを最大2個解除する。,move_effect
+"+50% Defense (self, 2t); cleanse all self debuffs.",防御力+50%（自身、2ターン）；自身のデバフをすべて解除する。,move_effect
+Damage; +10% more per debuff on target (max +30%).,ダメージ；対象のデバフごとにさらに+10%（最大+30%）。,move_effect
+Damage; +15% more per debuff on target (max +50%).,ダメージ；対象のデバフごとにさらに+15%（最大+50%）。,move_effect
+Damage; +20% more per debuff on target (max +60%).,ダメージ；対象のデバフごとにさらに+20%（最大+60%）。,move_effect
+"Damage; Pinned: target -10% Defense, 2t.",ダメージ；釘付け：対象の防御力-10%（2ターン）。,move_effect
+"Damage; Pinned: target -15% Defense, 3t.",ダメージ；釘付け：対象の防御力-15%（3ターン）。,move_effect
+"Damage; Pinned: target -25% Defense, 3t.",ダメージ；釘付け：対象の防御力-25%（3ターン）。,move_effect
+"Damage; Crushed Slow: target -1 Speed stage, 2t.",ダメージ；潰され鈍化：対象の素早さ-1段階（2ターン）。,move_effect
+"Damage; Crushed Slow: target -1 Speed stage, 3t.",ダメージ；潰され鈍化：対象の素早さ-1段階（3ターン）。,move_effect
+"Damage; Vitrified: target -1 Speed stage, 2t.",ダメージ；ガラス化：対象の素早さ-1段階（2ターン）。,move_effect
+"Damage; Vitrified: target -2 Speed stages and -10% Defense, 2t.",ダメージ；ガラス化：対象の素早さ-2段階と防御力-10%（2ターン）。,move_effect
+"Damage; Vitrified: target -2 Speed stages and -15% Defense, 2t.",ダメージ；ガラス化：対象の素早さ-2段階と防御力-15%（2ターン）。,move_effect
+"Damage; Glass Splinter: target bleeds 4% max HP/turn, 3t.",ダメージ；ガラスの破片：対象は毎ターン最大HPの4%の出血ダメージを受ける（3ターン）。,move_effect
+"Damage; Glass Splinter: target bleeds 5% max HP/turn, 3t.",ダメージ；ガラスの破片：対象は毎ターン最大HPの5%の出血ダメージを受ける（3ターン）。,move_effect
+Damage; user heals 20% of damage dealt; +20% more vs targets with Ashen.,ダメージ；使用者は与えたダメージの20%を回復する；灰化状態の対象にはさらに+20%。,move_effect
+Damage; user heals 30% of damage dealt; +30% more vs targets with Ashen.,ダメージ；使用者は与えたダメージの30%を回復する；灰化状態の対象にはさらに+30%。,move_effect
+Damage; user heals 40% of damage dealt; +40% more vs targets with Ashen.,ダメージ；使用者は与えたダメージの40%を回復する；灰化状態の対象にはさらに+40%。,move_effect
+"Ashen: target's healing received -25%, 2t.",灰化：対象の被回復量-25%（2ターン）。,move_effect
+"Ashen: target's healing received -40%, 3t.",灰化：対象の被回復量-40%（3ターン）。,move_effect
+"Ashen: target's healing received -50%, 3t.",灰化：対象の被回復量-50%（3ターン）。,move_effect
+"+50% Defense (self, 3t); the next creature to hit the user gains Dazzled: -30% Attack, 2t.",防御力+50%（自身、3ターン）；使用者を次に攻撃したクリーチャーに眩惑を付与：攻撃力-30%（2ターン）。,move_effect
+"+50% Defense (self, 3t); the next creature to hit the user gains Dazzled: -35% Attack, 2t.",防御力+50%（自身、3ターン）；使用者を次に攻撃したクリーチャーに眩惑を付与：攻撃力-35%（2ターン）。,move_effect
+Damage; +25% more vs targets with Precise Cut.,ダメージ；精密斬り状態の対象にはさらに+25%。,move_effect
+Damage; +40% more vs targets with Precise Cut.,ダメージ；精密斬り状態の対象にはさらに+40%。,move_effect
+Damage; +50% more vs targets with Precise Cut.,ダメージ；精密斬り状態の対象にはさらに+50%。,move_effect
+"Damage; Precise Cut: target bleeds 4% max HP/turn, 3t.",ダメージ；精密斬り：対象は毎ターン最大HPの4%の出血ダメージを受ける（3ターン）。,move_effect
+"Damage; Precise Cut: target bleeds 5% max HP/turn, 3t.",ダメージ；精密斬り：対象は毎ターン最大HPの5%の出血ダメージを受ける（3ターン）。,move_effect
+"Marked Veins: +15% more to the target, 3t.",印された血管：対象へのダメージ+15%（3ターン）。,move_effect
+"Marked Veins: user deals +20% more to the target, 3t.",印された血管：使用者の対象へのダメージ+20%（3ターン）。,move_effect
+"Marked Veins: user deals +25% more to the target, 3t.",印された血管：使用者の対象へのダメージ+25%（3ターン）。,move_effect
+"Damage; Wrong Geometry: target -10% Attack, 2t.",ダメージ；狂った幾何：対象の攻撃力-10%（2ターン）。,move_effect
+"Damage; Wrong Geometry: target -15% Attack and -10% Defense, 3t.",ダメージ；狂った幾何：対象の攻撃力-15%と防御力-10%（3ターン）。,move_effect
+"Damage; Wrong Geometry: target -25% Attack and -15% Defense, 3t.",ダメージ；狂った幾何：対象の攻撃力-25%と防御力-15%（3ターン）。,move_effect
+Damage; +25% more vs targets with Death-Marked; consumes the mark.,ダメージ；死の刻印状態の対象にはさらに+25%；印は消費される。,move_effect
+Damage; +40% more vs targets with Death-Marked; consumes the mark.,ダメージ；死の刻印状態の対象にはさらに+40%；印は消費される。,move_effect
+Damage; +50% more vs targets with Death-Marked; consumes the mark.,ダメージ；死の刻印状態の対象にはさらに+50%；印は消費される。,move_effect
+"Death-Marked: +10% more to the target, 3t.",死の刻印：対象へのダメージ+10%（3ターン）。,move_effect
+"Death-Marked: user deals +15% more to the target, 4t.",死の刻印：使用者の対象へのダメージ+15%（4ターン）。,move_effect
+"Death-Marked: user deals +20% more to the target, 4t.",死の刻印：使用者の対象へのダメージ+20%（4ターン）。,move_effect
+Steal 1 buff from the target.,対象のバフ1個を奪う。,move_effect
+"Unsettled: target -25% Attack, 2t.",不安：対象の攻撃力-25%（2ターン）。,move_effect
+"Unsettled: target -30% Attack, 3t.",不安：対象の攻撃力-30%（3ターン）。,move_effect
+"Unsettled: target -40% Attack, 3t.",不安：対象の攻撃力-40%（3ターン）。,move_effect
+"Damage; user heals 30% of damage dealt; Bled Dry: target's healing received -40%, 3t.",ダメージ；使用者は与えたダメージの30%を回復する；失血：対象の被回復量-40%（3ターン）。,move_effect
+"Damage; user heals 40% of damage dealt; Bled Dry: target's healing received -50%, 3t.",ダメージ；使用者は与えたダメージの40%を回復する；失血：対象の被回復量-50%（3ターン）。,move_effect
+"Cowed: target -25% Attack, 2t.",怯え：対象の攻撃力-25%（2ターン）。,move_effect
+"Cowed: target -30% Attack, 3t.",怯え：対象の攻撃力-30%（3ターン）。,move_effect
+"Cowed: target -40% Attack, 3t.",怯え：対象の攻撃力-40%（3ターン）。,move_effect
+"Soulweight: target -1 Speed stage, 2t.",魂の重み：対象の素早さ-1段階（2ターン）。,move_effect
+"Soulweight: target -1 Speed stage and -30% Attack, 3t.",魂の重み：対象の素早さ-1段階と攻撃力-30%（3ターン）。,move_effect
+"Soulweight: target -1 Speed stage and -35% Attack, 3t.",魂の重み：対象の素早さ-1段階と攻撃力-35%（3ターン）。,move_effect
+"Once per battle: survive with 1 HP, then user -45% Defense, 2t.",戦闘中1回：HP1で耐え、その後使用者の防御力-45%（2ターン）。,move_effect
+Once per battle: the first killing blow this battle leaves the user at 1 HP instead.,戦闘中1回：この戦闘で最初の致死ダメージを受けても、使用者のHPは1で残る。,move_effect
+Damage; ignores 30% of target Defense.,ダメージ；対象の防御力の30%を無視する。,move_effect
+"Reflected Doubt: target -25% Attack, 2t.",映し返された疑念：対象の攻撃力-25%（2ターン）。,move_effect
+"Copy the target's newest buff to self; Reflected Doubt: target -30% Attack, 3t.",対象の最新のバフを自身にコピーする；映し返された疑念：対象の攻撃力-30%（3ターン）。,move_effect
+"Copy the target's newest buff to self; Reflected Doubt: target -35% Attack, 3t.",対象の最新のバフを自身にコピーする；映し返された疑念：対象の攻撃力-35%（3ターン）。,move_effect
+"The next creature to hit the user gains Hollow Gaze: -25% Attack, 2t.",使用者を次に攻撃したクリーチャーにうつろな眼差しを付与：攻撃力-25%（2ターン）。,move_effect
+"The next creature to hit the user gains Hollow Gaze: target -45% Attack, 3t.",使用者を次に攻撃したクリーチャーにうつろな眼差しを付与：対象の攻撃力-45%（3ターン）。,move_effect
+"The next creature to hit the user gains Hollow Gaze: target -50% Attack, 3t.",使用者を次に攻撃したクリーチャーにうつろな眼差しを付与：対象の攻撃力-50%（3ターン）。,move_effect
+"Damage; Windshorn: target -10% Defense, 2t.",ダメージ；風刈り：対象の防御力-10%（2ターン）。,move_effect
+"Damage; Windshorn: target -10% Defense, 3t.",ダメージ；風刈り：対象の防御力-10%（3ターン）。,move_effect
+"Damage; Windshorn: target -15% Defense, 3t.",ダメージ；風刈り：対象の防御力-15%（3ターン）。,move_effect
+"Damage; Razor Draft: target bleeds 4% max HP/turn, 3t.",ダメージ；剃刀の風：対象は毎ターン最大HPの4%の出血ダメージを受ける（3ターン）。,move_effect
+"Damage; Razor Draft: target bleeds 5% max HP/turn, 3t.",ダメージ；剃刀の風：対象は毎ターン最大HPの5%の出血ダメージを受ける（3ターン）。,move_effect
+Damage; +20% more vs targets with Ashlung.,ダメージ；灰肺状態の対象にはさらに+20%。,move_effect
+Damage; +30% more vs targets with Ashlung.,ダメージ；灰肺状態の対象にはさらに+30%。,move_effect
+Damage; +40% more vs targets with Ashlung.,ダメージ；灰肺状態の対象にはさらに+40%。,move_effect
+"cleanse 1 debuff; +35% Defense (self, 3t).",デバフ1個を解除する；防御力+35%（自身、3ターン）。,move_effect
+"Cleanse up to 2 self debuffs; +50% Defense (self, 3t).",自身のデバフを最大2個解除する；防御力+50%（自身、3ターン）。,move_effect
+"Cleanse all self debuffs; +50% Defense (self, 3t).",自身のデバフをすべて解除する；防御力+50%（自身、3ターン）。,move_effect
+"Ashlung: target -25% Attack, 2t.",灰肺：対象の攻撃力-25%（2ターン）。,move_effect
+"Ashlung: target -30% Attack, 3t.",灰肺：対象の攻撃力-30%（3ターン）。,move_effect
+"Ashlung: target -40% Attack, 3t.",灰肺：対象の攻撃力-40%（3ターン）。,move_effect
+Damage; +20% more vs targets below 50% HP.,ダメージ；HPが50%未満の対象にはさらに+20%。,move_effect
+Damage; +30% more vs targets below 50% HP.,ダメージ；HPが50%未満の対象にはさらに+30%。,move_effect
+Damage; +40% more vs targets below 50% HP.,ダメージ；HPが50%未満の対象にはさらに+40%。,move_effect
+"Branded: 7%/turn, 2t.",烙印：毎ターン7%（2ターン）。,move_effect
+"The next creature to hit the user gains Branded: target takes 7% max HP/turn, 3t.",使用者を次に攻撃したクリーチャーに烙印を付与：対象は毎ターン最大HPの7%のダメージを受ける（3ターン）。,move_effect
+"The next creature to hit the user gains Branded: target takes 9% max HP/turn, 3t.",使用者を次に攻撃したクリーチャーに烙印を付与：対象は毎ターン最大HPの9%のダメージを受ける（3ターン）。,move_effect
+"Damage; Cindered: target -10% Defense, 2t.",ダメージ；燃え殻：対象の防御力-10%（2ターン）。,move_effect
+"Damage; Cindered: target -10% Defense, 3t.",ダメージ；燃え殻：対象の防御力-10%（3ターン）。,move_effect
+"Damage; Cindered: target -15% Defense, 3t.",ダメージ；燃え殻：対象の防御力-15%（3ターン）。,move_effect
+"Damage; Kindling: target takes 4% max HP/turn, 3t.",ダメージ；焚きつけ：対象は毎ターン最大HPの4%のダメージを受ける（3ターン）。,move_effect
+"Damage; Kindling: target takes 5% max HP/turn, 3t.",ダメージ；焚きつけ：対象は毎ターン最大HPの5%のダメージを受ける（3ターン）。,move_effect
+"Self +1 Speed stage, 2t; the next creature to hit the user gains Kindling: 7% max HP/turn, 2t.",自身の素早さ+1段階（2ターン）；使用者を次に攻撃したクリーチャーに焚きつけを付与：毎ターン最大HPの7%のダメージ（2ターン）。,move_effect
+"Self +1 Speed stage, 2t; the next creature to hit the user gains Kindling: 9% max HP/turn, 2t.",自身の素早さ+1段階（2ターン）；使用者を次に攻撃したクリーチャーに焚きつけを付与：毎ターン最大HPの9%のダメージ（2ターン）。,move_effect
+Damage; +10% more per active damage-over-time on the target (max +20%).,ダメージ；対象の継続ダメージ効果ごとにさらに+10%（最大+20%）。,move_effect
+Damage; +10% more per active damage-over-time on the target (max +35%).,ダメージ；対象の継続ダメージ効果ごとにさらに+10%（最大+35%）。,move_effect
+Damage; +15% more per active damage-over-time on the target (max +45%).,ダメージ；対象の継続ダメージ効果ごとにさらに+15%（最大+45%）。,move_effect
+"Damage as 3 hits; each applies Elemental Burn: 3% max HP/turn, 2t.",ダメージ（3ヒット）；各ヒットが元素燃焼を付与する：毎ターン最大HPの3%のダメージ（2ターン）。,move_effect
+"Damage as 3 hits; each applies Elemental Burn: 4% max HP/turn, 2t.",ダメージ（3ヒット）；各ヒットが元素燃焼を付与する：毎ターン最大HPの4%のダメージ（2ターン）。,move_effect
+"Rattled: target -25% Attack, 2t.",動揺：対象の攻撃力-25%（2ターン）。,move_effect
+"Rattled: target -30% Attack and -30% Defense, 2t.",動揺：対象の攻撃力-30%と防御力-30%（2ターン）。,move_effect
+"Rattled: target -35% Attack and -35% Defense, 2t.",動揺：対象の攻撃力-35%と防御力-35%（2ターン）。,move_effect
+"Damage; Rivetburn: target -10% Defense, 2t.",ダメージ；リベット焼け：対象の防御力-10%（2ターン）。,move_effect
+"Damage; Rivetburn: target -10% Defense, 3t.",ダメージ；リベット焼け：対象の防御力-10%（3ターン）。,move_effect
+"Damage; Rivetburn: target -15% Defense, 3t.",ダメージ；リベット焼け：対象の防御力-15%（3ターン）。,move_effect
+"Damage; Leak: 4%/turn, 2t.",ダメージ；漏出：毎ターン4%（2ターン）。,move_effect
+"Damage; Firestorm Leak: target takes 5% max HP/turn, 3t.",ダメージ；火嵐の漏出：対象は毎ターン最大HPの5%のダメージを受ける（3ターン）。,move_effect
+"Damage; Firestorm Leak: target takes 6% max HP/turn, 3t.",ダメージ；火嵐の漏出：対象は毎ターン最大HPの6%のダメージを受ける（3ターン）。,move_effect
+Damage; +25% more if any ally was damaged last turn.,ダメージ；前のターンに味方がダメージを受けていればさらに+25%。,move_effect
+Damage; +40% more if any ally was damaged last turn.,ダメージ；前のターンに味方がダメージを受けていればさらに+40%。,move_effect
+Damage; +50% more if any ally was damaged last turn.,ダメージ；前のターンに味方がダメージを受けていればさらに+50%。,move_effect
+"+50% Defense (self, 3t); if the user was not hit last turn, also +30% Attack, 3t.",防御力+50%（自身、3ターン）；使用者が前のターンに攻撃を受けていなければ、さらに攻撃力+30%（3ターン）。,move_effect
+"+50% Defense (self, 3t); if the user was not hit last turn, also +40% Attack, 3t.",防御力+50%（自身、3ターン）；使用者が前のターンに攻撃を受けていなければ、さらに攻撃力+40%（3ターン）。,move_effect
+"One ally takes -35% damage, 2t.",味方単体の被ダメージ-35%（2ターン）。,move_effect
+"Damage; ignores 20% of target Defense; applies Unquenchable: 5% max HP/turn, 3t.",ダメージ；対象の防御力の20%を無視する；消えぬ炎を付与する：毎ターン最大HPの5%のダメージ（3ターン）。,move_effect
+"Damage; ignores 25% of target Defense; applies Unquenchable: 6% max HP/turn, 3t.",ダメージ；対象の防御力の25%を無視する；消えぬ炎を付与する：毎ターン最大HPの6%のダメージ（3ターン）。,move_effect
+"Unquenchable: target takes 7% max HP/turn, 3t; cannot be cleansed.",消えぬ炎：対象は毎ターン最大HPの7%のダメージを受ける（3ターン）；解除不可。,move_effect
+"Unquenchable: target takes 12% max HP/turn, 3t; cannot be cleansed.",消えぬ炎：対象は毎ターン最大HPの12%のダメージを受ける（3ターン）；解除不可。,move_effect
+"Unquenchable: target takes 15% max HP/turn, 3t; cannot be cleansed.",消えぬ炎：対象は毎ターン最大HPの15%のダメージを受ける（3ターン）；解除不可。,move_effect
+"One ally +35% Attack, 3t.",味方単体の攻撃力+35%（3ターン）。,move_effect
+Damage; +20% more vs targets with Flawed Make.,ダメージ；欠陥品状態の対象にはさらに+20%。,move_effect
+Damage; +30% more vs targets with Flawed Make.,ダメージ；欠陥品状態の対象にはさらに+30%。,move_effect
+Damage; +40% more vs targets with Flawed Make.,ダメージ；欠陥品状態の対象にはさらに+40%。,move_effect
+Transfer up to 2 self debuffs to the target.,自身のデバフを最大2個対象に移す。,move_effect
+Transfer all self debuffs to the target.,自身のデバフをすべて対象に移す。,move_effect
+"Flawed Make: target -25% Defense, 2t.",欠陥品：対象の防御力-25%（2ターン）。,move_effect
+"Flawed Make: target -30% Defense and -30% Attack, 3t.",欠陥品：対象の防御力-30%と攻撃力-30%（3ターン）。,move_effect
+"Flawed Make: target -40% Defense and -35% Attack, 3t.",欠陥品：対象の防御力-40%と攻撃力-35%（3ターン）。,move_effect
+"Damage; Jeered: target -10% Attack, 3t.",ダメージ；野次：対象の攻撃力-10%（3ターン）。,move_effect
+"Damage; Jeered: target -15% Attack, 3t.",ダメージ；野次：対象の攻撃力-15%（3ターン）。,move_effect
+"Damage; Floored: target -1 Speed stage, 2t.",ダメージ；転倒：対象の素早さ-1段階（2ターン）。,move_effect
+"Damage; Gored: 4%/turn, 2t.",ダメージ；突き刺し：毎ターン4%（2ターン）。,move_effect
+"Damage; Gored: target takes 5% max HP/turn, 3t.",ダメージ；突き刺し：対象は毎ターン最大HPの5%のダメージを受ける（3ターン）。,move_effect
+"Damage; Gored: target takes 6% max HP/turn, 3t.",ダメージ；突き刺し：対象は毎ターン最大HPの6%のダメージを受ける（3ターン）。,move_effect
+"Damage; Putrefying: target takes 3% max HP/turn, 3t.",ダメージ；腐敗：対象は毎ターン最大HPの3%のダメージを受ける（3ターン）。,move_effect
+"Damage; Putrefying: target takes 5% max HP/turn, 4t.",ダメージ；腐敗：対象は毎ターン最大HPの5%のダメージを受ける（4ターン）。,move_effect
+"Damage; Putrefying: target takes 6% max HP/turn, 4t.",ダメージ；腐敗：対象は毎ターン最大HPの6%のダメージを受ける（4ターン）。,move_effect
+"Putrefying: 7%/turn, 2t.",腐敗：毎ターン7%（2ターン）。,move_effect
+"Putrefying: target takes 9% max HP/turn, 3t.",腐敗：対象は毎ターン最大HPの9%のダメージを受ける（3ターン）。,move_effect
+"Putrefying: target takes 12% max HP/turn, 3t.",腐敗：対象は毎ターン最大HPの12%のダメージを受ける（3ターン）。,move_effect
+Damage.,ダメージ。,move_effect
++30% damage vs Construct targets.,人造タイプの対象へのダメージ+30%。,move_clause
+Beast allies also gain +10% Defense.,獣タイプの味方も防御力+10%。,move_clause
++40% damage vs Insect targets.,虫タイプの対象へのダメージ+40%。,move_clause
+"Beast allies gain +1 Speed stage, 2t.",獣タイプの味方の素早さ+1段階（2ターン）。,move_clause
++35% damage vs Construct targets.,人造タイプの対象へのダメージ+35%。,move_clause
+Flora allies gain +40% Defense instead.,植物タイプの味方は代わりに防御力+40%を得る。,move_clause
+"Fey and Spectral allies also gain +1 Speed stage, 2t.",妖精・霊体タイプの味方も素早さ+1段階（2ターン）。,move_clause
++30% damage vs Arthropod targets.,節足タイプの対象へのダメージ+30%。,move_clause
++30% damage vs Undead targets.,アンデッドタイプの対象へのダメージ+30%。,move_clause
+"Flora allies gain +15% Defense, 3t.",植物タイプの味方の防御力+15%（3ターン）。,move_clause
++40% damage vs Beast targets.,獣タイプの対象へのダメージ+40%。,move_clause
+Undead allies gain +30% Attack instead.,アンデッドタイプの味方は代わりに攻撃力+30%を得る。,move_clause
++40% damage vs Demon targets.,悪魔タイプの対象へのダメージ+40%。,move_clause
+Fey and Beast allies are healed 10% more.,妖精・獣タイプの味方は回復量が10%増える。,move_clause
+Beast allies gain +30% Attack instead.,獣タイプの味方は代わりに攻撃力+30%を得る。,move_clause
++30% damage vs Mollusk targets.,軟体タイプの対象へのダメージ+30%。,move_clause
++30% damage vs Amphibian targets.,両生タイプの対象へのダメージ+30%。,move_clause
+"Aquatic allies: Soaked targets also take -1 Speed stage, 2t.",水棲タイプの味方：ずぶ濡れの対象は素早さ-1段階（2ターン）も受ける。,move_clause
++30% damage vs Elemental targets.,精霊タイプの対象へのダメージ+30%。,move_clause
++40% damage vs Mollusk targets.,軟体タイプの対象へのダメージ+40%。,move_clause
+Aquatic allies are healed 10% more.,水棲タイプの味方は回復量が10%増える。,move_clause
++40% damage vs Eldritch targets.,異界タイプの対象へのダメージ+40%。,move_clause
++30% damage vs Aquatic targets.,水棲タイプの対象へのダメージ+30%。,move_clause
+Undead and Aquatic allies gain +30% Attack instead.,アンデッド・水棲タイプの味方は代わりに攻撃力+30%を得る。,move_clause
++35% damage vs Fey targets.,妖精タイプの対象へのダメージ+35%。,move_clause
+"Mollusk allies gain +15% Defense, 3t.",軟体タイプの味方の防御力+15%（3ターン）。,move_clause
++30% damage vs Insect targets.,虫タイプの対象へのダメージ+30%。,move_clause
+"Reptile allies gain +10% Attack, 3t.",爬虫タイプの味方の攻撃力+10%（3ターン）。,move_clause
++30% damage vs Beast targets.,獣タイプの対象へのダメージ+30%。,move_clause
+Construct allies take -40% damage instead.,人造タイプの味方は代わりに被ダメージ-40%。,move_clause
++30% damage vs Chimera targets.,キメラタイプの対象へのダメージ+30%。,move_clause
+"Serpent and Chimera allies gain +15% Attack, 3t.",蛇・キメラタイプの味方の攻撃力+15%（3ターン）。,move_clause
++45% damage vs Flora and Ooze targets.,植物・粘体タイプの対象へのダメージ+45%。,move_clause
++30% damage vs Avian targets.,鳥タイプの対象へのダメージ+30%。,move_clause
+"Elemental allies gain +1 Speed stage, 2t.",精霊タイプの味方の素早さ+1段階（2ターン）。,move_clause
++40% damage vs Construct targets.,人造タイプの対象へのダメージ+40%。,move_clause
+"Flora allies gain +10% Defense, 3t.",植物タイプの味方の防御力+10%（3ターン）。,move_clause
+(This move IS the synergy: Fungal-only buff.),（この技自体がシナジー：菌類タイプ専用のバフ）,move_clause
+Flora allies gain +35% Defense instead.,植物タイプの味方は代わりに防御力+35%を得る。,move_clause
+"Parasite allies gain +15% Attack, 3t.",寄生タイプの味方の攻撃力+15%（3ターン）。,move_clause
+Insect allies gain +30% Attack instead.,虫タイプの味方は代わりに攻撃力+30%を得る。,move_clause
+"Fey allies gain +1 Speed stage, 2t.",妖精タイプの味方の素早さ+1段階（2ターン）。,move_clause
+(This move IS the synergy: scales with Insect allies.),（この技自体がシナジー：虫タイプの味方の数で強化される）,move_clause
+Flora allies take -45% damage instead.,植物タイプの味方は代わりに被ダメージ-45%。,move_clause
++45% damage vs Construct targets.,人造タイプの対象へのダメージ+45%。,move_clause
+"Ooze allies gain +15% Defense, 3t.",粘体タイプの味方の防御力+15%（3ターン）。,move_clause
++35% damage vs Arthropod targets.,節足タイプの対象へのダメージ+35%。,move_clause
+Construct and Arthropod allies gain +35% Defense instead.,人造・節足タイプの味方は代わりに防御力+35%を得る。,move_clause
++40% damage vs Spectral targets.,霊体タイプの対象へのダメージ+40%。,move_clause
+"Void allies gain +10% Defense, 3t.",ヴォイドタイプの味方の防御力+10%（3ターン）。,move_clause
++35% damage vs Dragon targets.,竜タイプの対象へのダメージ+35%。,move_clause
+Construct allies take -45% damage instead.,人造タイプの味方は代わりに被ダメージ-45%。,move_clause
+Avian allies gain +1 Speed stage for 3t instead.,鳥タイプの味方は代わりに素早さ+1段階（3ターン）。,move_clause
+"Elemental allies gain +25% Attack, 3t.",精霊タイプの味方の攻撃力+25%（3ターン）。,move_clause
+Duration doubled vs Construct targets.,人造タイプの対象には持続時間が倍になる。,move_clause
++30% damage vs Serpent targets.,蛇タイプの対象へのダメージ+30%。,move_clause
+Avian allies get -45% instead.,鳥タイプの味方は代わりに-45%。,move_clause
++40% damage vs Aquatic targets.,水棲タイプの対象へのダメージ+40%。,move_clause
++35% damage vs Reptile targets.,爬虫タイプの対象へのダメージ+35%。,move_clause
+"Elemental and Dragon allies gain +15% Attack, 3t.",精霊・竜タイプの味方の攻撃力+15%（3ターン）。,move_clause
+"Undead allies gain +20% Attack, 3t when this hits.",命中時、アンデッドタイプの味方の攻撃力+20%（3ターン）。,move_clause
+Undead and Amphibian allies are healed 10% more.,アンデッド・両生タイプの味方は回復量が10%増える。,move_clause
+Duration doubled vs Insect targets.,虫タイプの対象には持続時間が倍になる。,move_clause
+(This move IS the synergy: Undead-focused buff.),（この技自体がシナジー：アンデッドタイプ重視のバフ）,move_clause
+Amphibian allies are healed 15% more.,両生タイプの味方は回復量が15%増える。,move_clause
+Horror allies gain +25%/+25% instead.,怪異タイプの味方は代わりに+25%/+25%を得る。,move_clause
+Undead allies take -40% damage instead.,アンデッドタイプの味方は代わりに被ダメージ-40%。,move_clause
+"Fungal allies gain +15% Defense, 3t.",菌類タイプの味方の防御力+15%（3ターン）。,move_clause
+Fungal allies gain +35% Attack instead.,菌類タイプの味方は代わりに攻撃力+35%を得る。,move_clause
++30% damage vs Void targets.,ヴォイドタイプの対象へのダメージ+30%。,move_clause
+Spectral allies: the ward repeats once more.,霊体タイプの味方：守りがもう一度繰り返される。,move_clause
++35% damage vs Aquatic targets.,水棲タイプの対象へのダメージ+35%。,move_clause
+"Aberration allies gain +15% Attack, 3t.",異形タイプの味方の攻撃力+15%（3ターン）。,move_clause
++30% damage vs Aberration targets.,異形タイプの対象へのダメージ+30%。,move_clause
++30% damage vs Parasite targets.,寄生タイプの対象へのダメージ+30%。,move_clause
++30% damage vs Fey targets.,妖精タイプの対象へのダメージ+30%。,move_clause
+Fungal allies are healed 15% more.,菌類タイプの味方は回復量が15%増える。,move_clause
++35% damage vs Horror targets.,怪異タイプの対象へのダメージ+35%。,move_clause
++35% damage vs Vampiric targets.,吸血タイプの対象へのダメージ+35%。,move_clause
++30% damage vs Vampiric targets.,吸血タイプの対象へのダメージ+30%。,move_clause
+"Vampiric allies gain +15% Attack, 3t.",吸血タイプの味方の攻撃力+15%（3ターン）。,move_clause
+"Construct allies gain +15% Defense, 3t.",人造タイプの味方の防御力+15%（3ターン）。,move_clause
++45% damage vs Flora targets.,植物タイプの対象へのダメージ+45%。,move_clause
++40% damage vs Fungal targets.,菌類タイプの対象へのダメージ+40%。,move_clause
+Construct allies take -50% damage instead.,人造タイプの味方は代わりに被ダメージ-50%。,move_clause
++35% damage vs Celestial targets.,天界タイプの対象へのダメージ+35%。,move_clause
+Elemental and Demon allies gain +40% Attack instead.,精霊・悪魔タイプの味方は代わりに攻撃力+40%を得る。,move_clause
+"Celestial and Eldritch allies gain +15% Attack, 3t.",天界・異界タイプの味方の攻撃力+15%（3ターン）。,move_clause
++5% Defense while above 50% HP.,HPが50%を超えている間、防御力+5%。,soul
+This armour's Defense ×1.35.,この防具の防御力×1.35。,soul
+Attackers that hit you take 4% of their damage back.,自分を攻撃した相手は、与えたダメージの4%を受ける。,soul
+Allies take -3% damage while at full HP.,味方のHPが満タンの間、被ダメージ-3%。,soul
++4% Attack.,攻撃力+4%。,soul
++5% Attack on the first turn of battle.,戦闘の最初のターンに、攻撃力+5%。,soul
+This item's Defense contribution ×1.35.,このアイテムの防御力への寄与×1.35。,soul
+Allies' debuffs on enemies last +1 turn on the first turn.,最初のターン、味方が敵に与えるデバフの持続+1ターン。,soul
+Debuffs on you expire 10% sooner.,自分にかかったデバフは10%早く切れる。,soul
++5% Defense.,防御力+5%。,soul
+Allies +2% Defense.,味方の防御力+2%。,soul
+Allies' healing received +2%.,味方の被回復量+2%。,soul
++5% HP.,HP+5%。,soul
+Your damage-over-time effects deal +6%.,自分の継続ダメージ効果のダメージ+6%。,soul
++6% Attack vs targets with reduced Speed stages.,素早さ段階が下がっている対象に対して、攻撃力+6%。,soul
++6% HP.,HP+6%。,soul
+This item's Defense contribution ×1.40.,このアイテムの防御力への寄与×1.40。,soul
+Allies deal +5% on the first turn.,最初のターンに、味方の与ダメージ+5%。,soul
++6% Defense.,防御力+6%。,soul
+This armour's Defense ×1.40.,この防具の防御力×1.40。,soul
++6% Attack while below 50% HP.,HPが50%未満の間、攻撃力+6%。,soul
+Allies take -12% damage from damage-over-time.,味方が継続ダメージから受けるダメージ-12%。,soul
+Healing you receive +10%.,自分が受ける回復量+10%。,soul
+Your damage-over-time effects deal +7%.,自分の継続ダメージ効果のダメージ+7%。,soul
++7% Attack vs targets below 40% HP.,HPが40%未満の対象に対して、攻撃力+7%。,soul
++7% HP.,HP+7%。,soul
+This item's Defense contribution ×1.45.,このアイテムの防御力への寄与×1.45。,soul
+Allies deal +5% vs targets with reduced Attack.,攻撃力が下がっている対象に対して、味方の与ダメージ+5%。,soul
++6% Attack vs targets below 50% HP.,HPが50%未満の対象に対して、攻撃力+6%。,soul
+Your debuffs last +1 turn.,自分のデバフの持続+1ターン。,soul
+Allies deal +6% vs targets below 50% HP.,HPが50%未満の対象に対して、味方の与ダメージ+6%。,soul
+Allies' healing received +7%.,味方の被回復量+7%。,soul
++8% HP.,HP+8%。,soul
+Your buffs on allies last +1 turn.,自分が味方にかけたバフの持続+1ターン。,soul
+This item's Defense contribution ×1.52.,このアイテムの防御力への寄与×1.52。,soul
++5% Defense while you have a Defense buff.,防御バフがある間、防御力+5%。,soul
+Allies +2% Defense on the first turn.,最初のターンに、味方の防御力+2%。,soul
++5% Attack vs targets with a damage-over-time effect.,継続ダメージ効果を受けている対象に対して、攻撃力+5%。,soul
+Allies' bleed effects deal +4%.,味方の出血効果のダメージ+4%。,soul
+Your status debuffs are +6% more potent.,自分の状態異常デバフの効果+6%。,soul
+Enemy Attack debuffs from allies last +1 turn.,味方が敵に与える攻撃力デバフの持続+1ターン。,soul
++5% Attack on Heavy and Nuke moves.,ヘビー技とニューク技の攻撃力+5%。,soul
++6% Attack while above 70% HP.,HPが70%を超えている間、攻撃力+6%。,soul
+Allies' first hit each battle deals +9%.,各戦闘で味方の最初の攻撃のダメージ+9%。,soul
+Allies' healing received +3%.,味方の被回復量+3%。,soul
+Your heals restore +10% more.,自分の回復技の回復量+10%。,soul
++7% Defense while below 50% HP.,HPが50%未満の間、防御力+7%。,soul
+This armour's Defense ×1.45.,この防具の防御力×1.45。,soul
+Attackers that hit you take 5% of their damage back.,自分を攻撃した相手は、与えたダメージの5%を受ける。,soul
+Allies take -2% damage.,味方の被ダメージ-2%。,soul
++7% Attack on the first turn.,最初のターンに、攻撃力+7%。,soul
+Allies deal +4% vs Spectral and Void targets.,霊体・ヴォイドタイプの対象に対して、味方の与ダメージ+4%。,soul
++7% Attack while above 70% HP.,HPが70%を超えている間、攻撃力+7%。,soul
+This armour's Defense ×1.52.,この防具の防御力×1.52。,soul
+Your multi-hit moves deal +8%.,自分の連続ヒット技のダメージ+8%。,soul
+Allies +3% Defense.,味方の防御力+3%。,soul
+Allies deal +3% vs debuffed targets.,デバフ状態の対象に対して、味方の与ダメージ+3%。,soul
++9% HP.,HP+9%。,soul
+This item's Defense contribution ×1.60.,このアイテムの防御力への寄与×1.60。,soul
+Allies' debuffs last +1 turn.,味方のデバフの持続+1ターン。,soul
+Enemy Attack debuffs you apply are +7% more potent.,自分が敵に与える攻撃力デバフの効果+7%。,soul
+Allies take -4% damage on the first turn.,最初のターンに、味方の被ダメージ-4%。,soul
++6% Attack at or above 70% HP.,HPが70%以上の間、攻撃力+6%。,soul
+Your Defense debuffs are +6% more potent.,自分の防御力デバフの効果+6%。,soul
++4% Attack vs debuffed targets.,デバフ状態の対象に対して、攻撃力+4%。,soul
+Allies deal +4% vs targets with reduced Defense.,防御力が下がっている対象に対して、味方の与ダメージ+4%。,soul
++5% Attack on the first turn.,最初のターンに、攻撃力+5%。,soul
+Allies' first hit each battle deals +4%.,各戦闘で味方の最初の攻撃のダメージ+4%。,soul
++5% Attack while untouched this battle.,この戦闘でまだ攻撃を受けていない間、攻撃力+5%。,soul
+Allies take -2% damage on the first turn.,最初のターンに、味方の被ダメージ-2%。,soul
+Debuffs on you expire 12% sooner.,自分にかかったデバフは12%早く切れる。,soul
+Allies' damage-over-time effects deal +10%.,味方の継続ダメージ効果のダメージ+10%。,soul
++6% Attack vs targets with a damage-over-time effect.,継続ダメージ効果を受けている対象に対して、攻撃力+6%。,soul
+Your damage-over-time effects deal +8%.,自分の継続ダメージ効果のダメージ+8%。,soul
+Allies' burn-type effects deal +12%.,味方の火傷系効果のダメージ+12%。,soul
++7% Defense.,防御力+7%。,soul
+Allies +4% Defense while above 50% HP.,味方のHPが50%を超えている間、防御力+4%。,soul
+Allies' Attack debuffs on enemies are +12% more potent.,味方が敵に与える攻撃力デバフの効果+12%。,soul
+Debuffs on you expire 15% sooner.,自分にかかったデバフは15%早く切れる。,soul
+Allies' damage-over-time effects last +1 turn.,味方の継続ダメージ効果の持続+1ターン。,soul
++5% Defense while you have not attacked this turn.,このターンまだ攻撃していない間、防御力+5%。,soul
+Your damage-over-time effects last +1 turn.,自分の継続ダメージ効果の持続+1ターン。,soul
+Fungal allies deal +6%.,菌類タイプの味方の与ダメージ+6%。,soul
++5% Attack vs targets with reduced Speed stages.,素早さ段階が下がっている対象に対して、攻撃力+5%。,soul
+Allies deal +9% vs targets with reduced Speed stages.,素早さ段階が下がっている対象に対して、味方の与ダメージ+9%。,soul
+Your attacks that heal you restore +10% more.,自分を回復する攻撃の回復量+10%。,soul
+Your damage-over-time effects are +7% more potent.,自分の継続ダメージ効果の威力+7%。,soul
++6% Attack on the first turn.,最初のターンに、攻撃力+6%。,soul
++6% Attack while any ally is an Insect.,味方に虫タイプがいる間、攻撃力+6%。,soul
+Insect allies deal +6%.,虫タイプの味方の与ダメージ+6%。,soul
+Insect allies' damage-over-time effects deal +7%.,虫タイプの味方の継続ダメージ効果のダメージ+7%。,soul
+Allies' healing received +8%.,味方の被回復量+8%。,soul
+This armour's Defense ×1.60.,この防具の防御力×1.60。,soul
++10% Defense.,防御力+10%。,soul
+Allies +4% Defense.,味方の防御力+4%。,soul
++5% Attack vs targets that acted before you this turn.,このターン自分より先に行動した対象に対して、攻撃力+5%。,soul
+Allies take -3% damage from multi-hit moves.,味方が連続ヒット技から受けるダメージ-3%。,soul
++7% Attack at or above 70% HP.,HPが70%以上の間、攻撃力+7%。,soul
+Your Speed-stage debuffs last +1 turn.,自分の素早さ段階デバフの持続+1ターン。,soul
+Construct and Arthropod allies +6% Defense.,人造・節足タイプの味方の防御力+6%。,soul
+Your attacks that heal you restore +12% more.,自分を回復する攻撃の回復量+12%。,soul
+Allies' attacks that heal them restore +9% more.,味方自身を回復する攻撃の回復量+9%。,soul
+Allies take -4% damage from Spectral and Fey enemies.,味方が霊体・妖精タイプの敵から受けるダメージ-4%。,soul
+Allies take -5% damage while above 50% HP.,味方のHPが50%を超えている間、被ダメージ-5%。,soul
++8% Attack vs targets with a damage-over-time effect.,継続ダメージ効果を受けている対象に対して、攻撃力+8%。,soul
+Your damage-over-time effects deal +10%.,自分の継続ダメージ効果のダメージ+10%。,soul
+Allies' burn-type effects last +1 turn.,味方の火傷系効果の持続+1ターン。,soul
++4% Attack on the first turn.,最初のターンに、攻撃力+4%。,soul
++5% Attack vs targets you have debuffed.,自分がデバフを与えた対象に対して、攻撃力+5%。,soul
+Elemental allies deal +5%.,精霊タイプの味方の与ダメージ+5%。,soul
+Enemy Attack debuffs you apply are +6% more potent.,自分が敵に与える攻撃力デバフの効果+6%。,soul
+Allies take -3% damage from Construct enemies.,味方が人造タイプの敵から受けるダメージ-3%。,soul
+Avian allies take -5% damage.,鳥タイプの味方の被ダメージ-5%。,soul
++6% Attack while untouched this battle.,この戦闘でまだ攻撃を受けていない間、攻撃力+6%。,soul
+Your multi-hit moves deal +9%.,自分の連続ヒット技のダメージ+9%。,soul
+Allies' Attack and Defense debuffs on enemies are +10% more potent.,味方が敵に与える攻撃力・防御力デバフの効果+10%。,soul
+Your Speed-stage effects last +1 turn.,自分の素早さ段階効果の持続+1ターン。,soul
+Allies deal +6% on the first turn.,最初のターンに、味方の与ダメージ+6%。,soul
++8% Attack vs targets with reduced Speed stages.,素早さ段階が下がっている対象に対して、攻撃力+8%。,soul
+Elemental and Dragon allies deal +7%.,精霊・竜タイプの味方の与ダメージ+7%。,soul
++5% Attack the turn after gaining a Defense buff.,防御バフを得た次のターン、攻撃力+5%。,soul
+Allies take -9% damage from damage-over-time.,味方が継続ダメージから受けるダメージ-9%。,soul
+Allies' Attack debuffs on enemies last +1 turn.,味方が敵に与える攻撃力デバフの持続+1ターン。,soul
+Undead allies deal +5%.,アンデッドタイプの味方の与ダメージ+5%。,soul
+Undead and Amphibian allies +5% Defense.,アンデッド・両生タイプの味方の防御力+5%。,soul
+Your Speed-stage debuffs are +7% more potent.,自分の素早さ段階デバフの効果+7%。,soul
+Allies' first attack each battle deals +9%.,各戦闘で味方の最初の攻撃のダメージ+9%。,soul
+Allies take -4% damage from Beast enemies.,味方が獣タイプの敵から受けるダメージ-4%。,soul
+Undead allies deal +6%.,アンデッドタイプの味方の与ダメージ+6%。,soul
+Your heals restore +12% more.,自分の回復技の回復量+12%。,soul
+Amphibian and Horror allies +6% Defense.,両生・怪異タイプの味方の防御力+6%。,soul
++8% Attack vs targets with no active buffs.,有効なバフがない対象に対して、攻撃力+8%。,soul
+Your buff-removal effects also deal 5% of target max HP.,自分のバフ除去効果は対象の最大HPの5%のダメージも与える。,soul
+Allies take -3% damage while the enemy has no active buffs.,敵に有効なバフがない間、味方の被ダメージ-3%。,soul
+Enemy debuffs you apply are +6% more potent.,自分が敵に与えるデバフの効果+6%。,soul
+Fungal allies +5% Defense.,菌類タイプの味方の防御力+5%。,soul
+Enemy buffs expire 1 turn sooner when you debuff them.,自分がデバフを与えた敵のバフは1ターン早く切れる。,soul
+Allies' Attack debuffs on enemies are +10% more potent.,味方が敵に与える攻撃力デバフの効果+10%。,soul
+Your Attack debuffs are +7% more potent.,自分の攻撃力デバフの効果+7%。,soul
+The first hit against you each battle deals -10%.,各戦闘で自分への最初の攻撃のダメージ-10%。,soul
++6% Attack vs targets with reduced Attack.,攻撃力が下がっている対象に対して、攻撃力+6%。,soul
+Allies' debuffs expire 20% sooner.,味方にかかったデバフは20%早く切れる。,soul
++7% Attack vs targets with reduced Speed stages.,素早さ段階が下がっている対象に対して、攻撃力+7%。,soul
+Fungal allies +7% Defense and deal +5%.,菌類タイプの味方の防御力+7%、与ダメージ+5%。,soul
++8% Attack vs debuffed targets.,デバフ状態の対象に対して、攻撃力+8%。,soul
+Your multi-hit and grip moves deal +10%.,自分の連続ヒット技と掴み技のダメージ+10%。,soul
+Your bleed effects deal +6%.,自分の出血効果のダメージ+6%。,soul
+Enemy healing received -5% while any ally is Vampiric.,味方に吸血タイプがいる間、敵の被回復量-5%。,soul
+Construct allies +5% Defense.,人造タイプの味方の防御力+5%。,soul
+Allies' bleed effects deal +10%.,味方の出血効果のダメージ+10%。,soul
+Allies take -4% damage from multi-hit moves.,味方が連続ヒット技から受けるダメージ-4%。,soul
++7% Attack vs targets below 50% HP.,HPが50%未満の対象に対して、攻撃力+7%。,soul
+Allies deal +5% vs targets below 50% HP.,HPが50%未満の対象に対して、味方の与ダメージ+5%。,soul
++6% Attack vs targets with any active buff.,バフが有効な対象に対して、攻撃力+6%。,soul
+"Your buff-steal and buff-removal effects also grant you +5% Attack, 1t.",自分のバフ奪取・バフ除去効果は攻撃力+5%（1ターン）も得る。,soul
+Allies deal +8% vs buffed targets.,バフ状態の対象に対して、味方の与ダメージ+8%。,soul
+Vampiric allies' attacks that heal them restore +7% more.,吸血タイプの味方自身を回復する攻撃の回復量+7%。,soul
+Allies take -8% damage while below 25% HP.,味方のHPが25%未満の間、被ダメージ-8%。,soul
+Enemy Attack debuffs you apply are +8% more potent.,自分が敵に与える攻撃力デバフの効果+8%。,soul
+Your buff-copy and buff-steal effects last +1 turn.,自分のバフコピー・バフ奪取効果の持続+1ターン。,soul
+Allies take -5% damage from Spectral and Horror enemies.,味方が霊体・怪異タイプの敵から受けるダメージ-5%。,soul
+Your burn-type effects are +7% more potent.,自分の火傷系効果の威力+7%。,soul
+Allies' burn-type effects deal +10%.,味方の火傷系効果のダメージ+10%。,soul
++6% Attack while you have a damage-over-time on the enemy.,敵に継続ダメージ効果を与えている間、攻撃力+6%。,soul
+Construct allies +6% Defense.,人造タイプの味方の防御力+6%。,soul
++7% Attack while below 50% HP.,HPが50%未満の間、攻撃力+7%。,soul
++7% Defense while you did not attack last turn.,前のターンに攻撃しなかった間、防御力+7%。,soul
++7% Attack the turn after an ally was damaged.,味方がダメージを受けた次のターン、攻撃力+7%。,soul
+Your damage-over-time effects are +10% more potent.,自分の継続ダメージ効果の威力+10%。,soul
+Elemental and Demon allies deal +7%.,精霊・悪魔タイプの味方の与ダメージ+7%。,soul
+Your debuffs are +10% more potent.,自分のデバフの効果+10%。,soul
+Allies' debuffs on enemies are +12% more potent.,味方が敵に与えるデバフの効果+12%。,soul
+Fey and Beast allies deal +7%.,妖精・獣タイプの味方の与ダメージ+7%。,soul
++8% Attack while below 50% HP.,HPが50%未満の間、攻撃力+8%。,soul
+Reptile and Dragon allies deal +7%.,爬虫・竜タイプの味方の与ダメージ+7%。,soul
+Ooze and Undead allies +5% Defense.,粘体・アンデッドタイプの味方の防御力+5%。,soul

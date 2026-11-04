@@ -2687,3 +2687,952 @@ Seep,渗出,move
 Corpse Seep,尸液渗出,move
 Seep of the Charnel Pit,尸坑渗流,move
 Strike,打击,move
+Starter,初始,class_access
+Unlock,解锁,class_access
+Worn,破旧,grade
+Common,普通,grade
+Uncommon,优秀,grade
+Rare,稀有,grade
+Epic,史诗,grade
+Legendary,传说,grade
+Abyssal,深渊,grade
+Divine,神圣,grade
+Primordial,太古,grade
+The floor,楼层,info
+Win battles in a row to fill the streak counter. A full streak opens the portal up; one loss sets the streak back to zero.,连续赢得战斗即可填满连胜计数。连胜集满后，上行传送门将会开启；输掉一场则连胜归零。,info
+The fight,战斗,info
+"Each round, every fighter on your side picks one move; then the round plays out. Faster creatures act first, and a move's type against the target's type changes how hard it hits.",每回合，你方每名战斗者各选择一个招式，然后本回合开始演算。速度更快的生物先行动，招式类型与目标类型的相克关系会改变伤害高低。,info
+Floor map,楼层地图,info
+"Every floor of the tower, ten per zone. Travel to any floor you have reached; the squares on a row are the creatures that live on that floor.",高塔的每一层，每个区域十层。你可以前往任何已到达的楼层；每一行的方格是栖息在该层的生物。,info
+Inventory,背包,info
+"Your gear. Click a piece to see its stats, wear it or break it down. When the bag is full, new drops cannot come in, so dismantle what you will not use.",你的装备。点击一件装备可查看属性、穿戴或分解。背包已满时，新掉落的物品无法放入，所以请分解用不上的装备。,info
+Soul bag,魂袋,info
+"Every creature and egg you own lives here. Click a creature to open its sheet; click an egg to hatch it. The egg's grade tilts the odds of the hatchling's grade, it does not fix it.",你拥有的所有生物和蛋都存放在这里。点击生物可打开其详情；点击蛋可进行孵化。蛋的品级会影响孵化出的生物的品级概率，但不会将其固定。,info
+Equipment,装备,info
+"Your team is your character and two creatures, and this window is the only place you set it. Change gear any time: a fight already running keeps the gear it started with.",你的队伍由你的角色和两只生物组成，只能在此窗口中设置。你可以随时更换装备：已经开始的战斗仍使用开战时的装备。,info
+Classes,职业,info
+"Your character's class sets its stats and its ultimate. Each class grows through three stages as it levels, and the ultimate is learned partway up.",角色的职业决定其属性和终极技。每个职业会随等级提升经历三个阶段，终极技在途中习得。,info
+"Put two creatures in a pen and it keeps working on its own, spending Ichor over time. Each time the bar fills an egg drops into your bag, and the pen starts again.",把两只生物放进围栏，围栏会自行持续运作，随时间消耗灵液。进度条每次填满，就会有一枚蛋掉入你的背包，然后围栏重新开始。,info
+Codex,图鉴,info
+"Every creature in the tower, in order. A ???? card is a creature you have not found yet. The top row lists what the next boss can drop.",高塔中的所有生物，按顺序排列。显示“????”的卡片是你尚未发现的生物。最上面一行列出下一个首领可能掉落的物品。,info
+PvP arena,PvP 竞技场,info
+"Auto PvP attacks a saved copy of another player's team, so they do not need to be online; your own team defends the same way. Competitive PvP is live, against a player who is there.",自动 PvP 会攻击另一名玩家队伍的存档副本，因此对方无需在线；你自己的队伍也以同样的方式防守。竞技 PvP 是实时对战，对手本人就在场。,info
+Rankings,排行榜,info
+"The boards for Auto PvP and Competitive PvP, side by side. Pick PVP or PVE at the top to switch boards.",自动 PvP 和竞技 PvP 的榜单并排显示。在顶部选择 PVP 或 PVE 即可切换榜单。,info
+Settings,设置,info
+Every choice here is saved with your account and follows you to any device you play on.,这里的每项选择都会随账号保存，并跟随你到任何游玩的设备上。,info
+Premium shop,高级商店,info
+"Wraithgold is the premium currency. It is bought here in the shop; no one starts with any. Spend it on boosts. A boost with a duration counts down from the moment you buy it, and its card shows whether it is running.",Wraithgold 是高级货币，在此商店购买，没有人一开始就拥有。可以用它购买增益道具。带有持续时间的增益从你购买的那一刻起开始倒计时，其卡片会显示它是否正在生效。,info
+Creature sheet,生物详情,info
+"One creature's stats, moves and how it grows. The aptitude shape shows which stats it is best at.",一只生物的属性、招式和成长方式。资质图形显示它最擅长哪些属性。,info
+Character power,角色战力,info
+"Every hero with a saved team is listed by its character power. The server counts it from your saved build once a day, so a change shows after the next daily update.",每位保存了队伍的英雄都按角色战力上榜。服务器每天根据你保存的配装统计一次，因此改动会在下一次每日更新后显示。,info
+Highest climb,最高攀登,info
+Clear floor 1 to be listed. The board ranks the highest floor you have reached and updates once a day.,通关第1层即可上榜。榜单按你到达的最高层数排名，每天更新一次。,info
+Every hero with a class soul and a creature in the team is listed at the next daily update - at 1500 until your Auto PvP fights move the rating.,每位队伍中拥有职业魂和生物的英雄，将在下一次每日更新时上榜——在你的自动 PvP 战斗改变评分之前，评分为1500。,info
+Play one Competitive PvP match to get a rating. The board shows it after the next daily update.,进行一场竞技 PvP 对战即可获得评分。榜单会在下一次每日更新后显示。,info
+"Damage; Sunder Plate: target -10% Defense, 2t.",造成伤害；破甲：目标防御-10%，持续2回合。,move_effect
+"Damage; Sunder Plate: target -25% Defense, 3t.",造成伤害；破甲：目标防御-25%，持续3回合。,move_effect
+"Damage; Sunder Plate: target -30% Defense, 3t.",造成伤害；破甲：目标防御-30%，持续3回合。,move_effect
+Damage only.,仅造成伤害。,move_effect
+Damage; ignores 10% of target Defense.,造成伤害；无视目标10%的防御。,move_effect
+Damage; ignores 15% of target Defense.,造成伤害；无视目标15%的防御。,move_effect
+"Damage; Impale: target bleeds 3% max HP/turn, 2t.",造成伤害；穿刺：目标流血，每回合损失最大HP的3%，持续2回合。,move_effect
+"Damage; Impale: target bleeds 5% max HP/turn, 3t.",造成伤害；穿刺：目标流血，每回合损失最大HP的5%，持续3回合。,move_effect
+"Damage; Impale: target bleeds 6% max HP/turn, 3t.",造成伤害；穿刺：目标流血，每回合损失最大HP的6%，持续3回合。,move_effect
+"+45% Defense (self, 3t).",自身防御+45%，持续3回合。,move_effect
+"+50% Defense (self, 3t); attackers take Quillprick: 9% max HP over 3t.",自身防御+50%，持续3回合；攻击者受到刺扎：3回合内共损失最大HP的9%。,move_effect
+"+50% Defense (self, 3t); attackers take Quillprick: 12% max HP over 3t.",自身防御+50%，持续3回合；攻击者受到刺扎：3回合内共损失最大HP的12%。,move_effect
+"Damage; Pall: target -10% Attack, 2t.",造成伤害；阴霾：目标攻击-10%，持续2回合。,move_effect
+"Damage; Pall: target -15% Attack, 3t.",造成伤害；阴霾：目标攻击-15%，持续3回合。,move_effect
+"Damage; Pall: target -25% Attack, 3t.",造成伤害；阴霾：目标攻击-25%，持续3回合。,move_effect
+"Damage; Harried: target -1 Speed stage, 2t.",造成伤害；困扰：目标速度-1级，持续2回合。,move_effect
+Damage; +15% more if user acted before the target this turn.,造成伤害；若本回合自身先于目标行动，伤害额外+15%。,move_effect
+Damage; +20% more if user acted before the target this turn.,造成伤害；若本回合自身先于目标行动，伤害额外+20%。,move_effect
+"Blinding Dust: target -25% Attack, 2t.",致盲尘：目标攻击-25%，持续2回合。,move_effect
+"Blinding Dust: target -30% Attack, 3t.",致盲尘：目标攻击-30%，持续3回合。,move_effect
+"Blinding Dust: target -40% Attack, 3t.",致盲尘：目标攻击-40%，持续3回合。,move_effect
+"Damage; Buried: target -10% Defense, 2t.",造成伤害；掩埋：目标防御-10%，持续2回合。,move_effect
+"Damage; Buried: target -25% Defense, 3t.",造成伤害；掩埋：目标防御-25%，持续3回合。,move_effect
+"Damage; Buried: target -30% Defense, 3t.",造成伤害；掩埋：目标防御-30%，持续3回合。,move_effect
+"Damage; Sinkstep: target -1 Speed stage, 2t.",造成伤害；沉步：目标速度-1级，持续2回合。,move_effect
+"Damage; Sinkstep: target -1 Speed stage, 3t.",造成伤害；沉步：目标速度-1级，持续3回合。,move_effect
+"+50% Defense (self, 3t); cleanse 1 debuff.",自身防御+50%，持续3回合；净化1个减益。,move_effect
+Damage; all allies cleanse 1 debuff.,造成伤害；全体友方净化1个减益。,move_effect
+"Damage; Nettle: target takes 4% max HP/turn, 3t.",造成伤害；荨麻：目标每回合受到最大HP的4%伤害，持续3回合。,move_effect
+"Damage; Nettle: target takes 5% max HP/turn, 3t.",造成伤害；荨麻：目标每回合受到最大HP的5%伤害，持续3回合。,move_effect
+"One ally +35% Defense, 3t.",一名友方防御+35%，持续3回合。,move_effect
+"All allies +50% Defense, 3t.",全体友方防御+50%，持续3回合。,move_effect
+"Snare: target -1 Speed stage, 2t.",诱捕：目标速度-1级，持续2回合。,move_effect
+"Snare: target -2 Speed stages, 3t.",诱捕：目标速度-2级，持续3回合。,move_effect
+Damage; +25% more vs targets with a reduced Speed stage.,造成伤害；对速度被降低的目标，伤害额外+25%。,move_effect
+Damage; +40% more vs targets with a reduced Speed stage.,造成伤害；对速度被降低的目标，伤害额外+40%。,move_effect
+Damage; +50% more vs targets with a reduced Speed stage.,造成伤害；对速度被降低的目标，伤害额外+50%。,move_effect
+"Damage; Dread: target -10% Attack, 3t.",造成伤害；畏惧：目标攻击-10%，持续3回合。,move_effect
+"Damage; Dread: target -15% Attack, 3t.",造成伤害；畏惧：目标攻击-15%，持续3回合。,move_effect
+Damage; +25% more if user acted before the target this turn.,造成伤害；若本回合自身先于目标行动，伤害额外+25%。,move_effect
+"Self +1 Speed stage, 2t.",自身速度+1级，持续2回合。,move_effect
+"Self +1 Speed stage, 3t.",自身速度+1级，持续3回合。,move_effect
+"Damage; Staggered: target -1 Speed stage, 2t.",造成伤害；踉跄：目标速度-1级，持续2回合。,move_effect
+"+50% Defense (self, 3t); self -1 Speed stage, 2t.",自身防御+50%，持续3回合；自身速度-1级，持续2回合。,move_effect
+"Damage; Rootbound: target -1 Speed stage, 2t.",造成伤害；根缚：目标速度-1级，持续2回合。,move_effect
+"Damage; Rootbound: target -2 Speed stages, 3t.",造成伤害；根缚：目标速度-2级，持续3回合。,move_effect
+"Leech Roots: 7%/turn, 3t.",吸血根：每回合7%，持续3回合。,move_effect
+"Leech Roots: target takes 9% max HP/turn, 3t; user drains the amount siphoned.",吸血根：目标每回合受到最大HP的9%伤害，持续3回合；自身吸收被汲取的生命。,move_effect
+"Leech Roots: target takes 12% max HP/turn, 3t; user drains the amount siphoned.",吸血根：目标每回合受到最大HP的12%伤害，持续3回合；自身吸收被汲取的生命。,move_effect
+"+50% Defense (self, 3t).",自身防御+50%，持续3回合。,move_effect
+"Damage; Throttle: target -10% Attack, 2t.",造成伤害；扼喉：目标攻击-10%，持续2回合。,move_effect
+"Damage; Throttle: target -25% Attack and -1 Speed stage, 3t.",造成伤害；扼喉：目标攻击-25%、速度-1级，持续3回合。,move_effect
+"Damage; Throttle: target -30% Attack and -1 Speed stage, 3t.",造成伤害；扼喉：目标攻击-30%、速度-1级，持续3回合。,move_effect
+Damage; +20% more vs targets below 40% HP.,造成伤害；对HP低于40%的目标，伤害额外+20%。,move_effect
+Damage; +30% more vs targets below 40% HP.,造成伤害；对HP低于40%的目标，伤害额外+30%。,move_effect
+Damage; +35% more vs targets below 40% HP.,造成伤害；对HP低于40%的目标，伤害额外+35%。,move_effect
+"Damage; Garroted: target -10% Attack, 3t.",造成伤害；绞喉：目标攻击-10%，持续3回合。,move_effect
+"Damage; Garroted: target -15% Attack, 3t.",造成伤害；绞喉：目标攻击-15%，持续3回合。,move_effect
+Damage; +20% more vs targets with Knell.,造成伤害；对带有丧钟的目标，伤害额外+20%。,move_effect
+Damage; +30% more vs targets with Knell.,造成伤害；对带有丧钟的目标，伤害额外+30%。,move_effect
+Damage; +40% more vs targets with Knell.,造成伤害；对带有丧钟的目标，伤害额外+40%。,move_effect
+"Knell: +20% damage from all sources, 2t.",丧钟：受到的所有来源伤害+20%，持续2回合。,move_effect
+"Knell: target takes +25% damage from all sources, 3t.",丧钟：目标受到的所有来源伤害+25%，持续3回合。,move_effect
+"Knell: target takes +30% damage from all sources, 3t.",丧钟：目标受到的所有来源伤害+30%，持续3回合。,move_effect
+"One ally +25% Attack, 3t.",一名友方攻击+25%，持续3回合。,move_effect
+"All allies +30% Attack, 3t.",全体友方攻击+30%，持续3回合。,move_effect
+"All allies +40% Attack, 3t.",全体友方攻击+40%，持续3回合。,move_effect
+Heal one ally 25% max HP.,治疗一名友方，恢复其最大HP的25%。,move_effect
+Heal one ally 35% max HP.,治疗一名友方，恢复其最大HP的35%。,move_effect
+Heal one ally 40% max HP.,治疗一名友方，恢复其最大HP的40%。,move_effect
+"One ally +45% Attack, 3t.",一名友方攻击+45%，持续3回合。,move_effect
+"One ally +50% Attack, 3t.",一名友方攻击+50%，持续3回合。,move_effect
+"Damage; Hullscrape: target -10% Defense, 2t.",造成伤害；刮壳：目标防御-10%，持续2回合。,move_effect
+"Damage; Hullscrape: target -15% Defense, 3t.",造成伤害；刮壳：目标防御-15%，持续3回合。,move_effect
+"Damage; Hullscrape: target -25% Defense, 3t.",造成伤害；刮壳：目标防御-25%，持续3回合。,move_effect
+"Damage; Clamped: target -1 Speed stage, 2t.",造成伤害；钳制：目标速度-1级，持续2回合。,move_effect
+"Damage; Clamped: target -1 Speed stage and -10% Attack, 3t.",造成伤害；钳制：目标速度-1级、攻击-10%，持续3回合。,move_effect
+"Damage; Clamped: target -1 Speed stage and -15% Attack, 3t.",造成伤害；钳制：目标速度-1级、攻击-15%，持续3回合。,move_effect
+Damage; +20% more vs targets with any damage-over-time effect.,造成伤害；对带有任意持续伤害效果的目标，伤害额外+20%。,move_effect
+Damage; +30% more vs targets with any damage-over-time effect.,造成伤害；对带有任意持续伤害效果的目标，伤害额外+30%。,move_effect
+Damage; +40% more vs targets with any damage-over-time effect.,造成伤害；对带有任意持续伤害效果的目标，伤害额外+40%。,move_effect
+"Damage; Ragged: target bleeds 3% max HP/turn, 2t.",造成伤害；撕裂：目标流血，每回合损失最大HP的3%，持续2回合。,move_effect
+"Damage; Ragged: target bleeds 4% max HP/turn, 3t.",造成伤害；撕裂：目标流血，每回合损失最大HP的4%，持续3回合。,move_effect
+"Damage; Ragged: target bleeds 5% max HP/turn, 3t.",造成伤害；撕裂：目标流血，每回合损失最大HP的5%，持续3回合。,move_effect
+"Damage; Soaked: target -10% Defense, 2t.",造成伤害；浸湿：目标防御-10%，持续2回合。,move_effect
+"Damage; Soaked: target -15% Defense, 3t.",造成伤害；浸湿：目标防御-15%，持续3回合。,move_effect
+"Damage; Soaked: target -25% Defense, 3t.",造成伤害；浸湿：目标防御-25%，持续3回合。,move_effect
+"Damage; Sting: target -10% Attack, 2t.",造成伤害；蜇刺：目标攻击-10%，持续2回合。,move_effect
+"Damage; Sting: target -15% Attack, 2t.",造成伤害；蜇刺：目标攻击-15%，持续2回合。,move_effect
+"Brineblind: target -25% Attack, 2t.",盐水盲：目标攻击-25%，持续2回合。,move_effect
+"Brineblind: target -30% Attack, 3t.",盐水盲：目标攻击-30%，持续3回合。,move_effect
+"Brineblind: target -40% Attack, 3t.",盐水盲：目标攻击-40%，持续3回合。,move_effect
+"Damage; Scalded: target -10% Defense, 2t.",造成伤害；烫伤：目标防御-10%，持续2回合。,move_effect
+"Damage; Scalded: target -15% Defense, 3t.",造成伤害；烫伤：目标防御-15%，持续3回合。,move_effect
+"Damage; Scalded: target -25% Defense, 3t.",造成伤害；烫伤：目标防御-25%，持续3回合。,move_effect
+Damage; ignores 20% of target Defense.,造成伤害；无视目标20%的防御。,move_effect
+Damage as 2 rapid hits.,分2次连击造成伤害。,move_effect
+Damage as 3 rapid hits.,分3次连击造成伤害。,move_effect
+"Self +35% Attack, 3t.",自身攻击+35%，持续3回合。,move_effect
+"Self +50% Attack, 3t.",自身攻击+50%，持续3回合。,move_effect
+Damage; +20% more vs targets with Lured.,造成伤害；对带有诱引的目标，伤害额外+20%。,move_effect
+Damage; +30% more vs targets with Lured.,造成伤害；对带有诱引的目标，伤害额外+30%。,move_effect
+Damage; +40% more vs targets with Lured.,造成伤害；对带有诱引的目标，伤害额外+40%。,move_effect
+"Lured: target -1 Speed stage, 2t.",诱引：目标速度-1级，持续2回合。,move_effect
+"Lured: target -1 Speed stage and -30% Attack, 3t.",诱引：目标速度-1级、攻击-30%，持续3回合。,move_effect
+"Lured: target -1 Speed stage and -35% Attack, 3t.",诱引：目标速度-1级、攻击-35%，持续3回合。,move_effect
+Damage; +25% more if user has an active Defense buff.,造成伤害；若自身有生效中的防御增益，伤害额外+25%。,move_effect
+Damage; +30% more if user has an active Defense buff.,造成伤害；若自身有生效中的防御增益，伤害额外+30%。,move_effect
+"+45% Defense (self, 2t).",自身防御+45%，持续2回合。,move_effect
+"+50% Defense (self, 2t); heal self 30% max HP.",自身防御+50%，持续2回合；治疗自身，恢复最大HP的30%。,move_effect
+"+50% Defense (self, 2t); heal self 35% max HP.",自身防御+50%，持续2回合；治疗自身，恢复最大HP的35%。,move_effect
+Mired Trail: 2t.,泥径：持续2回合。,move_effect
+"Mired Trail: target -1 Speed stage, 3t.",泥径：目标速度-1级，持续3回合。,move_effect
+"Damage; Numbed: target -1 Speed stage, 2t.",造成伤害；麻木：目标速度-1级，持续2回合。,move_effect
+Damage; ignores 5% of target Defense.,造成伤害；无视目标5%的防御。,move_effect
+"Self +1 Speed stage, 3t; next hit taken -25%.",自身速度+1级，持续3回合；下一次受到的攻击伤害-25%。,move_effect
+"Self +1 Speed stage, 3t; next hit taken -30%.",自身速度+1级，持续3回合；下一次受到的攻击伤害-30%。,move_effect
+Damage as 2 hits.,分2次命中造成伤害。,move_effect
+Damage as 3 hits.,分3次命中造成伤害。,move_effect
+"Damage as 3 hits, one per head.",分3次命中造成伤害，每个头一次。,move_effect
+"Damage; Coral Rot: target -10% Defense, 2t.",造成伤害；珊瑚腐：目标防御-10%，持续2回合。,move_effect
+"Damage; Coral Rot: target -10% Defense, 3t.",造成伤害；珊瑚腐：目标防御-10%，持续3回合。,move_effect
+"Damage; Coral Rot: target -15% Defense, 3t.",造成伤害；珊瑚腐：目标防御-15%，持续3回合。,move_effect
+"Self +50% Attack, 3t; cleanse 1 debuff.",自身攻击+50%，持续3回合；净化1个减益。,move_effect
+Damage; +15% more per debuff on target (max +30%).,造成伤害；目标每有一个减益，伤害额外+15%（最多+30%）。,move_effect
+Damage; +20% more per debuff on target (max +40%).,造成伤害；目标每有一个减益，伤害额外+20%（最多+40%）。,move_effect
+Damage; +25% more per debuff on target (max +50%).,造成伤害；目标每有一个减益，伤害额外+25%（最多+50%）。,move_effect
+"Damage; Salt Curse: target -10% Defense, 2t.",造成伤害；盐咒：目标防御-10%，持续2回合。,move_effect
+"Damage; Salt Curse: target -15% Defense, 3t.",造成伤害；盐咒：目标防御-15%，持续3回合。,move_effect
+"Damage; Salt Curse: target -25% Defense, 3t.",造成伤害；盐咒：目标防御-25%，持续3回合。,move_effect
+"Damage; Pulled Under: target -1 Speed stage, 2t.",造成伤害；拖入水下：目标速度-1级，持续2回合。,move_effect
+"Damage; Pulled Under: target -2 Speed stages, 2t.",造成伤害；拖入水下：目标速度-2级，持续2回合。,move_effect
+"Inkblind: target -25% Attack, 2t.",墨盲：目标攻击-25%，持续2回合。,move_effect
+"Inkblind: target -45% Attack, 3t.",墨盲：目标攻击-45%，持续3回合。,move_effect
+"Inkblind: target -50% Attack, 3t.",墨盲：目标攻击-50%，持续3回合。,move_effect
+"+50% Defense (self, 2t); cleanse 1 debuff.",自身防御+50%，持续2回合；净化1个减益。,move_effect
+Damage; +25% more if user is above 70% HP.,造成伤害；若自身HP高于70%，伤害额外+25%。,move_effect
+Damage; +30% more if user is above 70% HP.,造成伤害；若自身HP高于70%，伤害额外+30%。,move_effect
+"+50% Defense (self, 3t); +30% Attack (self, 3t).",自身防御+50%，持续3回合；自身攻击+30%，持续3回合。,move_effect
+"+50% Defense (self, 3t); +35% Attack (self, 3t).",自身防御+50%，持续3回合；自身攻击+35%，持续3回合。,move_effect
+Damage; +25% more vs targets with Unraveled.,造成伤害；对带有崩解的目标，伤害额外+25%。,move_effect
+Damage; +40% more vs targets with Unraveled.,造成伤害；对带有崩解的目标，伤害额外+40%。,move_effect
+Damage; +50% more vs targets with Unraveled.,造成伤害；对带有崩解的目标，伤害额外+50%。,move_effect
+"Unraveled: target -25% Defense, 2t.",崩解：目标防御-25%，持续2回合。,move_effect
+"Unraveled: target -30% Defense, 3t.",崩解：目标防御-30%，持续3回合。,move_effect
+"Unraveled: target -40% Defense, 3t.",崩解：目标防御-40%，持续3回合。,move_effect
+Omen: +25% damage from the next hit against it.,凶兆：下一次受到攻击的伤害+25%。,move_effect
+Omen: target takes +30% damage from the next hit against it.,凶兆：目标下一次受到攻击的伤害+30%。,move_effect
+Omen: target takes +35% damage from the next hit against it.,凶兆：目标下一次受到攻击的伤害+35%。,move_effect
+"Damage; Venom Grit: 4%/turn, 3t.",造成伤害；毒砂：每回合4%，持续3回合。,move_effect
+"Damage; Venom Grit: target takes 5% max HP/turn, 3t.",造成伤害；毒砂：目标每回合受到最大HP的5%伤害，持续3回合。,move_effect
+"Damage; Venom Grit: target takes 6% max HP/turn, 3t.",造成伤害；毒砂：目标每回合受到最大HP的6%伤害，持续3回合。,move_effect
+"Damage; Coilcrush: target -1 Speed stage, 2t.",造成伤害；缠碾：目标速度-1级，持续2回合。,move_effect
+"Damage; Coilcrush: target -1 Speed stage, 3t.",造成伤害；缠碾：目标速度-1级，持续3回合。,move_effect
+Damage; +30% more if user acted before the target this turn.,造成伤害；若本回合自身先于目标行动，伤害额外+30%。,move_effect
+"Self +1 Speed stage, 3t; next hit taken -15%.",自身速度+1级，持续3回合；下一次受到的攻击伤害-15%。,move_effect
+"Self +1 Speed stage, 3t; next hit taken -20%.",自身速度+1级，持续3回合；下一次受到的攻击伤害-20%。,move_effect
+"Damage; Parched Hope: target -10% Attack, 2t.",造成伤害；干涸之望：目标攻击-10%，持续2回合。,move_effect
+"Damage; Parched Hope: target -15% Attack and -10% Defense, 3t.",造成伤害；干涸之望：目标攻击-15%、防御-10%，持续3回合。,move_effect
+"Damage; Parched Hope: target -25% Attack and -15% Defense, 3t.",造成伤害；干涸之望：目标攻击-25%、防御-15%，持续3回合。,move_effect
+Damage as 2 hits; second hit +25% more vs debuffed targets.,分2次命中造成伤害；对带有减益的目标，第二次命中伤害额外+25%。,move_effect
+Damage as 2 hits; second hit +30% more vs debuffed targets.,分2次命中造成伤害；对带有减益的目标，第二次命中伤害额外+30%。,move_effect
+Next hit taken -25%.,下一次受到的攻击伤害-25%。,move_effect
+Next 2 hits taken -20%.,接下来2次受到的攻击伤害-20%。,move_effect
+Next 2 hits taken -25%.,接下来2次受到的攻击伤害-25%。,move_effect
+"Damage; Scoured: target -10% Attack, 3t.",造成伤害；擦刮：目标攻击-10%，持续3回合。,move_effect
+"Damage; Scoured: target -15% Attack, 3t.",造成伤害；擦刮：目标攻击-15%，持续3回合。,move_effect
+"Damage; Abrade: target -10% Defense, does not stack.",造成伤害；磨蚀：目标防御-10%，不可叠加。,move_effect
+"Damage; Abrade: target -10% Defense, stacks up to 3 times.",造成伤害；磨蚀：目标防御-10%，最多叠加3次。,move_effect
+"Damage; Abrade: target -15% Defense, stacks up to 3 times.",造成伤害；磨蚀：目标防御-15%，最多叠加3次。,move_effect
+"+45% Defense (self, 2t); cleanse 1 debuff.",自身防御+45%，持续2回合；净化1个减益。,move_effect
+"+50% Defense (self, 2t); cleanse up to 2 debuffs.",自身防御+50%，持续2回合；最多净化2个减益。,move_effect
+"+50% Defense (self, 2t); cleanse all debuffs.",自身防御+50%，持续2回合；净化全部减益。,move_effect
+"One ally takes -20% damage, 2t.",一名友方受到的伤害-20%，持续2回合。,move_effect
+"All allies take -20% damage, 2t.",全体友方受到的伤害-20%，持续2回合。,move_effect
+"All allies take -25% damage, 2t.",全体友方受到的伤害-25%，持续2回合。,move_effect
+Damage as 4 hits; each applies 2t of Mothervenom.,分4次命中造成伤害；每次命中附加2回合的母毒。,move_effect
+"Damage; Coiled: target -1 Speed stage, 2t.",造成伤害；盘绕：目标速度-1级，持续2回合。,move_effect
+"Damage; Coiled: target -1 Speed stage, 3t.",造成伤害；盘绕：目标速度-1级，持续3回合。,move_effect
+"Damage; Mothervenom: target takes 4% max HP/turn, 3t.",造成伤害；母毒：目标每回合受到最大HP的4%伤害，持续3回合。,move_effect
+"Damage; Mothervenom: target takes 5% max HP/turn, 3t.",造成伤害；母毒：目标每回合受到最大HP的5%伤害，持续3回合。,move_effect
+"Damage; Scorch: 4%/turn, 2t.",造成伤害；焦灼：每回合4%，持续2回合。,move_effect
+"Damage; Scorch: target takes 5% max HP/turn, 3t.",造成伤害；焦灼：目标每回合受到最大HP的5%伤害，持续3回合。,move_effect
+"Damage; Scorch: target takes 6% max HP/turn, 3t.",造成伤害；焦灼：目标每回合受到最大HP的6%伤害，持续3回合。,move_effect
+"Damage; Cauterized: target's healing received -40%, 3t.",造成伤害；灼封：目标受到的治疗-40%，持续3回合。,move_effect
+"Damage; Cauterized: target's healing received -50%, 3t.",造成伤害；灼封：目标受到的治疗-50%，持续3回合。,move_effect
+"Self +25% Attack, 3t.",自身攻击+25%，持续3回合。,move_effect
+"Self +45% Attack, 3t.",自身攻击+45%，持续3回合。,move_effect
+"Damage; Ruinshock: target -10% Defense, 2t.",造成伤害；毁震：目标防御-10%，持续2回合。,move_effect
+"Damage; Ruinshock: target -15% Defense, 3t.",造成伤害；毁震：目标防御-15%，持续3回合。,move_effect
+"Damage; Ruinshock: target -25% Defense, 3t.",造成伤害；毁震：目标防御-25%，持续3回合。,move_effect
+Damage; +15% more per active Defense buff on self (max +30%).,造成伤害；自身每有一个生效中的防御增益，伤害额外+15%（最多+30%）。,move_effect
+Damage; +25% more per active Defense buff on self (max +50%).,造成伤害；自身每有一个生效中的防御增益，伤害额外+25%（最多+50%）。,move_effect
+Damage; +30% more per active Defense buff on self (max +60%).,造成伤害；自身每有一个生效中的防御增益，伤害额外+30%（最多+60%）。,move_effect
+"Damage; Flayed by Sand: target -10% Defense, 2t.",造成伤害；砂剥：目标防御-10%，持续2回合。,move_effect
+"Damage; Flayed by Sand: target -15% Defense, 3t.",造成伤害；砂剥：目标防御-15%，持续3回合。,move_effect
+"Damage; Flayed by Sand: target -25% Defense, 3t.",造成伤害；砂剥：目标防御-25%，持续3回合。,move_effect
+"Damage; Gritted Eyes: target -10% Attack, 3t.",造成伤害；砂眼：目标攻击-10%，持续3回合。,move_effect
+"Damage; Gritted Eyes: target -15% Attack, 3t.",造成伤害；砂眼：目标攻击-15%，持续3回合。,move_effect
+Damage; +20% more vs targets with 2 or more debuffs.,造成伤害；对带有2个或更多减益的目标，伤害额外+20%。,move_effect
+Damage; +30% more vs targets with 2 or more debuffs.,造成伤害；对带有2个或更多减益的目标，伤害额外+30%。,move_effect
+Damage; +40% more vs targets with 2 or more debuffs.,造成伤害；对带有2个或更多减益的目标，伤害额外+40%。,move_effect
+"Damage; target -1 Speed stage, 2t.",造成伤害；目标速度-1级，持续2回合。,move_effect
+"Damage; target -1 Speed stage, 3t; refreshes the duration of existing damage-over-time effects on the target.",造成伤害；目标速度-1级，持续3回合；刷新目标身上现有持续伤害效果的持续时间。,move_effect
+"cleanse 1 debuff; +25% Attack (self, 3t) if a debuff was cleansed.",净化1个减益；若净化了减益，自身攻击+25%，持续3回合。,move_effect
+"Cleanse up to 2 self debuffs; +30% Attack (self, 3t) per debuff cleansed.",最多净化自身2个减益；每净化一个减益，自身攻击+30%，持续3回合。,move_effect
+"Cleanse all self debuffs; +40% Attack (self, 3t) per debuff cleansed.",净化自身全部减益；每净化一个减益，自身攻击+40%，持续3回合。,move_effect
+"Damage; Meltshell: target -10% Defense, 3t.",造成伤害；融壳：目标防御-10%，持续3回合。,move_effect
+"Damage; Meltshell: target -25% Defense, 4t.",造成伤害；融壳：目标防御-25%，持续4回合。,move_effect
+"Damage; Meltshell: target -30% Defense, 4t.",造成伤害；融壳：目标防御-30%，持续4回合。,move_effect
+"Damage; Etched: target -10% Defense, 3t.",造成伤害；蚀刻：目标防御-10%，持续3回合。,move_effect
+"Damage; Etched: target -15% Defense, 3t.",造成伤害；蚀刻：目标防御-15%，持续3回合。,move_effect
+"Meltshell: target -25% Defense, 2t.",融壳：目标防御-25%，持续2回合。,move_effect
+"Meltshell: target -45% Defense, 3t.",融壳：目标防御-45%，持续3回合。,move_effect
+"Meltshell: target -50% Defense, 3t.",融壳：目标防御-50%，持续3回合。,move_effect
+Damage; user loses 10% max HP.,造成伤害；自身损失最大HP的10%。,move_effect
+"Damage; Impaled: target -10% Defense, 3t; user loses 5% max HP.",造成伤害；贯穿：目标防御-10%，持续3回合；自身损失最大HP的5%。,move_effect
+"Damage; Impaled: target -15% Defense, 3t; user loses 10% max HP.",造成伤害；贯穿：目标防御-15%，持续3回合；自身损失最大HP的10%。,move_effect
+"Damage; Splinters: target takes 4% max HP/turn, 3t.",造成伤害；木刺：目标每回合受到最大HP的4%伤害，持续3回合。,move_effect
+"Damage; Splinters: target takes 5% max HP/turn, 3t.",造成伤害；木刺：目标每回合受到最大HP的5%伤害，持续3回合。,move_effect
+Damage; +25% more vs targets with Infected.,造成伤害；对带有感染的目标，伤害额外+25%。,move_effect
+Damage; +40% more vs targets with Infected.,造成伤害；对带有感染的目标，伤害额外+40%。,move_effect
+Damage; +50% more vs targets with Infected.,造成伤害；对带有感染的目标，伤害额外+50%。,move_effect
+"Infected: 7%/turn, 2t.",感染：每回合7%，持续2回合。,move_effect
+"Infected: target takes 7% max HP/turn, 3t; if target already has Infected, extend it 2t.",感染：目标每回合受到最大HP的7%伤害，持续3回合；若目标已有感染，则将其延长2回合。,move_effect
+"Infected: target takes 9% max HP/turn, 3t; if target already has Infected, extend it 2t.",感染：目标每回合受到最大HP的9%伤害，持续3回合；若目标已有感染，则将其延长2回合。,move_effect
+"Fungal ally +25% Attack, 3t.",真菌友方攻击+25%，持续3回合。,move_effect
+"Fungal allies +45% Attack, 3t.",真菌友方攻击+45%，持续3回合。,move_effect
+"Fungal allies +50% Attack, 3t.",真菌友方攻击+50%，持续3回合。,move_effect
+Damage; +25% more vs targets with Numbweave.,造成伤害；对带有麻织的目标，伤害额外+25%。,move_effect
+Damage; +40% more vs targets with Numbweave.,造成伤害；对带有麻织的目标，伤害额外+40%。,move_effect
+Damage; +50% more vs targets with Numbweave.,造成伤害；对带有麻织的目标，伤害额外+50%。,move_effect
+"Damage; Widow's Kiss: target takes 4% max HP/turn, 3t.",造成伤害；寡妇之吻：目标每回合受到最大HP的4%伤害，持续3回合。,move_effect
+"Damage; Widow's Kiss: target takes 5% max HP/turn, 3t.",造成伤害；寡妇之吻：目标每回合受到最大HP的5%伤害，持续3回合。,move_effect
+"Numbweave: target -1 Speed stage, 2t.",麻织：目标速度-1级，持续2回合。,move_effect
+"Numbweave: target -2 Speed stages, 3t.",麻织：目标速度-2级，持续3回合。,move_effect
+"Wrapped: +20% damage from the user, 3t.",缠裹：受到自身的伤害+20%，持续3回合。,move_effect
+"Wrapped: target takes +25% damage from the user, 3t.",缠裹：目标受到自身的伤害+25%，持续3回合。,move_effect
+"Wrapped: target takes +30% damage from the user, 3t.",缠裹：目标受到自身的伤害+30%，持续3回合。,move_effect
+Damage; user heals 25% of damage dealt.,造成伤害；自身恢复所造成伤害的25%。,move_effect
+Damage; user heals 40% of damage dealt.,造成伤害；自身恢复所造成伤害的40%。,move_effect
+Damage; user heals 50% of damage dealt.,造成伤害；自身恢复所造成伤害的50%。,move_effect
+"Enzyme Drip: target -25% Defense, 2t.",酶滴：目标防御-25%，持续2回合。,move_effect
+"Enzyme Drip: target -30% Defense and 7% max HP/turn, 3t.",酶滴：目标防御-30%，并每回合受到最大HP的7%伤害，持续3回合。,move_effect
+"Enzyme Drip: target -40% Defense and 9% max HP/turn, 3t.",酶滴：目标防御-40%，并每回合受到最大HP的9%伤害，持续3回合。,move_effect
+"All allies +45% Defense, 3t.",全体友方防御+45%，持续3回合。,move_effect
+"Damage; Infested: target takes 3% max HP/turn, 3t.",造成伤害；侵染：目标每回合受到最大HP的3%伤害，持续3回合。,move_effect
+"Damage; Infested: target takes 5% max HP/turn, 4t.",造成伤害；侵染：目标每回合受到最大HP的5%伤害，持续4回合。,move_effect
+"Damage; Infested: target takes 6% max HP/turn, 4t.",造成伤害；侵染：目标每回合受到最大HP的6%伤害，持续4回合。,move_effect
+"Infested: 7%/turn, 2t.",侵染：每回合7%，持续2回合。,move_effect
+"Infested: target takes 9% max HP/turn, 3t.",侵染：目标每回合受到最大HP的9%伤害，持续3回合。,move_effect
+"Infested: target takes 12% max HP/turn, 3t.",侵染：目标每回合受到最大HP的12%伤害，持续3回合。,move_effect
+One ally cleanses 1 debuff.,一名友方净化1个减益。,move_effect
+"One ally cleanses 1 debuff and gains +45% Attack, 3t.",一名友方净化1个减益，并获得攻击+45%，持续3回合。,move_effect
+"One ally cleanses 1 debuff and gains +50% Attack, 3t.",一名友方净化1个减益，并获得攻击+50%，持续3回合。,move_effect
+Damage; +20% more vs targets with any active buff.,造成伤害；对带有任意增益的目标，伤害额外+20%。,move_effect
+Damage; +30% more vs targets with any active buff.,造成伤害；对带有任意增益的目标，伤害额外+30%。,move_effect
+Damage; +40% more vs targets with any active buff.,造成伤害；对带有任意增益的目标，伤害额外+40%。,move_effect
+Next hit taken -30%.,下一次受到的攻击伤害-30%。,move_effect
+Next hit taken -40%.,下一次受到的攻击伤害-40%。,move_effect
+Next hit taken -50%.,下一次受到的攻击伤害-50%。,move_effect
+Damage; +10% more per Insect ally on the team.,造成伤害；队伍中每有一名昆虫友方，伤害额外+10%。,move_effect
+Damage; +20% more per Insect ally on the team.,造成伤害；队伍中每有一名昆虫友方，伤害额外+20%。,move_effect
+Damage; +25% more per Insect ally on the team.,造成伤害；队伍中每有一名昆虫友方，伤害额外+25%。,move_effect
+Damage as 4 hits.,分4次命中造成伤害。,move_effect
+"Damage; Famine: target -10% Attack, 3t.",造成伤害；饥荒：目标攻击-10%，持续3回合。,move_effect
+"Damage; Famine: target -15% Attack, 3t.",造成伤害；饥荒：目标攻击-15%，持续3回合。,move_effect
+"Damage; Venom Bloom: target takes 4% max HP/turn, 3t.",造成伤害；毒花：目标每回合受到最大HP的4%伤害，持续3回合。,move_effect
+"Damage; Venom Bloom: target takes 5% max HP/turn, 3t.",造成伤害；毒花：目标每回合受到最大HP的5%伤害，持续3回合。,move_effect
+"Hatching Spores: 7%/turn, 2t.",孵化孢子：每回合7%，持续2回合。,move_effect
+"Hatching Spores: target takes 9% max HP/turn, 3t; if target has Venom Bloom, also -30% Defense, 3t.",孵化孢子：目标每回合受到最大HP的9%伤害，持续3回合；若目标带有毒花，则额外防御-30%，持续3回合。,move_effect
+"Hatching Spores: target takes 12% max HP/turn, 3t; if target has Venom Bloom, also -35% Defense, 3t.",孵化孢子：目标每回合受到最大HP的12%伤害，持续3回合；若目标带有毒花，则额外防御-35%，持续3回合。,move_effect
+"Damage; Worldbind: target -1 Speed stage, 2t.",造成伤害；缚世：目标速度-1级，持续2回合。,move_effect
+"Damage; Worldbind: target -2 Speed stages and -15% Defense, 3t.",造成伤害；缚世：目标速度-2级、防御-15%，持续3回合。,move_effect
+"Damage; Worldbind: target -2 Speed stages and -25% Defense, 3t.",造成伤害；缚世：目标速度-2级、防御-25%，持续3回合。,move_effect
+"Damage; Held: target -1 Speed stage, 2t.",造成伤害；束缚：目标速度-1级，持续2回合。,move_effect
+"One ally takes -25% damage, 2t.",一名友方受到的伤害-25%，持续2回合。,move_effect
+"All allies take -30% damage, 2t.",全体友方受到的伤害-30%，持续2回合。,move_effect
+Heal one ally 30% max HP.,治疗一名友方，恢复其最大HP的30%。,move_effect
+Heal one ally 45% max HP.,治疗一名友方，恢复其最大HP的45%。,move_effect
+"Damage; Cracked Carapace: target -10% Defense, 2t.",造成伤害；甲壳碎裂：目标防御-10%，持续2回合。,move_effect
+"Damage; Cracked Carapace: target -15% Defense, 3t.",造成伤害；甲壳碎裂：目标防御-15%，持续3回合。,move_effect
+"Damage; Cracked Carapace: target -25% Defense, 3t.",造成伤害；甲壳碎裂：目标防御-25%，持续3回合。,move_effect
+Damage; +20% more if the target acted before the user this turn.,造成伤害；若本回合目标先于自身行动，伤害额外+20%。,move_effect
+Damage; +30% more if the target acted before the user this turn.,造成伤害；若本回合目标先于自身行动，伤害额外+30%。,move_effect
+Damage; +40% more if the target acted before the user this turn.,造成伤害；若本回合目标先于自身行动，伤害额外+40%。,move_effect
+"Damage; Flattened: target -10% Attack, 2t.",造成伤害；压扁：目标攻击-10%，持续2回合。,move_effect
+"Damage; Flattened: target -10% Attack, 3t.",造成伤害；压扁：目标攻击-10%，持续3回合。,move_effect
+"Damage; Flattened: target -15% Attack, 3t.",造成伤害；压扁：目标攻击-15%，持续3回合。,move_effect
+Damage; +25% more if Spikeball was used last turn.,造成伤害；若上回合使用了刺球，伤害额外+25%。,move_effect
+Damage; +30% more if Spikeball was used last turn.,造成伤害；若上回合使用了刺球，伤害额外+30%。,move_effect
+"+50% Defense (self, 3t); attackers take 10% of their damage back.",自身防御+50%，持续3回合；攻击者会受到其所造成伤害10%的反弹。,move_effect
+"+50% Defense (self, 3t); attackers take 15% of their damage back.",自身防御+50%，持续3回合；攻击者会受到其所造成伤害15%的反弹。,move_effect
+"Damage; +15% Defense (self, 3t).",造成伤害；自身防御+15%，持续3回合。,move_effect
+"Damage; user +25% Defense, 3t.",造成伤害；自身防御+25%，持续3回合。,move_effect
+"Damage; user +30% Defense, 3t.",造成伤害；自身防御+30%，持续3回合。,move_effect
+"Damage; Slagtrail: target -10% Defense, 3t.",造成伤害；渣迹：目标防御-10%，持续3回合。,move_effect
+"Damage; Slagtrail: target -15% Defense, 3t.",造成伤害；渣迹：目标防御-15%，持续3回合。,move_effect
+"Liquefied Armor: target -25% Defense, 2t.",液化护甲：目标防御-25%，持续2回合。,move_effect
+"Liquefied Armor: target -45% Defense, 3t.",液化护甲：目标防御-45%，持续3回合。,move_effect
+"Liquefied Armor: target -50% Defense, 3t.",液化护甲：目标防御-50%，持续3回合。,move_effect
+Mired: 2t.,泥陷：持续2回合。,move_effect
+"Mired: target -1 Speed stage, 3t.",泥陷：目标速度-1级，持续3回合。,move_effect
+"Damage; Seared: 4%/turn, 2t.",造成伤害；灼伤：每回合4%，持续2回合。,move_effect
+"Damage; Seared: target takes 5% max HP/turn, 3t.",造成伤害；灼伤：目标每回合受到最大HP的5%伤害，持续3回合。,move_effect
+"Damage; Seared: target takes 6% max HP/turn, 3t.",造成伤害；灼伤：目标每回合受到最大HP的6%伤害，持续3回合。,move_effect
+"Self +1 Speed stage, 2t; +45% Attack, 3t.",自身速度+1级，持续2回合；攻击+45%，持续3回合。,move_effect
+"Self +1 Speed stage, 2t; +50% Attack, 3t.",自身速度+1级，持续2回合；攻击+50%，持续3回合。,move_effect
+Damage; +20% more vs targets with a reduced Speed stage.,造成伤害；对速度被降低的目标，伤害额外+20%。,move_effect
+Damage; +30% more vs targets with a reduced Speed stage.,造成伤害；对速度被降低的目标，伤害额外+30%。,move_effect
+"Edict: target -1 Speed stage, 2t.",敕令：目标速度-1级，持续2回合。,move_effect
+"Petrifying Edict: target -1 Speed stage and -30% Attack, 3t.",石化敕令：目标速度-1级、攻击-30%，持续3回合。,move_effect
+"Petrifying Edict: target -1 Speed stage and -35% Attack, 3t.",石化敕令：目标速度-1级、攻击-35%，持续3回合。,move_effect
+Damage; user heals 25% of damage dealt; +20% more vs targets with Thin Blood.,造成伤害；自身恢复所造成伤害的25%；对带有稀血的目标，伤害额外+20%。,move_effect
+Damage; user heals 40% of damage dealt; +30% more vs targets with Thin Blood.,造成伤害；自身恢复所造成伤害的40%；对带有稀血的目标，伤害额外+30%。,move_effect
+Damage; user heals 50% of damage dealt; +40% more vs targets with Thin Blood.,造成伤害；自身恢复所造成伤害的50%；对带有稀血的目标，伤害额外+40%。,move_effect
+Damage; user heals 15% of damage dealt.,造成伤害；自身恢复所造成伤害的15%。,move_effect
+Damage; user heals 30% of damage dealt.,造成伤害；自身恢复所造成伤害的30%。,move_effect
+"Thin Blood: 7%/turn, 2t.",稀血：每回合7%，持续2回合。,move_effect
+"Thin Blood: target takes 9% max HP/turn, 3t; target's healing received -40%, 3t.",稀血：目标每回合受到最大HP的9%伤害，持续3回合；目标受到的治疗-40%，持续3回合。,move_effect
+"Thin Blood: target takes 12% max HP/turn, 3t; target's healing received -50%, 3t.",稀血：目标每回合受到最大HP的12%伤害，持续3回合；目标受到的治疗-50%，持续3回合。,move_effect
+Damage as 5 hits.,分5次命中造成伤害。,move_effect
+"Damage; Held Fast: target -1 Speed stage, 2t.",造成伤害；紧缚：目标速度-1级，持续2回合。,move_effect
+"Damage; Held Fast: target -1 Speed stage, 3t.",造成伤害；紧缚：目标速度-1级，持续3回合。,move_effect
+"Damage; Unmade Spot: target -10% Defense, 2t.",造成伤害；破损处：目标防御-10%，持续2回合。,move_effect
+"Damage; Unmade Spot: target -15% Defense, 3t.",造成伤害；破损处：目标防御-15%，持续3回合。,move_effect
+"Damage; Unmade Spot: target -25% Defense, 3t.",造成伤害；破损处：目标防御-25%，持续3回合。,move_effect
+"The next creature to hit the user gains Dimmed: -25% Attack, 2t.",下一个击中自身的生物获得黯淡：攻击-25%，持续2回合。,move_effect
+"The next creature to hit the user gains Dimmed: target -30% Attack, 3t.",下一个击中自身的生物获得黯淡：攻击-30%，持续3回合。,move_effect
+"The next creature to hit the user gains Dimmed: target -35% Attack, 3t.",下一个击中自身的生物获得黯淡：攻击-35%，持续3回合。,move_effect
+"Damage; Dented: target -10% Defense, 2t.",造成伤害；凹陷：目标防御-10%，持续2回合。,move_effect
+"Damage; Dented: target -15% Defense, 3t.",造成伤害；凹陷：目标防御-15%，持续3回合。,move_effect
+"Damage; Dented: target -25% Defense, 3t.",造成伤害；凹陷：目标防御-25%，持续3回合。,move_effect
+"One ally takes -30% damage, 2t.",一名友方受到的伤害-30%，持续2回合。,move_effect
+"Damage; Pyroclast: 4%/turn, 2t.",造成伤害；火山碎屑：每回合4%，持续2回合。,move_effect
+"Damage; Pyroclast: target takes 5% max HP/turn, 3t.",造成伤害；火山碎屑：目标每回合受到最大HP的5%伤害，持续3回合。,move_effect
+"Damage; Pyroclast: target takes 6% max HP/turn, 3t.",造成伤害；火山碎屑：目标每回合受到最大HP的6%伤害，持续3回合。,move_effect
+"Damage; Molten Coat: target -10% Defense, 2t.",造成伤害；熔壳：目标防御-10%，持续2回合。,move_effect
+"Damage; Molten Coat: target -10% Defense and 4% max HP/turn, 3t.",造成伤害；熔壳：目标防御-10%，并每回合受到最大HP的4%伤害，持续3回合。,move_effect
+"Damage; Molten Coat: target -15% Defense and 5% max HP/turn, 3t.",造成伤害；熔壳：目标防御-15%，并每回合受到最大HP的5%伤害，持续3回合。,move_effect
+"Damage; Glasscut: target bleeds 4% max HP/turn, 3t.",造成伤害；玻璃割伤：目标流血，每回合损失最大HP的4%，持续3回合。,move_effect
+"Damage; Glasscut: target bleeds 5% max HP/turn, 3t.",造成伤害；玻璃割伤：目标流血，每回合损失最大HP的5%，持续3回合。,move_effect
+"+50% Defense (self, 3t); +30% Attack next turn.",自身防御+50%，持续3回合；下回合攻击+30%。,move_effect
+"+50% Defense (self, 3t); +40% Attack next turn.",自身防御+50%，持续3回合；下回合攻击+40%。,move_effect
+Damage; +20% more if user's Speed is higher than the target's.,造成伤害；若自身速度高于目标，伤害额外+20%。,move_effect
+Damage; +30% more if user's Speed is higher than the target's.,造成伤害；若自身速度高于目标，伤害额外+30%。,move_effect
+Damage; +40% more if user's Speed is higher than the target's.,造成伤害；若自身速度高于目标，伤害额外+40%。,move_effect
+"Damage; Cutting Gale: target bleeds 4% max HP/turn, 3t.",造成伤害；割风：目标流血，每回合损失最大HP的4%，持续3回合。,move_effect
+"Damage; Cutting Gale: target bleeds 5% max HP/turn, 3t.",造成伤害；割风：目标流血，每回合损失最大HP的5%，持续3回合。,move_effect
+"One ally +1 Speed stage, 2t.",一名友方速度+1级，持续2回合。,move_effect
+"All allies +1 Speed stage, 2t.",全体友方速度+1级，持续2回合。,move_effect
+Damage; +25% more vs targets with Charged.,造成伤害；对带有带电的目标，伤害额外+25%。,move_effect
+Damage; +40% more vs targets with Charged.,造成伤害；对带有带电的目标，伤害额外+40%。,move_effect
+Damage; +50% more vs targets with Charged.,造成伤害；对带有带电的目标，伤害额外+50%。,move_effect
+"Damage; Galvanic Jolt: target -1 Speed stage, 2t.",造成伤害；电流冲击：目标速度-1级，持续2回合。,move_effect
+Damage; Charged: the next hit against the target deals +10% more.,造成伤害；带电：下一次对目标的攻击伤害额外+10%。,move_effect
+Damage; Charged: the next hit against the target deals +15% more.,造成伤害；带电：下一次对目标的攻击伤害额外+15%。,move_effect
+"Self +25% Attack, 2t.",自身攻击+25%，持续2回合。,move_effect
+"Self +30% Attack, 3t.",自身攻击+30%，持续3回合。,move_effect
+"Damage; Whiteout: target -10% Attack, 2t.",造成伤害；雪盲：目标攻击-10%，持续2回合。,move_effect
+"Damage; Whiteout: target -25% Attack, 2t.",造成伤害；雪盲：目标攻击-25%，持续2回合。,move_effect
+"Damage; Whiteout: target -30% Attack, 2t.",造成伤害；雪盲：目标攻击-30%，持续2回合。,move_effect
+"Scrambled: target -25% Attack, 2t.",错乱：目标攻击-25%，持续2回合。,move_effect
+"Scrambled: target -30% Attack, 3t.",错乱：目标攻击-30%，持续3回合。,move_effect
+"Scrambled: target -40% Attack, 3t.",错乱：目标攻击-40%，持续3回合。,move_effect
+"Damage; Flattened: target -1 Speed stage, 2t.",造成伤害；压扁：目标速度-1级，持续2回合。,move_effect
+"Damage; Flattened: target -1 Speed stage, 3t.",造成伤害；压扁：目标速度-1级，持续3回合。,move_effect
+"Damage; Crushed: target -10% Defense, 2t.",造成伤害；压碎：目标防御-10%，持续2回合。,move_effect
+"Damage; Crushed: target -10% Defense, 3t.",造成伤害；压碎：目标防御-10%，持续3回合。,move_effect
+"Damage; Crushed: target -15% Defense, 3t.",造成伤害；压碎：目标防御-15%，持续3回合。,move_effect
+Damage; +20% more vs targets with Spun.,造成伤害；对带有眩转的目标，伤害额外+20%。,move_effect
+Damage; +30% more vs targets with Spun.,造成伤害；对带有眩转的目标，伤害额外+30%。,move_effect
+Damage; +40% more vs targets with Spun.,造成伤害；对带有眩转的目标，伤害额外+40%。,move_effect
+"Spun: target -1 Speed stage, 2t.",眩转：目标速度-1级，持续2回合。,move_effect
+"Spun: target -1 Speed stage and -30% Attack, 3t.",眩转：目标速度-1级、攻击-30%，持续3回合。,move_effect
+"Spun: target -1 Speed stage and -35% Attack, 3t.",眩转：目标速度-1级、攻击-35%，持续3回合。,move_effect
+One ally's next hit taken -20%.,一名友方下一次受到的攻击伤害-20%。,move_effect
+One ally's next hit taken -25%.,一名友方下一次受到的攻击伤害-25%。,move_effect
+One ally's next hit taken -30%.,一名友方下一次受到的攻击伤害-30%。,move_effect
+"Damage; Grounded Twitch: target -1 Speed stage, 2t.",造成伤害；落地抽搐：目标速度-1级，持续2回合。,move_effect
+"Self +45% Attack, 3t; next hit taken -15%.",自身攻击+45%，持续3回合；下一次受到的攻击伤害-15%。,move_effect
+"Self +50% Attack, 3t; next hit taken -20%.",自身攻击+50%，持续3回合；下一次受到的攻击伤害-20%。,move_effect
+Damage as 4 hits; each applies 2t of Lowpressure.,分4次命中造成伤害；每次命中附加2回合的低压。,move_effect
+"Lowpressure: target -25% Defense, 2t.",低压：目标防御-25%，持续2回合。,move_effect
+"Lowpressure: target -30% Defense and -30% Attack, 3t.",低压：目标防御-30%、攻击-30%，持续3回合。,move_effect
+"Lowpressure: target -35% Defense and -35% Attack, 3t.",低压：目标防御-35%、攻击-35%，持续3回合。,move_effect
+"Damage; Tempo Theft: target -1 Speed stage, 2t.",造成伤害；夺速：目标速度-1级，持续2回合。,move_effect
+"Damage; Tempo Theft: target -2 Speed stages, 3t; self +1 Speed stage, 3t.",造成伤害；夺速：目标速度-2级，持续3回合；自身速度+1级，持续3回合。,move_effect
+Damage as 3 hits; each +5% more if user acted before the target.,分3次命中造成伤害；若自身先于目标行动，每次命中伤害额外+5%。,move_effect
+Damage as 3 hits; each +10% more if user acted before the target.,分3次命中造成伤害；若自身先于目标行动，每次命中伤害额外+10%。,move_effect
+"All allies +1 Speed stage, 3t; self +2 Speed stages, 2t.",全体友方速度+1级，持续3回合；自身速度+2级，持续2回合。,move_effect
+"Damage; Struck Twice: 4%/turn, 2t.",造成伤害；二度重创：每回合4%，持续2回合。,move_effect
+"Damage; Struck Twice: target takes 5% max HP/turn, 3t; target -1 Speed stage, 2t.",造成伤害；二度重创：目标每回合受到最大HP的5%伤害，持续3回合；目标速度-1级，持续2回合。,move_effect
+"Damage; Struck Twice: target takes 6% max HP/turn, 3t; target -1 Speed stage, 2t.",造成伤害；二度重创：目标每回合受到最大HP的6%伤害，持续3回合；目标速度-1级，持续2回合。,move_effect
+Damage; +20% more if user has an active Defense buff — consumes it.,造成伤害；若自身有生效中的防御增益，伤害额外+20%——并消耗该增益。,move_effect
+Damage; +30% more if user has an active Defense buff — consumes it.,造成伤害；若自身有生效中的防御增益，伤害额外+30%——并消耗该增益。,move_effect
+Damage; +40% more if user has an active Defense buff — consumes it.,造成伤害；若自身有生效中的防御增益，伤害额外+40%——并消耗该增益。,move_effect
+"Damage; Fouled: target -10% Attack, 2t.",造成伤害；污秽：目标攻击-10%，持续2回合。,move_effect
+"Damage; Fouled: target -15% Attack, 3t.",造成伤害；污秽：目标攻击-15%，持续3回合。,move_effect
+"Damage; Fouled: target -25% Attack, 3t.",造成伤害；污秽：目标攻击-25%，持续3回合。,move_effect
+Damage; +25% more vs targets with Wyrd Visions.,造成伤害；对带有诡异幻象的目标，伤害额外+25%。,move_effect
+Damage; +40% more vs targets with Wyrd Visions.,造成伤害；对带有诡异幻象的目标，伤害额外+40%。,move_effect
+Damage; +50% more vs targets with Wyrd Visions.,造成伤害；对带有诡异幻象的目标，伤害额外+50%。,move_effect
+"Wyrd Visions: target -25% Attack, 2t.",诡异幻象：目标攻击-25%，持续2回合。,move_effect
+"Wyrd Visions: target -45% Attack, 3t.",诡异幻象：目标攻击-45%，持续3回合。,move_effect
+"Wyrd Visions: target -50% Attack, 3t.",诡异幻象：目标攻击-50%，持续3回合。,move_effect
+cleanse 1 debuff.,净化1个减益。,move_effect
+"Cleanse up to 2 self debuffs; +1 Speed stage, 2t.",最多净化自身2个减益；速度+1级，持续2回合。,move_effect
+"Cleanse all self debuffs; +1 Speed stage, 2t.",净化自身全部减益；速度+1级，持续2回合。,move_effect
+"Damage; Larval Rot: target takes 3% max HP/turn, 3t.",造成伤害；幼虫腐：目标每回合受到最大HP的3%伤害，持续3回合。,move_effect
+"Damage; Larval Rot: target takes 5% max HP/turn, 4t.",造成伤害；幼虫腐：目标每回合受到最大HP的5%伤害，持续4回合。,move_effect
+"Damage; Larval Rot: target takes 6% max HP/turn, 4t.",造成伤害；幼虫腐：目标每回合受到最大HP的6%伤害，持续4回合。,move_effect
+"Larval Rot: 7%/turn, 2t.",幼虫腐：每回合7%，持续2回合。,move_effect
+"Larval Rot: target takes 9% max HP/turn, 3t.",幼虫腐：目标每回合受到最大HP的9%伤害，持续3回合。,move_effect
+"Larval Rot: target takes 12% max HP/turn, 3t.",幼虫腐：目标每回合受到最大HP的12%伤害，持续3回合。,move_effect
+Damage; user heals 10% of damage dealt.,造成伤害；自身恢复所造成伤害的10%。,move_effect
+Damage; user heals 20% of damage dealt.,造成伤害；自身恢复所造成伤害的20%。,move_effect
+"Grave Chill: target -25% Attack, 2t.",墓寒：目标攻击-25%，持续2回合。,move_effect
+"Grave Chill: target -30% Attack and -1 Speed stage, 3t.",墓寒：目标攻击-30%、速度-1级，持续3回合。,move_effect
+"Grave Chill: target -35% Attack and -1 Speed stage, 3t.",墓寒：目标攻击-35%、速度-1级，持续3回合。,move_effect
+Damage; +20% more vs targets with Transfixed.,造成伤害；对带有定身的目标，伤害额外+20%。,move_effect
+Damage; +35% more vs targets with Transfixed.,造成伤害；对带有定身的目标，伤害额外+35%。,move_effect
+Damage; +45% more vs targets with Transfixed.,造成伤害；对带有定身的目标，伤害额外+45%。,move_effect
+"Transfixed: target -1 Speed stage, 2t.",定身：目标速度-1级，持续2回合。,move_effect
+"Transfixed: target -2 Speed stages, 3t.",定身：目标速度-2级，持续3回合。,move_effect
+"Transfixed: target -2 Speed stages, 3t; target -30% Attack, 3t.",定身：目标速度-2级，持续3回合；目标攻击-30%，持续3回合。,move_effect
+"Transfixed: target -2 Speed stages, 3t; target -40% Attack, 3t.",定身：目标速度-2级，持续3回合；目标攻击-40%，持续3回合。,move_effect
+"Damage; Bogged: target -1 Speed stage, 2t.",造成伤害；陷泥：目标速度-1级，持续2回合。,move_effect
+"Damage; Bogged: target -1 Speed stage, 3t.",造成伤害；陷泥：目标速度-1级，持续3回合。,move_effect
+Cleanse 1 self debuff (no transfer to target).,净化自身1个减益（不转移给目标）。,move_effect
+Transfer 1 debuff from self to the target.,将自身1个减益转移给目标。,move_effect
+"+50% Defense (self, 3t); user's next attack deals +25% more.",自身防御+50%，持续3回合；自身下一次攻击伤害额外+25%。,move_effect
+"+50% Defense (self, 3t); user's next attack deals +30% more.",自身防御+50%，持续3回合；自身下一次攻击伤害额外+30%。,move_effect
+"Damage; Chilled: target -1 Speed stage, 2t.",造成伤害；受寒：目标速度-1级，持续2回合。,move_effect
+Next 2 hits taken -30%.,接下来2次受到的攻击伤害-30%。,move_effect
+Next 2 hits taken -35%.,接下来2次受到的攻击伤害-35%。,move_effect
+"Weight of Water: target -25% Attack, 2t.",水之重：目标攻击-25%，持续2回合。,move_effect
+"Weight of Water: target -30% Attack, 3t.",水之重：目标攻击-30%，持续3回合。,move_effect
+"Weight of Water: target -40% Attack, 3t.",水之重：目标攻击-40%，持续3回合。,move_effect
+Damage; +20% more vs targets with Vinegrip.,造成伤害；对带有藤缚的目标，伤害额外+20%。,move_effect
+Damage; +30% more vs targets with Vinegrip.,造成伤害；对带有藤缚的目标，伤害额外+30%。,move_effect
+Damage; +40% more vs targets with Vinegrip.,造成伤害；对带有藤缚的目标，伤害额外+40%。,move_effect
+"Damage; Vinegrip: target -1 Speed stage, 2t.",造成伤害；藤缚：目标速度-1级，持续2回合。,move_effect
+"Damage; Vinegrip: target -1 Speed stage, 3t.",造成伤害；藤缚：目标速度-1级，持续3回合。,move_effect
+"Undead allies +50% Attack, 3t; if no Undead ally, self +30% Attack, 3t.",不死友方攻击+50%，持续3回合；若没有不死友方，则自身攻击+30%，持续3回合。,move_effect
+"Undead allies +50% Attack, 3t; if no Undead ally, self +40% Attack, 3t.",不死友方攻击+50%，持续3回合；若没有不死友方，则自身攻击+40%，持续3回合。,move_effect
+"Damage; Dragged Down: target -1 Speed stage, 2t.",造成伤害；拖沉：目标速度-1级，持续2回合。,move_effect
+"Damage; Dragged Down: target -2 Speed stages and -15% Defense, 3t.",造成伤害；拖沉：目标速度-2级、防御-15%，持续3回合。,move_effect
+"Damage; Dragged Down: target -2 Speed stages and -25% Defense, 3t.",造成伤害；拖沉：目标速度-2级、防御-25%，持续3回合。,move_effect
+"One ally +25% Attack and +25% Defense, 2t.",一名友方攻击+25%、防御+25%，持续2回合。,move_effect
+"All allies +30% Attack and +30% Defense, 2t.",全体友方攻击+30%、防御+30%，持续2回合。,move_effect
+"All allies +40% Attack and +40% Defense, 2t.",全体友方攻击+40%、防御+40%，持续2回合。,move_effect
+Damage; +25% more vs targets with no active buffs.,造成伤害；对没有任何增益的目标，伤害额外+25%。,move_effect
+Damage; +40% more vs targets with no active buffs.,造成伤害；对没有任何增益的目标，伤害额外+40%。,move_effect
+Damage; +50% more vs targets with no active buffs.,造成伤害；对没有任何增益的目标，伤害额外+50%。,move_effect
+Remove 1 buff from the target.,移除目标1个增益。,move_effect
+Remove up to 2 buffs from the target.,最多移除目标2个增益。,move_effect
+Remove all buffs from the target.,移除目标全部增益。,move_effect
+"Damage; Spinning: target -1 Speed stage and -10% Attack, 2t.",造成伤害；旋转：目标速度-1级、攻击-10%，持续2回合。,move_effect
+"Damage; Spinning: target -1 Speed stage and -10% Attack, 4t.",造成伤害；旋转：目标速度-1级、攻击-10%，持续4回合。,move_effect
+"Damage; Spinning: target -1 Speed stage and -15% Attack, 4t.",造成伤害；旋转：目标速度-1级、攻击-15%，持续4回合。,move_effect
+"Spinning: target -1 Speed stage, 2t.",旋转：目标速度-1级，持续2回合。,move_effect
+"Spinning: target -1 Speed stage and -30% Attack, 3t.",旋转：目标速度-1级、攻击-30%，持续3回合。,move_effect
+"Spinning: target -1 Speed stage and -35% Attack, 3t.",旋转：目标速度-1级、攻击-35%，持续3回合。,move_effect
+Damage; +20% more vs targets with Forgetting.,造成伤害；对带有遗忘的目标，伤害额外+20%。,move_effect
+Damage; +30% more vs targets with Forgetting.,造成伤害；对带有遗忘的目标，伤害额外+30%。,move_effect
+Damage; +40% more vs targets with Forgetting.,造成伤害；对带有遗忘的目标，伤害额外+40%。,move_effect
+"Forgetting: target -25% Attack, 2t.",遗忘：目标攻击-25%，持续2回合。,move_effect
+"Forgetting: target -30% Attack, 3t; the target's buffs expire 1 turn sooner.",遗忘：目标攻击-30%，持续3回合；目标的增益提前1回合结束。,move_effect
+"Forgetting: target -40% Attack, 3t; the target's buffs expire 1 turn sooner.",遗忘：目标攻击-40%，持续3回合；目标的增益提前1回合结束。,move_effect
+"Damage; Puppeted Nerves: target -10% Attack and -1 Speed stage, 2t.",造成伤害；傀儡神经：目标攻击-10%、速度-1级，持续2回合。,move_effect
+"Damage; Puppeted Nerves: target -15% Attack and -1 Speed stage, 4t.",造成伤害；傀儡神经：目标攻击-15%、速度-1级，持续4回合。,move_effect
+"Damage; Puppeted Nerves: target -25% Attack and -1 Speed stage, 4t.",造成伤害；傀儡神经：目标攻击-25%、速度-1级，持续4回合。,move_effect
+"Puppeted Nerves: target -25% Attack, 2t.",傀儡神经：目标攻击-25%，持续2回合。,move_effect
+"Puppeted Nerves: target -30% Attack and -1 Speed stage, 3t.",傀儡神经：目标攻击-30%、速度-1级，持续3回合。,move_effect
+"Puppeted Nerves: target -40% Attack and -1 Speed stage, 3t.",傀儡神经：目标攻击-40%、速度-1级，持续3回合。,move_effect
+Damage; +20% more vs targets with Foreseen.,造成伤害；对带有预见的目标，伤害额外+20%。,move_effect
+Damage; +30% more vs targets with Foreseen.,造成伤害；对带有预见的目标，伤害额外+30%。,move_effect
+Damage; +40% more vs targets with Foreseen.,造成伤害；对带有预见的目标，伤害额外+40%。,move_effect
+Foreseen: target -20% damage.,预见：目标伤害-20%。,move_effect
+Foreseen: the target's next attack deals -25% damage.,预见：目标下一次攻击的伤害-25%。,move_effect
+Foreseen: the target's next attack deals -30% damage.,预见：目标下一次攻击的伤害-30%。,move_effect
+One ally's next hit taken -40%.,一名友方下一次受到的攻击伤害-40%。,move_effect
+"Disoriented: target -25% Attack, 2t.",迷向：目标攻击-25%，持续2回合。,move_effect
+"Disoriented: target -30% Attack, 3t.",迷向：目标攻击-30%，持续3回合。,move_effect
+"Disoriented: target -40% Attack, 3t.",迷向：目标攻击-40%，持续3回合。,move_effect
+Damage; +40% more if user acted before the target this turn.,造成伤害；若本回合自身先于目标行动，伤害额外+40%。,move_effect
+Next hit taken -20%.,下一次受到的攻击伤害-20%。,move_effect
+"Next 2 hits taken -25%; self +1 Speed stage, 2t.",接下来2次受到的攻击伤害-25%；自身速度+1级，持续2回合。,move_effect
+"Next 2 hits taken -30%; self +1 Speed stage, 2t.",接下来2次受到的攻击伤害-30%；自身速度+1级，持续2回合。,move_effect
+"Trailbound: target -1 Speed stage, 2t.",径缚：目标速度-1级，持续2回合。,move_effect
+"Trailbound: target -2 Speed stages, 2t.",径缚：目标速度-2级，持续2回合。,move_effect
+"Damage; Concussed: target -1 Speed stage, 2t.",造成伤害；震荡：目标速度-1级，持续2回合。,move_effect
+"Damage; Concussed: target -1 Speed stage, 3t.",造成伤害；震荡：目标速度-1级，持续3回合。,move_effect
+One ally cleanses up to 2 debuffs.,一名友方最多净化2个减益。,move_effect
+One ally cleanses all debuffs.,一名友方净化全部减益。,move_effect
+Damage; +25% more vs targets with Drawn In.,造成伤害；对带有吸引的目标，伤害额外+25%。,move_effect
+Damage; +40% more vs targets with Drawn In.,造成伤害；对带有吸引的目标，伤害额外+40%。,move_effect
+Damage; +50% more vs targets with Drawn In.,造成伤害；对带有吸引的目标，伤害额外+50%。,move_effect
+Damage; ignores 25% of target Defense.,造成伤害；无视目标25%的防御。,move_effect
+"Drawn In: target -1 Speed stage, 2t.",吸引：目标速度-1级，持续2回合。,move_effect
+"Drawn In: target -1 Speed stage, 3t; target takes +20% damage from the user, 3t.",吸引：目标速度-1级，持续3回合；目标受到自身的伤害+20%，持续3回合。,move_effect
+"Drawn In: target -1 Speed stage, 3t; target takes +25% damage from the user, 3t.",吸引：目标速度-1级，持续3回合；目标受到自身的伤害+25%，持续3回合。,move_effect
+"Decomposing: target -25% Defense, 2t.",腐解：目标防御-25%，持续2回合。,move_effect
+"Decomposing: target -30% Defense, 3t; one ally +30% Attack, 3t.",腐解：目标防御-30%，持续3回合；一名友方攻击+30%，持续3回合。,move_effect
+"Decomposing: target -40% Defense, 3t; one ally +40% Attack, 3t.",腐解：目标防御-40%，持续3回合；一名友方攻击+40%，持续3回合。,move_effect
+"+50% Defense (self, 2t); cleanse up to 2 self debuffs.",自身防御+50%，持续2回合；最多净化自身2个减益。,move_effect
+"+50% Defense (self, 2t); cleanse all self debuffs.",自身防御+50%，持续2回合；净化自身全部减益。,move_effect
+Damage; +10% more per debuff on target (max +30%).,造成伤害；目标每有一个减益，伤害额外+10%（最多+30%）。,move_effect
+Damage; +15% more per debuff on target (max +50%).,造成伤害；目标每有一个减益，伤害额外+15%（最多+50%）。,move_effect
+Damage; +20% more per debuff on target (max +60%).,造成伤害；目标每有一个减益，伤害额外+20%（最多+60%）。,move_effect
+"Damage; Pinned: target -10% Defense, 2t.",造成伤害；钉住：目标防御-10%，持续2回合。,move_effect
+"Damage; Pinned: target -15% Defense, 3t.",造成伤害；钉住：目标防御-15%，持续3回合。,move_effect
+"Damage; Pinned: target -25% Defense, 3t.",造成伤害；钉住：目标防御-25%，持续3回合。,move_effect
+"Damage; Crushed Slow: target -1 Speed stage, 2t.",造成伤害；碾压迟缓：目标速度-1级，持续2回合。,move_effect
+"Damage; Crushed Slow: target -1 Speed stage, 3t.",造成伤害；碾压迟缓：目标速度-1级，持续3回合。,move_effect
+"Damage; Vitrified: target -1 Speed stage, 2t.",造成伤害；玻璃化：目标速度-1级，持续2回合。,move_effect
+"Damage; Vitrified: target -2 Speed stages and -10% Defense, 2t.",造成伤害；玻璃化：目标速度-2级、防御-10%，持续2回合。,move_effect
+"Damage; Vitrified: target -2 Speed stages and -15% Defense, 2t.",造成伤害；玻璃化：目标速度-2级、防御-15%，持续2回合。,move_effect
+"Damage; Glass Splinter: target bleeds 4% max HP/turn, 3t.",造成伤害；玻璃碎片：目标流血，每回合损失最大HP的4%，持续3回合。,move_effect
+"Damage; Glass Splinter: target bleeds 5% max HP/turn, 3t.",造成伤害；玻璃碎片：目标流血，每回合损失最大HP的5%，持续3回合。,move_effect
+Damage; user heals 20% of damage dealt; +20% more vs targets with Ashen.,造成伤害；自身恢复所造成伤害的20%；对带有灰化的目标，伤害额外+20%。,move_effect
+Damage; user heals 30% of damage dealt; +30% more vs targets with Ashen.,造成伤害；自身恢复所造成伤害的30%；对带有灰化的目标，伤害额外+30%。,move_effect
+Damage; user heals 40% of damage dealt; +40% more vs targets with Ashen.,造成伤害；自身恢复所造成伤害的40%；对带有灰化的目标，伤害额外+40%。,move_effect
+"Ashen: target's healing received -25%, 2t.",灰化：目标受到的治疗-25%，持续2回合。,move_effect
+"Ashen: target's healing received -40%, 3t.",灰化：目标受到的治疗-40%，持续3回合。,move_effect
+"Ashen: target's healing received -50%, 3t.",灰化：目标受到的治疗-50%，持续3回合。,move_effect
+"+50% Defense (self, 3t); the next creature to hit the user gains Dazzled: -30% Attack, 2t.",自身防御+50%，持续3回合；下一个击中自身的生物获得目眩：攻击-30%，持续2回合。,move_effect
+"+50% Defense (self, 3t); the next creature to hit the user gains Dazzled: -35% Attack, 2t.",自身防御+50%，持续3回合；下一个击中自身的生物获得目眩：攻击-35%，持续2回合。,move_effect
+Damage; +25% more vs targets with Precise Cut.,造成伤害；对带有精准切割的目标，伤害额外+25%。,move_effect
+Damage; +40% more vs targets with Precise Cut.,造成伤害；对带有精准切割的目标，伤害额外+40%。,move_effect
+Damage; +50% more vs targets with Precise Cut.,造成伤害；对带有精准切割的目标，伤害额外+50%。,move_effect
+"Damage; Precise Cut: target bleeds 4% max HP/turn, 3t.",造成伤害；精准切割：目标流血，每回合损失最大HP的4%，持续3回合。,move_effect
+"Damage; Precise Cut: target bleeds 5% max HP/turn, 3t.",造成伤害；精准切割：目标流血，每回合损失最大HP的5%，持续3回合。,move_effect
+"Marked Veins: +15% more to the target, 3t.",血脉标记：对目标伤害额外+15%，持续3回合。,move_effect
+"Marked Veins: user deals +20% more to the target, 3t.",血脉标记：自身对目标的伤害额外+20%，持续3回合。,move_effect
+"Marked Veins: user deals +25% more to the target, 3t.",血脉标记：自身对目标的伤害额外+25%，持续3回合。,move_effect
+"Damage; Wrong Geometry: target -10% Attack, 2t.",造成伤害；错误几何：目标攻击-10%，持续2回合。,move_effect
+"Damage; Wrong Geometry: target -15% Attack and -10% Defense, 3t.",造成伤害；错误几何：目标攻击-15%、防御-10%，持续3回合。,move_effect
+"Damage; Wrong Geometry: target -25% Attack and -15% Defense, 3t.",造成伤害；错误几何：目标攻击-25%、防御-15%，持续3回合。,move_effect
+Damage; +25% more vs targets with Death-Marked; consumes the mark.,造成伤害；对带有死亡标记的目标，伤害额外+25%；并消耗该标记。,move_effect
+Damage; +40% more vs targets with Death-Marked; consumes the mark.,造成伤害；对带有死亡标记的目标，伤害额外+40%；并消耗该标记。,move_effect
+Damage; +50% more vs targets with Death-Marked; consumes the mark.,造成伤害；对带有死亡标记的目标，伤害额外+50%；并消耗该标记。,move_effect
+"Death-Marked: +10% more to the target, 3t.",死亡标记：对目标伤害额外+10%，持续3回合。,move_effect
+"Death-Marked: user deals +15% more to the target, 4t.",死亡标记：自身对目标的伤害额外+15%，持续4回合。,move_effect
+"Death-Marked: user deals +20% more to the target, 4t.",死亡标记：自身对目标的伤害额外+20%，持续4回合。,move_effect
+Steal 1 buff from the target.,偷取目标1个增益。,move_effect
+"Unsettled: target -25% Attack, 2t.",不安：目标攻击-25%，持续2回合。,move_effect
+"Unsettled: target -30% Attack, 3t.",不安：目标攻击-30%，持续3回合。,move_effect
+"Unsettled: target -40% Attack, 3t.",不安：目标攻击-40%，持续3回合。,move_effect
+"Damage; user heals 30% of damage dealt; Bled Dry: target's healing received -40%, 3t.",造成伤害；自身恢复所造成伤害的30%；血枯：目标受到的治疗-40%，持续3回合。,move_effect
+"Damage; user heals 40% of damage dealt; Bled Dry: target's healing received -50%, 3t.",造成伤害；自身恢复所造成伤害的40%；血枯：目标受到的治疗-50%，持续3回合。,move_effect
+"Cowed: target -25% Attack, 2t.",畏缩：目标攻击-25%，持续2回合。,move_effect
+"Cowed: target -30% Attack, 3t.",畏缩：目标攻击-30%，持续3回合。,move_effect
+"Cowed: target -40% Attack, 3t.",畏缩：目标攻击-40%，持续3回合。,move_effect
+"Soulweight: target -1 Speed stage, 2t.",魂重：目标速度-1级，持续2回合。,move_effect
+"Soulweight: target -1 Speed stage and -30% Attack, 3t.",魂重：目标速度-1级、攻击-30%，持续3回合。,move_effect
+"Soulweight: target -1 Speed stage and -35% Attack, 3t.",魂重：目标速度-1级、攻击-35%，持续3回合。,move_effect
+"Once per battle: survive with 1 HP, then user -45% Defense, 2t.",每场战斗限一次：以1点HP存活，之后自身防御-45%，持续2回合。,move_effect
+Once per battle: the first killing blow this battle leaves the user at 1 HP instead.,每场战斗限一次：本场战斗中的第一次致命一击，改为让自身保留1点HP。,move_effect
+Damage; ignores 30% of target Defense.,造成伤害；无视目标30%的防御。,move_effect
+"Reflected Doubt: target -25% Attack, 2t.",倒映疑惑：目标攻击-25%，持续2回合。,move_effect
+"Copy the target's newest buff to self; Reflected Doubt: target -30% Attack, 3t.",复制目标最新的增益给自身；倒映疑惑：目标攻击-30%，持续3回合。,move_effect
+"Copy the target's newest buff to self; Reflected Doubt: target -35% Attack, 3t.",复制目标最新的增益给自身；倒映疑惑：目标攻击-35%，持续3回合。,move_effect
+"The next creature to hit the user gains Hollow Gaze: -25% Attack, 2t.",下一个击中自身的生物获得空洞凝视：攻击-25%，持续2回合。,move_effect
+"The next creature to hit the user gains Hollow Gaze: target -45% Attack, 3t.",下一个击中自身的生物获得空洞凝视：攻击-45%，持续3回合。,move_effect
+"The next creature to hit the user gains Hollow Gaze: target -50% Attack, 3t.",下一个击中自身的生物获得空洞凝视：攻击-50%，持续3回合。,move_effect
+"Damage; Windshorn: target -10% Defense, 2t.",造成伤害；风削：目标防御-10%，持续2回合。,move_effect
+"Damage; Windshorn: target -10% Defense, 3t.",造成伤害；风削：目标防御-10%，持续3回合。,move_effect
+"Damage; Windshorn: target -15% Defense, 3t.",造成伤害；风削：目标防御-15%，持续3回合。,move_effect
+"Damage; Razor Draft: target bleeds 4% max HP/turn, 3t.",造成伤害；刃风：目标流血，每回合损失最大HP的4%，持续3回合。,move_effect
+"Damage; Razor Draft: target bleeds 5% max HP/turn, 3t.",造成伤害；刃风：目标流血，每回合损失最大HP的5%，持续3回合。,move_effect
+Damage; +20% more vs targets with Ashlung.,造成伤害；对带有灰肺的目标，伤害额外+20%。,move_effect
+Damage; +30% more vs targets with Ashlung.,造成伤害；对带有灰肺的目标，伤害额外+30%。,move_effect
+Damage; +40% more vs targets with Ashlung.,造成伤害；对带有灰肺的目标，伤害额外+40%。,move_effect
+"cleanse 1 debuff; +35% Defense (self, 3t).",净化1个减益；自身防御+35%，持续3回合。,move_effect
+"Cleanse up to 2 self debuffs; +50% Defense (self, 3t).",最多净化自身2个减益；自身防御+50%，持续3回合。,move_effect
+"Cleanse all self debuffs; +50% Defense (self, 3t).",净化自身全部减益；自身防御+50%，持续3回合。,move_effect
+"Ashlung: target -25% Attack, 2t.",灰肺：目标攻击-25%，持续2回合。,move_effect
+"Ashlung: target -30% Attack, 3t.",灰肺：目标攻击-30%，持续3回合。,move_effect
+"Ashlung: target -40% Attack, 3t.",灰肺：目标攻击-40%，持续3回合。,move_effect
+Damage; +20% more vs targets below 50% HP.,造成伤害；对HP低于50%的目标，伤害额外+20%。,move_effect
+Damage; +30% more vs targets below 50% HP.,造成伤害；对HP低于50%的目标，伤害额外+30%。,move_effect
+Damage; +40% more vs targets below 50% HP.,造成伤害；对HP低于50%的目标，伤害额外+40%。,move_effect
+"Branded: 7%/turn, 2t.",烙印：每回合7%，持续2回合。,move_effect
+"The next creature to hit the user gains Branded: target takes 7% max HP/turn, 3t.",下一个击中自身的生物获得烙印：每回合受到最大HP的7%伤害，持续3回合。,move_effect
+"The next creature to hit the user gains Branded: target takes 9% max HP/turn, 3t.",下一个击中自身的生物获得烙印：每回合受到最大HP的9%伤害，持续3回合。,move_effect
+"Damage; Cindered: target -10% Defense, 2t.",造成伤害；余烬：目标防御-10%，持续2回合。,move_effect
+"Damage; Cindered: target -10% Defense, 3t.",造成伤害；余烬：目标防御-10%，持续3回合。,move_effect
+"Damage; Cindered: target -15% Defense, 3t.",造成伤害；余烬：目标防御-15%，持续3回合。,move_effect
+"Damage; Kindling: target takes 4% max HP/turn, 3t.",造成伤害；引燃：目标每回合受到最大HP的4%伤害，持续3回合。,move_effect
+"Damage; Kindling: target takes 5% max HP/turn, 3t.",造成伤害；引燃：目标每回合受到最大HP的5%伤害，持续3回合。,move_effect
+"Self +1 Speed stage, 2t; the next creature to hit the user gains Kindling: 7% max HP/turn, 2t.",自身速度+1级，持续2回合；下一个击中自身的生物获得引燃：每回合受到最大HP的7%伤害，持续2回合。,move_effect
+"Self +1 Speed stage, 2t; the next creature to hit the user gains Kindling: 9% max HP/turn, 2t.",自身速度+1级，持续2回合；下一个击中自身的生物获得引燃：每回合受到最大HP的9%伤害，持续2回合。,move_effect
+Damage; +10% more per active damage-over-time on the target (max +20%).,造成伤害；目标每有一个生效中的持续伤害，伤害额外+10%（最多+20%）。,move_effect
+Damage; +10% more per active damage-over-time on the target (max +35%).,造成伤害；目标每有一个生效中的持续伤害，伤害额外+10%（最多+35%）。,move_effect
+Damage; +15% more per active damage-over-time on the target (max +45%).,造成伤害；目标每有一个生效中的持续伤害，伤害额外+15%（最多+45%）。,move_effect
+"Damage as 3 hits; each applies Elemental Burn: 3% max HP/turn, 2t.",分3次命中造成伤害；每次命中附加元素灼烧：每回合受到最大HP的3%伤害，持续2回合。,move_effect
+"Damage as 3 hits; each applies Elemental Burn: 4% max HP/turn, 2t.",分3次命中造成伤害；每次命中附加元素灼烧：每回合受到最大HP的4%伤害，持续2回合。,move_effect
+"Rattled: target -25% Attack, 2t.",动摇：目标攻击-25%，持续2回合。,move_effect
+"Rattled: target -30% Attack and -30% Defense, 2t.",动摇：目标攻击-30%、防御-30%，持续2回合。,move_effect
+"Rattled: target -35% Attack and -35% Defense, 2t.",动摇：目标攻击-35%、防御-35%，持续2回合。,move_effect
+"Damage; Rivetburn: target -10% Defense, 2t.",造成伤害；铆灼：目标防御-10%，持续2回合。,move_effect
+"Damage; Rivetburn: target -10% Defense, 3t.",造成伤害；铆灼：目标防御-10%，持续3回合。,move_effect
+"Damage; Rivetburn: target -15% Defense, 3t.",造成伤害；铆灼：目标防御-15%，持续3回合。,move_effect
+"Damage; Leak: 4%/turn, 2t.",造成伤害；泄漏：每回合4%，持续2回合。,move_effect
+"Damage; Firestorm Leak: target takes 5% max HP/turn, 3t.",造成伤害；烈焰泄漏：目标每回合受到最大HP的5%伤害，持续3回合。,move_effect
+"Damage; Firestorm Leak: target takes 6% max HP/turn, 3t.",造成伤害；烈焰泄漏：目标每回合受到最大HP的6%伤害，持续3回合。,move_effect
+Damage; +25% more if any ally was damaged last turn.,造成伤害；若上回合有友方受到伤害，伤害额外+25%。,move_effect
+Damage; +40% more if any ally was damaged last turn.,造成伤害；若上回合有友方受到伤害，伤害额外+40%。,move_effect
+Damage; +50% more if any ally was damaged last turn.,造成伤害；若上回合有友方受到伤害，伤害额外+50%。,move_effect
+"+50% Defense (self, 3t); if the user was not hit last turn, also +30% Attack, 3t.",自身防御+50%，持续3回合；若自身上回合未被命中，则额外攻击+30%，持续3回合。,move_effect
+"+50% Defense (self, 3t); if the user was not hit last turn, also +40% Attack, 3t.",自身防御+50%，持续3回合；若自身上回合未被命中，则额外攻击+40%，持续3回合。,move_effect
+"One ally takes -35% damage, 2t.",一名友方受到的伤害-35%，持续2回合。,move_effect
+"Damage; ignores 20% of target Defense; applies Unquenchable: 5% max HP/turn, 3t.",造成伤害；无视目标20%的防御；附加难熄：每回合受到最大HP的5%伤害，持续3回合。,move_effect
+"Damage; ignores 25% of target Defense; applies Unquenchable: 6% max HP/turn, 3t.",造成伤害；无视目标25%的防御；附加难熄：每回合受到最大HP的6%伤害，持续3回合。,move_effect
+"Unquenchable: target takes 7% max HP/turn, 3t; cannot be cleansed.",难熄：目标每回合受到最大HP的7%伤害，持续3回合；无法被净化。,move_effect
+"Unquenchable: target takes 12% max HP/turn, 3t; cannot be cleansed.",难熄：目标每回合受到最大HP的12%伤害，持续3回合；无法被净化。,move_effect
+"Unquenchable: target takes 15% max HP/turn, 3t; cannot be cleansed.",难熄：目标每回合受到最大HP的15%伤害，持续3回合；无法被净化。,move_effect
+"One ally +35% Attack, 3t.",一名友方攻击+35%，持续3回合。,move_effect
+Damage; +20% more vs targets with Flawed Make.,造成伤害；对带有做工拙劣的目标，伤害额外+20%。,move_effect
+Damage; +30% more vs targets with Flawed Make.,造成伤害；对带有做工拙劣的目标，伤害额外+30%。,move_effect
+Damage; +40% more vs targets with Flawed Make.,造成伤害；对带有做工拙劣的目标，伤害额外+40%。,move_effect
+Transfer up to 2 self debuffs to the target.,最多将自身2个减益转移给目标。,move_effect
+Transfer all self debuffs to the target.,将自身全部减益转移给目标。,move_effect
+"Flawed Make: target -25% Defense, 2t.",做工拙劣：目标防御-25%，持续2回合。,move_effect
+"Flawed Make: target -30% Defense and -30% Attack, 3t.",做工拙劣：目标防御-30%、攻击-30%，持续3回合。,move_effect
+"Flawed Make: target -40% Defense and -35% Attack, 3t.",做工拙劣：目标防御-40%、攻击-35%，持续3回合。,move_effect
+"Damage; Jeered: target -10% Attack, 3t.",造成伤害；嘲弄：目标攻击-10%，持续3回合。,move_effect
+"Damage; Jeered: target -15% Attack, 3t.",造成伤害；嘲弄：目标攻击-15%，持续3回合。,move_effect
+"Damage; Floored: target -1 Speed stage, 2t.",造成伤害；倒地：目标速度-1级，持续2回合。,move_effect
+"Damage; Gored: 4%/turn, 2t.",造成伤害；顶伤：每回合4%，持续2回合。,move_effect
+"Damage; Gored: target takes 5% max HP/turn, 3t.",造成伤害；顶伤：目标每回合受到最大HP的5%伤害，持续3回合。,move_effect
+"Damage; Gored: target takes 6% max HP/turn, 3t.",造成伤害；顶伤：目标每回合受到最大HP的6%伤害，持续3回合。,move_effect
+"Damage; Putrefying: target takes 3% max HP/turn, 3t.",造成伤害；腐败：目标每回合受到最大HP的3%伤害，持续3回合。,move_effect
+"Damage; Putrefying: target takes 5% max HP/turn, 4t.",造成伤害；腐败：目标每回合受到最大HP的5%伤害，持续4回合。,move_effect
+"Damage; Putrefying: target takes 6% max HP/turn, 4t.",造成伤害；腐败：目标每回合受到最大HP的6%伤害，持续4回合。,move_effect
+"Putrefying: 7%/turn, 2t.",腐败：每回合7%，持续2回合。,move_effect
+"Putrefying: target takes 9% max HP/turn, 3t.",腐败：目标每回合受到最大HP的9%伤害，持续3回合。,move_effect
+"Putrefying: target takes 12% max HP/turn, 3t.",腐败：目标每回合受到最大HP的12%伤害，持续3回合。,move_effect
+Damage.,造成伤害。,move_effect
++30% damage vs Construct targets.,对构装目标的伤害+30%。,move_clause
+Beast allies also gain +10% Defense.,野兽友方同时获得防御+10%。,move_clause
++40% damage vs Insect targets.,对昆虫目标的伤害+40%。,move_clause
+"Beast allies gain +1 Speed stage, 2t.",野兽友方获得速度+1级，持续2回合。,move_clause
++35% damage vs Construct targets.,对构装目标的伤害+35%。,move_clause
+Flora allies gain +40% Defense instead.,植物友方改为获得防御+40%。,move_clause
+"Fey and Spectral allies also gain +1 Speed stage, 2t.",妖精和幽灵友方同时获得速度+1级，持续2回合。,move_clause
++30% damage vs Arthropod targets.,对节肢目标的伤害+30%。,move_clause
++30% damage vs Undead targets.,对不死目标的伤害+30%。,move_clause
+"Flora allies gain +15% Defense, 3t.",植物友方获得防御+15%，持续3回合。,move_clause
++40% damage vs Beast targets.,对野兽目标的伤害+40%。,move_clause
+Undead allies gain +30% Attack instead.,不死友方改为获得攻击+30%。,move_clause
++40% damage vs Demon targets.,对恶魔目标的伤害+40%。,move_clause
+Fey and Beast allies are healed 10% more.,妖精和野兽友方受到的治疗额外+10%。,move_clause
+Beast allies gain +30% Attack instead.,野兽友方改为获得攻击+30%。,move_clause
++30% damage vs Mollusk targets.,对软体目标的伤害+30%。,move_clause
++30% damage vs Amphibian targets.,对两栖目标的伤害+30%。,move_clause
+"Aquatic allies: Soaked targets also take -1 Speed stage, 2t.",水栖友方：处于浸湿状态的目标还会速度-1级，持续2回合。,move_clause
++30% damage vs Elemental targets.,对元素目标的伤害+30%。,move_clause
++40% damage vs Mollusk targets.,对软体目标的伤害+40%。,move_clause
+Aquatic allies are healed 10% more.,水栖友方受到的治疗额外+10%。,move_clause
++40% damage vs Eldritch targets.,对邪异目标的伤害+40%。,move_clause
++30% damage vs Aquatic targets.,对水栖目标的伤害+30%。,move_clause
+Undead and Aquatic allies gain +30% Attack instead.,不死和水栖友方改为获得攻击+30%。,move_clause
++35% damage vs Fey targets.,对妖精目标的伤害+35%。,move_clause
+"Mollusk allies gain +15% Defense, 3t.",软体友方获得防御+15%，持续3回合。,move_clause
++30% damage vs Insect targets.,对昆虫目标的伤害+30%。,move_clause
+"Reptile allies gain +10% Attack, 3t.",爬行友方获得攻击+10%，持续3回合。,move_clause
++30% damage vs Beast targets.,对野兽目标的伤害+30%。,move_clause
+Construct allies take -40% damage instead.,构装友方改为受到的伤害-40%。,move_clause
++30% damage vs Chimera targets.,对奇美拉目标的伤害+30%。,move_clause
+"Serpent and Chimera allies gain +15% Attack, 3t.",蛇和奇美拉友方获得攻击+15%，持续3回合。,move_clause
++45% damage vs Flora and Ooze targets.,对植物和软泥目标的伤害+45%。,move_clause
++30% damage vs Avian targets.,对飞禽目标的伤害+30%。,move_clause
+"Elemental allies gain +1 Speed stage, 2t.",元素友方获得速度+1级，持续2回合。,move_clause
++40% damage vs Construct targets.,对构装目标的伤害+40%。,move_clause
+"Flora allies gain +10% Defense, 3t.",植物友方获得防御+10%，持续3回合。,move_clause
+(This move IS the synergy: Fungal-only buff.),（此招式本身即协同效果：仅限真菌的增益。）,move_clause
+Flora allies gain +35% Defense instead.,植物友方改为获得防御+35%。,move_clause
+"Parasite allies gain +15% Attack, 3t.",寄生友方获得攻击+15%，持续3回合。,move_clause
+Insect allies gain +30% Attack instead.,昆虫友方改为获得攻击+30%。,move_clause
+"Fey allies gain +1 Speed stage, 2t.",妖精友方获得速度+1级，持续2回合。,move_clause
+(This move IS the synergy: scales with Insect allies.),（此招式本身即协同效果：随昆虫友方数量增强。）,move_clause
+Flora allies take -45% damage instead.,植物友方改为受到的伤害-45%。,move_clause
++45% damage vs Construct targets.,对构装目标的伤害+45%。,move_clause
+"Ooze allies gain +15% Defense, 3t.",软泥友方获得防御+15%，持续3回合。,move_clause
++35% damage vs Arthropod targets.,对节肢目标的伤害+35%。,move_clause
+Construct and Arthropod allies gain +35% Defense instead.,构装和节肢友方改为获得防御+35%。,move_clause
++40% damage vs Spectral targets.,对幽灵目标的伤害+40%。,move_clause
+"Void allies gain +10% Defense, 3t.",虚空友方获得防御+10%，持续3回合。,move_clause
++35% damage vs Dragon targets.,对龙目标的伤害+35%。,move_clause
+Construct allies take -45% damage instead.,构装友方改为受到的伤害-45%。,move_clause
+Avian allies gain +1 Speed stage for 3t instead.,飞禽友方改为获得速度+1级，持续3回合。,move_clause
+"Elemental allies gain +25% Attack, 3t.",元素友方获得攻击+25%，持续3回合。,move_clause
+Duration doubled vs Construct targets.,对构装目标的持续时间翻倍。,move_clause
++30% damage vs Serpent targets.,对蛇目标的伤害+30%。,move_clause
+Avian allies get -45% instead.,飞禽友方改为获得-45%。,move_clause
++40% damage vs Aquatic targets.,对水栖目标的伤害+40%。,move_clause
++35% damage vs Reptile targets.,对爬行目标的伤害+35%。,move_clause
+"Elemental and Dragon allies gain +15% Attack, 3t.",元素和龙友方获得攻击+15%，持续3回合。,move_clause
+"Undead allies gain +20% Attack, 3t when this hits.",此招式命中时，不死友方获得攻击+20%，持续3回合。,move_clause
+Undead and Amphibian allies are healed 10% more.,不死和两栖友方受到的治疗额外+10%。,move_clause
+Duration doubled vs Insect targets.,对昆虫目标的持续时间翻倍。,move_clause
+(This move IS the synergy: Undead-focused buff.),（此招式本身即协同效果：以不死为主的增益。）,move_clause
+Amphibian allies are healed 15% more.,两栖友方受到的治疗额外+15%。,move_clause
+Horror allies gain +25%/+25% instead.,恐怖友方改为获得+25%/+25%。,move_clause
+Undead allies take -40% damage instead.,不死友方改为受到的伤害-40%。,move_clause
+"Fungal allies gain +15% Defense, 3t.",真菌友方获得防御+15%，持续3回合。,move_clause
+Fungal allies gain +35% Attack instead.,真菌友方改为获得攻击+35%。,move_clause
++30% damage vs Void targets.,对虚空目标的伤害+30%。,move_clause
+Spectral allies: the ward repeats once more.,幽灵友方：护盾效果再重复一次。,move_clause
++35% damage vs Aquatic targets.,对水栖目标的伤害+35%。,move_clause
+"Aberration allies gain +15% Attack, 3t.",异怪友方获得攻击+15%，持续3回合。,move_clause
++30% damage vs Aberration targets.,对异怪目标的伤害+30%。,move_clause
++30% damage vs Parasite targets.,对寄生目标的伤害+30%。,move_clause
++30% damage vs Fey targets.,对妖精目标的伤害+30%。,move_clause
+Fungal allies are healed 15% more.,真菌友方受到的治疗额外+15%。,move_clause
++35% damage vs Horror targets.,对恐怖目标的伤害+35%。,move_clause
++35% damage vs Vampiric targets.,对吸血目标的伤害+35%。,move_clause
++30% damage vs Vampiric targets.,对吸血目标的伤害+30%。,move_clause
+"Vampiric allies gain +15% Attack, 3t.",吸血友方获得攻击+15%，持续3回合。,move_clause
+"Construct allies gain +15% Defense, 3t.",构装友方获得防御+15%，持续3回合。,move_clause
++45% damage vs Flora targets.,对植物目标的伤害+45%。,move_clause
++40% damage vs Fungal targets.,对真菌目标的伤害+40%。,move_clause
+Construct allies take -50% damage instead.,构装友方改为受到的伤害-50%。,move_clause
++35% damage vs Celestial targets.,对天界目标的伤害+35%。,move_clause
+Elemental and Demon allies gain +40% Attack instead.,元素和恶魔友方改为获得攻击+40%。,move_clause
+"Celestial and Eldritch allies gain +15% Attack, 3t.",天界和邪异友方获得攻击+15%，持续3回合。,move_clause
++5% Defense while above 50% HP.,HP高于50%时，防御+5%。,soul
+This armour's Defense ×1.35.,此护甲的防御×1.35。,soul
+Attackers that hit you take 4% of their damage back.,击中你的攻击者会受到其所造成伤害4%的反弹。,soul
+Allies take -3% damage while at full HP.,友方在HP全满时，受到的伤害-3%。,soul
++4% Attack.,攻击+4%。,soul
++5% Attack on the first turn of battle.,战斗第一回合攻击+5%。,soul
+This item's Defense contribution ×1.35.,此物品提供的防御×1.35。,soul
+Allies' debuffs on enemies last +1 turn on the first turn.,第一回合，友方施加给敌人的减益持续时间+1回合。,soul
+Debuffs on you expire 10% sooner.,你身上的减益持续时间缩短10%。,soul
++5% Defense.,防御+5%。,soul
+Allies +2% Defense.,友方防御+2%。,soul
+Allies' healing received +2%.,友方受到的治疗+2%。,soul
++5% HP.,HP+5%。,soul
+Your damage-over-time effects deal +6%.,你的持续伤害效果伤害+6%。,soul
++6% Attack vs targets with reduced Speed stages.,对速度被降低的目标，攻击+6%。,soul
++6% HP.,HP+6%。,soul
+This item's Defense contribution ×1.40.,此物品提供的防御×1.40。,soul
+Allies deal +5% on the first turn.,第一回合友方造成的伤害+5%。,soul
++6% Defense.,防御+6%。,soul
+This armour's Defense ×1.40.,此护甲的防御×1.40。,soul
++6% Attack while below 50% HP.,HP低于50%时，攻击+6%。,soul
+Allies take -12% damage from damage-over-time.,友方受到的持续伤害-12%。,soul
+Healing you receive +10%.,你受到的治疗+10%。,soul
+Your damage-over-time effects deal +7%.,你的持续伤害效果伤害+7%。,soul
++7% Attack vs targets below 40% HP.,对HP低于40%的目标，攻击+7%。,soul
++7% HP.,HP+7%。,soul
+This item's Defense contribution ×1.45.,此物品提供的防御×1.45。,soul
+Allies deal +5% vs targets with reduced Attack.,友方对攻击被降低的目标造成的伤害+5%。,soul
++6% Attack vs targets below 50% HP.,对HP低于50%的目标，攻击+6%。,soul
+Your debuffs last +1 turn.,你的减益持续时间+1回合。,soul
+Allies deal +6% vs targets below 50% HP.,友方对HP低于50%的目标造成的伤害+6%。,soul
+Allies' healing received +7%.,友方受到的治疗+7%。,soul
++8% HP.,HP+8%。,soul
+Your buffs on allies last +1 turn.,你施加给友方的增益持续时间+1回合。,soul
+This item's Defense contribution ×1.52.,此物品提供的防御×1.52。,soul
++5% Defense while you have a Defense buff.,你拥有防御增益时，防御+5%。,soul
+Allies +2% Defense on the first turn.,第一回合友方防御+2%。,soul
++5% Attack vs targets with a damage-over-time effect.,对带有持续伤害效果的目标，攻击+5%。,soul
+Allies' bleed effects deal +4%.,友方的流血效果伤害+4%。,soul
+Your status debuffs are +6% more potent.,你的状态减益强度+6%。,soul
+Enemy Attack debuffs from allies last +1 turn.,友方施加的敌方攻击减益持续时间+1回合。,soul
++5% Attack on Heavy and Nuke moves.,重型和爆发类招式的攻击+5%。,soul
++6% Attack while above 70% HP.,HP高于70%时，攻击+6%。,soul
+Allies' first hit each battle deals +9%.,友方每场战斗的第一次命中伤害+9%。,soul
+Allies' healing received +3%.,友方受到的治疗+3%。,soul
+Your heals restore +10% more.,你的治疗量额外+10%。,soul
++7% Defense while below 50% HP.,HP低于50%时，防御+7%。,soul
+This armour's Defense ×1.45.,此护甲的防御×1.45。,soul
+Attackers that hit you take 5% of their damage back.,击中你的攻击者会受到其所造成伤害5%的反弹。,soul
+Allies take -2% damage.,友方受到的伤害-2%。,soul
++7% Attack on the first turn.,第一回合攻击+7%。,soul
+Allies deal +4% vs Spectral and Void targets.,友方对幽灵和虚空目标造成的伤害+4%。,soul
++7% Attack while above 70% HP.,HP高于70%时，攻击+7%。,soul
+This armour's Defense ×1.52.,此护甲的防御×1.52。,soul
+Your multi-hit moves deal +8%.,你的多段招式伤害+8%。,soul
+Allies +3% Defense.,友方防御+3%。,soul
+Allies deal +3% vs debuffed targets.,友方对带有减益的目标造成的伤害+3%。,soul
++9% HP.,HP+9%。,soul
+This item's Defense contribution ×1.60.,此物品提供的防御×1.60。,soul
+Allies' debuffs last +1 turn.,友方施加的减益持续时间+1回合。,soul
+Enemy Attack debuffs you apply are +7% more potent.,你施加给敌人的攻击减益强度+7%。,soul
+Allies take -4% damage on the first turn.,第一回合友方受到的伤害-4%。,soul
++6% Attack at or above 70% HP.,HP不低于70%时，攻击+6%。,soul
+Your Defense debuffs are +6% more potent.,你的防御减益强度+6%。,soul
++4% Attack vs debuffed targets.,对带有减益的目标，攻击+4%。,soul
+Allies deal +4% vs targets with reduced Defense.,友方对防御被降低的目标造成的伤害+4%。,soul
++5% Attack on the first turn.,第一回合攻击+5%。,soul
+Allies' first hit each battle deals +4%.,友方每场战斗的第一次命中伤害+4%。,soul
++5% Attack while untouched this battle.,本场战斗尚未受击时，攻击+5%。,soul
+Allies take -2% damage on the first turn.,第一回合友方受到的伤害-2%。,soul
+Debuffs on you expire 12% sooner.,你身上的减益持续时间缩短12%。,soul
+Allies' damage-over-time effects deal +10%.,友方的持续伤害效果伤害+10%。,soul
++6% Attack vs targets with a damage-over-time effect.,对带有持续伤害效果的目标，攻击+6%。,soul
+Your damage-over-time effects deal +8%.,你的持续伤害效果伤害+8%。,soul
+Allies' burn-type effects deal +12%.,友方的灼烧类效果伤害+12%。,soul
++7% Defense.,防御+7%。,soul
+Allies +4% Defense while above 50% HP.,友方在HP高于50%时，防御+4%。,soul
+Allies' Attack debuffs on enemies are +12% more potent.,友方施加给敌人的攻击减益强度+12%。,soul
+Debuffs on you expire 15% sooner.,你身上的减益持续时间缩短15%。,soul
+Allies' damage-over-time effects last +1 turn.,友方的持续伤害效果持续时间+1回合。,soul
++5% Defense while you have not attacked this turn.,本回合你尚未攻击时，防御+5%。,soul
+Your damage-over-time effects last +1 turn.,你的持续伤害效果持续时间+1回合。,soul
+Fungal allies deal +6%.,真菌友方造成的伤害+6%。,soul
++5% Attack vs targets with reduced Speed stages.,对速度被降低的目标，攻击+5%。,soul
+Allies deal +9% vs targets with reduced Speed stages.,友方对速度被降低的目标造成的伤害+9%。,soul
+Your attacks that heal you restore +10% more.,你带有自我治疗效果的攻击，治疗量额外+10%。,soul
+Your damage-over-time effects are +7% more potent.,你的持续伤害效果强度+7%。,soul
++6% Attack on the first turn.,第一回合攻击+6%。,soul
++6% Attack while any ally is an Insect.,任一友方为昆虫时，攻击+6%。,soul
+Insect allies deal +6%.,昆虫友方造成的伤害+6%。,soul
+Insect allies' damage-over-time effects deal +7%.,昆虫友方的持续伤害效果伤害+7%。,soul
+Allies' healing received +8%.,友方受到的治疗+8%。,soul
+This armour's Defense ×1.60.,此护甲的防御×1.60。,soul
++10% Defense.,防御+10%。,soul
+Allies +4% Defense.,友方防御+4%。,soul
++5% Attack vs targets that acted before you this turn.,对本回合先于你行动的目标，攻击+5%。,soul
+Allies take -3% damage from multi-hit moves.,友方受到的多段招式伤害-3%。,soul
++7% Attack at or above 70% HP.,HP不低于70%时，攻击+7%。,soul
+Your Speed-stage debuffs last +1 turn.,你的速度等级减益持续时间+1回合。,soul
+Construct and Arthropod allies +6% Defense.,构装和节肢友方防御+6%。,soul
+Your attacks that heal you restore +12% more.,你带有自我治疗效果的攻击，治疗量额外+12%。,soul
+Allies' attacks that heal them restore +9% more.,友方带有自我治疗效果的攻击，治疗量额外+9%。,soul
+Allies take -4% damage from Spectral and Fey enemies.,友方受到幽灵和妖精敌人的伤害-4%。,soul
+Allies take -5% damage while above 50% HP.,友方在HP高于50%时，受到的伤害-5%。,soul
++8% Attack vs targets with a damage-over-time effect.,对带有持续伤害效果的目标，攻击+8%。,soul
+Your damage-over-time effects deal +10%.,你的持续伤害效果伤害+10%。,soul
+Allies' burn-type effects last +1 turn.,友方的灼烧类效果持续时间+1回合。,soul
++4% Attack on the first turn.,第一回合攻击+4%。,soul
++5% Attack vs targets you have debuffed.,对被你施加过减益的目标，攻击+5%。,soul
+Elemental allies deal +5%.,元素友方造成的伤害+5%。,soul
+Enemy Attack debuffs you apply are +6% more potent.,你施加给敌人的攻击减益强度+6%。,soul
+Allies take -3% damage from Construct enemies.,友方受到构装敌人的伤害-3%。,soul
+Avian allies take -5% damage.,飞禽友方受到的伤害-5%。,soul
++6% Attack while untouched this battle.,本场战斗尚未受击时，攻击+6%。,soul
+Your multi-hit moves deal +9%.,你的多段招式伤害+9%。,soul
+Allies' Attack and Defense debuffs on enemies are +10% more potent.,友方施加给敌人的攻击和防御减益强度+10%。,soul
+Your Speed-stage effects last +1 turn.,你的速度等级效果持续时间+1回合。,soul
+Allies deal +6% on the first turn.,第一回合友方造成的伤害+6%。,soul
++8% Attack vs targets with reduced Speed stages.,对速度被降低的目标，攻击+8%。,soul
+Elemental and Dragon allies deal +7%.,元素和龙友方造成的伤害+7%。,soul
++5% Attack the turn after gaining a Defense buff.,获得防御增益后的下一回合，攻击+5%。,soul
+Allies take -9% damage from damage-over-time.,友方受到的持续伤害-9%。,soul
+Allies' Attack debuffs on enemies last +1 turn.,友方施加给敌人的攻击减益持续时间+1回合。,soul
+Undead allies deal +5%.,不死友方造成的伤害+5%。,soul
+Undead and Amphibian allies +5% Defense.,不死和两栖友方防御+5%。,soul
+Your Speed-stage debuffs are +7% more potent.,你的速度等级减益强度+7%。,soul
+Allies' first attack each battle deals +9%.,友方每场战斗的第一次攻击伤害+9%。,soul
+Allies take -4% damage from Beast enemies.,友方受到野兽敌人的伤害-4%。,soul
+Undead allies deal +6%.,不死友方造成的伤害+6%。,soul
+Your heals restore +12% more.,你的治疗量额外+12%。,soul
+Amphibian and Horror allies +6% Defense.,两栖和恐怖友方防御+6%。,soul
++8% Attack vs targets with no active buffs.,对没有任何增益的目标，攻击+8%。,soul
+Your buff-removal effects also deal 5% of target max HP.,你的增益移除效果还会造成目标最大HP的5%伤害。,soul
+Allies take -3% damage while the enemy has no active buffs.,敌方没有任何增益时，友方受到的伤害-3%。,soul
+Enemy debuffs you apply are +6% more potent.,你施加给敌人的减益强度+6%。,soul
+Fungal allies +5% Defense.,真菌友方防御+5%。,soul
+Enemy buffs expire 1 turn sooner when you debuff them.,你对敌人施加减益时，其增益提前1回合结束。,soul
+Allies' Attack debuffs on enemies are +10% more potent.,友方施加给敌人的攻击减益强度+10%。,soul
+Your Attack debuffs are +7% more potent.,你的攻击减益强度+7%。,soul
+The first hit against you each battle deals -10%.,每场战斗中针对你的第一次命中伤害-10%。,soul
++6% Attack vs targets with reduced Attack.,对攻击被降低的目标，攻击+6%。,soul
+Allies' debuffs expire 20% sooner.,友方身上的减益持续时间缩短20%。,soul
++7% Attack vs targets with reduced Speed stages.,对速度被降低的目标，攻击+7%。,soul
+Fungal allies +7% Defense and deal +5%.,真菌友方防御+7%，造成的伤害+5%。,soul
++8% Attack vs debuffed targets.,对带有减益的目标，攻击+8%。,soul
+Your multi-hit and grip moves deal +10%.,你的多段和束缚类招式伤害+10%。,soul
+Your bleed effects deal +6%.,你的流血效果伤害+6%。,soul
+Enemy healing received -5% while any ally is Vampiric.,任一友方为吸血时，敌方受到的治疗-5%。,soul
+Construct allies +5% Defense.,构装友方防御+5%。,soul
+Allies' bleed effects deal +10%.,友方的流血效果伤害+10%。,soul
+Allies take -4% damage from multi-hit moves.,友方受到的多段招式伤害-4%。,soul
++7% Attack vs targets below 50% HP.,对HP低于50%的目标，攻击+7%。,soul
+Allies deal +5% vs targets below 50% HP.,友方对HP低于50%的目标造成的伤害+5%。,soul
++6% Attack vs targets with any active buff.,对带有任意增益的目标，攻击+6%。,soul
+"Your buff-steal and buff-removal effects also grant you +5% Attack, 1t.",你的增益偷取和增益移除效果还会使你攻击+5%，持续1回合。,soul
+Allies deal +8% vs buffed targets.,友方对带有增益的目标造成的伤害+8%。,soul
+Vampiric allies' attacks that heal them restore +7% more.,吸血友方带有自我治疗效果的攻击，治疗量额外+7%。,soul
+Allies take -8% damage while below 25% HP.,友方在HP低于25%时，受到的伤害-8%。,soul
+Enemy Attack debuffs you apply are +8% more potent.,你施加给敌人的攻击减益强度+8%。,soul
+Your buff-copy and buff-steal effects last +1 turn.,你的增益复制和增益偷取效果持续时间+1回合。,soul
+Allies take -5% damage from Spectral and Horror enemies.,友方受到幽灵和恐怖敌人的伤害-5%。,soul
+Your burn-type effects are +7% more potent.,你的灼烧类效果强度+7%。,soul
+Allies' burn-type effects deal +10%.,友方的灼烧类效果伤害+10%。,soul
++6% Attack while you have a damage-over-time on the enemy.,你在敌人身上有持续伤害时，攻击+6%。,soul
+Construct allies +6% Defense.,构装友方防御+6%。,soul
++7% Attack while below 50% HP.,HP低于50%时，攻击+7%。,soul
++7% Defense while you did not attack last turn.,上回合你未攻击时，防御+7%。,soul
++7% Attack the turn after an ally was damaged.,友方受到伤害后的下一回合，攻击+7%。,soul
+Your damage-over-time effects are +10% more potent.,你的持续伤害效果强度+10%。,soul
+Elemental and Demon allies deal +7%.,元素和恶魔友方造成的伤害+7%。,soul
+Your debuffs are +10% more potent.,你的减益强度+10%。,soul
+Allies' debuffs on enemies are +12% more potent.,友方施加给敌人的减益强度+12%。,soul
+Fey and Beast allies deal +7%.,妖精和野兽友方造成的伤害+7%。,soul
++8% Attack while below 50% HP.,HP低于50%时，攻击+8%。,soul
+Reptile and Dragon allies deal +7%.,爬行和龙友方造成的伤害+7%。,soul
+Ooze and Undead allies +5% Defense.,软泥和不死友方防御+5%。,soul

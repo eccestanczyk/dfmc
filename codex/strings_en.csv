@@ -734,3 +734,79 @@ m_dim_won_n,Battles won: {n},"app: dimension keys (K3): end screen, wins"
 m_dim_return,RETURN TO {where},"app: dimension keys (K3): end screen, return button"
 m_dim_bought,Key bought. Use it from its row.,"app: dimension keys (K3): shop note, key bought"
 m_dim_battles_left_lbl,BATTLES LEFT,"app: dimension keys (K3): battle HUD, the streak box in a dimension fight"
+m_loot_rule_ahead,one floor band ahead of the boss,"app: L1b codex boss drops, the band rule (boss_loot.csv one_band_ahead)"
+m_loot_rule_own,the boss’s own floor band,"app: L1b codex boss drops, the band rule (own band)"
+m_loot_line,"{g} gear + {e} egg, every win","app: L1b boss den, guaranteed loot line"
+m_loot_rolls_ahead,Gear rolls one floor band ahead,"app: L1b boss den, the band rule"
+m_loot_rolls_own,Gear rolls at the boss’s own band,"app: L1b boss den, the band rule (own band)"
+m_pvp_wl,{w}W · {l}L,"app: L1b PvP record, wins and losses"
+m_abbr_inc,INC,"app: L1b socket chip, an Increased enchant / rune (short)"
+m_abbr_more,MORE,"app: L1b socket chip, a More enchant (short)"
+m_abbr_roll,ROLL,"app: L1b socket chip, an unrolled socket (short)"
+m_kind_gem,Gem,"app: L1b socket kind, an empty Gem socket"
+m_kind_rune,Rune,"app: L1b socket kind, an empty Rune socket"
+m_kind_scroll,Scroll,"app: L1b socket kind, an empty Scroll socket"
+m_ult_each,EACH,"app: L1b ultimate value, damage to each enemy (""1155 EACH"")"
+m_ult_heal_hit,HEAL/HIT,"app: L1b ultimate value, heal per hit (short)"
+m_ult_val_counter,{c} COUNTER · +{s}%/HIT to +{m}%,"app: L1b ultimate value, retaliate (short)"
+m_ult_draws_all,DRAWS ALL SINGLE-TARGET,"app: L1b ultimate value, taunt (short)"
+m_ult_k_damage,DAMAGE,app: L1b ultimate detail row label
+m_ult_k_effect,EFFECT,app: L1b ultimate detail row label
+m_ult_k_duration,DURATION,app: L1b ultimate detail row label
+m_ult_round_1,1 round,"app: L1b ultimate detail, duration of one round"
+m_ult_rounds,{n} rounds,"app: L1b ultimate detail, duration in rounds"
+m_ult_k_counter,COUNTER,app: L1b ultimate detail row label
+m_ult_k_stacks,STACKS,app: L1b ultimate detail row label
+m_ult_stack_to,+{s}% per hit to +{m}%,"app: L1b ultimate detail, stacking value with a cap"
+m_ult_stack,+{s}% per hit,"app: L1b ultimate detail, stacking value"
+m_ult_k_heal,HEAL,app: L1b ultimate detail row label
+m_ult_pct_hit,{p}% per hit,"app: L1b ultimate detail, heal per hit"
+m_ult_k_echo,ECHO,app: L1b ultimate detail row label / value
+m_ult_k_defense,DEFENSE,app: L1b ultimate detail row label
+m_ult_tag,ULTIMATE,"app: L1b equipment ultimate box tag, ultimate detail window"
+m_ult_locked_lv,LOCKED · LEVEL {l},"app: L1b ultimate detail window, not learned yet"
+m_ult_level,LEVEL {l},"app: L1b equipment ultimate box, the level it is learned at"
+m_ult_tag_locked,ULTIMATE · LOCKED,"app: L1b equipment ultimate box tag, not learned yet"
+m_ult_learned_lv,Learned at level {l}.,"app: L1b equipment ultimate box hover, not learned yet"
+m_pvp_q_abyss,queued · your Abyss fight comes first · the match starts once it ends,"app: L1b Auto PvP matchmaking line, queued behind an Abyss fight"
+m_pvp_q_net,searching real opponents,"app: L1b Auto PvP matchmaking line, searching"
+m_pvp_q_band,matching ±{b} rating · runs in the background,"app: L1b Auto PvP matchmaking line, the rating band"
+m_pvp_mm_net,real matchmaking on · pairs by rating with a widening band,"app: L1b Auto PvP matchmaking line, idle (server matchmaking)"
+m_pvp_mm_local,pairs by rating · band widens the longer the wait,"app: L1b Auto PvP matchmaking line, idle (offline)"
+m_rank_tab_pvp,PVP,app: L1b rankings tab (PvP boards)
+m_rank_tab_pve,PVE,app: L1b rankings tab (PvE boards)
+m_rank_power,CHARACTER POWER,app: L1b rankings board title
+m_rank_deepest,HIGHEST CLIMB,app: L1b rankings board title
+m_rank_autopvp,AUTO PVP,app: L1b rankings board title
+m_rank_ladder,COMPETITIVE PVP,app: L1b rankings board title
+m_mv_synergy,SYNERGY,"app: L1b move tooltip, the line's Synergy clause label"
+m_mv_anti,ANTI,"app: L1b move tooltip, the line's Anti clause label"
+m_strip_floor,FLOOR {n},"app: L1b taskbar strip (steam/strip.js), the floor label"
+m_strip_auto_on,AUTO ON,"app: L1b taskbar strip button, autoplay on"
+m_strip_auto_off,AUTO OFF,"app: L1b taskbar strip button, autoplay off"
+m_strip_level_up,LEVEL UP,"app: L1b taskbar strip, a unit levelled up after a win"
+m_strip_on_top,ON TOP,"app: L1b taskbar strip button, keep on top"
+m_strip_window,WINDOW,"app: L1b taskbar strip button, back to the game window"
+m_strip_t_auto,"Autoplay: on, the team climbs on its own; off, it stands and waits","app: L1b taskbar strip, AUTO button hover"
+m_strip_t_top,Keep the strip above every other window,"app: L1b taskbar strip, ON TOP button hover"
+m_strip_t_win,Back to the game window,"app: L1b taskbar strip, WINDOW button hover"
+m_srv_refused,THE SERVER REFUSED,app: L1b a server refusal with no code (breeding toast)
+m_srv_grade_anchor,"THE SERVER RECORDS THIS ITEM AS {g} — RESYNCED TO IT, NOTHING WAS SPENT","app: L1b upgrade, the server's grade anchor wins ({g} = a grade name)"
+m_srv_refused_attempt,THE SERVER REFUSED THE ATTEMPT ({e}) — NOTHING WAS SPENT,"app: L1b upgrade, a refused attempt ({e} = the server's reason)"
+m_apvp_not_counted,AUTO PVP — NOT COUNTED,"app: L1b Auto PvP result refused, title"
+m_apvp_not_accepted,The server did not accept this result ({e}).,"app: L1b Auto PvP result refused, line ({e} = the server's reason)"
+srv_insufficient,not enough materials,app: L1b server refusal code insufficient (srvErr)
+srv_unauthenticated,not signed in,app: L1b server refusal code unauthenticated (srvErr)
+srv_forbidden,not allowed,app: L1b server refusal code forbidden (srvErr)
+srv_not_found,not found,app: L1b server refusal code not found (srvErr)
+srv_no_save,no save on the server,app: L1b server refusal code no save (srvErr)
+srv_stale,"out of date, try again",app: L1b server refusal code stale (srvErr)
+srv_soft_block,blocked for now,app: L1b server refusal code soft_block (srvErr)
+srv_once_bought,already bought,app: L1b server refusal code once_bought (srvErr)
+srv_no_tickets,no tickets left,app: L1b server refusal code no_tickets (srvErr)
+srv_no_snapshot,no team snapshot,app: L1b server refusal code no_snapshot (srvErr)
+srv_no_defenders,no defenders,app: L1b server refusal code no_defenders (srvErr)
+srv_body,bad request,app: L1b server refusal code body (srvErr)
+srv_bad_json,bad request,app: L1b server refusal code bad json (srvErr)
+srv_unreadable_save,unreadable save,app: L1b server refusal code unreadable save (srvErr)
+srv_sid_required,not signed in,app: L1b server refusal code sid required (srvErr)

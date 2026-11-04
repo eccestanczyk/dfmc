@@ -734,3 +734,79 @@ m_dim_won_n,战斗胜利：{n},"app: dimension keys (K3): end screen, wins"
 m_dim_return,返回{where},"app: dimension keys (K3): end screen, return button"
 m_dim_bought,已购买钥匙。可在其所在行使用。,"app: dimension keys (K3): shop note, key bought"
 m_dim_battles_left_lbl,剩余战斗,"app: dimension keys (K3): battle HUD, the streak box in a dimension fight"
+m_loot_rule_ahead,比首领所在层段高出一个层段,"app: L1b codex boss drops, the band rule (boss_loot.csv one_band_ahead)"
+m_loot_rule_own,首领自身所在的层段,"app: L1b codex boss drops, the band rule (own band)"
+m_loot_line,每次获胜必得{g}装备 + {e}蛋,"app: L1b boss den, guaranteed loot line"
+m_loot_rolls_ahead,装备按高出一个层段的标准掉落,"app: L1b boss den, the band rule"
+m_loot_rolls_own,装备按首领自身层段的标准掉落,"app: L1b boss den, the band rule (own band)"
+m_pvp_wl,{w}胜 · {l}负,"app: L1b PvP record, wins and losses"
+m_abbr_inc,提升,"app: L1b socket chip, an Increased enchant / rune (short)"
+m_abbr_more,额外,"app: L1b socket chip, a More enchant (short)"
+m_abbr_roll,随机,"app: L1b socket chip, an unrolled socket (short)"
+m_kind_gem,宝石,"app: L1b socket kind, an empty Gem socket"
+m_kind_rune,符文,"app: L1b socket kind, an empty Rune socket"
+m_kind_scroll,卷轴,"app: L1b socket kind, an empty Scroll socket"
+m_ult_each,每个,"app: L1b ultimate value, damage to each enemy (""1155 EACH"")"
+m_ult_heal_hit,治疗/击,"app: L1b ultimate value, heal per hit (short)"
+m_ult_val_counter,{c} 反击 · +{s}%/击，最高+{m}%,"app: L1b ultimate value, retaliate (short)"
+m_ult_draws_all,吸引所有单体招式,"app: L1b ultimate value, taunt (short)"
+m_ult_k_damage,伤害,app: L1b ultimate detail row label
+m_ult_k_effect,效果,app: L1b ultimate detail row label
+m_ult_k_duration,持续时间,app: L1b ultimate detail row label
+m_ult_round_1,1回合,"app: L1b ultimate detail, duration of one round"
+m_ult_rounds,{n}回合,"app: L1b ultimate detail, duration in rounds"
+m_ult_k_counter,反击,app: L1b ultimate detail row label
+m_ult_k_stacks,叠加,app: L1b ultimate detail row label
+m_ult_stack_to,每击+{s}%，最高+{m}%,"app: L1b ultimate detail, stacking value with a cap"
+m_ult_stack,每击+{s}%,"app: L1b ultimate detail, stacking value"
+m_ult_k_heal,治疗,app: L1b ultimate detail row label
+m_ult_pct_hit,每击{p}%,"app: L1b ultimate detail, heal per hit"
+m_ult_k_echo,回响,app: L1b ultimate detail row label / value
+m_ult_k_defense,防御,app: L1b ultimate detail row label
+m_ult_tag,终极技,"app: L1b equipment ultimate box tag, ultimate detail window"
+m_ult_locked_lv,未解锁 · 等级{l},"app: L1b ultimate detail window, not learned yet"
+m_ult_level,等级{l},"app: L1b equipment ultimate box, the level it is learned at"
+m_ult_tag_locked,终极技 · 未解锁,"app: L1b equipment ultimate box tag, not learned yet"
+m_ult_learned_lv,在{l}级习得。,"app: L1b equipment ultimate box hover, not learned yet"
+m_pvp_q_abyss,已排队 · 先进行你的深渊战斗 · 战斗结束后对战开始,"app: L1b Auto PvP matchmaking line, queued behind an Abyss fight"
+m_pvp_q_net,正在搜索真实对手,"app: L1b Auto PvP matchmaking line, searching"
+m_pvp_q_band,匹配评分 ±{b} · 后台运行,"app: L1b Auto PvP matchmaking line, the rating band"
+m_pvp_mm_net,真人匹配已开启 · 按评分配对，范围逐渐放宽,"app: L1b Auto PvP matchmaking line, idle (server matchmaking)"
+m_pvp_mm_local,按评分配对 · 等待越久范围越宽,"app: L1b Auto PvP matchmaking line, idle (offline)"
+m_rank_tab_pvp,PVP,app: L1b rankings tab (PvP boards)
+m_rank_tab_pve,PVE,app: L1b rankings tab (PvE boards)
+m_rank_power,角色战力,app: L1b rankings board title
+m_rank_deepest,最高攀登,app: L1b rankings board title
+m_rank_autopvp,自动 PvP,app: L1b rankings board title
+m_rank_ladder,竞技 PvP,app: L1b rankings board title
+m_mv_synergy,协同,"app: L1b move tooltip, the line's Synergy clause label"
+m_mv_anti,克制,"app: L1b move tooltip, the line's Anti clause label"
+m_strip_floor,第{n}层,"app: L1b taskbar strip (steam/strip.js), the floor label"
+m_strip_auto_on,自动开,"app: L1b taskbar strip button, autoplay on"
+m_strip_auto_off,自动关,"app: L1b taskbar strip button, autoplay off"
+m_strip_level_up,升级,"app: L1b taskbar strip, a unit levelled up after a win"
+m_strip_on_top,置顶,"app: L1b taskbar strip button, keep on top"
+m_strip_window,窗口,"app: L1b taskbar strip button, back to the game window"
+m_strip_t_auto,自动战斗：开启时，队伍会自行攀登；关闭时，队伍原地待命,"app: L1b taskbar strip, AUTO button hover"
+m_strip_t_top,让此悬浮条保持在所有其他窗口之上,"app: L1b taskbar strip, ON TOP button hover"
+m_strip_t_win,返回游戏窗口,"app: L1b taskbar strip, WINDOW button hover"
+m_srv_refused,服务器拒绝了请求,app: L1b a server refusal with no code (breeding toast)
+m_srv_grade_anchor,服务器记录该物品为{g}——已按其重新同步，未消耗任何资源,"app: L1b upgrade, the server's grade anchor wins ({g} = a grade name)"
+m_srv_refused_attempt,服务器拒绝了此次尝试（{e}）——未消耗任何资源,"app: L1b upgrade, a refused attempt ({e} = the server's reason)"
+m_apvp_not_counted,自动 PvP — 未计入,"app: L1b Auto PvP result refused, title"
+m_apvp_not_accepted,服务器未接受此结果（{e}）。,"app: L1b Auto PvP result refused, line ({e} = the server's reason)"
+srv_insufficient,材料不足,app: L1b server refusal code insufficient (srvErr)
+srv_unauthenticated,未登录,app: L1b server refusal code unauthenticated (srvErr)
+srv_forbidden,不允许,app: L1b server refusal code forbidden (srvErr)
+srv_not_found,未找到,app: L1b server refusal code not found (srvErr)
+srv_no_save,服务器上没有存档,app: L1b server refusal code no save (srvErr)
+srv_stale,已过期，请重试,app: L1b server refusal code stale (srvErr)
+srv_soft_block,暂时被阻止,app: L1b server refusal code soft_block (srvErr)
+srv_once_bought,已购买,app: L1b server refusal code once_bought (srvErr)
+srv_no_tickets,次数已用完,app: L1b server refusal code no_tickets (srvErr)
+srv_no_snapshot,没有队伍快照,app: L1b server refusal code no_snapshot (srvErr)
+srv_no_defenders,没有防守者,app: L1b server refusal code no_defenders (srvErr)
+srv_body,请求无效,app: L1b server refusal code body (srvErr)
+srv_bad_json,请求无效,app: L1b server refusal code bad json (srvErr)
+srv_unreadable_save,存档无法读取,app: L1b server refusal code unreadable save (srvErr)
+srv_sid_required,未登录,app: L1b server refusal code sid required (srvErr)

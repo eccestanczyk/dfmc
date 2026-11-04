@@ -2687,3 +2687,952 @@ Seep,Infiltrar,move
 Corpse Seep,Infiltração Cadavérica,move
 Seep of the Charnel Pit,Infiltração da Vala Carnária,move
 Strike,Golpe,move
+Starter,Inicial,class_access
+Unlock,Desbloqueio,class_access
+Worn,Gasto,grade
+Common,Comum,grade
+Uncommon,Incomum,grade
+Rare,Raro,grade
+Epic,Épico,grade
+Legendary,Lendário,grade
+Abyssal,Abissal,grade
+Divine,Divino,grade
+Primordial,Primordial,grade
+The floor,O andar,info
+Win battles in a row to fill the streak counter. A full streak opens the portal up; one loss sets the streak back to zero.,Vença batalhas seguidas para encher o contador de sequência. Uma sequência completa abre o portal para cima; uma derrota zera a sequência.,info
+The fight,A luta,info
+"Each round, every fighter on your side picks one move; then the round plays out. Faster creatures act first, and a move's type against the target's type changes how hard it hits.","A cada rodada, cada lutador do seu lado escolhe um golpe; depois a rodada se desenrola. Criaturas mais rápidas agem primeiro, e o tipo do golpe contra o tipo do alvo muda a força do acerto.",info
+Floor map,Mapa do andar,info
+"Every floor of the tower, ten per zone. Travel to any floor you have reached; the squares on a row are the creatures that live on that floor.","Todos os andares da torre, dez por zona. Viaje para qualquer andar que você já alcançou; os quadrados de uma linha são as criaturas que vivem naquele andar.",info
+Inventory,Inventário,info
+"Your gear. Click a piece to see its stats, wear it or break it down. When the bag is full, new drops cannot come in, so dismantle what you will not use.","Seu equipamento. Clique numa peça para ver seus atributos, equipá-la ou desmontá-la. Quando a bolsa está cheia, novos itens não entram, então desmonte o que você não for usar.",info
+Soul bag,Bolsa de almas,info
+"Every creature and egg you own lives here. Click a creature to open its sheet; click an egg to hatch it. The egg's grade tilts the odds of the hatchling's grade, it does not fix it.","Toda criatura e todo ovo que você tem ficam aqui. Clique numa criatura para abrir a ficha dela; clique num ovo para chocá-lo. O grau do ovo inclina as chances do grau do filhote, mas não o fixa.",info
+Equipment,Equipamento,info
+"Your team is your character and two creatures, and this window is the only place you set it. Change gear any time: a fight already running keeps the gear it started with.","Sua equipe é o seu personagem e duas criaturas, e esta janela é o único lugar onde você a monta. Troque o equipamento quando quiser: uma luta já em andamento mantém o equipamento com que começou.",info
+Classes,Classes,info
+"Your character's class sets its stats and its ultimate. Each class grows through three stages as it levels, and the ultimate is learned partway up.","A classe do seu personagem define seus atributos e sua ultimate. Cada classe cresce em três estágios conforme sobe de nível, e a ultimate é aprendida no meio do caminho.",info
+"Put two creatures in a pen and it keeps working on its own, spending Ichor over time. Each time the bar fills an egg drops into your bag, and the pen starts again.","Coloque duas criaturas num viveiro e ele continua trabalhando sozinho, gastando Icor com o tempo. Cada vez que a barra enche, um ovo cai na sua bolsa e o viveiro recomeça.",info
+Codex,Códice,info
+"Every creature in the tower, in order. A ???? card is a creature you have not found yet. The top row lists what the next boss can drop.","Toda criatura da torre, em ordem. Um cartão ???? é uma criatura que você ainda não encontrou. A linha de cima lista o que o próximo chefe pode largar.",info
+PvP arena,Arena PvP,info
+"Auto PvP attacks a saved copy of another player's team, so they do not need to be online; your own team defends the same way. Competitive PvP is live, against a player who is there.","O Auto PvP ataca uma cópia salva da equipe de outro jogador, então ele não precisa estar online; a sua própria equipe defende do mesmo jeito. O PvP Competitivo é ao vivo, contra um jogador que está presente.",info
+Rankings,Ranking,info
+"The boards for Auto PvP and Competitive PvP, side by side. Pick PVP or PVE at the top to switch boards.","Os rankings do Auto PvP e do PvP Competitivo, lado a lado. Escolha PVP ou PVE no topo para trocar de ranking.",info
+Settings,Configurações,info
+Every choice here is saved with your account and follows you to any device you play on.,Cada escolha aqui é salva na sua conta e acompanha você em qualquer dispositivo em que jogar.,info
+Premium shop,Loja premium,info
+"Wraithgold is the premium currency. It is bought here in the shop; no one starts with any. Spend it on boosts. A boost with a duration counts down from the moment you buy it, and its card shows whether it is running.","Wraithgold é a moeda premium. Ela é comprada aqui na loja; ninguém começa com nenhuma. Gaste em impulsos. Um impulso com duração faz a contagem regressiva desde o momento em que você o compra, e o cartão dele mostra se está ativo.",info
+Creature sheet,Ficha da criatura,info
+"One creature's stats, moves and how it grows. The aptitude shape shows which stats it is best at.","Os atributos, os golpes e o crescimento de uma criatura. O formato de aptidão mostra em quais atributos ela é melhor.",info
+Character power,Poder do personagem,info
+"Every hero with a saved team is listed by its character power. The server counts it from your saved build once a day, so a change shows after the next daily update.","Todo herói com uma equipe salva é listado pelo seu poder de personagem. O servidor o calcula a partir da sua build salva uma vez por dia, então uma mudança aparece após a próxima atualização diária.",info
+Highest climb,Maior escalada,info
+Clear floor 1 to be listed. The board ranks the highest floor you have reached and updates once a day.,Conclua o andar 1 para ser listado. O ranking ordena o andar mais alto que você alcançou e é atualizado uma vez por dia.,info
+Every hero with a class soul and a creature in the team is listed at the next daily update - at 1500 until your Auto PvP fights move the rating.,Todo herói com uma alma de classe e uma criatura na equipe é listado na próxima atualização diária - com 1500 até suas lutas de Auto PvP moverem a pontuação.,info
+Play one Competitive PvP match to get a rating. The board shows it after the next daily update.,Jogue uma partida de PvP Competitivo para ter uma pontuação. O ranking a mostra após a próxima atualização diária.,info
+"Damage; Sunder Plate: target -10% Defense, 2t.","Dano; Placa Partida: alvo -10% de Defesa, 2t.",move_effect
+"Damage; Sunder Plate: target -25% Defense, 3t.","Dano; Placa Partida: alvo -25% de Defesa, 3t.",move_effect
+"Damage; Sunder Plate: target -30% Defense, 3t.","Dano; Placa Partida: alvo -30% de Defesa, 3t.",move_effect
+Damage only.,Apenas dano.,move_effect
+Damage; ignores 10% of target Defense.,Dano; ignora 10% da Defesa do alvo.,move_effect
+Damage; ignores 15% of target Defense.,Dano; ignora 15% da Defesa do alvo.,move_effect
+"Damage; Impale: target bleeds 3% max HP/turn, 2t.","Dano; Empalar: alvo sangra 3% do PV máx./turno, 2t.",move_effect
+"Damage; Impale: target bleeds 5% max HP/turn, 3t.","Dano; Empalar: alvo sangra 5% do PV máx./turno, 3t.",move_effect
+"Damage; Impale: target bleeds 6% max HP/turn, 3t.","Dano; Empalar: alvo sangra 6% do PV máx./turno, 3t.",move_effect
+"+45% Defense (self, 3t).","+45% de Defesa (usuário, 3t).",move_effect
+"+50% Defense (self, 3t); attackers take Quillprick: 9% max HP over 3t.","+50% de Defesa (usuário, 3t); atacantes sofrem Picada de Cerda: 9% do PV máx. ao longo de 3t.",move_effect
+"+50% Defense (self, 3t); attackers take Quillprick: 12% max HP over 3t.","+50% de Defesa (usuário, 3t); atacantes sofrem Picada de Cerda: 12% do PV máx. ao longo de 3t.",move_effect
+"Damage; Pall: target -10% Attack, 2t.","Dano; Manto: alvo -10% de Ataque, 2t.",move_effect
+"Damage; Pall: target -15% Attack, 3t.","Dano; Manto: alvo -15% de Ataque, 3t.",move_effect
+"Damage; Pall: target -25% Attack, 3t.","Dano; Manto: alvo -25% de Ataque, 3t.",move_effect
+"Damage; Harried: target -1 Speed stage, 2t.","Dano; Acossado: alvo -1 nível de Velocidade, 2t.",move_effect
+Damage; +15% more if user acted before the target this turn.,Dano; +15% a mais se o usuário agiu antes do alvo neste turno.,move_effect
+Damage; +20% more if user acted before the target this turn.,Dano; +20% a mais se o usuário agiu antes do alvo neste turno.,move_effect
+"Blinding Dust: target -25% Attack, 2t.","Poeira Cegante: alvo -25% de Ataque, 2t.",move_effect
+"Blinding Dust: target -30% Attack, 3t.","Poeira Cegante: alvo -30% de Ataque, 3t.",move_effect
+"Blinding Dust: target -40% Attack, 3t.","Poeira Cegante: alvo -40% de Ataque, 3t.",move_effect
+"Damage; Buried: target -10% Defense, 2t.","Dano; Soterrado: alvo -10% de Defesa, 2t.",move_effect
+"Damage; Buried: target -25% Defense, 3t.","Dano; Soterrado: alvo -25% de Defesa, 3t.",move_effect
+"Damage; Buried: target -30% Defense, 3t.","Dano; Soterrado: alvo -30% de Defesa, 3t.",move_effect
+"Damage; Sinkstep: target -1 Speed stage, 2t.","Dano; Passo Afundado: alvo -1 nível de Velocidade, 2t.",move_effect
+"Damage; Sinkstep: target -1 Speed stage, 3t.","Dano; Passo Afundado: alvo -1 nível de Velocidade, 3t.",move_effect
+"+50% Defense (self, 3t); cleanse 1 debuff.","+50% de Defesa (usuário, 3t); purifica 1 penalidade.",move_effect
+Damage; all allies cleanse 1 debuff.,Dano; todos os aliados purificam 1 penalidade.,move_effect
+"Damage; Nettle: target takes 4% max HP/turn, 3t.","Dano; Urtiga: alvo sofre 4% do PV máx./turno, 3t.",move_effect
+"Damage; Nettle: target takes 5% max HP/turn, 3t.","Dano; Urtiga: alvo sofre 5% do PV máx./turno, 3t.",move_effect
+"One ally +35% Defense, 3t.","Um aliado +35% de Defesa, 3t.",move_effect
+"All allies +50% Defense, 3t.","Todos os aliados +50% de Defesa, 3t.",move_effect
+"Snare: target -1 Speed stage, 2t.","Armadilha: alvo -1 nível de Velocidade, 2t.",move_effect
+"Snare: target -2 Speed stages, 3t.","Armadilha: alvo -2 níveis de Velocidade, 3t.",move_effect
+Damage; +25% more vs targets with a reduced Speed stage.,Dano; +25% a mais contra alvos com nível de Velocidade reduzido.,move_effect
+Damage; +40% more vs targets with a reduced Speed stage.,Dano; +40% a mais contra alvos com nível de Velocidade reduzido.,move_effect
+Damage; +50% more vs targets with a reduced Speed stage.,Dano; +50% a mais contra alvos com nível de Velocidade reduzido.,move_effect
+"Damage; Dread: target -10% Attack, 3t.","Dano; Pavor: alvo -10% de Ataque, 3t.",move_effect
+"Damage; Dread: target -15% Attack, 3t.","Dano; Pavor: alvo -15% de Ataque, 3t.",move_effect
+Damage; +25% more if user acted before the target this turn.,Dano; +25% a mais se o usuário agiu antes do alvo neste turno.,move_effect
+"Self +1 Speed stage, 2t.","Usuário +1 nível de Velocidade, 2t.",move_effect
+"Self +1 Speed stage, 3t.","Usuário +1 nível de Velocidade, 3t.",move_effect
+"Damage; Staggered: target -1 Speed stage, 2t.","Dano; Cambaleante: alvo -1 nível de Velocidade, 2t.",move_effect
+"+50% Defense (self, 3t); self -1 Speed stage, 2t.","+50% de Defesa (usuário, 3t); usuário -1 nível de Velocidade, 2t.",move_effect
+"Damage; Rootbound: target -1 Speed stage, 2t.","Dano; Preso por Raízes: alvo -1 nível de Velocidade, 2t.",move_effect
+"Damage; Rootbound: target -2 Speed stages, 3t.","Dano; Preso por Raízes: alvo -2 níveis de Velocidade, 3t.",move_effect
+"Leech Roots: 7%/turn, 3t.","Raízes Sanguessugas: 7%/turno, 3t.",move_effect
+"Leech Roots: target takes 9% max HP/turn, 3t; user drains the amount siphoned.","Raízes Sanguessugas: alvo sofre 9% do PV máx./turno, 3t; o usuário drena o valor sugado.",move_effect
+"Leech Roots: target takes 12% max HP/turn, 3t; user drains the amount siphoned.","Raízes Sanguessugas: alvo sofre 12% do PV máx./turno, 3t; o usuário drena o valor sugado.",move_effect
+"+50% Defense (self, 3t).","+50% de Defesa (usuário, 3t).",move_effect
+"Damage; Throttle: target -10% Attack, 2t.","Dano; Estrangulamento: alvo -10% de Ataque, 2t.",move_effect
+"Damage; Throttle: target -25% Attack and -1 Speed stage, 3t.","Dano; Estrangulamento: alvo -25% de Ataque e -1 nível de Velocidade, 3t.",move_effect
+"Damage; Throttle: target -30% Attack and -1 Speed stage, 3t.","Dano; Estrangulamento: alvo -30% de Ataque e -1 nível de Velocidade, 3t.",move_effect
+Damage; +20% more vs targets below 40% HP.,Dano; +20% a mais contra alvos abaixo de 40% de PV.,move_effect
+Damage; +30% more vs targets below 40% HP.,Dano; +30% a mais contra alvos abaixo de 40% de PV.,move_effect
+Damage; +35% more vs targets below 40% HP.,Dano; +35% a mais contra alvos abaixo de 40% de PV.,move_effect
+"Damage; Garroted: target -10% Attack, 3t.","Dano; Garroteado: alvo -10% de Ataque, 3t.",move_effect
+"Damage; Garroted: target -15% Attack, 3t.","Dano; Garroteado: alvo -15% de Ataque, 3t.",move_effect
+Damage; +20% more vs targets with Knell.,Dano; +20% a mais contra alvos com Dobre.,move_effect
+Damage; +30% more vs targets with Knell.,Dano; +30% a mais contra alvos com Dobre.,move_effect
+Damage; +40% more vs targets with Knell.,Dano; +40% a mais contra alvos com Dobre.,move_effect
+"Knell: +20% damage from all sources, 2t.","Dobre: +20% de dano de todas as fontes, 2t.",move_effect
+"Knell: target takes +25% damage from all sources, 3t.","Dobre: alvo sofre +25% de dano de todas as fontes, 3t.",move_effect
+"Knell: target takes +30% damage from all sources, 3t.","Dobre: alvo sofre +30% de dano de todas as fontes, 3t.",move_effect
+"One ally +25% Attack, 3t.","Um aliado +25% de Ataque, 3t.",move_effect
+"All allies +30% Attack, 3t.","Todos os aliados +30% de Ataque, 3t.",move_effect
+"All allies +40% Attack, 3t.","Todos os aliados +40% de Ataque, 3t.",move_effect
+Heal one ally 25% max HP.,Cura um aliado em 25% do PV máx.,move_effect
+Heal one ally 35% max HP.,Cura um aliado em 35% do PV máx.,move_effect
+Heal one ally 40% max HP.,Cura um aliado em 40% do PV máx.,move_effect
+"One ally +45% Attack, 3t.","Um aliado +45% de Ataque, 3t.",move_effect
+"One ally +50% Attack, 3t.","Um aliado +50% de Ataque, 3t.",move_effect
+"Damage; Hullscrape: target -10% Defense, 2t.","Dano; Raspagem de Casco: alvo -10% de Defesa, 2t.",move_effect
+"Damage; Hullscrape: target -15% Defense, 3t.","Dano; Raspagem de Casco: alvo -15% de Defesa, 3t.",move_effect
+"Damage; Hullscrape: target -25% Defense, 3t.","Dano; Raspagem de Casco: alvo -25% de Defesa, 3t.",move_effect
+"Damage; Clamped: target -1 Speed stage, 2t.","Dano; Pinçado: alvo -1 nível de Velocidade, 2t.",move_effect
+"Damage; Clamped: target -1 Speed stage and -10% Attack, 3t.","Dano; Pinçado: alvo -1 nível de Velocidade e -10% de Ataque, 3t.",move_effect
+"Damage; Clamped: target -1 Speed stage and -15% Attack, 3t.","Dano; Pinçado: alvo -1 nível de Velocidade e -15% de Ataque, 3t.",move_effect
+Damage; +20% more vs targets with any damage-over-time effect.,Dano; +20% a mais contra alvos com algum efeito de dano contínuo.,move_effect
+Damage; +30% more vs targets with any damage-over-time effect.,Dano; +30% a mais contra alvos com algum efeito de dano contínuo.,move_effect
+Damage; +40% more vs targets with any damage-over-time effect.,Dano; +40% a mais contra alvos com algum efeito de dano contínuo.,move_effect
+"Damage; Ragged: target bleeds 3% max HP/turn, 2t.","Dano; Dilacerado: alvo sangra 3% do PV máx./turno, 2t.",move_effect
+"Damage; Ragged: target bleeds 4% max HP/turn, 3t.","Dano; Dilacerado: alvo sangra 4% do PV máx./turno, 3t.",move_effect
+"Damage; Ragged: target bleeds 5% max HP/turn, 3t.","Dano; Dilacerado: alvo sangra 5% do PV máx./turno, 3t.",move_effect
+"Damage; Soaked: target -10% Defense, 2t.","Dano; Encharcado: alvo -10% de Defesa, 2t.",move_effect
+"Damage; Soaked: target -15% Defense, 3t.","Dano; Encharcado: alvo -15% de Defesa, 3t.",move_effect
+"Damage; Soaked: target -25% Defense, 3t.","Dano; Encharcado: alvo -25% de Defesa, 3t.",move_effect
+"Damage; Sting: target -10% Attack, 2t.","Dano; Ferroada: alvo -10% de Ataque, 2t.",move_effect
+"Damage; Sting: target -15% Attack, 2t.","Dano; Ferroada: alvo -15% de Ataque, 2t.",move_effect
+"Brineblind: target -25% Attack, 2t.","Cegueira Salgada: alvo -25% de Ataque, 2t.",move_effect
+"Brineblind: target -30% Attack, 3t.","Cegueira Salgada: alvo -30% de Ataque, 3t.",move_effect
+"Brineblind: target -40% Attack, 3t.","Cegueira Salgada: alvo -40% de Ataque, 3t.",move_effect
+"Damage; Scalded: target -10% Defense, 2t.","Dano; Escaldado: alvo -10% de Defesa, 2t.",move_effect
+"Damage; Scalded: target -15% Defense, 3t.","Dano; Escaldado: alvo -15% de Defesa, 3t.",move_effect
+"Damage; Scalded: target -25% Defense, 3t.","Dano; Escaldado: alvo -25% de Defesa, 3t.",move_effect
+Damage; ignores 20% of target Defense.,Dano; ignora 20% da Defesa do alvo.,move_effect
+Damage as 2 rapid hits.,Dano em 2 acertos rápidos.,move_effect
+Damage as 3 rapid hits.,Dano em 3 acertos rápidos.,move_effect
+"Self +35% Attack, 3t.","Usuário +35% de Ataque, 3t.",move_effect
+"Self +50% Attack, 3t.","Usuário +50% de Ataque, 3t.",move_effect
+Damage; +20% more vs targets with Lured.,Dano; +20% a mais contra alvos com Atraído.,move_effect
+Damage; +30% more vs targets with Lured.,Dano; +30% a mais contra alvos com Atraído.,move_effect
+Damage; +40% more vs targets with Lured.,Dano; +40% a mais contra alvos com Atraído.,move_effect
+"Lured: target -1 Speed stage, 2t.","Atraído: alvo -1 nível de Velocidade, 2t.",move_effect
+"Lured: target -1 Speed stage and -30% Attack, 3t.","Atraído: alvo -1 nível de Velocidade e -30% de Ataque, 3t.",move_effect
+"Lured: target -1 Speed stage and -35% Attack, 3t.","Atraído: alvo -1 nível de Velocidade e -35% de Ataque, 3t.",move_effect
+Damage; +25% more if user has an active Defense buff.,Dano; +25% a mais se o usuário tiver um bônus de Defesa ativo.,move_effect
+Damage; +30% more if user has an active Defense buff.,Dano; +30% a mais se o usuário tiver um bônus de Defesa ativo.,move_effect
+"+45% Defense (self, 2t).","+45% de Defesa (usuário, 2t).",move_effect
+"+50% Defense (self, 2t); heal self 30% max HP.","+50% de Defesa (usuário, 2t); cura o usuário em 30% do PV máx.",move_effect
+"+50% Defense (self, 2t); heal self 35% max HP.","+50% de Defesa (usuário, 2t); cura o usuário em 35% do PV máx.",move_effect
+Mired Trail: 2t.,Rastro Lamacento: 2t.,move_effect
+"Mired Trail: target -1 Speed stage, 3t.","Rastro Lamacento: alvo -1 nível de Velocidade, 3t.",move_effect
+"Damage; Numbed: target -1 Speed stage, 2t.","Dano; Entorpecido: alvo -1 nível de Velocidade, 2t.",move_effect
+Damage; ignores 5% of target Defense.,Dano; ignora 5% da Defesa do alvo.,move_effect
+"Self +1 Speed stage, 3t; next hit taken -25%.","Usuário +1 nível de Velocidade, 3t; próximo acerto sofrido -25%.",move_effect
+"Self +1 Speed stage, 3t; next hit taken -30%.","Usuário +1 nível de Velocidade, 3t; próximo acerto sofrido -30%.",move_effect
+Damage as 2 hits.,Dano em 2 acertos.,move_effect
+Damage as 3 hits.,Dano em 3 acertos.,move_effect
+"Damage as 3 hits, one per head.","Dano em 3 acertos, um por cabeça.",move_effect
+"Damage; Coral Rot: target -10% Defense, 2t.","Dano; Podridão de Coral: alvo -10% de Defesa, 2t.",move_effect
+"Damage; Coral Rot: target -10% Defense, 3t.","Dano; Podridão de Coral: alvo -10% de Defesa, 3t.",move_effect
+"Damage; Coral Rot: target -15% Defense, 3t.","Dano; Podridão de Coral: alvo -15% de Defesa, 3t.",move_effect
+"Self +50% Attack, 3t; cleanse 1 debuff.","Usuário +50% de Ataque, 3t; purifica 1 penalidade.",move_effect
+Damage; +15% more per debuff on target (max +30%).,Dano; +15% a mais por penalidade no alvo (máx. +30%).,move_effect
+Damage; +20% more per debuff on target (max +40%).,Dano; +20% a mais por penalidade no alvo (máx. +40%).,move_effect
+Damage; +25% more per debuff on target (max +50%).,Dano; +25% a mais por penalidade no alvo (máx. +50%).,move_effect
+"Damage; Salt Curse: target -10% Defense, 2t.","Dano; Maldição de Sal: alvo -10% de Defesa, 2t.",move_effect
+"Damage; Salt Curse: target -15% Defense, 3t.","Dano; Maldição de Sal: alvo -15% de Defesa, 3t.",move_effect
+"Damage; Salt Curse: target -25% Defense, 3t.","Dano; Maldição de Sal: alvo -25% de Defesa, 3t.",move_effect
+"Damage; Pulled Under: target -1 Speed stage, 2t.","Dano; Puxado para Baixo: alvo -1 nível de Velocidade, 2t.",move_effect
+"Damage; Pulled Under: target -2 Speed stages, 2t.","Dano; Puxado para Baixo: alvo -2 níveis de Velocidade, 2t.",move_effect
+"Inkblind: target -25% Attack, 2t.","Cegueira de Tinta: alvo -25% de Ataque, 2t.",move_effect
+"Inkblind: target -45% Attack, 3t.","Cegueira de Tinta: alvo -45% de Ataque, 3t.",move_effect
+"Inkblind: target -50% Attack, 3t.","Cegueira de Tinta: alvo -50% de Ataque, 3t.",move_effect
+"+50% Defense (self, 2t); cleanse 1 debuff.","+50% de Defesa (usuário, 2t); purifica 1 penalidade.",move_effect
+Damage; +25% more if user is above 70% HP.,Dano; +25% a mais se o usuário estiver acima de 70% de PV.,move_effect
+Damage; +30% more if user is above 70% HP.,Dano; +30% a mais se o usuário estiver acima de 70% de PV.,move_effect
+"+50% Defense (self, 3t); +30% Attack (self, 3t).","+50% de Defesa (usuário, 3t); +30% de Ataque (usuário, 3t).",move_effect
+"+50% Defense (self, 3t); +35% Attack (self, 3t).","+50% de Defesa (usuário, 3t); +35% de Ataque (usuário, 3t).",move_effect
+Damage; +25% more vs targets with Unraveled.,Dano; +25% a mais contra alvos com Desfiado.,move_effect
+Damage; +40% more vs targets with Unraveled.,Dano; +40% a mais contra alvos com Desfiado.,move_effect
+Damage; +50% more vs targets with Unraveled.,Dano; +50% a mais contra alvos com Desfiado.,move_effect
+"Unraveled: target -25% Defense, 2t.","Desfiado: alvo -25% de Defesa, 2t.",move_effect
+"Unraveled: target -30% Defense, 3t.","Desfiado: alvo -30% de Defesa, 3t.",move_effect
+"Unraveled: target -40% Defense, 3t.","Desfiado: alvo -40% de Defesa, 3t.",move_effect
+Omen: +25% damage from the next hit against it.,Presságio: +25% de dano do próximo acerto contra ele.,move_effect
+Omen: target takes +30% damage from the next hit against it.,Presságio: alvo sofre +30% de dano do próximo acerto contra ele.,move_effect
+Omen: target takes +35% damage from the next hit against it.,Presságio: alvo sofre +35% de dano do próximo acerto contra ele.,move_effect
+"Damage; Venom Grit: 4%/turn, 3t.","Dano; Veneno Áspero: 4%/turno, 3t.",move_effect
+"Damage; Venom Grit: target takes 5% max HP/turn, 3t.","Dano; Veneno Áspero: alvo sofre 5% do PV máx./turno, 3t.",move_effect
+"Damage; Venom Grit: target takes 6% max HP/turn, 3t.","Dano; Veneno Áspero: alvo sofre 6% do PV máx./turno, 3t.",move_effect
+"Damage; Coilcrush: target -1 Speed stage, 2t.","Dano; Esmagamento em Espiral: alvo -1 nível de Velocidade, 2t.",move_effect
+"Damage; Coilcrush: target -1 Speed stage, 3t.","Dano; Esmagamento em Espiral: alvo -1 nível de Velocidade, 3t.",move_effect
+Damage; +30% more if user acted before the target this turn.,Dano; +30% a mais se o usuário agiu antes do alvo neste turno.,move_effect
+"Self +1 Speed stage, 3t; next hit taken -15%.","Usuário +1 nível de Velocidade, 3t; próximo acerto sofrido -15%.",move_effect
+"Self +1 Speed stage, 3t; next hit taken -20%.","Usuário +1 nível de Velocidade, 3t; próximo acerto sofrido -20%.",move_effect
+"Damage; Parched Hope: target -10% Attack, 2t.","Dano; Esperança Ressequida: alvo -10% de Ataque, 2t.",move_effect
+"Damage; Parched Hope: target -15% Attack and -10% Defense, 3t.","Dano; Esperança Ressequida: alvo -15% de Ataque e -10% de Defesa, 3t.",move_effect
+"Damage; Parched Hope: target -25% Attack and -15% Defense, 3t.","Dano; Esperança Ressequida: alvo -25% de Ataque e -15% de Defesa, 3t.",move_effect
+Damage as 2 hits; second hit +25% more vs debuffed targets.,Dano em 2 acertos; o segundo acerto causa +25% a mais contra alvos penalizados.,move_effect
+Damage as 2 hits; second hit +30% more vs debuffed targets.,Dano em 2 acertos; o segundo acerto causa +30% a mais contra alvos penalizados.,move_effect
+Next hit taken -25%.,Próximo acerto sofrido -25%.,move_effect
+Next 2 hits taken -20%.,Próximos 2 acertos sofridos -20%.,move_effect
+Next 2 hits taken -25%.,Próximos 2 acertos sofridos -25%.,move_effect
+"Damage; Scoured: target -10% Attack, 3t.","Dano; Escoriado: alvo -10% de Ataque, 3t.",move_effect
+"Damage; Scoured: target -15% Attack, 3t.","Dano; Escoriado: alvo -15% de Ataque, 3t.",move_effect
+"Damage; Abrade: target -10% Defense, does not stack.","Dano; Abrasão: alvo -10% de Defesa, não acumula.",move_effect
+"Damage; Abrade: target -10% Defense, stacks up to 3 times.","Dano; Abrasão: alvo -10% de Defesa, acumula até 3 vezes.",move_effect
+"Damage; Abrade: target -15% Defense, stacks up to 3 times.","Dano; Abrasão: alvo -15% de Defesa, acumula até 3 vezes.",move_effect
+"+45% Defense (self, 2t); cleanse 1 debuff.","+45% de Defesa (usuário, 2t); purifica 1 penalidade.",move_effect
+"+50% Defense (self, 2t); cleanse up to 2 debuffs.","+50% de Defesa (usuário, 2t); purifica até 2 penalidades.",move_effect
+"+50% Defense (self, 2t); cleanse all debuffs.","+50% de Defesa (usuário, 2t); purifica todas as penalidades.",move_effect
+"One ally takes -20% damage, 2t.","Um aliado sofre -20% de dano, 2t.",move_effect
+"All allies take -20% damage, 2t.","Todos os aliados sofrem -20% de dano, 2t.",move_effect
+"All allies take -25% damage, 2t.","Todos os aliados sofrem -25% de dano, 2t.",move_effect
+Damage as 4 hits; each applies 2t of Mothervenom.,Dano em 4 acertos; cada um aplica 2t de Veneno-Mãe.,move_effect
+"Damage; Coiled: target -1 Speed stage, 2t.","Dano; Enroscado: alvo -1 nível de Velocidade, 2t.",move_effect
+"Damage; Coiled: target -1 Speed stage, 3t.","Dano; Enroscado: alvo -1 nível de Velocidade, 3t.",move_effect
+"Damage; Mothervenom: target takes 4% max HP/turn, 3t.","Dano; Veneno-Mãe: alvo sofre 4% do PV máx./turno, 3t.",move_effect
+"Damage; Mothervenom: target takes 5% max HP/turn, 3t.","Dano; Veneno-Mãe: alvo sofre 5% do PV máx./turno, 3t.",move_effect
+"Damage; Scorch: 4%/turn, 2t.","Dano; Chamusco: 4%/turno, 2t.",move_effect
+"Damage; Scorch: target takes 5% max HP/turn, 3t.","Dano; Chamusco: alvo sofre 5% do PV máx./turno, 3t.",move_effect
+"Damage; Scorch: target takes 6% max HP/turn, 3t.","Dano; Chamusco: alvo sofre 6% do PV máx./turno, 3t.",move_effect
+"Damage; Cauterized: target's healing received -40%, 3t.","Dano; Cauterizado: cura recebida pelo alvo -40%, 3t.",move_effect
+"Damage; Cauterized: target's healing received -50%, 3t.","Dano; Cauterizado: cura recebida pelo alvo -50%, 3t.",move_effect
+"Self +25% Attack, 3t.","Usuário +25% de Ataque, 3t.",move_effect
+"Self +45% Attack, 3t.","Usuário +45% de Ataque, 3t.",move_effect
+"Damage; Ruinshock: target -10% Defense, 2t.","Dano; Choque da Ruína: alvo -10% de Defesa, 2t.",move_effect
+"Damage; Ruinshock: target -15% Defense, 3t.","Dano; Choque da Ruína: alvo -15% de Defesa, 3t.",move_effect
+"Damage; Ruinshock: target -25% Defense, 3t.","Dano; Choque da Ruína: alvo -25% de Defesa, 3t.",move_effect
+Damage; +15% more per active Defense buff on self (max +30%).,Dano; +15% a mais por bônus de Defesa ativo no usuário (máx. +30%).,move_effect
+Damage; +25% more per active Defense buff on self (max +50%).,Dano; +25% a mais por bônus de Defesa ativo no usuário (máx. +50%).,move_effect
+Damage; +30% more per active Defense buff on self (max +60%).,Dano; +30% a mais por bônus de Defesa ativo no usuário (máx. +60%).,move_effect
+"Damage; Flayed by Sand: target -10% Defense, 2t.","Dano; Esfolado pela Areia: alvo -10% de Defesa, 2t.",move_effect
+"Damage; Flayed by Sand: target -15% Defense, 3t.","Dano; Esfolado pela Areia: alvo -15% de Defesa, 3t.",move_effect
+"Damage; Flayed by Sand: target -25% Defense, 3t.","Dano; Esfolado pela Areia: alvo -25% de Defesa, 3t.",move_effect
+"Damage; Gritted Eyes: target -10% Attack, 3t.","Dano; Olhos Arenosos: alvo -10% de Ataque, 3t.",move_effect
+"Damage; Gritted Eyes: target -15% Attack, 3t.","Dano; Olhos Arenosos: alvo -15% de Ataque, 3t.",move_effect
+Damage; +20% more vs targets with 2 or more debuffs.,Dano; +20% a mais contra alvos com 2 ou mais penalidades.,move_effect
+Damage; +30% more vs targets with 2 or more debuffs.,Dano; +30% a mais contra alvos com 2 ou mais penalidades.,move_effect
+Damage; +40% more vs targets with 2 or more debuffs.,Dano; +40% a mais contra alvos com 2 ou mais penalidades.,move_effect
+"Damage; target -1 Speed stage, 2t.","Dano; alvo -1 nível de Velocidade, 2t.",move_effect
+"Damage; target -1 Speed stage, 3t; refreshes the duration of existing damage-over-time effects on the target.","Dano; alvo -1 nível de Velocidade, 3t; renova a duração dos efeitos de dano contínuo existentes no alvo.",move_effect
+"cleanse 1 debuff; +25% Attack (self, 3t) if a debuff was cleansed.","Purifica 1 penalidade; +25% de Ataque (usuário, 3t) se uma penalidade foi purificada.",move_effect
+"Cleanse up to 2 self debuffs; +30% Attack (self, 3t) per debuff cleansed.","Purifica até 2 penalidades do usuário; +30% de Ataque (usuário, 3t) por penalidade purificada.",move_effect
+"Cleanse all self debuffs; +40% Attack (self, 3t) per debuff cleansed.","Purifica todas as penalidades do usuário; +40% de Ataque (usuário, 3t) por penalidade purificada.",move_effect
+"Damage; Meltshell: target -10% Defense, 3t.","Dano; Casco Derretido: alvo -10% de Defesa, 3t.",move_effect
+"Damage; Meltshell: target -25% Defense, 4t.","Dano; Casco Derretido: alvo -25% de Defesa, 4t.",move_effect
+"Damage; Meltshell: target -30% Defense, 4t.","Dano; Casco Derretido: alvo -30% de Defesa, 4t.",move_effect
+"Damage; Etched: target -10% Defense, 3t.","Dano; Corroído: alvo -10% de Defesa, 3t.",move_effect
+"Damage; Etched: target -15% Defense, 3t.","Dano; Corroído: alvo -15% de Defesa, 3t.",move_effect
+"Meltshell: target -25% Defense, 2t.","Casco Derretido: alvo -25% de Defesa, 2t.",move_effect
+"Meltshell: target -45% Defense, 3t.","Casco Derretido: alvo -45% de Defesa, 3t.",move_effect
+"Meltshell: target -50% Defense, 3t.","Casco Derretido: alvo -50% de Defesa, 3t.",move_effect
+Damage; user loses 10% max HP.,Dano; o usuário perde 10% do PV máx.,move_effect
+"Damage; Impaled: target -10% Defense, 3t; user loses 5% max HP.","Dano; Empalado: alvo -10% de Defesa, 3t; o usuário perde 5% do PV máx.",move_effect
+"Damage; Impaled: target -15% Defense, 3t; user loses 10% max HP.","Dano; Empalado: alvo -15% de Defesa, 3t; o usuário perde 10% do PV máx.",move_effect
+"Damage; Splinters: target takes 4% max HP/turn, 3t.","Dano; Farpas: alvo sofre 4% do PV máx./turno, 3t.",move_effect
+"Damage; Splinters: target takes 5% max HP/turn, 3t.","Dano; Farpas: alvo sofre 5% do PV máx./turno, 3t.",move_effect
+Damage; +25% more vs targets with Infected.,Dano; +25% a mais contra alvos com Infectado.,move_effect
+Damage; +40% more vs targets with Infected.,Dano; +40% a mais contra alvos com Infectado.,move_effect
+Damage; +50% more vs targets with Infected.,Dano; +50% a mais contra alvos com Infectado.,move_effect
+"Infected: 7%/turn, 2t.","Infectado: 7%/turno, 2t.",move_effect
+"Infected: target takes 7% max HP/turn, 3t; if target already has Infected, extend it 2t.","Infectado: alvo sofre 7% do PV máx./turno, 3t; se o alvo já tiver Infectado, estende-o por 2t.",move_effect
+"Infected: target takes 9% max HP/turn, 3t; if target already has Infected, extend it 2t.","Infectado: alvo sofre 9% do PV máx./turno, 3t; se o alvo já tiver Infectado, estende-o por 2t.",move_effect
+"Fungal ally +25% Attack, 3t.","Um aliado Fúngico +25% de Ataque, 3t.",move_effect
+"Fungal allies +45% Attack, 3t.","Aliados Fúngico +45% de Ataque, 3t.",move_effect
+"Fungal allies +50% Attack, 3t.","Aliados Fúngico +50% de Ataque, 3t.",move_effect
+Damage; +25% more vs targets with Numbweave.,Dano; +25% a mais contra alvos com Trama Entorpecente.,move_effect
+Damage; +40% more vs targets with Numbweave.,Dano; +40% a mais contra alvos com Trama Entorpecente.,move_effect
+Damage; +50% more vs targets with Numbweave.,Dano; +50% a mais contra alvos com Trama Entorpecente.,move_effect
+"Damage; Widow's Kiss: target takes 4% max HP/turn, 3t.","Dano; Beijo da Viúva: alvo sofre 4% do PV máx./turno, 3t.",move_effect
+"Damage; Widow's Kiss: target takes 5% max HP/turn, 3t.","Dano; Beijo da Viúva: alvo sofre 5% do PV máx./turno, 3t.",move_effect
+"Numbweave: target -1 Speed stage, 2t.","Trama Entorpecente: alvo -1 nível de Velocidade, 2t.",move_effect
+"Numbweave: target -2 Speed stages, 3t.","Trama Entorpecente: alvo -2 níveis de Velocidade, 3t.",move_effect
+"Wrapped: +20% damage from the user, 3t.","Envolto: +20% de dano do usuário, 3t.",move_effect
+"Wrapped: target takes +25% damage from the user, 3t.","Envolto: alvo sofre +25% de dano do usuário, 3t.",move_effect
+"Wrapped: target takes +30% damage from the user, 3t.","Envolto: alvo sofre +30% de dano do usuário, 3t.",move_effect
+Damage; user heals 25% of damage dealt.,Dano; o usuário cura 25% do dano causado.,move_effect
+Damage; user heals 40% of damage dealt.,Dano; o usuário cura 40% do dano causado.,move_effect
+Damage; user heals 50% of damage dealt.,Dano; o usuário cura 50% do dano causado.,move_effect
+"Enzyme Drip: target -25% Defense, 2t.","Gotejar de Enzimas: alvo -25% de Defesa, 2t.",move_effect
+"Enzyme Drip: target -30% Defense and 7% max HP/turn, 3t.","Gotejar de Enzimas: alvo -30% de Defesa e 7% do PV máx./turno, 3t.",move_effect
+"Enzyme Drip: target -40% Defense and 9% max HP/turn, 3t.","Gotejar de Enzimas: alvo -40% de Defesa e 9% do PV máx./turno, 3t.",move_effect
+"All allies +45% Defense, 3t.","Todos os aliados +45% de Defesa, 3t.",move_effect
+"Damage; Infested: target takes 3% max HP/turn, 3t.","Dano; Infestado: alvo sofre 3% do PV máx./turno, 3t.",move_effect
+"Damage; Infested: target takes 5% max HP/turn, 4t.","Dano; Infestado: alvo sofre 5% do PV máx./turno, 4t.",move_effect
+"Damage; Infested: target takes 6% max HP/turn, 4t.","Dano; Infestado: alvo sofre 6% do PV máx./turno, 4t.",move_effect
+"Infested: 7%/turn, 2t.","Infestado: 7%/turno, 2t.",move_effect
+"Infested: target takes 9% max HP/turn, 3t.","Infestado: alvo sofre 9% do PV máx./turno, 3t.",move_effect
+"Infested: target takes 12% max HP/turn, 3t.","Infestado: alvo sofre 12% do PV máx./turno, 3t.",move_effect
+One ally cleanses 1 debuff.,Um aliado purifica 1 penalidade.,move_effect
+"One ally cleanses 1 debuff and gains +45% Attack, 3t.","Um aliado purifica 1 penalidade e ganha +45% de Ataque, 3t.",move_effect
+"One ally cleanses 1 debuff and gains +50% Attack, 3t.","Um aliado purifica 1 penalidade e ganha +50% de Ataque, 3t.",move_effect
+Damage; +20% more vs targets with any active buff.,Dano; +20% a mais contra alvos com algum bônus ativo.,move_effect
+Damage; +30% more vs targets with any active buff.,Dano; +30% a mais contra alvos com algum bônus ativo.,move_effect
+Damage; +40% more vs targets with any active buff.,Dano; +40% a mais contra alvos com algum bônus ativo.,move_effect
+Next hit taken -30%.,Próximo acerto sofrido -30%.,move_effect
+Next hit taken -40%.,Próximo acerto sofrido -40%.,move_effect
+Next hit taken -50%.,Próximo acerto sofrido -50%.,move_effect
+Damage; +10% more per Insect ally on the team.,Dano; +10% a mais por aliado Inseto na equipe.,move_effect
+Damage; +20% more per Insect ally on the team.,Dano; +20% a mais por aliado Inseto na equipe.,move_effect
+Damage; +25% more per Insect ally on the team.,Dano; +25% a mais por aliado Inseto na equipe.,move_effect
+Damage as 4 hits.,Dano em 4 acertos.,move_effect
+"Damage; Famine: target -10% Attack, 3t.","Dano; Fome: alvo -10% de Ataque, 3t.",move_effect
+"Damage; Famine: target -15% Attack, 3t.","Dano; Fome: alvo -15% de Ataque, 3t.",move_effect
+"Damage; Venom Bloom: target takes 4% max HP/turn, 3t.","Dano; Flor Venenosa: alvo sofre 4% do PV máx./turno, 3t.",move_effect
+"Damage; Venom Bloom: target takes 5% max HP/turn, 3t.","Dano; Flor Venenosa: alvo sofre 5% do PV máx./turno, 3t.",move_effect
+"Hatching Spores: 7%/turn, 2t.","Esporos Eclodindo: 7%/turno, 2t.",move_effect
+"Hatching Spores: target takes 9% max HP/turn, 3t; if target has Venom Bloom, also -30% Defense, 3t.","Esporos Eclodindo: alvo sofre 9% do PV máx./turno, 3t; se o alvo tiver Flor Venenosa, também -30% de Defesa, 3t.",move_effect
+"Hatching Spores: target takes 12% max HP/turn, 3t; if target has Venom Bloom, also -35% Defense, 3t.","Esporos Eclodindo: alvo sofre 12% do PV máx./turno, 3t; se o alvo tiver Flor Venenosa, também -35% de Defesa, 3t.",move_effect
+"Damage; Worldbind: target -1 Speed stage, 2t.","Dano; Prisão do Mundo: alvo -1 nível de Velocidade, 2t.",move_effect
+"Damage; Worldbind: target -2 Speed stages and -15% Defense, 3t.","Dano; Prisão do Mundo: alvo -2 níveis de Velocidade e -15% de Defesa, 3t.",move_effect
+"Damage; Worldbind: target -2 Speed stages and -25% Defense, 3t.","Dano; Prisão do Mundo: alvo -2 níveis de Velocidade e -25% de Defesa, 3t.",move_effect
+"Damage; Held: target -1 Speed stage, 2t.","Dano; Contido: alvo -1 nível de Velocidade, 2t.",move_effect
+"One ally takes -25% damage, 2t.","Um aliado sofre -25% de dano, 2t.",move_effect
+"All allies take -30% damage, 2t.","Todos os aliados sofrem -30% de dano, 2t.",move_effect
+Heal one ally 30% max HP.,Cura um aliado em 30% do PV máx.,move_effect
+Heal one ally 45% max HP.,Cura um aliado em 45% do PV máx.,move_effect
+"Damage; Cracked Carapace: target -10% Defense, 2t.","Dano; Carapaça Rachada: alvo -10% de Defesa, 2t.",move_effect
+"Damage; Cracked Carapace: target -15% Defense, 3t.","Dano; Carapaça Rachada: alvo -15% de Defesa, 3t.",move_effect
+"Damage; Cracked Carapace: target -25% Defense, 3t.","Dano; Carapaça Rachada: alvo -25% de Defesa, 3t.",move_effect
+Damage; +20% more if the target acted before the user this turn.,Dano; +20% a mais se o alvo agiu antes do usuário neste turno.,move_effect
+Damage; +30% more if the target acted before the user this turn.,Dano; +30% a mais se o alvo agiu antes do usuário neste turno.,move_effect
+Damage; +40% more if the target acted before the user this turn.,Dano; +40% a mais se o alvo agiu antes do usuário neste turno.,move_effect
+"Damage; Flattened: target -10% Attack, 2t.","Dano; Achatado: alvo -10% de Ataque, 2t.",move_effect
+"Damage; Flattened: target -10% Attack, 3t.","Dano; Achatado: alvo -10% de Ataque, 3t.",move_effect
+"Damage; Flattened: target -15% Attack, 3t.","Dano; Achatado: alvo -15% de Ataque, 3t.",move_effect
+Damage; +25% more if Spikeball was used last turn.,Dano; +25% a mais se Bola de Espinhos foi usada no último turno.,move_effect
+Damage; +30% more if Spikeball was used last turn.,Dano; +30% a mais se Bola de Espinhos foi usada no último turno.,move_effect
+"+50% Defense (self, 3t); attackers take 10% of their damage back.","+50% de Defesa (usuário, 3t); atacantes recebem de volta 10% do próprio dano.",move_effect
+"+50% Defense (self, 3t); attackers take 15% of their damage back.","+50% de Defesa (usuário, 3t); atacantes recebem de volta 15% do próprio dano.",move_effect
+"Damage; +15% Defense (self, 3t).","Dano; +15% de Defesa (usuário, 3t).",move_effect
+"Damage; user +25% Defense, 3t.","Dano; usuário +25% de Defesa, 3t.",move_effect
+"Damage; user +30% Defense, 3t.","Dano; usuário +30% de Defesa, 3t.",move_effect
+"Damage; Slagtrail: target -10% Defense, 3t.","Dano; Rastro de Escória: alvo -10% de Defesa, 3t.",move_effect
+"Damage; Slagtrail: target -15% Defense, 3t.","Dano; Rastro de Escória: alvo -15% de Defesa, 3t.",move_effect
+"Liquefied Armor: target -25% Defense, 2t.","Armadura Liquefeita: alvo -25% de Defesa, 2t.",move_effect
+"Liquefied Armor: target -45% Defense, 3t.","Armadura Liquefeita: alvo -45% de Defesa, 3t.",move_effect
+"Liquefied Armor: target -50% Defense, 3t.","Armadura Liquefeita: alvo -50% de Defesa, 3t.",move_effect
+Mired: 2t.,Enlameado: 2t.,move_effect
+"Mired: target -1 Speed stage, 3t.","Enlameado: alvo -1 nível de Velocidade, 3t.",move_effect
+"Damage; Seared: 4%/turn, 2t.","Dano; Tostado: 4%/turno, 2t.",move_effect
+"Damage; Seared: target takes 5% max HP/turn, 3t.","Dano; Tostado: alvo sofre 5% do PV máx./turno, 3t.",move_effect
+"Damage; Seared: target takes 6% max HP/turn, 3t.","Dano; Tostado: alvo sofre 6% do PV máx./turno, 3t.",move_effect
+"Self +1 Speed stage, 2t; +45% Attack, 3t.","Usuário +1 nível de Velocidade, 2t; +45% de Ataque, 3t.",move_effect
+"Self +1 Speed stage, 2t; +50% Attack, 3t.","Usuário +1 nível de Velocidade, 2t; +50% de Ataque, 3t.",move_effect
+Damage; +20% more vs targets with a reduced Speed stage.,Dano; +20% a mais contra alvos com nível de Velocidade reduzido.,move_effect
+Damage; +30% more vs targets with a reduced Speed stage.,Dano; +30% a mais contra alvos com nível de Velocidade reduzido.,move_effect
+"Edict: target -1 Speed stage, 2t.","Édito: alvo -1 nível de Velocidade, 2t.",move_effect
+"Petrifying Edict: target -1 Speed stage and -30% Attack, 3t.","Édito Petrificante: alvo -1 nível de Velocidade e -30% de Ataque, 3t.",move_effect
+"Petrifying Edict: target -1 Speed stage and -35% Attack, 3t.","Édito Petrificante: alvo -1 nível de Velocidade e -35% de Ataque, 3t.",move_effect
+Damage; user heals 25% of damage dealt; +20% more vs targets with Thin Blood.,Dano; o usuário cura 25% do dano causado; +20% a mais contra alvos com Sangue Ralo.,move_effect
+Damage; user heals 40% of damage dealt; +30% more vs targets with Thin Blood.,Dano; o usuário cura 40% do dano causado; +30% a mais contra alvos com Sangue Ralo.,move_effect
+Damage; user heals 50% of damage dealt; +40% more vs targets with Thin Blood.,Dano; o usuário cura 50% do dano causado; +40% a mais contra alvos com Sangue Ralo.,move_effect
+Damage; user heals 15% of damage dealt.,Dano; o usuário cura 15% do dano causado.,move_effect
+Damage; user heals 30% of damage dealt.,Dano; o usuário cura 30% do dano causado.,move_effect
+"Thin Blood: 7%/turn, 2t.","Sangue Ralo: 7%/turno, 2t.",move_effect
+"Thin Blood: target takes 9% max HP/turn, 3t; target's healing received -40%, 3t.","Sangue Ralo: alvo sofre 9% do PV máx./turno, 3t; cura recebida pelo alvo -40%, 3t.",move_effect
+"Thin Blood: target takes 12% max HP/turn, 3t; target's healing received -50%, 3t.","Sangue Ralo: alvo sofre 12% do PV máx./turno, 3t; cura recebida pelo alvo -50%, 3t.",move_effect
+Damage as 5 hits.,Dano em 5 acertos.,move_effect
+"Damage; Held Fast: target -1 Speed stage, 2t.","Dano; Retido: alvo -1 nível de Velocidade, 2t.",move_effect
+"Damage; Held Fast: target -1 Speed stage, 3t.","Dano; Retido: alvo -1 nível de Velocidade, 3t.",move_effect
+"Damage; Unmade Spot: target -10% Defense, 2t.","Dano; Mancha Desfeita: alvo -10% de Defesa, 2t.",move_effect
+"Damage; Unmade Spot: target -15% Defense, 3t.","Dano; Mancha Desfeita: alvo -15% de Defesa, 3t.",move_effect
+"Damage; Unmade Spot: target -25% Defense, 3t.","Dano; Mancha Desfeita: alvo -25% de Defesa, 3t.",move_effect
+"The next creature to hit the user gains Dimmed: -25% Attack, 2t.","A próxima criatura a acertar o usuário recebe Esmaecido: -25% de Ataque, 2t.",move_effect
+"The next creature to hit the user gains Dimmed: target -30% Attack, 3t.","A próxima criatura a acertar o usuário recebe Esmaecido: alvo -30% de Ataque, 3t.",move_effect
+"The next creature to hit the user gains Dimmed: target -35% Attack, 3t.","A próxima criatura a acertar o usuário recebe Esmaecido: alvo -35% de Ataque, 3t.",move_effect
+"Damage; Dented: target -10% Defense, 2t.","Dano; Amassado: alvo -10% de Defesa, 2t.",move_effect
+"Damage; Dented: target -15% Defense, 3t.","Dano; Amassado: alvo -15% de Defesa, 3t.",move_effect
+"Damage; Dented: target -25% Defense, 3t.","Dano; Amassado: alvo -25% de Defesa, 3t.",move_effect
+"One ally takes -30% damage, 2t.","Um aliado sofre -30% de dano, 2t.",move_effect
+"Damage; Pyroclast: 4%/turn, 2t.","Dano; Piroclasto: 4%/turno, 2t.",move_effect
+"Damage; Pyroclast: target takes 5% max HP/turn, 3t.","Dano; Piroclasto: alvo sofre 5% do PV máx./turno, 3t.",move_effect
+"Damage; Pyroclast: target takes 6% max HP/turn, 3t.","Dano; Piroclasto: alvo sofre 6% do PV máx./turno, 3t.",move_effect
+"Damage; Molten Coat: target -10% Defense, 2t.","Dano; Revestimento Fundido: alvo -10% de Defesa, 2t.",move_effect
+"Damage; Molten Coat: target -10% Defense and 4% max HP/turn, 3t.","Dano; Revestimento Fundido: alvo -10% de Defesa e 4% do PV máx./turno, 3t.",move_effect
+"Damage; Molten Coat: target -15% Defense and 5% max HP/turn, 3t.","Dano; Revestimento Fundido: alvo -15% de Defesa e 5% do PV máx./turno, 3t.",move_effect
+"Damage; Glasscut: target bleeds 4% max HP/turn, 3t.","Dano; Corte de Vidro: alvo sangra 4% do PV máx./turno, 3t.",move_effect
+"Damage; Glasscut: target bleeds 5% max HP/turn, 3t.","Dano; Corte de Vidro: alvo sangra 5% do PV máx./turno, 3t.",move_effect
+"+50% Defense (self, 3t); +30% Attack next turn.","+50% de Defesa (usuário, 3t); +30% de Ataque no próximo turno.",move_effect
+"+50% Defense (self, 3t); +40% Attack next turn.","+50% de Defesa (usuário, 3t); +40% de Ataque no próximo turno.",move_effect
+Damage; +20% more if user's Speed is higher than the target's.,Dano; +20% a mais se a Velocidade do usuário for maior que a do alvo.,move_effect
+Damage; +30% more if user's Speed is higher than the target's.,Dano; +30% a mais se a Velocidade do usuário for maior que a do alvo.,move_effect
+Damage; +40% more if user's Speed is higher than the target's.,Dano; +40% a mais se a Velocidade do usuário for maior que a do alvo.,move_effect
+"Damage; Cutting Gale: target bleeds 4% max HP/turn, 3t.","Dano; Vendaval Cortante: alvo sangra 4% do PV máx./turno, 3t.",move_effect
+"Damage; Cutting Gale: target bleeds 5% max HP/turn, 3t.","Dano; Vendaval Cortante: alvo sangra 5% do PV máx./turno, 3t.",move_effect
+"One ally +1 Speed stage, 2t.","Um aliado +1 nível de Velocidade, 2t.",move_effect
+"All allies +1 Speed stage, 2t.","Todos os aliados +1 nível de Velocidade, 2t.",move_effect
+Damage; +25% more vs targets with Charged.,Dano; +25% a mais contra alvos com Carregado.,move_effect
+Damage; +40% more vs targets with Charged.,Dano; +40% a mais contra alvos com Carregado.,move_effect
+Damage; +50% more vs targets with Charged.,Dano; +50% a mais contra alvos com Carregado.,move_effect
+"Damage; Galvanic Jolt: target -1 Speed stage, 2t.","Dano; Choque Galvânico: alvo -1 nível de Velocidade, 2t.",move_effect
+Damage; Charged: the next hit against the target deals +10% more.,Dano; Carregado: o próximo acerto contra o alvo causa +10% a mais.,move_effect
+Damage; Charged: the next hit against the target deals +15% more.,Dano; Carregado: o próximo acerto contra o alvo causa +15% a mais.,move_effect
+"Self +25% Attack, 2t.","Usuário +25% de Ataque, 2t.",move_effect
+"Self +30% Attack, 3t.","Usuário +30% de Ataque, 3t.",move_effect
+"Damage; Whiteout: target -10% Attack, 2t.","Dano; Nevasca: alvo -10% de Ataque, 2t.",move_effect
+"Damage; Whiteout: target -25% Attack, 2t.","Dano; Nevasca: alvo -25% de Ataque, 2t.",move_effect
+"Damage; Whiteout: target -30% Attack, 2t.","Dano; Nevasca: alvo -30% de Ataque, 2t.",move_effect
+"Scrambled: target -25% Attack, 2t.","Embaralhado: alvo -25% de Ataque, 2t.",move_effect
+"Scrambled: target -30% Attack, 3t.","Embaralhado: alvo -30% de Ataque, 3t.",move_effect
+"Scrambled: target -40% Attack, 3t.","Embaralhado: alvo -40% de Ataque, 3t.",move_effect
+"Damage; Flattened: target -1 Speed stage, 2t.","Dano; Achatado: alvo -1 nível de Velocidade, 2t.",move_effect
+"Damage; Flattened: target -1 Speed stage, 3t.","Dano; Achatado: alvo -1 nível de Velocidade, 3t.",move_effect
+"Damage; Crushed: target -10% Defense, 2t.","Dano; Esmagado: alvo -10% de Defesa, 2t.",move_effect
+"Damage; Crushed: target -10% Defense, 3t.","Dano; Esmagado: alvo -10% de Defesa, 3t.",move_effect
+"Damage; Crushed: target -15% Defense, 3t.","Dano; Esmagado: alvo -15% de Defesa, 3t.",move_effect
+Damage; +20% more vs targets with Spun.,Dano; +20% a mais contra alvos com Enovelado.,move_effect
+Damage; +30% more vs targets with Spun.,Dano; +30% a mais contra alvos com Enovelado.,move_effect
+Damage; +40% more vs targets with Spun.,Dano; +40% a mais contra alvos com Enovelado.,move_effect
+"Spun: target -1 Speed stage, 2t.","Enovelado: alvo -1 nível de Velocidade, 2t.",move_effect
+"Spun: target -1 Speed stage and -30% Attack, 3t.","Enovelado: alvo -1 nível de Velocidade e -30% de Ataque, 3t.",move_effect
+"Spun: target -1 Speed stage and -35% Attack, 3t.","Enovelado: alvo -1 nível de Velocidade e -35% de Ataque, 3t.",move_effect
+One ally's next hit taken -20%.,Próximo acerto sofrido por um aliado -20%.,move_effect
+One ally's next hit taken -25%.,Próximo acerto sofrido por um aliado -25%.,move_effect
+One ally's next hit taken -30%.,Próximo acerto sofrido por um aliado -30%.,move_effect
+"Damage; Grounded Twitch: target -1 Speed stage, 2t.","Dano; Espasmo Aterrado: alvo -1 nível de Velocidade, 2t.",move_effect
+"Self +45% Attack, 3t; next hit taken -15%.","Usuário +45% de Ataque, 3t; próximo acerto sofrido -15%.",move_effect
+"Self +50% Attack, 3t; next hit taken -20%.","Usuário +50% de Ataque, 3t; próximo acerto sofrido -20%.",move_effect
+Damage as 4 hits; each applies 2t of Lowpressure.,Dano em 4 acertos; cada um aplica 2t de Baixa Pressão.,move_effect
+"Lowpressure: target -25% Defense, 2t.","Baixa Pressão: alvo -25% de Defesa, 2t.",move_effect
+"Lowpressure: target -30% Defense and -30% Attack, 3t.","Baixa Pressão: alvo -30% de Defesa e -30% de Ataque, 3t.",move_effect
+"Lowpressure: target -35% Defense and -35% Attack, 3t.","Baixa Pressão: alvo -35% de Defesa e -35% de Ataque, 3t.",move_effect
+"Damage; Tempo Theft: target -1 Speed stage, 2t.","Dano; Roubo de Ritmo: alvo -1 nível de Velocidade, 2t.",move_effect
+"Damage; Tempo Theft: target -2 Speed stages, 3t; self +1 Speed stage, 3t.","Dano; Roubo de Ritmo: alvo -2 níveis de Velocidade, 3t; usuário +1 nível de Velocidade, 3t.",move_effect
+Damage as 3 hits; each +5% more if user acted before the target.,Dano em 3 acertos; cada um +5% a mais se o usuário agiu antes do alvo.,move_effect
+Damage as 3 hits; each +10% more if user acted before the target.,Dano em 3 acertos; cada um +10% a mais se o usuário agiu antes do alvo.,move_effect
+"All allies +1 Speed stage, 3t; self +2 Speed stages, 2t.","Todos os aliados +1 nível de Velocidade, 3t; usuário +2 níveis de Velocidade, 2t.",move_effect
+"Damage; Struck Twice: 4%/turn, 2t.","Dano; Atingido Duas Vezes: 4%/turno, 2t.",move_effect
+"Damage; Struck Twice: target takes 5% max HP/turn, 3t; target -1 Speed stage, 2t.","Dano; Atingido Duas Vezes: alvo sofre 5% do PV máx./turno, 3t; alvo -1 nível de Velocidade, 2t.",move_effect
+"Damage; Struck Twice: target takes 6% max HP/turn, 3t; target -1 Speed stage, 2t.","Dano; Atingido Duas Vezes: alvo sofre 6% do PV máx./turno, 3t; alvo -1 nível de Velocidade, 2t.",move_effect
+Damage; +20% more if user has an active Defense buff — consumes it.,Dano; +20% a mais se o usuário tiver um bônus de Defesa ativo — consome-o.,move_effect
+Damage; +30% more if user has an active Defense buff — consumes it.,Dano; +30% a mais se o usuário tiver um bônus de Defesa ativo — consome-o.,move_effect
+Damage; +40% more if user has an active Defense buff — consumes it.,Dano; +40% a mais se o usuário tiver um bônus de Defesa ativo — consome-o.,move_effect
+"Damage; Fouled: target -10% Attack, 2t.","Dano; Sujo: alvo -10% de Ataque, 2t.",move_effect
+"Damage; Fouled: target -15% Attack, 3t.","Dano; Sujo: alvo -15% de Ataque, 3t.",move_effect
+"Damage; Fouled: target -25% Attack, 3t.","Dano; Sujo: alvo -25% de Ataque, 3t.",move_effect
+Damage; +25% more vs targets with Wyrd Visions.,Dano; +25% a mais contra alvos com Visões Estranhas.,move_effect
+Damage; +40% more vs targets with Wyrd Visions.,Dano; +40% a mais contra alvos com Visões Estranhas.,move_effect
+Damage; +50% more vs targets with Wyrd Visions.,Dano; +50% a mais contra alvos com Visões Estranhas.,move_effect
+"Wyrd Visions: target -25% Attack, 2t.","Visões Estranhas: alvo -25% de Ataque, 2t.",move_effect
+"Wyrd Visions: target -45% Attack, 3t.","Visões Estranhas: alvo -45% de Ataque, 3t.",move_effect
+"Wyrd Visions: target -50% Attack, 3t.","Visões Estranhas: alvo -50% de Ataque, 3t.",move_effect
+cleanse 1 debuff.,Purifica 1 penalidade.,move_effect
+"Cleanse up to 2 self debuffs; +1 Speed stage, 2t.","Purifica até 2 penalidades do usuário; +1 nível de Velocidade, 2t.",move_effect
+"Cleanse all self debuffs; +1 Speed stage, 2t.","Purifica todas as penalidades do usuário; +1 nível de Velocidade, 2t.",move_effect
+"Damage; Larval Rot: target takes 3% max HP/turn, 3t.","Dano; Podridão Larval: alvo sofre 3% do PV máx./turno, 3t.",move_effect
+"Damage; Larval Rot: target takes 5% max HP/turn, 4t.","Dano; Podridão Larval: alvo sofre 5% do PV máx./turno, 4t.",move_effect
+"Damage; Larval Rot: target takes 6% max HP/turn, 4t.","Dano; Podridão Larval: alvo sofre 6% do PV máx./turno, 4t.",move_effect
+"Larval Rot: 7%/turn, 2t.","Podridão Larval: 7%/turno, 2t.",move_effect
+"Larval Rot: target takes 9% max HP/turn, 3t.","Podridão Larval: alvo sofre 9% do PV máx./turno, 3t.",move_effect
+"Larval Rot: target takes 12% max HP/turn, 3t.","Podridão Larval: alvo sofre 12% do PV máx./turno, 3t.",move_effect
+Damage; user heals 10% of damage dealt.,Dano; o usuário cura 10% do dano causado.,move_effect
+Damage; user heals 20% of damage dealt.,Dano; o usuário cura 20% do dano causado.,move_effect
+"Grave Chill: target -25% Attack, 2t.","Frio de Túmulo: alvo -25% de Ataque, 2t.",move_effect
+"Grave Chill: target -30% Attack and -1 Speed stage, 3t.","Frio de Túmulo: alvo -30% de Ataque e -1 nível de Velocidade, 3t.",move_effect
+"Grave Chill: target -35% Attack and -1 Speed stage, 3t.","Frio de Túmulo: alvo -35% de Ataque e -1 nível de Velocidade, 3t.",move_effect
+Damage; +20% more vs targets with Transfixed.,Dano; +20% a mais contra alvos com Transfixado.,move_effect
+Damage; +35% more vs targets with Transfixed.,Dano; +35% a mais contra alvos com Transfixado.,move_effect
+Damage; +45% more vs targets with Transfixed.,Dano; +45% a mais contra alvos com Transfixado.,move_effect
+"Transfixed: target -1 Speed stage, 2t.","Transfixado: alvo -1 nível de Velocidade, 2t.",move_effect
+"Transfixed: target -2 Speed stages, 3t.","Transfixado: alvo -2 níveis de Velocidade, 3t.",move_effect
+"Transfixed: target -2 Speed stages, 3t; target -30% Attack, 3t.","Transfixado: alvo -2 níveis de Velocidade, 3t; alvo -30% de Ataque, 3t.",move_effect
+"Transfixed: target -2 Speed stages, 3t; target -40% Attack, 3t.","Transfixado: alvo -2 níveis de Velocidade, 3t; alvo -40% de Ataque, 3t.",move_effect
+"Damage; Bogged: target -1 Speed stage, 2t.","Dano; Atolado: alvo -1 nível de Velocidade, 2t.",move_effect
+"Damage; Bogged: target -1 Speed stage, 3t.","Dano; Atolado: alvo -1 nível de Velocidade, 3t.",move_effect
+Cleanse 1 self debuff (no transfer to target).,Purifica 1 penalidade do usuário (sem transferência ao alvo).,move_effect
+Transfer 1 debuff from self to the target.,Transfere 1 penalidade do usuário para o alvo.,move_effect
+"+50% Defense (self, 3t); user's next attack deals +25% more.","+50% de Defesa (usuário, 3t); o próximo ataque do usuário causa +25% a mais.",move_effect
+"+50% Defense (self, 3t); user's next attack deals +30% more.","+50% de Defesa (usuário, 3t); o próximo ataque do usuário causa +30% a mais.",move_effect
+"Damage; Chilled: target -1 Speed stage, 2t.","Dano; Gelado: alvo -1 nível de Velocidade, 2t.",move_effect
+Next 2 hits taken -30%.,Próximos 2 acertos sofridos -30%.,move_effect
+Next 2 hits taken -35%.,Próximos 2 acertos sofridos -35%.,move_effect
+"Weight of Water: target -25% Attack, 2t.","Peso da Água: alvo -25% de Ataque, 2t.",move_effect
+"Weight of Water: target -30% Attack, 3t.","Peso da Água: alvo -30% de Ataque, 3t.",move_effect
+"Weight of Water: target -40% Attack, 3t.","Peso da Água: alvo -40% de Ataque, 3t.",move_effect
+Damage; +20% more vs targets with Vinegrip.,Dano; +20% a mais contra alvos com Aperto de Cipó.,move_effect
+Damage; +30% more vs targets with Vinegrip.,Dano; +30% a mais contra alvos com Aperto de Cipó.,move_effect
+Damage; +40% more vs targets with Vinegrip.,Dano; +40% a mais contra alvos com Aperto de Cipó.,move_effect
+"Damage; Vinegrip: target -1 Speed stage, 2t.","Dano; Aperto de Cipó: alvo -1 nível de Velocidade, 2t.",move_effect
+"Damage; Vinegrip: target -1 Speed stage, 3t.","Dano; Aperto de Cipó: alvo -1 nível de Velocidade, 3t.",move_effect
+"Undead allies +50% Attack, 3t; if no Undead ally, self +30% Attack, 3t.","Aliados Morto-vivo +50% de Ataque, 3t; se não houver aliado Morto-vivo, usuário +30% de Ataque, 3t.",move_effect
+"Undead allies +50% Attack, 3t; if no Undead ally, self +40% Attack, 3t.","Aliados Morto-vivo +50% de Ataque, 3t; se não houver aliado Morto-vivo, usuário +40% de Ataque, 3t.",move_effect
+"Damage; Dragged Down: target -1 Speed stage, 2t.","Dano; Arrastado ao Fundo: alvo -1 nível de Velocidade, 2t.",move_effect
+"Damage; Dragged Down: target -2 Speed stages and -15% Defense, 3t.","Dano; Arrastado ao Fundo: alvo -2 níveis de Velocidade e -15% de Defesa, 3t.",move_effect
+"Damage; Dragged Down: target -2 Speed stages and -25% Defense, 3t.","Dano; Arrastado ao Fundo: alvo -2 níveis de Velocidade e -25% de Defesa, 3t.",move_effect
+"One ally +25% Attack and +25% Defense, 2t.","Um aliado +25% de Ataque e +25% de Defesa, 2t.",move_effect
+"All allies +30% Attack and +30% Defense, 2t.","Todos os aliados +30% de Ataque e +30% de Defesa, 2t.",move_effect
+"All allies +40% Attack and +40% Defense, 2t.","Todos os aliados +40% de Ataque e +40% de Defesa, 2t.",move_effect
+Damage; +25% more vs targets with no active buffs.,Dano; +25% a mais contra alvos sem bônus ativos.,move_effect
+Damage; +40% more vs targets with no active buffs.,Dano; +40% a mais contra alvos sem bônus ativos.,move_effect
+Damage; +50% more vs targets with no active buffs.,Dano; +50% a mais contra alvos sem bônus ativos.,move_effect
+Remove 1 buff from the target.,Remove 1 bônus do alvo.,move_effect
+Remove up to 2 buffs from the target.,Remove até 2 bônus do alvo.,move_effect
+Remove all buffs from the target.,Remove todos os bônus do alvo.,move_effect
+"Damage; Spinning: target -1 Speed stage and -10% Attack, 2t.","Dano; Girando: alvo -1 nível de Velocidade e -10% de Ataque, 2t.",move_effect
+"Damage; Spinning: target -1 Speed stage and -10% Attack, 4t.","Dano; Girando: alvo -1 nível de Velocidade e -10% de Ataque, 4t.",move_effect
+"Damage; Spinning: target -1 Speed stage and -15% Attack, 4t.","Dano; Girando: alvo -1 nível de Velocidade e -15% de Ataque, 4t.",move_effect
+"Spinning: target -1 Speed stage, 2t.","Girando: alvo -1 nível de Velocidade, 2t.",move_effect
+"Spinning: target -1 Speed stage and -30% Attack, 3t.","Girando: alvo -1 nível de Velocidade e -30% de Ataque, 3t.",move_effect
+"Spinning: target -1 Speed stage and -35% Attack, 3t.","Girando: alvo -1 nível de Velocidade e -35% de Ataque, 3t.",move_effect
+Damage; +20% more vs targets with Forgetting.,Dano; +20% a mais contra alvos com Esquecimento.,move_effect
+Damage; +30% more vs targets with Forgetting.,Dano; +30% a mais contra alvos com Esquecimento.,move_effect
+Damage; +40% more vs targets with Forgetting.,Dano; +40% a mais contra alvos com Esquecimento.,move_effect
+"Forgetting: target -25% Attack, 2t.","Esquecimento: alvo -25% de Ataque, 2t.",move_effect
+"Forgetting: target -30% Attack, 3t; the target's buffs expire 1 turn sooner.","Esquecimento: alvo -30% de Ataque, 3t; os bônus do alvo expiram 1 turno mais cedo.",move_effect
+"Forgetting: target -40% Attack, 3t; the target's buffs expire 1 turn sooner.","Esquecimento: alvo -40% de Ataque, 3t; os bônus do alvo expiram 1 turno mais cedo.",move_effect
+"Damage; Puppeted Nerves: target -10% Attack and -1 Speed stage, 2t.","Dano; Nervos Marionetes: alvo -10% de Ataque e -1 nível de Velocidade, 2t.",move_effect
+"Damage; Puppeted Nerves: target -15% Attack and -1 Speed stage, 4t.","Dano; Nervos Marionetes: alvo -15% de Ataque e -1 nível de Velocidade, 4t.",move_effect
+"Damage; Puppeted Nerves: target -25% Attack and -1 Speed stage, 4t.","Dano; Nervos Marionetes: alvo -25% de Ataque e -1 nível de Velocidade, 4t.",move_effect
+"Puppeted Nerves: target -25% Attack, 2t.","Nervos Marionetes: alvo -25% de Ataque, 2t.",move_effect
+"Puppeted Nerves: target -30% Attack and -1 Speed stage, 3t.","Nervos Marionetes: alvo -30% de Ataque e -1 nível de Velocidade, 3t.",move_effect
+"Puppeted Nerves: target -40% Attack and -1 Speed stage, 3t.","Nervos Marionetes: alvo -40% de Ataque e -1 nível de Velocidade, 3t.",move_effect
+Damage; +20% more vs targets with Foreseen.,Dano; +20% a mais contra alvos com Previsto.,move_effect
+Damage; +30% more vs targets with Foreseen.,Dano; +30% a mais contra alvos com Previsto.,move_effect
+Damage; +40% more vs targets with Foreseen.,Dano; +40% a mais contra alvos com Previsto.,move_effect
+Foreseen: target -20% damage.,Previsto: alvo -20% de dano.,move_effect
+Foreseen: the target's next attack deals -25% damage.,Previsto: o próximo ataque do alvo causa -25% de dano.,move_effect
+Foreseen: the target's next attack deals -30% damage.,Previsto: o próximo ataque do alvo causa -30% de dano.,move_effect
+One ally's next hit taken -40%.,Próximo acerto sofrido por um aliado -40%.,move_effect
+"Disoriented: target -25% Attack, 2t.","Desorientado: alvo -25% de Ataque, 2t.",move_effect
+"Disoriented: target -30% Attack, 3t.","Desorientado: alvo -30% de Ataque, 3t.",move_effect
+"Disoriented: target -40% Attack, 3t.","Desorientado: alvo -40% de Ataque, 3t.",move_effect
+Damage; +40% more if user acted before the target this turn.,Dano; +40% a mais se o usuário agiu antes do alvo neste turno.,move_effect
+Next hit taken -20%.,Próximo acerto sofrido -20%.,move_effect
+"Next 2 hits taken -25%; self +1 Speed stage, 2t.","Próximos 2 acertos sofridos -25%; usuário +1 nível de Velocidade, 2t.",move_effect
+"Next 2 hits taken -30%; self +1 Speed stage, 2t.","Próximos 2 acertos sofridos -30%; usuário +1 nível de Velocidade, 2t.",move_effect
+"Trailbound: target -1 Speed stage, 2t.","Preso à Trilha: alvo -1 nível de Velocidade, 2t.",move_effect
+"Trailbound: target -2 Speed stages, 2t.","Preso à Trilha: alvo -2 níveis de Velocidade, 2t.",move_effect
+"Damage; Concussed: target -1 Speed stage, 2t.","Dano; Concussão: alvo -1 nível de Velocidade, 2t.",move_effect
+"Damage; Concussed: target -1 Speed stage, 3t.","Dano; Concussão: alvo -1 nível de Velocidade, 3t.",move_effect
+One ally cleanses up to 2 debuffs.,Um aliado purifica até 2 penalidades.,move_effect
+One ally cleanses all debuffs.,Um aliado purifica todas as penalidades.,move_effect
+Damage; +25% more vs targets with Drawn In.,Dano; +25% a mais contra alvos com Sugado.,move_effect
+Damage; +40% more vs targets with Drawn In.,Dano; +40% a mais contra alvos com Sugado.,move_effect
+Damage; +50% more vs targets with Drawn In.,Dano; +50% a mais contra alvos com Sugado.,move_effect
+Damage; ignores 25% of target Defense.,Dano; ignora 25% da Defesa do alvo.,move_effect
+"Drawn In: target -1 Speed stage, 2t.","Sugado: alvo -1 nível de Velocidade, 2t.",move_effect
+"Drawn In: target -1 Speed stage, 3t; target takes +20% damage from the user, 3t.","Sugado: alvo -1 nível de Velocidade, 3t; alvo sofre +20% de dano do usuário, 3t.",move_effect
+"Drawn In: target -1 Speed stage, 3t; target takes +25% damage from the user, 3t.","Sugado: alvo -1 nível de Velocidade, 3t; alvo sofre +25% de dano do usuário, 3t.",move_effect
+"Decomposing: target -25% Defense, 2t.","Em Decomposição: alvo -25% de Defesa, 2t.",move_effect
+"Decomposing: target -30% Defense, 3t; one ally +30% Attack, 3t.","Em Decomposição: alvo -30% de Defesa, 3t; um aliado +30% de Ataque, 3t.",move_effect
+"Decomposing: target -40% Defense, 3t; one ally +40% Attack, 3t.","Em Decomposição: alvo -40% de Defesa, 3t; um aliado +40% de Ataque, 3t.",move_effect
+"+50% Defense (self, 2t); cleanse up to 2 self debuffs.","+50% de Defesa (usuário, 2t); purifica até 2 penalidades do usuário.",move_effect
+"+50% Defense (self, 2t); cleanse all self debuffs.","+50% de Defesa (usuário, 2t); purifica todas as penalidades do usuário.",move_effect
+Damage; +10% more per debuff on target (max +30%).,Dano; +10% a mais por penalidade no alvo (máx. +30%).,move_effect
+Damage; +15% more per debuff on target (max +50%).,Dano; +15% a mais por penalidade no alvo (máx. +50%).,move_effect
+Damage; +20% more per debuff on target (max +60%).,Dano; +20% a mais por penalidade no alvo (máx. +60%).,move_effect
+"Damage; Pinned: target -10% Defense, 2t.","Dano; Imobilizado: alvo -10% de Defesa, 2t.",move_effect
+"Damage; Pinned: target -15% Defense, 3t.","Dano; Imobilizado: alvo -15% de Defesa, 3t.",move_effect
+"Damage; Pinned: target -25% Defense, 3t.","Dano; Imobilizado: alvo -25% de Defesa, 3t.",move_effect
+"Damage; Crushed Slow: target -1 Speed stage, 2t.","Dano; Lentidão Esmagadora: alvo -1 nível de Velocidade, 2t.",move_effect
+"Damage; Crushed Slow: target -1 Speed stage, 3t.","Dano; Lentidão Esmagadora: alvo -1 nível de Velocidade, 3t.",move_effect
+"Damage; Vitrified: target -1 Speed stage, 2t.","Dano; Vitrificado: alvo -1 nível de Velocidade, 2t.",move_effect
+"Damage; Vitrified: target -2 Speed stages and -10% Defense, 2t.","Dano; Vitrificado: alvo -2 níveis de Velocidade e -10% de Defesa, 2t.",move_effect
+"Damage; Vitrified: target -2 Speed stages and -15% Defense, 2t.","Dano; Vitrificado: alvo -2 níveis de Velocidade e -15% de Defesa, 2t.",move_effect
+"Damage; Glass Splinter: target bleeds 4% max HP/turn, 3t.","Dano; Estilhaço de Vidro: alvo sangra 4% do PV máx./turno, 3t.",move_effect
+"Damage; Glass Splinter: target bleeds 5% max HP/turn, 3t.","Dano; Estilhaço de Vidro: alvo sangra 5% do PV máx./turno, 3t.",move_effect
+Damage; user heals 20% of damage dealt; +20% more vs targets with Ashen.,Dano; o usuário cura 20% do dano causado; +20% a mais contra alvos com Acinzentado.,move_effect
+Damage; user heals 30% of damage dealt; +30% more vs targets with Ashen.,Dano; o usuário cura 30% do dano causado; +30% a mais contra alvos com Acinzentado.,move_effect
+Damage; user heals 40% of damage dealt; +40% more vs targets with Ashen.,Dano; o usuário cura 40% do dano causado; +40% a mais contra alvos com Acinzentado.,move_effect
+"Ashen: target's healing received -25%, 2t.","Acinzentado: cura recebida pelo alvo -25%, 2t.",move_effect
+"Ashen: target's healing received -40%, 3t.","Acinzentado: cura recebida pelo alvo -40%, 3t.",move_effect
+"Ashen: target's healing received -50%, 3t.","Acinzentado: cura recebida pelo alvo -50%, 3t.",move_effect
+"+50% Defense (self, 3t); the next creature to hit the user gains Dazzled: -30% Attack, 2t.","+50% de Defesa (usuário, 3t); a próxima criatura a acertar o usuário recebe Ofuscado: -30% de Ataque, 2t.",move_effect
+"+50% Defense (self, 3t); the next creature to hit the user gains Dazzled: -35% Attack, 2t.","+50% de Defesa (usuário, 3t); a próxima criatura a acertar o usuário recebe Ofuscado: -35% de Ataque, 2t.",move_effect
+Damage; +25% more vs targets with Precise Cut.,Dano; +25% a mais contra alvos com Corte Preciso.,move_effect
+Damage; +40% more vs targets with Precise Cut.,Dano; +40% a mais contra alvos com Corte Preciso.,move_effect
+Damage; +50% more vs targets with Precise Cut.,Dano; +50% a mais contra alvos com Corte Preciso.,move_effect
+"Damage; Precise Cut: target bleeds 4% max HP/turn, 3t.","Dano; Corte Preciso: alvo sangra 4% do PV máx./turno, 3t.",move_effect
+"Damage; Precise Cut: target bleeds 5% max HP/turn, 3t.","Dano; Corte Preciso: alvo sangra 5% do PV máx./turno, 3t.",move_effect
+"Marked Veins: +15% more to the target, 3t.","Veias Marcadas: +15% a mais contra o alvo, 3t.",move_effect
+"Marked Veins: user deals +20% more to the target, 3t.","Veias Marcadas: o usuário causa +20% a mais ao alvo, 3t.",move_effect
+"Marked Veins: user deals +25% more to the target, 3t.","Veias Marcadas: o usuário causa +25% a mais ao alvo, 3t.",move_effect
+"Damage; Wrong Geometry: target -10% Attack, 2t.","Dano; Geometria Errada: alvo -10% de Ataque, 2t.",move_effect
+"Damage; Wrong Geometry: target -15% Attack and -10% Defense, 3t.","Dano; Geometria Errada: alvo -15% de Ataque e -10% de Defesa, 3t.",move_effect
+"Damage; Wrong Geometry: target -25% Attack and -15% Defense, 3t.","Dano; Geometria Errada: alvo -25% de Ataque e -15% de Defesa, 3t.",move_effect
+Damage; +25% more vs targets with Death-Marked; consumes the mark.,Dano; +25% a mais contra alvos com Marcado para Morrer; consome a marca.,move_effect
+Damage; +40% more vs targets with Death-Marked; consumes the mark.,Dano; +40% a mais contra alvos com Marcado para Morrer; consome a marca.,move_effect
+Damage; +50% more vs targets with Death-Marked; consumes the mark.,Dano; +50% a mais contra alvos com Marcado para Morrer; consome a marca.,move_effect
+"Death-Marked: +10% more to the target, 3t.","Marcado para Morrer: +10% a mais contra o alvo, 3t.",move_effect
+"Death-Marked: user deals +15% more to the target, 4t.","Marcado para Morrer: o usuário causa +15% a mais ao alvo, 4t.",move_effect
+"Death-Marked: user deals +20% more to the target, 4t.","Marcado para Morrer: o usuário causa +20% a mais ao alvo, 4t.",move_effect
+Steal 1 buff from the target.,Rouba 1 bônus do alvo.,move_effect
+"Unsettled: target -25% Attack, 2t.","Inquieto: alvo -25% de Ataque, 2t.",move_effect
+"Unsettled: target -30% Attack, 3t.","Inquieto: alvo -30% de Ataque, 3t.",move_effect
+"Unsettled: target -40% Attack, 3t.","Inquieto: alvo -40% de Ataque, 3t.",move_effect
+"Damage; user heals 30% of damage dealt; Bled Dry: target's healing received -40%, 3t.","Dano; o usuário cura 30% do dano causado; Exangue: cura recebida pelo alvo -40%, 3t.",move_effect
+"Damage; user heals 40% of damage dealt; Bled Dry: target's healing received -50%, 3t.","Dano; o usuário cura 40% do dano causado; Exangue: cura recebida pelo alvo -50%, 3t.",move_effect
+"Cowed: target -25% Attack, 2t.","Intimidado: alvo -25% de Ataque, 2t.",move_effect
+"Cowed: target -30% Attack, 3t.","Intimidado: alvo -30% de Ataque, 3t.",move_effect
+"Cowed: target -40% Attack, 3t.","Intimidado: alvo -40% de Ataque, 3t.",move_effect
+"Soulweight: target -1 Speed stage, 2t.","Peso da Alma: alvo -1 nível de Velocidade, 2t.",move_effect
+"Soulweight: target -1 Speed stage and -30% Attack, 3t.","Peso da Alma: alvo -1 nível de Velocidade e -30% de Ataque, 3t.",move_effect
+"Soulweight: target -1 Speed stage and -35% Attack, 3t.","Peso da Alma: alvo -1 nível de Velocidade e -35% de Ataque, 3t.",move_effect
+"Once per battle: survive with 1 HP, then user -45% Defense, 2t.","Uma vez por batalha: sobrevive com 1 de PV e, depois, o usuário -45% de Defesa, 2t.",move_effect
+Once per battle: the first killing blow this battle leaves the user at 1 HP instead.,Uma vez por batalha: o primeiro golpe fatal desta batalha deixa o usuário com 1 de PV.,move_effect
+Damage; ignores 30% of target Defense.,Dano; ignora 30% da Defesa do alvo.,move_effect
+"Reflected Doubt: target -25% Attack, 2t.","Dúvida Refletida: alvo -25% de Ataque, 2t.",move_effect
+"Copy the target's newest buff to self; Reflected Doubt: target -30% Attack, 3t.","Copia o bônus mais recente do alvo para o usuário; Dúvida Refletida: alvo -30% de Ataque, 3t.",move_effect
+"Copy the target's newest buff to self; Reflected Doubt: target -35% Attack, 3t.","Copia o bônus mais recente do alvo para o usuário; Dúvida Refletida: alvo -35% de Ataque, 3t.",move_effect
+"The next creature to hit the user gains Hollow Gaze: -25% Attack, 2t.","A próxima criatura a acertar o usuário recebe Olhar Vazio: -25% de Ataque, 2t.",move_effect
+"The next creature to hit the user gains Hollow Gaze: target -45% Attack, 3t.","A próxima criatura a acertar o usuário recebe Olhar Vazio: alvo -45% de Ataque, 3t.",move_effect
+"The next creature to hit the user gains Hollow Gaze: target -50% Attack, 3t.","A próxima criatura a acertar o usuário recebe Olhar Vazio: alvo -50% de Ataque, 3t.",move_effect
+"Damage; Windshorn: target -10% Defense, 2t.","Dano; Tosquiado pelo Vento: alvo -10% de Defesa, 2t.",move_effect
+"Damage; Windshorn: target -10% Defense, 3t.","Dano; Tosquiado pelo Vento: alvo -10% de Defesa, 3t.",move_effect
+"Damage; Windshorn: target -15% Defense, 3t.","Dano; Tosquiado pelo Vento: alvo -15% de Defesa, 3t.",move_effect
+"Damage; Razor Draft: target bleeds 4% max HP/turn, 3t.","Dano; Corrente Navalha: alvo sangra 4% do PV máx./turno, 3t.",move_effect
+"Damage; Razor Draft: target bleeds 5% max HP/turn, 3t.","Dano; Corrente Navalha: alvo sangra 5% do PV máx./turno, 3t.",move_effect
+Damage; +20% more vs targets with Ashlung.,Dano; +20% a mais contra alvos com Pulmão de Cinzas.,move_effect
+Damage; +30% more vs targets with Ashlung.,Dano; +30% a mais contra alvos com Pulmão de Cinzas.,move_effect
+Damage; +40% more vs targets with Ashlung.,Dano; +40% a mais contra alvos com Pulmão de Cinzas.,move_effect
+"cleanse 1 debuff; +35% Defense (self, 3t).","Purifica 1 penalidade; +35% de Defesa (usuário, 3t).",move_effect
+"Cleanse up to 2 self debuffs; +50% Defense (self, 3t).","Purifica até 2 penalidades do usuário; +50% de Defesa (usuário, 3t).",move_effect
+"Cleanse all self debuffs; +50% Defense (self, 3t).","Purifica todas as penalidades do usuário; +50% de Defesa (usuário, 3t).",move_effect
+"Ashlung: target -25% Attack, 2t.","Pulmão de Cinzas: alvo -25% de Ataque, 2t.",move_effect
+"Ashlung: target -30% Attack, 3t.","Pulmão de Cinzas: alvo -30% de Ataque, 3t.",move_effect
+"Ashlung: target -40% Attack, 3t.","Pulmão de Cinzas: alvo -40% de Ataque, 3t.",move_effect
+Damage; +20% more vs targets below 50% HP.,Dano; +20% a mais contra alvos abaixo de 50% de PV.,move_effect
+Damage; +30% more vs targets below 50% HP.,Dano; +30% a mais contra alvos abaixo de 50% de PV.,move_effect
+Damage; +40% more vs targets below 50% HP.,Dano; +40% a mais contra alvos abaixo de 50% de PV.,move_effect
+"Branded: 7%/turn, 2t.","Marcado a Ferro: 7%/turno, 2t.",move_effect
+"The next creature to hit the user gains Branded: target takes 7% max HP/turn, 3t.","A próxima criatura a acertar o usuário recebe Marcado a Ferro: alvo sofre 7% do PV máx./turno, 3t.",move_effect
+"The next creature to hit the user gains Branded: target takes 9% max HP/turn, 3t.","A próxima criatura a acertar o usuário recebe Marcado a Ferro: alvo sofre 9% do PV máx./turno, 3t.",move_effect
+"Damage; Cindered: target -10% Defense, 2t.","Dano; Calcinado: alvo -10% de Defesa, 2t.",move_effect
+"Damage; Cindered: target -10% Defense, 3t.","Dano; Calcinado: alvo -10% de Defesa, 3t.",move_effect
+"Damage; Cindered: target -15% Defense, 3t.","Dano; Calcinado: alvo -15% de Defesa, 3t.",move_effect
+"Damage; Kindling: target takes 4% max HP/turn, 3t.","Dano; Ignição: alvo sofre 4% do PV máx./turno, 3t.",move_effect
+"Damage; Kindling: target takes 5% max HP/turn, 3t.","Dano; Ignição: alvo sofre 5% do PV máx./turno, 3t.",move_effect
+"Self +1 Speed stage, 2t; the next creature to hit the user gains Kindling: 7% max HP/turn, 2t.","Usuário +1 nível de Velocidade, 2t; a próxima criatura a acertar o usuário recebe Ignição: 7% do PV máx./turno, 2t.",move_effect
+"Self +1 Speed stage, 2t; the next creature to hit the user gains Kindling: 9% max HP/turn, 2t.","Usuário +1 nível de Velocidade, 2t; a próxima criatura a acertar o usuário recebe Ignição: 9% do PV máx./turno, 2t.",move_effect
+Damage; +10% more per active damage-over-time on the target (max +20%).,Dano; +10% a mais por dano contínuo ativo no alvo (máx. +20%).,move_effect
+Damage; +10% more per active damage-over-time on the target (max +35%).,Dano; +10% a mais por dano contínuo ativo no alvo (máx. +35%).,move_effect
+Damage; +15% more per active damage-over-time on the target (max +45%).,Dano; +15% a mais por dano contínuo ativo no alvo (máx. +45%).,move_effect
+"Damage as 3 hits; each applies Elemental Burn: 3% max HP/turn, 2t.","Dano em 3 acertos; cada um aplica Queimadura Elemental: 3% do PV máx./turno, 2t.",move_effect
+"Damage as 3 hits; each applies Elemental Burn: 4% max HP/turn, 2t.","Dano em 3 acertos; cada um aplica Queimadura Elemental: 4% do PV máx./turno, 2t.",move_effect
+"Rattled: target -25% Attack, 2t.","Abalado: alvo -25% de Ataque, 2t.",move_effect
+"Rattled: target -30% Attack and -30% Defense, 2t.","Abalado: alvo -30% de Ataque e -30% de Defesa, 2t.",move_effect
+"Rattled: target -35% Attack and -35% Defense, 2t.","Abalado: alvo -35% de Ataque e -35% de Defesa, 2t.",move_effect
+"Damage; Rivetburn: target -10% Defense, 2t.","Dano; Queimadura de Rebite: alvo -10% de Defesa, 2t.",move_effect
+"Damage; Rivetburn: target -10% Defense, 3t.","Dano; Queimadura de Rebite: alvo -10% de Defesa, 3t.",move_effect
+"Damage; Rivetburn: target -15% Defense, 3t.","Dano; Queimadura de Rebite: alvo -15% de Defesa, 3t.",move_effect
+"Damage; Leak: 4%/turn, 2t.","Dano; Vazamento: 4%/turno, 2t.",move_effect
+"Damage; Firestorm Leak: target takes 5% max HP/turn, 3t.","Dano; Vazamento da Tempestade de Fogo: alvo sofre 5% do PV máx./turno, 3t.",move_effect
+"Damage; Firestorm Leak: target takes 6% max HP/turn, 3t.","Dano; Vazamento da Tempestade de Fogo: alvo sofre 6% do PV máx./turno, 3t.",move_effect
+Damage; +25% more if any ally was damaged last turn.,Dano; +25% a mais se algum aliado sofreu dano no último turno.,move_effect
+Damage; +40% more if any ally was damaged last turn.,Dano; +40% a mais se algum aliado sofreu dano no último turno.,move_effect
+Damage; +50% more if any ally was damaged last turn.,Dano; +50% a mais se algum aliado sofreu dano no último turno.,move_effect
+"+50% Defense (self, 3t); if the user was not hit last turn, also +30% Attack, 3t.","+50% de Defesa (usuário, 3t); se o usuário não foi atingido no último turno, também +30% de Ataque, 3t.",move_effect
+"+50% Defense (self, 3t); if the user was not hit last turn, also +40% Attack, 3t.","+50% de Defesa (usuário, 3t); se o usuário não foi atingido no último turno, também +40% de Ataque, 3t.",move_effect
+"One ally takes -35% damage, 2t.","Um aliado sofre -35% de dano, 2t.",move_effect
+"Damage; ignores 20% of target Defense; applies Unquenchable: 5% max HP/turn, 3t.","Dano; ignora 20% da Defesa do alvo; aplica Inextinguível: 5% do PV máx./turno, 3t.",move_effect
+"Damage; ignores 25% of target Defense; applies Unquenchable: 6% max HP/turn, 3t.","Dano; ignora 25% da Defesa do alvo; aplica Inextinguível: 6% do PV máx./turno, 3t.",move_effect
+"Unquenchable: target takes 7% max HP/turn, 3t; cannot be cleansed.","Inextinguível: alvo sofre 7% do PV máx./turno, 3t; não pode ser purificado.",move_effect
+"Unquenchable: target takes 12% max HP/turn, 3t; cannot be cleansed.","Inextinguível: alvo sofre 12% do PV máx./turno, 3t; não pode ser purificado.",move_effect
+"Unquenchable: target takes 15% max HP/turn, 3t; cannot be cleansed.","Inextinguível: alvo sofre 15% do PV máx./turno, 3t; não pode ser purificado.",move_effect
+"One ally +35% Attack, 3t.","Um aliado +35% de Ataque, 3t.",move_effect
+Damage; +20% more vs targets with Flawed Make.,Dano; +20% a mais contra alvos com Feitura Falha.,move_effect
+Damage; +30% more vs targets with Flawed Make.,Dano; +30% a mais contra alvos com Feitura Falha.,move_effect
+Damage; +40% more vs targets with Flawed Make.,Dano; +40% a mais contra alvos com Feitura Falha.,move_effect
+Transfer up to 2 self debuffs to the target.,Transfere até 2 penalidades do usuário para o alvo.,move_effect
+Transfer all self debuffs to the target.,Transfere todas as penalidades do usuário para o alvo.,move_effect
+"Flawed Make: target -25% Defense, 2t.","Feitura Falha: alvo -25% de Defesa, 2t.",move_effect
+"Flawed Make: target -30% Defense and -30% Attack, 3t.","Feitura Falha: alvo -30% de Defesa e -30% de Ataque, 3t.",move_effect
+"Flawed Make: target -40% Defense and -35% Attack, 3t.","Feitura Falha: alvo -40% de Defesa e -35% de Ataque, 3t.",move_effect
+"Damage; Jeered: target -10% Attack, 3t.","Dano; Vaiado: alvo -10% de Ataque, 3t.",move_effect
+"Damage; Jeered: target -15% Attack, 3t.","Dano; Vaiado: alvo -15% de Ataque, 3t.",move_effect
+"Damage; Floored: target -1 Speed stage, 2t.","Dano; Derrubado: alvo -1 nível de Velocidade, 2t.",move_effect
+"Damage; Gored: 4%/turn, 2t.","Dano; Chifrado: 4%/turno, 2t.",move_effect
+"Damage; Gored: target takes 5% max HP/turn, 3t.","Dano; Chifrado: alvo sofre 5% do PV máx./turno, 3t.",move_effect
+"Damage; Gored: target takes 6% max HP/turn, 3t.","Dano; Chifrado: alvo sofre 6% do PV máx./turno, 3t.",move_effect
+"Damage; Putrefying: target takes 3% max HP/turn, 3t.","Dano; Putrefação: alvo sofre 3% do PV máx./turno, 3t.",move_effect
+"Damage; Putrefying: target takes 5% max HP/turn, 4t.","Dano; Putrefação: alvo sofre 5% do PV máx./turno, 4t.",move_effect
+"Damage; Putrefying: target takes 6% max HP/turn, 4t.","Dano; Putrefação: alvo sofre 6% do PV máx./turno, 4t.",move_effect
+"Putrefying: 7%/turn, 2t.","Putrefação: 7%/turno, 2t.",move_effect
+"Putrefying: target takes 9% max HP/turn, 3t.","Putrefação: alvo sofre 9% do PV máx./turno, 3t.",move_effect
+"Putrefying: target takes 12% max HP/turn, 3t.","Putrefação: alvo sofre 12% do PV máx./turno, 3t.",move_effect
+Damage.,Dano.,move_effect
++30% damage vs Construct targets.,+30% de dano contra alvos Constructo.,move_clause
+Beast allies also gain +10% Defense.,Aliados Fera também ganham +10% de Defesa.,move_clause
++40% damage vs Insect targets.,+40% de dano contra alvos Inseto.,move_clause
+"Beast allies gain +1 Speed stage, 2t.","Aliados Fera ganham +1 nível de Velocidade, 2t.",move_clause
++35% damage vs Construct targets.,+35% de dano contra alvos Constructo.,move_clause
+Flora allies gain +40% Defense instead.,Aliados Flora ganham +40% de Defesa em vez disso.,move_clause
+"Fey and Spectral allies also gain +1 Speed stage, 2t.","Aliados Feérico e Espectral também ganham +1 nível de Velocidade, 2t.",move_clause
++30% damage vs Arthropod targets.,+30% de dano contra alvos Artrópode.,move_clause
++30% damage vs Undead targets.,+30% de dano contra alvos Morto-vivo.,move_clause
+"Flora allies gain +15% Defense, 3t.","Aliados Flora ganham +15% de Defesa, 3t.",move_clause
++40% damage vs Beast targets.,+40% de dano contra alvos Fera.,move_clause
+Undead allies gain +30% Attack instead.,Aliados Morto-vivo ganham +30% de Ataque em vez disso.,move_clause
++40% damage vs Demon targets.,+40% de dano contra alvos Demônio.,move_clause
+Fey and Beast allies are healed 10% more.,Aliados Feérico e Fera são curados 10% a mais.,move_clause
+Beast allies gain +30% Attack instead.,Aliados Fera ganham +30% de Ataque em vez disso.,move_clause
++30% damage vs Mollusk targets.,+30% de dano contra alvos Molusco.,move_clause
++30% damage vs Amphibian targets.,+30% de dano contra alvos Anfíbio.,move_clause
+"Aquatic allies: Soaked targets also take -1 Speed stage, 2t.","Aliados Aquático: alvos com Encharcado também sofrem -1 nível de Velocidade, 2t.",move_clause
++30% damage vs Elemental targets.,+30% de dano contra alvos Elemental.,move_clause
++40% damage vs Mollusk targets.,+40% de dano contra alvos Molusco.,move_clause
+Aquatic allies are healed 10% more.,Aliados Aquático são curados 10% a mais.,move_clause
++40% damage vs Eldritch targets.,+40% de dano contra alvos Cósmico.,move_clause
++30% damage vs Aquatic targets.,+30% de dano contra alvos Aquático.,move_clause
+Undead and Aquatic allies gain +30% Attack instead.,Aliados Morto-vivo e Aquático ganham +30% de Ataque em vez disso.,move_clause
++35% damage vs Fey targets.,+35% de dano contra alvos Feérico.,move_clause
+"Mollusk allies gain +15% Defense, 3t.","Aliados Molusco ganham +15% de Defesa, 3t.",move_clause
++30% damage vs Insect targets.,+30% de dano contra alvos Inseto.,move_clause
+"Reptile allies gain +10% Attack, 3t.","Aliados Réptil ganham +10% de Ataque, 3t.",move_clause
++30% damage vs Beast targets.,+30% de dano contra alvos Fera.,move_clause
+Construct allies take -40% damage instead.,Aliados Constructo sofrem -40% de dano em vez disso.,move_clause
++30% damage vs Chimera targets.,+30% de dano contra alvos Quimera.,move_clause
+"Serpent and Chimera allies gain +15% Attack, 3t.","Aliados Serpente e Quimera ganham +15% de Ataque, 3t.",move_clause
++45% damage vs Flora and Ooze targets.,+45% de dano contra alvos Flora e Gosma.,move_clause
++30% damage vs Avian targets.,+30% de dano contra alvos Ave.,move_clause
+"Elemental allies gain +1 Speed stage, 2t.","Aliados Elemental ganham +1 nível de Velocidade, 2t.",move_clause
++40% damage vs Construct targets.,+40% de dano contra alvos Constructo.,move_clause
+"Flora allies gain +10% Defense, 3t.","Aliados Flora ganham +10% de Defesa, 3t.",move_clause
+(This move IS the synergy: Fungal-only buff.),(Este golpe É a sinergia: bônus exclusivo de Fúngico.),move_clause
+Flora allies gain +35% Defense instead.,Aliados Flora ganham +35% de Defesa em vez disso.,move_clause
+"Parasite allies gain +15% Attack, 3t.","Aliados Parasita ganham +15% de Ataque, 3t.",move_clause
+Insect allies gain +30% Attack instead.,Aliados Inseto ganham +30% de Ataque em vez disso.,move_clause
+"Fey allies gain +1 Speed stage, 2t.","Aliados Feérico ganham +1 nível de Velocidade, 2t.",move_clause
+(This move IS the synergy: scales with Insect allies.),(Este golpe É a sinergia: escala com aliados Inseto.),move_clause
+Flora allies take -45% damage instead.,Aliados Flora sofrem -45% de dano em vez disso.,move_clause
++45% damage vs Construct targets.,+45% de dano contra alvos Constructo.,move_clause
+"Ooze allies gain +15% Defense, 3t.","Aliados Gosma ganham +15% de Defesa, 3t.",move_clause
++35% damage vs Arthropod targets.,+35% de dano contra alvos Artrópode.,move_clause
+Construct and Arthropod allies gain +35% Defense instead.,Aliados Constructo e Artrópode ganham +35% de Defesa em vez disso.,move_clause
++40% damage vs Spectral targets.,+40% de dano contra alvos Espectral.,move_clause
+"Void allies gain +10% Defense, 3t.","Aliados Vazio ganham +10% de Defesa, 3t.",move_clause
++35% damage vs Dragon targets.,+35% de dano contra alvos Dragão.,move_clause
+Construct allies take -45% damage instead.,Aliados Constructo sofrem -45% de dano em vez disso.,move_clause
+Avian allies gain +1 Speed stage for 3t instead.,Aliados Ave ganham +1 nível de Velocidade por 3t em vez disso.,move_clause
+"Elemental allies gain +25% Attack, 3t.","Aliados Elemental ganham +25% de Ataque, 3t.",move_clause
+Duration doubled vs Construct targets.,Duração dobrada contra alvos Constructo.,move_clause
++30% damage vs Serpent targets.,+30% de dano contra alvos Serpente.,move_clause
+Avian allies get -45% instead.,Aliados Ave recebem -45% em vez disso.,move_clause
++40% damage vs Aquatic targets.,+40% de dano contra alvos Aquático.,move_clause
++35% damage vs Reptile targets.,+35% de dano contra alvos Réptil.,move_clause
+"Elemental and Dragon allies gain +15% Attack, 3t.","Aliados Elemental e Dragão ganham +15% de Ataque, 3t.",move_clause
+"Undead allies gain +20% Attack, 3t when this hits.","Aliados Morto-vivo ganham +20% de Ataque, 3t quando este golpe acerta.",move_clause
+Undead and Amphibian allies are healed 10% more.,Aliados Morto-vivo e Anfíbio são curados 10% a mais.,move_clause
+Duration doubled vs Insect targets.,Duração dobrada contra alvos Inseto.,move_clause
+(This move IS the synergy: Undead-focused buff.),(Este golpe É a sinergia: bônus focado em Morto-vivo.),move_clause
+Amphibian allies are healed 15% more.,Aliados Anfíbio são curados 15% a mais.,move_clause
+Horror allies gain +25%/+25% instead.,Aliados Horror ganham +25%/+25% em vez disso.,move_clause
+Undead allies take -40% damage instead.,Aliados Morto-vivo sofrem -40% de dano em vez disso.,move_clause
+"Fungal allies gain +15% Defense, 3t.","Aliados Fúngico ganham +15% de Defesa, 3t.",move_clause
+Fungal allies gain +35% Attack instead.,Aliados Fúngico ganham +35% de Ataque em vez disso.,move_clause
++30% damage vs Void targets.,+30% de dano contra alvos Vazio.,move_clause
+Spectral allies: the ward repeats once more.,Aliados Espectral: a proteção se repete mais uma vez.,move_clause
++35% damage vs Aquatic targets.,+35% de dano contra alvos Aquático.,move_clause
+"Aberration allies gain +15% Attack, 3t.","Aliados Aberração ganham +15% de Ataque, 3t.",move_clause
++30% damage vs Aberration targets.,+30% de dano contra alvos Aberração.,move_clause
++30% damage vs Parasite targets.,+30% de dano contra alvos Parasita.,move_clause
++30% damage vs Fey targets.,+30% de dano contra alvos Feérico.,move_clause
+Fungal allies are healed 15% more.,Aliados Fúngico são curados 15% a mais.,move_clause
++35% damage vs Horror targets.,+35% de dano contra alvos Horror.,move_clause
++35% damage vs Vampiric targets.,+35% de dano contra alvos Vampírico.,move_clause
++30% damage vs Vampiric targets.,+30% de dano contra alvos Vampírico.,move_clause
+"Vampiric allies gain +15% Attack, 3t.","Aliados Vampírico ganham +15% de Ataque, 3t.",move_clause
+"Construct allies gain +15% Defense, 3t.","Aliados Constructo ganham +15% de Defesa, 3t.",move_clause
++45% damage vs Flora targets.,+45% de dano contra alvos Flora.,move_clause
++40% damage vs Fungal targets.,+40% de dano contra alvos Fúngico.,move_clause
+Construct allies take -50% damage instead.,Aliados Constructo sofrem -50% de dano em vez disso.,move_clause
++35% damage vs Celestial targets.,+35% de dano contra alvos Celestial.,move_clause
+Elemental and Demon allies gain +40% Attack instead.,Aliados Elemental e Demônio ganham +40% de Ataque em vez disso.,move_clause
+"Celestial and Eldritch allies gain +15% Attack, 3t.","Aliados Celestial e Cósmico ganham +15% de Ataque, 3t.",move_clause
++5% Defense while above 50% HP.,+5% de Defesa enquanto acima de 50% de PV.,soul
+This armour's Defense ×1.35.,A Defesa desta armadura ×1.35.,soul
+Attackers that hit you take 4% of their damage back.,Atacantes que acertam você recebem de volta 4% do próprio dano.,soul
+Allies take -3% damage while at full HP.,Aliados sofrem -3% de dano enquanto com PV cheio.,soul
++4% Attack.,+4% de Ataque.,soul
++5% Attack on the first turn of battle.,+5% de Ataque no primeiro turno da batalha.,soul
+This item's Defense contribution ×1.35.,A contribuição de Defesa deste item ×1.35.,soul
+Allies' debuffs on enemies last +1 turn on the first turn.,As penalidades dos aliados sobre os inimigos duram +1 turno no primeiro turno.,soul
+Debuffs on you expire 10% sooner.,As penalidades sobre você expiram 10% mais cedo.,soul
++5% Defense.,+5% de Defesa.,soul
+Allies +2% Defense.,Aliados +2% de Defesa.,soul
+Allies' healing received +2%.,Cura recebida pelos aliados +2%.,soul
++5% HP.,+5% de PV.,soul
+Your damage-over-time effects deal +6%.,Seus efeitos de dano contínuo causam +6%.,soul
++6% Attack vs targets with reduced Speed stages.,+6% de Ataque contra alvos com níveis de Velocidade reduzidos.,soul
++6% HP.,+6% de PV.,soul
+This item's Defense contribution ×1.40.,A contribuição de Defesa deste item ×1.40.,soul
+Allies deal +5% on the first turn.,Aliados causam +5% de dano no primeiro turno.,soul
++6% Defense.,+6% de Defesa.,soul
+This armour's Defense ×1.40.,A Defesa desta armadura ×1.40.,soul
++6% Attack while below 50% HP.,+6% de Ataque enquanto abaixo de 50% de PV.,soul
+Allies take -12% damage from damage-over-time.,Aliados sofrem -12% de dano contínuo.,soul
+Healing you receive +10%.,Cura que você recebe +10%.,soul
+Your damage-over-time effects deal +7%.,Seus efeitos de dano contínuo causam +7%.,soul
++7% Attack vs targets below 40% HP.,+7% de Ataque contra alvos abaixo de 40% de PV.,soul
++7% HP.,+7% de PV.,soul
+This item's Defense contribution ×1.45.,A contribuição de Defesa deste item ×1.45.,soul
+Allies deal +5% vs targets with reduced Attack.,Aliados causam +5% de dano contra alvos com Ataque reduzido.,soul
++6% Attack vs targets below 50% HP.,+6% de Ataque contra alvos abaixo de 50% de PV.,soul
+Your debuffs last +1 turn.,Suas penalidades duram +1 turno.,soul
+Allies deal +6% vs targets below 50% HP.,Aliados causam +6% de dano contra alvos abaixo de 50% de PV.,soul
+Allies' healing received +7%.,Cura recebida pelos aliados +7%.,soul
++8% HP.,+8% de PV.,soul
+Your buffs on allies last +1 turn.,Seus bônus nos aliados duram +1 turno.,soul
+This item's Defense contribution ×1.52.,A contribuição de Defesa deste item ×1.52.,soul
++5% Defense while you have a Defense buff.,+5% de Defesa enquanto você tiver um bônus de Defesa.,soul
+Allies +2% Defense on the first turn.,Aliados +2% de Defesa no primeiro turno.,soul
++5% Attack vs targets with a damage-over-time effect.,+5% de Ataque contra alvos com um efeito de dano contínuo.,soul
+Allies' bleed effects deal +4%.,Os efeitos de sangramento dos aliados causam +4%.,soul
+Your status debuffs are +6% more potent.,Suas penalidades de status são +6% mais potentes.,soul
+Enemy Attack debuffs from allies last +1 turn.,As penalidades de Ataque dos aliados sobre inimigos duram +1 turno.,soul
++5% Attack on Heavy and Nuke moves.,+5% de Ataque em golpes Heavy e Nuke.,soul
++6% Attack while above 70% HP.,+6% de Ataque enquanto acima de 70% de PV.,soul
+Allies' first hit each battle deals +9%.,O primeiro acerto dos aliados em cada batalha causa +9%.,soul
+Allies' healing received +3%.,Cura recebida pelos aliados +3%.,soul
+Your heals restore +10% more.,Suas curas restauram +10% a mais.,soul
++7% Defense while below 50% HP.,+7% de Defesa enquanto abaixo de 50% de PV.,soul
+This armour's Defense ×1.45.,A Defesa desta armadura ×1.45.,soul
+Attackers that hit you take 5% of their damage back.,Atacantes que acertam você recebem de volta 5% do próprio dano.,soul
+Allies take -2% damage.,Aliados sofrem -2% de dano.,soul
++7% Attack on the first turn.,+7% de Ataque no primeiro turno.,soul
+Allies deal +4% vs Spectral and Void targets.,Aliados causam +4% de dano contra alvos Espectral e Vazio.,soul
++7% Attack while above 70% HP.,+7% de Ataque enquanto acima de 70% de PV.,soul
+This armour's Defense ×1.52.,A Defesa desta armadura ×1.52.,soul
+Your multi-hit moves deal +8%.,Seus golpes de vários acertos causam +8%.,soul
+Allies +3% Defense.,Aliados +3% de Defesa.,soul
+Allies deal +3% vs debuffed targets.,Aliados causam +3% de dano contra alvos penalizados.,soul
++9% HP.,+9% de PV.,soul
+This item's Defense contribution ×1.60.,A contribuição de Defesa deste item ×1.60.,soul
+Allies' debuffs last +1 turn.,As penalidades dos aliados duram +1 turno.,soul
+Enemy Attack debuffs you apply are +7% more potent.,As penalidades de Ataque que você aplica nos inimigos são +7% mais potentes.,soul
+Allies take -4% damage on the first turn.,Aliados sofrem -4% de dano no primeiro turno.,soul
++6% Attack at or above 70% HP.,+6% de Ataque com 70% de PV ou mais.,soul
+Your Defense debuffs are +6% more potent.,Suas penalidades de Defesa são +6% mais potentes.,soul
++4% Attack vs debuffed targets.,+4% de Ataque contra alvos penalizados.,soul
+Allies deal +4% vs targets with reduced Defense.,Aliados causam +4% de dano contra alvos com Defesa reduzida.,soul
++5% Attack on the first turn.,+5% de Ataque no primeiro turno.,soul
+Allies' first hit each battle deals +4%.,O primeiro acerto dos aliados em cada batalha causa +4%.,soul
++5% Attack while untouched this battle.,+5% de Ataque enquanto intacto nesta batalha.,soul
+Allies take -2% damage on the first turn.,Aliados sofrem -2% de dano no primeiro turno.,soul
+Debuffs on you expire 12% sooner.,As penalidades sobre você expiram 12% mais cedo.,soul
+Allies' damage-over-time effects deal +10%.,Os efeitos de dano contínuo dos aliados causam +10%.,soul
++6% Attack vs targets with a damage-over-time effect.,+6% de Ataque contra alvos com um efeito de dano contínuo.,soul
+Your damage-over-time effects deal +8%.,Seus efeitos de dano contínuo causam +8%.,soul
+Allies' burn-type effects deal +12%.,Os efeitos de queimadura dos aliados causam +12%.,soul
++7% Defense.,+7% de Defesa.,soul
+Allies +4% Defense while above 50% HP.,Aliados +4% de Defesa enquanto acima de 50% de PV.,soul
+Allies' Attack debuffs on enemies are +12% more potent.,As penalidades de Ataque dos aliados sobre os inimigos são +12% mais potentes.,soul
+Debuffs on you expire 15% sooner.,As penalidades sobre você expiram 15% mais cedo.,soul
+Allies' damage-over-time effects last +1 turn.,Os efeitos de dano contínuo dos aliados duram +1 turno.,soul
++5% Defense while you have not attacked this turn.,+5% de Defesa enquanto você ainda não atacou neste turno.,soul
+Your damage-over-time effects last +1 turn.,Seus efeitos de dano contínuo duram +1 turno.,soul
+Fungal allies deal +6%.,Aliados Fúngico causam +6% de dano.,soul
++5% Attack vs targets with reduced Speed stages.,+5% de Ataque contra alvos com níveis de Velocidade reduzidos.,soul
+Allies deal +9% vs targets with reduced Speed stages.,Aliados causam +9% de dano contra alvos com níveis de Velocidade reduzidos.,soul
+Your attacks that heal you restore +10% more.,Seus ataques que curam você restauram +10% a mais.,soul
+Your damage-over-time effects are +7% more potent.,Seus efeitos de dano contínuo são +7% mais potentes.,soul
++6% Attack on the first turn.,+6% de Ataque no primeiro turno.,soul
++6% Attack while any ally is an Insect.,+6% de Ataque enquanto algum aliado for Inseto.,soul
+Insect allies deal +6%.,Aliados Inseto causam +6% de dano.,soul
+Insect allies' damage-over-time effects deal +7%.,Os efeitos de dano contínuo dos aliados Inseto causam +7%.,soul
+Allies' healing received +8%.,Cura recebida pelos aliados +8%.,soul
+This armour's Defense ×1.60.,A Defesa desta armadura ×1.60.,soul
++10% Defense.,+10% de Defesa.,soul
+Allies +4% Defense.,Aliados +4% de Defesa.,soul
++5% Attack vs targets that acted before you this turn.,+5% de Ataque contra alvos que agiram antes de você neste turno.,soul
+Allies take -3% damage from multi-hit moves.,Aliados sofrem -3% de dano de golpes de vários acertos.,soul
++7% Attack at or above 70% HP.,+7% de Ataque com 70% de PV ou mais.,soul
+Your Speed-stage debuffs last +1 turn.,Suas penalidades de nível de Velocidade duram +1 turno.,soul
+Construct and Arthropod allies +6% Defense.,Aliados Constructo e Artrópode +6% de Defesa.,soul
+Your attacks that heal you restore +12% more.,Seus ataques que curam você restauram +12% a mais.,soul
+Allies' attacks that heal them restore +9% more.,Os ataques dos aliados que os curam restauram +9% a mais.,soul
+Allies take -4% damage from Spectral and Fey enemies.,Aliados sofrem -4% de dano de inimigos Espectral e Feérico.,soul
+Allies take -5% damage while above 50% HP.,Aliados sofrem -5% de dano enquanto acima de 50% de PV.,soul
++8% Attack vs targets with a damage-over-time effect.,+8% de Ataque contra alvos com um efeito de dano contínuo.,soul
+Your damage-over-time effects deal +10%.,Seus efeitos de dano contínuo causam +10%.,soul
+Allies' burn-type effects last +1 turn.,Os efeitos de queimadura dos aliados duram +1 turno.,soul
++4% Attack on the first turn.,+4% de Ataque no primeiro turno.,soul
++5% Attack vs targets you have debuffed.,+5% de Ataque contra alvos que você penalizou.,soul
+Elemental allies deal +5%.,Aliados Elemental causam +5% de dano.,soul
+Enemy Attack debuffs you apply are +6% more potent.,As penalidades de Ataque que você aplica nos inimigos são +6% mais potentes.,soul
+Allies take -3% damage from Construct enemies.,Aliados sofrem -3% de dano de inimigos Constructo.,soul
+Avian allies take -5% damage.,Aliados Ave sofrem -5% de dano.,soul
++6% Attack while untouched this battle.,+6% de Ataque enquanto intacto nesta batalha.,soul
+Your multi-hit moves deal +9%.,Seus golpes de vários acertos causam +9%.,soul
+Allies' Attack and Defense debuffs on enemies are +10% more potent.,As penalidades de Ataque e Defesa dos aliados sobre os inimigos são +10% mais potentes.,soul
+Your Speed-stage effects last +1 turn.,Seus efeitos de nível de Velocidade duram +1 turno.,soul
+Allies deal +6% on the first turn.,Aliados causam +6% de dano no primeiro turno.,soul
++8% Attack vs targets with reduced Speed stages.,+8% de Ataque contra alvos com níveis de Velocidade reduzidos.,soul
+Elemental and Dragon allies deal +7%.,Aliados Elemental e Dragão causam +7% de dano.,soul
++5% Attack the turn after gaining a Defense buff.,+5% de Ataque no turno seguinte a ganhar um bônus de Defesa.,soul
+Allies take -9% damage from damage-over-time.,Aliados sofrem -9% de dano contínuo.,soul
+Allies' Attack debuffs on enemies last +1 turn.,As penalidades de Ataque dos aliados sobre os inimigos duram +1 turno.,soul
+Undead allies deal +5%.,Aliados Morto-vivo causam +5% de dano.,soul
+Undead and Amphibian allies +5% Defense.,Aliados Morto-vivo e Anfíbio +5% de Defesa.,soul
+Your Speed-stage debuffs are +7% more potent.,Suas penalidades de nível de Velocidade são +7% mais potentes.,soul
+Allies' first attack each battle deals +9%.,O primeiro ataque dos aliados em cada batalha causa +9%.,soul
+Allies take -4% damage from Beast enemies.,Aliados sofrem -4% de dano de inimigos Fera.,soul
+Undead allies deal +6%.,Aliados Morto-vivo causam +6% de dano.,soul
+Your heals restore +12% more.,Suas curas restauram +12% a mais.,soul
+Amphibian and Horror allies +6% Defense.,Aliados Anfíbio e Horror +6% de Defesa.,soul
++8% Attack vs targets with no active buffs.,+8% de Ataque contra alvos sem bônus ativos.,soul
+Your buff-removal effects also deal 5% of target max HP.,Seus efeitos de remoção de bônus também causam 5% do PV máx. do alvo.,soul
+Allies take -3% damage while the enemy has no active buffs.,Aliados sofrem -3% de dano enquanto o inimigo não tiver bônus ativos.,soul
+Enemy debuffs you apply are +6% more potent.,As penalidades que você aplica nos inimigos são +6% mais potentes.,soul
+Fungal allies +5% Defense.,Aliados Fúngico +5% de Defesa.,soul
+Enemy buffs expire 1 turn sooner when you debuff them.,Os bônus inimigos expiram 1 turno mais cedo quando você os penaliza.,soul
+Allies' Attack debuffs on enemies are +10% more potent.,As penalidades de Ataque dos aliados sobre os inimigos são +10% mais potentes.,soul
+Your Attack debuffs are +7% more potent.,Suas penalidades de Ataque são +7% mais potentes.,soul
+The first hit against you each battle deals -10%.,O primeiro acerto contra você em cada batalha causa -10%.,soul
++6% Attack vs targets with reduced Attack.,+6% de Ataque contra alvos com Ataque reduzido.,soul
+Allies' debuffs expire 20% sooner.,As penalidades dos aliados expiram 20% mais cedo.,soul
++7% Attack vs targets with reduced Speed stages.,+7% de Ataque contra alvos com níveis de Velocidade reduzidos.,soul
+Fungal allies +7% Defense and deal +5%.,Aliados Fúngico +7% de Defesa e causam +5% de dano.,soul
++8% Attack vs debuffed targets.,+8% de Ataque contra alvos penalizados.,soul
+Your multi-hit and grip moves deal +10%.,Seus golpes de vários acertos e de agarre causam +10%.,soul
+Your bleed effects deal +6%.,Seus efeitos de sangramento causam +6%.,soul
+Enemy healing received -5% while any ally is Vampiric.,Cura recebida pelos inimigos -5% enquanto algum aliado for Vampírico.,soul
+Construct allies +5% Defense.,Aliados Constructo +5% de Defesa.,soul
+Allies' bleed effects deal +10%.,Os efeitos de sangramento dos aliados causam +10%.,soul
+Allies take -4% damage from multi-hit moves.,Aliados sofrem -4% de dano de golpes de vários acertos.,soul
++7% Attack vs targets below 50% HP.,+7% de Ataque contra alvos abaixo de 50% de PV.,soul
+Allies deal +5% vs targets below 50% HP.,Aliados causam +5% de dano contra alvos abaixo de 50% de PV.,soul
++6% Attack vs targets with any active buff.,+6% de Ataque contra alvos com algum bônus ativo.,soul
+"Your buff-steal and buff-removal effects also grant you +5% Attack, 1t.","Seus efeitos de roubo e remoção de bônus também concedem a você +5% de Ataque, 1t.",soul
+Allies deal +8% vs buffed targets.,Aliados causam +8% de dano contra alvos com bônus.,soul
+Vampiric allies' attacks that heal them restore +7% more.,Os ataques dos aliados Vampírico que os curam restauram +7% a mais.,soul
+Allies take -8% damage while below 25% HP.,Aliados sofrem -8% de dano enquanto abaixo de 25% de PV.,soul
+Enemy Attack debuffs you apply are +8% more potent.,As penalidades de Ataque que você aplica nos inimigos são +8% mais potentes.,soul
+Your buff-copy and buff-steal effects last +1 turn.,Seus efeitos de cópia e roubo de bônus duram +1 turno.,soul
+Allies take -5% damage from Spectral and Horror enemies.,Aliados sofrem -5% de dano de inimigos Espectral e Horror.,soul
+Your burn-type effects are +7% more potent.,Seus efeitos de queimadura são +7% mais potentes.,soul
+Allies' burn-type effects deal +10%.,Os efeitos de queimadura dos aliados causam +10%.,soul
++6% Attack while you have a damage-over-time on the enemy.,+6% de Ataque enquanto você tiver um dano contínuo ativo no inimigo.,soul
+Construct allies +6% Defense.,Aliados Constructo +6% de Defesa.,soul
++7% Attack while below 50% HP.,+7% de Ataque enquanto abaixo de 50% de PV.,soul
++7% Defense while you did not attack last turn.,+7% de Defesa enquanto você não atacou no último turno.,soul
++7% Attack the turn after an ally was damaged.,+7% de Ataque no turno seguinte a um aliado sofrer dano.,soul
+Your damage-over-time effects are +10% more potent.,Seus efeitos de dano contínuo são +10% mais potentes.,soul
+Elemental and Demon allies deal +7%.,Aliados Elemental e Demônio causam +7% de dano.,soul
+Your debuffs are +10% more potent.,Suas penalidades são +10% mais potentes.,soul
+Allies' debuffs on enemies are +12% more potent.,As penalidades dos aliados sobre os inimigos são +12% mais potentes.,soul
+Fey and Beast allies deal +7%.,Aliados Feérico e Fera causam +7% de dano.,soul
++8% Attack while below 50% HP.,+8% de Ataque enquanto abaixo de 50% de PV.,soul
+Reptile and Dragon allies deal +7%.,Aliados Réptil e Dragão causam +7% de dano.,soul
+Ooze and Undead allies +5% Defense.,Aliados Gosma e Morto-vivo +5% de Defesa.,soul
