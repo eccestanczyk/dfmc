@@ -29,3 +29,5 @@ SD-100,3,1,1,0,"fight 3: boss_loot.csv at Loot_Floor - gear one band ahead, egg 
 SD-100,4,1,1,0,"fight 4: boss_loot.csv at Loot_Floor - gear one band ahead, egg of a line native to the loot floor's zone"
 SD-100,5,1,1,0,"fight 5: boss_loot.csv at Loot_Floor - gear one band ahead, egg of a line native to the loot floor's zone"
 SD-100,chest,2,0,500,"clear chest: gear one band ahead + Scrap [PLACEHOLDER, sized by tools/sim_econ.mjs simDungeons]"
+SD-MUT,1,0,0,0,the den fight itself pays nothing - the clear (chest) pays the egg
+SD-MUT,chest,0,1,0,"clear: ONE egg at Loot_Floor (boss_loot grade rule), re-lined to a random line and marked mutant (Reward_Rule mutant_egg)"
