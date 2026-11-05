@@ -928,6 +928,12 @@ function nextPending(){
 paintKey();
 boot();
 </script>
+<section class="sp-wrap" id="changelog" style="padding:24px 28px;">
+  <h2>Changelog</h2>
+  <p class="note">
+2026-11-05 &mdash; shop candles (D 2026-11-05 &ldquo;candles &hellip; you can light up with the mouseover vfx&rdquo;; dfmc-client lane shopfree, tools/make_candle_art.py, markup.html <code>.cnd</code>). On dev. The portal / coin-fire technique again: every glow is BAKED (a 160&times;160 radial glow per candle colour) and the flame is a 12-frame 64&times;104 strip of fbm tongues in the candle&rsquo;s own palette (tallow orange, beeswax gold, void violet), played by <code>steps(12)</code> on <code>transform</code> inside an <code>overflow:hidden</code> box over the wick. Unlit, the strip is <code>animation-play-state:paused</code> and both layers sit at opacity 0 (a compositor no-op); lit (app.js <code>.lit</code> on hover / touch, or <code>.cnd-hover:hover</code> on the profile card) the fire fades in on opacity and the glow breathes on opacity. No filter, no blur, no box-shadow, no per-frame JS, no layout. Three bodies, three strips and three glows: ~50 KB in all.<br>
+  </p>
+</section>
 <script src="nav.js"></script>
 </body>
 </html>
