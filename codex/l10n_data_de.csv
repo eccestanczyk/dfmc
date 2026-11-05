@@ -617,6 +617,8 @@ Deluxe Pack,,shop
 "90 days of every timed boon at once: Incense, Bait, Turbo Pens and Lucky Charm, 10% off buying them one by one. Each adds to the time it already has. Not a subscription: it never renews.",,shop
 Breeder's Week,,shop
 7 days of Turbo Pens and 7 days of Incense. The food stays yours to farm. Once a week; the week starts Monday at midnight UTC.,,shop
+XP Candy Key,,shop
+"One key to the Candy Kitchen at the highest level you have opened: three fights that pay XP candy. XP candy is not a roll input, so this is the only resource key for sale. Three a day.",,shop
 Class soul,Klassenseele,unlock
 Hatch All,Alle ausbrüten,unlock
 Dismantle All,Alle zerlegen,unlock
@@ -1269,6 +1271,67 @@ Gauntlet Key II,,item
 Gauntlet Key III,,item
 Gauntlet Key IV,,item
 Gauntlet Key V,,item
+Scrap Vault Key I,,item
+Scrap Vault Key II,,item
+Scrap Vault Key III,,item
+Scrap Vault Key IV,,item
+Scrap Vault Key V,,item
+Scrap Vault Key VI,,item
+Scrap Vault Key VII,,item
+Scrap Vault Key VIII,,item
+Scrap Vault Key IX,,item
+Scrap Vault Key X,,item
+Larder Key I,,item
+Larder Key II,,item
+Larder Key III,,item
+Larder Key IV,,item
+Larder Key V,,item
+Larder Key VI,,item
+Larder Key VII,,item
+Larder Key VIII,,item
+Larder Key IX,,item
+Larder Key X,,item
+Dust Mine Key I,,item
+Dust Mine Key II,,item
+Dust Mine Key III,,item
+Dust Mine Key IV,,item
+Dust Mine Key V,,item
+Dust Mine Key VI,,item
+Dust Mine Key VII,,item
+Dust Mine Key VIII,,item
+Dust Mine Key IX,,item
+Dust Mine Key X,,item
+Essence Well Key I,,item
+Essence Well Key II,,item
+Essence Well Key III,,item
+Essence Well Key IV,,item
+Essence Well Key V,,item
+Essence Well Key VI,,item
+Essence Well Key VII,,item
+Essence Well Key VIII,,item
+Essence Well Key IX,,item
+Essence Well Key X,,item
+Ink Archive Key I,,item
+Ink Archive Key II,,item
+Ink Archive Key III,,item
+Ink Archive Key IV,,item
+Ink Archive Key V,,item
+Ink Archive Key VI,,item
+Ink Archive Key VII,,item
+Ink Archive Key VIII,,item
+Ink Archive Key IX,,item
+Ink Archive Key X,,item
+Candy Kitchen Key I,,item
+Candy Kitchen Key II,,item
+Candy Kitchen Key III,,item
+Candy Kitchen Key IV,,item
+Candy Kitchen Key V,,item
+Candy Kitchen Key VI,,item
+Candy Kitchen Key VII,,item
+Candy Kitchen Key VIII,,item
+Candy Kitchen Key IX,,item
+Candy Kitchen Key X,,item
+XP Candy,,item
 A smear of red wax. A promise of red steel.,Ein Klecks roten Wachses. Ein Versprechen roten Stahls.,item_flavor
 Iron band. The crest bites into skin.,Eisenring. Das Wappen beißt in die Haut.,item_flavor
 Tempered seal. The impression it leaves heals slowly.,Gehärtetes Siegel. Sein Abdruck heilt nur langsam.,item_flavor
@@ -1483,6 +1546,8 @@ Taken from the hand of Varkolan. The door remembers its shape.,Aus der Hand von 
 Taken from the hand of Eskaton. The door remembers its shape.,Aus der Hand von Eskaton genommen. Die Tür erinnert sich an ihre Form.,item_flavor
 Taken from the hand of something that already died once. The door remembers its shape; it does not remember mercy.,"Aus der Hand von etwas genommen, das schon einmal starb. Die Tür erinnert sich an ihre Form; an Gnade nicht.",item_flavor
 A key cut for a door that opens onto five doors.,,item_flavor
+"Cut to fit one door, and only once.",,item_flavor
+Sweet enough to make a monster sit still.,,item_flavor
 Ram Charge,Rammangriff,move
 Rampart Break,Wallbrecher,move
 Rampart Annihilation,Wallvernichtung,move
@@ -3701,3 +3766,64 @@ Ability slot 2,Fähigkeitsplatz 2,item_effect
 "Opens Gauntlet III: five boss fights back to back, HP carried, no heal. Spent when the run starts. Cannot be dismantled or exported.",,item_effect
 "Opens Gauntlet IV: five boss fights back to back, HP carried, no heal. Spent when the run starts. Cannot be dismantled or exported.",,item_effect
 "Opens Gauntlet V: five boss fights back to back, HP carried, no heal. Spent when the run starts. Cannot be dismantled or exported.",,item_effect
+Opens Scrap Vault I: three fights that pay Scrap. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Scrap Vault II: three fights that pay Scrap. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Scrap Vault III: three fights that pay Scrap. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Scrap Vault IV: three fights that pay Scrap. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Scrap Vault V: three fights that pay Scrap. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Scrap Vault VI: three fights that pay Scrap. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Scrap Vault VII: three fights that pay Scrap. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Scrap Vault VIII: three fights that pay Scrap. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Scrap Vault IX: three fights that pay Scrap. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Scrap Vault X: three fights that pay Scrap. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Larder I: three fights that pay Ichor. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Larder II: three fights that pay Ichor. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Larder III: three fights that pay Ichor. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Larder IV: three fights that pay Ichor. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Larder V: three fights that pay Ichor. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Larder VI: three fights that pay Ichor. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Larder VII: three fights that pay Ichor. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Larder VIII: three fights that pay Ichor. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Larder IX: three fights that pay Ichor. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Larder X: three fights that pay Ichor. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Dust Mine I: three fights that pay Dust. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Dust Mine II: three fights that pay Dust. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Dust Mine III: three fights that pay Dust. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Dust Mine IV: three fights that pay Dust. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Dust Mine V: three fights that pay Dust. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Dust Mine VI: three fights that pay Dust. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Dust Mine VII: three fights that pay Dust. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Dust Mine VIII: three fights that pay Dust. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Dust Mine IX: three fights that pay Dust. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Dust Mine X: three fights that pay Dust. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Essence Well I: three fights that pay Essence. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Essence Well II: three fights that pay Essence. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Essence Well III: three fights that pay Essence. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Essence Well IV: three fights that pay Essence. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Essence Well V: three fights that pay Essence. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Essence Well VI: three fights that pay Essence. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Essence Well VII: three fights that pay Essence. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Essence Well VIII: three fights that pay Essence. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Essence Well IX: three fights that pay Essence. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Essence Well X: three fights that pay Essence. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Ink Archive I: three fights that pay Ink. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Ink Archive II: three fights that pay Ink. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Ink Archive III: three fights that pay Ink. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Ink Archive IV: three fights that pay Ink. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Ink Archive V: three fights that pay Ink. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Ink Archive VI: three fights that pay Ink. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Ink Archive VII: three fights that pay Ink. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Ink Archive VIII: three fights that pay Ink. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Ink Archive IX: three fights that pay Ink. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Ink Archive X: three fights that pay Ink. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Candy Kitchen I: three fights that pay creature XP candy. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Candy Kitchen II: three fights that pay creature XP candy. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Candy Kitchen III: three fights that pay creature XP candy. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Candy Kitchen IV: three fights that pay creature XP candy. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Candy Kitchen V: three fights that pay creature XP candy. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Candy Kitchen VI: three fights that pay creature XP candy. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Candy Kitchen VII: three fights that pay creature XP candy. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Candy Kitchen VIII: three fights that pay creature XP candy. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Candy Kitchen IX: three fights that pay creature XP candy. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+Opens Candy Kitchen X: three fights that pay creature XP candy. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
+"Feed to a creature: +500 creature XP each. Account-bound: cannot be traded, dismantled or exported.",,item_effect
