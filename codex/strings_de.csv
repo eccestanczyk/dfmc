@@ -1931,3 +1931,12 @@ m_candle_owned,DEINE,app: a candle the account owns - under its tile (P1)
 m_candle_bought,Deine. Lass den Zeiger darauf ruhen, um sie anzuzünden.,app: the shop note after a candle purchase (P1)
 m_candles,KERZEN,markup: the profile card candle row title (P1)
 m_no_candles_yet,Noch keine Kerzen.,markup: the profile card with no candles (P1)
+set_account_linked_label,Linked Sign-ins,settings: row label (linkprov)
+set_account_linked_desc,Every login that opens this climb. One must always remain.,settings: row description (linkprov)
+m_unlink,UNLINK,app: linkprov - the Linked sign-ins row button and the confirm button
+m_unlink_x,UNLINK {v1},app: linkprov - unlink confirm title ({v1} provider)
+m_v1_will_no_longer_open_this_climb,"{v1} will no longer open this climb. Your other sign-ins keep working, and you can link {v2} again later.","app: linkprov - unlink confirm body ({v1},{v2} provider)"
+m_unlinked,UNLINKED,app: linkprov - unlink done title
+m_v1_no_longer_opens_this_climb,{v1} no longer opens this climb.,app: linkprov - unlink done body ({v1} provider)
+m_still_linked,STILL LINKED,app: linkprov - unlink refused title
+m_v1_is_the_only_login_that_opens_this,{v1} is the only login that opens this climb. Link another sign-in before removing it.,"app: linkprov - unlink refused body, last sign-in ({v1} provider)"
