@@ -1,3 +1,5 @@
 Key,Value,Notes
 WG_Seed,0,"Wraithgold granted at account creation: none (T56, D 2026-11-02: ""NO ONE STARTS WITH WRAITHGOLD. it is premium currency bought from the shop""). Was 100 (alpha grant, D 2026-07-27) until 2026-11-02. The server's door reads this; the client shows it."
 Devour_Pellet_XP,1000,Blood Pellet: XP a creature gains devouring one (placeholder pending D's number; the item is unobtainable).
+NAME_CHANGE_COOLDOWN_D,30,"Days between two paid hero name changes (M1-02, docs/monetization-catalogue-2026-11.md s 3; placeholder, D re-rules on the form). The server reads it at /api/name/change."
+NAME_HOLD_D,30,Days the old name of a paid name change stays held for its account (nobody else can claim it; the profile says formerly X). The World reads it through /api/name/change.

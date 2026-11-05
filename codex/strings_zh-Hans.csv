@@ -1941,3 +1941,19 @@ m_v1_no_longer_opens_this_climb,{v1} no longer opens this climb.,app: linkprov -
 m_still_linked,STILL LINKED,app: linkprov - unlink refused title
 m_v1_is_the_only_login_that_opens_this,{v1} is the only login that opens this climb. Link another sign-in before removing it.,"app: linkprov - unlink refused body, last sign-in ({v1} provider)"
 gate_wishlist_on_steam,在 Steam 加入愿望单,index.html: sign-in gate: Steam store page door (only when play/version.json wishlist_url is set; never in the Steam shell)
+m_shop_classes_tab,CLASSES,"app: premium shop, the CLASSES tab (M1-01 lane m1shop 2026-11-05)"
+m_shop_classes_all_owned,You own every class.,"app: premium shop CLASSES tab, nothing left to buy"
+m_shop_classes_hint,Unlocks the class at level 1 with its two Tier-1 weapons. The Scrap and Ink prices still stand in the CLASSES window.,app: premium shop CLASSES tab hint
+m_shop_class_owned,You already own that class.,"app: premium shop, class buy refused 409 owned"
+m_shop_class_bought,{v1} unlocked. Switch to it from the CLASSES window.,"app: premium shop, class bought; {v1} the class name"
+m_name_rule_hint,"3-16 letters, digits, spaces, dashes or underscores.","app: name change box, the name rule (T30)"
+m_rename_same,That is already your name.,app: name change box
+m_rename_done,You are {v1} now. Your old name is held for you for a while.,app: name change done; {v1} the new name
+m_rename_taken,That name is taken.,app: name change refused 409 taken
+m_rename_cooldown,You changed your name recently. Try again later.,app: name change refused 429 cooldown
+m_rename_profane,That name is not allowed.,app: name change refused 422 name_rule profane
+m_rename_failed,The name was not changed ({e}).,app: name change failed; {e} the server reason
+m_rename_title,New name for {v1},app: name change box title; {v1} the current name
+m_rename_body,"Latin letters, digits, spaces, dashes or underscores, 3-16. Your old name is held for you for a while, and you can change it again after a cooldown.",app: name change box body
+m_rename_confirm,CHANGE,"app: name change box, the confirm plaque"
+m_formerly_x,formerly {v1},"app: profile card, the held old name of a paid rename (M1-02); {v1} the old name"

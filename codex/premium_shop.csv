@@ -12,3 +12,7 @@ SHOP-010,Ink Key,Key,Wraithgold,100,0,dim_key,1,Opens the Inscribed Dimension on
 SHOP-011,Tallow Candle,Candle,Wraithgold,50,0,cosmetic_candle,tallow,A plain tallow candle for your shelf. Rest the pointer on it to light it. Yours for good.,1,1
 SHOP-012,Beeswax Candle,Candle,Wraithgold,100,0,cosmetic_candle,beeswax,A ribbed beeswax candle that burns gold. Rest the pointer on it to light it. Yours for good.,1,1
 SHOP-013,Void Candle,Candle,Wraithgold,200,0,cosmetic_candle,void,A black candle from below the tower; its flame burns violet. Rest the pointer on it to light it. Yours for good.,1,1
+SHOP-020,Name Change,Account,Wraithgold,300,0,rename,,"Change your hero's name once. Your old name is held for you for 30 days, and the next change waits 30 days.",1,
+SHOP-101,Brute,Class,Wraithgold,500,0,class_unlock,BRUTE,Unlocks the Brute class at level 1 with its two Tier-1 weapons. Also sold for Scrap in the CLASSES window.,1,
+SHOP-102,Assassin,Class,Wraithgold,500,0,class_unlock,ASSASSIN,Unlocks the Assassin class at level 1 with its two Tier-1 weapons. Also sold for Scrap in the CLASSES window.,1,
+SHOP-103,Professor,Class,Wraithgold,500,0,class_unlock,PROFESSOR,Unlocks the Professor class at level 1 with its two Tier-1 weapons. Also sold for Ink in the CLASSES window.,1,
