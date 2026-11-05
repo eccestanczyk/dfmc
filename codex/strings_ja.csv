@@ -682,12 +682,14 @@ unl_first_fight_target,敵をクリックして技の対象を選びましょう
 unl_first_fight_lock,全クリーチャーの技が決まりました。確定してラウンドを進めましょう。,app: opening.csv first_fight_lock Line - the FTUE arrow line (L1)
 unl_first_fight_order,このラウンドで誰が先に動くか確認しましょう。,app: opening.csv first_fight_order Line - the FTUE arrow line (L1)
 unl_ultimate,クラスのアルティメットを習得しました。クリックして使いましょう。,app: opening.csv ultimate Line - the FTUE arrow line (L1)
-unl_weapon_drop,バッグに新しい武器があります。クリックして「装備」を押しましょう。,app: opening.csv weapon_drop Line - the FTUE arrow line (L1)
+unl_weapon_drop,"A new weapon is in your bag. Click it, then EQUIP, then pick it for the slot.",app: opening.csv weapon_drop Line - the FTUE arrow line (L1)
 unl_gem_drop,ジェムは装備のソケットにはめ込めます。,app: opening.csv gem_drop Line - the FTUE arrow line (L1)
 unl_single_hatch,バッグにタマゴがあります。開いて孵化させましょう。,app: opening.csv single_hatch Line - the FTUE arrow line (L1)
 unl_single_dismantle,不要な装備を分解して素材にしましょう。,app: opening.csv single_dismantle Line - the FTUE arrow line (L1)
 unl_drought_incense,階が空っぽです。香炉をクリックしましょう。最初の1つはスクラップ1個です。,app: opening.csv drought_incense Line - the FTUE arrow line (L1)
 unl_drought_bait,また空っぽです。エサをクリックしましょう。最初の1つはスクラップ1個です。,app: opening.csv drought_bait Line - the FTUE arrow line (L1)
+unl_ascend_portal,The floor is cleared. Click the portal to climb.,app: opening.csv ascend_portal Line - the FTUE arrow line (L1)
+unl_materials_drop,UPGRADE is one try per click. This one costs {cost}.,app: opening.csv materials_drop Line - the FTUE arrow line (L1)
 set_account_link_desc,別のログインでこの同じ冒険にサインインします。金色 = 連携済み。,settings: row description
 m_mat_scrap,スクラップ,"app: a material named in a cost line, matName() (L1; glossary)"
 m_mat_ink,インク,"app: a material named in a cost line, matName() (L1; glossary)"

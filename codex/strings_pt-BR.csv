@@ -682,12 +682,14 @@ unl_first_fight_target,Clique em um inimigo para mirar o golpe.,app: opening.csv
 unl_first_fight_lock,Cada criatura tem seu golpe. Confirme para jogar a rodada.,app: opening.csv first_fight_lock Line - the FTUE arrow line (L1)
 unl_first_fight_order,Veja quem age primeiro nesta rodada.,app: opening.csv first_fight_order Line - the FTUE arrow line (L1)
 unl_ultimate,A ultimate da sua classe foi aprendida. Clique nela para usar.,app: opening.csv ultimate Line - the FTUE arrow line (L1)
-unl_weapon_drop,Há uma nova arma na sua bolsa. Clique nela e depois em EQUIPAR.,app: opening.csv weapon_drop Line - the FTUE arrow line (L1)
+unl_weapon_drop,"A new weapon is in your bag. Click it, then EQUIP, then pick it for the slot.",app: opening.csv weapon_drop Line - the FTUE arrow line (L1)
 unl_gem_drop,Uma gema encaixa num soquete do seu equipamento.,app: opening.csv gem_drop Line - the FTUE arrow line (L1)
 unl_single_hatch,Há um ovo na sua bolsa. Abra-o e choque.,app: opening.csv single_hatch Line - the FTUE arrow line (L1)
 unl_single_dismantle,Desmonte uma peça que você não precisa em materiais.,app: opening.csv single_dismantle Line - the FTUE arrow line (L1)
 unl_drought_incense,O andar está vazio. Clique no Incensário: o primeiro custa 1 Sucata.,app: opening.csv drought_incense Line - the FTUE arrow line (L1)
 unl_drought_bait,Vazio de novo. Clique na Isca: a primeira custa 1 Sucata.,app: opening.csv drought_bait Line - the FTUE arrow line (L1)
+unl_ascend_portal,The floor is cleared. Click the portal to climb.,app: opening.csv ascend_portal Line - the FTUE arrow line (L1)
+unl_materials_drop,UPGRADE is one try per click. This one costs {cost}.,app: opening.csv materials_drop Line - the FTUE arrow line (L1)
 set_account_link_desc,Entre nesta mesma escalada com outro login. Dourado = vinculado.,settings: row description
 m_mat_scrap,Sucata,"app: a material named in a cost line, matName() (L1; glossary)"
 m_mat_ink,Tinta,"app: a material named in a cost line, matName() (L1; glossary)"

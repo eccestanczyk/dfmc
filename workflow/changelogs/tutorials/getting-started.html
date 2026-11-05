@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<base href="../../../"><!-- workflow/changelogs/tutorials/ (2026-11-05): never published. Links resolve from the public page's folder. -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Getting started &mdash; changelog &amp; team notes</title>
+<link rel="stylesheet" href="theme.css?v=4">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">GETTING STARTED &mdash; TEAM NOTES</h1></div>
+<div class="sp-wrap">
+<p class="sp-lead">The team record for the public page <a href="tutorials/getting-started.html">tutorials/getting-started.html</a>: its dated changelog (newest first) and the implementation notes that never go on the player page (D 2026-11-03: the codex is player facing). The lesson tables themselves are <code>codex/opening.csv</code> and <code>codex/unlocks.csv</code>; the client side is described in <a href="workflow/index.html">workflow/index.html</a> (FTUE section).</p>
+
+  <h2>Changelog</h2>
+  <ul class="sp-rules">
+    <li><strong>2026-11-05 &mdash; the first session has one next action at every step: the portal, EQUIP, the pick, the price (report R-A, a first-time player on 0.95 relayed by D: &ldquo;Focus hard on the FTUE; you need to guide the player more&rdquo;, read with R-B &ldquo;I clicked the little boxes and nothing happened ... burned ALL my resources&rdquo;; dfmc-client lane ftueguide). On dev.</strong>
+      Walked as a fresh account (tools/probe_ftueguide.py: creation &rarr; first floor &rarr; first fight &rarr; clear &rarr; bag &rarr; equip &rarr; forge &rarr; next floor), seven of fourteen steps had no pointer. Fixed in the lesson table and the anchors:
+      (1) <code>ascend_portal</code>, a new opening.csv beat (floor 1, no item): once a floor is cleared the arrow sits on the OPEN portal (&ldquo;The floor is cleared. Click the portal to climb.&rdquo;); the client binds the <code>portal-up</code> anchor only while the portal is open, so a sealed portal never carries the arrow and a click on it cannot end the lesson.
+      (2) <code>weapon_drop</code> no longer ends on the bag tile&rsquo;s click: the tile is a Via step, the arrow moves to the sheet&rsquo;s EQUIP (<code>item-equip</code>, not the comparison boxes), then to the weapon&rsquo;s row in the slot picker (<code>eq-pick-weapon</code>); the lesson ends when the weapon is worn. Closing the sheet or any other click leaves it pending.
+      (3) <code>materials_drop</code> has a line again &mdash; the PRICE, not the floor-2 credit line #1185 removed: &ldquo;UPGRADE is one try per click. This one costs {cost}.&rdquo;, <code>{cost}</code> resolved by the client to the worn main hand&rsquo;s next-grade price (1 Scrap on floor 2).
+      Strings: <code>unl_weapon_drop</code> reworded, <code>unl_materials_drop</code> and <code>unl_ascend_portal</code> new in every strings table (English until the native pass).
+      <em>At release:</em> step 7 of the player page lists the portal to the next floor among the things the arrow points at (&ldquo;the first fight, your weapon, the portal, the upgrade, the first egg&rdquo;).
+      Gates: probe_ftueguide 14 steps 7 gaps &rarr; 0; ftue_lessons (gate edit L6 / F8 / F9) and ftue_caption green.</li>
+  </ul>
+</div>
+<script src="nav.js"></script>
+</body>
+</html>

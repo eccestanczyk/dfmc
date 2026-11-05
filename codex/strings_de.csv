@@ -682,12 +682,14 @@ unl_first_fight_target,"Klicke auf einen Gegner, um die Attacke zu zielen.",app:
 unl_first_fight_lock,"Jede Kreatur hat ihre Attacke. Bestätige, um die Runde zu spielen.",app: opening.csv first_fight_lock Line - the FTUE arrow line (L1)
 unl_first_fight_order,"Sieh, wer in dieser Runde zuerst handelt.",app: opening.csv first_fight_order Line - the FTUE arrow line (L1)
 unl_ultimate,"Das Ultimativ deiner Klasse ist erlernt. Klicke darauf, um es einzusetzen.",app: opening.csv ultimate Line - the FTUE arrow line (L1)
-unl_weapon_drop,"Eine neue Waffe liegt in deinem Beutel. Klicke darauf, dann auf AUSRÜSTEN.",app: opening.csv weapon_drop Line - the FTUE arrow line (L1)
+unl_weapon_drop,"A new weapon is in your bag. Click it, then EQUIP, then pick it for the slot.",app: opening.csv weapon_drop Line - the FTUE arrow line (L1)
 unl_gem_drop,Ein Edelstein passt in einen Sockel deiner Ausrüstung.,app: opening.csv gem_drop Line - the FTUE arrow line (L1)
 unl_single_hatch,Ein Ei liegt in deinem Beutel. Öffne es und brüte es aus.,app: opening.csv single_hatch Line - the FTUE arrow line (L1)
 unl_single_dismantle,"Zerlege ein Teil, das du nicht brauchst, in Materialien.",app: opening.csv single_dismantle Line - the FTUE arrow line (L1)
 unl_drought_incense,Die Etage ist leer. Klicke auf das Räuchergefäß: das erste kostet 1 Schrott.,app: opening.csv drought_incense Line - the FTUE arrow line (L1)
 unl_drought_bait,Wieder leer. Klicke auf den Köder: der erste kostet 1 Schrott.,app: opening.csv drought_bait Line - the FTUE arrow line (L1)
+unl_ascend_portal,The floor is cleared. Click the portal to climb.,app: opening.csv ascend_portal Line - the FTUE arrow line (L1)
+unl_materials_drop,UPGRADE is one try per click. This one costs {cost}.,app: opening.csv materials_drop Line - the FTUE arrow line (L1)
 set_account_link_desc,Melde dich mit einem anderen Login bei diesem Aufstieg an. Gold = verknüpft.,settings: row description
 m_mat_scrap,Schrott,"app: a material named in a cost line, matName() (L1; glossary)"
 m_mat_ink,Tinte,"app: a material named in a cost line, matName() (L1; glossary)"

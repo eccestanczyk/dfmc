@@ -682,12 +682,14 @@ unl_first_fight_target,点击敌人作为招式的目标。,app: opening.csv fir
 unl_first_fight_lock,每只生物都已选好招式。锁定后开始本回合。,app: opening.csv first_fight_lock Line - the FTUE arrow line (L1)
 unl_first_fight_order,查看本回合谁先行动。,app: opening.csv first_fight_order Line - the FTUE arrow line (L1)
 unl_ultimate,已习得职业终极技。点击即可使用。,app: opening.csv ultimate Line - the FTUE arrow line (L1)
-unl_weapon_drop,背包里有一把新武器。点击它，然后点击装备。,app: opening.csv weapon_drop Line - the FTUE arrow line (L1)
+unl_weapon_drop,"A new weapon is in your bag. Click it, then EQUIP, then pick it for the slot.",app: opening.csv weapon_drop Line - the FTUE arrow line (L1)
 unl_gem_drop,宝石可镶嵌在装备的插槽中。,app: opening.csv gem_drop Line - the FTUE arrow line (L1)
 unl_single_hatch,背包里有一颗蛋。打开并孵化它。,app: opening.csv single_hatch Line - the FTUE arrow line (L1)
 unl_single_dismantle,把不需要的装备分解成材料。,app: opening.csv single_dismantle Line - the FTUE arrow line (L1)
 unl_drought_incense,楼层空了。点击香炉：第一个只需1废料。,app: opening.csv drought_incense Line - the FTUE arrow line (L1)
 unl_drought_bait,又空了。点击诱饵：第一个只需1废料。,app: opening.csv drought_bait Line - the FTUE arrow line (L1)
+unl_ascend_portal,The floor is cleared. Click the portal to climb.,app: opening.csv ascend_portal Line - the FTUE arrow line (L1)
+unl_materials_drop,UPGRADE is one try per click. This one costs {cost}.,app: opening.csv materials_drop Line - the FTUE arrow line (L1)
 set_account_link_desc,用其他登录方式登录同一进度。金色 = 已关联。,settings: row description
 m_mat_scrap,废料,"app: a material named in a cost line, matName() (L1; glossary)"
 m_mat_ink,墨,"app: a material named in a cost line, matName() (L1; glossary)"

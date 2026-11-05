@@ -682,12 +682,14 @@ unl_first_fight_target,Click an enemy to aim the move.,app: opening.csv first_fi
 unl_first_fight_lock,Every creature has its move. Lock them in to play the round.,app: opening.csv first_fight_lock Line - the FTUE arrow line (L1)
 unl_first_fight_order,See who acts first this round.,app: opening.csv first_fight_order Line - the FTUE arrow line (L1)
 unl_ultimate,Your class ultimate is learned. Click it to use it.,app: opening.csv ultimate Line - the FTUE arrow line (L1)
-unl_weapon_drop,"A new weapon is in your bag. Click it, then EQUIP.",app: opening.csv weapon_drop Line - the FTUE arrow line (L1)
+unl_weapon_drop,"A new weapon is in your bag. Click it, then EQUIP, then pick it for the slot.",app: opening.csv weapon_drop Line - the FTUE arrow line (L1)
 unl_gem_drop,A gem fits a socket on your gear.,app: opening.csv gem_drop Line - the FTUE arrow line (L1)
 unl_single_hatch,An egg is in your bag. Open it and hatch it.,app: opening.csv single_hatch Line - the FTUE arrow line (L1)
 unl_single_dismantle,Break a piece you do not need into materials.,app: opening.csv single_dismantle Line - the FTUE arrow line (L1)
 unl_drought_incense,The floor is empty. Click the Incense Burner: your first one costs 1 Scrap.,app: opening.csv drought_incense Line - the FTUE arrow line (L1)
 unl_drought_bait,Dry again. Click the Bait: your first one costs 1 Scrap.,app: opening.csv drought_bait Line - the FTUE arrow line (L1)
+unl_ascend_portal,The floor is cleared. Click the portal to climb.,app: opening.csv ascend_portal Line - the FTUE arrow line (L1)
+unl_materials_drop,UPGRADE is one try per click. This one costs {cost}.,app: opening.csv materials_drop Line - the FTUE arrow line (L1)
 set_account_link_desc,Sign in to this same climb with another login. Gold = linked.,settings: row description
 m_mat_scrap,Scrap,"app: a material named in a cost line, matName() (L1; glossary)"
 m_mat_ink,Ink,"app: a material named in a cost line, matName() (L1; glossary)"
