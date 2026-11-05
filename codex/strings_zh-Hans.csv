@@ -1985,3 +1985,7 @@ m_skin_worn_note,Skin on. It shows from stage 3.,app: the shop note after a skin
 m_skin_off_note,Skin taken off.,app: the shop note after a skin is taken off (M1-03)
 m_skin_not_owned,You do not own that skin.,app: the shop note when the server refuses an equip without the skin (M1-03)
 m_skin_not_changed,The skin was not changed ({e}).,app: the shop note when an equip fails; {e} the reason (M1-03)
+m_turbo_pens,极速繁殖栏,app: M1-04 boon tiles (lane m1boons 2026-11-05)
+m_turbo_pens_desc,繁殖栏的繁殖速度翻倍。每枚蛋消耗的灵液不变。,app: M1-04 boon tiles (lane m1boons 2026-11-05)
+m_lucky_charm,幸运护符,app: M1-04 boon tiles (lane m1boons 2026-11-05)
+m_lucky_charm_desc,每次击杀会额外进行一次装备掉落判定。额外获得的装备与你的账号绑定。,app: M1-04 boon tiles (lane m1boons 2026-11-05)

@@ -23,3 +23,5 @@ SHOP-204,Mutant Titan,Skin,Wraithgold,400,0,skin_unlock,SKIN-BRUTE-MUT,A mutant 
 SHOP-205,Mutant Nightblade,Skin,Wraithgold,400,0,skin_unlock,SKIN-ASSASSIN-MUT,A mutant look for the Nightblade: the same hero in the hue the tower twists its creatures into. Bought before stage 3 it waits as a preview and goes on at stage 3. Yours for good.,1,1,,
 SHOP-206,Mutant Prophet,Skin,Wraithgold,400,0,skin_unlock,SKIN-PROFESSOR-MUT,A mutant look for the Prophet: the same hero in the hue the tower twists its creatures into. Bought before stage 3 it waits as a preview and goes on at stage 3. Yours for good.,1,1,,
 SHOP-210,Mutant Skin Set,Skin,Wraithgold,2040,0,skin_unlock,SET-MUT,"All six mutant class skins at once, 15% off buying them one by one. Each goes on at its class's stage 3. Yours for good.",1,1,,
+SHOP-014,Turbo Pens,Boon,Wraithgold,300,30,breed_speed,2,All your pens breed twice as fast. Each egg costs the same Ichor. Lasts 30 days.,1,,,
+SHOP-015,Lucky Charm,Boon,Wraithgold,300,30,gear_drop_mult,2,Every kill rolls for gear a second time. The extra gear is bound to your account and cannot be sold on the market. Lasts 30 days.,1,,,
