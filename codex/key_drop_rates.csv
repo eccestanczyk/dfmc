@@ -24,3 +24,9 @@ Zone,Zone_Name,Key_Item_ID,Floor_Lo,Floor_Hi,Min_Wins,Min_Kills,Chance_C,Chance_
 5,Gauntlet III key (floor-50 boss),ITM-SKEY-050,0,0,0,0,0.05,0.05,0.05,0.05,0.05
 7,Gauntlet IV key (floor-70 boss),ITM-SKEY-070,0,0,0,0,0.05,0.05,0.05,0.05,0.05
 10,Gauntlet V key (floor-100 boss),ITM-SKEY-100,0,0,0,0,0.05,0.05,0.05,0.05,0.05
+0,Scrap Vault key (any tower boss),ITM-RKEY-SCRAP,0,0,0,0,0.02,0.02,0.02,0.02,0.02
+0,Larder key (any tower boss),ITM-RKEY-ICHOR,0,0,0,0,0.02,0.02,0.02,0.02,0.02
+0,Dust Mine key (any tower boss),ITM-RKEY-DUST,0,0,0,0,0.02,0.02,0.02,0.02,0.02
+0,Essence Well key (any tower boss),ITM-RKEY-ESSENCE,0,0,0,0,0.02,0.02,0.02,0.02,0.02
+0,Ink Archive key (any tower boss),ITM-RKEY-INK,0,0,0,0,0.02,0.02,0.02,0.02,0.02
+0,Candy Kitchen key (any tower boss),ITM-RKEY-XP,0,0,0,0,0.02,0.02,0.02,0.02,0.02
