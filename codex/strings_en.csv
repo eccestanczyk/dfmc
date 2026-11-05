@@ -1113,7 +1113,7 @@ m_your_auto_pvp_match_starts_when_this,Your Auto PVP match starts when this figh
 m_that_match_expired,THAT MATCH EXPIRED,app: L1e message (setState)
 m_the_20_minute_window_had_passed_so_i,"The 20-minute window had passed, so it counts as a defense win. Queue again when you are ready.",app: L1e message (setState)
 m_no_attacks_left,NO ATTACKS LEFT,app: L1e message (setState)
-m_the_premium_shop_sells_ten_more_for,The premium shop sells ten more for today — 4 Wraithgold.,app: L1e message (setState)
+m_the_premium_shop_sells_ten_more_for,The premium shop sells ten more for today — 50 Wraithgold.,app: L1e message (setState)
 m_shop,SHOP,app: L1e message (setState)
 m_no_team_saved_yet,NO TEAM SAVED YET,app: L1e message (setState)
 m_your_team_is_read_from_your_last_sav,"Your team is read from your last save. Play a little so the game saves, then queue again.",app: L1e message (setState)
@@ -1940,3 +1940,4 @@ m_unlinked,UNLINKED,app: linkprov - unlink done title
 m_v1_no_longer_opens_this_climb,{v1} no longer opens this climb.,app: linkprov - unlink done body ({v1} provider)
 m_still_linked,STILL LINKED,app: linkprov - unlink refused title
 m_v1_is_the_only_login_that_opens_this,{v1} is the only login that opens this climb. Link another sign-in before removing it.,"app: linkprov - unlink refused body, last sign-in ({v1} provider)"
+gate_wishlist_on_steam,WISHLIST ON STEAM,index.html: sign-in gate: Steam store page door (only when play/version.json wishlist_url is set; never in the Steam shell)
