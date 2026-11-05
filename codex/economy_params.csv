@@ -3,3 +3,7 @@ WG_Seed,0,"Wraithgold granted at account creation: none (T56, D 2026-11-02: ""NO
 Devour_Pellet_XP,1000,Blood Pellet: XP a creature gains devouring one (placeholder pending D's number; the item is unobtainable).
 NAME_CHANGE_COOLDOWN_D,30,"Days between two paid hero name changes (M1-02, docs/monetization-catalogue-2026-11.md s 3; placeholder, D re-rules on the form). The server reads it at /api/name/change."
 NAME_HOLD_D,30,Days the old name of a paid name change stays held for its account (nobody else can claim it; the profile says formerly X). The World reads it through /api/name/change.
+INVITE_MILESTONE_FLOOR,30,"Invite-a-friend (M1-12, docs/monetization-catalogue-2026-11.md s 3): the best floor (the server's ratchet) the invited climb must reach before both sides are rewarded. Placeholder, D re-rules on the form (T72). The server reads it on the battle door."
+INVITE_REWARD_WG,100,"Promo Wraithgold paid to EACH side of a rewarded invite (wallet prov promo, never paid_*, so D11 / R2 are untouched). Placeholder (T72)."
+INVITE_CAP,10,"Rewarded invites per referrer, lifetime; an invited climb reaching the floor past it is refused and marked, nobody is paid. Placeholder (T72)."
+INVITE_MIN_AGE_D,7,Days the invited account must be old (its code is entered at creation) before the milestone pays; a climb at the floor earlier pays on its next win after the day. Placeholder (T72).

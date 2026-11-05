@@ -1961,3 +1961,17 @@ m_cap_left_today,{v1} / {v2} today,app: premium shop card: a capped row - buys l
 m_cap_left_week,{v1} / {v2} this week,app: premium shop card: a capped row - buys left this week out of the weekly cap (M1-07)
 m_shop_daily_cap,Daily limit reached. It resets at midnight UTC.,app: the shop note when a buy is refused by the daily cap (M1-07)
 m_shop_weekly_cap,Weekly limit reached. It resets on Monday at midnight UTC.,app: the shop note when a buy is refused by the weekly cap (M1-07)
+set_account_invite_label,Invite a Friend,"settings: row label (m1invite, M1-12)"
+set_account_invite_desc,"Share your code or link. When a friend starts a new climb with it and reaches the milestone floor, you both receive Wraithgold.","settings: row description (m1invite, M1-12)"
+m_copy_link,COPY LINK,app: invite row button - copies the invite link
+m_share,SHARE,app: invite row button - the system share sheet (copies the link where there is none)
+m_discord,DISCORD,app: invite row button - opens the community server
+m_use_code,USE CODE,app: invite row button - enters a friend's code on a new climb
+m_friend_s_code,FRIEND'S CODE,"app: invite row, the code field's placeholder"
+m_invited_v1_rewarded_v2,Invited {v1} · rewarded {v2} of {v3},"app: invite row status; {v1} climbs that entered the code, {v2} rewarded, {v3} the cap"
+m_link_copied,LINK COPIED,"app: invite row, the copy confirmation title (the body is the link)"
+m_share_invite_text,Climb Herumon Tower with me. My invite code is {v1}: {v2},"app: the share sheet text; {v1} the code, {v2} the link"
+m_code_accepted,CODE ACCEPTED,"app: invite claim, the success title"
+m_your_friend_s_code_is_in,Your friend's code is in. Reach the milestone floor and you both earn the reward.,"app: invite claim, the success body"
+m_code_refused,CODE REFUSED,"app: invite claim, the refusal title"
+m_that_code_cannot_be_used,That code cannot be used on this climb.,"app: invite claim, the refusal body (own code, a used code, a climb past floor 1, an unknown code)"
