@@ -582,6 +582,12 @@ Essence Key,Chave de Essência,shop
 Opens the Swollen Dimension once: five floors of five battles that pay Essence. Consumed on entry.,Abre a Dimensão Inchada uma vez: cinco andares de cinco batalhas que pagam Essência. Consumida ao entrar.,shop
 Ink Key,Chave de Tinta,shop
 Opens the Inscribed Dimension once: five floors of five battles that pay Ink. Consumed on entry.,Abre a Dimensão Inscrita uma vez: cinco andares de cinco batalhas que pagam Tinta. Consumida ao entrar.,shop
+Tallow Candle,Vela de Sebo,shop
+A plain tallow candle for your shelf. Rest the pointer on it to light it. Yours for good.,Uma vela de sebo simples para a sua prateleira. Pouse o ponteiro nela para acendê-la. Sua para sempre.,shop
+Beeswax Candle,Vela de Cera de Abelha,shop
+A ribbed beeswax candle that burns gold. Rest the pointer on it to light it. Yours for good.,Uma vela de cera de abelha com frisos que queima dourada. Pouse o ponteiro nela para acendê-la. Sua para sempre.,shop
+Void Candle,Vela do Vazio,shop
+A black candle from below the tower; its flame burns violet. Rest the pointer on it to light it. Yours for good.,Uma vela negra vinda de baixo da torre; sua chama queima violeta. Pouse o ponteiro nela para acendê-la. Sua para sempre.,shop
 Class soul,Alma de classe,unlock
 Hatch All,Chocar Tudo,unlock
 Dismantle All,Desmontar Tudo,unlock
@@ -605,13 +611,13 @@ Lock in moves,Confirme os golpes,tutorial
 Turn order,Ordem de turno,tutorial
 The ultimate,A ultimate,tutorial
 Equip the weapon,Equipe a arma,tutorial
+Climb,,tutorial
 Upgrade the weapon,Melhore a arma,tutorial
 Socket the gem,Encaixe a gema,tutorial
 Hatch the egg,Choque o ovo,tutorial
 Dismantle a piece,Desmonte uma peça,tutorial
 Burn incense,Queime incenso,tutorial
 Set bait,Coloque isca,tutorial
-Climb,,tutorial
 Crude Signet,Sinete Tosco,item
 Sturdy Signet,Sinete Robusto,item
 Fine Signet,Sinete Fino,item

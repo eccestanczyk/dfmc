@@ -582,6 +582,12 @@ Essence Key,精华钥匙,shop
 Opens the Swollen Dimension once: five floors of five battles that pay Essence. Consumed on entry.,开启一次肿胀次元：共五层，每层五场战斗，奖励精华。进入时消耗。,shop
 Ink Key,墨钥匙,shop
 Opens the Inscribed Dimension once: five floors of five battles that pay Ink. Consumed on entry.,开启一次铭文次元：共五层，每层五场战斗，奖励墨。进入时消耗。,shop
+Tallow Candle,牛脂蜡烛,shop
+A plain tallow candle for your shelf. Rest the pointer on it to light it. Yours for good.,放在架子上的普通牛脂蜡烛。把指针停在上面就能点燃。永远属于你。,shop
+Beeswax Candle,蜂蜡蜡烛,shop
+A ribbed beeswax candle that burns gold. Rest the pointer on it to light it. Yours for good.,带棱纹的蜂蜡蜡烛。燃起金色火焰。把指针停在上面就能点燃。永远属于你。,shop
+Void Candle,虚空蜡烛,shop
+A black candle from below the tower; its flame burns violet. Rest the pointer on it to light it. Yours for good.,来自塔下的黑蜡烛；火焰燃成紫色。把指针停在上面就能点燃。永远属于你。,shop
 Class soul,职业魂,unlock
 Hatch All,全部孵化,unlock
 Dismantle All,全部分解,unlock
@@ -605,13 +611,13 @@ Lock in moves,锁定招式,tutorial
 Turn order,行动顺序,tutorial
 The ultimate,终极技,tutorial
 Equip the weapon,装备武器,tutorial
+Climb,,tutorial
 Upgrade the weapon,强化武器,tutorial
 Socket the gem,镶嵌宝石,tutorial
 Hatch the egg,孵化蛋,tutorial
 Dismantle a piece,分解装备,tutorial
 Burn incense,点燃熏香,tutorial
 Set bait,放置诱饵,tutorial
-Climb,,tutorial
 Crude Signet,粗糙印戒,item
 Sturdy Signet,坚固印戒,item
 Fine Signet,精良印戒,item

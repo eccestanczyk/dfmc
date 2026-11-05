@@ -582,6 +582,12 @@ Essence Key,Essenzschlüssel,shop
 Opens the Swollen Dimension once: five floors of five battles that pay Essence. Consumed on entry.,"Öffnet einmal die Geschwollene Dimension: fünf Etagen mit je fünf Kämpfen, die Essenz bringen. Wird beim Betreten verbraucht.",shop
 Ink Key,Tintenschlüssel,shop
 Opens the Inscribed Dimension once: five floors of five battles that pay Ink. Consumed on entry.,"Öffnet einmal die Beschriebene Dimension: fünf Etagen mit je fünf Kämpfen, die Tinte bringen. Wird beim Betreten verbraucht.",shop
+Tallow Candle,Talgkerze,shop
+A plain tallow candle for your shelf. Rest the pointer on it to light it. Yours for good.,Eine schlichte Talgkerze für dein Regal. Lass den Zeiger darauf ruhen und sie brennt. Für immer deine.,shop
+Beeswax Candle,Bienenwachskerze,shop
+A ribbed beeswax candle that burns gold. Rest the pointer on it to light it. Yours for good.,Eine gerippte Bienenwachskerze mit goldener Flamme. Lass den Zeiger darauf ruhen und sie brennt. Für immer deine.,shop
+Void Candle,Leerenkerze,shop
+A black candle from below the tower; its flame burns violet. Rest the pointer on it to light it. Yours for good.,Eine schwarze Kerze aus den Tiefen unter dem Turm; ihre Flamme brennt violett. Lass den Zeiger darauf ruhen und sie brennt. Für immer deine.,shop
 Class soul,Klassenseele,unlock
 Hatch All,Alle ausbrüten,unlock
 Dismantle All,Alle zerlegen,unlock
@@ -605,13 +611,13 @@ Lock in moves,Attacken bestätigen,tutorial
 Turn order,Zugreihenfolge,tutorial
 The ultimate,Das Ultimativ,tutorial
 Equip the weapon,Waffe ausrüsten,tutorial
+Climb,,tutorial
 Upgrade the weapon,Waffe aufwerten,tutorial
 Socket the gem,Edelstein einsetzen,tutorial
 Hatch the egg,Ei ausbrüten,tutorial
 Dismantle a piece,Teil zerlegen,tutorial
 Burn incense,Räucherwerk entzünden,tutorial
 Set bait,Köder auslegen,tutorial
-Climb,,tutorial
 Crude Signet,Grobes Siegel,item
 Sturdy Signet,Robustes Siegel,item
 Fine Signet,Feines Siegel,item

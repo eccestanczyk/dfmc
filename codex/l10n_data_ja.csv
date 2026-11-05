@@ -582,6 +582,12 @@ Essence Key,エッセンスの鍵,shop
 Opens the Swollen Dimension once: five floors of five battles that pay Essence. Consumed on entry.,膨れた次元を一度だけ開く。5戦ずつの5階でエッセンスを獲得できる。入場時に消費。,shop
 Ink Key,インクの鍵,shop
 Opens the Inscribed Dimension once: five floors of five battles that pay Ink. Consumed on entry.,刻印の次元を一度だけ開く。5戦ずつの5階でインクを獲得できる。入場時に消費。,shop
+Tallow Candle,獣脂のろうそく,shop
+A plain tallow candle for your shelf. Rest the pointer on it to light it. Yours for good.,棚に置く素朴な獣脂のろうそく。ポインターを重ねると火が灯ります。ずっとあなたのものです。,shop
+Beeswax Candle,蜜蝋のろうそく,shop
+A ribbed beeswax candle that burns gold. Rest the pointer on it to light it. Yours for good.,金色に燃える筋入りの蜜蝋のろうそく。ポインターを重ねると火が灯ります。ずっとあなたのものです。,shop
+Void Candle,虚空のろうそく,shop
+A black candle from below the tower; its flame burns violet. Rest the pointer on it to light it. Yours for good.,塔の下から来た黒いろうそく。炎は紫に燃えます。ポインターを重ねると火が灯ります。ずっとあなたのものです。,shop
 Class soul,クラスソウル,unlock
 Hatch All,一括孵化,unlock
 Dismantle All,一括分解,unlock
@@ -605,13 +611,13 @@ Lock in moves,技を確定する,tutorial
 Turn order,行動順,tutorial
 The ultimate,アルティメット,tutorial
 Equip the weapon,武器を装備する,tutorial
+Climb,,tutorial
 Upgrade the weapon,武器を強化する,tutorial
 Socket the gem,ジェムをはめる,tutorial
 Hatch the egg,タマゴを孵化する,tutorial
 Dismantle a piece,装備を分解する,tutorial
 Burn incense,お香を焚く,tutorial
 Set bait,エサを仕掛ける,tutorial
-Climb,,tutorial
 Crude Signet,粗製の印章,item
 Sturdy Signet,頑丈な印章,item
 Fine Signet,上質な印章,item
