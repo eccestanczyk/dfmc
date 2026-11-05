@@ -619,6 +619,8 @@ Breeder's Week,,shop
 7 days of Turbo Pens and 7 days of Incense. The food stays yours to farm. Once a week; the week starts Monday at midnight UTC.,,shop
 XP Candy Key,,shop
 "One key to the Candy Kitchen at the highest level you have opened: three fights that pay XP candy. XP candy is not a roll input, so this is the only resource key for sale. Three a day.",,shop
+Mutation Draught,,shop
+"Turns one creature you own to its mutant palette. Cosmetic: its stats, grade and breeding stay its own, and the palette is removed if the creature is listed on the Steam market. Used from the creature's sheet.",,shop
 Class soul,Alma de classe,unlock
 Hatch All,Chocar Tudo,unlock
 Dismantle All,Desmontar Tudo,unlock
@@ -1333,6 +1335,7 @@ Candy Kitchen Key VIII,,item
 Candy Kitchen Key IX,,item
 Candy Kitchen Key X,,item
 XP Candy,,item
+Mutant Key,,item
 A smear of red wax. A promise of red steel.,Uma mancha de cera vermelha. Uma promessa de aço vermelho.,item_flavor
 Iron band. The crest bites into skin.,Aro de ferro. O brasão morde a pele.,item_flavor
 Tempered seal. The impression it leaves heals slowly.,Selo temperado. A marca que deixa cicatriza devagar.,item_flavor
@@ -1549,6 +1552,7 @@ Taken from the hand of something that already died once. The door remembers its 
 A key cut for a door that opens onto five doors.,,item_flavor
 "Cut to fit one door, and only once.",,item_flavor
 Sweet enough to make a monster sit still.,,item_flavor
+A key with an eye that will not stay one colour.,,item_flavor
 Ram Charge,Investida de Aríete,move
 Rampart Break,Quebra-muralha,move
 Rampart Annihilation,Aniquilação da Muralha,move
@@ -3828,3 +3832,4 @@ Opens Candy Kitchen VIII: three fights that pay creature XP candy. Spent when th
 Opens Candy Kitchen IX: three fights that pay creature XP candy. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
 Opens Candy Kitchen X: three fights that pay creature XP candy. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
 "Feed to a creature: +500 creature XP each. Account-bound: cannot be traded, dismantled or exported.",,item_effect
+"Opens the Mutant Den: one fight that pays a guaranteed mutant egg of a random line. Dropped by a Gauntlet V clear, at most one a week. Spent when the run starts. Cannot be dismantled or exported.",,item_effect
