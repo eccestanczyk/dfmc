@@ -1,0 +1,313 @@
+ID,Line_ID,Stage,Name,Kind,Source,Comp,Clip,File,Pack,Licence
+DFMC-001,THORNBACK,1,Bristle,grunt,sample,AFX-619 g0.9,AFX-619,assets/afx/oga-creature/grunt-02.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-002,THORNBACK,2,Thornhide,grunt,sample,AFX-619 g1 p-3,AFX-619,assets/afx/oga-creature/grunt-02.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-003,THORNBACK,3,Thornback,grunt,sample,AFX-619 g1.1 p-6,AFX-619,assets/afx/oga-creature/grunt-02.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-004,DUSTHOUND,1,Whelp,howl,sample,AFX-623 g0.9,AFX-623,assets/afx/oga-creature/howl.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-005,DUSTHOUND,2,Dustcur,howl,sample,AFX-623 g1 p-3,AFX-623,assets/afx/oga-creature/howl.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-006,DUSTHOUND,3,Dusthound,howl,sample,AFX-623 g1.1 p-6,AFX-623,assets/afx/oga-creature/howl.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-007,BARROWMOLE,1,Grub,grunt,sample,AFX-619 g0.9,AFX-619,assets/afx/oga-creature/grunt-02.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-008,BARROWMOLE,2,Delver,grunt,sample,AFX-619 g1 p-3,AFX-619,assets/afx/oga-creature/grunt-02.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-009,BARROWMOLE,3,Barrowmole,grunt,sample,AFX-619 g1.1 p-6,AFX-619,assets/afx/oga-creature/grunt-02.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-010,BRAMBLEFAWN,1,Fawn,bellow,sample,AFX-655 g0.9,AFX-655,assets/afx/oga-creature2/monster-08.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-011,BRAMBLEFAWN,2,Briarfawn,bellow,sample,AFX-655 g1 p-3,AFX-655,assets/afx/oga-creature2/monster-08.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-012,BRAMBLEFAWN,3,Bramblefawn,bellow,sample,AFX-655 g1.1 p-6,AFX-655,assets/afx/oga-creature2/monster-08.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-013,NIGHTMARE,1,Shade,moan,sample,AFX-660 g0.9,AFX-660,assets/afx/oga-creature2/monster-13.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-014,NIGHTMARE,2,Phantasm,moan,sample,AFX-660 g1 p-3,AFX-660,assets/afx/oga-creature2/monster-13.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-015,NIGHTMARE,3,Nightmare,moan,sample,AFX-660 g1.1 p-6,AFX-660,assets/afx/oga-creature2/monster-13.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-016,GOLGOTH,1,Cairn,grunt,sample,AFX-622 g0.9 p-3,AFX-622,assets/afx/oga-creature/grunt-05.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-017,GOLGOTH,2,Menhir,grunt,sample,AFX-622 g1 p-6,AFX-622,assets/afx/oga-creature/grunt-05.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-018,GOLGOTH,3,Golgoth,grunt,sample,AFX-622 g1.1 p-9,AFX-622,assets/afx/oga-creature/grunt-05.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-019,WYCHROOT,1,Sprig,creak,sample,AFX-020 g0.9,AFX-020,assets/afx/rpg-audio/creak3.ogg,Kenney RPG Audio,CC0-1.0
+DFMC-020,WYCHROOT,2,Woodwose,creak,sample,AFX-020 g1 p-3,AFX-020,assets/afx/rpg-audio/creak3.ogg,Kenney RPG Audio,CC0-1.0
+DFMC-021,WYCHROOT,3,Wychroot,creak,sample,AFX-020 g1.1 p-6,AFX-020,assets/afx/rpg-audio/creak3.ogg,Kenney RPG Audio,CC0-1.0
+DFMC-022,GARROTE,1,Noose,moan,sample,AFX-665 g0.9,AFX-665,assets/afx/oga-creature2/monster-18.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-023,GARROTE,2,Ligature,moan,sample,AFX-665 g1 p-3,AFX-665,assets/afx/oga-creature2/monster-18.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-024,GARROTE,3,Garrote,moan,sample,AFX-665 g1.1 p-6,AFX-665,assets/afx/oga-creature2/monster-18.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-025,GALLOWSBIRD,1,Nestling,caw,synth,,,,,
+DFMC-026,GALLOWSBIRD,2,Carrion,caw,synth,,,,,
+DFMC-027,GALLOWSBIRD,3,Gallowsbird,caw,synth,,,,,
+DFMC-028,HERNE,1,Hart,bellow,sample,AFX-642 g0.9 p-3,AFX-642,assets/afx/oga-creature/troll-01.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-029,HERNE,2,Leshy,bellow,sample,AFX-642 g1 p-6,AFX-642,assets/afx/oga-creature/troll-01.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-030,HERNE,3,Herne,bellow,sample,AFX-642 g1.1 p-9,AFX-642,assets/afx/oga-creature/troll-01.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-031,TIDECRAWLER,1,Nauplius,click,sample,AFX-649 g0.9 n2 i110,AFX-649,assets/afx/oga-creature2/attack-05.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-032,TIDECRAWLER,2,Barnacle,click,sample,AFX-649 g1 p-3 n3 i110,AFX-649,assets/afx/oga-creature2/attack-05.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-033,TIDECRAWLER,3,Tidecrawler,click,sample,AFX-649 g1.1 p-6 n4 i110,AFX-649,assets/afx/oga-creature2/attack-05.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-034,SALTJAW,1,Fry,bubble,sample,AFX-681 g0.9,AFX-681,assets/afx/oga-water/bubble-02.ogg,40 CC0 water / splash / slime SFX,CC0-1.0
+DFMC-035,SALTJAW,2,Snapjaw,bubble,sample,AFX-681 g1 p-3,AFX-681,assets/afx/oga-water/bubble-02.ogg,40 CC0 water / splash / slime SFX,CC0-1.0
+DFMC-036,SALTJAW,3,Saltjaw,bubble,sample,AFX-681 g1.1 p-6,AFX-681,assets/afx/oga-water/bubble-02.ogg,40 CC0 water / splash / slime SFX,CC0-1.0
+DFMC-037,BRINEFROG,1,Polliwog,croak,sample,AFX-659 g0.9,AFX-659,assets/afx/oga-creature2/monster-12.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-038,BRINEFROG,2,Brineling,croak,sample,AFX-659 g1 p-3,AFX-659,assets/afx/oga-creature2/monster-12.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-039,BRINEFROG,3,Brinefrog,croak,sample,AFX-659 g1.1 p-6,AFX-659,assets/afx/oga-creature2/monster-12.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-040,CRESTMANTIS,1,Zoea,chitter,sample,AFX-608 g0.9,AFX-608,assets/afx/oga-creature/bug-01.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-041,CRESTMANTIS,2,Smasher,chitter,sample,AFX-608 g1 p-3,AFX-608,assets/afx/oga-creature/bug-01.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-042,CRESTMANTIS,3,Crestmantis,chitter,sample,AFX-608 g1.1 p-6,AFX-608,assets/afx/oga-creature/bug-01.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-043,DUSKSCALE,1,Gecko,hiss,sample,AFX-607 g0.9 p-3,AFX-607,assets/afx/oga-creature/breath.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-044,DUSKSCALE,2,Monitor,hiss,sample,AFX-607 g1 p-6,AFX-607,assets/afx/oga-creature/breath.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-045,DUSKSCALE,3,Duskscale,hiss,sample,AFX-607 g1.1 p-9,AFX-607,assets/afx/oga-creature/breath.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-046,RUSALKA,1,Naiad,moan,sample,AFX-660 g0.9,AFX-660,assets/afx/oga-creature2/monster-13.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-047,RUSALKA,2,Undine,moan,sample,AFX-660 g1 p-3,AFX-660,assets/afx/oga-creature2/monster-13.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-048,RUSALKA,3,Rusalka,moan,sample,AFX-660 g1.1 p-6,AFX-660,assets/afx/oga-creature2/monster-13.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-049,BULWARK,1,Whorl,gurgle,sample,AFX-677 g0.9,AFX-677,assets/afx/oga-creature2/slime-07.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-050,BULWARK,2,Rampart,gurgle,sample,AFX-677 g1 p-3,AFX-677,assets/afx/oga-creature2/slime-07.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-051,BULWARK,3,Bulwark,gurgle,sample,AFX-677 g1.1 p-6,AFX-677,assets/afx/oga-creature2/slime-07.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-052,NETHEREEL,1,Elver,bubble,sample,AFX-681 g0.9,AFX-681,assets/afx/oga-water/bubble-02.ogg,40 CC0 water / splash / slime SFX,CC0-1.0
+DFMC-053,NETHEREEL,2,Conger,bubble,sample,AFX-681 g1 p-3,AFX-681,assets/afx/oga-water/bubble-02.ogg,40 CC0 water / splash / slime SFX,CC0-1.0
+DFMC-054,NETHEREEL,3,Nethereel,bubble,sample,AFX-681 g1.1 p-6,AFX-681,assets/afx/oga-water/bubble-02.ogg,40 CC0 water / splash / slime SFX,CC0-1.0
+DFMC-055,CORALHYDRA,1,Polyp,hiss,sample,AFX-607 g0.9,AFX-607,assets/afx/oga-creature/breath.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-056,CORALHYDRA,2,Medusa,hiss,sample,AFX-607 g1 p-3,AFX-607,assets/afx/oga-creature/breath.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-057,CORALHYDRA,3,Coralhydra,hiss,sample,AFX-607 g1.1 p-6,AFX-607,assets/afx/oga-creature/breath.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-058,DAGON,1,Nommo,moan,sample,AFX-660 g0.9 p-3,AFX-660,assets/afx/oga-creature2/monster-13.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-059,DAGON,2,Oannes,moan,sample,AFX-660 g1 p-6,AFX-660,assets/afx/oga-creature2/monster-13.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-060,DAGON,3,Dagon,moan,sample,AFX-660 g1.1 p-9,AFX-660,assets/afx/oga-creature2/monster-13.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-061,SANDSKITTER,1,Haunt,moan,sample,AFX-665 g0.9 p3,AFX-665,assets/afx/oga-creature2/monster-18.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-062,SANDSKITTER,2,Wraith,moan,sample,AFX-665 g1,AFX-665,assets/afx/oga-creature2/monster-18.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-063,SANDSKITTER,3,Banshee,moan,sample,AFX-665 g1.1 p-3,AFX-665,assets/afx/oga-creature2/monster-18.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-064,DUNECOIL,1,Wyrmling,hiss,sample,AFX-607 g0.9 p3,AFX-607,assets/afx/oga-creature/breath.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-065,DUNECOIL,2,Neonate,hiss,sample,AFX-607 g1,AFX-607,assets/afx/oga-creature/breath.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-066,DUNECOIL,3,Sidewinder,hiss,sample,AFX-607 g1.1 p-3,AFX-607,assets/afx/oga-creature/breath.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-067,FATA,1,Mirage,yowl,sample,AFX-656 g0.9,AFX-656,assets/afx/oga-creature2/monster-09.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-068,FATA,2,Sylph,yowl,sample,AFX-656 g1 p-3,AFX-656,assets/afx/oga-creature2/monster-09.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-069,FATA,3,Fata,yowl,sample,AFX-656 g1.1 p-6,AFX-656,assets/afx/oga-creature2/monster-09.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-070,SIMOOM,1,Grit,clang,sample,AFX-079 g0.9,AFX-079,assets/afx/impact-sounds/impactbell-heavy-002.ogg,Kenney Impact Sounds,CC0-1.0
+DFMC-071,SIMOOM,2,Sirocco,clang,sample,AFX-079 g1 p-3,AFX-079,assets/afx/impact-sounds/impactbell-heavy-002.ogg,Kenney Impact Sounds,CC0-1.0
+DFMC-072,SIMOOM,3,Simoom,clang,sample,AFX-079 g1.1 p-6,AFX-079,assets/afx/impact-sounds/impactbell-heavy-002.ogg,Kenney Impact Sounds,CC0-1.0
+DFMC-073,ECHIDNA,1,Lamia,hiss,sample,AFX-650 g0.9 p-3,AFX-650,assets/afx/oga-creature2/breath-02.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-074,ECHIDNA,2,Gorgon,hiss,sample,AFX-650 g1 p-6,AFX-650,assets/afx/oga-creature2/breath-02.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-075,ECHIDNA,3,Echidna,hiss,sample,AFX-650 g1.1 p-9,AFX-650,assets/afx/oga-creature2/breath-02.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-076,VOIDSIPHON,1,Paralarva,gurgle,sample,AFX-612 g0.9 p3,AFX-612,assets/afx/oga-creature/burble-01.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-077,VOIDSIPHON,2,Inkling,gurgle,sample,AFX-612 g1,AFX-612,assets/afx/oga-creature/burble-01.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-078,VOIDSIPHON,3,Voidsiphon,gurgle,sample,AFX-612 g1.1 p-3,AFX-612,assets/afx/oga-creature/burble-01.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-079,EMBERCLAW,1,Cinder,hiss,sample,AFX-650 g0.9,AFX-650,assets/afx/oga-creature2/breath-02.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-080,EMBERCLAW,2,Scorchscale,hiss,sample,AFX-650 g1 p-3,AFX-650,assets/afx/oga-creature2/breath-02.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-081,EMBERCLAW,3,Emberclaw,hiss,sample,AFX-650 g1.1 p-6,AFX-650,assets/afx/oga-creature2/breath-02.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-082,ZARATAN,1,Terrapin,rumble,sample,AFX-635 g0.9 p-1,AFX-635,assets/afx/oga-creature/monster-07.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-083,ZARATAN,2,Kurma,rumble,sample,AFX-635 g1 p-1,AFX-635,assets/afx/oga-creature/monster-07.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-084,ZARATAN,3,Zaratan,rumble,sample,AFX-635 g1.1 p-1,AFX-635,assets/afx/oga-creature/monster-07.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-085,MARID,1,Jann,drone,sample,AFX-795 g0.9,AFX-795,assets/afx/oga-wind/wind1.ogg,wind1,CC0-1.0
+DFMC-086,MARID,2,Ifrit,drone,sample,AFX-795 g1 p-3,AFX-795,assets/afx/oga-wind/wind1.ogg,wind1,CC0-1.0
+DFMC-087,MARID,3,Marid,drone,sample,AFX-795 g1.1 p-3,AFX-795,assets/afx/oga-wind/wind1.ogg,wind1,CC0-1.0
+DFMC-088,OUROBOROS,1,Nidhogg,hiss,sample,AFX-650 g0.9,AFX-650,assets/afx/oga-creature2/breath-02.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-089,OUROBOROS,2,Jormungand,hiss,sample,AFX-650 g1 p-3,AFX-650,assets/afx/oga-creature2/breath-02.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-090,OUROBOROS,3,Ouroboros,hiss,sample,AFX-650 g1.1 p-6,AFX-650,assets/afx/oga-creature2/breath-02.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-091,GLOOMGRUB,1,Larva,chitter,sample,AFX-611 g0.9 p3,AFX-611,assets/afx/oga-creature/bug-04.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-092,GLOOMGRUB,2,Maggot,chitter,sample,AFX-611 g1,AFX-611,assets/afx/oga-creature/bug-04.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-093,GLOOMGRUB,3,Gloomgrub,chitter,sample,AFX-611 g1.1 p-3,AFX-611,assets/afx/oga-creature/bug-04.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-094,THORNHUSK,1,Instar,chitter,sample,AFX-611 g0.9,AFX-611,assets/afx/oga-creature/bug-04.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-095,THORNHUSK,2,Thornshell,chitter,sample,AFX-611 g1 p-3,AFX-611,assets/afx/oga-creature/bug-04.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-096,THORNHUSK,3,Thornhusk,chitter,sample,AFX-611 g1.1 p-6,AFX-611,assets/afx/oga-creature/bug-04.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-097,SPOREFLY,1,Ovum,buzz,sample,AFX-611 g0.9,AFX-611,assets/afx/oga-creature/bug-04.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-098,SPOREFLY,2,Sporeling,buzz,sample,AFX-611 g1 p-3,AFX-611,assets/afx/oga-creature/bug-04.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-099,SPOREFLY,3,Sporefly,buzz,sample,AFX-611 g1.1 p-6,AFX-611,assets/afx/oga-creature/bug-04.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-100,ARACHNE,1,Spiderling,chitter,sample,AFX-611 g0.9,AFX-611,assets/afx/oga-creature/bug-04.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-101,ARACHNE,2,Orbweaver,chitter,sample,AFX-611 g1 p-3,AFX-611,assets/afx/oga-creature/bug-04.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-102,ARACHNE,3,Arachne,chitter,sample,AFX-611 g1.1 p-6,AFX-611,assets/afx/oga-creature/bug-04.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-103,CARNIFORA,1,Sundew,creak,sample,AFX-020 g0.9,AFX-020,assets/afx/rpg-audio/creak3.ogg,Kenney RPG Audio,CC0-1.0
+DFMC-104,CARNIFORA,2,Flytrap,creak,sample,AFX-020 g1 p-3,AFX-020,assets/afx/rpg-audio/creak3.ogg,Kenney RPG Audio,CC0-1.0
+DFMC-105,CARNIFORA,3,Carnifora,creak,sample,AFX-020 g1.1 p-6,AFX-020,assets/afx/rpg-audio/creak3.ogg,Kenney RPG Audio,CC0-1.0
+DFMC-106,PLAGUECARRIER,1,Vector,chitter,sample,AFX-611 g0.9 p3,AFX-611,assets/afx/oga-creature/bug-04.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-107,PLAGUECARRIER,2,Contagion,chitter,sample,AFX-611 g1,AFX-611,assets/afx/oga-creature/bug-04.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-108,PLAGUECARRIER,3,Plaguecarrier,chitter,sample,AFX-611 g1.1 p-3,AFX-611,assets/afx/oga-creature/bug-04.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-109,DEVOUT,1,Novice,chitter,sample,AFX-608 g0.9,AFX-608,assets/afx/oga-creature/bug-01.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-110,DEVOUT,2,Acolyte,chitter,sample,AFX-608 g1 p-3,AFX-608,assets/afx/oga-creature/bug-01.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-111,DEVOUT,3,Devout,chitter,sample,AFX-608 g1.1 p-6,AFX-608,assets/afx/oga-creature/bug-01.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-112,LOCUST,1,Nymph,buzz,sample,AFX-611 g0.9,AFX-611,assets/afx/oga-creature/bug-04.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-113,LOCUST,2,Hopper,buzz,sample,AFX-611 g1 p-3,AFX-611,assets/afx/oga-creature/bug-04.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-114,LOCUST,3,Locust,buzz,sample,AFX-611 g1.1 p-6,AFX-611,assets/afx/oga-creature/bug-04.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-115,VESPERA,1,Vespid,buzz,sample,AFX-611 g0.9,AFX-611,assets/afx/oga-creature/bug-04.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-116,VESPERA,2,Cordyceps,buzz,sample,AFX-611 g1 p-3,AFX-611,assets/afx/oga-creature/bug-04.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-117,VESPERA,3,Vespera,buzz,sample,AFX-611 g1.1 p-6,AFX-611,assets/afx/oga-creature/bug-04.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-118,YGGDRASIL,1,Taproot,creak,sample,AFX-018 g0.9,AFX-018,assets/afx/rpg-audio/creak1.ogg,Kenney RPG Audio,CC0-1.0
+DFMC-119,YGGDRASIL,2,Mycorrhiza,creak,sample,AFX-018 g1 p-3,AFX-018,assets/afx/rpg-audio/creak1.ogg,Kenney RPG Audio,CC0-1.0
+DFMC-120,YGGDRASIL,3,Yggdrasil,creak,sample,AFX-018 g1.1 p-6,AFX-018,assets/afx/rpg-audio/creak1.ogg,Kenney RPG Audio,CC0-1.0
+DFMC-121,CLIFFPINCER,1,Megalopa,click,sample,AFX-645 g0.9 n2 i110,AFX-645,assets/afx/oga-creature2/attack-01.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-122,CLIFFPINCER,2,Scuttler,click,sample,AFX-645 g1 p-3 n3 i110,AFX-645,assets/afx/oga-creature2/attack-01.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-123,CLIFFPINCER,3,Cliffpincer,click,sample,AFX-645 g1.1 p-6 n4 i110,AFX-645,assets/afx/oga-creature2/attack-01.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-124,CRUSHMAUL,1,Scute,chitter,sample,AFX-611 g0.9,AFX-611,assets/afx/oga-creature/bug-04.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-125,CRUSHMAUL,2,Carapace,chitter,sample,AFX-611 g1 p-3,AFX-611,assets/afx/oga-creature/bug-04.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-126,CRUSHMAUL,3,Crushmaul,chitter,sample,AFX-611 g1.1 p-6,AFX-611,assets/afx/oga-creature/bug-04.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-127,SLAGWORM,1,Dross,gurgle,sample,AFX-677 g0.9,AFX-677,assets/afx/oga-creature2/slime-07.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-128,SLAGWORM,2,Smelt,gurgle,sample,AFX-677 g1 p-3,AFX-677,assets/afx/oga-creature2/slime-07.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-129,SLAGWORM,3,Slagworm,gurgle,sample,AFX-677 g1.1 p-6,AFX-677,assets/afx/oga-creature2/slime-07.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-130,RIDGEDRAKE,1,Drakeling,roar,sample,AFX-638 g0.9,AFX-638,assets/afx/oga-creature/roar-03.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-131,RIDGEDRAKE,2,Dragonet,roar,sample,AFX-638 g1 p-3,AFX-638,assets/afx/oga-creature/roar-03.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-132,RIDGEDRAKE,3,Ridgedrake,roar,sample,AFX-638 g1.1 p-6,AFX-638,assets/afx/oga-creature/roar-03.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-133,STONECALLER,1,Crayfish,click,sample,AFX-649 g0.9 n2 i110,AFX-649,assets/afx/oga-creature2/attack-05.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-134,STONECALLER,2,Stonecaller,click,sample,AFX-649 g1 p-3 n3 i110,AFX-649,assets/afx/oga-creature2/attack-05.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-135,STONECALLER,3,Despot,click,sample,AFX-649 g1.1 p-6 n4 i110,AFX-649,assets/afx/oga-creature2/attack-05.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-136,SANGLEECH,1,Fluke,gurgle,sample,AFX-672 g0.9 p-3,AFX-672,assets/afx/oga-creature2/slime-02.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-137,SANGLEECH,2,Sangleech,gurgle,sample,AFX-672 g1 p-6,AFX-672,assets/afx/oga-creature2/slime-02.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-138,SANGLEECH,3,Sanguinarch,gurgle,sample,AFX-672 g1.1 p-9,AFX-672,assets/afx/oga-creature2/slime-02.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-139,CRAGGERNAUT,1,Colony,click,sample,AFX-645 g0.9 p-3 n2 i110,AFX-645,assets/afx/oga-creature2/attack-01.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-140,CRAGGERNAUT,2,Aggregate,click,sample,AFX-645 g1 p-6 n3 i110,AFX-645,assets/afx/oga-creature2/attack-01.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-141,CRAGGERNAUT,3,Craggernaut,click,sample,AFX-645 g1.1 p-9 n4 i110,AFX-645,assets/afx/oga-creature2/attack-01.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-142,VOIDSHELL,1,Scorpling,chitter,sample,AFX-611 g0.9,AFX-611,assets/afx/oga-creature/bug-04.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-143,VOIDSHELL,2,Umbra,chitter,sample,AFX-611 g1 p-3,AFX-611,assets/afx/oga-creature/bug-04.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-144,VOIDSHELL,3,Voidshell,chitter,sample,AFX-611 g1.1 p-6,AFX-611,assets/afx/oga-creature/bug-04.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-145,TALOS,1,Automaton,rumble,sample,AFX-635 g0.9 p-1,AFX-635,assets/afx/oga-creature/monster-07.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-146,TALOS,2,Colossus,rumble,sample,AFX-635 g1 p-1,AFX-635,assets/afx/oga-creature/monster-07.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-147,TALOS,3,Talos,rumble,sample,AFX-635 g1.1 p-1,AFX-635,assets/afx/oga-creature/monster-07.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-148,MAGMACRAWLER,1,Scoria,clang,sample,AFX-079 g0.9,AFX-079,assets/afx/impact-sounds/impactbell-heavy-002.ogg,Kenney Impact Sounds,CC0-1.0
+DFMC-149,MAGMACRAWLER,2,Obsidian,clang,sample,AFX-079 g1 p-3,AFX-079,assets/afx/impact-sounds/impactbell-heavy-002.ogg,Kenney Impact Sounds,CC0-1.0
+DFMC-150,MAGMACRAWLER,3,Magmacrawler,clang,sample,AFX-079 g1.1 p-6,AFX-079,assets/afx/impact-sounds/impactbell-heavy-002.ogg,Kenney Impact Sounds,CC0-1.0
+DFMC-151,GUSTWING,1,Chick,chirp,synth,,,,,
+DFMC-152,GUSTWING,2,Zephyr,chirp,synth,,,,,
+DFMC-153,GUSTWING,3,Gustwing,chirp,synth,,,,,
+DFMC-154,STORMCROW,1,Fledgling,caw,synth,,,,,
+DFMC-155,STORMCROW,2,Stormcrow,caw,synth,,,,,
+DFMC-156,STORMCROW,3,Tempestcrow,caw,synth,,,,,
+DFMC-157,THUNDERMOTH,1,Chrysalis,buzz,sample,AFX-611 g0.9 p-3,AFX-611,assets/afx/oga-creature/bug-04.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-158,THUNDERMOTH,2,Sparkwing,buzz,sample,AFX-611 g1 p-6,AFX-611,assets/afx/oga-creature/bug-04.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-159,THUNDERMOTH,3,Thundermoth,buzz,sample,AFX-611 g1.1 p-9,AFX-611,assets/afx/oga-creature/bug-04.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-160,ROC,1,Eyas,caw,synth,,,,,
+DFMC-161,ROC,2,Haggard,caw,synth,,,,,
+DFMC-162,ROC,3,Roc,caw,synth,,,,,
+DFMC-163,GALEHOWL,1,Yelp,howl,sample,AFX-623 g0.9,AFX-623,assets/afx/oga-creature/howl.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-164,GALEHOWL,2,Squall,howl,sample,AFX-623 g1 p-3,AFX-623,assets/afx/oga-creature/howl.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-165,GALEHOWL,3,Galehowl,howl,sample,AFX-623 g1.1 p-6,AFX-623,assets/afx/oga-creature/howl.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-166,VOLTMANTLE,1,Static,caw,synth,,,,,
+DFMC-167,VOLTMANTLE,2,Arcwing,caw,synth,,,,,
+DFMC-168,VOLTMANTLE,3,Voltmantle,caw,synth,,,,,
+DFMC-169,COUATL,1,Amphiptere,chirp,synth,,,,,
+DFMC-170,COUATL,2,Quetzal,chirp,synth,,,,,
+DFMC-171,COUATL,3,Couatl,chirp,synth,,,,,
+DFMC-172,TYPHON,1,Tempest,roar,sample,AFX-638 g0.9,AFX-638,assets/afx/oga-creature/roar-03.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-173,TYPHON,2,Typhoon,roar,sample,AFX-638 g1 p-3,AFX-638,assets/afx/oga-creature/roar-03.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-174,TYPHON,3,Typhon,roar,sample,AFX-638 g1.1 p-6,AFX-638,assets/afx/oga-creature/roar-03.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-175,ANZU,1,Ziz,caw,synth,,,,,
+DFMC-176,ANZU,2,Simurgh,caw,synth,,,,,
+DFMC-177,ANZU,3,Anzu,caw,synth,,,,,
+DFMC-178,STORMFATHER,1,Riptide,roar,sample,AFX-636 g0.9,AFX-636,assets/afx/oga-creature/roar-01.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-179,STORMFATHER,2,Maelstrom,roar,sample,AFX-636 g1 p-3,AFX-636,assets/afx/oga-creature/roar-01.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-180,STORMFATHER,3,Charybdis,roar,sample,AFX-636 g1.1 p-6,AFX-636,assets/afx/oga-creature/roar-01.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-181,BOGHOPPER,1,Spawn,croak,sample,AFX-659 g0.9,AFX-659,assets/afx/oga-creature2/monster-12.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-182,BOGHOPPER,2,Froglet,croak,sample,AFX-659 g1 p-3,AFX-659,assets/afx/oga-creature2/monster-12.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-183,BOGHOPPER,3,Boghopper,croak,sample,AFX-659 g1.1 p-6,AFX-659,assets/afx/oga-creature2/monster-12.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-184,MIRENEWT,1,Newtling,croak,sample,AFX-634 g0.9,AFX-634,assets/afx/oga-creature/monster-06.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-185,MIRENEWT,2,Eft,croak,sample,AFX-634 g1 p-3,AFX-634,assets/afx/oga-creature/monster-06.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-186,MIRENEWT,3,Mirenewt,croak,sample,AFX-634 g1.1 p-6,AFX-634,assets/afx/oga-creature/monster-06.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-187,ROTFLY,1,Nit,buzz,sample,AFX-611 g0.9,AFX-611,assets/afx/oga-creature/bug-04.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-188,ROTFLY,2,Blowfly,buzz,sample,AFX-611 g1 p-3,AFX-611,assets/afx/oga-creature/bug-04.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-189,ROTFLY,3,Rotfly,buzz,sample,AFX-611 g1.1 p-6,AFX-611,assets/afx/oga-creature/bug-04.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-190,LICHFROG,1,Tadpole,croak,sample,AFX-659 g0.9,AFX-659,assets/afx/oga-creature2/monster-12.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-191,LICHFROG,2,Wight,croak,sample,AFX-659 g1 p-3,AFX-659,assets/afx/oga-creature2/monster-12.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-192,LICHFROG,3,Lichfrog,croak,sample,AFX-659 g1.1 p-6,AFX-659,assets/afx/oga-creature2/monster-12.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-193,WISPMAW,1,Glimmer,croak,sample,AFX-659 g0.9,AFX-659,assets/afx/oga-creature2/monster-12.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-194,WISPMAW,2,Lantern,croak,sample,AFX-659 g1 p-3,AFX-659,assets/afx/oga-creature2/monster-12.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-195,WISPMAW,3,Wispmaw,croak,sample,AFX-659 g1.1 p-6,AFX-659,assets/afx/oga-creature2/monster-12.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-196,GRENDEL,1,Orcneas,croak,sample,AFX-634 g0.9 p-3,AFX-634,assets/afx/oga-creature/monster-06.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-197,GRENDEL,2,Eoten,croak,sample,AFX-634 g1 p-6,AFX-634,assets/afx/oga-creature/monster-06.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-198,GRENDEL,3,Grendel,croak,sample,AFX-634 g1.1 p-6,AFX-634,assets/afx/oga-creature/monster-06.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-199,DRAUGR,1,Vaettir,moan,sample,AFX-660 g0.9,AFX-660,assets/afx/oga-creature2/monster-13.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-200,DRAUGR,2,Haugbui,moan,sample,AFX-660 g1 p-3,AFX-660,assets/afx/oga-creature2/monster-13.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-201,DRAUGR,3,Draugr,moan,sample,AFX-660 g1.1 p-6,AFX-660,assets/afx/oga-creature2/monster-13.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-202,GALLOWVINE,1,Tendril,creak,sample,AFX-018 g0.9,AFX-018,assets/afx/rpg-audio/creak1.ogg,Kenney RPG Audio,CC0-1.0
+DFMC-203,GALLOWVINE,2,Bindweed,creak,sample,AFX-018 g1 p-3,AFX-018,assets/afx/rpg-audio/creak1.ogg,Kenney RPG Audio,CC0-1.0
+DFMC-204,GALLOWVINE,3,Gallowvine,creak,sample,AFX-018 g1.1 p-6,AFX-018,assets/afx/rpg-audio/creak1.ogg,Kenney RPG Audio,CC0-1.0
+DFMC-205,MIREMOTHER,1,Toadling,croak,sample,AFX-659 g0.9 p-3,AFX-659,assets/afx/oga-creature2/monster-12.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-206,MIREMOTHER,2,Behemoth,croak,sample,AFX-659 g1 p-6,AFX-659,assets/afx/oga-creature2/monster-12.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-207,MIREMOTHER,3,Miremother,croak,sample,AFX-659 g1.1 p-9,AFX-659,assets/afx/oga-creature2/monster-12.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-208,CENOTAPH,1,Vestige,moan,sample,AFX-665 g0.9,AFX-665,assets/afx/oga-creature2/monster-18.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-209,CENOTAPH,2,Revenant,moan,sample,AFX-665 g1 p-3,AFX-665,assets/afx/oga-creature2/monster-18.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-210,CENOTAPH,3,Cenotaph,moan,sample,AFX-665 g1.1 p-6,AFX-665,assets/afx/oga-creature2/monster-18.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-211,GLOOMCAP,1,Button,puff,synth,,,,,
+DFMC-212,GLOOMCAP,2,Toadstool,puff,synth,,,,,
+DFMC-213,GLOOMCAP,3,Gloomcap,puff,synth,,,,,
+DFMC-214,INKMANTLE,1,Cuttle,gurgle,sample,AFX-677 g0.9,AFX-677,assets/afx/oga-creature2/slime-07.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-215,INKMANTLE,2,Argonaut,gurgle,sample,AFX-677 g1 p-3,AFX-677,assets/afx/oga-creature2/slime-07.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-216,INKMANTLE,3,Inkmantle,gurgle,sample,AFX-677 g1.1 p-6,AFX-677,assets/afx/oga-creature2/slime-07.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-217,VEINMOLD,1,Hypha,puff,synth,,,,,
+DFMC-218,VEINMOLD,2,Rhizome,puff,synth,,,,,
+DFMC-219,VEINMOLD,3,Veinmold,puff,synth,,,,,
+DFMC-220,SIBYL,1,Nautilus,gurgle,sample,AFX-677 g0.9,AFX-677,assets/afx/oga-creature2/slime-07.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-221,SIBYL,2,Oracle,gurgle,sample,AFX-677 g1 p-3,AFX-677,assets/afx/oga-creature2/slime-07.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-222,SIBYL,3,Sibyl,gurgle,sample,AFX-677 g1.1 p-6,AFX-677,assets/afx/oga-creature2/slime-07.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-223,VERTIGO,1,Tremor,click,sample,AFX-649 g0.9 n2 i110,AFX-649,assets/afx/oga-creature2/attack-05.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-224,VERTIGO,2,Palsy,click,sample,AFX-649 g1 p-3 n3 i110,AFX-649,assets/afx/oga-creature2/attack-05.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-225,VERTIGO,3,Vertigo,click,sample,AFX-649 g1.1 p-6 n4 i110,AFX-649,assets/afx/oga-creature2/attack-05.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-226,LAMPYRE,1,Kitling,drone,sample,AFX-797 g0.9 p3,AFX-797,assets/afx/oga-wind/wind3.ogg,wind1,CC0-1.0
+DFMC-227,LAMPYRE,2,Foxfire,drone,sample,AFX-797 g1,AFX-797,assets/afx/oga-wind/wind3.ogg,wind1,CC0-1.0
+DFMC-228,LAMPYRE,3,Kitsune,drone,sample,AFX-797 g1.1 p-3,AFX-797,assets/afx/oga-wind/wind3.ogg,wind1,CC0-1.0
+DFMC-229,SPOREWHALE,1,Puffball,song,synth,,,,,
+DFMC-230,SPOREWHALE,2,Leviathan,song,synth,,,,,
+DFMC-231,SPOREWHALE,3,Sporewhale,song,synth,,,,,
+DFMC-232,RIFTANGLER,1,Lure,bubble,sample,AFX-681 g0.9,AFX-681,assets/afx/oga-water/bubble-02.ogg,40 CC0 water / splash / slime SFX,CC0-1.0
+DFMC-233,RIFTANGLER,2,Abyss,bubble,sample,AFX-681 g1 p-3,AFX-681,assets/afx/oga-water/bubble-02.ogg,40 CC0 water / splash / slime SFX,CC0-1.0
+DFMC-234,RIFTANGLER,3,Riftangler,bubble,sample,AFX-681 g1.1 p-6,AFX-681,assets/afx/oga-water/bubble-02.ogg,40 CC0 water / splash / slime SFX,CC0-1.0
+DFMC-235,MYCELIUM,1,Spore,puff,synth,,,,,
+DFMC-236,MYCELIUM,2,Bloom,puff,synth,,,,,
+DFMC-237,MYCELIUM,3,Mycelium,puff,synth,,,,,
+DFMC-238,KRAKEN,1,Veliger,bubble,sample,AFX-681 g0.9 p-3,AFX-681,assets/afx/oga-water/bubble-02.ogg,40 CC0 water / splash / slime SFX,CC0-1.0
+DFMC-239,KRAKEN,2,Hafgufa,bubble,sample,AFX-681 g1 p-6,AFX-681,assets/afx/oga-water/bubble-02.ogg,40 CC0 water / splash / slime SFX,CC0-1.0
+DFMC-240,KRAKEN,3,Kraken,bubble,sample,AFX-681 g1.1 p-9,AFX-681,assets/afx/oga-water/bubble-02.ogg,40 CC0 water / splash / slime SFX,CC0-1.0
+DFMC-241,CRYSTALWRAITH,1,Phantom,moan,sample,AFX-660 g0.9,AFX-660,assets/afx/oga-creature2/monster-13.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-242,CRYSTALWRAITH,2,Geist,moan,sample,AFX-660 g1 p-3,AFX-660,assets/afx/oga-creature2/monster-13.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-243,CRYSTALWRAITH,3,Crystalwraith,moan,sample,AFX-660 g1.1 p-6,AFX-660,assets/afx/oga-creature2/monster-13.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-244,ASHBAT,1,Pup,chitter,sample,AFX-608 g0.9,AFX-608,assets/afx/oga-creature/bug-01.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-245,ASHBAT,2,Vesper,chitter,sample,AFX-608 g1 p-3,AFX-608,assets/afx/oga-creature/bug-01.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-246,ASHBAT,3,Ashbat,chitter,sample,AFX-608 g1.1 p-6,AFX-608,assets/afx/oga-creature/bug-01.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-247,GEMBORN,1,Shard,clang,sample,AFX-081 g0.9,AFX-081,assets/afx/impact-sounds/impactbell-heavy-004.ogg,Kenney Impact Sounds,CC0-1.0
+DFMC-248,GEMBORN,2,Geode,clang,sample,AFX-081 g1 p-3,AFX-081,assets/afx/impact-sounds/impactbell-heavy-004.ogg,Kenney Impact Sounds,CC0-1.0
+DFMC-249,GEMBORN,3,Gemborn,clang,sample,AFX-081 g1.1 p-6,AFX-081,assets/afx/impact-sounds/impactbell-heavy-004.ogg,Kenney Impact Sounds,CC0-1.0
+DFMC-250,BLOODCARVER,1,Stiletto,hiss,sample,AFX-607 g0.9,AFX-607,assets/afx/oga-creature/breath.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-251,BLOODCARVER,2,Scalpel,hiss,sample,AFX-607 g1 p-3,AFX-607,assets/afx/oga-creature/breath.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-252,BLOODCARVER,3,Bloodcarver,hiss,sample,AFX-607 g1.1 p-6,AFX-607,assets/afx/oga-creature/breath.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-253,SHATTERSPECTER,1,Splinter,moan,sample,AFX-660 g0.9,AFX-660,assets/afx/oga-creature2/monster-13.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-254,SHATTERSPECTER,2,Poltergeist,moan,sample,AFX-660 g1 p-3,AFX-660,assets/afx/oga-creature2/monster-13.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-255,SHATTERSPECTER,3,Shatterspecter,moan,sample,AFX-660 g1.1 p-6,AFX-660,assets/afx/oga-creature2/monster-13.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-256,VOIDHOUND,1,Whippet,hiss,sample,AFX-650 g0.9,AFX-650,assets/afx/oga-creature2/breath-02.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-257,VOIDHOUND,2,Barghest,hiss,sample,AFX-650 g1 p-3,AFX-650,assets/afx/oga-creature2/breath-02.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-258,VOIDHOUND,3,Voidhound,hiss,sample,AFX-650 g1.1 p-6,AFX-650,assets/afx/oga-creature2/breath-02.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-259,DOPPELGANGER,1,Echo,wail,sample,AFX-664 g0.9,AFX-664,assets/afx/oga-creature2/monster-17.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-260,DOPPELGANGER,2,Fetch,wail,sample,AFX-664 g1 p-3,AFX-664,assets/afx/oga-creature2/monster-17.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-261,DOPPELGANGER,3,Doppelganger,wail,sample,AFX-664 g1.1 p-5,AFX-664,assets/afx/oga-creature2/monster-17.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-262,NOSFERATU,1,Nachzehrer,hiss,sample,AFX-607 g0.9 p-3,AFX-607,assets/afx/oga-creature/breath.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-263,NOSFERATU,2,Strigoi,hiss,sample,AFX-607 g1 p-6,AFX-607,assets/afx/oga-creature/breath.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-264,NOSFERATU,3,Nosferatu,hiss,sample,AFX-607 g1.1 p-9,AFX-607,assets/afx/oga-creature/breath.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-265,PHYLACTERY,1,Reliquary,moan,sample,AFX-660 g0.9,AFX-660,assets/afx/oga-creature2/monster-13.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-266,PHYLACTERY,2,Lich,moan,sample,AFX-660 g1 p-3,AFX-660,assets/afx/oga-creature2/monster-13.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-267,PHYLACTERY,3,Phylactery,moan,sample,AFX-660 g1.1 p-6,AFX-660,assets/afx/oga-creature2/monster-13.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-268,SPECULUM,1,Facet,wail,sample,AFX-664 g0.9,AFX-664,assets/afx/oga-creature2/monster-17.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-269,SPECULUM,2,Reflection,wail,sample,AFX-664 g1 p-3,AFX-664,assets/afx/oga-creature2/monster-17.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-270,SPECULUM,3,Speculum,wail,sample,AFX-664 g1.1 p-5,AFX-664,assets/afx/oga-creature2/monster-17.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-271,CINDERSHARD,1,Ember,clang,sample,AFX-081 g0.9,AFX-081,assets/afx/impact-sounds/impactbell-heavy-004.ogg,Kenney Impact Sounds,CC0-1.0
+DFMC-272,CINDERSHARD,2,Clinker,clang,sample,AFX-081 g1 p-3,AFX-081,assets/afx/impact-sounds/impactbell-heavy-004.ogg,Kenney Impact Sounds,CC0-1.0
+DFMC-273,CINDERSHARD,3,Protogale,clang,sample,AFX-081 g1.1 p-6,AFX-081,assets/afx/impact-sounds/impactbell-heavy-004.ogg,Kenney Impact Sounds,CC0-1.0
+DFMC-274,ASHWALKER,1,Soot,rumble,sample,AFX-669 g0.9,AFX-669,assets/afx/oga-creature2/roar-05.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-275,ASHWALKER,2,Ossuary,rumble,sample,AFX-669 g1 p-1,AFX-669,assets/afx/oga-creature2/roar-05.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-276,ASHWALKER,3,Ashwalker,rumble,sample,AFX-669 g1.1 p-1,AFX-669,assets/afx/oga-creature2/roar-05.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-277,MOLOCH,1,Effigy,clang,sample,AFX-080 g0.9,AFX-080,assets/afx/impact-sounds/impactbell-heavy-003.ogg,Kenney Impact Sounds,CC0-1.0
+DFMC-278,MOLOCH,2,Idol,clang,sample,AFX-080 g1 p-3,AFX-080,assets/afx/impact-sounds/impactbell-heavy-003.ogg,Kenney Impact Sounds,CC0-1.0
+DFMC-279,MOLOCH,3,Moloch,clang,sample,AFX-080 g1.1 p-6,AFX-080,assets/afx/impact-sounds/impactbell-heavy-003.ogg,Kenney Impact Sounds,CC0-1.0
+DFMC-280,BLAZEWYRM,1,Flicker,hiss,sample,AFX-607 g0.9,AFX-607,assets/afx/oga-creature/breath.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-281,BLAZEWYRM,2,Salamander,hiss,sample,AFX-607 g1 p-3,AFX-607,assets/afx/oga-creature/breath.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-282,BLAZEWYRM,3,Blazewyrm,hiss,sample,AFX-607 g1.1 p-6,AFX-607,assets/afx/oga-creature/breath.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-283,INFERNOCHIMERA,1,Hybrid,roar,sample,AFX-668 g0.9,AFX-668,assets/afx/oga-creature2/roar-04.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-284,INFERNOCHIMERA,2,Chimera,roar,sample,AFX-668 g1 p-3,AFX-668,assets/afx/oga-creature2/roar-04.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-285,INFERNOCHIMERA,3,Omnichimera,roar,sample,AFX-668 g1.1 p-4,AFX-668,assets/afx/oga-creature2/roar-04.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-286,FERRODRAKE,1,Ingot,roar,sample,AFX-636 g0.9 p-3,AFX-636,assets/afx/oga-creature/roar-01.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-287,FERRODRAKE,2,Ironclad,roar,sample,AFX-636 g1 p-6,AFX-636,assets/afx/oga-creature/roar-01.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-288,FERRODRAKE,3,Ferrodrake,roar,sample,AFX-636 g1.1 p-9,AFX-636,assets/afx/oga-creature/roar-01.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-289,IGNIFER,1,Ignis,roar,sample,AFX-636 g0.9,AFX-636,assets/afx/oga-creature/roar-01.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-290,IGNIFER,2,Pyre,roar,sample,AFX-636 g1 p-3,AFX-636,assets/afx/oga-creature/roar-01.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-291,IGNIFER,3,Ignifer,roar,sample,AFX-636 g1.1 p-6,AFX-636,assets/afx/oga-creature/roar-01.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-292,VIGIL,1,Sentry,clang,sample,AFX-081 g0.9,AFX-081,assets/afx/impact-sounds/impactbell-heavy-004.ogg,Kenney Impact Sounds,CC0-1.0
+DFMC-293,VIGIL,2,Sentinel,clang,sample,AFX-081 g1 p-3,AFX-081,assets/afx/impact-sounds/impactbell-heavy-004.ogg,Kenney Impact Sounds,CC0-1.0
+DFMC-294,VIGIL,3,Vigil,clang,sample,AFX-081 g1.1 p-6,AFX-081,assets/afx/impact-sounds/impactbell-heavy-004.ogg,Kenney Impact Sounds,CC0-1.0
+DFMC-295,PYRIEL,1,Wildfire,drone,sample,AFX-795 g0.9,AFX-795,assets/afx/oga-wind/wind1.ogg,wind1,CC0-1.0
+DFMC-296,PYRIEL,2,Balefire,drone,sample,AFX-795 g1 p-3,AFX-795,assets/afx/oga-wind/wind1.ogg,wind1,CC0-1.0
+DFMC-297,PYRIEL,3,Pyriel,drone,sample,AFX-795 g1.1 p-3,AFX-795,assets/afx/oga-wind/wind1.ogg,wind1,CC0-1.0
+DFMC-298,DEMIURGE,1,Archon,drone,sample,AFX-797 g0.9,AFX-797,assets/afx/oga-wind/wind3.ogg,wind1,CC0-1.0
+DFMC-299,DEMIURGE,2,Aeon,drone,sample,AFX-797 g1 p-3,AFX-797,assets/afx/oga-wind/wind3.ogg,wind1,CC0-1.0
+DFMC-300,DEMIURGE,3,Demiurge,drone,sample,AFX-797 g1.1 p-3,AFX-797,assets/afx/oga-wind/wind3.ogg,wind1,CC0-1.0
+DFMC-301,JACKANAPE,1,Grinlet,grunt,sample,AFX-622 g0.9 p3,AFX-622,assets/afx/oga-creature/grunt-05.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-302,JACKANAPE,2,Gibberling,grunt,sample,AFX-622 g1,AFX-622,assets/afx/oga-creature/grunt-05.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-303,JACKANAPE,3,Jackanape,grunt,sample,AFX-622 g1.1 p-3,AFX-622,assets/afx/oga-creature/grunt-05.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-304,GOLIATH,1,Knuckler,grunt,sample,AFX-622 g0.9,AFX-622,assets/afx/oga-creature/grunt-05.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-305,GOLIATH,2,Silverback,grunt,sample,AFX-622 g1 p-3,AFX-622,assets/afx/oga-creature/grunt-05.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-306,GOLIATH,3,Goliath,grunt,sample,AFX-622 g1.1 p-6,AFX-622,assets/afx/oga-creature/grunt-05.ogg,80 CC0 creature SFX,CC0-1.0
+DFMC-307,TYRANNOS,1,Tyrantling,roar,sample,AFX-668 g0.9 p3,AFX-668,assets/afx/oga-creature2/roar-04.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-308,TYRANNOS,2,Tyrantjaw,roar,sample,AFX-668 g1,AFX-668,assets/afx/oga-creature2/roar-04.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-309,TYRANNOS,3,Tyrannos,roar,sample,AFX-668 g1.1 p-3,AFX-668,assets/afx/oga-creature2/roar-04.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-310,CHARNELMASS,1,Rotdrip,gurgle,sample,AFX-677 g0.9,AFX-677,assets/afx/oga-creature2/slime-07.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-311,CHARNELMASS,2,Gristleglob,gurgle,sample,AFX-677 g1 p-3,AFX-677,assets/afx/oga-creature2/slime-07.ogg,80 CC0 creature SFX #2,CC0-1.0
+DFMC-312,CHARNELMASS,3,Charnelmass,gurgle,sample,AFX-677 g1.1 p-6,AFX-677,assets/afx/oga-creature2/slime-07.ogg,80 CC0 creature SFX #2,CC0-1.0
