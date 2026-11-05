@@ -1975,3 +1975,13 @@ m_code_accepted,CODE ACCEPTED,"app: invite claim, the success title"
 m_your_friend_s_code_is_in,Your friend's code is in. Reach the milestone floor and you both earn the reward.,"app: invite claim, the success body"
 m_code_refused,CODE REFUSED,"app: invite claim, the refusal title"
 m_that_code_cannot_be_used,That code cannot be used on this climb.,"app: invite claim, the refusal body (own code, a used code, a climb past floor 1, an unknown code)"
+m_shop_skins_title,SKINS,app: premium shop CLASSES tab - the SKINS section heading (M1-03 lane m1skins 2026-11-05)
+m_shop_skins_hint,A new look for a stage-3 class. Bought early it waits as a preview and goes on at stage 3.,app: premium shop SKINS section hint (M1-03)
+m_skin_owned,OWNED,app: premium shop SKINS tile - a skin this account owns (M1-03)
+m_skin_preview,PREVIEW · ON AT STAGE 3,app: premium shop SKINS tile - an owned skin whose class is below stage 3 (M1-03)
+m_skin_equip,WEAR,app: premium shop SKINS tile - put the owned skin on (M1-03)
+m_skin_take_off,TAKE OFF,app: premium shop SKINS tile - take the worn skin off (M1-03)
+m_skin_worn_note,Skin on. It shows from stage 3.,app: the shop note after a skin is put on (M1-03)
+m_skin_off_note,Skin taken off.,app: the shop note after a skin is taken off (M1-03)
+m_skin_not_owned,You do not own that skin.,app: the shop note when the server refuses an equip without the skin (M1-03)
+m_skin_not_changed,The skin was not changed ({e}).,app: the shop note when an equip fails; {e} the reason (M1-03)

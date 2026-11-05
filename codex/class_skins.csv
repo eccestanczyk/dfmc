@@ -1,0 +1,7 @@
+Skin_ID,Class_ID,Kind,Name,Image_Path,Art_Status,SKU
+SKIN-WARRIOR-MUT,CLS-WARRIOR-3,mutant,Mutant Paladin,codex/images/opt/classes/CLS-WARRIOR-3-MUT.webp,approved,SHOP-201
+SKIN-MAGE-MUT,CLS-MAGE-3,mutant,Mutant Archon,codex/images/opt/classes/CLS-MAGE-3-MUT.webp,approved,SHOP-202
+SKIN-ARCHER-MUT,CLS-ARCHER-3,mutant,Mutant Hawkeye,codex/images/opt/classes/CLS-ARCHER-3-MUT.webp,approved,SHOP-203
+SKIN-BRUTE-MUT,CLS-BRUTE-3,mutant,Mutant Titan,codex/images/opt/classes/CLS-BRUTE-3-MUT.webp,approved,SHOP-204
+SKIN-ASSASSIN-MUT,CLS-ASSASSIN-3,mutant,Mutant Nightblade,codex/images/opt/classes/CLS-ASSASSIN-3-MUT.webp,approved,SHOP-205
+SKIN-PROFESSOR-MUT,CLS-PROFESSOR-3,mutant,Mutant Prophet,codex/images/opt/classes/CLS-PROFESSOR-3-MUT.webp,approved,SHOP-206
