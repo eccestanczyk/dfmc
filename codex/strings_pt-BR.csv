@@ -1927,7 +1927,7 @@ m_eq_base_line,+{v1} {v2} (base),app: L1i (D 2026-11-04 Finish localizing the ga
 m_free,GRÁTIS,app: the premium shop buy plaque of a 0-cost row (P2 D 2026-11-05: the first Incense / Bait are free)
 shop_candles_title,VELAS,app: the premium shop candle row title (P1 D 2026-11-05)
 m_candle_hint,Pouse o ponteiro numa vela sua para acendê-la. Ela queima até você sair.,app: the premium shop candle row hint (P1)
-m_candle_owned,SUA,app: a candle the account owns, under its tile (P1)
+m_candle_owned,SUA,app: a candle the account owns - under its tile (P1)
 m_candle_bought,Sua. Pouse o ponteiro nela para acendê-la.,app: the shop note after a candle purchase (P1)
 m_candles,VELAS,markup: the profile card candle row title (P1)
 m_no_candles_yet,Ainda sem velas.,markup: the profile card with no candles (P1)

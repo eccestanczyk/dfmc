@@ -1927,7 +1927,7 @@ m_eq_base_line,+{v1} {v2}（基本）,app: L1i (D 2026-11-04 Finish localizing t
 m_free,無料,app: the premium shop buy plaque of a 0-cost row (P2 D 2026-11-05: the first Incense / Bait are free)
 shop_candles_title,ろうそく,app: the premium shop candle row title (P1 D 2026-11-05)
 m_candle_hint,持っているろうそくにポインターを重ねると火が灯ります。離れるまで燃え続けます。,app: the premium shop candle row hint (P1)
-m_candle_owned,所持,app: a candle the account owns, under its tile (P1)
+m_candle_owned,所持,app: a candle the account owns - under its tile (P1)
 m_candle_bought,あなたのものです。ポインターを重ねて火を灯しましょう。,app: the shop note after a candle purchase (P1)
 m_candles,ろうそく,markup: the profile card candle row title (P1)
 m_no_candles_yet,まだろうそくはありません。,markup: the profile card with no candles (P1)
