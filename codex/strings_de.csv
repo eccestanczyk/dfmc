@@ -1113,7 +1113,7 @@ m_your_auto_pvp_match_starts_when_this,"Dein Auto-PvP-Match beginnt, wenn dieser
 m_that_match_expired,DIESES MATCH IST ABGELAUFEN,app: L1e message (setState)
 m_the_20_minute_window_had_passed_so_i,"Das 20-Minuten-Fenster war abgelaufen, daher zählt es als Verteidigungssieg. Reih dich erneut ein, wenn du bereit bist.",app: L1e message (setState)
 m_no_attacks_left,KEINE ANGRIFFE MEHR,app: L1e message (setState)
-m_the_premium_shop_sells_ten_more_for,Der Premium-Shop verkauft für heute zehn weitere — 4 Wraithgold.,app: L1e message (setState)
+m_the_premium_shop_sells_ten_more_for,Der Premium-Shop verkauft für heute zehn weitere — 50 Wraithgold.,app: L1e message (setState)
 m_shop,SHOP,app: L1e message (setState)
 m_no_team_saved_yet,NOCH KEIN TEAM GESPEICHERT,app: L1e message (setState)
 m_your_team_is_read_from_your_last_sav,"Dein Team wird aus deinem letzten Spielstand gelesen. Spiel ein wenig, damit das Spiel speichert, und reih dich dann erneut ein.",app: L1e message (setState)

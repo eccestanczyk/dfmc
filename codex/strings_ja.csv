@@ -1113,7 +1113,7 @@ m_your_auto_pvp_match_starts_when_this,この戦闘が終わるとオートPvP�
 m_that_match_expired,その対戦は期限切れです,app: L1e message (setState)
 m_the_20_minute_window_had_passed_so_i,20分の制限時間が過ぎたため、防衛側の勝利となりました。準備ができたら再度キューに入ってください。,app: L1e message (setState)
 m_no_attacks_left,攻撃回数が残っていません,app: L1e message (setState)
-m_the_premium_shop_sells_ten_more_for,プレミアムショップで本日分としてさらに10回購入できます — 4 Wraithgold。,app: L1e message (setState)
+m_the_premium_shop_sells_ten_more_for,プレミアムショップで本日分としてさらに10回購入できます — 50 Wraithgold。,app: L1e message (setState)
 m_shop,ショップ,app: L1e message (setState)
 m_no_team_saved_yet,チームがまだ保存されていません,app: L1e message (setState)
 m_your_team_is_read_from_your_last_sav,チームは最後のセーブから読み込まれます。少しプレイしてセーブされてから、再度キューに入ってください。,app: L1e message (setState)

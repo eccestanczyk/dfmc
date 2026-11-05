@@ -1113,7 +1113,7 @@ m_your_auto_pvp_match_starts_when_this,本场战斗结束后，你的自动 PvP 
 m_that_match_expired,该对战已过期,app: L1e message (setState)
 m_the_20_minute_window_had_passed_so_i,20 分钟的时限已过，因此计为防守方胜利。准备好后请再次排队。,app: L1e message (setState)
 m_no_attacks_left,没有剩余进攻次数,app: L1e message (setState)
-m_the_premium_shop_sells_ten_more_for,高级商店出售今日额外十次进攻——4 Wraithgold。,app: L1e message (setState)
+m_the_premium_shop_sells_ten_more_for,高级商店出售今日额外十次进攻——50 Wraithgold。,app: L1e message (setState)
 m_shop,商店,app: L1e message (setState)
 m_no_team_saved_yet,尚未保存队伍,app: L1e message (setState)
 m_your_team_is_read_from_your_last_sav,你的队伍读取自最近一次存档。请先玩一会儿让游戏存档，然后再次排队。,app: L1e message (setState)
