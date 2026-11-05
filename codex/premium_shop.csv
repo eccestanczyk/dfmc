@@ -25,3 +25,6 @@ SHOP-206,Mutant Prophet,Skin,Wraithgold,400,0,skin_unlock,SKIN-PROFESSOR-MUT,A m
 SHOP-210,Mutant Skin Set,Skin,Wraithgold,2040,0,skin_unlock,SET-MUT,"All six mutant class skins at once, 15% off buying them one by one. Each goes on at its class's stage 3. Yours for good.",1,1,,
 SHOP-014,Turbo Pens,Boon,Wraithgold,300,30,breed_speed,2,All your pens breed twice as fast. Each egg costs the same Ichor. Lasts 30 days.,1,,,
 SHOP-015,Lucky Charm,Boon,Wraithgold,300,30,gear_drop_mult,2,Every kill rolls for gear a second time. The extra gear is bound to your account and cannot be sold on the market. Lasts 30 days.,1,,,
+SHOP-301,Complete Pack,Pack,Wraithgold,1140,0,bundle,pack_complete,"30 days of every timed boon at once: Incense, Bait, Turbo Pens and Lucky Charm, 5% off buying them one by one. Each adds to the time it already has. Not a subscription: it never renews.",1,,,
+SHOP-302,Deluxe Pack,Pack,Wraithgold,3240,0,bundle,pack_deluxe,"90 days of every timed boon at once: Incense, Bait, Turbo Pens and Lucky Charm, 10% off buying them one by one. Each adds to the time it already has. Not a subscription: it never renews.",1,,,
+SHOP-303,Breeder's Week,Pack,Wraithgold,120,0,bundle,pack_week,7 days of Turbo Pens and 7 days of Incense. The food stays yours to farm. Once a week; the week starts Monday at midnight UTC.,1,,,1
