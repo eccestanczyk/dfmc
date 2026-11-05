@@ -607,6 +607,10 @@ Mutant Prophet,,shop
 A mutant look for the Prophet: the same hero in the hue the tower twists its creatures into. Bought before stage 3 it waits as a preview and goes on at stage 3. Yours for good.,,shop
 Mutant Skin Set,,shop
 "All six mutant class skins at once, 15% off buying them one by one. Each goes on at its class's stage 3. Yours for good.",,shop
+Turbo Pens,,shop
+All your pens breed twice as fast. Each egg costs the same Ichor. Lasts 30 days.,,shop
+Lucky Charm,,shop
+Every kill rolls for gear a second time. The extra gear is bound to your account and cannot be sold on the market. Lasts 30 days.,,shop
 Class soul,クラスソウル,unlock
 Hatch All,一括孵化,unlock
 Dismantle All,一括分解,unlock
@@ -1254,6 +1258,11 @@ Void Apex Key — Morast,ヴォイド・エイペックスの鍵 — モラス�
 Void Apex Key — Teloma,ヴォイド・エイペックスの鍵 — テロマ,item
 Void Apex Key — Varkolan,ヴォイド・エイペックスの鍵 — ヴァルコラン,item
 Void Apex Key — Eskaton,ヴォイド・エイペックスの鍵 — エスカトン,item
+Gauntlet Key I,,item
+Gauntlet Key II,,item
+Gauntlet Key III,,item
+Gauntlet Key IV,,item
+Gauntlet Key V,,item
 A smear of red wax. A promise of red steel.,赤い蝋のひと塗り。赤い鋼の約束。,item_flavor
 Iron band. The crest bites into skin.,鉄の指輪。紋章が肌に食い込む。,item_flavor
 Tempered seal. The impression it leaves heals slowly.,焼き入れた印。押された跡はゆっくりと癒える。,item_flavor
@@ -1467,6 +1476,7 @@ Taken from the hand of Teloma. The door remembers its shape.,テロマの手か�
 Taken from the hand of Varkolan. The door remembers its shape.,ヴァルコランの手から奪った。扉はその形を覚えている。,item_flavor
 Taken from the hand of Eskaton. The door remembers its shape.,エスカトンの手から奪った。扉はその形を覚えている。,item_flavor
 Taken from the hand of something that already died once. The door remembers its shape; it does not remember mercy.,一度死んだ何かの手から奪った。扉はその形を覚えている。慈悲は覚えていない。,item_flavor
+A key cut for a door that opens onto five doors.,,item_flavor
 Ram Charge,突進,move
 Rampart Break,城壁破り,move
 Rampart Annihilation,城壁殲滅,move
@@ -3680,7 +3690,8 @@ Increased % HP,HP％上昇,item_effect
 Passive soul socket,パッシブソウルソケット,item_effect
 Ability slot 1,アビリティ枠1,item_effect
 Ability slot 2,アビリティ枠2,item_effect
-Turbo Pens,,shop
-All your pens breed twice as fast. Each egg costs the same Ichor. Lasts 30 days.,,shop
-Lucky Charm,,shop
-Every kill rolls for gear a second time. The extra gear is bound to your account and cannot be sold on the market. Lasts 30 days.,,shop
+"Opens Gauntlet I: five boss fights back to back, HP carried, no heal. Spent when the run starts. Cannot be dismantled or exported.",,item_effect
+"Opens Gauntlet II: five boss fights back to back, HP carried, no heal. Spent when the run starts. Cannot be dismantled or exported.",,item_effect
+"Opens Gauntlet III: five boss fights back to back, HP carried, no heal. Spent when the run starts. Cannot be dismantled or exported.",,item_effect
+"Opens Gauntlet IV: five boss fights back to back, HP carried, no heal. Spent when the run starts. Cannot be dismantled or exported.",,item_effect
+"Opens Gauntlet V: five boss fights back to back, HP carried, no heal. Spent when the run starts. Cannot be dismantled or exported.",,item_effect
