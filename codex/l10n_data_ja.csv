@@ -588,6 +588,11 @@ Beeswax Candle,蜜蝋のろうそく,shop
 A ribbed beeswax candle that burns gold. Rest the pointer on it to light it. Yours for good.,金色に燃える筋入りの蜜蝋のろうそく。ポインターを重ねると火が灯ります。ずっとあなたのものです。,shop
 Void Candle,虚空のろうそく,shop
 A black candle from below the tower; its flame burns violet. Rest the pointer on it to light it. Yours for good.,塔の下から来た黒いろうそく。炎は紫に燃えます。ポインターを重ねると火が灯ります。ずっとあなたのものです。,shop
+Name Change,,shop
+"Change your hero's name once. Your old name is held for you for 30 days, and the next change waits 30 days.",,shop
+Unlocks the Brute class at level 1 with its two Tier-1 weapons. Also sold for Scrap in the CLASSES window.,,shop
+Unlocks the Assassin class at level 1 with its two Tier-1 weapons. Also sold for Scrap in the CLASSES window.,,shop
+Unlocks the Professor class at level 1 with its two Tier-1 weapons. Also sold for Ink in the CLASSES window.,,shop
 Class soul,クラスソウル,unlock
 Hatch All,一括孵化,unlock
 Dismantle All,一括分解,unlock
