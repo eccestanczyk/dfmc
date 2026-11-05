@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<base href="../"><!-- workflow/ (D 2026-11-03): not published; serve the dfmc root locally (python -m http.server) and open /workflow/<page>. Assets and links resolve from the root. -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mobile Shell — Herumon Tower</title>
+<link rel="stylesheet" href="theme.css?v=4">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">MOBILE SHELL</h1></div>
+<div class="sp-wrap">
+  <div class="sp-crumb"><a href="workflow/index.html">Workflow</a> &rsaquo; Mobile Shell</div>
+  <p class="sp-lead">The phone build (board N4): the same web client, inside a <strong style="color:var(--ink)">Capacitor 8</strong> shell for Android and iOS, the way the <a href="workflow/system-client-shell.html">Steam / desktop shell</a> wraps it for the download. One project, both stores. Spec, store rules and the lane plan live in the client repo, <code>docs/mobile-app-2026-11.md</code>; this page is the shell's working notes. Nothing here is live for players yet.</p>
+
+  <h2>The shape</h2>
+  <ul class="sp-rules">
+    <li><strong>Bundled, not a website in a frame</strong> &mdash; the app ships <code>play/</code> (the page, the stage code, the UI art, fonts, music) and the codex tables inside the binary, at the same dfmc pin the web release reads. Apple&rsquo;s 4.2 (&ldquo;minimum functionality&rdquo;) is what this buys: the game opens from the binary, and a bad connection meets the shell&rsquo;s own screen, never a WebKit error page.</li>
+    <li><strong>The page&rsquo;s origin is the shell&rsquo;s</strong> &mdash; <code>https://localhost</code> on Android, <code>capacitor://localhost</code> on iOS. Only <code>/api/*</code> leaves, to <code>https://playdfmc.com</code>, with the bearer session of the auth handoff (<a href="workflow/system-networking.html">Networking</a>).</li>
+    <li><strong>Creature art streams</strong> &mdash; the bundle carries the UI art and leaves the heavy families out: creature cut-outs, tiles, mutant recolours, ground plates and the boss paintings (132 MB at the 2026-11-05 pin) are read from the R2 art bucket at the pin, immutable, and the WebView&rsquo;s HTTP cache keeps what it saw. The Android bundle is 51.6 MB; the Play / App Store cellular prompt is at 200 MB.</li>
+    <li><strong>Landscape only, no status bar</strong> &mdash; locked in the native projects (<code>sensorLandscape</code>, landscape-only <code>Info.plist</code>) and again by the bridge at boot. The rotation veil of the web build never shows.</li>
+    <li><strong>Keyboard never shrinks the game</strong> &mdash; the WebView keeps its size while the keyboard is up (Capacitor Keyboard <code>resize: none</code>); the T36 D3 strip can&rsquo;t happen.</li>
+    <li><strong>Sign-in in the system browser</strong> &mdash; a sign-in door opens a Custom Tab / Safari sheet (Google refuses a WebView), the provider sends the browser home to <code>herumon://auth?code=&hellip;</code>, the OS hands that deep link to the app, and the page swaps the one-time code for its bearer session. The worker allow-lists <code>herumon://</code> as a handoff target.</li>
+    <li><strong>Store bridge is a placeholder</strong> &mdash; <code>DFMC_SHELL.store</code> names the provider (Apple / Google) and no <code>buy</code>, so the client hides the pack grid until the StoreKit 2 / Play Billing lanes exist and D&rsquo;s store accounts do.</li>
+  </ul>
+
+  <h2>The bridge (window.DFMC_SHELL)</h2>
+  <p>Same names as the Steam shell&rsquo;s, read by the same lines of the client. <code>mobile/src/shell.js</code> in the client repo holds the shapes: <code>kind 'mobile'</code>, <code>platform</code> (android / ios), <code>dataBase</code> (the bundled tree), <code>artBase</code> (the R2 pin root), <code>streamed</code> (the paths that read from it; everything else is local), <code>apiBase</code>, <code>handoff 'herumon://'</code>, <code>authCode(fn)</code>, <code>store</code>, <code>steam false</code>, <code>version</code>, <code>bundle</code>, <code>channel 'mobile'</code>, <code>restart()</code>, <code>onResume(fn)</code>. The shell itself hides the status bar, locks landscape, holds the splash until first paint, opens external links in the system browser and draws the NO CONNECTION plate.</p>
+
+  <h2>Build and toolchain</h2>
+  <ul class="sp-rules">
+    <li><strong>Copier</strong> &mdash; <code>tools/mobile_bundle.py --platform android|ios</code> builds <code>mobile/www/</code> from the dfmc repo at the pin (git objects only, the working tree untouched) and <code>play/</code>; Android leaves the AAC audio copies out (its WebView plays Ogg), iOS keeps both. Then <code>npx cap sync</code>.</li>
+    <li><strong>Android</strong> &mdash; Gradle project under <code>mobile/android/</code>, needs a JDK 21 and the Android SDK (API 36). The dev PC had neither on 2026-11-05; the spec&rsquo;s &sect; 7.1 lists the installs. <strong>iOS</strong> builds only on a Mac with Xcode 26 (SPM, no CocoaPods).</li>
+    <li><strong>Gate</strong> &mdash; <code>tools/probe_capshell.py</code>: the project settings, the copier&rsquo;s output (size, zero CDN URLs in the bundled page, every streamed family absent), no secret in the committed files, the bridge shape against a stub Capacitor (status bar, orientation, deep link, offline plate, system browser), and the real client booted from the bundle with every table and UI image local, every creature / plate image at the pin on R2, zero jsDelivr. The emulator build and the sign-in round trip are the device step that follows.</li>
+  </ul>
+
+  <h2>Open</h2>
+  <ul class="sp-rules">
+    <li>Emulator build + sign-in round trip (needs the SDK on the dev PC).</li>
+    <li>Phone-fit (lane 4): keyboard behaviour on device, <code>maximum-scale</code>, the stage fit in a fixed WebView, safe areas on a notched iPhone.</li>
+    <li>Sign in with Apple (lane 5), StoreKit 2 / Play Billing (lanes 6-7), push (8), the store listings (9) &mdash; all wait on D&rsquo;s Apple / Google accounts.</li>
+    <li>The Android page origin <code>https://localhost</code> matches the client&rsquo;s dev-environment test (<code>DEVENV</code>); the data path is unaffected under a bundled tree, but anything else that reads that flag should be checked on device.</li>
+  </ul>
+
+  <h2>Changelog</h2>
+  <p><strong>2026-11-05 &mdash; The mobile shell exists: Capacitor 8 project, the copier, the bridge, the offline plate, the deep link (board N4, docs/mobile-app-2026-11.md &sect; 6 lane 3; dfmc-client lane capshell). On dev.</strong> <code>mobile/</code> holds the Capacitor 8.6 project with the generated Android and iOS apps and seven plugins (app, browser, keyboard, network, screen-orientation, splash-screen, status-bar); landscape is locked and the status bar hidden in both native projects, the <code>herumon</code> URL scheme is registered for the sign-in handoff, the splash and icons are painted from the game&rsquo;s own logo. <code>tools/mobile_bundle.py</code> (on top of the Steam copier) builds the bundle at the pin: 51.6 MB on Android with every codex table and the UI art inside and the creature, tile, mutant, ground-plate and boss art streamed from R2 at the pin. The client gained one router, <code>DFMC_PATH</code>: under a shell that names an <code>artBase</code> and a <code>streamed</code> list, a streamed path reads from R2 and every other path from the bundle; the web and Steam builds build the same URLs as before. The bridge opens sign-in doors and external links in the system browser, receives <code>herumon://auth?code=</code> and hands the code to the page, and draws its own NO CONNECTION plate with RETRY. Gate <code>tools/probe_capshell.py</code> 26/26 (the pre-fix client fails its two routing checks). Stopped before the emulator: the dev PC has no JDK / Android SDK; the spec&rsquo;s &sect; 7.1 lists the installs.</p>
+</div>
+</body>
+</html>
