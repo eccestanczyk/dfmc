@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<base href="../../../"><!-- workflow/changelogs/tutorials/ (2026-11-05): never published. Links resolve from the public page's folder. -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taskbar Mode &mdash; changelog &amp; team notes</title>
+<link rel="stylesheet" href="theme.css?v=4">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">TASKBAR MODE &mdash; TEAM NOTES</h1></div>
+<div class="sp-wrap">
+<p class="sp-lead">The team record for the public page <a href="tutorials/taskbar-mode.html">tutorials/taskbar-mode.html</a>: its dated changelog (newest first) and the implementation notes that never go on the player page (D 2026-11-03: the codex is player facing). The shell's own rules and display conventions: <a href="workflow/system-client-shell.html">workflow/system-client-shell.html</a>.</p>
+
+  <h2>Changelog</h2>
+  <ul class="sp-rules">
+    <li><strong>2026-11-06 &mdash; Taskbar Mode ends when the game window comes back (bug#1202, ui#1206; dfmc-client lane shellwin). On dev.</strong>
+      The strip's WINDOW button restored the game and left the strip open beside it, and a click on the game in the Windows taskbar did the same; now either closes the strip, and the game returns windowed or fullscreen as it was left (steam/main.js <code>stripEnd()</code>; workflow/system-client-shell.html has the mechanism). Probe tools/probe_shellwin.py.
+      <em>At release:</em> on tutorials/taskbar-mode.html, step 2, replace &ldquo;click it to bring the window back.&rdquo; with &ldquo;its WINDOW button brings the game back and closes the strip &mdash; so does clicking the game in the Windows taskbar. The game comes back windowed or fullscreen, as you left it.&rdquo;</li>
+  </ul>
+</div>
+<script src="nav.js"></script>
+</body>
+</html>
