@@ -1996,6 +1996,7 @@ m_sd_no_key,,app: M1-08 gauntlets (special dungeons)
 m_sd_start_failed,,app: M1-08 gauntlets (special dungeons)
 m_sd_gauntlet_boss,,app: M1-08 gauntlets (special dungeons)
 m_sd_fight_refused,,app: M1-08 gauntlets (special dungeons)
+m_sd_team_locked,本次连战队伍已锁定,app: M1-08 gauntlets (special dungeons) - #gauntlock T79 the run locks its team
 m_sd_abandon_failed,,app: M1-08 gauntlets (special dungeons)
 m_sd_ended_expired,,app: M1-08 gauntlets (special dungeons)
 m_sd_ended_logout,,app: M1-08 gauntlets (special dungeons)
