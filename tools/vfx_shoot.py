@@ -142,7 +142,7 @@ def open_page(pw, port):
         route.fulfill(status=200, body=hit[0], content_type=hit[1])
     pg.route(re.compile(r'https?://127\.0\.0\.1:\d+/(codex/images|codex/thumbs|floors)/'), to_remote)
     pg.route(re.compile(r'dfmc-vfx\.duiliovarella\.workers\.dev'), lambda r: r.abort())
-    pg.goto('http://127.0.0.1:%d/vfx.html' % port, wait_until='domcontentloaded')
+    pg.goto('http://127.0.0.1:%d/workflow/vfx.html' % port, wait_until='domcontentloaded')
     pg.wait_for_function('typeof ALLROWS !== "undefined" && ALLROWS.length > 400 '
                          '&& Object.keys(FXBANK).length >= 40', timeout=90000)
     pg.wait_for_timeout(1500)          # the sheets preload
