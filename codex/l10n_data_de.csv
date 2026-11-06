@@ -621,6 +621,8 @@ XP Candy Key,,shop
 "One key to the Candy Kitchen at the highest level you have opened: three fights that pay XP candy. XP candy is not a roll input, so this is the only resource key for sale. Three a day.",,shop
 Mutation Draught,,shop
 "Turns one creature you own to its mutant palette. Cosmetic: its stats, grade and breeding stay its own, and the palette is removed if the creature is listed on the Steam market. Used from the creature's sheet.",,shop
+Gauntlet Entry,,shop
+"One run of any gauntlet you have unlocked, on top of its free run each week. It waits in your bag: use it there or from the gauntlets window. Cannot be dismantled or sold.",,shop
 Class soul,Klassenseele,unlock
 Hatch All,Alle ausbrüten,unlock
 Dismantle All,Alle zerlegen,unlock
@@ -1554,6 +1556,7 @@ A key cut for a door that opens onto five doors.,,item_flavor
 "Cut to fit one door, and only once.",,item_flavor
 Sweet enough to make a monster sit still.,,item_flavor
 A key with an eye that will not stay one colour.,,item_flavor
+A writ stamped in wraithgold. Every gate of the gauntlet reads it the same.,,item_flavor
 Ram Charge,Rammangriff,move
 Rampart Break,Wallbrecher,move
 Rampart Annihilation,Wallvernichtung,move
@@ -3834,3 +3837,4 @@ Opens Candy Kitchen IX: three fights that pay creature XP candy. Spent when the 
 Opens Candy Kitchen X: three fights that pay creature XP candy. Spent when the run starts. Cannot be dismantled or exported.,,item_effect
 "Feed to a creature: +500 creature XP each. Account-bound: cannot be traded, dismantled or exported.",,item_effect
 "Opens the Mutant Den: one fight that pays a guaranteed mutant egg of a random line. Dropped by a Gauntlet V clear, at most one a week. Spent when the run starts. Cannot be dismantled or exported.",,item_effect
+"Opens any gauntlet you have unlocked, once, on top of its free run each week. Spent when the run starts. Cannot be dismantled or exported.",,item_effect

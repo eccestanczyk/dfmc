@@ -19,11 +19,6 @@ Zone,Zone_Name,Key_Item_ID,Floor_Lo,Floor_Hi,Min_Wins,Min_Kills,Chance_C,Chance_
 18,Void Apex 116,ITM-UKEY-116,115,115,30,90,0.000149,0.000223,0.000371,0.000594,0.001040
 19,Void Apex 118,ITM-UKEY-118,117,117,30,90,0.000141,0.000212,0.000353,0.000566,0.000990
 20,Void Apex 120,ITM-UKEY-120,119,119,30,90,0.000135,0.000203,0.000338,0.000541,0.000948
-1,Gauntlet I key (floor-10 boss),ITM-SKEY-010,0,0,0,0,0.05,0.05,0.05,0.05,0.05
-3,Gauntlet II key (floor-30 boss),ITM-SKEY-030,0,0,0,0,0.05,0.05,0.05,0.05,0.05
-5,Gauntlet III key (floor-50 boss),ITM-SKEY-050,0,0,0,0,0.05,0.05,0.05,0.05,0.05
-7,Gauntlet IV key (floor-70 boss),ITM-SKEY-070,0,0,0,0,0.05,0.05,0.05,0.05,0.05
-10,Gauntlet V key (floor-100 boss),ITM-SKEY-100,0,0,0,0,0.05,0.05,0.05,0.05,0.05
 0,Scrap Vault key (any tower boss),ITM-RKEY-SCRAP,0,0,0,0,0.02,0.02,0.02,0.02,0.02
 0,Larder key (any tower boss),ITM-RKEY-ICHOR,0,0,0,0,0.02,0.02,0.02,0.02,0.02
 0,Dust Mine key (any tower boss),ITM-RKEY-DUST,0,0,0,0,0.02,0.02,0.02,0.02,0.02

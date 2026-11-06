@@ -2184,3 +2184,15 @@ fxp_the_lc,o ,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as t
 fxp_own_synergy,Este golpe é sua própria sinergia: {v1}.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
 fxp_dmg_ignore,Causa dano que ignora {v1}% da Defesa do alvo.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
 m_cmp_equipped,EQUIPADO,markup: item details comparison - the tag beside the piece worn in that slot (#1216)
+m_sd_rules_wk,,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): the rules line"
+m_sd_free_open,,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): a plate, the free run of this week not yet used"
+m_sd_free_used,,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): a plate, the free run used; {t} the time to Monday 00:00 UTC (m_sd_dh)"
+m_sd_dh,,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): days and hours left"
+m_sd_free_run,,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): button, start the free run"
+m_sd_enter_entry,,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): button; {n} the entries owned"
+m_sd_buy_entry,,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): button; {c} the Wraithgold price"
+m_sd_pick_entry,,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): the note when the entry is used from the bag"
+m_sd_no_entry,,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): refusal note"
+m_sd_free_used_note,,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): refusal note"
+m_sd_entry_bought,,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): shop note after the buy"
+m_sd_gauntlet_entry,,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): reward card subtitle"
