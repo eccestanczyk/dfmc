@@ -1507,17 +1507,17 @@ m_st_blessed,Blessed,app: L1f (D 2026-11-04 Finish localizing the game)
 m_st_desc_slagbite,Defense lowered — this creature takes more damage from every hit.,app: L1f (D 2026-11-04 Finish localizing the game)
 m_st_desc_fracture,Armor fractured — Defense reduced for several turns.,app: L1f (D 2026-11-04 Finish localizing the game)
 m_st_desc_scorchrot,Burning — loses HP at the end of each turn.,app: L1f (D 2026-11-04 Finish localizing the game)
-m_st_desc_mothervenom,Stacking poison — HP lost each turn; stacks intensify it.,app: L1f (D 2026-11-04 Finish localizing the game)
+m_st_desc_mothervenom,"Stacking poison — loses HP each turn, more with every stack.",app: L1f (D 2026-11-04 Finish localizing the game)
 m_st_desc_necrovenom,Venom coursing through — chips HP each turn.,app: L1f (D 2026-11-04 Finish localizing the game)
 m_st_desc_graveleech,Life-draining rot — HP siphoned to the caster each turn.,app: L1f (D 2026-11-04 Finish localizing the game)
 m_st_desc_doomrune,Marked with a doom-rune — all incoming damage is increased.,app: L1f (D 2026-11-04 Finish localizing the game)
 m_st_desc_gravechill,Attack and Speed sapped by the dirge for several turns.,app: L1f (D 2026-11-04 Finish localizing the game)
-m_st_desc_cinch,Constricted — Speed stage lowered; acts later in the order.,app: L1f (D 2026-11-04 Finish localizing the game)
+m_st_desc_cinch,"Constricted — Speed lowered, so it acts later in the order.",app: L1f (D 2026-11-04 Finish localizing the game)
 m_st_desc_bind,Bound — may lose its next action entirely.,app: L1f (D 2026-11-04 Finish localizing the game)
 m_st_desc_warded,Warded — takes reduced damage for a few turns.,app: L1f (D 2026-11-04 Finish localizing the game)
 m_st_desc_guarded,Guarded — Defense raised for a few turns.,app: L1f (D 2026-11-04 Finish localizing the game)
-m_st_desc_hastened,Hastened — Speed raised; acts sooner.,app: L1f (D 2026-11-04 Finish localizing the game)
-m_st_desc_slowed,Slowed — Speed lowered; acts later.,app: L1f (D 2026-11-04 Finish localizing the game)
+m_st_desc_hastened,"Hastened — Speed raised, so it acts sooner.",app: L1f (D 2026-11-04 Finish localizing the game)
+m_st_desc_slowed,"Slowed — Speed lowered, so it acts later.",app: L1f (D 2026-11-04 Finish localizing the game)
 m_st_desc_blessed,Blessed — healing received increased.,app: L1f (D 2026-11-04 Finish localizing the game)
 m_st_desc_rallied,Rallied — Attack raised for a few turns.,app: L1f (D 2026-11-04 Finish localizing the game)
 m_cls_blurb_warrior,The armored frontliner — highest Defense in the game.,app: L1f (D 2026-11-04 Finish localizing the game)
@@ -1631,7 +1631,7 @@ m_heals_pct_max_hp_per_hit,Heals {v1}% of maximum HP per hit taken.,app: L1f (D 
 m_loses_pct_max_hp_each_turn,Loses {v1}% max HP each turn.,app: L1f (D 2026-11-04 Finish localizing the game)
 m_attack_minus_pct,Attack −{v1}%.,app: L1f (D 2026-11-04 Finish localizing the game)
 m_defense_minus_pct,Defense −{v1}%.,app: L1f (D 2026-11-04 Finish localizing the game)
-m_speed_n_stage,Speed {v1} stage.,app: L1f (D 2026-11-04 Finish localizing the game)
+m_speed_n_stage,Speed debuff {v1}.,app: L1f (D 2026-11-04 Finish localizing the game)
 m_takes_pct_damage,Takes +{v1}% damage.,app: L1f (D 2026-11-04 Finish localizing the game)
 m_takes_pct_damage_from_caster,Takes +{v1}% damage from the caster.,app: L1f (D 2026-11-04 Finish localizing the game)
 m_next_n_hit_reduced_pct,Next {v1} hit taken reduced {v2}%.,app: L1f (D 2026-11-04 Finish localizing the game)
@@ -1640,7 +1640,7 @@ m_next_n_hit_reduced,Next {v1} hit taken reduced.,app: L1f (D 2026-11-04 Finish 
 m_next_n_hits_reduced,Next {v1} hits taken reduced.,app: L1f (D 2026-11-04 Finish localizing the game)
 m_attack_plus_pct_dot,Attack +{v1}%.,app: L1f (D 2026-11-04 Finish localizing the game)
 m_defense_plus_pct_dot,Defense +{v1}%.,app: L1f (D 2026-11-04 Finish localizing the game)
-m_speed_plus_n_stage,Speed +{v1} stage.,app: L1f (D 2026-11-04 Finish localizing the game)
+m_speed_plus_n_stage,Speed buff +{v1}.,app: L1f (D 2026-11-04 Finish localizing the game)
 m_n_stacks,({v1} stacks),app: L1f (D 2026-11-04 Finish localizing the game)
 m_lasts_n_more_turn,Lasts {v1} more turn.,app: L1f (D 2026-11-04 Finish localizing the game)
 m_lasts_n_more_turns,Lasts {v1} more turns.,app: L1f (D 2026-11-04 Finish localizing the game)
@@ -2059,3 +2059,126 @@ m_candy_refused,The candy was not eaten.,app: M1-10 resource dungeons (lane m1re
 m_candy_fed,+{x} XP · Lv {l},app: M1-10 resource dungeons (lane m1resui)
 unl_resource_dungeons,The resource dungeons are open: three fights that pay one resource. A free key arrives every day.,unlocks.csv resource_dungeons Line (the unlock lesson line; edit both)
 tip_moves_hdr,MOVES,app: inventory: soul bag hover - the moves block header (#1212)
+fxp_one_turn,1 turn,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_n_turns,{v1} turns,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_spd_buff,+{v1} Speed buff,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_spd_debuff,-{v1} Speed debuff,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_reduced_spd,reduced Speed debuff,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_against,against,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_t_lower,Lowers the target's {v1} by {v2}%,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_on_lower_also,its {v1} by {v2}%,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_on_lower,lowering its {v1} by {v2}%,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_t_spd,Gives the target a -{v1} Speed debuff,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_on_spd,giving it a -{v1} Speed debuff,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_t_bleed,Makes the target bleed {v1}% of its max HP each turn,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_on_bleed,making it bleed {v1}% of its max HP each turn,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_t_dot,Costs the target {v1}% of its max HP each turn,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_on_dot,costing it {v1}% of its max HP each turn,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_t_lower_dmg,Lowers the target's damage by {v1}%,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_on_lower_dmg,lowering its damage by {v1}%,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_t_take_all,Makes the target take {v1}% more damage from all sources,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_on_take_all,making it take {v1}% more damage from all sources,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_t_take_user,Makes the target take {v1}% more damage from the user,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_on_take_user,making it take {v1}% more damage from the user,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_t_take_next,Makes the target take {v1}% more damage from the next hit,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_on_take_next,making it take {v1}% more damage from the next hit,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_t_heal_cut,Cuts the healing the target receives by {v1}%,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_on_heal_cut,cutting the healing it receives by {v1}%,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_and,{v1} and {v2},app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_t_for,{v1} for {v2}.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_t_end,{v1}.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_on_the_target,on the target,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_on_the_user,on the user,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_if_users,if the user's,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_if_user,if the user,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_c_per_max,"for each {v1}, up to {v2}% more",app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_c_per,for each {v1},app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_c_def_consume,"if the user has an active Defense buff, and uses that buff up",app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_dmg,Deals damage.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_dmg_hits,Deals damage in {v1} hits.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_dmg_rapid,Deals damage in {v1} rapid hits.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_dmg_heads,"Deals damage in {v1} hits, one per head.",app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_more,Deals {v1}% more damage {v2}.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_each_more,Each hit deals {v1}% more damage {v2}.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_second_more,The second hit deals {v1}% more damage {v2}.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_ignore_def,Ignores {v1}% of the target's Defense.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_vs_type,Deals {v1}% more damage against {v2} targets.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_lifesteal,The user heals for {v1}% of the damage dealt.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_recoil,The user loses {v1}% of its max HP.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_heal_self,The user heals {v1}% of its max HP.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_drain,The user heals by the amount drained.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_heal_ally,Heals one ally for {v1}% of its max HP.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_self_per_cleanse,"Raises the user's {v1} by {v2}% for each debuff removed, for {v3}.",app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_self_if_cleanse,Raises the user's {v1} by {v2}% for {v3} if a debuff was removed.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_self_stat,Raises the user's {v1} by {v2}% for {v3}.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_self_atk_next,Raises the user's Attack by {v1}% next turn.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_self_spd,Gives the user a {v1} for {v2}.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_ally_stat,Raises one ally's {v1} by {v2}% for {v3}.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_team_stat,Raises all allies' {v1} by {v2}% for {v3}.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_ally_atkdef,Raises one ally's Attack by {v1}% and Defense by {v2}% for {v3}.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_team_atkdef,Raises all allies' Attack by {v1}% and Defense by {v2}% for {v3}.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_ally_spd,Gives one ally a {v1} for {v2}.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_team_spd,Gives all allies a {v1} for {v2}.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_ally_dr,One ally takes {v1}% less damage for {v2}.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_team_dr,All allies take {v1}% less damage for {v2}.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_kin_dr,{v1} allies take {v2}% less damage instead.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_shield1,The user takes {v1}% less damage from the next hit.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_shieldn,The user takes {v2}% less damage from the next {v1} hits.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_ally_shield1,One ally takes {v1}% less damage from the next hit.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_cleanse1,Removes 1 debuff from the user.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_cleanse1_keep,Removes 1 debuff from the user without passing it on to the target.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_cleanse_upto,Removes up to {v1} debuffs from the user.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_cleanse_all,Removes all debuffs from the user.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_team_cleanse1,Removes 1 debuff from every ally.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_ally_cleanse1,Removes 1 debuff from one ally.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_ally_cleanse_upto,Removes up to {v1} debuffs from one ally.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_ally_cleanse_all,Removes all debuffs from one ally.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_ally_cleanse1_stat,Removes 1 debuff from one ally and raises its {v1} by {v2}% for {v3}.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_transfer1,Moves 1 debuff from the user to the target.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_transfer_upto,Moves up to {v1} of the user's debuffs to the target.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_transfer_all,Moves all of the user's debuffs to the target.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_strip1,Removes 1 buff from the target.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_strip_upto,Removes up to {v1} buffs from the target.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_strip_all,Removes all buffs from the target.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_steal1,Steals 1 buff from the target.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_copy,Copies the target's newest buff to the user.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_no_cleanse,It cannot be removed.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_consume_mark,Uses up the mark.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_dur_double,Lasts twice as long against {v1} targets.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_each_apply,Each hit applies {v1} for {v2}.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_each_apply_dot,"Each hit applies {v1} for {v2}, costing the target {v3}% of its max HP each turn.",app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_apply_dot,"Applies {v1} for {v2}, costing the target {v3}% of its max HP each turn.",app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_retal_status,"The next creature to hit the user gets {v1} for {v2}, {v3}.",app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_attackers_dot,"Attackers get {v1}, losing {v2}% of their max HP over {v3}.",app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_thorns,Attackers take {v1}% of their damage back.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_survive,"Once per battle, the first killing blow leaves the user at {v1} HP instead.",app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_survive_def,"Once per battle, the user survives a killing blow with {v1} HP, then its Defense drops by {v2}% for {v3}.",app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_extend,"If the target already has {v1}, it lasts {v2} longer.",app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_if_has_lower,"If the target has {v1}, its {v2} also drops by {v3}% for {v4}.",app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_if_no_kin,"With no {v1} ally, raises the user's {v2} by {v3}% for {v4} instead.",app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_if_unhit,"If the user was not hit last turn, also raises its {v1} by {v2}% for {v3}.",app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_next_atk,The user's next attack deals {v1}% more damage.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_mark_user,"Applies {v1} for {v2}, so the user deals {v3}% more damage to the target.",app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_mark_all,"Applies {v1} for {v2}, making the target take {v3}% more damage from all sources.",app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_mark_from_user,"Applies {v1} for {v2}, making the target take {v3}% more damage from the user.",app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_mark_next,"Applies {v1}, making the target take {v2}% more damage from the next hit.",app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_charged,"Applies {v1}, so the next hit against the target deals {v2}% more damage.",app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_foreseen,"Applies {v1}, so the target's next attack deals {v2}% less damage.",app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_apply_dur,Applies {v1} for {v2}.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_stacks,Stacks up to {v1} times.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_no_stack,Does not stack.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_apply_on_dur,"Applies {v1} to the target for {v2}, {v3}.",app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_apply_on,"Applies {v1} to the target, {v2}.",app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_kin1_stat,{v1} ally gains {v2}% {v3} for {v4}.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_kin_stat,{v1} allies gain {v2}% {v3} for {v4}.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_kin_stat_hit,{v1} allies gain {v2}% {v3} for {v4} when this hits.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_kin_stat_instead,{v1} allies gain {v2}% {v3} instead.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_kin_stat_also,{v1} allies also gain {v2}% {v3}.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_kin_spd,{v1} allies gain a {v2} for {v3}.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_kin_spd_also,{v1} allies also gain a {v2} for {v3}.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_kin_spd_instead,{v1} allies gain a {v2} for {v3} instead.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_targets_also_spd,{v1} also get a {v2} for {v3}.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_with_kin,"With {v1} allies, {v2}",app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_the_lc,the ,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_own_synergy,This move is its own synergy: {v1}.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_dmg_ignore,Deals damage that ignores {v1}% of the target's Defense.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
