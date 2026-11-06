@@ -2183,3 +2183,4 @@ fxp_with_kin,{v1}の味方がいる場合: {v2},app: fxProse #1213 (D 2026-11-06
 fxp_the_lc,その,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
 fxp_own_synergy,この技自体がシナジーになる: {v1}。,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
 fxp_dmg_ignore,対象の防御力の{v1}%を無視してダメージを与える。,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+m_cmp_equipped,装備中,markup: item details comparison - the tag beside the piece worn in that slot (#1216)

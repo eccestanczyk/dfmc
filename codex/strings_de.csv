@@ -2183,3 +2183,4 @@ fxp_with_kin,Mit {v1}-Verbündeten: {v2},app: fxProse #1213 (D 2026-11-06) - a m
 fxp_the_lc,der ,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
 fxp_own_synergy,Diese Attacke ist ihre eigene Synergie: {v1}.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
 fxp_dmg_ignore,"Verursacht Schaden, der {v1}% der Verteidigung des Ziels ignoriert.",app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+m_cmp_equipped,AUSGERÜSTET,markup: item details comparison - the tag beside the piece worn in that slot (#1216)

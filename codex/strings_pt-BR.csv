@@ -2183,3 +2183,4 @@ fxp_with_kin,Com aliados {v1}: {v2},app: fxProse #1213 (D 2026-11-06) - a moves.
 fxp_the_lc,o ,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
 fxp_own_synergy,Este golpe é sua própria sinergia: {v1}.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
 fxp_dmg_ignore,Causa dano que ignora {v1}% da Defesa do alvo.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+m_cmp_equipped,EQUIPADO,markup: item details comparison - the tag beside the piece worn in that slot (#1216)

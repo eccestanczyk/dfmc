@@ -2183,3 +2183,4 @@ fxp_with_kin,有{v1}友方时：{v2},app: fxProse #1213 (D 2026-11-06) - a moves
 fxp_the_lc,该,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
 fxp_own_synergy,此招式本身即为协同：{v1}。,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
 fxp_dmg_ignore,造成无视目标{v1}%防御的伤害。,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+m_cmp_equipped,已装备,markup: item details comparison - the tag beside the piece worn in that slot (#1216)

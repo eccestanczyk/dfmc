@@ -2183,3 +2183,4 @@ fxp_with_kin,"With {v1} allies, {v2}",app: fxProse #1213 (D 2026-11-06) - a move
 fxp_the_lc,the ,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
 fxp_own_synergy,This move is its own synergy: {v1}.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
 fxp_dmg_ignore,Deals damage that ignores {v1}% of the target's Defense.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+m_cmp_equipped,EQUIPPED,markup: item details comparison - the tag beside the piece worn in that slot (#1216)
