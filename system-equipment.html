@@ -25,6 +25,7 @@
     <li><strong>Level requirement</strong>: a piece or stone of tier T needs level (T&minus;1)&times;10 (T1 = 1) &mdash; your account level on character gear, the creature&rsquo;s level on a tag. The picker will not equip an over-level piece; one already worn above its level stays on but counts for nothing until you reach the level.</li>
     <li><strong>POWER</strong> is Attack + Defense + HP/5 over the character and both companions, every soul counted by what it does on your build; it is the figure the Character Power board ranks.</li>
     <li><strong>AUTO-OPTIMIZE</strong> (under CLASSES in the player panel) proposes the strongest loadout from what you wear and what is in your bag, previews the moves it would make, and reshuffles gems and runes across the result; scrolls never move. <strong>BUILDS</strong>, beside it, saves and restores up to five loadouts per class line on the server. <strong>DISMANTLE</strong> and <strong>FILTERS</strong> are menu plates on the inventory side.</li>
+    <li><strong>A drop for an empty slot is worn at once</strong>: a weapon, armour piece or accessory that drops for a gear slot you have nothing on, and that your class and level can wear, is equipped straight away and a toast says so. A slot that already holds a piece is never changed &mdash; the new drop goes to your bag.</li>
     <li><strong>Changing gear never changes a fight in progress</strong>: the battle keeps the loadout it started with, and your new gear counts from the next one (the gear lock, below).</li>
   </ul>
 
@@ -112,6 +113,8 @@
     <li>Each of the eight gear slots shows what its soul grants: the move on a hand or accessory slot, the passive text on an armour slot.</li>
     <li>It also shows the socketed creature: an <strong>XP bar</strong> along the bottom edge and its <strong>level</strong> at bottom-right. A socketed soul is still a creature and keeps earning XP from your battles; the bar is live and matches the creature sheet.</li>
     <li>Gender shows on the soul tile and on the party creature card. A creature with no recorded gender shows no glyph.</li>
+    <li>Hovering a creature in the soul bag lists its moves and what each one does, under its souls. Click it for its full sheet.</li>
+    <li>A locked button on the creature sheet carries its UNLOCKS ON FLOOR X line on top of itself.</li>
   </ul>
 
   <h2>The item details window</h2>
@@ -120,7 +123,7 @@
     <tr><th>Action</th><th>Shown for</th></tr>
     <tr><td class="lbl">DISMANTLE</td><td>Weapon, Armour, Accessory, Gem, Rune, Scroll, Tag and Key &mdash; whenever the item yields something. DISMANTLE ALL never takes a Key: a key is the way into a boss fight, so it goes one at a time.</td></tr>
     <tr><td class="lbl">ENTER THE FLOOR <em>n</em> BOSS</td><td>Keys only, once you have reached floor <em>n</em>&minus;1; until then the button is absent. It always lands in the boss room, taking you to the boss&rsquo;s approach floor first if you are elsewhere (see <a href="bosses.html">Bosses</a>).</td></tr>
-    <tr><td class="lbl">EQUIP / UPGRADE</td><td>Gear, tags and stones open the Equipment window; creatures never do.</td></tr>
+    <tr><td class="lbl">EQUIP / UPGRADE</td><td>EQUIP puts a weapon, armour piece, accessory or tag on at once (the first empty slot it fits, else the first it fits) and you stay in the inventory; a COMPARED WITH WHAT YOU WEAR box puts it in that slot, and the piece you wear there is tagged EQUIPPED. Gems, runes and scrolls open the Equipment window. Creatures never do.</td></tr>
   </table>
   <p>A tag&rsquo;s SLOT row reads <strong>Tag</strong>: a tag fits either tag socket of a creature.</p>
 
