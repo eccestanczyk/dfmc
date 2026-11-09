@@ -14,6 +14,18 @@
 
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-11-09 &mdash; the player walks the floor: to a creature before the fight, into a portal before the trip (ui#1224, after its first sentence; dfmc-client bug run chunk flooravatar). On dev.</strong>
+      D 2026-11-08: the player character should appear on the floor, walk to the creature it challenges and engage there, stand where it engaged after the fight, and
+      walk into a portal, be sucked in (distorted, spinning, smaller, into the centre) and come out the reverse way in the next room. Before, the player was not on the
+      floor: a creature click opened the engage and a portal click started the trip at once. Now the equipped class art (no new art) stands on the floor with the
+      creatures&rsquo; breath / walk cycle (<code>gaitCls</code> / <code>gaitTick</code>); a creature click walks it beside that creature, facing it, then fires the same
+      engage; a portal click walks it to the portal&rsquo;s centre, it is drawn in (<code>favIn</code>: a 720&deg; spin, a side-to-side shear, scale to nothing, .55&nbsp;s) and
+      the same trip fires; the next room spits it out of the portal it arrived by (<code>favOut</code>, the reverse). After a fight it stands where it engaged. The walk is
+      presentation only: one CSS transform transition capped at .8&nbsp;s, a second click lands it at once, and the call that reaches the server is the one the click
+      made before, unchanged. Transform and opacity only, no filter. Autoplay walks the avatar inside its existing pan cue (no added time). Low VFX / Reduce Motion /
+      Battery saver / prefers-reduced-motion: no walk and no spin, the click acts at once. Probe <code>tools/probe_flooravatar.py</code> 2/10 on the old tree, 10/10 after.
+      At release: on <a href="tutorials/floors.html">tutorials/floors.html</a> step 1, after &ldquo;Fight the creatures roaming the floor (1).&rdquo; add &ldquo;Your
+      character walks over to the one you pick before the fight, and walks into a portal to take it.&rdquo;</li>
     <li><strong>2026-11-09 &mdash; the floor creatures breathe when still and walk when they roam (ui#1224, first sentence; dfmc-client bug run chunk flooranim). On dev.</strong>
       D 2026-11-08: when idle they should breathe, when moving they should walk, &ldquo;same techniques we use on herumon dungeon&rdquo;. Before, a floor creature only
       slid across the map with a slow 4.5&nbsp;px hover bob, still or moving alike. Now each creature&rsquo;s sprite sits in one wrapper (<code>.fmob</code>) that runs the
