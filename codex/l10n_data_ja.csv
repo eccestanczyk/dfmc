@@ -623,6 +623,12 @@ Mutation Draught,,shop
 "Turns one creature you own to its mutant palette. Cosmetic: its stats, grade and breeding stay its own, and the palette is removed if the creature is listed on the Steam market. Used from the creature's sheet.",,shop
 Gauntlet Entry,,shop
 "One run of any gauntlet you have unlocked, on top of its free run each week. It waits in your bag: use it there or from the gauntlets window. Cannot be dismantled or sold.",,shop
+Ember Halo,残り火の光輪,shop
+A slow ember glow behind your hero in PvP. Equip it from Cosmetics. Yours for good.,PvPでヒーローの背後にゆらめく残り火の光。コスメティックから装備できる。永久に君のもの。,shop
+Grave Mist,墓所の霧,shop
+A pale grave mist behind your hero in PvP. Equip it from Cosmetics. Yours for good.,PvPでヒーローの背後に漂う青白い墓所の霧。コスメティックから装備できる。永久に君のもの。,shop
+Void Mantle,虚空のマント,shop
+A violet void mantle behind your hero in PvP. Equip it from Cosmetics. Yours for good.,PvPでヒーローの背後に広がる紫の虚空のマント。コスメティックから装備できる。永久に君のもの。,shop
 Class soul,クラスソウル,unlock
 Hatch All,一括孵化,unlock
 Dismantle All,一括分解,unlock
@@ -3838,3 +3844,5 @@ Opens Candy Kitchen X: three fights that pay creature XP candy. Spent when the r
 "Feed to a creature: +500 creature XP each. Account-bound: cannot be traded, dismantled or exported.",,item_effect
 "Opens the Mutant Den: one fight that pays a guaranteed mutant egg of a random line. Dropped by a Gauntlet V clear, at most one a week. Spent when the run starts. Cannot be dismantled or exported.",,item_effect
 "Opens any gauntlet you have unlocked, once, on top of its free run each week. Spent when the run starts. Cannot be dismantled or exported.",,item_effect
+"Unlock it here for Wraithgold, or buy it in the Premium Shop alone or in the Mutant Skin Set. It dresses every stage of the class; until its art for stages 1 and 2 is painted, those stages keep the class look.",ここでWraithgoldで解放するか、プレミアムショップで単品またはミュータントスキンセットで購入できる。クラスのすべての段階に適用される。段階1と2の絵が描かれるまで、その段階はクラスの外見のままとなる。,cosmetic
+"Unlock it here for Wraithgold. It glows behind your hero in PvP, and behind your defender when others attack you in Auto PvP.",ここでWraithgoldで解放できる。PvPではヒーローの背後に、オートPvPで攻撃されたときは防衛者の背後に輝く。,cosmetic

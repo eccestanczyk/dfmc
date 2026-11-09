@@ -623,6 +623,12 @@ Mutation Draught,,shop
 "Turns one creature you own to its mutant palette. Cosmetic: its stats, grade and breeding stay its own, and the palette is removed if the creature is listed on the Steam market. Used from the creature's sheet.",,shop
 Gauntlet Entry,,shop
 "One run of any gauntlet you have unlocked, on top of its free run each week. It waits in your bag: use it there or from the gauntlets window. Cannot be dismantled or sold.",,shop
+Ember Halo,Halo de Brasas,shop
+A slow ember glow behind your hero in PvP. Equip it from Cosmetics. Yours for good.,Um brilho lento de brasas atrás do seu herói no PvP. Equipe em Cosméticos. Seu para sempre.,shop
+Grave Mist,Névoa Tumular,shop
+A pale grave mist behind your hero in PvP. Equip it from Cosmetics. Yours for good.,Uma névoa tumular pálida atrás do seu herói no PvP. Equipe em Cosméticos. Sua para sempre.,shop
+Void Mantle,Manto do Vazio,shop
+A violet void mantle behind your hero in PvP. Equip it from Cosmetics. Yours for good.,Um manto violeta do vazio atrás do seu herói no PvP. Equipe em Cosméticos. Seu para sempre.,shop
 Class soul,Alma de classe,unlock
 Hatch All,Chocar Tudo,unlock
 Dismantle All,Desmontar Tudo,unlock
@@ -3838,3 +3844,5 @@ Opens Candy Kitchen X: three fights that pay creature XP candy. Spent when the r
 "Feed to a creature: +500 creature XP each. Account-bound: cannot be traded, dismantled or exported.",,item_effect
 "Opens the Mutant Den: one fight that pays a guaranteed mutant egg of a random line. Dropped by a Gauntlet V clear, at most one a week. Spent when the run starts. Cannot be dismantled or exported.",,item_effect
 "Opens any gauntlet you have unlocked, once, on top of its free run each week. Spent when the run starts. Cannot be dismantled or exported.",,item_effect
+"Unlock it here for Wraithgold, or buy it in the Premium Shop alone or in the Mutant Skin Set. It dresses every stage of the class; until its art for stages 1 and 2 is painted, those stages keep the class look.","Desbloqueie aqui com Wraithgold, ou compre na Loja Premium sozinho ou no Conjunto de Skins Mutantes. Ele veste todos os estágios da classe; até a arte dos estágios 1 e 2 ser pintada, esses estágios mantêm o visual da classe.",cosmetic
+"Unlock it here for Wraithgold. It glows behind your hero in PvP, and behind your defender when others attack you in Auto PvP.",Desbloqueie aqui com Wraithgold. Ela brilha atrás do seu herói no PvP e atrás do seu defensor quando outros atacam você no PvP Automático.,cosmetic

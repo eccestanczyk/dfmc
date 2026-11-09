@@ -623,6 +623,12 @@ Mutation Draught,,shop
 "Turns one creature you own to its mutant palette. Cosmetic: its stats, grade and breeding stay its own, and the palette is removed if the creature is listed on the Steam market. Used from the creature's sheet.",,shop
 Gauntlet Entry,,shop
 "One run of any gauntlet you have unlocked, on top of its free run each week. It waits in your bag: use it there or from the gauntlets window. Cannot be dismantled or sold.",,shop
+Ember Halo,余烬光晕,shop
+A slow ember glow behind your hero in PvP. Equip it from Cosmetics. Yours for good.,PvP中英雄身后缓缓燃烧的余烬光芒。在外观中装备。永久归你所有。,shop
+Grave Mist,墓雾,shop
+A pale grave mist behind your hero in PvP. Equip it from Cosmetics. Yours for good.,PvP中英雄身后苍白的墓雾。在外观中装备。永久归你所有。,shop
+Void Mantle,虚空斗篷,shop
+A violet void mantle behind your hero in PvP. Equip it from Cosmetics. Yours for good.,PvP中英雄身后的紫色虚空斗篷。在外观中装备。永久归你所有。,shop
 Class soul,职业魂,unlock
 Hatch All,全部孵化,unlock
 Dismantle All,全部分解,unlock
@@ -3838,3 +3844,5 @@ Opens Candy Kitchen X: three fights that pay creature XP candy. Spent when the r
 "Feed to a creature: +500 creature XP each. Account-bound: cannot be traded, dismantled or exported.",,item_effect
 "Opens the Mutant Den: one fight that pays a guaranteed mutant egg of a random line. Dropped by a Gauntlet V clear, at most one a week. Spent when the run starts. Cannot be dismantled or exported.",,item_effect
 "Opens any gauntlet you have unlocked, once, on top of its free run each week. Spent when the run starts. Cannot be dismantled or exported.",,item_effect
+"Unlock it here for Wraithgold, or buy it in the Premium Shop alone or in the Mutant Skin Set. It dresses every stage of the class; until its art for stages 1 and 2 is painted, those stages keep the class look.",在此用Wraithgold解锁，或在高级商店单独购买或购买变异皮肤套装。它适用于该职业的每个阶段；在第1和第2阶段的美术完成之前，这些阶段保持职业外观。,cosmetic
+"Unlock it here for Wraithgold. It glows behind your hero in PvP, and behind your defender when others attack you in Auto PvP.",在此用Wraithgold解锁。它在PvP中于你的英雄身后发光，在自动PvP中别人攻击你时于你的防守者身后发光。,cosmetic
