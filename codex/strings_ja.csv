@@ -162,7 +162,7 @@ m_scene,シーン,markup: floor HUD / boss lair
 m_read_more_in_the_codex,コーデックスで詳しく ›,markup: floor HUD / boss lair
 m_pvp_arena,PvPアリーナ,markup: pvp
 m_rankings,ランキング,markup: pvp
-m_auto_pvp,オートPvP,markup: pvp
+m_auto_pvp,非同期PvP,markup: pvp
 m_rating,レート,markup: pvp
 m_autoplay,オート,markup: pvp
 m_matchmaking,マッチング,markup: pvp
@@ -170,7 +170,7 @@ m_your_defense_is_your,。防衛には,markup: pvp
 m_daily_snapshot,毎日のスナップショット,markup: pvp
 m_re_gearing_shows_up_on_defense_at,が使われます — 装備変更は次のリセット後に防衛へ反映されます。,markup: pvp
 m_x_5,×,markup: pvp
-m_competitive_pvp,ランクPvP,markup: pvp
+m_competitive_pvp,リアルタイムPvP,markup: pvp
 m_loading,読み込み中…,markup: pvp
 m_best_floor,最高到達階,markup: pvp
 m_ratings,レート,markup: pvp
@@ -351,7 +351,7 @@ chal_make_h,コードを作成,markup: pvp challenge by code (B16)
 chal_make_blurb,コードを1人のプレイヤーに渡しましょう。待機していればリアルタイム対戦、いなければ相手があなたの防衛を攻撃します。,markup: pvp challenge by code (B16)
 chal_wait,リアルタイムで待つ,markup: pvp challenge by code (B16)
 chal_enter_h,コードを入力,markup: pvp challenge by code (B16)
-chal_enter_blurb,プレイヤーからコードをもらいましたか？相手が待機中ならリアルタイム対戦、そうでなければ相手の防衛にオートPvPで1回攻撃します。,markup: pvp challenge by code (B16)
+chal_enter_blurb,プレイヤーからコードをもらいましたか？相手が待機中ならリアルタイム対戦、そうでなければ相手の防衛に非同期PvPで1回攻撃します。,markup: pvp challenge by code (B16)
 chal_go,戦う,markup: pvp challenge by code (B16)
 chal_err_own,これはあなた自身のコードです。他のプレイヤーに渡してください。,app: pvp challenge by code (B16)
 chal_err_expired,コードが存在しないか、期限切れです。新しいコードをもらってください。,app: pvp challenge by code (B16)
@@ -374,8 +374,8 @@ chal_copy,コピー,app: pvp challenge by code (B16)
 chal_copied,コピー済み,app: pvp challenge by code (B16)
 chal_on,オン,app: pvp challenge by code (B16)
 chal_off,オフ,app: pvp challenge by code (B16)
-chal_wait_note,ランク戦キューで挑戦者を待機中 · {t},app: pvp challenge by code (B16)
-chal_wait_off_note,オフ: 相手はオートPvPであなたの防衛を攻撃します。,app: pvp challenge by code (B16)
+chal_wait_note,リアルタイム戦キューで挑戦者を待機中 · {t},app: pvp challenge by code (B16)
+chal_wait_off_note,オフ: 相手は非同期PvPであなたの防衛を攻撃します。,app: pvp challenge by code (B16)
 chal_expired_mine,あなたのコードは期限切れです。新しく作成してください。,app: pvp challenge by code (B16)
 chal_band,コード{c}を持つプレイヤーを待機中,app: pvp challenge by code (B16)
 m_send_to_herumon_dungeon,Herumon Dungeonへ送る,markup+app: creature sheet: T48 transfer action (Steam shell only)
@@ -673,7 +673,7 @@ tip_scrolls_enchant_gear_that_carries_a_scroll_socke,スクロールはスクロ
 tip_grading_lifts_a_gem_rune_or_scroll_to_a_better_g,グレード上げでジェム、ルーン、スクロールのグレードを上げられます。,"app: loading tip (L1, D 2026-11-04)"
 tip_the_shadow_trader_s_stock_changes_over_time_come,影の商人の品ぞろえは時間とともに変わります。また来て新しい品を見ましょう。,"app: loading tip (L1, D 2026-11-04)"
 tip_more_classes_can_be_bought_from_the_equipment_wi,装備ウィンドウから他のクラスを購入できます。,"app: loading tip (L1, D 2026-11-04)"
-tip_competitive_pvp_puts_your_team_on_the_ranked_lad,ランクPvPではあなたのチームがランキングに参加します。,"app: loading tip (L1, D 2026-11-04)"
+tip_real_time_pvp_puts_your_team_on_the_ranked_ladde,リアルタイムPvPではあなたのチームがランキングに参加します。,"app: loading tip (L1, D 2026-11-04)"
 tip_the_dimensional_rift_sends_a_copy_of_a_creature,次元の裂け目はクリーチャーのコピーを1度だけ無料でHerumon Dungeonへ送ります。,"app: loading tip (L1, D 2026-11-04)"
 tip_apex_bosses_past_floor_100_carry_a_skull_status,100階より上のエイペックスボスはドクロの状態異常と固有ギミックを持っています。ドクロにカーソルを合わせて確認しましょう。,"app: loading tip (L1, D 2026-11-04)"
 unl_first_fight_start,階にいるクリーチャーをクリックして戦いましょう。,app: opening.csv first_fight_start Line - the FTUE arrow line (L1)
@@ -779,8 +779,8 @@ m_rank_tab_pvp,PvP,app: L1b rankings tab (PvP boards)
 m_rank_tab_pve,PvE,app: L1b rankings tab (PvE boards)
 m_rank_power,キャラクター戦力,app: L1b rankings board title
 m_rank_deepest,最高到達階,app: L1b rankings board title
-m_rank_autopvp,オートPvP,app: L1b rankings board title
-m_rank_ladder,ランクPvP,app: L1b rankings board title
+m_rank_autopvp,非同期PvP,app: L1b rankings board title
+m_rank_ladder,リアルタイムPvP,app: L1b rankings board title
 m_mv_synergy,シナジー,"app: L1b move tooltip, the line's Synergy clause label"
 m_mv_anti,アンチ,"app: L1b move tooltip, the line's Anti clause label"
 m_strip_floor,{n}階,"app: L1b taskbar strip (steam/strip.js), the floor label"
@@ -795,7 +795,7 @@ m_strip_t_win,ゲームウィンドウに戻る,"app: L1b taskbar strip, WINDOW 
 m_srv_refused,サーバーが拒否しました,app: L1b a server refusal with no code (breeding toast)
 m_srv_grade_anchor,サーバーではこのアイテムは{g}として記録されています — 同期し直しました。消費はありません,"app: L1b upgrade, the server's grade anchor wins ({g} = a grade name)"
 m_srv_refused_attempt,サーバーが試行を拒否しました（{e}）— 消費はありません,"app: L1b upgrade, a refused attempt ({e} = the server's reason)"
-m_apvp_not_counted,オートPvP — 記録されません,"app: L1b Auto PvP result refused, title"
+m_apvp_not_counted,非同期PvP — 記録されません,"app: L1b Auto PvP result refused, title"
 m_apvp_not_accepted,サーバーはこの結果を受け付けませんでした（{e}）。,"app: L1b Auto PvP result refused, line ({e} = the server's reason)"
 srv_insufficient,素材が足りません,app: L1b server refusal code insufficient (srvErr)
 srv_unauthenticated,サインインしていません,app: L1b server refusal code unauthenticated (srvErr)
@@ -1109,7 +1109,7 @@ m_the_server_refused_the_devour_nothin,サーバーが捕食を拒否しまし�
 m_could_not_reach_the_server_nothing_w_2,サーバーに接続できませんでした — 何も消費されていません,app: L1e message (_dvToast)
 m_the_target_moved_nothing_was_consume,対象が移動しました — 何も消費されていません,app: L1e message (setState)
 m_queued,待機中,app: L1e message (setState)
-m_your_auto_pvp_match_starts_when_this,この戦闘が終わるとオートPvPの対戦が始まります。,app: L1e message (setState)
+m_your_auto_pvp_match_starts_when_this,この戦闘が終わると非同期PvPの対戦が始まります。,app: L1e message (setState)
 m_that_match_expired,その対戦は期限切れです,app: L1e message (setState)
 m_the_20_minute_window_had_passed_so_i,20分の制限時間が過ぎたため、防衛側の勝利となりました。準備ができたら再度キューに入ってください。,app: L1e message (setState)
 m_no_attacks_left,攻撃回数が残っていません,app: L1e message (setState)
@@ -1120,8 +1120,8 @@ m_your_team_is_read_from_your_last_sav,チームは最後のセーブから読�
 m_no_opponents,対戦相手がいません,app: L1e message (setState)
 m_no_eligible_defenders_right_now_you,現在対戦できる防衛側がいません — 同じ相手への1日の上限に達した可能性があります。後で再度お試しください。,app: L1e message (setState)
 m_the_match_came_back_without_both_tea,両チームが揃わないまま対戦が返されました。,app: L1e message (setState)
-m_auto_pvp_tower_echo_echo_stands_in_a,オートPvP — TOWER ECHO [ECHO]が代役: あなたの階に合わせた塔のチームで、レートは変動しません。ラウンド1 — 指示を選んでください。,app: L1e message (setState)
-m_auto_pvp_s_snapshot_defends_round_1,オートPvP — {v1}のスナップショットが防衛します。ラウンド1 — 指示を選んでください。,app: L1e message (setState)
+m_auto_pvp_tower_echo_echo_stands_in_a,非同期PvP — TOWER ECHO [ECHO]が代役: あなたの階に合わせた塔のチームで、レートは変動しません。ラウンド1 — 指示を選んでください。,app: L1e message (setState)
+m_auto_pvp_s_snapshot_defends_round_1,非同期PvP — {v1}のスナップショットが防衛します。ラウンド1 — 指示を選んでください。,app: L1e message (setState)
 m_judging_the_match,対戦を判定中…,app: L1e message (setState)
 m_locked_ignored_by_every_dismantle,ロック中 — どの分解でも対象外,app: L1e message (setState)
 m_unlocked,ロック解除,app: L1e message (setState)
@@ -1252,13 +1252,13 @@ m_the_essence_must_outrank_the_creatur,エッセンスはクリーチャーの�
 m_nothing_to_consume,消費するものがありません,app: L1e screen text (top)
 m_is_now_a_mutant,{v1}はミュータントになった,app: L1e screen text (top)
 m_grade_held_the_fodder_must_outrank_i,· グレード維持 — 素材のグレードが上である必要があります,app: L1e screen text (top)
-m_auto_pvp_voided,オートPvP — 無効,app: L1e screen text (apvpExit)
+m_auto_pvp_voided,非同期PvP — 無効,app: L1e screen text (apvpExit)
 m_the_server_replayed_this_fight_and_r,サーバーがこの戦闘を再現したところ異なる結果になったため、記録されませんでした: チケットは消費され、双方ともレートは変動していません。報告は自動で送信されました。,app: L1e screen text (apvpExit)
 m_the_20_minute_window_had_passed_it_c,20分の制限時間が過ぎました — 防衛側の勝利となります。,app: L1e screen text (then)
-m_auto_pvp_2,オートPvP — {v1},app: L1e screen text (apvpExit)
+m_auto_pvp_2,非同期PvP — {v1},app: L1e screen text (apvpExit)
 m_you_broke_the_defense,防衛を突破した。,app: L1e screen text (top)
 m_the_defense_held,防衛に阻まれた。,app: L1e screen text (top)
-m_auto_pvp_result_pending,オートPvP — 結果待ち,app: L1e screen text (apvpExit)
+m_auto_pvp_result_pending,非同期PvP — 結果待ち,app: L1e screen text (apvpExit)
 m_the_result_could_not_be_delivered_th,結果を送信できませんでした。いずれにせよサーバーが決着をつけます（20分の制限時間を過ぎると敗北扱い）。,app: L1e screen text (apvpExit)
 m_bound_loses_its_action,拘束 — 行動不能！,app: L1e screen text (top)
 m_of_max_hp_on_removal,最大HP比（解除時）,app: L1e screen text (pct)
@@ -1759,8 +1759,8 @@ m_leaving_n_penned,繁殖小屋の{v1}体は残す。,app: L1f (D 2026-11-04 Fin
 m_leaving_n_unread_line,系統を読み取れない{v1}体は残す。,app: L1f (D 2026-11-04 Finish localizing the game)
 m_attacks_n_of_10,攻撃 {v1} / 10,app: L1f (D 2026-11-04 Finish localizing the game)
 m_searching_cancel,検索中 · {v1} · キャンセル,app: L1f (D 2026-11-04 Finish localizing the game)
-m_auto_pvp_n,オートPvP {v1},app: L1f (D 2026-11-04 Finish localizing the game)
-m_competitive_n,ランク戦 {v1},app: L1f (D 2026-11-04 Finish localizing the game)
+m_auto_pvp_n,非同期PvP {v1},app: L1f (D 2026-11-04 Finish localizing the game)
+m_competitive_n,リアルタイム戦 {v1},app: L1f (D 2026-11-04 Finish localizing the game)
 m_unrated_lbl,ランクなし,app: L1f (D 2026-11-04 Finish localizing the game)
 m_game_n,ゲーム{v1},app: L1f (D 2026-11-04 Finish localizing the game)
 m_game_n_you,ゲーム{v1} · あなた {v2}–{v3},app: L1f (D 2026-11-04 Finish localizing the game)
@@ -2196,3 +2196,5 @@ m_sd_no_entry,,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-0
 m_sd_free_used_note,,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): refusal note"
 m_sd_entry_bought,,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): shop note after the buy"
 m_sd_gauntlet_entry,,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): reward card subtitle"
+m_daily_attacks_n,本日の攻撃 {v1}/{v2},app: Async PvP card - attacks left today out of the daily pool (#1230)
+m_apvp_spent_shop,本日の攻撃回数を使い切りました。ここで追加購入するか、UTC午前0時のリセットを待ってください。,app: premium shop note when Async PvP is out of attacks (#1230)

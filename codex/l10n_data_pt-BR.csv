@@ -566,8 +566,8 @@ Incense Burner,Incensário,shop
 Wild creatures return to your floor twice as often. Burns for 30 days.,Criaturas selvagens voltam ao seu andar com o dobro da frequência. Queima por 30 dias.,shop
 Bait,Isca,shop
 Wild creatures return in half the time. Stacks with Incense. Lasts 30 days.,Criaturas selvagens voltam na metade do tempo. Acumula com o Incenso. Dura 30 dias.,shop
-Auto PVP Attacks,Ataques de Auto PvP,shop
-Ten more Auto PVP attacks. They join today's pool even above the daily ten and expire at the daily reset.,Mais dez ataques de Auto PvP. Entram no saldo de hoje mesmo acima dos dez diários e expiram no reset diário.,shop
+Async PvP Attacks,Ataques de PvP assíncrono,shop
+Three more Async PvP attacks. They join today's pool even above the daily three and expire at the daily reset.,Mais três ataques de PvP assíncrono. Entram no saldo de hoje mesmo acima dos três diários e expiram no reset diário.,shop
 First Incense,Primeiro Incenso,shop
 Your first Incense: wild creatures return twice as often for 1 day. One time only.,Seu primeiro Incenso: criaturas selvagens voltam com o dobro da frequência por 1 dia. Uso único.,shop
 First Bait,Primeira Isca,shop
@@ -629,7 +629,7 @@ Dismantle All,Desmontar Tudo,unlock
 Autoplay,Autojogo,unlock
 Souls,Almas,unlock
 Devour,Devorar,unlock
-Auto PvP,Auto PvP,unlock
+Async PvP,PvP assíncrono,unlock
 Auto-optimise,Otimizar Auto,unlock
 Breeding,Criação,unlock
 Scrolls + enchanting,Pergaminhos + encantamento,unlock
@@ -637,7 +637,7 @@ Grading,Graduação,unlock
 Upgrade All,Melhorar Tudo,unlock
 Shadow Trader,Mercador das Sombras,unlock
 Buy classes,Comprar classes,unlock
-Competitive PvP,PvP Competitivo,unlock
+Real-time PvP,PvP em tempo real,unlock
 Dimensional Rift,Fenda Dimensional,unlock
 Gauntlets,,unlock
 Resource Dungeons,,unlock
@@ -2832,9 +2832,9 @@ Classes,Classes,info
 Codex,Códice,info
 "Every creature in the tower, in order. A ???? card is a creature you have not found yet. The top row lists what the next boss can drop.","Toda criatura da torre, em ordem. Um cartão ???? é uma criatura que você ainda não encontrou. A linha de cima lista o que o próximo chefe pode largar.",info
 PvP arena,Arena PvP,info
-"Auto PvP attacks a saved copy of another player's team, so they do not need to be online; your own team defends the same way. Competitive PvP is live, against a player who is there.","O Auto PvP ataca uma cópia salva da equipe de outro jogador, então ele não precisa estar online; a sua própria equipe defende do mesmo jeito. O PvP Competitivo é ao vivo, contra um jogador que está presente.",info
+"Async PvP attacks a saved copy of another player's team, so they do not need to be online; your own team defends the same way. Real-time PvP is live, against a player who is there.","O PvP assíncrono ataca uma cópia salva da equipe de outro jogador, então ele não precisa estar online; a sua própria equipe defende do mesmo jeito. O PvP em tempo real é ao vivo, contra um jogador que está presente.",info
 Rankings,Ranking,info
-"The boards for Auto PvP and Competitive PvP, side by side. Pick PVP or PVE at the top to switch boards.","Os rankings do Auto PvP e do PvP Competitivo, lado a lado. Escolha PVP ou PVE no topo para trocar de ranking.",info
+"The boards for Async PvP and Real-time PvP, side by side. Pick PVP or PVE at the top to switch boards.","Os rankings do PvP assíncrono e do PvP em tempo real, lado a lado. Escolha PVP ou PVE no topo para trocar de ranking.",info
 Settings,Configurações,info
 Every choice here is saved with your account and follows you to any device you play on.,Cada escolha aqui é salva na sua conta e acompanha você em qualquer dispositivo em que jogar.,info
 Premium shop,Loja premium,info
@@ -2845,8 +2845,8 @@ Character power,Poder do personagem,info
 "Every hero with a saved team is listed by its character power. The server counts it from your saved build once a day, so a change shows after the next daily update.","Todo herói com uma equipe salva é listado pelo seu poder de personagem. O servidor o calcula a partir da sua build salva uma vez por dia, então uma mudança aparece após a próxima atualização diária.",info
 Highest climb,Maior escalada,info
 Clear floor 1 to be listed. The board ranks the highest floor you have reached and updates once a day.,Conclua o andar 1 para ser listado. O ranking ordena o andar mais alto que você alcançou e é atualizado uma vez por dia.,info
-Every hero with a class soul and a creature in the team is listed at the next daily update - at 1500 until your Auto PvP fights move the rating.,Todo herói com uma alma de classe e uma criatura na equipe é listado na próxima atualização diária - com 1500 até suas lutas de Auto PvP moverem a pontuação.,info
-Play one Competitive PvP match to get a rating. The board shows it after the next daily update.,Jogue uma partida de PvP Competitivo para ter uma pontuação. O ranking a mostra após a próxima atualização diária.,info
+Every hero with a class soul and a creature in the team is listed at the next daily update - at 1500 until your Async PvP fights move the rating.,Todo herói com uma alma de classe e uma criatura na equipe é listado na próxima atualização diária - com 1500 até suas lutas de PvP assíncrono moverem a pontuação.,info
+Play one Real-time PvP match to get a rating. The board shows it after the next daily update.,Jogue uma partida de PvP em tempo real para ter uma pontuação. O ranking a mostra após a próxima atualização diária.,info
 "Damage; Sunder Plate: target -10% Defense, 2t.","Dano; Placa Partida: alvo -10% de Defesa, 2t.",move_effect
 "Damage; Sunder Plate: target -25% Defense, 3t.","Dano; Placa Partida: alvo -25% de Defesa, 3t.",move_effect
 "Damage; Sunder Plate: target -30% Defense, 3t.","Dano; Placa Partida: alvo -30% de Defesa, 3t.",move_effect

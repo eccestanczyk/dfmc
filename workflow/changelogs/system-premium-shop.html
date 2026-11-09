@@ -14,6 +14,9 @@
 
   <h2>Changelog</h2>
 <p class="note">
+2026-11-09 &mdash; SHOP-003 is &ldquo;Async PvP Attacks&rdquo;: 3 attacks for 15 Wraithgold (was ten for 50); Daily_Cap 3 kept (dfmc-client lane pvp, report #1230; D 2026-11-08 &ldquo;3 more per purchase&rdquo;). On dev. The price keeps the row&rsquo;s 5 Wraithgold per attack (the Gauntlet Entry, SHOP-402, is 10 for one run); the server grants the row&rsquo;s Effect_Value, so the grant follows the CSV at the next DATA_PIN with no code change. The description and its four l10n_data translations say three. An Async PvP press with no attacks left now opens this shop on that row. At release: the page lists the row as 3 Async PvP attacks for 15 Wraithgold.
+</p>
+<p class="note">
 2026-11-07 &mdash; new row SHOP-402 Gauntlet Entry, 10 Wraithgold (D 2026-11-07; dfmc-client lane gauntkeys). SHIPPED IN 0.96. A consumable bag item (items.csv ITM-GENTRY, a DungeonKey row): one run of ANY unlocked gauntlet, on top of each gauntlet&rsquo;s free weekly run. Used from the bag (tap it: the gauntlets window opens to pick one) or from the gauntlets window&rsquo;s ENTER WITH GAUNTLET ENTRY; BUY ENTRY (10 WG) there buys it. Not dismantlable, not exportable (no market category), paid-tainted. Effect_Kind sd_entry: the buy mints the row in the debit&rsquo;s step and a retried buy (same idem) answers the same entry. Daily_Cap 3, the cap every key row carries (M1-07); D rebalances next run. Icon play/img/ui/gauntlet_entry.webp (tools/make_gauntlet_entry_art.py, gpt-image-2.5-sunburst). Probe tools/probe_gauntkeys.py G1, G9-G14. At release: nothing on the player pages (neither system-premium-shop.html nor tutorials/premium-shop.html lists the key rows).
 </p>
 <p class="note">

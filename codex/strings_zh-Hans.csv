@@ -162,7 +162,7 @@ m_scene,场景,markup: floor HUD / boss lair
 m_read_more_in_the_codex,在图鉴中查看更多 ›,markup: floor HUD / boss lair
 m_pvp_arena,PvP 竞技场,markup: pvp
 m_rankings,排行榜,markup: pvp
-m_auto_pvp,自动 PvP,markup: pvp
+m_auto_pvp,异步 PvP,markup: pvp
 m_rating,评分,markup: pvp
 m_autoplay,自动战斗,markup: pvp
 m_matchmaking,匹配,markup: pvp
@@ -170,7 +170,7 @@ m_your_defense_is_your,。你的防守阵容取自你的,markup: pvp
 m_daily_snapshot,每日快照,markup: pvp
 m_re_gearing_shows_up_on_defense_at,——更换装备将在下次重置时体现在防守阵容中。,markup: pvp
 m_x_5,×,markup: pvp
-m_competitive_pvp,竞技 PvP,markup: pvp
+m_competitive_pvp,实时 PvP,markup: pvp
 m_loading,加载中…,markup: pvp
 m_best_floor,最高层数,markup: pvp
 m_ratings,评分,markup: pvp
@@ -351,7 +351,7 @@ chal_make_h,生成挑战码,markup: pvp challenge by code (B16)
 chal_make_blurb,把挑战码发给一名玩家。如果你等待对方，就会实时对战；否则对方将攻击你的防守阵容。,markup: pvp challenge by code (B16)
 chal_wait,实时等待对方,markup: pvp challenge by code (B16)
 chal_enter_h,输入挑战码,markup: pvp challenge by code (B16)
-chal_enter_blurb,收到了其他玩家的挑战码？若对方正在等待你，则实时对战；否则将对其防守阵容发起一次自动 PvP 攻击。,markup: pvp challenge by code (B16)
+chal_enter_blurb,收到了其他玩家的挑战码？若对方正在等待你，则实时对战；否则将对其防守阵容发起一次异步 PvP 攻击。,markup: pvp challenge by code (B16)
 chal_go,开战,markup: pvp challenge by code (B16)
 chal_err_own,这是你自己的挑战码。请将它发给其他玩家。,app: pvp challenge by code (B16)
 chal_err_expired,挑战码不存在或已过期。请索取新的挑战码。,app: pvp challenge by code (B16)
@@ -374,8 +374,8 @@ chal_copy,复制,app: pvp challenge by code (B16)
 chal_copied,已复制,app: pvp challenge by code (B16)
 chal_on,开,app: pvp challenge by code (B16)
 chal_off,关,app: pvp challenge by code (B16)
-chal_wait_note,正在竞技队列中等待你的挑战者 · {t},app: pvp challenge by code (B16)
-chal_wait_off_note,关闭：对方将改为攻击你的防守阵容，以自动 PvP 对战进行。,app: pvp challenge by code (B16)
+chal_wait_note,正在实时队列中等待你的挑战者 · {t},app: pvp challenge by code (B16)
+chal_wait_off_note,关闭：对方将改为攻击你的防守阵容，以异步 PvP 对战进行。,app: pvp challenge by code (B16)
 chal_expired_mine,你的挑战码已过期。请生成新的挑战码。,app: pvp challenge by code (B16)
 chal_band,正在等待持有你挑战码 {c} 的玩家,app: pvp challenge by code (B16)
 m_send_to_herumon_dungeon,送往 Herumon Dungeon,markup+app: creature sheet: T48 transfer action (Steam shell only)
@@ -673,7 +673,7 @@ tip_scrolls_enchant_gear_that_carries_a_scroll_socke,卷轴可为带有卷轴插
 tip_grading_lifts_a_gem_rune_or_scroll_to_a_better_g,升品可把宝石、符文或卷轴提升到更高品级。,"app: loading tip (L1, D 2026-11-04)"
 tip_the_shadow_trader_s_stock_changes_over_time_come,暗影商人的货物会随时间变化。记得回来看看新货。,"app: loading tip (L1, D 2026-11-04)"
 tip_more_classes_can_be_bought_from_the_equipment_wi,可在装备窗口中购买更多职业。,"app: loading tip (L1, D 2026-11-04)"
-tip_competitive_pvp_puts_your_team_on_the_ranked_lad,竞技PvP会让你的队伍登上排行榜。,"app: loading tip (L1, D 2026-11-04)"
+tip_real_time_pvp_puts_your_team_on_the_ranked_ladde,实时PvP会让你的队伍登上排行榜。,"app: loading tip (L1, D 2026-11-04)"
 tip_the_dimensional_rift_sends_a_copy_of_a_creature,次元裂隙可免费将一只生物的复制体送往Herumon Dungeon，仅限一次。,"app: loading tip (L1, D 2026-11-04)"
 tip_apex_bosses_past_floor_100_carry_a_skull_status,第100层以上的巅峰首领带有骷髅状态和独特机制——将鼠标悬停在骷髅上查看。,"app: loading tip (L1, D 2026-11-04)"
 unl_first_fight_start,点击楼层中的生物与其战斗。,app: opening.csv first_fight_start Line - the FTUE arrow line (L1)
@@ -779,8 +779,8 @@ m_rank_tab_pvp,PVP,app: L1b rankings tab (PvP boards)
 m_rank_tab_pve,PVE,app: L1b rankings tab (PvE boards)
 m_rank_power,角色战力,app: L1b rankings board title
 m_rank_deepest,最高攀登,app: L1b rankings board title
-m_rank_autopvp,自动 PvP,app: L1b rankings board title
-m_rank_ladder,竞技 PvP,app: L1b rankings board title
+m_rank_autopvp,异步 PvP,app: L1b rankings board title
+m_rank_ladder,实时 PvP,app: L1b rankings board title
 m_mv_synergy,协同,"app: L1b move tooltip, the line's Synergy clause label"
 m_mv_anti,克制,"app: L1b move tooltip, the line's Anti clause label"
 m_strip_floor,第{n}层,"app: L1b taskbar strip (steam/strip.js), the floor label"
@@ -795,7 +795,7 @@ m_strip_t_win,返回游戏窗口,"app: L1b taskbar strip, WINDOW button hover"
 m_srv_refused,服务器拒绝了请求,app: L1b a server refusal with no code (breeding toast)
 m_srv_grade_anchor,服务器记录该物品为{g}——已按其重新同步，未消耗任何资源,"app: L1b upgrade, the server's grade anchor wins ({g} = a grade name)"
 m_srv_refused_attempt,服务器拒绝了此次尝试（{e}）——未消耗任何资源,"app: L1b upgrade, a refused attempt ({e} = the server's reason)"
-m_apvp_not_counted,自动 PvP — 未计入,"app: L1b Auto PvP result refused, title"
+m_apvp_not_counted,异步 PvP — 未计入,"app: L1b Auto PvP result refused, title"
 m_apvp_not_accepted,服务器未接受此结果（{e}）。,"app: L1b Auto PvP result refused, line ({e} = the server's reason)"
 srv_insufficient,材料不足,app: L1b server refusal code insufficient (srvErr)
 srv_unauthenticated,未登录,app: L1b server refusal code unauthenticated (srvErr)
@@ -1109,7 +1109,7 @@ m_the_server_refused_the_devour_nothin,服务器拒绝了吞噬——未消耗�
 m_could_not_reach_the_server_nothing_w_2,无法连接服务器——未消耗任何对象,app: L1e message (_dvToast)
 m_the_target_moved_nothing_was_consume,目标已移动——未消耗任何对象,app: L1e message (setState)
 m_queued,已排队,app: L1e message (setState)
-m_your_auto_pvp_match_starts_when_this,本场战斗结束后，你的自动 PvP 对战将开始。,app: L1e message (setState)
+m_your_auto_pvp_match_starts_when_this,本场战斗结束后，你的异步 PvP 对战将开始。,app: L1e message (setState)
 m_that_match_expired,该对战已过期,app: L1e message (setState)
 m_the_20_minute_window_had_passed_so_i,20 分钟的时限已过，因此计为防守方胜利。准备好后请再次排队。,app: L1e message (setState)
 m_no_attacks_left,没有剩余进攻次数,app: L1e message (setState)
@@ -1120,8 +1120,8 @@ m_your_team_is_read_from_your_last_sav,你的队伍读取自最近一次存档�
 m_no_opponents,没有对手,app: L1e message (setState)
 m_no_eligible_defenders_right_now_you,目前没有符合条件的防守者——你可能已达到每个对手的每日上限。请稍后再试。,app: L1e message (setState)
 m_the_match_came_back_without_both_tea,返回的对战缺少双方队伍。,app: L1e message (setState)
-m_auto_pvp_tower_echo_echo_stands_in_a,自动 PvP — 高塔回响 [回响] 代为出战：与你所在楼层相当的系统队伍，评分不变。第1回合 — 选择你的指令。,app: L1e message (setState)
-m_auto_pvp_s_snapshot_defends_round_1,自动 PvP — {v1} 的快照进行防守。第1回合 — 选择你的指令。,app: L1e message (setState)
+m_auto_pvp_tower_echo_echo_stands_in_a,异步 PvP — 高塔回响 [回响] 代为出战：与你所在楼层相当的系统队伍，评分不变。第1回合 — 选择你的指令。,app: L1e message (setState)
+m_auto_pvp_s_snapshot_defends_round_1,异步 PvP — {v1} 的快照进行防守。第1回合 — 选择你的指令。,app: L1e message (setState)
 m_judging_the_match,正在判定对战…,app: L1e message (setState)
 m_locked_ignored_by_every_dismantle,已锁定——所有分解都会跳过它,app: L1e message (setState)
 m_unlocked,已解锁,app: L1e message (setState)
@@ -1252,13 +1252,13 @@ m_the_essence_must_outrank_the_creatur,精华的品级必须高于该生物的�
 m_nothing_to_consume,没有可吞噬的对象,app: L1e screen text (top)
 m_is_now_a_mutant,{v1} 现已成为变异体,app: L1e screen text (top)
 m_grade_held_the_fodder_must_outrank_i,· 品级未变——素材的品级必须高于它,app: L1e screen text (top)
-m_auto_pvp_voided,自动 PvP — 已作废,app: L1e screen text (apvpExit)
+m_auto_pvp_voided,异步 PvP — 已作废,app: L1e screen text (apvpExit)
 m_the_server_replayed_this_fight_and_r,服务器重放了这场战斗并得出不同的结果，因此未计入：次数已消耗，双方评分均未变动。已自动提交报告。,app: L1e screen text (apvpExit)
 m_the_20_minute_window_had_passed_it_c,20 分钟的时限已过——计为防守方胜利。,app: L1e screen text (then)
-m_auto_pvp_2,自动 PvP — {v1},app: L1e screen text (apvpExit)
+m_auto_pvp_2,异步 PvP — {v1},app: L1e screen text (apvpExit)
 m_you_broke_the_defense,你突破了防守。,app: L1e screen text (top)
 m_the_defense_held,防守守住了。,app: L1e screen text (top)
-m_auto_pvp_result_pending,自动 PvP — 结果待定,app: L1e screen text (apvpExit)
+m_auto_pvp_result_pending,异步 PvP — 结果待定,app: L1e screen text (apvpExit)
 m_the_result_could_not_be_delivered_th,结果未能送达；服务器无论如何都会结算（错过 20 分钟时限计为失败）。,app: L1e screen text (apvpExit)
 m_bound_loses_its_action,被束缚——失去行动！,app: L1e screen text (top)
 m_of_max_hp_on_removal,最大HP（移除时）,app: L1e screen text (pct)
@@ -1471,7 +1471,7 @@ m_tip_autoplay_settings,自动游戏设置,markup: L1e hover tooltip / aria labe
 m_tip_challenge_code,挑战码,markup: L1e hover tooltip / aria label
 m_tip_steam_item_id,Steam 物品 ID,markup: L1e hover tooltip / aria label
 m_tip_view_profile,查看资料,markup: L1e hover tooltip / aria label
-m_tip_competitive_damage_ramp_every_hit,竞技伤害递增 — 每次命中和持续伤害，双方皆是,markup: L1e hover tooltip / aria label
+m_tip_competitive_damage_ramp_every_hit,实时 PvP 伤害递增 — 每次命中和持续伤害，双方皆是,markup: L1e hover tooltip / aria label
 m_tip_a_creature_is_ready_to_advance,有生物可以进阶 — 点击，或打开装备界面,markup: L1e hover tooltip / aria label
 m_tip_matchmaking_runs_in_the_background,匹配在后台进行 — 点击打开竞技场,markup: L1e hover tooltip / aria label
 m_tip_close_the_shop,关闭商店,markup: L1e hover tooltip / aria label
@@ -1759,8 +1759,8 @@ m_leaving_n_penned,保留繁殖栏中的{v1}只。,app: L1f (D 2026-11-04 Finish
 m_leaving_n_unread_line,保留{v1}只无法识别系的生物。,app: L1f (D 2026-11-04 Finish localizing the game)
 m_attacks_n_of_10,攻击 {v1} / 10,app: L1f (D 2026-11-04 Finish localizing the game)
 m_searching_cancel,搜索中 · {v1} · 取消,app: L1f (D 2026-11-04 Finish localizing the game)
-m_auto_pvp_n,自动PvP {v1},app: L1f (D 2026-11-04 Finish localizing the game)
-m_competitive_n,竞技 {v1},app: L1f (D 2026-11-04 Finish localizing the game)
+m_auto_pvp_n,异步PvP {v1},app: L1f (D 2026-11-04 Finish localizing the game)
+m_competitive_n,实时 {v1},app: L1f (D 2026-11-04 Finish localizing the game)
 m_unrated_lbl,未定级,app: L1f (D 2026-11-04 Finish localizing the game)
 m_game_n,第{v1}局,app: L1f (D 2026-11-04 Finish localizing the game)
 m_game_n_you,第{v1}局 · 你 {v2}–{v3},app: L1f (D 2026-11-04 Finish localizing the game)
@@ -2196,3 +2196,5 @@ m_sd_no_entry,,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-0
 m_sd_free_used_note,,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): refusal note"
 m_sd_entry_bought,,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): shop note after the buy"
 m_sd_gauntlet_entry,,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): reward card subtitle"
+m_daily_attacks_n,每日攻击 {v1}/{v2},app: Async PvP card - attacks left today out of the daily pool (#1230)
+m_apvp_spent_shop,今日攻击次数已用完。可在此购买更多，或等待 UTC 午夜重置。,app: premium shop note when Async PvP is out of attacks (#1230)

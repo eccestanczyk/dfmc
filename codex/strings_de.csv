@@ -162,7 +162,7 @@ m_scene,SZENE,markup: floor HUD / boss lair
 m_read_more_in_the_codex,MEHR IM KODEX ›,markup: floor HUD / boss lair
 m_pvp_arena,PVP-ARENA,markup: pvp
 m_rankings,RANGLISTE,markup: pvp
-m_auto_pvp,AUTO-PVP,markup: pvp
+m_auto_pvp,ASYNC-PVP,markup: pvp
 m_rating,WERTUNG,markup: pvp
 m_autoplay,AUTOPLAY,markup: pvp
 m_matchmaking,PARTNERSUCHE,markup: pvp
@@ -170,7 +170,7 @@ m_your_defense_is_your,. Deine Verteidigung ist dein,markup: pvp
 m_daily_snapshot,täglicher Schnappschuss,markup: pvp
 m_re_gearing_shows_up_on_defense_at,— neue Ausrüstung wirkt in der Verteidigung erst ab dem nächsten Reset.,markup: pvp
 m_x_5,×,markup: pvp
-m_competitive_pvp,RANGLISTEN-PVP,markup: pvp
+m_competitive_pvp,ECHTZEIT-PVP,markup: pvp
 m_loading,Lädt…,markup: pvp
 m_best_floor,BESTE ETAGE,markup: pvp
 m_ratings,WERTUNGEN,markup: pvp
@@ -351,7 +351,7 @@ chal_make_h,CODE ERSTELLEN,markup: pvp challenge by code (B16)
 chal_make_blurb,"Gib den Code einem Spieler. Wartest du auf ihn, kämpft ihr live. Wenn nicht, greift er deine Verteidigung an.",markup: pvp challenge by code (B16)
 chal_wait,LIVE AUF IHN WARTEN,markup: pvp challenge by code (B16)
 chal_enter_h,CODE EINGEBEN,markup: pvp challenge by code (B16)
-chal_enter_blurb,"Code von einem Spieler bekommen? Live, wenn er auf dich wartet, sonst ein Auto-PvP-Angriff auf seine Verteidigung.",markup: pvp challenge by code (B16)
+chal_enter_blurb,"Code von einem Spieler bekommen? Live, wenn er auf dich wartet, sonst ein Async-PvP-Angriff auf seine Verteidigung.",markup: pvp challenge by code (B16)
 chal_go,KÄMPFEN,markup: pvp challenge by code (B16)
 chal_err_own,Das ist dein eigener Code. Gib ihn einem anderen Spieler.,app: pvp challenge by code (B16)
 chal_err_expired,Diesen Code gibt es nicht oder er ist abgelaufen. Frag nach einem neuen.,app: pvp challenge by code (B16)
@@ -374,8 +374,8 @@ chal_copy,KOPIEREN,app: pvp challenge by code (B16)
 chal_copied,KOPIERT,app: pvp challenge by code (B16)
 chal_on,AN,app: pvp challenge by code (B16)
 chal_off,AUS,app: pvp challenge by code (B16)
-chal_wait_note,Warte in der Ranglisten-Warteschlange auf deinen Herausforderer · {t},app: pvp challenge by code (B16)
-chal_wait_off_note,"Aus: Er greift stattdessen deine Verteidigung an, als Auto-PvP-Kampf.",app: pvp challenge by code (B16)
+chal_wait_note,Warte in der Echtzeit-Warteschlange auf deinen Herausforderer · {t},app: pvp challenge by code (B16)
+chal_wait_off_note,"Aus: Er greift stattdessen deine Verteidigung an, als Async-PvP-Kampf.",app: pvp challenge by code (B16)
 chal_expired_mine,Dein Code ist abgelaufen. Erstelle einen neuen.,app: pvp challenge by code (B16)
 chal_band,warte auf den Spieler mit deinem Code {c},app: pvp challenge by code (B16)
 m_send_to_herumon_dungeon,NACH HERUMON DUNGEON SENDEN,markup+app: creature sheet: T48 transfer action (Steam shell only)
@@ -673,7 +673,7 @@ tip_scrolls_enchant_gear_that_carries_a_scroll_socke,Schriftrollen verzaubern Au
 tip_grading_lifts_a_gem_rune_or_scroll_to_a_better_g,"Einstufen hebt einen Edelstein, eine Rune oder eine Schriftrolle auf eine bessere Stufe.","app: loading tip (L1, D 2026-11-04)"
 tip_the_shadow_trader_s_stock_changes_over_time_come,Das Angebot des Schattenhändlers wechselt mit der Zeit. Schau für neue Waren wieder vorbei.,"app: loading tip (L1, D 2026-11-04)"
 tip_more_classes_can_be_bought_from_the_equipment_wi,Weitere Klassen kannst du im Ausrüstungsfenster kaufen.,"app: loading tip (L1, D 2026-11-04)"
-tip_competitive_pvp_puts_your_team_on_the_ranked_lad,Competitive PvP bringt dein Team auf die Rangliste.,"app: loading tip (L1, D 2026-11-04)"
+tip_real_time_pvp_puts_your_team_on_the_ranked_ladde,Echtzeit-PvP bringt dein Team auf die Rangliste.,"app: loading tip (L1, D 2026-11-04)"
 tip_the_dimensional_rift_sends_a_copy_of_a_creature,"Der Dimensionsriss schickt eine Kopie einer Kreatur nach Herumon Dungeon, einmalig und kostenlos.","app: loading tip (L1, D 2026-11-04)"
 tip_apex_bosses_past_floor_100_carry_a_skull_status,"Apex-Bosse ab Etage 100 tragen einen Schädelstatus mit einer eigenen Mechanik – fahre über den Schädel, um ihn zu lesen.","app: loading tip (L1, D 2026-11-04)"
 unl_first_fight_start,"Klicke auf eine Kreatur auf der Etage, um sie zu bekämpfen.",app: opening.csv first_fight_start Line - the FTUE arrow line (L1)
@@ -779,8 +779,8 @@ m_rank_tab_pvp,PVP,app: L1b rankings tab (PvP boards)
 m_rank_tab_pve,PVE,app: L1b rankings tab (PvE boards)
 m_rank_power,CHARAKTERMACHT,app: L1b rankings board title
 m_rank_deepest,HÖCHSTER AUFSTIEG,app: L1b rankings board title
-m_rank_autopvp,AUTO-PVP,app: L1b rankings board title
-m_rank_ladder,RANGLISTEN-PVP,app: L1b rankings board title
+m_rank_autopvp,ASYNC-PVP,app: L1b rankings board title
+m_rank_ladder,ECHTZEIT-PVP,app: L1b rankings board title
 m_mv_synergy,SYNERGIE,"app: L1b move tooltip, the line's Synergy clause label"
 m_mv_anti,ANTI,"app: L1b move tooltip, the line's Anti clause label"
 m_strip_floor,ETAGE {n},"app: L1b taskbar strip (steam/strip.js), the floor label"
@@ -795,7 +795,7 @@ m_strip_t_win,Zurück zum Spielfenster,"app: L1b taskbar strip, WINDOW button ho
 m_srv_refused,DER SERVER HAT ABGELEHNT,app: L1b a server refusal with no code (breeding toast)
 m_srv_grade_anchor,"DER SERVER FÜHRT DIESES TEIL ALS {g} — DARAUF ABGEGLICHEN, NICHTS WURDE AUSGEGEBEN","app: L1b upgrade, the server's grade anchor wins ({g} = a grade name)"
 m_srv_refused_attempt,DER SERVER HAT DEN VERSUCH ABGELEHNT ({e}) — NICHTS WURDE AUSGEGEBEN,"app: L1b upgrade, a refused attempt ({e} = the server's reason)"
-m_apvp_not_counted,AUTO-PVP — NICHT GEWERTET,"app: L1b Auto PvP result refused, title"
+m_apvp_not_counted,ASYNC-PVP — NICHT GEWERTET,"app: L1b Auto PvP result refused, title"
 m_apvp_not_accepted,Der Server hat dieses Ergebnis nicht angenommen ({e}).,"app: L1b Auto PvP result refused, line ({e} = the server's reason)"
 srv_insufficient,nicht genug Materialien,app: L1b server refusal code insufficient (srvErr)
 srv_unauthenticated,nicht angemeldet,app: L1b server refusal code unauthenticated (srvErr)
@@ -1109,7 +1109,7 @@ m_the_server_refused_the_devour_nothin,DER SERVER HAT DAS VERSCHLINGEN ABGELEHNT
 m_could_not_reach_the_server_nothing_w_2,SERVER NICHT ERREICHBAR — NICHTS WURDE VERSCHLUNGEN,app: L1e message (_dvToast)
 m_the_target_moved_nothing_was_consume,DAS ZIEL WURDE BEWEGT — NICHTS WURDE VERSCHLUNGEN,app: L1e message (setState)
 m_queued,IN DER WARTESCHLANGE,app: L1e message (setState)
-m_your_auto_pvp_match_starts_when_this,"Dein Auto-PvP-Match beginnt, wenn dieser Kampf endet.",app: L1e message (setState)
+m_your_auto_pvp_match_starts_when_this,"Dein Async-PvP-Match beginnt, wenn dieser Kampf endet.",app: L1e message (setState)
 m_that_match_expired,DIESES MATCH IST ABGELAUFEN,app: L1e message (setState)
 m_the_20_minute_window_had_passed_so_i,"Das 20-Minuten-Fenster war abgelaufen, daher zählt es als Verteidigungssieg. Reih dich erneut ein, wenn du bereit bist.",app: L1e message (setState)
 m_no_attacks_left,KEINE ANGRIFFE MEHR,app: L1e message (setState)
@@ -1120,8 +1120,8 @@ m_your_team_is_read_from_your_last_sav,"Dein Team wird aus deinem letzten Spiels
 m_no_opponents,KEINE GEGNER,app: L1e message (setState)
 m_no_eligible_defenders_right_now_you,Gerade keine passenden Verteidiger — vielleicht hast du das Tageslimit pro Gegner erreicht. Versuch es später erneut.,app: L1e message (setState)
 m_the_match_came_back_without_both_tea,Das Match kam ohne beide Teams zurück.,app: L1e message (setState)
-m_auto_pvp_tower_echo_echo_stands_in_a,"AUTO-PVP — TURM-ECHO [ECHO] springt ein: ein Hausteam auf deiner Etage, keine Wertungsänderung. Runde 1 — wähle deine Befehle.",app: L1e message (setState)
-m_auto_pvp_s_snapshot_defends_round_1,AUTO-PVP — der Schnappschuss von {v1} verteidigt. Runde 1 — wähle deine Befehle.,app: L1e message (setState)
+m_auto_pvp_tower_echo_echo_stands_in_a,"ASYNC-PVP — TURM-ECHO [ECHO] springt ein: ein Hausteam auf deiner Etage, keine Wertungsänderung. Runde 1 — wähle deine Befehle.",app: L1e message (setState)
+m_auto_pvp_s_snapshot_defends_round_1,ASYNC-PVP — der Schnappschuss von {v1} verteidigt. Runde 1 — wähle deine Befehle.,app: L1e message (setState)
 m_judging_the_match,Das Match wird bewertet…,app: L1e message (setState)
 m_locked_ignored_by_every_dismantle,GESPERRT — wird beim Zerlegen immer übergangen,app: L1e message (setState)
 m_unlocked,ENTSPERRT,app: L1e message (setState)
@@ -1252,13 +1252,13 @@ m_the_essence_must_outrank_the_creatur,DIE ESSENZ MUSS DEN GRAD DER KREATUR ÜBE
 m_nothing_to_consume,NICHTS ZUM VERSCHLINGEN,app: L1e screen text (top)
 m_is_now_a_mutant,{v1} IST JETZT EIN MUTANT,app: L1e screen text (top)
 m_grade_held_the_fodder_must_outrank_i,· GRAD BLEIBT — DAS FUTTER MUSS IHN ÜBERTREFFEN,app: L1e screen text (top)
-m_auto_pvp_voided,AUTO-PVP — ANNULLIERT,app: L1e screen text (apvpExit)
+m_auto_pvp_voided,ASYNC-PVP — ANNULLIERT,app: L1e screen text (apvpExit)
 m_the_server_replayed_this_fight_and_r,"Der Server hat diesen Kampf nachgespielt und ein anderes Ergebnis erhalten, daher wurde er nicht gewertet: Das Ticket ist verbraucht und auf keiner Seite hat sich die Wertung geändert. Ein Bericht wurde automatisch erstellt.",app: L1e screen text (apvpExit)
 m_the_20_minute_window_had_passed_it_c,Das 20-Minuten-Fenster war abgelaufen — es zählt als Verteidigungssieg.,app: L1e screen text (then)
-m_auto_pvp_2,AUTO-PVP — {v1},app: L1e screen text (apvpExit)
+m_auto_pvp_2,ASYNC-PVP — {v1},app: L1e screen text (apvpExit)
 m_you_broke_the_defense,Du hast die Verteidigung durchbrochen.,app: L1e screen text (top)
 m_the_defense_held,Die Verteidigung hat gehalten.,app: L1e screen text (top)
-m_auto_pvp_result_pending,AUTO-PVP — ERGEBNIS AUSSTEHEND,app: L1e screen text (apvpExit)
+m_auto_pvp_result_pending,ASYNC-PVP — ERGEBNIS AUSSTEHEND,app: L1e screen text (apvpExit)
 m_the_result_could_not_be_delivered_th,Das Ergebnis konnte nicht übermittelt werden; der Server wertet es so oder so (ein verpasstes 20-Minuten-Fenster zählt als Niederlage).,app: L1e screen text (apvpExit)
 m_bound_loses_its_action,gefesselt — verliert seine Aktion!,app: L1e screen text (top)
 m_of_max_hp_on_removal,der max. LP beim Entfernen,app: L1e screen text (pct)
@@ -1471,7 +1471,7 @@ m_tip_autoplay_settings,Autoplay-Einstellungen,markup: L1e hover tooltip / aria 
 m_tip_challenge_code,Herausforderungscode,markup: L1e hover tooltip / aria label
 m_tip_steam_item_id,Steam-Item-ID,markup: L1e hover tooltip / aria label
 m_tip_view_profile,Profil ansehen,markup: L1e hover tooltip / aria label
-m_tip_competitive_damage_ramp_every_hit,"Kompetitive Schadenssteigerung — jeder Treffer und jeder Nachwirkungs-Tick, beide Seiten",markup: L1e hover tooltip / aria label
+m_tip_competitive_damage_ramp_every_hit,"Echtzeit-PvP-Schadenssteigerung — jeder Treffer und jeder Nachwirkungs-Tick, beide Seiten",markup: L1e hover tooltip / aria label
 m_tip_a_creature_is_ready_to_advance,Eine Kreatur ist bereit aufzusteigen — klicken oder den Ausrüstungsbildschirm öffnen,markup: L1e hover tooltip / aria label
 m_tip_matchmaking_runs_in_the_background,"Die Spielersuche läuft im Hintergrund — klicken, um die Arena zu öffnen",markup: L1e hover tooltip / aria label
 m_tip_close_the_shop,Shop schließen,markup: L1e hover tooltip / aria label
@@ -1759,8 +1759,8 @@ m_leaving_n_penned,{v1} in deinen Zuchtgehegen bleiben.,app: L1f (D 2026-11-04 F
 m_leaving_n_unread_line,"{v1} bleiben, deren Linie nicht gelesen werden konnte.",app: L1f (D 2026-11-04 Finish localizing the game)
 m_attacks_n_of_10,ANGRIFFE {v1} / 10,app: L1f (D 2026-11-04 Finish localizing the game)
 m_searching_cancel,SUCHE · {v1} · ABBRECHEN,app: L1f (D 2026-11-04 Finish localizing the game)
-m_auto_pvp_n,Auto-PvP {v1},app: L1f (D 2026-11-04 Finish localizing the game)
-m_competitive_n,Kompetitiv {v1},app: L1f (D 2026-11-04 Finish localizing the game)
+m_auto_pvp_n,Async-PvP {v1},app: L1f (D 2026-11-04 Finish localizing the game)
+m_competitive_n,Echtzeit {v1},app: L1f (D 2026-11-04 Finish localizing the game)
 m_unrated_lbl,Ohne Wertung,app: L1f (D 2026-11-04 Finish localizing the game)
 m_game_n,SPIEL {v1},app: L1f (D 2026-11-04 Finish localizing the game)
 m_game_n_you,SPIEL {v1} · DU {v2}–{v3},app: L1f (D 2026-11-04 Finish localizing the game)
@@ -2196,3 +2196,5 @@ m_sd_no_entry,,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-0
 m_sd_free_used_note,,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): refusal note"
 m_sd_entry_bought,,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): shop note after the buy"
 m_sd_gauntlet_entry,,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): reward card subtitle"
+m_daily_attacks_n,TÄGLICHE ANGRIFFE {v1}/{v2},app: Async PvP card - attacks left today out of the daily pool (#1230)
+m_apvp_spent_shop,Deine täglichen Angriffe sind verbraucht. Kaufe hier weitere oder warte auf den Reset um Mitternacht UTC.,app: premium shop note when Async PvP is out of attacks (#1230)
