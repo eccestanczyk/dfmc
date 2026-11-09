@@ -113,6 +113,29 @@ input.txt:focus{border-color:var(--gold-dim)}
   border:1px solid var(--line);color:var(--ink);padding:7px 9px;font-family:inherit;font-size:12px;
   resize:vertical;outline:none}
 .review textarea:focus{border-color:var(--gold-dim)}
+/* RE-BAKE PREVIEW (2026-11-09, lane vfxpreview): OLD (pre-re-bake, workflow/vfx-old/) vs NEW
+   (assets/fx/bank/) per sheet, flipbooked at the client's 24 fps, with the playing frame's luma. */
+.rebake{padding:10px 12px;margin:-8px 0 16px;border:1px solid var(--line);border-top:0;background:var(--panel2)}
+.rebake .rbhead{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px}
+.rebake .rbhead b{font-family:'Cinzel',serif;color:var(--gold);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.rebake select{background:#0d0b08;border:1px solid var(--line);color:var(--ink);font-size:12px;padding:4px 6px}
+.rebake .btn.on{border-color:var(--gold);color:var(--ink);background:var(--panel)}
+.rebake .rbpanes{display:flex;flex-wrap:wrap;gap:12px}
+.rebake .rbpane{flex:1 1 260px;max-width:420px;display:flex;flex-direction:column;gap:6px}
+.rebake .rbpane[hidden]{display:none}
+.rebake .rblbl{font-size:11px;color:var(--ink-dim);letter-spacing:.05em;text-transform:uppercase}
+.rebake .rblbl strong{color:var(--gold)}
+.rebake canvas{width:100%;aspect-ratio:1/1;object-fit:contain;cursor:pointer;
+  background:#0b0a0d;border:1px solid var(--line)}
+.rebake .rbbg-mid canvas{background:#3a3540}
+.rebake .rbbg-chk canvas{background:repeating-conic-gradient(#2a2620 0 25%,#1a1611 0 50%) 0 0/16px 16px}
+.rebake .rbread{font:12px/1.4 ui-monospace,Consolas,monospace;color:var(--ink)}
+.rebake .rbread .over{color:var(--warn)}
+.rebake .rbmeter{position:relative;height:8px;background:#0d0b08;border:1px solid var(--line)}
+.rebake .rbmeter .mx{position:absolute;left:0;top:0;bottom:0;background:var(--gold-dim)}
+.rebake .rbmeter .mn{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--ink)}
+.rebake .rbmeter .cap{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--warn);left:72%}
+.rebake .rbnote{font-size:11px;color:var(--ink-dim);font-style:italic;margin-top:6px}
 .approve{font-family:'Cinzel',serif;font-size:12px;font-weight:700;letter-spacing:.06em;padding:8px 18px;
   border:1px solid var(--line2);background:var(--panel);color:var(--ink-dim);cursor:pointer;
   text-transform:uppercase;transition:all .14s}
@@ -213,6 +236,25 @@ input.txt:focus{border-color:var(--gold-dim)}
     <button class="approve" id="approveBtn" disabled>✓ Approve</button>
     <textarea id="comment" placeholder="Comment on this move's effect — saved to the backlog, copied with it." disabled></textarea>
     <span class="sync" id="sync"></span>
+  </div>
+
+  <div class="rebake" id="rebake">
+    <div class="rbhead">
+      <b>Re-bake preview</b>
+      <select id="rbSheet" title="The sheets this move plays at this stage come first"></select>
+      <button class="btn on" id="rbSide" title="OLD and NEW next to each other">Side by side</button>
+      <button class="btn" id="rbTog" title="One pane; click it (or press B) to flip OLD / NEW">Toggle</button>
+      <select id="rbBg" title="Backdrop"><option value="dark">dark #0b0a0d</option><option value="mid">mid #3a3540</option><option value="chk">checker</option></select>
+      <button class="btn ghost" id="rbPause">Pause</button>
+      <span class="tag" id="rbInfo"></span>
+    </div>
+    <div class="rbpanes" id="rbPanes">
+      <div class="rbpane" id="rbOldPane"><div class="rblbl"><strong>OLD</strong> &middot; before the 2026-11-07 re-bake <span id="rbOldDim"></span></div>
+        <canvas id="rbOld" width="256" height="256"></canvas><div class="rbmeter" id="rbOldM"><div class="mx"></div><div class="mn"></div><div class="cap" title="luma cap 0.72"></div></div><div class="rbread" id="rbOldR">&mdash;</div></div>
+      <div class="rbpane" id="rbNewPane"><div class="rblbl"><strong>NEW</strong> &middot; assets/fx/bank <span id="rbNewDim"></span></div>
+        <canvas id="rbNew" width="256" height="256"></canvas><div class="rbmeter" id="rbNewM"><div class="mx"></div><div class="mn"></div><div class="cap" title="luma cap 0.72"></div></div><div class="rbread" id="rbNewR">&mdash;</div></div>
+    </div>
+    <div class="rbnote">The raw sheet, one frame at a time at 24 fps (the client's v1 rate), no tint tokens. Luma = Rec.709 0.2126 R + 0.7152 G + 0.0722 B on straight RGB, over px with alpha &ge; 1/255 of the playing frame. Red line = the bank's luma cap 0.72 (game-vfx &sect; 5; &le; 0.75 after the WebP round trip).</div>
   </div>
 
   <div class="gridhead">
@@ -738,6 +780,7 @@ function paintFxChip(){
                   : ('S'+st+' fallback · '+(v.VFX_Archetype||'—'));
   c.title=b ? (v['FX_S'+(/^ULT-/.test(selMove.Move_ID)?1:st)]||'') : 'no usable composition at this stage';
   paintAfxChip();
+  rbSync();
 }
 /* THE SOUND, beside the picture, in the same terms: the composition text itself, or the word
    UNAUTHORED in the warn colour. The old chip showed the placeholder taxonomy (`thud low`), which
@@ -926,11 +969,136 @@ function nextPending(){
 ['click','keydown','touchstart'].forEach(ev=>addEventListener(ev,()=>{
   DFMC_AFX.unlock(); DFMC_AFX_BANK.unlock();
 },{once:true}));
+/* ---------- RE-BAKE PREVIEW (2026-11-09, lane vfxpreview) ----------
+   OLD = the sheet before the 2026-11-07 re-bake (dfmc 28989e06^, copied as-is to workflow/vfx-old/);
+   NEW = assets/fx/bank/. Both are sliced by their OWN pixel size (Frames and Cols are unchanged by the
+   re-bake; the cell px is not), drawn into a canvas at 24 fps, and the playing frame is measured with
+   getImageData. Luma per frame is computed once per sheet and cached. */
+const RB={cap:0.72, oldDir:'workflow/vfx-old/', mode:'side', flip:'new', paused:false, f:0, t0:0,
+  id:null, img:{}, luma:{}, raf:0};
+const RB_OLD=new Set(['FX-001','FX-002','FX-003','FX-004','FX-005','FX-006','FX-007','FX-008','FX-009','FX-011',
+  'FX-012','FX-013','FX-014','FX-018','FX-019','FX-020','FX-021','FX-022','FX-023','FX-028','FX-029','FX-030',
+  'FX-031','FX-032','FX-033','FX-034','FX-035','FX-036','FX-037','FX-038','FX-039','FX-040','FX-041','FX-042',
+  'FX-043','FX-044','FX-045','FX-046','FX-047','FX-048','FX-049','FX-050','FX-051','FX-052','FX-053','FX-054',
+  'FX-055','FX-056']);
+function rbSrc(id,which){
+  const f=FXBANK[id]&&FXBANK[id].File; if(!f) return '';
+  return which==='old'&&RB_OLD.has(id) ? RB.oldDir+f.split('/').pop() : f;
+}
+function rbLoad(id,which){
+  const k=which+':'+id; if(RB.img[k]) return RB.img[k];
+  const im=new Image(); im.decoding='async';
+  im.onload=()=>{ rbMeasure(id,which,im); rbInfo(); };
+  im.src=rbSrc(id,which);
+  return (RB.img[k]=im);
+}
+function rbGeom(id,im){
+  const r=FXBANK[id], F=Math.max(1,+r.Frames||1), C=Math.max(1,+r.Cols||1), R=Math.ceil(F/C);
+  return {F:F,C:C,w:Math.floor(im.naturalWidth/C),h:Math.floor(im.naturalHeight/R)};
+}
+/* per frame: [maxLuma, meanLuma, share of lit px over the cap, lit px] */
+function rbMeasure(id,which,im){
+  const k=which+':'+id; if(RB.luma[k]) return;
+  const g=rbGeom(id,im), cv=document.createElement('canvas'); cv.width=g.w; cv.height=g.h;
+  const cx=cv.getContext('2d',{willReadFrequently:true}), out=[];
+  for(let f=0;f<g.F;f++){
+    cx.clearRect(0,0,g.w,g.h);
+    cx.drawImage(im,(f%g.C)*g.w,Math.floor(f/g.C)*g.h,g.w,g.h,0,0,g.w,g.h);
+    const d=cx.getImageData(0,0,g.w,g.h).data;
+    let mx=0,sum=0,n=0,over=0;
+    for(let i=0;i<d.length;i+=4){
+      if(d[i+3]<1) continue;
+      const L=(0.2126*d[i]+0.7152*d[i+1]+0.0722*d[i+2])/255;
+      if(L>mx) mx=L; sum+=L; n++; if(L>RB.cap) over++;
+    }
+    out.push([mx,n?sum/n:0,n?over/n:0,n]);
+  }
+  RB.luma[k]=out;
+}
+function rbSheetsForMove(){
+  if(!selMove) return [];
+  const b=bankFor(selMove.Move_ID,curStage()); if(!b) return [];
+  const ids=[]; b.parsed.layers.forEach(l=>{ if(FXBANK[l.id]&&ids.indexOf(l.id)<0) ids.push(l.id); });
+  return ids;
+}
+function rbOpt(id){
+  return '<option value="'+id+'">'+id+' · '+(FXBANK[id].Name||'')+(RB_OLD.has(id)?'':' (not re-baked)')+'</option>';
+}
+function rbSync(){
+  const sel=document.getElementById('rbSheet'); if(!sel||!Object.keys(FXBANK).length) return;
+  const mine=rbSheetsForMove(), all=Object.keys(FXBANK).sort();
+  sel.innerHTML=(mine.length?'<optgroup label="this move, S'+curStage()+'">'+mine.map(rbOpt).join('')+'</optgroup>':'')+
+    '<optgroup label="all sheets">'+all.filter(i=>mine.indexOf(i)<0).map(rbOpt).join('')+'</optgroup>';
+  rbPick(mine[0]||(RB.id&&FXBANK[RB.id]?RB.id:all[0]));
+}
+function rbPick(id){
+  if(!id) return; RB.id=id; RB.f=0; RB.t0=performance.now();
+  document.getElementById('rbSheet').value=id;
+  rbLoad(id,'old'); rbLoad(id,'new'); rbInfo();
+  if(!RB.raf) RB.raf=requestAnimationFrame(rbTick);
+}
+function rbInfo(){
+  const r=RB.id&&FXBANK[RB.id]; if(!r) return;
+  document.getElementById('rbInfo').textContent=r.Frames+' frames · '+r.Cols+' cols · contact '+(r.Contact_Frame||0)+
+    ' · '+(r.Group||'')+(RB_OLD.has(RB.id)?'':' · unchanged by the re-bake');
+  ['old','new'].forEach(w=>{
+    const im=RB.img[w+':'+RB.id], el=document.getElementById(w==='old'?'rbOldDim':'rbNewDim');
+    if(im&&im.naturalWidth){ const g=rbGeom(RB.id,im); el.textContent='('+g.w+'×'+g.h+' cell)'; } else el.textContent='';
+  });
+}
+function rbPaint(which,canvasId,readId,meterId){
+  const im=RB.img[which+':'+RB.id], cv=document.getElementById(canvasId), cx=cv.getContext('2d');
+  cx.clearRect(0,0,cv.width,cv.height);
+  if(!im||!im.complete||!im.naturalWidth){ document.getElementById(readId).textContent='loading…'; return; }
+  const g=rbGeom(RB.id,im), f=RB.f%g.F, s=Math.min(cv.width/g.w,cv.height/g.h);
+  const dw=g.w*s, dh=g.h*s;
+  cx.drawImage(im,(f%g.C)*g.w,Math.floor(f/g.C)*g.h,g.w,g.h,(cv.width-dw)/2,(cv.height-dh)/2,dw,dh);
+  const L=(RB.luma[which+':'+RB.id]||[])[f]; if(!L) return;
+  const m=document.getElementById(meterId);
+  m.querySelector('.mx').style.width=(L[0]*100).toFixed(1)+'%';
+  m.querySelector('.mn').style.left=(L[1]*100).toFixed(1)+'%';
+  const ov=L[0]>RB.cap;
+  document.getElementById(readId).innerHTML='f '+String(f).padStart(2,'0')+'/'+g.F+
+    (f===(+FXBANK[RB.id].Contact_Frame||0)?' <b>contact</b>':'')+
+    ' · max <span class="'+(ov?'over':'')+'">'+L[0].toFixed(3)+'</span> · mean '+L[1].toFixed(3)+
+    ' · cap '+RB.cap.toFixed(2)+' · &gt;cap '+(L[2]*100).toFixed(1)+'% of '+L[3]+' lit px';
+}
+function rbTick(now){
+  RB.raf=0; if(!RB.id) return;
+  if(!RB.paused){ const r=FXBANK[RB.id]; RB.f=Math.floor((now-RB.t0)/(1000/24))%Math.max(1,+r.Frames||1); }
+  const side=RB.mode==='side';
+  document.getElementById('rbOldPane').hidden=!side&&RB.flip!=='old';
+  document.getElementById('rbNewPane').hidden=!side&&RB.flip!=='new';
+  if(side||RB.flip==='old') rbPaint('old','rbOld','rbOldR','rbOldM');
+  if(side||RB.flip==='new') rbPaint('new','rbNew','rbNewR','rbNewM');
+  if(!document.hidden) RB.raf=requestAnimationFrame(rbTick);
+}
+function rbFlip(){ if(RB.mode==='tog') RB.flip=RB.flip==='new'?'old':'new'; }
+(function rbWire(){
+  const $=i=>document.getElementById(i);
+  $('rbSheet').addEventListener('change',e=>rbPick(e.target.value));
+  $('rbSide').addEventListener('click',()=>{ RB.mode='side'; $('rbSide').classList.add('on'); $('rbTog').classList.remove('on'); });
+  $('rbTog').addEventListener('click',()=>{ RB.mode='tog'; $('rbTog').classList.add('on'); $('rbSide').classList.remove('on'); });
+  $('rbOld').addEventListener('click',rbFlip); $('rbNew').addEventListener('click',rbFlip);
+  $('rbBg').addEventListener('change',e=>{ $('rbPanes').className='rbpanes rbbg-'+e.target.value; });
+  $('rbPause').addEventListener('click',()=>{ RB.paused=!RB.paused; $('rbPause').textContent=RB.paused?'Play':'Pause';
+    if(!RB.paused) RB.t0=performance.now()-RB.f*1000/24; });
+  document.addEventListener('keydown',e=>{
+    if(/^(INPUT|TEXTAREA|SELECT)$/.test((e.target&&e.target.tagName)||'')) return;
+    if(e.key==='b'||e.key==='B') rbFlip();
+    if(RB.paused&&RB.id&&(e.key==='ArrowRight'||e.key==='ArrowLeft')) RB.f=Math.max(0,RB.f+(e.key==='ArrowRight'?1:-1));
+  });
+  document.addEventListener('visibilitychange',()=>{ if(!document.hidden&&RB.id&&!RB.raf) RB.raf=requestAnimationFrame(rbTick); });
+})();
+
 paintKey();
 boot();
 </script>
 <section class="sp-wrap" id="changelog" style="padding:24px 28px;">
   <h2>Changelog</h2>
+  <p class="note">
+2026-11-09 &mdash; the re-bake preview (dfmc lane vfxpreview, carried order docs/next-run-2026-11-07.md item 4, part 5; the piece vfxleft left). A <strong>Re-bake preview</strong> panel under the review bar: per move VFX sheet, OLD (the sheet before the 2026-11-07 re-bake, dfmc <code>28989e06^</code>, the 48 changed sheets copied as-is to <code>workflow/vfx-old/</code>, 5.2 MB, team-only) against NEW (<code>assets/fx/bank/</code>), side by side or in one pane flipped by a click or the B key. The sheet list puts the selected move's sheets at its stage first, then all 49 (FX-010 is marked not re-baked and shows the same file twice). Each pane plays the raw sheet at the client's 24 fps, sliced by its own cell px (Frames and Cols unchanged, the cell is not: 128 &rarr; e.g. 208), on a dark / mid / checker backdrop, with Pause and arrow-key frame stepping. Under each pane a LUMA READOUT of the playing frame, measured in the page with canvas <code>getImageData</code> (Rec.709 on straight RGB, px with alpha &ge; 1/255, computed once per sheet and cached): max, mean, share of lit px over the cap, lit px, the contact frame marked, and a meter with the bank's luma cap 0.72 as a red line (game-vfx &sect; 5). Seen: FX-041 frame 20 old max 1.000 / mean 0.622 / 40.3 % over cap, new max 0.655 / mean 0.288 / 0 %. No client change.
+  </p>
   <p class="note">
 2026-11-09 &mdash; the VFX leftovers (dfmc-client lane vfxleft, carried order docs/next-run-2026-11-07.md item 4; audit rows 7-10). On dev. (1) ARENA EMBERS: the PvP Arena / Rankings embers were two screen-wide tiles of <code>img/pvp/embers.webp</code> scrolled rigidly (one speed, no flicker, the repeat showing, ~6.6 Mpx of animated layers, 2 MB decoded, 11.6 % of px over luma 0.72). Now ONE baked frame grid, <code>img/pvp/ember_strip.webp</code> (16 &times; 2 cells of 20 &times; 60: a flickering motion-stretched streak, hot and dim rows; <code>tools/make_arena_embers.py</code>, ember ramp warmed to amber, luma capped, grain, 2 px clear border, 15 KB, 150 KB decoded) on 82 pooled sprites: each rises on its own speed / sway / size / delay by transform + opacity (container-relative <code>cqh</code>) and steps the strip by transform <code>steps(16)</code>; the field leans in the wind; <code>.fx-pause</code> / <code>.fx-low</code> freeze them where they stand. <code>embers.webp</code> is retired. (2) VOID MIASMA: the drift set a new transform every frame on a full-screen screen-blend group for ~0.1 px of motion; it now steps at ~10 Hz (<code>steps()</code> per segment) on five smoothstep keyframes - the same path. The boss den's miasma (#1222) is a different effect (an edge mask) and was not touched. (3) HIT TINT: the 12 filter keyframes <code>vxRedHit</code> / <code>vxHit*</code> on a wrapper round the whole unit are gone; the tint is a pre-tinted copy of the sprite (the same sepia values as a STATIC filter, <code>VXTINT</code> in app.js) flashed by opacity (<code>vxTint</code> / <code>vxTintSoft</code>); the element still comes from <code>VXHIT_FOR</code>. Gate edit: <code>probe_vfxbank.mjs</code> (e) reads VXTINT. (4) BATTLE BOB: the idle bob is the CSS keyframe <code>floatyp</code> (the old pixel-snapped cosine as integer-px stops, step-end); the stage units no longer keep the rAF loop awake (rafNeeded false in an idle battle). Probe <code>tools/probe_vfxleft.py</code> 1/10 &rarr; 10/10. Not done in this lane: the re-bake preview toggle on this page (old/new + luma readout).
   </p>
