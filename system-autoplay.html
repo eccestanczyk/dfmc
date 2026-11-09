@@ -70,11 +70,11 @@
     <li>Turn N fires the ultimate on the first round at or after N where it can be used. If it cannot fire that round, autoplay takes a normal move and tries again every round after.</li>
     <li>Never Use never fires it.</li>
     <li>An attacking ultimate is aimed by your Targeting setting.</li>
-    <li>Your <a href="system-auto-pvp.html">Auto PvP</a> defense is piloted by the same picker with your own settings, so the timing you choose here is the timing attackers meet.</li>
+    <li>Your <a href="system-auto-pvp.html">Async PvP</a> defense is piloted by the same picker with your own settings, so the timing you choose here is the timing attackers meet.</li>
   </ul>
 
   <h2>The move picker &mdash; what autoplay chooses each round</h2>
-  <p>The same picker drives your autoplay and your Auto PvP defense. Per creature, per round, the first rule that applies wins:</p>
+  <p>The same picker drives your autoplay and your Async PvP defense. Per creature, per round, the first rule that applies wins:</p>
   <ol class="sp-rules">
     <li><strong>The ultimate</strong>, on the round the Ultimate setting names, retrying every round after.</li>
     <li><strong>Prioritize Debuffs</strong> (off by default): the first ready debuff that some living enemy does not have yet, aimed at one of the enemies still missing it. Lowest / Highest Health picks among them by current HP; Random rolls a fresh one each time.</li>
@@ -88,7 +88,7 @@
   <ul class="sp-rules">
     <li><strong>Cooldown beats damage</strong> so that a strong move with no cooldown cannot hog every round while your cooldown move never fires.</li>
     <li>A move on cooldown is never picked. A creature whose every move is on cooldown skips the round.</li>
-    <li><strong>If the target dies earlier in the round</strong>, the attack re-aims by the same Targeting rule among the enemies still standing. In Auto PvP both sides do this. In manual play, and for wild enemies, the attack falls to the first enemy in line instead.</li>
+    <li><strong>If the target dies earlier in the round</strong>, the attack re-aims by the same Targeting rule among the enemies still standing. In Async PvP both sides do this. In manual play, and for wild enemies, the attack falls to the first enemy in line instead.</li>
   </ul>
 
 </div>

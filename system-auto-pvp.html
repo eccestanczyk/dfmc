@@ -4,7 +4,7 @@
 <script src="pages-redirect.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Auto PVP — Herumon Tower</title>
+<title>Async PvP — Herumon Tower</title>
 <link rel="stylesheet" href="theme.css?v=4">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
@@ -12,18 +12,18 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 </head>
 <body>
-<div class="topbar"><h1 style="font-family:'Cinzel',serif;">AUTO PVP</h1></div>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">ASYNC PVP</h1></div>
 <div class="sp-wrap">
-  <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; Auto PVP</div>
-  <p class="sp-lead">Asynchronous ranked combat. You attack a <strong>snapshot</strong> of another player's team &mdash; they are not online, they do not need to be, and their side is piloted by their own autoplay settings. Opens at floor <span data-csv="unlocks.csv#System=auto_pvp#Floor">15</span>. <span data-csv="pvp_ladder.csv#apvp_daily#Value">3</span> attacks a day, matches decided by the server, standings cut every week for pay &mdash; there are no seasons, and nothing ever resets your rating. Competitive PvP (live, double-blind, both players present) lives on its <a href="system-pvp.html" style="color:var(--gold-bright)">own page</a>.</p>
+  <div class="sp-crumb"><a href="other-systems.html">Other Systems</a> &rsaquo; Async PvP</div>
+  <p class="sp-lead">Asynchronous ranked combat. You attack a <strong>snapshot</strong> of another player's team &mdash; they are not online, they do not need to be, and their side is piloted by their own autoplay settings. Opens at floor <span data-csv="unlocks.csv#System=auto_pvp#Floor">15</span>. <span data-csv="pvp_ladder.csv#apvp_daily#Value">3</span> attacks a day, matches decided by the server, standings cut every week for pay &mdash; there are no seasons, and nothing ever resets your rating. Real-time PvP (live, double-blind, both players present) lives on its <a href="system-pvp.html" style="color:var(--gold-bright)">own page</a>.</p>
 
   <h2>The loop</h2>
   <table>
     <tr><th>Step</th><th>What happens</th></tr>
-    <tr><td class="lbl">Queue</td><td>Spends one attack and starts a match. The server picks the defender from every player past the Auto PvP unlock floor with a saved defense whose power is within &times;1.25 of yours (widening to &times;1.5 and &times;2 when few are in range), or a <strong>TOWER ECHO</strong> house team built for your best floor when nobody is. An echo fight moves no rating and does not count toward the week&rsquo;s pay. Both teams and the battle seed are fixed at that moment, and a 20-minute clock starts.</td></tr>
-    <tr><td class="lbl">Fight</td><td>Manual or autoplay, exactly like any other battle. The defense is piloted by the defender&rsquo;s own autoplay settings. Every unit on both sides fights on &times;<span data-csv="stat_model.csv#APVP_HP_Mult#Value">1.5</span> its max HP, and Competitive&rsquo;s damage ramp applies.</td></tr>
+    <tr><td class="lbl">Queue</td><td>Spends one attack and starts a match. The server picks the defender from every player past the Async PvP unlock floor with a saved defense whose power is within &times;1.25 of yours (widening to &times;1.5 and &times;2 when few are in range), or a <strong>TOWER ECHO</strong> house team built for your best floor when nobody is. An echo fight moves no rating and does not count toward the week&rsquo;s pay. Both teams and the battle seed are fixed at that moment, and a 20-minute clock starts.</td></tr>
+    <tr><td class="lbl">Fight</td><td>Manual or autoplay, exactly like any other battle. The defense is piloted by the defender&rsquo;s own autoplay settings. Every unit on both sides fights on &times;<span data-csv="stat_model.csv#APVP_HP_Mult#Value">1.5</span> its max HP, and Real-time&rsquo;s damage ramp applies.</td></tr>
     <tr><td class="lbl">Finish</td><td>The server re-runs the whole fight from the fixed seed and teams and settles it; both ratings move. Every move starts the fight ready. <strong>A result the server&rsquo;s replay does not confirm is void:</strong> a roster that does not match the teams fixed at the queue, an illegal action, or a different winner &mdash; the attack stays spent, neither rating moves, the match counts for nobody, and it is flagged for review.</td></tr>
-    <tr><td class="lbl">Abandon</td><td>An Auto PvP fight does not resume after a reload or crash. A match left unfinished past 20 minutes settles as a <strong>defense win</strong>. The attack is not refunded &mdash; walking away from a bad matchup is not free.</td></tr>
+    <tr><td class="lbl">Abandon</td><td>An Async PvP fight does not resume after a reload or crash. A match left unfinished past 20 minutes settles as a <strong>defense win</strong>. The attack is not refunded &mdash; walking away from a bad matchup is not free.</td></tr>
   </table>
 
   <h2>Attacks</h2>
@@ -56,11 +56,11 @@
     <li><strong>Pay by rank</strong>: rank <span data-csv="pvp_weekly_pay.csv#Tier=champion&Item=incense#Rank_Max">1</span> gets incense and bait for <span data-csv="pvp_weekly_pay.csv#Tier=champion&Item=incense#Days">30</span> days plus the week&rsquo;s medal; ranks 2&ndash;<span data-csv="pvp_weekly_pay.csv#Tier=top3&Item=incense#Rank_Max">3</span> incense and bait for <span data-csv="pvp_weekly_pay.csv#Tier=top3&Item=incense#Days">30</span> days; ranks 4&ndash;<span data-csv="pvp_weekly_pay.csv#Tier=top10&Item=incense#Rank_Max">10</span> incense for <span data-csv="pvp_weekly_pay.csv#Tier=top10&Item=incense#Days">30</span> days. The items arrive as timed boons on the account.</li>
     <li><strong>You are paid only if you played that week</strong>: at least one attack of yours that settled and was not voided. Defending does not count, and neither does a fight against a Tower Echo.</li>
     <li><strong>A thin week pays half.</strong> A week in which fewer than <span data-csv="pvp_ladder.csv#thin_week_players#Value">10</span> players attacked pays <span data-csv="pvp_ladder.csv#thin_week_pay_mult#Value" data-csv-fmt="x100,%">50%</span> of every reward&rsquo;s days and no medal.</li>
-    <li><strong>Inactivity hides you</strong>: after <span data-csv="pvp_ladder.csv#hide_after_days#Value">7</span> days without a settled attack you leave the Auto PvP board. From idle week <span data-csv="pvp_ladder.csv#decay_from_week#Value">2</span> each full idle week takes <span data-csv="pvp_ladder.csv#decay_pct#Value" data-csv-fmt="%">5%</span> off your rating, down to the starting 1500 and never below it. Your next attack starts from the decayed rating and puts you back on the board.</li>
+    <li><strong>Inactivity hides you</strong>: after <span data-csv="pvp_ladder.csv#hide_after_days#Value">7</span> days without a settled attack you leave the Async PvP board. From idle week <span data-csv="pvp_ladder.csv#decay_from_week#Value">2</span> each full idle week takes <span data-csv="pvp_ladder.csv#decay_pct#Value" data-csv-fmt="%">5%</span> off your rating, down to the starting 1500 and never below it. Your next attack starts from the decayed rating and puts you back on the board.</li>
   </ul>
 
   <h2>Challenge by code</h2>
-  <p>From the arena header, <strong>CHALLENGE</strong> lets you hand one player a code. If they are waiting for you live, the two of you get a Competitive match; if they are not, entering their code is <strong>one Auto PvP attack on their defense</strong> &mdash; same ticket, same limit of two attacks per defender per day, the same server replay and settle. Details and every refusal line on <a href="system-pvp.html">PvP</a>.</p>
+  <p>From the arena header, <strong>CHALLENGE</strong> lets you hand one player a code. If they are waiting for you live, the two of you get a Real-time match; if they are not, entering their code is <strong>one Async PvP attack on their defense</strong> &mdash; same ticket, same limit of two attacks per defender per day, the same server replay and settle. Details and every refusal line on <a href="system-pvp.html">PvP</a>.</p>
 
   <h2>Fair play</h2>
   <p>Every result is decided by the server, not reported by the client. The fight you watch and the fight the server verifies run <strong>the same code over the same bytes</strong> &mdash; one battle engine, shipped to both sides.</p>
