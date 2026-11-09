@@ -427,6 +427,32 @@ ach_first_void_name,常識を超えたグレード,achievements.csv FIRST_VOID N
 ach_first_void_desc,初めてヴォイドグレードのクリーチャーを所持する。,achievements.csv FIRST_VOID Description
 ach_void_completionist_name,ヴォイド・コンプリート,achievements.csv VOID_COMPLETIONIST Name
 ach_void_completionist_desc,全ての進化ラインでヴォイドグレードのクリーチャーを所持する。,achievements.csv VOID_COMPLETIONIST Description
+ach_chemosh_summoned_name,魔王の応え,achievements.csv CHEMOSH_SUMMONED Name
+ach_chemosh_summoned_desc,魔王ケモシュを召喚する。,achievements.csv CHEMOSH_SUMMONED Description
+ach_breed_100_name,飼育場の番人,achievements.csv BREED_100 Name
+ach_breed_100_desc,タマゴを100個繁殖させる。,achievements.csv BREED_100 Description
+ach_breed_1000_name,千個目のタマゴ,achievements.csv BREED_1000 Name
+ach_breed_1000_desc,タマゴを1000個繁殖させる。,achievements.csv BREED_1000 Description
+ach_apvp_10_name,挑戦者,achievements.csv APVP_10 Name
+ach_apvp_10_desc,非同期PvPを10戦プレイする。,achievements.csv APVP_10 Description
+ach_apvp_100_name,歴戦の挑戦者,achievements.csv APVP_100 Name
+ach_apvp_100_desc,非同期PvPを100戦プレイする。,achievements.csv APVP_100 Description
+ach_rtpvp_10_name,真剣勝負,achievements.csv RTPVP_10 Name
+ach_rtpvp_10_desc,リアルタイムPvPを10戦プレイする。,achievements.csv RTPVP_10 Description
+ach_rtpvp_100_name,闘技場の古強者,achievements.csv RTPVP_100 Name
+ach_rtpvp_100_desc,リアルタイムPvPを100戦プレイする。,achievements.csv RTPVP_100 Description
+ach_devour_1_name,最初の饗宴,achievements.csv DEVOUR_1 Name
+ach_devour_1_desc,クリーチャーを1体捕食する。,achievements.csv DEVOUR_1 Description
+ach_devour_100_name,飽くなき者,achievements.csv DEVOUR_100 Name
+ach_devour_100_desc,クリーチャーを100体捕食する。,achievements.csv DEVOUR_100 Description
+ach_mutant_10_name,異形の蒐集,achievements.csv MUTANT_10 Name
+ach_mutant_10_desc,異なるミュータントを10体孵化させる。,achievements.csv MUTANT_10 Description
+ach_codex_100_name,最初の頁,achievements.csv CODEX_100 Name
+ach_codex_100_desc,コーデックスでクリーチャーを100体入手する。,achievements.csv CODEX_100 Description
+ach_resource_1_name,深淵の戦利品,achievements.csv RESOURCE_1 Name
+ach_resource_1_desc,資源ダンジョンのレベルを1つクリアする。,achievements.csv RESOURCE_1 Description
+ach_resource_10_name,採掘の達人,achievements.csv RESOURCE_10 Name
+ach_resource_10_desc,資源ダンジョンのレベルを10クリアする。,achievements.csv RESOURCE_10 Description
 shop_packs_title,Wraithgoldパック,app: premium shop: heading of the real-money pack grid (S7)
 shop_store_unreachable,ストアに接続できませんでした。,app: premium shop: /api/store/catalogue failed
 shop_store_loading,ストアを読み込み中...,app: premium shop: pack grid loading

@@ -427,6 +427,32 @@ ach_first_void_name,Ein Grad darüber hinaus,achievements.csv FIRST_VOID Name
 ach_first_void_desc,Besitze deine erste Kreatur vom Grad Leere.,achievements.csv FIRST_VOID Description
 ach_void_completionist_name,Leere-Komplettist,achievements.csv VOID_COMPLETIONIST Name
 ach_void_completionist_desc,Besitze eine Kreatur vom Grad Leere aus jeder Entwicklungslinie.,achievements.csv VOID_COMPLETIONIST Description
+ach_chemosh_summoned_name,Der Dämonenfürst antwortet,achievements.csv CHEMOSH_SUMMONED Name
+ach_chemosh_summoned_desc,Beschwöre Dämonenfürst Chemosh.,achievements.csv CHEMOSH_SUMMONED Description
+ach_breed_100_name,Gehegehüter,achievements.csv BREED_100 Name
+ach_breed_100_desc,Züchte 100 Eier.,achievements.csv BREED_100 Description
+ach_breed_1000_name,Das tausendste Ei,achievements.csv BREED_1000 Name
+ach_breed_1000_desc,Züchte 1000 Eier.,achievements.csv BREED_1000 Description
+ach_apvp_10_name,Herausforderer,achievements.csv APVP_10 Name
+ach_apvp_10_desc,Spiele 10 Async-PvP-Kämpfe.,achievements.csv APVP_10 Description
+ach_apvp_100_name,Erfahrener Herausforderer,achievements.csv APVP_100 Name
+ach_apvp_100_desc,Spiele 100 Async-PvP-Kämpfe.,achievements.csv APVP_100 Description
+ach_rtpvp_10_name,Scharfer Stahl,achievements.csv RTPVP_10 Name
+ach_rtpvp_10_desc,Spiele 10 Echtzeit-PvP-Kämpfe.,achievements.csv RTPVP_10 Description
+ach_rtpvp_100_name,Arenaveteran,achievements.csv RTPVP_100 Name
+ach_rtpvp_100_desc,Spiele 100 Echtzeit-PvP-Kämpfe.,achievements.csv RTPVP_100 Description
+ach_devour_1_name,Erstes Festmahl,achievements.csv DEVOUR_1 Name
+ach_devour_1_desc,Verschlinge eine Kreatur.,achievements.csv DEVOUR_1 Description
+ach_devour_100_name,Unersättlich,achievements.csv DEVOUR_100 Name
+ach_devour_100_desc,Verschlinge 100 Kreaturen.,achievements.csv DEVOUR_100 Description
+ach_mutant_10_name,Abartige Sammlung,achievements.csv MUTANT_10 Name
+ach_mutant_10_desc,Brüte 10 verschiedene Mutanten aus.,achievements.csv MUTANT_10 Description
+ach_codex_100_name,Erste Seiten,achievements.csv CODEX_100 Name
+ach_codex_100_desc,Erhalte 100 Kreaturen im Kodex.,achievements.csv CODEX_100 Description
+ach_resource_1_name,Beute der Tiefe,achievements.csv RESOURCE_1 Name
+ach_resource_1_desc,Schließe eine Stufe eines Ressourcen-Dungeons ab.,achievements.csv RESOURCE_1 Description
+ach_resource_10_name,Meister des Steinbruchs,achievements.csv RESOURCE_10 Name
+ach_resource_10_desc,Schließe 10 Stufen von Ressourcen-Dungeons ab.,achievements.csv RESOURCE_10 Description
 shop_packs_title,WRAITHGOLD-PAKETE,app: premium shop: heading of the real-money pack grid (S7)
 shop_store_unreachable,Shop nicht erreichbar.,app: premium shop: /api/store/catalogue failed
 shop_store_loading,Shop wird geladen...,app: premium shop: pack grid loading

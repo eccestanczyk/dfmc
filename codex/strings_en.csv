@@ -427,6 +427,32 @@ ach_first_void_name,A Grade Beyond,achievements.csv FIRST_VOID Name
 ach_first_void_desc,Own your first Void-grade creature.,achievements.csv FIRST_VOID Description
 ach_void_completionist_name,Void Completionist,achievements.csv VOID_COMPLETIONIST Name
 ach_void_completionist_desc,Own a Void-grade creature of every evolutionary line.,achievements.csv VOID_COMPLETIONIST Description
+ach_chemosh_summoned_name,The Demon Lord Answers,achievements.csv CHEMOSH_SUMMONED Name
+ach_chemosh_summoned_desc,Summon Demon Lord Chemosh.,achievements.csv CHEMOSH_SUMMONED Description
+ach_breed_100_name,Pen Keeper,achievements.csv BREED_100 Name
+ach_breed_100_desc,Breed 100 eggs.,achievements.csv BREED_100 Description
+ach_breed_1000_name,The Thousandth Egg,achievements.csv BREED_1000 Name
+ach_breed_1000_desc,Breed 1000 eggs.,achievements.csv BREED_1000 Description
+ach_apvp_10_name,Challenger,achievements.csv APVP_10 Name
+ach_apvp_10_desc,Play 10 Async PvP matches.,achievements.csv APVP_10 Description
+ach_apvp_100_name,Seasoned Challenger,achievements.csv APVP_100 Name
+ach_apvp_100_desc,Play 100 Async PvP matches.,achievements.csv APVP_100 Description
+ach_rtpvp_10_name,Live Steel,achievements.csv RTPVP_10 Name
+ach_rtpvp_10_desc,Play 10 Real-time PvP matches.,achievements.csv RTPVP_10 Description
+ach_rtpvp_100_name,Arena Veteran,achievements.csv RTPVP_100 Name
+ach_rtpvp_100_desc,Play 100 Real-time PvP matches.,achievements.csv RTPVP_100 Description
+ach_devour_1_name,First Feast,achievements.csv DEVOUR_1 Name
+ach_devour_1_desc,Devour a creature.,achievements.csv DEVOUR_1 Description
+ach_devour_100_name,Insatiable,achievements.csv DEVOUR_100 Name
+ach_devour_100_desc,Devour 100 creatures.,achievements.csv DEVOUR_100 Description
+ach_mutant_10_name,Aberrant Collection,achievements.csv MUTANT_10 Name
+ach_mutant_10_desc,Hatch 10 different mutants.,achievements.csv MUTANT_10 Description
+ach_codex_100_name,First Pages,achievements.csv CODEX_100 Name
+ach_codex_100_desc,Acquire 100 creatures in the Codex.,achievements.csv CODEX_100 Description
+ach_resource_1_name,Spoils of the Deep,achievements.csv RESOURCE_1 Name
+ach_resource_1_desc,Clear a resource dungeon level.,achievements.csv RESOURCE_1 Description
+ach_resource_10_name,Quarry Master,achievements.csv RESOURCE_10 Name
+ach_resource_10_desc,Clear 10 resource dungeon levels.,achievements.csv RESOURCE_10 Description
 shop_packs_title,WRAITHGOLD PACKS,app: premium shop: heading of the real-money pack grid (S7)
 shop_store_unreachable,Could not reach the store.,app: premium shop: /api/store/catalogue failed
 shop_store_loading,Loading the store...,app: premium shop: pack grid loading

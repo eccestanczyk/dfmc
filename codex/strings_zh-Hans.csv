@@ -427,6 +427,32 @@ ach_first_void_name,超越品级,achievements.csv FIRST_VOID Name
 ach_first_void_desc,获得你的第一只虚空品级生物。,achievements.csv FIRST_VOID Description
 ach_void_completionist_name,虚空收藏家,achievements.csv VOID_COMPLETIONIST Name
 ach_void_completionist_desc,拥有每条进化路线的虚空品级生物。,achievements.csv VOID_COMPLETIONIST Description
+ach_chemosh_summoned_name,魔王回应,achievements.csv CHEMOSH_SUMMONED Name
+ach_chemosh_summoned_desc,召唤魔王基抹士。,achievements.csv CHEMOSH_SUMMONED Description
+ach_breed_100_name,育种场守护者,achievements.csv BREED_100 Name
+ach_breed_100_desc,繁育 100 枚蛋。,achievements.csv BREED_100 Description
+ach_breed_1000_name,第一千枚蛋,achievements.csv BREED_1000 Name
+ach_breed_1000_desc,繁育 1000 枚蛋。,achievements.csv BREED_1000 Description
+ach_apvp_10_name,挑战者,achievements.csv APVP_10 Name
+ach_apvp_10_desc,进行 10 场异步 PvP 对战。,achievements.csv APVP_10 Description
+ach_apvp_100_name,身经百战的挑战者,achievements.csv APVP_100 Name
+ach_apvp_100_desc,进行 100 场异步 PvP 对战。,achievements.csv APVP_100 Description
+ach_rtpvp_10_name,真刀真枪,achievements.csv RTPVP_10 Name
+ach_rtpvp_10_desc,进行 10 场实时 PvP 对战。,achievements.csv RTPVP_10 Description
+ach_rtpvp_100_name,竞技场老兵,achievements.csv RTPVP_100 Name
+ach_rtpvp_100_desc,进行 100 场实时 PvP 对战。,achievements.csv RTPVP_100 Description
+ach_devour_1_name,初次盛宴,achievements.csv DEVOUR_1 Name
+ach_devour_1_desc,吞噬一只生物。,achievements.csv DEVOUR_1 Description
+ach_devour_100_name,贪得无厌,achievements.csv DEVOUR_100 Name
+ach_devour_100_desc,吞噬 100 只生物。,achievements.csv DEVOUR_100 Description
+ach_mutant_10_name,异形收藏,achievements.csv MUTANT_10 Name
+ach_mutant_10_desc,孵化 10 种不同的变异生物。,achievements.csv MUTANT_10 Description
+ach_codex_100_name,最初的篇章,achievements.csv CODEX_100 Name
+ach_codex_100_desc,在图鉴中收录 100 种生物。,achievements.csv CODEX_100 Description
+ach_resource_1_name,深处的战利品,achievements.csv RESOURCE_1 Name
+ach_resource_1_desc,通关一个资源地下城层级。,achievements.csv RESOURCE_1 Description
+ach_resource_10_name,采石大师,achievements.csv RESOURCE_10 Name
+ach_resource_10_desc,通关 10 个资源地下城层级。,achievements.csv RESOURCE_10 Description
 shop_packs_title,WRAITHGOLD 礼包,app: premium shop: heading of the real-money pack grid (S7)
 shop_store_unreachable,无法连接商店。,app: premium shop: /api/store/catalogue failed
 shop_store_loading,商店加载中...,app: premium shop: pack grid loading

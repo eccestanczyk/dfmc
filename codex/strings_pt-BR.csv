@@ -427,6 +427,32 @@ ach_first_void_name,Um Grau Além,achievements.csv FIRST_VOID Name
 ach_first_void_desc,Tenha sua primeira criatura de grau Vazio.,achievements.csv FIRST_VOID Description
 ach_void_completionist_name,Completista do Vazio,achievements.csv VOID_COMPLETIONIST Name
 ach_void_completionist_desc,Tenha uma criatura de grau Vazio de cada linha evolutiva.,achievements.csv VOID_COMPLETIONIST Description
+ach_chemosh_summoned_name,O Lorde Demônio Responde,achievements.csv CHEMOSH_SUMMONED Name
+ach_chemosh_summoned_desc,Invoque o Lorde Demônio Chemosh.,achievements.csv CHEMOSH_SUMMONED Description
+ach_breed_100_name,Guardião do Cercado,achievements.csv BREED_100 Name
+ach_breed_100_desc,Crie 100 ovos.,achievements.csv BREED_100 Description
+ach_breed_1000_name,O Milésimo Ovo,achievements.csv BREED_1000 Name
+ach_breed_1000_desc,Crie 1000 ovos.,achievements.csv BREED_1000 Description
+ach_apvp_10_name,Desafiante,achievements.csv APVP_10 Name
+ach_apvp_10_desc,Jogue 10 partidas de PvP Assíncrono.,achievements.csv APVP_10 Description
+ach_apvp_100_name,Desafiante Experiente,achievements.csv APVP_100 Name
+ach_apvp_100_desc,Jogue 100 partidas de PvP Assíncrono.,achievements.csv APVP_100 Description
+ach_rtpvp_10_name,Aço Vivo,achievements.csv RTPVP_10 Name
+ach_rtpvp_10_desc,Jogue 10 partidas de PvP em Tempo Real.,achievements.csv RTPVP_10 Description
+ach_rtpvp_100_name,Veterano da Arena,achievements.csv RTPVP_100 Name
+ach_rtpvp_100_desc,Jogue 100 partidas de PvP em Tempo Real.,achievements.csv RTPVP_100 Description
+ach_devour_1_name,Primeiro Banquete,achievements.csv DEVOUR_1 Name
+ach_devour_1_desc,Devore uma criatura.,achievements.csv DEVOUR_1 Description
+ach_devour_100_name,Insaciável,achievements.csv DEVOUR_100 Name
+ach_devour_100_desc,Devore 100 criaturas.,achievements.csv DEVOUR_100 Description
+ach_mutant_10_name,Coleção Aberrante,achievements.csv MUTANT_10 Name
+ach_mutant_10_desc,Choque 10 mutantes diferentes.,achievements.csv MUTANT_10 Description
+ach_codex_100_name,Primeiras Páginas,achievements.csv CODEX_100 Name
+ach_codex_100_desc,Adquira 100 criaturas no Códex.,achievements.csv CODEX_100 Description
+ach_resource_1_name,Espólios das Profundezas,achievements.csv RESOURCE_1 Name
+ach_resource_1_desc,Conclua um nível de masmorra de recursos.,achievements.csv RESOURCE_1 Description
+ach_resource_10_name,Mestre da Pedreira,achievements.csv RESOURCE_10 Name
+ach_resource_10_desc,Conclua 10 níveis de masmorras de recursos.,achievements.csv RESOURCE_10 Description
 shop_packs_title,PACOTES DE WRAITHGOLD,app: premium shop: heading of the real-money pack grid (S7)
 shop_store_unreachable,Não foi possível acessar a loja.,app: premium shop: /api/store/catalogue failed
 shop_store_loading,Carregando a loja...,app: premium shop: pack grid loading

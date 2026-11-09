@@ -3,8 +3,21 @@ FLOOR_10,FLOOR_10,The First Gate,badge,FLOOR_10,0,Reach floor 10 of the Tower.
 FLOOR_30,FLOOR_30,Thirty Up,badge,FLOOR_30,0,Reach floor 30 of the Tower.
 FLOOR_60,FLOOR_60,Past the Halfway Mark,badge,FLOOR_60,0,Reach floor 60 of the Tower.
 FLOOR_100,FLOOR_100,The Summit That Was,badge,FLOOR_100,0,Reach floor 100 of the Tower.
-FLOOR_120,FLOOR_120,The Top of the Void,badge,FLOOR_120,1,Reach floor 120 - the top of the Void Apex.
+FLOOR_120,FLOOR_120,The Top of the Void,badge,FLOOR_120,0,Reach floor 120 - the top of the Void Apex.
 CODEX_300,CODEX_300,Field Notes,codex,300,0,Acquire 300 creatures in the Codex.
-MUTANT_HATCH,MUTANT_HATCH,Not In The Codex,mutant_hatch,,1,Hatch a mutant.
+MUTANT_HATCH,MUTANT_HATCH,Not In The Codex,mutant_hatch,,0,Hatch a mutant.
 FIRST_VOID,FIRST_VOID,A Grade Beyond,void_grade,,0,Own your first Void-grade creature.
-VOID_COMPLETIONIST,VOID_COMPLETIONIST,Void Completionist,badge,VOID_COMPLETIONIST,1,Own a Void-grade creature of every evolutionary line.
+VOID_COMPLETIONIST,VOID_COMPLETIONIST,Void Completionist,badge,VOID_COMPLETIONIST,0,Own a Void-grade creature of every evolutionary line.
+CHEMOSH_SUMMONED,CHEMOSH_SUMMONED,The Demon Lord Answers,flag,chemosh,0,Summon Demon Lord Chemosh.
+BREED_100,BREED_100,Pen Keeper,count,eggs_bred:100,0,Breed 100 eggs.
+BREED_1000,BREED_1000,The Thousandth Egg,count,eggs_bred:1000,0,Breed 1000 eggs.
+APVP_10,APVP_10,Challenger,count,apvp:10,0,Play 10 Async PvP matches.
+APVP_100,APVP_100,Seasoned Challenger,count,apvp:100,0,Play 100 Async PvP matches.
+RTPVP_10,RTPVP_10,Live Steel,count,rtpvp:10,0,Play 10 Real-time PvP matches.
+RTPVP_100,RTPVP_100,Arena Veteran,count,rtpvp:100,0,Play 100 Real-time PvP matches.
+DEVOUR_1,DEVOUR_1,First Feast,count,devours:1,0,Devour a creature.
+DEVOUR_100,DEVOUR_100,Insatiable,count,devours:100,0,Devour 100 creatures.
+MUTANT_10,MUTANT_10,Aberrant Collection,count,mutants:10,0,Hatch 10 different mutants.
+CODEX_100,CODEX_100,First Pages,codex,100,0,Acquire 100 creatures in the Codex.
+RESOURCE_1,RESOURCE_1,Spoils of the Deep,count,rd_clears:1,0,Clear a resource dungeon level.
+RESOURCE_10,RESOURCE_10,Quarry Master,count,rd_clears:10,0,Clear 10 resource dungeon levels.
