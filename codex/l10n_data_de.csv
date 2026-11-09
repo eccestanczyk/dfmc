@@ -3590,7 +3590,7 @@ Allies +2% Defense.,Verbündete +2% Verteidigung.,soul
 Allies' healing received +2%.,Erhaltene Heilung der Verbündeten +2%.,soul
 +5% HP.,+5% LP.,soul
 Your damage-over-time effects deal +6%.,Deine Dauerschaden-Effekte verursachen +6% Schaden.,soul
-+6% Attack vs targets with reduced Speed stages.,+6% Angriff gegen Ziele mit gesenkten Tempostufen.,soul
++6% Attack vs targets with reduced Speed.,+6% Angriff gegen Ziele mit gesenktem Tempo.,soul
 +6% HP.,+6% LP.,soul
 This item's Defense contribution ×1.40.,Verteidigungsbeitrag dieses Gegenstands ×1.40.,soul
 Allies deal +5% on the first turn.,Verbündete verursachen in der ersten Runde +5% Schaden.,soul
@@ -3659,8 +3659,8 @@ Allies' damage-over-time effects last +1 turn.,Dauerschaden-Effekte der Verbünd
 +5% Defense while you have not attacked this turn.,"+5% Verteidigung, solange du in dieser Runde nicht angegriffen hast.",soul
 Your damage-over-time effects last +1 turn.,Deine Dauerschaden-Effekte halten +1 Runde länger.,soul
 Fungal allies deal +6%.,Verbündete vom Typ Pilz verursachen +6% Schaden.,soul
-+5% Attack vs targets with reduced Speed stages.,+5% Angriff gegen Ziele mit gesenkten Tempostufen.,soul
-Allies deal +9% vs targets with reduced Speed stages.,Verbündete verursachen +9% Schaden gegen Ziele mit gesenkten Tempostufen.,soul
++5% Attack vs targets with reduced Speed.,+5% Angriff gegen Ziele mit gesenktem Tempo.,soul
+Allies deal +9% vs targets with reduced Speed.,Verbündete verursachen +9% Schaden gegen Ziele mit gesenktem Tempo.,soul
 Your attacks that heal you restore +10% more.,"Deine Attacken, die dich heilen, stellen +10% mehr LP her.",soul
 Your damage-over-time effects are +7% more potent.,Deine Dauerschaden-Effekte sind +7% stärker.,soul
 +6% Attack on the first turn.,+6% Angriff in der ersten Runde.,soul
@@ -3694,7 +3694,7 @@ Your multi-hit moves deal +9%.,Deine Mehrfachtreffer-Attacken verursachen +9% Sc
 Allies' Attack and Defense debuffs on enemies are +10% more potent.,Angriffs- und Verteidigungs-Debuffs der Verbündeten auf Gegner sind +10% stärker.,soul
 Your Speed-stage effects last +1 turn.,Deine Tempostufen-Effekte halten +1 Runde länger.,soul
 Allies deal +6% on the first turn.,Verbündete verursachen in der ersten Runde +6% Schaden.,soul
-+8% Attack vs targets with reduced Speed stages.,+8% Angriff gegen Ziele mit gesenkten Tempostufen.,soul
++8% Attack vs targets with reduced Speed.,+8% Angriff gegen Ziele mit gesenktem Tempo.,soul
 Elemental and Dragon allies deal +7%.,Verbündete der Typen Elementar und Drache verursachen +7% Schaden.,soul
 +5% Attack the turn after gaining a Defense buff.,+5% Angriff in der Runde nach einem Verteidigungs-Buff.,soul
 Allies take -9% damage from damage-over-time.,Verbündete erleiden -9% Schaden durch Dauerschaden.,soul
@@ -3718,7 +3718,7 @@ Your Attack debuffs are +7% more potent.,Deine Angriffs-Debuffs sind +7% stärke
 The first hit against you each battle deals -10%.,Der erste Treffer gegen dich in jedem Kampf verursacht -10% Schaden.,soul
 +6% Attack vs targets with reduced Attack.,+6% Angriff gegen Ziele mit gesenktem Angriff.,soul
 Allies' debuffs expire 20% sooner.,Debuffs der Verbündeten laufen 20% früher aus.,soul
-+7% Attack vs targets with reduced Speed stages.,+7% Angriff gegen Ziele mit gesenkten Tempostufen.,soul
++7% Attack vs targets with reduced Speed.,+7% Angriff gegen Ziele mit gesenktem Tempo.,soul
 Fungal allies +7% Defense and deal +5%.,Verbündete vom Typ Pilz +7% Verteidigung und verursachen +5% Schaden.,soul
 +8% Attack vs debuffed targets.,+8% Angriff gegen Ziele mit Debuffs.,soul
 Your multi-hit and grip moves deal +10%.,Deine Mehrfachtreffer- und Griff-Attacken verursachen +10% Schaden.,soul
