@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<base href="../../../"><!-- workflow/changelogs/tutorials/ (2026-11-05): never published. Links resolve from the public page's folder. -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Floors and the floor map &mdash; changelog &amp; team notes</title>
+<link rel="stylesheet" href="theme.css?v=4">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">FLOORS AND THE FLOOR MAP &mdash; TEAM NOTES</h1></div>
+<div class="sp-wrap">
+<p class="sp-lead">The team record for the public page <a href="tutorials/floors.html">tutorials/floors.html</a>: its dated changelog (newest first) and team notes. Lanes add each change here, never on the public page. Shape: <code>python tools/codex_page.py --changelog tutorials/floors.html</code> in dfmc-client.</p>
+
+  <h2>Changelog</h2>
+  <ul class="sp-rules">
+    <li><strong>2026-11-09 &mdash; the floor creatures breathe when still and walk when they roam (ui#1224, first sentence; dfmc-client bug run chunk flooranim). On dev.</strong>
+      D 2026-11-08: when idle they should breathe, when moving they should walk, &ldquo;same techniques we use on herumon dungeon&rdquo;. Before, a floor creature only
+      slid across the map with a slow 4.5&nbsp;px hover bob, still or moving alike. Now each creature&rsquo;s sprite sits in one wrapper (<code>.fmob</code>) that runs the
+      Dungeon&rsquo;s actor technique (its <code>hud-idle-s</code> / <code>hud-gait</code>) as CSS keyframes: <code>fmBreath</code> (3.4&nbsp;s, a 1.4&nbsp;% chest rise from
+      the feet) while the roam sim holds it, <code>fmWalk</code> (.62&nbsp;s, two steps: a 2.6&nbsp;% bounce, a 1.4&deg; lean each way, a squash on the plant) while it moves.
+      Transform only, anchored at the feet; each creature&rsquo;s phase is its own negative delay. The roam sim keeps the state: <code>gaitTick</code> reads the actor&rsquo;s
+      speed with hysteresis and swaps one class on a change, no per-frame style write; it takes any <code>{vx,vy}</code> actor and wrapper, so the floor avatar (the
+      report&rsquo;s later sentences, a later chunk) reuses it. Low VFX / Reduce Motion / Battery saver / prefers-reduced-motion: <code>fm-still</code>, the sprite holds still.
+      Probe <code>tools/probe_flooranim.py</code> 1/7 on the old tree, 7/7 after.
+      At release: no player-page edit (the page already says the creatures roam the floor; this is how they look doing it).</li>
+  </ul>
+</div>
+<script src="nav.js"></script>
+</body>
+</html>
