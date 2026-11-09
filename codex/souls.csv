@@ -15,7 +15,7 @@ S-BRAMBLEFAWN-HEAD,BRAMBLEFAWN,Head,Team,Common,Allies' healing received +2%.
 S-BRAMBLEFAWN-CHEST,BRAMBLEFAWN,Chest,Personal,Common,+5% HP.
 S-BRAMBLEFAWN-GLOVES,BRAMBLEFAWN,Gloves,Personal,Common,Your damage-over-time effects deal +6%.
 S-BRAMBLEFAWN-FEET,BRAMBLEFAWN,Feet,Local,Common,This item's Defense contribution ×1.35.
-S-NIGHTMARE-HEAD,NIGHTMARE,Head,Personal,Uncommon,+6% Attack vs targets with reduced Speed stages.
+S-NIGHTMARE-HEAD,NIGHTMARE,Head,Personal,Uncommon,+6% Attack vs targets with reduced Speed.
 S-NIGHTMARE-CHEST,NIGHTMARE,Chest,Personal,Uncommon,+6% HP.
 S-NIGHTMARE-GLOVES,NIGHTMARE,Gloves,Local,Uncommon,This item's Defense contribution ×1.40.
 S-NIGHTMARE-FEET,NIGHTMARE,Feet,Team,Uncommon,Allies deal +5% on the first turn.
@@ -131,10 +131,10 @@ S-SPOREFLY-HEAD,SPOREFLY,Head,Personal,Common,Your damage-over-time effects deal
 S-SPOREFLY-CHEST,SPOREFLY,Chest,Personal,Common,+5% HP.
 S-SPOREFLY-GLOVES,SPOREFLY,Gloves,Personal,Common,Your damage-over-time effects last +1 turn.
 S-SPOREFLY-FEET,SPOREFLY,Feet,Team,Common,Fungal allies deal +6%.
-S-ARACHNE-HEAD,ARACHNE,Head,Personal,Uncommon,+5% Attack vs targets with reduced Speed stages.
+S-ARACHNE-HEAD,ARACHNE,Head,Personal,Uncommon,+5% Attack vs targets with reduced Speed.
 S-ARACHNE-CHEST,ARACHNE,Chest,Local,Uncommon,This armour's Defense ×1.40.
 S-ARACHNE-GLOVES,ARACHNE,Gloves,Personal,Uncommon,Your damage-over-time effects deal +7%.
-S-ARACHNE-FEET,ARACHNE,Feet,Team,Uncommon,Allies deal +9% vs targets with reduced Speed stages.
+S-ARACHNE-FEET,ARACHNE,Feet,Team,Uncommon,Allies deal +9% vs targets with reduced Speed.
 S-CARNIFORA-HEAD,CARNIFORA,Head,Personal,Uncommon,Healing you receive +10%.
 S-CARNIFORA-CHEST,CARNIFORA,Chest,Local,Uncommon,This armour's Defense ×1.40.
 S-CARNIFORA-GLOVES,CARNIFORA,Gloves,Personal,Uncommon,Your attacks that heal you restore +10% more.
@@ -217,7 +217,7 @@ S-ROC-GLOVES,ROC,Gloves,Local,Uncommon,This item's Defense contribution ×1.40.
 S-ROC-FEET,ROC,Feet,Team,Uncommon,Allies' first hit each battle deals +9%.
 S-GALEHOWL-HEAD,GALEHOWL,Head,Personal,Uncommon,Your Speed-stage debuffs last +1 turn.
 S-GALEHOWL-CHEST,GALEHOWL,Chest,Personal,Uncommon,+6% HP.
-S-GALEHOWL-GLOVES,GALEHOWL,Gloves,Personal,Uncommon,+5% Attack vs targets with reduced Speed stages.
+S-GALEHOWL-GLOVES,GALEHOWL,Gloves,Personal,Uncommon,+5% Attack vs targets with reduced Speed.
 S-GALEHOWL-FEET,GALEHOWL,Feet,Team,Uncommon,Avian allies take -5% damage.
 S-VOLTMANTLE-HEAD,VOLTMANTLE,Head,Personal,Rare,+5% Attack on the first turn.
 S-VOLTMANTLE-CHEST,VOLTMANTLE,Chest,Local,Rare,This armour's Defense ×1.45.
@@ -235,7 +235,7 @@ S-ANZU-HEAD,ANZU,Head,Personal,Super Rare,+7% Attack on the first turn.
 S-ANZU-CHEST,ANZU,Chest,Personal,Super Rare,+8% HP.
 S-ANZU-GLOVES,ANZU,Gloves,Personal,Super Rare,Your Speed-stage effects last +1 turn.
 S-ANZU-FEET,ANZU,Feet,Team,Super Rare,Allies deal +6% on the first turn.
-S-STORMFATHER-HEAD,STORMFATHER,Head,Personal,Super Super Rare,+8% Attack vs targets with reduced Speed stages.
+S-STORMFATHER-HEAD,STORMFATHER,Head,Personal,Super Super Rare,+8% Attack vs targets with reduced Speed.
 S-STORMFATHER-CHEST,STORMFATHER,Chest,Local,Super Super Rare,This armour's Defense ×1.60.
 S-STORMFATHER-GLOVES,STORMFATHER,Gloves,Local,Super Super Rare,This item's Defense contribution ×1.60.
 S-STORMFATHER-FEET,STORMFATHER,Feet,Team,Super Super Rare,Elemental and Dragon allies deal +7%.
@@ -257,8 +257,8 @@ S-LICHFROG-GLOVES,LICHFROG,Gloves,Personal,Uncommon,Your heals restore +10% more
 S-LICHFROG-FEET,LICHFROG,Feet,Team,Uncommon,Undead and Amphibian allies +5% Defense.
 S-WISPMAW-HEAD,WISPMAW,Head,Personal,Uncommon,Your Speed-stage debuffs are +7% more potent.
 S-WISPMAW-CHEST,WISPMAW,Chest,Personal,Uncommon,+6% HP.
-S-WISPMAW-GLOVES,WISPMAW,Gloves,Personal,Uncommon,+6% Attack vs targets with reduced Speed stages.
-S-WISPMAW-FEET,WISPMAW,Feet,Team,Uncommon,Allies deal +9% vs targets with reduced Speed stages.
+S-WISPMAW-GLOVES,WISPMAW,Gloves,Personal,Uncommon,+6% Attack vs targets with reduced Speed.
+S-WISPMAW-FEET,WISPMAW,Feet,Team,Uncommon,Allies deal +9% vs targets with reduced Speed.
 S-GRENDEL-HEAD,GRENDEL,Head,Personal,Uncommon,+6% Defense.
 S-GRENDEL-CHEST,GRENDEL,Chest,Local,Uncommon,This armour's Defense ×1.40.
 S-GRENDEL-GLOVES,GRENDEL,Gloves,Personal,Uncommon,+6% Attack while below 50% HP.
@@ -269,7 +269,7 @@ S-DRAUGR-GLOVES,DRAUGR,Gloves,Personal,Rare,Enemy Attack debuffs you apply are +
 S-DRAUGR-FEET,DRAUGR,Feet,Team,Rare,Allies take -4% damage from Beast enemies.
 S-GALLOWVINE-HEAD,GALLOWVINE,Head,Personal,Rare,Your Speed-stage debuffs last +1 turn.
 S-GALLOWVINE-CHEST,GALLOWVINE,Chest,Local,Rare,This armour's Defense ×1.45.
-S-GALLOWVINE-GLOVES,GALLOWVINE,Gloves,Personal,Rare,+6% Attack vs targets with reduced Speed stages.
+S-GALLOWVINE-GLOVES,GALLOWVINE,Gloves,Personal,Rare,+6% Attack vs targets with reduced Speed.
 S-GALLOWVINE-FEET,GALLOWVINE,Feet,Team,Rare,Undead allies deal +6%.
 S-MIREMOTHER-HEAD,MIREMOTHER,Head,Team,Super Rare,Allies' healing received +7%.
 S-MIREMOTHER-CHEST,MIREMOTHER,Chest,Local,Super Rare,This armour's Defense ×1.52.
@@ -307,10 +307,10 @@ S-SPOREWHALE-HEAD,SPOREWHALE,Head,Personal,Rare,Debuffs on you expire 12% sooner
 S-SPOREWHALE-CHEST,SPOREWHALE,Chest,Local,Rare,This armour's Defense ×1.45.
 S-SPOREWHALE-GLOVES,SPOREWHALE,Gloves,Personal,Rare,+7% Defense.
 S-SPOREWHALE-FEET,SPOREWHALE,Feet,Team,Rare,Allies' debuffs expire 20% sooner.
-S-RIFTANGLER-HEAD,RIFTANGLER,Head,Personal,Rare,+7% Attack vs targets with reduced Speed stages.
+S-RIFTANGLER-HEAD,RIFTANGLER,Head,Personal,Rare,+7% Attack vs targets with reduced Speed.
 S-RIFTANGLER-CHEST,RIFTANGLER,Chest,Personal,Rare,+7% HP.
 S-RIFTANGLER-GLOVES,RIFTANGLER,Gloves,Local,Rare,This item's Defense contribution ×1.45.
-S-RIFTANGLER-FEET,RIFTANGLER,Feet,Team,Rare,Allies deal +9% vs targets with reduced Speed stages.
+S-RIFTANGLER-FEET,RIFTANGLER,Feet,Team,Rare,Allies deal +9% vs targets with reduced Speed.
 S-MYCELIUM-HEAD,MYCELIUM,Head,Team,Super Rare,Allies' healing received +7%.
 S-MYCELIUM-CHEST,MYCELIUM,Chest,Local,Super Rare,This armour's Defense ×1.52.
 S-MYCELIUM-GLOVES,MYCELIUM,Gloves,Personal,Super Rare,Your heals restore +12% more.
@@ -399,7 +399,7 @@ S-DEMIURGE-HEAD,DEMIURGE,Head,Personal,Super Super Rare,+8% Attack vs debuffed t
 S-DEMIURGE-CHEST,DEMIURGE,Chest,Local,Super Super Rare,This armour's Defense ×1.60.
 S-DEMIURGE-GLOVES,DEMIURGE,Gloves,Personal,Super Super Rare,Your debuffs are +10% more potent.
 S-DEMIURGE-FEET,DEMIURGE,Feet,Team,Super Super Rare,Allies' debuffs on enemies are +12% more potent.
-S-JACKANAPE-HEAD,JACKANAPE,Head,Personal,Super Super Rare,+8% Attack vs targets with reduced Speed stages.
+S-JACKANAPE-HEAD,JACKANAPE,Head,Personal,Super Super Rare,+8% Attack vs targets with reduced Speed.
 S-JACKANAPE-CHEST,JACKANAPE,Chest,Personal,Super Super Rare,+8% HP.
 S-JACKANAPE-GLOVES,JACKANAPE,Gloves,Local,Super Super Rare,This item's Defense contribution ×1.60.
 S-JACKANAPE-FEET,JACKANAPE,Feet,Team,Super Super Rare,Fey and Beast allies deal +7%.

@@ -3590,7 +3590,7 @@ Allies +2% Defense.,味方の防御力+2%。,soul
 Allies' healing received +2%.,味方の被回復量+2%。,soul
 +5% HP.,HP+5%。,soul
 Your damage-over-time effects deal +6%.,自分の継続ダメージ効果のダメージ+6%。,soul
-+6% Attack vs targets with reduced Speed stages.,素早さ段階が下がっている対象に対して、攻撃力+6%。,soul
++6% Attack vs targets with reduced Speed.,速度が下がっている対象に対して、攻撃力+6%。,soul
 +6% HP.,HP+6%。,soul
 This item's Defense contribution ×1.40.,このアイテムの防御力への寄与×1.40。,soul
 Allies deal +5% on the first turn.,最初のターンに、味方の与ダメージ+5%。,soul
@@ -3659,8 +3659,8 @@ Allies' damage-over-time effects last +1 turn.,味方の継続ダメージ効果
 +5% Defense while you have not attacked this turn.,このターンまだ攻撃していない間、防御力+5%。,soul
 Your damage-over-time effects last +1 turn.,自分の継続ダメージ効果の持続+1ターン。,soul
 Fungal allies deal +6%.,菌類タイプの味方の与ダメージ+6%。,soul
-+5% Attack vs targets with reduced Speed stages.,素早さ段階が下がっている対象に対して、攻撃力+5%。,soul
-Allies deal +9% vs targets with reduced Speed stages.,素早さ段階が下がっている対象に対して、味方の与ダメージ+9%。,soul
++5% Attack vs targets with reduced Speed.,速度が下がっている対象に対して、攻撃力+5%。,soul
+Allies deal +9% vs targets with reduced Speed.,速度が下がっている対象に対して、味方の与ダメージ+9%。,soul
 Your attacks that heal you restore +10% more.,自分を回復する攻撃の回復量+10%。,soul
 Your damage-over-time effects are +7% more potent.,自分の継続ダメージ効果の威力+7%。,soul
 +6% Attack on the first turn.,最初のターンに、攻撃力+6%。,soul
@@ -3694,7 +3694,7 @@ Your multi-hit moves deal +9%.,自分の連続ヒット技のダメージ+9%。,
 Allies' Attack and Defense debuffs on enemies are +10% more potent.,味方が敵に与える攻撃力・防御力デバフの効果+10%。,soul
 Your Speed-stage effects last +1 turn.,自分の素早さ段階効果の持続+1ターン。,soul
 Allies deal +6% on the first turn.,最初のターンに、味方の与ダメージ+6%。,soul
-+8% Attack vs targets with reduced Speed stages.,素早さ段階が下がっている対象に対して、攻撃力+8%。,soul
++8% Attack vs targets with reduced Speed.,速度が下がっている対象に対して、攻撃力+8%。,soul
 Elemental and Dragon allies deal +7%.,精霊・竜タイプの味方の与ダメージ+7%。,soul
 +5% Attack the turn after gaining a Defense buff.,防御バフを得た次のターン、攻撃力+5%。,soul
 Allies take -9% damage from damage-over-time.,味方が継続ダメージから受けるダメージ-9%。,soul
@@ -3718,7 +3718,7 @@ Your Attack debuffs are +7% more potent.,自分の攻撃力デバフの効果+7%
 The first hit against you each battle deals -10%.,各戦闘で自分への最初の攻撃のダメージ-10%。,soul
 +6% Attack vs targets with reduced Attack.,攻撃力が下がっている対象に対して、攻撃力+6%。,soul
 Allies' debuffs expire 20% sooner.,味方にかかったデバフは20%早く切れる。,soul
-+7% Attack vs targets with reduced Speed stages.,素早さ段階が下がっている対象に対して、攻撃力+7%。,soul
++7% Attack vs targets with reduced Speed.,速度が下がっている対象に対して、攻撃力+7%。,soul
 Fungal allies +7% Defense and deal +5%.,菌類タイプの味方の防御力+7%、与ダメージ+5%。,soul
 +8% Attack vs debuffed targets.,デバフ状態の対象に対して、攻撃力+8%。,soul
 Your multi-hit and grip moves deal +10%.,自分の連続ヒット技と掴み技のダメージ+10%。,soul

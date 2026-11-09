@@ -3590,7 +3590,7 @@ Allies +2% Defense.,Aliados +2% de Defesa.,soul
 Allies' healing received +2%.,Cura recebida pelos aliados +2%.,soul
 +5% HP.,+5% de PV.,soul
 Your damage-over-time effects deal +6%.,Seus efeitos de dano contínuo causam +6%.,soul
-+6% Attack vs targets with reduced Speed stages.,+6% de Ataque contra alvos com níveis de Velocidade reduzidos.,soul
++6% Attack vs targets with reduced Speed.,+6% de Ataque contra alvos com Velocidade reduzida.,soul
 +6% HP.,+6% de PV.,soul
 This item's Defense contribution ×1.40.,A contribuição de Defesa deste item ×1.40.,soul
 Allies deal +5% on the first turn.,Aliados causam +5% de dano no primeiro turno.,soul
@@ -3659,8 +3659,8 @@ Allies' damage-over-time effects last +1 turn.,Os efeitos de dano contínuo dos 
 +5% Defense while you have not attacked this turn.,+5% de Defesa enquanto você ainda não atacou neste turno.,soul
 Your damage-over-time effects last +1 turn.,Seus efeitos de dano contínuo duram +1 turno.,soul
 Fungal allies deal +6%.,Aliados Fúngico causam +6% de dano.,soul
-+5% Attack vs targets with reduced Speed stages.,+5% de Ataque contra alvos com níveis de Velocidade reduzidos.,soul
-Allies deal +9% vs targets with reduced Speed stages.,Aliados causam +9% de dano contra alvos com níveis de Velocidade reduzidos.,soul
++5% Attack vs targets with reduced Speed.,+5% de Ataque contra alvos com Velocidade reduzida.,soul
+Allies deal +9% vs targets with reduced Speed.,Aliados causam +9% de dano contra alvos com Velocidade reduzida.,soul
 Your attacks that heal you restore +10% more.,Seus ataques que curam você restauram +10% a mais.,soul
 Your damage-over-time effects are +7% more potent.,Seus efeitos de dano contínuo são +7% mais potentes.,soul
 +6% Attack on the first turn.,+6% de Ataque no primeiro turno.,soul
@@ -3694,7 +3694,7 @@ Your multi-hit moves deal +9%.,Seus golpes de vários acertos causam +9%.,soul
 Allies' Attack and Defense debuffs on enemies are +10% more potent.,As penalidades de Ataque e Defesa dos aliados sobre os inimigos são +10% mais potentes.,soul
 Your Speed-stage effects last +1 turn.,Seus efeitos de nível de Velocidade duram +1 turno.,soul
 Allies deal +6% on the first turn.,Aliados causam +6% de dano no primeiro turno.,soul
-+8% Attack vs targets with reduced Speed stages.,+8% de Ataque contra alvos com níveis de Velocidade reduzidos.,soul
++8% Attack vs targets with reduced Speed.,+8% de Ataque contra alvos com Velocidade reduzida.,soul
 Elemental and Dragon allies deal +7%.,Aliados Elemental e Dragão causam +7% de dano.,soul
 +5% Attack the turn after gaining a Defense buff.,+5% de Ataque no turno seguinte a ganhar um bônus de Defesa.,soul
 Allies take -9% damage from damage-over-time.,Aliados sofrem -9% de dano contínuo.,soul
@@ -3718,7 +3718,7 @@ Your Attack debuffs are +7% more potent.,Suas penalidades de Ataque são +7% mai
 The first hit against you each battle deals -10%.,O primeiro acerto contra você em cada batalha causa -10%.,soul
 +6% Attack vs targets with reduced Attack.,+6% de Ataque contra alvos com Ataque reduzido.,soul
 Allies' debuffs expire 20% sooner.,As penalidades dos aliados expiram 20% mais cedo.,soul
-+7% Attack vs targets with reduced Speed stages.,+7% de Ataque contra alvos com níveis de Velocidade reduzidos.,soul
++7% Attack vs targets with reduced Speed.,+7% de Ataque contra alvos com Velocidade reduzida.,soul
 Fungal allies +7% Defense and deal +5%.,Aliados Fúngico +7% de Defesa e causam +5% de dano.,soul
 +8% Attack vs debuffed targets.,+8% de Ataque contra alvos penalizados.,soul
 Your multi-hit and grip moves deal +10%.,Seus golpes de vários acertos e de agarre causam +10%.,soul
