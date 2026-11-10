@@ -14,6 +14,18 @@
 
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-11-10 &mdash; the character's walk no longer snaps back or teleports (ui#1253; dfmc-client bug run chunk avatarwalk). On dev.</strong>
+      Report (0.98): &ldquo;the walking animation for the player looks very chooppy, and it often teleports around or snaps back weirdly&rdquo;. Measured per frame
+      (the drawn transform of <code>[data-floor-avatar]</code> under the game's re-renders): a plain walk was already continuous; every redirect was not.
+      <code>favEl</code> rendered the avatar's transform from <code>this.fav</code> - where the walk began, or the turn point <code>favStop</code> wrote on a redirect - while
+      <code>favGo</code> had set the walk target straight on the node. The next re-render after a redirect wrote the turn point back over the walk, so the avatar
+      walked BACK to where it had turned and then jumped 450-800 stage px to the target when the walk timer ended. <code>favEl</code> now renders the walk's target
+      while a walk runs (the spot the transition heads to), so a re-render never fights it. <code>favStop</code> reads the drawn spot off the computed transform
+      (the time estimate stays as the fallback). An autoplay engage cue during the player's own creature or portal walk landed that walk at once (a teleport and
+      an instant engage); the cue now leaves it alone and autoplay does not queue its own engage while the player's walk runs. Presentation only: nothing new
+      reaches the server. Probe <code>tools/probe_avatarwalk.py</code> 3/7 on the old tree, 7/7 after; <code>probe_floorwalk</code> 8/8 and
+      <code>probe_flooravatar</code> 10/10 unchanged.
+      At release: none - the player page already says the character walks there.</li>
     <li><strong>2026-11-10 &mdash; click the floor to walk there; the character walks, never dashes; the creatures step gentler (other#1246; dfmc-client bug run chunk floorwalk). SHIPPED IN 0.98.</strong>
       D 2026-11-10: &ldquo;clicking around the map should move the character to that spot, even if no enemy was targeted. Monster walking animations are too
       frenetic, need to be gentler. When targeting an enemy the player character pretty much teleports over to its target, it needs to walk over.&rdquo; Before, only a
