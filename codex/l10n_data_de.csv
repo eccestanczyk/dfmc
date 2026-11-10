@@ -629,6 +629,14 @@ Grave Mist,Grabnebel,shop
 A pale grave mist behind your hero in PvP. Equip it from Cosmetics. Yours for good.,Ein fahler Grabnebel hinter deinem Helden im PvP. Lege ihn unter Kosmetik an. Gehört dir für immer.,shop
 Void Mantle,Leerenmantel,shop
 A violet void mantle behind your hero in PvP. Equip it from Cosmetics. Yours for good.,Ein violetter Leerenmantel hinter deinem Helden im PvP. Lege ihn unter Kosmetik an. Gehört dir für immer.,shop
+Iron Crypt Frame,,shop
+Black iron bands and skull rivets around your portrait. Equip it from Cosmetics. Yours for good.,,shop
+Bronze Reliquary Frame,,shop
+Tarnished bronze reliquary moulding around your portrait. Equip it from Cosmetics. Yours for good.,,shop
+Grimoire Leather Frame,,shop
+Stitched grimoire leather with brass corners around your portrait. Equip it from Cosmetics. Yours for good.,,shop
+Ossuary Frame,,shop
+"Bone and iron wire around your portrait, a skull at its crown. Equip it from Cosmetics. Yours for good.",,shop
 Class soul,Klassenseele,unlock
 Hatch All,Alle ausbrüten,unlock
 Dismantle All,Alle zerlegen,unlock
@@ -3846,3 +3854,4 @@ Opens Candy Kitchen X: three fights that pay creature XP candy. Spent when the r
 "Opens any gauntlet you have unlocked, once, on top of its free run each week. Spent when the run starts. Cannot be dismantled or exported.",,item_effect
 "Unlock it here for Wraithgold, or buy it in the Premium Shop alone or in the Mutant Skin Set. It dresses every stage of the class; until its art for stages 1 and 2 is painted, those stages keep the class look.","Schalte es hier mit Wraithgold frei oder kaufe es im Premium-Shop einzeln oder im Mutanten-Skin-Set. Es kleidet jede Stufe der Klasse; bis seine Bilder für Stufe 1 und 2 gemalt sind, behalten diese Stufen das Klassen-Aussehen.",cosmetic
 "Unlock it here for Wraithgold. It glows behind your hero in PvP, and behind your defender when others attack you in Auto PvP.","Schalte sie hier mit Wraithgold frei. Sie leuchtet im PvP hinter deinem Helden und hinter deinem Verteidiger, wenn andere dich im Auto-PvP angreifen.",cosmetic
+"Unlock it here for Wraithgold. It frames your portrait on your profile card and on the leaderboards, where other players see it.",,cosmetic

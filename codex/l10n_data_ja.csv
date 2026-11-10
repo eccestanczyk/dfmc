@@ -629,6 +629,14 @@ Grave Mist,墓所の霧,shop
 A pale grave mist behind your hero in PvP. Equip it from Cosmetics. Yours for good.,PvPでヒーローの背後に漂う青白い墓所の霧。コスメティックから装備できる。永久に君のもの。,shop
 Void Mantle,虚空のマント,shop
 A violet void mantle behind your hero in PvP. Equip it from Cosmetics. Yours for good.,PvPでヒーローの背後に広がる紫の虚空のマント。コスメティックから装備できる。永久に君のもの。,shop
+Iron Crypt Frame,,shop
+Black iron bands and skull rivets around your portrait. Equip it from Cosmetics. Yours for good.,,shop
+Bronze Reliquary Frame,,shop
+Tarnished bronze reliquary moulding around your portrait. Equip it from Cosmetics. Yours for good.,,shop
+Grimoire Leather Frame,,shop
+Stitched grimoire leather with brass corners around your portrait. Equip it from Cosmetics. Yours for good.,,shop
+Ossuary Frame,,shop
+"Bone and iron wire around your portrait, a skull at its crown. Equip it from Cosmetics. Yours for good.",,shop
 Class soul,クラスソウル,unlock
 Hatch All,一括孵化,unlock
 Dismantle All,一括分解,unlock
@@ -3846,3 +3854,4 @@ Opens Candy Kitchen X: three fights that pay creature XP candy. Spent when the r
 "Opens any gauntlet you have unlocked, once, on top of its free run each week. Spent when the run starts. Cannot be dismantled or exported.",,item_effect
 "Unlock it here for Wraithgold, or buy it in the Premium Shop alone or in the Mutant Skin Set. It dresses every stage of the class; until its art for stages 1 and 2 is painted, those stages keep the class look.",ここでWraithgoldで解放するか、プレミアムショップで単品またはミュータントスキンセットで購入できる。クラスのすべての段階に適用される。段階1と2の絵が描かれるまで、その段階はクラスの外見のままとなる。,cosmetic
 "Unlock it here for Wraithgold. It glows behind your hero in PvP, and behind your defender when others attack you in Auto PvP.",ここでWraithgoldで解放できる。PvPではヒーローの背後に、オートPvPで攻撃されたときは防衛者の背後に輝く。,cosmetic
+"Unlock it here for Wraithgold. It frames your portrait on your profile card and on the leaderboards, where other players see it.",,cosmetic

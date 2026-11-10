@@ -34,3 +34,7 @@ SHOP-402,Gauntlet Entry,Key,Wraithgold,10,0,sd_entry,1,"One run of any gauntlet 
 SHOP-221,Ember Halo,Aura,Wraithgold,300,0,aura_unlock,AURA-EMBER,A slow ember glow behind your hero in PvP. Equip it from Cosmetics. Yours for good.,1,1,,
 SHOP-222,Grave Mist,Aura,Wraithgold,300,0,aura_unlock,AURA-GRAVE,A pale grave mist behind your hero in PvP. Equip it from Cosmetics. Yours for good.,1,1,,
 SHOP-223,Void Mantle,Aura,Wraithgold,500,0,aura_unlock,AURA-VOID,A violet void mantle behind your hero in PvP. Equip it from Cosmetics. Yours for good.,1,1,,
+SHOP-231,Iron Crypt Frame,Frame,Wraithgold,300,0,frame_unlock,FRAME-IRON,Black iron bands and skull rivets around your portrait. Equip it from Cosmetics. Yours for good.,1,1,,
+SHOP-232,Bronze Reliquary Frame,Frame,Wraithgold,300,0,frame_unlock,FRAME-BRONZE,Tarnished bronze reliquary moulding around your portrait. Equip it from Cosmetics. Yours for good.,1,1,,
+SHOP-233,Grimoire Leather Frame,Frame,Wraithgold,300,0,frame_unlock,FRAME-LEATHER,Stitched grimoire leather with brass corners around your portrait. Equip it from Cosmetics. Yours for good.,1,1,,
+SHOP-234,Ossuary Frame,Frame,Wraithgold,500,0,frame_unlock,FRAME-OSSUARY,"Bone and iron wire around your portrait, a skull at its crown. Equip it from Cosmetics. Yours for good.",1,1,,

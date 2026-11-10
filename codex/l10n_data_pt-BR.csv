@@ -629,6 +629,14 @@ Grave Mist,Névoa Tumular,shop
 A pale grave mist behind your hero in PvP. Equip it from Cosmetics. Yours for good.,Uma névoa tumular pálida atrás do seu herói no PvP. Equipe em Cosméticos. Sua para sempre.,shop
 Void Mantle,Manto do Vazio,shop
 A violet void mantle behind your hero in PvP. Equip it from Cosmetics. Yours for good.,Um manto violeta do vazio atrás do seu herói no PvP. Equipe em Cosméticos. Seu para sempre.,shop
+Iron Crypt Frame,,shop
+Black iron bands and skull rivets around your portrait. Equip it from Cosmetics. Yours for good.,,shop
+Bronze Reliquary Frame,,shop
+Tarnished bronze reliquary moulding around your portrait. Equip it from Cosmetics. Yours for good.,,shop
+Grimoire Leather Frame,,shop
+Stitched grimoire leather with brass corners around your portrait. Equip it from Cosmetics. Yours for good.,,shop
+Ossuary Frame,,shop
+"Bone and iron wire around your portrait, a skull at its crown. Equip it from Cosmetics. Yours for good.",,shop
 Class soul,Alma de classe,unlock
 Hatch All,Chocar Tudo,unlock
 Dismantle All,Desmontar Tudo,unlock
@@ -3846,3 +3854,4 @@ Opens Candy Kitchen X: three fights that pay creature XP candy. Spent when the r
 "Opens any gauntlet you have unlocked, once, on top of its free run each week. Spent when the run starts. Cannot be dismantled or exported.",,item_effect
 "Unlock it here for Wraithgold, or buy it in the Premium Shop alone or in the Mutant Skin Set. It dresses every stage of the class; until its art for stages 1 and 2 is painted, those stages keep the class look.","Desbloqueie aqui com Wraithgold, ou compre na Loja Premium sozinho ou no Conjunto de Skins Mutantes. Ele veste todos os estágios da classe; até a arte dos estágios 1 e 2 ser pintada, esses estágios mantêm o visual da classe.",cosmetic
 "Unlock it here for Wraithgold. It glows behind your hero in PvP, and behind your defender when others attack you in Auto PvP.",Desbloqueie aqui com Wraithgold. Ela brilha atrás do seu herói no PvP e atrás do seu defensor quando outros atacam você no PvP Automático.,cosmetic
+"Unlock it here for Wraithgold. It frames your portrait on your profile card and on the leaderboards, where other players see it.",,cosmetic

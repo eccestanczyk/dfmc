@@ -8,3 +8,7 @@ SKIN-PROFESSOR-MUT,skin,CLS-PROFESSOR,Mutant Prophet,SHOP-206,"Unlock it here fo
 AURA-EMBER,aura,,Ember Halo,SHOP-221,"Unlock it here for Wraithgold. It glows behind your hero in PvP, and behind your defender when others attack you in Auto PvP.",img/aura/wisp_legendary.webp,#ff8000
 AURA-GRAVE,aura,,Grave Mist,SHOP-222,"Unlock it here for Wraithgold. It glows behind your hero in PvP, and behind your defender when others attack you in Auto PvP.",img/aura/wisp_common.webp,#c2ae8b
 AURA-VOID,aura,,Void Mantle,SHOP-223,"Unlock it here for Wraithgold. It glows behind your hero in PvP, and behind your defender when others attack you in Auto PvP.",img/aura/wisp_void.webp,#a855f7
+FRAME-IRON,frame,,Iron Crypt Frame,SHOP-231,"Unlock it here for Wraithgold. It frames your portrait on your profile card and on the leaderboards, where other players see it.",img/frame/frame_iron.webp,#8a8a8a
+FRAME-BRONZE,frame,,Bronze Reliquary Frame,SHOP-232,"Unlock it here for Wraithgold. It frames your portrait on your profile card and on the leaderboards, where other players see it.",img/frame/frame_bronze.webp,#b08d57
+FRAME-LEATHER,frame,,Grimoire Leather Frame,SHOP-233,"Unlock it here for Wraithgold. It frames your portrait on your profile card and on the leaderboards, where other players see it.",img/frame/frame_leather.webp,#7a2a22
+FRAME-OSSUARY,frame,,Ossuary Frame,SHOP-234,"Unlock it here for Wraithgold. It frames your portrait on your profile card and on the leaderboards, where other players see it.",img/frame/frame_ossuary.webp,#e8dcc0
