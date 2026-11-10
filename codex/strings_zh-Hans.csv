@@ -2307,3 +2307,8 @@ upd_now,立即更新,app.js: live update (BUNDLEREADY)
 upd_now_wait,将在下一个安全时刻更新...,app.js: live update (BUNDLEREADY)
 upd_cover,正在更新高塔,app.js: live update (BUNDLEREADY)
 upd_cover_sub,新版本已送达。你马上就会回到原来的位置。,app.js: live update (BUNDLEREADY)
+m_bagfull_inv,背包已满,"app: #1255 (D 2026-11-10): the BAG FULL plate on the floor, in battle and on the taskbar strip; a click opens that bag"
+m_bagfull_soul,灵魂袋已满,"app: #1255 (D 2026-11-10): the BAG FULL plate on the floor, in battle and on the taskbar strip; a click opens that bag"
+m_bagfull_count,{v1} / {v2},"app: #1255 (D 2026-11-10): the BAG FULL plate on the floor, in battle and on the taskbar strip; a click opens that bag"
+m_bagfull_tip_inv,你的背包已满：新的战利品放不下。点击打开背包腾出空间。,"app: #1255 (D 2026-11-10): the BAG FULL plate on the floor, in battle and on the taskbar strip; a click opens that bag"
+m_bagfull_tip_soul,你的灵魂袋已满：新的灵魂放不下。点击打开灵魂袋腾出空间。,"app: #1255 (D 2026-11-10): the BAG FULL plate on the floor, in battle and on the taskbar strip; a click opens that bag"

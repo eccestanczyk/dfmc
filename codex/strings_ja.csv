@@ -2307,3 +2307,8 @@ upd_now,今すぐアップデート,app.js: live update (BUNDLEREADY)
 upd_now_wait,次の安全なタイミングでアップデートします...,app.js: live update (BUNDLEREADY)
 upd_cover,塔をアップデート中,app.js: live update (BUNDLEREADY)
 upd_cover_sub,新しいバージョンが届きました。すぐに元の場所に戻ります。,app.js: live update (BUNDLEREADY)
+m_bagfull_inv,インベントリ満杯,"app: #1255 (D 2026-11-10): the BAG FULL plate on the floor, in battle and on the taskbar strip; a click opens that bag"
+m_bagfull_soul,ソウルバッグ満杯,"app: #1255 (D 2026-11-10): the BAG FULL plate on the floor, in battle and on the taskbar strip; a click opens that bag"
+m_bagfull_count,{v1} / {v2},"app: #1255 (D 2026-11-10): the BAG FULL plate on the floor, in battle and on the taskbar strip; a click opens that bag"
+m_bagfull_tip_inv,インベントリが満杯です。新しい戦利品が入りません。クリックして開き、空きを作りましょう。,"app: #1255 (D 2026-11-10): the BAG FULL plate on the floor, in battle and on the taskbar strip; a click opens that bag"
+m_bagfull_tip_soul,ソウルバッグが満杯です。新しいソウルが入りません。クリックして開き、空きを作りましょう。,"app: #1255 (D 2026-11-10): the BAG FULL plate on the floor, in battle and on the taskbar strip; a click opens that bag"

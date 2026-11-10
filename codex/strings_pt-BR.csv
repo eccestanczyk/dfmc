@@ -2307,3 +2307,8 @@ upd_now,ATUALIZAR AGORA,app.js: live update (BUNDLEREADY)
 upd_now_wait,Atualizando no próximo momento seguro...,app.js: live update (BUNDLEREADY)
 upd_cover,ATUALIZANDO A TORRE,app.js: live update (BUNDLEREADY)
 upd_cover_sub,Uma nova versão chegou. Você volta para onde estava em um instante.,app.js: live update (BUNDLEREADY)
+m_bagfull_inv,INVENTÁRIO CHEIO,"app: #1255 (D 2026-11-10): the BAG FULL plate on the floor, in battle and on the taskbar strip; a click opens that bag"
+m_bagfull_soul,BOLSA DE ALMAS CHEIA,"app: #1255 (D 2026-11-10): the BAG FULL plate on the floor, in battle and on the taskbar strip; a click opens that bag"
+m_bagfull_count,{v1} / {v2},"app: #1255 (D 2026-11-10): the BAG FULL plate on the floor, in battle and on the taskbar strip; a click opens that bag"
+m_bagfull_tip_inv,Seu inventário está cheio: novos itens não cabem. Clique para abri-lo e liberar espaço.,"app: #1255 (D 2026-11-10): the BAG FULL plate on the floor, in battle and on the taskbar strip; a click opens that bag"
+m_bagfull_tip_soul,Sua bolsa de almas está cheia: novas almas não cabem. Clique para abri-la e liberar espaço.,"app: #1255 (D 2026-11-10): the BAG FULL plate on the floor, in battle and on the taskbar strip; a click opens that bag"

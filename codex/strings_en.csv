@@ -2307,3 +2307,8 @@ upd_now,UPDATE NOW,app.js: live update (BUNDLEREADY)
 upd_now_wait,Updating at the next safe moment...,app.js: live update (BUNDLEREADY)
 upd_cover,UPDATING THE TOWER,app.js: live update (BUNDLEREADY)
 upd_cover_sub,A new version is in. You will be back where you were in a moment.,app.js: live update (BUNDLEREADY)
+m_bagfull_inv,BAG FULL,"app: #1255 (D 2026-11-10): the BAG FULL plate on the floor, in battle and on the taskbar strip; a click opens that bag"
+m_bagfull_soul,SOUL BAG FULL,"app: #1255 (D 2026-11-10): the BAG FULL plate on the floor, in battle and on the taskbar strip; a click opens that bag"
+m_bagfull_count,{v1} / {v2},"app: #1255 (D 2026-11-10): the BAG FULL plate on the floor, in battle and on the taskbar strip; a click opens that bag"
+m_bagfull_tip_inv,Your inventory is full: new loot has no room. Click to open it and make space.,"app: #1255 (D 2026-11-10): the BAG FULL plate on the floor, in battle and on the taskbar strip; a click opens that bag"
+m_bagfull_tip_soul,Your soul bag is full: new souls have no room. Click to open it and make space.,"app: #1255 (D 2026-11-10): the BAG FULL plate on the floor, in battle and on the taskbar strip; a click opens that bag"

@@ -2307,3 +2307,8 @@ upd_now,JETZT AKTUALISIEREN,app.js: live update (BUNDLEREADY)
 upd_now_wait,Aktualisierung beim nächsten sicheren Moment...,app.js: live update (BUNDLEREADY)
 upd_cover,DER TURM WIRD AKTUALISIERT,app.js: live update (BUNDLEREADY)
 upd_cover_sub,"Eine neue Version ist da. Gleich bist du wieder dort, wo du warst.",app.js: live update (BUNDLEREADY)
+m_bagfull_inv,INVENTAR VOLL,"app: #1255 (D 2026-11-10): the BAG FULL plate on the floor, in battle and on the taskbar strip; a click opens that bag"
+m_bagfull_soul,SEELENBEUTEL VOLL,"app: #1255 (D 2026-11-10): the BAG FULL plate on the floor, in battle and on the taskbar strip; a click opens that bag"
+m_bagfull_count,{v1} / {v2},"app: #1255 (D 2026-11-10): the BAG FULL plate on the floor, in battle and on the taskbar strip; a click opens that bag"
+m_bagfull_tip_inv,"Dein Inventar ist voll: neue Beute hat keinen Platz. Klicke, um es zu öffnen und Platz zu schaffen.","app: #1255 (D 2026-11-10): the BAG FULL plate on the floor, in battle and on the taskbar strip; a click opens that bag"
+m_bagfull_tip_soul,"Dein Seelenbeutel ist voll: neue Seelen haben keinen Platz. Klicke, um ihn zu öffnen und Platz zu schaffen.","app: #1255 (D 2026-11-10): the BAG FULL plate on the floor, in battle and on the taskbar strip; a click opens that bag"
