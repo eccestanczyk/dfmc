@@ -2301,3 +2301,8 @@ fxp_pl_void,,"app: fxpNamePl movetext2 (D 2026-11-10) - a creature type after a 
 m_upg_answer_pending,服务器尚未应答——结果到达后会显示,"app: upglate upgrade bench - the draw left, the server's answer is still on its way (shown at the 12 s timeout)"
 m_upg_answer_lost,应答丢失——服务器记录该物品为{v1},app: upglate upgrade bench - the draw's answer was lost; {v1} = the grade the server records for the item
 m_upg_answer_unknown,应答丢失——重新打开该物品即可查看服务器的记录,app: upglate upgrade bench - the draw's answer was lost and the server's record could not be read either
+upd_note,更新已就绪，将在下一次停顿时应用。,app.js: live update (BUNDLEREADY)
+upd_now,立即更新,app.js: live update (BUNDLEREADY)
+upd_now_wait,将在下一个安全时刻更新...,app.js: live update (BUNDLEREADY)
+upd_cover,正在更新高塔,app.js: live update (BUNDLEREADY)
+upd_cover_sub,新版本已送达。你马上就会回到原来的位置。,app.js: live update (BUNDLEREADY)
