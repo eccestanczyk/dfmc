@@ -28,8 +28,8 @@ function fxpStatusNames(){ if(_fxpSt&&_fxpStV===L10N.ver) return _fxpSt; const o
 function fxpName(n){ n=String(n==null?'':n); if(!L10N.dat||!n) return n;
   const one=w=>{ const v=tl(w); if(v!=null&&v!==w) return v; return fxpStatusNames()[w]||w; }, ps=n.split(/\s+and\s+/).map(one);
   if(ps.length===1) return ps[0]; try{ return new Intl.ListFormat(L10N.code,{type:'conjunction'}).format(ps); }catch(e){ return ps.reduce((x,y)=>txp('fxp_and','{v1} and {v2}',x,y)); } }
-function fxpNamePl(n){ n=String(n==null?'':n); const lc=L10N.loc||{}, ws=n.split(/\s+and\s+/); if(!L10N.dat||!n||!ws.some(w=>lc['fxp_pl_'+w])) return fxpName(n);
-  const ps=ws.map(w=>lc['fxp_pl_'+w]||fxpName(w)); if(ps.length===1) return ps[0]; try{ return new Intl.ListFormat(L10N.code,{type:'conjunction'}).format(ps); }catch(e){ return ps.reduce((x,y)=>txp('fxp_and','{v1} and {v2}',x,y)); } }
+function fxpNamePl(n){ n=String(n==null?'':n); const lc=L10N.loc||{}, ws=n.split(/\s+and\s+/); if(!L10N.dat||!n||!ws.some(w=>lc['fxp_pl_'+w.toLowerCase()])) return fxpName(n);
+  const ps=ws.map(w=>lc['fxp_pl_'+w.toLowerCase()]||fxpName(w)); if(ps.length===1) return ps[0]; try{ return new Intl.ListFormat(L10N.code,{type:'conjunction'}).format(ps); }catch(e){ return ps.reduce((x,y)=>txp('fxp_and','{v1} and {v2}',x,y)); } }
 function fxpOn(e,main,dur){ let low=false; const parts=String(e).split(/\s+and\s+/).map((p,i)=>{ p=p.trim(); let m; const first=main&&i===0;
     if(m=p.match(/^-(\d+)% (Attack|Defense)$/)){ const r=first?txp('fxp_t_lower',"Lowers the target's {v1} by {v2}%",FXP_STAT(m[2]),m[1]):(low?txp('fxp_on_lower_also','its {v1} by {v2}%',FXP_STAT(m[2]),m[1]):txp('fxp_on_lower','lowering its {v1} by {v2}%',FXP_STAT(m[2]),m[1])); low=true; return r; }
     low=false;
