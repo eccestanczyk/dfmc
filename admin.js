@@ -1,10 +1,15 @@
 /* ============================================================
    HERUMON TOWER — Admin Mode
-   ?admin=1 enables admin UI (sticky via localStorage)
+   ?admin=1 enables admin UI (sticky via localStorage) - local hosts only
    ?admin=0 disables it
    ============================================================ */
 
 (function(){
+  // Admin mode is a local workflow tool: it only turns on when the codex is served from this machine
+  // (python -m http.server in E:\Herumon-Tower\dfmc, see workflow/README.md). On the public codex
+  // (codex.playdfmc.com, GitHub Pages) it never turns on, and a stale flag is cleared (D 2026-11-11).
+  const LOCAL = location.protocol === 'file:' || /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+  if (!LOCAL) { try { localStorage.removeItem('dfmc_admin'); } catch (e) {} return; }
   const p = new URLSearchParams(location.search);
   if (p.get('admin') === '1') localStorage.setItem('dfmc_admin', '1');
   if (p.get('admin') === '0') localStorage.removeItem('dfmc_admin');

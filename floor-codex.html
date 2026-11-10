@@ -121,7 +121,7 @@ async function applyChromaKeyAll() {
 function tagListHTML(found, mode){
   let html = `<div class="creature-list"${mode==='fallback' ? ' style="display:none;"' : ''}>`;
   found.forEach(c => {
-    const pendingClass = c.Art_Status === 'pending' ? ' art-pending' : '';
+    const pendingClass = (c.Art_Status === 'pending' && document.documentElement.classList.contains('admin-mode')) ? ' art-pending' : '';
     html += `<a class="creature-tag${pendingClass}" href="creature.html?id=${escapeHtml(c.ID)}">`;
     html += c.Image_Path ? `<img src="${IMG_BASE}${escapeHtml(c.Image_Path)}" alt="" loading="lazy">` : `<div class="no-img">?</div>`;
     html += `<span class="cn">${escapeHtml(c.Name)}</span>`;

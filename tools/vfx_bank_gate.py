@@ -20,7 +20,7 @@ tools/gen_vfx_fx.py). This gate proves it, cast by cast:
     lane and must not turn this gate red.
 
   python tools/vfx_bank_gate.py
-  VFX_URL=http://127.0.0.1:9000/vfx.html?admin=1 python tools/vfx_bank_gate.py
+  VFX_URL=http://127.0.0.1:9000/workflow/vfx.html?admin=1 python tools/vfx_bank_gate.py
 
 With no VFX_URL the gate serves the repo root itself on 127.0.0.1:8123 and stops the server
 when it is done.
@@ -30,7 +30,7 @@ from playwright.async_api import async_playwright
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 PORT = int(os.environ.get('VFX_PORT') or 8123)
-URL = os.environ.get('VFX_URL') or ('http://127.0.0.1:%d/vfx.html?admin=1' % PORT)
+URL = os.environ.get('VFX_URL') or ('http://127.0.0.1:%d/workflow/vfx.html?admin=1' % PORT)
 OWN_SERVER = not os.environ.get('VFX_URL')
 
 R = []

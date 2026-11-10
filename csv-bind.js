@@ -72,9 +72,11 @@
     });
     return hits.length === 1 ? (hits[0][ci] || '') : null;
   }
+  // Provenance tooltips are for the team: local admin mode only (the codex is player facing, D 2026-11-11).
+  function team() { return document.documentElement.classList.contains('admin-mode'); }
   function stale(el, why) {
     el.classList.add('csv-stale');
-    el.title = 'pasted value - ' + why + ' (' + el.getAttribute('data-csv') + ')';
+    if (team()) el.title = 'pasted value - ' + why + ' (' + el.getAttribute('data-csv') + ')';
   }
   function bind(root) {
     var els = (root || document).querySelectorAll('[data-csv]');
@@ -86,7 +88,7 @@
         if (v === null) { stale(el, 'row or column not in ' + ref[0]); return; }
         el.textContent = fmt(v, el.getAttribute('data-csv-fmt') || '');
         el.classList.remove('csv-stale'); el.classList.add('csv-live');
-        el.title = 'from codex/' + ref[0];
+        if (team()) el.title = 'from codex/' + ref[0];
       }, function () { stale(el, 'codex/' + ref[0] + ' could not be read'); });
     }));
   }

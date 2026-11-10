@@ -134,12 +134,9 @@
     <div class="section-body" id="grades-body"></div>
   </section>
 
-  <section>
+  <section id="mutant-section" style="display:none">
     <h3>Mutant Variant</h3>
-    <div class="section-body mutant-box" id="mutant-body">
-      <div class="mutant-placeholder">NOT YET<br>GENERATED</div>
-      <p class="pending-note">Mutant variant art pending.</p>
-    </div>
+    <div class="section-body mutant-box" id="mutant-body"></div>
   </section>
 
 </main>
@@ -253,9 +250,10 @@ async function load() {
     // (File-probe based, same as codex grid — does NOT rely on BG_Status.)
     document.getElementById('creature-img-wrap').innerHTML = c.Image_Path
       ? '<img src="' + IMG_BASE + escapeHtml(c.Image_Path) + BUST + '" alt="' + escapeHtml(c.Name) + '">'
-      : '<div class="no-img">NO IMAGE YET</div>';
+      : '<div class="no-img"></div>';
 
-    if (c.Image_Path) (async function() {
+    // Crop comparison tabs are an art-review tool: local admin mode only (D 2026-11-11, codex is player facing).
+    if (c.Image_Path && document.documentElement.classList.contains('admin-mode')) (async function() {
       const origPath = c.Image_Path;
       const slotDefs = [
         { key:'crop',  id:'compare-crop',  folder:'cropped/',   label:'Option B' },
@@ -283,10 +281,10 @@ async function load() {
       const mpath = 'codex/images/mutants/' + c.ID + '.webp';
       try { if (!(await fetch(IMG_BASE + mpath + BUST, { method:'HEAD' })).ok) return; } catch { return; }
       const mbody = document.getElementById('mutant-body');
+      const msec = document.getElementById('mutant-section');
+      if (msec) msec.style.display = '';
       if (mbody) mbody.innerHTML =
-        '<img class="mutant-art" src="' + IMG_BASE + mpath + BUST + '" alt="' + escapeHtml(c.Name) + ' mutant">'
-        + '<p class="pending-note">Deterministic hue-cluster recolour of the approved art, seeded from the creature id. '
-        + 'Luminance is untouched, so the silhouette and the read of the piece are identical.</p>';
+        '<img class="mutant-art" src="' + IMG_BASE + mpath + BUST + '" alt="' + escapeHtml(c.Name) + ' mutant">';
       const wrap = document.getElementById('creature-img-wrap');
       wrap.insertAdjacentHTML('afterend', '<button id="mutant-toggle" class="mutant-toggle">☣ VIEW MUTANT</button>');
       let normalHTML = null;
@@ -302,20 +300,21 @@ async function load() {
       });
     })();
 
-    // Art approval status banner
-    if (c.Art_Status === 'pending') {
+    // Art pipeline status banners: local admin mode only (D 2026-11-11, codex is player facing).
+    const ADMIN_VIEW = document.documentElement.classList.contains('admin-mode');
+    if (ADMIN_VIEW && c.Art_Status === 'pending') {
       document.getElementById('creature-img-wrap').insertAdjacentHTML('afterend',
         '⚠ ART PENDING APPROVAL');
     }
 
     // Background removal status banner
-    if (c.BG_Status === 'has_chroma') {
+    if (ADMIN_VIEW && c.BG_Status === 'has_chroma') {
       document.getElementById('creature-img-wrap').insertAdjacentHTML('afterend',
         'PENDING CROPPING');
-    } else if (c.BG_Status === 'bg_pending') {
+    } else if (ADMIN_VIEW && c.BG_Status === 'bg_pending') {
       document.getElementById('creature-img-wrap').insertAdjacentHTML('afterend',
         'CROP AWAITING APPROVAL');
-    } else if (c.BG_Status === 'manual') {
+    } else if (ADMIN_VIEW && c.BG_Status === 'manual') {
       document.getElementById('creature-img-wrap').insertAdjacentHTML('afterend',
         'FLAGGED FOR MANUAL REMOVAL');
     }
@@ -323,7 +322,7 @@ async function load() {
     const floors = (c.Floor_Found || '').split(';').map(s => s.trim()).filter(Boolean);
     document.getElementById('c-floors').innerHTML = floors.length
       ? floors.map(f => `<a class="floor-chip" href="floor.html?num=${f}">FLR ${f}</a>`).join('')
-      : `<span class="floor-chip" style="opacity:0.5;">UNASSIGNED — MID/LATE FLOOR PENDING</span>`;
+      : `<span class="floor-chip" style="opacity:0.5;">NOT FOUND ON ANY FLOOR</span>`;
 
     const grades = [['ATTACK', c.Grade_Attack],['DEFENSE', c.Grade_Defense],['UTILITY', c.Grade_Utility],['SPEED', c.Grade_Speed]];
     document.getElementById('grades-body').innerHTML = grades.map(([label, val]) => {

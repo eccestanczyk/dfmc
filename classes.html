@@ -120,7 +120,7 @@ async function load(){
       ${cost?'<div class="unlock-cost">Unlock: '+cost+(acc==='Starter'?' per unpicked starter (one starter is free at character creation)':'')+'</div>':''}
       <div class="line-body">
         <div class="stages">${sts.map(s=>{
-          const img=s.Image_Path?`<img src="${IMG_BASE}${s.Image_Path}?v=${Date.now()}" loading="lazy">`:`<span class="pend">ART PENDING</span>`;
+          const img=s.Image_Path?`<img src="${IMG_BASE}${s.Image_Path}?v=${Date.now()}" loading="lazy">`:`<span class="pend"></span>`;
           const opts=(s.Option_Slots||'').split(';').filter(Boolean);
           return `<div class="stage-card">
             <div class="slbl">STAGE ${s.Stage}</div>

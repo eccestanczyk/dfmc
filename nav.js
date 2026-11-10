@@ -29,6 +29,12 @@
     });
   }
 
+  // ---- declare the dark colour scheme so Chrome's auto dark mode leaves the art alone (D 2026-11-11) ----
+  if (!document.querySelector('meta[name="color-scheme"]')) {
+    const m = document.createElement('meta'); m.name = 'color-scheme'; m.content = 'dark';
+    document.head.appendChild(m);
+  }
+
   // ---- inject site-wide chrome stylesheet (idempotent) ----
   if (!document.querySelector('link[data-ht-ui]')) {
     const l = document.createElement('link');

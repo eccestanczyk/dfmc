@@ -19,7 +19,7 @@ A row with no composition is a FALLBACK to the placeholder synth - counted and r
 failure. The authoring lane fills those in; this gate must not be red while it does.
 
   python tools/afx_gate.py
-  AFX_URL=http://127.0.0.1:9000/vfx.html AFX_AUDIO_URL=http://127.0.0.1:9000/audio.html python tools/afx_gate.py
+  AFX_URL=http://127.0.0.1:9000/workflow/vfx.html AFX_AUDIO_URL=http://127.0.0.1:9000/workflow/audio.html python tools/afx_gate.py
 
 With no AFX_URL the gate serves the repo root itself on 127.0.0.1:8124 and stops the server after.
 """
@@ -29,8 +29,8 @@ from playwright.async_api import async_playwright
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 PORT = int(os.environ.get('AFX_PORT') or 8124)
 BASE = 'http://127.0.0.1:%d' % PORT
-URL = os.environ.get('AFX_URL') or (BASE + '/vfx.html?admin=1')
-AUDIO_URL = os.environ.get('AFX_AUDIO_URL') or (BASE + '/audio.html')
+URL = os.environ.get('AFX_URL') or (BASE + '/workflow/vfx.html?admin=1')
+AUDIO_URL = os.environ.get('AFX_AUDIO_URL') or (BASE + '/workflow/audio.html')
 OWN_SERVER = not os.environ.get('AFX_URL')
 
 R = []
