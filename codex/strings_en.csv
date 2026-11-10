@@ -453,6 +453,64 @@ ach_resource_1_name,Spoils of the Deep,achievements.csv RESOURCE_1 Name
 ach_resource_1_desc,Clear a resource dungeon level.,achievements.csv RESOURCE_1 Description
 ach_resource_10_name,Quarry Master,achievements.csv RESOURCE_10 Name
 ach_resource_10_desc,Clear 10 resource dungeon levels.,achievements.csv RESOURCE_10 Description
+ach_floor_20_name,Gatebreaker,achievements.csv FLOOR_20 Name
+ach_floor_20_desc,Defeat the boss of floor 20 of the Tower.,achievements.csv FLOOR_20 Description
+ach_floor_40_name,Brood Breaker,achievements.csv FLOOR_40 Name
+ach_floor_40_desc,Defeat the boss of floor 40 of the Tower.,achievements.csv FLOOR_40 Description
+ach_floor_50_name,Throne Toppler,achievements.csv FLOOR_50 Name
+ach_floor_50_desc,Defeat the boss of floor 50 of the Tower.,achievements.csv FLOOR_50 Description
+ach_floor_70_name,Drained the Pool,achievements.csv FLOOR_70 Name
+ach_floor_70_desc,Defeat the boss of floor 70 of the Tower.,achievements.csv FLOOR_70 Description
+ach_floor_80_name,Bloom Cutter,achievements.csv FLOOR_80 Name
+ach_floor_80_desc,Defeat the boss of floor 80 of the Tower.,achievements.csv FLOOR_80 Description
+ach_floor_90_name,Crypt Sealer,achievements.csv FLOOR_90 Name
+ach_floor_90_desc,Defeat the boss of floor 90 of the Tower.,achievements.csv FLOOR_90 Description
+ach_mastery_warrior_name,Warrior Mastery,achievements.csv MASTERY_WARRIOR Name
+ach_mastery_warrior_desc,Raise the Warrior class to its level cap.,achievements.csv MASTERY_WARRIOR Description
+ach_mastery_mage_name,Mage Mastery,achievements.csv MASTERY_MAGE Name
+ach_mastery_mage_desc,Raise the Mage class to its level cap.,achievements.csv MASTERY_MAGE Description
+ach_mastery_archer_name,Archer Mastery,achievements.csv MASTERY_ARCHER Name
+ach_mastery_archer_desc,Raise the Archer class to its level cap.,achievements.csv MASTERY_ARCHER Description
+ach_mastery_assassin_name,Assassin Mastery,achievements.csv MASTERY_ASSASSIN Name
+ach_mastery_assassin_desc,Raise the Assassin class to its level cap.,achievements.csv MASTERY_ASSASSIN Description
+ach_mastery_brute_name,Brute Mastery,achievements.csv MASTERY_BRUTE Name
+ach_mastery_brute_desc,Raise the Brute class to its level cap.,achievements.csv MASTERY_BRUTE Description
+ach_mastery_professor_name,Professor Mastery,achievements.csv MASTERY_PROFESSOR Name
+ach_mastery_professor_desc,Raise the Professor class to its level cap.,achievements.csv MASTERY_PROFESSOR Description
+ach_dimensional_traveler_name,Dimensional Traveler,achievements.csv DIMENSIONAL_TRAVELER Name
+ach_dimensional_traveler_desc,Raise a creature you sent to Herumon Dungeon to level 50 there.,achievements.csv DIMENSIONAL_TRAVELER Description
+ach_codex_50_name,Field Sketches,achievements.csv CODEX_50 Name
+ach_codex_50_desc,Acquire 50 creatures in the Codex.,achievements.csv CODEX_50 Description
+ach_codex_200_name,The Thick Volume,achievements.csv CODEX_200 Name
+ach_codex_200_desc,Acquire 200 creatures in the Codex.,achievements.csv CODEX_200 Description
+ach_codex_all_name,The Complete Codex,achievements.csv CODEX_ALL Name
+ach_codex_all_desc,Acquire every creature in the Codex.,achievements.csv CODEX_ALL Description
+ach_hatch_1_name,First Crack,achievements.csv HATCH_1 Name
+ach_hatch_1_desc,Hatch an egg.,achievements.csv HATCH_1 Description
+ach_hatch_100_name,Nursery,achievements.csv HATCH_100 Name
+ach_hatch_100_desc,Hatch 100 eggs.,achievements.csv HATCH_100 Description
+ach_hatch_1000_name,A Thousand Shells,achievements.csv HATCH_1000 Name
+ach_hatch_1000_desc,Hatch 1000 eggs.,achievements.csv HATCH_1000 Description
+ach_grade_common_name,A Step Up,achievements.csv GRADE_COMMON Name
+ach_grade_common_desc,Own your first Common-grade creature.,achievements.csv GRADE_COMMON Description
+ach_grade_uncommon_name,Uncommon Find,achievements.csv GRADE_UNCOMMON Name
+ach_grade_uncommon_desc,Own your first Uncommon-grade creature.,achievements.csv GRADE_UNCOMMON Description
+ach_grade_rare_name,Rare Breed,achievements.csv GRADE_RARE Name
+ach_grade_rare_desc,Own your first Rare-grade creature.,achievements.csv GRADE_RARE Description
+ach_grade_epic_name,Epic Stock,achievements.csv GRADE_EPIC Name
+ach_grade_epic_desc,Own your first Epic-grade creature.,achievements.csv GRADE_EPIC Description
+ach_grade_legendary_name,Living Legend,achievements.csv GRADE_LEGENDARY Name
+ach_grade_legendary_desc,Own your first Legendary-grade creature.,achievements.csv GRADE_LEGENDARY Description
+ach_grade_abyssal_name,From the Abyss,achievements.csv GRADE_ABYSSAL Name
+ach_grade_abyssal_desc,Own your first Abyssal-grade creature.,achievements.csv GRADE_ABYSSAL Description
+ach_grade_divine_name,Touched by the Divine,achievements.csv GRADE_DIVINE Name
+ach_grade_divine_desc,Own your first Divine-grade creature.,achievements.csv GRADE_DIVINE Description
+ach_grade_primordial_name,Primordial Blood,achievements.csv GRADE_PRIMORDIAL Name
+ach_grade_primordial_desc,Own your first Primordial-grade creature.,achievements.csv GRADE_PRIMORDIAL Description
+ach_dismantle_100_name,Scrapper,achievements.csv DISMANTLE_100 Name
+ach_dismantle_100_desc,Dismantle 100 items.,achievements.csv DISMANTLE_100 Description
+ach_dismantle_1000_name,Breaker's Yard,achievements.csv DISMANTLE_1000 Name
+ach_dismantle_1000_desc,Dismantle 1000 items.,achievements.csv DISMANTLE_1000 Description
 shop_packs_title,WRAITHGOLD PACKS,app: premium shop: heading of the real-money pack grid (S7)
 shop_store_unreachable,Could not reach the store.,app: premium shop: /api/store/catalogue failed
 shop_store_loading,Loading the store...,app: premium shop: pack grid loading

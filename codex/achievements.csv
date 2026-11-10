@@ -21,3 +21,32 @@ MUTANT_10,MUTANT_10,Aberrant Collection,count,mutants:10,0,Hatch 10 different mu
 CODEX_100,CODEX_100,First Pages,codex,100,0,Acquire 100 creatures in the Codex.
 RESOURCE_1,RESOURCE_1,Spoils of the Deep,count,rd_clears:1,0,Clear a resource dungeon level.
 RESOURCE_10,RESOURCE_10,Quarry Master,count,rd_clears:10,0,Clear 10 resource dungeon levels.
+FLOOR_20,FLOOR_20,Gatebreaker,clear,20,0,Defeat the boss of floor 20 of the Tower.
+FLOOR_40,FLOOR_40,Brood Breaker,clear,40,0,Defeat the boss of floor 40 of the Tower.
+FLOOR_50,FLOOR_50,Throne Toppler,clear,50,0,Defeat the boss of floor 50 of the Tower.
+FLOOR_70,FLOOR_70,Drained the Pool,clear,70,0,Defeat the boss of floor 70 of the Tower.
+FLOOR_80,FLOOR_80,Bloom Cutter,clear,80,0,Defeat the boss of floor 80 of the Tower.
+FLOOR_90,FLOOR_90,Crypt Sealer,clear,90,0,Defeat the boss of floor 90 of the Tower.
+MASTERY_WARRIOR,MASTERY_WARRIOR,Warrior Mastery,badge,MASTERY_WARRIOR,0,Raise the Warrior class to its level cap.
+MASTERY_MAGE,MASTERY_MAGE,Mage Mastery,badge,MASTERY_MAGE,0,Raise the Mage class to its level cap.
+MASTERY_ARCHER,MASTERY_ARCHER,Archer Mastery,badge,MASTERY_ARCHER,0,Raise the Archer class to its level cap.
+MASTERY_ASSASSIN,MASTERY_ASSASSIN,Assassin Mastery,badge,MASTERY_ASSASSIN,0,Raise the Assassin class to its level cap.
+MASTERY_BRUTE,MASTERY_BRUTE,Brute Mastery,badge,MASTERY_BRUTE,0,Raise the Brute class to its level cap.
+MASTERY_PROFESSOR,MASTERY_PROFESSOR,Professor Mastery,badge,MASTERY_PROFESSOR,0,Raise the Professor class to its level cap.
+DIMENSIONAL_TRAVELER,DIMENSIONAL_TRAVELER,Dimensional Traveler,badge,DIMENSIONAL_TRAVELER,0,Raise a creature you sent to Herumon Dungeon to level 50 there.
+CODEX_50,CODEX_50,Field Sketches,codex,50,0,Acquire 50 creatures in the Codex.
+CODEX_200,CODEX_200,The Thick Volume,codex,200,0,Acquire 200 creatures in the Codex.
+CODEX_ALL,CODEX_ALL,The Complete Codex,codex_all,,0,Acquire every creature in the Codex.
+HATCH_1,HATCH_1,First Crack,count,hatched:1,0,Hatch an egg.
+HATCH_100,HATCH_100,Nursery,count,hatched:100,0,Hatch 100 eggs.
+HATCH_1000,HATCH_1000,A Thousand Shells,count,hatched:1000,0,Hatch 1000 eggs.
+GRADE_COMMON,GRADE_COMMON,A Step Up,flag,grade_common,0,Own your first Common-grade creature.
+GRADE_UNCOMMON,GRADE_UNCOMMON,Uncommon Find,flag,grade_uncommon,0,Own your first Uncommon-grade creature.
+GRADE_RARE,GRADE_RARE,Rare Breed,flag,grade_rare,0,Own your first Rare-grade creature.
+GRADE_EPIC,GRADE_EPIC,Epic Stock,flag,grade_epic,0,Own your first Epic-grade creature.
+GRADE_LEGENDARY,GRADE_LEGENDARY,Living Legend,flag,grade_legendary,0,Own your first Legendary-grade creature.
+GRADE_ABYSSAL,GRADE_ABYSSAL,From the Abyss,flag,grade_abyssal,0,Own your first Abyssal-grade creature.
+GRADE_DIVINE,GRADE_DIVINE,Touched by the Divine,flag,grade_divine,0,Own your first Divine-grade creature.
+GRADE_PRIMORDIAL,GRADE_PRIMORDIAL,Primordial Blood,flag,grade_primordial,0,Own your first Primordial-grade creature.
+DISMANTLE_100,DISMANTLE_100,Scrapper,count,dismantled:100,0,Dismantle 100 items.
+DISMANTLE_1000,DISMANTLE_1000,Breaker's Yard,count,dismantled:1000,0,Dismantle 1000 items.
