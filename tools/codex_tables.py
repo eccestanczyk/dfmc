@@ -1114,7 +1114,7 @@ def gen_pvp_timers():
         '    <tr><td class="lbl">On expiry</td><td>&mdash;</td><td>The <strong>autoplay AI picks for you</strong> &mdash; the same AI that runs PvE grinding, not &ldquo;first move in the list.&rdquo; Losing time costs quality, not the game outright.</td></tr>',
         '    <tr><td class="lbl">Damage ramp (PvP)</td><td>&times;%s @ %d &rarr; &times;%s @ %d+</td><td>Replaces the 30-round hard cap and its tiebreak (2026-08-16). From round %d every hit and every lingering '
         'damage tick, both sides, is multiplied: %s from %d on and holding. A game ends only on a wipe &mdash; the ramp guarantees one, so no tiebreak is needed or exists. A hot &times;-chip beside '
-        'the round counter shows the live multiplier from round %d. PvE never ramps. Replays of Competitive games ramp identically &mdash; playback must re-produce the recorded fight.</td></tr>' % (
+        'the round counter shows the live multiplier from round %d. PvE never ramps. Replays of Real-time games ramp identically &mdash; playback must re-produce the recorded fight.</td></tr>' % (
             xm(first[1]), first[0], xm(last[1]), last[0], first[0], ', '.join('&times;%s at %d' % (xm(x), r) for r, x in steps[:-1]) + ', &times;%s' % xm(last[1]), last[0], first[0]),
         '    <tr><td class="lbl">PvE</td><td><strong>No timer</strong></td><td>Move timers are a PvP-integrity tool; against the AI there is nothing to protect and autoplay already exists for players who want speed. PvE battles instead get full crash-safe resume (below).</td></tr>',
         '  </table>',
