@@ -2298,3 +2298,6 @@ fxp_pl_spectral,Spectral,"app: fxpNamePl movetext2 (D 2026-11-10) - a creature t
 fxp_pl_undead,Undead,"app: fxpNamePl movetext2 (D 2026-11-10) - a creature type after a plural noun (allies / targets); fill the plural only where the type word agrees in number, else leave empty"
 fxp_pl_vampiric,Vampiric,"app: fxpNamePl movetext2 (D 2026-11-10) - a creature type after a plural noun (allies / targets); fill the plural only where the type word agrees in number, else leave empty"
 fxp_pl_void,Void,"app: fxpNamePl movetext2 (D 2026-11-10) - a creature type after a plural noun (allies / targets); fill the plural only where the type word agrees in number, else leave empty"
+m_upg_answer_pending,THE SERVER HAS NOT ANSWERED YET — THE RESULT WILL SHOW WHEN IT ARRIVES,"app: upglate upgrade bench - the draw left, the server's answer is still on its way (shown at the 12 s timeout)"
+m_upg_answer_lost,THE ANSWER WAS LOST — THE SERVER RECORDS THIS ITEM AT {v1},app: upglate upgrade bench - the draw's answer was lost; {v1} = the grade the server records for the item
+m_upg_answer_unknown,THE ANSWER WAS LOST — REOPEN THE ITEM TO SEE WHAT THE SERVER RECORDS,app: upglate upgrade bench - the draw's answer was lost and the server's record could not be read either
