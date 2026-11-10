@@ -809,7 +809,7 @@ m_rank_autopvp,PVP ASSÍNCRONO,app: L1b rankings board title
 m_rank_ladder,PVP EM TEMPO REAL,app: L1b rankings board title
 m_mv_synergy,SINERGIA,"app: L1b move tooltip, the line's Synergy clause label"
 m_mv_anti,ANTI,"app: L1b move tooltip, the line's Anti clause label"
-m_strip_floor,ANDAR {n},"app: L1b taskbar strip (steam/strip.js), the floor label"
+m_strip_floor_short,A{n},"app: L1b taskbar strip (steam/strip.js), the floor label, short - F<n> (#1247)"
 m_strip_auto_on,AUTO LIGADO,"app: L1b taskbar strip button, autoplay on"
 m_strip_auto_off,AUTO DESLIGADO,"app: L1b taskbar strip button, autoplay off"
 m_strip_level_up,SUBIU DE NÍVEL,"app: L1b taskbar strip, a unit levelled up after a win"

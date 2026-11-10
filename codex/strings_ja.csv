@@ -809,7 +809,7 @@ m_rank_autopvp,非同期PvP,app: L1b rankings board title
 m_rank_ladder,リアルタイムPvP,app: L1b rankings board title
 m_mv_synergy,シナジー,"app: L1b move tooltip, the line's Synergy clause label"
 m_mv_anti,アンチ,"app: L1b move tooltip, the line's Anti clause label"
-m_strip_floor,{n}階,"app: L1b taskbar strip (steam/strip.js), the floor label"
+m_strip_floor_short,{n}階,"app: L1b taskbar strip (steam/strip.js), the floor label, short - F<n> (#1247)"
 m_strip_auto_on,オート ON,"app: L1b taskbar strip button, autoplay on"
 m_strip_auto_off,オート OFF,"app: L1b taskbar strip button, autoplay off"
 m_strip_level_up,レベルアップ,"app: L1b taskbar strip, a unit levelled up after a win"
