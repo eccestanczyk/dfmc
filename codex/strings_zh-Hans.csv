@@ -1868,6 +1868,7 @@ m_n_of_n_slots,{v1} / {v2} 栏位,app: L1h (D 2026-11-04 Finish localizing the g
 m_you_have_n,你有 {v1},app: L1h (D 2026-11-04 Finish localizing the game): slot shop: what you hold
 m_inv_full_need1,{v1}需要1个空闲栏位，你只有{v2}个。分解不需要的装备，或购买更多背包栏位，然后重试。,"app: L1h (D 2026-11-04 Finish localizing the game): inventory full, one slot needed (txn)"
 m_inv_full_needn,{v1}需要{v2}个空闲栏位，你只有{v3}个。分解不需要的装备，或购买更多背包栏位，然后重试。,"app: L1h (D 2026-11-04 Finish localizing the game): inventory full, several slots needed (txn)"
+m_inv_over_cap,"你的背包在{v2}个栏位中装有{v1}件物品：超出上限{v3}件。","app: #1256 (D 2026-11-10): appended to the inventory-full notice when the bag is over its cap (v1 items, v2 slots, v3 over)"
 m_x_would_return_soul_bag_when_y,{v2}占据其位置时，{v1}会回到你的灵魂背包，但已没有空位（{v3} / {v4}）。请先腾出一个栏位。,app: L1h (D 2026-11-04 Finish localizing the game): breeding pen swap refused
 m_this_one,这个,app: L1h (D 2026-11-04 Finish localizing the game): breeding pen swap: an unnamed creature
 m_x_would_return_soul_bag_full,{v1}会回到你的灵魂背包，但背包已满（{v2} / {v3} 个栏位）。请腾出一个栏位——分解一只生物或孵化一枚蛋——然后再移除亲代。,app: L1h (D 2026-11-04 Finish localizing the game): breeding pen remove refused
