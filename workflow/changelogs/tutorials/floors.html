@@ -14,6 +14,20 @@
 
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-11-10 &mdash; click the floor to walk there; the character walks, never dashes; the creatures step gentler (other#1246; dfmc-client bug run chunk floorwalk). On dev.</strong>
+      D 2026-11-10: &ldquo;clicking around the map should move the character to that spot, even if no enemy was targeted. Monster walking animations are too
+      frenetic, need to be gentler. When targeting an enemy the player character pretty much teleports over to its target, it needs to walk over.&rdquo; Before, only a
+      creature or portal click moved the avatar, and every walk was squeezed into at most .8&nbsp;s (a dash across the map). Now a click on empty floor
+      (<code>favFloorWalk</code>, the plate&rsquo;s click) walks the avatar to that spot, clamped to the walkable band (x 3&ndash;97&nbsp;%, y 14&ndash;88&nbsp;%), and fires
+      nothing. Every walk (floor, creature, portal) goes at one walking pace, 2.2&nbsp;ms per stage px (about 450&nbsp;px a second on the 1920&times;1080 stage, at most
+      3.2&nbsp;s; <code>FAV_MSPX</code> / <code>FAV_CAP</code>), on a linear transition; the challenged creature holds still for the whole walk. A new floor click mid-walk
+      redirects from where the avatar is (<code>favStop</code>); a creature or portal click during a floor walk walks on to it; a creature or portal click during a
+      creature or portal walk still lands it at once, as before. Autoplay keeps its .6&nbsp;s walk inside the pan cue. The roamers&rsquo; <code>fmWalk</code> step goes
+      from .62&nbsp;s with a 2.6&nbsp;% bounce and 1.4&deg; lean to 1.15&nbsp;s, 1.6&nbsp;% and .8&deg;; the avatar, walking faster, keeps a .72&nbsp;s step. Presentation
+      only: nothing new reaches the server. Low VFX / Reduce Motion: no walk, a floor click places the avatar at once. Probe <code>tools/probe_floorwalk.py</code>
+      2/8 on the old tree, 8/8 after; <code>tools/probe_flooravatar.py</code> B3/B6 re-aimed to the walking pace (10/10).
+      At release: on <a href="tutorials/floors.html">tutorials/floors.html</a> step 1, after &ldquo;Fight the creatures roaming the floor (1).&rdquo; add &ldquo;Click
+      anywhere on the floor and your character walks there.&rdquo;</li>
     <li><strong>2026-11-09 &mdash; the player walks the floor: to a creature before the fight, into a portal before the trip (ui#1224, after its first sentence; dfmc-client bug run chunk flooravatar). On dev.</strong>
       D 2026-11-08: the player character should appear on the floor, walk to the creature it challenges and engage there, stand where it engaged after the fight, and
       walk into a portal, be sucked in (distorted, spinning, smaller, into the centre) and come out the reverse way in the next room. Before, the player was not on the
