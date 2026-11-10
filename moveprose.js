@@ -5,6 +5,7 @@ const tx=(k,en)=>en;
 const txp=(k,en,...v)=>String(en).replace(/\{v(\d)\}/g,(m,d)=>{ const x=v[d-1]; return x==null?'':String(x); });
 const tl=s=>s;
 const FXP_N=n=>(+n===1?tx('fxp_one_turn','1 turn'):txp('fxp_n_turns','{v1} turns',n));
+let _fxpMiss=0; const FXP_SEP=()=>/^(ja|zh)/.test(String(L10N.code||''))?'':' ';
 const FXP_SPD=(sg,n)=>(sg==='+'?txp('fxp_spd_buff','+{v1} Speed buff',n):txp('fxp_spd_debuff','-{v1} Speed debuff',n));
 let _fxpRe=null, _fxpReV=-1;
 function fxpNamesIn(s){ s=String(s); if(!L10N.dat) return s; const o=fxpStatusNames();
@@ -20,9 +21,9 @@ const FXP_STAT=st=>tl(st);
 let _fxpSt=null, _fxpStV=-1;
 function fxpStatusNames(){ if(_fxpSt&&_fxpStV===L10N.ver) return _fxpSt; const o={}, d=L10N.dat||{};
   for(const k in d){ if(k.indexOf(': ')<0) continue; const a=k.replace(/\.$/,'').split(/\s*;\s*/), b=String(d[k]).split(/\s*[;\uFF1B]\s*/); if(a.length!==b.length) continue;
-    for(let i=0;i<a.length;i++){ const e=a[i].match(/^([A-Z][^:;,()]*?): /)||a[i].match(/\b(?:applies|gains|gets|take) ([A-Z][^:;,()]*?): /); if(!e||/ allies$/.test(e[1])||(e[1] in o)) continue;
+    for(let i=0;i<a.length;i++){ const e=a[i].match(/\b(?:applies|gains|gets|take) ([A-Z][^:;,()]*?): /)||a[i].match(/^([A-Z][^:;,()]*?): /); if(!e||/ allies$/.test(e[1])||(e[1] in o)) continue;
       const q=b[i].match(/[\u201E\u201C"\u300C\u300E\u00AB][^\u201C\u201D"\u300D\u300F\u00BB]+[\u201C\u201D"\u300D\u300F\u00BB]/g), t=b[i].match(/^([^:\uFF1A]+?)\s*[:\uFF1A]/);
-      const v=(q&&q.length===1)?q[0].slice(1,-1):((t&&a[i].indexOf(e[1]+': ')===0)?t[1]:((t&&(t[1].match(/が([^がにを、]+?)を付与/)||t[1].match(/(?:附加|施加)([^，。]+)$/)))||[])[1]||''); if(v) o[e[1]]=v.replace(/^[\u201E\u201C"\u300C\u300E]+|[\u201C\u201D"\u300D\u300F]+$/g,'').trim(); } }
+      const v=(q&&q.length===1)?q[0].slice(1,-1):((t&&a[i].indexOf(e[1]+': ')===0)?t[1]:((t&&(t[1].match(/[がに]([^がにを、]+?)を(?:付与|与え)/)||t[1].match(/(?:附加|施加|获得|受到)([^，。]+)$/)||t[1].match(/\b(?:recebe|aplica|sofrem|erleiden) (.+)$/)))||[])[1]||''); if(v) o[e[1]]=v.replace(/^[\u201E\u201C"\u300C\u300E]+|[\u201C\u201D"\u300D\u300F]+$/g,'').trim(); } }
   _fxpSt=o; _fxpStV=L10N.ver; return o; }
 function fxpName(n){ n=String(n==null?'':n); if(!L10N.dat||!n) return n;
   const one=w=>{ const v=tl(w); if(v!=null&&v!==w) return v; return fxpStatusNames()[w]||w; }, ps=n.split(/\s+and\s+/).map(one);
@@ -43,9 +44,36 @@ function fxpOn(e,main,dur){ let low=false; const parts=String(e).split(/\s+and\s
   return main?(dur?txp('fxp_t_for','{v1} for {v2}.',out,dur):txp('fxp_t_end','{v1}.',out)):out; }
 function fxpCond2(c){ return fxpKinIn(c).replace(/\bon target\b/,()=>tx('fxp_on_the_target','on the target')).replace(/\bon self\b/,()=>tx('fxp_on_the_user','on the user'))
   .replace(/^if user's\b/,()=>tx('fxp_if_users',"if the user's")).replace(/^if user\b/,()=>tx('fxp_if_user','if the user')); }
-function fxpCond(c){ let m; c=String(c);
-  if(m=c.match(/^per (.+?) \(max \+(\d+)%\)$/)) return txp('fxp_c_per_max','for each {v1}, up to {v2}% more',fxpCond2(m[1]),m[2]);
-  if(m=c.match(/^per (.+)$/)) return txp('fxp_c_per','for each {v1}',fxpCond2(m[1]));
+const FXP_CONDS=[
+  [/^vs debuffed targets$/, ()=>tx('fxp_c_vs_debuffed','against debuffed targets')],
+  [/^vs targets below (\d+)% HP$/, m=>txp('fxp_c_vs_below','against targets below {v1}% HP',m[1])],
+  [/^vs targets with (\d+) or more debuffs$/, m=>txp('fxp_c_vs_n_debuffs','against targets with {v1} or more debuffs',m[1])],
+  [/^vs targets with a reduced Speed stage$/, ()=>tx('fxp_c_vs_slowed','against targets with a reduced Speed debuff')],
+  [/^vs targets with any active buff$/, ()=>tx('fxp_c_vs_any_buff','against targets with any active buff')],
+  [/^vs targets with any damage-over-time effect$/, ()=>tx('fxp_c_vs_any_dot','against targets with any damage-over-time effect')],
+  [/^vs targets with no active buffs$/, ()=>tx('fxp_c_vs_no_buffs','against targets with no active buffs')],
+  [/^vs targets with ([A-Z][^,;()]*)$/, m=>txp('fxp_c_vs_status','against targets with {v1}',fxpName(m[1]))],
+  [/^if (.+?) was used last turn$/, m=>txp('fxp_c_if_used_last','if {v1} was used last turn',tl(m[1]))],
+  [/^if any ally was damaged last turn$/, ()=>tx('fxp_c_ally_hurt','if any ally was damaged last turn')],
+  [/^if the target acted before the user this turn$/, ()=>tx('fxp_c_tgt_first_turn','if the target acted before the user this turn')],
+  [/^if user acted before the target$/, ()=>tx('fxp_c_user_first','if the user acted before the target')],
+  [/^if user acted before the target this turn$/, ()=>tx('fxp_c_user_first_turn','if the user acted before the target this turn')],
+  [/^if user has an active Defense buff$/, ()=>tx('fxp_c_def_buff','if the user has an active Defense buff')],
+  [/^if user is above (\d+)% HP$/, m=>txp('fxp_c_user_above','if the user is above {v1}% HP',m[1])],
+  [/^if user's Speed is higher than the target's$/, ()=>tx('fxp_c_faster',"if the user's Speed is higher than the target's")],
+  [/^([A-Z][a-z]+(?: and [A-Z][a-z]+)?) ally on the team$/, m=>txp('fxp_u_kin_ally','{v1} ally on the team',fxpName(m[1]))],
+  [/^active Defense buff on self$/, ()=>tx('fxp_u_def_buff','active Defense buff on the user')],
+  [/^active damage-over-time on the target$/, ()=>tx('fxp_u_dot','active damage-over-time on the target')],
+  [/^debuff on target$/, ()=>tx('fxp_u_debuff','debuff on the target')]];
+function fxpCondP(c){ for(let i=0;i<FXP_CONDS.length;i++){ const m=c.match(FXP_CONDS[i][0]); if(m) return FXP_CONDS[i][1](m); } return null; }
+function fxpSyn(t){ let m; t=String(t);
+  if(m=t.match(/^([A-Z][a-z]+)-only buff$/)) return txp('fxp_s_only_buff','{v1}-only buff',fxpName(m[1]));
+  if(m=t.match(/^([A-Z][a-z]+)-focused buff$/)) return txp('fxp_s_focused_buff','{v1}-focused buff',fxpName(m[1]));
+  if(m=t.match(/^scales with (.+?) allies$/)) return txp('fxp_s_scales','scales with {v1} allies',fxpName(m[1]));
+  return fxpTail(t); }
+function fxpCond(c){ let m; c=String(c); const p=fxpCondP(c); if(p!=null) return p;
+  if(m=c.match(/^per (.+?) \(max \+(\d+)%\)$/)) return txp('fxp_c_per_max','for each {v1}, up to {v2}% more',fxpCondP(m[1])||fxpCond2(m[1]),m[2]);
+  if(m=c.match(/^per (.+)$/)) return txp('fxp_c_per','for each {v1}',fxpCondP(m[1])||fxpCond2(m[1]));
   if(/^if user has an active Defense buff\s+—\s+consumes it$/.test(c)) return tx('fxp_c_def_consume','if the user has an active Defense buff, and uses that buff up');
   return fxpTail(fxpCond2(c)); }
 const FXP_RULES=[
@@ -125,7 +153,7 @@ const FXP_RULES=[
   [/^([^:]+): (\d+)%\/turn, (\d+)t$/, m=>txp('fxp_apply_dot','Applies {v1} for {v2}, costing the target {v3}% of its max HP each turn.',fxpName(m[1]),FXP_N(m[3]),m[2])],
   [/^([^:]+): (\d+)t$/, m=>txp('fxp_apply_dur','Applies {v1} for {v2}.',fxpName(m[1]),FXP_N(m[2]))],
     [/^(?:([^:]+): )?target('s healing received -\d+%|\s.+?)(?:, (\d+)t)?(?:, (stacks up to (\d+) times|does not stack))?$/, m=>{ const on=fxpOn(m[2].replace(/^\s+/,'')); if(!on) return null;
-     const st=m[4]?(' '+(m[5]?txp('fxp_stacks','Stacks up to {v1} times.',m[5]):tx('fxp_no_stack','Does not stack.'))):'';
+     const st=m[4]?(FXP_SEP()+(m[5]?txp('fxp_stacks','Stacks up to {v1} times.',m[5]):tx('fxp_no_stack','Does not stack.'))):'';
      if(m[1]) return (m[3]?txp('fxp_apply_on_dur','Applies {v1} to the target for {v2}, {v3}.',fxpName(m[1]),FXP_N(m[3]),on):txp('fxp_apply_on','Applies {v1} to the target, {v2}.',fxpName(m[1]),on))+st;
      const v=fxpOn(m[2].replace(/^\s+/,''),true,m[3]?FXP_N(m[3]):''); return v?v+st:null; }],
   [/^((?:[A-Z][a-z]+ and )?[A-Z][a-z]+) ally (?:gains |gain )?\+(\d+)% (Attack|Defense), (\d+)t$/, m=>txp('fxp_kin1_stat','{v1} ally gains {v2}% {v3} for {v4}.',fxpName(m[1]),m[2],FXP_STAT(m[3]),FXP_N(m[4]))],
@@ -137,17 +165,23 @@ const FXP_RULES=[
   [/^((?:[A-Z][a-z]+ and )?[A-Z][a-z]+) allies also gain \+(\d+) Speed stages?, (\d+)t$/, m=>txp('fxp_kin_spd_also','{v1} allies also gain a {v2} for {v3}.',fxpName(m[1]),FXP_SPD('+',m[2]),FXP_N(m[3]))],
   [/^((?:[A-Z][a-z]+ and )?[A-Z][a-z]+) allies gain \+(\d+) Speed stages? for (\d+)t instead$/, m=>txp('fxp_kin_spd_instead','{v1} allies gain a {v2} for {v3} instead.',fxpName(m[1]),FXP_SPD('+',m[2]),FXP_N(m[3]))],
   [/^([A-Z][\w'-]* targets) also take -(\d+) Speed stages?, (\d+)t$/, m=>txp('fxp_targets_also_spd','{v1} also get a {v2} for {v3}.',L10N.dat?fxpName(m[1].replace(/ targets$/,'')):m[1],FXP_SPD('-',m[2]),FXP_N(m[3]))],
+  [/^(.+?) allies are healed (\d+)% more$/, m=>txp('fxp_k_healed_more','{v1} allies are healed {v2}% more.',fxpName(m[1]),m[2])],
+  [/^(.+?) allies get -(\d+)% instead$/, m=>txp('fxp_k_get_instead','{v1} allies get -{v2}% instead.',fxpName(m[1]),m[2])],
+  [/^(.+?) allies gain \+(\d+)%\/\+(\d+)% instead$/, m=>txp('fxp_k_gain2_instead','{v1} allies gain +{v2}%/+{v3}% instead.',fxpName(m[1]),m[2],m[3])],
+  [/^refreshes the duration of existing damage-over-time effects on the target$/, ()=>tx('fxp_k_refresh_dot','Refreshes the duration of existing damage-over-time effects on the target.')],
+  [/^the target's buffs expire (\d+) turns? sooner$/, m=>txp('fxp_k_buffs_sooner',"The target's buffs expire {v1} sooner.",FXP_N(m[1]))],
+  [/^the ward repeats once more$/, ()=>tx('fxp_k_ward_again','The ward repeats once more.')],
   [/^(.+?) allies: (.+)$/, m=>txp('fxp_with_kin','With {v1} allies, {v2}',fxpName(m[1]),fxpClause(m[2]).replace(/^The /,()=>{ const t=String(tx('fxp_the_lc','the ')).trim(); return /[A-Za-z\u00C0-\u024F]$/.test(t)?t+' ':t; }))],
-  [/^\(This move IS the synergy: (.+)\.\)$/, m=>txp('fxp_own_synergy','This move is its own synergy: {v1}.',fxpTail(m[1]))]
+  [/^\(This move IS the synergy: (.+)\.\)$/, m=>txp('fxp_own_synergy','This move is its own synergy: {v1}.',fxpSyn(m[1]))]
 ];
 function fxpClause(c){ c=String(c||'').trim().replace(/\.$/,''); if(!c) return '';
   for(let i=0;i<FXP_RULES.length;i++){ const m=c.match(FXP_RULES[i][0]); if(m){ const v=FXP_RULES[i][1](m,c); if(v) return v; } }
-  const t=fxpTail(c); return t.charAt(0).toUpperCase()+t.slice(1)+(/[.!?]$/.test(t)?'':'.'); }
+  _fxpMiss++; const t=fxpTail(c); return t.charAt(0).toUpperCase()+t.slice(1)+(/[.!?]$/.test(t)?'':'.'); }
 function fxProse(raw){ const s=String(raw==null?'':raw).trim(); if(!s||s==='-') return s;
   const cl=s.replace(/\.$/,'').split(/\s*;\s*(?![^()]*\))/).filter(Boolean); let m;
     if(cl.length>1&&cl[0]==='Damage'){ const j=cl.findIndex(c=>/^\+\d+% more /.test(c));
     if(j>0){ const r=cl.splice(j,1)[0]; cl.splice(0,1,r); }
-    else if(m=cl[1].match(/^ignores (\d+)% of target Defense$/)){ cl.splice(0,2); return [txp('fxp_dmg_ignore',"Deals damage that ignores {v1}% of the target's Defense.",m[1])].concat(cl.map(fxpClause)).filter(Boolean).join(' '); } }
-  return cl.map(fxpClause).filter(Boolean).join(' '); }
+    else if(m=cl[1].match(/^ignores (\d+)% of target Defense$/)){ cl.splice(0,2); return [txp('fxp_dmg_ignore',"Deals damage that ignores {v1}% of the target's Defense.",m[1])].concat(cl.map(fxpClause)).filter(Boolean).join(FXP_SEP()); } }
+  return cl.map(fxpClause).filter(Boolean).join(FXP_SEP()); }
 window.fxProse=fxProse;
 })();

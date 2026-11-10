@@ -2205,10 +2205,39 @@ fxp_kin_spd,{v1}の味方は{v3}の間、{v2}を得る。,app: fxProse #1213 (D 
 fxp_kin_spd_also,さらに、{v1}の味方は{v3}の間、{v2}を得る。,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
 fxp_kin_spd_instead,代わりに、{v1}の味方は{v3}の間、{v2}を得る。,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
 fxp_targets_also_spd,{v1}にも{v3}の間、{v2}を与える。,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
-fxp_with_kin,{v1}の味方がいる場合: {v2},app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_with_kin,{v1}の味方がいる場合、{v2},app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
 fxp_the_lc,その,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
-fxp_own_synergy,この技自体がシナジーになる: {v1}。,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_own_synergy,この技自体がシナジーになる：{v1}。,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
 fxp_dmg_ignore,対象の防御力の{v1}%を無視してダメージを与える。,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_c_vs_debuffed,弱体状態の対象に対して,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_vs_below,HPが{v1}%未満の対象に対して,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_vs_n_debuffs,弱体が{v1}個以上かかっている対象に対して,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_vs_slowed,速度が下がっている対象に対して,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_vs_any_buff,強化がかかっている対象に対して,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_vs_any_dot,継続ダメージを受けている対象に対して,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_vs_no_buffs,強化がかかっていない対象に対して,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_vs_status,{v1}状態の対象に対して,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_if_used_last,前のターンに{v1}を使っていた場合,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_ally_hurt,前のターンに味方がダメージを受けていた場合,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_tgt_first_turn,このターンに対象が自分より先に行動していた場合,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_user_first,自分が対象より先に行動していた場合,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_user_first_turn,このターンに自分が対象より先に行動していた場合,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_def_buff,自分に防御力の強化がかかっている場合,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_user_above,自分のHPが{v1}%を超えている場合,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_faster,自分の速度が対象より高い場合,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_u_kin_ally,{v1}の味方1体,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_u_def_buff,自分にかかっている防御力の強化,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_u_dot,対象にかかっている継続ダメージ効果,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_u_debuff,対象にかかっている弱体,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_s_only_buff,{v1}の味方専用の強化,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_s_focused_buff,{v1}の味方向けの強化,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_s_scales,{v1}の味方の数に応じて強くなる,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_k_healed_more,{v1}の味方の回復量が{v2}%増加する。,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_k_get_instead,{v1}の味方は代わりに-{v2}%を受ける。,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_k_gain2_instead,{v1}の味方は代わりに+{v2}%/+{v3}%を得る。,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_k_refresh_dot,対象にかかっている継続ダメージ効果の持続時間を更新する。,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_k_buffs_sooner,対象の強化が{v1}早く切れる。,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_k_ward_again,その守りがもう一度発動する。,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
 m_cmp_equipped,装備中,markup: item details comparison - the tag beside the piece worn in that slot (#1216)
 m_sd_rules_wk,,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): the rules line"
 m_sd_free_open,,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): a plate, the free run of this week not yet used"

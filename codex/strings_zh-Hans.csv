@@ -2209,6 +2209,35 @@ fxp_with_kin,有{v1}友方时：{v2},app: fxProse #1213 (D 2026-11-06) - a moves
 fxp_the_lc,该,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
 fxp_own_synergy,此招式本身即为协同：{v1}。,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
 fxp_dmg_ignore,造成无视目标{v1}%防御的伤害。,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_c_vs_debuffed,对带有减益的目标,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_vs_below,对生命低于{v1}%的目标,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_vs_n_debuffs,对带有{v1}个或更多减益的目标,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_vs_slowed,对带有速度减益的目标,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_vs_any_buff,对拥有任意生效中增益的目标,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_vs_any_dot,对受到持续伤害效果的目标,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_vs_no_buffs,对没有生效中增益的目标,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_vs_status,对处于{v1}状态的目标,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_if_used_last,若上回合使用过{v1},app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_ally_hurt,若上回合有友方受到伤害,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_tgt_first_turn,若本回合目标先于自身行动,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_user_first,若自身先于目标行动,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_user_first_turn,若本回合自身先于目标行动,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_def_buff,若自身拥有生效中的防御增益,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_user_above,若自身生命高于{v1}%,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_faster,若自身速度高于目标,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_u_kin_ally,{v1}友方,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_u_def_buff,自身生效中的防御增益,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_u_dot,目标身上生效中的持续伤害效果,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_u_debuff,目标身上的减益,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_s_only_buff,仅限{v1}友方的增益,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_s_focused_buff,针对{v1}友方的增益,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_s_scales,随{v1}友方数量增强,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_k_healed_more,{v1}友方受到的治疗提高{v2}%。,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_k_get_instead,{v1}友方改为获得-{v2}%。,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_k_gain2_instead,{v1}友方改为获得+{v2}%/+{v3}%。,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_k_refresh_dot,刷新目标身上已有持续伤害效果的持续时间。,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_k_buffs_sooner,目标的增益提前{v1}结束。,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_k_ward_again,该守护会再触发一次。,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
 m_cmp_equipped,已装备,markup: item details comparison - the tag beside the piece worn in that slot (#1216)
 m_sd_rules_wk,,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): the rules line"
 m_sd_free_open,,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): a plate, the free run of this week not yet used"

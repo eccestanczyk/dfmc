@@ -2209,6 +2209,35 @@ fxp_with_kin,Mit {v1}-Verbündeten: {v2},app: fxProse #1213 (D 2026-11-06) - a m
 fxp_the_lc,der ,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
 fxp_own_synergy,Diese Attacke ist ihre eigene Synergie: {v1}.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
 fxp_dmg_ignore,"Verursacht Schaden, der {v1}% der Verteidigung des Ziels ignoriert.",app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_c_vs_debuffed,gegen geschwächte Ziele,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_vs_below,gegen Ziele unter {v1}% LP,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_vs_n_debuffs,gegen Ziele mit mindestens {v1} Schwächungen,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_vs_slowed,gegen Ziele mit einer Tempo-Schwächung,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_vs_any_buff,gegen Ziele mit einer aktiven Stärkung,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_vs_any_dot,"gegen Ziele, die Schaden über Zeit erleiden",app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_vs_no_buffs,gegen Ziele ohne aktive Stärkung,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_vs_status,"gegen Ziele, die von {v1} betroffen sind",app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_if_used_last,wenn in der letzten Runde {v1} eingesetzt wurde,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_ally_hurt,wenn in der letzten Runde ein Verbündeter Schaden erlitten hat,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_tgt_first_turn,wenn das Ziel in dieser Runde vor dem Anwender gehandelt hat,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_user_first,wenn der Anwender vor dem Ziel gehandelt hat,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_user_first_turn,wenn der Anwender in dieser Runde vor dem Ziel gehandelt hat,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_def_buff,wenn der Anwender eine aktive Verteidigungs-Stärkung hat,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_user_above,wenn der Anwender über {v1}% LP hat,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_faster,wenn der Anwender schneller als das Ziel ist,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_u_kin_ally,{v1}-Verbündeten im Team,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_u_def_buff,aktive Verteidigungs-Stärkung auf dem Anwender,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_u_dot,aktiven Schaden-über-Zeit-Effekt auf dem Ziel,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_u_debuff,Schwächung auf dem Ziel,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_s_only_buff,eine Stärkung nur für {v1}-Verbündete,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_s_focused_buff,eine auf {v1}-Verbündete ausgerichtete Stärkung,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_s_scales,sie wird mit jedem {v1}-Verbündeten stärker,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_k_healed_more,{v1}-Verbündete werden um {v2}% stärker geheilt.,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_k_get_instead,{v1}-Verbündete erhalten stattdessen -{v2}%.,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_k_gain2_instead,{v1}-Verbündete erhalten stattdessen +{v2}%/+{v3}%.,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_k_refresh_dot,Erneuert die Dauer bestehender Schaden-über-Zeit-Effekte auf dem Ziel.,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_k_buffs_sooner,Die Stärkungen des Ziels enden {v1} früher.,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_k_ward_again,Der Schutz wirkt ein weiteres Mal.,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
 m_cmp_equipped,AUSGERÜSTET,markup: item details comparison - the tag beside the piece worn in that slot (#1216)
 m_sd_rules_wk,,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): the rules line"
 m_sd_free_open,,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): a plate, the free run of this week not yet used"

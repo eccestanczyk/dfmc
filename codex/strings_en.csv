@@ -2209,6 +2209,35 @@ fxp_with_kin,"With {v1} allies, {v2}",app: fxProse #1213 (D 2026-11-06) - a move
 fxp_the_lc,the ,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
 fxp_own_synergy,This move is its own synergy: {v1}.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
 fxp_dmg_ignore,Deals damage that ignores {v1}% of the target's Defense.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_c_vs_debuffed,against debuffed targets,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_vs_below,against targets below {v1}% HP,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_vs_n_debuffs,against targets with {v1} or more debuffs,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_vs_slowed,against targets with a reduced Speed debuff,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_vs_any_buff,against targets with any active buff,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_vs_any_dot,against targets with any damage-over-time effect,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_vs_no_buffs,against targets with no active buffs,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_vs_status,against targets with {v1},app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_if_used_last,if {v1} was used last turn,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_ally_hurt,if any ally was damaged last turn,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_tgt_first_turn,if the target acted before the user this turn,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_user_first,if the user acted before the target,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_user_first_turn,if the user acted before the target this turn,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_def_buff,if the user has an active Defense buff,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_user_above,if the user is above {v1}% HP,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_faster,if the user's Speed is higher than the target's,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_u_kin_ally,{v1} ally on the team,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_u_def_buff,active Defense buff on the user,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_u_dot,active damage-over-time on the target,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_u_debuff,debuff on the target,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_s_only_buff,{v1}-only buff,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_s_focused_buff,{v1}-focused buff,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_s_scales,scales with {v1} allies,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_k_healed_more,{v1} allies are healed {v2}% more.,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_k_get_instead,{v1} allies get -{v2}% instead.,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_k_gain2_instead,{v1} allies gain +{v2}%/+{v3}% instead.,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_k_refresh_dot,Refreshes the duration of existing damage-over-time effects on the target.,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_k_buffs_sooner,The target's buffs expire {v1} sooner.,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_k_ward_again,The ward repeats once more.,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
 m_cmp_equipped,EQUIPPED,markup: item details comparison - the tag beside the piece worn in that slot (#1216)
 m_sd_rules_wk,"Five bosses back to back. Your team's HP carries from fight to fight, with no healing between. Each gauntlet gives one free run a week; a week you do not use is not saved. A Gauntlet Entry opens any gauntlet you have unlocked.","app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): the rules line"
 m_sd_free_open,Free run: available,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): a plate, the free run of this week not yet used"

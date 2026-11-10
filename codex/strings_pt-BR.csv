@@ -2209,6 +2209,35 @@ fxp_with_kin,Com aliados {v1}: {v2},app: fxProse #1213 (D 2026-11-06) - a moves.
 fxp_the_lc,o ,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
 fxp_own_synergy,Este golpe é sua própria sinergia: {v1}.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
 fxp_dmg_ignore,Causa dano que ignora {v1}% da Defesa do alvo.,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
+fxp_c_vs_debuffed,contra alvos com penalidades,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_vs_below,contra alvos abaixo de {v1}% de PV,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_vs_n_debuffs,contra alvos com {v1} ou mais penalidades,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_vs_slowed,contra alvos com penalidade de Velocidade,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_vs_any_buff,contra alvos com qualquer bônus ativo,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_vs_any_dot,contra alvos com qualquer efeito de dano contínuo,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_vs_no_buffs,contra alvos sem bônus ativos,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_vs_status,contra alvos sob {v1},app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_if_used_last,se {v1} foi usado no turno anterior,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_ally_hurt,se algum aliado sofreu dano no turno anterior,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_tgt_first_turn,se o alvo agiu antes do usuário neste turno,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_user_first,se o usuário agiu antes do alvo,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_user_first_turn,se o usuário agiu antes do alvo neste turno,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_def_buff,se o usuário tiver um bônus de Defesa ativo,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_user_above,se o usuário estiver acima de {v1}% de PV,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_c_faster,se a Velocidade do usuário for maior que a do alvo,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_u_kin_ally,aliado {v1} na equipe,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_u_def_buff,bônus de Defesa ativo no usuário,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_u_dot,efeito de dano contínuo ativo no alvo,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_u_debuff,penalidade no alvo,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_s_only_buff,um bônus exclusivo para aliados {v1},app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_s_focused_buff,um bônus voltado para aliados {v1},app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_s_scales,fica mais forte com aliados {v1},app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_k_healed_more,Aliados {v1} são curados {v2}% a mais.,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_k_get_instead,Aliados {v1} recebem -{v2}% em vez disso.,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_k_gain2_instead,Aliados {v1} ganham +{v2}%/+{v3}% em vez disso.,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_k_refresh_dot,Renova a duração dos efeitos de dano contínuo existentes no alvo.,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_k_buffs_sooner,Os bônus do alvo expiram {v1} antes.,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
+fxp_k_ward_again,A proteção se repete mais uma vez.,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
 m_cmp_equipped,EQUIPADO,markup: item details comparison - the tag beside the piece worn in that slot (#1216)
 m_sd_rules_wk,,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): the rules line"
 m_sd_free_open,,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): a plate, the free run of this week not yet used"
