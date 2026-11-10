@@ -453,64 +453,64 @@ ach_resource_1_name,Espólios das Profundezas,achievements.csv RESOURCE_1 Name
 ach_resource_1_desc,Conclua um nível de masmorra de recursos.,achievements.csv RESOURCE_1 Description
 ach_resource_10_name,Mestre da Pedreira,achievements.csv RESOURCE_10 Name
 ach_resource_10_desc,Conclua 10 níveis de masmorras de recursos.,achievements.csv RESOURCE_10 Description
-ach_floor_20_name,,achievements.csv FLOOR_20 Name
-ach_floor_20_desc,,achievements.csv FLOOR_20 Description
-ach_floor_40_name,,achievements.csv FLOOR_40 Name
-ach_floor_40_desc,,achievements.csv FLOOR_40 Description
-ach_floor_50_name,,achievements.csv FLOOR_50 Name
-ach_floor_50_desc,,achievements.csv FLOOR_50 Description
-ach_floor_70_name,,achievements.csv FLOOR_70 Name
-ach_floor_70_desc,,achievements.csv FLOOR_70 Description
-ach_floor_80_name,,achievements.csv FLOOR_80 Name
-ach_floor_80_desc,,achievements.csv FLOOR_80 Description
-ach_floor_90_name,,achievements.csv FLOOR_90 Name
-ach_floor_90_desc,,achievements.csv FLOOR_90 Description
-ach_mastery_warrior_name,,achievements.csv MASTERY_WARRIOR Name
-ach_mastery_warrior_desc,,achievements.csv MASTERY_WARRIOR Description
-ach_mastery_mage_name,,achievements.csv MASTERY_MAGE Name
-ach_mastery_mage_desc,,achievements.csv MASTERY_MAGE Description
-ach_mastery_archer_name,,achievements.csv MASTERY_ARCHER Name
-ach_mastery_archer_desc,,achievements.csv MASTERY_ARCHER Description
-ach_mastery_assassin_name,,achievements.csv MASTERY_ASSASSIN Name
-ach_mastery_assassin_desc,,achievements.csv MASTERY_ASSASSIN Description
-ach_mastery_brute_name,,achievements.csv MASTERY_BRUTE Name
-ach_mastery_brute_desc,,achievements.csv MASTERY_BRUTE Description
-ach_mastery_professor_name,,achievements.csv MASTERY_PROFESSOR Name
-ach_mastery_professor_desc,,achievements.csv MASTERY_PROFESSOR Description
-ach_dimensional_traveler_name,,achievements.csv DIMENSIONAL_TRAVELER Name
-ach_dimensional_traveler_desc,,achievements.csv DIMENSIONAL_TRAVELER Description
-ach_codex_50_name,,achievements.csv CODEX_50 Name
-ach_codex_50_desc,,achievements.csv CODEX_50 Description
-ach_codex_200_name,,achievements.csv CODEX_200 Name
-ach_codex_200_desc,,achievements.csv CODEX_200 Description
-ach_codex_all_name,,achievements.csv CODEX_ALL Name
-ach_codex_all_desc,,achievements.csv CODEX_ALL Description
-ach_hatch_1_name,,achievements.csv HATCH_1 Name
-ach_hatch_1_desc,,achievements.csv HATCH_1 Description
-ach_hatch_100_name,,achievements.csv HATCH_100 Name
-ach_hatch_100_desc,,achievements.csv HATCH_100 Description
-ach_hatch_1000_name,,achievements.csv HATCH_1000 Name
-ach_hatch_1000_desc,,achievements.csv HATCH_1000 Description
-ach_grade_common_name,,achievements.csv GRADE_COMMON Name
-ach_grade_common_desc,,achievements.csv GRADE_COMMON Description
-ach_grade_uncommon_name,,achievements.csv GRADE_UNCOMMON Name
-ach_grade_uncommon_desc,,achievements.csv GRADE_UNCOMMON Description
-ach_grade_rare_name,,achievements.csv GRADE_RARE Name
-ach_grade_rare_desc,,achievements.csv GRADE_RARE Description
-ach_grade_epic_name,,achievements.csv GRADE_EPIC Name
-ach_grade_epic_desc,,achievements.csv GRADE_EPIC Description
-ach_grade_legendary_name,,achievements.csv GRADE_LEGENDARY Name
-ach_grade_legendary_desc,,achievements.csv GRADE_LEGENDARY Description
-ach_grade_abyssal_name,,achievements.csv GRADE_ABYSSAL Name
-ach_grade_abyssal_desc,,achievements.csv GRADE_ABYSSAL Description
-ach_grade_divine_name,,achievements.csv GRADE_DIVINE Name
-ach_grade_divine_desc,,achievements.csv GRADE_DIVINE Description
-ach_grade_primordial_name,,achievements.csv GRADE_PRIMORDIAL Name
-ach_grade_primordial_desc,,achievements.csv GRADE_PRIMORDIAL Description
-ach_dismantle_100_name,,achievements.csv DISMANTLE_100 Name
-ach_dismantle_100_desc,,achievements.csv DISMANTLE_100 Description
-ach_dismantle_1000_name,,achievements.csv DISMANTLE_1000 Name
-ach_dismantle_1000_desc,,achievements.csv DISMANTLE_1000 Description
+ach_floor_20_name,Quebra-Portões,achievements.csv FLOOR_20 Name
+ach_floor_20_desc,Derrote o chefe do andar 20 da Torre.,achievements.csv FLOOR_20 Description
+ach_floor_40_name,Quebra-Ninhadas,achievements.csv FLOOR_40 Name
+ach_floor_40_desc,Derrote o chefe do andar 40 da Torre.,achievements.csv FLOOR_40 Description
+ach_floor_50_name,Derrubador de Tronos,achievements.csv FLOOR_50 Name
+ach_floor_50_desc,Derrote o chefe do andar 50 da Torre.,achievements.csv FLOOR_50 Description
+ach_floor_70_name,O Poço Esvaziado,achievements.csv FLOOR_70 Name
+ach_floor_70_desc,Derrote o chefe do andar 70 da Torre.,achievements.csv FLOOR_70 Description
+ach_floor_80_name,Ceifador de Flores,achievements.csv FLOOR_80 Name
+ach_floor_80_desc,Derrote o chefe do andar 80 da Torre.,achievements.csv FLOOR_80 Description
+ach_floor_90_name,Selador da Cripta,achievements.csv FLOOR_90 Name
+ach_floor_90_desc,Derrote o chefe do andar 90 da Torre.,achievements.csv FLOOR_90 Description
+ach_mastery_warrior_name,Maestria de Guerreiro,achievements.csv MASTERY_WARRIOR Name
+ach_mastery_warrior_desc,Eleve a classe Guerreiro ao nível máximo.,achievements.csv MASTERY_WARRIOR Description
+ach_mastery_mage_name,Maestria de Mago,achievements.csv MASTERY_MAGE Name
+ach_mastery_mage_desc,Eleve a classe Mago ao nível máximo.,achievements.csv MASTERY_MAGE Description
+ach_mastery_archer_name,Maestria de Arqueiro,achievements.csv MASTERY_ARCHER Name
+ach_mastery_archer_desc,Eleve a classe Arqueiro ao nível máximo.,achievements.csv MASTERY_ARCHER Description
+ach_mastery_assassin_name,Maestria de Assassino,achievements.csv MASTERY_ASSASSIN Name
+ach_mastery_assassin_desc,Eleve a classe Assassino ao nível máximo.,achievements.csv MASTERY_ASSASSIN Description
+ach_mastery_brute_name,Maestria de Bruto,achievements.csv MASTERY_BRUTE Name
+ach_mastery_brute_desc,Eleve a classe Bruto ao nível máximo.,achievements.csv MASTERY_BRUTE Description
+ach_mastery_professor_name,Maestria de Professor,achievements.csv MASTERY_PROFESSOR Name
+ach_mastery_professor_desc,Eleve a classe Professor ao nível máximo.,achievements.csv MASTERY_PROFESSOR Description
+ach_dimensional_traveler_name,Viajante Dimensional,achievements.csv DIMENSIONAL_TRAVELER Name
+ach_dimensional_traveler_desc,Leve uma criatura que você enviou para Herumon Dungeon ao nível 50 lá.,achievements.csv DIMENSIONAL_TRAVELER Description
+ach_codex_50_name,Esboços de Campo,achievements.csv CODEX_50 Name
+ach_codex_50_desc,Adquira 50 criaturas no Códex.,achievements.csv CODEX_50 Description
+ach_codex_200_name,O Volume Espesso,achievements.csv CODEX_200 Name
+ach_codex_200_desc,Adquira 200 criaturas no Códex.,achievements.csv CODEX_200 Description
+ach_codex_all_name,O Códex Completo,achievements.csv CODEX_ALL Name
+ach_codex_all_desc,Adquira todas as criaturas no Códex.,achievements.csv CODEX_ALL Description
+ach_hatch_1_name,Primeira Rachadura,achievements.csv HATCH_1 Name
+ach_hatch_1_desc,Choque um ovo.,achievements.csv HATCH_1 Description
+ach_hatch_100_name,Berçário,achievements.csv HATCH_100 Name
+ach_hatch_100_desc,Choque 100 ovos.,achievements.csv HATCH_100 Description
+ach_hatch_1000_name,Mil Cascas,achievements.csv HATCH_1000 Name
+ach_hatch_1000_desc,Choque 1000 ovos.,achievements.csv HATCH_1000 Description
+ach_grade_common_name,Um Passo Acima,achievements.csv GRADE_COMMON Name
+ach_grade_common_desc,Obtenha sua primeira criatura de grau Comum.,achievements.csv GRADE_COMMON Description
+ach_grade_uncommon_name,Achado Incomum,achievements.csv GRADE_UNCOMMON Name
+ach_grade_uncommon_desc,Obtenha sua primeira criatura de grau Incomum.,achievements.csv GRADE_UNCOMMON Description
+ach_grade_rare_name,Raça Rara,achievements.csv GRADE_RARE Name
+ach_grade_rare_desc,Obtenha sua primeira criatura de grau Raro.,achievements.csv GRADE_RARE Description
+ach_grade_epic_name,Linhagem Épica,achievements.csv GRADE_EPIC Name
+ach_grade_epic_desc,Obtenha sua primeira criatura de grau Épico.,achievements.csv GRADE_EPIC Description
+ach_grade_legendary_name,Lenda Viva,achievements.csv GRADE_LEGENDARY Name
+ach_grade_legendary_desc,Obtenha sua primeira criatura de grau Lendário.,achievements.csv GRADE_LEGENDARY Description
+ach_grade_abyssal_name,Vindo do Abismo,achievements.csv GRADE_ABYSSAL Name
+ach_grade_abyssal_desc,Obtenha sua primeira criatura de grau Abissal.,achievements.csv GRADE_ABYSSAL Description
+ach_grade_divine_name,Tocado pelo Divino,achievements.csv GRADE_DIVINE Name
+ach_grade_divine_desc,Obtenha sua primeira criatura de grau Divino.,achievements.csv GRADE_DIVINE Description
+ach_grade_primordial_name,Sangue Primordial,achievements.csv GRADE_PRIMORDIAL Name
+ach_grade_primordial_desc,Obtenha sua primeira criatura de grau Primordial.,achievements.csv GRADE_PRIMORDIAL Description
+ach_dismantle_100_name,Sucateiro,achievements.csv DISMANTLE_100 Name
+ach_dismantle_100_desc,Desmonte 100 itens.,achievements.csv DISMANTLE_100 Description
+ach_dismantle_1000_name,Ferro-Velho,achievements.csv DISMANTLE_1000 Name
+ach_dismantle_1000_desc,Desmonte 1000 itens.,achievements.csv DISMANTLE_1000 Description
 shop_packs_title,PACOTES DE WRAITHGOLD,app: premium shop: heading of the real-money pack grid (S7)
 shop_store_unreachable,Não foi possível acessar a loja.,app: premium shop: /api/store/catalogue failed
 shop_store_loading,Carregando a loja...,app: premium shop: pack grid loading

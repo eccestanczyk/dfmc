@@ -453,64 +453,64 @@ ach_resource_1_name,Beute der Tiefe,achievements.csv RESOURCE_1 Name
 ach_resource_1_desc,Schließe eine Stufe eines Ressourcen-Dungeons ab.,achievements.csv RESOURCE_1 Description
 ach_resource_10_name,Meister des Steinbruchs,achievements.csv RESOURCE_10 Name
 ach_resource_10_desc,Schließe 10 Stufen von Ressourcen-Dungeons ab.,achievements.csv RESOURCE_10 Description
-ach_floor_20_name,,achievements.csv FLOOR_20 Name
-ach_floor_20_desc,,achievements.csv FLOOR_20 Description
-ach_floor_40_name,,achievements.csv FLOOR_40 Name
-ach_floor_40_desc,,achievements.csv FLOOR_40 Description
-ach_floor_50_name,,achievements.csv FLOOR_50 Name
-ach_floor_50_desc,,achievements.csv FLOOR_50 Description
-ach_floor_70_name,,achievements.csv FLOOR_70 Name
-ach_floor_70_desc,,achievements.csv FLOOR_70 Description
-ach_floor_80_name,,achievements.csv FLOOR_80 Name
-ach_floor_80_desc,,achievements.csv FLOOR_80 Description
-ach_floor_90_name,,achievements.csv FLOOR_90 Name
-ach_floor_90_desc,,achievements.csv FLOOR_90 Description
-ach_mastery_warrior_name,,achievements.csv MASTERY_WARRIOR Name
-ach_mastery_warrior_desc,,achievements.csv MASTERY_WARRIOR Description
-ach_mastery_mage_name,,achievements.csv MASTERY_MAGE Name
-ach_mastery_mage_desc,,achievements.csv MASTERY_MAGE Description
-ach_mastery_archer_name,,achievements.csv MASTERY_ARCHER Name
-ach_mastery_archer_desc,,achievements.csv MASTERY_ARCHER Description
-ach_mastery_assassin_name,,achievements.csv MASTERY_ASSASSIN Name
-ach_mastery_assassin_desc,,achievements.csv MASTERY_ASSASSIN Description
-ach_mastery_brute_name,,achievements.csv MASTERY_BRUTE Name
-ach_mastery_brute_desc,,achievements.csv MASTERY_BRUTE Description
-ach_mastery_professor_name,,achievements.csv MASTERY_PROFESSOR Name
-ach_mastery_professor_desc,,achievements.csv MASTERY_PROFESSOR Description
-ach_dimensional_traveler_name,,achievements.csv DIMENSIONAL_TRAVELER Name
-ach_dimensional_traveler_desc,,achievements.csv DIMENSIONAL_TRAVELER Description
-ach_codex_50_name,,achievements.csv CODEX_50 Name
-ach_codex_50_desc,,achievements.csv CODEX_50 Description
-ach_codex_200_name,,achievements.csv CODEX_200 Name
-ach_codex_200_desc,,achievements.csv CODEX_200 Description
-ach_codex_all_name,,achievements.csv CODEX_ALL Name
-ach_codex_all_desc,,achievements.csv CODEX_ALL Description
-ach_hatch_1_name,,achievements.csv HATCH_1 Name
-ach_hatch_1_desc,,achievements.csv HATCH_1 Description
-ach_hatch_100_name,,achievements.csv HATCH_100 Name
-ach_hatch_100_desc,,achievements.csv HATCH_100 Description
-ach_hatch_1000_name,,achievements.csv HATCH_1000 Name
-ach_hatch_1000_desc,,achievements.csv HATCH_1000 Description
-ach_grade_common_name,,achievements.csv GRADE_COMMON Name
-ach_grade_common_desc,,achievements.csv GRADE_COMMON Description
-ach_grade_uncommon_name,,achievements.csv GRADE_UNCOMMON Name
-ach_grade_uncommon_desc,,achievements.csv GRADE_UNCOMMON Description
-ach_grade_rare_name,,achievements.csv GRADE_RARE Name
-ach_grade_rare_desc,,achievements.csv GRADE_RARE Description
-ach_grade_epic_name,,achievements.csv GRADE_EPIC Name
-ach_grade_epic_desc,,achievements.csv GRADE_EPIC Description
-ach_grade_legendary_name,,achievements.csv GRADE_LEGENDARY Name
-ach_grade_legendary_desc,,achievements.csv GRADE_LEGENDARY Description
-ach_grade_abyssal_name,,achievements.csv GRADE_ABYSSAL Name
-ach_grade_abyssal_desc,,achievements.csv GRADE_ABYSSAL Description
-ach_grade_divine_name,,achievements.csv GRADE_DIVINE Name
-ach_grade_divine_desc,,achievements.csv GRADE_DIVINE Description
-ach_grade_primordial_name,,achievements.csv GRADE_PRIMORDIAL Name
-ach_grade_primordial_desc,,achievements.csv GRADE_PRIMORDIAL Description
-ach_dismantle_100_name,,achievements.csv DISMANTLE_100 Name
-ach_dismantle_100_desc,,achievements.csv DISMANTLE_100 Description
-ach_dismantle_1000_name,,achievements.csv DISMANTLE_1000 Name
-ach_dismantle_1000_desc,,achievements.csv DISMANTLE_1000 Description
+ach_floor_20_name,Torbrecher,achievements.csv FLOOR_20 Name
+ach_floor_20_desc,Besiege den Boss von Etage 20 des Turms.,achievements.csv FLOOR_20 Description
+ach_floor_40_name,Brutbrecher,achievements.csv FLOOR_40 Name
+ach_floor_40_desc,Besiege den Boss von Etage 40 des Turms.,achievements.csv FLOOR_40 Description
+ach_floor_50_name,Thronstürzer,achievements.csv FLOOR_50 Name
+ach_floor_50_desc,Besiege den Boss von Etage 50 des Turms.,achievements.csv FLOOR_50 Description
+ach_floor_70_name,Den Teich geleert,achievements.csv FLOOR_70 Name
+ach_floor_70_desc,Besiege den Boss von Etage 70 des Turms.,achievements.csv FLOOR_70 Description
+ach_floor_80_name,Blütenschnitter,achievements.csv FLOOR_80 Name
+ach_floor_80_desc,Besiege den Boss von Etage 80 des Turms.,achievements.csv FLOOR_80 Description
+ach_floor_90_name,Gruftversiegler,achievements.csv FLOOR_90 Name
+ach_floor_90_desc,Besiege den Boss von Etage 90 des Turms.,achievements.csv FLOOR_90 Description
+ach_mastery_warrior_name,Krieger-Meisterschaft,achievements.csv MASTERY_WARRIOR Name
+ach_mastery_warrior_desc,Bringe die Klasse Krieger auf ihre Stufenobergrenze.,achievements.csv MASTERY_WARRIOR Description
+ach_mastery_mage_name,Magier-Meisterschaft,achievements.csv MASTERY_MAGE Name
+ach_mastery_mage_desc,Bringe die Klasse Magier auf ihre Stufenobergrenze.,achievements.csv MASTERY_MAGE Description
+ach_mastery_archer_name,Bogenschütze-Meisterschaft,achievements.csv MASTERY_ARCHER Name
+ach_mastery_archer_desc,Bringe die Klasse Bogenschütze auf ihre Stufenobergrenze.,achievements.csv MASTERY_ARCHER Description
+ach_mastery_assassin_name,Assassine-Meisterschaft,achievements.csv MASTERY_ASSASSIN Name
+ach_mastery_assassin_desc,Bringe die Klasse Assassine auf ihre Stufenobergrenze.,achievements.csv MASTERY_ASSASSIN Description
+ach_mastery_brute_name,Schläger-Meisterschaft,achievements.csv MASTERY_BRUTE Name
+ach_mastery_brute_desc,Bringe die Klasse Schläger auf ihre Stufenobergrenze.,achievements.csv MASTERY_BRUTE Description
+ach_mastery_professor_name,Professor-Meisterschaft,achievements.csv MASTERY_PROFESSOR Name
+ach_mastery_professor_desc,Bringe die Klasse Professor auf ihre Stufenobergrenze.,achievements.csv MASTERY_PROFESSOR Description
+ach_dimensional_traveler_name,Dimensionsreisender,achievements.csv DIMENSIONAL_TRAVELER Name
+ach_dimensional_traveler_desc,"Bringe eine Kreatur, die du nach Herumon Dungeon geschickt hast, dort auf Stufe 50.",achievements.csv DIMENSIONAL_TRAVELER Description
+ach_codex_50_name,Feldskizzen,achievements.csv CODEX_50 Name
+ach_codex_50_desc,Erhalte 50 Kreaturen im Kodex.,achievements.csv CODEX_50 Description
+ach_codex_200_name,Der dicke Band,achievements.csv CODEX_200 Name
+ach_codex_200_desc,Erhalte 200 Kreaturen im Kodex.,achievements.csv CODEX_200 Description
+ach_codex_all_name,Der vollständige Kodex,achievements.csv CODEX_ALL Name
+ach_codex_all_desc,Erhalte jede Kreatur im Kodex.,achievements.csv CODEX_ALL Description
+ach_hatch_1_name,Der erste Riss,achievements.csv HATCH_1 Name
+ach_hatch_1_desc,Brüte ein Ei aus.,achievements.csv HATCH_1 Description
+ach_hatch_100_name,Kinderstube,achievements.csv HATCH_100 Name
+ach_hatch_100_desc,Brüte 100 Eier aus.,achievements.csv HATCH_100 Description
+ach_hatch_1000_name,Tausend Schalen,achievements.csv HATCH_1000 Name
+ach_hatch_1000_desc,Brüte 1000 Eier aus.,achievements.csv HATCH_1000 Description
+ach_grade_common_name,Ein Schritt nach oben,achievements.csv GRADE_COMMON Name
+ach_grade_common_desc,Besitze deine erste Kreatur vom Grad Gewöhnlich.,achievements.csv GRADE_COMMON Description
+ach_grade_uncommon_name,Ungewöhnlicher Fund,achievements.csv GRADE_UNCOMMON Name
+ach_grade_uncommon_desc,Besitze deine erste Kreatur vom Grad Ungewöhnlich.,achievements.csv GRADE_UNCOMMON Description
+ach_grade_rare_name,Seltene Zucht,achievements.csv GRADE_RARE Name
+ach_grade_rare_desc,Besitze deine erste Kreatur vom Grad Selten.,achievements.csv GRADE_RARE Description
+ach_grade_epic_name,Epischer Bestand,achievements.csv GRADE_EPIC Name
+ach_grade_epic_desc,Besitze deine erste Kreatur vom Grad Episch.,achievements.csv GRADE_EPIC Description
+ach_grade_legendary_name,Lebende Legende,achievements.csv GRADE_LEGENDARY Name
+ach_grade_legendary_desc,Besitze deine erste Kreatur vom Grad Legendär.,achievements.csv GRADE_LEGENDARY Description
+ach_grade_abyssal_name,Aus dem Abgrund,achievements.csv GRADE_ABYSSAL Name
+ach_grade_abyssal_desc,Besitze deine erste Kreatur vom Grad Abyssal.,achievements.csv GRADE_ABYSSAL Description
+ach_grade_divine_name,Vom Göttlichen berührt,achievements.csv GRADE_DIVINE Name
+ach_grade_divine_desc,Besitze deine erste Kreatur vom Grad Göttlich.,achievements.csv GRADE_DIVINE Description
+ach_grade_primordial_name,Urzeitliches Blut,achievements.csv GRADE_PRIMORDIAL Name
+ach_grade_primordial_desc,Besitze deine erste Kreatur vom Grad Urzeitlich.,achievements.csv GRADE_PRIMORDIAL Description
+ach_dismantle_100_name,Verwerter,achievements.csv DISMANTLE_100 Name
+ach_dismantle_100_desc,Zerlege 100 Gegenstände.,achievements.csv DISMANTLE_100 Description
+ach_dismantle_1000_name,Abwrackhof,achievements.csv DISMANTLE_1000 Name
+ach_dismantle_1000_desc,Zerlege 1000 Gegenstände.,achievements.csv DISMANTLE_1000 Description
 shop_packs_title,WRAITHGOLD-PAKETE,app: premium shop: heading of the real-money pack grid (S7)
 shop_store_unreachable,Shop nicht erreichbar.,app: premium shop: /api/store/catalogue failed
 shop_store_loading,Shop wird geladen...,app: premium shop: pack grid loading

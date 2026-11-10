@@ -453,64 +453,64 @@ ach_resource_1_name,深处的战利品,achievements.csv RESOURCE_1 Name
 ach_resource_1_desc,通关一个资源地下城层级。,achievements.csv RESOURCE_1 Description
 ach_resource_10_name,采石大师,achievements.csv RESOURCE_10 Name
 ach_resource_10_desc,通关 10 个资源地下城层级。,achievements.csv RESOURCE_10 Description
-ach_floor_20_name,,achievements.csv FLOOR_20 Name
-ach_floor_20_desc,,achievements.csv FLOOR_20 Description
-ach_floor_40_name,,achievements.csv FLOOR_40 Name
-ach_floor_40_desc,,achievements.csv FLOOR_40 Description
-ach_floor_50_name,,achievements.csv FLOOR_50 Name
-ach_floor_50_desc,,achievements.csv FLOOR_50 Description
-ach_floor_70_name,,achievements.csv FLOOR_70 Name
-ach_floor_70_desc,,achievements.csv FLOOR_70 Description
-ach_floor_80_name,,achievements.csv FLOOR_80 Name
-ach_floor_80_desc,,achievements.csv FLOOR_80 Description
-ach_floor_90_name,,achievements.csv FLOOR_90 Name
-ach_floor_90_desc,,achievements.csv FLOOR_90 Description
-ach_mastery_warrior_name,,achievements.csv MASTERY_WARRIOR Name
-ach_mastery_warrior_desc,,achievements.csv MASTERY_WARRIOR Description
-ach_mastery_mage_name,,achievements.csv MASTERY_MAGE Name
-ach_mastery_mage_desc,,achievements.csv MASTERY_MAGE Description
-ach_mastery_archer_name,,achievements.csv MASTERY_ARCHER Name
-ach_mastery_archer_desc,,achievements.csv MASTERY_ARCHER Description
-ach_mastery_assassin_name,,achievements.csv MASTERY_ASSASSIN Name
-ach_mastery_assassin_desc,,achievements.csv MASTERY_ASSASSIN Description
-ach_mastery_brute_name,,achievements.csv MASTERY_BRUTE Name
-ach_mastery_brute_desc,,achievements.csv MASTERY_BRUTE Description
-ach_mastery_professor_name,,achievements.csv MASTERY_PROFESSOR Name
-ach_mastery_professor_desc,,achievements.csv MASTERY_PROFESSOR Description
-ach_dimensional_traveler_name,,achievements.csv DIMENSIONAL_TRAVELER Name
-ach_dimensional_traveler_desc,,achievements.csv DIMENSIONAL_TRAVELER Description
-ach_codex_50_name,,achievements.csv CODEX_50 Name
-ach_codex_50_desc,,achievements.csv CODEX_50 Description
-ach_codex_200_name,,achievements.csv CODEX_200 Name
-ach_codex_200_desc,,achievements.csv CODEX_200 Description
-ach_codex_all_name,,achievements.csv CODEX_ALL Name
-ach_codex_all_desc,,achievements.csv CODEX_ALL Description
-ach_hatch_1_name,,achievements.csv HATCH_1 Name
-ach_hatch_1_desc,,achievements.csv HATCH_1 Description
-ach_hatch_100_name,,achievements.csv HATCH_100 Name
-ach_hatch_100_desc,,achievements.csv HATCH_100 Description
-ach_hatch_1000_name,,achievements.csv HATCH_1000 Name
-ach_hatch_1000_desc,,achievements.csv HATCH_1000 Description
-ach_grade_common_name,,achievements.csv GRADE_COMMON Name
-ach_grade_common_desc,,achievements.csv GRADE_COMMON Description
-ach_grade_uncommon_name,,achievements.csv GRADE_UNCOMMON Name
-ach_grade_uncommon_desc,,achievements.csv GRADE_UNCOMMON Description
-ach_grade_rare_name,,achievements.csv GRADE_RARE Name
-ach_grade_rare_desc,,achievements.csv GRADE_RARE Description
-ach_grade_epic_name,,achievements.csv GRADE_EPIC Name
-ach_grade_epic_desc,,achievements.csv GRADE_EPIC Description
-ach_grade_legendary_name,,achievements.csv GRADE_LEGENDARY Name
-ach_grade_legendary_desc,,achievements.csv GRADE_LEGENDARY Description
-ach_grade_abyssal_name,,achievements.csv GRADE_ABYSSAL Name
-ach_grade_abyssal_desc,,achievements.csv GRADE_ABYSSAL Description
-ach_grade_divine_name,,achievements.csv GRADE_DIVINE Name
-ach_grade_divine_desc,,achievements.csv GRADE_DIVINE Description
-ach_grade_primordial_name,,achievements.csv GRADE_PRIMORDIAL Name
-ach_grade_primordial_desc,,achievements.csv GRADE_PRIMORDIAL Description
-ach_dismantle_100_name,,achievements.csv DISMANTLE_100 Name
-ach_dismantle_100_desc,,achievements.csv DISMANTLE_100 Description
-ach_dismantle_1000_name,,achievements.csv DISMANTLE_1000 Name
-ach_dismantle_1000_desc,,achievements.csv DISMANTLE_1000 Description
+ach_floor_20_name,破门者,achievements.csv FLOOR_20 Name
+ach_floor_20_desc,击败高塔第 20 层的首领。,achievements.csv FLOOR_20 Description
+ach_floor_40_name,破巢者,achievements.csv FLOOR_40 Name
+ach_floor_40_desc,击败高塔第 40 层的首领。,achievements.csv FLOOR_40 Description
+ach_floor_50_name,倾覆王座,achievements.csv FLOOR_50 Name
+ach_floor_50_desc,击败高塔第 50 层的首领。,achievements.csv FLOOR_50 Description
+ach_floor_70_name,池水已涸,achievements.csv FLOOR_70 Name
+ach_floor_70_desc,击败高塔第 70 层的首领。,achievements.csv FLOOR_70 Description
+ach_floor_80_name,断花者,achievements.csv FLOOR_80 Name
+ach_floor_80_desc,击败高塔第 80 层的首领。,achievements.csv FLOOR_80 Description
+ach_floor_90_name,封墓者,achievements.csv FLOOR_90 Name
+ach_floor_90_desc,击败高塔第 90 层的首领。,achievements.csv FLOOR_90 Description
+ach_mastery_warrior_name,战士精通,achievements.csv MASTERY_WARRIOR Name
+ach_mastery_warrior_desc,将战士职业提升至等级上限。,achievements.csv MASTERY_WARRIOR Description
+ach_mastery_mage_name,法师精通,achievements.csv MASTERY_MAGE Name
+ach_mastery_mage_desc,将法师职业提升至等级上限。,achievements.csv MASTERY_MAGE Description
+ach_mastery_archer_name,弓手精通,achievements.csv MASTERY_ARCHER Name
+ach_mastery_archer_desc,将弓手职业提升至等级上限。,achievements.csv MASTERY_ARCHER Description
+ach_mastery_assassin_name,刺客精通,achievements.csv MASTERY_ASSASSIN Name
+ach_mastery_assassin_desc,将刺客职业提升至等级上限。,achievements.csv MASTERY_ASSASSIN Description
+ach_mastery_brute_name,蛮兵精通,achievements.csv MASTERY_BRUTE Name
+ach_mastery_brute_desc,将蛮兵职业提升至等级上限。,achievements.csv MASTERY_BRUTE Description
+ach_mastery_professor_name,教授精通,achievements.csv MASTERY_PROFESSOR Name
+ach_mastery_professor_desc,将教授职业提升至等级上限。,achievements.csv MASTERY_PROFESSOR Description
+ach_dimensional_traveler_name,次元旅者,achievements.csv DIMENSIONAL_TRAVELER Name
+ach_dimensional_traveler_desc,将你送往 Herumon Dungeon 的生物在那里培养至 50 级。,achievements.csv DIMENSIONAL_TRAVELER Description
+ach_codex_50_name,野外素描,achievements.csv CODEX_50 Name
+ach_codex_50_desc,在图鉴中收录 50 种生物。,achievements.csv CODEX_50 Description
+ach_codex_200_name,厚重之卷,achievements.csv CODEX_200 Name
+ach_codex_200_desc,在图鉴中收录 200 种生物。,achievements.csv CODEX_200 Description
+ach_codex_all_name,完整图鉴,achievements.csv CODEX_ALL Name
+ach_codex_all_desc,在图鉴中收录所有生物。,achievements.csv CODEX_ALL Description
+ach_hatch_1_name,初次破壳,achievements.csv HATCH_1 Name
+ach_hatch_1_desc,孵化一枚蛋。,achievements.csv HATCH_1 Description
+ach_hatch_100_name,育婴室,achievements.csv HATCH_100 Name
+ach_hatch_100_desc,孵化 100 枚蛋。,achievements.csv HATCH_100 Description
+ach_hatch_1000_name,千枚蛋壳,achievements.csv HATCH_1000 Name
+ach_hatch_1000_desc,孵化 1000 枚蛋。,achievements.csv HATCH_1000 Description
+ach_grade_common_name,更上一层,achievements.csv GRADE_COMMON Name
+ach_grade_common_desc,首次拥有普通品质的生物。,achievements.csv GRADE_COMMON Description
+ach_grade_uncommon_name,非凡发现,achievements.csv GRADE_UNCOMMON Name
+ach_grade_uncommon_desc,首次拥有非凡品质的生物。,achievements.csv GRADE_UNCOMMON Description
+ach_grade_rare_name,稀有血统,achievements.csv GRADE_RARE Name
+ach_grade_rare_desc,首次拥有稀有品质的生物。,achievements.csv GRADE_RARE Description
+ach_grade_epic_name,史诗血脉,achievements.csv GRADE_EPIC Name
+ach_grade_epic_desc,首次拥有史诗品质的生物。,achievements.csv GRADE_EPIC Description
+ach_grade_legendary_name,活着的传说,achievements.csv GRADE_LEGENDARY Name
+ach_grade_legendary_desc,首次拥有传说品质的生物。,achievements.csv GRADE_LEGENDARY Description
+ach_grade_abyssal_name,来自深渊,achievements.csv GRADE_ABYSSAL Name
+ach_grade_abyssal_desc,首次拥有深渊品质的生物。,achievements.csv GRADE_ABYSSAL Description
+ach_grade_divine_name,神圣眷顾,achievements.csv GRADE_DIVINE Name
+ach_grade_divine_desc,首次拥有神圣品质的生物。,achievements.csv GRADE_DIVINE Description
+ach_grade_primordial_name,原初之血,achievements.csv GRADE_PRIMORDIAL Name
+ach_grade_primordial_desc,首次拥有原初品质的生物。,achievements.csv GRADE_PRIMORDIAL Description
+ach_dismantle_100_name,拆解匠,achievements.csv DISMANTLE_100 Name
+ach_dismantle_100_desc,分解 100 件物品。,achievements.csv DISMANTLE_100 Description
+ach_dismantle_1000_name,拆解场,achievements.csv DISMANTLE_1000 Name
+ach_dismantle_1000_desc,分解 1000 件物品。,achievements.csv DISMANTLE_1000 Description
 shop_packs_title,WRAITHGOLD 礼包,app: premium shop: heading of the real-money pack grid (S7)
 shop_store_unreachable,无法连接商店。,app: premium shop: /api/store/catalogue failed
 shop_store_loading,商店加载中...,app: premium shop: pack grid loading
