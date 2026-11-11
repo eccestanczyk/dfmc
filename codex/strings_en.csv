@@ -2399,3 +2399,6 @@ m_chm_granted,Unlocked: {v1}. Wear it from Cosmetics.,PvP arena: the Demon Lord 
 m_chm_already,Victory again - it awards nothing more.,PvP arena: the Demon Lord Chemosh encounter (#1232/#1267)
 m_chm_noreward,He awards nothing to the fallen. Feed the demons again to return.,PvP arena: the Demon Lord Chemosh encounter (#1232/#1267)
 m_chm_unfed,The demons did not drink enough blood. Feed each one ten drops.,PvP arena: the Demon Lord Chemosh encounter (#1232/#1267)
+m_chm_title,Demon Lord,PvP arena: the Demon Lord Chemosh fight (#1267 chemoshfight)
+m_chm_open,DEMON LORD CHEMOSH fills the field. Round 1 - choose your orders.,PvP arena: the Demon Lord Chemosh fight (#1267 chemoshfight)
+m_chm_void,"The server replayed this fight and reached a different result, so it was not counted.",PvP arena: the Demon Lord Chemosh fight (#1267 chemoshfight)
