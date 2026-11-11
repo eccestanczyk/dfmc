@@ -694,7 +694,7 @@ set_tut_past_desc,すでに通過しました。図鑑で手順を一つずつ�
 m_unlock_new,新たな解放,markup: unlock celebration popup: header (#1165)
 m_unlock_show_me,見に行く,markup: unlock celebration popup: go to the system (#1165)
 unlock_opened_at,{f}階で解放,app: unlock celebration popup: the floor that opened it (#1165)
-unlock_after_first,初めての戦闘の後に解放,app: unlock celebration popup: autoplay opens after the first battle (#1165)
+unlock_after_first,初めての戦闘勝利の後に解放,app: unlock celebration popup: autoplay opens after the first WON battle (T78) (#1165)
 m_soul_slots_tracks,IchorとWraithgold,"app: soul bag slot shop: Ichor track (#1168/#1169) - the title after ""Soul Slots · """
 m_soul_ichor_prog,{t} / {n} 購入済み,app: soul bag slot shop: Ichor track (#1168/#1169)
 m_soul_ichor_done,Ichorの拡張はすべて購入済み,app: soul bag slot shop: Ichor track (#1168/#1169)
@@ -717,7 +717,7 @@ m_soul_full_rem_0,クリーチャーを分解するか卵を孵してから、�
 m_shop_not_active_days,未使用 · 購入ごとに{d}日,app: L1 localization pass (D 2026-11-04)
 m_saved_just_now,たった今保存,app: L1 localization pass (D 2026-11-04)
 m_floors_band,{r}階,app: L1 localization pass (D 2026-11-04)
-m_unlocks_after_first_battle,最初のバトル後に解放,app: L1 localization pass (D 2026-11-04)
+m_unlocks_after_first_battle,最初のバトル勝利後に解放,app: L1 localization pass (D 2026-11-04)
 m_unlocks_on_floor,{f}階で解放,app: L1 localization pass (D 2026-11-04)
 m_your_best_floor,最高到達階は{f}階,app: L1 localization pass (D 2026-11-04)
 m_not_applied,未使用,app: L1 localization pass (D 2026-11-04)

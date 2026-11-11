@@ -694,7 +694,7 @@ set_tut_past_desc,Liegt hinter dir. Der Kodex erklärt es Schritt für Schritt.,
 m_unlock_new,FREIGESCHALTET,markup: unlock celebration popup: header (#1165)
 m_unlock_show_me,ZEIGEN,markup: unlock celebration popup: go to the system (#1165)
 unlock_opened_at,GEÖFFNET AUF EBENE {f},app: unlock celebration popup: the floor that opened it (#1165)
-unlock_after_first,GEÖFFNET NACH DEINEM ERSTEN KAMPF,app: unlock celebration popup: autoplay opens after the first battle (#1165)
+unlock_after_first,GEÖFFNET NACH DEINEM ERSTEN GEWONNENEN KAMPF,app: unlock celebration popup: autoplay opens after the first WON battle (T78) (#1165)
 m_soul_slots_tracks,Ichor & Wraithgold,"app: soul bag slot shop: Ichor track (#1168/#1169) - the title after ""Soul Slots · """
 m_soul_ichor_prog,{t} / {n} gekauft,app: soul bag slot shop: Ichor track (#1168/#1169)
 m_soul_ichor_done,Alle Ichor-Erweiterungen gekauft,app: soul bag slot shop: Ichor track (#1168/#1169)
@@ -717,7 +717,7 @@ m_soul_full_rem_0,Zerlege eine Kreatur oder brüte ein Ei aus und versuche es er
 m_shop_not_active_days,Inaktiv · {d} Tage pro Kauf,app: L1 localization pass (D 2026-11-04)
 m_saved_just_now,Gerade gespeichert,app: L1 localization pass (D 2026-11-04)
 m_floors_band,Etagen {r},app: L1 localization pass (D 2026-11-04)
-m_unlocks_after_first_battle,FREI NACH DEINEM ERSTEN KAMPF,app: L1 localization pass (D 2026-11-04)
+m_unlocks_after_first_battle,FREI NACH DEINEM ERSTEN GEWONNENEN KAMPF,app: L1 localization pass (D 2026-11-04)
 m_unlocks_on_floor,FREI AB ETAGE {f},app: L1 localization pass (D 2026-11-04)
 m_your_best_floor,DEINE BESTE ETAGE IST {f},app: L1 localization pass (D 2026-11-04)
 m_not_applied,NICHT AKTIV,app: L1 localization pass (D 2026-11-04)

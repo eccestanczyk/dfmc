@@ -694,7 +694,7 @@ set_tut_past_desc,Já ficou para trás. O códice explica passo a passo.,setting
 m_unlock_new,NOVO DESBLOQUEIO,markup: unlock celebration popup: header (#1165)
 m_unlock_show_me,MOSTRAR,markup: unlock celebration popup: go to the system (#1165)
 unlock_opened_at,ABERTO NO ANDAR {f},app: unlock celebration popup: the floor that opened it (#1165)
-unlock_after_first,ABERTO APÓS SUA PRIMEIRA BATALHA,app: unlock celebration popup: autoplay opens after the first battle (#1165)
+unlock_after_first,ABERTO APÓS SUA PRIMEIRA BATALHA VENCIDA,app: unlock celebration popup: autoplay opens after the first WON battle (T78) (#1165)
 m_soul_slots_tracks,Ichor e Wraithgold,"app: soul bag slot shop: Ichor track (#1168/#1169) - the title after ""Soul Slots · """
 m_soul_ichor_prog,{t} / {n} comprados,app: soul bag slot shop: Ichor track (#1168/#1169)
 m_soul_ichor_done,Todas as melhorias de Ichor compradas,app: soul bag slot shop: Ichor track (#1168/#1169)
@@ -717,7 +717,7 @@ m_soul_full_rem_0,Desmonte uma criatura ou choque um ovo e tente de novo.,"app: 
 m_shop_not_active_days,Inativo · {d} dias por compra,app: L1 localization pass (D 2026-11-04)
 m_saved_just_now,Salvo agora mesmo,app: L1 localization pass (D 2026-11-04)
 m_floors_band,andares {r},app: L1 localization pass (D 2026-11-04)
-m_unlocks_after_first_battle,LIBERA APÓS SUA PRIMEIRA BATALHA,app: L1 localization pass (D 2026-11-04)
+m_unlocks_after_first_battle,LIBERA APÓS SUA PRIMEIRA BATALHA VENCIDA,app: L1 localization pass (D 2026-11-04)
 m_unlocks_on_floor,LIBERA NO ANDAR {f},app: L1 localization pass (D 2026-11-04)
 m_your_best_floor,SEU MELHOR ANDAR É {f},app: L1 localization pass (D 2026-11-04)
 m_not_applied,NÃO APLICADO,app: L1 localization pass (D 2026-11-04)
