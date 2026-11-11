@@ -2382,3 +2382,18 @@ m_banner_worn_note,"Banner on. It shows behind your name on your profile card, t
 m_banner_off_note,Banner taken off.,"app: the Cosmetics tab banner slot (cosmbanners, T83)"
 m_banner_not_owned,You do not own that banner.,"app: the Cosmetics tab banner slot (cosmbanners, T83)"
 m_banner_not_changed,The banner was not changed ({e}).,"app: the Cosmetics tab banner slot (cosmbanners, T83)"
+m_chm_name,Demon Lord Chemosh,PvP arena: the Demon Lord Chemosh encounter (#1232/#1267)
+m_chm_level,Level {v1},PvP arena: the Demon Lord Chemosh encounter (#1232/#1267)
+m_chm_lv,Lv {v1},PvP arena: the Demon Lord Chemosh encounter (#1232/#1267)
+m_chm_summoned,The blood is answered. Demon Lord Chemosh rises.,PvP arena: the Demon Lord Chemosh encounter (#1232/#1267)
+m_chm_skip,Skip,PvP arena: the Demon Lord Chemosh encounter (#1232/#1267)
+m_chm_leave,Leave,PvP arena: the Demon Lord Chemosh encounter (#1232/#1267)
+m_chm_wait,Chemosh is not ready yet. Try again in {v1} s.,PvP arena: the Demon Lord Chemosh encounter (#1232/#1267)
+m_chm_fail,The summoning failed ({e}).,PvP arena: the Demon Lord Chemosh encounter (#1232/#1267)
+m_chm_round,Round {v1},PvP arena: the Demon Lord Chemosh encounter (#1232/#1267)
+m_chm_win,Chemosh is slain,PvP arena: the Demon Lord Chemosh encounter (#1232/#1267)
+m_chm_lose,Your party has fallen,PvP arena: the Demon Lord Chemosh encounter (#1232/#1267)
+m_chm_granted,Unlocked: {v1}. Wear it from Cosmetics.,PvP arena: the Demon Lord Chemosh encounter (#1232/#1267)
+m_chm_already,Victory again - it awards nothing more.,PvP arena: the Demon Lord Chemosh encounter (#1232/#1267)
+m_chm_noreward,He awards nothing to the fallen. Feed the demons again to return.,PvP arena: the Demon Lord Chemosh encounter (#1232/#1267)
+m_chm_unfed,The demons did not drink enough blood. Feed each one ten drops.,PvP arena: the Demon Lord Chemosh encounter (#1232/#1267)

@@ -2382,3 +2382,18 @@ m_banner_worn_note,"Banner angelegt. Es erscheint hinter deinem Namen auf deiner
 m_banner_off_note,Banner abgelegt.,"app: the Cosmetics tab banner slot (cosmbanners, T83)"
 m_banner_not_owned,Dieses Banner gehört dir nicht.,"app: the Cosmetics tab banner slot (cosmbanners, T83)"
 m_banner_not_changed,Das Banner wurde nicht geändert ({e}).,"app: the Cosmetics tab banner slot (cosmbanners, T83)"
+m_chm_name,,PvP arena: the Demon Lord Chemosh encounter (#1232/#1267)
+m_chm_level,,PvP arena: the Demon Lord Chemosh encounter (#1232/#1267)
+m_chm_lv,,PvP arena: the Demon Lord Chemosh encounter (#1232/#1267)
+m_chm_summoned,,PvP arena: the Demon Lord Chemosh encounter (#1232/#1267)
+m_chm_skip,,PvP arena: the Demon Lord Chemosh encounter (#1232/#1267)
+m_chm_leave,,PvP arena: the Demon Lord Chemosh encounter (#1232/#1267)
+m_chm_wait,,PvP arena: the Demon Lord Chemosh encounter (#1232/#1267)
+m_chm_fail,,PvP arena: the Demon Lord Chemosh encounter (#1232/#1267)
+m_chm_round,,PvP arena: the Demon Lord Chemosh encounter (#1232/#1267)
+m_chm_win,,PvP arena: the Demon Lord Chemosh encounter (#1232/#1267)
+m_chm_lose,,PvP arena: the Demon Lord Chemosh encounter (#1232/#1267)
+m_chm_granted,,PvP arena: the Demon Lord Chemosh encounter (#1232/#1267)
+m_chm_already,,PvP arena: the Demon Lord Chemosh encounter (#1232/#1267)
+m_chm_noreward,,PvP arena: the Demon Lord Chemosh encounter (#1232/#1267)
+m_chm_unfed,,PvP arena: the Demon Lord Chemosh encounter (#1232/#1267)
