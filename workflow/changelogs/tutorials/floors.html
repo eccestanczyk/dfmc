@@ -14,6 +14,17 @@
 
   <h2>Changelog</h2>
   <ul class="sp-rules">
+    <li><strong>2026-11-11 &mdash; the character stands in front of the portal and is drawn into it over two seconds before the trip (ui#1263; dfmc-client bug run chunk portal). On dev.</strong>
+      Report (0.99): &ldquo;when entering a portal the character needs to stand in front of the portal, currently he is behind in the zorder, and then his image gets distorted and
+      sucked into the middle of the portal. Give it 2 seconds for the theater before you actually move the player, you can use that time to load the next level onto memory&rdquo;.
+      The avatar is drawn inside the floor zoom box, its own stacking context under the portals (z 9), so it sank behind the portal it walked into; the suck-in
+      (<code>favIn</code>) was a 0.55 s blink and the transit veil covered it at once. Now the walk's arrival starts a 2 s theater (<code>FAV_THEATER</code>): the avatar moves
+      to a layer over the portals (<code>favSlot</code>, markup <code>data-fav-top</code>) and <code>favIn</code> runs 1.8 s - a pull, a wobbling stretch, the spiral into the
+      centre (transform and opacity only, the Aether rule). The trip still fires at arrival, so the server request and the next floor's preload run during the theater;
+      the floor lands no sooner than its end (<code>favHold</code> in the three arrival paths) and the veil shows only if the trip is still in flight after it.
+      Autoplay never walks into a portal (it travels directly), so its floor cadence is unchanged; Low VFX / Reduce Motion keep the instant trip.
+      Probe <code>tools/probe_01263_portaltheater.py</code> 4/8 on the old tree, 8/8 after (1067x542); <code>probe_flooravatar</code> 10/10 unchanged.
+      At release: &sect; 1 &ldquo;The two portals&rdquo;, after &ldquo;walks into a portal to take it&rdquo; add &ldquo;, and is drawn into it a moment before the next floor opens&rdquo;.</li>
     <li><strong>2026-11-10 &mdash; the character's walk no longer snaps back or teleports (ui#1253; dfmc-client bug run chunk avatarwalk). SHIPPED IN 0.99.</strong>
       Report (0.98): &ldquo;the walking animation for the player looks very chooppy, and it often teleports around or snaps back weirdly&rdquo;. Measured per frame
       (the drawn transform of <code>[data-floor-avatar]</code> under the game's re-renders): a plain walk was already continuous; every redirect was not.
