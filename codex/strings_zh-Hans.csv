@@ -401,7 +401,8 @@ m_world_travelers,世界旅者,markup: rift window: the sent creatures list head
 m_a_tear_between_the_tower_and_herumon_dungeon,高塔与 Herumon Dungeon 之间的一道裂缝。,markup: rift window: the intro line
 m_open_a_creatures_sheet_from_the_inventory_and_choose_send_through_the_rift,从背包中打开生物详情，选择“送入裂隙”。仅限从高塔到地牢：裂隙是单向的。,markup: rift window: how to send
 m_no_creature_has_crossed_yet,尚无生物穿越。,markup: rift window: empty travelers list
-m_trophy_wall,奖杯室,markup: trophy wall: title
+m_trophy_wall,荣誉墙,markup: trophy wall: title
+m_trophy_room,奖杯室,markup: trophy room: title (#1235)
 m_earned,已获得,markup/app: trophy wall: the earned count label and the earned tile state
 m_not_yet_earned,尚未获得,app: trophy wall: tile state
 m_hidden_achievement,???,app: trophy wall: a hidden achievement not yet earned
@@ -1413,7 +1414,8 @@ m_each_starter_s_sex_is_rolled_by_the,认领名称时，高塔会随机决定每
 m_change_name,更改名称,app: L1e screen text (top)
 m_back_to_paths,返回道路选择,app: L1e screen text (top)
 m_claim_name,认领名称 ✦,app: L1e screen text (top)
-m_trophy_wall_2,奖杯室,app: L1e screen text (top)
+m_trophy_wall_2,荣誉墙,app: L1e screen text (top)
+m_trophy_room_2,奖杯室,app: menu item (#1235)
 m_salvages_for,回收可得 {v1},app: L1e screen text (top)
 m_no_grade,· 无品级,app: L1e screen text (top)
 m_advances_lv,{v1}级时进阶,app: L1e screen text (top)
