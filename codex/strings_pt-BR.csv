@@ -650,6 +650,7 @@ unl_auto_optimise,Equipa para você as peças mais fortes da sua bolsa.,unlocks.
 unl_breeding,Duas criaturas em um cercado produzem ovos com o tempo.,unlocks.csv breeding Line (the unlock lesson line; edit both)
 unl_trader,O estoque muda com o tempo. Volte para ver novas mercadorias.,unlocks.csv trader Line (the unlock lesson line; edit both)
 unl_transfer,"A fenda para Herumon Dungeon está aberta. Envie uma criatura: uma cópia, grátis, uma vez. Ela chega no nível 1 e mantém seu grau.",unlocks.csv transfer Line (the unlock lesson line; edit both)
+unl_autoplay,Aberto pela sua primeira batalha vencida. Clique uma vez para começar.,unlocks.csv autoplay Line (the unlock lesson line; edit both)
 m_unl_generic,Aberto no andar {f}. Clique uma vez para começar.,app: unlock lesson: the generic line when unlocks.csv has no Line
 portal_sealed_win,SELADO · FALTA 1 VITÓRIA,app: floor portal: sealed with one win left (#1142)
 portal_sealed_wins,SELADO · FALTAM {n} VITÓRIAS,app: floor portal: sealed with {n} wins left (#1142)

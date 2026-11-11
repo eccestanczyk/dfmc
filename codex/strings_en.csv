@@ -650,6 +650,7 @@ unl_auto_optimise,Wears the strongest pieces in your bag for you.,unlocks.csv au
 unl_breeding,Two creatures in a pen make eggs over time.,unlocks.csv breeding Line (the unlock lesson line; edit both)
 unl_trader,Stock changes over time. Come back for new wares.,unlocks.csv trader Line (the unlock lesson line; edit both)
 unl_transfer,"The rift to Herumon Dungeon is open. Send a creature through: a copy, free, once. It arrives at level 1 and keeps its grade.",unlocks.csv transfer Line (the unlock lesson line; edit both)
+unl_autoplay,Opened by your first won battle. Click it once to begin.,unlocks.csv autoplay Line (the unlock lesson line; edit both)
 m_unl_generic,Opened at floor {f}. Click it once to begin.,app: unlock lesson: the generic line when unlocks.csv has no Line
 portal_sealed_win,SEALED · 1 MORE WIN,app: floor portal: sealed with one win left (#1142)
 portal_sealed_wins,SEALED · {n} MORE WINS,app: floor portal: sealed with {n} wins left (#1142)

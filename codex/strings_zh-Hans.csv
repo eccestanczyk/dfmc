@@ -650,6 +650,7 @@ unl_auto_optimise,自动为你穿上背包中最强的装备。,unlocks.csv auto
 unl_breeding,圈舍中的两只生物会随时间产蛋。,unlocks.csv breeding Line (the unlock lesson line; edit both)
 unl_trader,商品会随时间更换。记得回来看看新货。,unlocks.csv trader Line (the unlock lesson line; edit both)
 unl_transfer,通往 Herumon Dungeon 的裂隙已开启。可送一只生物过去：复制品、免费、仅一次。它以1级抵达，并保留其品级。,unlocks.csv transfer Line (the unlock lesson line; edit both)
+unl_autoplay,首次战斗胜利后开放。点击一次即可开始。,unlocks.csv autoplay Line (the unlock lesson line; edit both)
 m_unl_generic,第{f}层开放。点击一次即可开始。,app: unlock lesson: the generic line when unlocks.csv has no Line
 portal_sealed_win,已封印 · 还需1胜,"app: floor portal: sealed, one win left (#1142)"
 portal_sealed_wins,已封印 · 还需{n}胜,"app: floor portal: sealed, {n} wins left (#1142)"
