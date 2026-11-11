@@ -22,8 +22,8 @@
       to a layer over the portals (<code>favSlot</code>, markup <code>data-fav-top</code>) and <code>favIn</code> runs 1.8 s - a pull, a wobbling stretch, the spiral into the
       centre (transform and opacity only, the Aether rule). The trip still fires at arrival, so the server request and the next floor's preload run during the theater;
       the floor lands no sooner than its end (<code>favHold</code> in the three arrival paths) and the veil shows only if the trip is still in flight after it.
-      Autoplay never walks into a portal (it travels directly), so its floor cadence is unchanged; Low VFX / Reduce Motion keep the instant trip.
-      Probe <code>tools/probe_01263_portaltheater.py</code> 4/8 on the old tree, 8/8 after (1067x542); <code>probe_flooravatar</code> 10/10 unchanged.
+      Autoplay too (D correction 2026-11-11: &ldquo;The player does walk up on autoplay. There is even an option for that.&rdquo;): with Auto-Advance Floors on, the autoplay ascend walks to the up portal at the walking pace, stands in front of it and plays the same 2 s theater before the trip (<code>favPortalGo</code>, as a click; past a cleared den it still skips the den), and the autoplay loop fires no second trip or engage while that walk runs. The defeat &ldquo;Go Down&rdquo; trip runs on the defeat screen, not the floor, so it stays instant. Low VFX / Reduce Motion keep the instant trip.
+      Probe <code>tools/probe_01263_portaltheater.py</code> 4/8 on the old tree, 8/8 after (1067x542); its autoplay case T9 red (8/9), then 9/9; <code>probe_flooravatar</code> 10/10 unchanged.
       At release: &sect; 1 &ldquo;The two portals&rdquo;, after &ldquo;walks into a portal to take it&rdquo; add &ldquo;, and is drawn into it a moment before the next floor opens&rdquo;.</li>
     <li><strong>2026-11-10 &mdash; the character's walk no longer snaps back or teleports (ui#1253; dfmc-client bug run chunk avatarwalk). SHIPPED IN 0.99.</strong>
       Report (0.98): &ldquo;the walking animation for the player looks very chooppy, and it often teleports around or snaps back weirdly&rdquo;. Measured per frame
