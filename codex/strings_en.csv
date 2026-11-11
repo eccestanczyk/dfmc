@@ -2136,14 +2136,14 @@ m_rd_first_clear_top,First clear of the top level!,app: M1-10 resource dungeons 
 m_rd_clear_below,CLEAR LEVEL {n},app: M1-10 resource dungeons (lane m1resui)
 m_rd_pays,Pays {c},app: M1-10 resource dungeons (lane m1resui)
 m_resource_dungeons,RESOURCE DUNGEONS,app: M1-10 resource dungeons (lane m1resui)
-m_rd_rules,"Three fights: two of the zone's creatures, then its boss. Your team's HP carries over, with no healing. A key is spent when the run starts. Each dungeon gives one free key a day, and the first clear of a level gives the next level's key.",app: M1-10 resource dungeons (lane m1resui)
+m_rd_rules,"Three fights: two of the zone's creatures, then its boss. Your team's HP carries over, with no healing. Your first entry to each dungeon is free; after that, a key is spent when the run starts. The first clear of a level gives the next level's key.",app: M1-10 resource dungeons (lane m1resui)
 m_rd_loading,Reading the dungeons...,app: M1-10 resource dungeons (lane m1resui)
 m_candy_tip,Each XP Candy gives the creature {x} XP.,app: M1-10 resource dungeons (lane m1resui)
 m_feed_candy,FEED CANDY,app: M1-10 resource dungeons (lane m1resui)
 m_candy_short,Not enough XP Candy.,app: M1-10 resource dungeons (lane m1resui)
 m_candy_refused,The candy was not eaten.,app: M1-10 resource dungeons (lane m1resui)
 m_candy_fed,+{x} XP · Lv {l},app: M1-10 resource dungeons (lane m1resui)
-unl_resource_dungeons,The resource dungeons are open: three fights that pay one resource. A free key arrives every day.,unlocks.csv resource_dungeons Line (the unlock lesson line; edit both)
+unl_resource_dungeons,The resource dungeons are open: three fights that pay one resource. Your first entry to each is free.,unlocks.csv resource_dungeons Line (the unlock lesson line; edit both)
 tip_moves_hdr,MOVES,app: inventory: soul bag hover - the moves block header (#1212)
 fxp_one_turn,1 turn,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
 fxp_n_turns,{v1} turns,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
