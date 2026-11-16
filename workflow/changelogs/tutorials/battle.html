@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<base href="../../../"><!-- workflow/changelogs/tutorials/ (2026-11-05): never published. Links resolve from the public page's folder. -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Battle &mdash; changelog &amp; team notes</title>
+<link rel="stylesheet" href="theme.css?v=4">
+</head>
+<body>
+<div class="topbar"><h1 style="font-family:'Cinzel',serif;">BATTLE &mdash; TEAM NOTES</h1></div>
+<div class="sp-wrap">
+<p class="sp-lead">The team record for the public page <a href="tutorials/battle.html">tutorials/battle.html</a>: its dated changelog (newest first) and team notes. Lanes add each change here, never on the public page. Shape: <code>python tools/codex_page.py --changelog tutorials/battle.html</code> in dfmc-client.</p>
+
+  <h2>Changelog</h2>
+  <ul class="sp-rules">
+    <li><strong>2026-11-16 &mdash; the battle screen is redrawn in iron, leather and bloody parchment (bug#1285, art #1286; dfmc-client bug run 2026-11-16, chunk c2). On dev.</strong>
+      Report: &ldquo;go over all the UI in the game and redo it based on those directions. Rusted iron, bloody old parchment, hard leather. Realistic. No bright colors.&rdquo;
+      Look only - no rule, number or control moved. Name plates are leather straps with the HP bar in an iron trough; the move list hangs on a new blood-stained scroll; the target scroll, the Decree of Battle and the move details are bloody parchment; COMBAT LOG and FORFEIT are iron and blood tags; the combat log and the forfeit question sit in riveted iron frames; colours are muted.
+      Team record: <a href="workflow/system-client-shell.html">workflow/system-client-shell.html</a> changelog, same date. Probe <code>tools/probe_01285_c2.py</code> 2/12 on the old tree, 12/12 after.
+      At release: retake the screenshots <code>tutorials/img/battle/01-06.webp</code> on the live build (the plates, the scroll and the two tags changed look); the text stands - &ldquo;The parchment lists the acting creature&rsquo;s four moves&rdquo; is still true.</li>
+  </ul>
+</div>
+</body>
+</html>
