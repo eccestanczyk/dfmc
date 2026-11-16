@@ -2089,7 +2089,7 @@ m_sd_abandon_failed,The gauntlet did not answer.,app: M1-08 gauntlets (special d
 m_sd_ended_expired,Your last gauntlet run ended: the tower heard nothing from you for too long.,app: M1-08 gauntlets (special dungeons)
 m_sd_ended_logout,Your last gauntlet run ended when you signed out.,app: M1-08 gauntlets (special dungeons)
 m_gauntlets,GAUNTLETS,app: M1-08 gauntlets (special dungeons)
-m_sd_rules,"Five bosses back to back. Your team's HP carries from fight to fight, with no healing between. Each gauntlet gives one free run a week (the week starts Monday 00:00 UTC). After that, a key opens a run and is spent when the run starts.",app: M1-08 gauntlets (special dungeons)
+m_sd_rules,"Five bosses back to back. Your team's HP carries from fight to fight, with no healing between. Each gauntlet gives you one free run, once. After that, a Gauntlet Entry opens any gauntlet you have unlocked.",app: M1-08 gauntlets (special dungeons)
 m_sd_loading,Reading the gauntlets...,app: M1-08 gauntlets (special dungeons)
 m_sd_level_line,Level {l} · five bosses · no healing,app: M1-08 gauntlets (special dungeons)
 m_sd_resume,RESUME,app: M1-08 gauntlets (special dungeons)
@@ -2117,7 +2117,7 @@ m_sd_chest_pending,Your bag was full: the chest waits for you and lands when the
 m_sd_return,RETURN TO THE TOWER,app: M1-08 gauntlets (special dungeons)
 m_sd_close,CLOSE,app: M1-08 gauntlets (special dungeons)
 m_sd_gauntlet_key,Gauntlet Key,app: M1-08 gauntlets (special dungeons)
-unl_gauntlets,"The gauntlets are open: five bosses back to back, HP carried, no healing. Each gauntlet gives one free run a week.",unlocks.csv gauntlets Line (the unlock lesson line; edit both)
+unl_gauntlets,"The gauntlets are open: five bosses back to back, HP carried, no healing. Each gauntlet gives you one free run, once.",unlocks.csv gauntlets Line (the unlock lesson line; edit both)
 m_use_mutation_draught,USE MUTATION DRAUGHT,app: creature sheet: the Mutation Draught action on a bag creature (M1-11)
 m_tip_mutation_draught,Turns this creature to its mutant palette. Cosmetic only; the palette is removed if the creature is listed on the Steam market.,app: creature sheet: the Mutation Draught action's tooltip (M1-11)
 m_mutation_draught_taken,THE DRAUGHT TAKES - MUTANT PALETTE,app: toast after a Mutation Draught is bought and applied (M1-11)
@@ -2301,16 +2301,16 @@ fxp_k_refresh_dot,Refreshes the duration of existing damage-over-time effects on
 fxp_k_buffs_sooner,The target's buffs expire {v1} sooner.,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
 fxp_k_ward_again,The ward repeats once more.,app: fxProse movetext (D 2026-11-10) - a move condition / clause as one phrase of the sentence
 m_cmp_equipped,EQUIPPED,markup: item details comparison - the tag beside the piece worn in that slot (#1216)
-m_sd_rules_wk,"Five bosses back to back. Your team's HP carries from fight to fight, with no healing between. Each gauntlet gives one free run a week; a week you do not use is not saved. A Gauntlet Entry opens any gauntlet you have unlocked.","app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): the rules line"
+m_sd_rules_wk,"Five bosses back to back. Your team's HP carries from fight to fight, with no healing between. Each gauntlet gives you one free run, once. After that, a Gauntlet Entry opens any gauntlet you have unlocked. Clearing a gauntlet earns its achievement.","app: gauntlets window / Gauntlet Entry (#1287, D 2026-11-16: one free run per gauntlet, ever; then a Gauntlet Entry only; each clear an achievement): the rules line"
 m_sd_free_open,Free run: available,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): a plate, the free run of this week not yet used"
-m_sd_free_used,Free run: used · resets in {t},"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): a plate, the free run used; {t} the time to Monday 00:00 UTC (m_sd_dh)"
+m_sd_free_used,Free run: used,"app: gauntlets window / Gauntlet Entry (#1287, D 2026-11-16: one free run per gauntlet, ever; then a Gauntlet Entry only; each clear an achievement): a plate, the one free run of this gauntlet already used"
 m_sd_dh,{d}d {h}h,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): days and hours left"
 m_sd_free_run,FREE RUN,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): button, start the free run"
 m_sd_enter_entry,ENTER WITH GAUNTLET ENTRY ({n}),"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): button; {n} the entries owned"
 m_sd_buy_entry,BUY ENTRY ({c} WG),"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): button; {c} the Wraithgold price"
 m_sd_pick_entry,Choose a gauntlet to spend your Gauntlet Entry on.,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): the note when the entry is used from the bag"
 m_sd_no_entry,You hold no Gauntlet Entry.,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): refusal note"
-m_sd_free_used_note,This gauntlet's free run is used for this week.,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): refusal note"
+m_sd_free_used_note,This gauntlet's free run is used. Enter with a Gauntlet Entry.,"app: gauntlets window / Gauntlet Entry (#1287, D 2026-11-16: one free run per gauntlet, ever; then a Gauntlet Entry only; each clear an achievement): refusal note"
 m_sd_entry_bought,Gauntlet Entry bought. It is in your bag: use it there or from GAUNTLETS.,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): shop note after the buy"
 m_sd_gauntlet_entry,Gauntlet Entry,"app: gauntlets window / Gauntlet Entry (lane gauntkeys 2026-11-07, D: one free run a week, no stacking; Gauntlet Entry 10 WG): reward card subtitle"
 m_daily_attacks_n,DAILY ATTACKS {v1}/{v2},app: Async PvP card - attacks left today out of the daily pool (#1230)

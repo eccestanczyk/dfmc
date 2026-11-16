@@ -50,3 +50,8 @@ GRADE_DIVINE,GRADE_DIVINE,Touched by the Divine,flag,grade_divine,0,Own your fir
 GRADE_PRIMORDIAL,GRADE_PRIMORDIAL,Primordial Blood,flag,grade_primordial,0,Own your first Primordial-grade creature.
 DISMANTLE_100,DISMANTLE_100,Scrapper,count,dismantled:100,0,Dismantle 100 items.
 DISMANTLE_1000,DISMANTLE_1000,Breaker's Yard,count,dismantled:1000,0,Dismantle 1000 items.
+GAUNTLET_I,GAUNTLET_I,Run the Gauntlet,flag,gauntlet_sd010,0,Clear Gauntlet I.
+GAUNTLET_II,GAUNTLET_II,Twice Tested,flag,gauntlet_sd030,0,Clear Gauntlet II.
+GAUNTLET_III,GAUNTLET_III,Iron Will,flag,gauntlet_sd050,0,Clear Gauntlet III.
+GAUNTLET_IV,GAUNTLET_IV,Unbroken,flag,gauntlet_sd070,0,Clear Gauntlet IV.
+GAUNTLET_V,GAUNTLET_V,Master of the Gauntlet,flag,gauntlet_sd100,0,Clear Gauntlet V.
