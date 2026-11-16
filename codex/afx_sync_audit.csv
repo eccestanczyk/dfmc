@@ -1496,10 +1496,10 @@ M-RIDGEDRAKE-1,Cragfire Dive,2,2,1,AFX-725,Bfh 1 rock falling 03,quiet,0.45,-4,1
 M-RIDGEDRAKE-1,Cragfire Dive,3,1,1,AFX-155,Impact Soft heavy 003,main,0.7,-6,0,1.4,0,1.4,1.4,0.0
 M-RIDGEDRAKE-1,Cragfire Dive,3,2,1,AFX-852,Dragonflap (cut 1.4s of 2.4s),quiet,0.5,1,160,153.9,160,313.9,153.9,0.0
 M-RIDGEDRAKE-1,Cragfire Dive,3,3,1,AFX-725,Bfh 1 rock falling 03,quiet,0.5,-5,250,268.3,160,518.3,358.3,90.0
-M-RIDGEDRAKE-2,Furnace Breath,1,1,1,AFX-754,Water boiling (cut 1.2s of 4.5s),main,0.7,6,0,0.0,0,0.0,0.0,0.0
-M-RIDGEDRAKE-2,Furnace Breath,2,1,1,AFX-754,Water boiling (cut 1.2s of 4.5s),main,0.7,1,0,0.0,0,0.0,0.0,0.0
+M-RIDGEDRAKE-2,Furnace Breath,1,1,1,AFX-893,Torch Fire Spell (short) (cut 0.8s of 4.3s),main,0.7,-1,0,169.5,0,169.5,169.5,0.0
+M-RIDGEDRAKE-2,Furnace Breath,2,1,1,AFX-893,Torch Fire Spell (short) (cut 0.8s of 4.3s),main,0.7,-3,0,190.3,0,190.3,190.3,0.0
 M-RIDGEDRAKE-2,Furnace Breath,2,2,1,AFX-152,Impact Soft heavy 000,quiet,0.5,-4,160,1.3,140,161.3,21.3,20.0
-M-RIDGEDRAKE-2,Furnace Breath,3,1,1,AFX-754,Water boiling (cut 1.2s of 4.5s),main,0.7,-2,0,0.0,0,0.0,0.0,0.0
+M-RIDGEDRAKE-2,Furnace Breath,3,1,1,AFX-893,Torch Fire Spell (short) (cut 0.8s of 4.3s),main,0.7,-5,0,213.6,0,213.6,213.6,0.0
 M-RIDGEDRAKE-2,Furnace Breath,3,2,1,AFX-152,Impact Soft heavy 000,quiet,0.5,-4,160,1.3,140,161.3,21.3,20.0
 M-RIDGEDRAKE-2,Furnace Breath,3,3,1,AFX-786,Slam 03,quiet,0.5,-3,320,45.2,420,365.2,-54.8,-100.0
 M-RIDGEDRAKE-3,Talon Rake,1,1,1,AFX-086,Impact Generic light 004,main,0.7,0,0,0.0,0,0.0,0.0,0.0
