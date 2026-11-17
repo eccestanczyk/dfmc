@@ -13,7 +13,8 @@
 <p class="sp-lead">The team record for the public page <a href="item.html">item.html</a>: its dated changelog (newest first) and the implementation notes that left the public page when the codex went player facing (D 2026-11-03). Lanes add each mechanic change here, never on the public page. Shape: <code>python tools/codex_page.py --changelog item.html</code> in dfmc-client.</p>
 
   <h2>Changelog</h2>
-  <ul><li>2026-07-30: tooltip coefficients corrected to codex/items.csv truth (16.5 / 6.6 / 4.5, were a magnitude rework behind).</li></ul>
+  <ul>
+<li><strong>2026-11-17 &mdash; the item tier badge is a dark iron plate; the bag tile&rsquo;s grade tint is a hairline (UI pass 2 chunk W2, bug#1307 / #1308 / #1285, D 2026-11-16: &ldquo;No bright colors&rdquo;; dfmc-client bug run 2026-11-17, lane w2). On dev.</strong> Look only: the roman tier numeral is worn bone on dark iron (was gold on red) wherever a tier badge shows; an item tile shows its grade as a thin line and a faint wash; a picked inventory filter shows its label again. Tiers, grades and filters work as before. Gate <code>tools/probe_01308_w2.py</code> 2/14 &rarr; 14/14. At release: no player-page edit unless the page shows a tier badge image; if it does, replace it with the new badge.</li><li>2026-07-30: tooltip coefficients corrected to codex/items.csv truth (16.5 / 6.6 / 4.5, were a magnitude rework behind).</li></ul>
 </div>
 <script src="nav.js"></script>
 </body>
