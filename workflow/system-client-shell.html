@@ -115,6 +115,15 @@
     <li><strong>Badge:</strong> DIMENSIONAL_TRAVELER is back in <code>codex/badges.csv</code>, awarded when a sent creature&rsquo;s Dungeon level read-back reaches 50.</li>
   </ul>
   <h2>Changelog</h2>
+  <p><strong>2026-11-17 &mdash; UI pass 2, chunk S1: the taskbar strip&rsquo;s buttons and its BAG FULL plate on the kit&rsquo;s small plate (dfmc-client bug run 2026-11-17, #1307 / #1308 / #1285). On dev; <code>steam/</code> ships with the next shell build.</strong> Report: &ldquo;a lot of the buttons &hellip; were not adapted&rdquo;. Cause: Taskbar Mode&rsquo;s strip (<code>steam/strip.html</code>) is its own bundle and never saw the kit - AUTO ON / ON TOP / WINDOW and BAG FULL were still the D3 flat maroon box with a gold rule and a bright lamp.</p>
+  <ul>
+    <li>The three buttons wear the K1 small plate (iron ends, parchment face, ink label); ON = the pressed twin with a lit label, the lamp kept; disabled AUTO = the kit&rsquo;s greyed plate; hover = rim glow only.</li>
+    <li>BAG FULL / SOUL BAG FULL = the blood small plate, bone label, the gem in <code>--ui-warn</code>; it still scales with the band and sits on the top row.</li>
+    <li>The plate is a 3-slice <code>border-image</code>: ends whole at the art&rsquo;s 48:96, the face repeats, so a long language grows the plate and nothing is stretched; labels stand 10 px clear of the iron. Buttons are 22 px high (were 19), 10 px Cinzel.</li>
+    <li>Art: <code>play/img/ui/kit/btn_s5*.webp</code> copied to <code>steam/strip_btn*.webp</code> (4 files) and added to <code>build.ps1</code>&rsquo;s copy list. No change to the strip&rsquo;s walk / camera, drag / resize or <code>strip.js</code>.</li>
+    <li>Gate: <code>tools/probe_s1_strip.py</code> 12 / 12 (1 / 12 on the old tree); <code>probe_bagwarn_top</code> 6 / 6, <code>probe_01271</code> 14 / 14.</li>
+    <li>At release: no player-page edit (tutorials/taskbar-mode.html does not describe the buttons&rsquo; look).</li>
+  </ul>
   <p><strong>2026-11-17 &mdash; UI pass 2, chunk W1: rankings, PvP arena and premium shop on the kit&rsquo;s small pieces (dfmc-client bug run 2026-11-17, #1307 / #1308 / #1285). On dev.</strong> Report: &ldquo;do another full pass of the UI &hellip; A lot of them were forgotten&rdquo;. Cause: these three windows kept flat CSS pieces from before K1.</p>
   <ul>
     <li>Rankings: the two tabs were the leather-gradient strap (<code>.ui-tab</code>). They are segment cells in a <code>.ui-seg</code> &mdash; recessed, the open one raised and lit. The kit cell (24 px) tiles into a mesh at 88 px, so the same kit art (chip / tag) is baked at the tab&rsquo;s height as a 3-slice: <code>tools/make_rank_ui_art.py</code> &rarr; <code>img/rank/tab.webp</code>, <code>tab_on.webp</code>. No generation. The shimmer sweep (P3 arenalook) is kept.</li>
