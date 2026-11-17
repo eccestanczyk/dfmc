@@ -2405,3 +2405,6 @@ m_chm_open,,PvP arena: the Demon Lord Chemosh fight (#1267 chemoshfight)
 m_chm_void,,PvP arena: the Demon Lord Chemosh fight (#1267 chemoshfight)
 m_unlock_later,SPÄTER,markup: unlock celebration popup: close it and keep the lesson pending in the HUD tutorials list (#1323)
 m_tut_pending_title,OFFENE TUTORIALS,app.js: HUD pending-tutorials icon title and its list header (#1323)
+unl_scrolls,Eine Schriftrolle passt in den Schriftrollensockel deiner Ausrüstung. Öffne die Schriftrolle und drücke VERZAUBERN.,unlocks.csv scrolls Line (the unlock lesson line; edit both) (#1315)
+unl_grading,Auch Edelsteine und Runen haben Grade. Öffne einen und drücke AUFWERTEN.,unlocks.csv grading Line (the unlock lesson line; edit both) (#1326)
+m_enchant_caps,VERZAUBERN,"app: item sheet button on a scroll, was EQUIP (#1315 D 2026-11-17)"

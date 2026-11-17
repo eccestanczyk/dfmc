@@ -2405,3 +2405,6 @@ m_chm_open,,PvP arena: the Demon Lord Chemosh fight (#1267 chemoshfight)
 m_chm_void,,PvP arena: the Demon Lord Chemosh fight (#1267 chemoshfight)
 m_unlock_later,稍后,markup: unlock celebration popup: close it and keep the lesson pending in the HUD tutorials list (#1323)
 m_tut_pending_title,未完成的教程,app.js: HUD pending-tutorials icon title and its list header (#1323)
+unl_scrolls,卷轴可装入装备上的卷轴插槽。打开卷轴并点击“附魔”。,unlocks.csv scrolls Line (the unlock lesson line; edit both) (#1315)
+unl_grading,宝石和符文也有品阶。打开一个并点击“强化”。,unlocks.csv grading Line (the unlock lesson line; edit both) (#1326)
+m_enchant_caps,附魔,"app: item sheet button on a scroll, was EQUIP (#1315 D 2026-11-17)"

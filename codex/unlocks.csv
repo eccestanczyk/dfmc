@@ -8,8 +8,8 @@ devour,12,Devour,sheet-devour,menu>menu-souls>bag-soul,,,system-devour.html,
 auto_pvp,15,Async PvP,menu-pvp,menu,,Queue your team against other players' teams.,system-auto-pvp.html,The arena window and its MATCHMAKING (auto) queue
 auto_optimise,20,Auto-optimise,eq-optimise,menu>menu-equip,gear,Wears the strongest pieces in your bag for you.,system-equipment.html,
 breeding,25,Breeding,menu-breed,menu,pair,Two creatures in a pen make eggs over time.,system-breeding.html,The pens; eggs still drop and wait in the bag
-scrolls,30,Scrolls + enchanting,bag-scroll,menu>menu-inv,scroll_target,,upgrading.html,
-grading,40,Grading,inv-grading,menu>menu-inv>inv-dismantle,,,upgrading.html,Enhancement grading (Gem / Rune / Scroll); gear grading is taught in the scripted opening
+scrolls,1,Scrolls + enchanting,item-enchant,menu>menu-inv>bag-scroll,scroll_target,A scroll fits the scroll socket on your gear. Open the scroll and press ENCHANT.,upgrading.html,"Open by default: #1315 (D 2026-11-17 ""applying scrolls should not unlock at lvl 30 ... It should be unlocked by default""); the rung (floor 1, no lock) stays only to carry the lesson, which fires on the first scroll in the bag + a worn piece with a scroll socket (Ready scroll_target) and ends on the scroll sheet's ENCHANT"
+grading,40,Grading,inv-grading,menu>menu-inv>bag-enh,enh_grade,Gems and runes have grades too. Open one and press UPGRADE.,upgrading.html,"Enhancement grading (Gem / Rune / Scroll); gear grading is taught in the scripted opening. #1326 (D 2026-11-17 ""the grading FTUE is pointing at the dismantling button""): Anchor inv-grading is the UPGRADE on a gem / rune / scroll sheet; the arrow walks MENU > INVENTORY > the first gem / rune with a next grade (Ready enh_grade) > UPGRADE"
 upgrade_all,40,Upgrade All,upg-all-in,menu>menu-equip>eq-weapon-slot>eq-upgrade,,,upgrading.html,
 trader,40,Shadow Trader,shop-trader-tab,menu>menu-shop,,Stock changes over time. Come back for new wares.,system-shadow-trader.html,
 classes,50,Buy classes,cls-buy,menu>menu-equip>eq-classes,,,index.html,Class unlocks table on index.html
