@@ -592,7 +592,7 @@ m_seconds_to_join,秒内加入——无论如何队列都会继续匹配,markup:
 m_select_more,继续选择,markup: menu / dismantling
 m_soul_when_slotted,魂 · 镶入被动护甲时,markup: soul card
 m_wg_purchases_not_live,Alpha 测试期间暂未开放 Wraithgold 购买。栏位在此存档中永久有效。,markup: shop: slot purchase
-m_worn_totals_note,穿戴总计包含所有镶嵌物。栏位数 = 宝石 + 符文 + 卷轴。,markup: equipment: stats
+m_worn_totals_note,两侧仅显示基础数值，不含镶嵌物。栏位数 = 宝石 + 符文 + 卷轴。,markup: equipment: stats
 m_yes_dismantle,⚒ 确认分解,markup: menu / dismantling
 m_you_attack_with_team,你将使用,"markup: pvp: the coloured ""equipped now"" follows"
 m_leave_the_abyss,离开深渊,app: floor HUD: back portal inside the Abyss
@@ -2403,3 +2403,5 @@ m_chm_unfed,,PvP arena: the Demon Lord Chemosh encounter (#1232/#1267)
 m_chm_title,,PvP arena: the Demon Lord Chemosh fight (#1267 chemoshfight)
 m_chm_open,,PvP arena: the Demon Lord Chemosh fight (#1267 chemoshfight)
 m_chm_void,,PvP arena: the Demon Lord Chemosh fight (#1267 chemoshfight)
+m_unlock_later,稍后,markup: unlock celebration popup: close it and keep the lesson pending in the HUD tutorials list (#1323)
+m_tut_pending_title,未完成的教程,app.js: HUD pending-tutorials icon title and its list header (#1323)

@@ -592,7 +592,7 @@ m_seconds_to_join,秒以内に参加 — どちらにせよキューは検索を
 m_select_more,さらに選択,markup: menu / dismantling
 m_soul_when_slotted,ソウル · パッシブ防具に装着時,markup: soul card
 m_wg_purchases_not_live,アルファ期間中はWraithgoldの購入はできません。枠はこのセーブで永続です。,markup: shop: slot purchase
-m_worn_totals_note,装備合計にはソケット品も含まれます。枠数はジェム＋ルーン＋スクロールです。,markup: equipment: stats
+m_worn_totals_note,両側とも基本値のみを表示し、ソケット品は含みません。枠数はジェム＋ルーン＋スクロールです。,markup: equipment: stats
 m_yes_dismantle,⚒ 分解する,markup: menu / dismantling
 m_you_attack_with_team,攻撃に使うチーム:,"markup: pvp: the coloured ""equipped now"" follows"
 m_leave_the_abyss,深淵を去る,app: floor HUD: back portal inside the Abyss
@@ -2403,3 +2403,5 @@ m_chm_unfed,,PvP arena: the Demon Lord Chemosh encounter (#1232/#1267)
 m_chm_title,,PvP arena: the Demon Lord Chemosh fight (#1267 chemoshfight)
 m_chm_open,,PvP arena: the Demon Lord Chemosh fight (#1267 chemoshfight)
 m_chm_void,,PvP arena: the Demon Lord Chemosh fight (#1267 chemoshfight)
+m_unlock_later,あとで,markup: unlock celebration popup: close it and keep the lesson pending in the HUD tutorials list (#1323)
+m_tut_pending_title,未完了のチュートリアル,app.js: HUD pending-tutorials icon title and its list header (#1323)

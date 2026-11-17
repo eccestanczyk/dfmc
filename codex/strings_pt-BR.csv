@@ -592,7 +592,7 @@ m_seconds_to_join,SEGUNDOS PARA ENTRAR — A FILA CONTINUA PROCURANDO DE QUALQUE
 m_select_more,SELECIONAR MAIS,markup: menu / dismantling
 m_soul_when_slotted,ALMA · QUANDO ENCAIXADA NA ARMADURA PASSIVA,markup: soul card
 m_wg_purchases_not_live,Compras de Wraithgold não estão ativas durante o alpha. Os espaços são permanentes neste save.,markup: shop: slot purchase
-m_worn_totals_note,Os totais equipados incluem tudo o que está encaixado. Os espaços são gema + runa + pergaminho.,markup: equipment: stats
+m_worn_totals_note,"Os dois lados mostram só o atributo base, sem nada encaixado. Os espaços são gema + runa + pergaminho.",markup: equipment: stats
 m_yes_dismantle,"⚒ SIM, DESMONTAR",markup: menu / dismantling
 m_you_attack_with_team,Você ataca com o time que tem,"markup: pvp: the coloured ""equipped now"" follows"
 m_leave_the_abyss,SAIR DO ABISMO,app: floor HUD: back portal inside the Abyss
@@ -2403,3 +2403,5 @@ m_chm_unfed,,PvP arena: the Demon Lord Chemosh encounter (#1232/#1267)
 m_chm_title,,PvP arena: the Demon Lord Chemosh fight (#1267 chemoshfight)
 m_chm_open,,PvP arena: the Demon Lord Chemosh fight (#1267 chemoshfight)
 m_chm_void,,PvP arena: the Demon Lord Chemosh fight (#1267 chemoshfight)
+m_unlock_later,DEPOIS,markup: unlock celebration popup: close it and keep the lesson pending in the HUD tutorials list (#1323)
+m_tut_pending_title,TUTORIAIS PENDENTES,app.js: HUD pending-tutorials icon title and its list header (#1323)

@@ -592,7 +592,7 @@ m_seconds_to_join,SEKUNDEN ZUM BEITRETEN — DIE SUCHE LÄUFT SO ODER SO WEITER,
 m_select_more,MEHR WÄHLEN,markup: menu / dismantling
 m_soul_when_slotted,SEELE · EINGESETZT IN PASSIVER RÜSTUNG,markup: soul card
 m_wg_purchases_not_live,Wraithgold-Käufe sind in der Alpha nicht aktiv. Plätze sind für diesen Spielstand dauerhaft.,markup: shop: slot purchase
-m_worn_totals_note,Angelegte Summen enthalten alles Eingesetzte. Platzzahlen sind Juwel + Rune + Schriftrolle.,markup: equipment: stats
+m_worn_totals_note,"Beide Seiten zeigen nur den Grundwert, ohne Eingesetztes. Platzzahlen sind Juwel + Rune + Schriftrolle.",markup: equipment: stats
 m_yes_dismantle,"⚒ JA, ZERLEGEN",markup: menu / dismantling
 m_you_attack_with_team,"Du greifst mit dem Team an, das du","markup: pvp: the coloured ""equipped now"" follows"
 m_leave_the_abyss,ABGRUND VERLASSEN,app: floor HUD: back portal inside the Abyss
@@ -2403,3 +2403,5 @@ m_chm_unfed,,PvP arena: the Demon Lord Chemosh encounter (#1232/#1267)
 m_chm_title,,PvP arena: the Demon Lord Chemosh fight (#1267 chemoshfight)
 m_chm_open,,PvP arena: the Demon Lord Chemosh fight (#1267 chemoshfight)
 m_chm_void,,PvP arena: the Demon Lord Chemosh fight (#1267 chemoshfight)
+m_unlock_later,SPÄTER,markup: unlock celebration popup: close it and keep the lesson pending in the HUD tutorials list (#1323)
+m_tut_pending_title,OFFENE TUTORIALS,app.js: HUD pending-tutorials icon title and its list header (#1323)
