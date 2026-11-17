@@ -655,7 +655,7 @@ unl_competitive_pvp,"Kämpfe in Echtzeit gegen andere Spieler. Drücke PARTNERSU
 unl_classes,Kauf eine neue Klasse zum Spielen. Öffne KLASSEN und drücke FREISCHALTEN bei der gewünschten.,unlocks.csv classes Line (the unlock lesson line; edit both) (#1326)
 unl_upgrade_all,"Drücke ALL-IN!, um dieselbe Aufwertung immer wieder zu würfeln, bis sie gelingt oder dir die Mittel ausgehen.",unlocks.csv upgrade_all Line (the unlock lesson line; edit both) (#1326)
 unl_devour,"Eine Kreatur verschlingt eine andere oder einen Verschlingen-Gegenstand und behält, was es wert ist. Öffne eine Kreatur und drücke VERSCHLINGEN.",unlocks.csv devour Line (the unlock lesson line; edit both) (#1326)
-m_unl_generic,"Ein neues System ist offen. Folge dem Pfeil, um es auszuprobieren.", um zu beginnen.,app: unlock lesson: the generic line when unlocks.csv has no Line
+m_unl_generic,"Ein neues System ist offen. Folge dem Pfeil, um es auszuprobieren.",app: unlock lesson: the generic line when unlocks.csv has no Line
 portal_sealed_win,VERSIEGELT · NOCH 1 SIEG,"app: floor portal: sealed, one win left (#1142)"
 portal_sealed_wins,VERSIEGELT · NOCH {n} SIEGE,"app: floor portal: sealed, {n} wins left (#1142)"
 m_mkt_paid,Mit Wraithgold gekauft oder aus etwas Gekauftem geschlüpft oder gewachsen. Es bleibt im Turm.,"app: STEAM MARKET (paidflag, D11): refusal not_exportable reason paid"
@@ -2020,9 +2020,9 @@ m_fx_accompanying_creature,Begleitende Kreatur,app: L1i (D 2026-11-04 Finish loc
 m_eq_base_line,+{v1} {v2} (Basis),app: L1i (D 2026-11-04 Finish localizing the game)
 m_free,GRATIS,app: the premium shop buy plaque of a 0-cost row (P2 D 2026-11-05: the first Incense / Bait are free)
 shop_candles_title,KERZEN,app: the premium shop candle row title (P1 D 2026-11-05)
-m_candle_hint,Lass den Zeiger auf einer Kerze ruhen, die dir gehört, um sie anzuzünden. Sie brennt, bis du gehst.,app: the premium shop candle row hint (P1)
+m_candle_hint,"Lass den Zeiger auf einer Kerze ruhen, die dir gehört, um sie anzuzünden. Sie brennt, bis du gehst.",app: the premium shop candle row hint (P1)
 m_candle_owned,DEINE,app: a candle the account owns - under its tile (P1)
-m_candle_bought,Deine. Lass den Zeiger darauf ruhen, um sie anzuzünden.,app: the shop note after a candle purchase (P1)
+m_candle_bought,"Deine. Lass den Zeiger darauf ruhen, um sie anzuzünden.",app: the shop note after a candle purchase (P1)
 m_candles,KERZEN,markup: the profile card candle row title (P1)
 m_no_candles_yet,Noch keine Kerzen.,markup: the profile card with no candles (P1)
 set_account_linked_label,Linked Sign-ins,settings: row label (linkprov)
