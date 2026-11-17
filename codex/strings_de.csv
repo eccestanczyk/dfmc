@@ -642,16 +642,20 @@ set_val_never_use,Nie einsetzen,settings: option value
 set_val_coming,Kommt bald,settings: option value
 set_val_set_at_character_creation,Bei Erstellung festgelegt,settings: option value
 unl_class_soul,"Die Seele, die dir deine Klasse gab. Klick sie an, um zu sehen, was sie tut.",unlocks.csv class_soul Line (the unlock lesson line; edit both)
-unl_hatch_all,Brütet alle Eier im Beutel auf einmal aus.,unlocks.csv hatch_all Line (the unlock lesson line; edit both)
-unl_dismantle_all,Zerlegt viele Teile auf einmal in Materialien.,unlocks.csv dismantle_all Line (the unlock lesson line; edit both)
-unl_souls,"Seelen haben ihren eigenen Beutel. Setz eine in Ausrüstung ein, um ihre Kraft zu nutzen.",unlocks.csv souls Line (the unlock lesson line; edit both)
-unl_auto_pvp,Schick dein Team gegen die Teams anderer Spieler in die Warteschlange.,unlocks.csv auto_pvp Line (the unlock lesson line; edit both)
-unl_auto_optimise,Legt dir automatisch die stärksten Teile aus deinem Beutel an.,unlocks.csv auto_optimise Line (the unlock lesson line; edit both)
-unl_breeding,Zwei Kreaturen in einem Gehege legen mit der Zeit Eier.,unlocks.csv breeding Line (the unlock lesson line; edit both)
-unl_trader,Das Angebot wechselt mit der Zeit. Schau wieder vorbei für neue Waren.,unlocks.csv trader Line (the unlock lesson line; edit both)
+unl_hatch_all,Brütet alle Eier im Beutel auf einmal aus. Drücke ALLE AUSBRÜTEN.,unlocks.csv hatch_all Line (the unlock lesson line; edit both)
+unl_dismantle_all,Zerlegt viele Teile auf einmal in Materialien. Drücke ZERLEGEN und wähle die Teile.,unlocks.csv dismantle_all Line (the unlock lesson line; edit both)
+unl_souls,"Seelen leben im SEELENBEUTEL. Setz eine in einen Seelensockel deiner Ausrüstung, um ihre Kraft zu nutzen.",unlocks.csv souls Line (the unlock lesson line; edit both)
+unl_auto_pvp,Schick dein Team gegen die Teams anderer Spieler in die Warteschlange. Öffne die PVP-ARENA im Menü.,unlocks.csv auto_pvp Line (the unlock lesson line; edit both)
+unl_auto_optimise,"Drücke AUTO-OPTIMIEREN, um die stärksten Teile aus deinem Beutel anzulegen.",unlocks.csv auto_optimise Line (the unlock lesson line; edit both)
+unl_breeding,Zwei Kreaturen in einem Gehege legen mit der Zeit Eier. Öffne ZUCHT im Menü.,unlocks.csv breeding Line (the unlock lesson line; edit both)
+unl_trader,Öffne den Reiter SCHATTENHÄNDLER. Das Angebot wechselt mit der Zeit: Schau wieder vorbei für neue Waren.,unlocks.csv trader Line (the unlock lesson line; edit both)
 unl_transfer,"Der Riss nach Herumon Dungeon ist offen. Schick eine Kreatur hindurch: eine Kopie, kostenlos, einmal. Sie kommt auf Stufe 1 an und behält ihren Grad.",unlocks.csv transfer Line (the unlock lesson line; edit both)
-unl_autoplay,"Geöffnet durch deinen ersten gewonnenen Kampf. Klick einmal darauf, um zu beginnen.",unlocks.csv autoplay Line (the unlock lesson line; edit both)
-m_unl_generic,Geöffnet auf Etage {f}. Klick einmal darauf, um zu beginnen.,app: unlock lesson: the generic line when unlocks.csv has no Line
+unl_autoplay,"Dein Team kämpft die Kämpfe von selbst. Drücke AUTOPLAY, um es ein- oder auszuschalten.",unlocks.csv autoplay Line (the unlock lesson line; edit both)
+unl_competitive_pvp,"Kämpfe in Echtzeit gegen andere Spieler. Drücke PARTNERSUCHE, um ein Match zu finden.",unlocks.csv competitive_pvp Line (the unlock lesson line; edit both) (#1326)
+unl_classes,Kauf eine neue Klasse zum Spielen. Öffne KLASSEN und drücke FREISCHALTEN bei der gewünschten.,unlocks.csv classes Line (the unlock lesson line; edit both) (#1326)
+unl_upgrade_all,"Drücke ALL-IN!, um dieselbe Aufwertung immer wieder zu würfeln, bis sie gelingt oder dir die Mittel ausgehen.",unlocks.csv upgrade_all Line (the unlock lesson line; edit both) (#1326)
+unl_devour,"Eine Kreatur verschlingt eine andere oder einen Verschlingen-Gegenstand und behält, was es wert ist. Öffne eine Kreatur und drücke VERSCHLINGEN.",unlocks.csv devour Line (the unlock lesson line; edit both) (#1326)
+m_unl_generic,"Ein neues System ist offen. Folge dem Pfeil, um es auszuprobieren.", um zu beginnen.,app: unlock lesson: the generic line when unlocks.csv has no Line
 portal_sealed_win,VERSIEGELT · NOCH 1 SIEG,"app: floor portal: sealed, one win left (#1142)"
 portal_sealed_wins,VERSIEGELT · NOCH {n} SIEGE,"app: floor portal: sealed, {n} wins left (#1142)"
 m_mkt_paid,Mit Wraithgold gekauft oder aus etwas Gekauftem geschlüpft oder gewachsen. Es bleibt im Turm.,"app: STEAM MARKET (paidflag, D11): refusal not_exportable reason paid"
@@ -2117,7 +2121,7 @@ m_sd_chest_pending,,app: M1-08 gauntlets (special dungeons)
 m_sd_return,,app: M1-08 gauntlets (special dungeons)
 m_sd_close,,app: M1-08 gauntlets (special dungeons)
 m_sd_gauntlet_key,,app: M1-08 gauntlets (special dungeons)
-unl_gauntlets,,unlocks.csv gauntlets Line (the unlock lesson line; edit both)
+unl_gauntlets,"Die GAUNTLETS sind offen: fünf Bosse hintereinander, LP bleiben erhalten, keine Heilung. Jeder Gauntlet gibt dir einmal einen freien Lauf.",unlocks.csv gauntlets Line (the unlock lesson line; edit both)
 m_use_mutation_draught,USE MUTATION DRAUGHT,app: creature sheet: the Mutation Draught action on a bag creature (M1-11)
 m_tip_mutation_draught,Turns this creature to its mutant palette. Cosmetic only; the palette is removed if the creature is listed on the Steam market.,app: creature sheet: the Mutation Draught action's tooltip (M1-11)
 m_mutation_draught_taken,THE DRAUGHT TAKES - MUTANT PALETTE,app: toast after a Mutation Draught is bought and applied (M1-11)
@@ -2146,7 +2150,7 @@ m_feed_candy,,app: M1-10 resource dungeons (lane m1resui)
 m_candy_short,,app: M1-10 resource dungeons (lane m1resui)
 m_candy_refused,,app: M1-10 resource dungeons (lane m1resui)
 m_candy_fed,,app: M1-10 resource dungeons (lane m1resui)
-unl_resource_dungeons,,unlocks.csv resource_dungeons Line (the unlock lesson line; edit both)
+unl_resource_dungeons,"Die RESOURCE DUNGEONS sind offen: drei Kämpfe, die je eine Ressource zahlen. Dein erster Eintritt in jeden ist kostenlos.",unlocks.csv resource_dungeons Line (the unlock lesson line; edit both)
 tip_moves_hdr,ATTACKEN,app: inventory: soul bag hover - the moves block header (#1212)
 fxp_one_turn,1 Runde,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
 fxp_n_turns,{v1} Runden,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first

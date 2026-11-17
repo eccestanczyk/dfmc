@@ -642,16 +642,20 @@ set_val_never_use,使わない,settings: option value
 set_val_coming,近日対応,settings: option value
 set_val_set_at_character_creation,キャラクター作成時に設定,settings: option value
 unl_class_soul,クラスから授かったソウル。クリックで効果を確認できます。,unlocks.csv class_soul Line (the unlock lesson line; edit both)
-unl_hatch_all,所持しているタマゴをまとめて孵化します。,unlocks.csv hatch_all Line (the unlock lesson line; edit both)
-unl_dismantle_all,複数の装備をまとめて素材に分解します。,unlocks.csv dismantle_all Line (the unlock lesson line; edit both)
-unl_souls,ソウルは専用のバッグに入ります。装備にセットすると力を発揮します。,unlocks.csv souls Line (the unlock lesson line; edit both)
-unl_auto_pvp,自分のチームで他プレイヤーのチームと対戦します。,unlocks.csv auto_pvp Line (the unlock lesson line; edit both)
-unl_auto_optimise,バッグ内で最も強い装備を自動で身につけます。,unlocks.csv auto_optimise Line (the unlock lesson line; edit both)
-unl_breeding,囲いに入れた2体のクリーチャーが、時間とともにタマゴを産みます。,unlocks.csv breeding Line (the unlock lesson line; edit both)
-unl_trader,品揃えは時間とともに変わります。また覗きに来てください。,unlocks.csv trader Line (the unlock lesson line; edit both)
+unl_hatch_all,所持しているタマゴをまとめて孵化します。「一括孵化」を押してください。,unlocks.csv hatch_all Line (the unlock lesson line; edit both)
+unl_dismantle_all,複数の装備をまとめて素材に分解します。「分解」を押して装備を選んでください。,unlocks.csv dismantle_all Line (the unlock lesson line; edit both)
+unl_souls,ソウルは「ソウルバッグ」に入ります。装備のソウルスロットにセットすると力を発揮します。,unlocks.csv souls Line (the unlock lesson line; edit both)
+unl_auto_pvp,自分のチームで他プレイヤーのチームと対戦します。メニューから「PvPアリーナ」を開いてください。,unlocks.csv auto_pvp Line (the unlock lesson line; edit both)
+unl_auto_optimise,バッグ内で最も強い装備を自動で身につけます。「自動最適化」を押してください。,unlocks.csv auto_optimise Line (the unlock lesson line; edit both)
+unl_breeding,囲いに入れた2体のクリーチャーが、時間とともにタマゴを産みます。メニューから「交配」を開いてください。,unlocks.csv breeding Line (the unlock lesson line; edit both)
+unl_trader,「影の商人」タブを開いてください。品揃えは時間とともに変わります。また覗きに来てください。,unlocks.csv trader Line (the unlock lesson line; edit both)
 unl_transfer,Herumon Dungeonへの裂け目が開きました。クリーチャーを1体送れます（コピー・無料・1回のみ）。レベル1で到着し、グレードは引き継がれます。,unlocks.csv transfer Line (the unlock lesson line; edit both)
-unl_autoplay,初めてのバトル勝利で解放。一度クリックして始めましょう。,unlocks.csv autoplay Line (the unlock lesson line; edit both)
-m_unl_generic,{f}階で解放。一度クリックして始めましょう。,app: unlock lesson: the generic line when unlocks.csv has no Line
+unl_autoplay,チームが自動でバトルを戦います。「オート」を押してオン・オフを切り替えます。,unlocks.csv autoplay Line (the unlock lesson line; edit both)
+unl_competitive_pvp,他のプレイヤーとリアルタイムで戦います。「マッチング」を押して対戦相手を探してください。,unlocks.csv competitive_pvp Line (the unlock lesson line; edit both) (#1326)
+unl_classes,新しいクラスを購入できます。「クラス」を開き、欲しいクラスの「解放」を押してください。,unlocks.csv classes Line (the unlock lesson line; edit both) (#1326)
+unl_upgrade_all,成功するか素材が尽きるまで、同じ強化を繰り返します。「オールイン！」を押してください。,unlocks.csv upgrade_all Line (the unlock lesson line; edit both) (#1326)
+unl_devour,クリーチャーが別のクリーチャーや捕食アイテムを取り込み、価値あるものを受け継ぎます。クリーチャーを開いて「捕食」を押してください。,unlocks.csv devour Line (the unlock lesson line; edit both) (#1326)
+m_unl_generic,新しいシステムが開きました。矢印に従って試してみましょう。,app: unlock lesson: the generic line when unlocks.csv has no Line
 portal_sealed_win,封印中 · あと1勝,"app: floor portal: sealed, one win left (#1142)"
 portal_sealed_wins,封印中 · あと{n}勝,"app: floor portal: sealed, {n} wins left (#1142)"
 m_mkt_paid,Wraithgoldで購入したもの、またはそこから孵化・成長したものです。タワーに残ります。,"app: STEAM MARKET (paidflag, D11): refusal not_exportable reason paid"
@@ -2117,7 +2121,7 @@ m_sd_chest_pending,,app: M1-08 gauntlets (special dungeons)
 m_sd_return,,app: M1-08 gauntlets (special dungeons)
 m_sd_close,,app: M1-08 gauntlets (special dungeons)
 m_sd_gauntlet_key,,app: M1-08 gauntlets (special dungeons)
-unl_gauntlets,,unlocks.csv gauntlets Line (the unlock lesson line; edit both)
+unl_gauntlets,GAUNTLETSが開きました。ボス5体と連戦、HPは引き継ぎ、回復なし。各GAUNTLETは1回だけ無料で挑戦できます。,unlocks.csv gauntlets Line (the unlock lesson line; edit both)
 m_use_mutation_draught,USE MUTATION DRAUGHT,app: creature sheet: the Mutation Draught action on a bag creature (M1-11)
 m_tip_mutation_draught,Turns this creature to its mutant palette. Cosmetic only; the palette is removed if the creature is listed on the Steam market.,app: creature sheet: the Mutation Draught action's tooltip (M1-11)
 m_mutation_draught_taken,THE DRAUGHT TAKES - MUTANT PALETTE,app: toast after a Mutation Draught is bought and applied (M1-11)
@@ -2146,7 +2150,7 @@ m_feed_candy,,app: M1-10 resource dungeons (lane m1resui)
 m_candy_short,,app: M1-10 resource dungeons (lane m1resui)
 m_candy_refused,,app: M1-10 resource dungeons (lane m1resui)
 m_candy_fed,,app: M1-10 resource dungeons (lane m1resui)
-unl_resource_dungeons,,unlocks.csv resource_dungeons Line (the unlock lesson line; edit both)
+unl_resource_dungeons,RESOURCE DUNGEONSが開きました。3戦で1種類の資源が手に入ります。各ダンジョンの初回入場は無料です。,unlocks.csv resource_dungeons Line (the unlock lesson line; edit both)
 tip_moves_hdr,技,app: inventory: soul bag hover - the moves block header (#1212)
 fxp_one_turn,1ターン,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
 fxp_n_turns,{v1}ターン,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first

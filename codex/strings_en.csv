@@ -642,16 +642,20 @@ set_val_never_use,Never Use,settings: option value
 set_val_coming,Coming,settings: option value
 set_val_set_at_character_creation,Set at character creation,settings: option value
 unl_class_soul,The soul your class gave you. Click it to see what it does.,unlocks.csv class_soul Line (the unlock lesson line; edit both)
-unl_hatch_all,Hatches every egg in the bag in one go.,unlocks.csv hatch_all Line (the unlock lesson line; edit both)
-unl_dismantle_all,Breaks many pieces into materials in one go.,unlocks.csv dismantle_all Line (the unlock lesson line; edit both)
-unl_souls,Souls live in their own bag. Seat one on gear for its power.,unlocks.csv souls Line (the unlock lesson line; edit both)
-unl_auto_pvp,Queue your team against other players' teams.,unlocks.csv auto_pvp Line (the unlock lesson line; edit both)
-unl_auto_optimise,Wears the strongest pieces in your bag for you.,unlocks.csv auto_optimise Line (the unlock lesson line; edit both)
-unl_breeding,Two creatures in a pen make eggs over time.,unlocks.csv breeding Line (the unlock lesson line; edit both)
-unl_trader,Stock changes over time. Come back for new wares.,unlocks.csv trader Line (the unlock lesson line; edit both)
+unl_hatch_all,Hatches every egg in the bag in one go. Press HATCH ALL.,unlocks.csv hatch_all Line (the unlock lesson line; edit both)
+unl_dismantle_all,"Breaks many pieces into materials in one go. Press DISMANTLING, then pick the pieces.",unlocks.csv dismantle_all Line (the unlock lesson line; edit both)
+unl_souls,Souls live in the SOUL BAG. Seat one in a soul slot on your gear for its power.,unlocks.csv souls Line (the unlock lesson line; edit both)
+unl_auto_pvp,Queue your team against other players' teams. Open the PVP ARENA from the menu.,unlocks.csv auto_pvp Line (the unlock lesson line; edit both)
+unl_auto_optimise,Press AUTO-OPTIMIZE to wear the strongest pieces in your bag.,unlocks.csv auto_optimise Line (the unlock lesson line; edit both)
+unl_breeding,Two creatures in a pen make eggs over time. Open BREEDING from the menu.,unlocks.csv breeding Line (the unlock lesson line; edit both)
+unl_trader,Open the SHADOW TRADER tab. The stock changes over time: come back for new wares.,unlocks.csv trader Line (the unlock lesson line; edit both)
 unl_transfer,"The rift to Herumon Dungeon is open. Send a creature through: a copy, free, once. It arrives at level 1 and keeps its grade.",unlocks.csv transfer Line (the unlock lesson line; edit both)
-unl_autoplay,Opened by your first won battle. Click it once to begin.,unlocks.csv autoplay Line (the unlock lesson line; edit both)
-m_unl_generic,Opened at floor {f}. Click it once to begin.,app: unlock lesson: the generic line when unlocks.csv has no Line
+unl_autoplay,Your team fights the battles on its own. Press AUTOPLAY to turn it on or off.,unlocks.csv autoplay Line (the unlock lesson line; edit both)
+unl_competitive_pvp,Fight other players in real time. Press MATCHMAKING to find a match.,unlocks.csv competitive_pvp Line (the unlock lesson line; edit both) (#1326)
+unl_classes,Buy a new class to play. Open CLASSES and press UNLOCK on the one you want.,unlocks.csv classes Line (the unlock lesson line; edit both) (#1326)
+unl_upgrade_all,Press ALL-IN! to roll the same upgrade over and over until it lands or you run out.,unlocks.csv upgrade_all Line (the unlock lesson line; edit both) (#1326)
+unl_devour,"One creature eats another, or a Devour item, and keeps what is worth keeping. Open a creature and press DEVOUR.",unlocks.csv devour Line (the unlock lesson line; edit both) (#1326)
+m_unl_generic,A new system is open. Follow the arrow to try it.,app: unlock lesson: the generic line when unlocks.csv has no Line
 portal_sealed_win,SEALED · 1 MORE WIN,app: floor portal: sealed with one win left (#1142)
 portal_sealed_wins,SEALED · {n} MORE WINS,app: floor portal: sealed with {n} wins left (#1142)
 m_mkt_paid,"Bought with Wraithgold, or hatched or grown from something that was. It stays in the Tower.","app: STEAM MARKET (paidflag, D11): refusal not_exportable reason paid"

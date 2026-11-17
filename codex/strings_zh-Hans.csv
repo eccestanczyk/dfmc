@@ -642,16 +642,20 @@ set_val_never_use,从不使用,settings: option value
 set_val_coming,即将推出,settings: option value
 set_val_set_at_character_creation,创建角色时设定,settings: option value
 unl_class_soul,你的职业赐予你的魂。点击查看它的效果。,unlocks.csv class_soul Line (the unlock lesson line; edit both)
-unl_hatch_all,一次孵化背包里的所有蛋。,unlocks.csv hatch_all Line (the unlock lesson line; edit both)
-unl_dismantle_all,一次将多件装备分解为材料。,unlocks.csv dismantle_all Line (the unlock lesson line; edit both)
-unl_souls,魂存放在专属背包中。将魂镶入装备即可获得其力量。,unlocks.csv souls Line (the unlock lesson line; edit both)
-unl_auto_pvp,让你的队伍排队对战其他玩家的队伍。,unlocks.csv auto_pvp Line (the unlock lesson line; edit both)
-unl_auto_optimise,自动为你穿上背包中最强的装备。,unlocks.csv auto_optimise Line (the unlock lesson line; edit both)
-unl_breeding,圈舍中的两只生物会随时间产蛋。,unlocks.csv breeding Line (the unlock lesson line; edit both)
-unl_trader,商品会随时间更换。记得回来看看新货。,unlocks.csv trader Line (the unlock lesson line; edit both)
+unl_hatch_all,一次孵化背包里的所有蛋。点击“全部孵化”。,unlocks.csv hatch_all Line (the unlock lesson line; edit both)
+unl_dismantle_all,一次将多件装备分解为材料。点击“分解”，然后选择装备。,unlocks.csv dismantle_all Line (the unlock lesson line; edit both)
+unl_souls,魂存放在“魂袋”中。将魂镶入装备的魂槽即可获得其力量。,unlocks.csv souls Line (the unlock lesson line; edit both)
+unl_auto_pvp,让你的队伍排队对战其他玩家的队伍。从菜单打开“PvP 竞技场”。,unlocks.csv auto_pvp Line (the unlock lesson line; edit both)
+unl_auto_optimise,自动为你穿上背包中最强的装备。点击“一键优化”。,unlocks.csv auto_optimise Line (the unlock lesson line; edit both)
+unl_breeding,圈舍中的两只生物会随时间产蛋。从菜单打开“繁育”。,unlocks.csv breeding Line (the unlock lesson line; edit both)
+unl_trader,打开“暗影商人”标签。商品会随时间更换，记得回来看看新货。,unlocks.csv trader Line (the unlock lesson line; edit both)
 unl_transfer,通往 Herumon Dungeon 的裂隙已开启。可送一只生物过去：复制品、免费、仅一次。它以1级抵达，并保留其品级。,unlocks.csv transfer Line (the unlock lesson line; edit both)
-unl_autoplay,首次战斗胜利后开放。点击一次即可开始。,unlocks.csv autoplay Line (the unlock lesson line; edit both)
-m_unl_generic,第{f}层开放。点击一次即可开始。,app: unlock lesson: the generic line when unlocks.csv has no Line
+unl_autoplay,你的队伍会自动进行战斗。点击“自动战斗”开启或关闭。,unlocks.csv autoplay Line (the unlock lesson line; edit both)
+unl_competitive_pvp,与其他玩家实时对战。点击“匹配”寻找对手。,unlocks.csv competitive_pvp Line (the unlock lesson line; edit both) (#1326)
+unl_classes,购买一个新职业来玩。打开“职业”，在想要的职业上点击“解锁”。,unlocks.csv classes Line (the unlock lesson line; edit both) (#1326)
+unl_upgrade_all,反复尝试同一次强化，直到成功或材料耗尽。点击“孤注一掷！”。,unlocks.csv upgrade_all Line (the unlock lesson line; edit both) (#1326)
+unl_devour,一只生物吞噬另一只生物或吞噬道具，保留有价值的部分。打开一只生物并点击“吞噬”。,unlocks.csv devour Line (the unlock lesson line; edit both) (#1326)
+m_unl_generic,新系统已开启。跟随箭头试试看。,app: unlock lesson: the generic line when unlocks.csv has no Line
 portal_sealed_win,已封印 · 还需1胜,"app: floor portal: sealed, one win left (#1142)"
 portal_sealed_wins,已封印 · 还需{n}胜,"app: floor portal: sealed, {n} wins left (#1142)"
 m_mkt_paid,用 Wraithgold 购买，或由购买之物孵化或成长而来。它只能留在高塔中。,"app: STEAM MARKET (paidflag, D11): refusal not_exportable reason paid"
@@ -2117,7 +2121,7 @@ m_sd_chest_pending,,app: M1-08 gauntlets (special dungeons)
 m_sd_return,,app: M1-08 gauntlets (special dungeons)
 m_sd_close,,app: M1-08 gauntlets (special dungeons)
 m_sd_gauntlet_key,,app: M1-08 gauntlets (special dungeons)
-unl_gauntlets,,unlocks.csv gauntlets Line (the unlock lesson line; edit both)
+unl_gauntlets,GAUNTLETS 已开启：连续挑战五个首领，生命值保留，无法治疗。每个 gauntlet 可免费挑战一次。,unlocks.csv gauntlets Line (the unlock lesson line; edit both)
 m_use_mutation_draught,USE MUTATION DRAUGHT,app: creature sheet: the Mutation Draught action on a bag creature (M1-11)
 m_tip_mutation_draught,Turns this creature to its mutant palette. Cosmetic only; the palette is removed if the creature is listed on the Steam market.,app: creature sheet: the Mutation Draught action's tooltip (M1-11)
 m_mutation_draught_taken,THE DRAUGHT TAKES - MUTANT PALETTE,app: toast after a Mutation Draught is bought and applied (M1-11)
@@ -2146,7 +2150,7 @@ m_feed_candy,,app: M1-10 resource dungeons (lane m1resui)
 m_candy_short,,app: M1-10 resource dungeons (lane m1resui)
 m_candy_refused,,app: M1-10 resource dungeons (lane m1resui)
 m_candy_fed,,app: M1-10 resource dungeons (lane m1resui)
-unl_resource_dungeons,,unlocks.csv resource_dungeons Line (the unlock lesson line; edit both)
+unl_resource_dungeons,RESOURCE DUNGEONS 已开启：三场战斗，奖励一种资源。每个地下城的首次进入免费。,unlocks.csv resource_dungeons Line (the unlock lesson line; edit both)
 tip_moves_hdr,招式,app: inventory: soul bag hover - the moves block header (#1212)
 fxp_one_turn,1回合,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
 fxp_n_turns,{v1}回合,app: fxProse #1213 (D 2026-11-06) - a moves.csv effect clause as the player reads it; the language draws its own move-row translation first
