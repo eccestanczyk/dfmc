@@ -671,6 +671,8 @@ gate_update_required_msg,A torre avançou para a versão {build}. Atualize para 
 gate_update_required_msg_nobuild,A torre avançou para uma nova versão. Atualize para continuar subindo - sua escalada está salva no servidor.,index.html: update-required screen: message when the answer names no build (F3 - the {build} sentence left a gap in ja/zh-Hans)
 gate_update_reload,RECARREGAR,index.html: update-required screen: button (web)
 gate_update_restart,REINICIAR PARA ATUALIZAR,index.html: update-required screen: button (Steam / desktop shell)
+gate_update_steam_msg,O Steam está atualizando Herumon Tower. Feche o jogo para o Steam concluir a atualização e depois abra-o de novo pelo Steam - sua escalada está salva no servidor.,index.html: update-required screen: message when a Steam update is not finished - the player is asked to close the game (#1317)
+gate_update_close,FECHAR JOGO,index.html: update-required screen: button that closes the game so Steam can finish its update (#1317)
 shop_web_pending,NO CHECKOUT...,app: premium shop: web shop (Paddle) buy plaque while the checkout overlay is open
 shop_web_opening,Abrindo o checkout seguro...,app: premium shop: web shop (Paddle) note while the order is minted
 shop_web_confirming,Pagamento recebido. Aguardando confirmação...,"app: premium shop: web shop (Paddle) note after Paddle says paid, before the webhook grants"

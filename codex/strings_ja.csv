@@ -671,6 +671,8 @@ gate_update_required_msg,塔はビルド {build} に更新されました。登�
 gate_update_required_msg_nobuild,塔は新しいビルドに更新されました。登り続けるにはアップデートしてください。進行状況はサーバーに保存されています。,index.html: update-required screen: message when the answer names no build (F3 - the {build} sentence left a gap in ja/zh-Hans)
 gate_update_reload,再読み込み,index.html: update-required screen: button (web)
 gate_update_restart,再起動してアップデート,index.html: update-required screen: button (Steam / desktop shell)
+gate_update_steam_msg,SteamがHerumon Towerをアップデートしています。Steamがアップデートを完了できるようにゲームを閉じ、その後Steamから再度起動してください。進行状況はサーバーに保存されています。,index.html: update-required screen: message when a Steam update is not finished - the player is asked to close the game (#1317)
+gate_update_close,ゲームを閉じる,index.html: update-required screen: button that closes the game so Steam can finish its update (#1317)
 shop_web_pending,お支払い手続き中...,app: premium shop: web shop (Paddle) buy plaque while the checkout overlay is open
 shop_web_opening,安全な決済画面を開いています...,app: premium shop: web shop (Paddle) note while the order is minted
 shop_web_confirming,お支払いを受け付けました。確認を待っています...,"app: premium shop: web shop (Paddle) note after Paddle says paid, before the webhook grants"

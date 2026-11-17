@@ -671,6 +671,8 @@ gate_update_required_msg,The tower has moved on to build {build}. Update to keep
 gate_update_required_msg_nobuild,The tower has moved on to a new build. Update to keep climbing - your climb is safe on the server.,index.html: update-required screen: message when the answer names no build (F3 - the {build} sentence left a gap in ja/zh-Hans)
 gate_update_reload,RELOAD,index.html: update-required screen: button (web)
 gate_update_restart,RESTART TO UPDATE,index.html: update-required screen: button (Steam / desktop shell)
+gate_update_steam_msg,"Steam is updating Herumon Tower. Close the game so Steam can finish the update, then start it again from Steam - your climb is safe on the server.",index.html: update-required screen: message when a Steam update is not finished - the player is asked to close the game (#1317)
+gate_update_close,CLOSE GAME,index.html: update-required screen: button that closes the game so Steam can finish its update (#1317)
 shop_web_pending,AT THE CHECKOUT...,app: premium shop: web shop (Paddle) buy plaque while the checkout overlay is open
 shop_web_opening,Opening the secure checkout...,app: premium shop: web shop (Paddle) note while the order is minted
 shop_web_confirming,Payment received. Waiting for confirmation...,"app: premium shop: web shop (Paddle) note after Paddle says paid, before the webhook grants"
